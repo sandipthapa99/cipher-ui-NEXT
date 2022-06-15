@@ -1,0 +1,11 @@
+@import "~bootstrap/scss/bootstrap.scss";
+
+@import "variable";
+@import "paths";
+@import "mixins";
+@import "app";
+
+// Components
+@import "components/upper-header";
+@import "components/header";
+@import "components/homepage";
