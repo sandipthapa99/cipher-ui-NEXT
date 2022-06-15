@@ -13,20 +13,16 @@ const Home: NextPage = () => {
                 <span className="shape-blob d-none d-md-inline-block"></span>
                 <Container fluid="xl" className="px-4">
                     <div className="site-main-banner--content d-flex align-items-center justify-content-center text-center">
-                            <div className="site-main-banner--content__inner">
-                                <h1 className="site-main-banner--content__inner--title">
-                                Catering To Your Requirements
-                                </h1>
-                                <p>
-                                Discover the world of services & get paid for your time
-                                </p>
-                                {/* <Link href="/about">
-                                    <a className="arrow-link">
-                                        Explore more
-                                        <ArrowForwardOutlined className="arrow-link--icon" />
-                                    </a>
-                                </Link> */}
-                            </div>
+                      {/* Hero Text Start Here */}
+                        <div className="site-main-banner--content__inner">
+                            <h1 className="site-main-banner--content__inner--title">
+                            Catering To Your Requirements
+                            </h1>
+                            <p>
+                            Discover the world of services & get paid for your time
+                            </p>
+                        </div>
+                        {/* Hero Text End Here */}
                     </div>
                     <Row className="gx-5">
                         <Col xs={6} sm={4} md={2}>
