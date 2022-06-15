@@ -1,8 +1,10 @@
 import Layout from '@components/Layout'
+import { faSearch } from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Button, Col, Container, Form, FormControl, Row } from 'react-bootstrap'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -23,6 +25,20 @@ const Home: NextPage = () => {
                             </p>
                         </div>
                         {/* Hero Text End Here */}
+                    </div>
+
+                    <div className="site-main-banner--search-bar">
+                          <Form className="d-flex hpbform">
+                            <FormControl
+                              type="search"
+                              placeholder="Search"
+                              className="mr-2"
+                              aria-label="Search"
+                            />
+                            {/* <Button>
+                              <FontAwesomeIcon icon={faSearch}/>
+                            </Button> */}
+                          </Form>
                     </div>
                     <Row className="gx-5">
                         <Col xs={6} sm={4} md={2}>
@@ -116,6 +132,8 @@ const Home: NextPage = () => {
                             </div>
                         </Col>
                     </Row>
+
+                    
                 </Container>
             </section>
             {/* Site Main Banner End */}
