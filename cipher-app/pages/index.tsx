@@ -156,8 +156,16 @@ const Home: NextPage = () => {
 
                     
                 </Container>
-            </section>
-            {/* Site Main Banner End */}
+      </section>
+      {/* Site Main Banner End */}
+
+      {/* Services near you section start */}
+      <section id="services-near-you" className="services-near-you">
+        <Container>
+        <h2 className="heading-title">Services near you</h2>
+        </Container>
+      </section>
+      {/* Services near you section end */}
     </Layout>
   )
 }

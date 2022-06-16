@@ -1,0 +1,46 @@
+.site-footer{
+    background-color: #262459;
+    color: #fff;
+    padding: 4rem 0;
+    font-family: $inter-font;
+    font-size: 1.5rem;
+    &__newsletter{
+        border: 2px solid #FCA500;
+        border-radius: 0.4rem;
+        .row{
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 0;
+        }
+        .newsletter-text{
+            padding: 0 11.3rem;
+            p{
+                margin: 0;
+                color: #FFF;
+            }
+        }
+        .newsletter-form{
+            position: relative;
+            padding: 0 11.3rem;
+            .form-group{
+                margin: 0;
+            }
+            .btn{
+                position: absolute;
+                top: 1rem;
+                right: 16%;
+                border-radius: 0;
+                color: $secondary-color;
+                padding: 0;
+                .svg-icon {
+                    width: 2.2rem;
+                    height: 2.2rem;
+                    margin-right: 2rem;
+                }
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+}

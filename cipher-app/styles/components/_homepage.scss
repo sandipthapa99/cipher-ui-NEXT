@@ -1,13 +1,14 @@
 .site-main-banner{
-    // flex-direction: column;
-    position: relative;
-    padding-bottom: 10rem;
-    width: 100%;
+  position: relative;
+  padding-bottom: 10rem;
+  width: 100%;
+  overflow: hidden;
+  @include respond(md){
     background-image: url("../#{$theme-imgpath}/heroImages/pattern2.png"),url("../#{$theme-imgpath}/heroImages/pattern.png");
     background-repeat: no-repeat;
     background-position: bottom left -2.1rem, center left 0;
     background-size: 24.5rem,31rem;
-    overflow: hidden;
+  }
     .shape-blob {
         background:#FEDB29;
         height: 41.9rem;
