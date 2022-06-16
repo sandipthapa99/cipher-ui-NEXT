@@ -1,7 +1,7 @@
 .site-footer{
     background-color: #262459;
     color: #fff;
-    padding: 4rem 0;
+    padding: 8rem 0;
     font-family: $inter-font;
     font-size: 1.5rem;
     &__newsletter{
@@ -54,6 +54,45 @@
                     }
                     &:hover {
                         color: $primary-color;
+                    }
+                }
+            }
+        }
+    }
+    &__footer-navigation{
+        margin-top: 8rem;
+        .footer-block{
+
+            p{
+                font-size: 1.4rem;
+                color: #FFFFFF60;
+                font-weight: 500;
+                line-height: 2.2rem;
+            }
+            ul {
+                list-style-type: none;
+                li {
+                    display: block;
+                    &:not(:last-child) {
+                        margin: 0 0 1.2rem;
+                        @include respond(md) {
+                            font-size: 2rem;
+                            font-weight: 500;
+                            margin: 0 0 1.5rem;
+                        }
+                    }
+                    a {
+                        color: #FFFFFF60;
+                        font-size: 1.4rem;
+                        font-weight: 500;
+                        &:hover {
+                            color: #FFF;
+                        }
+                    }
+                    &:first-child{
+                        color: #FFF;
+                        font-size: 2rem;
+                        font-weight: 500;
                     }
                 }
             }
