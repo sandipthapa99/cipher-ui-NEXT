@@ -42,13 +42,14 @@ const Footer = () => {
                                                     touch={touched.email}
                                                     placeHolder="Enter your email"
                                                 />
-                                                <button
-                                                    type="submit"
-                                                    className="btn"
-                                                    disabled={isSubmitting}
-                                                >
-                                                    <FontAwesomeIcon icon={faArrowRight} className="svg-icon" />
-                                                </button>
+                                                <div className="btn-wrapper">
+                                                    <button
+                                                        type="submit"
+                                                        className="btn"
+                                                        disabled={isSubmitting}>
+                                                        <FontAwesomeIcon icon={faArrowRight} className="svg-icon" />
+                                                    </button>
+                                                </div>
                                             </Form>
                                         )}
                                     </Formik>

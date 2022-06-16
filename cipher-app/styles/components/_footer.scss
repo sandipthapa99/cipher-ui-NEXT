@@ -13,32 +13,48 @@
             padding: 2rem 0;
         }
         .newsletter-text{
-            padding: 0 11.3rem;
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+            @include respond(lg){
+                padding: 0 11.3rem;
+            }
+            h5{
+                font-size: 2rem;
+                font-weight: 500;
+                margin-bottom: 1.6rem;
+            }
             p{
                 margin: 0;
-                color: #FFF;
+                font-size: 1.4rem;
+                font-weight: 500;
+                color: #FFFFFF60;
+                line-height: 2.2rem;
             }
         }
         .newsletter-form{
-            position: relative;
-            padding: 0 11.3rem;
+            padding: 0 2rem;
+            @include respond(lg){
+                padding: 0 11.3rem;
+
+            }
             .form-group{
                 margin: 0;
             }
-            .btn{
-                position: absolute;
-                top: 1rem;
-                right: 16%;
-                border-radius: 0;
-                color: $secondary-color;
-                padding: 0;
-                .svg-icon {
-                    width: 2.2rem;
-                    height: 2.2rem;
-                    margin-right: 2rem;
-                }
-                &:hover {
-                    color: $primary-color;
+            .btn-wrapper{
+                position: relative;
+                .btn{
+                    position: absolute;
+                    top: -3.5rem;
+                    right: 0;
+                    color: $secondary-color;
+                    padding: 0;
+                    .svg-icon {
+                        width: 2.2rem;
+                        height: 2.2rem;
+                    }
+                    &:hover {
+                        color: $primary-color;
+                    }
                 }
             }
         }
