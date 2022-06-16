@@ -1,11 +1,17 @@
+import SelectInputField from '@components/common/SelectInputField'
 import Layout from '@components/Layout'
-import { faSearch } from '@fortawesome/pro-regular-svg-icons'
+import { faChevronDown, faSearch } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Formik } from 'formik'
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import Image from 'next/image'
+import { NextRouter } from 'next/router'
 import { Button, Col, Container, Form, FormControl, Row } from 'react-bootstrap'
-import styles from '../styles/Home.module.css'
+import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
+import { HomeSearchdata } from 'utils/homeSearchData'
+import {
+    myOptions
+} from "utils/options";
 
 const Home: NextPage = () => {
   return (
@@ -28,18 +34,33 @@ const Home: NextPage = () => {
                     </div>
 
                     <div className="site-main-banner--search-bar">
-                          <Form className="d-flex hpbform">
-                            <FormControl
-                              type="search"
-                              placeholder="Search"
-                              className="mr-2"
-                              aria-label="Search"
-                            />
-                            {/* <Button>
-                              <FontAwesomeIcon icon={faSearch}/>
-                            </Button> */}
-                          </Form>
+                        <Formik
+                        initialValues={HomeSearchdata}
+                        validationSchema={HomeSearchSchema}
+                        onSubmit={async(values, actions) => {console.log(values)}}>
+                            <div className="search_box">
+                                <div className="dropdown-wrapper">
+                                    <div className="dropdown">
+                                        <SelectInputField
+                                            name="experience"
+                                            placeHolder="All"
+                                            options={myOptions}
+                                            fieldRequired
+                                        />
+                                        <FontAwesomeIcon icon={faChevronDown} className="svg-icon"/>
+                                    </div>
+                                </div>
+                                <div className="search_field">
+                                    <input type="text" className="input" placeholder="Find your services"/>
+                            </div>
+                                    <Button className='search-btn'>
+                                        <FontAwesomeIcon icon={faSearch} className="icon"/>
+                                    </Button>
+                                </div>
+                        </Formik>
                     </div>
+
+
                     <Row className="gx-5">
                         <Col xs={6} sm={4} md={2}>
                             <div className="card-block">
