@@ -62,7 +62,7 @@ const Home: NextPage = () => {
 
 
                     <Row className="gx-5">
-                        <Col xs={6} sm={4} md={2}>
+                        <Col xs={6} sm={4} lg={2}>
                             <div className="card-block">
                                 <div className="card-block__image-block">
                                     <figure className="thumbnail-icon">
@@ -77,7 +77,7 @@ const Home: NextPage = () => {
                                 <p>Health & Care</p>
                             </div>
                         </Col>
-                        <Col xs={6} sm={4} md={2}>
+                        <Col xs={6} sm={4} lg={2}>
                             <div className="card-block">
                                 <div className="card-block__image-block">
                                     <figure className="thumbnail-icon">
@@ -92,7 +92,7 @@ const Home: NextPage = () => {
                                 <p>Household</p>
                             </div>
                         </Col>
-                        <Col xs={6} sm={4} md={2}>
+                        <Col xs={6} sm={4} lg={2}>
                             <div className="card-block">
                                 <div className="card-block__image-block">
                                     <figure className="thumbnail-icon">
@@ -107,7 +107,7 @@ const Home: NextPage = () => {
                                 <p>Beauty</p>
                             </div>
                         </Col>
-                        <Col xs={6} sm={4} md={2}>
+                        <Col xs={6} sm={4} lg={2}>
                             <div className="card-block">
                                 <div className="card-block__image-block">
                                     <figure className="thumbnail-icon">
@@ -122,7 +122,7 @@ const Home: NextPage = () => {
                                 <p>Courier Services</p>
                             </div>
                         </Col>
-                        <Col xs={6} sm={4} md={2}>
+                        <Col xs={6} sm={4} lg={2}>
                             <div className="card-block">
                                 <div className="card-block__image-block">
                                     <figure className="thumbnail-icon">
@@ -137,7 +137,7 @@ const Home: NextPage = () => {
                                 <p>Maintenance</p>
                             </div>
                         </Col>
-                        <Col xs={6} sm={4} md={2}>
+                        <Col xs={6} sm={4} lg={2}>
                             <div className="card-block">
                                 <div className="card-block__image-block">
                                     <figure className="thumbnail-icon">

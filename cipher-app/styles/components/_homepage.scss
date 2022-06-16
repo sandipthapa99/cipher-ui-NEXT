@@ -3,6 +3,10 @@
     position: relative;
     padding-bottom: 10rem;
     width: 100%;
+    background-image: url("../#{$theme-imgpath}/heroImages/pattern2.png"),url("../#{$theme-imgpath}/heroImages/pattern.png");
+    background-repeat: no-repeat;
+    background-position: bottom left -2.1rem, center left 0;
+    background-size: 24.5rem,31rem;
     overflow: hidden;
     .shape-blob {
         background:#FEDB29;
@@ -19,17 +23,30 @@
     }
     h1{
         font-size: 3.2rem;
-        padding: 11.4rem 0 0 1.6rem; 
-        margin-bottom: 6.7rem;
+        margin: 4rem 0 2.4rem 0; 
         @include respond(md){
+            font-size: 4.8rem;
+        }
+        @include respond(lg){
+            font-size: 4.8rem;
+            margin: 11.4rem 0 6.7rem 0; 
+        }
+        @include respond(xl){
             font-size: 6.4rem;
+
         }
     }
     p{
-        font-size: 2.4rem;
-        font-weight: 600;
-        color: #343A40;
-        margin-bottom: 8rem;
+        font-size: 1.4rem;
+        color: $default-text-color;
+        font-weight: 500;
+        margin-bottom: 2.4rem;
+        @include respond(md){
+          font-weight: 600;
+          font-size: 2.4rem;
+          margin-bottom: 8rem;
+
+        }
     }
 
     &--search-bar{
@@ -121,7 +138,7 @@
     .card-block{
         background-color: #FFFFFF40;
         padding: 2.4rem 1.6rem;
-        margin: 0;
+        margin-bottom: 2rem;
         border-radius: 0.4rem;
         display: flex;
         justify-content: center;
