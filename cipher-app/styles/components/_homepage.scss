@@ -1,6 +1,6 @@
 .site-main-banner{
   position: relative;
-  padding-bottom: 10rem;
+  padding-bottom: 2.4rem;
   width: 100%;
   overflow: hidden;
   @include respond(md){
@@ -171,6 +171,12 @@
         }
     }
 }
+
+// Services near you section start
+.services-near-you{
+  
+}
+// Services near you section end
 @keyframes transform
 {
     0%,

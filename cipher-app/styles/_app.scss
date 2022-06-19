@@ -322,11 +322,14 @@ small.text-muted {
 }
 
 .heading-title {
-    font-size: 3.2rem;
+    font-size: 1.6rem;
+    font-weight: 500;
     margin: 0 0 2rem;
     @include respond(md) {
-        font-size: 1.4rem;
-        margin: 0 0 4rem;
+        font-size: 2rem;
+        font-weight: 500;
+        color: #343A40;
+        margin: 0 0 2.4rem;
     }
     span {
         color: $primary-color;
@@ -367,85 +370,7 @@ small.text-muted {
     }
 }
 
-.service-card-block {
-    margin: 0 0 3rem;
-    border-radius: 0.4rem;
-    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
-    background: rgba(255, 255, 255, 0.4);
-    .thumbnail-img {
-        height: 20rem;
-        margin: 0;
-        border-radius: 0.4rem 0.4rem 0 0;
-        @include respond(md) {
-            height: 25rem;
-            margin: 0;}
-    }
-    .card-content{
-        padding: 2.4rem;
-        .card-title{
-            font-size: 1.4rem;
-            font-weight: 500;
-            color: #101113;
-            margin-bottom: 0.8rem;
-        }
-        .card-subtitle{
-            font-size: 1.2rem;
-            font-family: $inter-font;
-            font-weight: 500;
-            color: #5C5F66;
-            margin-bottom: 1.6rem;
-            span{
-                color: #3EAEFF;
-            }
-        }
-        .card-description{
-            font-size: 1.2rem;
-            font-weight: 400;
-            color: #495057;
-            line-height: 1.8rem;
-            margin-bottom: 1.6rem;
-        }
-        .ratings-wrapper{
-            margin-bottom: 1.6rem;
-            .ratings{
-                color: #101113;
-                font-size: 1.4rem;
-                font-family: $inter-font;
-                font-weight: 400;
-                margin: 0;
-                .star{
-                    color: $secondary-color;
-                }
-            }
-            .price{
-                color: #101113;
-                font-size: 1.6rem;
-                font-family: $inter-font;
-                font-weight: 500;
-                margin: 0;
-            }
-        }
-        .booking-wrapper{
-            display: flex;
-            align-items: center;
-            .heart{
-                color: #FE5050;
-                margin-right: 2.4rem;
-            }
-            .share{
-                color: #3EAEFF;
-            }
-            .btn{
-                background-color: $primary-color;
-                font-size: 1.6rem;
-                font-weight: 400;
-                padding: 0.8rem 1.6rem;
-                border-radius: 0.4rem;
-            }
 
-        }
-    }
-}
 
 .accordion {
     .accordion-item {

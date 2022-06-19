@@ -1,0 +1,116 @@
+.service-card-block {
+    margin: 0 0 3rem;
+    border-radius: 0.4rem;
+    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    background: rgba(255, 255, 255, 0.4);
+    .thumbnail-img {
+        height: 20rem;
+        margin: 0;
+        border-radius: 0.4rem 0.4rem 0 0;
+        @include respond(md) {
+            height: 28rem;
+            margin: 0;}
+    }
+    .card-content{
+        padding: 2.7rem 2.2rem 2.6rem 2.2rem;
+        .card-title{
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #101113;
+            margin-bottom: 1.4rem;
+        }
+        .card-subtitle{
+            font-size: 1.2rem;
+            font-family: $inter-font;
+            font-weight: 500;
+            color: #5C5F66;
+            margin-bottom: 1.6rem;
+            span{
+                font-family: $inter-font;
+                color: #3EAEFF;
+
+            }
+        }
+        .card-description{
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #495057;
+            line-height: 1.8rem;
+            margin-bottom: 1.2rem;
+        }
+        .ratings-wrapper{
+            margin-bottom: 1.4rem;
+            .ratings{
+                color: #101113;
+                font-size: 1.4rem;
+                font-family: $inter-font;
+                font-weight: 400;
+                line-height: 1.7rem;
+                margin: 0;
+                .star{
+                    color: $secondary-color;
+                    margin-right: 0.8rem;
+                }
+            }
+            .price{
+                color: #101113;
+                font-size: 1.6rem;
+                font-family: $inter-font;
+                font-weight: 500;
+                margin: 0;
+            }
+        }
+        .booking-wrapper{
+            display: flex;
+            align-items: center;
+            .heart{
+                color: #FE5050;
+                margin-right: 3.4rem;
+            }
+            .share{
+                color: #3EAEFF;
+            }
+            .btn {
+                background-color: $primary-color;
+                font-size: 1.6rem;
+                font-weight: 400;
+                padding: 0.8rem 1.6rem;
+                border-radius: 0.4rem;
+                border: none;
+                box-shadow: none;
+                transition: all 0.5s;
+                cursor: pointer;
+                &:focus{
+                    border: none;
+                }
+                @include respond(md){
+                    font-size: 1.4rem;
+                    
+                }
+                span {
+                  cursor: pointer;
+                  display: inline-block;
+                  position: relative;
+                  transition: 0.5s;
+                  &::after{
+                    content: '\27F6';
+                    position: absolute;
+                    opacity: 0;
+                    top: 0;
+                    right: -20px;
+                    transition: 0.5s;
+                  }
+                }
+                &:hover span{
+                    padding-right: 25px;
+                }
+                &:hover span:after {
+                  opacity: 1;
+                  right: 0;
+                }
+              }
+              
+
+        }
+    }
+}
