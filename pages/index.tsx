@@ -1,6 +1,7 @@
 import SelectInputField from '@components/common/SelectInputField'
+import ServiceCard from '@components/common/ServiceCard'
 import Layout from '@components/Layout'
-import { faChevronDown, faSearch } from '@fortawesome/pro-regular-svg-icons'
+import { faChevronDown, faAngleRight, faSearch } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Formik } from 'formik'
 import type { NextPage } from 'next'
@@ -12,6 +13,10 @@ import { HomeSearchdata } from 'utils/homeSearchData'
 import {
     myOptions
 } from "utils/options";
+import { services } from 'staticData/services';
+import CategoryCard from '@components/common/CategoryCard'
+import { serviceCategory } from 'staticData/serviceCategory'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   return (
@@ -60,99 +65,19 @@ const Home: NextPage = () => {
                         </Formik>
                     </div>
 
-
+                    {/* Service category listing start */}
                     <Row className="gx-5">
-                        <Col xs={6} sm={4} lg={2}>
-                            <div className="card-block">
-                                <div className="card-block__image-block">
-                                    <figure className="thumbnail-icon">
-                                        <Image
-                                            src="/heroImages/img1.png"
-                                            alt="assist-img1"
-                                            height={48}
-                                            width={48}
-                                        />
-                                    </figure>
-                                </div>
-                                <p>Health & Care</p>
-                            </div>
-                        </Col>
-                        <Col xs={6} sm={4} lg={2}>
-                            <div className="card-block">
-                                <div className="card-block__image-block">
-                                    <figure className="thumbnail-icon">
-                                        <Image
-                                            src="/heroImages/img2.png"
-                                            alt="assist-img2"
-                                            height={48}
-                                            width={48}
-                                        />
-                                    </figure>
-                                </div>
-                                <p>Household</p>
-                            </div>
-                        </Col>
-                        <Col xs={6} sm={4} lg={2}>
-                            <div className="card-block">
-                                <div className="card-block__image-block">
-                                    <figure className="thumbnail-icon">
-                                        <Image
-                                            src="/heroImages/img3.png"
-                                            alt="assist-img3"
-                                            height={48}
-                                            width={48}
-                                        />
-                                    </figure>
-                                </div>
-                                <p>Beauty</p>
-                            </div>
-                        </Col>
-                        <Col xs={6} sm={4} lg={2}>
-                            <div className="card-block">
-                                <div className="card-block__image-block">
-                                    <figure className="thumbnail-icon">
-                                        <Image
-                                            src="/heroImages/img4.png"
-                                            alt="assist-img4"
-                                            height={48}
-                                            width={48}
-                                        />
-                                    </figure>
-                                </div>
-                                <p>Courier Services</p>
-                            </div>
-                        </Col>
-                        <Col xs={6} sm={4} lg={2}>
-                            <div className="card-block">
-                                <div className="card-block__image-block">
-                                    <figure className="thumbnail-icon">
-                                        <Image
-                                            src="/heroImages/img5.png"
-                                            alt="assist-img5"
-                                            height={48}
-                                            width={48}
-                                        />
-                                    </figure>
-                                </div>
-                                <p>Maintenance</p>
-                            </div>
-                        </Col>
-                        <Col xs={6} sm={4} lg={2}>
-                            <div className="card-block">
-                                <div className="card-block__image-block">
-                                    <figure className="thumbnail-icon">
-                                        <Image
-                                            src="/heroImages/img6.png"
-                                            alt="assist-img6"
-                                            height={48}
-                                            width={48}
-                                        />
-                                    </figure>
-                                </div>
-                                <p>Fitness</p>
-                            </div>
-                        </Col>
+                        {serviceCategory && serviceCategory.map((category)=>{
+                            return(
+                            <Col xs={6} sm={4} lg={2}>
+                                <CategoryCard
+                                categoryTitle={category.categoryTitle}
+                                categoryIcon={category.categoryIcon}/>
+                            </Col>
+                            )
+                        })}
                     </Row>
+                    {/* Service category listing end */}
 
                     
                 </Container>
@@ -160,12 +85,125 @@ const Home: NextPage = () => {
       {/* Site Main Banner End */}
 
       {/* Services near you section start */}
-      {/* <section id="services-near-you" className="services-near-you">
-        <Container>
+      <section id="services-near-you" className="services-near-you">
+        <Container fluid="xl">
         <h2 className="heading-title">Services near you</h2>
+        <Row className="gx-5">
+            {services && services.map((service)=>{
+                return(
+                    <Col sm={6} md={4} lg={3} key={service.id}>
+                        <ServiceCard
+                        serviceImage={service.serviceImage}
+                        serviceTitle={service.serviceTitle}
+                        serviceProvider={service.serviceProvider}
+                        serviceProviderLocation={service.serviceProviderLocation}
+                        serviceDescription={service.serviceDescription}
+                        serviceRating={service.serviceRating}
+                        servicePrice= {service.servicePrice}
+                        />
+                    </Col>
+                )
+            })}
+        </Row>
         </Container>
-      </section> */}
+      </section>
       {/* Services near you section end */}
+
+      {/* Popular services section start */}
+      <section id="services-near-you" className="services-near-you">
+        <Container fluid="xl">
+        <h2 className="heading-title">Our Popular Services</h2>
+        <Row className="gx-5">
+            {services && services.map((service)=>{
+                return(
+                    <Col sm={6} md={4} lg={3} key={service.id}>
+                        <ServiceCard
+                        serviceImage={service.serviceImage}
+                        serviceTitle={service.serviceTitle}
+                        serviceProvider={service.serviceProvider}
+                        serviceProviderLocation={service.serviceProviderLocation}
+                        serviceDescription={service.serviceDescription}
+                        serviceRating={service.serviceRating}
+                        servicePrice= {service.servicePrice}
+                        />
+                    </Col>
+                )
+            })}
+        </Row>
+        </Container>
+      </section>
+      {/* Popular services section end */}
+
+      {/* Browse service by category section start */}
+      <section id='browse-category' className="browse-category">
+        <Container fluid="xl">
+            <h1 className="section-main-title">
+            Browse services by category
+            </h1>
+            <Row className="gx-5">
+                {serviceCategory && serviceCategory.map((category)=>{
+                    return(
+                    <Col xs={6} sm={4} lg={2}>
+                        <CategoryCard
+                        categoryTitle={category.categoryTitle}
+                        categoryIcon={category.categoryIcon}/>
+                    </Col>
+                    )
+                })}
+            </Row>
+            <Row className="gx-5">
+                {serviceCategory && serviceCategory.map((category)=>{
+                    return(
+                    <Col xs={6} sm={4} lg={2}>
+                        <CategoryCard
+                        categoryTitle={category.categoryTitle}
+                        categoryIcon={category.categoryIcon}/>
+                    </Col>
+                    )
+                })}
+            </Row>
+                    {/* Service category listing end */}
+        </Container>
+      </section>
+      {/* Browse service by category section end */}
+
+      {/* Find & Hire section start */}
+      <section id="find-hire" className="find-hire">
+        <Container fluid="xl">
+            <h1 className="section-main-title">Find & Hire</h1>
+            <h2 className="section-sub-title">Get those work done.</h2>
+            <Row>
+                <Col md={4}>
+                <div className="find-hire-card-block">
+                    <figure className="thumbnail-img">
+                        <Image
+                        src="/services/hire1.png"
+                        layout="fill"
+                        objectFit="cover"
+                        alt=""
+                        />
+                        
+                    </figure>
+                    <div className="card-content">
+                        <h2>Post a Task</h2>
+                        <p>
+                        Have a project that you need to finish ? Log in to CIPHER, type in the requirements, your budget, time constraints, and post the same. Sit back, and relax while CIPHER finds a suitable tasker for you.  
+                        </p>
+
+                        <Link href="">
+                            <a>
+                                Post Task
+                                <FontAwesomeIcon icon={faAngleRight} className="svg-icon"/>
+                            </a>
+                        </Link>
+                    </div>
+                </div>
+                </Col>
+            </Row>
+            
+        </Container>
+      </section>
+      {/* Find & Hire section end */}
     </Layout>
   )
 }

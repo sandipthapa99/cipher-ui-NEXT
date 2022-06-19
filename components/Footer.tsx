@@ -1,5 +1,6 @@
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookF, faTwitter, faInstagram, faYoutube, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,47 +17,47 @@ const Footer = () => {
         <footer id="site-footer" className="site-footer">
                 <Container>
                     {/* Cipher Newsletter section start */}
-                        <div className="site-footer__newsletter">
-                            <Row>
-                                <Col sm={6} className="newsletter-text">
-                                    <h5>Subscribe to CIPHER</h5>
-                                    <p>A newsletter for customers covering techniques, technical guides, and hiring process coming from CIPHER.</p>
-                                </Col>
-                                <Col sm={6} className="newsletter-form">
-                                    <Formik
-                                        initialValues={{ email: "" }}
-                                        validationSchema={emailSubscribeSchema}
-                                        onSubmit={async(values, actions) => {
-                                            console.log(values, actions)
-                                        }}
-                                    >
-                                        {({
-                                            isSubmitting,
-                                            errors,
-                                            touched,
-                                        }) => (
-                                            <Form>
-                                                <InputField
-                                                    type="email"
-                                                    name="email"
-                                                    error={errors.email}
-                                                    touch={touched.email}
-                                                    placeHolder="Enter your email"
-                                                />
-                                                <div className="btn-wrapper">
-                                                    <button
-                                                        type="submit"
-                                                        className="btn"
-                                                        disabled={isSubmitting}>
-                                                        <FontAwesomeIcon icon={faArrowRight} className="svg-icon" />
-                                                    </button>
-                                                </div>
-                                            </Form>
-                                        )}
-                                    </Formik>
-                                </Col>
-                            </Row>
-                        </div>
+                    <div className="site-footer__newsletter">
+                        <Row>
+                            <Col sm={6} className="newsletter-text">
+                                <h5>Subscribe to CIPHER</h5>
+                                <p>A newsletter for customers covering techniques, technical guides, and hiring process coming from CIPHER.</p>
+                            </Col>
+                            <Col sm={6} className="newsletter-form">
+                                <Formik
+                                    initialValues={{ email: "" }}
+                                    validationSchema={emailSubscribeSchema}
+                                    onSubmit={async(values, actions) => {
+                                        console.log(values, actions)
+                                    }}
+                                >
+                                    {({
+                                        isSubmitting,
+                                        errors,
+                                        touched,
+                                    }) => (
+                                        <Form>
+                                            <InputField
+                                                type="email"
+                                                name="email"
+                                                error={errors.email}
+                                                touch={touched.email}
+                                                placeHolder="Enter your email"
+                                            />
+                                            <div className="btn-wrapper">
+                                                <button
+                                                    type="submit"
+                                                    className="btn"
+                                                    disabled={isSubmitting}>
+                                                    <FontAwesomeIcon icon={faArrowRight} className="svg-icon" />
+                                                </button>
+                                            </div>
+                                        </Form>
+                                    )}
+                                </Formik>
+                            </Col>
+                        </Row>
+                    </div>
                     {/* Cipher Newsletter section end */}
 
                     {/* Cipher Footer navigation start */}
@@ -206,6 +207,87 @@ const Footer = () => {
                         </Row>
                     </div>
                     {/* Cipher Footer navigation end */}
+
+                    {/* Cipher footer social links section start */}
+                    <div className="site-footer__social-links">
+                        <Row>
+                            <Col md={6}>
+                                <h2>Follow Us</h2>
+                                <div className="social-sites">
+                                    <a
+                                    href="https://www.facebook.com"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="wrapper facebook">
+                                        <FontAwesomeIcon icon={faFacebookF} className="svg-icon "/>
+                                    </a>
+                                    <a
+                                    href="https://www.linkedin.com"
+                                    target="_blank" 
+                                    rel="noreferrer"
+                                    className="wrapper linkedIn">
+                                        <FontAwesomeIcon icon={faLinkedinIn} className="svg-icon "/>
+                                    </a>
+                                    <a
+                                    href="https://www.twitter.com"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="wrapper twitter">
+                                        <FontAwesomeIcon icon={faTwitter} className="svg-icon "/>
+                                    </a>
+                                    <a
+                                    href="https://www.instagram.com"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="wrapper instagram">
+                                        <FontAwesomeIcon icon={faInstagram} className="svg-icon "/>
+                                    </a>
+                                    <a
+                                    href="https://www.youtube.com"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="wrapper youtube">
+                                        <FontAwesomeIcon icon={faYoutube} className="svg-icon "/>
+                                    </a>
+                                </div>
+                            </Col>
+                            <Col md={6} className="d-block d-md-flex justify-content-end">
+                                <div>
+                                    <h2>Mobile App</h2>
+                                    <Row>
+                                        <Col md="6">
+                                            <Link href="">
+                                                <a>
+                                                    <Image
+                                                        src="/logo/playstore.png"
+                                                        alt="qr"
+                                                        height={36}
+                                                        width={104}
+                                                    />
+                                                </a>
+                                            </Link>
+                                        </Col>
+                                        <Col md="6">
+                                            <Link href="">
+                                                <a>
+                                                    <Image
+                                                        src="/logo/appstore.png"
+                                                        alt="qr"
+                                                        height={36}
+                                                        width={104}
+                                                    />
+                                                </a>
+                                            </Link>
+                                        </Col>
+                                    </Row>
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
+                    <p className="copyright">
+                    © 2022 - 2026 Cipher® Global Inc. All Rights Reserved
+                    </p>
+                    {/* Cipher footer social links section end */}
                 </Container>
             </footer>
         </>

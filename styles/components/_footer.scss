@@ -1,7 +1,7 @@
 .site-footer{
     background-color: #262459;
     color: #fff;
-    padding: 8rem 0;
+    padding: 8rem 0 3rem 0;
     font-family: $inter-font;
     font-size: 1.5rem;
     &__newsletter{
@@ -73,13 +73,11 @@
                 list-style-type: none;
                 li {
                     display: block;
-                    &:not(:last-child) {
-                        margin: 0 0 1.2rem;
-                        @include respond(md) {
-                            font-size: 2rem;
-                            font-weight: 500;
-                            margin: 0 0 1.5rem;
-                        }
+                    margin: 0 0 1.2rem;
+                    @include respond(md) {
+                        font-size: 2rem;
+                        font-weight: 500;
+                        margin: 0 0 1.5rem;
                     }
                     a {
                         color: #FFFFFF60;
@@ -97,5 +95,52 @@
                 }
             }
         }
+    }
+    &__social-links{
+        border-bottom: 1px solid #868E96;
+        padding-bottom: 2.4rem;
+        h2{
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 2.4rem;
+        }
+        .social-sites{
+            margin-bottom: 4rem;
+            @include respond(md){
+                margin: 0;
+            }
+            .wrapper{
+                color: #FFF;
+                padding: 1rem;
+                margin-right: 1.6rem;
+                border-radius: 0.2rem;
+            }
+            .facebook{
+                background-color: #4267B2;
+            }
+            .linkedIn{
+                background-color: #0072B1;
+            }
+            .twitter{
+                background-color: #1DA1F2;
+            }
+            .instagram{
+                background-color: #BC2A8D;
+            }
+            .youtube{
+                background-color: #FF0000;
+            }
+            .svg-icon{
+                height: 2rem;
+                width: 2rem;
+                margin: 0;
+            }
+        }
+    }
+    .copyright{
+        color: #FFF;
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin-top: 2.4rem;
     }
 }
