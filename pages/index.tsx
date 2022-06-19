@@ -69,7 +69,7 @@ const Home: NextPage = () => {
                     <Row className="gx-5">
                         {serviceCategory && serviceCategory.map((category)=>{
                             return(
-                            <Col xs={6} sm={4} lg={2}>
+                            <Col xs={6} sm={4} lg={2} key={category.id}>
                                 <CategoryCard
                                 categoryTitle={category.categoryTitle}
                                 categoryIcon={category.categoryIcon}/>
@@ -143,7 +143,7 @@ const Home: NextPage = () => {
             <Row className="gx-5">
                 {serviceCategory && serviceCategory.map((category)=>{
                     return(
-                    <Col xs={6} sm={4} lg={2}>
+                    <Col xs={6} sm={4} lg={2} key={category.id}>
                         <CategoryCard
                         categoryTitle={category.categoryTitle}
                         categoryIcon={category.categoryIcon}/>
@@ -154,7 +154,7 @@ const Home: NextPage = () => {
             <Row className="gx-5">
                 {serviceCategory && serviceCategory.map((category)=>{
                     return(
-                    <Col xs={6} sm={4} lg={2}>
+                    <Col xs={6} sm={4} lg={2} key={category.id}>
                         <CategoryCard
                         categoryTitle={category.categoryTitle}
                         categoryIcon={category.categoryIcon}/>
@@ -173,7 +173,7 @@ const Home: NextPage = () => {
             <h1 className="section-main-title">Find & Hire</h1>
             <h2 className="section-sub-title">Get those work done.</h2>
             <Row>
-                <Col md={4}>
+                <Col md={4} className="d-flex align-items-stretch">
                 <div className="find-hire-card-block">
                     <figure className="thumbnail-img">
                         <Image
@@ -187,12 +187,64 @@ const Home: NextPage = () => {
                     <div className="card-content">
                         <h2>Post a Task</h2>
                         <p>
-                        Have a project that you need to finish ? Log in to CIPHER, type in the requirements, your budget, time constraints, and post the same. Sit back, and relax while CIPHER finds a suitable tasker for you.  
+                        Have a project that you need to finish ? Log in to CIPHER, type in the requirements, your budget, time constraints and post the same. Sit back, and relax while CIPHER finds a suitable tasker for you.
                         </p>
 
                         <Link href="">
                             <a>
                                 Post Task
+                                <FontAwesomeIcon icon={faAngleRight} className="svg-icon"/>
+                            </a>
+                        </Link>
+                    </div>
+                </div>
+                </Col>
+                <Col md={4} className="d-flex align-items-stretch">
+                <div className="find-hire-card-block">
+                    <figure className="thumbnail-img">
+                        <Image
+                        src="/services/hire2.png"
+                        layout="fill"
+                        objectFit="cover"
+                        alt=""
+                        />
+                        
+                    </figure>
+                    <div className="card-content">
+                        <h2>Browse Talents</h2>
+                        <p>
+                        Looking for some place to showcase your talent, and earn while you do it ? Well, look no more, login to CIPHER, and access all the tasks on the portal for you to choose from. 
+                        </p>
+
+                        <Link href="">
+                            <a>
+                                Browse Talents
+                                <FontAwesomeIcon icon={faAngleRight} className="svg-icon"/>
+                            </a>
+                        </Link>
+                    </div>
+                </div>
+                </Col>
+                <Col md={4} className="d-flex align-items-stretch">
+                <div className="find-hire-card-block">
+                    <figure className="thumbnail-img">
+                        <Image
+                        src="/services/hire3.png"
+                        layout="fill"
+                        objectFit="cover"
+                        alt=""
+                        />
+                        
+                    </figure>
+                    <div className="card-content">
+                        <h2>Get Help</h2>
+                        <p>
+                        Stuck somewhere on CIPHER, have questions ? Fret not, our hands on team is always ready to address your queries, and provide you with real time soultions.
+                        </p>
+
+                        <Link href="">
+                            <a>
+                                Get Help
                                 <FontAwesomeIcon icon={faAngleRight} className="svg-icon"/>
                             </a>
                         </Link>

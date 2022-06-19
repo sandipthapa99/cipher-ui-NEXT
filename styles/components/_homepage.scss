@@ -178,6 +178,8 @@
     }
     .card-content{
         padding: 2.7rem 2.2rem 2.6rem 2.2rem;
+        display: flex;
+        flex-direction: column;
         h2{
             font-size: 1.6rem;
             font-weight: 500;
@@ -195,6 +197,7 @@
           font-size: 1.4rem;
           font-weight: 500;
           color: #FCA500;
+          margin-top: auto;
           .svg-icon{
             height: 1.6rem;
             width: 1.6rem;
