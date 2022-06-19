@@ -1,7 +1,7 @@
 import SelectInputField from '@components/common/SelectInputField'
 import ServiceCard from '@components/common/ServiceCard'
 import Layout from '@components/Layout'
-import { faChevronDown, faHeart, faSearch, faShare } from '@fortawesome/pro-regular-svg-icons'
+import { faChevronDown, faAngleRight, faSearch } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Formik } from 'formik'
 import type { NextPage } from 'next'
@@ -193,6 +193,7 @@ const Home: NextPage = () => {
                         <Link href="">
                             <a>
                                 Post Task
+                                <FontAwesomeIcon icon={faAngleRight} className="svg-icon"/>
                             </a>
                         </Link>
                     </div>

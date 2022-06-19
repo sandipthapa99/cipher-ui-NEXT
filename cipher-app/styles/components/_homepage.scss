@@ -179,17 +179,30 @@
     .card-content{
         padding: 2.7rem 2.2rem 2.6rem 2.2rem;
         h2{
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 500;
-            color: #101113;
-            margin-bottom: 1.4rem;
+            color: #211D4F;
+            margin-bottom: 1.6rem;
         }
         p{
             font-size: 1.2rem;
             font-weight: 400;
             color: #495057;
             line-height: 1.8rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 2.2rem;
+        }
+        a{
+          font-size: 1.4rem;
+          font-weight: 500;
+          color: #FCA500;
+          .svg-icon{
+            height: 1.6rem;
+            width: 1.6rem;
+            margin-left: 0.4rem;
+          }
+          &:hover{
+            color: $primary-color;
+          }
         }
     }
 }
