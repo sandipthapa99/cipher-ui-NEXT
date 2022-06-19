@@ -1,12 +1,13 @@
 import SelectInputField from '@components/common/SelectInputField'
 import Layout from '@components/Layout'
-import { faChevronDown, faSearch } from '@fortawesome/pro-regular-svg-icons'
+import { faChevronDown, faHeart, faSearch, faShare } from '@fortawesome/pro-regular-svg-icons'
+import { faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Formik } from 'formik'
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import { NextRouter } from 'next/router'
-import { Button, Col, Container, Form, FormControl, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, Form, FormControl, Row } from 'react-bootstrap'
 import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
 import { HomeSearchdata } from 'utils/homeSearchData'
 import {
@@ -160,11 +161,46 @@ const Home: NextPage = () => {
       {/* Site Main Banner End */}
 
       {/* Services near you section start */}
-      {/* <section id="services-near-you" className="services-near-you">
+      <section id="services-near-you" className="services-near-you">
         <Container>
         <h2 className="heading-title">Services near you</h2>
+        <Row className="gx-5">
+            <Col sm={6} md={3}>
+                <div className="service-card-block">
+                    <figure className="thumbnail-img">
+                        <Image
+                            src="/services/s1.png"
+                            layout="fill"
+                            objectFit="cover"
+                            alt="blog-article1"
+                        />
+                    </figure>
+                    <div className="card-content">
+                        <h2 className="card-title">Harry Plumbing Service</h2>
+                        <h3 className="card-subtitle"><span>Harry Smith</span> | Baneshwor, KTM</h3>
+                        <p className="card-description">
+                        Gardener responsibilities include monitoring the health of all... 
+                        </p>
+                        <div className="ratings-wrapper d-flex justify-content-between">
+                            <p className='ratings d-flex align-items-center justify-content-center'>
+                                <FontAwesomeIcon icon={faStar} className="svg-icon star"/>
+                                4.8(200)
+                            </p>
+                            <p className='price'>$50/hr</p>
+                        </div>
+                        <div className="booking-wrapper d-flex justify-content-between">
+                            <div className='d-flex'>
+                                <FontAwesomeIcon icon={faHeart} className="svg-icon heart"/>
+                                <FontAwesomeIcon icon={faShare} className="svg-icon share"/>
+                            </div>
+                            <Button>Book Now</Button>
+                        </div>
+                    </div>
+                    </div>
+            </Col>
+        </Row>
         </Container>
-      </section> */}
+      </section>
       {/* Services near you section end */}
     </Layout>
   )
