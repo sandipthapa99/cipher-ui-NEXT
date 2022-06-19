@@ -22,7 +22,7 @@ const ServiceCard = ({
                     src={serviceImage}
                     layout="fill"
                     objectFit="cover"
-                    alt="blog-article1"
+                    alt="servicecard-image"
                 />
             </figure>
             <div className="card-content">

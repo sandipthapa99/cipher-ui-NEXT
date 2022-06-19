@@ -150,9 +150,52 @@
 // Browse by category section start
 .browse-category{
   background-color: $secondary-color;
-  padding: 8rem 0;
+  padding: 4rem 0;
+  margin: 0 0 2.4rem;
+  @include respond(md){
+    padding: 8rem 0;
+    margin: 0 0 8rem;
+
+  }
 }
 // Browse by category section end
+
+// Find & Hire section Start
+.find-hire{
+  margin: 0 0 8rem;
+  .find-hire-card-block {
+    margin: 0 0 3rem;
+    border-radius: 0.4rem;
+    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    background: rgba(255, 255, 255, 0.4);
+    .thumbnail-img {
+        height: 20rem;
+        margin: 0;
+        border-radius: 0.4rem 0.4rem 0 0;
+        @include respond(md) {
+            height: 28rem;
+            margin: 0;}
+    }
+    .card-content{
+        padding: 2.7rem 2.2rem 2.6rem 2.2rem;
+        h2{
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #101113;
+            margin-bottom: 1.4rem;
+        }
+        p{
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #495057;
+            line-height: 1.8rem;
+            margin-bottom: 1.2rem;
+        }
+    }
+}
+}
+// Find & Hire section Start
+
 @keyframes transform
 {
     0%,

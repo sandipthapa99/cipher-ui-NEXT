@@ -16,6 +16,7 @@ import {
 import { services } from 'staticData/services';
 import CategoryCard from '@components/common/CategoryCard'
 import { serviceCategory } from 'staticData/serviceCategory'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   return (
@@ -136,7 +137,7 @@ const Home: NextPage = () => {
       {/* Browse service by category section start */}
       <section id='browse-category' className="browse-category">
         <Container fluid="xl">
-            <h1 className="section-main-title d-flex justify-content-center">
+            <h1 className="section-main-title">
             Browse services by category
             </h1>
             <Row className="gx-5">
@@ -165,6 +166,43 @@ const Home: NextPage = () => {
         </Container>
       </section>
       {/* Browse service by category section end */}
+
+      {/* Find & Hire section start */}
+      <section id="find-hire" className="find-hire">
+        <Container fluid="xl">
+            <h1 className="section-main-title">Find & Hire</h1>
+            <h2 className="section-sub-title">Get those work done.</h2>
+            <Row>
+                <Col md={4}>
+                <div className="find-hire-card-block">
+                    <figure className="thumbnail-img">
+                        <Image
+                        src="/services/hire1.png"
+                        layout="fill"
+                        objectFit="cover"
+                        alt=""
+                        />
+                        
+                    </figure>
+                    <div className="card-content">
+                        <h2>Post a Task</h2>
+                        <p>
+                        Have a project that you need to finish ? Log in to CIPHER, type in the requirements, your budget, time constraints, and post the same. Sit back, and relax while CIPHER finds a suitable tasker for you.  
+                        </p>
+
+                        <Link href="">
+                            <a>
+                                Post Task
+                            </a>
+                        </Link>
+                    </div>
+                </div>
+                </Col>
+            </Row>
+            
+        </Container>
+      </section>
+      {/* Find & Hire section end */}
     </Layout>
   )
 }
