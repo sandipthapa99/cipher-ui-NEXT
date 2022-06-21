@@ -14,9 +14,11 @@ import {
     myOptions
 } from "utils/options";
 import { services } from 'staticData/services';
+import { merchants } from 'staticData/merchants';
 import CategoryCard from '@components/common/CategoryCard'
 import { serviceCategory } from 'staticData/serviceCategory'
 import Link from 'next/link'
+import MerchantCard from '@components/common/MerchantCard'
 
 const Home: NextPage = () => {
   return (
@@ -256,6 +258,31 @@ const Home: NextPage = () => {
         </Container>
       </section>
       {/* Find & Hire section end */}
+
+      {/* Top Rated Merchant Section Start */}
+      <section id="top-merchants" className="top-merchants">
+        <Container fluid="xl">
+            <h2 className="heading-title">Top Rated Merchants</h2>
+            <Row className="gx-5">
+            {merchants && merchants.map((merchant)=>{
+                return(
+                    <Col sm={6} md={4} lg={3} key={merchant.id}>
+                        <MerchantCard
+                        merchantImage={merchant.merchantImage}
+                        merchantName={merchant.merchantName}
+                        merchantCategory={merchant.merchantCategory}
+                        merchantLocation={merchant.merchantLocation}
+                        merchantDescription={merchant.merchantDescription}
+                        merchantRating={merchant.merchantRating}
+                        merchantPrice= {merchant.merchantPrice}
+                        />
+                    </Col>
+                )
+            })}
+        </Row>
+        </Container>
+      </section>
+      {/* Top Rated Merchant Section End */}
     </Layout>
   )
 }
