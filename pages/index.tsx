@@ -89,7 +89,10 @@ const Home: NextPage = () => {
       {/* Services near you section start */}
       <section id="services-near-you" className="services-near-you">
         <Container fluid="xl">
-        <h2 className="heading-title">Services near you</h2>
+        <div className="title-wrapper d-flex justify-content-between">
+                <h2 className="heading-title">Services near you</h2>
+                <a href="" className='view-more'>view more <FontAwesomeIcon icon={faAngleRight} className="svg-icon"/></a>
+            </div>
         <Row className="gx-5">
             {services && services.map((service)=>{
                 return(
@@ -114,7 +117,10 @@ const Home: NextPage = () => {
       {/* Popular services section start */}
       <section id="services-near-you" className="services-near-you">
         <Container fluid="xl">
-        <h2 className="heading-title">Our Popular Services</h2>
+            <div className="title-wrapper d-flex justify-content-between">
+                <h2 className="heading-title">Our Popular Services</h2>
+                <a href="" className='view-more'>view more <FontAwesomeIcon icon={faAngleRight} className="svg-icon"/></a>
+            </div>
         <Row className="gx-5">
             {services && services.map((service)=>{
                 return(
@@ -262,7 +268,10 @@ const Home: NextPage = () => {
       {/* Top Rated Merchant Section Start */}
       <section id="top-merchants" className="top-merchants">
         <Container fluid="xl">
-            <h2 className="heading-title">Top Rated Merchants</h2>
+            <div className="title-wrapper d-flex justify-content-between">
+                <h2 className="heading-title">Top Rated Merchants</h2>
+                <a href="" className='view-more'>view more <FontAwesomeIcon icon={faAngleRight} className="svg-icon"/></a>
+            </div>
             <Row className="gx-5">
             {merchants && merchants.map((merchant)=>{
                 return(

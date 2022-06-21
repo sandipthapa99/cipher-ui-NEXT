@@ -25,6 +25,22 @@ a {
         outline: none;
     }
 }
+.view-more{
+    color: #FCA500;
+    font-size: 1.4rem;
+    font-weight: 500;
+    &:hover{
+        color: $primary-color;
+    }
+    @include respond(md){
+        font-size: 1.6rem;
+    }
+    .svg-icon{
+        margin: 0;
+        height: 1.6rem;
+        width: 1.6rem;
+    }
+}
 
 h1,
 h2,
