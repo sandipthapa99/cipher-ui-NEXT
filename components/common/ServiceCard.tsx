@@ -3,8 +3,8 @@ import { faStar } from '@fortawesome/pro-solid-svg-icons'
 
 import Image from "next/image";
 import { faHeart, faShare } from "@fortawesome/pro-regular-svg-icons";
-import { Button } from "react-bootstrap";
 import { ServiceCardProps } from "types/serviceCard";
+import CardBtn from "./CardBtn";
 
 const ServiceCard = ({
     serviceImage,
@@ -43,8 +43,7 @@ const ServiceCard = ({
                         <FontAwesomeIcon icon={faHeart} className="svg-icon heart"/>
                         <FontAwesomeIcon icon={faShare} className="svg-icon share"/>
                     </div>
-                    {/* <Button><span>Book Now</span></Button> */}
-                    <Button><span>Book Now</span></Button>
+                    <CardBtn btnTitle="Book Now"/>                    
                 </div>
             </div>
         </div>

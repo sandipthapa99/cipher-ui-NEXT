@@ -70,47 +70,6 @@
             .share{
                 color: #3EAEFF;
             }
-            .btn {
-                background-color: $primary-color;
-                font-size: 1.6rem;
-                font-weight: 400;
-                padding: 0.8rem 1.6rem;
-                border-radius: 0.4rem;
-                border: none;
-                box-shadow: none;
-                transition: all 0.5s;
-                cursor: pointer;
-                &:focus{
-                    border: none;
-                }
-                @include respond(md){
-                    font-size: 1.4rem;
-                    
-                }
-                span {
-                  cursor: pointer;
-                  display: inline-block;
-                  position: relative;
-                  transition: 0.5s;
-                  &::after{
-                    content: '\27F6';
-                    position: absolute;
-                    opacity: 0;
-                    top: 0;
-                    right: -20px;
-                    transition: 0.5s;
-                  }
-                }
-                &:hover span{
-                    padding-right: 25px;
-                }
-                &:hover span:after {
-                  opacity: 1;
-                  right: 0;
-                }
-              }
-              
-
         }
     }
 }
