@@ -11,3 +11,10 @@ export const checkFormControl = (error: any, touched: any) => {
     const errorClass = "is-invalid";
     return error && touched ? `${currentClass} ${errorClass}` : currentClass;
 };
+
+// Form Button Submitting
+export const isSubmittingClass = (isSubmitting: boolean) => {
+    const defaultClass = `btn site-btn`;
+    const submittingClass = `btn site-btn cf-spinner cf-spinner--center cf-spinner--sm isSubmitting`;
+    return isSubmitting ? submittingClass : defaultClass;
+};

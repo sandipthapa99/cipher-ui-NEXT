@@ -227,7 +227,7 @@ textarea.form-control {
         background: $primary-color;
         color: #fff;
         &:hover {
-            background: $default-text-color;
+            background: $secondary-color;
             color: #fff;
         }
     }
@@ -260,6 +260,35 @@ textarea.form-control {
         &:hover {
             background: $primary-color;
             color: #fff;
+        }
+    }
+}
+.social-btn{
+    font-size: 1.4rem;
+    font-weight: 400;
+    border-radius: 0.4rem;
+    font-family: $poppins-font;
+    color: #FFF;
+    padding: 1.3rem 3.2rem;
+    box-shadow: none;
+    position: relative;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include transition();
+    &.facebook{
+        background-color: #1877F2;
+        color: #FFFFFF;
+        &:hover{
+            background-color: #0d58bb;
+        }
+    }
+    &.google{
+        background-color: #E94235;
+        color: #FFFFFF;
+        &:hover{
+            background-color: #ce392f;
         }
     }
 }

@@ -7,4 +7,5 @@ export interface InputFieldProps {
     textMuted?: string;
     as?: string;
     fieldRequired?: boolean;
+    forgotPassword?: string;
 }
