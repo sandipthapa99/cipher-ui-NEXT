@@ -17,7 +17,7 @@ const Login = () => {
         topRightText="Create an account"
         welcomeText="Welcome Back!   👋"
         headerText="Login to your account"
-        link="/auth/Register"
+        mainImg="/illustrations/login.svg"
       >
         <div>
       <Formik
@@ -32,7 +32,7 @@ const Login = () => {
             <InputField
               type="email"
               name="email"
-              labelName="Email"
+              labelName="Email or phone number"
               touch={touched.email}
               error={errors.email}
               placeHolder="example@example.com"
@@ -44,7 +44,7 @@ const Login = () => {
               touch={touched.password}
               error={errors.password}
               placeHolder="xxxxxxxxxxxxxx"
-              forgotPassword="Forget Password?"
+              forgotPassword="Forgot Password?"
             />
             <FormButton
                 type="submit"
@@ -80,29 +80,3 @@ const Login = () => {
   )
 }
 export default Login
-
-
-{/* <div className="login-layout-wrapper__left">
-                    <div className="brand-logo">
-                        <Link href="/">
-                            <a>
-                                <Image
-                                    src="/logo/logo.svg"
-                                    alt="Logo"
-                                    width={95}
-                                    height={48}
-                                    priority
-                                />
-                            </a>
-                        </Link>
-                    </div>
-                    <div className="main-img">
-                    <Image
-                        src="/illustrations/login.svg"
-                        alt="Logo"
-                        width={564}
-                        height={530}
-                        priority
-                    />
-                    </div>
-                </div> */}

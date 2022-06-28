@@ -1,58 +1,9 @@
-// .login-layout-wrapper{
-//     min-height: 100vh;
-//     background-color: #FFF;
-//     &__left{
-//         background-color: #EDF4FF;
-//         width: 40%;
-//         position: relative;
-//         display: none;
-//         @include respond(md){
-//             display: flex;
-//             align-items: center;
-//             justify-content: center;
-
-//         }
-//         .brand-logo{
-//             position: absolute;
-//             top: 4rem;
-//             left: 4rem;
-//         }
-//     }
-//     &__right{
-//         position: relative;
-//         width: 60%;
-//         display: flex;
-//         align-items: center;
-//         justify-content: center;
-//         .text{
-//             position: absolute;
-//             top: 4rem;
-//             right: 4rem;
-//             p{
-//                 font-family: $poppins-font;
-//                 font-size: 1.4rem;
-//                 font-weight: 400;
-//                 color: #343A40;
-//                 a{
-//                     color: #0693E3;
-//                     margin-left: 0.4rem;
-//                     &:hover{
-//                         color: $secondary-color;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
-//login layout
-
 .login-layout-wrapper {
     height: 100vh;
     display: flex;
   
     &__left {
-        width: 40%;
+        width: 44%;
         height: 100%;
         background-size: cover;
         position: fixed;
@@ -62,7 +13,7 @@
         justify-content: center;
         align-items: center;
         display: none;
-        @include respond(md){
+        @include respond(lg){
             display: flex;
         }
         .brand-logo{
@@ -77,14 +28,19 @@
       position: relative;
       display: flex;
       align-items: center;
-      justify-content: center;
+      padding: 0 4rem;
+        
       @include respond(lg){
-        width: 60%;
+          width: 56%;
+          padding-left: 14rem;
       }
       .redirection-text{
             position: absolute;
-            top: 4rem;
-            right: 4rem;
+            bottom: 0;
+            @include respond(lg){
+                top: 4rem;
+                right: 4rem;
+            }
             p{
                 font-family: $poppins-font;
                 font-size: 1.4rem;
@@ -107,21 +63,12 @@
   .form-wrapper {
     width: 45rem;
     padding: 5rem 0;
-  
-    .welcome-text {
-      font-family: $inter-font;
-      font-size: 1.3rem;
-      font-weight: 400;
-      color: #797979;
-      margin-bottom: 0.8rem;
+    width: 100%;
+    @include respond(lg){
+        width: 70%;
     }
   
-    .login-text {
-      font-family: $poppins-font;
-      font-weight: 600;
-      font-size: 2.3rem;
-      margin-bottom: 4rem;
-    }
+    
   }
   
   .form-content {
@@ -136,6 +83,26 @@
             font-weight: 500;
             color: #343A40;
         }
+    }
+    .welcome-text {
+      font-family: $inter-font;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #797979;
+      margin-bottom: 0.8rem;
+    }
+  
+    .login-text {
+      font-family: $poppins-font;
+      font-weight: 600;
+      font-size: 2rem;
+      margin-bottom: 4rem;
+    }
+    .forgot-pass-description{
+      font-size: 1.4rem;
+      font-weight: 400;
+      font-family: $inter-font;
+      color: #535353;
     }
     .login-btn {
         color: white;

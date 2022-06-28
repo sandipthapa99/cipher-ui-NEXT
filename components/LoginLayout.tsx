@@ -8,7 +8,7 @@ interface LayoutProps {
   topRightText: string
   welcomeText: string
   headerText: string
-  link: string
+  mainImg: string
 }
 
 const LoginLayout = ({
@@ -17,7 +17,7 @@ const LoginLayout = ({
   topRightText,
   welcomeText,
   headerText,
-  link,
+  mainImg,
 }: LayoutProps) => {
   return (
     <div className="login-layout-wrapper">
@@ -37,7 +37,7 @@ const LoginLayout = ({
         </div>
         <div className="main-img">
           <Image
-              src="/illustrations/login.svg"
+              src={mainImg}
               alt="Logo"
               width={564}
               height={530}
