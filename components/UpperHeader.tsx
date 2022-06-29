@@ -60,7 +60,7 @@ export function UpperHeader(props: UpperHeaderProps) {
                                         "/login",
                                         router
                                     )}>
-                                    <Link href="#!">
+                                    <Link href="/login">
                                         <a className="nav-link d-md-none d-inline-block">Log In</a>
                                     </Link>
                                 </li>
@@ -68,19 +68,19 @@ export function UpperHeader(props: UpperHeaderProps) {
                                         "/signup",
                                         router
                                     )}>
-                                    <Link href="#!">
+                                    <Link href="/signup">
                                         <a className="nav-link d-md-none d-inline-block">Sign Up</a>
                                     </Link>
                                 </li>
                             </nav>
                         </Navbar.Collapse>
                         
-                        <Link href="#!">
+                        <Link href="/login">
                             <a className="btn login-btn d-none d-md-inline-block">
                                 Login
                             </a>
                         </Link>
-                        <Link href="#!">
+                        <Link href="/signup">
                             <a className="btn login-btn d-none d-md-inline-block">
                                 Sign Up
                             </a>

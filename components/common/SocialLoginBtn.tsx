@@ -6,6 +6,7 @@ const SocialLoginBtn = ({
   name,
   className,
   icon,
+  redirectionLink,
   ...restProps
 }: FormButtonProps &
   Partial<
@@ -15,6 +16,7 @@ const SocialLoginBtn = ({
     >
   >) => {
   return (
+    <a href={redirectionLink}>
     <button {...restProps} className={`social-btn ${className}`}>
       <figure className="social-icon">
         <Image
@@ -26,6 +28,7 @@ const SocialLoginBtn = ({
       </figure>
       <span>{name}</span>
     </button>
+    </a>
   )
 }
 

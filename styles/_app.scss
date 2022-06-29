@@ -15,7 +15,7 @@ body {
 }
 
 a {
-    color: $primary-color;
+    color: #0693E3;
     text-decoration: none;
     @include transition();
     &:hover,
@@ -289,6 +289,14 @@ textarea.form-control {
         color: #FFFFFF;
         &:hover{
             background-color: #ce392f;
+        }
+    }
+    &.email{
+        background-color: $primary-color;
+        color: #FFFFFF;
+        margin-bottom: 4.8rem;
+        &:hover{
+            background-color: $secondary-color;
         }
     }
 }

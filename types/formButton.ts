@@ -5,4 +5,5 @@ export interface FormButtonProps {
     variant?: "primary" | "secondary";
     className?: string;
     icon?:string;
+    redirectionLink?:string;
 }

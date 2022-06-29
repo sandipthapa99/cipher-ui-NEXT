@@ -1,6 +1,6 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import LoginLayout from "@components/LoginLayout";
+import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { isSubmittingClass } from "utils/helpers";
 import * as Yup from "yup";
@@ -11,7 +11,7 @@ const ForgotPassword = () => {
     });
     return (
         <section>
-            <LoginLayout
+            <OnBoardingLayout
                 topLeftText="Already have an account ?"
                 topRightText="Login"
                 welcomeText="Hey! No worries   👋"
@@ -49,7 +49,7 @@ const ForgotPassword = () => {
                         </Form>
                     )}
                 </Formik>
-            </LoginLayout>
+            </OnBoardingLayout>
         </section>
     )
 }
