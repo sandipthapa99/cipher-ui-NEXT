@@ -18,3 +18,6 @@ export const isSubmittingClass = (isSubmitting: boolean) => {
     const submittingClass = `btn site-btn cf-spinner cf-spinner--center cf-spinner--sm isSubmitting`;
     return isSubmitting ? submittingClass : defaultClass;
 };
+
+export const phoneRegExp =
+    /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;

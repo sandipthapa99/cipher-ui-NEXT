@@ -44,7 +44,7 @@ const Login = () => {
                   labelName="Password"
                   touch={touched.password}
                   error={errors.password}
-                  placeHolder="xxxxxxxxxxxxxx"
+                  placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
                   forgotPassword="Forgot Password?"
                 />
                 <FormButton
