@@ -10,6 +10,7 @@ const Signup = () => {
             headerText="Sign Up with us to get Started  !"
             mainImg="/illustrations/signup.svg"
             redirectionLink="/login"
+            currentPage="signup"
         >
             <SocialLoginBtn
                 name={"Continue with Facebook"}

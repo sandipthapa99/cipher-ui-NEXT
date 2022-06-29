@@ -19,6 +19,7 @@ const Login = () => {
         headerText="Login to your account"
         mainImg="/illustrations/login.svg"
         redirectionLink="/signup"
+        currentPage="login"
       >
         <div>
           <Formik

@@ -65,7 +65,10 @@
     padding: 5rem 0;
     width: 100%;
     @include respond(lg){
-        width: 70%;
+        width: 100%;
+    }
+    &.login, &.forgot-password, &.signup{
+      width: 70%;
     }
   
     

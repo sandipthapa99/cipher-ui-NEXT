@@ -12,6 +12,7 @@ const Choose = () => {
             headerText="How would you like to Sign Up?"
             mainImg="/illustrations/choose.svg"
             redirectionLink="/login"
+            currentPage="choose"
         >
             <div className="choose">
                 <Formik
@@ -27,7 +28,7 @@ const Choose = () => {
                         <Form>
                             <div className="radio-cards-wrapper">
                                 <label htmlFor="client">
-                                    <div className="img-wrapper">
+                                    <div className="img-wrapper">   
                                         <figure>
                                             <Image
                                                 src="/illustrations/signup-as-client.svg"

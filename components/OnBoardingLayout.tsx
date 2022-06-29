@@ -9,6 +9,7 @@ interface OnBoardingLayoutProps {
   welcomeText?: string
   headerText?: string
   redirectionLink?: any
+  currentPage?: string
   mainImg: string
   children: ReactNode
 }
@@ -20,6 +21,7 @@ const OnBoardingLayout = ({
   welcomeText,
   headerText,
   redirectionLink,
+  currentPage,
   mainImg,
 }: OnBoardingLayoutProps) => {
   return (
@@ -62,7 +64,7 @@ const OnBoardingLayout = ({
             </span>
             </p>
         </div>
-        <div className="form-wrapper">
+        <div className={`form-wrapper ${currentPage}`}>
             <div className="form-content">
               <p className="welcome-text">{welcomeText}</p>
               <p className="login-text">{headerText}</p>
