@@ -17,6 +17,7 @@ const ForgotPassword = () => {
                 welcomeText="Hey! No worries   👋"
                 headerText="Forgot your password?"
                 mainImg="/illustrations/forgot-pass.svg"
+                redirectionLink="/login"
             >
                 <p className="forgot-pass-description">
                     Enter the email associated with your account and we&apos;ll send an email with instructions to reset your password.
