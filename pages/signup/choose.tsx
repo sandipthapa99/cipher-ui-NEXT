@@ -2,12 +2,14 @@ import FormButton from "@components/common/FormButton";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Field, Form, Formik } from "formik";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { isSubmittingClass } from "utils/helpers";
 
 const Choose = () => {
     const [user, setUser] = useState<string>("client");
+    const router = useRouter();
 
     return (
         <OnBoardingLayout
@@ -23,8 +25,8 @@ const Choose = () => {
                     initialValues={{
                         user: "",
                     }}
-                    onSubmit={async (values) => {
-                        console.log(values.user)
+                    onSubmit={async () => {
+                        router.push(`/signup/${user}`)
                     }}>
                     {({
                         isSubmitting,
@@ -54,20 +56,20 @@ const Choose = () => {
                                     </div>
                                 </Col>
                                 <Col md={6}>
-                                    <div className="choose-card-block" onClick={() => setUser("merchant")}>
-                                        <span className={`${user == "merchant" ? "radio radio-active" : "radio"}`}></span>
+                                    <div className="choose-card-block" onClick={() => setUser("tasker")}>
+                                        <span className={`${user == "tasker" ? "radio radio-active" : "radio"}`}></span>
                                         <figure className="thumbnail-img">
                                             <Image
                                                 src="/illustrations/signup-as-tasker.svg"
                                                 height={80}
                                                 width={80}
                                                 objectFit="cover"
-                                                alt="merchant-image"
+                                                alt="tasker-image"
                                             />
                                         </figure>
                                         <div className="card-content">
                                             <div className="account-description">
-                                                <h2 className="account-title">I am merchant looking for tasks</h2>
+                                                <h2 className="account-title">I am tasker looking for tasks</h2>
                                                 <p className="account-description">
                                                 I am a hardworking person who seeks oppurtunity in every task focusing on uplifting my careers to next heights. I priotorize in completing my tasks.
                                                 </p>
