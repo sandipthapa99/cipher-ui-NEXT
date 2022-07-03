@@ -77,9 +77,9 @@ const Layout: FC<MetaDataProps> = ({
                 <meta name="robots" content="index, follow" />
         </Head>
         <UpperHeader/>
-        {checkPolicyPage ? <Header /> : "hello"}
+        <Header />
             {children}
-        {checkPolicyPage ? <Footer/> : "hello"}
+        <Footer/>
         </>
     )
 }

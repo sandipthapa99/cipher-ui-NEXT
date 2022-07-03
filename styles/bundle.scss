@@ -6,6 +6,7 @@
 @import "app";
 
 // Components
+@import "choose";
 @import "components/upper-header";
 @import "components/header";
 @import "components/homepage";
@@ -15,4 +16,7 @@
 @import "components/categoryCard";
 @import "components/cardBtn";
 @import "components/login";
-@import "choose";
+@import "components/breadcrum";
+
+// Pages
+@import "pages/privacyPolicy"

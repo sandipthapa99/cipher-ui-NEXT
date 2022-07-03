@@ -27,6 +27,9 @@ const SignUpAsTasker = () => {
                 >
                     {({ isSubmitting, errors, touched }) => (
                         <Form className="login-form">
+                            <div className="form-group">
+                                    
+                            </div>
                             <RadioField
                                 type="radio"
                                 name="gender"
