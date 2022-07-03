@@ -1,0 +1,9 @@
+.contact-page-header{
+    background-color: #CDE9F9;
+    &__description{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}
