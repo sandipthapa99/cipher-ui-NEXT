@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from "react"
-import { FormButtonProps } from "../../types/formButton"
+import { FormButtonProps } from "types/formButton"
 
 const FormButton = ({
   name,

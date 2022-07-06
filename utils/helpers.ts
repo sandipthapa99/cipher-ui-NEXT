@@ -1,3 +1,12 @@
+import { NextRouter } from "next/router";
+
+// To check active menu page
+export const handleMenuActive = (path:string, router: NextRouter) => {
+    const defaultClass = "nav-item";
+    const activeClass = defaultClass + " nav-item--active";
+    return router.pathname == path ? activeClass : defaultClass;
+};
+
 // form-group validate
 export const checkFormGroup = (error: any) => {
     const currentClass = "form-group";

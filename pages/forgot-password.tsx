@@ -2,13 +2,11 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
+import emailValidationSchema from "utils/formValidation/emailValidation";
 import { isSubmittingClass } from "utils/helpers";
 import * as Yup from "yup";
 
 const ForgotPassword = () => {
-    const emailValidationSchema = Yup.object().shape({
-        email: Yup.string().email("Invalid email").required("Required field"),
-    });
     return (
         <section>
             <OnBoardingLayout

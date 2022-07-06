@@ -5,15 +5,11 @@ import Link from "next/link";
 import {NextRouter,useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
+import { handleMenuActive } from "utils/helpers";
 // import { handleMenuActive } from "../../../../libs/util-formatter/src";
 
 const Header = () => {
     const router = useRouter();
-    const handleMenuActive = (path:string, router: NextRouter) => {
-        const defaultClass = "nav-item";
-        const activeClass = defaultClass + " nav-item--active";
-        return router.pathname == path ? activeClass : defaultClass;
-    };
 
     const [stickyClass, setStickyClass] = useState('relative');
     useEffect(() => {

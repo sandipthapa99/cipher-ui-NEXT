@@ -1,18 +1,6 @@
-import Image from "next/image"
-import Link from "next/link"
-import React, { ReactNode } from "react"
-import { Url } from "url"
-
-interface OnBoardingLayoutProps {
-  topLeftText?: string
-  topRightText?: string
-  welcomeText?: string
-  headerText?: string
-  redirectionLink?: any
-  currentPage?: string
-  mainImg: string
-  children: ReactNode
-}
+import Image from "next/image";
+import Link from "next/link";
+import { OnBoardingLayoutProps } from "types/OnBoardingLayoutProps";
 
 const OnBoardingLayout = ({
   children,

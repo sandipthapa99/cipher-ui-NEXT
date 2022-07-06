@@ -7,11 +7,9 @@ import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import * as Yup from "yup";
 import InputField from "./common/InputField";
+import emailValidationSchema from "utils/formValidation/emailValidation";
 
 const Footer = () => {
-    const emailSubscribeSchema = Yup.object().shape({
-        email: Yup.string().email("Invalid email").required("Required field"),
-    });
     return (
         <>
             <footer id="site-footer" className="site-footer">
@@ -26,7 +24,7 @@ const Footer = () => {
                             <Col sm={6} className="newsletter-form">
                                 <Formik
                                     initialValues={{ email: "" }}
-                                    validationSchema={emailSubscribeSchema}
+                                    validationSchema={emailValidationSchema}
                                     onSubmit={async (values) => {
                                         console.log(values)
                                     }}

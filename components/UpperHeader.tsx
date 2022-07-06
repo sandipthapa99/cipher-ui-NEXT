@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
 import { Container, Navbar } from 'react-bootstrap';
+import { handleMenuActive } from 'utils/helpers';
 
 /* eslint-disable-next-line */
 export interface UpperHeaderProps {}
@@ -11,11 +12,6 @@ export interface UpperHeaderProps {}
 export function UpperHeader(props: UpperHeaderProps) {
     const router = useRouter();
 
-    const handleMenuActive = (path:string, router: NextRouter) => {
-        const defaultClass = "nav-item";
-        const activeClass = defaultClass + " nav-item--active";
-        return router.pathname == path ? activeClass : defaultClass;
-    };
     return (
         <>
         {/* Site Upper Header Start */}
