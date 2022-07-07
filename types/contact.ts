@@ -9,3 +9,10 @@ export interface FeedbackValuesProps {
     email: string;
     message: string;
 }
+export interface SupportValuesProps {
+    fullName:string;
+    email: string;
+    phoneNumber:string;
+    issueType: string;
+    message: string;
+}

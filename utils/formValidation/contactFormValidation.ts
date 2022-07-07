@@ -29,5 +29,13 @@ export const FeedbackFormSchema = Yup.object().shape({
     // isAgree: isCheckValidate,
     // g_recaptcha_response: stringReqOnly,
 });
+export const SupportFormSchema = Yup.object().shape({
+    fullName: stringValidate,
+    subject: stringValidate,
+    email: emailValidate,
+    message: stringReqOnly,
+    // isAgree: isCheckValidate,
+    // g_recaptcha_response: stringReqOnly,
+});
 
 export default contactFormSchema;
