@@ -10,7 +10,6 @@ import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { ContactFormData } from "utils/contactFormData";
 import contactFormSchema from "utils/formValidation/contactFormValidation";
-import emailValidationSchema from "utils/formValidation/emailValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Contact = () => {

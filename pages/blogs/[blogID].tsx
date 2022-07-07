@@ -23,35 +23,35 @@ const SingleBlog = ({ blog }: BlogDetailProps) => {
                         <p>{category} / {formatMonthDate(blogData?.created_at)} </p>
                         <h1 className="heading-title">{blogData?.title}</h1>
                     </div>
-                    <div  className="single-blog__share-section">
+                    <div className="single-blog__share-section">
                         <Row className="gx-5">
                             <Col md={6} className="share-title"><span>2m read</span> . Share this article</Col>
                             <Col md={6}>
-                            <button>
-                                <p onClick={() =>  {
-                                    navigator.clipboard.writeText(`${socialShareURL}`);
-                                // successToast("Link Copied")
-                            }}
+                                <button>
+                                    <p onClick={() => {
+                                        navigator.clipboard.writeText(`${socialShareURL}`);
+                                        // successToast("Link Copied")
+                                    }}
+                                    >
+                                        <FontAwesomeIcon icon={faLink} height={16} />
+                                        Copy Link
+                                    </p>
+                                </button>
+                                <FacebookShareButton
+                                    url={socialShareURL}
                                 >
-                                    <FontAwesomeIcon icon={faLink} height={16}/>
-                                    Copy Link
-                                </p>
-                            </button>
-                            <FacebookShareButton
-                                url={socialShareURL}
-                            >
-                                <p><FontAwesomeIcon icon={faFacebookF} height={16}/>
-                                    Facebook
-                                </p>
-                            </FacebookShareButton>
-                            <TwitterShareButton
-                                url={socialShareURL}
-                            >
-                                <p><FontAwesomeIcon icon={faTwitter} height={16}/>
-                                    Twitter
-                                </p>
-                            </TwitterShareButton>
-                                
+                                    <p><FontAwesomeIcon icon={faFacebookF} height={16} />
+                                        Facebook
+                                    </p>
+                                </FacebookShareButton>
+                                <TwitterShareButton
+                                    url={socialShareURL}
+                                >
+                                    <p><FontAwesomeIcon icon={faTwitter} height={16} />
+                                        Twitter
+                                    </p>
+                                </TwitterShareButton>
+
                             </Col>
                         </Row>
                     </div>
@@ -63,7 +63,7 @@ const SingleBlog = ({ blog }: BlogDetailProps) => {
                                 layout="fill"
                                 objectFit="cover"
                             />
-                    </figure>
+                        </figure>
                     </div>
 
                     <div className="single-blog__content" dangerouslySetInnerHTML={{ __html: blogData?.content }}></div>

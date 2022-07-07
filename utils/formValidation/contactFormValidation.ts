@@ -14,8 +14,16 @@ stringValidate = Yup.string()
 stringReqOnly = Yup.string().required("Required field");
 // isCheckValidate = Yup.bool().oneOf([true]).required();
 
-const contactFormSchema = Yup.object().shape({
+export const contactFormSchema = Yup.object().shape({
     fullName: stringValidate,
+    email: emailValidate,
+    message: stringReqOnly,
+    // isAgree: isCheckValidate,
+    // g_recaptcha_response: stringReqOnly,
+});
+export const FeedbackFormSchema = Yup.object().shape({
+    fullName: stringValidate,
+    subject: stringValidate,
     email: emailValidate,
     message: stringReqOnly,
     // isAgree: isCheckValidate,
