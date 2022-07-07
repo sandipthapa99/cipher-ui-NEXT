@@ -1,9 +1,110 @@
-.contact-page-header{
+.contact-page-header {
     background-color: #CDE9F9;
-    &__description{
+    margin-bottom: 4rem;
+    @include respond(md){
+        margin-bottom: 8rem;
+    }
+
+    &__description {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: #211D4F;
+            @include respond(md){
+                font-size: 4rem;
+            }
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 4rem;
+            @include respond(md){
+                font-size: 2.4rem;
+                margin-bottom: 8rem;
+            }
+        }
+    }
+}
+
+.contact-page-form {
+    margin-bottom: 8rem;
+
+    .left-block {
+        .contact-block {
+            margin-bottom: 1.6rem;
+        }
+
+        a {
+            color: #212529;
+        }
+
+        .location {
+            color: #FE5050;
+        }
+
+        .phone {
+            color: #3D3F7D;
+        }
+
+        .social-sites {
+            display: flex;
+            .social-item {
+                margin-right: 1.6rem;
+                .facebook {
+                    color: $facebook-logo-color;
+                }
+
+                .twitter {
+                    color: $twitter-logo-color;
+                }
+
+                .google {
+                    color: $google-logo-color;
+                }
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .map {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding-top: 65%;
+            .map-frame {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 0.4rem;
+                // height: 40rem;
+                // width: 60rem;
+
+            }
+        }
+    }
+
+    .right-block {
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: #212529;
+            margin-bottom: 2.4rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+        }
     }
 }
