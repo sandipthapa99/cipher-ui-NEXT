@@ -3,6 +3,7 @@ import { phoneRegExp } from "utils/helpers";
 
 let emailValidate,
     stringValidate,
+    phoneValidate,
     stringReqOnly;
 
 emailValidate = Yup.string()
@@ -13,6 +14,9 @@ stringValidate = Yup.string()
     .required("Required field");
 stringReqOnly = Yup.string().required("Required field");
 // isCheckValidate = Yup.bool().oneOf([true]).required();
+phoneValidate = Yup.string()
+    .matches(phoneRegExp, "Invalid phone number")
+    .required("Required field");
 
 export const contactFormSchema = Yup.object().shape({
     fullName: stringValidate,
@@ -31,8 +35,9 @@ export const FeedbackFormSchema = Yup.object().shape({
 });
 export const SupportFormSchema = Yup.object().shape({
     fullName: stringValidate,
-    subject: stringValidate,
     email: emailValidate,
+    phoneNumber: phoneValidate,
+    issueType:stringValidate,
     message: stringReqOnly,
     // isAgree: isCheckValidate,
     // g_recaptcha_response: stringReqOnly,

@@ -5,10 +5,10 @@ import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
-import { ContactFormData, FeedbackFormData } from "utils/contactFormData";
-import contactFormSchema, { FeedbackFormSchema } from "utils/formValidation/contactFormValidation";
+import { SupportFormData } from "utils/contactFormData";
+import { SupportFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { myOptions } from "utils/options";
+import { issueTypes } from "utils/options";
 
 const Support = () => {
     return (
@@ -20,7 +20,7 @@ const Support = () => {
                             <Col md={6} className="d-none d-md-flex">
                                 <figure className="thumbnail-img">
                                     <Image
-                                        src="/feedback.svg"
+                                        src="/support.svg"
                                         layout="fill"
                                         objectFit="cover"
                                         alt="merchant-image"
@@ -32,8 +32,8 @@ const Support = () => {
                                 <h1>Support Form</h1>
                                 <p>Any question or queries? Just write us a message</p>
                                 <Formik
-                                    initialValues={FeedbackFormData}
-                                    validationSchema={FeedbackFormSchema}
+                                    initialValues={SupportFormData}
+                                    validationSchema={SupportFormSchema}
                                     onSubmit={async (values) => {
                                         console.log(values)
                                     }}
@@ -64,15 +64,15 @@ const Support = () => {
                                                 type="text"
                                                 name="phone_number"
                                                 labelName="Phone Number"
-                                                touch={touched.phone_number}
-                                                error={errors.phone_number}
+                                                touch={touched.phoneNumber}
+                                                error={errors.phoneNumber}
                                                 placeHolder="+00 420 420 4200"
                                             />
                                             <SelectInputField
                                                 name="experience"
-                                                placeHolder="All"
+                                                placeHolder="Technical"
                                                 labelName="Issue Type"
-                                                options={myOptions}
+                                                options={issueTypes}
                                             // fieldRequired
                                             />
                                             <InputField

@@ -51,7 +51,6 @@ const Blog = ({ blogsData }: BlogsProps) => {
                                     const category = JSON.parse(blog?.category);
                                     console.log(blog)
                                     return (
-                                        <>
                                             <Col md={4} key={blog?.id}>
                                                 <Link href={`/blogs/${blog?.slug}`}>
                                                     <a>
@@ -79,88 +78,6 @@ const Blog = ({ blogsData }: BlogsProps) => {
                                                     </a>
                                                 </Link>
                                             </Col>
-                                            <Col md={4} key={blog?.id}>
-                                                <Link href={`/blogs/${blog?.slug}`}>
-                                                    <a>
-                                                        <div className="blog-details">
-                                                            <h2>{blog?.title?.substring(0, 50)}</h2>
-                                                            <figure className="thumnail-img">
-                                                                <Image
-                                                                    src={blog.image}
-                                                                    alt="hero-img"
-                                                                    width={422}
-                                                                    height={230}
-                                                                    objectFit="cover"
-                                                                />
-                                                            </figure>
-                                                            <p className="category">
-                                                                {category[0]}
-                                                            </p>
-                                                            <div className="author-date">
-                                                                <p className="author">{`${blog.author.first_name}`}</p>
-                                                                <p className="published-date"><FontAwesomeIcon icon={faCalendarDays} className="svg-icon" />
-                                                                {`${formatMonthDate(blog?.created_at)}`}</p>
-                                                            </div>
-                                                            {/* <div className="insights-block-description" dangerouslySetInnerHTML={{ __html: `${blog?.content?.substring(0, 200)}...` }}></div> */}
-                                                        </div>
-                                                    </a>
-                                                </Link>
-                                            </Col>
-                                            <Col md={4} key={blog?.id}>
-                                                <Link href={`/blogs/${blog?.slug}`}>
-                                                    <a>
-                                                        <div className="blog-details">
-                                                            <h2>{blog?.title?.substring(0, 50)}</h2>
-                                                            <figure className="thumnail-img">
-                                                                <Image
-                                                                    src={blog.image}
-                                                                    alt="hero-img"
-                                                                    width={422}
-                                                                    height={230}
-                                                                    objectFit="cover"
-                                                                />
-                                                            </figure>
-                                                            <p className="category">
-                                                                {category[0]}
-                                                            </p>
-                                                            <div className="author-date">
-                                                                <p className="author">{`${blog.author.first_name}`}</p>
-                                                                <p className="published-date"><FontAwesomeIcon icon={faCalendarDays} className="svg-icon" />
-                                                                {`${formatMonthDate(blog?.created_at)}`}</p>
-                                                            </div>
-                                                            {/* <div className="insights-block-description" dangerouslySetInnerHTML={{ __html: `${blog?.content?.substring(0, 200)}...` }}></div> */}
-                                                        </div>
-                                                    </a>
-                                                </Link>
-                                            </Col>
-                                            <Col md={4} key={blog?.id}>
-                                                <Link href={`/blogs/${blog?.slug}`}>
-                                                    <a>
-                                                        <div className="blog-details">
-                                                            <h2>{blog?.title?.substring(0, 50)}</h2>
-                                                            <figure className="thumnail-img">
-                                                                <Image
-                                                                    src={blog.image}
-                                                                    alt="hero-img"
-                                                                    width={422}
-                                                                    height={230}
-                                                                    objectFit="cover"
-                                                                />
-                                                            </figure>
-                                                            <p className="category">
-                                                                {category[0]}
-                                                            </p>
-                                                            <div className="author-date">
-                                                                <p className="author">{`${blog.author.first_name}`}</p>
-                                                                <p className="published-date"><FontAwesomeIcon icon={faCalendarDays} className="svg-icon" />
-                                                                {`${formatMonthDate(blog?.created_at)}`}</p>
-                                                            </div>
-                                                            {/* <div className="insights-block-description" dangerouslySetInnerHTML={{ __html: `${blog?.content?.substring(0, 200)}...` }}></div> */}
-                                                        </div>
-                                                    </a>
-                                                </Link>
-                                            </Col>
-                                        </>
                                     )
                                 })) :
                                 <section className="">

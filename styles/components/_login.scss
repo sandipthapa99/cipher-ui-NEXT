@@ -79,8 +79,13 @@
 
   &.login,
   &.forgot-password,
-  &.signup {
-    width: 70%;
+  &.signup,
+  &.client-signup,
+  &.tasker-signup {
+    width: 100%;
+    @include respond(lg){
+      width: 70%;
+    }
   }
 
 

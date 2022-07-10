@@ -16,7 +16,9 @@ const SignUpAsTasker = () => {
             topRightText="Login"
             headerText="Signing up as a Tasker"
             mainImg="/illustrations/rocket.svg"
-            redirectionLink="/login">
+            redirectionLink="/login"
+            currentPage="tasker-signup"
+            >
             <div>
                 <Formik
                     initialValues={ClientSignUpFormData}

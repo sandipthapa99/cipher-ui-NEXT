@@ -29,7 +29,7 @@ const Signup = () => {
                 className="email"
             />
             <p className="terms-condition-agree-text">
-                By signing up, you agree our <span><a href="">Terms and Conditions</a></span>.
+                By signing up, you agree our <span><a href="/terms-conditions">Terms and Conditions</a></span>.
             </p>
 
 

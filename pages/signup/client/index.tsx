@@ -16,7 +16,9 @@ const SignUpAsClient = () => {
             topRightText="Login"
             headerText="Signing up as a Client"
             mainImg="/illustrations/rocket.svg"
-            redirectionLink="/login">
+            redirectionLink="/login"
+            currentPage="client-signup"
+            >
             <div>
                 <Formik
                     initialValues={ClientSignUpFormData}
