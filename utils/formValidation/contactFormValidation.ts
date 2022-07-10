@@ -42,5 +42,11 @@ export const SupportFormSchema = Yup.object().shape({
     // isAgree: isCheckValidate,
     // g_recaptcha_response: stringReqOnly,
 });
+export const FaqFormSchema = Yup.object().shape({
+    fullName: stringValidate,
+    email: emailValidate,
+    phoneNumber: phoneValidate,
+    message: stringReqOnly,
+});
 
 export default contactFormSchema;

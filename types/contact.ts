@@ -16,3 +16,9 @@ export interface SupportValuesProps {
     issueType: string;
     message: string;
 }
+export interface FaqValuesProps {
+    fullName:string;
+    email: string;
+    phoneNumber:string;
+    message: string;
+}
