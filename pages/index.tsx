@@ -34,7 +34,7 @@ const Home: NextPage = () => {
                                 Catering To Your Requirements
                             </h1>
                             <p>
-                                Discover the world of services & get paid for your time
+                                Discover the world of services &amp; get paid for your time
                             </p>
                         </div>
                         {/* Hero Text End Here */}
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
                         <Formik
                             initialValues={HomeSearchdata}
                             validationSchema={HomeSearchSchema}
-                            onSubmit={async (values, actions) => { console.log(values) }}>
+                            onSubmit={async (values) => { console.log(values) }}>
                             <div className="search_box">
                                 <div className="dropdown-wrapper">
                                     <div className="dropdown">
@@ -391,6 +391,37 @@ const Home: NextPage = () => {
                 </Container>
             </section>
             {/* Find oppurtunities section end */}
+
+            {/* Tasks you may like section start */}
+            <section id="tasks-you-may-like" className="tasks-you-may-like">
+                <Container fluid="xl">
+                    <div className="title-wrapper d-flex justify-content-between">
+                        <h2 className="heading-title">Top Rated Merchants</h2>
+                        <a href="" className='view-more'>view more <FontAwesomeIcon icon={faAngleRight} className="svg-icon" /></a>
+                    </div>
+                    <Row className="gx-5">
+                        {merchants && merchants.map((merchant) => {
+                            return (
+                                <Col sm={6} key={merchant.id}>
+                                    <MerchantCard
+                                        merchantImage={merchant.merchantImage}
+                                        merchantName={merchant.merchantName}
+                                        merchantCategory={merchant.merchantCategory}
+                                        merchantLocation={merchant.merchantLocation}
+                                        merchantDescription={merchant.merchantDescription}
+                                        merchantRating={merchant.merchantRating}
+                                        merchantPrice={merchant.merchantPrice}
+                                        happyClients={merchant.happyClients}
+                                        successRate={merchant.successRate}
+                                    />
+                                </Col>
+                            )
+                        })}
+                    </Row>
+
+                </Container>
+            </section>
+            {/* Tasks you may like section end */}
         </Layout>
     )
 }
