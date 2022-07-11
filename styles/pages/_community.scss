@@ -42,6 +42,17 @@
       font-size: 20px;
       line-height: 30px;
     }
+
+    &__guidelines {
+      margin-top: 50px;
+      h1 {
+        font-size: 20px;
+      }
+      p {
+        text-align: left;
+        font-size: 14px;
+      }
+    }
   }
 
   &__gallery__leftImage {
@@ -55,15 +66,13 @@
     }
   }
   p {
-    text-align: center;
     font-weight: 400;
-    font-size: 24px;
     margin-top: 20px;
     color: $primary-color;
   }
 }
 
-.communityus-images .thumbnail-img {
+.community-images .thumbnail-img {
   height: 100%;
   width: 100%;
   border-radius: 4px;

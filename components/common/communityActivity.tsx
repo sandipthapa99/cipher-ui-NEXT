@@ -1,14 +1,18 @@
 import Image from 'next/image'
-import { CommunityGuidelineCardProps } from 'types/community'
+import { CommunityActivityCardProps } from 'types/community'
 
-const CommunityGuidelineCard = ({
+const CommunityActivityCard = ({
   CardImage,
   CardDescription,
   CardTitle,
-}: CommunityGuidelineCardProps) => {
+  React,
+  Comments,
+  Name,
+  Position,
+}: CommunityActivityCardProps) => {
   return (
     <div className="card-block">
-      <figure className="thumbnail-img">
+      {/* <figure className="thumbnail-img">
         <Image
           src={CardImage}
           layout="fill"
@@ -16,7 +20,7 @@ const CommunityGuidelineCard = ({
           objectFit="cover"
           alt="guideline-card-image"
         />
-      </figure>
+      </figure> */}
 
       <div className="card-block__card-content">
         <h2 className="card-title">{CardTitle}</h2>
@@ -27,8 +31,11 @@ const CommunityGuidelineCard = ({
             <li>{guide}</li>
           ))}
         </p>
+
+ 
+
       </div>
     </div>
   )
 }
-export default CommunityGuidelineCard
+export default CommunityActivityCard
