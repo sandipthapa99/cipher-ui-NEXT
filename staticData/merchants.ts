@@ -8,6 +8,8 @@ export const merchants =[
         merchantDescription:"I’m punctual and hardworking person. I love teaching what I. We want  a garden cleaner for our bunglow.",
         merchantRating:"3.8(400)",
         merchantPrice:60,
+        happyClients:200,
+        successRate:90,
     },
     {
         id:"1",
@@ -18,6 +20,8 @@ export const merchants =[
         merchantDescription:"I’m punctual and hardworking person. I love teaching what I. We want  a garden cleaner for our bunglow who can great take care of our plants.",
         merchantRating:"4.3(200)",
         merchantPrice:40,
+        happyClients:200,
+        successRate:90,
     },
     {
         id:"2",
@@ -28,6 +32,8 @@ export const merchants =[
         merchantDescription:"We are a team of great individuals who believe in providing best services to. We want  a garden cleaner for our bunglow who can great take care",
         merchantRating:"4(600)",
         merchantPrice:70,
+        happyClients:200,
+        successRate:90,
     },
     {
         id:"3",
@@ -38,5 +44,7 @@ export const merchants =[
         merchantDescription:"Our team focuses on creativity and teaching innovative dance. We want  a garden cleaner for our bunglow who can great take care of our plants, includes monitoring.",
         merchantRating:"3(500)",
         merchantPrice:60,
+        happyClients:200,
+        successRate:90,
     },
 ]

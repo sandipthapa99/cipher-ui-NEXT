@@ -9,6 +9,7 @@
         display: flex;
         align-items: center;
         padding: 2.4rem;
+
         .thumbnail-img {
             margin-right: 2.4rem;
             height: 8rem;
@@ -55,15 +56,42 @@
             }
         }
 
-        .analytics{
-            .happy-clients{
+        .analytics {
+            border-top: 1px solid #CED4DA;
+            border-bottom: 1px solid #CED4DA;
+            padding: 0.8rem 0;
+            margin-bottom: 2.4rem;
+
+            .count {
                 .thumbnail-img {
                     height: 2.4rem;
                     width: 2.4rem;
                     margin-right: 0.8rem;
                 }
+
+                p {
+                    font-size: 1.4rem;
+                    font-weight: 400;
+                    color: #343A40;
+                    margin: 0;
+                }
             }
-            .success-rate{
+
+            .analytics-title {
+                p {
+                    font-size: 1rem;
+                    font-weight: 400;
+                    color: #868E96;
+                    margin: 0;
+                }
+
+            }
+            .happy-clients{
+                padding: 0 2.4rem 0 3.2rem;
+            }
+            .success-rate {
+                border-left: 1px solid #CED4DA;
+                padding: 0 3.2rem 0 2.4rem;
                 .thumbnail-img {
                     height: 2.4rem;
                     width: 2.4rem;

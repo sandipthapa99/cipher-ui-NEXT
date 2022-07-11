@@ -15,6 +15,8 @@ const MerchantCard = ({
     merchantDescription,
     merchantRating,
     merchantPrice,
+    happyClients,
+    successRate,
 }: MerchantCardProps) => {
     return (
         <div className="merchant-card-block">
@@ -39,27 +41,37 @@ const MerchantCard = ({
                     </p>
                 </div>
                 <div className="analytics d-flex justify-content-between">
-                    <div className="happy-clients d-flex">
-                        <figure className="thumbnail-img">
-                            <Image
-                                src="/icons/happy-face.svg"
-                                layout="fill"
-                                objectFit="contain"
-                                alt="Happy Face"
-                            />
-                        </figure>
-                        200
+                    <div className="happy-clients d-flex flex-column">
+                        <div className="count d-flex flex-row">
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src="/icons/happy-face.svg"
+                                    layout="fill"
+                                    objectFit="contain"
+                                    alt="Happy Face"
+                                />
+                            </figure>
+                            <p>{happyClients}</p>
+                        </div>
+                        <div className="analytics-title">
+                            <p>Happy Clients</p>
+                        </div>
                     </div>
-                    <div className="success-rate d-flex">
-                        <figure className="thumbnail-img">
-                            <Image
-                                src="/icons/badge.svg"
-                                layout="fill"
-                                objectFit="contain"
-                                alt="Happy Face"
-                            />
-                        </figure>
-                        200
+                    <div className="success-rate d-flex flex-column">
+                        <div className="count  d-flex flex-row">
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src="/icons/badge.svg"
+                                    layout="fill"
+                                    objectFit="contain"
+                                    alt="Happy Face"
+                                />
+                            </figure>
+                            <p>{successRate}%</p>
+                        </div>
+                        <div className="analytics-title">
+                            <p>Success Rate</p>
+                        </div>
                     </div>
                 </div>
                 <div className="ratings-wrapper d-flex justify-content-between">

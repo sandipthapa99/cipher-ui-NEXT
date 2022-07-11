@@ -275,7 +275,7 @@ const Home: NextPage = () => {
             <Row className="gx-5">
             {merchants && merchants.map((merchant)=>{
                 return(
-                    <Col sm={6} md={4} lg={3} key={merchant.id}>
+                    <Col sm={6} lg={4} xl={3} key={merchant.id}>
                         <MerchantCard
                         merchantImage={merchant.merchantImage}
                         merchantName={merchant.merchantName}
@@ -284,6 +284,8 @@ const Home: NextPage = () => {
                         merchantDescription={merchant.merchantDescription}
                         merchantRating={merchant.merchantRating}
                         merchantPrice= {merchant.merchantPrice}
+                        happyClients= {merchant.happyClients}
+                        successRate= {merchant.successRate}
                         />
                     </Col>
                 )
