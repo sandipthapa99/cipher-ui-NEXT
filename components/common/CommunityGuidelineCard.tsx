@@ -22,7 +22,6 @@ const CommunityGuidelineCard = ({
         <h2 className="card-title">{CardTitle}</h2>
 
         <p className="card-block__card-description">
-          {/* {`${aboutDescription.substring(0, 80)}...`} */}
           {CardDescription.map((guide: any) => (
             <li>{guide}</li>
           ))}
