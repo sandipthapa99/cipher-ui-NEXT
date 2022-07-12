@@ -34,7 +34,7 @@ const MerchantCard = ({
                     <h3 className="card-subtitle"><span>{merchantCategory}</span> | {merchantLocation}</h3>
                 </div>
             </div>
-            <div className="card-content">
+                <div className="card-content">
                 <div className="merchant-description">
                     <p className="card-description">
                         {`${merchantDescription.length > 100 ? `${merchantDescription.substring(0, 100)}...` : merchantDescription}`}
@@ -86,7 +86,10 @@ const MerchantCard = ({
                         <FontAwesomeIcon icon={faHeart} className="svg-icon heart" />
                         <FontAwesomeIcon icon={faShare} className="svg-icon share" />
                     </div>
-                    <CardBtn btnTitle="Hire Me" />
+                    <CardBtn 
+                    btnTitle="Hire Me"
+                    backgroundColor="#211D4F"
+                    />
                 </div>
             </div>
         </div>

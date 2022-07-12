@@ -1,6 +1,6 @@
 export interface TaskCardProps{
     title:string;
-    charge:number;
+    charge:string;
     description:string;
     location:string;
     date:string;

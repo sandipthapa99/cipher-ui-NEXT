@@ -15,10 +15,12 @@ import {
 } from "utils/options";
 import { services } from 'staticData/services';
 import { merchants } from 'staticData/merchants';
+import { tasks } from 'staticData/task';
 import CategoryCard from '@components/common/CategoryCard'
 import { serviceCategory } from 'staticData/serviceCategory'
 import Link from 'next/link'
 import MerchantCard from '@components/common/MerchantCard'
+import TaskCard from '@components/common/TaskCard'
 
 const Home: NextPage = () => {
     return (
@@ -396,29 +398,25 @@ const Home: NextPage = () => {
             <section id="tasks-you-may-like" className="tasks-you-may-like">
                 <Container fluid="xl">
                     <div className="title-wrapper d-flex justify-content-between">
-                        <h2 className="heading-title">Top Rated Merchants</h2>
+                        <h2 className="heading-title">Tasks You May Like</h2>
                         <a href="" className='view-more'>view more <FontAwesomeIcon icon={faAngleRight} className="svg-icon" /></a>
                     </div>
                     <Row className="gx-5">
-                        {merchants && merchants.map((merchant) => {
+                        {tasks && tasks.map((task) => {
                             return (
-                                <Col sm={6} key={merchant.id}>
-                                    <MerchantCard
-                                        merchantImage={merchant.merchantImage}
-                                        merchantName={merchant.merchantName}
-                                        merchantCategory={merchant.merchantCategory}
-                                        merchantLocation={merchant.merchantLocation}
-                                        merchantDescription={merchant.merchantDescription}
-                                        merchantRating={merchant.merchantRating}
-                                        merchantPrice={merchant.merchantPrice}
-                                        happyClients={merchant.happyClients}
-                                        successRate={merchant.successRate}
+                                <Col md={6} key={task.id}>
+                                    <TaskCard
+                                    title={task.title}
+                                    charge={task.charge}
+                                    description={task.description}
+                                    location={task.location}
+                                    date={task.date}
+                                    time={task.time}
                                     />
                                 </Col>
                             )
                         })}
                     </Row>
-
                 </Container>
             </section>
             {/* Tasks you may like section end */}
