@@ -1,0 +1,151 @@
+import type { NextPage } from 'next'
+import Layout from '@components/Layout'
+import Breadcrum from '@components/common/Breadcrum'
+import { Container, Col, Row } from 'react-bootstrap'
+import Image from 'next/image'
+import AboutCard from '@components/common/AboutCard'
+import { aboutCardContent } from 'staticData/aboutCardContent'
+
+const About: NextPage = () => {
+  return (
+    <Layout title="About Us | Cipher">
+      <div className="about-page-header">
+        <Breadcrum currentPage="About Us" />
+      </div>
+
+      <div className="about-page-main">
+        <Container fluid="xl">
+          <div className="about-page-content">
+            <div className="about-page-top-container">
+              <figure className="thumbnail-img">
+                <Image
+                  src="/aboutus/img1.png"
+                  layout="fill"
+                  objectFit="cover"
+                  alt="about-page-main-image"
+                />
+              </figure>
+              <div className="aboutus_overlay">
+                <p>Bridging the gap between individuals for growth.</p>
+              </div>
+            </div>
+
+            <Row>
+              <Col md={6} className="aboutus-images">
+                <figure className="thumbnail-img">
+                  <Image
+                    src="/aboutus/about.png"
+                    layout="fill"
+                    objectFit="cover"
+                    alt="about-page-main-image"
+                  />
+                </figure>
+              </Col>
+              <Col md={6}>
+                <div className="about-information">
+                  <h2>About Cipher</h2>
+                  <h5>
+                    We are an on demand ap that connects customers with about
+                    providers.{' '}
+                  </h5>
+                  <p>
+                    CIPHER is a platform incepted with the idea of bridging the
+                    gap between individuals who need a certain task completed,
+                    and those who have the skills to get the very task completed
+                    within a given timeframe. The tasks one might need may range
+                    from anything between getting your room painted, or getting
+                    an entire software developed. In today’s fast paced
+                    environment, one might not have the time to manage their
+                    household errands as they might want to, or you might be an
+                    entrepreneur wanting to finish your project on a deadline,
+                    and this is exactly where CIPHER is going to be your trusted
+                    partner for everything. Go through the app, search for the
+                    abouts you want to avail, and in a few clicks, your task
+                    will be completed within your desired timeframe.
+                  </p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6}>
+                <div className="about-information">
+                  <h2>Our Purpose</h2>
+                  <p>
+                    Serve the community by providing everyone the platform to
+                    showcase their skills, talents, and minimise the stress of
+                    job hunting for every individual. We cater to people from
+                    all walks of life, and we intend to be the best at what we
+                    do. The tasks one might need may range from anything between
+                    getting your room painted, or getting an entire software
+                    developed. In today’s fast paced environment, one might not
+                    have the time to manage their household errands as they
+                    might want to, or you might be an entrepreneur wanting to
+                    finish your project on a deadline, and this is exactly where
+                    CIPHER is going to be your trusted partner for everything.
+                    Go through the app, search for the abouts you want to avail,
+                    and in a few clicks, your task will be completed within your
+                    desired timeframe.
+                  </p>
+                </div>
+              </Col>
+              <Col md={6} className="aboutus-images">
+                <figure className="thumbnail-img">
+                  <Image
+                    src="/aboutus/purpose.png"
+                    layout="fill"
+                    objectFit="cover"
+                    alt="about-page-main-image"
+                  />
+                </figure>
+              </Col>
+            </Row>
+            <div className="card-container pt-5">
+              <h1>Our Scope</h1>
+              <Row className="gx-5">
+                {aboutCardContent &&
+                  aboutCardContent.map((about) => {
+                    return (
+                      <Col
+                        // sm={6}
+                        md={4}
+                        // lg={4}
+                        key={about.id}
+                      >
+                        <AboutCard
+                          aboutImage={about.cardImage}
+                          aboutTitle={about.cardTitle}
+                          aboutDescription={about.cardDescription}
+                        />
+                      </Col>
+                    )
+                  })}
+              </Row>
+            </div>
+            <div className="about-page-footer">
+              <h1>Our economic growth</h1>
+              <p>
+                The video below illustrates the Freelancer online economy.
+                Increases in capital goods, labor force, technology, and human
+                capital can all contribute to economic growth. Every business
+                also operates within the economy. Based on their economic
+                expectations, businesses decide what products to produce, how to
+                price them, how many people to employ, how much to pay these
+                employees, how much to expand the business, and so on.
+              </p>
+              <figure className="thumbnail-img footer-img">
+                <Image
+                  src="/aboutus/egrowth.png"
+                  layout="fill"
+                  objectFit="cover"
+                  alt="about-page-footer-image"
+                />
+              </figure>
+            </div>
+          </div>
+        </Container>
+      </div>
+    </Layout>
+  )
+}
+
+export default About

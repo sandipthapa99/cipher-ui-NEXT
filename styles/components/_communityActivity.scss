@@ -1,0 +1,119 @@
+.activitycard-block {
+  margin: 0 0 3rem;
+  border-radius: 0.4rem;
+  box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+  background: rgba(255, 255, 255, 0.4);
+  &__card-content {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .activitycard-title {
+      text-align: left;
+      border: none !important;
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 22px;
+      color: $primary-color;
+    }
+
+    .card-description {
+      text-align: left;
+      color: $secondary-text-color;
+      margin: 0px;
+    }
+  }
+  &__card-status {
+    display: flex;
+    justify-content: space-between;
+
+    .personal-information {
+      display: flex;
+
+      .thumbnail-img {
+        margin: 0 auto;
+        height: 5rem;
+        width: 5rem;
+        border-radius: 50%;
+        margin-top: 10px;
+      }
+
+      .name-position {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: $primary-color;
+        margin-left: 10px;
+      }
+      .position {
+        margin-left: 10px;
+      }
+    }
+    .reacts-status {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .heart-status {
+      margin-right: 10px;
+    }
+    .heart {
+      color: #fe5050;
+      font-weight: 400;
+    }
+    .share {
+      color: #3eaeff;
+      font-weight: 400;
+    }
+  }
+}
+.find-hire-card-block {
+  margin: 0 0 3rem;
+  border-radius: 0.4rem;
+  box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+  background: rgba(255, 255, 255, 0.4);
+  .thumbnail-img {
+    height: 20rem;
+    margin: 0;
+    border-radius: 0.4rem 0.4rem 0 0;
+    @include respond(md) {
+      height: 28rem;
+      margin: 0;
+    }
+  }
+  .card-content {
+    padding: 2.7rem 2.2rem 2.6rem 2.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #211d4f;
+      margin-bottom: 0rem;
+    }
+    p {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: $secondary-text-color;
+      line-height: 1.8rem;
+      margin-bottom: 2.2rem;
+    }
+    a {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #fca500;
+      margin-top: auto;
+      .svg-icon {
+        height: 1.6rem;
+        width: 1.6rem;
+        margin-left: 0.4rem;
+      }
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+}

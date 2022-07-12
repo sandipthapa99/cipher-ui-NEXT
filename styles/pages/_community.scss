@@ -1,0 +1,244 @@
+.community-page {
+  margin-bottom: 70px;
+  &__top-container {
+    margin-bottom: 80px;
+
+    .top-row {
+      @include respond(sm) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .thumbnail-img {
+      // height: 400px;
+      object-fit: contain;
+      // width: 540px;
+      //   @include respond(lg) {
+      //     height: 300px;
+      //     width: 400px;
+      //   }
+
+      @include respond(sm) {
+        height: 250px;
+        width: 300px;
+      }
+      @include respond(md) {
+        height: 300px;
+        width: 400px;
+      }
+      @include respond(lg) {
+        height: 400px;
+        width: 540px;
+      }
+    }
+    h3 {
+      font-weight: 500;
+      font-size: 3rem;
+      line-height: 4rem;
+      color: #211d4f;
+      @include respond(sm) {
+        font-size: 2.1rem;
+        text-align: left;
+        line-height: 3.4rem;
+      }
+      @include respond(md) {
+        font-size: 3rem;
+        line-height: 4rem;
+      }
+      @include respond(lg) {
+        font-size: 4rem;
+        line-height: 6rem;
+      }
+    }
+    p {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      color: $default-text-color;
+      @include respond(sm) {
+        font-size: 1.6rem;
+        line-height: 3rem;
+      }
+      @include respond(md) {
+        font-size: 2rem;
+      }
+      @include respond(lg) {
+        font-size: 2.4rem;
+        line-height: 4rem;
+      }
+    }
+    .button {
+      background: #ffffff;
+      /* Container */
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 30px;
+      gap: 10px;
+      box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+      border: none;
+      border-radius: 4px;
+      color: $primary-color;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 30px;
+    }
+
+    &__guidelines {
+      margin-top: 50px;
+      h1 {
+        font-size: 20px;
+      }
+      p {
+        text-align: left;
+        font-size: 14px;
+      }
+    }
+  }
+  .thumbnail-img {
+    object-fit: contain;
+  }
+  &__gallery__leftImage {
+    .thumbnail-img {
+      height: 440px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      @include respond(sm) {
+        margin-bottom: 20px;
+      }
+    }
+  }
+  &__gallery__rightImage {
+    .thumbnail-img {
+      border-radius: 4px;
+      height: 207px;
+      margin-bottom: 20px;
+      @include respond(sm) {
+        // margin-bottom: 10px;
+        object-fit: contain;
+      }
+
+      @include respond(md) {
+        object-fit: contain;
+        margin-bottom: 10px !important;
+      }
+
+      @include respond(xl) {
+        height: 207px;
+        margin-bottom: 10px !important;
+        padding-bottom: 0px !important;
+        // padding-bottom: 10px;
+      }
+    }
+  }
+  &__goal {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    margin: 0 0 3rem;
+    border-radius: 0.4rem;
+    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    background: rgba(255, 255, 255, 0.4);
+
+    @include respond(sm) {
+      flex-direction: column;
+    }
+    @include respond(md) {
+      flex-direction: row;
+    }
+    @include respond(lg) {
+      flex-direction: row;
+    }
+    @include respond(xl) {
+      flex-direction: row;
+    }
+
+    .thumbnail-img {
+      margin: 0 auto;
+      height: 30rem;
+      width: 30rem;
+      border-radius: 50%;
+      margin-top: 10px;
+    }
+    .description {
+      padding: 40px 60px;
+      h2 {
+        color: $primary-color;
+        font-size: 2rem;
+        font-weight: 500;
+        line-height: 24px;
+      }
+      p {
+        color: $secondary-text-color;
+        margin-top: 25px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .author {
+        color: $secondary-text-color;
+        margin-top: 15px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+  }
+  p {
+    font-weight: 400;
+    margin-top: 20px;
+    color: $primary-color;
+  }
+}
+
+.community-images .thumbnail-img {
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
+}
+
+.community-information {
+  h2 {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 30px;
+    color: $primary-color;
+  }
+
+  h5 {
+    font-weight: 500;
+    font-size: 1.75rem;
+    line-height: 24px;
+    color: $sub-title-color;
+  }
+  p {
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 22px;
+    color: $default-text-color;
+  }
+}
+h1 {
+  font-weight: 500;
+  font-size: 1.8rem;
+  line-height: 30px;
+  color: $primary-color;
+}
+.card-container {
+  margin: 50px 0px;
+}
+.community-page-footer {
+  p {
+    color: $sub-title-color;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 22px;
+  }
+  .thumbnail-img {
+    height: 60rem;
+  }
+}
