@@ -2,15 +2,15 @@ import Image from 'next/image'
 import { CommunityGuidelineCardProps } from 'types/community'
 
 const CommunityGuidelineCard = ({
-  CardImage,
-  CardDescription,
-  CardTitle,
+  cardImage,
+  cardDescription,
+  cardTitle,
 }: CommunityGuidelineCardProps) => {
   return (
     <div className="card-block">
       <figure className="thumbnail-img">
         <Image
-          src={CardImage}
+          src={cardImage}
           layout="fill"
           // height={300}
           objectFit="cover"
@@ -19,13 +19,19 @@ const CommunityGuidelineCard = ({
       </figure>
 
       <div className="card-block__card-content">
-        <h2 className="card-title">{CardTitle}</h2>
+        <h2 className="card-title">{cardTitle}</h2>
 
-        <p className="card-block__card-description">
-          {CardDescription.map((guide: any) => (
-            <li>{guide}</li>
-          ))}
-        </p>
+        <div className="card-block__card-description">
+          {Array.isArray(cardDescription) ? (
+            cardDescription.map((guide: any) => (
+              <ul>
+                <li>{guide}</li>
+              </ul>
+            ))
+          ) : (
+            <p>{cardDescription}</p>
+          )}
+        </div>
       </div>
     </div>
   )

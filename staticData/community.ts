@@ -28,10 +28,9 @@ export const communityGuidelineCardContent = [
         id:"2",
         cardTitle:"Consequences",
         cardImage:"/community/guideline3.png",
-        cardDescription: [
-           "We will take action when we see someone violating these guidelines. Sometimes that just means giving someone a warning; other times it means revoking certain"
+        cardDescription:"We will take action when we see someone violating these guidelines. Sometimes that just means giving someone a warning; other times it means revoking certain"
 
-        ]
+        
     },
     
 

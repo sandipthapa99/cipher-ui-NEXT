@@ -1,0 +1,16 @@
+.card-block {
+  .thumbnail-img {
+    height: 9rem;
+    width: 9rem;
+    object-fit: contain;
+    overflow: hidden;
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .card-title {
+    border-bottom: none;
+  }
+}

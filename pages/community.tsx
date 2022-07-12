@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import Link from 'next/link'
 import Layout from '@components/Layout'
 import Breadcrum from '@components/common/Breadcrum'
 import { Container, Col, Row, Button } from 'react-bootstrap'
@@ -17,9 +16,7 @@ import { Carousel } from 'react-bootstrap'
 const Community: NextPage = () => {
   return (
     <Layout title="Community | Cipher">
-      <div className="community-page__header">
-        <Breadcrum currentPage="Discover" />
-      </div>
+      <Breadcrum currentPage="Discover" />
 
       <div className="community-page">
         <Container fluid="xl">
@@ -41,7 +38,8 @@ const Community: NextPage = () => {
               </Col>
               <Col md={6} sm={6}>
                 <h3>
-                  Let’s root for each other & <br></br> watch each other grow
+                  Let&apos; root for each other & <br></br> watch each other
+                  grow
                 </h3>
                 <p>Communicate with others for your own benefit</p>
                 <Button className="button">Join Us</Button>
@@ -51,7 +49,7 @@ const Community: NextPage = () => {
           <div className="community-page__gallery">
             <h1>Community Gallery</h1>
             <Row>
-              <Col md={6} className="community-page__gallery__leftImage">
+              <Col md={6} className="community-page__gallery-leftImage">
                 <figure className="thumbnail-img">
                   <Image
                     src="/community/gallery1.png"
@@ -61,7 +59,7 @@ const Community: NextPage = () => {
                   />
                 </figure>
               </Col>
-              <Col md={6} className="community-page__gallery__rightImage">
+              <Col md={6} className="community-page__gallery-rightImage">
                 <Row className="gx-5">
                   <Col md={6} sm={6} className="pb-4">
                     <figure className="thumbnail-img small-gallery">
@@ -127,9 +125,9 @@ const Community: NextPage = () => {
                       key={guideline.id}
                     >
                       <CommunityGuidelineCard
-                        CardImage={guideline.cardImage}
-                        CardDescription={guideline.cardDescription}
-                        CardTitle={guideline.cardTitle}
+                        cardImage={guideline.cardImage}
+                        cardDescription={guideline.cardDescription}
+                        cardTitle={guideline.cardTitle}
                       />
                     </Col>
                   )
@@ -150,14 +148,13 @@ const Community: NextPage = () => {
                       key={activity.id}
                     >
                       <CommunityActivityCard
-                        CardIcon="hi"
-                        Comments={activity.comments}
-                        Position={activity.position}
-                        React={activity.react}
-                        CardImage={activity.cardImage}
-                        Name={activity.name}
-                        CardDescription={activity.description}
-                        CardTitle={activity.cardTitle}
+                        comments={activity.comments}
+                        position={activity.position}
+                        react={activity.react}
+                        cardImage={activity.cardImage}
+                        name={activity.name}
+                        cardDescription={activity.description}
+                        cardTitle={activity.cardTitle}
                       />
                     </Col>
                   )
@@ -204,9 +201,9 @@ const Community: NextPage = () => {
                       key={blog.id}
                     >
                       <CommunityBlogCard
-                        CardImage={blog.cardImage}
-                        CardDescription={blog.cardDescription}
-                        CardTitle={blog.cardTitle}
+                        cardImage={blog.cardImage}
+                        cardDescription={blog.cardDescription}
+                        cardTitle={blog.cardTitle}
                       />
                     </Col>
                   )
