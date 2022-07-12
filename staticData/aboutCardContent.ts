@@ -8,13 +8,13 @@ export const aboutCardContent = [
     {
         id:"1",
         cardTitle:"Trustworthy marketplace",
-        cardImage:"/aboutus/scope-2.png",
+        cardImage:"/aboutus/scope-3.svg",
         cardDescription: "We build trust between our clients and merchants using different resources.",
     },
     {
         id:"2",
         cardTitle:"Easy access to services",
-        cardImage:"/aboutus/scope-3.png",
+        cardImage:"/aboutus/scope-2.png",
         cardDescription: "Our main target is to become a platform that helps people to showcase their skills.",
     },
 

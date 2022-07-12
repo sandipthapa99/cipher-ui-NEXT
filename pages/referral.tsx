@@ -98,8 +98,6 @@ const About: NextPage = () => {
                       variant="primary"
                       name="Copy link  "
                       className="submit-btn"
-                      //isSubmitting={isSubmitting}
-                      //isSubmittingClass={isSubmittingClass(isSubmitting)}
                     />
                   </Col>
                 </Row>
@@ -111,7 +109,7 @@ const About: NextPage = () => {
               >
                 <figure className="thumbnail-img">
                   <Image
-                    src="/referral/Saly-27.png"
+                    src="/referral/Saly-27.svg"
                     layout="fill"
                     // objectFit="cover"
                     alt="referral-image"

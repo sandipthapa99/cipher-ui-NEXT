@@ -18,7 +18,7 @@ const About: NextPage = () => {
               <div className="main-image">
                 <figure className="thumbnail-img">
                   <Image
-                    src="/aboutus/img1.png"
+                    src="/aboutus/img1.svg"
                     layout="fill"
                     objectFit="cover"
                     alt="about-page-main-image"
@@ -35,7 +35,7 @@ const About: NextPage = () => {
               <Col md={6} className="aboutus-images">
                 <figure className="thumbnail-img">
                   <Image
-                    src="/aboutus/about.png"
+                    src="/aboutus/scope-1.svg"
                     layout="fill"
                     objectFit="cover"
                     alt="about-page-main-image"
@@ -92,7 +92,7 @@ const About: NextPage = () => {
               <Col md={6} className="aboutus-images">
                 <figure className="thumbnail-img">
                   <Image
-                    src="/aboutus/purpose.png"
+                    src="/aboutus/about-2.svg"
                     layout="fill"
                     objectFit="cover"
                     alt="about-page-main-image"

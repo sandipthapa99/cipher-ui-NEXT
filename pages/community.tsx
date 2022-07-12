@@ -48,64 +48,67 @@ const Community: NextPage = () => {
           </div>
           <div className="community-page__gallery">
             <h1>Community Gallery</h1>
-            <Row>
-              <Col md={6} className="community-page__gallery-leftImage">
-                <figure className="thumbnail-img">
-                  <Image
-                    src="/community/gallery1.png"
-                    layout="fill"
-                    objectFit="cover"
-                    alt="earth-image"
-                  />
-                </figure>
-              </Col>
-              <Col md={6} className="community-page__gallery-rightImage">
-                <Row className="gx-5">
-                  <Col md={6} sm={6} className="pb-4">
-                    <figure className="thumbnail-img small-gallery">
-                      <Image
-                        src="/community/gallery2.png"
-                        layout="fill"
-                        objectFit="cover"
-                        alt="earth-image"
-                      />
-                    </figure>
-                  </Col>
-                  <Col md={6} sm={6}>
-                    <figure className="thumbnail-img small-gallery">
-                      <Image
-                        src="/community/gallery3.png"
-                        layout="fill"
-                        objectFit="cover"
-                        alt="earth-image"
-                      />
-                    </figure>
-                  </Col>
-                </Row>
-                <Row className="gx-5">
-                  <Col md={6} sm={6}>
-                    <figure className="thumbnail-img small-gallery">
-                      <Image
-                        src="/community/gallery4.png"
-                        layout="fill"
-                        objectFit="cover"
-                        alt="earth-image"
-                      />
-                    </figure>
-                  </Col>
-                  <Col md={6} sm={6}>
-                    <figure className="thumbnail-img small-gallery">
-                      <Image
-                        src="/community/gallery5.png"
-                        layout="fill"
-                        objectFit="cover"
-                        alt="earth-image"
-                      />
-                    </figure>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
+            <Carousel>
+              {' '}
+              <Row>
+                <Col md={6} className="community-page__gallery-leftImage">
+                  <figure className="thumbnail-img">
+                    <Image
+                      src="/community/gallery1.png"
+                      layout="fill"
+                      objectFit="cover"
+                      alt="earth-image"
+                    />
+                  </figure>
+                </Col>
+                <Col md={6} className="community-page__gallery-rightImage">
+                  <Row className="gx-5">
+                    <Col md={6} sm={6} className="pb-4">
+                      <figure className="thumbnail-img small-gallery">
+                        <Image
+                          src="/community/gallery2.png"
+                          layout="fill"
+                          objectFit="cover"
+                          alt="earth-image"
+                        />
+                      </figure>
+                    </Col>
+                    <Col md={6} sm={6}>
+                      <figure className="thumbnail-img small-gallery">
+                        <Image
+                          src="/community/gallery3.png"
+                          layout="fill"
+                          objectFit="cover"
+                          alt="earth-image"
+                        />
+                      </figure>
+                    </Col>
+                  </Row>
+                  <Row className="gx-5">
+                    <Col md={6} sm={6}>
+                      <figure className="thumbnail-img small-gallery">
+                        <Image
+                          src="/community/gallery4.png"
+                          layout="fill"
+                          objectFit="cover"
+                          alt="earth-image"
+                        />
+                      </figure>
+                    </Col>
+                    <Col md={6} sm={6}>
+                      <figure className="thumbnail-img small-gallery">
+                        <Image
+                          src="/community/gallery5.png"
+                          layout="fill"
+                          objectFit="cover"
+                          alt="earth-image"
+                        />
+                      </figure>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Carousel>
           </div>
           <div className="community-page__guidelines py-5">
             <h1>Community guidelines</h1>
@@ -166,7 +169,7 @@ const Community: NextPage = () => {
               <div className="image">
                 <figure className="thumbnail-img">
                   <Image
-                    src="/community/Ellipse.png"
+                    src="/community/Ellipse.svg"
                     layout="fill"
                     objectFit="cover"
                     alt="earth-image"

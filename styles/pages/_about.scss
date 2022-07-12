@@ -1,14 +1,21 @@
 .about-page-main {
   margin-bottom: 4.375rem;
+  @include respond(sm) {
+    padding: 0rem 1.25rem;
+  }
 
+  @include respond(xs) {
+    padding: 0rem 1.25rem;
+  }
   .about-page-top-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
     margin-bottom: 100px;
+
     .thumbnail-img {
-      height: 27.5rem;
+      height: 37.5rem;
       z-index: 0;
       bottom: -1.875rem;
     }
