@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { CommunityActivityCardProps } from 'types/community'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faShare } from '@fortawesome/pro-regular-svg-icons'
+import { faHeart, faComment } from '@fortawesome/pro-regular-svg-icons'
 
 const CommunityActivityCard = ({
   CardImage,
@@ -53,7 +53,7 @@ const CommunityActivityCard = ({
               <span>{React}</span>
             </div>
             <div>
-              <FontAwesomeIcon icon={faShare} className="svg-icon share" />
+              <FontAwesomeIcon icon={faComment} className="svg-icon share" />
               <span>{Comments}</span>
             </div>
           </div>

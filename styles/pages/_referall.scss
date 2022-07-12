@@ -1,0 +1,55 @@
+.referral-page {
+  margin-bottom: 4.375rem;
+  &__top-container {
+    margin-bottom: 5rem;
+    h1 {
+      color: $primary-color;
+      font-size: 3.125rem;
+      font-weight: 500;
+      line-height: 3.7rem;
+    }
+    h6 {
+      font-weight: 500;
+      font-size: 1.875rem;
+      color: $sub-title-color;
+      line-height: 2.5rem;
+    }
+    .thumbnail-img {
+      @include respond(sm) {
+        height: 25.625rem;
+        width: 30.75rem;
+      }
+      @include respond(md) {
+        height: 28.75rem;
+        width: 36.5rem;
+      }
+      @include respond(lg) {
+        height: 30.75rem;
+        width: 45.375rem;
+      }
+    }
+
+    .form-input p {
+      margin-bottom: 0rem;
+    }
+    .submit-btn {
+      background-color: $primary-color;
+      color: #fff;
+      border: none;
+      border-radius: 0.4rem;
+      // padding: 1.18rem 1.875rem;
+      height: 5rem;
+      width: 14rem;
+      @include transition();
+    }
+    .submit-btn:hover {
+      background: $secondary-color;
+      color: #fff;
+    }
+    .form-control {
+      border: none;
+    }
+  }
+  &__bottom-container {
+  }
+}
