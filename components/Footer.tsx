@@ -131,12 +131,12 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="/community">
                                                 <a>Community</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/">
+                                            <Link href="/resources">
                                                 <a>Resources</a>
                                             </Link>
                                         </li>
@@ -146,17 +146,17 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="/discover">
                                                 <a>Discover</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="/affiliate" as="affiliate-program">
                                                 <a>Affiliate Program</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="socialResponsibilities" as="social-responsibilities">
                                                 <a>Social Responsibilities</a>
                                             </Link>
                                         </li>
