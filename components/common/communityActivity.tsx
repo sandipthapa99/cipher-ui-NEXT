@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faComment } from '@fortawesome/pro-regular-svg-icons'
 
 const CommunityActivityCard = ({
-  CardImage,
-  CardDescription,
-  CardTitle,
-  React,
-  Comments,
-  Name,
-  Position,
+  cardImage,
+  cardDescription,
+  cardTitle,
+  react,
+  comments,
+  name,
+  position,
 }: CommunityActivityCardProps) => {
   return (
     <div className="activitycard-block">
@@ -25,16 +25,16 @@ const CommunityActivityCard = ({
       </figure> */}
 
       <div className="activitycard-block__card-content">
-        <h2 className="activitycard-title">{CardTitle}</h2>
+        <h2 className="activitycard-title">{cardTitle}</h2>
 
         <p className="activitycard-block__card-description">
-          {CardDescription}
+          {cardDescription}
         </p>
         <div className="activitycard-block__card-status">
           <div className="personal-information">
             <figure className="thumbnail-img">
               <Image
-                src={CardImage}
+                src={cardImage}
                 layout="fill"
                 // height={300}
                 objectFit="cover"
@@ -42,19 +42,19 @@ const CommunityActivityCard = ({
               />
             </figure>
             <div className="name-position">
-              <p className="name">{Name}</p>
-              <p className="position">{Position}</p>
+              <p className="name">{name}</p>
+              <p className="position">{position}</p>
             </div>
           </div>
 
           <div className="reacts-status">
             <div className="heart-status">
               <FontAwesomeIcon icon={faHeart} className="svg-icon heart" />
-              <span>{React}</span>
+              <span>{react}</span>
             </div>
             <div>
               <FontAwesomeIcon icon={faComment} className="svg-icon share" />
-              <span>{Comments}</span>
+              <span>{comments}</span>
             </div>
           </div>
         </div>

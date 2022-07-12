@@ -22,7 +22,7 @@ const About: NextPage = () => {
       <div className="referral-page">
         <Container fluid="xl">
           <div className="referral-page__top-container">
-            <h1>Spread the word and earn rewards</h1>
+            <h1 className='"pt-1'>Spread the word and earn rewards</h1>
             <Row>
               <Col md={7} className="pt-4">
                 {' '}
@@ -68,7 +68,7 @@ const About: NextPage = () => {
                     />
                   </Col>
                 </Row>
-                <Row>
+                <Row className="form-input">
                   <p>Share your invite link</p>
                   <Col md={7} sm={7}>
                     {' '}

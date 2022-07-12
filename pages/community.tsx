@@ -125,9 +125,9 @@ const Community: NextPage = () => {
                       key={guideline.id}
                     >
                       <CommunityGuidelineCard
-                        CardImage={guideline.cardImage}
-                        CardDescription={guideline.cardDescription}
-                        CardTitle={guideline.cardTitle}
+                        cardImage={guideline.cardImage}
+                        cardDescription={guideline.cardDescription}
+                        cardTitle={guideline.cardTitle}
                       />
                     </Col>
                   )
@@ -148,14 +148,13 @@ const Community: NextPage = () => {
                       key={activity.id}
                     >
                       <CommunityActivityCard
-                        CardIcon="hi"
-                        Comments={activity.comments}
-                        Position={activity.position}
-                        React={activity.react}
-                        CardImage={activity.cardImage}
-                        Name={activity.name}
-                        CardDescription={activity.description}
-                        CardTitle={activity.cardTitle}
+                        comments={activity.comments}
+                        position={activity.position}
+                        react={activity.react}
+                        cardImage={activity.cardImage}
+                        name={activity.name}
+                        cardDescription={activity.description}
+                        cardTitle={activity.cardTitle}
                       />
                     </Col>
                   )
@@ -202,9 +201,9 @@ const Community: NextPage = () => {
                       key={blog.id}
                     >
                       <CommunityBlogCard
-                        CardImage={blog.cardImage}
-                        CardDescription={blog.cardDescription}
-                        CardTitle={blog.cardTitle}
+                        cardImage={blog.cardImage}
+                        cardDescription={blog.cardDescription}
+                        cardTitle={blog.cardTitle}
                       />
                     </Col>
                   )

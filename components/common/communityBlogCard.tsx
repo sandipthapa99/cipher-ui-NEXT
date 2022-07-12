@@ -5,22 +5,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
 const CommunityBlogCard = ({
-  CardImage,
-  CardDescription,
-  CardTitle,
+  cardImage,
+  cardDescription,
+  cardTitle,
 }: CommunityGuidelineCardProps) => {
   return (
     <div className="find-hire-card-block">
       <figure className="thumbnail-img">
-        <Image src={CardImage} layout="fill" objectFit="cover" alt="" />
+        <Image src={cardImage} layout="fill" objectFit="cover" alt="" />
       </figure>
 
       <div className="card-content">
-        <h2>{CardTitle}</h2>
+        <h2>{cardTitle}</h2>
 
         <p className="card-description">
           {/* {`${aboutDescription.substring(0, 80)}...`} */}
-          {CardDescription}
+          {cardDescription}
         </p>
         <Link href="">
           <a>
