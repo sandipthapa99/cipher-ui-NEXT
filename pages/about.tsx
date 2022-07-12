@@ -3,8 +3,9 @@ import Layout from '@components/Layout'
 import Breadcrum from '@components/common/Breadcrum'
 import { Container, Col, Row } from 'react-bootstrap'
 import Image from 'next/image'
-import AboutCard from '@components/common/AboutCard'
+import CommonCard from '@components/common/CommonCard'
 import { aboutCardContent } from 'staticData/aboutCardContent'
+import AboutCard from '@components/common/AboutCard'
 
 const About: NextPage = () => {
   return (
@@ -113,9 +114,9 @@ const About: NextPage = () => {
                         key={about.id}
                       >
                         <AboutCard
-                          aboutImage={about.cardImage}
-                          aboutTitle={about.cardTitle}
-                          aboutDescription={about.cardDescription}
+                          cardImage={about.cardImage}
+                          cardTitle={about.cardTitle}
+                          cardDescription={about.cardDescription}
                         />
                       </Col>
                     )

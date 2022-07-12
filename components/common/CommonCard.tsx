@@ -1,16 +1,16 @@
 import Image from 'next/image'
-import { ReferralCardProps } from 'types/referralCard'
+import { CommonCardProps } from 'types/commonCard'
 
-const ReferralCard = ({
-  CardImage,
-  CardDescription,
-  CardTitle,
-}: ReferralCardProps) => {
+const CommonCard = ({
+  cardImage,
+  cardDescription,
+  cardTitle,
+}: CommonCardProps) => {
   return (
     <div className="card-block">
       <figure className="thumbnail-img">
         <Image
-          src={CardImage}
+          src={cardImage}
           layout="fill"
           // height={300}
           //objectFit="cover"
@@ -19,11 +19,11 @@ const ReferralCard = ({
       </figure>
 
       <div className="card-block__card-content">
-        <h2 className="card-title">{CardTitle}</h2>
+        <h2 className="card-title">{cardTitle}</h2>
 
-        <div className="card-block__card-description">{CardDescription}</div>
+        <div className="card-block__card-description">{cardDescription}</div>
       </div>
     </div>
   )
 }
-export default ReferralCard
+export default CommonCard

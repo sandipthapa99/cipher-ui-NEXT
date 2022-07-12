@@ -1,16 +1,16 @@
 import Image from 'next/image'
-import { AboutCardProps } from 'types/aboutCard'
+import { CommonCardProps } from 'types/commonCard'
 
 const AboutCard = ({
-  aboutImage,
-  aboutDescription,
-  aboutTitle,
-}: AboutCardProps) => {
+  cardImage,
+  cardDescription,
+  cardTitle,
+}: CommonCardProps) => {
   return (
     <div className="about-card-block">
       <figure className="thumbnail-img">
         <Image
-          src={aboutImage}
+          src={cardImage}
           layout="fill"
           height={300}
           objectFit="cover"
@@ -18,11 +18,11 @@ const AboutCard = ({
         />
       </figure>
       <div className="card-content">
-        <h2 className="card-title">{aboutTitle}</h2>
+        <h2 className="card-title">{cardTitle}</h2>
 
         <p className="card-description">
-          {/* {`${aboutDescription.substring(0, 80)}...`} */}
-          {aboutDescription}
+          {/* {`${cardDescription.substring(0, 80)}...`} */}
+          {cardDescription}
         </p>
       </div>
     </div>

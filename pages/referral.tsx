@@ -13,12 +13,12 @@ import React from 'react'
 import emailValidationSchema from 'utils/formValidation/emailValidation'
 
 import { referralCardContent } from 'staticData/referralCard'
-import ReferralCard from '@components/common/ReferralCard'
+import CommonCard from '@components/common/CommonCard'
 
 const About: NextPage = () => {
   return (
     <Layout title="Referral Programs | Cipher">
-      <Breadcrum currentPage="Referral Programs" />
+      <Breadcrum currentPage="Referral programs" />
       <div className="referral-page">
         <Container fluid="xl">
           <div className="referral-page__top-container">
@@ -35,7 +35,7 @@ const About: NextPage = () => {
                 </p>
                 <Row className="form-input">
                   <p>Invite via email</p>
-                  <Col md={7} sm={7}>
+                  <Col md={7} sm={9}>
                     {' '}
                     <Formik
                       initialValues={{ email: '' }}
@@ -57,7 +57,7 @@ const About: NextPage = () => {
                       )}
                     </Formik>
                   </Col>
-                  <Col md={5} sm={5}>
+                  <Col md={5} sm={3}>
                     <FormButton
                       type="submit"
                       variant="primary"
@@ -70,7 +70,7 @@ const About: NextPage = () => {
                 </Row>
                 <Row className="form-input">
                   <p>Share your invite link</p>
-                  <Col md={7} sm={7}>
+                  <Col md={7} sm={9}>
                     {' '}
                     <Formik
                       initialValues={{ email: '' }}
@@ -92,7 +92,7 @@ const About: NextPage = () => {
                       )}
                     </Formik>
                   </Col>
-                  <Col md={5} sm={5}>
+                  <Col md={5} sm={3}>
                     <FormButton
                       type="submit"
                       variant="primary"
@@ -130,10 +130,10 @@ const About: NextPage = () => {
                       // lg={4}
                       key={referral.id}
                     >
-                      <ReferralCard
-                        CardImage={referral.cardImage}
-                        CardDescription={referral.cardDescription}
-                        CardTitle={referral.cardTitle}
+                      <CommonCard
+                        cardImage={referral.cardImage}
+                        cardDescription={referral.cardDescription}
+                        cardTitle={referral.cardTitle}
                       />
                     </Col>
                   )

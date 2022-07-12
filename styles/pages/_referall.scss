@@ -21,6 +21,9 @@
       color: $sub-title-color;
       line-height: 2.5rem;
     }
+    p {
+      color: $secondary-text-color;
+    }
     .thumbnail-img {
       img {
         width: 100%;
@@ -56,12 +59,10 @@
     }
     .submit-btn:hover {
       background: $secondary-color;
-      color: #fff;
+      color: #111;
     }
     .form-control {
       border: none;
     }
-  }
-  &__bottom-container {
   }
 }

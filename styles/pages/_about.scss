@@ -27,7 +27,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      border-radius: 0.25rem;
+      border-radius: 0.4rem;
       margin: 0px 3.75rem;
       bottom: -0.625rem;
       p {
@@ -36,34 +36,11 @@
       }
     }
 
-    // @include respond(sm) {
-    //   width: fit-content;
-    //   margin: 0px 25px;
-    //   font-size: 0.5rem !important;
-    //   line-height: 0.5rem;
-    // }
-    // @include respond(md) {
-    //   width: 780px;
-    //   margin: 0px 50px;
-    // }
-    // @include respond(lg) {
-    //   width: 940px;
-    //   margin: 0px 70px;
-    // }
-    // @include respond(xl) {
-    //   width: 1000px;
-    //   margin: 0px 60px;
-    // }
-    // @include respond(xxl) {
-    //   width: 1100px;
-    //   margin: 0px 70px;
-    // }
-
     p {
       text-align: center;
       font-weight: 400;
       font-size: 1.5rem;
-      margin-top: 1.25rem;
+      margin-top: 2.45rem;
       color: $primary-color;
       // @include respond(sm) {
       //   font-size: 1rem;
@@ -74,7 +51,7 @@
   .aboutus-images .thumbnail-img {
     height: 100%;
     width: 100%;
-    border-radius: 0.25rem;
+    border-radius: 0.4rem;
     filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
   }
 
