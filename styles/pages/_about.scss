@@ -1,5 +1,5 @@
 .about-page-main {
-  margin-bottom: 70px;
+  margin-bottom: 4.375rem;
 
   .about-page-top-container {
     display: flex;
@@ -8,43 +8,55 @@
     position: relative;
     margin-bottom: 100px;
     .thumbnail-img {
-      height: 440px;
+      height: 27.5rem;
+      z-index: 0;
+      bottom: -1.875rem;
     }
-  }
-  .aboutus_overlay {
-    background-color: $secondary-color;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border-radius: 4px;
-    position: absolute;
-    margin: 0px 30px;
-    bottom: -30px;
-    @include respond(sm) {
-      width: fit-content;
-      margin: 0px 25px;
-      font-size: 1rem !important;
-      line-height: 0.5rem;
+    .aboutus_overlay {
+      // position: absolute;
+      z-index: 1;
+      background-color: $secondary-color;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-radius: 0.25rem;
+      margin: 0px 3.75rem;
+      bottom: -0.625rem;
+      p {
+        font-size: 1.75rem !important;
+        padding: 0rem 1.25rem;
+      }
     }
-    @include respond(md) {
-      width: 780px;
-      margin: 0px 50px;
-    }
-    @include respond(lg) {
-      width: 940px;
-      margin: 0px 70px;
-    }
-    @include respond(xl) {
-      width: 1000px;
-      margin: 0px 60px;
-    }
+
+    // @include respond(sm) {
+    //   width: fit-content;
+    //   margin: 0px 25px;
+    //   font-size: 0.5rem !important;
+    //   line-height: 0.5rem;
+    // }
+    // @include respond(md) {
+    //   width: 780px;
+    //   margin: 0px 50px;
+    // }
+    // @include respond(lg) {
+    //   width: 940px;
+    //   margin: 0px 70px;
+    // }
+    // @include respond(xl) {
+    //   width: 1000px;
+    //   margin: 0px 60px;
+    // }
+    // @include respond(xxl) {
+    //   width: 1100px;
+    //   margin: 0px 70px;
+    // }
 
     p {
       text-align: center;
       font-weight: 400;
-      font-size: 24px;
-      margin-top: 20px;
+      font-size: 1.5rem;
+      margin-top: 1.25rem;
       color: $primary-color;
       // @include respond(sm) {
       //   font-size: 1rem;
@@ -55,46 +67,45 @@
   .aboutus-images .thumbnail-img {
     height: 100%;
     width: 100%;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
   }
 
   .about-information {
-    h2 {
-      font-size: 20px;
+    h1 {
+      // font-size: 1.25rem;
       font-weight: 500;
-      line-height: 30px;
+      line-height: 1.875rem;
       color: $primary-color;
     }
 
-    h5 {
+    h4 {
       font-weight: 500;
-      font-size: 1.75rem;
-      line-height: 24px;
+      font-size: 1.4rem;
+      line-height: 1.8rem;
       color: $sub-title-color;
     }
     p {
       font-weight: 400;
       font-size: 1.4rem;
-      line-height: 22px;
       color: $default-text-color;
     }
   }
   h1 {
     font-weight: 500;
     font-size: 1.8rem;
-    line-height: 30px;
+    line-height: 1.875rem;
     color: $primary-color;
   }
   .card-container {
-    margin: 50px 0px;
+    margin: 3.125rem 0rem;
   }
   .about-page-footer {
     p {
       color: $sub-title-color;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 400;
-      line-height: 22px;
+      line-height: 2.3rem;
     }
     .thumbnail-img {
       height: 60rem;

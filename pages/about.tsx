@@ -9,22 +9,23 @@ import { aboutCardContent } from 'staticData/aboutCardContent'
 const About: NextPage = () => {
   return (
     <Layout title="About Us | Cipher">
-      <div className="about-page-header">
-        <Breadcrum currentPage="About Us" />
-      </div>
+      <Breadcrum currentPage="About Us" />
 
       <div className="about-page-main">
         <Container fluid="xl">
           <div className="about-page-content">
             <div className="about-page-top-container">
-              <figure className="thumbnail-img">
-                <Image
-                  src="/aboutus/img1.png"
-                  layout="fill"
-                  objectFit="cover"
-                  alt="about-page-main-image"
-                />
-              </figure>
+              <div className="main-image">
+                <figure className="thumbnail-img">
+                  <Image
+                    src="/aboutus/img1.png"
+                    layout="fill"
+                    objectFit="cover"
+                    alt="about-page-main-image"
+                  />
+                </figure>
+              </div>
+
               <div className="aboutus_overlay">
                 <p>Bridging the gap between individuals for growth.</p>
               </div>
@@ -43,18 +44,18 @@ const About: NextPage = () => {
               </Col>
               <Col md={6}>
                 <div className="about-information">
-                  <h2>About Cipher</h2>
-                  <h5>
-                    We are an on demand ap that connects customers with about
+                  <h1>About Cipher</h1>
+                  <h4>
+                    We are an on demand app that connects customers with about
                     providers.{' '}
-                  </h5>
+                  </h4>
                   <p>
                     CIPHER is a platform incepted with the idea of bridging the
                     gap between individuals who need a certain task completed,
                     and those who have the skills to get the very task completed
                     within a given timeframe. The tasks one might need may range
                     from anything between getting your room painted, or getting
-                    an entire software developed. In today’s fast paced
+                    an entire software developed. In today&apos;s fast paced
                     environment, one might not have the time to manage their
                     household errands as they might want to, or you might be an
                     entrepreneur wanting to finish your project on a deadline,
@@ -69,7 +70,7 @@ const About: NextPage = () => {
             <Row>
               <Col md={6}>
                 <div className="about-information">
-                  <h2>Our Purpose</h2>
+                  <h1 className="pt-4">Our Purpose</h1>
                   <p>
                     Serve the community by providing everyone the platform to
                     showcase their skills, talents, and minimise the stress of
@@ -77,8 +78,8 @@ const About: NextPage = () => {
                     all walks of life, and we intend to be the best at what we
                     do. The tasks one might need may range from anything between
                     getting your room painted, or getting an entire software
-                    developed. In today’s fast paced environment, one might not
-                    have the time to manage their household errands as they
+                    developed. In today&apos;s fast paced environment, one might
+                    not have the time to manage their household errands as they
                     might want to, or you might be an entrepreneur wanting to
                     finish your project on a deadline, and this is exactly where
                     CIPHER is going to be your trusted partner for everything.

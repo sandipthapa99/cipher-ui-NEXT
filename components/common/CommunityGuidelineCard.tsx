@@ -21,11 +21,13 @@ const CommunityGuidelineCard = ({
       <div className="card-block__card-content">
         <h2 className="card-title">{CardTitle}</h2>
 
-        <p className="card-block__card-description">
+        <div className="card-block__card-description">
           {CardDescription.map((guide: any) => (
-            <li>{guide}</li>
+            <ul>
+              <li>{guide}</li>
+            </ul>
           ))}
-        </p>
+        </div>
       </div>
     </div>
   )
