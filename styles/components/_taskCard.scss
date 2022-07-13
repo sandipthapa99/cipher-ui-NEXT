@@ -1,0 +1,82 @@
+.task-card-block {
+    background: #ffffff66;
+    padding: 2.4rem 4rem;
+    border-radius: 0.4rem;
+    box-shadow: 0px 4px 14px #211d4f1a;
+    margin-bottom: 2.4rem;
+
+    &__header {
+        margin-bottom: 2.2rem;
+
+        .title {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #211D4F;
+        }
+
+        .charge {
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #343A40;
+        }
+    }
+
+    &__body {
+        margin-bottom: 2.4rem;
+        border-bottom: 1px solid #E9ECEF;
+        padding-bottom: 2.4rem;
+
+        .task-description {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #495057;
+            line-height: 2.4rem;
+            margin-bottom: 2.4rem;
+        }
+
+        .task-location-time {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #343A40;
+            p{
+                margin: 0;
+            }
+            .location {
+                .svg-icon {
+                    color: #FE5050;
+                }
+            }
+            .date {
+                .svg-icon{
+                    color: #F06700;
+                }
+            }
+            .time{
+                .svg-icon{
+                    color: #3EAEFF;
+                }
+            }
+        }
+    }
+    &__footer{
+        .left{
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #343A40;
+            p{
+                margin: 0;
+            }
+            .share{
+                margin: 0 2.4rem 0 0;
+                .svg-icon{
+                    color: #3EAEFF;
+                }
+            }
+            .applicants{
+                .svg-icon{
+                    color: #2D2D66;
+                }
+            }
+        }
+    }
+}

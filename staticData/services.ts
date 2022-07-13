@@ -8,6 +8,8 @@ export const services = [
         serviceDescription:"Gardener responsibilities include monitoring the health of all the planets",
         serviceRating:"4.8(200)",
         servicePrice:"50",
+        hasOffer:true,
+        discountRate:20,
     },
     {
         id:"1",
@@ -18,6 +20,7 @@ export const services = [
         serviceDescription:"Gardener responsibilities include monitoring the health of all the planets",
         serviceRating:"4.8(200)",
         servicePrice:"50",
+        hasOffer:false,
     },
     {
         id:"2",
@@ -28,6 +31,7 @@ export const services = [
         serviceDescription:"Gardener responsibilities include monitoring the health of all the planets",
         serviceRating:"4.8(200)",
         servicePrice:"50",
+        hasOffer:false,
     },
     {
         id:"3",
@@ -38,6 +42,9 @@ export const services = [
         serviceDescription:"Gardener responsibilities include monitoring the health of all the planets",
         serviceRating:"4.8(200)",
         servicePrice:"50",
+        hasOffer:true,
+        discountRate:20,
+        discountOn: "On Service Charges"
     },
 
 ]

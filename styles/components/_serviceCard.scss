@@ -3,64 +3,96 @@
     border-radius: 0.4rem;
     box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
     background: rgba(255, 255, 255, 0.4);
-    
-    .thumbnail-img {
-        height: 20rem;
-        margin: 0;
-        border-radius: 0.4rem 0.4rem 0 0;
-        transition: .3s ease-in-out;
-        overflow: hidden;
-        @include respond(md) {
-            height: 28rem;
-            margin: 0;}
-        &:hover{
-            img{
-                transform: scale(1.2);
+
+    .card-img {
+        position: relative;
+        .thumbnail-img {
+            height: 20rem;
+            margin: 0;
+            border-radius: 0.4rem 0.4rem 0 0;
+            transition: .3s ease-in-out;
+            overflow: hidden;
+
+            @include respond(md) {
+                height: 28rem;
+                margin: 0;
+            }
+
+            &:hover {
+                img {
+                    transform: scale(1.2);
+                }
+            }
+        }
+        .offer{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(180deg, rgba(252, 165, 0, 0.9) 0%, rgba(244, 88, 0, 0.81) 145%);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            p{
+                margin: 0;
+                color: #FFF;
+                &.discount-rate{
+                    margin-right: 1.2rem;
+                }
             }
         }
     }
-    .card-content{
+
+    .card-content {
         padding: 2.7rem 2.2rem 2.6rem 2.2rem;
-        .card-title{
+
+        .card-title {
             font-size: 1.4rem;
             font-weight: 500;
             color: #101113;
             margin-bottom: 1.4rem;
         }
-        .card-subtitle{
+
+        .card-subtitle {
             font-size: 1.2rem;
             font-family: $inter-font;
             font-weight: 500;
             color: #5C5F66;
             margin-bottom: 1.6rem;
-            span{
+
+            span {
                 font-family: $inter-font;
                 color: #3EAEFF;
 
             }
         }
-        .card-description{
+
+        .card-description {
             font-size: 1.2rem;
             font-weight: 400;
             color: #495057;
             line-height: 1.8rem;
             margin-bottom: 1.2rem;
         }
-        .ratings-wrapper{
+
+        .ratings-wrapper {
             margin-bottom: 1.4rem;
-            .ratings{
+
+            .ratings {
                 color: #101113;
                 font-size: 1.4rem;
                 font-family: $inter-font;
                 font-weight: 400;
                 line-height: 1.7rem;
                 margin: 0;
-                .star{
+
+                .star {
                     color: $secondary-color;
                     margin-right: 0.8rem;
                 }
             }
-            .price{
+
+            .price {
                 color: #101113;
                 font-size: 1.6rem;
                 font-family: $inter-font;
@@ -68,14 +100,17 @@
                 margin: 0;
             }
         }
-        .booking-wrapper{
+
+        .booking-wrapper {
             display: flex;
             align-items: center;
-            .heart{
+
+            .heart {
                 color: #FE5050;
                 margin-right: 3.4rem;
             }
-            .share{
+
+            .share {
                 color: #3EAEFF;
             }
         }

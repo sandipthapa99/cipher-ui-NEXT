@@ -33,19 +33,15 @@
 }
 
 .faq-body-section {
-    @include respond(md) {
-        .container {
+    .container {
+        @include respond(lg){
             padding: 0 19.6rem;
-
-            h1 {
-                font-size: 2rem;
-                font-weight: 500;
-                color: #343A40;
-                margin-bottom: 1.6rem;
-            }
-
-            // background: url("../#{$theme-imgpath}/cagtu-dotted-cirlce.svg")
-            //     no-repeat left 8rem top;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #343A40;
+            margin-bottom: 1.6rem;
         }
     }
 
@@ -55,6 +51,7 @@
         .accordion {
             .accordion-item {
                 background: none;
+                margin-bottom: 1.6rem;
 
                 .accordion-header {
                     .accordion-button {
@@ -121,7 +118,95 @@
                         font-weight: 400;
                         color: #212529;
                     }
+
+                    .inner-accordion {
+                        .accordion {
+                            .accordion-item {
+                                background: none;
+                                border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+                                border-radius: 0;
+                                &:last-child{
+                                    border: none;
+                                }
+
+                                .accordion-header {
+                                    .accordion-button {
+                                        padding-left: 1.2rem;
+                                        background: none;
+
+                                        @include respond(md) {
+                                            padding-left: 1.6rem;
+                                        }
+                                        &::after {
+                                            background-image: url("../#{$theme-imgpath}/icons/chevron-down.svg");
+                                            background-position: center center;
+                                            background-size: 100%;
+                                            width: 1rem;
+                                            height: 1rem;
+                                            margin-right: 0;
+                
+                                            @include respond(md) {
+                                                width: 1.2rem;
+                                                height: 1.2rem;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .accordion-body {
+                                    padding: 0.8rem 2.4rem;
+
+                                    p {
+                                        font-size: 1.2rem;
+                                        font-weight: 400;
+                                        color: #212529;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
+            }
+        }
+    }
+}
+
+.faq-form-section {
+    .faq-form {
+        background-color: #E3D5FA;
+        border-radius: 0.4rem;
+        margin: 2.4rem 0;
+        padding: 1.6rem 2.4rem;
+
+        @include respond(md) {
+            margin: 0;
+            padding: 4rem 8rem;
+        }
+
+        @include respond(lg) {
+            margin: 4rem 19.6rem;
+            padding: 4rem 8rem;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: #211D4F;
+            margin-bottom: 0.8rem;
+
+            @include respond(md) {
+                font-size: 4rem;
+            }
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #343A40;
+            margin-bottom: 2.4rem;
+
+            @include respond(md) {
+                font-size: 2rem;
             }
         }
     }
