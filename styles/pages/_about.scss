@@ -22,6 +22,7 @@
     .aboutus_overlay {
       position: absolute;
       z-index: 1;
+
       background-color: $secondary-color;
       display: inline-flex;
       justify-content: center;
@@ -69,21 +70,44 @@
     }
   }
   &__purpose {
-    .about-information {
-      padding-left: 0.8rem;
+    padding-top: 9rem;
+    padding-bottom: 7rem;
+
+    @include respond(sm) {
+      margin: 0rem;
+      padding: 0rem;
     }
+
+    .about-cipher {
+      padding-bottom: 5.5rem;
+
+      @include respond(sm) {
+        padding-bottom: 0rem;
+      }
+    }
+
+    .about-information {
+      padding-left: 1rem;
+      .purpose {
+        padding-right: 2rem;
+      }
+      @include respond(sm) {
+        margin-left: 0rem;
+      }
+    }
+
     .thumbnail-img {
       height: 100%;
       width: 100%;
       border-radius: 0.4rem;
       filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
     }
-
-    h1 {
-      // font-size: 1.25rem;
-      font-weight: 500;
-      line-height: 1.875rem;
-      color: $primary-color;
+    .purpose {
+      margin-left: 1.2rem;
+      border-radius: 0.4rem;
+      @include respond(sm) {
+        margin-left: 0rem;
+      }
     }
 
     h4 {
@@ -95,14 +119,16 @@
     p {
       font-weight: 400;
       font-size: 1.2rem;
+      line-height: 2rem;
       color: $default-text-color;
     }
   }
 
   &__scope {
-    margin: 3.125rem 0rem;
+    padding: 5rem 0rem;
   }
   &__footer {
+    margin-bottom: 6rem;
     p {
       color: $sub-title-color;
       font-size: 1.2rem;
@@ -110,7 +136,13 @@
       line-height: 2.3rem;
     }
     .thumbnail-img {
-      height: 60rem;
+      height: 42rem;
     }
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: $primary-color;
   }
 }

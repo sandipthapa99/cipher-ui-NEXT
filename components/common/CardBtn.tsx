@@ -1,9 +1,12 @@
 import { Button } from "react-bootstrap";
 
-const CardBtn = ({btnTitle}: {btnTitle:string}) => {
-    return(
+const CardBtn = ({ btnTitle, backgroundColor }: {
+    btnTitle: string
+    backgroundColor: string
+}) => {
+    return (
         <>
-            <Button className="card-btn"><span>{btnTitle}</span></Button>
+            <Button className="card-btn" style={{ backgroundColor: `${backgroundColor}` }}><span>{btnTitle}</span></Button>
         </>
     )
 }

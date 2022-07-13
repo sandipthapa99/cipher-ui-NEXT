@@ -1,5 +1,4 @@
 .community-page {
-  margin-bottom: 4.375rem;
   @include respond(sm) {
     padding: 0rem 1.25rem;
   }
@@ -19,13 +18,7 @@
     }
 
     .thumbnail-img {
-      // height: 400px;
       object-fit: contain;
-      // width: 540px;
-      //   @include respond(lg) {
-      //     height: 300px;
-      //     width: 400px;
-      //   }
 
       @include respond(sm) {
         height: 25.625rem;
@@ -60,7 +53,10 @@
       }
     }
     p {
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 2.4rem;
+      margin-top: 2.2rem;
+      margin-bottom: 2rem;
       display: flex;
       align-items: center;
       color: $default-text-color;
@@ -98,47 +94,57 @@
       background-color: $primary-color;
       color: #fff;
     }
+  }
+  &__guidelines {
+    padding: 5rem 0rem;
+  }
+  &__gallery {
+    padding-top: 5rem;
 
-    &__guidelines {
-      margin-top: 3.125rem;
+    .leftImage {
+      .thumbnail-img {
+        height: 43.75rem;
+        border-radius: 0.4rem;
+        margin-bottom: 1.25rem;
+        @include respond(sm) {
+          margin-bottom: 1.875rem;
+        }
+        .thumbnail-img {
+          height: 100%;
+          width: 100%;
+          border-radius: 0.4rem;
+          filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
+        }
+      }
+    }
+    .rightImage {
+      .thumbnail-img {
+        border-radius: 0.4rem;
+        height: 20.4rem;
+        margin-bottom: 1.875rem;
+        @include respond(sm) {
+          // margin-bottom: 10px;
+          object-fit: contain;
+        }
+
+        @include respond(md) {
+          object-fit: contain;
+          margin-bottom: 1.25rem !important;
+        }
+
+        @include respond(xl) {
+          height: 20.5625rem;
+          margin-bottom: 1.25rem !important;
+          padding-bottom: 0rem !important;
+          // padding-bottom: 10px;
+        }
+      }
     }
   }
   .thumbnail-img {
     object-fit: contain;
   }
-  &__gallery-leftImage {
-    .thumbnail-img {
-      height: 43.75rem;
-      border-radius: 0.4rem;
-      margin-bottom: 1.25rem;
-      @include respond(sm) {
-        margin-bottom: 1.875rem;
-      }
-    }
-  }
-  &__gallery-rightImage {
-    .thumbnail-img {
-      border-radius: 0.4rem;
-      height: 20.4rem;
-      margin-bottom: 1.875rem;
-      @include respond(sm) {
-        // margin-bottom: 10px;
-        object-fit: contain;
-      }
 
-      @include respond(md) {
-        object-fit: contain;
-        margin-bottom: 1.25rem !important;
-      }
-
-      @include respond(xl) {
-        height: 20.5625rem;
-        margin-bottom: 1.25rem !important;
-        padding-bottom: 0rem !important;
-        // padding-bottom: 10px;
-      }
-    }
-  }
   &__guidelines {
     .thumbnail-img {
       height: 9rem;
@@ -146,12 +152,15 @@
       object-fit: contain;
     }
   }
+
+  &__activity {
+    padding-bottom: 5rem;
+  }
   &__goal {
-    padding: 1.875rem;
+    padding: 2.5rem 5.4rem;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-
     margin: 0 0 3rem;
     border-radius: 0.4rem;
     box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
@@ -203,47 +212,24 @@
       p {
         color: $secondary-text-color;
         font-size: 1.2rem;
-        font-weight: 500;
+        font-weight: 400;
       }
       .author {
         color: $secondary-text-color;
         margin-top: 1.3rem;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: 500;
+        color: $sub-title-color;
       }
     }
   }
-  p {
-    font-weight: 400;
-    margin-top: 1.875rem;
+  &__blogs {
+    padding: 5rem 0rem;
+  }
+  h1 {
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 1.875rem;
     color: $primary-color;
-  }
-}
-
-.community-images .thumbnail-img {
-  height: 100%;
-  width: 100%;
-  border-radius: 0.4rem;
-  filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
-}
-
-h1 {
-  font-weight: 500;
-  font-size: 1.8rem;
-  line-height: 1.875rem;
-  color: $primary-color;
-}
-.card-container {
-  margin: 3.75rem 0rem;
-}
-.community-page-footer {
-  p {
-    color: $sub-title-color;
-    font-size: 1.2rem;
-    font-weight: 400;
-    line-height: 2rem;
-  }
-  .thumbnail-img {
-    height: 60rem;
   }
 }

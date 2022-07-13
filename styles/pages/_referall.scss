@@ -30,19 +30,24 @@
         width: 100%;
         object-fit: contain;
       }
-      @include respond(sm) {
-        height: 25.625rem;
-        width: 30.75rem;
-      }
+      // display: none;
+
       @include respond(md) {
-        height: 28.75rem;
-        width: 36.5rem;
-        margin-top: 3rem;
+        height: 26.75rem;
+        width: 34.5rem;
+        margin-top: 5rem;
+        margin-left: 3rem;
+        margin-right: 3rem;
       }
       @include respond(lg) {
         height: 30.75rem;
         width: 42.375rem;
+        margin-left: 8rem;
+        margin-right: 3rem;
       }
+      // @include respond(xs) {
+      //   display: none;
+      // }
     }
 
     .form-input p {
@@ -65,6 +70,14 @@
     }
     .form-control {
       border: none;
+    }
+  }
+  &__bottom-container {
+    h1 {
+      color: $primary-color;
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 2.1rem;
     }
   }
 }
