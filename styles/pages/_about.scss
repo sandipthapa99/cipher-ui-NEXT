@@ -1,4 +1,4 @@
-.about-page-main {
+.about-page {
   margin-bottom: 4.375rem;
   @include respond(sm) {
     padding: 0rem 1.25rem;
@@ -7,7 +7,7 @@
   @include respond(xs) {
     padding: 0rem 1.25rem;
   }
-  .about-page-top-container {
+  &__top-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,10 +17,10 @@
     .thumbnail-img {
       height: 37.5rem;
       z-index: 0;
-      bottom: -1.875rem;
+      // bottom: -2.875rem;
     }
     .aboutus_overlay {
-      // position: absolute;
+      position: absolute;
       z-index: 1;
       background-color: $secondary-color;
       display: inline-flex;
@@ -28,34 +28,57 @@
       align-items: center;
       text-align: center;
       border-radius: 0.4rem;
-      margin: 0px 3.75rem;
-      bottom: -0.625rem;
+      bottom: -4rem;
+
+      @include respond(xs) {
+        margin: 0px 3.5rem;
+        padding: 0 2rem;
+      }
+      @include respond(sm) {
+        margin: 0px 8.5rem;
+        padding: 0 4rem;
+      }
+      @include respond(md) {
+        margin: 0px 16.5rem;
+        padding: 0 8rem;
+      }
+      @include respond(lg) {
+        margin: 0px 17.95rem;
+        padding: 0 12rem;
+      }
+      @include respond(xl) {
+        margin: 0px 16.75rem;
+        padding: 0 18rem;
+      }
+      @include respond(xxl) {
+        margin: 0px 20.75rem;
+        padding: 0 22rem;
+      }
+
       p {
-        font-size: 1.75rem !important;
+        font-size: 1.75rem;
         padding: 0rem 1.25rem;
+        text-align: center;
+        font-weight: 400;
+        margin-top: 2.45rem;
+        color: $primary-color;
+        @include respond(xs) {
+          font-size: 1.4rem;
+        }
       }
     }
-
-    p {
-      text-align: center;
-      font-weight: 400;
-      font-size: 1.5rem;
-      margin-top: 2.45rem;
-      color: $primary-color;
-      // @include respond(sm) {
-      //   font-size: 1rem;
-      // }
+  }
+  &__purpose {
+    .about-information {
+      padding-left: 0.8rem;
     }
-  }
+    .thumbnail-img {
+      height: 100%;
+      width: 100%;
+      border-radius: 0.4rem;
+      filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
+    }
 
-  .aboutus-images .thumbnail-img {
-    height: 100%;
-    width: 100%;
-    border-radius: 0.4rem;
-    filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
-  }
-
-  .about-information {
     h1 {
       // font-size: 1.25rem;
       font-weight: 500;
@@ -71,23 +94,18 @@
     }
     p {
       font-weight: 400;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       color: $default-text-color;
     }
   }
-  h1 {
-    font-weight: 500;
-    font-size: 1.8rem;
-    line-height: 1.875rem;
-    color: $primary-color;
-  }
-  .card-container {
+
+  &__scope {
     margin: 3.125rem 0rem;
   }
-  .about-page-footer {
+  &__footer {
     p {
       color: $sub-title-color;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: 400;
       line-height: 2.3rem;
     }

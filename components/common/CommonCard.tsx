@@ -20,8 +20,7 @@ const CommonCard = ({
 
       <div className="card-block__card-content">
         <h2 className="card-title">{cardTitle}</h2>
-
-        <div className="card-block__card-description">{cardDescription}</div>
+        <div className="card-description">{cardDescription}</div>
       </div>
     </div>
   )

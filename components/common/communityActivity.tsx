@@ -14,16 +14,6 @@ const CommunityActivityCard = ({
 }: CommunityActivityCardProps) => {
   return (
     <div className="activitycard-block">
-      {/* <figure className="thumbnail-img">
-        <Image
-          src={CardImage}
-          layout="fill"
-          // height={300}
-          objectFit="cover"
-          alt="guideline-card-image"
-        />
-      </figure> */}
-
       <div className="activitycard-block__card-content">
         <h2 className="activitycard-title">{cardTitle}</h2>
 

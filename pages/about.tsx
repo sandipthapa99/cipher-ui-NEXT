@@ -12,28 +12,27 @@ const About: NextPage = () => {
     <Layout title="About Us | Cipher">
       <Breadcrum currentPage="About Us" />
 
-      <div className="about-page-main">
+      <div className="about-page">
         <Container fluid="xl">
-          <div className="about-page-content">
-            <div className="about-page-top-container">
-              <div className="main-image">
-                <figure className="thumbnail-img">
-                  <Image
-                    src="/aboutus/img1.svg"
-                    layout="fill"
-                    objectFit="cover"
-                    alt="about-page-main-image"
-                  />
-                </figure>
-              </div>
-
-              <div className="aboutus_overlay">
-                <p>Bridging the gap between individuals for growth.</p>
-              </div>
+          <div className="about-page__top-container">
+            <div className="main-image">
+              <figure className="thumbnail-img">
+                <Image
+                  src="/aboutus/img1.svg"
+                  layout="fill"
+                  objectFit="cover"
+                  alt="about-page-main-image"
+                />
+              </figure>
             </div>
 
+            <div className="aboutus_overlay">
+              <p>Bridging the gap between individuals for growth.</p>
+            </div>
+          </div>
+          <div className="about-page__purpose">
             <Row>
-              <Col md={6} className="aboutus-images">
+              <Col md={6} className="p-0 aboutus-images">
                 <figure className="thumbnail-img">
                   <Image
                     src="/aboutus/scope-1.svg"
@@ -101,48 +100,49 @@ const About: NextPage = () => {
                 </figure>
               </Col>
             </Row>
-            <div className="card-container pt-5">
-              <h1>Our Scope</h1>
-              <Row className="gx-5">
-                {aboutCardContent &&
-                  aboutCardContent.map((about) => {
-                    return (
-                      <Col
-                        // sm={6}
-                        md={4}
-                        // lg={4}
-                        key={about.id}
-                      >
-                        <AboutCard
-                          cardImage={about.cardImage}
-                          cardTitle={about.cardTitle}
-                          cardDescription={about.cardDescription}
-                        />
-                      </Col>
-                    )
-                  })}
-              </Row>
-            </div>
-            <div className="about-page-footer">
-              <h1>Our economic growth</h1>
-              <p>
-                The video below illustrates the Freelancer online economy.
-                Increases in capital goods, labor force, technology, and human
-                capital can all contribute to economic growth. Every business
-                also operates within the economy. Based on their economic
-                expectations, businesses decide what products to produce, how to
-                price them, how many people to employ, how much to pay these
-                employees, how much to expand the business, and so on.
-              </p>
-              <figure className="thumbnail-img footer-img">
-                <Image
-                  src="/aboutus/egrowth.png"
-                  layout="fill"
-                  objectFit="cover"
-                  alt="about-page-footer-image"
-                />
-              </figure>
-            </div>
+          </div>
+
+          <div className="about-page__scope pt-5">
+            <h1>Our Scope</h1>
+            <Row className="gx-5">
+              {aboutCardContent &&
+                aboutCardContent.map((about) => {
+                  return (
+                    <Col
+                      // sm={6}
+                      md={4}
+                      // lg={4}
+                      key={about.id}
+                    >
+                      <AboutCard
+                        cardImage={about.cardImage}
+                        cardTitle={about.cardTitle}
+                        cardDescription={about.cardDescription}
+                      />
+                    </Col>
+                  )
+                })}
+            </Row>
+          </div>
+          <div className="about-page__footer">
+            <h1>Our economic growth</h1>
+            <p>
+              The video below illustrates the Freelancer online economy.
+              Increases in capital goods, labor force, technology, and human
+              capital can all contribute to economic growth. Every business also
+              operates within the economy. Based on their economic expectations,
+              businesses decide what products to produce, how to price them, how
+              many people to employ, how much to pay these employees, how much
+              to expand the business, and so on.
+            </p>
+            <figure className="thumbnail-img footer-img">
+              <Image
+                src="/aboutus/egrowth.png"
+                layout="fill"
+                objectFit="cover"
+                alt="about-page-footer-image"
+              />
+            </figure>
           </div>
         </Container>
       </div>
