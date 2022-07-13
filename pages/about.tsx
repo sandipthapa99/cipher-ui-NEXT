@@ -67,7 +67,7 @@ const About: NextPage = () => {
                 </div>
               </Col>
             </Row>
-            <Row className="purpose-container">
+            <Row className="purpose-container mt-3">
               <Col md={6}>
                 <div className="about-information purpose">
                   <h1 className="pt-5 mt-3">Our Purpose</h1>
@@ -89,8 +89,8 @@ const About: NextPage = () => {
                   </p>
                 </div>
               </Col>
-              <Col md={6} className="aboutus-images pl-5">
-                <figure className="thumbnail-img">
+              <Col md={6} className="aboutus-images pt-4">
+                <figure className="thumbnail-img purpose ">
                   <Image
                     src="/aboutus/about-2.svg"
                     layout="fill"

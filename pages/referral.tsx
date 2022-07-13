@@ -24,7 +24,7 @@ const About: NextPage = () => {
           <div className="referral-page__top-container">
             <h1 className='"pt-1'>Spread the word and earn rewards</h1>
             <Row>
-              <Col md={7} className="pt-4">
+              <Col md={6} className="pt-4">
                 {' '}
                 <h6>Get 20 credits for every person you refer to Cipher</h6>
                 <p>
@@ -103,7 +103,7 @@ const About: NextPage = () => {
                 </Row>
               </Col>
               <Col
-                md={5}
+                md={6}
                 sm={6}
                 // lg={4}
               >

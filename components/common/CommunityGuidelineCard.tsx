@@ -19,7 +19,12 @@ const CommunityGuidelineCard = ({
       </figure>
 
       <div className="card-block__card-content">
-        <h2 className="card-title">{cardTitle}</h2>
+        <h2
+          className="card-title"
+          style={{ borderBottom: '1px solid #dee2e6' }}
+        >
+          {cardTitle}
+        </h2>
 
         <div className="card-block__card-description">
           {Array.isArray(cardDescription) ? (
