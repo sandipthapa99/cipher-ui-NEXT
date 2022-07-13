@@ -48,64 +48,128 @@ const Community: NextPage = () => {
           </div>
           <div className="community-page__gallery">
             <h1>Community Gallery</h1>
-            <Row>
-              <Col md={6} className="community-page__gallery-leftImage">
-                <figure className="thumbnail-img">
-                  <Image
-                    src="/community/gallery1.png"
-                    layout="fill"
-                    objectFit="cover"
-                    alt="earth-image"
-                  />
-                </figure>
-              </Col>
-              <Col md={6} className="community-page__gallery-rightImage">
-                <Row className="gx-5">
-                  <Col md={6} sm={6} className="pb-4">
-                    <figure className="thumbnail-img small-gallery">
+            <Carousel>
+              <Carousel.Item interval={1000}>
+                <Row>
+                  <Col md={6} className="community-page__gallery-leftImage">
+                    <figure className="thumbnail-img">
                       <Image
-                        src="/community/gallery2.png"
+                        src="/community/gallery1.png"
                         layout="fill"
                         objectFit="cover"
                         alt="earth-image"
                       />
                     </figure>
                   </Col>
-                  <Col md={6} sm={6}>
-                    <figure className="thumbnail-img small-gallery">
-                      <Image
-                        src="/community/gallery3.png"
-                        layout="fill"
-                        objectFit="cover"
-                        alt="earth-image"
-                      />
-                    </figure>
+                  <Col md={6} className="community-page__gallery-rightImage">
+                    <Row className="gx-5">
+                      <Col md={6} sm={6} className="pb-4">
+                        <figure className="thumbnail-img small-gallery">
+                          <Image
+                            src="/community/gallery2.png"
+                            layout="fill"
+                            objectFit="cover"
+                            alt="earth-image"
+                          />
+                        </figure>
+                      </Col>
+                      <Col md={6} sm={6}>
+                        <figure className="thumbnail-img small-gallery">
+                          <Image
+                            src="/community/gallery3.png"
+                            layout="fill"
+                            objectFit="cover"
+                            alt="earth-image"
+                          />
+                        </figure>
+                      </Col>
+                    </Row>
+                    <Row className="gx-5">
+                      <Col md={6} sm={6}>
+                        <figure className="thumbnail-img small-gallery">
+                          <Image
+                            src="/community/gallery4.png"
+                            layout="fill"
+                            objectFit="cover"
+                            alt="earth-image"
+                          />
+                        </figure>
+                      </Col>
+                      <Col md={6} sm={6}>
+                        <figure className="thumbnail-img small-gallery">
+                          <Image
+                            src="/community/gallery5.png"
+                            layout="fill"
+                            objectFit="cover"
+                            alt="earth-image"
+                          />
+                        </figure>
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
-                <Row className="gx-5">
-                  <Col md={6} sm={6}>
-                    <figure className="thumbnail-img small-gallery">
+              </Carousel.Item>
+              <Carousel.Item interval={1000}>
+                <Row>
+                  <Col md={6} className="community-page__gallery-leftImage">
+                    <figure className="thumbnail-img">
                       <Image
-                        src="/community/gallery4.png"
+                        src="/community/gallery1.png"
                         layout="fill"
                         objectFit="cover"
                         alt="earth-image"
                       />
                     </figure>
                   </Col>
-                  <Col md={6} sm={6}>
-                    <figure className="thumbnail-img small-gallery">
-                      <Image
-                        src="/community/gallery5.png"
-                        layout="fill"
-                        objectFit="cover"
-                        alt="earth-image"
-                      />
-                    </figure>
+                  <Col md={6} className="community-page__gallery-rightImage">
+                    <Row className="gx-5">
+                      <Col md={6} sm={6} className="pb-4">
+                        <figure className="thumbnail-img small-gallery">
+                          <Image
+                            src="/community/gallery2.png"
+                            layout="fill"
+                            objectFit="cover"
+                            alt="earth-image"
+                          />
+                        </figure>
+                      </Col>
+                      <Col md={6} sm={6}>
+                        <figure className="thumbnail-img small-gallery">
+                          <Image
+                            src="/community/gallery3.png"
+                            layout="fill"
+                            objectFit="cover"
+                            alt="earth-image"
+                          />
+                        </figure>
+                      </Col>
+                    </Row>
+                    <Row className="gx-5">
+                      <Col md={6} sm={6}>
+                        <figure className="thumbnail-img small-gallery">
+                          <Image
+                            src="/community/gallery4.png"
+                            layout="fill"
+                            objectFit="cover"
+                            alt="earth-image"
+                          />
+                        </figure>
+                      </Col>
+                      <Col md={6} sm={6}>
+                        <figure className="thumbnail-img small-gallery">
+                          <Image
+                            src="/community/gallery5.png"
+                            layout="fill"
+                            objectFit="cover"
+                            alt="earth-image"
+                          />
+                        </figure>
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
-              </Col>
-            </Row>
+              </Carousel.Item>
+            </Carousel>
           </div>
           <div className="community-page__guidelines py-5">
             <h1>Community guidelines</h1>
@@ -161,33 +225,64 @@ const Community: NextPage = () => {
                 })}
             </Row>
           </div>
+
           <Carousel>
-            <div className="community-page__goal py-5">
-              <div className="image">
-                <figure className="thumbnail-img">
-                  <Image
-                    src="/community/Ellipse.png"
-                    layout="fill"
-                    objectFit="cover"
-                    alt="earth-image"
-                  />
-                </figure>
+            <Carousel.Item interval={1000}>
+              <div className="community-page__goal py-">
+                <div className="image">
+                  <figure className="thumbnail-img">
+                    <Image
+                      src="/community/Ellipse.svg"
+                      layout="fill"
+                      objectFit="cover"
+                      alt="earth-image"
+                    />
+                  </figure>
+                </div>
+                <div className="description">
+                  <h2>Business goal</h2>
+                  <p>
+                    "Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Doloremque maiores, iure voluptatem sit quia error fuga
+                    eveniet veritatis quod dolorum nostrum nemo cum! Inventore
+                    eos ut voluptatem officiis placeat sit quibusdam maxime
+                    tenetur quo recusandae voluptas obcaecati qui, accusantium
+                    aspernatur ipsam! Minus molestiae accusamus incidunt
+                    corrupti, totam magnam veritatis delectus?"
+                  </p>
+                  <p className="author">Roshani Panday, Makeup Artist</p>
+                </div>
               </div>
-              <div className="description">
-                <h2>Business goal</h2>
-                <p>
-                  "Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Doloremque maiores, iure voluptatem sit quia error fuga
-                  eveniet veritatis quod dolorum nostrum nemo cum! Inventore eos
-                  ut voluptatem officiis placeat sit quibusdam maxime tenetur
-                  quo recusandae voluptas obcaecati qui, accusantium aspernatur
-                  ipsam! Minus molestiae accusamus incidunt corrupti, totam
-                  magnam veritatis delectus?"
-                </p>
-                <p className="author">Roshani Panday, Makeup Artist</p>
+            </Carousel.Item>
+            <Carousel.Item interval={1000}>
+              <div className="community-page__goal py-">
+                <div className="image">
+                  <figure className="thumbnail-img">
+                    <Image
+                      src="/community/Ellipse.svg"
+                      layout="fill"
+                      objectFit="cover"
+                      alt="earth-image"
+                    />
+                  </figure>
+                </div>
+                <div className="description">
+                  <h2>Our goal</h2>
+                  <p>
+                    "Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Doloremque maiores, iure voluptatem sit quia error fuga
+                    eveniet veritatis quod dolorum nostrum nemo cum! Inventore
+                    eos ut voluptatem officiis placeat sit quibusdam maxime
+                    tenetur quo recusandae voluptas obcaecati qui, accusantium
+                    aspernatur ipsam! Minus molestiae accusamus incidunt
+                    corrupti, totam magnam veritatis delectus?"
+                  </p>
+                  <p className="author">Roshani Panday, Makeup Artist</p>
+                </div>
               </div>
-            </div>
+            </Carousel.Item>
           </Carousel>
+
           <div className="community-page__blogs">
             <h1>Blogs</h1>
             <Row>

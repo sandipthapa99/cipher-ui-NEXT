@@ -9,8 +9,13 @@
       object-fit: contain;
     }
   }
-
-  .card-title {
-    border-bottom: none;
+  &__card-content {
+    .card-title {
+      border-bottom: none;
+    }
+    .card-description {
+      font-size: 1.2rem;
+      line-height: 1.8rem;
+    }
   }
 }

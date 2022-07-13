@@ -2,7 +2,7 @@ export const communityGuidelineCardContent = [
     {
         id:"0",
         cardTitle:"Guidelines",
-        cardImage:"/community/guideline1.png",
+        cardImage:"/community/guideline1.svg",
         cardDescription: [
             "Treat others online as you would treat them in real life",
             "Be tolerant towards others viewpoints; respectfully disagree when opinions do not align",
@@ -14,7 +14,7 @@ export const communityGuidelineCardContent = [
     {
         id:"0",
         cardTitle:"Please do not",
-        cardImage:"/community/guideline2.png",
+        cardImage:"/community/guideline2.svg",
         cardDescription: [
             "Make personal attacks on other community members",
             "Use defamatory remarks or make false statements against others",
@@ -27,7 +27,7 @@ export const communityGuidelineCardContent = [
     {
         id:"2",
         cardTitle:"Consequences",
-        cardImage:"/community/guideline3.png",
+        cardImage:"/community/guideline3.svg",
         cardDescription:"We will take action when we see someone violating these guidelines. Sometimes that just means giving someone a warning; other times it means revoking certain"
 
         

@@ -1,5 +1,12 @@
 .referral-page {
   margin-bottom: 4.375rem;
+  @include respond(sm) {
+    padding: 0rem 1.25rem;
+  }
+
+  @include respond(xs) {
+    padding: 0rem 1.25rem;
+  }
   &__top-container {
     margin-bottom: 5rem;
     h1 {
@@ -14,6 +21,10 @@
       color: $sub-title-color;
       line-height: 2.5rem;
     }
+    p {
+      color: $secondary-text-color;
+      font-size: 1.2rem;
+    }
     .thumbnail-img {
       img {
         width: 100%;
@@ -26,6 +37,7 @@
       @include respond(md) {
         height: 28.75rem;
         width: 36.5rem;
+        margin-top: 3rem;
       }
       @include respond(lg) {
         height: 30.75rem;
@@ -35,6 +47,7 @@
 
     .form-input p {
       margin-bottom: 1rem;
+      font-size: 1.1rem;
     }
     .submit-btn {
       background-color: $primary-color;
@@ -48,12 +61,10 @@
     }
     .submit-btn:hover {
       background: $secondary-color;
-      color: #fff;
+      color: #111;
     }
     .form-control {
       border: none;
     }
-  }
-  &__bottom-container {
   }
 }

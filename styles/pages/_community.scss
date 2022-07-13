@@ -1,5 +1,12 @@
 .community-page {
   margin-bottom: 4.375rem;
+  @include respond(sm) {
+    padding: 0rem 1.25rem;
+  }
+
+  @include respond(xs) {
+    padding: 0rem 1.25rem;
+  }
   &__top-container {
     margin-bottom: 5rem;
 
@@ -80,11 +87,16 @@
       gap: 1.25rem;
       box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
       border: none;
-      border-radius: 0.25rem;
+      border-radius: 0.4rem;
       color: $primary-color;
       font-weight: 500;
       font-size: 1.875rem;
       line-height: 2.5rem;
+      @include transition();
+    }
+    .button:hover {
+      background-color: $primary-color;
+      color: #fff;
     }
 
     &__guidelines {
@@ -125,6 +137,13 @@
         padding-bottom: 0rem !important;
         // padding-bottom: 10px;
       }
+    }
+  }
+  &__guidelines {
+    .thumbnail-img {
+      height: 9rem;
+      width: 17rem;
+      object-fit: contain;
     }
   }
   &__goal {
@@ -183,14 +202,13 @@
       }
       p {
         color: $secondary-text-color;
-        margin-top: 2.1875rem;
-        font-size: 1.625rem;
+        font-size: 1.2rem;
         font-weight: 500;
       }
       .author {
         color: $secondary-text-color;
-        margin-top: 1.5625rem;
-        font-size: 1.625rem;
+        margin-top: 1.3rem;
+        font-size: 1.2rem;
         font-weight: 500;
       }
     }
@@ -205,31 +223,10 @@
 .community-images .thumbnail-img {
   height: 100%;
   width: 100%;
-  border-radius: 0.25rem;
+  border-radius: 0.4rem;
   filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
 }
 
-.community-information {
-  h2 {
-    font-size: 1.875rem;
-    font-weight: 500;
-    line-height: 2.5rem;
-    color: $primary-color;
-  }
-
-  h5 {
-    font-weight: 500;
-    font-size: 1.75rem;
-    line-height: 2.125rem;
-    color: $sub-title-color;
-  }
-  p {
-    font-weight: 400;
-    font-size: 1.4rem;
-    line-height: 2rem;
-    color: $default-text-color;
-  }
-}
 h1 {
   font-weight: 500;
   font-size: 1.8rem;
@@ -242,7 +239,7 @@ h1 {
 .community-page-footer {
   p {
     color: $sub-title-color;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     font-weight: 400;
     line-height: 2rem;
   }
