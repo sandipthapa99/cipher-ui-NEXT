@@ -37,7 +37,7 @@ const Help: NextPage = () => {
               <Col md={6}>
                 <h1>What help do you need?</h1>
 
-                <Formik
+                {/* <Formik
                   initialValues={{ email: '' }}
                   validationSchema={emailValidationSchema}
                   onSubmit={async (values) => {
@@ -63,7 +63,7 @@ const Help: NextPage = () => {
                       </button>
                     </Form>
                   )}
-                </Formik>
+                </Formik> */}
                 <div className="available-categories">
                   <input type="text" name="text" value="Hello" />
                   <button type="submit" className="cancel">
