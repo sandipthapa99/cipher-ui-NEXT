@@ -22,6 +22,9 @@ import Link from 'next/link'
 import MerchantCard from '@components/common/MerchantCard'
 import TaskCard from '@components/common/TaskCard'
 import RecommendationChips from '@components/common/RecommendationChips'
+import CipherCard from '@components/common/CipherCard'
+import { findHire } from 'staticData/findHire'
+import { findOpportuities } from 'staticData/findOpportunities'
 
 const Home: NextPage = () => {
     return (
@@ -70,13 +73,13 @@ const Home: NextPage = () => {
                         </Formik>
                     </div>
                     <div className="site-main-banner--chips-section d-md-flex d-none">
-                        <RecommendationChips title="Garden Cleaner"/>
-                        <RecommendationChips title="Plumber"/>
-                        <RecommendationChips title="Electrician"/>
-                        <RecommendationChips title="Washing Machine"/>
-                        <RecommendationChips title="Health &amp; Care"/>
+                        <RecommendationChips title="Garden Cleaner" />
+                        <RecommendationChips title="Plumber" />
+                        <RecommendationChips title="Electrician" />
+                        <RecommendationChips title="Washing Machine" />
+                        <RecommendationChips title="Health &amp; Care" />
                     </div>
-                    
+
 
                     {/* Service category listing start */}
                     <Row className="gx-5">
@@ -198,84 +201,18 @@ const Home: NextPage = () => {
                     <h1 className="section-main-title">Find & Hire</h1>
                     <h2 className="section-sub-title">Get those work done.</h2>
                     <Row className="gx-5">
-                        <Col md={4} className="d-flex align-items-stretch">
-                            <div className="find-hire-card-block">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/services/hire1.png"
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt=""
+                        {findHire && findHire.map((card) => {
+                            return (
+                                <Col md={4} className="d-flex align-items-stretch">
+                                    <CipherCard
+                                    thumbnailImg={card.thumbnailImg}
+                                    title={card.title}
+                                    description={card.description}
+                                    redirectTo={card.redirectTo}
                                     />
-
-                                </figure>
-                                <div className="card-content">
-                                    <h2>Post a Task</h2>
-                                    <p>
-                                        Have a project that you need to finish ? Log in to CIPHER, type in the requirements, your budget, time constraints and post the same. Sit back, and relax while CIPHER finds a suitable tasker for you.
-                                    </p>
-
-                                    <Link href="">
-                                        <a>
-                                            Post Task
-                                            <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
-                                        </a>
-                                    </Link>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col md={4} className="d-flex align-items-stretch">
-                            <div className="find-hire-card-block">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/services/hire2.png"
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt=""
-                                    />
-
-                                </figure>
-                                <div className="card-content">
-                                    <h2>Browse Talents</h2>
-                                    <p>
-                                        Looking for some place to showcase your talent, and earn while you do it ? Well, look no more, login to CIPHER, and access all the tasks on the portal for you to choose from.
-                                    </p>
-
-                                    <Link href="">
-                                        <a>
-                                            Browse Talents
-                                            <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
-                                        </a>
-                                    </Link>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col md={4} className="d-flex align-items-stretch">
-                            <div className="find-hire-card-block">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/services/hire3.png"
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt=""
-                                    />
-
-                                </figure>
-                                <div className="card-content">
-                                    <h2>Get Help</h2>
-                                    <p>
-                                        Stuck somewhere on CIPHER, have questions ? Fret not, our hands on team is always ready to address your queries, and provide you with real time soultions.
-                                    </p>
-
-                                    <Link href="">
-                                        <a>
-                                            Get Help
-                                            <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
-                                        </a>
-                                    </Link>
-                                </div>
-                            </div>
-                        </Col>
+                                </Col>
+                            )
+                        })}
                     </Row>
 
                 </Container>
@@ -318,85 +255,18 @@ const Home: NextPage = () => {
                     <h1 className="section-main-title">Find Oppurtunities</h1>
                     <h2 className="section-sub-title">Finding job can never be this easy</h2>
                     <Row className="gx-5">
-                        <Col md={4} className="d-flex align-items-stretch">
-                            <div className="find-hire-card-block">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/services/opp1.png"
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt=""
+                    {findOpportuities && findOpportuities.map((card) => {
+                            return (
+                                <Col md={4} className="d-flex align-items-stretch">
+                                    <CipherCard
+                                    thumbnailImg={card.thumbnailImg}
+                                    title={card.title}
+                                    description={card.description}
+                                    redirectTo={card.redirectTo}
                                     />
-
-                                </figure>
-                                <div className="card-content">
-                                    <h2>Win new clients </h2>
-                                    <p>
-                                        Have a project that you need to finish ? Log in to CIPHER, type in the requirements, your budget, time constraints and post the same. Sit back, and relax while CIPHER finds a suitable tasker for you.
-                                    </p>
-
-                                    <Link href="">
-                                        <a>
-                                            Win new clients
-                                            <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
-                                        </a>
-                                    </Link>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col md={4} className="d-flex align-items-stretch">
-                            <div className="find-hire-card-block">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/services/opp2.png"
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt=""
-                                    />
-
-                                </figure>
-                                <div className="card-content">
-                                    <h2>Grow Your Business</h2>
-                                    <p>
-                                        Looking for some place to showcase your talent, and earn while you do it ? Well, look no more, login to CIPHER, and access all the tasks on the portal for you to choose from.
-
-                                    </p>
-
-                                    <Link href="">
-                                        <a>
-                                            Grow your business
-                                            <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
-                                        </a>
-                                    </Link>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col md={4} className="d-flex align-items-stretch">
-                            <div className="find-hire-card-block">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/services/opp3.png"
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt=""
-                                    />
-
-                                </figure>
-                                <div className="card-content">
-                                    <h2>Get Help</h2>
-                                    <p>
-                                        Stuck somewhere on CIPHER, have questions ? Fret not, our hands on team is always ready to address your queries, and provide you with real time soultions.
-                                    </p>
-
-                                    <Link href="">
-                                        <a>
-                                            Get Help
-                                            <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
-                                        </a>
-                                    </Link>
-                                </div>
-                            </div>
-                        </Col>
+                                </Col>
+                            )
+                        })}
                     </Row>
 
                 </Container>
@@ -415,12 +285,12 @@ const Home: NextPage = () => {
                             return (
                                 <Col md={6} key={task.id}>
                                     <TaskCard
-                                    title={task.title}
-                                    charge={task.charge}
-                                    description={task.description}
-                                    location={task.location}
-                                    date={task.date}
-                                    time={task.time}
+                                        title={task.title}
+                                        charge={task.charge}
+                                        description={task.description}
+                                        location={task.location}
+                                        date={task.date}
+                                        time={task.time}
                                     />
                                 </Col>
                             )

@@ -40,7 +40,7 @@ const Footer = () => {
                                                 name="email"
                                                 error={errors.email}
                                                 touch={touched.email}
-                                                placeHolder="Enter your email"
+                                                placeHolder="Your email address"
                                             />
                                             <div className="btn-wrapper">
                                                 <button
