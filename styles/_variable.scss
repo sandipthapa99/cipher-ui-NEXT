@@ -1,24 +1,27 @@
 // Color variable
-$primary-color: #211D4F;
-$secondary-color: #FFCA6A;
+$primary-color: #211d4f;
+$secondary-color: #ffca6a;
 $default-text-color: #212529;
 $gray-text-color: #afafaf;
 $placeholder-color: #afafaf;
 $paragraph-text-color: #545454;
-
-$facebook-logo-color: #4267B2;
-$twitter-logo-color: #1DA1F2;
-$google-logo-color: #F83636;
-
+$border-color: #dee2e6;
+$secondary-text-color: #495057;
+$sub-title-color: #343a40;
+$facebook-logo-color: #4267b2;
+$twitter-logo-color: #1da1f2;
+$google-logo-color: #f83636;
 
 // Font Family
-$inter-font: "Inter";
-$poppins-font: "Poppins";
+$inter-font: 'Inter';
+$poppins-font: 'Poppins';
 
 // Material Icons
-$material-icons: "Material Icons";
+$material-icons: 'oMaterial Icons';
 
 // Responsive Breakpoints
+$xxs: 300px;
+$xs: 572px;
 $sm: 576px;
 $md: 768px;
 $lg: 992px;

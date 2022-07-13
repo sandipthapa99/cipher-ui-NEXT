@@ -1,168 +1,169 @@
-.site-header{
-    background-color: #211D4F;
-    z-index: 1;
-    .header-navigation{
+.site-header {
+  background-color: #211d4f;
+  z-index: 100;
+  .header-navigation {
+    padding: 0;
+    .navbar-nav {
+      padding: 0.2rem 0;
+      flex: auto;
+      flex-direction: row;
+      @include respond(lg) {
         padding: 0;
-            .navbar-nav{
-                padding: 0.2rem 0;
-                flex: auto;
-                flex-direction: row;
-                @include respond(lg) {
-                    padding: 0;
-                    background: none;
-                }
-                @include respond(xl) {
-                    margin-right: 1.6rem;
-                }
-                .nav-item {
-                    position: relative;
-                    // &:first-child {
-                    //     padding: 0 2rem;
-                    //     margin-right: 0;
-                    // }
-                    @include transition();
-                    .nav-link {
-                        color: #FFF;
-                        font-weight: 500;
-                        padding: 1.2rem 0;
-                        font-size: 1.2rem;
-                        margin-right: 1.4rem;
-                        @include respond(lg) {
-                            padding: 1.3rem 2.6rem;
-                            margin-right: 1rem;
-                            font-weight: 500;
-                            font-size: 1.4rem;
-                            color: #FFF;
-                        }
-                        @include respond(tablet-lanscape) {
-                            padding: 2.8rem 3.5rem;
-                        }
-                        .faAngleDown-svg-icon{
-                            width: 1.8rem;
-                            height: 1.8rem;
-                            display: inline-block;
-                            vertical-align: middle;
-                            margin-left:1rem;
-                        }
-                    }
-                    &--active {
-                        .nav-link {
-                            font-weight: 700;
-                            color: $secondary-color;
-                        }
-                    }
-                    &:hover {
-                        &::before,
-                        + .nav-item::before {
-                            height: 100%;
-                        }
-                        .nav-link {
-                            background-color: $secondary-color;
-                            color: $default-text-color;
-                            font-weight: 500;
-                            transition: all 0.5s;
-                        }
-                    }
-                }
-                
-            }
-        .location-btn{
-            color: #FFF;
-            font-size: 1.3rem;
+        background: none;
+      }
+      @include respond(xl) {
+        margin-right: 1.6rem;
+      }
+      .nav-item {
+        position: relative;
+        // &:first-child {
+        //     padding: 0 2rem;
+        //     margin-right: 0;
+        // }
+        @include transition();
+        .nav-link {
+          color: #fff;
+          font-weight: 500;
+          padding: 1.2rem 0;
+          font-size: 1.2rem;
+          margin-right: 1.4rem;
+          @include respond(lg) {
+            padding: 1.3rem 2.6rem;
+            margin-right: 1rem;
             font-weight: 500;
-            padding: 1.2rem 0;
-            border: none;
-            font-family: $inter-font;
-            @include respond(lg) {
-                position: static;
-            }
-            @include respond(tablet-lanscape) {
-                padding: 1.05rem 2.2rem;
-            }
-            &:hover {
-                color:$secondary-color;
-            }
-            &:focus, &:active, &:focus-visible{
-                border: none;
-                box-shadow: none;
-            }
-            .svg-icon{
-                margin: 0 0 0 0.8rem;
-                color: $secondary-color ;
-                height: 1.8rem;
-                width: 1.8rem;
-            }
+            font-size: 1.4rem;
+            color: #fff;
+          }
+          @include respond(tablet-lanscape) {
+            padding: 2.8rem 3.5rem;
+          }
+          .faAngleDown-svg-icon {
+            width: 1.8rem;
+            height: 1.8rem;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 1rem;
+          }
         }
-        .navbar-toggler {
-            background: none;
+        &--active {
+          .nav-link {
+            font-weight: 700;
             color: $secondary-color;
-            border: none;
-            border-radius: 0;
-            padding: 0;
-            box-shadow: none;
-            position: absolute;
-            top: 0.7rem;
-            right: 0;
-            margin: 0!important;
-            @include respond(md) {
-                top: 1.1rem;
-            }
-            .svg-icon {
-                width: 3rem;
-                height: 3rem;
-            }
+          }
         }
-        .mega-menu-toggler {
-            background: $secondary-color;
-            padding: none;
-            border: none;
-            padding: 0;
-            width: 3.6rem;
-            height: 3.6rem;
-            border-radius: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        &:hover {
+          &::before,
+          + .nav-item::before {
+            height: 100%;
+          }
+          .nav-link {
+            background-color: $secondary-color;
             color: $default-text-color;
-            position: absolute;
-            top: 0.3rem;
-            right: 0;
-            @include respond(md) {
-                width: 4rem;
-                height: 4rem;
-                top: 0.55rem;
-            }
-            @include respond(lg) {
-                margin-left: 3rem;
-                position: static;
-            }
-            @include respond(xl) {
-                margin-left: 5rem;
-            }
-            .svg-icon {
-                width: 2.8rem;
-                height: 2.8rem;
-                @include respond(md) {
-                    width: 3.2rem;
-                    height: 3.2rem;
-                }
-            }
-            &:focus {
-                box-shadow: none;
-            }
+            font-weight: 500;
+            transition: all 0.5s;
+          }
         }
+      }
     }
+    .location-btn {
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 500;
+      padding: 1.2rem 0;
+      border: none;
+      font-family: $inter-font;
+      @include respond(lg) {
+        position: static;
+      }
+      @include respond(tablet-lanscape) {
+        padding: 1.05rem 2.2rem;
+      }
+      &:hover {
+        color: $secondary-color;
+      }
+      &:focus,
+      &:active,
+      &:focus-visible {
+        border: none;
+        box-shadow: none;
+      }
+      .svg-icon {
+        margin: 0 0 0 0.8rem;
+        color: $secondary-color;
+        height: 1.8rem;
+        width: 1.8rem;
+      }
+    }
+    .navbar-toggler {
+      background: none;
+      color: $secondary-color;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+      position: absolute;
+      top: 0.7rem;
+      right: 0;
+      margin: 0 !important;
+      @include respond(md) {
+        top: 1.1rem;
+      }
+      .svg-icon {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+    .mega-menu-toggler {
+      background: $secondary-color;
+      padding: none;
+      border: none;
+      padding: 0;
+      width: 3.6rem;
+      height: 3.6rem;
+      border-radius: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $default-text-color;
+      position: absolute;
+      top: 0.3rem;
+      right: 0;
+      @include respond(md) {
+        width: 4rem;
+        height: 4rem;
+        top: 0.55rem;
+      }
+      @include respond(lg) {
+        margin-left: 3rem;
+        position: static;
+      }
+      @include respond(xl) {
+        margin-left: 5rem;
+      }
+      .svg-icon {
+        width: 2.8rem;
+        height: 2.8rem;
+        @include respond(md) {
+          width: 3.2rem;
+          height: 3.2rem;
+        }
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
 }
-.site-header.sticky{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+.site-header.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
-.svg-icon{
-    width: 1.8rem;
-    height: 1.8rem;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 0.9rem;
+.svg-icon {
+  width: 1.8rem;
+  height: 1.8rem;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.9rem;
 }

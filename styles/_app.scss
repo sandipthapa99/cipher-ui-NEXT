@@ -132,7 +132,7 @@ img {
     img {
         width: 100%;
         object-fit: cover;
-        @include transform();
+        @transform();
         @include transition();
     }
 }
