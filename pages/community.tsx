@@ -16,173 +16,113 @@ import { Carousel } from 'react-bootstrap'
 const Community: NextPage = () => {
   return (
     <Layout title="Community | Cipher">
-      <Breadcrum currentPage="Discover" />
+      <Container fluid="xl">
+        <div className="community-page">
+          <div className="back-color">
+            <Breadcrum currentPage="Discover" />
+            <div className="community-page__top-container">
+              <Row className="top-row">
+                <Col
+                  md={6}
+                  sm={6}
+                  // lg={4}
+                >
+                  <figure className="thumbnail-img">
+                    <Image
+                      src="/community/earth.png"
+                      layout="fill"
+                      objectFit="cover"
+                      alt="earth-image"
+                    />
+                  </figure>
+                </Col>
+                <Col md={6} sm={6}>
+                  <h3>
+                    Let&apos; root for each other & <br></br> watch each other
+                    grow
+                  </h3>
+                  <p>Communicate with others for your own benefit</p>
+                  <Button className="button">Join Us</Button>
+                </Col>
+              </Row>
+            </div>
+          </div>
 
-      <div className="community-page">
-        <Container fluid="xl">
-          <div className="community-page__top-container">
-            <Row className="top-row">
-              <Col
-                md={6}
-                sm={6}
-                // lg={4}
-              >
+          <div className="community-page__gallery">
+            <h1>Community Gallery</h1>
+
+            <Row>
+              <Col md={6} className="leftImage">
                 <figure className="thumbnail-img">
                   <Image
-                    src="/community/earth.png"
+                    src="/community/gallery1.png"
                     layout="fill"
                     objectFit="cover"
                     alt="earth-image"
                   />
                 </figure>
               </Col>
-              <Col md={6} sm={6}>
-                <h3>
-                  Let&apos; root for each other & <br></br> watch each other
-                  grow
-                </h3>
-                <p>Communicate with others for your own benefit</p>
-                <Button className="button">Join Us</Button>
+              <Col md={6} className="rightImage">
+                <Row className="gx-5">
+                  <Col md={6} sm={6} className="pb-4">
+                    <figure className="thumbnail-img small-gallery">
+                      <Image
+                        src="/community/gallery2.png"
+                        layout="fill"
+                        objectFit="cover"
+                        alt="earth-image"
+                      />
+                    </figure>
+                  </Col>
+                  <Col md={6} sm={6}>
+                    <figure className="thumbnail-img small-gallery">
+                      <Image
+                        src="/community/gallery3.png"
+                        layout="fill"
+                        objectFit="cover"
+                        alt="earth-image"
+                      />
+                    </figure>
+                  </Col>
+                </Row>
+                <Row className="gx-5">
+                  <Col md={6} sm={6}>
+                    <figure className="thumbnail-img small-gallery">
+                      <Image
+                        src="/community/gallery4.png"
+                        layout="fill"
+                        objectFit="cover"
+                        alt="earth-image"
+                      />
+                    </figure>
+                  </Col>
+                  <Col md={6} sm={6}>
+                    <figure className="thumbnail-img small-gallery">
+                      <Image
+                        src="/community/gallery5.png"
+                        layout="fill"
+                        objectFit="cover"
+                        alt="earth-image"
+                      />
+                    </figure>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </div>
-          <div className="community-page__gallery">
-            <h1>Community Gallery</h1>
-            <Carousel>
-              <Carousel.Item interval={1000}>
-                <Row>
-                  <Col md={6} className="community-page__gallery-leftImage">
-                    <figure className="thumbnail-img">
-                      <Image
-                        src="/community/gallery1.png"
-                        layout="fill"
-                        objectFit="cover"
-                        alt="earth-image"
-                      />
-                    </figure>
-                  </Col>
-                  <Col md={6} className="community-page__gallery-rightImage">
-                    <Row className="gx-5">
-                      <Col md={6} sm={6} className="pb-4">
-                        <figure className="thumbnail-img small-gallery">
-                          <Image
-                            src="/community/gallery2.png"
-                            layout="fill"
-                            objectFit="cover"
-                            alt="earth-image"
-                          />
-                        </figure>
-                      </Col>
-                      <Col md={6} sm={6}>
-                        <figure className="thumbnail-img small-gallery">
-                          <Image
-                            src="/community/gallery3.png"
-                            layout="fill"
-                            objectFit="cover"
-                            alt="earth-image"
-                          />
-                        </figure>
-                      </Col>
-                    </Row>
-                    <Row className="gx-5">
-                      <Col md={6} sm={6}>
-                        <figure className="thumbnail-img small-gallery">
-                          <Image
-                            src="/community/gallery4.png"
-                            layout="fill"
-                            objectFit="cover"
-                            alt="earth-image"
-                          />
-                        </figure>
-                      </Col>
-                      <Col md={6} sm={6}>
-                        <figure className="thumbnail-img small-gallery">
-                          <Image
-                            src="/community/gallery5.png"
-                            layout="fill"
-                            objectFit="cover"
-                            alt="earth-image"
-                          />
-                        </figure>
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </Carousel.Item>
-              <Carousel.Item interval={1000}>
-                <Row>
-                  <Col md={6} className="community-page__gallery-leftImage">
-                    <figure className="thumbnail-img">
-                      <Image
-                        src="/community/gallery1.png"
-                        layout="fill"
-                        objectFit="cover"
-                        alt="earth-image"
-                      />
-                    </figure>
-                  </Col>
-                  <Col md={6} className="community-page__gallery-rightImage">
-                    <Row className="gx-5">
-                      <Col md={6} sm={6} className="pb-4">
-                        <figure className="thumbnail-img small-gallery">
-                          <Image
-                            src="/community/gallery2.png"
-                            layout="fill"
-                            objectFit="cover"
-                            alt="earth-image"
-                          />
-                        </figure>
-                      </Col>
-                      <Col md={6} sm={6}>
-                        <figure className="thumbnail-img small-gallery">
-                          <Image
-                            src="/community/gallery3.png"
-                            layout="fill"
-                            objectFit="cover"
-                            alt="earth-image"
-                          />
-                        </figure>
-                      </Col>
-                    </Row>
-                    <Row className="gx-5">
-                      <Col md={6} sm={6}>
-                        <figure className="thumbnail-img small-gallery">
-                          <Image
-                            src="/community/gallery4.png"
-                            layout="fill"
-                            objectFit="cover"
-                            alt="earth-image"
-                          />
-                        </figure>
-                      </Col>
-                      <Col md={6} sm={6}>
-                        <figure className="thumbnail-img small-gallery">
-                          <Image
-                            src="/community/gallery5.png"
-                            layout="fill"
-                            objectFit="cover"
-                            alt="earth-image"
-                          />
-                        </figure>
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </Carousel.Item>
-            </Carousel>
-          </div>
-          <div className="community-page__guidelines py-5">
+          <div className="community-page__guidelines">
             <h1>Community guidelines</h1>
             <p>
               {' '}
               To assist clients and merchants in their personal and professional
               pursuits
             </p>
-            <Row className="gx-5">
+            <Row className="gx-5 d-flex align-items-stretch">
               {communityGuidelineCardContent &&
                 communityGuidelineCardContent.map((guideline) => {
                   return (
                     <Col
+                      className="gx-5 d-flex align-items-stretch"
                       // sm={6}
                       md={4}
                       // lg={4}
@@ -199,7 +139,7 @@ const Community: NextPage = () => {
             </Row>
           </div>
 
-          <div className="community-page__activity py-5">
+          <div className="community-page__activity">
             <h1>Community activity</h1>
             <Row className="gx-5">
               {communityActivityContent &&
@@ -227,8 +167,10 @@ const Community: NextPage = () => {
           </div>
 
           <Carousel>
-            <Carousel.Item interval={1000}>
-              <div className="community-page__goal py-">
+            <Carousel.Item
+            //interval={1000}
+            >
+              <div className="community-page__goal">
                 <div className="image">
                   <figure className="thumbnail-img">
                     <Image
@@ -254,7 +196,9 @@ const Community: NextPage = () => {
                 </div>
               </div>
             </Carousel.Item>
-            <Carousel.Item interval={1000}>
+            <Carousel.Item
+            //interval={1000}
+            >
               <div className="community-page__goal py-">
                 <div className="image">
                   <figure className="thumbnail-img">
@@ -290,6 +234,7 @@ const Community: NextPage = () => {
                 communityBlogCardContent.map((blog) => {
                   return (
                     <Col
+                      className="d-flex align-items-stretch"
                       // sm={6}
                       md={4}
                       // lg={4}
@@ -305,8 +250,8 @@ const Community: NextPage = () => {
                 })}
             </Row>
           </div>
-        </Container>
-      </div>
+        </div>{' '}
+      </Container>
     </Layout>
   )
 }
