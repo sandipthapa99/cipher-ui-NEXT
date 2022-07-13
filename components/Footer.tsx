@@ -151,7 +151,7 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/affiliate" as="affiliate-program">
+                                            <Link href="/referral" as="affiliate-program">
                                                 <a>Affiliate Program</a>
                                             </Link>
                                         </li>
@@ -170,7 +170,7 @@ const Footer = () => {
                                             Company
                                         </li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="about" as="about-us">
                                                 <a>About Us</a>
                                             </Link>
                                         </li>

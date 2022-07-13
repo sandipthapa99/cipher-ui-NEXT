@@ -21,6 +21,7 @@ import { serviceCategory } from 'staticData/serviceCategory'
 import Link from 'next/link'
 import MerchantCard from '@components/common/MerchantCard'
 import TaskCard from '@components/common/TaskCard'
+import RecommendationChips from '@components/common/RecommendationChips'
 
 const Home: NextPage = () => {
     return (
@@ -68,6 +69,14 @@ const Home: NextPage = () => {
                             </div>
                         </Formik>
                     </div>
+                    <div className="site-main-banner--chips-section">
+                        <RecommendationChips title="Garden Cleaner"/>
+                        <RecommendationChips title="Plumber"/>
+                        <RecommendationChips title="Electrician"/>
+                        <RecommendationChips title="Washing Machine"/>
+                        <RecommendationChips title="Health &amp; Care"/>
+                    </div>
+                    
 
                     {/* Service category listing start */}
                     <Row className="gx-5">

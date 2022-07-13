@@ -55,7 +55,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 8rem;
+      margin-bottom: 2.4rem;
           .search_box{
             width: 100rem;
             background: #fff;
@@ -138,6 +138,12 @@
               outline: none;
             }
           }
+    }
+    &--chips-section{
+      margin: 0 14.5rem 8rem;
+      .chips-wrapper{
+        margin-right: 1rem;
+      }
     }
 }
 
