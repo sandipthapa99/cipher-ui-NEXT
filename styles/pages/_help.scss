@@ -6,8 +6,16 @@
   //   }
   padding-top: 2rem;
   padding-bottom: 5rem;
+  @include respond(sm) {
+    padding: 0rem 1.25rem;
+  }
+
+  @include respond(xs) {
+    padding: 0rem 1.25rem;
+  }
 
   &__top-container {
+    padding: 5rem 0rem;
     h1 {
       font-size: 2.5rem;
       font-weight: 500;
@@ -41,16 +49,16 @@
     .search {
       display: flex;
 
-      .btn {
-        padding: 0.3rem 3rem;
-        // top: -3.5rem;
-        color: $secondary-color;
-        background-color: $primary-color;
-        .svg-icon {
-          width: 2.2rem;
-          height: 2.2rem;
-        }
-      }
+      // .btn {
+      //   padding: 0.3rem 3rem;
+      //   // top: -3.5rem;
+      //   color: $secondary-color;
+      //   background-color: $primary-color;
+      //   .svg-icon {
+      //     width: 2.2rem;
+      //     height: 2.2rem;
+      //   }
+      // }
     }
   }
 }
@@ -62,12 +70,94 @@
       font-size: 2.2rem;
       font-weight: 500;
       margin-bottom: 1.1rem;
+      color: $default-text-color;
     }
     .help-card {
       .thumbnail-img {
-        height: 7rem;
-        width: 7rem;
+        height: 4rem;
+        width: 4rem;
       }
+    }
+  }
+  &__contact-container {
+    padding: 5rem 0rem;
+    .card-block {
+      margin: 0 0 3rem;
+      border-radius: 0.4rem;
+      box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+      background: rgba(255, 255, 255, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 5rem;
+
+      .thumbnail-img {
+        height: 7.1rem;
+        width: 7rem;
+        margin-left: 17rem;
+      }
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 500;
+      }
+      p {
+        font-size: 1.6rem;
+        color: $sub-title-color;
+        text-align: left;
+        line-height: 2.4rem;
+        font-weight: 500;
+        margin-top: 0rem;
+        // padding-bottom: 1.875rem;
+      }
+      .contact-device {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center;
+        @include respond(xs) {
+          flex-direction: row;
+        }
+
+        @include respond(sm) {
+          flex-direction: row;
+        }
+      }
+      .btn {
+        height: 4rem;
+        width: 21rem;
+        font-size: 1.5rem;
+        border: none;
+        border-radius: 0.4rem;
+        color: #fff;
+        background-color: $primary-color;
+
+        :focus {
+          border: none;
+        }
+      }
+    }
+  }
+
+  &__blog-container {
+    padding-bottom: 5rem;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: $default-text-color;
+    }
+  }
+  &__faq-container {
+    padding-bottom: 5rem;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: $default-text-color;
+    }
+    .accordion-item,
+    .accordion-button {
+      background: transparent;
     }
   }
 }

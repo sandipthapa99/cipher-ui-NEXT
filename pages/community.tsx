@@ -5,11 +5,11 @@ import { Container, Col, Row, Button } from 'react-bootstrap'
 import Image from 'next/image'
 import CommunityActivityCard from '@components/common/communityActivity'
 import CommunityGuidelineCard from '@components/common/CommunityGuidelineCard'
-import CommunityBlogCard from '@components/common/communityBlogCard'
+import BlogCard from '@components/common/BlogCard'
 import {
   communityGuidelineCardContent,
   communityActivityContent,
-  communityBlogCardContent,
+  blogCardContent,
 } from 'staticData/community'
 
 import { Carousel } from 'react-bootstrap'
@@ -230,8 +230,8 @@ const Community: NextPage = () => {
           <div className="community-page__blogs">
             <h1>Blogs</h1>
             <Row>
-              {communityBlogCardContent &&
-                communityBlogCardContent.map((blog) => {
+              {blogCardContent &&
+                blogCardContent.map((blog) => {
                   return (
                     <Col
                       className="d-flex align-items-stretch"
@@ -240,7 +240,7 @@ const Community: NextPage = () => {
                       // lg={4}
                       key={blog.id}
                     >
-                      <CommunityBlogCard
+                      <BlogCard
                         cardImage={blog.cardImage}
                         cardDescription={blog.cardDescription}
                         cardTitle={blog.cardTitle}
