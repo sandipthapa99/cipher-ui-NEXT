@@ -23,32 +23,34 @@
         z-index: -1;
         overflow: hidden;
     }
-    h1{
-        font-size: 3.2rem;
-        margin: 4rem 0 2.4rem 0; 
-        @include respond(md){
-            font-size: 4.8rem;
-        }
-        @include respond(lg){
-            font-size: 4.8rem;
-            margin: 11.4rem 0 6.7rem 0; 
-        }
-        @include respond(xl){
-            font-size: 6.4rem;
-
-        }
-    }
-    p{
-        font-size: 1.4rem;
-        color: $default-text-color;
-        font-weight: 500;
-        margin-bottom: 2.4rem;
-        @include respond(md){
-          font-weight: 600;
-          font-size: 2.4rem;
-          margin-bottom: 8rem;
-
-        }
+    &--content{
+      h1{
+          font-size: 3.2rem;
+          margin: 4rem 0 2.4rem 0; 
+          @include respond(md){
+              font-size: 4.8rem;
+          }
+          @include respond(lg){
+              font-size: 4.8rem;
+              margin: 11.4rem 0 6.7rem 0; 
+          }
+          @include respond(xl){
+              font-size: 6.4rem;
+  
+          }
+      }
+      p{
+          font-size: 1.4rem;
+          color: $default-text-color;
+          font-weight: 500;
+          margin-bottom: 2.4rem;
+          @include respond(md){
+            font-weight: 600;
+            font-size: 2.4rem;
+            margin-bottom: 8rem;
+  
+          }
+      }
     }
 
     &--search-bar{
@@ -140,9 +142,17 @@
           }
     }
     &--chips-section{
-      margin: 0 14.5rem 8rem;
+      margin: 0 ;
+      display: flex;
+      flex-wrap: wrap;
+      @include respond(md){
+        margin: 0;
+      }
+      @include respond(lg){
+        margin: 0 14.5rem 8rem;
+      }
       .chips-wrapper{
-        margin-right: 1rem;
+        margin:0 1rem 0.8rem 0;
       }
     }
 }

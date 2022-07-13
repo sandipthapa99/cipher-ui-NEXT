@@ -69,7 +69,7 @@ const Home: NextPage = () => {
                             </div>
                         </Formik>
                     </div>
-                    <div className="site-main-banner--chips-section">
+                    <div className="site-main-banner--chips-section d-md-flex d-none">
                         <RecommendationChips title="Garden Cleaner"/>
                         <RecommendationChips title="Plumber"/>
                         <RecommendationChips title="Electrician"/>
@@ -197,7 +197,7 @@ const Home: NextPage = () => {
                 <Container fluid="xl">
                     <h1 className="section-main-title">Find & Hire</h1>
                     <h2 className="section-sub-title">Get those work done.</h2>
-                    <Row>
+                    <Row className="gx-5">
                         <Col md={4} className="d-flex align-items-stretch">
                             <div className="find-hire-card-block">
                                 <figure className="thumbnail-img">
@@ -317,7 +317,7 @@ const Home: NextPage = () => {
                 <Container fluid="xl">
                     <h1 className="section-main-title">Find Oppurtunities</h1>
                     <h2 className="section-sub-title">Finding job can never be this easy</h2>
-                    <Row>
+                    <Row className="gx-5">
                         <Col md={4} className="d-flex align-items-stretch">
                             <div className="find-hire-card-block">
                                 <figure className="thumbnail-img">
