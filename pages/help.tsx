@@ -13,7 +13,7 @@ import { Form, Formik } from 'formik'
 import React from 'react'
 import CardBtn from '@components/common/CardBtn'
 import emailValidationSchema from 'utils/formValidation/emailValidation'
-import { faSearch } from '@fortawesome/pro-regular-svg-icons'
+import { faSearch, faRemove } from '@fortawesome/pro-regular-svg-icons'
 import { helpCardContent } from 'staticData/helpCardContent'
 
 const Help: NextPage = () => {
@@ -48,7 +48,7 @@ const Help: NextPage = () => {
                     <Form className="search">
                       <InputField
                         type="email"
-                        name="email"
+                        name="text"
                         error={errors.email}
                         touch={touched.email}
                         placeHolder="Search Categories"
@@ -64,6 +64,12 @@ const Help: NextPage = () => {
                     </Form>
                   )}
                 </Formik>
+                <div className="available-categories">
+                  <input type="text" name="text" value="Hello" />
+                  <button type="submit" className="cancel">
+                    <FontAwesomeIcon icon={faRemove} className="svg-icon" />
+                  </button>
+                </div>
               </Col>
             </Row>
           </div>
