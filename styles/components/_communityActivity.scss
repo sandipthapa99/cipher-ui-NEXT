@@ -34,13 +34,14 @@
     }
     .personal-information {
       display: flex;
+      align-items: center;
       @include respond(xs) {
         justify-content: space-between;
       }
       .thumbnail-img {
         margin: 0 auto;
-        height: 5rem;
-        width: 5rem;
+        height: 4rem;
+        width: 4rem;
         border-radius: 50%;
         margin-top: 1.25rem;
         @include respond(xs) {
@@ -52,6 +53,8 @@
       .name-position {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
         font-size: 1.2rem;
         font-weight: 400;
         color: $primary-color;

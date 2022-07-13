@@ -32,7 +32,7 @@ const About: NextPage = () => {
           </div>
           <div className="about-page__purpose">
             <Row>
-              <Col md={6} className="p-0 aboutus-images">
+              <Col md={6} className="aboutus-images">
                 <figure className="thumbnail-img">
                   <Image
                     src="/aboutus/scope-1.svg"
@@ -49,7 +49,7 @@ const About: NextPage = () => {
                     We are an on demand app that connects customers with about
                     providers.{' '}
                   </h4>
-                  <p>
+                  <p className="about-cipher">
                     CIPHER is a platform incepted with the idea of bridging the
                     gap between individuals who need a certain task completed,
                     and those who have the skills to get the very task completed
@@ -67,10 +67,10 @@ const About: NextPage = () => {
                 </div>
               </Col>
             </Row>
-            <Row>
+            <Row className="purpose-container">
               <Col md={6}>
-                <div className="about-information">
-                  <h1 className="pt-4">Our Purpose</h1>
+                <div className="about-information purpose">
+                  <h1 className="pt-5 mt-3">Our Purpose</h1>
                   <p>
                     Serve the community by providing everyone the platform to
                     showcase their skills, talents, and minimise the stress of
@@ -89,7 +89,7 @@ const About: NextPage = () => {
                   </p>
                 </div>
               </Col>
-              <Col md={6} className="aboutus-images">
+              <Col md={6} className="aboutus-images pl-5">
                 <figure className="thumbnail-img">
                   <Image
                     src="/aboutus/about-2.svg"
@@ -102,7 +102,7 @@ const About: NextPage = () => {
             </Row>
           </div>
 
-          <div className="about-page__scope pt-5">
+          <div className="about-page__scope">
             <h1>Our Scope</h1>
             <Row className="gx-5">
               {aboutCardContent &&
