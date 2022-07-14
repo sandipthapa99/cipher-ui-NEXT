@@ -1,9 +1,5 @@
 .help-page-header {
   background-color: rgba(255, 255, 255, 0.4);
-  //   margin-bottom: 4rem;
-  //   @include respond(md) {
-  //     margin-bottom: 8rem;
-  //   }
   padding-top: 2rem;
   padding-bottom: 5rem;
   @include respond(sm) {
@@ -15,7 +11,7 @@
   }
 
   &__top-container {
-    padding: 5rem 0rem;
+    padding-bottom: 5rem;
     h1 {
       font-size: 2.5rem;
       font-weight: 500;
@@ -29,33 +25,108 @@
       // display: none;
 
       @include respond(md) {
-        height: 26.75rem;
+        height: 29.75rem;
         width: 34.5rem;
         margin-top: 5rem;
-        margin-left: 3rem;
-        margin-right: 3rem;
+
+        margin-right: 4rem;
       }
       @include respond(lg) {
         height: 32.75rem;
         width: 42.375rem;
-        margin-left: 8rem;
-        margin-right: 3rem;
+        margin-right: 4rem;
       }
-      // @include respond(xs) {
-      //   display: none;
-      // }
+    }
+    .default_category {
+      @include respond(lg) {
+        margin-right: 14rem;
+      }
+
+      :nth-child(1n) {
+        // @include respond(md) {
+        //   margin-left: -6rem;
+        // }
+      }
+      :nth-child(3n) {
+        @include respond(lg) {
+          margin-right: -7rem;
+        }
+        @include respond(md) {
+          margin-left: -6rem;
+        }
+      }
+      .search_field {
+        // width: 80%;
+        border-radius: 0.8rem solid rgba(0, 0, 0, 0.08);
+        display: flex;
+
+        &:focus,
+        &:active,
+        &:focus-visible {
+          border: none;
+          box-shadow: none;
+        }
+        input {
+          width: 42%;
+          height: 100%;
+
+          border-radius: 0.4rem solid rgba(0, 0, 0, 0.08);
+          border: 0px;
+          font-size: 1.3rem;
+          padding: 1rem 0.7rem;
+          color: $default-text-color;
+          @include respond(sm) {
+            width: 42%;
+          }
+          @include respond(md) {
+            width: 48%;
+          }
+          @include respond(lg) {
+            width: 42%;
+          }
+          &:focus,
+          &:active,
+          &:focus-visible {
+            outline: none;
+          }
+        }
+        .search-btn {
+          background-color: #fff;
+          border-radius: 0.4rem solid rgba(0, 0, 0, 0.08);
+
+          border: none;
+        }
+        .icon {
+          width: 1.4rem;
+          height: 1.4rem;
+          color: #111;
+        }
+      }
     }
 
     .search {
       display: flex;
+
       .form-control {
-        width: 40rem;
+        border-right: none;
+        border-top-right-radius: 0rem;
+        border: 0.1rem solid #dee2e6;
+        border-bottom-right-radius: 0rem;
+        @include respond(sm) {
+          width: 35rem;
+        }
+        @include respond(md) {
+          width: 28rem;
+        }
+        @include respond(lg) {
+          width: 40rem;
+        }
       }
       .btn {
-        padding: 0rem 2rem;
-        // top: -3.5rem;
+        padding: 0rem 1.8rem;
         height: 4.7rem;
         color: #fff;
+        border-radius: 0rem;
         background-color: $primary-color;
         .svg-icon {
           width: 2.2rem;
@@ -67,6 +138,13 @@
 }
 
 .help-page-content {
+  @include respond(sm) {
+    padding: 0rem 1.25rem;
+  }
+
+  @include respond(xs) {
+    padding: 0rem 1.25rem;
+  }
   &__browse-container {
     padding-top: 2.5rem;
     h1 {
@@ -84,6 +162,7 @@
   }
   &__contact-container {
     padding: 5rem 0rem;
+
     .card-block {
       margin: 0 0 3rem;
       border-radius: 0.4rem;
@@ -92,14 +171,14 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      width: 100%;
       align-items: center;
       padding: 5rem;
+      @include respond(xs) {
+        padding: 2rem;
+      }
 
       .thumbnail-img {
-        // height: 7.1rem;
-        // width: 7rem;
-        // margin-left: 17rem;
-
         @include respond(xs) {
           margin-left: 2rem;
           height: 3rem;
@@ -112,19 +191,28 @@
           width: 4rem;
         }
         @include respond(md) {
-          margin-left: 5rem;
+          margin-left: 11rem;
           height: 5rem;
           width: 5rem;
         }
         @include respond(lg) {
           height: 7.1rem;
           width: 7rem;
-          margin-left: 17rem;
+          margin-left: 17.7rem;
+        }
+        @include respond(xl) {
+          height: 7.1rem;
+          width: 7rem;
+          margin-left: 25rem;
         }
       }
       h1 {
         font-size: 2.5rem;
         font-weight: 500;
+
+        @include respond(xs) {
+          font-size: 2rem;
+        }
       }
       p {
         font-size: 1.6rem;
@@ -134,6 +222,9 @@
         font-weight: 500;
         margin-top: 0rem;
         // padding-bottom: 1.875rem;
+        @include respond(xs) {
+          font-size: 1.3rem;
+        }
       }
       .contact-device {
         display: flex !important;
@@ -161,7 +252,7 @@
         background-color: $primary-color;
         @include respond(xs) {
           height: 4rem;
-          width: 14rem;
+          width: 10rem;
         }
 
         @include respond(sm) {

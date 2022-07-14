@@ -6,21 +6,21 @@ import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { blogCardContent } from 'staticData/community'
 import BlogCard from '@components/common/BlogCard'
-import FormButton from '@components/common/FormButton'
 import InputField from '@components/common/InputField'
 import CommonCard from '@components/common/CommonCard'
 import { Form, Formik } from 'formik'
 import React from 'react'
-import CardBtn from '@components/common/CardBtn'
 import emailValidationSchema from 'utils/formValidation/emailValidation'
 import { faSearch, faRemove } from '@fortawesome/pro-regular-svg-icons'
 import { helpCardContent } from 'staticData/helpCardContent'
+import SearchArticle from '@components/common/searchArticle'
+import { Article } from 'staticData/searchArticles'
 
 const Help: NextPage = () => {
   return (
     <Layout title="Help & Support | Cipher">
       <section className="help-page-header">
-        <Container>
+        <Container fluid="xl">
           <Breadcrum currentPage="Help & Support" />
           <div className="help-page-header__top-container">
             <Row className="d-flex align-items-center">
@@ -37,7 +37,7 @@ const Help: NextPage = () => {
               <Col md={6}>
                 <h1>What help do you need?</h1>
 
-                {/* <Formik
+                <Formik
                   initialValues={{ email: '' }}
                   validationSchema={emailValidationSchema}
                   onSubmit={async (values) => {
@@ -63,12 +63,15 @@ const Help: NextPage = () => {
                       </button>
                     </Form>
                   )}
-                </Formik> */}
-                <div className="available-categories">
-                  <input type="text" name="text" value="Hello" />
-                  <button type="submit" className="cancel">
-                    <FontAwesomeIcon icon={faRemove} className="svg-icon" />
-                  </button>
+                </Formik>
+                <div className="default_category d-flex justify-cspace-between align-items-center">
+                  {Article &&
+                    Article.map((category) => (
+                      <SearchArticle
+                        key={category.id}
+                        search_category={category.name}
+                      />
+                    ))}
                 </div>
               </Col>
             </Row>
@@ -101,7 +104,7 @@ const Help: NextPage = () => {
             </Row>
           </div>
           <div className="help-page-content__contact-container">
-            <Row>
+            <Row className="d-flex align-items-stretch">
               <Col md={6} className="d-flex align-items-stretch">
                 <div className="card-block ">
                   <h1>Get In Touch With Us</h1>
