@@ -37,6 +37,75 @@
         margin-right: 4rem;
       }
     }
+    .search {
+      display: flex;
+
+      .form-control {
+        border-right: none;
+        border-top-right-radius: 0rem;
+        border: 0.1rem solid #dee2e6;
+        border-bottom-right-radius: 0rem;
+        @include respond(sm) {
+          width: 35rem;
+        }
+        @include respond(md) {
+          width: 28rem;
+        }
+        @include respond(lg) {
+          width: 40rem;
+        }
+      }
+      .btn {
+        padding: 0rem 1.8rem;
+        height: 4.7rem;
+        color: #fff;
+        border-radius: 0rem;
+        background-color: $primary-color;
+        .svg-icon {
+          width: 2.2rem;
+          height: 2.2rem;
+        }
+        .search {
+          display: flex;
+
+          .form-control {
+            border-right: none;
+            border-top-right-radius: 0rem;
+            border: 0.1rem solid #dee2e6;
+            border-bottom-right-radius: 0rem;
+            @include respond(sm) {
+              width: 35rem;
+            }
+            @include respond(md) {
+              width: 28rem;
+            }
+            @include respond(lg) {
+              width: 40rem;
+            }
+          }
+          .btn {
+            padding: 0rem 1.8rem;
+            height: 4.7rem;
+            color: #fff;
+            border-radius: 0rem;
+            background-color: $primary-color;
+            .svg-icon {
+              width: 2.2rem;
+              height: 2.2rem;
+            }
+            &:focus {
+              box-shadow: none;
+            }
+            @include respond(xs) {
+              padding: 0rem 1.3rem;
+            }
+          }
+        }
+        @include respond(xs) {
+          padding: 0rem 1.3rem;
+        }
+      }
+    }
     .default_category {
       :nth-child(2n) {
         margin-left: 2rem;
@@ -78,45 +147,14 @@
         .search-btn {
           background-color: #fff;
           border: none;
+          &:focus {
+            box-shadow: none;
+          }
         }
         .icon {
           width: 1.4rem;
           height: 1.4rem;
           color: $default-text-color;
-        }
-      }
-    }
-
-    .search {
-      display: flex;
-
-      .form-control {
-        border-right: none;
-        border-top-right-radius: 0rem;
-        border: 0.1rem solid #dee2e6;
-        border-bottom-right-radius: 0rem;
-        @include respond(sm) {
-          width: 35rem;
-        }
-        @include respond(md) {
-          width: 28rem;
-        }
-        @include respond(lg) {
-          width: 40rem;
-        }
-      }
-      .btn {
-        padding: 0rem 1.8rem;
-        height: 4.7rem;
-        color: #fff;
-        border-radius: 0rem;
-        background-color: $primary-color;
-        .svg-icon {
-          width: 2.2rem;
-          height: 2.2rem;
-        }
-        @include respond(xs) {
-          padding: 0rem 1.3rem;
         }
       }
     }
@@ -236,6 +274,14 @@
         border-radius: 0.4rem;
         color: #fff;
         background-color: $primary-color;
+        @include transition();
+        &:focus {
+          box-shadow: none;
+        }
+        &:hover {
+          background-color: $secondary-color;
+          color: #111;
+        }
         @include respond(xs) {
           height: 4rem;
           width: 10rem;
@@ -249,7 +295,7 @@
           height: 4rem;
           width: 14rem;
         }
-        :focus {
+        &:focus {
           border: none;
         }
       }
