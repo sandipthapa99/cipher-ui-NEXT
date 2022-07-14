@@ -7,13 +7,16 @@ import { faRemove } from '@fortawesome/pro-regular-svg-icons'
 
 const SearchArticle = ({ search_category }: HelpSearchValueProps) => {
   return (
-    <div className="search_field">
-      <input
+    <div className="search-field">
+      {/* <input
         type="text"
         className="input"
         //value={search_category}
         placeholder={search_category}
-      />
+      /> */}
+      <div className="category">
+        <p>{search_category}</p>
+      </div>
       <Button className="search-btn">
         <FontAwesomeIcon icon={faRemove} className="icon" />
       </Button>

@@ -64,7 +64,7 @@ const Help: NextPage = () => {
                     </Form>
                   )}
                 </Formik>
-                <div className="default_category d-flex justify-cspace-between align-items-center">
+                <div className="default_category d-flex justify-space-start">
                   {Article &&
                     Article.map((category) => (
                       <SearchArticle
