@@ -1,0 +1,95 @@
+.discover-page {
+  margin-bottom: 4.375rem;
+  @include respond(sm) {
+    padding: 0rem 1.25rem;
+  }
+
+  @include respond(xs) {
+    padding: 0rem 1.25rem;
+  }
+  &__top-container {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+    position: relative;
+    @include respond(sm) {
+      padding: 0rem 1.25rem;
+    }
+
+    @include respond(xs) {
+      padding: 0rem 1.25rem;
+    }
+    .gradient {
+      z-index: 1;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+
+      background: linear-gradient(
+        90.26deg,
+        #ffca6a 31.38%,
+        rgba(255, 255, 255, 0) 99.78%
+      );
+      opacity: 0.9;
+    }
+    .thumbnail-img {
+      height: 43rem;
+      object-fit: contain;
+      z-index: 0;
+      border-radius: 0.4rem;
+      width: 100%;
+    }
+
+    .overlay {
+      position: absolute;
+      opacity: 0.9;
+      top: 1rem;
+      //   left: 3rem;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 5rem 8rem;
+      justify-content: space-between;
+
+      h1 {
+        color: $primary-color;
+        font-size: 3.125rem;
+        line-height: 4.4rem;
+        font-weight: 500;
+        line-height: 3.7rem;
+      }
+      .bottom {
+        padding-top: 9rem;
+
+        p {
+          color: $sub-title-color;
+          font-size: 1.8rem;
+          font-weight: 600;
+          margin-bottom: 3.7rem;
+        }
+        .btn {
+          background: #ffffff;
+          /* Container */
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          padding: 1.25rem 3rem;
+          gap: 1.25rem;
+          box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+          border: none;
+          border-radius: 0.25rem;
+          color: $primary-color;
+          font-weight: 500;
+          font-size: 1.875rem;
+          line-height: 2.5rem;
+          @include transition();
+        }
+        .btn:hover {
+          background-color: $primary-color;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

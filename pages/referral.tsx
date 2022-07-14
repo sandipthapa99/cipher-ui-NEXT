@@ -19,8 +19,8 @@ const About: NextPage = () => {
   return (
     <Layout title="Referral Programs | Cipher">
       <div className="referral-page">
-        <Breadcrum currentPage="Referral programs" />
         <Container fluid="xl">
+          <Breadcrum currentPage="Referral programs" />
           <div className="referral-page__top-container">
             <h1 className='"pt-1'>Spread the word and earn rewards</h1>
             <Row>
