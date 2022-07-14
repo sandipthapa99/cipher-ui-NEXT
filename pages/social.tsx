@@ -1,17 +1,12 @@
 import type { NextPage } from 'next'
 import Layout from '@components/Layout'
 import Breadcrum from '@components/common/Breadcrum'
-import {
-  Container,
-  Accordion,
-  Col,
-  Carousel,
-  Row,
-  Button,
-  CarouselItem,
-} from 'react-bootstrap'
+import { Container, Col, Carousel, Row } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
 import Image from 'next/image'
-
+import BlogCard from '@components/common/BlogCard'
+import { blogCardContent } from 'staticData/community'
 import React from 'react'
 import BusinessGoal from '@components/common/BusinessGoal'
 import { businessGoal } from 'staticData/businessGoal'
@@ -78,6 +73,37 @@ const SocialResponsibilities: NextPage = () => {
                 )
               })}
           </Carousel>
+
+          <div className="social-page__blogs">
+            <div className="title-wrapper d-flex justify-content-between">
+              {/* <h2 className="heading-title">Community activity</h2> */}
+              <h1>Our Blogs</h1>
+              <a href="" className="view-more">
+                view more{' '}
+                <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
+              </a>
+            </div>
+            <Row>
+              {blogCardContent &&
+                blogCardContent.map((blog) => {
+                  return (
+                    <Col
+                      className="d-flex align-items-stretch"
+                      // sm={6}
+                      md={4}
+                      // lg={4}
+                      key={blog.id}
+                    >
+                      <BlogCard
+                        cardImage={blog.cardImage}
+                        cardDescription={blog.cardDescription}
+                        cardTitle={blog.cardTitle}
+                      />
+                    </Col>
+                  )
+                })}
+            </Row>
+          </div>
         </Container>
       </section>
     </Layout>

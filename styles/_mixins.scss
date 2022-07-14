@@ -1,5 +1,10 @@
 // Respond  mixins
 @mixin respond($breakpoint) {
+  @if $breakpoint == xxs {
+    @media (max-width: #{$xxs}) {
+      @content;
+    }
+  }
   @if $breakpoint == xs {
     @media (max-width: #{$xs}) {
       @content;
