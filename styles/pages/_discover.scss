@@ -58,7 +58,7 @@
         font-weight: 500;
         line-height: 3.7rem;
       }
-      .bottom {
+      .bottom-content {
         padding-top: 9rem;
 
         p {
@@ -90,6 +90,34 @@
           color: #fff;
         }
       }
+    }
+  }
+  &__services-section {
+    padding: 5rem 0rem;
+  }
+  &__categories {
+    h1 {
+      color: $primary-color;
+      font-size: 2rem;
+      line-height: 4.4rem;
+      font-weight: 500;
+      line-height: 3.7rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      color: $sub-title-color;
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+  }
+  &__merchants {
+    h1 {
+      color: $primary-color;
+      font-size: 2rem;
+      line-height: 4.4rem;
+      font-weight: 500;
+      line-height: 3.7rem;
     }
   }
 }
