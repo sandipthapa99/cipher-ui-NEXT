@@ -13,7 +13,8 @@ import {
 } from 'staticData/community'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
-
+import BusinessGoal from '@components/common/BusinessGoal'
+import { businessGoal } from 'staticData/businessGoal'
 import { Carousel } from 'react-bootstrap'
 const Community: NextPage = () => {
   return (
@@ -173,66 +174,22 @@ const Community: NextPage = () => {
                 })}
             </Row>
           </div>
-
           <Carousel>
-            <Carousel.Item
-            //interval={1000}
-            >
-              <div className="community-page-main__goal">
-                <div className="image">
-                  <figure className="thumbnail-img">
-                    <Image
-                      src="/community/Ellipse.svg"
-                      layout="fill"
-                      objectFit="cover"
-                      alt="earth-image"
+            {businessGoal &&
+              businessGoal.map((goal) => {
+                return (
+                  <Carousel.Item
+                  //interval={1000}
+                  >
+                    <BusinessGoal
+                      cardImage={goal.cardImage}
+                      cardTitle={goal.cardTitle}
+                      cardAuthor={goal.cardAuthor}
+                      cardDescription={goal.cardDescription}
                     />
-                  </figure>
-                </div>
-                <div className="description">
-                  <h2>Business goal</h2>
-                  <p>
-                    "Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Doloremque maiores, iure voluptatem sit quia error fuga
-                    eveniet veritatis quod dolorum nostrum nemo cum! Inventore
-                    eos ut voluptatem officiis placeat sit quibusdam maxime
-                    tenetur quo recusandae voluptas obcaecati qui, accusantium
-                    aspernatur ipsam! Minus molestiae accusamus incidunt
-                    corrupti, totam magnam veritatis delectus?"
-                  </p>
-                  <p className="author">Roshani Panday, Makeup Artist</p>
-                </div>
-              </div>
-            </Carousel.Item>
-            <Carousel.Item
-            //interval={1000}
-            >
-              <div className="community-page-main__goal py-">
-                <div className="image">
-                  <figure className="thumbnail-img">
-                    <Image
-                      src="/community/Ellipse.svg"
-                      layout="fill"
-                      objectFit="cover"
-                      alt="earth-image"
-                    />
-                  </figure>
-                </div>
-                <div className="description">
-                  <h2>Our goal</h2>
-                  <p>
-                    "Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Doloremque maiores, iure voluptatem sit quia error fuga
-                    eveniet veritatis quod dolorum nostrum nemo cum! Inventore
-                    eos ut voluptatem officiis placeat sit quibusdam maxime
-                    tenetur quo recusandae voluptas obcaecati qui, accusantium
-                    aspernatur ipsam! Minus molestiae accusamus incidunt
-                    corrupti, totam magnam veritatis delectus?"
-                  </p>
-                  <p className="author">Roshani Panday, Makeup Artist</p>
-                </div>
-              </div>
-            </Carousel.Item>
+                  </Carousel.Item>
+                )
+              })}
           </Carousel>
 
           <div className="community-page-main__blogs">

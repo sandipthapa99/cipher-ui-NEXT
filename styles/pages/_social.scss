@@ -1,0 +1,69 @@
+.social-page {
+  &__top-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 500;
+    }
+    h4 {
+      color: $sub-title-color;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 2.5rem;
+    }
+    .thumbnail-img {
+      position: absolute;
+      object-fit: contain;
+      top: 10rem;
+      z-index: 1;
+      width: 30rem;
+      height: 30rem;
+    }
+    .card {
+      margin: 0 0 3rem;
+      margin-top: 14rem;
+      border: none;
+      border-radius: 0.4rem;
+      box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+      background: rgba(255, 255, 255, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      align-items: center;
+      padding: 2.5rem 5rem;
+      padding-top: 7rem;
+
+      h4 {
+        font-weight: 500;
+      }
+      .description {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 12rem;
+      }
+    }
+  }
+  &__commitment {
+    display: flex;
+    flex-direction: column;
+    padding: 5rem 0rem;
+    h1 {
+      font-size: 1.7rem;
+      font-weight: 500;
+      text-align: center;
+    }
+    .thumbnail-img {
+      width: 112rem;
+      height: 55rem;
+    }
+  }
+  &__goal {
+  }
+}
