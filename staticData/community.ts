@@ -35,7 +35,7 @@ export const communityGuidelineCardContent = [
     
 
 ]
-export const communityBlogCardContent = [
+export const blogCardContent = [
     {
         id:"0",
         cardTitle:"12 tips for managing your calendar like a pro",

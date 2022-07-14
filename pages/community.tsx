@@ -5,50 +5,51 @@ import { Container, Col, Row, Button } from 'react-bootstrap'
 import Image from 'next/image'
 import CommunityActivityCard from '@components/common/communityActivity'
 import CommunityGuidelineCard from '@components/common/CommunityGuidelineCard'
-import CommunityBlogCard from '@components/common/communityBlogCard'
+import BlogCard from '@components/common/BlogCard'
 import {
   communityGuidelineCardContent,
   communityActivityContent,
-  communityBlogCardContent,
+  blogCardContent,
 } from 'staticData/community'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
+import BusinessGoal from '@components/common/BusinessGoal'
+import { businessGoal } from 'staticData/businessGoal'
 import { Carousel } from 'react-bootstrap'
 const Community: NextPage = () => {
   return (
     <Layout title="Community | Cipher">
-      <Container fluid="xl">
-        <div className="community-page">
-          <div className="back-color">
-            <Breadcrum currentPage="Discover" />
-            <div className="community-page__top-container">
-              <Row className="top-row">
-                <Col
-                  md={6}
-                  sm={6}
-                  // lg={4}
-                >
-                  <figure className="thumbnail-img">
-                    <Image
-                      src="/community/earth.png"
-                      layout="fill"
-                      objectFit="cover"
-                      alt="earth-image"
-                    />
-                  </figure>
-                </Col>
-                <Col md={6} sm={6}>
-                  <h3>
-                    Let&apos; root for each other & <br></br> watch each other
-                    grow
-                  </h3>
-                  <p>Communicate with others for your own benefit</p>
-                  <Button className="button">Join Us</Button>
-                </Col>
-              </Row>
-            </div>
-          </div>
-
-          <div className="community-page__gallery">
+      <section className="community-page">
+        <Breadcrum currentPage="Discover" />
+        <div className="community-page__top-container">
+          <Row className="top-row">
+            <Col
+              md={6}
+              sm={6}
+              // lg={4}
+            >
+              <figure className="thumbnail-img">
+                <Image
+                  src="/community/earth.png"
+                  layout="fill"
+                  objectFit="cover"
+                  alt="earth-image"
+                />
+              </figure>
+            </Col>
+            <Col md={6} sm={6}>
+              <h3>
+                Let&apos; root for each other & <br></br> watch each other grow
+              </h3>
+              <p>Communicate with others for your own benefit</p>
+              <Button className="button">Join Us</Button>
+            </Col>
+          </Row>
+        </div>
+      </section>
+      <section className="community-page-main">
+        <Container fluid="xl">
+          <div className="community-page-main__gallery">
             <h1>Community Gallery</h1>
 
             <Row>
@@ -110,7 +111,7 @@ const Community: NextPage = () => {
               </Col>
             </Row>
           </div>
-          <div className="community-page__guidelines">
+          <div className="community-page-main__guidelines">
             <h1>Community guidelines</h1>
             <p>
               {' '}
@@ -139,8 +140,16 @@ const Community: NextPage = () => {
             </Row>
           </div>
 
-          <div className="community-page__activity">
-            <h1>Community activity</h1>
+          <div className="community-page-main__activity">
+            {/* <h1>Community activity</h1> */}
+            <div className="title-wrapper d-flex justify-content-between">
+              {/* <h2 className="heading-title">Community activity</h2> */}
+              <h1>Community activity</h1>
+              <a href="" className="view-more">
+                view more{' '}
+                <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
+              </a>
+            </div>
             <Row className="gx-5">
               {communityActivityContent &&
                 communityActivityContent.map((activity) => {
@@ -165,73 +174,29 @@ const Community: NextPage = () => {
                 })}
             </Row>
           </div>
-
           <Carousel>
-            <Carousel.Item
-            //interval={1000}
-            >
-              <div className="community-page__goal">
-                <div className="image">
-                  <figure className="thumbnail-img">
-                    <Image
-                      src="/community/Ellipse.svg"
-                      layout="fill"
-                      objectFit="cover"
-                      alt="earth-image"
+            {businessGoal &&
+              businessGoal.map((goal) => {
+                return (
+                  <Carousel.Item
+                  //interval={1000}
+                  >
+                    <BusinessGoal
+                      cardImage={goal.cardImage}
+                      cardTitle={goal.cardTitle}
+                      cardAuthor={goal.cardAuthor}
+                      cardDescription={goal.cardDescription}
                     />
-                  </figure>
-                </div>
-                <div className="description">
-                  <h2>Business goal</h2>
-                  <p>
-                    "Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Doloremque maiores, iure voluptatem sit quia error fuga
-                    eveniet veritatis quod dolorum nostrum nemo cum! Inventore
-                    eos ut voluptatem officiis placeat sit quibusdam maxime
-                    tenetur quo recusandae voluptas obcaecati qui, accusantium
-                    aspernatur ipsam! Minus molestiae accusamus incidunt
-                    corrupti, totam magnam veritatis delectus?"
-                  </p>
-                  <p className="author">Roshani Panday, Makeup Artist</p>
-                </div>
-              </div>
-            </Carousel.Item>
-            <Carousel.Item
-            //interval={1000}
-            >
-              <div className="community-page__goal py-">
-                <div className="image">
-                  <figure className="thumbnail-img">
-                    <Image
-                      src="/community/Ellipse.svg"
-                      layout="fill"
-                      objectFit="cover"
-                      alt="earth-image"
-                    />
-                  </figure>
-                </div>
-                <div className="description">
-                  <h2>Our goal</h2>
-                  <p>
-                    "Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Doloremque maiores, iure voluptatem sit quia error fuga
-                    eveniet veritatis quod dolorum nostrum nemo cum! Inventore
-                    eos ut voluptatem officiis placeat sit quibusdam maxime
-                    tenetur quo recusandae voluptas obcaecati qui, accusantium
-                    aspernatur ipsam! Minus molestiae accusamus incidunt
-                    corrupti, totam magnam veritatis delectus?"
-                  </p>
-                  <p className="author">Roshani Panday, Makeup Artist</p>
-                </div>
-              </div>
-            </Carousel.Item>
+                  </Carousel.Item>
+                )
+              })}
           </Carousel>
 
-          <div className="community-page__blogs">
+          <div className="community-page-main__blogs">
             <h1>Blogs</h1>
             <Row>
-              {communityBlogCardContent &&
-                communityBlogCardContent.map((blog) => {
+              {blogCardContent &&
+                blogCardContent.map((blog) => {
                   return (
                     <Col
                       className="d-flex align-items-stretch"
@@ -240,7 +205,7 @@ const Community: NextPage = () => {
                       // lg={4}
                       key={blog.id}
                     >
-                      <CommunityBlogCard
+                      <BlogCard
                         cardImage={blog.cardImage}
                         cardDescription={blog.cardDescription}
                         cardTitle={blog.cardTitle}
@@ -250,8 +215,8 @@ const Community: NextPage = () => {
                 })}
             </Row>
           </div>
-        </div>{' '}
-      </Container>
+        </Container>
+      </section>
     </Layout>
   )
 }

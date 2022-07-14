@@ -18,8 +18,8 @@ import CommonCard from '@components/common/CommonCard'
 const About: NextPage = () => {
   return (
     <Layout title="Referral Programs | Cipher">
-      <Breadcrum currentPage="Referral programs" />
       <div className="referral-page">
+        <Breadcrum currentPage="Referral programs" />
         <Container fluid="xl">
           <div className="referral-page__top-container">
             <h1 className='"pt-1'>Spread the word and earn rewards</h1>

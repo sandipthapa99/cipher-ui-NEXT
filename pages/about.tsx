@@ -10,9 +10,8 @@ import AboutCard from '@components/common/AboutCard'
 const About: NextPage = () => {
   return (
     <Layout title="About Us | Cipher">
-      <Breadcrum currentPage="About Us" />
-
       <div className="about-page">
+        <Breadcrum currentPage="About Us" />
         <Container fluid="xl">
           <div className="about-page__top-container">
             <div className="main-image">

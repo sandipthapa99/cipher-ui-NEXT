@@ -1,0 +1,127 @@
+.social-page {
+  @include respond(sm) {
+    padding: 0rem 1.25rem;
+  }
+
+  @include respond(xs) {
+    padding: 0rem 1.25rem;
+  }
+  &__top-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 500;
+    }
+    h4 {
+      color: $sub-title-color;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 2.5rem;
+    }
+    .thumbnail-img {
+      position: absolute;
+      object-fit: contain;
+      top: 10rem;
+      z-index: 1;
+      @include respond(xxs) {
+        top: 15rem;
+      }
+      @include respond(xs) {
+        height: 13rem;
+        width: 13rem;
+        top: 9.7rem;
+      }
+      @include respond(sm) {
+        height: 17rem;
+        width: 17rem;
+        top: 7.8rem;
+      }
+      @include respond(md) {
+        height: 23rem;
+        width: 23rem;
+        top: 9rem;
+      }
+      @include respond(lg) {
+        width: 30rem;
+        height: 30rem;
+        top: 10rem;
+      }
+    }
+    .card {
+      margin: 0 0 3rem;
+      //margin-top: 14rem;
+      border: none;
+      border-radius: 0.4rem;
+      box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+      background: rgba(255, 255, 255, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      align-items: center;
+      padding: 2.5rem 5rem;
+      padding-top: 7rem;
+      @include respond(xs) {
+        margin-top: 5rem;
+        padding-left: 1.4rem;
+        padding-right: 1.4rem;
+      }
+      @include respond(sm) {
+        margin-top: 7rem;
+      }
+      @include respond(md) {
+        margin-top: 10rem;
+      }
+      @include respond(lg) {
+        margin-top: 14rem;
+      }
+
+      h4 {
+        font-weight: 500;
+      }
+      .description {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 12rem;
+        @include respond(xs) {
+          padding-top: 3rem;
+        }
+        @include respond(sm) {
+          padding-top: 6rem;
+        }
+        @include respond(md) {
+          padding-top: 12rem;
+        }
+      }
+    }
+  }
+  &__commitment {
+    display: flex;
+    flex-direction: column;
+    padding: 5rem 0rem;
+    h1 {
+      font-size: 1.7rem;
+      font-weight: 500;
+      text-align: center;
+    }
+    .thumbnail-img {
+      //   width: 112rem;
+      height: 55rem;
+      width: 100%;
+    }
+  }
+  &__blogs {
+    padding: 3rem 0rem;
+    h1 {
+      font-size: 1.7rem;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+}
