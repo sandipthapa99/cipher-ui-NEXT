@@ -11,6 +11,7 @@ import {
   communityActivityContent,
   blogCardContent,
 } from 'staticData/community'
+import BigButton from '@components/common/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
 import BusinessGoal from '@components/common/BusinessGoal'
@@ -20,7 +21,7 @@ const Community: NextPage = () => {
   return (
     <Layout title="Community | Cipher">
       <section className="community-page">
-        <Breadcrum currentPage="Discover" />
+        <Breadcrum currentPage="Community" />
         <div className="community-page__top-container">
           <Row className="top-row">
             <Col
@@ -42,7 +43,8 @@ const Community: NextPage = () => {
                 Let&apos; root for each other & <br></br> watch each other grow
               </h3>
               <p>Communicate with others for your own benefit</p>
-              <Button className="button">Join Us</Button>
+              <BigButton btnTitle="Join Us" backgroundColor="#fff" />
+              {/* <Button className="button">Join Us</Button> */}
             </Col>
           </Row>
         </div>
@@ -123,7 +125,7 @@ const Community: NextPage = () => {
                 communityGuidelineCardContent.map((guideline) => {
                   return (
                     <Col
-                      className="gx-5 d-flex align-items-stretch"
+                      className="gx-5 guideline-card-col d-flex align-items-stretch"
                       // sm={6}
                       md={4}
                       // lg={4}

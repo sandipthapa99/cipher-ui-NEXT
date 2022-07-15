@@ -1,25 +1,27 @@
 import type { NextPage } from 'next'
 import Layout from '@components/Layout'
 import Breadcrum from '@components/common/Breadcrum'
-import { Container, Col, Button, Row } from 'react-bootstrap'
+import { Container, Col, Row } from 'react-bootstrap'
 import Image from 'next/image'
-import CommonCard from '@components/common/CommonCard'
-import { services } from 'staticData/services'
+import { oppurtunitiesCardContent } from 'staticData/oppurtunities'
+import { servicesDiscover } from 'staticData/services'
 import ServiceCard from '@components/common/ServiceCard'
-import {
-  faChevronDown,
-  faAngleRight,
-  faSearch,
-} from '@fortawesome/pro-regular-svg-icons'
+import BigButton from '@components/common/Button'
 import AllCategoryCard from '@components/common/AllCategoryCard'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AllCategoryCardContent } from 'staticData/categoryCardContent'
+import { merchants } from 'staticData/merchants'
+import MerchantCard from '@components/common/MerchantCard'
+import AboutCard from '@components/common/AboutCard'
+import MerchantAdviceCard from '@components/common/MerchantAdviceCard'
+import { merchantAdvice } from 'staticData/merchantAdvice'
+
 const Discover: NextPage = () => {
   return (
     <Layout title="Discover | Cipher">
-      <div className="discover-page">
-        <Breadcrum currentPage="Discover" />
-        <Container fluid="xl">
+      <Container fluid="xl">
+        <section className="discover-page">
+          <Breadcrum currentPage="Discover" />
+
           {/* Discover top container start */}
           <section className="discover-page__top-container">
             <div className="gradient"></div>
@@ -28,7 +30,7 @@ const Discover: NextPage = () => {
                 src="/discover/main.svg"
                 layout="fill"
                 objectFit="cover"
-                alt="about-page-main-image"
+                alt="oppurtunities-page-main-image"
               />
             </figure>
             <div className="overlay">
@@ -37,7 +39,8 @@ const Discover: NextPage = () => {
               </h1>
               <div className="bottom-content">
                 <p>It doesn't even take a minute to sign up</p>
-                <Button className="btn">Join Us</Button>
+                <BigButton btnTitle="Join Us" backgroundColor="#fff" />
+                {/* <Button className="btn">Join Us</Button> */}
               </div>
             </div>
           </section>
@@ -45,33 +48,37 @@ const Discover: NextPage = () => {
           {/* Services near you section start */}
           <section
             id="services-near-you"
-            className="services-near-you discover-page__services-section"
+            className="discover-page__services-section"
           >
-            <Container fluid="xl">
-              <Row className="gx-5">
-                {services &&
-                  services.map((service) => {
-                    return (
-                      <Col sm={6} md={4} lg={3} key={service.id}>
-                        <ServiceCard
-                          serviceImage={service.serviceImage}
-                          serviceTitle={service.serviceTitle}
-                          serviceProvider={service.serviceProvider}
-                          serviceProviderLocation={
-                            service.serviceProviderLocation
-                          }
-                          serviceDescription={service.serviceDescription}
-                          serviceRating={service.serviceRating}
-                          servicePrice={service.servicePrice}
-                          hasOffer={service.hasOffer}
-                          discountRate={service.discountRate}
-                          discountOn={service.discountOn}
-                        />
-                      </Col>
-                    )
-                  })}
-              </Row>
-            </Container>
+            <Row className="gx-5 d-flex align-items-stretch">
+              {servicesDiscover &&
+                servicesDiscover.map((service) => {
+                  return (
+                    <Col
+                      className="discover-col d-fle align-items-stretch"
+                      sm={6}
+                      md={6}
+                      lg={3}
+                      key={service.id}
+                    >
+                      <ServiceCard
+                        serviceImage={service.serviceImage}
+                        serviceTitle={service.serviceTitle}
+                        serviceProvider={service.serviceProvider}
+                        serviceProviderLocation={
+                          service.serviceProviderLocation
+                        }
+                        serviceDescription={service.serviceDescription}
+                        serviceRating={service.serviceRating}
+                        servicePrice={service.servicePrice}
+                        hasOffer={service.hasOffer}
+                        discountRate={service.discountRate}
+                        discountOn={service.discountOn}
+                      />
+                    </Col>
+                  )
+                })}
+            </Row>
           </section>
           {/* Services near you section end */}
 
@@ -85,7 +92,7 @@ const Discover: NextPage = () => {
                   return (
                     <Col
                       className="gx-4 align-items-stretch"
-                      sm={6}
+                      sm={4}
                       xs={12}
                       md={3}
                       // lg={4}
@@ -104,10 +111,70 @@ const Discover: NextPage = () => {
           {/* merchants section start */}
           <section className="discover-page__merchants">
             <h1>Top Merchants</h1>
+            <Row className="gx-5">
+              {merchants &&
+                merchants.map((merchant) => {
+                  return (
+                    <Col sm={6} lg={4} xl={3} key={merchant.id}>
+                      <MerchantCard
+                        merchantImage={merchant.merchantImage}
+                        merchantName={merchant.merchantName}
+                        merchantCategory={merchant.merchantCategory}
+                        merchantLocation={merchant.merchantLocation}
+                        merchantDescription={merchant.merchantDescription}
+                        merchantRating={merchant.merchantRating}
+                        merchantPrice={merchant.merchantPrice}
+                        happyClients={merchant.happyClients}
+                        successRate={merchant.successRate}
+                      />
+                    </Col>
+                  )
+                })}
+            </Row>
           </section>
           {/* merchants section ended */}
-        </Container>
-      </div>
+
+          {/* grap oppurtunities section start */}
+          <section className="discover-page__oppurtunities">
+            <h1>Grab Oppurtunities</h1>
+            <p>Choose the most suitable tasks and get paid</p>
+            <Row className="gx-5">
+              {oppurtunitiesCardContent &&
+                oppurtunitiesCardContent.map((oppurtunities) => {
+                  return (
+                    <Col
+                      // sm={6}
+                      md={4}
+                      // lg={4}
+                      key={oppurtunities.id}
+                    >
+                      <AboutCard
+                        cardImage={oppurtunities.cardImage}
+                        cardTitle={oppurtunities.cardTitle}
+                        cardDescription={oppurtunities.cardDescription}
+                      />
+                    </Col>
+                  )
+                })}
+            </Row>
+          </section>
+          {/* grab oppurtunities section end */}
+
+          <section className="discover-page__merchant-advice">
+            {merchantAdvice &&
+              merchantAdvice.map((advice) => {
+                return (
+                  <MerchantAdviceCard
+                    image={advice.image}
+                    title={advice.title}
+                    subtitle={advice.subtitle}
+                    description={advice.description}
+                  />
+                )
+              })}
+          </section>
+        </section>
+      </Container>
     </Layout>
   )
 }

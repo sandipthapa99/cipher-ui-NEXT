@@ -1,0 +1,51 @@
+.grow-business {
+  h1 {
+    font-weight: 500;
+    font-size: 1.8rem;
+    line-height: 1.875rem;
+    color: $primary-color;
+  }
+  &__top-container {
+  }
+  &__steps {
+    padding: 5rem 0rem;
+    h1 {
+      padding-bottom: 1.8rem;
+    }
+    .steps-col {
+      @include respond(sm) {
+        display: block;
+      }
+      .card-title {
+        padding-top: 1rem;
+        font-size: 1.6rem;
+        font-weight: 500;
+      }
+      .card-description {
+        line-height: 2rem;
+      }
+    }
+  }
+
+  &__services {
+    .more-services {
+      padding-top: 9rem;
+    }
+  }
+
+  &__blogs {
+    padding-top: 8.3rem;
+    padding-bottom: 5rem;
+  }
+
+  &__queries {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5rem;
+    a {
+      color: #fe5050;
+    }
+  }
+}
