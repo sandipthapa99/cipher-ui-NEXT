@@ -10,8 +10,9 @@ import InputField from '@components/common/InputField'
 import CommonCard from '@components/common/CommonCard'
 import { Form, Formik } from 'formik'
 import React from 'react'
+import RecommendationChips from '@components/common/RecommendationChips'
 import emailValidationSchema from 'utils/formValidation/emailValidation'
-import { faSearch, faRemove } from '@fortawesome/pro-regular-svg-icons'
+import { faSearch } from '@fortawesome/pro-regular-svg-icons'
 import { helpCardContent } from 'staticData/helpCardContent'
 import SearchArticle from '@components/common/searchArticle'
 import { Article } from 'staticData/searchArticles'
@@ -64,7 +65,7 @@ const Help: NextPage = () => {
                     </Form>
                   )}
                 </Formik>
-                <div className="default_category d-flex justify-space-start">
+                {/* <div className="default_category d-flex justify-space-start">
                   {Article &&
                     Article.map((category) => (
                       <SearchArticle
@@ -72,6 +73,11 @@ const Help: NextPage = () => {
                         search_category={category.name}
                       />
                     ))}
+                </div> */}
+                <div className="recommendation">
+                  <RecommendationChips title="Connects" />
+                  <RecommendationChips title="Get Paid" />
+                  <RecommendationChips title="Work" />
                 </div>
               </Col>
             </Row>

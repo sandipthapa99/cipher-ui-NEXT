@@ -1,27 +1,11 @@
 .discount-card-block {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  //   align-items: center;
-
-  .gradient {
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0.6)
-    );
-    position: absolute;
-    // height: 100%;
-    // width: 100%;
-    z-index: 1;
-  }
+  margin-bottom: 5rem;
 
   .thumbnail-img {
-    height: 40rem;
-    // width: 26.5rem;
+    height: 37rem;
     z-index: 0;
     backdrop-filter: blur(0.4rem);
-    /* Note: backdrop-filter has minimal browser support */
 
     border-radius: 4px;
     img {
@@ -29,30 +13,62 @@
     }
   }
   .category-overlay {
-    display: flex;
     position: absolute;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-    top: 2rem;
     left: 50%;
-    right: 50%;
-
+    top: 50%;
+    transform: translate(-50%, -50%);
     margin: auto;
+    text-align: center;
+    // align-items: center;
+
+    @include respond(md) {
+      padding: 2rem 0rem;
+    }
     h1 {
       color: #fff;
-      font-weight: 300;
-      word-spacing: 1.5rem;
-      border: 1px solid #fff;
+      font-weight: 400;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+    .discount {
+      @include respond(lg) {
+        width: 20rem;
+      }
       p {
-        padding: 0.2rem 1rem;
+        color: #fca500;
+        border: 2px solid #fff;
+        font-size: 3rem;
+        padding: 1rem 0.2rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+        @include respond(lg) {
+          padding: 1rem 2.2rem;
+        }
       }
     }
     p {
-      color: #fff !important;
-      font-size: 1.3rem;
-      font-weight: 700;
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-top: 1.3rem;
+      margin-bottom: 1.8em;
+    }
+    .time {
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: #fe5050;
+      margin-bottom: 1.8rem;
+    }
+    .book-btn {
+      background-color: #fca500;
+      color: #fff;
+      padding: 0.5rem 2rem;
+      border: none;
+      border-radius: 0.4rem;
+
+      @include respond(lg) {
+        padding: 0.8rem 3.7rem;
+      }
     }
   }
 }

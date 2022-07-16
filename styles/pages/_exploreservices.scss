@@ -48,7 +48,7 @@
         padding: 5.8rem 2.5rem;
       }
       @include respond(sm) {
-        padding: 3.5rem 3rem;
+        padding: 4.4rem 3rem;
       }
       @include respond(lg) {
         padding: 4.5rem 8rem;
@@ -164,10 +164,18 @@
       }
     }
   }
-
+  &__offers {
+    padding: 5rem 0rem;
+    h1 {
+      color: $primary-color;
+      padding-bottom: 1.4rem;
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+  }
   &__advertisement {
-    padding-top: 8rem;
-    padding-bottom: 5rem;
+    padding-top: 8.4rem;
+    padding-bottom: 6rem;
     .thumbnail-img {
       width: 100%;
       height: 43rem;
@@ -175,11 +183,14 @@
   }
 
   &__browse-category {
+    margin-top: 8rem;
     h1 {
       color: $primary-color;
-      line-height: 4.5rem;
-      font-size: 2.5rem;
+      line-height: 4rem;
+      font-size: 3rem;
       font-weight: 500;
+      padding: 1.8rem 0rem;
+      text-transform: capitalize;
     }
     background-color: $secondary-color;
     padding: 4rem 8rem;

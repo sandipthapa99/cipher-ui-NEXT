@@ -67,6 +67,12 @@ const ExploreServices: NextPage = () => {
               <Col md={4}>
                 <DiscountCard />
               </Col>
+              <Col md={4}>
+                <DiscountCard />
+              </Col>
+              <Col md={4}>
+                <DiscountCard />
+              </Col>
             </Row>
           </section>
           {/* explore special offer section end */}
