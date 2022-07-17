@@ -17,7 +17,7 @@ const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
         <div className="reviewer">
           <h3 className="name">{name}</h3>
 
-          <p className="ratings d-flex">
+          <div className="ratings d-flex">
             {Array.from({ length: ratings }, (_, i) => (
               <span key={i}>
                 {' '}
@@ -42,7 +42,7 @@ const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
                 </figure>
               </span>
             ))}
-          </p>
+          </div>
         </div>
 
         <p className="description">{description}</p>
