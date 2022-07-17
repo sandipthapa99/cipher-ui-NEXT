@@ -109,7 +109,7 @@ const Help: NextPage = () => {
                 <div className="card-block ">
                   <h1>Get In Touch With Us</h1>
                   <p>
-                    For more information, we're here for you to answer your
+                    For more information, we&apos;re here for you to answer your
                     queries.
                   </p>
 

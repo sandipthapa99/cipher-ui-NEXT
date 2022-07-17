@@ -203,7 +203,7 @@ const Home: NextPage = () => {
                     <Row className="gx-5">
                         {findHire && findHire.map((card) => {
                             return (
-                                <Col md={4} className="d-flex align-items-stretch">
+                                <Col key={card.id} md={4} className="d-flex align-items-stretch">
                                     <CipherCard
                                     thumbnailImg={card.thumbnailImg}
                                     title={card.title}
@@ -257,7 +257,7 @@ const Home: NextPage = () => {
                     <Row className="gx-5">
                     {findOpportuities && findOpportuities.map((card) => {
                             return (
-                                <Col md={4} className="d-flex align-items-stretch">
+                                <Col key={card.id} md={4} className="d-flex align-items-stretch">
                                     <CipherCard
                                     thumbnailImg={card.thumbnailImg}
                                     title={card.title}

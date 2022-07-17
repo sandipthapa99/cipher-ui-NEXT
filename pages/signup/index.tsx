@@ -1,5 +1,6 @@
 import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import Link from "next/link";
 
 const Signup = () => {
     return (
@@ -29,7 +30,13 @@ const Signup = () => {
                 className="email"
             />
             <p className="terms-condition-agree-text">
-                By signing up, you agree our <span><a href="/terms-conditions">Terms and Conditions</a></span>.
+                By signing up, you agree our <span>
+                    <Link href="/terms-conditions">
+                        <a>
+                            Terms and Conditions
+                        </a>
+                    </Link>
+                </span>.
             </p>
 
 

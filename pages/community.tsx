@@ -178,7 +178,7 @@ const Community: NextPage = () => {
             {businessGoal &&
               businessGoal.map((goal) => {
                 return (
-                  <Carousel.Item
+                  <Carousel.Item key={goal.id}
                   //interval={1000}
                   >
                     <BusinessGoal
