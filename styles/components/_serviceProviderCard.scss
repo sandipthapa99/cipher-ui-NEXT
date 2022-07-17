@@ -70,7 +70,7 @@
     align-items: stretch;
     background-color: $primary-color;
     color: #fff;
-    padding: 1rem 10rem;
+    padding: 1rem 5rem;
     box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
     border-radius: 0.4rem;
     font-size: 1.4rem;
@@ -80,6 +80,10 @@
     &:focus {
       outline: none;
       box-shadow: none;
+    }
+
+    @include respond(lg) {
+      padding: 1rem 10rem;
     }
   }
   a {

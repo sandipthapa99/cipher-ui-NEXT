@@ -1,19 +1,7 @@
 import Image from 'next/image'
 import { ReviewsProps } from 'types/reviews'
-import Link from 'next/link'
 
 const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
-  const myRatings = () => {
-    for (let i = 0; (i = ratings); i++) {
-      return (
-        <div className="ratings">
-          <figure className="thumbnail-img">
-            <Image src="/icons/rated.svg" layout="fill" objectFit="cover" />
-          </figure>
-        </div>
-      )
-    }
-  }
   return (
     <div className="review-block">
       <figure className="thumbnail-img">
@@ -28,8 +16,33 @@ const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
       <div className="review-block__content">
         <div className="reviewer">
           <h3 className="name">{name}</h3>
-          {/* <p className="ratings">{ratings}</p> */}
-          {/* <p>{myRatings()}</p> */}
+
+          <p className="ratings d-flex">
+            {Array.from({ length: ratings }, (_, i) => (
+              <span key={i}>
+                {' '}
+                <figure className="thumbnail-img">
+                  <Image
+                    src="/icons/rated.svg"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </figure>
+              </span>
+            ))}
+            {Array.from({ length: 5 - ratings }, (_, i) => (
+              <span key={i}>
+                {' '}
+                <figure className="thumbnail-img">
+                  <Image
+                    src="/icons/unrated.svg"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </figure>
+              </span>
+            ))}
+          </p>
         </div>
 
         <p className="description">{description}</p>

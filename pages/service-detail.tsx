@@ -3,10 +3,11 @@ import Layout from '@components/Layout'
 import Breadcrum from '@components/common/Breadcrum'
 import { Container, Col, Button, Row } from 'react-bootstrap'
 import Image from 'next/image'
+import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
+
 import { servicesDiscover } from 'staticData/services'
 import ServiceCard from '@components/common/ServiceCard'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { services } from 'staticData/services'
 import { reviewType } from 'utils/options'
 import SelectInputField from '@components/common/SelectInputField'
 import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
@@ -81,11 +82,12 @@ const ServiceDetail: NextPage = () => {
                   />
                 </figure>
               </Col>
-              <Col md={4}>
+              <Col md={4} className="gardener-col">
                 {serviceProvider &&
                   serviceProvider.map((provider) => (
                     <ServiceProviderCard
                       image={provider.image}
+                      key={provider.id}
                       name={provider.name}
                       views={provider.views}
                       address={provider.address}
@@ -126,23 +128,27 @@ const ServiceDetail: NextPage = () => {
           {/* Service details highlights section start*/}
           <section className="service-details__highlights">
             <h1>Highlights</h1>
-            <div className="content">
-              {serviceHighlights &&
-                serviceHighlights.map((name) => (
-                  <div key={name.id}>
+
+            {serviceHighlights &&
+              serviceHighlights.map((name) => (
+                // <div >
+                <Row className="content">
+                  <Col key={name.id}>
                     <ServiceHighlights
                       isChecked={name.isChecked}
                       title={name.title}
                     />
-                  </div>
-                ))}
-            </div>
+                  </Col>
+                </Row>
+
+                // </div>
+              ))}
           </section>
           {/* Service details highlights section end*/}
           {/* Service details package and offers start */}
           <section className="service-details__offers">
             <h1>Packages &amp; Offers</h1>
-            <Row className="gx-5 d-flex align-items-stretch">
+            <Row className="gx-4 d-flex align-items-stretch">
               {PackageCard &&
                 PackageCard.map((offer) => (
                   <Col
@@ -213,7 +219,15 @@ const ServiceDetail: NextPage = () => {
           {/* Service detail reviews setion end */}
 
           {/* Services near you section start */}
-          <section id="services-near-you" className="grow-business__services">
+          <section id="services-near-you" className="service-details__services">
+            <div className="title-wrapper d-flex justify-content-between">
+              {/* <h2 className="heading-title">Community activity</h2> */}
+              <h1>Popular on Cipher</h1>
+              <a href="" className="view-more">
+                view more{' '}
+                <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
+              </a>
+            </div>
             <Row className="gx-5 d-flex align-items-stretch">
               {servicesDiscover &&
                 servicesDiscover.map((service) => {
@@ -225,29 +239,6 @@ const ServiceDetail: NextPage = () => {
                       lg={3}
                       key={service.id}
                     >
-                      <ServiceCard
-                        serviceImage={service.serviceImage}
-                        serviceTitle={service.serviceTitle}
-                        serviceProvider={service.serviceProvider}
-                        serviceProviderLocation={
-                          service.serviceProviderLocation
-                        }
-                        serviceDescription={service.serviceDescription}
-                        serviceRating={service.serviceRating}
-                        servicePrice={service.servicePrice}
-                        hasOffer={service.hasOffer}
-                        discountRate={service.discountRate}
-                        discountOn={service.discountOn}
-                      />
-                    </Col>
-                  )
-                })}
-            </Row>
-            <Row className="gx-5 more-services">
-              {services &&
-                services.map((service) => {
-                  return (
-                    <Col sm={6} md={4} lg={3} key={service.id}>
                       <ServiceCard
                         serviceImage={service.serviceImage}
                         serviceTitle={service.serviceTitle}
