@@ -6,6 +6,13 @@
     color: $primary-color;
   }
   &__top-container {
+    // .carousel-indicators [data-bs-target] {
+    //   height: 1rem !important;
+    //   width: 1.1rem !important;
+    // }
+    // .carousel-indicators .active {
+    //   background: $secondary-color !important;
+    // }
   }
   &__steps {
     padding: 5rem 0rem;
