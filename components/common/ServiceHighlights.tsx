@@ -12,6 +12,7 @@ const ServiceHighlights = ({
         className="input"
         id="defaultIndeterminate"
         checked={isChecked}
+        onChange={() => {}}
       />
       <label className="label" style={{ marginLeft: '1.5rem' }}>
         {title}

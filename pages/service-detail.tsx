@@ -13,6 +13,7 @@ import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
 import { Formik } from 'formik'
 import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
 import { HomeSearchdata } from 'utils/homeSearchData'
+import Link from 'next/link'
 import {
   faHeart,
   faShare,
@@ -194,14 +195,19 @@ const ServiceDetail: NextPage = () => {
             <div className="review-container">
               {reviewsContent &&
                 reviewsContent.map((review) => (
-                  <Reviews
-                    name={review.name}
-                    ratings={review.ratings}
-                    description={review.description}
-                    time={review.time}
-                    image={review.image}
-                  />
+                  <Row>
+                    <Col md={8} key={review.id}>
+                      <Reviews
+                        name={review.name}
+                        ratings={review.ratings}
+                        description={review.description}
+                        time={review.time}
+                        image={review.image}
+                      />
+                    </Col>
+                  </Row>
                 ))}
+              <Link href="/">See all reviews</Link>
             </div>
           </section>
           {/* Service detail reviews setion end */}

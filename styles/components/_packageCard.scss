@@ -14,6 +14,16 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    position: relative;
+    .thumbnail-img {
+      position: absolute;
+      z-index: 1;
+      height: 7rem;
+      top: -2rem;
+      left: 76.05%;
+      right: 6.77%;
+      width: 4rem;
+    }
   }
   .package-title {
     font-size: 2rem;

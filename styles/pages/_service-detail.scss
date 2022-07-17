@@ -65,6 +65,7 @@
   }
 
   &__description {
+    padding-top: 2.5rem;
     h1 {
       font-size: 2rem;
       font-weight: 500;
@@ -102,12 +103,17 @@
   }
   &__reviews {
     padding-bottom: 5rem;
+
     // width: 100rem;
     // background: #fff;
     // border-radius: 0.4rem;
     // display: flex;
     // box-shadow: 0 8px 6px -10px #b3c6ff;
     .head-container {
+      a {
+        font-size: 1.3rem;
+      }
+
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -166,6 +172,10 @@
           }
         }
       }
+    }
+    .review-container {
+      border-bottom: 0.1rem solid #dde2f1;
+      padding-bottom: 2.5rem;
     }
   }
 }

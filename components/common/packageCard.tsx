@@ -21,7 +21,7 @@ const PackageOffersCard = ({
         {isPermium ? (
           <figure className="thumbnail-img">
             <Image
-              src="/service-details/eye.svg"
+              src="/service-details/premium.svg"
               layout="fill"
               objectFit="cover"
               alt="premium-image"
