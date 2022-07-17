@@ -1,0 +1,17 @@
+.review-block {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  .thumbnail-img {
+    border-radius: 50%;
+    height: 7rem;
+    width: 12rem;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    .reviewer {
+      display: flex;
+    }
+  }
+}

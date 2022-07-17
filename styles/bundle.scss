@@ -29,7 +29,10 @@
 @import 'components/buttons';
 @import 'components/growbusinesscarousel';
 @import 'components/discountCard';
-
+@import 'components/serviceProviderCard';
+@import 'components/tags';
+@import 'components/premiumCard';
+@import 'components/reviews';
 // Pages
 @import 'pages/privacyPolicy';
 @import 'pages/referall';
@@ -44,3 +47,4 @@
 @import 'pages/discover';
 @import 'pages/growbusiness';
 @import 'pages/exploreservices';
+@import 'pages/service-detail';
