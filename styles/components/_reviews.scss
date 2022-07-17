@@ -1,5 +1,6 @@
 .review-block {
   padding: 2rem;
+  padding-top: 1.8re;
   display: flex;
   justify-content: center;
   .thumbnail-img {
@@ -10,8 +11,35 @@
   &__content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    padding-top: 1.5rem;
+    padding-left: 1.8rem;
     .reviewer {
       display: flex;
+      color: $default-text-color;
+
+      h3 {
+        font-weight: 500;
+        font-size: 1.4rem;
+      }
+      .ratings {
+        font-size: 1.4rem;
+        font-weight: 400;
+        margin-bottom: -1.8rem;
+        padding-left: 1.3rem;
+        color: $default-text-color;
+      }
+      .description {
+        padding-top: 0rem;
+        font-size: 1.2rem;
+        margin-bottom: 0rem !important;
+        color: $secondary-text-color;
+      }
+      .time {
+        padding-top: 1rem;
+        font-size: 1.2rem;
+        color: $secondary-text-color;
+      }
     }
   }
 }

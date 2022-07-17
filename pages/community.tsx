@@ -40,7 +40,8 @@ const Community: NextPage = () => {
             </Col>
             <Col md={6} sm={6}>
               <h3>
-                Let&apos; root for each other & <br></br> watch each other grow
+                Let&apos; root for each other &amp; <br></br> watch each other
+                grow
               </h3>
               <p>Communicate with others for your own benefit</p>
               <BigButton btnTitle="Join Us" backgroundColor="#fff" />

@@ -180,6 +180,7 @@ const ServiceDetail: NextPage = () => {
                     <SelectInputField
                       name="review"
                       options={reviewType}
+                      placeholder="Most Relevant"
                       fieldRequired
                     />
                     <FontAwesomeIcon

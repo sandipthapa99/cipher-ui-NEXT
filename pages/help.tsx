@@ -19,10 +19,10 @@ import { Article } from 'staticData/searchArticles'
 
 const Help: NextPage = () => {
   return (
-    <Layout title="Help & Support | Cipher">
+    <Layout title="Help &amp; Support | Cipher">
       <section className="help-page-header">
         <Container fluid="xl">
-          <Breadcrum currentPage="Help & Support" />
+          <Breadcrum currentPage="Help &amp; Support" />
           <div className="help-page-header__top-container">
             <Row className="d-flex align-items-center">
               <Col md={6}>

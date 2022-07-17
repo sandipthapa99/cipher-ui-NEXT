@@ -18,10 +18,10 @@ const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
       <div className="review-block__content">
         <div className="reviewer">
           <h3 className="name">{name}</h3>
-          <p>{ratings}Ratings</p>
+          <p className="ratings">{ratings}</p>
         </div>
-        <p>{description}</p>
-        <p>{time} ago</p>
+        <p className="description">{description}</p>
+        <p className="time">{time} ago</p>
       </div>
     </div>
   )
