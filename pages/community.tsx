@@ -21,31 +21,33 @@ const Community: NextPage = () => {
     <Layout title="Community | Cipher">
       <section className="community-page">
         <Breadcrum currentPage="Discover" />
-        <div className="community-page__top-container">
-          <Row className="top-row">
-            <Col
-              md={6}
-              sm={6}
+        <Container fluid="xl">
+          <div className="community-page__top-container">
+            <Row className="top-row">
+              <Col
+                md={6}
+                sm={6}
               // lg={4}
-            >
-              <figure className="thumbnail-img">
-                <Image
-                  src="/community/earth.png"
-                  layout="fill"
-                  objectFit="cover"
-                  alt="earth-image"
-                />
-              </figure>
-            </Col>
-            <Col md={6} sm={6}>
-              <h3>
-                Let&apos; root for each other & <br></br> watch each other grow
-              </h3>
-              <p>Communicate with others for your own benefit</p>
-              <Button className="button">Join Us</Button>
-            </Col>
-          </Row>
-        </div>
+              >
+                <figure className="thumbnail-img">
+                  <Image
+                    src="/community/earth.png"
+                    layout="fill"
+                    objectFit="cover"
+                    alt="earth-image"
+                  />
+                </figure>
+              </Col>
+              <Col md={6} sm={6}>
+                <h3>
+                  Let&apos; root for each other & <br></br> watch each other grow
+                </h3>
+                <p>Communicate with others for your own benefit</p>
+                <Button className="button">Join Us</Button>
+              </Col>
+            </Row>
+          </div>
+        </Container>
       </section>
       <section className="community-page-main">
         <Container fluid="xl">
