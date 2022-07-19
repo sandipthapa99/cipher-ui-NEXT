@@ -86,9 +86,13 @@ const Home: NextPage = () => {
                         {serviceCategory && serviceCategory.map((category) => {
                             return (
                                 <Col xs={6} sm={4} lg={2} key={category.id}>
-                                    <CategoryCard
-                                        categoryTitle={category.categoryTitle}
-                                        categoryIcon={category.categoryIcon} />
+                                    <Link href="/gardening">
+                                        <a >
+                                            <CategoryCard
+                                                categoryTitle={category.categoryTitle}
+                                                categoryIcon={category.categoryIcon} />
+                                        </a>
+                                    </Link>
                                 </Col>
                             )
                         })}
@@ -205,10 +209,10 @@ const Home: NextPage = () => {
                             return (
                                 <Col key={card.id} md={4} className="d-flex align-items-stretch">
                                     <CipherCard
-                                    thumbnailImg={card.thumbnailImg}
-                                    title={card.title}
-                                    description={card.description}
-                                    redirectTo={card.redirectTo}
+                                        thumbnailImg={card.thumbnailImg}
+                                        title={card.title}
+                                        description={card.description}
+                                        redirectTo={card.redirectTo}
                                     />
                                 </Col>
                             )
@@ -255,14 +259,14 @@ const Home: NextPage = () => {
                     <h1 className="section-main-title">Find Oppurtunities</h1>
                     <h2 className="section-sub-title">Finding job can never be this easy</h2>
                     <Row className="gx-5">
-                    {findOpportuities && findOpportuities.map((card) => {
+                        {findOpportuities && findOpportuities.map((card) => {
                             return (
                                 <Col key={card.id} md={4} className="d-flex align-items-stretch">
                                     <CipherCard
-                                    thumbnailImg={card.thumbnailImg}
-                                    title={card.title}
-                                    description={card.description}
-                                    redirectTo={card.redirectTo}
+                                        thumbnailImg={card.thumbnailImg}
+                                        title={card.title}
+                                        description={card.description}
+                                        redirectTo={card.redirectTo}
                                     />
                                 </Col>
                             )
