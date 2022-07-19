@@ -42,4 +42,4 @@ export const phoneRegExp =
 // Blog API Links
 export const BLOG_BASE_URL = "https://blog.api.cagtu.io/"
 export const blogListAPI = `${BLOG_BASE_URL}blog/list`;
-export const blogDetailAPI = `${BLOG_BASE_URL}blog/detail/`;
+export const blogDetailAPI = `${BLOG_BASE_URL}blog/detail/`; 
