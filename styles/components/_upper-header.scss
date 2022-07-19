@@ -87,14 +87,17 @@ body {
             font-size: 1.6rem;
             font-weight: 500;
             line-height: 2.4rem;
-            position: absolute;
-            top: 0;
-            right: 18rem;
-            padding: 3rem 0;
+            padding: 0;
             border: none;
-            margin-right: 5.2rem;
+            margin:0;
+            @include respond(md){
+                margin-right: 3rem;
+            }
             @include respond(lg) {
                 position: static;
+                padding: 3rem 0;
+            border: none;
+            margin-right: 5.2rem;
             }
             @include respond(tablet-lanscape) {
                 padding: 1.05rem 2.2rem;
