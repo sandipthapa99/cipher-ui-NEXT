@@ -3,16 +3,19 @@
 }
 .dropdowns {
   position: absolute;
-  display: flex;
+  display: none;
   z-index: 10;
   .thumbnail-img {
-    height: 2.2rem;
-    width: 2rem;
+    height: 2.7rem;
+    width: 2.6rem;
     position: absolute;
-    top: 1rem;
-    top: 3rem;
+    top: 0rem;
     z-index: 11;
-    left: 2rem;
+    left: 4rem;
+  }
+
+  @include respond(md) {
+    display: flex;
   }
 
   [data-is-nested='true'] {
@@ -25,47 +28,47 @@
   }
 }
 
-.dropdown-menu-container {
-  position: relative;
-  margin-left: 0rem;
-  margin-top: -2.24rem;
-  border-radius: 4px;
-  //   box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
-}
 .svg-icon {
   color: #868e96;
 }
 .all-category {
   color: $default-text-color;
-  margin-left: 2rem;
+  margin-left: 1.4rem;
   margin-bottom: 1rem;
 }
 .dropdown-menu-items-container {
-  background: #ffffff;
+  display: flex;
+  flex-direction: column;
 }
-.dropdown-menu-items {
-  width: 100%;
-  min-width: 30rem;
-  color: #868e96;
-  padding: 25px 10px;
-  background-color: $white;
-  background: #ffffff;
-  /* Container */
 
-  margin-top: 4rem;
-  &:nth-of-type(2) {
-    border-left: 1px solid #e9ecef;
+.dropdown-menu-items {
+  min-width: 25rem;
+  padding: 1.4rem 1rem;
+  background-color: $white;
+  /* Container */
+  border-bottom: 1px solid #e9ecef;
+  margin-top: 1rem;
+
+  :last-child {
+    border-bottom: none;
   }
 }
+.dropdown-menu-items a {
+  color: $secondary-text-color;
+}
+.sub-menu {
+  border-left: 1px solid #e9ecef;
+  padding-top: 4rem;
+}
+
 .dropdown-btn {
   background: none;
   color: #fff;
   border: none;
-  border: none;
-  font-weight: 500;
+  display: flex;
+  // margin-top: 0.05rem;
   outline: none;
-  margin-top: 0.2rem;
-  margin-left: 2.7rem;
+  justify-content: space-around;
 
   &:focus {
     outline: none;
@@ -78,16 +81,12 @@
 .dropdown-menu-item {
   display: flex;
   align-items: center;
+  flex-direction: column;
   gap: 15px;
-  padding: 15px 20px;
+  //padding: 15px 20px;
   border-radius: 4px;
-  border-bottom: 1px solid #e9ecef !important;
   &:hover {
     color: #0693e3;
-  }
-  [data-is-nested='true'] {
-    margin-top: 4rem;
-    background-color: #0693e3 !important;
   }
 }
 .dropdown-menu-item-link {
@@ -96,11 +95,5 @@
 
   &:hover {
     color: #0693e3;
-  }
-}
-ul {
-  [data-is-nested='true'] {
-    margin-top: 4rem;
-    background-color: #0693e3;
   }
 }
