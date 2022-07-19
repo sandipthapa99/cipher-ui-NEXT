@@ -1,249 +1,258 @@
-.site-main-banner{
-  position: relative;
-  margin: 0 0 2.4rem;
-  width: 100%;
-  overflow: hidden;
-  @include respond(md){
-    margin: 0 0 8rem;
-    background-image: url("../#{$theme-imgpath}/heroImages/pattern2.png"),url("../#{$theme-imgpath}/heroImages/pattern.png");
-    background-repeat: no-repeat;
-    background-position: bottom left -2.1rem, center left 0;
-    background-size: 24.5rem,31rem;
-  }
-    .shape-blob {
-        background:#FEDB29;
-        height: 41.9rem;
-        width: 40rem;
-        border-radius: 30% 50% 20% 40%;
-          animation: 
-            transform 20s ease-in-out infinite both alternate;
-        position: absolute;
-        right: -10rem;
-        top: -5rem;
-        z-index: -1;
-        overflow: hidden;
-    }
-    &--content{
-      h1{
-          font-size: 3.2rem;
-          margin: 4rem 0 2.4rem 0; 
-          @include respond(md){
-              font-size: 4.8rem;
-          }
-          @include respond(lg){
-              font-size: 4.8rem;
-              margin: 11.4rem 0 6.7rem 0; 
-          }
-          @include respond(xl){
-              font-size: 6.4rem;
-  
-          }
-      }
-      p{
-          font-size: 1.4rem;
-          color: $default-text-color;
-          font-weight: 500;
-          margin-bottom: 2.4rem;
-          @include respond(md){
-            font-weight: 600;
-            font-size: 2.4rem;
-            margin-bottom: 8rem;
-  
-          }
-      }
-    }
+.site-main-banner {
+	position: relative;
+	margin: 0 0 2.4rem;
+	width: 100%;
+	overflow: hidden;
+	@include respond(md) {
+		margin: 0 0 8rem;
+		background-image: url('../#{$theme-imgpath}/heroImages/pattern2.png'),
+			url('../#{$theme-imgpath}/heroImages/pattern.png');
+		background-repeat: no-repeat;
+		background-position: bottom left -2.1rem, center left 0;
+		background-size: 24.5rem, 31rem;
+	}
+	.shape-blob {
+		background: #fedb29;
+		height: 41.9rem;
+		width: 40rem;
+		border-radius: 30% 50% 20% 40%;
+		animation: transform 20s ease-in-out infinite both alternate;
+		position: absolute;
+		right: -10rem;
+		top: -5rem;
+		z-index: -1;
+		overflow: hidden;
+	}
+	&--content {
+		h1 {
+			font-size: 3.2rem;
+			margin: 4rem 0 2.4rem 0;
+			@include respond(md) {
+				font-size: 4.8rem;
+			}
+			@include respond(lg) {
+				font-size: 4.8rem;
+				margin: 11.4rem 0 6.7rem 0;
+			}
+			@include respond(xl) {
+				font-size: 6.4rem;
+			}
+		}
+		p {
+			font-size: 1.4rem;
+			color: $default-text-color;
+			font-weight: 500;
+			margin-bottom: 2.4rem;
+			@include respond(md) {
+				font-weight: 600;
+				font-size: 2.4rem;
+				margin-bottom: 8rem;
+			}
+		}
+	}
 
-    &--search-bar{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 2.4rem;
-          .search_box{
-            width: 100rem;
-            background: #fff;
-            border-radius: 0.4rem;
-            display: flex;
-            box-shadow: 0 8px 6px -10px #b3c6ff;
-            .dropdown-wrapper{
-              width: 20%;
-              padding: 1rem 0;
-              @include respond(md){
-                width: 15%;
-              }
-              .dropdown{
-                border-right: .2rem solid #dde2f1;
-                color: #9fa3b1;
-                position: relative;
-                .form-group{
-                  margin: 0;
-                  z-index: 1;
-                  .form-control{
-                    border: none;
-                    cursor: pointer;
-                    background: transparent;
-                    &::placeholder{
-                        color: #868E96;
-                        font-family: $poppins-font;
-                        font-size: 1.6rem;
-                        font-weight: 500;
-        
-                    }
-                  }
-                }
-                .svg-icon{
-                  position: absolute;
-                  top: 35%;
-                  right: 10%;
-                  z-index: 0;
-                }
-              }
-            }
-            .search_field{
-              width: 90%;
-              position: relative;
-              &:focus, &:active, &:focus-visible{
-                border: none;
-                box-shadow: none;
-            }
-              input{
-                width: 100%;
-                height: 100%;
-                border: 0px;
-                font-size: 16px;
-                padding-left: 20px;
-                padding-right: 38px;
-                color: #6f768d;
-                &::placeholder{
-                  color: #495057;
-                }
-                &:focus, &:active, &:focus-visible{
-                  outline: none;
-              }
-              }
-              
-            }
-            .search-btn{
-              background: #FFCA6A;
-              border: none;
-              border-radius: 0 0.4rem 0.4rem 0;
-              padding: 0.8rem;
-              color: $primary-color;
-              cursor: pointer;
-              .icon{
-                height: 2.4rem;
-                width: 2.4rem;
-                margin: 0.8rem 2.4rem;
-              }
-            }
-            &:active, &:focus{
-              box-shadow: none;
-              outline: none;
-            }
-          }
-    }
-    &--chips-section{
-      margin: 0 ;
-      display: flex;
-      flex-wrap: wrap;
-      @include respond(md){
-        margin: 0;
-      }
-      @include respond(lg){
-        margin: 0 14.5rem 8rem;
-      }
-      .chips-wrapper{
-        margin:0 1rem 0.8rem 0;
-      }
-    }
+	&--search-bar {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 2.4rem;
+		.search_box {
+			width: 100rem;
+			background: #fff;
+			border-radius: 0.4rem;
+			display: flex;
+			box-shadow: 0 8px 6px -10px #b3c6ff;
+			.dropdown-wrapper {
+				width: 20%;
+				padding: 1rem 0;
+				@include respond(md) {
+					width: 15%;
+				}
+				.dropdown {
+					border-right: 0.2rem solid #dde2f1;
+					color: #9fa3b1;
+					position: relative;
+					.form-group {
+						margin: 0;
+						z-index: 1;
+						.form-control {
+							border: none;
+							cursor: pointer;
+							background: transparent;
+							&::placeholder {
+								color: #868e96;
+								font-family: $poppins-font;
+								font-size: 1.6rem;
+								font-weight: 500;
+							}
+						}
+					}
+					.svg-icon {
+						position: absolute;
+						top: 35%;
+						right: 10%;
+						z-index: 0;
+					}
+				}
+			}
+			.search_field {
+				width: 90%;
+				position: relative;
+				&:focus,
+				&:active,
+				&:focus-visible {
+					border: none;
+					box-shadow: none;
+				}
+				input {
+					width: 100%;
+					height: 100%;
+					border: 0px;
+					font-size: 16px;
+					padding-left: 20px;
+					padding-right: 38px;
+					color: #6f768d;
+					&::placeholder {
+						color: #495057;
+					}
+					&:focus,
+					&:active,
+					&:focus-visible {
+						outline: none;
+					}
+				}
+			}
+			.search-btn {
+				background: #ffca6a;
+				border: none;
+				border-radius: 0 0.4rem 0.4rem 0;
+				padding: 0.8rem;
+				color: $primary-color;
+				cursor: pointer;
+				.icon {
+					height: 2.4rem;
+					width: 2.4rem;
+					margin: 0.8rem 2.4rem;
+				}
+			}
+			&:active,
+			&:focus {
+				box-shadow: none;
+				outline: none;
+			}
+		}
+	}
+	&--chips-section {
+		margin: 0;
+		display: flex;
+		flex-wrap: wrap;
+		@include respond(md) {
+			margin: 0;
+		}
+		@include respond(lg) {
+			margin: 0 14.5rem 8rem;
+		}
+		.chips-wrapper {
+			margin: 0 1rem 0.8rem 0;
+		}
+	}
 }
 
 // Services near you section start
-.services-near-you{
-  margin-bottom: 2.4rem;
-  @include respond(md){
-    margin: 0 0 6rem;
-  }
+.services-near-you {
+	margin-bottom: 2.4rem;
+	@include respond(md) {
+		margin: 0 0 6rem;
+	}
 }
 // Services near you section end
 
 // Browse by category section start
-.browse-category{
-  background-color: $secondary-color;
-  padding: 4rem 0;
-  margin: 0 0 2.4rem;
-  @include respond(md){
-    padding: 8rem 0;
-    margin: 0 0 8rem;
-
-  }
+.browse-category {
+	background-color: $secondary-color;
+	padding: 4rem 0;
+	margin: 0 0 2.4rem;
+	@include respond(md) {
+		padding: 8rem 0;
+		margin: 0 0 8rem;
+	}
 }
 // Browse by category section end
 
 // Find & Hire section Start
-.find-hire{
-  margin: 0 0 6rem;
-  .find-hire-card-block {
-    margin: 0 0 3rem;
-    border-radius: 0.4rem;
-    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
-    background: rgba(255, 255, 255, 0.4);
-    .thumbnail-img {
-        height: 20rem;
-        margin: 0;
-        border-radius: 0.4rem 0.4rem 0 0;
-        @include respond(md) {
-            height: 28rem;
-            margin: 0;}
-    }
-    .card-content{
-        padding: 2.7rem 2.2rem 2.6rem 2.2rem;
-        display: flex;
-        flex-direction: column;
-        h2{
-            font-size: 1.6rem;
-            font-weight: 500;
-            color: #211D4F;
-            margin-bottom: 1.6rem;
-        }
-        p{
-            font-size: 1.2rem;
-            font-weight: 400;
-            color: #495057;
-            line-height: 1.8rem;
-            margin-bottom: 2.2rem;
-        }
-        a{
-          font-size: 1.4rem;
-          font-weight: 500;
-          color: #FCA500;
-          margin-top: auto;
-          .svg-icon{
-            height: 1.6rem;
-            width: 1.6rem;
-            margin-left: 0.4rem;
-          }
-          &:hover{
-            color: $primary-color;
-          }
-        }
-    }
-}
+.find-hire {
+	margin: 0 0 6rem;
+	.find-hire-card-block {
+		margin: 0 0 3rem;
+		border-radius: 0.4rem;
+		box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+		background: rgba(255, 255, 255, 0.4);
+		.thumbnail-img {
+			height: 20rem;
+			margin: 0;
+			border-radius: 0.4rem 0.4rem 0 0;
+			@include respond(md) {
+				height: 28rem;
+				margin: 0;
+			}
+		}
+		.card-content {
+			padding: 2.7rem 2.2rem 2.6rem 2.2rem;
+			display: flex;
+			flex-direction: column;
+			h2 {
+				font-size: 1.6rem;
+				font-weight: 500;
+				color: #211d4f;
+				margin-bottom: 1.6rem;
+			}
+			p {
+				font-size: 1.2rem;
+				font-weight: 400;
+				color: #495057;
+				line-height: 1.8rem;
+				margin-bottom: 2.2rem;
+			}
+			a {
+				font-size: 1.4rem;
+				font-weight: 500;
+				color: #fca500;
+				margin-top: auto;
+				.svg-icon {
+					height: 1.6rem;
+					width: 1.6rem;
+					margin-left: 0.4rem;
+				}
+				&:hover {
+					color: $primary-color;
+				}
+			}
+		}
+	}
 }
 // Find & Hire section Start
 
 // Top rated merchants section start
-.top-merchants{
-  margin-bottom: 6rem;
+.top-merchants {
+	margin-bottom: 6rem;
 }
 // Top rated merchants section end
 
-
-@keyframes transform
-{
-    0%,
-  100% { border-radius: 33% 67% 70% 30% / 30% 30% 70% 70%; } 
-   20% { border-radius: 37% 63% 51% 49% / 37% 65% 35% 63%; } 
-   40% { border-radius: 36% 64% 64% 36% / 64% 48% 52% 36%; } 
-   60% { border-radius: 37% 63% 51% 49% / 30% 30% 70% 70%; } 
-   80% { border-radius: 40% 60% 42% 58% / 41% 51% 49% 59%; } 
+@keyframes transform {
+	0%,
+	100% {
+		border-radius: 33% 67% 70% 30% / 30% 30% 70% 70%;
+	}
+	20% {
+		border-radius: 37% 63% 51% 49% / 37% 65% 35% 63%;
+	}
+	40% {
+		border-radius: 36% 64% 64% 36% / 64% 48% 52% 36%;
+	}
+	60% {
+		border-radius: 37% 63% 51% 49% / 30% 30% 70% 70%;
+	}
+	80% {
+		border-radius: 40% 60% 42% 58% / 41% 51% 49% 59%;
+	}
 }
