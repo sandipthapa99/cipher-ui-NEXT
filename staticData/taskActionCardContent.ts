@@ -11,7 +11,7 @@ export const taskActionCardContent = [
   },
   {
     id: '2',
-    title: 'Explore Merchant',
+    title: 'Explore Tasks',
     image: '/task-action/explore.svg',
   },
 ]

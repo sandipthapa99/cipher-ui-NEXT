@@ -29,9 +29,6 @@ import { PackageCard } from 'staticData/packageCard'
 import PackageOffersCard from '@components/common/packageCard'
 import { reviewsContent } from 'staticData/reviews'
 import Reviews from '@components/common/Reviews'
-import { ServiceNearYouProvider } from 'staticData/serviceNearYouProvider'
-import ServiceNearYouProviderCard from '@components/common/serviceNearYouProviderCard'
-import GettingStartedTask from '@components/common/GettingStartedCard'
 
 const ServiceDetail: NextPage = () => {
   return (
@@ -86,7 +83,7 @@ const ServiceDetail: NextPage = () => {
                 </figure>
               </Col>
               <Col md={4} className="gardener-col">
-                {/* {serviceProvider &&
+                {serviceProvider &&
                   serviceProvider.map((provider) => (
                     <ServiceProviderCard
                       image={provider.image}
@@ -99,8 +96,7 @@ const ServiceDetail: NextPage = () => {
                       speciality={provider.speciality}
                       startingPrice={provider.startingPrice}
                     />
-                  ))} */}
-                <GettingStartedTask />
+                  ))}
               </Col>
             </Row>
           </section>
