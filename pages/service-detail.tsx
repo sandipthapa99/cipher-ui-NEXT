@@ -29,6 +29,8 @@ import { PackageCard } from 'staticData/packageCard'
 import PackageOffersCard from '@components/common/packageCard'
 import { reviewsContent } from 'staticData/reviews'
 import Reviews from '@components/common/Reviews'
+import ServiceNearYouCard from '@components/common/ServiceNearYouLocationCard'
+import { servicesNearYou } from 'staticData/servicesNearYouContent'
 
 const ServiceDetail: NextPage = () => {
   return (
@@ -72,7 +74,7 @@ const ServiceDetail: NextPage = () => {
               </Col>
             </Row>
             <Row>
-              <Col md={8}>
+              <Col md={7}>
                 <figure className="thumbnail-img">
                   <Image
                     src="/service-details/Garden.svg"
@@ -82,7 +84,7 @@ const ServiceDetail: NextPage = () => {
                   />
                 </figure>
               </Col>
-              <Col md={4} className="gardener-col">
+              <Col md={5} className="gardener-col">
                 {serviceProvider &&
                   serviceProvider.map((provider) => (
                     <ServiceProviderCard
@@ -97,6 +99,20 @@ const ServiceDetail: NextPage = () => {
                       startingPrice={provider.startingPrice}
                     />
                   ))}
+                {/* {servicesNearYou &&
+                  servicesNearYou.map((detail) => (
+                    <ServiceNearYouCard
+                      image={detail.image}
+                      haveDiscount={detail.haveDiscount}
+                      discount={detail.discount}
+                      servicePrice={detail.servicePrice}
+                      serviceProvider={detail.serviceProvider}
+                      serviceProviderLocation={detail.serviceProviderLocation}
+                      serviceRating={detail.serviceRating}
+                      discountOn={detail.discountOn}
+                      serviceTitle={detail.serviceTitle}
+                    />
+                  ))} */}
               </Col>
             </Row>
           </section>
