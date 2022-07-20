@@ -2,6 +2,7 @@ import CardBtn from './CardBtn'
 import { PacakageCardProps } from 'types/packageCard'
 import ServiceHighlights from './ServiceHighlights'
 import Image from 'next/image'
+import PackageServiceHighlights from './PackageServiceHighlights'
 const PackageOffersCard = ({
   title,
   price,
@@ -44,7 +45,10 @@ const PackageOffersCard = ({
       </div>
       <div className="offers">
         {offers.map((offer: any) => (
-          <ServiceHighlights title={offer.label} isChecked={offer.isChecked} />
+          <PackageServiceHighlights
+            title={offer.label}
+            isChecked={offer.isChecked}
+          />
         ))}
       </div>
       <div className="btn-wrapper">

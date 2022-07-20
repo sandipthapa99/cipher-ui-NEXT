@@ -29,8 +29,8 @@ import { PackageCard } from 'staticData/packageCard'
 import PackageOffersCard from '@components/common/packageCard'
 import { reviewsContent } from 'staticData/reviews'
 import Reviews from '@components/common/Reviews'
-import ServiceNearYouCard from '@components/common/ServiceNearYouLocationCard'
-import { servicesNearYou } from 'staticData/servicesNearYouContent'
+import { ServiceNearYouProvider } from 'staticData/serviceNearYouProvider'
+import ServiceNearYouProviderCard from '@components/common/serviceNearYouProviderCard'
 
 const ServiceDetail: NextPage = () => {
   return (
@@ -74,7 +74,7 @@ const ServiceDetail: NextPage = () => {
               </Col>
             </Row>
             <Row>
-              <Col md={7}>
+              <Col md={8}>
                 <figure className="thumbnail-img">
                   <Image
                     src="/service-details/Garden.svg"
@@ -84,8 +84,8 @@ const ServiceDetail: NextPage = () => {
                   />
                 </figure>
               </Col>
-              <Col md={5} className="gardener-col">
-                {serviceProvider &&
+              <Col md={4} className="gardener-col">
+                {/* {serviceProvider &&
                   serviceProvider.map((provider) => (
                     <ServiceProviderCard
                       image={provider.image}
@@ -98,21 +98,16 @@ const ServiceDetail: NextPage = () => {
                       speciality={provider.speciality}
                       startingPrice={provider.startingPrice}
                     />
-                  ))}
-                {/* {servicesNearYou &&
-                  servicesNearYou.map((detail) => (
-                    <ServiceNearYouCard
-                      image={detail.image}
-                      haveDiscount={detail.haveDiscount}
-                      discount={detail.discount}
-                      servicePrice={detail.servicePrice}
-                      serviceProvider={detail.serviceProvider}
-                      serviceProviderLocation={detail.serviceProviderLocation}
-                      serviceRating={detail.serviceRating}
-                      discountOn={detail.discountOn}
-                      serviceTitle={detail.serviceTitle}
-                    />
                   ))} */}
+                {ServiceNearYouProvider &&
+                  ServiceNearYouProvider.map((detail) => (
+                    <ServiceNearYouProviderCard
+                      name={detail.name}
+                      image={detail.image}
+                      speciality={detail.speciality}
+                      price={detail.price}
+                    />
+                  ))}
               </Col>
             </Row>
           </section>

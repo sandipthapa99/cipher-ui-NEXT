@@ -17,8 +17,15 @@ const BookNowButton = ({
     <>
       <Button
         //className="big-btn"
+
         onClick={() => handleOnClick(showModal)}
-        style={{ backgroundColor: `${backgroundColor}`, color: 'white' }}
+        style={{
+          backgroundColor: `${backgroundColor}`,
+          color: 'white',
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'center',
+        }}
       >
         <span>{btnTitle}</span>
       </Button>

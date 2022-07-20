@@ -9,3 +9,10 @@ export interface ServiceNearYouCardProps {
   discount?: number
   discountOn?: string
 }
+
+export interface ServiceNearYouProviderCardProps {
+  image: string
+  name: string
+  speciality: string
+  price: number
+}
