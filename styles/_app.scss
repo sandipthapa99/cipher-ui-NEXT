@@ -1,45 +1,46 @@
 html {
-    font-size: 10px;
+	font-size: 10px;
 }
 
 body {
-    font-family: $poppins-font, "Helvetica-Nue", "helvetica", Arial, sans-serif;
-    font-size: 1.5rem;
-    font-weight: normal;
-    line-height: 1.5;
-    color: $default-text-color;
-    background: #fff;
-    @include respond(md) {
-        font-size: 1.6rem;
-    }
+	font-family: $poppins-font, 'Helvetica-Nue', 'helvetica', Arial, sans-serif;
+	font-size: 1.5rem;
+	font-weight: normal;
+	line-height: 1.5;
+	color: $default-text-color;
+	overflow-x: hidden;
+	background: #fff;
+	@include respond(md) {
+		font-size: 1.6rem;
+	}
 }
 
 a {
-    color: #0693E3;
-    text-decoration: none;
-    @include transition();
-    &:hover,
-    &:focus {
-        text-decoration: none;
-        color: $secondary-color;
-        outline: none;
-    }
+	color: #0693e3;
+	text-decoration: none;
+	@include transition();
+	&:hover,
+	&:focus {
+		text-decoration: none;
+		color: $secondary-color;
+		outline: none;
+	}
 }
-.view-more{
-    color: #FCA500;
-    font-size: 1.4rem;
-    font-weight: 500;
-    &:hover{
-        color: $primary-color;
-    }
-    @include respond(md){
-        font-size: 1.6rem;
-    }
-    .svg-icon{
-        margin: 0;
-        height: 1.6rem;
-        width: 1.6rem;
-    }
+.view-more {
+	color: #fca500;
+	font-size: 1.4rem;
+	font-weight: 500;
+	&:hover {
+		color: $primary-color;
+	}
+	@include respond(md) {
+		font-size: 1.6rem;
+	}
+	.svg-icon {
+		margin: 0;
+		height: 1.6rem;
+		width: 1.6rem;
+	}
 }
 
 h1,
@@ -48,122 +49,122 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: $poppins-font;
-    margin: 0 0 1.5rem;
-    position: relative;
-    font-weight: 700;
+	font-family: $poppins-font;
+	margin: 0 0 1.5rem;
+	position: relative;
+	font-weight: 700;
 }
 
 h1 {
-    color: $primary-color;
-    font-size: 2.6rem;
-    @include respond(md) {
-        font-size: 3.2rem;
-    }
+	color: $primary-color;
+	font-size: 2.6rem;
+	@include respond(md) {
+		font-size: 3.2rem;
+	}
 }
 
 h2 {
-    font-size: 2rem;
-    @include respond(md) {
-        font-size: 2.4rem;
-    }
+	font-size: 2rem;
+	@include respond(md) {
+		font-size: 2.4rem;
+	}
 }
 
 h3 {
-    font-size: 1.8rem;
+	font-size: 1.8rem;
 }
 
 h4 {
-    font-size: 1.6rem;
+	font-size: 1.6rem;
 }
 
 h5 {
-    font-size: 1.4rem;
+	font-size: 1.4rem;
 }
 
 h6 {
-    font-size: 1rem;
+	font-size: 1rem;
 }
 
 p {
-    line-height: 2.7rem;
-    margin: 0 0 2rem;
-    font-weight: 500;
-    font-family: $poppins-font;
-    color: $paragraph-text-color;
-    @include respond(md) {
-        margin: 0 0 3rem;
-    }
+	line-height: 2.7rem;
+	margin: 0 0 2rem;
+	font-weight: 500;
+	font-family: $poppins-font;
+	color: $paragraph-text-color;
+	@include respond(md) {
+		margin: 0 0 3rem;
+	}
 }
 
 p:empty {
-    display: none;
+	display: none;
 }
 
 ul,
 ol,
 figure,
 address {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .form-label {
-    font-size: 1.4rem;
-    font-weight: 400;
+	font-size: 1.4rem;
+	font-weight: 400;
 }
 
 .asterisk {
-    color: red;
+	color: red;
 }
 
 .form-check-label {
-    font-size: 1.4rem;
+	font-size: 1.4rem;
 }
 
 img {
-    max-width: 100%;
-    max-height: 100%;
+	max-width: 100%;
+	max-height: 100%;
 }
 
 .thumbnail-img {
-    overflow: hidden;
-    position: relative;
-    img {
-        width: 100%;
-        object-fit: cover;
-        @transform();
-        @include transition();
-    }
+	overflow: hidden;
+	position: relative;
+	img {
+		width: 100%;
+		object-fit: cover;
+		@transform();
+		@include transition();
+	}
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
-    position: relative;
-    @include respond(md) {
-        margin-bottom: 2.4rem;
-    }
+	margin-bottom: 1.5rem;
+	position: relative;
+	@include respond(md) {
+		margin-bottom: 2.4rem;
+	}
 }
 
 .form-control {
-    background: #fff;
-    border: 0.1rem solid $gray-text-color;
-    box-shadow: none;
-    height: 4.8rem;
-    font-size: 1.6rem;
-    padding: 0.6rem 1.8rem;
-    position: relative;
-    border-radius: 0.4rem;
-    font-family: $inter-font;
-    &:focus {
-        outline: 0;
-        box-shadow: none;
-        outline-offset: 0;
-        border-color: $primary-color;
-    }
-    &::-webkit-input-placeholder {
-        color: $gray-text-color;
-    }
+	background: #fff;
+	border: 0.1rem solid $gray-text-color;
+	box-shadow: none;
+	height: 4.8rem;
+	font-size: 1.6rem;
+	padding: 0.6rem 1.8rem;
+	position: relative;
+	border-radius: 0.4rem;
+	font-family: $inter-font;
+	&:focus {
+		outline: 0;
+		box-shadow: none;
+		outline-offset: 0;
+		border-color: $primary-color;
+	}
+	&::-webkit-input-placeholder {
+		color: $gray-text-color;
+	}
 }
 
 // .select-appearance {
@@ -181,367 +182,365 @@ img {
 // }
 
 textarea.form-control {
-    height: 17.4rem;
-    padding: 1.8rem;
-    resize: none;
+	height: 17.4rem;
+	padding: 1.8rem;
+	resize: none;
 }
 
 .invalid-feedback {
-    font-size: 1.2rem;
-    font-weight: 400;
-    &::first-letter {
-        text-transform: capitalize;
-    }
+	font-size: 1.2rem;
+	font-weight: 400;
+	&::first-letter {
+		text-transform: capitalize;
+	}
 }
 
 %site-btn {
-    font-size: 1.6rem;
-    font-weight: 600;
-    border-radius: 0.4rem;
-    font-family: $poppins-font;
-    color: $default-text-color;
-    padding: 0.95rem 3.2rem;
-    box-shadow: none;
-    position: relative;
-    background: $secondary-color;
-    border: 0.2rem solid transparent;
-    @include transition();
+	font-size: 1.6rem;
+	font-weight: 600;
+	border-radius: 0.4rem;
+	font-family: $poppins-font;
+	color: $default-text-color;
+	padding: 0.95rem 3.2rem;
+	box-shadow: none;
+	position: relative;
+	background: $secondary-color;
+	border: 0.2rem solid transparent;
+	@include transition();
 }
 
 .site-btn {
-    @extend %site-btn;
-    .svg-icon {
-        width: 2.4rem;
-        height: 2.4rem;
-        display: inline-block;
-        vertical-align: middle;
-        margin: 0 0 0 1rem;
-        @include transition();
-    }
-    &:hover,
-    &:focus,
-    &:not(:disabled):not(.disabled):active:focus {
-        box-shadow: none;
-    }
-    &.primary {
-        background: $primary-color;
-        color: #fff;
-        &:hover {
-            background: $secondary-color;
-            color: #fff;
-        }
-    }
-    &.secondary {
-        background: $secondary-color;
-        color: $default-text-color;
-        &:hover {
-            background: $default-text-color;
-            color: $secondary-color;
-        }
-    }
-    &.white {
-        background: #fff;
-        color: $default-text-color;
-        .svg-icon {
-            color: $primary-color;
-        }
-        &:hover {
-            background: $primary-color;
-            color: #fff;
-            .svg-icon {
-                color: #fff;
-            }
-        }
-    }
-    &.outline {
-        background: none;
-        border: 0.2rem solid $primary-color;
-        color: $primary-color;
-        &:hover {
-            background: $primary-color;
-            color: #fff;
-        }
-    }
+	@extend %site-btn;
+	.svg-icon {
+		width: 2.4rem;
+		height: 2.4rem;
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0 0 0 1rem;
+		@include transition();
+	}
+	&:hover,
+	&:focus,
+	&:not(:disabled):not(.disabled):active:focus {
+		box-shadow: none;
+	}
+	&.primary {
+		background: $primary-color;
+		color: #fff;
+		&:hover {
+			background: $secondary-color;
+			color: #fff;
+		}
+	}
+	&.secondary {
+		background: $secondary-color;
+		color: $default-text-color;
+		&:hover {
+			background: $default-text-color;
+			color: $secondary-color;
+		}
+	}
+	&.white {
+		background: #fff;
+		color: $default-text-color;
+		.svg-icon {
+			color: $primary-color;
+		}
+		&:hover {
+			background: $primary-color;
+			color: #fff;
+			.svg-icon {
+				color: #fff;
+			}
+		}
+	}
+	&.outline {
+		background: none;
+		border: 0.2rem solid $primary-color;
+		color: $primary-color;
+		&:hover {
+			background: $primary-color;
+			color: #fff;
+		}
+	}
 }
-.social-btn{
-    font-size: 1.4rem;
-    font-weight: 400;
-    border-radius: 0.4rem;
-    font-family: $poppins-font;
-    color: #FFF;
-    padding: 1.3rem 3.2rem;
-    box-shadow: none;
-    position: relative;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    @include transition();
-    &.facebook{
-        background-color: #1877F2;
-        color: #FFFFFF;
-        &:hover{
-            background-color: #0d58bb;
-        }
-    }
-    &.google{
-        background-color: #E94235;
-        color: #FFFFFF;
-        &:hover{
-            background-color: #ce392f;
-        }
-    }
-    &.email{
-        background-color: $primary-color;
-        color: #FFFFFF;
-        margin-bottom: 4.8rem;
-        &:hover{
-            background-color: $secondary-color;
-        }
-    }
+.social-btn {
+	font-size: 1.4rem;
+	font-weight: 400;
+	border-radius: 0.4rem;
+	font-family: $poppins-font;
+	color: #fff;
+	padding: 1.3rem 3.2rem;
+	box-shadow: none;
+	position: relative;
+	border: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	@include transition();
+	&.facebook {
+		background-color: #1877f2;
+		color: #ffffff;
+		&:hover {
+			background-color: #0d58bb;
+		}
+	}
+	&.google {
+		background-color: #e94235;
+		color: #ffffff;
+		&:hover {
+			background-color: #ce392f;
+		}
+	}
+	&.email {
+		background-color: $primary-color;
+		color: #ffffff;
+		margin-bottom: 4.8rem;
+		&:hover {
+			background-color: $secondary-color;
+		}
+	}
 }
 
 .file-attachment {
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    border: 0.1rem dashed #d3d3d3;
-    border-radius: 0.5rem;
-    background: #fff;
-    color: $default-text-color;
-    padding: 1rem;
-    font-size: 1.4rem;
-    cursor: pointer;
-    font-weight: 500;
-    height: 5rem;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    .svg-icon {
-        width: 2.4rem;
-        height: 2.4rem;
-        color: $primary-color;
-        margin: 0 1rem 0 0;
-        vertical-align: bottom;
-    }
-    .fileUpload {
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-        font-size: 0;
-        cursor: pointer;
-        opacity: 0;
-        filter: alpha(opacity=0);
-    }
-    &.is-invalid {
-        border-color: #dc3545;
-    }
+	position: relative;
+	overflow: hidden;
+	text-align: center;
+	border: 0.1rem dashed #d3d3d3;
+	border-radius: 0.5rem;
+	background: #fff;
+	color: $default-text-color;
+	padding: 1rem;
+	font-size: 1.4rem;
+	cursor: pointer;
+	font-weight: 500;
+	height: 5rem;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	.svg-icon {
+		width: 2.4rem;
+		height: 2.4rem;
+		color: $primary-color;
+		margin: 0 1rem 0 0;
+		vertical-align: bottom;
+	}
+	.fileUpload {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		width: 100%;
+		font-size: 0;
+		cursor: pointer;
+		opacity: 0;
+		filter: alpha(opacity=0);
+	}
+	&.is-invalid {
+		border-color: #dc3545;
+	}
 }
 
 small.text-muted {
-    font-size: 1.2rem;
-    padding: 0.8rem 0 0;
-    display: block;
+	font-size: 1.2rem;
+	padding: 0.8rem 0 0;
+	display: block;
 }
 
 .arrow-link {
-    font-size: 1.6rem;
-    font-weight: 500;
-    @include respond(md) {
-        font-size: 1.8rem;
-    }
-    .svg-icon {
-        width: 2.4rem;
-        height: 2.4rem;
-        display: inline-block;
-        vertical-align: middle;
-        margin: 0 0 0 1rem;
-        @include transition();
-    }
+	font-size: 1.6rem;
+	font-weight: 500;
+	@include respond(md) {
+		font-size: 1.8rem;
+	}
+	.svg-icon {
+		width: 2.4rem;
+		height: 2.4rem;
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0 0 0 1rem;
+		@include transition();
+	}
 }
 
 .heading-sub-title {
-    color: $primary-color;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin: 0 0 1rem;
-    @include respond(md) {
-        margin: 0 0 2rem;
-    }
+	color: $primary-color;
+	text-transform: uppercase;
+	font-weight: 600;
+	margin: 0 0 1rem;
+	@include respond(md) {
+		margin: 0 0 2rem;
+	}
 }
 
 .heading-title {
-    font-size: 1.6rem;
-    font-weight: 500;
-    margin: 0 0 2rem;
-    font-weight: 500;
-    color: #343A40;
-    @include respond(md) {
-        font-size: 2rem;
-        margin: 0 0 2.4rem;
-    }
-    span {
-        color: $primary-color;
-    }
+	font-size: 1.6rem;
+	font-weight: 500;
+	margin: 0 0 2rem;
+	font-weight: 500;
+	color: #343a40;
+	@include respond(md) {
+		font-size: 2rem;
+		margin: 0 0 2.4rem;
+	}
+	span {
+		color: $primary-color;
+	}
 }
-.heading-title-sm{
-    font-size: 2rem;
-    margin: 0 0 2rem;
-    @include respond(md) {
-        font-size: 2rem;
-    }
-    span {
-        color: $primary-color;
-    }
+.heading-title-sm {
+	font-size: 2rem;
+	margin: 0 0 2rem;
+	@include respond(md) {
+		font-size: 2rem;
+	}
+	span {
+		color: $primary-color;
+	}
 }
 
 .section-main-title {
-    font-size: 2.4rem;
-    margin: 0 0 2rem;
-    display: flex;
-    justify-content: center;
-    font-weight: 500;
-    @include respond(md) {
-        font-size: 4rem;
-        margin: 0 0 2.4rem;
-    }
+	font-size: 2.4rem;
+	margin: 0 0 2rem;
+	display: flex;
+	justify-content: center;
+	font-weight: 500;
+	@include respond(md) {
+		font-size: 4rem;
+		margin: 0 0 2.4rem;
+	}
 }
 .section-sub-title {
-    font-size: 1.6rem;
-    margin: 0 0 2rem;
-    display: flex;
-    justify-content: center;
-    color: #495057;
-    font-weight: 600;
-    @include respond(md) {
-        font-size: 2.4rem;
-        margin: 0 0 4rem;
-    }
+	font-size: 1.6rem;
+	margin: 0 0 2rem;
+	display: flex;
+	justify-content: center;
+	color: #495057;
+	font-weight: 600;
+	@include respond(md) {
+		font-size: 2.4rem;
+		margin: 0 0 4rem;
+	}
 }
 
 .parallax-section {
-    padding: 4rem 0;
-    @include respond(md) {
-        padding: 10rem 0;
-    }
+	padding: 4rem 0;
+	@include respond(md) {
+		padding: 10rem 0;
+	}
 }
 
 .site-main {
-    min-height: 50rem;
-    padding: 4rem 0;
-    @include respond(md) {
-        padding: 10rem 0;
-    }
+	min-height: 50rem;
+	padding: 4rem 0;
+	@include respond(md) {
+		padding: 10rem 0;
+	}
 }
 
-
-
 .accordion {
-    .accordion-item {
-        border-color: #e2e2e2;
-        .accordion-header {
-            .accordion-button {
-                font-size: 1.4rem;
-                font-weight: 400;
-                color: #212529;
-                padding: 1rem 0;
-                border: none;
-                @include respond(md) {
-                    font-size: 1.4rem;
-                    // padding: 0.8rem 0;
-                }
-                &::after {
-                    // background-image: url("#{$theme-imgpath}/plus-svg.svg");
-                    background-position: center center;
-                    background-size: 100%;
-                    width: 1.4rem;
-                    height: 1.4rem;
-                    margin-right: 1.6rem;
-                    @include respond(md) {
-                        width: 1.8rem;
-                        height: 1.8rem;
-                    }
-                }
-                &:not(.collapsed) {
-                    background: none;
-                    box-shadow: none;
-                    color: $primary-color;
-                    &::after {
-                        // background-image: url("#{$theme-imgpath}/minus-svg.svg");
-                        transform: inherit;
-                        color: #ADB5BD;
-                    }
-                }
-                &:focus {
-                    background: none;
-                    box-shadow: none;
-                }
-            }
-        }
-        .accordion-body {
-            padding: 0 0 3rem;
-            p {
-                &:last-child {
-                    margin: 0;
-                }
-            }
-        }
-    }
+	.accordion-item {
+		border-color: #e2e2e2;
+		.accordion-header {
+			.accordion-button {
+				font-size: 1.4rem;
+				font-weight: 400;
+				color: #212529;
+				padding: 1rem 0;
+				border: none;
+				@include respond(md) {
+					font-size: 1.4rem;
+					// padding: 0.8rem 0;
+				}
+				&::after {
+					// background-image: url("#{$theme-imgpath}/plus-svg.svg");
+					background-position: center center;
+					background-size: 100%;
+					width: 1.4rem;
+					height: 1.4rem;
+					margin-right: 1.6rem;
+					@include respond(md) {
+						width: 1.8rem;
+						height: 1.8rem;
+					}
+				}
+				&:not(.collapsed) {
+					background: none;
+					box-shadow: none;
+					color: $primary-color;
+					&::after {
+						// background-image: url("#{$theme-imgpath}/minus-svg.svg");
+						transform: inherit;
+						color: #adb5bd;
+					}
+				}
+				&:focus {
+					background: none;
+					box-shadow: none;
+				}
+			}
+		}
+		.accordion-body {
+			padding: 0 0 3rem;
+			p {
+				&:last-child {
+					margin: 0;
+				}
+			}
+		}
+	}
 }
 
 .ul-listing {
-    padding-left: 1.5rem;
-    font-family: $inter-font;
-    font-weight: 500;
-    color: #545454;
-    li {
-        padding: 0.3rem 0;
-    }
+	padding-left: 1.5rem;
+	font-family: $inter-font;
+	font-weight: 500;
+	color: #545454;
+	li {
+		padding: 0.3rem 0;
+	}
 }
 
 .pills-navbar {
-    margin: 0 0 2rem;
-    @include respond(md) {
-        margin: 0 0 3rem;
-    }
-    .nav-item {
-        margin: 0.5rem 1.5rem 0.5rem 0;
-        @include respond(md) {
-            margin: 0 1.5rem 0 0;
-        }
-        .nav-link {
-            background: rgba($color: $primary-color, $alpha: 0.07);
-            color: $primary-color;
-            font-size: 1.2rem;
-            font-weight: 500;
-            padding: 0.6rem 1.5rem;
-            @include respond(md) {
-                font-size: 1.4rem;
-            }
-            .svg-icon {
-                display: inline-block;
-                vertical-align: middle;
-                @include respond(md) {
-                    width: 1.8rem;
-                    height: 1.8rem;
-                }
-            }
-        }
-        &--active {
-            .nav-link {
-                background: $primary-color;
-                color: #fff;
-            }
-        }
-        &:hover {
-            .nav-link {
-                background: $primary-color;
-                color: #fff;
-            }
-        }
-    }
+	margin: 0 0 2rem;
+	@include respond(md) {
+		margin: 0 0 3rem;
+	}
+	.nav-item {
+		margin: 0.5rem 1.5rem 0.5rem 0;
+		@include respond(md) {
+			margin: 0 1.5rem 0 0;
+		}
+		.nav-link {
+			background: rgba($color: $primary-color, $alpha: 0.07);
+			color: $primary-color;
+			font-size: 1.2rem;
+			font-weight: 500;
+			padding: 0.6rem 1.5rem;
+			@include respond(md) {
+				font-size: 1.4rem;
+			}
+			.svg-icon {
+				display: inline-block;
+				vertical-align: middle;
+				@include respond(md) {
+					width: 1.8rem;
+					height: 1.8rem;
+				}
+			}
+		}
+		&--active {
+			.nav-link {
+				background: $primary-color;
+				color: #fff;
+			}
+		}
+		&:hover {
+			.nav-link {
+				background: $primary-color;
+				color: #fff;
+			}
+		}
+	}
 }
