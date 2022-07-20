@@ -3,7 +3,10 @@ import { ServiceProviderCardProps } from 'types/serviceDetail'
 import CardBtn from './CardBtn'
 import Link from 'next/link'
 import { Button } from 'react-bootstrap'
-
+import BookNowButton from './BookNowButton'
+import { useState } from 'react'
+import ModalCard from './ModalCard'
+import { BookingDetails } from 'staticData/bookNowModalCard'
 const ServiceProviderCard = ({
   image,
   name,
@@ -14,6 +17,7 @@ const ServiceProviderCard = ({
   views,
   happyClients,
 }: ServiceProviderCardProps) => {
+  const [showModal, setShowModal] = useState(false)
   return (
     <div className="card-block">
       <div className="profile">
@@ -90,10 +94,25 @@ const ServiceProviderCard = ({
         <p>Starting price</p>
         <p className="price">Rs {startingPrice}</p>
       </div>
-      {/* <div className="btn">
-        <CardBtn btnTitle="Book Now" backgroundColor="$primary-color" />
-      </div> */}
-      <Button className="btn">Book Now</Button>
+      <BookNowButton
+        btnTitle="Book Now"
+        backgroundColor="$primary-color"
+        showModal={true}
+        handleOnClick={() => setShowModal(!showModal)}
+      />
+      {BookingDetails &&
+        BookingDetails.map((detail) => (
+          <ModalCard
+            title={detail.title}
+            price={detail.price}
+            image={detail.image}
+            description={detail.description}
+            problemDescription={detail.problemDescription}
+            show={showModal}
+            handleClose={() => setShowModal(false)}
+          />
+        ))}
+
       <Link href="/login">Please Login to Book Service</Link>
     </div>
   )

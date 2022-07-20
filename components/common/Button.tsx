@@ -1,12 +1,11 @@
 import { Button } from 'react-bootstrap'
 
-const BigButton = ({
-  btnTitle,
-  backgroundColor,
-}: {
+interface BigButtonProps {
   btnTitle: string
   backgroundColor: string
-}) => {
+}
+
+const BigButton = ({ btnTitle, backgroundColor }: BigButtonProps) => {
   return (
     <>
       <Button

@@ -5,13 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DUMMY_MENU_ITEMS } from 'staticData/dropdownData'
 import Image from 'next/image'
 
-interface DropdownItemProps {
-  items: any
-  children?: ReactNode
-  haveSubMenu?: boolean
-  isNested?: boolean
-  onClick?: () => void
-}
 interface DropdownProps {
   children?: ReactNode
 }
