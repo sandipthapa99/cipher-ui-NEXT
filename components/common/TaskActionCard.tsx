@@ -6,7 +6,7 @@ import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
 
 const TaskActionCard = ({ title, image }: TaskActionCardProps) => {
   return (
-    <div className="task card-block">
+    <div className="task-blocks">
       <figure className="thumbnail-img">
         <Image
           src={image}

@@ -2,20 +2,24 @@ import Image from 'next/image'
 import { taskActionCardContent } from 'staticData/taskActionCardContent'
 import TaskActionCard from './TaskActionCard'
 
-const GettingStarted = () => {
+const GettingStartedTask = () => {
   return (
-    <div className="card-block">
+    <div className="getting-started card-block">
       <div className="top-container">
         <h1>Getting Started</h1>
-        <p>10% done - greate Work!</p>
+        <p>10% done - great Work!</p>
       </div>
-      <div className="task-cotainer">
+      <div className="task-container">
         {taskActionCardContent &&
           taskActionCardContent.map((task) => (
-            <TaskActionCard title={task.title} image={task.image} />
+            <TaskActionCard
+              key={task.id}
+              title={task.title}
+              image={task.image}
+            />
           ))}
       </div>
     </div>
   )
 }
-export default GettingStarted
+export default GettingStartedTask

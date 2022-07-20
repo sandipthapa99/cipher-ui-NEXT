@@ -31,6 +31,7 @@ import { reviewsContent } from 'staticData/reviews'
 import Reviews from '@components/common/Reviews'
 import { ServiceNearYouProvider } from 'staticData/serviceNearYouProvider'
 import ServiceNearYouProviderCard from '@components/common/serviceNearYouProviderCard'
+import GettingStartedTask from '@components/common/GettingStartedCard'
 
 const ServiceDetail: NextPage = () => {
   return (
@@ -99,15 +100,7 @@ const ServiceDetail: NextPage = () => {
                       startingPrice={provider.startingPrice}
                     />
                   ))} */}
-                {ServiceNearYouProvider &&
-                  ServiceNearYouProvider.map((detail) => (
-                    <ServiceNearYouProviderCard
-                      name={detail.name}
-                      image={detail.image}
-                      speciality={detail.speciality}
-                      price={detail.price}
-                    />
-                  ))}
+                <GettingStartedTask />
               </Col>
             </Row>
           </section>

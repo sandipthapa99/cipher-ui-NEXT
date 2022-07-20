@@ -6,12 +6,12 @@ export const taskActionCardContent = [
   },
   {
     id: '1',
-    title: 'Post a Service',
-    image: '/task-action/post.svg',
+    title: 'Edit your Task Post',
+    image: '/task-action/edit.svg',
   },
   {
     id: '2',
-    title: 'Post a Service',
-    image: '/task-action/post.svg',
+    title: 'Explore Merchant',
+    image: '/task-action/explore.svg',
   },
 ]
