@@ -6,6 +6,7 @@ const CommunityGuidelineCard = ({
   cardDescription,
   cardTitle,
 }: CommunityGuidelineCardProps) => {
+  let mapKey = 0;
   return (
     <div className="card-block">
       <figure className="thumbnail-img">
@@ -29,7 +30,7 @@ const CommunityGuidelineCard = ({
         <div className="card-block__card-description">
           {Array.isArray(cardDescription) ? (
             cardDescription.map((guide: any) => (
-              <ul>
+              <ul key={mapKey}>
                 <li>{guide}</li>
               </ul>
             ))
