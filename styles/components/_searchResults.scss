@@ -1,0 +1,12 @@
+.search-results {
+	.map {
+		@include respond(xs) {
+			display: none;
+		}
+	}
+}
+.search-input {
+	@include respond(xs) {
+		display: none;
+	}
+}

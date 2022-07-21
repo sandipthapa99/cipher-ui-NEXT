@@ -24,5 +24,10 @@
 	.categories {
 		display: flex;
 		align-items: center;
+
+		@include respond(xs) {
+			overflow: scroll;
+			margin-top: 1rem;
+		}
 	}
 }
