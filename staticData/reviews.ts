@@ -6,7 +6,7 @@ export const reviewsContent = [
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda voluptatem nam sapiente officia dolore reiciendis? Amet hic nihil praesentium quod iure? Aspernatur odit ratione cum a esse modi dolores quasi.',
     time: '2 weeks',
     ratings: 3,
-    image: '/service-details/Provider1.svg',
+    image: '/service-details/provider1.svg',
   },
   {
     id: '1',
@@ -15,6 +15,6 @@ export const reviewsContent = [
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda voluptatem nam sapiente officia dolore reiciendis? Amet hic nihil praesentium quod iure? Aspernatur odit ratione cum a esse modi dolores quasi.',
     time: '2 weeks',
     ratings: 4,
-    image: '/service-details/Provider1.svg',
+    image: '/service-details/provider1.svg',
   },
 ]
