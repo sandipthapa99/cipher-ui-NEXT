@@ -7,8 +7,11 @@ export interface SearchBodyProps {
 }
 export const SearchBody = (props: SearchBodyProps) => {
 	return (
-		<div style={{ backgroundColor: `${props.color}`, padding: '1rem 0.5rem 1rem 1rem' }}>
-			<Col>
+		<div
+			className="task-cards"
+			style={{ backgroundColor: `${props.color}`, padding: '1rem 0.5rem 1rem 1rem' }}
+		>
+			<Col className="task-card">
 				<h1
 					style={{
 						color: `${props.textColor}`,

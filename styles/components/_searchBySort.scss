@@ -1,0 +1,42 @@
+.recommended-tab {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	border-bottom: 2px solid #ced4da;
+	margin: 0 0 2rem 0;
+	@include respond(xs) {
+		flex-direction: row-reverse;
+	}
+
+	.recommended {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+
+		@include respond(xs) {
+			width: 70%;
+			margin-bottom: 0.5rem;
+		}
+
+		span {
+			color: #868e96;
+			font-size: 20px;
+			font-weight: 500;
+			cursor: pointer;
+
+			@include respond(xs) {
+				font-size: 12px;
+			}
+		}
+	}
+	.recommended-icon {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		@include respond(xs) {
+			width: 20%;
+			margin-bottom: 0.5rem;
+		}
+	}
+}

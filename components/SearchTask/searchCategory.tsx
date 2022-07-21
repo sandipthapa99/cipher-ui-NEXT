@@ -5,21 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/pro-regular-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/pro-regular-svg-icons';
 import { faAngleDown } from '@fortawesome/pro-regular-svg-icons';
+import { useSearchContext } from '../../context/searchContext';
+import { ChangeEvent } from 'react';
 export interface CategoryProps {
 	text: string;
 }
 export const SearchCategory = () => {
+	const { setState } = useSearchContext();
 	return (
-		// <Container
-		// 	fluid
-		// 	style={{
-		// 		padding: '3rem 0',
-		// 		display: 'flex',
-		// 		alignItems: 'center',
-		// 		justifyContent: 'center',
-		// 		alignContent: 'center',
-		// 	}}
-		// >
 		<div className="search-category">
 			<Row className="rows">
 				<Col md={4}>
@@ -31,6 +24,9 @@ export const SearchCategory = () => {
 							aria-label="Find your Services &amp; Merchants"
 							aria-describedby="basic-addon2"
 							style={{ border: 'none', outline: 'none' }}
+							onChange={(event: ChangeEvent<HTMLInputElement>) => {
+								setState(event.target.value);
+							}}
 						/>
 						<Button
 							style={{
@@ -70,13 +66,6 @@ export const SearchCategory = () => {
 	);
 };
 
-function Input() {
-	return (
-		<Col className="inputdiv" md={4}>
-			<input className="input" type="text" placeholder="Search For a Service" />
-		</Col>
-	);
-}
 function Category(props: CategoryProps) {
 	return (
 		<div className="boxes">

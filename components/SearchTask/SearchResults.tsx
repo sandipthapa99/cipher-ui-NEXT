@@ -1,9 +1,17 @@
 import { Row, Col } from 'react-bootstrap';
 import ServiceNearYouCard from './searchAside';
 import { servicesNearYou } from '../../staticData/servicesNearYouCard';
+import { useSearchContext } from 'context/searchContext';
 
 const SearchResults = () => {
-	const renderServiceCards = servicesNearYou.map(service => {
+	const { state } = useSearchContext();
+	console.log(state);
+
+	const filteredServices = servicesNearYou.filter(service =>
+		service.serviceTitle.split(' ').join('').toLowerCase().includes(state.toLowerCase())
+	);
+
+	const renderServiceCards = filteredServices.map(service => {
 		return (
 			<div key={service.id}>
 				<ServiceNearYouCard
@@ -25,7 +33,7 @@ const SearchResults = () => {
 			<Row>
 				<Col md={4} style={{ overflowY: 'scroll', maxHeight: '175vh' }}>
 					<p style={{ fontSize: '12px', color: '#495057', lineHeight: '18px' }}>
-						23 Garden Cleaning Services in Kathmandu, Nepal (1 new)
+						{filteredServices.length} {state} Services in Kathmandu, Nepal (1 new)
 					</p>
 					{renderServiceCards}
 				</Col>

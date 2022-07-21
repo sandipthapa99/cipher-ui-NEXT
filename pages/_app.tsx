@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 // import { useEffect } from 'react';
 // import { useLocalStorage } from 'hooks/use-local-storage';
 import UserProvider from 'context/userContextProvider';
+import SearchProvider from 'context/searchProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	// const [, setValue] = useLocalStorage<any[]>('users', []);
@@ -14,7 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 	// }, [setValue]);
 	return (
 		<UserProvider>
-			<Component {...pageProps} />
+			<SearchProvider>
+				<Component {...pageProps} />
+			</SearchProvider>
 		</UserProvider>
 	);
 }
