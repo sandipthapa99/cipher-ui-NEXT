@@ -19,8 +19,8 @@ const DiscountCard = () => {
         </div>
         <p>For all Home Services</p>
         <p className="time">TODAY ONLY</p>
-        {/* <BigButton btnTitle="Book Now" backgroundColor="yellow" /> */}
-        <button className="book-btn">Book Now</button>
+        <BigButton btnTitle="Book Now" backgroundColor="#fca500" />
+        {/* <button className="book-btn card-btn">Book Now</button> */}
       </div>
     </div>
   )

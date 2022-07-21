@@ -156,7 +156,7 @@
       flex-direction: column;
       justify-content: center;
       width: 100%;
-      align-items: center;
+      align-items: stretch;
       padding: 5rem;
       @include respond(xs) {
         padding: 2rem;
@@ -164,36 +164,26 @@
 
       .thumbnail-img {
         @include respond(xs) {
-          margin-left: 2rem;
-          height: 3rem;
-          width: 3rem;
+          height: 2.1rem;
+          width: 2.1rem;
         }
-
         @include respond(sm) {
-          margin-left: 7rem;
           height: 4rem;
           width: 4rem;
         }
         @include respond(md) {
-          margin-left: 11rem;
           height: 5rem;
           width: 5rem;
         }
         @include respond(lg) {
           height: 7.1rem;
           width: 7rem;
-          margin-left: 17.7rem;
-        }
-        @include respond(xl) {
-          height: 7.1rem;
-          width: 7rem;
-          margin-left: 25rem;
         }
       }
       h1 {
         font-size: 2.5rem;
         font-weight: 500;
-
+        text-align: center;
         @include respond(xs) {
           font-size: 2rem;
         }
@@ -211,52 +201,16 @@
         }
       }
       .contact-device {
-        display: flex !important;
-        justify-content: space-between !important;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
 
-        @include respond(xs) {
-          flex-direction: row;
-        }
-
-        @include respond(sm) {
-          flex-direction: row;
-        }
-        @include respond(md) {
-          flex-direction: row;
-        }
-      }
-      .btn {
-        height: 4rem;
-        width: 21rem;
-        font-size: 1.5rem;
-        border: none;
-        border-radius: 0.4rem;
-        color: #fff;
-        background-color: $primary-color;
-        @include transition();
-        &:focus {
-          box-shadow: none;
-        }
-        &:hover {
-          background-color: $secondary-color;
-          color: #111;
-        }
-        @include respond(xs) {
-          height: 4rem;
-          width: 10rem;
-        }
-
-        @include respond(sm) {
-          height: 4rem;
-          width: 14rem;
-        }
-        @include respond(md) {
-          height: 4rem;
-          width: 14rem;
-        }
-        &:focus {
-          border: none;
+        .big-btn {
+          color: #fff;
+          display: flex;
+          height: 4.5rem;
+          align-items: center;
+          justify-content: center;
         }
       }
     }

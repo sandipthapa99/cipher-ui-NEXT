@@ -6,7 +6,7 @@ const ServiceHighlights = ({
   isChecked: boolean
 }) => {
   return (
-    <div className="py-2 checkbox">
+    <div className="py-2 checkbox d-flex align-items-center">
       <input
         type="checkbox"
         className="input"

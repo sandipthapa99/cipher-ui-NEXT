@@ -8,7 +8,7 @@ const PackageServiceHighlights = ({
   return (
     <div className="py-2 checkbox">
       {isChecked ? (
-        <div className="checked-content">
+        <div className="checked-content ">
           <div className="check"></div>
           <label className="label" style={{ marginLeft: '1.5rem' }}>
             {title}

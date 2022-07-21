@@ -16,6 +16,8 @@ import { faSearch } from '@fortawesome/pro-regular-svg-icons'
 import { helpCardContent } from 'staticData/helpCardContent'
 import SearchArticle from '@components/common/searchArticle'
 import { Article } from 'staticData/searchArticles'
+import CardBtn from '@components/common/CardBtn'
+import BigButton from '@components/common/Button'
 
 const Help: NextPage = () => {
   return (
@@ -65,15 +67,7 @@ const Help: NextPage = () => {
                     </Form>
                   )}
                 </Formik>
-                {/* <div className="default_category d-flex justify-space-start">
-                  {Article &&
-                    Article.map((category) => (
-                      <SearchArticle
-                        key={category.id}
-                        search_category={category.name}
-                      />
-                    ))}
-                </div> */}
+
                 <div className="recommendation">
                   <RecommendationChips title="Connects" />
                   <RecommendationChips title="Get Paid" />
@@ -120,8 +114,12 @@ const Help: NextPage = () => {
                   </p>
 
                   <div className="contact-device">
-                    <Button className="btn">Contact Us</Button>
-
+                    {/* <Button className="btn">Contact Us</Button> */}
+                    <BigButton
+                      btnTitle="Contact Us"
+                      backgroundColor="$primary-color"
+                      textColor="#fff"
+                    />
                     <figure className="thumbnail-img">
                       <Image
                         src="/help/contact.svg"
@@ -142,7 +140,11 @@ const Help: NextPage = () => {
                   </p>
 
                   <div className="contact-device">
-                    <Button className="btn">Ask</Button>
+                    <BigButton
+                      btnTitle="Ask Us"
+                      backgroundColor="$primary-color"
+                      textColor="#fff"
+                    />
                     <figure className="thumbnail-img">
                       <Image
                         src="/help/earth.svg"

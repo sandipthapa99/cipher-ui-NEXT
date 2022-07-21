@@ -51,8 +51,9 @@ const PackageOffersCard = ({
           />
         ))}
       </div>
+
       <div className="btn-wrapper">
-        <button className="btn">Buy Now</button>
+        <CardBtn btnTitle="Buy Now" backgroundColor="primary-color" />
       </div>
     </div>
   )

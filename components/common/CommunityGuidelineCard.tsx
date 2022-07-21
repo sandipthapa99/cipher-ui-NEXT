@@ -8,7 +8,7 @@ const CommunityGuidelineCard = ({
 }: CommunityGuidelineCardProps) => {
   let mapKey = 0;
   return (
-    <div className="card-block">
+    <div className="card-block align-items-center">
       <figure className="thumbnail-img">
         <Image
           src={cardImage}
@@ -29,9 +29,15 @@ const CommunityGuidelineCard = ({
 
         <div className="card-block__card-description">
           {Array.isArray(cardDescription) ? (
+<<<<<<< components/common/CommunityGuidelineCard.tsx
+            cardDescription.map((guide: any, i) => (
+              <ul>
+                <li key={i}>{guide}</li>
+=======
             cardDescription.map((guide: any) => (
               <ul key={mapKey}>
                 <li>{guide}</li>
+>>>>>>> components/common/CommunityGuidelineCard.tsx
               </ul>
             ))
           ) : (

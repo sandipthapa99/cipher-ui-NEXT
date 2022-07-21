@@ -50,7 +50,7 @@
     display: inline-block;
     position: relative;
     transition: 0.5s;
-    color: $primary-color;
+    // color: $primary-color;
     &::after {
       content: '\00BB';
       position: absolute;
@@ -68,34 +68,3 @@
     right: 0;
   }
 }
-
-// .btn {
-//   background: #ffffff;
-//   /* Container */
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: center;
-//   align-items: center;
-//   gap: 1.25rem;
-//   box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
-//   border: none;
-//   border-radius: 0.25rem;
-//   color: $primary-color;
-//   font-weight: 500;
-//   font-size: 1.875rem;
-//   line-height: 2.5rem;
-//   @include transition();
-//   @include respond(xs) {
-//     padding: 0.2rem 4rem;
-//   }
-//   @include respond(md) {
-//     padding: 1rem 3rem;
-//   }
-//   @include respond(lg) {
-//     padding: 1.25rem 3rem;
-//   }
-// }
-// .btn:hover {
-//   background-color: $primary-color;
-//   color: #fff;
-// }
