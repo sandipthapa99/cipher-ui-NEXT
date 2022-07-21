@@ -61,6 +61,7 @@ const MerchantProfileCard = ({
                     src="/icons/rated.svg"
                     layout="fill"
                     objectFit="cover"
+                    alt=""
                   />
                 </figure>
               </span>

@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Formik } from 'formik'
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import { NextRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { Button, Col, Container, Form, FormControl, Row } from 'react-bootstrap'
 import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
 import { HomeSearchdata } from 'utils/homeSearchData'
@@ -29,6 +29,7 @@ import { findHire } from 'staticData/findHire'
 import { findOpportuities } from 'staticData/findOpportunities'
 
 const Home: NextPage = () => {
+    const router = useRouter();
     return (
         <Layout>
             {/* Site Main Banner Start */}
@@ -76,9 +77,13 @@ const Home: NextPage = () => {
                                         placeholder="Find your services"
                                     />
                                 </div>
-                                <Button className="search-btn">
-                                    <FontAwesomeIcon icon={faSearch} className="icon" />
-                                </Button>
+                                <Link href="/search">
+                                    <a className='search-btn'>
+                                        <Button className="search-btn">
+                                            <FontAwesomeIcon icon={faSearch} className="icon" />
+                                        </Button>
+                                    </a>
+                                </Link>
                             </div>
                         </Formik>
                     </div>
@@ -110,7 +115,7 @@ const Home: NextPage = () => {
                     </Row>
                     {/* Service category listing end */}
                 </Container>
-            </section>
+            </section >
             {/* Site Main Banner End */}
 
             {/* Services near you section start */}
@@ -128,18 +133,22 @@ const Home: NextPage = () => {
                             services.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={service.serviceProvider}
-                                            serviceProviderLocation={service.serviceProviderLocation}
-                                            serviceDescription={service.serviceDescription}
-                                            serviceRating={service.serviceRating}
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                        />
+                                        <Link href="/service-detail">
+                                            <a>
+                                                <ServiceCard
+                                                    serviceImage={service.serviceImage}
+                                                    serviceTitle={service.serviceTitle}
+                                                    serviceProvider={service.serviceProvider}
+                                                    serviceProviderLocation={service.serviceProviderLocation}
+                                                    serviceDescription={service.serviceDescription}
+                                                    serviceRating={service.serviceRating}
+                                                    servicePrice={service.servicePrice}
+                                                    hasOffer={service.hasOffer}
+                                                    discountRate={service.discountRate}
+                                                    discountOn={service.discountOn}
+                                                />
+                                            </a>
+                                        </Link>
                                     </Col>
                                 )
                             })}
@@ -163,18 +172,23 @@ const Home: NextPage = () => {
                             services.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={service.serviceProvider}
-                                            serviceProviderLocation={service.serviceProviderLocation}
-                                            serviceDescription={service.serviceDescription}
-                                            serviceRating={service.serviceRating}
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                        />
+                                        <Link href="/service-detail">
+                                            <a>
+                                                <ServiceCard
+                                                    serviceImage={service.serviceImage}
+                                                    serviceTitle={service.serviceTitle}
+                                                    serviceProvider={service.serviceProvider}
+                                                    serviceProviderLocation={service.serviceProviderLocation}
+                                                    serviceDescription={service.serviceDescription}
+                                                    serviceRating={service.serviceRating}
+                                                    servicePrice={service.servicePrice}
+                                                    hasOffer={service.hasOffer}
+                                                    discountRate={service.discountRate}
+                                                    discountOn={service.discountOn}
+                                                />
+                                            </a>
+                                        </Link>
+
                                     </Col>
                                 )
                             })}
@@ -340,7 +354,7 @@ const Home: NextPage = () => {
                 </Container>
             </section>
             {/* Tasks you may like section end */}
-        </Layout>
+        </Layout >
     )
 }
 

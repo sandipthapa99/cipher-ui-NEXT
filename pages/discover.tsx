@@ -38,7 +38,7 @@ const Discover: NextPage = () => {
                 Looking to earn money <br /> quickly?
               </h1>
               <div className="bottom-content">
-                <p>It doesn't even take a minute to sign up</p>
+                <p>It doesn&apos;t even take a minute to sign up</p>
                 <BigButton btnTitle="Join Us" backgroundColor="#fff" />
                 {/* <Button className="btn">Join Us</Button> */}
               </div>
@@ -165,6 +165,7 @@ const Discover: NextPage = () => {
               merchantAdvice.map((advice) => {
                 return (
                   <MerchantAdviceCard
+                  key={advice.id}
                     image={advice.image}
                     title={advice.title}
                     subtitle={advice.subtitle}

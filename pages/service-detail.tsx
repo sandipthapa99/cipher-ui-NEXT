@@ -129,7 +129,7 @@ const ServiceDetail: NextPage = () => {
           <section className="service-details__highlights">
             <h1>Highlights</h1>
 
-            <Row className="content">
+            <Row className="content flex-column">
               {serviceHighlights &&
                 serviceHighlights.map((name) => (
                   // <div >

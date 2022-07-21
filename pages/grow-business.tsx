@@ -32,6 +32,7 @@ const GrowYourBusiness: NextPage = () => {
                 growBusinessCarousel.map((item) => {
                   return (
                     <Carousel.Item
+                    key={item.id}
                     //interval={1000}
                     >
                       <GrowBusinessCarousel

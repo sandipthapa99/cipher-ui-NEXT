@@ -126,7 +126,7 @@ const Footer = () => {
                                             Resources
                                         </li>
                                         <li>
-                                            <Link href="/support">
+                                            <Link href="/help">
                                                 <a>Help and Support</a>
                                             </Link>
                                         </li>

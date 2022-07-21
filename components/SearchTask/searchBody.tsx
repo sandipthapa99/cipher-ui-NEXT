@@ -12,7 +12,7 @@ export const SearchBody = (props: SearchBodyProps) => {
 				<h1
 					style={{
 						color: `${props.textColor}`,
-						fontWeight: '500',
+						fontWeight: 500,
 						fontSize: '32px',
 					}}
 				>

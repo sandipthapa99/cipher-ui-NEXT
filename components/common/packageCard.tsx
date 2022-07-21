@@ -13,9 +13,8 @@ const PackageOffersCard = ({
 }: PacakageCardProps) => {
   return (
     <div
-      className={`premium-card-block ${
-        isRecommended ? 'card-block-border-color' : ''
-      }`}
+      className={`premium-card-block ${isRecommended ? 'card-block-border-color' : ''
+        }`}
     >
       <div className="top-container">
         <h3 className="package-title">{title}</h3>
@@ -44,8 +43,9 @@ const PackageOffersCard = ({
         </div>
       </div>
       <div className="offers">
-        {offers.map((offer: any) => (
+        {offers.map((offer: any, index: any) => (
           <PackageServiceHighlights
+            key={index}
             title={offer.label}
             isChecked={offer.isChecked}
           />

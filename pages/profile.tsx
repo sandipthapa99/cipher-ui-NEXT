@@ -33,6 +33,7 @@ const MerchantProfile: NextPage = () => {
             {merchantProfileCardInfo &&
               merchantProfileCardInfo.map((info) => (
                 <MerchantProfileCard
+                key={info.id}
                   merchantImage={info.merchantImage}
                   merchantJob={info.merchantJob}
                   merchantBio={info.merchantBio}
@@ -63,8 +64,8 @@ const MerchantProfile: NextPage = () => {
             <div className="review-container">
               {reviewsContent &&
                 reviewsContent.map((review) => (
-                  <Row>
-                    <Col md={8} key={review.id}>
+                  <Row key={review.id}>
+                    <Col md={8}>
                       <Reviews
                         name={review.name}
                         ratings={review.ratings}

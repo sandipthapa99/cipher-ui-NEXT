@@ -26,6 +26,7 @@ const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
                     src="/icons/rated.svg"
                     layout="fill"
                     objectFit="cover"
+                    alt=''
                   />
                 </figure>
               </span>
@@ -38,6 +39,7 @@ const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
                     src="/icons/unrated.svg"
                     layout="fill"
                     objectFit="cover"
+                    alt=''
                   />
                 </figure>
               </span>

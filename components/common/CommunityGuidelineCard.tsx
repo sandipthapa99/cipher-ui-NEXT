@@ -29,15 +29,9 @@ const CommunityGuidelineCard = ({
 
         <div className="card-block__card-description">
           {Array.isArray(cardDescription) ? (
-<<<<<<< components/common/CommunityGuidelineCard.tsx
-            cardDescription.map((guide: any, i) => (
-              <ul>
-                <li key={i}>{guide}</li>
-=======
             cardDescription.map((guide: any) => (
               <ul key={mapKey}>
                 <li>{guide}</li>
->>>>>>> components/common/CommunityGuidelineCard.tsx
               </ul>
             ))
           ) : (
