@@ -12,7 +12,6 @@ const AboutCard = ({
         <Image
           src={cardImage}
           layout="fill"
-          height={300}
           objectFit="cover"
           alt="about-card-image"
         />
