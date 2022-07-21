@@ -29,9 +29,6 @@ export const Dropdown = ({ children }: DropdownProps) => {
   })
   const renderMenus = DUMMY_MENU_ITEMS.map((item: any, index: any) => {
     const onHandleDropdown = () => {
-      console.log(isSubMenuOpened)
-
-      console.log(DUMMY_MENU_ITEMS.indexOf(item), index)
       const subMenuItems = item.subMenu
 
       setSubMenu(subMenuItems)
@@ -44,9 +41,8 @@ export const Dropdown = ({ children }: DropdownProps) => {
         setIsSubMenuOpened(true)
       }
     }
-
     return (
-      <li
+      <li key={index}
         className="dropdown-menu-items d-flex justify-space-between"
         onClick={onHandleDropdown}
       >
@@ -71,6 +67,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
               layout="fill"
               className="polygon"
               objectFit="cover"
+              alt='dropdown-arrow'
             />
           </figure>
         ) : (

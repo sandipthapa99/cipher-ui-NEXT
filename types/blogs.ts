@@ -16,7 +16,7 @@ export interface BlogsResult {
     likes:number
     views:number
     created_at: string
-    author:AuthorResult[]
+    author:AuthorResult
     updated_at:string
     deleted_at:string
     status:string

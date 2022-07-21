@@ -129,20 +129,20 @@ const ServiceDetail: NextPage = () => {
           <section className="service-details__highlights">
             <h1>Highlights</h1>
 
-            {serviceHighlights &&
-              serviceHighlights.map((name) => (
-                // <div >
-                <Row className="content">
+            <Row className="content">
+              {serviceHighlights &&
+                serviceHighlights.map((name) => (
+                  // <div >
                   <Col key={name.id}>
                     <ServiceHighlights
                       isChecked={name.isChecked}
                       title={name.title}
                     />
                   </Col>
-                </Row>
 
-                // </div>
-              ))}
+                  // </div>
+                ))}
+            </Row>
           </section>
           {/* Service details highlights section end*/}
           {/* Service details package and offers start */}
@@ -199,9 +199,9 @@ const ServiceDetail: NextPage = () => {
               </Formik>
             </div>
             <div className="review-container">
-              {reviewsContent &&
-                reviewsContent.map((review) => (
-                  <Row>
+              <Row>
+                {reviewsContent &&
+                  reviewsContent.map((review) => (
                     <Col md={8} key={review.id}>
                       <Reviews
                         name={review.name}
@@ -211,8 +211,8 @@ const ServiceDetail: NextPage = () => {
                         image={review.image}
                       />
                     </Col>
-                  </Row>
-                ))}
+                  ))}
+              </Row>
               <Link href="/">See all reviews</Link>
             </div>
           </section>

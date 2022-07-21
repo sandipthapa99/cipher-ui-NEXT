@@ -14,13 +14,13 @@ import { faLink } from "@fortawesome/pro-regular-svg-icons";
 const SingleBlog = ({ blog }: BlogDetailProps) => {
     const blogData = blog?.data ?? {};
     const socialShareURL = `https://cipher.com/blogs/${blogData?.slug}`;
-    const category = JSON.parse(blogData?.category);
+    // const category = JSON.parse(blogData?.category);
     return (
         <Layout>
             <section className="single-blog">
                 <Container fluid="xl" className="px-4">
                     <div className="single-blog__heading-section">
-                        <p>{category} / {formatMonthDate(blogData?.created_at)} </p>
+                        <p>{formatMonthDate(blogData?.created_at)} </p>
                         <h1 className="heading-title">{blogData?.title}</h1>
                     </div>
                     <div className="single-blog__share-section">

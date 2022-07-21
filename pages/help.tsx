@@ -109,7 +109,7 @@ const Help: NextPage = () => {
                 <div className="card-block ">
                   <h1>Get In Touch With Us</h1>
                   <p>
-                    For more information, we're here for you to answer your
+                    For more information, we&apos;re here for you to answer your
                     queries.
                   </p>
 
@@ -195,29 +195,29 @@ const Help: NextPage = () => {
                   </p>
                 </Accordion.Body>
               </Accordion.Item>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>What is Cipher?</Accordion.Header>
-                <Accordion.Body>
-                  <p>
-                    With Cagtu, a custom app development project starts with you
-                    preparing and then submitting a request for proposal, also
-                    referred to as an RFP(request for proposal). It will help us
-                    create a tailored, individualised response.
-                  </p>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>What is Cipher?</Accordion.Header>
-                <Accordion.Body>
-                  <p>
-                    With Cagtu, a custom app development project starts with you
-                    preparing and then submitting a request for proposal, also
-                    referred to as an RFP(request for proposal). It will help us
-                    create a tailored, individualised response.
-                  </p>
-                </Accordion.Body>
-              </Accordion.Item>
               <Accordion.Item eventKey="2">
+                <Accordion.Header>What is Cipher?</Accordion.Header>
+                <Accordion.Body>
+                  <p>
+                    With Cagtu, a custom app development project starts with you
+                    preparing and then submitting a request for proposal, also
+                    referred to as an RFP(request for proposal). It will help us
+                    create a tailored, individualised response.
+                  </p>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="3">
+                <Accordion.Header>What is Cipher?</Accordion.Header>
+                <Accordion.Body>
+                  <p>
+                    With Cagtu, a custom app development project starts with you
+                    preparing and then submitting a request for proposal, also
+                    referred to as an RFP(request for proposal). It will help us
+                    create a tailored, individualised response.
+                  </p>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="4">
                 <Accordion.Header>
                   How long does the project take?
                 </Accordion.Header>
@@ -233,7 +233,7 @@ const Help: NextPage = () => {
                   </p>
                 </Accordion.Body>
               </Accordion.Item>
-              <Accordion.Item eventKey="3">
+              <Accordion.Item eventKey="5">
                 <Accordion.Header>
                   How do you provide project estimates? What are the modes of
                   communication that you use?

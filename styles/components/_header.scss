@@ -58,11 +58,18 @@
             display: inline-block;
             left: 14.4rem;
           }
+          .svg-icon{
+            color: #FFF;
+          }
         }
         &--active {
           .nav-link {
-            font-weight: 700;
-            color: $secondary-color;
+            // font-weight: 700;
+            background-color: $secondary-color;
+            color: #211D4F;
+            .svg-icon{
+              color: #211D4F;
+            }
           }
         }
         &:hover {
@@ -75,6 +82,10 @@
             color: $primary-color;
             font-weight: 500;
             transition: all 0.5s;
+            .svg-icon{
+              color: #211D4F;
+              transition: color 0.5s;
+            }
           }
         }
       }

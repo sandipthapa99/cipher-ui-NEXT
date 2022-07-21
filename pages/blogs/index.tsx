@@ -69,7 +69,7 @@ const Blog = ({ blogsData }: BlogsProps) => {
                                                                 {category[0]}
                                                             </p>
                                                             <div className="author-date">
-                                                                <p className="author">{`${blog.author.first_name}`}</p>
+                                                                <p className="author">{`${blog?.author?.first_name}`}</p>
                                                                 <p className="published-date"><FontAwesomeIcon icon={faCalendarDays} className="svg-icon" />
                                                                 {`${formatMonthDate(blog?.created_at)}`}</p>
                                                             </div>
