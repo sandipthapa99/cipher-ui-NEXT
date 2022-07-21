@@ -39,7 +39,7 @@ export function UpperHeader(props: UpperHeaderProps) {
 						>
 							<nav className="navbar-nav ms-lg-auto">
 								<li className={handleMenuActive('/how-it-works', router)}>
-									<Link href="/">
+									<Link href="/discover">
 										<a className="nav-link">How It Works</a>
 									</Link>
 								</li>

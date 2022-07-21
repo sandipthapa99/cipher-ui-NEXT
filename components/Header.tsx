@@ -41,8 +41,8 @@ const Header = () => {
         <Container className="">
           <Navbar expand="lg" className="header-navigation">
             <nav className="navbar-nav ms-lg-auto">
-              <li className={handleMenuActive('/how-it-works', router)}>
-                <Link href="/">
+              <li className={handleMenuActive('/explore', router)}>
+                <Link href="/explore">
                   <a className="nav-link">
                     <FontAwesomeIcon
                       icon={faTelescope}
