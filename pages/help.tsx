@@ -10,18 +10,19 @@ import InputField from '@components/common/InputField'
 import CommonCard from '@components/common/CommonCard'
 import { Form, Formik } from 'formik'
 import React from 'react'
+import RecommendationChips from '@components/common/RecommendationChips'
 import emailValidationSchema from 'utils/formValidation/emailValidation'
-import { faSearch, faRemove } from '@fortawesome/pro-regular-svg-icons'
+import { faSearch } from '@fortawesome/pro-regular-svg-icons'
 import { helpCardContent } from 'staticData/helpCardContent'
 import SearchArticle from '@components/common/searchArticle'
 import { Article } from 'staticData/searchArticles'
 
 const Help: NextPage = () => {
   return (
-    <Layout title="Help & Support | Cipher">
+    <Layout title="Help &amp; Support | Cipher">
       <section className="help-page-header">
         <Container fluid="xl">
-          <Breadcrum currentPage="Help & Support" />
+          <Breadcrum currentPage="Help &amp; Support" />
           <div className="help-page-header__top-container">
             <Row className="d-flex align-items-center">
               <Col md={6}>
@@ -64,7 +65,7 @@ const Help: NextPage = () => {
                     </Form>
                   )}
                 </Formik>
-                <div className="default_category d-flex justify-space-start">
+                {/* <div className="default_category d-flex justify-space-start">
                   {Article &&
                     Article.map((category) => (
                       <SearchArticle
@@ -72,6 +73,11 @@ const Help: NextPage = () => {
                         search_category={category.name}
                       />
                     ))}
+                </div> */}
+                <div className="recommendation">
+                  <RecommendationChips title="Connects" />
+                  <RecommendationChips title="Get Paid" />
+                  <RecommendationChips title="Work" />
                 </div>
               </Col>
             </Row>
