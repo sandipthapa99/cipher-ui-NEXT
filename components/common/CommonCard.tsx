@@ -7,7 +7,7 @@ const CommonCard = ({
   cardTitle,
 }: CommonCardProps) => {
   return (
-    <div className="card-block">
+    <div className="card-block align-items-center">
       <figure className="thumbnail-img">
         <Image
           src={cardImage}
