@@ -2,6 +2,8 @@ export interface SearchCategoryProps {}
 
 import { Container, Row, Col, InputGroup, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/pro-regular-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/pro-regular-svg-icons';
 import { faAngleDown } from '@fortawesome/pro-regular-svg-icons';
 export interface CategoryProps {
 	text: string;
@@ -20,11 +22,40 @@ export const SearchCategory = () => {
 		// >
 		<div className="search-category">
 			<Row className="rows">
-				<Col md={3}>
-					
+				<Col md={4}>
+					<InputGroup
+						style={{ width: '400px', height: '50px', border: '1px solid #ccc' }}
+					>
+						<Form.Control
+							placeholder="Find your Services &amp; Merchants"
+							aria-label="Find your Services &amp; Merchants"
+							aria-describedby="basic-addon2"
+							style={{ border: 'none', outline: 'none' }}
+						/>
+						<Button
+							style={{
+								backgroundColor: '#fff',
+								padding: '0 2rem',
+								border: 'none',
+							}}
+							id="button-addon2"
+						>
+							<FontAwesomeIcon
+								icon={faMagnifyingGlass}
+								style={{
+									width: '1.5rem',
+									height: '1.5rem',
+									verticalAlign: 'middle',
+									display: 'inline-block',
+									fontSize: '12px',
+									color: '#000',
+								}}
+							/>
+						</Button>
+					</InputGroup>
 				</Col>
 				<Col
-					md={9}
+					md={8}
 					className="categories"
 					style={{ display: 'flex', flexDirection: 'row' }}
 				>
@@ -48,7 +79,7 @@ function Input() {
 }
 function Category(props: CategoryProps) {
 	return (
-		<Col className="boxes">
+		<div className="boxes">
 			<p style={{ margin: '0 0', fontSize: '12px', color: '#868E96' }}>{props.text}</p>
 
 			<a>
@@ -64,6 +95,6 @@ function Category(props: CategoryProps) {
 					}}
 				/>
 			</a>
-		</Col>
+		</div>
 	);
 }

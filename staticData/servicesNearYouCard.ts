@@ -12,7 +12,7 @@ export const servicesNearYou = [
 	{
 		id: '1',
 		serviceProvider: 'Lalit Kumar',
-		serviceTitle: 'Garden Cleaner',
+		serviceTitle: 'House Cleaner',
 		serviceProviderLocation: 'Buddhanagar, Kathmandu',
 		servicePrice: 1000,
 		serviceRating: '4.5(200)',
@@ -24,7 +24,7 @@ export const servicesNearYou = [
 	{
 		id: '2',
 		serviceProvider: 'Lalit Kumar',
-		serviceTitle: 'Garden Cleaner',
+		serviceTitle: 'Bike Rider',
 		serviceProviderLocation: 'Buddhanagar, Kathmandu',
 		servicePrice: 1000,
 		serviceRating: '4.5(200)',
@@ -132,7 +132,7 @@ export const servicesNearYou = [
 	{
 		id: '11',
 		serviceProvider: 'Lalit Kumar',
-		serviceTitle: 'Garden Cleaner',
+		serviceTitle: 'Ac Cleaner',
 		serviceProviderLocation: 'Buddhanagar, Kathmandu',
 		servicePrice: 1000,
 		serviceRating: '4.5(200)',

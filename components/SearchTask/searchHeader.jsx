@@ -32,7 +32,7 @@ const SearchHeader = () => {
 								</Navbar.Brand>
 							</a>
 						</Link>
-						<div>
+						<div className="search-input">
 							<InputGroup style={{ width: '576px', height: '48px' }}>
 								<Form.Control
 									placeholder="Find your Services &amp; Merchants"
