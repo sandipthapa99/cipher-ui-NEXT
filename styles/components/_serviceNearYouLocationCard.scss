@@ -1,0 +1,89 @@
+.service-near-you-card-block {
+	padding-bottom: 0rem;
+	position: relative;
+	border-radius: 0.4rem;
+	background-color: rgba(255, 255, 255, 0.4) !important;
+	border: 0.1rem solid $border-color;
+
+	.thumbnail-img {
+		height: 100% !important;
+		border-radius: 0.4rem;
+	}
+
+	.content {
+		padding-top: 1rem;
+		padding-left: 1rem;
+
+		h4 {
+			font-size: 1.8rem;
+			color: $primary-color;
+			font-weight: 500;
+			padding-top: 1rem;
+		}
+
+		.information {
+			display: flex;
+			flex-direction: column;
+			padding-top: 1.9rem;
+			padding-bottom: 2.2rem;
+			.type {
+				margin-bottom: -1.8rem;
+				.location {
+					color: #fe5050;
+				}
+				.star {
+					color: #fab005;
+				}
+				.user {
+					color: #3eaeff;
+				}
+			}
+			p {
+				font-size: 1.3rem;
+				color: $sub-title-color;
+			}
+			.svg-icon {
+				height: 2rem;
+				width: 2rem;
+				margin-right: 1rem;
+			}
+			.user {
+				color: $twitter-logo-color;
+			}
+			.location {
+				color: red;
+			}
+			.star {
+				color: orange;
+			}
+			.price {
+				font-size: 2rem;
+				font-weight: 500;
+				color: $sub-title-color;
+				padding-top: 4rem;
+				margin-bottom: 0rem;
+			}
+		}
+	}
+	.offer {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		background: linear-gradient(
+			180deg,
+			rgba(252, 165, 0, 0.9) 0%,
+			rgba(244, 88, 0, 0.81) 145%
+		);
+		//width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		p {
+			margin: 0;
+			color: #fff;
+			&.discount-rate {
+				margin-right: 1.2rem;
+			}
+		}
+	}
+}
