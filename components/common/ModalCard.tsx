@@ -115,7 +115,8 @@ const ModalCard = ({
           <Button className="btn close-btn" onClick={handleClose}>
             Cancel
           </Button>
-          <Button className="btn book-btn" onClick={handleClose}>
+
+          <Button className="btn card-btn book-btn" onClick={handleClose}>
             Book Now
           </Button>
         </Modal.Footer>

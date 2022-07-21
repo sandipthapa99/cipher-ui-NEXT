@@ -7,7 +7,7 @@ const CommunityGuidelineCard = ({
   cardTitle,
 }: CommunityGuidelineCardProps) => {
   return (
-    <div className="card-block">
+    <div className="card-block align-items-center">
       <figure className="thumbnail-img">
         <Image
           src={cardImage}
@@ -28,9 +28,9 @@ const CommunityGuidelineCard = ({
 
         <div className="card-block__card-description">
           {Array.isArray(cardDescription) ? (
-            cardDescription.map((guide: any) => (
+            cardDescription.map((guide: any, i) => (
               <ul>
-                <li>{guide}</li>
+                <li key={i}>{guide}</li>
               </ul>
             ))
           ) : (

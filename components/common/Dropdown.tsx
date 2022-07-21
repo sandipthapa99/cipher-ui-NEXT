@@ -21,7 +21,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
   const renderSubMenus = subMenu.map((sub, index) => {
     return (
       <li className="dropdown-menu-items" key={index}>
-        <Link href="">
+        <Link href="/">
           <a className="dropdown-menu-item-link">{sub}</a>
         </Link>
       </li>
@@ -50,7 +50,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
         className="dropdown-menu-items d-flex justify-space-between"
         onClick={onHandleDropdown}
       >
-        <Link href="">
+        <Link href="/">
           <a className="dropdown-menu-item-link">{item.name}</a>
         </Link>
         <FontAwesomeIcon icon={faChevronRight} className="svg-icon" />

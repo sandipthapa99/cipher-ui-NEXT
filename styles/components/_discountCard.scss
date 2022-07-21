@@ -59,16 +59,5 @@
       color: #fe5050;
       margin-bottom: 1.8rem;
     }
-    .book-btn {
-      background-color: #fca500;
-      color: #fff;
-      padding: 0.5rem 2rem;
-      border: none;
-      border-radius: 0.4rem;
-
-      @include respond(lg) {
-        padding: 0.8rem 3.7rem;
-      }
-    }
   }
 }

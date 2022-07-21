@@ -19,7 +19,7 @@ const ServiceProviderCard = ({
 }: ServiceProviderCardProps) => {
   const [showModal, setShowModal] = useState(false)
   return (
-    <div className="card-block">
+    <div className="card-block d-flex align-items-stretch">
       <div className="profile">
         <figure className="thumbnail-img">
           <Image

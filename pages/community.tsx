@@ -44,7 +44,11 @@ const Community: NextPage = () => {
                 grow
               </h3>
               <p>Communicate with others for your own benefit</p>
-              <BigButton btnTitle="Join Us" backgroundColor="#fff" />
+              <BigButton
+                btnTitle="Join Us"
+                backgroundColor="#fff"
+                textColor=""
+              />
               {/* <Button className="button">Join Us</Button> */}
             </Col>
           </Row>

@@ -44,12 +44,14 @@
         padding: 0 8rem;
       }
       @include respond(lg) {
-        margin: 0px 17.95rem;
+        // margin: 0px 17.95rem;
+        margin: 0px 21.95rem;
         padding: 0 12rem;
+        //
       }
       @include respond(xl) {
         margin: 0px 16.75rem;
-        padding: 0 18rem;
+        padding: 0 17rem;
       }
       @include respond(xxl) {
         margin: 0px 20.75rem;

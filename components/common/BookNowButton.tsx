@@ -17,7 +17,7 @@ const BookNowButton = ({
     <>
       <Button
         //className="big-btn"
-
+        className="card-btn"
         onClick={() => handleOnClick(showModal)}
         style={{
           backgroundColor: `${backgroundColor}`,
