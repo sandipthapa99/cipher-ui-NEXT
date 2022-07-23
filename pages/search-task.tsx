@@ -15,13 +15,13 @@ const SearchTask: NextPage = () => {
 			<div>
 				<Row>
 					<div className="completed-tasks">
-						<Col>
+						<Col className="user-name-detail">
 							<div className="user-name">
 								<h1>Hi Harry!</h1>
 								<h1>Welcome Back!</h1>
 							</div>
 						</Col>
-						<Col style={{ display: 'flex', gap: '2rem' }}>
+						<Col className="full-tasks">
 							<SearchBody
 								number="30"
 								color="#ECF7FF"
