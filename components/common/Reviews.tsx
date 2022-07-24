@@ -1,57 +1,60 @@
 import Image from 'next/image'
 import { ReviewsProps } from 'types/reviews'
-
+import { Row, Col } from 'react-bootstrap'
 const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
   return (
-    <div className="review-block">
-      <figure className="thumbnail-img">
-        <Image
-          src={image}
-          layout="fill"
-          objectFit="cover"
-          alt="referral-card-image"
-        />
-      </figure>
+    <>
+      <Row className="review-block">
+        <Col md={1} className="image">
+          <figure className="thumbnail-img">
+            <Image
+              src={image}
+              layout="fill"
+              objectFit="cover"
+              alt="referral-card-image"
+            />
+          </figure>
+        </Col>
+        <Col md={11}>
+          <div className="review-block__content">
+            <div className="reviewer">
+              <h3 className="name">{name}</h3>
 
-      <div className="review-block__content">
-        <div className="reviewer">
-          <h3 className="name">{name}</h3>
+              <div className="ratings d-flex">
+                {Array.from({ length: ratings }, (_, i) => (
+                  <span key={i}>
+                    <figure className="thumbnail-img">
+                      <Image
+                        src="/icons/rated.svg"
+                        layout="fill"
+                        objectFit="cover"
+                        alt="rated-star-img"
+                      />
+                    </figure>
+                  </span>
+                ))}
+                {Array.from({ length: 5 - ratings }, (_, i) => (
+                  <span key={i}>
+                    {' '}
+                    <figure className="thumbnail-img">
+                      <Image
+                        src="/icons/unrated.svg"
+                        layout="fill"
+                        objectFit="cover"
+                        alt="unrated-star-img"
+                      />
+                    </figure>
+                  </span>
+                ))}
+              </div>
+            </div>
 
-          <div className="ratings d-flex">
-            {Array.from({ length: ratings }, (_, i) => (
-              <span key={i}>
-                {' '}
-                <figure className="thumbnail-img">
-                  <Image
-                    src="/icons/rated.svg"
-                    layout="fill"
-                    objectFit="cover"
-                    alt=''
-                  />
-                </figure>
-              </span>
-            ))}
-            {Array.from({ length: 5 - ratings }, (_, i) => (
-              <span key={i}>
-                {' '}
-                <figure className="thumbnail-img">
-                  <Image
-                    src="/icons/unrated.svg"
-                    layout="fill"
-                    objectFit="cover"
-                    alt=''
-                  />
-                </figure>
-              </span>
-            ))}
+            <p className="description">{description}</p>
+            <p className="time">{time} ago</p>
           </div>
-        </div>
-
-        <p className="description">{description}</p>
-
-        <p className="time">{time} ago</p>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </>
   )
 }
 export default Reviews

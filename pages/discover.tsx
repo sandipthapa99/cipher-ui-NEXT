@@ -169,6 +169,7 @@ const Discover: NextPage = () => {
                     image={advice.image}
                     title={advice.title}
                     subtitle={advice.subtitle}
+                    key={advice.id}
                     description={advice.description}
                   />
                 )

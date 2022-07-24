@@ -32,8 +32,8 @@ const GrowYourBusiness: NextPage = () => {
                 growBusinessCarousel.map((item) => {
                   return (
                     <Carousel.Item
-                    key={item.id}
-                    //interval={1000}
+                      key={item.id}
+                      //interval={1000}
                     >
                       <GrowBusinessCarousel
                         image={item.image}
@@ -49,16 +49,11 @@ const GrowYourBusiness: NextPage = () => {
           {/* steps section start */}
           <section className="grow-business__steps">
             <h1>How to win more clients?</h1>
-            <Row className="gx-5 d-flex align-items-stretch">
+            <Row className="gx-5">
               {growBusinessSteps &&
                 growBusinessSteps.map((step) => {
                   return (
-                    <Col
-                      className="steps-col d-flex align-items-stretch"
-                      sm={6}
-                      md={3}
-                      key={step.id}
-                    >
+                    <Col className="steps-col" sm={6} md={3} key={step.id}>
                       <AboutCard
                         cardDescription={step.description}
                         cardImage={step.image}
@@ -72,12 +67,12 @@ const GrowYourBusiness: NextPage = () => {
           {/* steps secrion end */}
           {/* Services near you section start */}
           <section id="services-near-you" className="grow-business__services">
-            <Row className="gx-5 d-flex align-items-stretch">
+            <Row className="gx-5">
               {servicesDiscover &&
                 servicesDiscover.map((service) => {
                   return (
                     <Col
-                      className="discover-col d-flex align-items-stretch"
+                      className="discover-col"
                       sm={6}
                       md={6}
                       lg={3}
@@ -136,7 +131,7 @@ const GrowYourBusiness: NextPage = () => {
                   return (
                     <Col
                       className="d-flex align-items-stretch"
-                      // sm={6}
+                      sm={6}
                       md={4}
                       // lg={4}
                       key={blog.id}

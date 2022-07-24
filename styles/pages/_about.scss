@@ -15,7 +15,7 @@
     margin-bottom: 100px;
 
     .thumbnail-img {
-      height: 37.5rem;
+      height: 39.5rem;
       z-index: 0;
       // bottom: -2.875rem;
     }
@@ -33,28 +33,40 @@
 
       @include respond(xs) {
         margin: 0px 3.5rem;
+
         padding: 0 2rem;
       }
+
       @include respond(sm) {
         margin: 0px 8.5rem;
+
         padding: 0 4rem;
       }
+
       @include respond(md) {
         margin: 0px 16.5rem;
+
         padding: 0 8rem;
       }
+
       @include respond(lg) {
         // margin: 0px 17.95rem;
+
         margin: 0px 21.95rem;
+
         padding: 0 12rem;
+
         //
       }
+
       @include respond(xl) {
         margin: 0px 16.75rem;
         padding: 0 17rem;
       }
+
       @include respond(xxl) {
         margin: 0px 20.75rem;
+
         padding: 0 22rem;
       }
 
@@ -74,7 +86,9 @@
   &__purpose {
     padding-top: 9rem;
     padding-bottom: 7rem;
-
+    .aboutus-images {
+      padding-left: 0rem;
+    }
     @include respond(sm) {
       margin: 0rem;
       padding: 0rem;
@@ -87,14 +101,19 @@
         padding-bottom: 0rem;
       }
     }
-
-    .about-information {
-      padding-left: 1rem;
-      .purpose {
-        padding-right: 2rem;
-      }
-      @include respond(sm) {
-        margin-left: 0rem;
+    .purpose-container {
+      padding-top: 6rem;
+      .about-information {
+        padding-left: 1rem;
+        h1 {
+          padding-top: 3.5rem;
+        }
+        .purpose {
+          padding-right: 2rem;
+        }
+        @include respond(sm) {
+          margin-left: 0rem;
+        }
       }
     }
 
