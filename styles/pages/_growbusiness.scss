@@ -6,13 +6,21 @@
     color: $primary-color;
   }
   &__top-container {
-    // .carousel-indicators [data-bs-target] {
-    //   height: 1rem !important;
-    //   width: 1.1rem !important;
-    // }
-    // .carousel-indicators .active {
-    //   background: $secondary-color !important;
-    // }
+    .carousel {
+      .carousel-indicators [data-bs-target] {
+        border-radius: 50%;
+        height: 1rem !important;
+        background-color: #f1f3f5;
+        width: 1rem !important;
+      }
+
+      .carousel-indicators .active {
+        // width: 48px;
+        // height: 48px;
+        // margin: 10px;
+        background-color: $secondary-color !important;
+      }
+    }
   }
   &__steps {
     padding: 5rem 0rem;
@@ -20,8 +28,10 @@
       padding-bottom: 1.8rem;
     }
     .steps-col {
-      @include respond(sm) {
-        display: block;
+      display: block;
+      @include respond(md) {
+        display: flex;
+        align-items: stretch;
       }
       .card-title {
         padding-top: 1rem;
@@ -37,6 +47,13 @@
   &__services {
     .more-services {
       padding-top: 9rem;
+    }
+    .discover-col {
+      display: block;
+      @include respond(lg) {
+        display: flex;
+        align-items: stretch;
+      }
     }
   }
 

@@ -165,10 +165,10 @@ const Discover: NextPage = () => {
               merchantAdvice.map((advice) => {
                 return (
                   <MerchantAdviceCard
-                  key={advice.id}
                     image={advice.image}
                     title={advice.title}
                     subtitle={advice.subtitle}
+                    key={advice.id}
                     description={advice.description}
                   />
                 )

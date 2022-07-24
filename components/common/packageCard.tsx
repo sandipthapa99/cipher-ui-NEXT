@@ -1,6 +1,5 @@
 import CardBtn from './CardBtn'
 import { PacakageCardProps } from 'types/packageCard'
-import ServiceHighlights from './ServiceHighlights'
 import Image from 'next/image'
 import PackageServiceHighlights from './PackageServiceHighlights'
 const PackageOffersCard = ({
@@ -13,8 +12,9 @@ const PackageOffersCard = ({
 }: PacakageCardProps) => {
   return (
     <div
-      className={`premium-card-block ${isRecommended ? 'card-block-border-color' : ''
-        }`}
+      className={`package-card-block ${
+        isRecommended ? 'card-block-border-color' : ''
+      }`}
     >
       <div className="top-container">
         <h3 className="package-title">{title}</h3>
@@ -31,7 +31,7 @@ const PackageOffersCard = ({
           ''
         )}
         <h1 className="price">
-          ${price}
+          Rs{price}
           <span>/mo</span>{' '}
         </h1>
         <div className="save-recommend">
@@ -43,9 +43,9 @@ const PackageOffersCard = ({
         </div>
       </div>
       <div className="offers">
-        {offers.map((offer: any, index: any) => (
+        {offers.map((offer: any, i: number) => (
           <PackageServiceHighlights
-            key={index}
+            key={i}
             title={offer.label}
             isChecked={offer.isChecked}
           />

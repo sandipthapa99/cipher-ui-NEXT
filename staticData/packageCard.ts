@@ -2,7 +2,7 @@ export const PackageCard = [
   {
     id: '0',
     title: 'Basic',
-    price: 10,
+    price: 1000,
     isPermium: false,
     advantage: 'Save up to 10%',
     isRecommended: false,
@@ -37,7 +37,7 @@ export const PackageCard = [
   {
     id: '1',
     title: 'Silver',
-    price: 20,
+    price: 2000,
     isPermium: false,
     advantage: 'Recommended',
     isRecommended: true,
@@ -59,7 +59,7 @@ export const PackageCard = [
       },
       {
         id: '3',
-        isChecked: false,
+        isChecked: true,
         label: 'Fetilizing & Moving Lawns',
       },
       {
@@ -72,7 +72,7 @@ export const PackageCard = [
   {
     id: '2',
     title: 'Premium',
-    price: 40,
+    price: 4000,
     isPermium: true,
     advantage: 'Save up to 30%',
     isRecommended: false,
@@ -94,12 +94,12 @@ export const PackageCard = [
       },
       {
         id: '3',
-        isChecked: false,
+        isChecked: true,
         label: 'Fetilizing & Moving Lawns',
       },
       {
         id: '4',
-        isChecked: false,
+        isChecked: true,
         label: 'Landscape plans',
       },
     ],

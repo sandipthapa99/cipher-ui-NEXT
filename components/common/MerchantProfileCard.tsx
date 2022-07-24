@@ -61,7 +61,7 @@ const MerchantProfileCard = ({
                     src="/icons/rated.svg"
                     layout="fill"
                     objectFit="cover"
-                    alt=""
+                    alt="rated-icon"
                   />
                 </figure>
               </span>
@@ -78,14 +78,6 @@ const MerchantProfileCard = ({
 
               <div className="content">
                 <div className="type d-flex flex-col">
-                  {/* <figure className="thumbnail-img">
-                    <Image
-                      src="/icons/map.svg"
-                      layout="fill"
-                      objectFit="contain"
-                      alt="Happy Face"
-                    />
-                  </figure> */}
                   <FontAwesomeIcon
                     icon={faLocation}
                     className="thumbnail-img"
