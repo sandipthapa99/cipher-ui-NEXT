@@ -10,6 +10,7 @@ import Reviews from '@components/common/Reviews'
 import UserProfileCard from '@components/common/UserProfile'
 import { userProfileCardInfo } from 'staticData/userProfileCard'
 import { tabContent } from 'staticData/tab'
+import AboutProfile from '@components/Profile/ProfileAbout'
 
 const UserProfile: NextPage = () => {
   const [key, setKey] = useState('about')
@@ -67,7 +68,9 @@ const UserProfile: NextPage = () => {
                       key={tabName.id}
                       eventKey={tabName.title.toLowerCase()}
                       title={tabName.title}
-                    ></Tab>
+                    >
+                      <AboutProfile />
+                    </Tab>
                   ))}
               </Tabs>
             </div>

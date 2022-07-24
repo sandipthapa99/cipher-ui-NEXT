@@ -1,0 +1,31 @@
+.about-profile {
+  h1 {
+    font-size: 1.7rem;
+    font-weight: 500;
+  }
+  padding-top: 2rem;
+
+  .portfolio {
+    border-bottom: 0.12rem solid $border-color;
+
+    padding-left: 2.5rem;
+    .content {
+      display: flex;
+      padding-top: 1.5rem;
+      .image {
+        padding-right: 2rem;
+      }
+      .thumbnail-img {
+        height: 18rem;
+        width: 19rem;
+        border-radius: 0.6rem;
+      }
+      p {
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        padding-top: 1rem;
+      }
+    }
+  }
+}
