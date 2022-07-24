@@ -1,27 +1,22 @@
 import type { NextPage } from 'next'
+import { useState } from 'react'
 import Layout from '@components/Layout'
 import Breadcrum from '@components/common/Breadcrum'
 import { Container, Col, Button, Row } from 'react-bootstrap'
-import Image from 'next/image'
-import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
-import { HomeSearchdata } from 'utils/homeSearchData'
 import Link from 'next/link'
-import {
-  faHeart,
-  faShare,
-  faEllipsisVertical,
-} from '@fortawesome/pro-regular-svg-icons'
+import { Tabs, Tab } from 'react-bootstrap'
 import { reviewsContent } from 'staticData/reviews'
-import { merchantProfileCardInfo } from 'staticData/merchantProfileCard'
-
 import Reviews from '@components/common/Reviews'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MerchantProfileCard from '@components/common/MerchantProfileCard'
-const MerchantProfile: NextPage = () => {
+import UserProfileCard from '@components/common/UserProfile'
+import { userProfileCardInfo } from 'staticData/userProfileCard'
+import { tabContent } from 'staticData/tab'
+
+const UserProfile: NextPage = () => {
+  const [key, setKey] = useState('about')
   return (
     <Layout title="Profile | Cipher">
       <Container fluid="xl">
-        <section className="merchant-profile">
+        <section className="user-profile">
           <Breadcrum
             currentPage="Profile"
             subPage="Detail"
@@ -29,56 +24,81 @@ const MerchantProfile: NextPage = () => {
           />
 
           {/* Explore top container start */}
-          <section className="merchant-profile__top-container">
-            {merchantProfileCardInfo &&
-              merchantProfileCardInfo.map((info) => (
-                <MerchantProfileCard
+          <section className="user-profile__top-container">
+            {userProfileCardInfo &&
+              userProfileCardInfo.map((info) => (
+                <UserProfileCard
                   key={info.id}
-                  merchantImage={info.merchantImage}
-                  merchantJob={info.merchantJob}
-                  merchantBio={info.merchantBio}
-                  merchantLocation={info.merchantLocation}
-                  merchantRating={info.merchantRating}
-                  merchantPrice={info.merchantPrice}
-                  merchantOrganization={info.merchantOrganization}
-                  happyClients={info.happyClients}
-                  successRate={info.successRate}
+                  userImage={info.userImage}
+                  userName={info.userName}
+                  userJob={info.userJob}
+                  userRating={info.userRating}
+                  userPrice={info.userPrice}
+                  userLocation={info.userLocation}
+                  userPhone={info.userPhone}
+                  userEmail={info.userEmail}
+                  moreServices={info.moreServices}
                   activeFrom={info.activeFrom}
                   activeTo={info.activeTo}
-                  memberSince={info.memberSince}
-                  moreServices={info.moreServices}
-                  taskCompleted={info.taskCompleted}
+                  userBio={info.userBio}
+                  userType={info.userType}
+                  userPoints={info.userPoints}
+                  pointGoal={info.pointGoal}
+                  happyClients={info.happyClients}
+                  successRate={info.successRate}
                   userReviews={info.userReviews}
-                  merchantActiveStatus={info.merchantActiveStatus}
+                  taskCompleted={info.taskCompleted}
+                  userActiveStatus={info.userActiveStatus}
+                  tooltipMessage={info.tooltipMessage}
                 />
               ))}
           </section>
+          <section className="user-profile__bottom-container">
+            <div className="tabs">
+              <Tabs
+                id="controlled-tab-example"
+                activeKey={key}
+                onSelect={(k) => setKey(k)}
+                className="mb-3"
+              >
+                {tabContent &&
+                  tabContent.map((tabName) => (
+                    <Tab
+                      key={tabName.id}
+                      eventKey={tabName.title.toLowerCase()}
+                      title={tabName.title}
+                    ></Tab>
+                  ))}
+              </Tabs>
+            </div>
 
-          {/* Service detail reviews section start */}
-          <section className="merchant-profile__reviews">
-            <div className="head-container">
-              <h3>
-                My Reviews <span>(3,0003)</span>{' '}
-              </h3>
-            </div>
-            <div className="review-container">
-              {reviewsContent &&
-                reviewsContent.map((review) => (
-                  <Row key={review.id}>
-                    <Col md={8}>
-                      <Reviews
-                        name={review.name}
-                        ratings={review.ratings}
-                        description={review.description}
-                        time={review.time}
-                        image={review.image}
-                      />
-                    </Col>
-                  </Row>
-                ))}
-              <Link href="/">See all reviews</Link>
-            </div>
+            <section className="reviews">
+              <div className="head-container">
+                <h3>
+                  My Reviews <span>(3,0003)</span>{' '}
+                </h3>
+              </div>
+              <div className="review-container">
+                {reviewsContent &&
+                  reviewsContent.map((review) => (
+                    <Row key={review.id}>
+                      <Col md={8}>
+                        <Reviews
+                          name={review.name}
+                          ratings={review.ratings}
+                          description={review.description}
+                          time={review.time}
+                          image={review.image}
+                        />
+                      </Col>
+                    </Row>
+                  ))}
+                <Link href="/">See all reviews</Link>
+              </div>
+            </section>
           </section>
+          {/* Service detail reviews section start */}
+
           {/* Service detail reviews setion end */}
         </section>
       </Container>
@@ -86,4 +106,4 @@ const MerchantProfile: NextPage = () => {
   )
 }
 
-export default MerchantProfile
+export default UserProfile

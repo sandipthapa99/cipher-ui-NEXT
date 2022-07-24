@@ -1,0 +1,39 @@
+.user-profile {
+  &__top-container {
+    padding-bottom: 5rem;
+  }
+  &__bottom-container {
+    padding-top: 5rem;
+    background: #ffffff;
+
+    .tabs {
+      .nav-tabs {
+        border-bottom: 0.1rem solid $border-color;
+        padding-left: 4rem;
+      }
+      .nav-item {
+        color: $default-text-color;
+        font-weight: 500;
+        padding-right: 5rem;
+      }
+
+      .nav-link {
+        border-radius: none !important;
+        color: #868e96;
+        &:active {
+          border-bottom: 0.4rem solid #fca500 !important;
+          border-radius: 0.7rem;
+        }
+        &:hover,
+        :visited {
+          border: none;
+        }
+      }
+
+      .nav-link.active {
+        border: none;
+        border-bottom: 0.4rem solid #fca500;
+      }
+    }
+  }
+}
