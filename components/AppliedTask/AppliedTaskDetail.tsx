@@ -18,11 +18,12 @@ import ServiceHighlights from "@components/common/ServiceHighlights";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import Link from "next/link";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
+import TaskAside from "./taskAside";
 
 const AppliedTaskDetail: NextPage = () => {
     return (
         <div className="task-deatil p-5">
-            <Link href={""}>
+            <Link href="/task">
                 <a>
                     <FontAwesomeIcon
                         icon={faChevronLeft}
