@@ -11,6 +11,13 @@ import UserProfileCard from '@components/common/UserProfile'
 import { userProfileCardInfo } from 'staticData/userProfileCard'
 import { tabContent } from 'staticData/tab'
 import AboutProfile from '@components/Profile/ProfileAbout'
+import { Formik } from 'formik'
+import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
+import { HomeSearchdata } from 'utils/homeSearchData'
+import { reviewType } from 'utils/options'
+import SelectInputField from '@components/common/SelectInputField'
+import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const UserProfile: NextPage = () => {
   const [key, setKey] = useState('about')
@@ -80,6 +87,53 @@ const UserProfile: NextPage = () => {
                 <h3>
                   My Reviews <span>(3,0003)</span>{' '}
                 </h3>
+                <div className="dropdowns">
+                  <Formik
+                    initialValues={HomeSearchdata}
+                    validationSchema={HomeSearchSchema}
+                    onSubmit={async (values) => {
+                      console.log(values)
+                    }}
+                  >
+                    <div className="dropdown-wrapper tasker">
+                      <div className="dropdown">
+                        <SelectInputField
+                          name="review"
+                          options={reviewType}
+                          placeholder="Most Relevant"
+                          fieldRequired
+                        />
+                        <FontAwesomeIcon
+                          icon={faChevronDown}
+                          className="svg-icon"
+                        />
+                      </div>
+                    </div>
+                  </Formik>
+
+                  <Formik
+                    initialValues={HomeSearchdata}
+                    validationSchema={HomeSearchSchema}
+                    onSubmit={async (values) => {
+                      console.log(values)
+                    }}
+                  >
+                    <div className="dropdown-wrapper relevant">
+                      <div className="dropdown">
+                        <SelectInputField
+                          name="review"
+                          options={reviewType}
+                          placeholder="Most Relevant"
+                          fieldRequired
+                        />
+                        <FontAwesomeIcon
+                          icon={faChevronDown}
+                          className="svg-icon"
+                        />
+                      </div>
+                    </div>
+                  </Formik>
+                </div>
               </div>
               <div className="review-container">
                 {reviewsContent &&
