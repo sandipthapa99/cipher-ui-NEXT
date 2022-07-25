@@ -1,17 +1,17 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Row, Col } from 'react-bootstrap'
-import Image from 'next/image'
 import {
-  faPhone,
   faAt,
-  faLocationDot,
-  faTimer,
-  faSparkles,
-  faShare,
-  faEllipsisVertical,
   faCircleQuestion,
+  faEllipsisVertical,
+  faLocationDot,
+  faPhone,
+  faShare,
+  faSparkles,
   faStar,
+  faTimer,
 } from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
+import { Col,Row } from 'react-bootstrap'
 import { UserProfileInfoProps } from 'types/userProfile'
 
 const UserProfileCard = ({

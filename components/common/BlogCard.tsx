@@ -1,9 +1,8 @@
-import Image from 'next/image'
-import { CommunityGuidelineCardProps } from 'types/community'
-import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
+import Link from 'next/link'
+import { CommunityGuidelineCardProps } from 'types/community'
 const CommunityBlogCard = ({
   cardImage,
   cardDescription,

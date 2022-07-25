@@ -1,6 +1,6 @@
 import Image from 'next/image'
+import { Col,Row } from 'react-bootstrap'
 import { ReviewsProps } from 'types/reviews'
-import { Row, Col } from 'react-bootstrap'
 const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
   return (
     <>

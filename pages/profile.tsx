@@ -1,30 +1,38 @@
-import type { NextPage } from 'next'
-import { useState } from 'react'
-import Layout from '@components/Layout'
 import Breadcrum from '@components/common/Breadcrum'
-import { Container, Col, Button, Row } from 'react-bootstrap'
-import Link from 'next/link'
-import { Tabs, Tab } from 'react-bootstrap'
-import { reviewsContent } from 'staticData/reviews'
+import MerchantProfileCard from '@components/common/MerchantProfileCard'
 import Reviews from '@components/common/Reviews'
+import SelectInputField from '@components/common/SelectInputField'
 import UserProfileCard from '@components/common/UserProfile'
-import { userProfileCardInfo } from 'staticData/userProfileCard'
-import { tabContent } from 'staticData/tab'
+import Layout from '@components/Layout'
 import AboutProfile from '@components/Profile/ProfileAbout'
+import { faAngleRight, faChevronDown } from '@fortawesome/pro-regular-svg-icons'
+import {
+  faEllipsisVertical,
+  faHeart,
+  faShare,
+} from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Formik } from 'formik'
+import type { NextPage } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useState } from 'react'
+import { Button, Col, Container, Row, Tab, Tabs } from 'react-bootstrap'
+import { merchantProfileCardInfo } from 'staticData/merchantProfileCard'
+import { reviewsContent } from 'staticData/reviews'
+import { tabContent } from 'staticData/tab'
+import { userProfileCardInfo } from 'staticData/userProfileCard'
 import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
 import { HomeSearchdata } from 'utils/homeSearchData'
+<<<<<<< HEAD
 import { personType, reviewType } from 'utils/options'
 import SelectInputField from '@components/common/SelectInputField'
 import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+=======
+import { reviewType } from 'utils/options'
+>>>>>>> 2989945563226374ac815d08a6cccbf7349ef76f
 
-// interface TabProps {
-//   key: any
-//   activeKey: any
-//   title: any
-//   onSelect?: () => void
-// }
 const UserProfile: NextPage = () => {
   const [key, setKey] = useState('about')
   return (
@@ -82,7 +90,7 @@ const UserProfile: NextPage = () => {
                       eventKey={tabName.title.toLowerCase()}
                       title={tabName.title}
                     >
-                      <AboutProfile />
+                      <AboutProfile/>
                     </Tab>
                   ))}
               </Tabs>

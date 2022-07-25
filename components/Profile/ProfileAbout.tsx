@@ -1,9 +1,9 @@
-import Image from 'next/image'
-import { ProfileAboutProps } from 'types/profile'
-import { ProfileAboutContent } from 'staticData/profileAboutContent'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/pro-regular-svg-icons'
-import { Row, Col } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
+import { Col,Row } from 'react-bootstrap'
+import { ProfileAboutContent } from 'staticData/profileAboutContent'
+import { ProfileAboutProps } from 'types/profile'
 
 const AboutProfile = () => {
   return (

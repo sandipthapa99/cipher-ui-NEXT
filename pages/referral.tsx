@@ -1,19 +1,15 @@
-import type { NextPage } from 'next'
-import Layout from '@components/Layout'
 import Breadcrum from '@components/common/Breadcrum'
-import { Container, Col, Row, Button } from 'react-bootstrap'
-import Image from 'next/image'
-
+import CommonCard from '@components/common/CommonCard'
 import FormButton from '@components/common/FormButton'
 import InputField from '@components/common/InputField'
-
+import Layout from '@components/Layout'
 import { Form, Formik } from 'formik'
+import type { NextPage } from 'next'
+import Image from 'next/image'
 import React from 'react'
-
-import emailValidationSchema from 'utils/formValidation/emailValidation'
-
+import { Button,Col, Container, Row } from 'react-bootstrap'
 import { referralCardContent } from 'staticData/referralCard'
-import CommonCard from '@components/common/CommonCard'
+import emailValidationSchema from 'utils/formValidation/emailValidation'
 
 const About: NextPage = () => {
   return (

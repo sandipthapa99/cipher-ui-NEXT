@@ -5,6 +5,6 @@ export interface ServiceProviderCardProps {
   views: number
   happyClients: number
   successRate: number
-  startingPrice: number
+  startingPrice: number | string
   image: string
 }

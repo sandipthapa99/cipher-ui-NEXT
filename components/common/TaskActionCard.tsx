@@ -1,8 +1,8 @@
+import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import { CommonCardProps } from 'types/commonCard'
 import { TaskActionCardProps } from 'types/taskAction'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
 
 const TaskActionCard = ({ title, image }: TaskActionCardProps) => {
   return (

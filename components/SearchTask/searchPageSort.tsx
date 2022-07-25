@@ -1,6 +1,6 @@
+import { faFilterList,faMagnifyingGlass } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Row, Col } from 'react-bootstrap';
-import { faMagnifyingGlass, faFilterList } from '@fortawesome/pro-regular-svg-icons';
+import { Col,Row } from 'react-bootstrap';
 
 const SearchBySort = () => {
 	return (
