@@ -14,7 +14,7 @@ import AboutProfile from '@components/Profile/ProfileAbout'
 import { Formik } from 'formik'
 import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
 import { HomeSearchdata } from 'utils/homeSearchData'
-import { reviewType } from 'utils/options'
+import { personType, reviewType } from 'utils/options'
 import SelectInputField from '@components/common/SelectInputField'
 import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -101,13 +101,13 @@ const UserProfile: NextPage = () => {
                       console.log(values)
                     }}
                   >
-                    <div className="dropdown-wrapper tasker">
+                    <div className="dropdown-wrapper review-type">
                       <div className="dropdown">
                         <SelectInputField
                           name="review"
-                          options={reviewType}
-                          placeholder="Most Relevant"
+                          options={personType}
                           fieldRequired
+                          defaultValue='Tasker'
                         />
                         <FontAwesomeIcon
                           icon={faChevronDown}
@@ -124,7 +124,7 @@ const UserProfile: NextPage = () => {
                       console.log(values)
                     }}
                   >
-                    <div className="dropdown-wrapper relevant">
+                    <div className="dropdown-wrapper relevancy">
                       <div className="dropdown">
                         <SelectInputField
                           name="review"

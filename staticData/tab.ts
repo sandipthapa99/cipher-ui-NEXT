@@ -5,22 +5,26 @@ export const tabContent = [
   },
   {
     id: '1',
-    title: 'Tasks',
+    title: 'Organization',
   },
   {
     id: '2',
-    title: 'Saved',
+    title: 'Tasks',
   },
   {
     id: '3',
-    title: 'Activities',
+    title: 'Saved',
   },
   {
     id: '4',
-    title: 'Documents',
+    title: 'Activities',
   },
   {
     id: '5',
+    title: 'Documents',
+  },
+  {
+    id: '6',
     title: 'Rewards',
   },
 ]

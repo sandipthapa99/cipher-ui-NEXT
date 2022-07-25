@@ -5,28 +5,27 @@
   &__bottom-container {
     padding-top: 5rem;
     background: #ffffff;
+    margin-bottom: 5rem;
 
     .tabs {
       .nav-tabs {
         border-bottom: 0.1rem solid $border-color;
-        padding-left: 4rem;
+        padding: 0rem 4rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
       }
       .nav-item {
         color: $default-text-color;
         font-weight: 500;
-        padding-right: 5rem;
+        ///padding-right: 6rem;
       }
 
       .nav-link {
-        border-radius: none !important;
         color: #868e96;
         &:active {
           border-bottom: 0.4rem solid #fca500 !important;
-          border-radius: 0.7rem;
-        }
-        &:hover,
-        :visited {
-          border: none;
+          border-radius: 0.7rem !important;
         }
       }
 
@@ -36,19 +35,31 @@
       }
     }
     .reviews {
-      padding-left: 2.5rem;
-      h1 {
-        font-size: 1.7rem;
-        font-weight: 500;
-        color: $default-text-color;
-      }
+      padding-bottom: 2.5rem;
       .head-container {
         display: flex;
         justify-content: space-between;
-        border-bottom: 0.18rem solid $border-color;
-
+        border-bottom: 0.1rem solid $border-color;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+        h3 {
+          padding-top: 2rem;
+          padding-bottom: 1.4rem;
+          font-size: 1.7rem;
+          font-weight: 500;
+          color: $default-text-color;
+        }
         .dropdowns {
           display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .review-type {
+          margin-right: 3rem;
+          flex: 0.4;
+        }
+        .relevancy {
+          flex: 0.6;
         }
         .dropdown-wrapper {
           width: 30%;
@@ -62,6 +73,7 @@
           .dropdown-menu {
             width: 6rem !important;
           }
+
           .dropdown {
             color: #9fa3b1;
             //position: relative;
@@ -86,14 +98,14 @@
               }
             }
             .svg-icon {
-              //position: absolute;
-              //top: 35%;
-              //left: 100%;
               margin-right: 2rem;
               z-index: 0;
             }
           }
         }
+      }
+      .review-container {
+        padding-left: 2.5rem;
       }
     }
   }
