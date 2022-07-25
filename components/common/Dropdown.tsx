@@ -4,6 +4,7 @@ import { faChevronRight } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DUMMY_MENU_ITEMS } from 'staticData/dropdownData'
 import Image from 'next/image'
+import { useEffect, useCallback, useRef } from 'react'
 
 interface DropdownProps {
   children?: ReactNode
@@ -11,17 +12,41 @@ interface DropdownProps {
 export const Dropdown = ({ children }: DropdownProps) => {
   const [subMenu, setSubMenu] = useState([])
   const [prevIndex, setPrevIndex] = useState()
-
+  const dropdownContainer = useRef<HTMLDivElement | null>(null)
   const [isSubMenuOpened, setIsSubMenuOpened] = useState(false)
   const [isMenuOpened, setIsMenuOpened] = useState(false)
 
   const toggleDropdown = () => {
     setIsMenuOpened(!isMenuOpened)
   }
+
+  //function to make dropdown disappear after clicking outside of the dropdown container
+  const handleBodyClick = useCallback(
+    (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+
+      if (
+        dropdownContainer.current &&
+        isMenuOpened &&
+        !dropdownContainer.current?.contains(target)
+      ) {
+        setIsMenuOpened(false)
+      }
+    },
+    [isMenuOpened, setIsMenuOpened],
+  )
+
+  useEffect(() => {
+    document.body.addEventListener('mousedown', handleBodyClick)
+    return () => {
+      document.body.removeEventListener('mousedown', handleBodyClick)
+    }
+  }, [handleBodyClick])
+
   const renderSubMenus = subMenu.map((sub, index) => {
     return (
       <li className="dropdown-menu-items" key={index}>
-        <Link href="/">
+        <Link href="#!">
           <a className="dropdown-menu-item-link">{sub}</a>
         </Link>
       </li>
@@ -42,11 +67,12 @@ export const Dropdown = ({ children }: DropdownProps) => {
       }
     }
     return (
-      <li key={index}
+      <li
+        key={index}
         className="dropdown-menu-items d-flex justify-space-between"
         onClick={onHandleDropdown}
       >
-        <Link href="/">
+        <Link href="#!">
           <a className="dropdown-menu-item-link">{item.name}</a>
         </Link>
         <FontAwesomeIcon icon={faChevronRight} className="svg-icon" />
@@ -54,26 +80,12 @@ export const Dropdown = ({ children }: DropdownProps) => {
     )
   })
   return (
-    <div className="dropdown-menu-container">
+    <div className="dropdown-menu-container" ref={dropdownContainer}>
       <div className="btn-content" onClick={toggleDropdown} role="button">
         {children && <>{children}</>}
       </div>
 
-      <div className="dropdowns">
-        {isMenuOpened ? (
-          <figure className="thumbnail-img">
-            <Image
-              src="/icons/Polygon.svg"
-              layout="fill"
-              className="polygon"
-              objectFit="cover"
-              alt='dropdown-arrow'
-            />
-          </figure>
-        ) : (
-          ''
-        )}
-
+      <div className={`dropdown ${isMenuOpened ? 'arrow' : ''}`}>
         {isMenuOpened && (
           <div className="dropdown-menu-items">
             <p className="all-category">All Category</p> {renderMenus}

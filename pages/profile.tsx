@@ -33,7 +33,7 @@ const MerchantProfile: NextPage = () => {
             {merchantProfileCardInfo &&
               merchantProfileCardInfo.map((info) => (
                 <MerchantProfileCard
-                key={info.id}
+                  key={info.id}
                   merchantImage={info.merchantImage}
                   merchantJob={info.merchantJob}
                   merchantBio={info.merchantBio}

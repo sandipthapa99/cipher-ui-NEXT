@@ -40,7 +40,6 @@ const ServiceDetail: NextPage = () => {
             subPage="Detail"
             hasSubPage={true}
           />
-
           {/* Explore top container start */}
           <section className="service-details__top-container">
             <h1>Garden Cleaning</h1>
@@ -152,8 +151,10 @@ const ServiceDetail: NextPage = () => {
               {PackageCard &&
                 PackageCard.map((offer) => (
                   <Col
-                    className="d-flex align-items-stretch"
-                    md={3}
+                    className="align-items-stretch"
+                    lg={3}
+                    md={4}
+                    sm={6}
                     key={offer.id}
                   >
                     <PackageOffersCard
@@ -213,7 +214,7 @@ const ServiceDetail: NextPage = () => {
                     </Col>
                   ))}
               </Row>
-              <Link href="/">See all reviews</Link>
+              <Link href="#!">See all reviews</Link>
             </div>
           </section>
           {/* Service detail reviews setion end */}
@@ -223,17 +224,17 @@ const ServiceDetail: NextPage = () => {
             <div className="title-wrapper d-flex justify-content-between">
               {/* <h2 className="heading-title">Community activity</h2> */}
               <h1>Popular on Cipher</h1>
-              <a href="" className="view-more">
+              <a href="#!" className="view-more">
                 view more{' '}
                 <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
               </a>
             </div>
-            <Row className="gx-5 d-flex align-items-stretch">
+            <Row className="gx-5">
               {servicesDiscover &&
                 servicesDiscover.map((service) => {
                   return (
                     <Col
-                      className="discover-col d-flex align-items-stretch"
+                      className="discover-col"
                       sm={6}
                       md={6}
                       lg={3}

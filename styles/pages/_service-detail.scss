@@ -72,7 +72,7 @@
       }
     }
     .thumbnail-img {
-      height: 46.5rem;
+      height: 43.5rem;
     }
   }
 
@@ -96,6 +96,7 @@
   }
   &__highlights {
     padding-bottom: 5rem;
+    padding-top: 2.5rem;
     h1 {
       font-size: 2rem;
       font-weight: 500;
@@ -103,6 +104,10 @@
     .label {
       font-size: 1.3rem;
       color: $default-text-color;
+    }
+
+    @include respond(md) {
+      padding-top: 0rem;
     }
   }
 
@@ -146,6 +151,9 @@
         border: 1px solid #dde2f1;
         @include respond(lg) {
           width: 35%;
+        }
+        .dropdown-menu {
+          width: 6rem !important;
         }
         .dropdown {
           color: #9fa3b1;
@@ -191,6 +199,14 @@
       font-size: 2rem;
       padding-bottom: 1rem;
       font-weight: 500;
+    }
+
+    .discover-col {
+      display: block;
+      @include respond(md) {
+        display: flex;
+        align-items: stretch;
+      }
     }
   }
 }

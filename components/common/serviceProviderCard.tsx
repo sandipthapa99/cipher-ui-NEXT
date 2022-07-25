@@ -19,7 +19,7 @@ const ServiceProviderCard = ({
 }: ServiceProviderCardProps) => {
   const [showModal, setShowModal] = useState(false)
   return (
-    <div className="card-block d-flex align-items-stretch">
+    <div className="card-block align-items-stretch">
       <div className="profile">
         <figure className="thumbnail-img">
           <Image
@@ -113,8 +113,6 @@ const ServiceProviderCard = ({
             handleClose={() => setShowModal(false)}
           />
         ))}
-
-      <Link href="/login">Please Login to Book Service</Link>
     </div>
   )
 }
