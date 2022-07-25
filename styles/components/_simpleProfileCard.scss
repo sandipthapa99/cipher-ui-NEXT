@@ -1,0 +1,50 @@
+.simple-card-block {
+    padding-bottom: 1.7rem;
+    padding-top: 1.7rem;
+    // align-items: stretch !important;
+    .profile {
+      display: flex;
+      .thumbnail-img {
+        height: 7rem;
+        width: 7rem;
+        border-radius: 50%;
+      }
+      .intro {
+        display: flex;
+        flex-direction: column;
+        padding-left: 1rem;
+        margin-top: 0.8rem;
+        p {
+          margin-bottom: 0rem;
+        }
+        .name {
+          font-weight: 500;
+          font-size: 1.8rem;
+          color: $primary-color;
+        }
+        .job {
+          color: $secondary-text-color;
+          font-weight: 400;
+          font-size: 1.4rem;
+        }
+      }
+    }
+  
+    .description {
+      display: flex;
+      flex-direction: column;
+      padding-top: 2.9rem;
+      padding-bottom: 2.2rem;
+      .type {
+        margin-bottom: -1.8rem;
+      }
+      p {
+        font-size: 1.3rem;
+      }
+      .thumbnail-img {
+        height: 2rem;
+        width: 2rem;
+        margin-right: 1rem;
+      }
+    }
+}
