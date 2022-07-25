@@ -11,7 +11,7 @@ export interface UserProfileInfoProps {
   activeFrom: number
   activeTo: number
   userBio: string
-  userType: string
+  userBadge: string
   userPoints: number
   pointGoal: number
   happyClients: number

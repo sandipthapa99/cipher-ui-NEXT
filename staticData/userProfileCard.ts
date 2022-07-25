@@ -15,7 +15,7 @@ export const userProfileCardInfo = [
     userBio:
       'A professional gardener with over 10 years of experience. I specialise in Lasagna gardening, Keyhole gardening, mittleider gardening, square foot gardening, and conventional gardening.',
 
-    userType: 'Gold',
+    userBadge: 'Gold',
     userPoints: 58,
     pointGoal: 42,
     happyClients: 24,

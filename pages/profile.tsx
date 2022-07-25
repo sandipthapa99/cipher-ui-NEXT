@@ -42,7 +42,7 @@ const UserProfile: NextPage = () => {
                   activeFrom={info.activeFrom}
                   activeTo={info.activeTo}
                   userBio={info.userBio}
-                  userType={info.userType}
+                  userBadge={info.userBadge}
                   userPoints={info.userPoints}
                   pointGoal={info.pointGoal}
                   happyClients={info.happyClients}

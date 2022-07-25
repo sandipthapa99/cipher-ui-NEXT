@@ -27,7 +27,7 @@ const UserProfileCard = ({
   activeFrom,
   activeTo,
   userBio,
-  userType,
+  userBadge,
   userPoints,
   pointGoal,
   happyClients,
@@ -148,7 +148,7 @@ const UserProfileCard = ({
                 </figure>
                 <div className="left">
                   <div className="user-type d-flex">
-                    <h1>{userType}</h1>
+                    <h1>{userBadge}</h1>
                     <FontAwesomeIcon
                       icon={faCircleQuestion}
                       className="svg-icon"
