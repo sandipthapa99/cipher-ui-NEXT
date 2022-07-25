@@ -1,10 +1,10 @@
 import {
-  faBars,
-  faTelescope,
-  faListCheck,
-  faObjectsColumn,
-  faLocationDot,
   faAngleDown,
+  faBars,
+  faListCheck,
+  faLocationDot,
+  faObjectsColumn,
+  faTelescope,
 } from '@fortawesome/pro-regular-svg-icons'
 import { faUserHelmetSafety } from '@fortawesome/pro-thin-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,6 +13,7 @@ import { NextRouter, useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Container, Navbar } from 'react-bootstrap'
 import { handleMenuActive } from 'utils/helpers'
+
 // import { handleMenuActive } from "../../../../libs/util-formatter/src";
 import { Dropdown } from './common/Dropdown'
 const Header = () => {

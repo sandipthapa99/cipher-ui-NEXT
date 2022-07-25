@@ -1,20 +1,21 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/pro-solid-svg-icons'
-import { Row, Col } from 'react-bootstrap'
-import Image from 'next/image'
 import {
-  faHeart,
-  faShare,
-  faEllipsisVertical,
-  faLocation,
-  faEye,
-  faSmile,
   faBadge,
+  faEllipsisVertical,
+  faEye,
+  faHeart,
+  faLocation,
+  faShare,
+  faSmile,
 } from '@fortawesome/pro-regular-svg-icons'
-import { MerchantProfileInfoProps } from 'types/merchantProfile'
-import CardBtn from './CardBtn'
+import { faStar } from '@fortawesome/pro-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
+import { Col,Row } from 'react-bootstrap'
 import { merchantProfileCardInfo } from 'staticData/merchantProfileCard'
+import { MerchantProfileInfoProps } from 'types/merchantProfile'
+
 import BigButton from './Button'
+import CardBtn from './CardBtn'
 
 const MerchantProfileCard = ({
   merchantImage,

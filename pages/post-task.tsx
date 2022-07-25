@@ -1,11 +1,12 @@
-import type { NextPage } from 'next';
-import SearchHeader from '../components/SearchTask/searchHeader';
-import Header from '@components/Header';
-import { SearchBody } from '@components/SearchTask/searchBody';
-import { Container, Row, Col } from 'react-bootstrap';
 import Footer from '@components/Footer';
-import ApplyTask from '@components/Task/ApplyTask';
+import Header from '@components/Header';
 import ApplyPost from '@components/PostTask/ApplyPost';
+import { SearchBody } from '@components/SearchTask/searchBody';
+import ApplyTask from '@components/Task/ApplyTask';
+import type { NextPage } from 'next';
+import { Col,Container, Row } from 'react-bootstrap';
+
+import SearchHeader from '../components/SearchTask/searchHeader';
 const PostTask: NextPage = () => {
 	return (
 		<>

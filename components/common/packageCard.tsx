@@ -1,8 +1,9 @@
-import CardBtn from './CardBtn'
-import { PacakageCardProps } from 'types/packageCard'
-import ServiceHighlights from './ServiceHighlights'
 import Image from 'next/image'
+import { PacakageCardProps } from 'types/packageCard'
+
+import CardBtn from './CardBtn'
 import PackageServiceHighlights from './PackageServiceHighlights'
+import ServiceHighlights from './ServiceHighlights'
 const PackageOffersCard = ({
   title,
   price,

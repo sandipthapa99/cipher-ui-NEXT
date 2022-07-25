@@ -1,22 +1,21 @@
-import type { NextPage } from 'next'
-import Layout from '@components/Layout'
 import Breadcrum from '@components/common/Breadcrum'
-import { Container, Col, Button, Row } from 'react-bootstrap'
-import Image from 'next/image'
+import MerchantProfileCard from '@components/common/MerchantProfileCard'
+import Reviews from '@components/common/Reviews'
+import Layout from '@components/Layout'
 import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
-import { HomeSearchdata } from 'utils/homeSearchData'
-import Link from 'next/link'
 import {
+  faEllipsisVertical,
   faHeart,
   faShare,
-  faEllipsisVertical,
 } from '@fortawesome/pro-regular-svg-icons'
-import { reviewsContent } from 'staticData/reviews'
-import { merchantProfileCardInfo } from 'staticData/merchantProfileCard'
-
-import Reviews from '@components/common/Reviews'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MerchantProfileCard from '@components/common/MerchantProfileCard'
+import type { NextPage } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Button, Col, Container, Row } from 'react-bootstrap'
+import { merchantProfileCardInfo } from 'staticData/merchantProfileCard'
+import { reviewsContent } from 'staticData/reviews'
+import { HomeSearchdata } from 'utils/homeSearchData'
 const MerchantProfile: NextPage = () => {
   return (
     <Layout title="Profile | Cipher">

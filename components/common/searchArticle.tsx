@@ -1,9 +1,8 @@
-import { HelpSearchValueProps } from 'types/searchArticle'
+import { faRemove } from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { NextPage } from 'next'
 import { Button } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import { faRemove } from '@fortawesome/pro-regular-svg-icons'
+import { HelpSearchValueProps } from 'types/searchArticle'
 
 const SearchArticle = ({ search_category }: HelpSearchValueProps) => {
   return (

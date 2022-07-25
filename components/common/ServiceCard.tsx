@@ -1,9 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from '@fortawesome/pro-solid-svg-icons'
-
-import Image from "next/image";
 import { faHeart, faShare } from "@fortawesome/pro-regular-svg-icons";
+import { faStar } from '@fortawesome/pro-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import { ServiceCardProps } from "types/serviceCard";
+
 import CardBtn from "./CardBtn";
 
 const ServiceCard = ({

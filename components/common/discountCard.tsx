@@ -1,4 +1,5 @@
 import Image from 'next/image'
+
 import BigButton from './Button'
 
 const DiscountCard = () => {

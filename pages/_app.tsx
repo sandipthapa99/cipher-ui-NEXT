@@ -1,9 +1,10 @@
 import '../styles/bundle.scss';
-import type { AppProps } from 'next/app';
+
+import SearchProvider from 'context/searchProvider';
 // import { useEffect } from 'react';
 // import { useLocalStorage } from 'hooks/use-local-storage';
 import UserProvider from 'context/userContextProvider';
-import SearchProvider from 'context/searchProvider';
+import type { AppProps } from 'next/app';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	// const [, setValue] = useLocalStorage<any[]>('users', []);

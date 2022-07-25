@@ -1,22 +1,22 @@
-import type { NextPage } from 'next'
-import Layout from '@components/Layout'
+import BlogCard from '@components/common/BlogCard'
 import Breadcrum from '@components/common/Breadcrum'
-import { Container, Col, Row, Button } from 'react-bootstrap'
-import Image from 'next/image'
+import BusinessGoal from '@components/common/BusinessGoal'
+import BigButton from '@components/common/Button'
 import CommunityActivityCard from '@components/common/communityActivity'
 import CommunityGuidelineCard from '@components/common/CommunityGuidelineCard'
-import BlogCard from '@components/common/BlogCard'
-import {
-  communityGuidelineCardContent,
-  communityActivityContent,
-  blogCardContent,
-} from 'staticData/community'
-import BigButton from '@components/common/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Layout from '@components/Layout'
 import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
-import BusinessGoal from '@components/common/BusinessGoal'
-import { businessGoal } from 'staticData/businessGoal'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import type { NextPage } from 'next'
+import Image from 'next/image'
+import { Col, Container, Row } from 'react-bootstrap'
 import { Carousel } from 'react-bootstrap'
+import { businessGoal } from 'staticData/businessGoal'
+import {
+  blogCardContent,
+  communityActivityContent,
+  communityGuidelineCardContent,
+} from 'staticData/community'
 const Community: NextPage = () => {
   return (
     <Layout title="Community | Cipher">

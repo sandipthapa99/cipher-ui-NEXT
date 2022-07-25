@@ -1,12 +1,13 @@
 import Image from 'next/image'
-import { ServiceProviderCardProps } from 'types/serviceDetail'
-import CardBtn from './CardBtn'
 import Link from 'next/link'
-import { Button } from 'react-bootstrap'
-import BookNowButton from './BookNowButton'
 import { useState } from 'react'
-import ModalCard from './ModalCard'
+import { Button } from 'react-bootstrap'
 import { BookingDetails } from 'staticData/bookNowModalCard'
+import { ServiceProviderCardProps } from 'types/serviceDetail'
+
+import BookNowButton from './BookNowButton'
+import CardBtn from './CardBtn'
+import ModalCard from './ModalCard'
 const ServiceProviderCard = ({
   image,
   name,

@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import { ReactNode, useState } from 'react'
 import { faChevronRight } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { DUMMY_MENU_ITEMS } from 'staticData/dropdownData'
 import Image from 'next/image'
+import Link from 'next/link'
+import { ReactNode, useState } from 'react'
+import { DUMMY_MENU_ITEMS } from 'staticData/dropdownData'
 
 interface DropdownProps {
   children?: ReactNode

@@ -1,11 +1,11 @@
-import type { NextPage } from 'next'
-import Layout from '@components/Layout'
-import Breadcrum from '@components/common/Breadcrum'
-import { Container, Col, Row } from 'react-bootstrap'
-import Image from 'next/image'
-import CommonCard from '@components/common/CommonCard'
-import { aboutCardContent } from 'staticData/aboutCardContent'
 import AboutCard from '@components/common/AboutCard'
+import Breadcrum from '@components/common/Breadcrum'
+import CommonCard from '@components/common/CommonCard'
+import Layout from '@components/Layout'
+import type { NextPage } from 'next'
+import Image from 'next/image'
+import { Col, Container, Row } from 'react-bootstrap'
+import { aboutCardContent } from 'staticData/aboutCardContent'
 
 const About: NextPage = () => {
   return (
