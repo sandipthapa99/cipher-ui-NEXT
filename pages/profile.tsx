@@ -1,37 +1,17 @@
 import Breadcrum from '@components/common/Breadcrum'
-import MerchantProfileCard from '@components/common/MerchantProfileCard'
-import Reviews from '@components/common/Reviews'
-import SelectInputField from '@components/common/SelectInputField'
-import UserProfileCard from '@components/common/UserProfile'
+
 import Layout from '@components/Layout'
-import AboutProfile from '@components/Profile/ProfileAbout'
-import { faAngleRight, faChevronDown } from '@fortawesome/pro-regular-svg-icons'
-import {
-  faEllipsisVertical,
-  faHeart,
-  faShare,
-} from '@fortawesome/pro-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Formik } from 'formik'
+import AboutProfile from '@components/Profile/AboutProfile'
+import OrganizationProfile from '@components/Profile/OrganizationProfile'
+import UserProfileCard from '@components/common/UserProfile'
 import type { NextPage } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
+
 import { useState } from 'react'
 import { Button, Col, Container, Row, Tab, Tabs } from 'react-bootstrap'
-import { merchantProfileCardInfo } from 'staticData/merchantProfileCard'
-import { reviewsContent } from 'staticData/reviews'
+
 import { tabContent } from 'staticData/tab'
 import { userProfileCardInfo } from 'staticData/userProfileCard'
-import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
-import { HomeSearchdata } from 'utils/homeSearchData'
-<<<<<<< HEAD
-import { personType, reviewType } from 'utils/options'
-import SelectInputField from '@components/common/SelectInputField'
-import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-=======
-import { reviewType } from 'utils/options'
->>>>>>> 2989945563226374ac815d08a6cccbf7349ef76f
+
 
 const UserProfile: NextPage = () => {
   const [key, setKey] = useState('about')
@@ -83,90 +63,42 @@ const UserProfile: NextPage = () => {
                 onSelect={(k) => setKey(prev => k ?? prev)}
                 className="mb-3"
               >
-                {tabContent &&
+                {/* {tabContent &&
                   tabContent.map((tabName) => (
                     <Tab
                       key={tabName.id}
                       eventKey={tabName.title.toLowerCase()}
                       title={tabName.title}
                     >
-                      <AboutProfile/>
+
+
+
+                      <OrganizationProfile />
                     </Tab>
-                  ))}
+                  ))} */}
+                <Tab key="0" eventKey="about" title="About">
+                  <AboutProfile />
+                </Tab>
+                <Tab key="1" eventKey="organization" title="Organization">
+                  <OrganizationProfile />
+                </Tab>
+                <Tab key="2" eventKey="tasks" title="Tasks">
+                  <AboutProfile />
+                </Tab>
+                <Tab key="3" eventKey="saved" title="Saved">
+                  <AboutProfile />
+                </Tab>
+                <Tab key="4" eventKey="activities" title="Activities">
+                  <AboutProfile />
+                </Tab>
+                <Tab key="5" eventKey="documents" title="Documents">
+                  <AboutProfile />
+                </Tab>
+                <Tab key="6" eventKey="rewards" title="Rewards">
+                  <AboutProfile />
+                </Tab>
               </Tabs>
             </div>
-
-            <section className="reviews">
-              <div className="head-container">
-                <h3>
-                  My Reviews <span>(3,0003)</span>{' '}
-                </h3>
-                <div className="dropdowns">
-                  <Formik
-                    initialValues={HomeSearchdata}
-                    validationSchema={HomeSearchSchema}
-                    onSubmit={async (values) => {
-                      console.log(values)
-                    }}
-                  >
-                    <div className="dropdown-wrapper review-type">
-                      <div className="dropdown">
-                        <SelectInputField
-                          name="review"
-                          options={personType}
-                          fieldRequired
-                          defaultValue='Tasker'
-                        />
-                        <FontAwesomeIcon
-                          icon={faChevronDown}
-                          className="svg-icon"
-                        />
-                      </div>
-                    </div>
-                  </Formik>
-
-                  <Formik
-                    initialValues={HomeSearchdata}
-                    validationSchema={HomeSearchSchema}
-                    onSubmit={async (values) => {
-                      console.log(values)
-                    }}
-                  >
-                    <div className="dropdown-wrapper relevancy">
-                      <div className="dropdown">
-                        <SelectInputField
-                          name="review"
-                          options={reviewType}
-                          placeholder="Most Relevant"
-                          fieldRequired
-                        />
-                        <FontAwesomeIcon
-                          icon={faChevronDown}
-                          className="svg-icon"
-                        />
-                      </div>
-                    </div>
-                  </Formik>
-                </div>
-              </div>
-              <div className="review-container">
-                {reviewsContent &&
-                  reviewsContent.map((review) => (
-                    <Row key={review.id}>
-                      <Col md={8}>
-                        <Reviews
-                          name={review.name}
-                          ratings={review.ratings}
-                          description={review.description}
-                          time={review.time}
-                          image={review.image}
-                        />
-                      </Col>
-                    </Row>
-                  ))}
-                <Link href="/">See all reviews</Link>
-              </div>
-            </section>
           </section>
           {/* Service detail reviews section start */}
 

@@ -1,119 +1,121 @@
 .about-profile {
-  h1 {
-    font-size: 1.7rem;
-    font-weight: 500;
-    color: $default-text-color;
-  }
-  h3 {
-    font-size: 1.4rem;
-    font-weight: 500;
-  }
-  .svg-icon {
-    margin-left: 1.8rem;
-  }
-  .address {
-    color: $gray-text-color;
-    font-size: 1.3rem;
-    font-weight: 400;
-  }
-  .date {
-    margin-bottom: 1.3rem;
-    font-size: 1.3rem;
-    font-weight: 400;
-  }
-  .type {
-    padding-top: 2rem;
-    border-bottom: 0.1rem solid $border-color;
-    padding-left: 2.5rem;
-    padding-right: 3rem;
-    a {
-      font-size: 1.4rem;
+    h1 {
+        font-size: 1.7rem;
+        font-weight: 500;
+        color: $default-text-color;
     }
-  }
-  .portfolio {
-    padding-bottom: 1.2rem;
-    .content {
-      display: flex;
-      padding-top: 1.5rem;
-      .image {
-        padding-right: 2rem;
-      }
-      .thumbnail-img {
-        height: 18rem;
-        width: 19rem;
-        border-radius: 0.6rem;
-      }
-      p {
+    h3 {
         font-size: 1.4rem;
         font-weight: 500;
-        margin-bottom: 1rem;
-        padding-top: 1rem;
-      }
     }
-  }
-
-  .experience {
-    &__type {
-      margin-top: 1.6rem;
-      &:last-child {
-        padding-bottom: 2rem;
-      }
-      .description,
-      .name,
-      .job-type {
+    .svg-icon {
+        margin-left: 1.8rem;
+    }
+    .address {
+        color: $gray-text-color;
         font-size: 1.3rem;
         font-weight: 400;
-        margin-bottom: 0rem;
-        line-height: 2.1rem;
-        color: $sub-title-color;
-      }
-      .name {
-        margin-bottom: 0.2rem;
-      }
-      .company {
-        .job-type {
-          margin-left: 1.7rem;
-        }
-        // margin-top: 1.3rem;
-      }
-      .description {
-        margin-top: 1rem;
-      }
-      .description {
+    }
+    .date {
         margin-bottom: 1.3rem;
-      }
+        font-size: 1.3rem;
+        font-weight: 400;
     }
-  }
-  .skills {
-    .content {
-      display: flex;
-      padding-bottom: 2rem;
+    .type {
+        padding-top: 2rem;
+        border-bottom: 0.1rem solid $border-color;
+        padding-left: 2.5rem;
+        padding-right: 3rem;
+        a {
+            font-size: 1.4rem;
+        }
     }
-    &__type {
-      margin-top: 1rem;
-      margin-right: 2rem;
-      background-color: #cde9f9;
-      border-radius: 6.8rem;
-      font-size: 1.4rem;
-      color: $default-text-color;
-      padding: 0.4rem 1.7rem;
+    .portfolio {
+        padding-bottom: 1.2rem;
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding-top: 1.5rem;
+            .image {
+                padding-right: 2rem;
+            }
+            .thumbnail-img {
+                height: 18rem;
+                width: 19rem;
+                border-radius: 0.6rem;
+            }
+            p {
+                font-size: 1.4rem;
+                font-weight: 500;
+                margin-bottom: 1rem;
+                padding-top: 1rem;
+            }
+        }
     }
-  }
-  .institution {
-    font-weight: 500;
-  }
-  .program {
-    font-weight: 400;
-  }
-  .education,
-  .certification {
-    .program,
+
+    .experience {
+        &__type {
+            margin-top: 1.6rem;
+            &:last-child {
+                padding-bottom: 2rem;
+            }
+            .description,
+            .name,
+            .job-type {
+                font-size: 1.3rem;
+                font-weight: 400;
+                margin-bottom: 0rem;
+                line-height: 2.1rem;
+                color: $sub-title-color;
+            }
+            .name {
+                margin-bottom: 0.2rem;
+            }
+            .company {
+                .job-type {
+                    margin-left: 1.7rem;
+                }
+                // margin-top: 1.3rem;
+            }
+            .description {
+                margin-top: 1rem;
+            }
+            .description {
+                margin-bottom: 1.3rem;
+            }
+        }
+    }
+    .skills {
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding-bottom: 2rem;
+        }
+        &__type {
+            margin-top: 1rem;
+            margin-right: 2rem;
+            background-color: #cde9f9;
+            border-radius: 6.8rem;
+            font-size: 1.4rem;
+            color: $default-text-color;
+            padding: 0.4rem 1.7rem;
+        }
+    }
     .institution {
-      margin-bottom: 1rem;
-      font-size: 1.4rem;
+        font-weight: 500;
     }
-  }
-  .certification {
-    padding-bottom: 2.5rem;
-  }
+    .program {
+        font-weight: 400;
+    }
+    .education,
+    .certification {
+        .program,
+        .institution {
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+    }
+    .certification {
+        padding-bottom: 2.5rem;
+    }
 }

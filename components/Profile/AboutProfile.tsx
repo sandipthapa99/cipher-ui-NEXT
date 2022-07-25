@@ -1,9 +1,20 @@
-import { faEdit } from '@fortawesome/pro-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import { Col,Row } from 'react-bootstrap'
-import { ProfileAboutContent } from 'staticData/profileAboutContent'
 import { ProfileAboutProps } from 'types/profile'
+import { ProfileAboutContent } from 'staticData/profileAboutContent'
+import { faPencil } from '@fortawesome/pro-regular-svg-icons'
+import { Row, Col } from 'react-bootstrap'
+import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
+import { HomeSearchdata } from 'utils/homeSearchData'
+import { personType, reviewType } from 'utils/options'
+import { reviewsContent } from 'staticData/reviews'
+import Reviews from '@components/common/Reviews'
+import SelectInputField from '@components/common/SelectInputField'
+import UserProfileCard from '@components/common/UserProfile'
+import { Formik } from 'formik'
+import { faAngleRight, faChevronDown } from '@fortawesome/pro-regular-svg-icons'
+import Link from 'next/link'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const AboutProfile = () => {
   return (
@@ -19,6 +30,7 @@ const AboutProfile = () => {
               </div>
 
               <div className="content">
+                {/* <Row></Row> */}
                 {about.portfolio.map((info) => (
                   <div className="image" key={info.id}>
                     <figure className="thumbnail-img">
@@ -29,6 +41,7 @@ const AboutProfile = () => {
                         alt="portfolio-image"
                       />
                     </figure>
+
                     <p>{info.label}</p>
                   </div>
                 ))}
@@ -48,7 +61,7 @@ const AboutProfile = () => {
                       <div className="experience__type" key={info.id}>
                         <div className="name d-flex">
                           <h3>{info.name}</h3>
-                          <FontAwesomeIcon icon={faEdit} className="svg-icon" />
+                          <FontAwesomeIcon icon={faPencil} className="svg-icon" />
                         </div>
                         <div className="company d-flex">
                           <p className="name">{info.company}</p>
@@ -97,7 +110,7 @@ const AboutProfile = () => {
                       <div className="education__type" key={info.id}>
                         <div className="name d-flex">
                           <h3 className="institution">{info.institution}</h3>
-                          <FontAwesomeIcon icon={faEdit} className="svg-icon" />
+                          <FontAwesomeIcon icon={faPencil} className="svg-icon" />
                         </div>
                         <h3 className="program">{info.program}</h3>
 
@@ -124,7 +137,7 @@ const AboutProfile = () => {
                       <div className="certification__type" key={info.id}>
                         <div className="name d-flex">
                           <h3 className="institution">{info.name}</h3>
-                          <FontAwesomeIcon icon={faEdit} className="svg-icon" />
+                          <FontAwesomeIcon icon={faPencil} className="svg-icon" />
                         </div>
                         <h3 className="program">{info.program}</h3>
                         <p className="date">
@@ -136,6 +149,78 @@ const AboutProfile = () => {
                 </Col>
               </Row>
             </div>
+
+            <section className="reviews">
+              <div className="head-container">
+                <h3>
+                  My Reviews <span>(3,0003)</span>{' '}
+                </h3>
+                <div className="dropdowns">
+                  <Formik
+                    initialValues={HomeSearchdata}
+                    validationSchema={HomeSearchSchema}
+                    onSubmit={async (values) => {
+                      console.log(values)
+                    }}
+                  >
+                    <div className="dropdown-wrapper review-type">
+                      <div className="dropdown">
+                        <SelectInputField
+                          name="review"
+                          options={personType}
+                          fieldRequired
+                          defaultValue='Tasker'
+                        />
+                        <FontAwesomeIcon
+                          icon={faChevronDown}
+                          className="svg-icon"
+                        />
+                      </div>
+                    </div>
+                  </Formik>
+
+                  <Formik
+                    initialValues={HomeSearchdata}
+                    validationSchema={HomeSearchSchema}
+                    onSubmit={async (values) => {
+                      console.log(values)
+                    }}
+                  >
+                    <div className="dropdown-wrapper relevancy">
+                      <div className="dropdown">
+                        <SelectInputField
+                          name="review"
+                          options={reviewType}
+                          placeholder="Most Relevant"
+                          fieldRequired
+                        />
+                        <FontAwesomeIcon
+                          icon={faChevronDown}
+                          className="svg-icon"
+                        />
+                      </div>
+                    </div>
+                  </Formik>
+                </div>
+              </div>
+              <div className="review-container">
+                {reviewsContent &&
+                  reviewsContent.map((review) => (
+                    <Row key={review.id}>
+                      <Col md={8}>
+                        <Reviews
+                          name={review.name}
+                          ratings={review.ratings}
+                          description={review.description}
+                          time={review.time}
+                          image={review.image}
+                        />
+                      </Col>
+                    </Row>
+                  ))}
+                <Link href="/">See all reviews</Link>
+              </div>
+            </section>
           </div>
         ))}
     </>
