@@ -72,7 +72,7 @@ const UserProfile: NextPage = () => {
               <Tabs
                 id="controlled-tab-example"
                 activeKey={key}
-                onSelect={(k) => setKey(k)}
+                onSelect={(k) => setKey(prev => k ?? prev)}
                 className="mb-3"
               >
                 {tabContent &&
