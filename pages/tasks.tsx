@@ -12,7 +12,7 @@ const AppliedLayout: NextPage = () => {
     <>
       <SearchHeader />
       <Header />
-      <Container style={{ height: "200vh" }}>
+      <Container>
         <SearchCategory />
         <TaskAside />
       </Container>
