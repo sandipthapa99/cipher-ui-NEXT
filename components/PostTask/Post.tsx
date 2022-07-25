@@ -1,9 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolderOpen } from '@fortawesome/pro-regular-svg-icons';
-import { Button, Col, Modal, Row } from 'react-bootstrap';
-import { useState } from 'react';
-import { Field, Form, Formik } from 'formik';
 import InputField from '@components/common/InputField';
+import { faFolderOpen } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Field, Form, Formik } from 'formik';
+import { useState } from 'react';
+import { Button, Col, Modal, Row } from 'react-bootstrap';
+
 import PostModal from './PostModal';
 
 const Post = () => {

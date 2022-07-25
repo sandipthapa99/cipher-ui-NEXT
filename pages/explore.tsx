@@ -254,21 +254,20 @@
 // }
 
 // export default ExploreServices
-import type { NextPage } from 'next'
-import Layout from '@components/Layout'
 import Breadcrum from '@components/common/Breadcrum'
-import { Container, Col, Button, Row } from 'react-bootstrap'
-import { serviceCategory } from 'staticData/serviceCategory'
-
-import { servicesDiscover } from 'staticData/services'
-import ServiceCard from '@components/common/ServiceCard'
 import CategoryCard from '@components/common/CategoryCard'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { services } from 'staticData/services'
-import Image from 'next/image'
-import { faSearch } from '@fortawesome/pro-light-svg-icons'
-import RecommendationChips from '@components/common/RecommendationChips'
 import DiscountCard from '@components/common/discountCard'
+import RecommendationChips from '@components/common/RecommendationChips'
+import ServiceCard from '@components/common/ServiceCard'
+import Layout from '@components/Layout'
+import { faSearch } from '@fortawesome/pro-light-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import type { NextPage } from 'next'
+import Image from 'next/image'
+import { Button, Col, Container, Row } from 'react-bootstrap'
+import { serviceCategory } from 'staticData/serviceCategory'
+import { servicesDiscover } from 'staticData/services'
+import { services } from 'staticData/services'
 const ExploreServices: NextPage = () => {
   return (
     <Layout title="Explore Services | Cipher">

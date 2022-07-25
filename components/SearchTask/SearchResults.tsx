@@ -1,7 +1,8 @@
-import { Row, Col } from 'react-bootstrap';
-import ServiceNearYouCard from './searchAside';
-import { servicesNearYou } from '../../staticData/servicesNearYouCard';
 import { useSearchContext } from 'context/searchContext';
+import { Col,Row } from 'react-bootstrap';
+
+import { servicesNearYou } from '../../staticData/servicesNearYouCard';
+import ServiceNearYouCard from './searchAside';
 
 const SearchResults = () => {
 	const { state } = useSearchContext();

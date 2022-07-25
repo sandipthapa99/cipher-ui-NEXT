@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import BookNowButton from './BookNowButton'
-import { ServiceNearYouProviderCardProps } from 'types/serviceNearYouCards'
-import ModalCard from './ModalCard'
 import { useState } from 'react'
 import { BookingDetails } from 'staticData/bookNowModalCard'
+import { ServiceNearYouProviderCardProps } from 'types/serviceNearYouCards'
+
+import BookNowButton from './BookNowButton'
+import ModalCard from './ModalCard'
 const ServiceNearYouProviderCard = ({
   image,
   name,

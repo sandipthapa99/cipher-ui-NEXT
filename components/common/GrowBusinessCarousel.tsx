@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import { Row, Button, Col } from 'react-bootstrap'
-import { GrowYourBusinessProps } from 'types/growBusiness'
 import BigButton from '@components/common/Button'
+import Image from 'next/image'
+import { Button, Col,Row } from 'react-bootstrap'
+import { GrowYourBusinessProps } from 'types/growBusiness'
 const GrowBusinessCarousel = ({
   image,
   description,

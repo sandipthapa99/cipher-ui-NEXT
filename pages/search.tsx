@@ -1,10 +1,11 @@
-import type { NextPage } from 'next';
-import Header from '@components/Header';
 import Footer from '@components/Footer';
-import { Container } from 'react-bootstrap';
-import SearchHeader from '../components/SearchTask/searchHeader';
+import Header from '@components/Header';
 import { SearchCategory } from '@components/SearchTask/searchCategory';
 import SearchResults from '@components/SearchTask/SearchResults';
+import type { NextPage } from 'next';
+import { Container } from 'react-bootstrap';
+
+import SearchHeader from '../components/SearchTask/searchHeader';
 const SearchPage: NextPage = () => {
 	return (
 		<>

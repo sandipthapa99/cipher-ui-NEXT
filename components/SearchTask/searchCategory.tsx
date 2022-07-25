@@ -1,12 +1,13 @@
 export interface SearchCategoryProps {}
 
-import { Container, Row, Col, InputGroup, Form, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/pro-regular-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/pro-regular-svg-icons';
 import { faAngleDown } from '@fortawesome/pro-regular-svg-icons';
-import { useSearchContext } from '../../context/searchContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChangeEvent } from 'react';
+import { Button,Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
+
+import { useSearchContext } from '../../context/searchContext';
 export interface CategoryProps {
 	text: string;
 }

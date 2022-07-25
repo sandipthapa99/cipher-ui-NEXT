@@ -1,34 +1,33 @@
-import type { NextPage } from 'next'
-import Layout from '@components/Layout'
 import Breadcrum from '@components/common/Breadcrum'
-import { Container, Col, Button, Row } from 'react-bootstrap'
-import Image from 'next/image'
-import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
-
-import { servicesDiscover } from 'staticData/services'
-import ServiceCard from '@components/common/ServiceCard'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { reviewType } from 'utils/options'
+import PackageOffersCard from '@components/common/packageCard'
+import Reviews from '@components/common/Reviews'
 import SelectInputField from '@components/common/SelectInputField'
-import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
-import { Formik } from 'formik'
-import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
-import { HomeSearchdata } from 'utils/homeSearchData'
-import Link from 'next/link'
-import {
-  faHeart,
-  faShare,
-  faEllipsisVertical,
-} from '@fortawesome/pro-regular-svg-icons'
-import { serviceProvider } from 'staticData/serviceProvider'
+import ServiceCard from '@components/common/ServiceCard'
+import ServiceHighlights from '@components/common/ServiceHighlights'
 import ServiceProviderCard from '@components/common/serviceProviderCard'
 import Tags from '@components/common/Tags'
-import ServiceHighlights from '@components/common/ServiceHighlights'
-import { serviceHighlights } from 'staticData/serviceHighlights'
+import Layout from '@components/Layout'
+import { faAngleRight } from '@fortawesome/pro-regular-svg-icons'
+import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
+import {
+  faEllipsisVertical,
+  faHeart,
+  faShare,
+} from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Formik } from 'formik'
+import type { NextPage } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Button, Col, Container, Row } from 'react-bootstrap'
 import { PackageCard } from 'staticData/packageCard'
-import PackageOffersCard from '@components/common/packageCard'
 import { reviewsContent } from 'staticData/reviews'
-import Reviews from '@components/common/Reviews'
+import { serviceHighlights } from 'staticData/serviceHighlights'
+import { serviceProvider } from 'staticData/serviceProvider'
+import { servicesDiscover } from 'staticData/services'
+import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
+import { HomeSearchdata } from 'utils/homeSearchData'
+import { reviewType } from 'utils/options'
 
 const ServiceDetail: NextPage = () => {
   return (

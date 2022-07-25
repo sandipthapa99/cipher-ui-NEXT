@@ -1,10 +1,10 @@
+import { faBars } from '@fortawesome/pro-regular-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/pro-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Container, Navbar, InputGroup, Button, Form } from 'react-bootstrap';
-import { faBars } from '@fortawesome/pro-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/pro-regular-svg-icons';
+import { Button, Container, Form,InputGroup, Navbar } from 'react-bootstrap';
 
 const SearchHeader = () => {
 	const router = useRouter();

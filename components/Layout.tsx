@@ -1,11 +1,12 @@
-import { useRouter } from "next/router";
 import Head from "next/head";
-import meta from "../staticData/siteMetaData.json";
-import { MetaDataProps } from "types/metaData";
+import { useRouter } from "next/router";
 import { FC } from "react";
+import { MetaDataProps } from "types/metaData";
+
+import meta from "../staticData/siteMetaData.json";
+import Footer from "./Footer";
 import Header from "./Header";
 import UpperHeader from "./UpperHeader";
-import Footer from "./Footer";
 // import HeaderForPolicy from "./HeaderForPolicy";
 // import Footer from "./Footer";
 // import FooterForPolicy from "./FooterForPolicy";

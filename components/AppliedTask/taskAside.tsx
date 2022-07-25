@@ -1,6 +1,7 @@
-import { Row, Col } from "react-bootstrap"
-import { taskApplied } from "../../staticData/taskApplied"
 import { useSearchContext } from "context/searchContext"
+import { Col,Row } from "react-bootstrap"
+
+import { taskApplied } from "../../staticData/taskApplied"
 import TaskAppliedCard from "./taskAppliedCard"
 
 const TaskAside = () => {

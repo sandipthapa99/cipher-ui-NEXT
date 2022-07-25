@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TaskCardProps } from 'types/taskCard'
+
 import CardBtn from './CardBtn'
 // css for this file is done in _gettingStartedTask.scss page
 const TaskCard = ({

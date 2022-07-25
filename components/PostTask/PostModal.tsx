@@ -1,6 +1,7 @@
 import InputField from '@components/common/InputField';
-import { Form, Row, Col } from 'react-bootstrap';
 import Image from 'next/image';
+import { Col,Form, Row } from 'react-bootstrap';
+
 import AddRequirements from './AddRequirements';
 
 const PostModal = () => {
