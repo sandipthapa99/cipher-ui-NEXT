@@ -19,7 +19,10 @@ const ApplyTaskDetail: NextPage = () => {
         <div className="task-deatil p-5">
             <Link href={""}>
                 <a>
-                    <FontAwesomeIcon icon={faChevronLeft} className="svg-icon" />
+                    <FontAwesomeIcon
+                        icon={faChevronLeft}
+                        className="svg-icon"
+                    />
                     Go Back
                 </a>
             </Link>
@@ -83,10 +86,11 @@ const ApplyTaskDetail: NextPage = () => {
 
             <h1>Description</h1>
             <p>
-                Hiring a reputable professional landscape gardener entail paying for
-                their knowledge, experience, time, equipment, and materials. They
-                will be able to discuss your vision and tailor your garden design to
-                your exact needs, taking into account your taste, lifestyle, budget.
+                Hiring a reputable professional landscape gardener entail paying
+                for their knowledge, experience, time, equipment, and materials.
+                They will be able to discuss your vision and tailor your garden
+                design to your exact needs, taking into account your taste,
+                lifestyle, budget.
             </p>
 
             <h1>Highlights</h1>

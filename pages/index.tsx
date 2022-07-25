@@ -1,35 +1,32 @@
-import CategoryCard from '@components/common/CategoryCard'
-import CipherCard from '@components/common/CipherCard'
-import MerchantCard from '@components/common/MerchantCard'
-import RecommendationChips from '@components/common/RecommendationChips'
-import SelectInputField from '@components/common/SelectInputField'
-import ServiceCard from '@components/common/ServiceCard'
-import TaskCard from '@components/common/TaskCard'
-import Layout from '@components/Layout'
+import CategoryCard from "@components/common/CategoryCard";
+import CipherCard from "@components/common/CipherCard";
+import MerchantCard from "@components/common/MerchantCard";
+import RecommendationChips from "@components/common/RecommendationChips";
+import SelectInputField from "@components/common/SelectInputField";
+import ServiceCard from "@components/common/ServiceCard";
+import TaskCard from "@components/common/TaskCard";
+import Layout from "@components/Layout";
 import {
     faAngleRight,
     faChevronDown,
     faSearch,
-} from '@fortawesome/pro-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Formik } from 'formik'
-import type { NextPage } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
-import { NextRouter, useRouter } from 'next/router'
-import { Button, Col, Container, Form, FormControl, Row } from 'react-bootstrap'
-import { findHire } from 'staticData/findHire'
-import { findOpportuities } from 'staticData/findOpportunities'
-import { merchants } from 'staticData/merchants'
-import { serviceCategory } from 'staticData/serviceCategory'
-import { services } from 'staticData/services'
-import { tasks } from 'staticData/task'
-import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
-import { HomeSearchdata } from 'utils/homeSearchData'
-import { myOptions } from 'utils/options'
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Formik } from "formik";
+import type { NextPage } from "next";
+import Link from "next/link";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import { findHire } from "staticData/findHire";
+import { findOpportuities } from "staticData/findOpportunities";
+import { merchants } from "staticData/merchants";
+import { serviceCategory } from "staticData/serviceCategory";
+import { services } from "staticData/services";
+import { tasks } from "staticData/task";
+import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
+import { HomeSearchdata } from "utils/homeSearchData";
+import { myOptions } from "utils/options";
 
 const Home: NextPage = () => {
-    const router = useRouter();
     return (
         <Layout>
             {/* Site Main Banner Start */}
@@ -42,7 +39,10 @@ const Home: NextPage = () => {
                             <h1 className="site-main-banner--content__inner--title">
                                 Catering To Your Requirements
                             </h1>
-                            <p>Discover the world of services &amp; get paid for your time</p>
+                            <p>
+                                Discover the world of services &amp; get paid
+                                for your time
+                            </p>
                         </div>
                         {/* Hero Text End Here */}
                     </div>
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
                             initialValues={HomeSearchdata}
                             validationSchema={HomeSearchSchema}
                             onSubmit={async (values) => {
-                                console.log(values)
+                                console.log(values);
                             }}
                         >
                             <div className="search_box">
@@ -78,9 +78,12 @@ const Home: NextPage = () => {
                                     />
                                 </div>
                                 <Link href="/search">
-                                    <a className='search-btn'>
+                                    <a className="search-btn">
                                         <Button className="search-btn">
-                                            <FontAwesomeIcon icon={faSearch} className="icon" />
+                                            <FontAwesomeIcon
+                                                icon={faSearch}
+                                                className="icon"
+                                            />
                                         </Button>
                                     </a>
                                 </Link>
@@ -104,18 +107,22 @@ const Home: NextPage = () => {
                                         <Link href="/gardening">
                                             <a>
                                                 <CategoryCard
-                                                    categoryTitle={category.categoryTitle}
-                                                    categoryIcon={category.categoryIcon}
+                                                    categoryTitle={
+                                                        category.categoryTitle
+                                                    }
+                                                    categoryIcon={
+                                                        category.categoryIcon
+                                                    }
                                                 />
                                             </a>
                                         </Link>
                                     </Col>
-                                )
+                                );
                             })}
                     </Row>
                     {/* Service category listing end */}
                 </Container>
-            </section >
+            </section>
             {/* Site Main Banner End */}
 
             {/* Services near you section start */}
@@ -124,8 +131,11 @@ const Home: NextPage = () => {
                     <div className="title-wrapper d-flex justify-content-between">
                         <h2 className="heading-title">Services near you</h2>
                         <a href="" className="view-more">
-                            view more{' '}
-                            <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
                         </a>
                     </div>
                     <Row className="gx-5">
@@ -136,21 +146,39 @@ const Home: NextPage = () => {
                                         <Link href="/service-detail">
                                             <a>
                                                 <ServiceCard
-                                                    serviceImage={service.serviceImage}
-                                                    serviceTitle={service.serviceTitle}
-                                                    serviceProvider={service.serviceProvider}
-                                                    serviceProviderLocation={service.serviceProviderLocation}
-                                                    serviceDescription={service.serviceDescription}
-                                                    serviceRating={service.serviceRating}
-                                                    servicePrice={service.servicePrice}
+                                                    serviceImage={
+                                                        service.serviceImage
+                                                    }
+                                                    serviceTitle={
+                                                        service.serviceTitle
+                                                    }
+                                                    serviceProvider={
+                                                        service.serviceProvider
+                                                    }
+                                                    serviceProviderLocation={
+                                                        service.serviceProviderLocation
+                                                    }
+                                                    serviceDescription={
+                                                        service.serviceDescription
+                                                    }
+                                                    serviceRating={
+                                                        service.serviceRating
+                                                    }
+                                                    servicePrice={
+                                                        service.servicePrice
+                                                    }
                                                     hasOffer={service.hasOffer}
-                                                    discountRate={service.discountRate}
-                                                    discountOn={service.discountOn}
+                                                    discountRate={
+                                                        service.discountRate
+                                                    }
+                                                    discountOn={
+                                                        service.discountOn
+                                                    }
                                                 />
                                             </a>
                                         </Link>
                                     </Col>
-                                )
+                                );
                             })}
                     </Row>
                 </Container>
@@ -163,8 +191,11 @@ const Home: NextPage = () => {
                     <div className="title-wrapper d-flex justify-content-between">
                         <h2 className="heading-title">Our Popular Services</h2>
                         <a href="" className="view-more">
-                            view more{' '}
-                            <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
                         </a>
                     </div>
                     <Row className="gx-5">
@@ -175,22 +206,39 @@ const Home: NextPage = () => {
                                         <Link href="/service-detail">
                                             <a>
                                                 <ServiceCard
-                                                    serviceImage={service.serviceImage}
-                                                    serviceTitle={service.serviceTitle}
-                                                    serviceProvider={service.serviceProvider}
-                                                    serviceProviderLocation={service.serviceProviderLocation}
-                                                    serviceDescription={service.serviceDescription}
-                                                    serviceRating={service.serviceRating}
-                                                    servicePrice={service.servicePrice}
+                                                    serviceImage={
+                                                        service.serviceImage
+                                                    }
+                                                    serviceTitle={
+                                                        service.serviceTitle
+                                                    }
+                                                    serviceProvider={
+                                                        service.serviceProvider
+                                                    }
+                                                    serviceProviderLocation={
+                                                        service.serviceProviderLocation
+                                                    }
+                                                    serviceDescription={
+                                                        service.serviceDescription
+                                                    }
+                                                    serviceRating={
+                                                        service.serviceRating
+                                                    }
+                                                    servicePrice={
+                                                        service.servicePrice
+                                                    }
                                                     hasOffer={service.hasOffer}
-                                                    discountRate={service.discountRate}
-                                                    discountOn={service.discountOn}
+                                                    discountRate={
+                                                        service.discountRate
+                                                    }
+                                                    discountOn={
+                                                        service.discountOn
+                                                    }
                                                 />
                                             </a>
                                         </Link>
-
                                     </Col>
-                                )
+                                );
                             })}
                     </Row>
                 </Container>
@@ -200,18 +248,22 @@ const Home: NextPage = () => {
             {/* Browse service by category section start */}
             <section id="browse-category" className="browse-category">
                 <Container fluid="xl">
-                    <h1 className="section-main-title">Browse services by category</h1>
+                    <h1 className="section-main-title">
+                        Browse services by category
+                    </h1>
                     <Row className="gx-5">
                         {serviceCategory &&
                             serviceCategory.map((category) => {
                                 return (
                                     <Col xs={6} sm={4} lg={2} key={category.id}>
                                         <CategoryCard
-                                            categoryTitle={category.categoryTitle}
+                                            categoryTitle={
+                                                category.categoryTitle
+                                            }
                                             categoryIcon={category.categoryIcon}
                                         />
                                     </Col>
-                                )
+                                );
                             })}
                     </Row>
                     <Row className="gx-5">
@@ -220,11 +272,13 @@ const Home: NextPage = () => {
                                 return (
                                     <Col xs={6} sm={4} lg={2} key={category.id}>
                                         <CategoryCard
-                                            categoryTitle={category.categoryTitle}
+                                            categoryTitle={
+                                                category.categoryTitle
+                                            }
                                             categoryIcon={category.categoryIcon}
                                         />
                                     </Col>
-                                )
+                                );
                             })}
                     </Row>
                     {/* Service category listing end */}
@@ -253,7 +307,7 @@ const Home: NextPage = () => {
                                             redirectTo={card.redirectTo}
                                         />
                                     </Col>
-                                )
+                                );
                             })}
                     </Row>
                 </Container>
@@ -266,8 +320,11 @@ const Home: NextPage = () => {
                     <div className="title-wrapper d-flex justify-content-between">
                         <h2 className="heading-title">Top Rated Merchants</h2>
                         <a href="" className="view-more">
-                            view more{' '}
-                            <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
                         </a>
                     </div>
                     <Row className="gx-5">
@@ -276,18 +333,30 @@ const Home: NextPage = () => {
                                 return (
                                     <Col sm={6} lg={4} xl={3} key={merchant.id}>
                                         <MerchantCard
-                                            merchantImage={merchant.merchantImage}
+                                            merchantImage={
+                                                merchant.merchantImage
+                                            }
                                             merchantName={merchant.merchantName}
-                                            merchantCategory={merchant.merchantCategory}
-                                            merchantLocation={merchant.merchantLocation}
-                                            merchantDescription={merchant.merchantDescription}
-                                            merchantRating={merchant.merchantRating}
-                                            merchantPrice={merchant.merchantPrice}
+                                            merchantCategory={
+                                                merchant.merchantCategory
+                                            }
+                                            merchantLocation={
+                                                merchant.merchantLocation
+                                            }
+                                            merchantDescription={
+                                                merchant.merchantDescription
+                                            }
+                                            merchantRating={
+                                                merchant.merchantRating
+                                            }
+                                            merchantPrice={
+                                                merchant.merchantPrice
+                                            }
                                             happyClients={merchant.happyClients}
                                             successRate={merchant.successRate}
                                         />
                                     </Col>
-                                )
+                                );
                             })}
                     </Row>
                 </Container>
@@ -317,7 +386,7 @@ const Home: NextPage = () => {
                                             redirectTo={card.redirectTo}
                                         />
                                     </Col>
-                                )
+                                );
                             })}
                     </Row>
                 </Container>
@@ -330,8 +399,11 @@ const Home: NextPage = () => {
                     <div className="title-wrapper d-flex justify-content-between">
                         <h2 className="heading-title">Tasks You May Like</h2>
                         <a href="" className="view-more">
-                            view more{' '}
-                            <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
                         </a>
                     </div>
                     <Row className="gx-5">
@@ -348,14 +420,14 @@ const Home: NextPage = () => {
                                             time={task.time}
                                         />
                                     </Col>
-                                )
+                                );
                             })}
                     </Row>
                 </Container>
             </section>
             {/* Tasks you may like section end */}
-        </Layout >
-    )
-}
+        </Layout>
+    );
+};
 
-export default Home
+export default Home;

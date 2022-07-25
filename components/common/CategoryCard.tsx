@@ -1,11 +1,8 @@
 import Image from "next/image";
 import { CategoryCardProps } from "types/categoryCard";
 
-const CategoryCard = ({
-    categoryTitle,
-    categoryIcon,
-}:CategoryCardProps) =>{
-    return(
+const CategoryCard = ({ categoryTitle, categoryIcon }: CategoryCardProps) => {
+    return (
         <div className="category-card-block">
             <div className="category-card-block__image-block">
                 <figure className="thumbnail-icon">
@@ -19,6 +16,6 @@ const CategoryCard = ({
             </div>
             <p>{categoryTitle}</p>
         </div>
-    )
-}
+    );
+};
 export default CategoryCard;

@@ -30,17 +30,15 @@ const Signup = () => {
                 className="email"
             />
             <p className="terms-condition-agree-text">
-                By signing up, you agree our <span>
+                By signing up, you agree our{" "}
+                <span>
                     <Link href="/terms-conditions">
-                        <a>
-                            Terms and Conditions
-                        </a>
+                        <a>Terms and Conditions</a>
                     </Link>
-                </span>.
+                </span>
+                .
             </p>
-
-
         </OnBoardingLayout>
-    )
-}
+    );
+};
 export default Signup;

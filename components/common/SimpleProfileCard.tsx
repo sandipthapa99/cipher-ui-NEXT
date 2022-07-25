@@ -1,15 +1,12 @@
 import Image from "next/image";
-import { useState } from "react";
 import { ServiceProviderCardProps } from "types/serviceDetail";
 
-import BookNowButton from "./BookNowButton";
 const SimpleProfileCard = ({
     image,
     name,
     speciality,
     startingPrice,
 }: ServiceProviderCardProps) => {
-    const [showModal, setShowModal] = useState(false);
     return (
         <div className="simple-card-block">
             <div className="profile">

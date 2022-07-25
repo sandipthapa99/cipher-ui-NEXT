@@ -1,28 +1,28 @@
-import { Button } from 'react-bootstrap'
+import { Button } from "react-bootstrap";
 
 interface BigButtonProps {
-  btnTitle: string
-  backgroundColor: string
-  textColor?: string
+    btnTitle: string;
+    backgroundColor: string;
+    textColor?: string;
 }
 
 const BigButton = ({
-  btnTitle,
-  backgroundColor,
-  textColor,
+    btnTitle,
+    backgroundColor,
+    textColor,
 }: BigButtonProps) => {
-  return (
-    <>
-      <Button
-        className="big-btn"
-        style={{
-          backgroundColor: `${backgroundColor}`,
-          color: `${textColor}!important`,
-        }}
-      >
-        <span>{btnTitle}</span>
-      </Button>
-    </>
-  )
-}
-export default BigButton
+    return (
+        <>
+            <Button
+                className="big-btn"
+                style={{
+                    backgroundColor: `${backgroundColor}`,
+                    color: `${textColor}!important`,
+                }}
+            >
+                <span>{btnTitle}</span>
+            </Button>
+        </>
+    );
+};
+export default BigButton;

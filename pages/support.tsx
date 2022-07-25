@@ -26,23 +26,21 @@ const Support = () => {
                                         alt="merchant-image"
                                     />
                                 </figure>
-
                             </Col>
                             <Col md={6}>
                                 <h1>Support Form</h1>
-                                <p>Any question or queries? Just write us a message</p>
+                                <p>
+                                    Any question or queries? Just write us a
+                                    message
+                                </p>
                                 <Formik
                                     initialValues={SupportFormData}
                                     validationSchema={SupportFormSchema}
                                     onSubmit={async (values) => {
-                                        console.log(values)
+                                        console.log(values);
                                     }}
                                 >
-                                    {({
-                                        isSubmitting,
-                                        errors,
-                                        touched,
-                                    }) => (
+                                    {({ isSubmitting, errors, touched }) => (
                                         <Form>
                                             <InputField
                                                 type="text"
@@ -73,7 +71,7 @@ const Support = () => {
                                                 placeHolder="Technical"
                                                 labelName="Issue Type"
                                                 options={issueTypes}
-                                            // fieldRequired
+                                                // fieldRequired
                                             />
                                             <InputField
                                                 name="message"
@@ -90,7 +88,9 @@ const Support = () => {
                                                 name="Send"
                                                 className="submit-btn"
                                                 isSubmitting={isSubmitting}
-                                                isSubmittingClass={isSubmittingClass(isSubmitting)}
+                                                isSubmittingClass={isSubmittingClass(
+                                                    isSubmitting
+                                                )}
                                             />
                                         </Form>
                                     )}
@@ -99,9 +99,8 @@ const Support = () => {
                         </Row>
                     </section>
                 </Container>
-
             </Layout>
         </>
-    )
-}
+    );
+};
 export default Support;
