@@ -1,15 +1,19 @@
-import ApplyTaskDetail from "@components/AppliedTask/ApplyTaskDetail";
 import { useSearchContext } from "context/searchContext";
-import { Col,Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 
 import { taskApplied } from "../../staticData/taskApplied";
+import AppliedTaskDetail from "./AppliedTaskDetail";
 import TaskAppliedCard from "./taskAppliedCard";
 
 const TaskAside = () => {
     const { state } = useSearchContext();
 
     const filteredServices = taskApplied.filter((task) =>
-        task.title.split(" ").join("").toLowerCase().includes(state.toLowerCase())
+        task.title
+            .split(" ")
+            .join("")
+            .toLowerCase()
+            .includes(state.toLowerCase())
     );
 
     const renderTaskCards = filteredServices.map((task) => {
@@ -52,7 +56,7 @@ const TaskAside = () => {
             allowFullScreen={true}
             loading="lazy"
           ></iframe> */}
-                    <ApplyTaskDetail />
+                    <AppliedTaskDetail />
                 </Col>
             </Row>
         </div>
