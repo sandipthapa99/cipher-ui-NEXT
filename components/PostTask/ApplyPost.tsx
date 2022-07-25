@@ -1,8 +1,8 @@
 import TaskCard from '@components/common/TaskCard';
 import SearchBySort from '@components/SearchTask/searchPageSort';
-
-import { Row, Col } from 'react-bootstrap';
+import { Col,Row } from 'react-bootstrap';
 import { TaskCardProps } from 'types/taskCard';
+
 import { tasks } from '../../staticData/task';
 import GettingStartedTask from '../Task/GettingStartedCard';
 import Post from './Post';

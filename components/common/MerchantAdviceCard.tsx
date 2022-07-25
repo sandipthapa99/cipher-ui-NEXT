@@ -1,6 +1,7 @@
 import Image from 'next/image'
-import { MerchantAdviceProps } from 'types/merchantAdvice'
 import { Button } from 'react-bootstrap'
+import { MerchantAdviceProps } from 'types/merchantAdvice'
+
 import CardBtn from './CardBtn'
 const MerchantAdviceCard = ({
   title,

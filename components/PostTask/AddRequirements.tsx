@@ -1,13 +1,15 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/pro-regular-svg-icons';
-import { InputGroup, Form, Button } from 'react-bootstrap';
-import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { KeyboardEvent, useState } from 'react';
 import { ChangeEvent } from 'react';
+import { Button,Form, InputGroup } from 'react-bootstrap';
+import { Requirement } from 'types/requirement';
 import { number } from 'yup/lib/locale';
 
-const requirements = [];
+const requirements:Requirement[] = [];
+
 const AddRequirements = () => {
-	const [requirementState, setRequirementState] = useState(requirements);
+	const [requirementState, setRequirementState] = useState<Requirement[]>(requirements);
 	const [require, setRequire] = useState('');
 
 	const addRequirements = () => {
@@ -18,7 +20,7 @@ const AddRequirements = () => {
 		setRequire('');
 	};
 
-	const handleEnterAdd = event => {
+	const handleEnterAdd = (event:KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === 'Enter') {
 			addRequirements();
 		}

@@ -1,32 +1,32 @@
+import CategoryCard from '@components/common/CategoryCard'
+import CipherCard from '@components/common/CipherCard'
+import MerchantCard from '@components/common/MerchantCard'
+import RecommendationChips from '@components/common/RecommendationChips'
 import SelectInputField from '@components/common/SelectInputField'
 import ServiceCard from '@components/common/ServiceCard'
+import TaskCard from '@components/common/TaskCard'
 import Layout from '@components/Layout'
 import {
-    faChevronDown,
     faAngleRight,
+    faChevronDown,
     faSearch,
 } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Formik } from 'formik'
 import type { NextPage } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import { NextRouter, useRouter } from 'next/router'
 import { Button, Col, Container, Form, FormControl, Row } from 'react-bootstrap'
+import { findHire } from 'staticData/findHire'
+import { findOpportuities } from 'staticData/findOpportunities'
+import { merchants } from 'staticData/merchants'
+import { serviceCategory } from 'staticData/serviceCategory'
+import { services } from 'staticData/services'
+import { tasks } from 'staticData/task'
 import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
 import { HomeSearchdata } from 'utils/homeSearchData'
 import { myOptions } from 'utils/options'
-import { services } from 'staticData/services'
-import { merchants } from 'staticData/merchants'
-import { tasks } from 'staticData/task'
-import CategoryCard from '@components/common/CategoryCard'
-import { serviceCategory } from 'staticData/serviceCategory'
-import Link from 'next/link'
-import MerchantCard from '@components/common/MerchantCard'
-import TaskCard from '@components/common/TaskCard'
-import RecommendationChips from '@components/common/RecommendationChips'
-import CipherCard from '@components/common/CipherCard'
-import { findHire } from 'staticData/findHire'
-import { findOpportuities } from 'staticData/findOpportunities'
 
 const Home: NextPage = () => {
     const router = useRouter();

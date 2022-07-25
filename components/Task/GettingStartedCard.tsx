@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { taskActionCardContent } from 'staticData/taskActionCardContent';
+
 import TaskActionCard from './TaskActionCard';
 
 const GettingStartedTask = () => {

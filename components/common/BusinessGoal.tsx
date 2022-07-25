@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import { BusinessGoalProps } from 'types/businessGoal'
 import { Carousel } from 'react-bootstrap'
+import { BusinessGoalProps } from 'types/businessGoal'
 const BusinessGoal = ({
   cardImage,
   cardDescription,

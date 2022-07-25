@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ServiceProviderCardProps } from "types/serviceDetail";
+
 import BookNowButton from "./BookNowButton";
-import { useState } from "react";
 import CardBtn from "./CardBtn";
 const SimpleProfileCard = ({
     image,
@@ -29,8 +29,7 @@ const SimpleProfileCard = ({
                 <span>Starting price</span>
                 <span className="price">Rs {startingPrice}</span>
             </div>
-                <CardBtn btnTitle={"Apply Now"} backgroundColor={"#38C675"} />
-
+            <CardBtn btnTitle={"Apply Now"} backgroundColor={"#38C675"} />
         </div>
     );
 };

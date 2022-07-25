@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
-import Image from 'next/image'
-import Form from 'react-bootstrap/Form'
-import { Row, Col } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
+import React, { useState } from 'react'
+import { Col,Row } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import Modal from 'react-bootstrap/Modal'
 import { BookNowModalCardProps } from 'types/bookNow'
 
 const ModalCard = ({

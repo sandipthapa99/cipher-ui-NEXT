@@ -1,20 +1,21 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/pro-solid-svg-icons'
-import { Row, Col } from 'react-bootstrap'
-import Image from 'next/image'
 import {
-  faHeart,
-  faShare,
-  faEllipsisVertical,
-  faLocation,
-  faEye,
-  faSmile,
   faBadge,
+  faEllipsisVertical,
+  faEye,
+  faHeart,
+  faLocation,
+  faShare,
+  faSmile,
 } from '@fortawesome/pro-regular-svg-icons'
-import { MerchantProfileInfoProps } from 'types/merchantProfile'
-import CardBtn from './CardBtn'
+import { faStar } from '@fortawesome/pro-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
+import { Col,Row } from 'react-bootstrap'
 import { merchantProfileCardInfo } from 'staticData/merchantProfileCard'
+import { MerchantProfileInfoProps } from 'types/merchantProfile'
+
 import BigButton from './Button'
+import CardBtn from './CardBtn'
 
 const MerchantProfileCard = ({
   merchantImage,
@@ -35,9 +36,9 @@ const MerchantProfileCard = ({
   moreServices,
 }: MerchantProfileInfoProps) => {
   return (
-    <div className="merchant-card-block">
+    <div className="profile-card-block">
       <Row>
-        <Col md={3} className="merchant-card-block__profile">
+        <Col md={3} className="profile-card-block__profile">
           <figure className="thumbnail-img">
             <Image
               src={merchantImage}
@@ -71,7 +72,7 @@ const MerchantProfileCard = ({
           <button className="button">Hire Me</button>
         </Col>
 
-        <Col md={9} className="merchant-card-block__general-info">
+        <Col md={9} className="profile-card-block__general-info">
           <Row className="top-container">
             <Col md={7}>
               <h1>General Information</h1>

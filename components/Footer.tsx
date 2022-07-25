@@ -1,13 +1,14 @@
+import { faFacebookF, faInstagram, faLinkedinIn,faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookF, faTwitter, faInstagram, faYoutube, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import * as Yup from "yup";
-import InputField from "./common/InputField";
 import emailValidationSchema from "utils/formValidation/emailValidation";
+import * as Yup from "yup";
+
+import InputField from "./common/InputField";
 
 const Footer = () => {
     return (

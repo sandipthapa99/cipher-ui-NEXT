@@ -1,17 +1,18 @@
-import type { NextPage } from 'next';
-import SearchHeader from '../components/SearchTask/searchHeader';
-import Header from '@components/Header';
-import { SearchBody } from '@components/SearchTask/searchBody';
-import { Container, Row, Col } from 'react-bootstrap';
-import Footer from '@components/Footer';
-import ApplyTask from '@components/Task/ApplyTask';
-import ApplyPost from '@components/PostTask/ApplyPost';
-import DiscountCard from '@components/common/discountCard';
-import { services } from 'staticData/services';
-import Link from 'next/link';
 import CategoryCard from '@components/common/CategoryCard';
-import { serviceCategory } from 'staticData/serviceCategory';
+import DiscountCard from '@components/common/discountCard';
 import ServiceCard from '@components/common/ServiceCard';
+import Footer from '@components/Footer';
+import Header from '@components/Header';
+import ApplyPost from '@components/PostTask/ApplyPost';
+import { SearchBody } from '@components/SearchTask/searchBody';
+import ApplyTask from '@components/Task/ApplyTask';
+import type { NextPage } from 'next';
+import Link from 'next/link';
+import { Col,Container, Row } from 'react-bootstrap';
+import { serviceCategory } from 'staticData/serviceCategory';
+import { services } from 'staticData/services';
+
+import SearchHeader from '../components/SearchTask/searchHeader';
 const PostTask: NextPage = () => {
 	return (
 		<>

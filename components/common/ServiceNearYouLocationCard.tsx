@@ -1,10 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Row, Col } from 'react-bootstrap'
-import Image from 'next/image'
 import { faLocationDot, faUser } from '@fortawesome/pro-regular-svg-icons'
-import CardBtn from './CardBtn'
-import { ServiceNearYouCardProps } from 'types/serviceNearYouCards'
 import { faStar } from '@fortawesome/pro-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Image from 'next/image'
+import { Col,Row } from 'react-bootstrap'
+import { ServiceNearYouCardProps } from 'types/serviceNearYouCards'
+
+import CardBtn from './CardBtn'
 const ServiceNearYouCard = ({
   image,
   servicePrice,
