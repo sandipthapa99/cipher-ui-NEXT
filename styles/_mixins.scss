@@ -89,3 +89,9 @@
   -ms-transform: scale(1);
   -o-transform: scale(1);
 }
+
+//border mixins
+@mixin border {
+  border: 1px solid #ced4da;
+  border-radius: 0.4rem;
+}
