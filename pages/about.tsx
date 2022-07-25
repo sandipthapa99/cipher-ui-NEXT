@@ -66,10 +66,10 @@ const About: NextPage = () => {
                 </div>
               </Col>
             </Row>
-            <Row className="purpose-container mt-3">
+            <Row className="purpose-container">
               <Col md={6}>
                 <div className="about-information purpose">
-                  <h1 className="pt-5 mt-3">Our Purpose</h1>
+                  <h1>Our Purpose</h1>
                   <p>
                     Serve the community by providing everyone the platform to
                     showcase their skills, talents, and minimise the stress of

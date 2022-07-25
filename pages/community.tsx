@@ -125,12 +125,12 @@ const Community: NextPage = () => {
               To assist clients and merchants in their personal and professional
               pursuits
             </p>
-            <Row className="gx-5 d-flex align-items-stretch">
+            <Row className="gx-5">
               {communityGuidelineCardContent &&
                 communityGuidelineCardContent.map((guideline) => {
                   return (
                     <Col
-                      className="gx-5 guideline-card-col d-flex align-items-stretch"
+                      className="gx-5 guideline-card-col"
                       // sm={6}
                       md={4}
                       // lg={4}
@@ -152,7 +152,7 @@ const Community: NextPage = () => {
             <div className="title-wrapper d-flex justify-content-between">
               {/* <h2 className="heading-title">Community activity</h2> */}
               <h1>Community activity</h1>
-              <a href="" className="view-more">
+              <a href="/pages" className="view-more">
                 view more{' '}
                 <FontAwesomeIcon icon={faAngleRight} className="svg-icon" />
               </a>
@@ -185,8 +185,9 @@ const Community: NextPage = () => {
             {businessGoal &&
               businessGoal.map((goal) => {
                 return (
-                  <Carousel.Item key={goal.id}
-                  //interval={1000}
+                  <Carousel.Item
+                    key={goal.id}
+                    //interval={1000}
                   >
                     <BusinessGoal
                       cardImage={goal.cardImage}

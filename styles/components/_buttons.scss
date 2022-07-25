@@ -28,6 +28,13 @@
   }
   &:focus {
     border: none;
+    box-shadow: none !important;
+  }
+  &:active:focus {
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: none !important;
   }
   @include respond(md) {
     font-size: 1.4rem;
