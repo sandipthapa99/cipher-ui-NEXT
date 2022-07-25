@@ -5,7 +5,7 @@ import CipherCard from "@components/common/CipherCard";
 import FormButton from "@components/common/FormButton";
 import Layout from "@components/Layout";
 import Image from "next/image";
-import { Col, Container, Row } from "react-bootstrap";
+import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { affiliateGetStarted } from "staticData/affiliate";
 import { findHire } from "staticData/findHire";
 import { isSubmittingClass } from "utils/helpers";
@@ -77,8 +77,8 @@ const AffiliateProgram = () => {
                     <h2>We handle everything &#8211; hosting the products, handling customer service, and you get paid for referring visitors to our websites.</h2>
                     <Row className="gx-5">
                         <Col md={6}>
-                            {/* <div className="table-card">
-                                <table>
+                            <div className="table-card">
+                                {/* <table>
                                     <tr>
                                         <th>Referred sales</th>
                                         <th>Commission level</th>
@@ -101,8 +101,8 @@ const AffiliateProgram = () => {
                                         </td>
                                     </tr>
 
-                                </table>
-                            </div> */}
+                                </table> */}
+                            </div>
                         </Col>
                         <Col md={6}>
                             <div className="right-text">
@@ -126,7 +126,7 @@ const AffiliateProgram = () => {
                                 Businesses and independent professionals from around the world come to Upwork to grow their businesses, take control of their careers, and create meaningful work relationships.
                             </p>
                             <CardBtn backgroundColor="#211D4F"
-                                    btnTitle="See how" />
+                                btnTitle="See how" />
                         </Col>
                         <Col md={4}>
                             <figure className="thumbnail-img d-none d-md-block">
@@ -139,7 +139,60 @@ const AffiliateProgram = () => {
                             </figure>
                         </Col>
                     </Row>
+                </section>
 
+                <section className="affiliate-faqs">
+                    <h1>Frequently asked questions</h1>
+                    <Accordion flush>
+                        <Accordion.Item eventKey="1">
+                            <Accordion.Header>What is Cipher?</Accordion.Header>
+                            <Accordion.Body>
+                                <p>
+                                    With Cagtu, a custom app development project starts
+                                    with you preparing and then submitting a request
+                                    for proposal, also referred to as an RFP(request
+                                    for proposal). It will help us create a tailored,
+                                    individualised response.
+                                </p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="2">
+                            <Accordion.Header>
+                                How long does the project take?
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                <p>
+                                    The implementation time depends on the type of
+                                    order, the technology chosen, and the amount of
+                                    work that needs to be done. We always try to
+                                    establish a realistic time frame for completing the
+                                    project. Most MVP (Minimum Viable Product) versions
+                                    are implemented within 2-4 months of signing the
+                                    contract. Also, we develop projects through
+                                    long-term collaboration plans that have no end
+                                    date.
+                                </p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="3">
+                            <Accordion.Header>
+                                How do you provide project estimates? What are the
+                                modes of communication that you use?
+                            </Accordion.Header>
+                            <Accordion.Body>
+                                <p>
+                                    Team Cagtu carries out scoping and estimation for
+                                    our customers&apos; projects through the tools
+                                    developed in-house. We can schedule a call, proceed
+                                    with email communication, or stay in contact
+                                    through any instant messenger convenient to you. If
+                                    all the specialists required for your project are
+                                    available, we start the work as soon as possible,
+                                    or even immediately.
+                                </p>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>
                 </section>
             </Container>
 

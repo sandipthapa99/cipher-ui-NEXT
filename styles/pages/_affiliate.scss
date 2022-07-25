@@ -17,6 +17,7 @@
             font-size: 2.4rem;
             color: $primary-color;
             font-weight: 500;
+
             @include respond(md) {
                 font-size: 4rem;
             }
@@ -152,4 +153,19 @@
         height: 28.5rem;
         width: 38.2rem;
     }
+}
+
+.affiliate-faqs {
+    h1 {
+        font-size: 2rem;
+        font-weight: 500;
+        color: #343A40;
+    }
+
+    .accordion {
+        .accordion-item {
+            background-color: transparent;
+        }
+    }
+
 }
