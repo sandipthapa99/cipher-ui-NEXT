@@ -19,7 +19,7 @@ import { serviceHighlights } from "staticData/serviceHighlights";
 import Link from "next/link";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 
-const ApplyTaskDetail: NextPage = () => {
+const AppliedTaskDetail: NextPage = () => {
     return (
         <div className="task-deatil p-5">
             <Link href={""}>
@@ -147,4 +147,4 @@ const ApplyTaskDetail: NextPage = () => {
     );
 };
 
-export default ApplyTaskDetail;
+export default AppliedTaskDetail;
