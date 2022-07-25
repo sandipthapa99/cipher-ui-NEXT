@@ -36,9 +36,16 @@
       }
     }
     .reviews {
+      padding-left: 2.5rem;
+      h1 {
+        font-size: 1.7rem;
+        font-weight: 500;
+        color: $default-text-color;
+      }
       .head-container {
         display: flex;
         justify-content: space-between;
+        border-bottom: 0.18rem solid $border-color;
 
         .dropdowns {
           display: flex;

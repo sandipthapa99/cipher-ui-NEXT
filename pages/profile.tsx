@@ -19,6 +19,12 @@ import SelectInputField from '@components/common/SelectInputField'
 import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+// interface TabProps {
+//   key: any
+//   activeKey: any
+//   title: any
+//   onSelect?: () => void
+// }
 const UserProfile: NextPage = () => {
   const [key, setKey] = useState('about')
   return (
