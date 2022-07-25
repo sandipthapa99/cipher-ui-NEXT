@@ -6,6 +6,12 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Footer from '@components/Footer';
 import ApplyTask from '@components/Task/ApplyTask';
 import ApplyPost from '@components/PostTask/ApplyPost';
+import DiscountCard from '@components/common/discountCard';
+import { services } from 'staticData/services';
+import Link from 'next/link';
+import CategoryCard from '@components/common/CategoryCard';
+import { serviceCategory } from 'staticData/serviceCategory';
+import ServiceCard from '@components/common/ServiceCard';
 const PostTask: NextPage = () => {
 	return (
 		<>
@@ -51,7 +57,126 @@ const PostTask: NextPage = () => {
 			</div>
 			<Container>
 				<ApplyPost />
+				<h4>Special Offers & Discount</h4>
+				<Row className="discount-card">
+					<Col>
+						<DiscountCard />
+					</Col>
+					<Col>
+						<DiscountCard />
+					</Col>
+					<Col>
+						<DiscountCard />
+					</Col>
+				</Row>
+				<Row className="gx-5">
+					<Row>
+						<Col>
+							<h4>Popular on Cipher</h4>
+						</Col>
+						<Col md={1}>
+							<Link href="/">view more</Link>
+						</Col>
+					</Row>
+
+					{services &&
+						services.map(service => {
+							return (
+								<Col sm={6} md={4} lg={3} key={service.id}>
+									<Link href="/service-detail">
+										<a>
+											<ServiceCard
+												serviceImage={service.serviceImage}
+												serviceTitle={service.serviceTitle}
+												serviceProvider={service.serviceProvider}
+												serviceProviderLocation={
+													service.serviceProviderLocation
+												}
+												serviceDescription={service.serviceDescription}
+												serviceRating={service.serviceRating}
+												servicePrice={service.servicePrice}
+												hasOffer={service.hasOffer}
+												discountRate={service.discountRate}
+												discountOn={service.discountOn}
+											/>
+										</a>
+									</Link>
+								</Col>
+							);
+						})}
+				</Row>
 			</Container>
+			<section id="browse-category" className="browse-category">
+				<Container fluid="xl">
+					<h1 className="section-main-title">Our services by category</h1>
+					<Row className="gx-5">
+						{serviceCategory &&
+							serviceCategory.map(category => {
+								return (
+									<Col xs={6} sm={4} lg={2} key={category.id}>
+										<CategoryCard
+											categoryTitle={category.categoryTitle}
+											categoryIcon={category.categoryIcon}
+										/>
+									</Col>
+								);
+							})}
+					</Row>
+					<Row className="gx-5">
+						{serviceCategory &&
+							serviceCategory.map(category => {
+								return (
+									<Col xs={6} sm={4} lg={2} key={category.id}>
+										<CategoryCard
+											categoryTitle={category.categoryTitle}
+											categoryIcon={category.categoryIcon}
+										/>
+									</Col>
+								);
+							})}
+					</Row>
+					{/* Service category listing end */}
+				</Container>
+			</section>
+			<Container>
+				<Row className="gx-5">
+					<Row>
+						<Col md={11}>
+							<h4>Popular on Cipher</h4>
+						</Col>
+						<Col md={1}>
+							<Link href="/">view more</Link>
+						</Col>
+					</Row>
+
+					{services &&
+						services.map(service => {
+							return (
+								<Col sm={6} md={4} lg={3} key={service.id}>
+									<Link href="/service-detail">
+										<a>
+											<ServiceCard
+												serviceImage={service.serviceImage}
+												serviceTitle={service.serviceTitle}
+												serviceProvider={service.serviceProvider}
+												serviceProviderLocation={
+													service.serviceProviderLocation
+												}
+												serviceDescription={service.serviceDescription}
+												serviceRating={service.serviceRating}
+												servicePrice={service.servicePrice}
+												hasOffer={service.hasOffer}
+												discountRate={service.discountRate}
+												discountOn={service.discountOn}
+											/>
+										</a>
+									</Link>
+								</Col>
+							);
+						})}
+				</Row>
+			</Container>
+
 			<Footer />
 		</>
 	);
