@@ -1,12 +1,13 @@
-.simple-card-block {
-    padding-bottom: 1.7rem;
-    padding-top: 1.7rem;
-    // align-items: stretch !important;
-    .profile {
-      display: flex;
+.simple-card {
+    padding: 2.4rem;
+    width: 100%;
+    border: 0.1rem solid #CED4DA;
+    border-radius: 0.4rem;
+    &__profile {
+      padding: 0 0 7rem 0;
       .thumbnail-img {
-        height: 7rem;
-        width: 7rem;
+        height:4.8rem;
+        width: 4.8rem;
         border-radius: 50%;
       }
       .intro {
@@ -29,22 +30,19 @@
         }
       }
     }
-  
-    .description {
-      display: flex;
-      flex-direction: column;
-      padding-top: 2.9rem;
-      padding-bottom: 2.2rem;
-      .type {
-        margin-bottom: -1.8rem;
+    &__price{
+      font-weight: 400;
+      border-top: 0.1rem solid #CED4DA;
+      border-bottom: 0.1rem solid #CED4DA;
+      .price{
+        font-size: 2rem;
       }
-      p {
-        font-size: 1.3rem;
-      }
-      .thumbnail-img {
-        height: 2rem;
-        width: 2rem;
-        margin-right: 1rem;
+    }
+    button{
+      margin: 2.8rem 0 0;
+      width: 100%;
+      span{
+        font-size: 1.6rem;
       }
     }
 }
