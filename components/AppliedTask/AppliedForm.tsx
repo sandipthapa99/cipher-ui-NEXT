@@ -45,6 +45,7 @@ const AppliedForm = ({
                     >
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
+                                <pre>{JSON.stringify(errors)}</pre>
                                 <div className="w-25">
                                     <InputField
                                         type="number"
