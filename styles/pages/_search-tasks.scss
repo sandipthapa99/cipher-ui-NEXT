@@ -48,3 +48,11 @@
 		}
 	}
 }
+.discount-card {
+	display: flex;
+	flex-direction: row;
+
+	@include respond(xs) {
+		flex-direction: column;
+	}
+}
