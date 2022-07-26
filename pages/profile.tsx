@@ -88,33 +88,9 @@ const UserProfile: NextPage = () => {
                                     <OrganizationProfile />
                                 </Tab>
                                 <Tab key="2" eventKey="tasks" title="Tasks">
-                                    <div className="task-container">
-                                        <Row>
-                                            {profileTaskCard &&
-                                                profileTaskCard.map((info) => (
-                                                    <Col
-                                                        lg={4}
-                                                        md={3}
-                                                        key={info.id}
-                                                    >
-                                                        <TasksProfileCard
-                                                            title={info.title}
-                                                            cardImage={
-                                                                info.cardImage
-                                                            }
-                                                            description={
-                                                                info.description
-                                                            }
-                                                            address={
-                                                                info.address
-                                                            }
-                                                            rating={info.rating}
-                                                            price={info.price}
-                                                        />
-                                                    </Col>
-                                                ))}
-                                        </Row>
-                                    </div>
+
+                                    <TasksProfileCard />
+
                                 </Tab>
                                 <Tab key="3" eventKey="saved" title="Saved">
                                     <AboutProfile />
@@ -139,9 +115,7 @@ const UserProfile: NextPage = () => {
                             </Tabs>
                         </div>
                     </section>
-                    {/* Service detail reviews section start */}
 
-                    {/* Service detail reviews setion end */}
                 </section>
             </Container>
         </Layout>
