@@ -1,5 +1,6 @@
 import TaskList from "@components/AppliedTask/TaskList";
 import BillingLocation from "@components/Checkout/BillingLocation";
+import ExtraSection from "@components/Checkout/ExtraSection";
 import Breadcrum from "@components/common/Breadcrum";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
@@ -27,6 +28,7 @@ const Checkout = () => {
                             <BillingLocation
                                 location={billingLocationContent.location}
                             />
+                            <ExtraSection />
                         </Col>
                         <Col lg={4}>
                             <TaskList task={taskListContent} />

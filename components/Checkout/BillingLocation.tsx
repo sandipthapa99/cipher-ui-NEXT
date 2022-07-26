@@ -3,8 +3,6 @@ import { faLocationDot, faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnchorButton from "@components/common/AnchorButton";
 
-import { billingLocationContent } from "../../staticData/billingLocationData";
-
 interface BillingLocationProps {
     location: string;
 }
@@ -21,7 +19,7 @@ const BillingLocation = ({ location }: BillingLocationProps) => {
                     />
                     {location}
                 </span>
-                <AnchorButton className={"px-5"} href={""}>
+                <AnchorButton className={"px-5"} href={""} varient={""}>
                     Change
                 </AnchorButton>
             </div>
