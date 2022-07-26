@@ -143,20 +143,20 @@ const PostModal = ({ onSubmit }: Props) => {
 				<Row className="mt-2">
 					{values.budgetType === 'fixed' && <Col md={6}>
 					<Form.Group>
-							<Form.Control type="number" placeholder="Fixed Value" {...getFieldProps('fixedValue')} />
+							<Form.Control type="number" min={0} placeholder="Fixed Value" {...getFieldProps('fixedValue')} />
 
 						</Form.Group>
 						</Col>}
 					{ values.budgetType === 'range'&& 
 					<><Col>
 						<Form.Group>
-							<Form.Control type="number" placeholder="From"  {...getFieldProps('minBudget')} />
+							<Form.Control type="number" min={0} placeholder="From"  {...getFieldProps('minBudget')} />
 
 						</Form.Group>
 					</Col>
 					<Col>
 						<Form.Group>
-							<Form.Control type="number" placeholder="To"  {...getFieldProps('maxBudget')} />
+							<Form.Control type="number" min={0} placeholder="To"  {...getFieldProps('maxBudget')} />
 						</Form.Group>
 					</Col></>}
 				</Row>

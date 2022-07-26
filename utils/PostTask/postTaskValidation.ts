@@ -8,8 +8,8 @@ export const postTaskValidationSchema = Yup.object().shape({
     dateTime: Yup.string().required("Required date and time"),
     estimatedHour: Yup.number().required('Feild Required').min(1),
     budgetType:Yup.mixed().oneOf(['range', 'fixed']) ,
-    minBudget:Yup.number().min(0).required("required"),
-    maxBudget:Yup.number().max(1000000).required("required"),
+    minBudget:Yup.number().required("required").min(1),
+    maxBudget:Yup.number().max(1000000).required("required").min(1),
     address: Yup.string().required("Required Address"),
     requirements :Yup.array().of(Yup.object().shape({id:Yup.number(), name:Yup.string()})),
     
