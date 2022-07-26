@@ -4,6 +4,7 @@
 @import "paths";
 @import "mixins";
 @import "app";
+@import "utils";
 
 // Components
 @import "choose";
@@ -45,6 +46,7 @@
 @import "components/task-detail";
 @import "components/simpleProfileCard";
 @import "components/applyPost";
+@import "components/tab";
 // Pages
 @import "pages/privacyPolicy";
 @import "pages/referall";
