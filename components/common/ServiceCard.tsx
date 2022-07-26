@@ -54,9 +54,9 @@ const ServiceCard = ({
                         <FontAwesomeIcon icon={faHeart} className="svg-icon heart" />
                         <FontAwesomeIcon icon={faShare} className="svg-icon share" />
                     </div>
-                    <CardBtn 
-                    btnTitle="Book Now"
-                    backgroundColor="#211D4F"
+                    <CardBtn
+                        btnTitle="Book Now"
+                        backgroundColor="#211D4F"
                     />
                 </div>
             </div>

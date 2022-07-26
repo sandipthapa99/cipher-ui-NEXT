@@ -13,6 +13,7 @@ import { tabContent } from "staticData/tab";
 import { userProfileCardInfo } from "staticData/userProfileCard";
 import TasksProfileCard from "@components/Profile/TasksProfile";
 import { profileTaskCard } from "staticData/profileTaskCard";
+import SavedBookings from "@components/Profile/SavedBookings";
 
 const UserProfile: NextPage = () => {
     const [key, setKey] = useState("about");
@@ -93,7 +94,7 @@ const UserProfile: NextPage = () => {
 
                                 </Tab>
                                 <Tab key="3" eventKey="saved" title="Saved">
-                                    <AboutProfile />
+                                    <SavedBookings />
                                 </Tab>
                                 <Tab
                                     key="4"

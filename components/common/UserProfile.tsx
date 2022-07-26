@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
-import { Col,Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import { UserProfileInfoProps } from 'types/userProfile'
 
 const UserProfileCard = ({
@@ -45,7 +45,6 @@ const UserProfileCard = ({
             <Image
               src={userImage}
               layout="fill"
-              // height={300}
               objectFit="cover"
               alt="user-profile-image"
             />
@@ -72,7 +71,7 @@ const UserProfileCard = ({
             {Array.from({ length: 5 - userRating }, (_, i) => (
               <span key={i}>
                 {' '}
-                <FontAwesomeIcon icon={faStar} className="svg-icon" />
+                <FontAwesomeIcon icon={faStar} className="star svg-icon" />
               </span>
             ))}
           </div>
