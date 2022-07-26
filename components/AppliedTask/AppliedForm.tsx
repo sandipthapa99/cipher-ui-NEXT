@@ -1,6 +1,6 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import { Form,Formik } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -44,10 +44,9 @@ const AppliedForm = ({
                     >
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
-                                <pre>{JSON.stringify(errors)}</pre>
                                 <div className="w-25">
                                     <InputField
-                                        type="number"
+                                        type="text"
                                         name="price"
                                         labelName="Your Price"
                                         error={errors.price}
