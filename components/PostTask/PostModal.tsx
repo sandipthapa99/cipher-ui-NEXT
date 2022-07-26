@@ -105,7 +105,7 @@ const PostModal = ({ onSubmit }: Props) => {
 					<Col>
 						<Form.Group className="mb-3" controlId="formEstimatedHour" >
 							<Form.Label>Estimated Time(hr)</Form.Label>
-							<Form.Control style={errors.estimatedHour && touched.estimatedHour ? { border: '1px solid red' } : {}} type="number" placeholder="" {...getFieldProps('estimatedHour')} />
+							<Form.Control min={0} style={errors.estimatedHour && touched.estimatedHour ? { border: '1px solid red' } : {}} type="number" placeholder="" {...getFieldProps('estimatedHour')} />
 							{errors.estimatedHour && touched.estimatedHour ? <div style={{ color: 'red', fontSize: '12px' }} className='error-message'>{errors.estimatedHour
 							}</div> : null}
 						</Form.Group>
@@ -150,13 +150,13 @@ const PostModal = ({ onSubmit }: Props) => {
 					{ values.budgetType === 'range'&& 
 					<><Col>
 						<Form.Group>
-							<Form.Control type="number" placeholder="From" {...getFieldProps('minBudget')} />
+							<Form.Control type="number" placeholder="From"  {...getFieldProps('minBudget')} />
 
 						</Form.Group>
 					</Col>
 					<Col>
 						<Form.Group>
-							<Form.Control type="number" placeholder="To" {...getFieldProps('maxBudget')} />
+							<Form.Control type="number" placeholder="To"  {...getFieldProps('maxBudget')} />
 						</Form.Group>
 					</Col></>}
 				</Row>
@@ -199,7 +199,7 @@ const PostModal = ({ onSubmit }: Props) => {
 						Save Draft
 					</Button></div>
 
-					<div style={{ width: '183px', height: '40px' }}><Button type='button' onClick={() => handleSubmit()}  className="post" style={{ backgroundColor: '#211d4f', fontSize: '16px', borderRadius: '4px', width: '100%', height: '100%', padding: '8px 16px 8px 16px', outline: 'none' }}>
+					<div style={{ width: '183px', height: '40px' }}><Button disabled={Object.values(errors).length > 0} variant="light" type='button'  onClick={() => handleSubmit()}  className="post-modal" style={{border: '1px solid #211d4f',  fontSize: '16px', borderRadius: '4px', width: '100%', height: '100%', padding: '8px 16px 8px 16px', outline: 'none' }}>
 						Post
 					</Button></div>
 

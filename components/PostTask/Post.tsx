@@ -31,7 +31,7 @@ const Post = () => {
 					/>
 				</div>
 				<div className="text-post">
-					<p className="head">No active Task posts</p>
+					<p className="head">No Active Task posts</p>
 					<p className="para">
 						Post a task to the marketplace and let merchant come to you.
 					</p>
@@ -43,7 +43,7 @@ const Post = () => {
 				</div>
 			</div>
 
-			<Modal show={showModal}  className="post-modal">
+			<Modal show={showModal} onHide={handleClose} backdrop='static' className="post-modal">
 				<Modal.Header closeButton className="mt-4"></Modal.Header>
 				<Modal.Body>
 					<PostModal onSubmit = {handleClose} />
