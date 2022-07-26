@@ -1,0 +1,92 @@
+.notification-dropdown {
+    position: absolute;
+    background: white;
+    color: black;
+    max-width: 53.5rem;
+    z-index: 2;
+    right: 0;
+    padding: 1.6rem 0;
+    transform: translateY(5%);
+    border-radius: 1rem;
+
+    @include respond(md) {
+        width: 53.5rem;
+    }
+
+    .notification-title {
+        padding: 1.6rem 1.6rem;
+
+        svg {
+            height: 2rem;
+            width: 2rem;
+            fill: $primary-color;
+            margin: 0 0.8rem 0 0;
+        }
+        h3 {
+            font: 500 2rem $poppins-font;
+            margin: 0;
+        }
+    }
+
+    .second-title {
+        padding: 0 1.6rem;
+        .today,
+        .mark {
+            font: 400 1.2rem $poppins-font;
+            color: $primary-color;
+        }
+        .mark {
+            text-decoration: underline;
+        }
+    }
+}
+
+.notification-button {
+    position: relative;
+    color: white;
+
+    &:hover {
+        color: yellowgreen;
+    }
+}
+
+//Approve notification css
+.approve-notification-dropdown {
+    padding: 1.6rem;
+    background: #f8f9fa;
+    .dropdown-notification-image {
+        padding: 0 0.8rem 0 0;
+
+        img {
+            border-radius: 50%;
+        }
+    }
+
+    .description-section {
+        h4 {
+            font: 500 1.6rem $poppins-font;
+            color: #212529;
+            text-align: left;
+            margin: 0;
+
+            span {
+                font: 400 1.2rem $poppins-font;
+            }
+        }
+        p {
+            font: 400 1.2rem $poppins-font;
+            text-align: left;
+            margin: 0 0 0.6rem;
+        }
+        .date-approve-section {
+            .date {
+                font: 400 1rem $poppins-font;
+                color: $gray-text-color;
+            }
+            button {
+                height: 26px;
+                font-size: 1.2rem;
+            }
+        }
+    }
+}
