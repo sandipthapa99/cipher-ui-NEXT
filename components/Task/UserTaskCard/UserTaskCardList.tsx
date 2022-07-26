@@ -3,10 +3,17 @@ import { Task } from "types/tasks";
 
 export interface Props {
     tasks: Task[];
+    onTaskClick: (task: Task) => void;
 }
-export const UserTaskCardList = ({ tasks }: Props) => {
+export const UserTaskCardList = ({ tasks, onTaskClick }: Props) => {
     const renderTaskList = () => {
-        return tasks.map((task) => <UserTaskCard task={task} key={task.id} />);
+        return tasks.map((task) => (
+            <UserTaskCard
+                onTaskClick={() => onTaskClick(task)}
+                task={task}
+                key={task.id}
+            />
+        ));
     };
     return (
         <div className="user-task-card-list">

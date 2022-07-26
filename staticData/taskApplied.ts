@@ -5,7 +5,7 @@ export const taskApplied = [
         charge: "2000/hr",
         location: "Anamnagar, Baneshwor Kathamndu Nepal",
         date: "June 9, 2022",
-        time: "08:11 PM"
+        time: "08:11 PM",
     },
     {
         id: "1",
@@ -13,7 +13,7 @@ export const taskApplied = [
         charge: "4000/hr",
         location: "Anamnagar, Baneshwor Kathamndu Nepal",
         date: "June 9, 2022",
-        time: "08:11 PM"
+        time: "08:11 PM",
     },
     {
         id: "2",
@@ -21,7 +21,7 @@ export const taskApplied = [
         charge: "2000/hr",
         location: "Anamnagar, Baneshwor Kathamndu Nepal",
         date: "June 9, 2022",
-        time: "08:11 PM"
+        time: "08:11 PM",
     },
     {
         id: "3",
@@ -29,6 +29,6 @@ export const taskApplied = [
         charge: "9000/hr",
         location: "Anamnagar, Baneshwor Kathamndu Nepal",
         date: "June 9, 2022",
-        time: "08:11 PM"
+        time: "08:11 PM",
     },
-]
+];

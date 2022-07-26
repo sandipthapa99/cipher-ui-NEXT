@@ -12,10 +12,11 @@ import { Task } from "types/tasks";
 
 interface Props {
     task: Task;
+    onTaskClick: (task: Task) => void;
 }
-export const UserTaskCard = ({ task }: Props) => {
+export const UserTaskCard = ({ task, onTaskClick }: Props) => {
     return (
-        <div className="user-task-card">
+        <div className="user-task-card" onClick={() => onTaskClick(task)}>
             <div className="user-task-card__header">
                 <Image
                     src={task.user.profileImage}
