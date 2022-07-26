@@ -1,0 +1,45 @@
+.profile-task {
+    border: 0.6rem;
+
+    .thumbnail-img {
+        height: 27rem;
+        border-radius: 0.6rem;
+    }
+    .card-content {
+        padding: 2.3rem 1.8rem;
+        .card-title {
+            color: #101113;
+            font-weight: 500;
+            margin-bottom: 0rem;
+            margin-bottom: 0.8rem;
+        }
+        p {
+            margin-bottom: 0rem;
+            font-weight: 400;
+        }
+        .address {
+            color: #5c5f66;
+            font-size: 1.2rem;
+        }
+        .description {
+            padding-top: 1.4rem;
+            line-height: 2rem;
+            font-size: 1.3rem;
+            color: $default-text-color;
+            padding-bottom: 1.5rem;
+        }
+
+        .value {
+            font-size: 1.4rem;
+            color: #101113;
+        }
+        .svg-icon {
+            color: #fab005;
+        }
+        .price {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #101113;
+        }
+    }
+}

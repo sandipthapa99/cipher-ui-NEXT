@@ -2,40 +2,47 @@
     &__top-container {
         padding-bottom: 5rem;
     }
+
     &__bottom-container {
         padding-top: 5rem;
         background: #ffffff;
         margin-bottom: 5rem;
 
-        .tabs {
-            .nav-tabs {
-                border-bottom: 0.1rem solid $border-color;
-                padding: 0rem 4rem;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
-            .nav-item {
-                color: $default-text-color;
-                font-weight: 500;
-                ///padding-right: 6rem;
-            }
+        .nav-tabs {
+            border-bottom: 0.1rem solid $border-color;
+            padding: 0rem 4rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
 
-            .nav-link {
-                color: #868e96;
-                &:active {
-                    border-bottom: 0.4rem solid #fca500 !important;
-                    border-radius: 0.7rem !important;
-                }
-            }
+        .nav-item {
+            color: $default-text-color;
+            font-weight: 500;
+            ///padding-right: 6rem;
+        }
 
-            .nav-link.active {
-                border: none;
-                border-bottom: 0.4rem solid #fca500;
+        .nav-link {
+            color: #868e96;
+
+            &:active {
+                border-bottom: 0.4rem solid #fca500 !important;
+                border-radius: 0.7rem !important;
             }
         }
+
+        .nav-link.active {
+            border: none;
+            border-bottom: 0.4rem solid #fca500;
+        }
+        .task-container {
+            margin: 5rem 2.5rem;
+            margin-right: 6rem;
+        }
+
         .reviews {
             padding-bottom: 2.5rem;
+
             .head-container {
                 display: flex;
                 flex-direction: column;
@@ -47,6 +54,7 @@
                 @include respond(sm) {
                     flex-direction: row;
                 }
+
                 h3 {
                     padding-top: 2rem;
                     padding-bottom: 1.4rem;
@@ -54,32 +62,39 @@
                     font-weight: 500;
                     color: $default-text-color;
                 }
+
                 .dropdowns {
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: center;
                     align-items: center;
                     padding-bottom: 2rem;
+
                     @include respond(sm) {
                         padding-bottom: 0rem;
                     }
                 }
+
                 .review-type {
                     margin-right: 3rem;
                     flex: 0.4;
                 }
+
                 .relevancy {
                     flex: 0.6;
                 }
+
                 .dropdown-wrapper {
                     width: 30%;
                     padding: 0rem 0;
                     background: rgba(255, 255, 255, 0.8);
                     border-radius: 0.4rem;
                     border: 1px solid #dde2f1;
+
                     @include respond(lg) {
                         width: 35%;
                     }
+
                     .dropdown-menu {
                         width: 6rem !important;
                     }
@@ -90,15 +105,18 @@
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
+
                         .form-group {
                             margin: 0;
                             z-index: 1;
+
                             .form-control {
                                 border: none;
                                 height: 3.4rem;
                                 font-size: 1.3rem;
                                 cursor: pointer;
                                 background: transparent;
+
                                 &::placeholder {
                                     color: #868e96;
                                     font-family: $poppins-font;
@@ -107,6 +125,7 @@
                                 }
                             }
                         }
+
                         .svg-icon {
                             margin-right: 2rem;
                             z-index: 0;
@@ -114,6 +133,7 @@
                     }
                 }
             }
+
             .review-container {
                 padding-left: 2.5rem;
             }
