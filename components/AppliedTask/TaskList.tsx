@@ -7,13 +7,14 @@ import {
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Formik, Form } from "formik";
+import { Form,Formik } from "formik";
 import Image from "next/image";
 import React from "react";
 import { TaskList } from "staticData/taskListData";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+
 import picture from "../../public/aboutus/about.png";
 
 const TaskList = ({ task }: { task: TaskList }) => {

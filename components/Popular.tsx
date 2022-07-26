@@ -1,8 +1,9 @@
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Col, Container,Row } from "react-bootstrap";
 import { servicesDiscover } from "staticData/services";
+
 import ServiceCard from "./common/ServiceCard";
 
 const Popular = () => {
