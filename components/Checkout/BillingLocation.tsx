@@ -3,7 +3,13 @@ import { faLocationDot, faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnchorButton from "@components/common/AnchorButton";
 
-const BillingLocation = () => {
+import { billingLocationContent } from "../../staticData/billingLocationData";
+
+interface BillingLocationProps {
+    location: string;
+}
+
+const BillingLocation = ({ location }: BillingLocationProps) => {
     return (
         <div className="billing-location">
             <h2>Billing Location</h2>
@@ -13,7 +19,7 @@ const BillingLocation = () => {
                         icon={faLocationDot}
                         className="svg-icon-location"
                     />
-                    Buddhanagar, Kathmandu
+                    {location}
                 </span>
                 <AnchorButton className={"px-5"} href={""}>
                     Change
