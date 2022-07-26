@@ -14,6 +14,8 @@ import { userProfileCardInfo } from "staticData/userProfileCard";
 import TasksProfileCard from "@components/Profile/TasksProfile";
 import { profileTaskCard } from "staticData/profileTaskCard";
 import SavedBookings from "@components/Profile/SavedBookings";
+import UserActivities from "@components/Profile/Activities";
+import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
 
 const UserProfile: NextPage = () => {
     const [key, setKey] = useState("about");
@@ -101,7 +103,13 @@ const UserProfile: NextPage = () => {
                                     eventKey="activities"
                                     title="Activities"
                                 >
-                                    <AboutProfile />
+                                    <div className="activities">
+                                        {userActivitiesTimeline && userActivitiesTimeline.map((activity) => (
+                                            <UserActivities title={activity.title} date={activity.date} image={activity.image} editService={activity.editService} loggedInDate={activity.loggedInDate} ipAddress={activity.ipAddress} />
+                                        ))}
+                                    </div>
+
+
                                 </Tab>
                                 <Tab
                                     key="5"
