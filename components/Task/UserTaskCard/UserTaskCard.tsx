@@ -33,7 +33,7 @@ export const UserTaskCard = ({ task, onTaskClick }: Props) => {
                             {task.user.category}
                         </span>
                         <span> | </span>
-                        <span>{task.user.location}</span>
+                        <span className="td-text">{task.user.location}</span>
                     </span>
                     <div className="user-ratings">
                         <div className="d-flex align-items-center">
@@ -69,7 +69,7 @@ export const UserTaskCard = ({ task, onTaskClick }: Props) => {
                     icon={faEllipsisVertical}
                 />
             </div>
-            <p className="user-info__bio">{task.user.bio}</p>
+            <p className="td-text user-info__bio">{task.user.bio}</p>
             <div className="user-task-card__footer">
                 <FontAwesomeIcon
                     color="#FE5050"

@@ -5,6 +5,10 @@
     background-color: $white;
     border-radius: 4px;
 }
+.td-text {
+    margin: 0;
+    font-weight: normal;
+}
 //task detail header
 .td-user-image-container {
     position: relative;
@@ -49,6 +53,11 @@
     background-color: #ffca6a;
     color: #000;
     outline: 1px solid transparent;
+    border: 1px solid transparent;
+
+    &:hover {
+        filter: brightness(95%);
+    }
 }
 
 .td-filter-review-container {
@@ -79,6 +88,10 @@
     border: 1px solid transparent;
     color: $white;
     border-radius: 4px;
+
+    &:hover {
+        background-color: rgba($primary-color, 0.9);
+    }
 }
 .td-reviews-count {
     color: $gray-text-color;

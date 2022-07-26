@@ -1,11 +1,8 @@
-import FormButton from "@components/common/FormButton";
 import { RatingStars } from "@components/common/RatingStars";
 import {
     faBadgeCheck,
-    faBarChart,
     faEllipsisVertical,
     faHeart,
-    faMedal,
     faShare,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -79,7 +76,7 @@ export const UserTaskDetailHeader = ({
                         />
                     </Col>
                 </Row>
-                <p>{taskDetail.charge}</p>
+                <p className="td-text my-4">{taskDetail.charge}</p>
                 <button className="td-hire-me-btn" type="button">
                     Hire Me
                 </button>

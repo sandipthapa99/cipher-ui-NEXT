@@ -17,23 +17,27 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
             <Col>
                 <p>
                     <FontAwesomeIcon className="svg-icon" icon={faLocation} />
-                    <span>{user.location}</span>
+                    <span className="td-text">{user.location}</span>
                 </p>
                 <p>
                     <FontAwesomeIcon className="svg-icon" icon={faClock} />
-                    <span>{user.activeHours}</span>
+                    <span className="td-text">{user.activeHours}</span>
                 </p>
                 <p>
                     <FontAwesomeIcon className="svg-icon" icon={faUser} />
-                    <span>Member Since {user.memberSince}</span>
+                    <span className="td-text">
+                        Member Since {user.memberSince}
+                    </span>
                 </p>
                 <p>
                     <FontAwesomeIcon className="svg-icon" icon={faStar} />
-                    <span>{user.offeredServices.join(", ")}</span>
+                    <span className="td-text">
+                        {user.offeredServices.join(", ")}
+                    </span>
                 </p>
             </Col>
             <Col>
-                <p>{user.bio}</p>
+                <p className="td-text">{user.bio}</p>
             </Col>
         </Row>
     );
