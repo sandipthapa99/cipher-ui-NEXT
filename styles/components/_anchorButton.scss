@@ -1,0 +1,10 @@
+.anchor-button {
+    font-weight: 400;
+    font-size: 1.6rem;
+    background: #e7e8f0;
+    color: #211d4f;
+    &:hover {
+        background: $primary-color;
+        color: #fff;
+    }
+}
