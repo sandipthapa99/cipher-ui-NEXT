@@ -1,3 +1,4 @@
+import TaskList from "@components/AppliedTask/TaskList";
 import BillingLocation from "@components/Checkout/BillingLocation";
 import Breadcrum from "@components/common/Breadcrum";
 import Footer from "@components/Footer";
@@ -6,8 +7,10 @@ import SearchHeader from "@components/SearchTask/searchHeader";
 import React, { Fragment } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { billingLocationContent } from "staticData/billingLocationData";
+import { taskListContent } from "staticData/taskListData";
 
 const Checkout = () => {
+    console.log(taskListContent);
     return (
         <Fragment>
             <SearchHeader />
@@ -19,13 +22,15 @@ const Checkout = () => {
                 <Container fluid="xl">
                     <Breadcrum currentPage={"Checkout"} />
                     <h1>Checkout</h1>
-                    <Row>
-                        <Col lg={7}>
+                    <Row className="g-5">
+                        <Col lg={8}>
                             <BillingLocation
                                 location={billingLocationContent.location}
                             />
                         </Col>
-                        <Col lg={5}>asdsad</Col>
+                        <Col lg={4}>
+                            <TaskList task={taskListContent} />
+                        </Col>
                     </Row>
                 </Container>
             </section>
