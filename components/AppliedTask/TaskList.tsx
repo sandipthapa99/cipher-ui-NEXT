@@ -1,8 +1,6 @@
 import AnchorButton from "@components/common/AnchorButton";
-import BigButton from "@components/common/Button";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import { icon } from "@fortawesome/fontawesome-svg-core";
 import {
     faCalendar,
     faClockEight,
@@ -12,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik, Form } from "formik";
 import Image from "next/image";
 import React from "react";
-import { Button } from "react-bootstrap";
 import { TaskList } from "staticData/taskListData";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
@@ -42,17 +39,17 @@ const TaskList = ({ task }: { task: TaskList }) => {
                                 icon={faCalendar}
                                 className="svg-icon-calender"
                             />
-                            June 9, 2022
+                            {task.cardDate}
                         </p>
                         <p>
                             <FontAwesomeIcon
                                 icon={faClockEight}
                                 className="svg-icon-clock"
                             />
-                            08:11 PM
+                            {task.cardTime}
                         </p>
                     </div>
-                    <span>Rs 1,000</span>
+                    <span>{task.cardPrice}</span>
                 </div>
             </div>
             <div className="task-list__promo">
@@ -98,7 +95,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
             </div>
             <div className="d-flex justify-content-between mt-4 task-list__totalprice">
                 Total
-                <span>Rs 1,000</span>
+                <span>{task.cardPrice}</span>
             </div>
             <AnchorButton
                 className={"w-100 task-list__button"}

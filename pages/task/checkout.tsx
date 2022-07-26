@@ -4,6 +4,7 @@ import ExtraSection from "@components/Checkout/ExtraSection";
 import Breadcrum from "@components/common/Breadcrum";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
+import Popular from "@components/Popular";
 import SearchHeader from "@components/SearchTask/searchHeader";
 import React, { Fragment } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -36,6 +37,8 @@ const Checkout = () => {
                     </Row>
                 </Container>
             </section>
+            <Popular />
+            <Popular />
             <Footer />
         </Fragment>
     );
