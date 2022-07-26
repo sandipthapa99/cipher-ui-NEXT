@@ -16,6 +16,8 @@ import { profileTaskCard } from "staticData/profileTaskCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import UserActivities from "@components/Profile/Activities";
 import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
+import UserDocument from "@components/Profile/Document";
+import { userDocument } from "staticData/userDocument";
 
 const UserProfile: NextPage = () => {
     const [key, setKey] = useState("about");
@@ -116,7 +118,25 @@ const UserProfile: NextPage = () => {
                                     eventKey="documents"
                                     title="Documents"
                                 >
-                                    <AboutProfile />
+                                    <div className="user-document">
+                                        <div className="title-wrapper d-flex justify-content-between">
+                                            {/* <h2 className="heading-title">Community activity</h2> */}
+                                            <h1>My Documents</h1>
+                                            <a href="#!">Add New</a>
+                                        </div>
+                                        <div className="content">
+                                            <Row>
+
+                                                {userDocument && userDocument.map((document) => (
+                                                    <Col key={document.id} md={2} className="gx-5">
+                                                        <UserDocument name={document.name} type={document.type} />
+                                                    </Col>))}
+
+                                            </Row>
+                                        </div>
+
+                                    </div>
+
                                 </Tab>
                                 <Tab key="6" eventKey="rewards" title="Rewards">
                                     <AboutProfile />
