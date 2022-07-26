@@ -1,9 +1,9 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import React from "react";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+
 import Modal from "react-bootstrap/Modal";
 import { BookNowModalCardProps } from "types/bookNow";
 import { ApplyFormData } from "utils/formData";
