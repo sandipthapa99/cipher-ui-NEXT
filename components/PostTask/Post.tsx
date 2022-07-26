@@ -4,11 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
-
+import { PostCard } from './PostCard';
 import PostModal from './PostModal';
+import {faSquareCheck} from '@fortawesome/pro-regular-svg-icons'
 
 const Post = () => {
+	
 	const [showModal, setShowModal] = useState(false);
+	
 	const handleShow = () => setShowModal(true);
 	const handleClose = () => setShowModal(false);
 	return (
@@ -40,24 +43,15 @@ const Post = () => {
 				</div>
 			</div>
 
-			<Modal show={showModal} onHide={handleClose} className="post-modal">
+			<Modal show={showModal}  className="post-modal">
 				<Modal.Header closeButton className="mt-4"></Modal.Header>
 				<Modal.Body>
-					<PostModal />
+					<PostModal onSubmit = {handleClose} />
+
 				</Modal.Body>
-				<Modal.Footer>
-					<Button
-						variant="light"
-						style={{ border: '1px solid #211d4f' }}
-						className="save-draft"
-					>
-						Save Draft
-					</Button>
-					<Button className="post" style={{ backgroundColor: '#211d4f' }}>
-						Post
-					</Button>
-				</Modal.Footer>
+			
 			</Modal>
+			<PostCard text="You are good to continue." buttonName="Continue" type="Success" iconName={faSquareCheck}/>
 		</>
 	);
 };
