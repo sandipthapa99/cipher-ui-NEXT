@@ -49,7 +49,7 @@ export const UserTaskDetailHeader = ({
                 >
                     {taskDetail.title}
                 </h4>
-                <p>{taskDetail.category}</p>
+                <p className="td-text mb-4">{taskDetail.category}</p>
                 <RatingStars value={taskDetail.totalRatings} />
                 <UserStats {...taskDetail.user} />
             </Col>

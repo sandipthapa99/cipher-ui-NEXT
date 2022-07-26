@@ -14,11 +14,7 @@ const Tasker = () => {
     const [activeTaskIdx, setActiveTaskIdx] = useState<number | undefined>();
 
     const toggleActiveTask = (task: Task) => {
-        setActiveTaskIdx((prevActiveTaskIdx) =>
-            prevActiveTaskIdx !== undefined && prevActiveTaskIdx === task.id
-                ? undefined
-                : task.id
-        );
+        setActiveTaskIdx(task.id);
     };
 
     const filteredTasks = useMemo(
