@@ -5,6 +5,7 @@ import {
     faLocationDot,
     faObjectsColumn,
     faTelescope,
+    faBell,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -134,9 +135,8 @@ const Header = () => {
 
                         <li onClick={() => setNotopen(!notopen)}>
                             <a className="btn notification-button d-none d-md-inline-block">
-                                Notifications
                                 <FontAwesomeIcon
-                                    icon={faLocationDot}
+                                    icon={faBell}
                                     className="svg-icon"
                                 />
                                 {notopen && <NotificationDropdown />}
