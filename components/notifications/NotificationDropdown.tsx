@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/pro-regular-svg-icons";
 import { AcceptedNotification } from "./AcceptedNotification";
 import { ApproveNotification } from "./dropdown-notifications/ApproveNotification";
+import { CreatedTask } from "./dropdown-notifications/CreatedTask";
+import Link from "next/link";
 
 export const NotificationDropdown = () => {
     return (
@@ -17,6 +19,15 @@ export const NotificationDropdown = () => {
             </div>
 
             <ApproveNotification />
+            <ApproveNotification />
+            <CreatedTask />
+            <CreatedTask text_after="for Bathroom" />
+
+            <div className="d-flex align-items-center justify-content-center footer-section">
+                <Link href="/notifications">
+                    <a>See all Notifications</a>
+                </Link>
+            </div>
         </div>
     );
 };
