@@ -1,60 +1,62 @@
 import {
-  faBadge,
+  faAt,
+  faCircleQuestion,
   faEllipsisVertical,
-  faEye,
-  faHeart,
-  faLocation,
+  faLocationDot,
+  faPhone,
   faShare,
-  faSmile,
+  faSparkles,
+  faStar,
+  faTimer,
 } from '@fortawesome/pro-regular-svg-icons'
-import { faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import { Col,Row } from 'react-bootstrap'
-import { merchantProfileCardInfo } from 'staticData/merchantProfileCard'
-import { MerchantProfileInfoProps } from 'types/merchantProfile'
+import { UserProfileInfoProps } from 'types/userProfile'
 
-import BigButton from './Button'
-import CardBtn from './CardBtn'
-
-const MerchantProfileCard = ({
-  merchantImage,
-  merchantJob,
-  merchantOrganization,
-  merchantLocation,
-  merchantBio,
-  merchantRating,
-  merchantPrice,
+const UserProfileCard = ({
+  userImage,
+  userJob,
+  userName,
+  userRating,
+  userPrice,
+  userLocation,
+  userPhone,
+  userEmail,
+  moreServices,
+  activeFrom,
+  activeTo,
+  userBio,
+  userBadge,
+  userPoints,
+  pointGoal,
   happyClients,
   successRate,
   userReviews,
   taskCompleted,
-  activeFrom,
-  activeTo,
-  memberSince,
-  merchantActiveStatus,
-  moreServices,
-}: MerchantProfileInfoProps) => {
+  userActiveStatus,
+  tooltipMessage,
+}: UserProfileInfoProps) => {
   return (
     <div className="profile-card-block">
       <Row>
         <Col md={3} className="profile-card-block__profile">
           <figure className="thumbnail-img">
             <Image
-              src={merchantImage}
+              src={userImage}
               layout="fill"
               // height={300}
               objectFit="cover"
-              alt="merchant-profile-image"
+              alt="user-profile-image"
             />
           </figure>
           <div className="profile-intro d-flex">
-            <h1 className="job">I am the {merchantJob}</h1>
+            <h1 className="name">{userName}</h1>
             <div className="active"></div>
           </div>
-          <p className="organization">Organization | {merchantOrganization}</p>
+          <p className="organization">Individual | {userJob}</p>
           <div className="rating">
-            {Array.from({ length: merchantRating }, (_, i) => (
+            {Array.from({ length: userRating }, (_, i) => (
               <span key={i}>
                 {' '}
                 <figure className="thumbnail-img">
@@ -67,55 +69,62 @@ const MerchantProfileCard = ({
                 </figure>
               </span>
             ))}
+            {Array.from({ length: 5 - userRating }, (_, i) => (
+              <span key={i}>
+                {' '}
+                <FontAwesomeIcon icon={faStar} className="svg-icon" />
+              </span>
+            ))}
           </div>
-          <div className="price">${merchantPrice}/hr</div>
-          <button className="button">Hire Me</button>
+          <div className="price">${userPrice}/hr</div>
+          <button className="button">Edit Profile</button>
         </Col>
 
         <Col md={9} className="profile-card-block__general-info">
           <Row className="top-container">
-            <Col md={7}>
+            <Col md={6}>
               <h1>General Information</h1>
 
               <div className="content">
                 <div className="type d-flex flex-col">
-                  <FontAwesomeIcon
-                    icon={faLocation}
-                    className="thumbnail-img"
-                  />
+                  <FontAwesomeIcon icon={faPhone} className="thumbnail-img" />
 
-                  <p>{merchantLocation}</p>
+                  <p>{userPhone}</p>
+                </div>
+                <div className="type d-flex flex-col">
+                  <FontAwesomeIcon icon={faAt} className="thumbnail-img" />
+
+                  <p>{userEmail}</p>
                 </div>
                 <div className="type d-flex flex-col">
                   <FontAwesomeIcon
-                    icon={faLocation}
+                    icon={faLocationDot}
                     className="thumbnail-img"
                   />
+
+                  <p>{userLocation}</p>
+                </div>
+
+                <div className="type d-flex flex-col">
+                  <FontAwesomeIcon icon={faTimer} className="thumbnail-img" />
                   <p>
                     &nbsp;Active Hours {activeFrom}:00 AM to {activeTo}:00 PM
                   </p>
                 </div>
-                <div className="type d-flex flex-col">
-                  <FontAwesomeIcon
-                    icon={faLocation}
-                    className="thumbnail-img"
-                  />
-                  <p>Member Since &nbsp;{memberSince}</p>
-                </div>
 
                 <div className="success-rate type d-flex flex-col">
                   <div className="count d-flex flex-row">
-                    <FontAwesomeIcon icon={faBadge} className="thumbnail-img" />
+                    <FontAwesomeIcon
+                      icon={faSparkles}
+                      className="thumbnail-img"
+                    />
                     <p>{moreServices}</p>
                   </div>
                 </div>
               </div>
             </Col>
-            <Col md={5}>
+            <Col md={6}>
               <div className="reactions d-flex">
-                <div className="d-flex flex-col save">
-                  <FontAwesomeIcon icon={faHeart} className="svg-icon heart" />
-                </div>
                 <div className="d-flex flex-col share">
                   <FontAwesomeIcon icon={faShare} className="svg-icon share" />
                 </div>
@@ -126,7 +135,29 @@ const MerchantProfileCard = ({
               </div>
               <div className="bio d-flex">
                 <p className="title">Bio</p>
-                <p className="details">{merchantBio}</p>
+                <p className="details">{userBio}</p>
+              </div>
+              <div className="user-type-status">
+                <figure className="thumbnail-img">
+                  <Image
+                    src="/userprofile/userprofile.jpg"
+                    layout="fill"
+                    objectFit="cover"
+                    alt="user-type-icon"
+                  />
+                </figure>
+                <div className="left">
+                  <div className="user-type d-flex">
+                    <h1>{userBadge}</h1>
+                    <FontAwesomeIcon
+                      icon={faCircleQuestion}
+                      className="svg-icon"
+                    />
+                  </div>
+                  <p className="user-point">{userPoints} points</p>
+                  <div className="progress-bar"></div>
+                  <p>Earn {pointGoal} points more to reach Gold</p>
+                </div>
               </div>
             </Col>
           </Row>
@@ -179,4 +210,4 @@ const MerchantProfileCard = ({
     </div>
   )
 }
-export default MerchantProfileCard
+export default UserProfileCard

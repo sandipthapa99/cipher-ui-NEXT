@@ -1,0 +1,100 @@
+.user-profile {
+  &__top-container {
+    padding-bottom: 5rem;
+  }
+  &__bottom-container {
+    padding-top: 5rem;
+    background: #ffffff;
+
+    .tabs {
+      .nav-tabs {
+        border-bottom: 0.1rem solid $border-color;
+        padding-left: 4rem;
+      }
+      .nav-item {
+        color: $default-text-color;
+        font-weight: 500;
+        padding-right: 5rem;
+      }
+
+      .nav-link {
+        border-radius: none !important;
+        color: #868e96;
+        &:active {
+          border-bottom: 0.4rem solid #fca500 !important;
+          border-radius: 0.7rem;
+        }
+        &:hover,
+        :visited {
+          border: none;
+        }
+      }
+
+      .nav-link.active {
+        border: none;
+        border-bottom: 0.4rem solid #fca500;
+      }
+    }
+    .reviews {
+      padding-left: 2.5rem;
+      h1 {
+        font-size: 1.7rem;
+        font-weight: 500;
+        color: $default-text-color;
+      }
+      .head-container {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 0.18rem solid $border-color;
+
+        .dropdowns {
+          display: flex;
+        }
+        .dropdown-wrapper {
+          width: 30%;
+          padding: 0rem 0;
+          background: rgba(255, 255, 255, 0.8);
+          border-radius: 0.4rem;
+          border: 1px solid #dde2f1;
+          @include respond(lg) {
+            width: 35%;
+          }
+          .dropdown-menu {
+            width: 6rem !important;
+          }
+          .dropdown {
+            color: #9fa3b1;
+            //position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .form-group {
+              margin: 0;
+              z-index: 1;
+              .form-control {
+                border: none;
+                height: 3.4rem;
+                font-size: 1.3rem;
+                cursor: pointer;
+                background: transparent;
+                &::placeholder {
+                  color: #868e96;
+                  font-family: $poppins-font;
+                  font-size: 1.6rem;
+                  font-weight: 500;
+                }
+              }
+            }
+            .svg-icon {
+              //position: absolute;
+              //top: 35%;
+              //left: 100%;
+              margin-right: 2rem;
+              z-index: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -7,7 +7,7 @@ export const serviceProvider = [
     happyClients: 200,
     address: 'Buddhanagar, Kathmandu',
     successRate: 90,
-    startingPrice: 1000,
+    startingPrice: '50-100',
     image: '/service-details/provider1.svg',
   },
 ]

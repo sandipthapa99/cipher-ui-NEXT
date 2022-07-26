@@ -3,6 +3,7 @@ import { PacakageCardProps } from 'types/packageCard'
 
 import CardBtn from './CardBtn'
 import PackageServiceHighlights from './PackageServiceHighlights'
+import ServiceHighlights from './ServiceHighlights'
 const PackageOffersCard = ({
   title,
   price,

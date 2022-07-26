@@ -28,7 +28,12 @@
     border-width: 1px 0px;
     border-style: solid;
     border-color: #edf4ff;
-    flex-wrap: wrap;
+    flex-direction: column;
+
+    @include respond(md) {
+        flex-direction: row;
+    }
+    // flex-wrap: wrap;
 
     .notification-image {
         padding: 0 0.8rem 0 0;
@@ -83,9 +88,12 @@
 
 //Accept reject component
 .accept-reject-component {
-    margin: 2rem 0;
+    margin: 0 1rem;
     button {
         margin: 1.6rem;
         border: 1px solid #211d4f;
+        height: 2.4rem;
+        display: flex;
+        align-items: center;
     }
 }

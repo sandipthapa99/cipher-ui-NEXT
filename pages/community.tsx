@@ -49,7 +49,6 @@ const Community: NextPage = () => {
                 backgroundColor="#fff"
                 textColor=""
               />
-              {/* <Button className="button">Join Us</Button> */}
             </Col>
           </Row>
         </div>

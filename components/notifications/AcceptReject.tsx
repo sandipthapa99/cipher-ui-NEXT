@@ -3,7 +3,7 @@ import React from "react";
 
 export const AcceptReject = () => {
     return (
-        <div className="accept-reject-component">
+        <div className="d-flex accept-reject-component">
             <BigButton
                 btnTitle={"Reject"}
                 backgroundColor={"#fff"}
