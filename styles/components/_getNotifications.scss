@@ -76,6 +76,7 @@
         margin: 0 1.6rem 0 0;
     }
     button {
+        margin: 0 0 0 1.6rem;
         color: white;
         height: 2.4rem;
         display: flex;
@@ -95,5 +96,16 @@
         height: 2.4rem;
         display: flex;
         align-items: center;
+    }
+
+    .reject {
+        button {
+            color: black;
+        }
+    }
+    .accept {
+        button {
+            color: white;
+        }
     }
 }

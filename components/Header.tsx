@@ -133,14 +133,17 @@ const Header = () => {
                             </a>
                         </Link>
 
-                        <li onClick={() => setNotopen(!notopen)}>
-                            <a className="btn notification-button d-none d-md-inline-block">
+                        <li className="notification-dropdown-icon">
+                            <a
+                                className="btn notification-button d-none d-md-inline-block"
+                                onClick={() => setNotopen(!notopen)}
+                            >
                                 <FontAwesomeIcon
                                     icon={faBell}
                                     className="svg-icon"
                                 />
-                                {notopen && <NotificationDropdown />}
                             </a>
+                            {notopen && <NotificationDropdown />}
                         </li>
 
                         {/* <Button type="button" className="mega-menu-toggler">

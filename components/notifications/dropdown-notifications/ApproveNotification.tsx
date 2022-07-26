@@ -1,8 +1,17 @@
 import Image from "next/image";
 import React from "react";
 import { AcceptReject } from "../AcceptReject";
+import { Pay } from "../Pay";
 
-export const ApproveNotification = () => {
+interface ApproveNotificationProps{
+    accept?: boolean
+    pay?: boolean
+}
+
+export const ApproveNotification = ({
+    accept,
+    pay,
+}: ApproveNotificationProps) => {
     return (
         <div className="d-flex approve-notification-dropdown">
             <figure className="dropdown-notification-image">
@@ -25,7 +34,8 @@ export const ApproveNotification = () => {
                 </p>
                 <div className="d-flex align-items-center justify-content-between date-approve-section">
                     <p className="date">Tuesday 03:30 AM</p>
-                    <AcceptReject />
+                    {accept && <AcceptReject />}
+                    {pay && <Pay />}
                 </div>
             </div>
         </div>

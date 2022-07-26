@@ -5,6 +5,7 @@ import { AcceptedNotification } from "./AcceptedNotification";
 import { ApproveNotification } from "./dropdown-notifications/ApproveNotification";
 import { CreatedTask } from "./dropdown-notifications/CreatedTask";
 import Link from "next/link";
+import { Pay } from "./Pay";
 
 export const NotificationDropdown = () => {
     return (
@@ -18,8 +19,8 @@ export const NotificationDropdown = () => {
                 <p className="mark">Mark all as read</p>
             </div>
 
-            <ApproveNotification />
-            <ApproveNotification />
+            <ApproveNotification accept={true} />
+            <ApproveNotification pay={true} />
             <CreatedTask />
             <CreatedTask text_after="for Bathroom" />
 
