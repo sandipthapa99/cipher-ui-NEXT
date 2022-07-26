@@ -107,7 +107,7 @@ const UserProfile: NextPage = () => {
                                 >
                                     <div className="activities">
                                         {userActivitiesTimeline && userActivitiesTimeline.map((activity) => (
-                                            <UserActivities title={activity.title} date={activity.date} image={activity.image} editService={activity.editService} loggedInDate={activity.loggedInDate} ipAddress={activity.ipAddress} />
+                                            <UserActivities key={activity.id} title={activity.title} date={activity.date} image={activity.image} editService={activity.editService} loggedInDate={activity.loggedInDate} ipAddress={activity.ipAddress} />
                                         ))}
                                     </div>
 
@@ -128,7 +128,7 @@ const UserProfile: NextPage = () => {
                                             <Row>
 
                                                 {userDocument && userDocument.map((document) => (
-                                                    <Col key={document.id} md={2} className="gx-5">
+                                                    <Col key={document.id} md={3} lg={2} sm={4} xs={6} className="gx-5">
                                                         <UserDocument name={document.name} type={document.type} />
                                                     </Col>))}
 

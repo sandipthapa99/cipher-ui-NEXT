@@ -4,7 +4,9 @@
     padding-left: 2.5rem;
     padding-right: 2.5rem;
     .content {
-        padding-right: 9rem;
+        @include respond(md) {
+            padding-right: 9rem;
+        }
     }
     h1 {
         font-weight: 500;

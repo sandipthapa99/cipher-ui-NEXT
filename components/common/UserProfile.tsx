@@ -146,13 +146,15 @@ const UserProfileCard = ({
                   />
                 </figure>
                 <div className="left">
-                  <div className="user-type d-flex">
+                  <div data-for="registerTip" className="user-type d-flex">
                     <h1>{userBadge}</h1>
                     <FontAwesomeIcon
+
                       icon={faCircleQuestion}
                       className="svg-icon"
                     />
                   </div>
+
                   <p className="user-point">{userPoints} points</p>
                   <div className="progress-bar"></div>
                   <p>Earn {pointGoal} points more to reach Gold</p>

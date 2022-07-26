@@ -11,6 +11,11 @@
             border: 0.1rem solid $sub-title-color;
             background: transparent;
             box-shadow: none;
+            @include transition();
+            &:hover {
+                background-color: $primary-color;
+                color: #fff;
+            }
         }
         .star {
             color: #ced4da;
