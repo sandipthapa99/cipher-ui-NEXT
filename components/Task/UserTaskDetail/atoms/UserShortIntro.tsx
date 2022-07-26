@@ -13,7 +13,7 @@ interface UserShortIntroProps {
 }
 export const UserShortIntro = ({ user }: UserShortIntroProps) => {
     return (
-        <Row className="td-user-short-intro">
+        <Row className="td-text">
             <Col>
                 <p>
                     <FontAwesomeIcon className="svg-icon" icon={faLocation} />
