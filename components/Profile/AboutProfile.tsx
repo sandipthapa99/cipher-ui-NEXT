@@ -167,7 +167,7 @@ const AboutProfile = () => {
                           name="review"
                           options={personType}
                           fieldRequired
-                          defaultValue='Tasker'
+                          placeHolder='Tasker'
                         />
                         <FontAwesomeIcon
                           icon={faChevronDown}
@@ -189,7 +189,7 @@ const AboutProfile = () => {
                         <SelectInputField
                           name="review"
                           options={reviewType}
-                          placeholder="Most Relevant"
+                          placeHolder='Most Relevant'
                           fieldRequired
                         />
                         <FontAwesomeIcon

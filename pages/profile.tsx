@@ -85,13 +85,13 @@ const UserProfile: NextPage = () => {
                                 <Tab key="0" eventKey="about" title="About">
                                     <AboutProfile />
                                 </Tab>
-                                <Tab
+                                {/* <Tab
                                     key="1"
                                     eventKey="organization"
                                     title="Organization"
                                 >
                                     <OrganizationProfile />
-                                </Tab>
+                                </Tab> */}
                                 <Tab key="2" eventKey="tasks" title="Tasks">
 
                                     <TasksProfileCard />
@@ -120,7 +120,6 @@ const UserProfile: NextPage = () => {
                                 >
                                     <div className="user-document">
                                         <div className="title-wrapper d-flex justify-content-between">
-                                            {/* <h2 className="heading-title">Community activity</h2> */}
                                             <h1>My Documents</h1>
                                             <a href="#!">Add New</a>
                                         </div>
