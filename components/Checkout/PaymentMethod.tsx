@@ -17,7 +17,6 @@ function ContextAwareToggle({ children, eventKey, callback }) {
   return (
     <button
       type="button"
-      style={{ backgroundColor: isCurrentEventKey ? 'pink' : 'lavender' }}
       onClick={decoratedOnClick}
     >
       {children}
@@ -32,27 +31,11 @@ const PaymentMethod = () => {
         Payment Methods
       </h2>
         <div className='payment-method-wraper__cards'>
-          <ul>
-            <li>     
-              
-            </li> 
-            <li>
-              Digital Wallet (3)     
-            </li> 
-            <li>
-              Linked Bank (2)
-            </li>
-            <li>
-              Other Methods (3)
-            </li>
-          </ul>
           <Accordion defaultActiveKey="0">
             <Card>
               <Card.Header className='d-flex flex-column-reverse align-items-center flex-md-row justify-content-between'>
                 <ContextAwareToggle eventKey="0" callback={''}>                  
-                <div className='d-flex flex-column-reverse flex-md-row justify-content-between my-3'>
-                    <h3 className='my-3 my-md-0'>Debit/Credit Card (2)</h3>
-                  </div>
+                    <span className='my-3 my-md-0'>Debit/Credit Card (2)</span>
                 </ContextAwareToggle>
                 <Link href={'/'}>
                     <a>
@@ -74,9 +57,25 @@ const PaymentMethod = () => {
             </Card>
             <Card>
               <Card.Header>
-                <ContextAwareToggle eventKey="1" callback={''}>Click me!</ContextAwareToggle>
+                <ContextAwareToggle eventKey="1" callback={''}> Digital Wallet (3)</ContextAwareToggle>
               </Card.Header>
               <Accordion.Collapse eventKey="1">
+                <Card.Body>Hello! I'm another body</Card.Body>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Card.Header>
+                <ContextAwareToggle eventKey="2" callback={''}>Linked Bank (2)</ContextAwareToggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="2">
+                <Card.Body>Hello! I'm another body</Card.Body>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Card.Header>
+                <ContextAwareToggle eventKey="3" callback={''}>Other Methods (3)</ContextAwareToggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="3">
                 <Card.Body>Hello! I'm another body</Card.Body>
               </Accordion.Collapse>
             </Card>

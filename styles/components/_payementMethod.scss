@@ -22,7 +22,19 @@
                 }
             }
         }
-
     }
-    
+    .accordion{
+        .card{
+            border: none;
+            &-header{
+                border: none;
+                background: none;
+                button{
+                    background: none;
+                    border: none;
+                }
+            }
+        }
+    }
+
 }
