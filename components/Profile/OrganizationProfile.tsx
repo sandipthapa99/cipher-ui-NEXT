@@ -1,7 +1,7 @@
-import Image from "next/image";
-import { OrganizationProfileInfo } from "staticData/organizationProfile";
 import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import { OrganizationProfileInfo } from "staticData/organizationProfile";
 
 const OrganizationProfile = () => {
     return (
@@ -114,8 +114,8 @@ const OrganizationProfile = () => {
                                     className="svg-icon"
                                 />
                             </div>
-                            {info.address.map((place) => (
-                                <p>{place}</p>
+                            {info.address.map((place, i: any) => (
+                                <p key={i}>{place}</p>
                             ))}
                         </div>
                         <div className="type">

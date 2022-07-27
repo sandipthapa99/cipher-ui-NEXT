@@ -1,15 +1,15 @@
+import { faFacebookF, faInstagram, faLinkedin,faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faCircleInfo } from '@fortawesome/pro-regular-svg-icons'
+import { faCopy } from '@fortawesome/pro-regular-svg-icons'
+import { faLink } from '@fortawesome/pro-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
-import Link from 'next/link'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { ShareButtonProps } from 'types/shareButton'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF, faTwitter, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import { faCopy } from '@fortawesome/pro-regular-svg-icons'
-import { faLink } from '@fortawesome/pro-solid-svg-icons'
 const ShareModal = ({
     show,
     handleClose,

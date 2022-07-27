@@ -1,23 +1,23 @@
-import type { NextPage } from "next";
-import { Col, Row } from "react-bootstrap";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faHeart,
-    faShare,
-    faChevronLeft,
-    faEllipsisVertical,
-    faLocationDot,
-    faCalendar,
-    faUserGroup,
-    faEye,
-    faClockEight,
-} from "@fortawesome/pro-regular-svg-icons";
-import { serviceProvider } from "staticData/serviceProvider";
 import ServiceHighlights from "@components/common/ServiceHighlights";
-import { serviceHighlights } from "staticData/serviceHighlights";
-import Link from "next/link";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
+import {
+    faCalendar,
+    faChevronLeft,
+    faClockEight,
+    faEllipsisVertical,
+    faEye,
+    faHeart,
+    faLocationDot,
+    faShare,
+    faUserGroup,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { NextPage } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { Col, Row } from "react-bootstrap";
+import { serviceHighlights } from "staticData/serviceHighlights";
+import { serviceProvider } from "staticData/serviceProvider";
 
 const ApplyTaskDetail: NextPage = () => {
     return (

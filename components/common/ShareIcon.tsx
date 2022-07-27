@@ -1,6 +1,6 @@
-import { Button } from 'react-bootstrap'
 import { faHeart, faShare } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from 'react-bootstrap'
 
 interface ShareIconProps {
     showModal: boolean

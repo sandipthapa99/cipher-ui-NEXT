@@ -11,10 +11,10 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { Col, Row } from "react-bootstrap";
-import { UserProfileInfoProps } from "types/userProfile";
-import { Overlay, Tooltip } from "react-bootstrap";
 import React, { useRef, useState } from "react";
+import { Col, Row } from "react-bootstrap";
+import { Overlay, Tooltip } from "react-bootstrap";
+import { UserProfileInfoProps } from "types/userProfile";
 
 const UserProfileCard = ({
     userImage,

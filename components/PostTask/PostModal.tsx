@@ -1,14 +1,15 @@
 
-import { Form, Row, Col, Button } from 'react-bootstrap';
-import Image from 'next/image';
-import AddRequirements from './AddRequirements';
+import { useSuccessContext } from 'context/successContext/successContext';
 import { useFormik } from 'formik';
+import Image from 'next/image';
+import { Button,Col, Form, Row } from 'react-bootstrap';
 import { PostTaskData } from 'types/postTaskData';
-import { postTaskValidationSchema } from '../../utils/PostTask/postTaskValidation'
+
 import {
 	categoryData
 } from '../../types/categoryData'
-import { useSuccessContext } from 'context/successContext/successContext';
+import { postTaskValidationSchema } from '../../utils/PostTask/postTaskValidation'
+import AddRequirements from './AddRequirements';
 
 interface Props {
 	onSubmit: Function
