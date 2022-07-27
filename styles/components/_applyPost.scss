@@ -25,7 +25,6 @@
 			font-size: 24px;
 			font-weight: 600;
 			margin: 0;
-			color:#211d4f
 		}
 		.para {
 			font-size: 16px;
@@ -36,8 +35,6 @@
 	.btn-cont {
 		margin-bottom: 53px;
 
-		
-
 		.post-btn {
 			padding: 8px 35px;
 			background: #ffffff;
@@ -46,14 +43,6 @@
 			margin-top: 5px;
 			outline: none;
 			font-size: 16px;
-
-
-
-			&:hover{
-				background-color: #211d4f;
-				border: 1px solid #211d4f;
-				color: #fff;
-			}
 		}
 	}
 }
@@ -73,27 +62,6 @@ justify-content: center;
 gap: 1rem;
 margin-top: 3rem;
 
-.save-draft{
-	
-	&:hover{
-		background-color: #211d4f;
-		border: 1px solid #211d4f;
-		color: #fff;
-	 }
-
-}
-
-.post-modal{
-	
-
-	 &:hover{
-		background-color: #211d4f;
-		border: 1px solid #211d4f;
-		color: #fff;
-	 }
-
-	 
-}
 
 }
 .drag-down {
@@ -103,7 +71,7 @@ margin-top: 3rem;
 	justify-content: center;
 	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 	border-radius: 10px;
-	border: 3px dashed #D8D8D8
+	border: 1px dashed #D8D8D8
 }
 
 .success-modal{
