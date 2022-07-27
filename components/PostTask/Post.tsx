@@ -46,8 +46,13 @@ const Post = () => {
                 </div>
             </div>
 
-            <Modal show={showModal} className="post-modal">
-                <Modal.Header closeButton className="mt-4"></Modal.Header>
+            <Modal
+                show={showModal}
+                onHide={handleClose}
+                backdrop="static"
+                className="post-modal"
+            >
+                <Modal.Header className="mt-4" closeButton></Modal.Header>
                 <Modal.Body>
                     <PostModal onSubmit={handleClose} />
                 </Modal.Body>

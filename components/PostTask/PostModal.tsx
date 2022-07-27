@@ -190,6 +190,7 @@ const PostModal = ({ onSubmit }: Props) => {
                         >
                             <Form.Label>Estimated Time(hr)</Form.Label>
                             <Form.Control
+                                min={0}
                                 style={
                                     errors.estimatedHour &&
                                     touched.estimatedHour
@@ -248,10 +249,27 @@ const PostModal = ({ onSubmit }: Props) => {
                         <Col md={6}>
                             <Form.Group>
                                 <Form.Control
+                                    style={
+                                        errors.fixedValue && touched.fixedValue
+                                            ? { border: "1px solid red" }
+                                            : {}
+                                    }
                                     type="number"
+                                    min={0}
                                     placeholder="Fixed Value"
                                     {...getFieldProps("fixedValue")}
                                 />
+                                {errors.fixedValue && touched.fixedValue ? (
+                                    <div
+                                        style={{
+                                            color: "red",
+                                            fontSize: "12px",
+                                        }}
+                                        className="error-message"
+                                    >
+                                        {errors.fixedValue}
+                                    </div>
+                                ) : null}
                             </Form.Group>
                         </Col>
                     )}
@@ -260,19 +278,55 @@ const PostModal = ({ onSubmit }: Props) => {
                             <Col>
                                 <Form.Group>
                                     <Form.Control
+                                        style={
+                                            errors.minBudget &&
+                                            touched.minBudget
+                                                ? { border: "1px solid red" }
+                                                : {}
+                                        }
                                         type="number"
+                                        min={0}
                                         placeholder="From"
                                         {...getFieldProps("minBudget")}
                                     />
+                                    {errors.minBudget && touched.minBudget ? (
+                                        <div
+                                            style={{
+                                                color: "red",
+                                                fontSize: "12px",
+                                            }}
+                                            className="error-message"
+                                        >
+                                            {errors.minBudget}
+                                        </div>
+                                    ) : null}
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group>
                                     <Form.Control
+                                        style={
+                                            errors.maxBudget &&
+                                            touched.maxBudget
+                                                ? { border: "1px solid red" }
+                                                : {}
+                                        }
                                         type="number"
+                                        min={0}
                                         placeholder="To"
                                         {...getFieldProps("maxBudget")}
                                     />
+                                    {errors.maxBudget && touched.maxBudget ? (
+                                        <div
+                                            style={{
+                                                color: "red",
+                                                fontSize: "12px",
+                                            }}
+                                            className="error-message"
+                                        >
+                                            {errors.maxBudget}
+                                        </div>
+                                    ) : null}
                                 </Form.Group>
                             </Col>
                         </>
@@ -344,11 +398,13 @@ const PostModal = ({ onSubmit }: Props) => {
 
                     <div style={{ width: "183px", height: "40px" }}>
                         <Button
+                            disabled={Object.values(errors).length > 0}
+                            variant="light"
                             type="button"
                             onClick={() => handleSubmit()}
-                            className="post"
+                            className="post-modal"
                             style={{
-                                backgroundColor: "#211d4f",
+                                border: "1px solid #211d4f",
                                 fontSize: "16px",
                                 borderRadius: "4px",
                                 width: "100%",
