@@ -1,6 +1,5 @@
 import {
     faAngleDown,
-    faBars,
     faListCheck,
     faLocationDot,
     faObjectsColumn,
@@ -10,7 +9,7 @@ import {
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { NextRouter, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { handleMenuActive } from "utils/helpers";
@@ -21,7 +20,6 @@ import { NotificationDropdown } from "./notifications/NotificationDropdown";
 const Header = () => {
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
-
     const [stickyClass, setStickyClass] = useState("relative");
     useEffect(() => {
         window.addEventListener("scroll", stickNavbar);
@@ -145,23 +143,6 @@ const Header = () => {
                             </a>
                             {notopen && <NotificationDropdown />}
                         </div>
-
-                        {/* <div className="notification-dropdown-icon">
-                            <a
-                                className="btn notification-button d-none d-md-inline-block"
-                                onClick={() => setNotopen(!notopen)}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faBell}
-                                    className="svg-icon"
-                                />
-                            </a>
-                            {notopen && <NotificationDropdown />}
-                        </div> */}
-
-                        {/* <Button type="button" className="mega-menu-toggler">
-                            <DragHandle className="svg-icon" />
-                        </Button> */}
                     </Navbar>
                 </Container>
             </header>

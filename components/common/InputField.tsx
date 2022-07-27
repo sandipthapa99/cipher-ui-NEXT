@@ -6,6 +6,7 @@ const InputField = ({
     name,
     error,
     touch,
+
     placeHolder,
     labelName,
     textMuted,

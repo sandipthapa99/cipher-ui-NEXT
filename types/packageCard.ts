@@ -1,6 +1,6 @@
 export interface PacakageCardProps {
   title: string
-  price: number
+  price: string
   offers: any
   isPermium: boolean
   advantage: string

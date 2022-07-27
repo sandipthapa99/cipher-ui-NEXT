@@ -1,0 +1,32 @@
+.applied-modal {
+    h3 {
+        margin: 0 0 3.2rem 0;
+        font-size: 2rem;
+        font-weight: 500;
+    }
+    &__details {
+        h4 {
+            font-weight: 500;
+            span {
+                font-weight: 400;
+                font-size: 1.4rem;
+                color: $secondary-text-color;
+                margin: 0 0 0 1.6rem;
+            }
+        }
+        p {
+            font-weight: 400;
+            font-size: 1.4rem;
+            color: $secondary-text-color;
+        }
+    }
+    form {
+        .modal-footer {
+            gap: 1.6rem;
+            button {
+                font-weight: 400;
+                font-size: 1.6rem;
+            }
+        }
+    }
+}

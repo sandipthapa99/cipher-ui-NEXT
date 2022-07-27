@@ -1,0 +1,62 @@
+.task-list {
+    padding: 2.4rem;
+    h2 {
+        font-weight: 500;
+        font-size: 2rem;
+        margin: 0 0 2.5rem 0;
+    }
+    background: #fff;
+    &__detial {
+        border-top: 0.1rem solid #ced4da;
+        border-bottom: 0.1rem solid #ced4da;
+        figure {
+            position: relative;
+            width: 11.6rem;
+            height: 12.6rem;
+        }
+        &--desc {
+            h4 {
+                font-weight: 500;
+            }
+            p {
+                margin: 0;
+                svg {
+                    margin: 0 0.4rem 0;
+                }
+                font-weight: 400;
+                font-size: 1rem;
+                color: #212529;
+            }
+            span {
+                font-weight: 600;
+                font-size: 2rem;
+            }
+        }
+    }
+    &__promo {
+        padding: 2.1rem 0 1rem 0;
+    }
+    &__price {
+        border-top: 0.1rem solid #ced4da;
+        border-bottom: 0.1rem solid #ced4da;
+        padding: 2.6rem 0;
+        p {
+            font-weight: 400;
+            font-size: 1.2rem;
+            color: #212529;
+        }
+    }
+    &__totalprice {
+        font-weight: 500;
+        font-size: 2rem;
+        color: $primary-color;
+        span {
+            font-weight: 600;
+        }
+    }
+    &__button {
+        color: #fff;
+        background: $primary-color;
+        margin: 4rem 0 0;
+    }
+}

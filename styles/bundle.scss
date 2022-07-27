@@ -4,6 +4,7 @@
 @import "paths";
 @import "mixins";
 @import "app";
+@import "utils";
 
 // Components
 @import "choose";
@@ -46,8 +47,15 @@
 @import "components/task-detail";
 @import "components/simpleProfileCard";
 @import "components/applyPost";
+@import "components/tab";
 @import "components/svgColor";
 @import "components/notificationDropdown";
+@import "components/appliedForm";
+@import "components/billingLocation";
+@import "components/anchorButton";
+@import "components/taskList";
+@import "components/extraSection";
+@import "components/membershipCard";
 // Pages
 @import "pages/privacyPolicy";
 @import "pages/referall";
@@ -100,6 +108,8 @@
 @import "components//searchBySort";
 @import "components/applyPost";
 @import "components/userTaskCard";
+@import "components/userTaskDetail";
+
 // Pages
 @import "pages/privacyPolicy";
 @import "pages/referall";
