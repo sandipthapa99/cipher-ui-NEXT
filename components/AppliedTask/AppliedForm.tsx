@@ -46,9 +46,10 @@ const AppliedForm = ({
                             <Form>
                                 <div className="w-25">
                                     <InputField
-                                        type="text"
+                                        type="number"
                                         name="price"
                                         labelName="Your Price"
+                                        min="1"
                                         error={errors.price}
                                         touch={touched.price}
                                         placeHolder="Enter your price"
