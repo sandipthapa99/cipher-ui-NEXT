@@ -25,6 +25,7 @@ export const UserTaskDetailHeader = ({
     return (
         <>
             <HireMerchantModal
+                merchant={taskDetail.user}
                 show={showHireMerchantModal}
                 onHide={() => setShowHireMerchantModal(false)}
             />

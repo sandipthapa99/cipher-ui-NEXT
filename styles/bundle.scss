@@ -43,11 +43,13 @@
 @import "components/gettingStartedTask";
 @import "components/searchBySort";
 @import "components/taskAppiledCard";
+@import "components/getNotifications";
 @import "components/task-detail";
 @import "components/simpleProfileCard";
 @import "components/applyPost";
 @import "components/tab";
 @import "components/svgColor";
+@import "components/notificationDropdown";
 @import "components/appliedForm";
 @import "components/billingLocation";
 @import "components/anchorButton";
@@ -112,6 +114,7 @@
 @import "components/applyPost";
 @import "components/userTaskCard";
 @import "components/userTaskDetail";
+@import "components/hireMerchantModal";
 
 // Pages
 @import "pages/privacyPolicy";

@@ -1,5 +1,6 @@
 import {
     faAngleDown,
+    faBell,
     faListCheck,
     faLocationDot,
     faObjectsColumn,
@@ -15,9 +16,10 @@ import { handleMenuActive } from "utils/helpers";
 
 // import { handleMenuActive } from "../../../../libs/util-formatter/src";
 import { Dropdown } from "./common/Dropdown";
+import { NotificationDropdown } from "./notifications/NotificationDropdown";
 const Header = () => {
     const router = useRouter();
-
+    const [notopen, setNotopen] = useState(false);
     const [stickyClass, setStickyClass] = useState("relative");
     useEffect(() => {
         window.addEventListener("scroll", stickNavbar);
@@ -128,9 +130,19 @@ const Header = () => {
                                 />
                             </a>
                         </Link>
-                        {/* <Button type="button" className="mega-menu-toggler">
-                            <DragHandle className="svg-icon" />
-                        </Button> */}
+
+                        <div>
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                onClick={() => setNotopen(!notopen)}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faBell}
+                                    className="svg-icon"
+                                />
+                            </a>
+                            {notopen && <NotificationDropdown />}
+                        </div>
                     </Navbar>
                 </Container>
             </header>
