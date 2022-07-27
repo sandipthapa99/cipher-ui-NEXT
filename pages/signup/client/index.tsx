@@ -3,7 +3,6 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import RadioField from "@components/common/RadioField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { useAuthContext } from "context/AuthContext/userContext";
 import { Field, Form, Formik } from "formik";
 import Link from "next/link";
 import { ClientSignUpFormData } from "utils/formData";
@@ -11,7 +10,6 @@ import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const SignUpAsClient = () => {
-    const {signUpUser} = useAuthContext()
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
@@ -26,9 +24,7 @@ const SignUpAsClient = () => {
                     initialValues={ClientSignUpFormData}
                     validationSchema={clientSignUpSchema}
                     onSubmit={async (values) => {
-
-                        signUpUser(values)
-                        
+                        console.log(values);
                     }}
                 >
                     {({ isSubmitting, errors, touched }) => (

@@ -1,39 +1,40 @@
-import FormButton from '@components/common/FormButton';
-import InputField from '@components/common/InputField';
-import PasswordField from '@components/common/PasswordField';
-import SocialLoginBtn from '@components/common/SocialLoginBtn';
-import OnBoardingLayout from '@components/OnBoardingLayout';
-import { useAuthContext } from 'context/AuthContext/userContext';
-import { Form, Formik } from 'formik';
-import { useLocalStorage } from 'hooks/use-local-storage';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { loginFormData } from 'utils/formData';
-import loginFormSchema from 'utils/formValidation/loginFormValidation';
-import { isSubmittingClass } from 'utils/helpers';
+import FormButton from "@components/common/FormButton";
+import InputField from "@components/common/InputField";
+import PasswordField from "@components/common/PasswordField";
+import SocialLoginBtn from "@components/common/SocialLoginBtn";
+import OnBoardingLayout from "@components/OnBoardingLayout";
+import { Form, Formik } from "formik";
+import { useLocalStorage } from "hooks/use-local-storage";
+import React from "react";
+import { LoginValuesProps } from "types/login";
+import { loginFormData } from "utils/formData";
+import loginFormSchema from "utils/formValidation/loginFormValidation";
+import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
-	const router = useRouter();
-	// const [users] = useLocalStorage<Array<{ email: string; password: string }>>('users', []);
-	
-	return (
-		<section>
-			<OnBoardingLayout
-				topLeftText="Don't have an account ?"
-				topRightText="Create an account"
-				welcomeText="Welcome Back!   👋"
-				headerText="Login to your account"
-				mainImg="/illustrations/login.svg"
-				redirectionLink="/signup"
-				currentPage="login"
-			>
-				<div>
-					<Formik
-						initialValues={loginFormData}
-						validationSchema={loginFormSchema}
-						onSubmit={async (values, actions) => {
-							console.log(values);
-							
+    const [user, setUser] = useLocalStorage<LoginValuesProps>("user", {
+        email: "",
+        password: "",
+    });
+
+    return (
+        <section>
+            <OnBoardingLayout
+                topLeftText="Don't have an account ?"
+                topRightText="Create an account"
+                welcomeText="Welcome Back!   👋"
+                headerText="Login to your account"
+                mainImg="/illustrations/login.svg"
+                redirectionLink="/signup"
+                currentPage="login"
+            >
+                <div>
+                    <Formik
+                        initialValues={loginFormData}
+                        validationSchema={loginFormSchema}
+                        onSubmit={async (values) => {
+                            setUser(values);
+                            console.log(user);
 
                             // actions.setSubmitting(true);
                             // setTimeout(() => {
