@@ -45,6 +45,25 @@
     margin-block: 16px;
     gap: 24px;
 }
+.icons {
+    svg {
+        margin: 0 2rem 0 0;
+    }
+}
+
+.big-btn {
+    color: white;
+    height: 3rem;
+    width: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: 400 1.4rem $poppins-font;
+
+    &:hover {
+        color: white;
+    }
+}
 .task-price {
     flex: 1;
     text-align: right;

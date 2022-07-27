@@ -46,6 +46,7 @@ const Tasker = () => {
                             <div className="task-detail-container">
                                 <UserTaskDetail
                                     taskDetail={taskDetails[activeTaskIdx]}
+                                    
                                 />
                             </div>
                         ) : (
