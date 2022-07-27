@@ -133,7 +133,20 @@ const Header = () => {
                             </a>
                         </Link>
 
-                        <li className="notification-dropdown-icon">
+                        <div>
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                onClick={() => setNotopen(!notopen)}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faBell}
+                                    className="svg-icon"
+                                />
+                            </a>
+                            {notopen && <NotificationDropdown />}
+                        </div>
+
+                        {/* <div className="notification-dropdown-icon">
                             <a
                                 className="btn notification-button d-none d-md-inline-block"
                                 onClick={() => setNotopen(!notopen)}
@@ -144,7 +157,7 @@ const Header = () => {
                                 />
                             </a>
                             {notopen && <NotificationDropdown />}
-                        </li>
+                        </div> */}
 
                         {/* <Button type="button" className="mega-menu-toggler">
                             <DragHandle className="svg-icon" />

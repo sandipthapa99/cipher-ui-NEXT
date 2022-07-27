@@ -135,9 +135,20 @@
 }
 
 .notification-dropdown-icon {
-    color: white;
+    svg {
+        fill: white;
+    }
+    &hover {
+        &:hover {
+            fill: yellowgreen;
+        }
+    }
+}
+
+svg.svg-inline--fa.fa-bell.svg-icon {
+    fill: white;
 
     &:hover {
-        color: yellowgreen;
+        fill: yellowgreen !important;
     }
 }
