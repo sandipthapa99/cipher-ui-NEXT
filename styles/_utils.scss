@@ -4,4 +4,60 @@
     height: 24px;
 }
 .divider {
+    display: block;
+    height: 1px;
+    width: 100%;
+    background-color: #ced4da;
+}
+
+// sizings
+$sizes: (8, 16, 24, 48, 64, 96, 128, 256);
+
+@each $size in $sizes {
+    .m-#{size} {
+        margin: #{size}px;
+    }
+    .mt-#{size} {
+        margin-top: #{size}px;
+    }
+    .mr-#{size} {
+        margin-right: #{size}px;
+    }
+    .mb-#{size} {
+        margin-bottom: #{size}px;
+    }
+    .ml-#{size} {
+        margin-left: #{size}px;
+    }
+    .mx-#{size} {
+        margin-left: #{size}px;
+        margin-right: #{size}px;
+    }
+    .my-#{size} {
+        margin-top: #{size}px;
+        margin-bottom: #{size}px;
+    }
+    .p-#{size} {
+        padding: #{size}px;
+    }
+    .pt-#{size} {
+        padding-top: #{size}px;
+    }
+    .pr-#{size} {
+        padding-right: #{size}px;
+    }
+    .pb-#{size} {
+        padding-bottom: #{size}px;
+    }
+    .pl-#{size} {
+        padding-left: #{size}px;
+    }
+    .px-#{size} {
+        padding-left: #{size}px;
+        padding-right: #{size}px;
+    }
+    .py-#{size} {
+        padding-top: #{size}px;
+        padding-bottom: #{size}px;
+    }
 }
