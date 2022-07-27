@@ -48,8 +48,8 @@ const PaymentMethod = () => {
 
                   <div className='d-flex flex-column flex-md-row'>
                   {creditCardContent &&
-                      creditCardContent.map((card) => (
-                        <CreditCard cardDetail={card}/>
+                      creditCardContent.map((card, key) => (
+                        <CreditCard key={key} cardDetail={card}/>
                       ))}
                 </div> 
               </Card.Body>
