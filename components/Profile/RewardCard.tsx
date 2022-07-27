@@ -1,21 +1,68 @@
-import { UserDocument } from "types/userDocument";
 import Image from "next/image";
-const RewardCard = ({ name, type }: UserDocument) => {
+import { RewardCardProps } from "types/rewardCard";
+import CardBtn from "@components/common/CardBtn";
+import { useState } from "react";
+
+const RewardCard = ({
+    title,
+    rewardImage,
+    haveDiscount,
+    discount,
+    haveCouponCode,
+    isAvailable,
+    daysLeft,
+    btnText,
+    isCouponCodeAvailable,
+    couponCode,
+    description,
+}: RewardCardProps) => {
+
+    const [copySuccess, setCopySuccess] = useState('');
+    console.log("cdsfsad", isCouponCodeAvailable)
+    // your function to copy here
+
+    const copyToClipBoard = async (copyMe: any) => {
+        try {
+            await navigator.clipboard.writeText(copyMe);
+            setCopySuccess('Copied!');
+        } catch (err) {
+            setCopySuccess('Failed to copy!');
+        }
+    };
     return (
-        <div className="document-block">
-            <div className="type">
-                <figure className="thumbnail-img">
-                    <Image
-                        src={type == "pdf" ? '/userprofile/documents/pdf.svg' : '/userprofile/documents/image.svg'}
-                        layout="fill"
-                        objectFit="cover"
-                        alt="document-type-icon"
-                    />
-                </figure>
+        <div className="find-hire-card-block reward-card">
+            <figure className="thumbnail-img">
+                <Image
+                    src={rewardImage}
+                    layout="fill"
+                    objectFit="cover"
+                    alt="reward-image"
+                />
+            </figure>
+            <div className="card-content">
+                <h2>{haveDiscount ? `25% Off ${title}` : `${title}`}</h2>
+                <p>{description}</p>
+                {haveCouponCode ?
+
+                    <div className='coupon'>
+                        {isCouponCodeAvailable ?
+                            <div className="code">
+                                <p>{couponCode}</p>
+                            </div> :
+                            <div className="disabled disable-color">
+                                <p>{couponCode}</p>
+                            </div>}
+
+                        <div className="copy-btn"
+                            onClick={() => copyToClipBoard(couponCode)}
+                        >Copy</div>
+
+                    </div>
+                    :
+                    <CardBtn btnTitle={`${btnText}`} backgroundColor="primary-color" />
+                }
+
             </div>
-            <p>
-                {type == "pdf" ? `${name}.pdf` : `${name}.jpg`}
-            </p>
         </div>
     );
 };

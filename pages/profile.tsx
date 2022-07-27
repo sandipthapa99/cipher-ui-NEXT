@@ -18,6 +18,8 @@ import UserActivities from "@components/Profile/Activities";
 import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
 import UserDocument from "@components/Profile/Document";
 import { userDocument } from "staticData/userDocument";
+import RewardCard from "@components/Profile/RewardCard";
+import { rewardCardContent } from "staticData/rewardCard";
 
 const UserProfile: NextPage = () => {
     const [key, setKey] = useState("about");
@@ -138,7 +140,25 @@ const UserProfile: NextPage = () => {
 
                                 </Tab>
                                 <Tab key="6" eventKey="rewards" title="Rewards">
-                                    <AboutProfile />
+                                    <div className="rewards">
+                                        <Row className="d-flex align-items-stretch">
+                                            {rewardCardContent && rewardCardContent.map((info) => (
+                                                <Col key={info.id} className="d-flex gx-4 align-items-stretch" lg={3} md={4} sm={6}>
+                                                    <RewardCard
+                                                        rewardImage={info.rewardImage}
+                                                        title={info.title}
+                                                        haveDiscount={info.haveDiscount}
+                                                        btnText={info.btnText}
+                                                        description={info.description}
+                                                        isAvailable={info.isAvailable}
+                                                        daysLeft={info.daysLeft}
+                                                        couponCode={info.couponCode}
+                                                        haveCouponCode={info.haveCouponCode}
+                                                    />
+                                                </Col>
+                                            ))}
+                                        </Row>
+                                    </div>
                                 </Tab>
                             </Tabs>
                         </div>
