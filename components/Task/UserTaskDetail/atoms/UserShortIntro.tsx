@@ -13,31 +13,27 @@ interface UserShortIntroProps {
 }
 export const UserShortIntro = ({ user }: UserShortIntroProps) => {
     return (
-        <Row className="td-text">
+        <Row className="td-mt-24">
             <Col>
-                <p>
+                <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faLocation} />
-                    <span className="td-text">{user.location}</span>
+                    <span>{user.location}</span>
                 </p>
-                <p>
+                <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faClock} />
-                    <span className="td-text">{user.activeHours}</span>
+                    <span>{user.activeHours}</span>
                 </p>
-                <p>
+                <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faUser} />
-                    <span className="td-text">
-                        Member Since {user.memberSince}
-                    </span>
+                    <span>Member Since {user.memberSince}</span>
                 </p>
-                <p>
+                <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faStar} />
-                    <span className="td-text">
-                        {user.offeredServices.join(", ")}
-                    </span>
+                    <span>{user.offeredServices.join(", ")}</span>
                 </p>
             </Col>
             <Col>
-                <p className="td-text">{user.bio}</p>
+                <p className="td-user-short-intro-text">{user.bio}</p>
             </Col>
         </Row>
     );

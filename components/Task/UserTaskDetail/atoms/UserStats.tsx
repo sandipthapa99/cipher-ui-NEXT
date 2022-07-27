@@ -22,7 +22,7 @@ export const UserStats = ({
     rank,
 }: UserStatsProps) => {
     return (
-        <Row className="mt-4">
+        <Row className="td-mt-24">
             <Col>
                 <FontAwesomeIcon
                     color="#F98900"

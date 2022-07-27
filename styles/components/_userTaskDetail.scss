@@ -5,9 +5,19 @@
     background-color: $white;
     border-radius: 4px;
 }
+.td-task-detail-header-icons {
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+
+    @include respond(md) {
+        display: flex;
+    }
+}
+
 .td-text {
-    margin: 0;
     font-weight: normal;
+    font-size: 14px;
 }
 //task detail header
 .td-user-image-container {
@@ -42,9 +52,6 @@
         opacity: 1;
         visibility: visible;
     }
-}
-.td-user-short-intro {
-    margin-top: 48px;
 }
 .td-hire-me-btn {
     width: 245px;
@@ -98,6 +105,23 @@
     font-size: 14px;
     font-weight: normal;
     margin-left: 3px;
+}
+.td-task-charge {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+
+    @include respond(md) {
+        text-align: right;
+    }
+}
+.td-user-short-intro {
+    margin-top: 48px;
+}
+.td-user-short-intro-text {
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 16px;
 }
 .td-mt-24 {
     margin-top: 24px;
