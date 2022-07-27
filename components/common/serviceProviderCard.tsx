@@ -101,6 +101,7 @@ const ServiceProviderCard = ({
         showModal={true}
         handleOnClick={() => setShowModal(!showModal)}
       />
+
       {BookingDetails &&
         BookingDetails.map((detail) => (
           <ModalCard
@@ -115,6 +116,7 @@ const ServiceProviderCard = ({
           />
         ))}
     </div>
+
   )
 }
 export default ServiceProviderCard

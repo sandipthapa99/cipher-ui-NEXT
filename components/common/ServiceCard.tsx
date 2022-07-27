@@ -70,6 +70,12 @@ const ServiceCard = ({
                         backgroundColor="#211D4F"
                     />
                 </div>
+                <div className="share-modal">
+                    <ShareModal
+                        show={showModal}
+                        handleClose={() => setShowModal(false)}
+                    />
+                </div>
                 <ShareModal
                     show={showModal}
                     handleClose={() => setShowModal(false)}

@@ -2,7 +2,7 @@ import { faCircleInfo } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import React, { useState } from 'react'
-import { Col,Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Modal from 'react-bootstrap/Modal'
@@ -60,8 +60,8 @@ const ModalCard = ({
                   type="date"
                   name="datepic"
                   placeholder="07/27/2022"
-                  //value={date}
-                  //onChange={(e) => setDate(e.target.value)}
+                //value={date}
+                //onChange={(e) => setDate(e.target.value)}
                 />
               </Col>
               <Col md={6}>
