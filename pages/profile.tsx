@@ -154,6 +154,7 @@ const UserProfile: NextPage = () => {
                                                         daysLeft={info.daysLeft}
                                                         couponCode={info.couponCode}
                                                         haveCouponCode={info.haveCouponCode}
+                                                        isCouponCodeAvailable={info.isCouponCodeAvailable}
                                                     />
                                                 </Col>
                                             ))}

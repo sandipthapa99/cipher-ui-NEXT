@@ -39,6 +39,15 @@ const RewardCard = ({
                     alt="reward-image"
                 />
             </figure>
+            {isAvailable ? '' :
+                <figure className="expired-img">
+                    <Image
+                        src='/userprofile/rewards/expired.svg'
+                        layout="fill"
+                        objectFit="cover"
+                        alt="expired-image"
+                    />
+                </figure>}
             <div className="card-content">
                 <h2>{haveDiscount ? `25% Off ${title}` : `${title}`}</h2>
                 <p>{description}</p>
@@ -49,11 +58,11 @@ const RewardCard = ({
                             <div className="code">
                                 <p>{couponCode}</p>
                             </div> :
-                            <div className="disabled disable-color">
+                            <div className="disabled disabled-color">
                                 <p>{couponCode}</p>
                             </div>}
 
-                        <div className="copy-btn"
+                        <div className={`${isCouponCodeAvailable ? 'abled' : 'disabled-copy-btn'} copy-btn`}
                             onClick={() => copyToClipBoard(couponCode)}
                         >Copy</div>
 
