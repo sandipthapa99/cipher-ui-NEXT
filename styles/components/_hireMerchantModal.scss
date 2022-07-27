@@ -26,12 +26,19 @@
 }
 .hmm-time-and-charge-icons {
     display: flex;
-    gap: 24px;
+    justify-content: space-between;
     margin-top: 8px;
 
+    @include respond(sm) {
+        gap: 24px;
+        justify-content: initial;
+    }
     .hmm-icon-text {
         display: flex;
-        gap: 8px;
+
+        @include respond(lg) {
+            gap: 8px;
+        }
     }
 }
 .hmm-footer {
@@ -47,10 +54,6 @@
         border: 0;
         outline: 0;
         font-size: 16px;
-
-        &:hover {
-            filter: brightness(70%);
-        }
 
         &.cancel {
             border: 1px solid $primary-color;

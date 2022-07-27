@@ -6,18 +6,29 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormCheck, Modal } from "react-bootstrap";
 import { DUMMY_CLIENT_PROJECTS } from "staticData/clientProjects";
+import { TaskDetail } from "staticData/taskDetail";
 
 interface HireMerchantModalProps {
+    merchant: TaskDetail["user"];
     show: boolean;
     onHide: () => void;
 }
-export const HireMerchantModal = ({ show, onHide }: HireMerchantModalProps) => {
+export const HireMerchantModal = ({
+    merchant,
+    show,
+    onHide,
+}: HireMerchantModalProps) => {
     const renderClientProjects = () => {
         return DUMMY_CLIENT_PROJECTS.map((project, index) => (
             <div className="hmm-client-project" key={index}>
                 <div className="hmm-client-project__header">
-                    <FormCheck />
-                    <p className="hmm-label-text mb-24">{project.name}</p>
+                    <FormCheck
+                        id={`hmm-client-project-${index}`}
+                        type="radio"
+                        name="client-project"
+                        label={project.name}
+                        className="mb-8"
+                    />
                 </div>
                 <div className="hmm-client-project__body">
                     <p className="hmm-value-text">{project.description}</p>
@@ -59,24 +70,19 @@ export const HireMerchantModal = ({ show, onHide }: HireMerchantModalProps) => {
                 <Modal.Title>Hire Merchant</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p>
+                <p className="mb-16">
                     <span className="hmm-label-text">Merchant : </span>
-                    <span className="hmm-value-text">I am the Gardener</span>
-                </p>
-                <p>
-                    <span className="hmm-label-text">Address: </span>
                     <span className="hmm-value-text">
-                        Koteshwor, Kathmandu, Nepal
+                        {merchant.offeredServices.join(",")}
                     </span>
                 </p>
-                <p className="hmm-value-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Repudiandae magnam rerum optio tempore accusantium autem.
-                    Porro cumque, dicta eius nemo repellat architecto quia
-                    molestias, minima pariatur temporibus quibusdam hic placeat.
+                <p className="mb-16">
+                    <span className="hmm-label-text">Address: </span>
+                    <span className="hmm-value-text">{merchant.location}</span>
                 </p>
+                <p className="hmm-value-text">{merchant.bio}</p>
                 <span className="divider hmm-divider" />
-                <p className="hmm-label-text">Select Task</p>
+                <p className="hmm-label-text mb-8">Select Task</p>
                 <p className="hmm-label-text">
                     Please select project to hire merchant.
                 </p>
