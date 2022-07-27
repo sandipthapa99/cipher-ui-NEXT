@@ -4,26 +4,27 @@ import SearchProvider from "context/searchProvider";
 import SuccessProvider from "context/successContext/successProvider";
 // import { useEffect } from 'react';
 // import { useLocalStorage } from 'hooks/use-local-storage';
-import UserProvider from "context/userContextProvider";
-import type { AppProps } from "next/app";
+import AuthProvider from '../context/AuthContext/userContextProvider'
+import type { AppProps } from 'next/app';
+import SuccessProvider from 'context/successContext/successProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
     // const [, setValue] = useLocalStorage<any[]>('users', []);
 
-    // useEffect(() => {
-    // 	if (typeof window !== 'undefined' && !localStorage.getItem('users')) {
-    // 		setValue([{ email: 'test@test.com', password: 'test@test.com' }]);
-    // 	}
-    // }, [setValue]);
-    return (
-        <UserProvider>
-            <SearchProvider>
-                <SuccessProvider>
-                    <Component {...pageProps} />
-                </SuccessProvider>
-            </SearchProvider>
-        </UserProvider>
-    );
+	// useEffect(() => {
+	// 	if (typeof window !== 'undefined' && !localStorage.getItem('users')) {
+	// 		setValue([{ email: 'test@test.com', password: 'test@test.com' }]);
+	// 	}
+	// }, [setValue]);
+	return (
+		<AuthProvider>
+			<SearchProvider>
+				<SuccessProvider>
+				<Component {...pageProps} />
+				</SuccessProvider>
+			</SearchProvider>
+		</AuthProvider>
+	);
 }
 
 export default MyApp;
