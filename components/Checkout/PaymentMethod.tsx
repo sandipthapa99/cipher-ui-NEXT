@@ -3,6 +3,9 @@ import React, { useContext } from 'react'
 import CreditCard from './CreditCard'
 import {creditCardContent, CreditCardContent} from 'staticData/creditCardContent'
 import { Accordion, AccordionContext, Card, useAccordionButton } from 'react-bootstrap'
+import {faCircleDot} from '@fortawesome/pro-regular-svg-icons'
+import {faCircleDot as circleDot} from '@fortawesome/pro-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function ContextAwareToggle({ children, eventKey, callback }) {
   const { activeEventKey } = useContext(AccordionContext);
@@ -19,6 +22,7 @@ function ContextAwareToggle({ children, eventKey, callback }) {
       type="button"
       onClick={decoratedOnClick}
     >
+      {isCurrentEventKey?<FontAwesomeIcon icon={circleDot} className='svg-icon-boolen-circle me-3'/>:<FontAwesomeIcon icon={faCircleDot} className='svg-icon-boolen-circle me-3'/>}
       {children}
     </button>
   );
@@ -34,7 +38,7 @@ const PaymentMethod = () => {
           <Accordion defaultActiveKey="0">
             <Card>
               <Card.Header className='d-flex flex-column-reverse align-items-center flex-md-row justify-content-between'>
-                <ContextAwareToggle eventKey="0" callback={''}>                  
+                <ContextAwareToggle eventKey="0" callback={''}>                
                     <span className='my-3 my-md-0'>Debit/Credit Card (2)</span>
                 </ContextAwareToggle>
                 <Link href={'/'}>
