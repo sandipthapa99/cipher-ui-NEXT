@@ -11,7 +11,7 @@ const EquipmentForm = () => {
     return (
         <>
             {/* Modal component */}
-            <div className="equipment-modal">
+            <div className="equipment-modal mt-5">
                 <h3>Add Equipment Charge</h3>
                 <div className="equipment-form">
                     <Formik
