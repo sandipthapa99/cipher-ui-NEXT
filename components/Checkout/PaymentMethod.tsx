@@ -9,20 +9,36 @@ const PaymentMethod = () => {
       <h2>
         Payment Methods
       </h2>
-      <div className="d-flex flex-column-reverse flex-md-row mt-3 justify-content-between payment-method-wraper">
-        <div className='d-flex flex-column flex-md-row payment-method-wraper__cards'>
-        {creditCardContent &&
-            creditCardContent.map((card) => (
-              <CreditCard cardDetail={card}/>
-            ))}
+        <div className='payment-method-wraper__cards'>
+          <ul>
+            <li>     
+              <div className='d-flex flex-column-reverse flex-md-row justify-content-between my-3'>
+                <h3 className='my-3 my-md-0'>Debit/Credit Card (2)</h3>
+                <Link href={'/'}>
+                  <a>
+                    + Add New 
+                  </a>
+                </Link>
+              </div>
+              <div className='d-flex flex-column flex-md-row'>
+              {creditCardContent &&
+                  creditCardContent.map((card) => (
+                    <CreditCard cardDetail={card}/>
+                  ))}
+              </div> 
+            </li> 
+            <li>
+              Digital Wallet (3)     
+            </li> 
+            <li>
+              Linked Bank (2)
+            </li>
+            <li>
+              Other Methods (3)
+            </li>
+          </ul>   
         </div>
-        <Link href={'/'}>
-          <a>
-            + Add New 
-          </a>
-        </Link>
       </div>
-    </div>
   )
 }
 

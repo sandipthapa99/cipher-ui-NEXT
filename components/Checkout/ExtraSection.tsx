@@ -1,14 +1,17 @@
 import AnchorButton from "@components/common/AnchorButton";
 import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
+import EquipmentForm from "./EquipmentForm";
 
 const ExtraSection = () => {
+    const [showEqpForm, setshowEqpForm] = useState(false)
+    const [showServForm, setshowServForm] = useState(false)
     return (
         <div className="extra">
             <div className="extra-service">
                 <h2>Extra Service</h2>
-                <div className="d-flex justify-content-between extra-service__desc">
+                {!showServForm ? <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between extra-service__desc">
                     <FontAwesomeIcon
                         icon={faCircleQuestion}
                         className="svg-icon-question-circle"
@@ -20,18 +23,18 @@ const ExtraSection = () => {
                         amet.
                     </span>
 
-                    <AnchorButton
-                        className={"w-25 text-center align-items-center"}
-                        href={""}
-                        varient={""}
+                    <button
+                        className={"btn w-25 text-center align-items-center"}
+                        onClick= {()=> setshowServForm(true)}
                     >
                         Add
-                    </AnchorButton>
-                </div>
+                    </button>
+                </div>:<EquipmentForm/>}
+                
             </div>
             <div className="extra-service">
                 <h2>Equipment Charge</h2>
-                <div className="d-flex justify-content-between extra-service__desc">
+                {!showEqpForm ? <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between extra-service__desc">
                     <FontAwesomeIcon
                         icon={faCircleQuestion}
                         className="svg-icon-question-circle"
@@ -43,14 +46,13 @@ const ExtraSection = () => {
                         amet.
                     </span>
 
-                    <AnchorButton
-                        className={"w-25 text-center align-items-center"}
-                        href={""}
-                        varient={""}
+                    <button
+                        className={"btn w-25 text-center align-items-center"}
+                        onClick= {()=> setshowEqpForm(true)}
                     >
                         Add
-                    </AnchorButton>
-                </div>
+                    </button>
+                </div>:<EquipmentForm/>}
             </div>
         </div>
     );
