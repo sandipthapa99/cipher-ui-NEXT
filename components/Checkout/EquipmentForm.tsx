@@ -32,8 +32,8 @@ const EquipmentForm = () => {
                                                     name="chargeFor"
                                                     labelName="Charge For"
                                                     min="1"
-                                                    error={errors.price}
-                                                    touch={touched.price}
+                                                    error={errors.chargeFor}
+                                                    touch={touched.chargeFor}
                                                     placeHolder="Enter your price"
                                                 />
                                             </Col>
@@ -64,7 +64,7 @@ const EquipmentForm = () => {
                                         type="submit"
                                         variant="primary"
                                         name="Add Charges"
-                                        className="submit-btn w-25 h-25 mb-5"
+                                        className="submit-btn h-25 mb-5"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting

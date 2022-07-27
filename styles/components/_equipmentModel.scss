@@ -6,4 +6,14 @@
         font-size: 2rem;
         color: $primary-color;
     }
+    .equipment-form{
+        form{
+            button{
+                width: 100%;
+                @include respond(md){
+                    width: 25%;
+                }
+            }
+        }
+    }
 }
