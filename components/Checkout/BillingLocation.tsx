@@ -1,5 +1,5 @@
 import AnchorButton from "@components/common/AnchorButton";
-import { faCheck,faLocationDot } from "@fortawesome/pro-regular-svg-icons";
+import { faCheck, faLocationDot } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 

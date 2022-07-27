@@ -4,7 +4,6 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import emailValidationSchema from "utils/formValidation/emailValidation";
 import { isSubmittingClass } from "utils/helpers";
-import * as Yup from "yup";
 
 const ForgotPassword = () => {
     return (
@@ -19,13 +18,14 @@ const ForgotPassword = () => {
                 currentPage="forgot-password"
             >
                 <p className="forgot-pass-description">
-                    Enter the email associated with your account and we&apos;ll send an email with instructions to reset your password.
+                    Enter the email associated with your account and we&apos;ll
+                    send an email with instructions to reset your password.
                 </p>
                 <Formik
                     initialValues={{ email: "" }}
                     validationSchema={emailValidationSchema}
                     onSubmit={async (values, actions) => {
-                        console.log(values, actions)
+                        console.log(values, actions);
                     }}
                 >
                     {({ isSubmitting, errors, touched }) => (
@@ -44,13 +44,15 @@ const ForgotPassword = () => {
                                 name="Send"
                                 className="login-btn"
                                 isSubmitting={isSubmitting}
-                                isSubmittingClass={isSubmittingClass(isSubmitting)}
+                                isSubmittingClass={isSubmittingClass(
+                                    isSubmitting
+                                )}
                             />
                         </Form>
                     )}
                 </Formik>
             </OnBoardingLayout>
         </section>
-    )
-}
+    );
+};
 export default ForgotPassword;

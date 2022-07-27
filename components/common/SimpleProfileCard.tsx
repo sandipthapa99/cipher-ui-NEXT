@@ -5,7 +5,7 @@ import { BookingDetails } from "staticData/bookNowModalCard";
 import { ServiceProviderCardProps } from "types/serviceDetail";
 
 import BookNowButton from "./BookNowButton";
-import ModalCard from "./ModalCard";
+
 const SimpleProfileCard = ({
     image,
     name,

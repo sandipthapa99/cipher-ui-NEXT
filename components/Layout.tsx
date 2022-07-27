@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { FC } from "react";
 import { MetaDataProps } from "types/metaData";
 
@@ -19,50 +18,35 @@ const Layout: FC<MetaDataProps> = ({
     ogUrl,
     children,
 }) => {
-    const cipherOgImage =
-        "";
-    const router = useRouter();
-    const checkPolicyPage =
-        router.pathname !== "/privacy-policy" &&
-        router.pathname !== "/terms-and-conditions" &&
-        router.pathname !== "/cookies-policy";
-        "";
-    return(
+    const cipherOgImage = "";
+    // const router = useRouter();
+    // const checkPolicyPage =
+    //     router.pathname !== "/privacy-policy" &&
+    //     router.pathname !== "/terms-and-conditions" &&
+    //     router.pathname !== "/cookies-policy";
+    // ("");
+    return (
         <>
-        <Head>
-            <title>{!title ? meta.title : title}</title>
-            <meta 
-                name="description"
-                content={!description ? meta.description : description}
-            />
-            <meta
-                property="og:title"
-                content={!title ? meta.title : title}
-            />
-            <meta
-                    property="og:description"
+            <Head>
+                <title>{!title ? meta.title : title}</title>
+                <meta
+                    name="description"
                     content={!description ? meta.description : description}
                 />
                 <meta
-                    property="og:url"
-                    content={
-                        !ogUrl
-                            ? ""
-                            : ``
-                    }
+                    property="og:title"
+                    content={!title ? meta.title : title}
                 />
+                <meta
+                    property="og:description"
+                    content={!description ? meta.description : description}
+                />
+                <meta property="og:url" content={!ogUrl ? "" : ``} />
                 <meta
                     property="og:image"
                     content={!ogImage ? cipherOgImage : ogImage}
                 />
-                <meta
-                    name="twitter:url"
-                    content={
-                        !ogUrl
-                        ? ""
-                        : ``
-                    }
-                />
+                <meta name="twitter:url" content={!ogUrl ? "" : ``} />
                 <meta
                     name="twitter:title"
                     content={!title ? meta.title : title}
@@ -76,13 +60,13 @@ const Layout: FC<MetaDataProps> = ({
                     content={!keywords ? meta.keywords : keywords}
                 />
                 <meta name="robots" content="index, follow" />
-        </Head>
-        <UpperHeader/>
-        <Header />
+            </Head>
+            <UpperHeader />
+            <Header />
             {children}
-        <Footer/>
+            <Footer />
         </>
-    )
-}
+    );
+};
 
 export default Layout;
