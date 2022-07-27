@@ -65,7 +65,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
                         <Form className="d-flex flex-column flex-sm-row justify-content-between g-5">
                             <span className="w-100 me-5">
                                 <InputField
-                                    type="number"
+                                    type="string"
                                     name="price"
                                     error={errors.price}
                                     touch={touched.price}
