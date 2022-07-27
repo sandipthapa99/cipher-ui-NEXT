@@ -18,7 +18,6 @@ const RewardCard = ({
 }: RewardCardProps) => {
 
     const [copySuccess, setCopySuccess] = useState('');
-    console.log("cdsfsad", isCouponCodeAvailable)
     // your function to copy here
 
     const copyToClipBoard = async (copyMe: any) => {
