@@ -1,0 +1,26 @@
+.credit-card-wrapper{
+    border: 0.1rem solid #CED4DA;
+    padding: 2.4rem;
+    border-radius: 0.4rem;
+    width: 25rem;
+    @include respond(xl){
+        width: 30rem;
+    }
+    h3{
+        font-weight: 500;
+        font-size: 1.6rem;
+        color: $primary-color;
+    }
+    figure{
+        position: relative;
+        min-width: 8.5rem;
+        min-height: 1.8rem;
+    }
+    .credit-card-detail{
+        span{
+            font-size: 1.2rem;
+            line-height: 1.8rem;
+            margin: 0 0 0.8rem 0;
+        }
+    }
+}
