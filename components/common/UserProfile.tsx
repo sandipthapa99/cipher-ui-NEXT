@@ -167,8 +167,20 @@ const UserProfileCard = ({
                                     />
                                 </figure>
                                 <div className="left">
+                                    <Overlay
+                                        target={target.current}
+                                        show={show}
+                                        placement="top"
+                                    >
+                                        {(props: any) => (
+                                            <Tooltip {...props}>
+                                                {tooltipMessage}
+                                            </Tooltip>
+                                        )}
+                                    </Overlay>
                                     <div
-                                        data-for="registerTip"
+                                        ref={target}
+                                        onClick={() => setShow(!show)}
                                         className="user-type d-flex"
                                     >
                                         <h1>{userBadge}</h1>
