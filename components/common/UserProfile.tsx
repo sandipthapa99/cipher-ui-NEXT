@@ -167,20 +167,8 @@ const UserProfileCard = ({
                                     />
                                 </figure>
                                 <div className="left">
-                                    <Overlay
-                                        target={target.current}
-                                        show={show}
-                                        placement="top"
-                                    >
-                                        {(props: any) => (
-                                            <Tooltip {...props}>
-                                                {tooltipMessage}
-                                            </Tooltip>
-                                        )}
-                                    </Overlay>
                                     <div
-                                        ref={target}
-                                        onClick={() => setShow(!show)}
+                                        data-for="registerTip"
                                         className="user-type d-flex"
                                     >
                                         <h1>{userBadge}</h1>
@@ -189,6 +177,7 @@ const UserProfileCard = ({
                                             className="svg-icon"
                                         />
                                     </div>
+
                                     <p className="user-point">
                                         {userPoints} points
                                     </p>

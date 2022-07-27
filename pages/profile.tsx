@@ -13,6 +13,11 @@ import { tabContent } from "staticData/tab";
 import { userProfileCardInfo } from "staticData/userProfileCard";
 import TasksProfileCard from "@components/Profile/TasksProfile";
 import { profileTaskCard } from "staticData/profileTaskCard";
+import SavedBookings from "@components/Profile/SavedBookings";
+import UserActivities from "@components/Profile/Activities";
+import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
+import UserDocument from "@components/Profile/Document";
+import { userDocument } from "staticData/userDocument";
 
 const UserProfile: NextPage = () => {
     const [key, setKey] = useState("about");
@@ -88,50 +93,50 @@ const UserProfile: NextPage = () => {
                                     <OrganizationProfile />
                                 </Tab>
                                 <Tab key="2" eventKey="tasks" title="Tasks">
-                                    <div className="task-container">
-                                        <Row>
-                                            {profileTaskCard &&
-                                                profileTaskCard.map((info) => (
-                                                    <Col
-                                                        lg={4}
-                                                        md={3}
-                                                        key={info.id}
-                                                    >
-                                                        <TasksProfileCard
-                                                            title={info.title}
-                                                            cardImage={
-                                                                info.cardImage
-                                                            }
-                                                            description={
-                                                                info.description
-                                                            }
-                                                            address={
-                                                                info.address
-                                                            }
-                                                            rating={info.rating}
-                                                            price={info.price}
-                                                        />
-                                                    </Col>
-                                                ))}
-                                        </Row>
-                                    </div>
+
+                                    <TasksProfileCard />
+
                                 </Tab>
                                 <Tab key="3" eventKey="saved" title="Saved">
-                                    <AboutProfile />
+                                    <SavedBookings />
                                 </Tab>
                                 <Tab
                                     key="4"
                                     eventKey="activities"
                                     title="Activities"
                                 >
-                                    <AboutProfile />
+                                    <div className="activities">
+                                        {userActivitiesTimeline && userActivitiesTimeline.map((activity) => (
+                                            <UserActivities key={activity.id} title={activity.title} date={activity.date} image={activity.image} editService={activity.editService} loggedInDate={activity.loggedInDate} ipAddress={activity.ipAddress} />
+                                        ))}
+                                    </div>
+
+
                                 </Tab>
                                 <Tab
                                     key="5"
                                     eventKey="documents"
                                     title="Documents"
                                 >
-                                    <AboutProfile />
+                                    <div className="user-document">
+                                        <div className="title-wrapper d-flex justify-content-between">
+                                            {/* <h2 className="heading-title">Community activity</h2> */}
+                                            <h1>My Documents</h1>
+                                            <a href="#!">Add New</a>
+                                        </div>
+                                        <div className="content">
+                                            <Row>
+
+                                                {userDocument && userDocument.map((document) => (
+                                                    <Col key={document.id} md={3} lg={2} sm={4} xs={6} className="gx-5">
+                                                        <UserDocument name={document.name} type={document.type} />
+                                                    </Col>))}
+
+                                            </Row>
+                                        </div>
+
+                                    </div>
+
                                 </Tab>
                                 <Tab key="6" eventKey="rewards" title="Rewards">
                                     <AboutProfile />
@@ -139,9 +144,7 @@ const UserProfile: NextPage = () => {
                             </Tabs>
                         </div>
                     </section>
-                    {/* Service detail reviews section start */}
 
-                    {/* Service detail reviews setion end */}
                 </section>
             </Container>
         </Layout>

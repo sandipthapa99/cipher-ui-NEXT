@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { ProfileAboutProps } from 'types/profile'
 import { ProfileAboutContent } from 'staticData/profileAboutContent'
 import { faPencil } from '@fortawesome/pro-regular-svg-icons'
 import { Row, Col } from 'react-bootstrap'
@@ -9,9 +8,8 @@ import { personType, reviewType } from 'utils/options'
 import { reviewsContent } from 'staticData/reviews'
 import Reviews from '@components/common/Reviews'
 import SelectInputField from '@components/common/SelectInputField'
-import UserProfileCard from '@components/common/UserProfile'
 import { Formik } from 'formik'
-import { faAngleRight, faChevronDown } from '@fortawesome/pro-regular-svg-icons'
+import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
 import Link from 'next/link'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -153,7 +151,7 @@ const AboutProfile = () => {
             <section className="reviews">
               <div className="head-container">
                 <h3>
-                  My Reviews <span>(3,0003)</span>{' '}
+                  My Reviews <span>(3,003)</span>{' '}
                 </h3>
                 <div className="dropdowns">
                   <Formik
