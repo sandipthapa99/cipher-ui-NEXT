@@ -11,7 +11,7 @@ const SelectInputField = ({
     touch,
     placeHolder,
     labelName,
-    textMuted,  
+    textMuted,
     fieldRequired = false,
     options,
     ...restProps

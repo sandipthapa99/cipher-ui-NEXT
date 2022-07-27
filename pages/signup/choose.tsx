@@ -1,6 +1,6 @@
 import FormButton from "@components/common/FormButton";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -26,16 +26,24 @@ const Choose = () => {
                         user: "",
                     }}
                     onSubmit={async () => {
-                        router.push(`/signup/${user}`)
-                    }}>
-                    {({
-                        isSubmitting,
-                    }) => (
+                        router.push(`/signup/${user}`);
+                    }}
+                >
+                    {({ isSubmitting }) => (
                         <Form>
                             <Row className="radio-cards-wrapper">
                                 <Col md={6}>
-                                    <div className="choose-card-block" onClick={() => setUser("client")}>
-                                        <span className={`${user == "client" ? "radio radio-active" : "radio"}`}></span>
+                                    <div
+                                        className="choose-card-block"
+                                        onClick={() => setUser("client")}
+                                    >
+                                        <span
+                                            className={`${
+                                                user == "client"
+                                                    ? "radio radio-active"
+                                                    : "radio"
+                                            }`}
+                                        ></span>
                                         <figure className="thumbnail-img">
                                             <Image
                                                 src="/illustrations/signup-as-client.svg"
@@ -47,17 +55,34 @@ const Choose = () => {
                                         </figure>
                                         <div className="card-content">
                                             <div className="account-description">
-                                                <h2 className="account-title">I am client hiring for services</h2>
+                                                <h2 className="account-title">
+                                                    I am client hiring for
+                                                    services
+                                                </h2>
                                                 <p className="account-description">
-                                                    I am looking forward to hire professional individual and get my work done as quick as possible. I believe in paying good amount for satisfied task.
+                                                    I am looking forward to hire
+                                                    professional individual and
+                                                    get my work done as quick as
+                                                    possible. I believe in
+                                                    paying good amount for
+                                                    satisfied task.
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 </Col>
                                 <Col md={6}>
-                                    <div className="choose-card-block" onClick={() => setUser("tasker")}>
-                                        <span className={`${user == "tasker" ? "radio radio-active" : "radio"}`}></span>
+                                    <div
+                                        className="choose-card-block"
+                                        onClick={() => setUser("tasker")}
+                                    >
+                                        <span
+                                            className={`${
+                                                user == "tasker"
+                                                    ? "radio radio-active"
+                                                    : "radio"
+                                            }`}
+                                        ></span>
                                         <figure className="thumbnail-img">
                                             <Image
                                                 src="/illustrations/signup-as-tasker.svg"
@@ -69,13 +94,20 @@ const Choose = () => {
                                         </figure>
                                         <div className="card-content">
                                             <div className="account-description">
-                                                <h2 className="account-title">I am tasker looking for tasks</h2>
+                                                <h2 className="account-title">
+                                                    I am tasker looking for
+                                                    tasks
+                                                </h2>
                                                 <p className="account-description">
-                                                I am a hardworking person who seeks oppurtunity in every task focusing on uplifting my careers to next heights. I priotorize in completing my tasks.
+                                                    I am a hardworking person
+                                                    who seeks oppurtunity in
+                                                    every task focusing on
+                                                    uplifting my careers to next
+                                                    heights. I priotorize in
+                                                    completing my tasks.
                                                 </p>
                                             </div>
                                         </div>
-
                                     </div>
                                 </Col>
                             </Row>
@@ -86,17 +118,16 @@ const Choose = () => {
                                     name="Continue"
                                     className="continue-btn"
                                     isSubmitting={isSubmitting}
-                                    isSubmittingClass={isSubmittingClass(isSubmitting)}
+                                    isSubmittingClass={isSubmittingClass(
+                                        isSubmitting
+                                    )}
                                 />
                             </div>
-
                         </Form>
                     )}
                 </Formik>
             </div>
-
-
         </OnBoardingLayout>
-    )
-}
+    );
+};
 export default Choose;
