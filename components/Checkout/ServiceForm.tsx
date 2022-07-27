@@ -1,5 +1,7 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
@@ -12,7 +14,12 @@ const EquipmentForm = () => {
         <>
             {/* Modal component */}
             <div className="equipment-modal mt-5">
-                <h3>Add Service Charge</h3>
+                <div className="d-flex justify-content-between equipment-model__header">
+                    <h3>Add Service Charge</h3>
+                    <button className="btn">
+                        <FontAwesomeIcon icon={faXmark} className='svg-icon-cross'/>
+                    </button>
+                </div>
                 <div className="equipment-form">
                     <Formik
                         initialValues={EquipmentFormData}
