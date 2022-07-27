@@ -1,4 +1,4 @@
-import { faXmark } from '@fortawesome/pro-regular-svg-icons';
+import { faXmark, faCirclePlus } from '@fortawesome/pro-regular-svg-icons';
 import { InputGroup, Form, Button,Row,Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { ChangeEvent } from 'react';
@@ -15,14 +15,19 @@ const AddRequirements = ({field}: Props) => {
 	const [require, setRequire] = useState('');
 
 	const addRequirements = () => {
-		setRequirementState(prev => {
-			const updatedValue = [
-				...prev,
-				{ id: prev.length === 0  ? 0 : prev.length, name: require },
-			]
-			field('requirements', updatedValue)
-			return updatedValue
-		});
+		if(!require){
+			alert('Empty')
+		}else{
+			setRequirementState(prev => {
+				const updatedValue = [
+					...prev,
+					{ id: prev.length === 0  ? 0 : prev.length, name: require },
+				]
+				field('requirements', updatedValue)
+				return updatedValue
+			});
+		}
+		
 		
 		
 
@@ -83,26 +88,29 @@ const AddRequirements = ({field}: Props) => {
 			<Row>
 				<Row ><ol style={{marginLeft:'1.5rem'}}>{renderTasks}</ol></Row>
 				<Row><div className="mt-4">
-				<InputGroup className="mb-3">
+				<InputGroup className="mb-3" style={{border:'1px solid #dee2e6'}}>
 					<Form.Control
 						placeholder="Add requirements"
 						aria-label="Recipient's username"
 						aria-describedby="basic-addon2"
 						value={require}
+						style={{border:'none',outline:'none'}}
+						
 						
 						onKeyPress={handleEnterAdd}
 						onChange={(event: ChangeEvent<HTMLInputElement>) => {
-							setRequire(event.target.value);
+							setRequire(event.target.value)
+							
 						}}
 					/>
-					<Button
-						variant="outline-secondary"
+					<button
+				
 						id="button-addon2"
 						onClick={addRequirements}
-						
+						style={{margin:'0.7rem 0.5rem 0.5rem 0.5rem', border:'none',outline:'none'}}
 					>
-						ADD
-					</Button>
+						<FontAwesomeIcon icon={faCirclePlus} className='svg-icon' style={{color:'#3EAEFF'}}/>
+					</button>
 				</InputGroup>
 			</div></Row>
 			</Row>

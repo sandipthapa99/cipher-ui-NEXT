@@ -48,7 +48,8 @@ const PostModal = ({ onSubmit }: Props) => {
 	return (
 		<>
 			<h3>Post a Task</h3>
-
+			
+{/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
 			<Form onSubmit={handleSubmit}>
 				<Form.Group className="mb-3" controlId="formBasicEmail" >
 					<Form.Label>Give a title to your task</Form.Label>
@@ -143,20 +144,24 @@ const PostModal = ({ onSubmit }: Props) => {
 				<Row className="mt-2">
 					{values.budgetType === 'fixed' && <Col md={6}>
 					<Form.Group>
-							<Form.Control type="number" min={0} placeholder="Fixed Value" {...getFieldProps('fixedValue')} />
-
+							<Form.Control style={errors.fixedValue && touched.fixedValue ? { border: '1px solid red' } : {}} type="number" min={0} placeholder="Fixed Value" {...getFieldProps('fixedValue')} />
+							{errors.fixedValue && touched.fixedValue ? <div style={{ color: 'red', fontSize: '12px' }} className='error-message'>{errors.fixedValue
+							}</div> : null}
 						</Form.Group>
 						</Col>}
 					{ values.budgetType === 'range'&& 
 					<><Col>
 						<Form.Group>
-							<Form.Control type="number" min={0} placeholder="From"  {...getFieldProps('minBudget')} />
-
+							<Form.Control style={errors.minBudget && touched.minBudget ? { border: '1px solid red' } : {}} type="number" min={0} placeholder="From"  {...getFieldProps('minBudget')} />
+							{errors.minBudget && touched.minBudget ? <div style={{ color: 'red', fontSize: '12px' }} className='error-message'>{errors.minBudget
+							}</div> : null}
 						</Form.Group>
 					</Col>
 					<Col>
 						<Form.Group>
-							<Form.Control type="number" min={0} placeholder="To"  {...getFieldProps('maxBudget')} />
+							<Form.Control style={errors.maxBudget && touched.maxBudget ? { border: '1px solid red' } : {}} type="number" min={0} placeholder="To"  {...getFieldProps('maxBudget')} />
+							{errors.maxBudget && touched.maxBudget ? <div style={{ color: 'red', fontSize: '12px' }} className='error-message'>{errors.maxBudget
+							}</div> : null}
 						</Form.Group>
 					</Col></>}
 				</Row>

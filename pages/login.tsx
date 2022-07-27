@@ -3,6 +3,7 @@ import InputField from '@components/common/InputField';
 import PasswordField from '@components/common/PasswordField';
 import SocialLoginBtn from '@components/common/SocialLoginBtn';
 import OnBoardingLayout from '@components/OnBoardingLayout';
+import { useAuthContext } from 'context/AuthContext/userContext';
 import { Form, Formik } from 'formik';
 import { useLocalStorage } from 'hooks/use-local-storage';
 import { useRouter } from 'next/router';
@@ -14,9 +15,7 @@ import { isSubmittingClass } from 'utils/helpers';
 const Login = () => {
 	const router = useRouter();
 	// const [users] = useLocalStorage<Array<{ email: string; password: string }>>('users', []);
-	const [, setToken] = useLocalStorage('token', '');
-	const [user, setUser] = useLocalStorage('user', []);
-
+	
 	return (
 		<section>
 			<OnBoardingLayout
@@ -33,8 +32,8 @@ const Login = () => {
 						initialValues={loginFormData}
 						validationSchema={loginFormSchema}
 						onSubmit={async (values, actions) => {
-							setUser(values);
-							console.log(user);
+							console.log(values);
+							
 
 							// actions.setSubmitting(true);
 							// setTimeout(() => {

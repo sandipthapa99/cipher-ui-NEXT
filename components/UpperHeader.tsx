@@ -1,6 +1,6 @@
 import { faBars } from '@fortawesome/pro-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useUserContext } from 'context/userContext';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
@@ -12,7 +12,7 @@ export interface UpperHeaderProps {}
 
 export function UpperHeader(props: UpperHeaderProps) {
 	const router = useRouter();
-	const { userToken, isUserLoggedIn } = useUserContext();
+	
 
 	return (
 		<>

@@ -1,0 +1,74 @@
+{
+  "users": [
+    {
+      "firstName": "govind",
+      "lastName": "bohara",
+      "email": "govind@gmail.com",
+      "phoneNumber": "9865843701",
+      "password": "govind12325",
+      "confirmPassword": "govind12325",
+      "gender": "male",
+      "isAgree": true,
+      "addToNewsletter": true,
+      "id": 1
+    },
+    {
+      "firstName": "govind",
+      "lastName": "bohara",
+      "email": "sachin@gmail.com",
+      "phoneNumber": "9865841701",
+      "password": "govind12325",
+      "confirmPassword": "govind12325",
+      "gender": "male",
+      "isAgree": true,
+      "addToNewsletter": true,
+      "id": 2
+    },
+    {
+      "firstName": "govind",
+      "lastName": "bohara",
+      "email": "sachin@gmail.com",
+      "phoneNumber": "9865841701",
+      "password": "govind12325",
+      "confirmPassword": "govind12325",
+      "gender": "male",
+      "isAgree": true,
+      "addToNewsletter": true,
+      "id": 3
+    },
+    {
+      "firstName": "govind",
+      "lastName": "bohara",
+      "email": "sachin@gmail.com",
+      "phoneNumber": "9865841701",
+      "password": "govind12325",
+      "confirmPassword": "govind12325",
+      "gender": "male",
+      "isAgree": true,
+      "addToNewsletter": true,
+      "id": 4
+    },
+    {
+      "firstName": "govind",
+      "lastName": "bohara",
+      "email": "sachin12@gmail.com",
+      "phoneNumber": "9851111111",
+      "password": "govind12325",
+      "confirmPassword": "govind12325",
+      "gender": "male",
+      "isAgree": true,
+      "addToNewsletter": true,
+      "id": 5
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

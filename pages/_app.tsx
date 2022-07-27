@@ -3,7 +3,7 @@ import '../styles/bundle.scss';
 import SearchProvider from 'context/searchProvider';
 // import { useEffect } from 'react';
 // import { useLocalStorage } from 'hooks/use-local-storage';
-import UserProvider from 'context/userContextProvider';
+import AuthProvider from '../context/AuthContext/userContextProvider'
 import type { AppProps } from 'next/app';
 import SuccessProvider from 'context/successContext/successProvider';
 
@@ -16,13 +16,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 	// 	}
 	// }, [setValue]);
 	return (
-		<UserProvider>
+		<AuthProvider>
 			<SearchProvider>
 				<SuccessProvider>
 				<Component {...pageProps} />
 				</SuccessProvider>
 			</SearchProvider>
-		</UserProvider>
+		</AuthProvider>
 	);
 }
 
