@@ -1,8 +1,8 @@
 import { faXmark } from '@fortawesome/pro-regular-svg-icons';
-import { InputGroup, Form, Button,Row,Col } from 'react-bootstrap';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { useState } from 'react';
 import { ChangeEvent } from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { Button,Col,Form, InputGroup, Row } from 'react-bootstrap';
 
 interface Props{
 	field: Function

@@ -1,6 +1,6 @@
-import { userSavedBookings } from "staticData/userSavedBookings";
-import { Row, Col } from "react-bootstrap";
 import ServiceCard from "@components/common/ServiceCard";
+import { Col,Row } from "react-bootstrap";
+import { userSavedBookings } from "staticData/userSavedBookings";
 
 const SavedBookings = () => {
     return (

@@ -1,7 +1,7 @@
-import Image from "next/image";
-import { RewardCardProps } from "types/rewardCard";
 import CardBtn from "@components/common/CardBtn";
+import Image from "next/image";
 import { useState } from "react";
+import { RewardCardProps } from "types/rewardCard";
 
 const RewardCard = ({
     title,

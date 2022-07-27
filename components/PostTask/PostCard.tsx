@@ -1,7 +1,7 @@
-import {Modal, Button} from 'react-bootstrap';
-import { useSuccessContext } from 'context/successContext/successContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition} from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSuccessContext } from 'context/successContext/successContext';
+import {Button,Modal} from 'react-bootstrap';
 
 interface Props {
     text:string,

@@ -1,9 +1,9 @@
-import { userSavedBookings } from "staticData/userSavedBookings";
-import { Row, Col } from "react-bootstrap";
 import ServiceCard from "@components/common/ServiceCard";
-import { UserActivitiesTimeline } from "types/userActivitiesTimeline";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { Col,Row } from "react-bootstrap";
+import { userSavedBookings } from "staticData/userSavedBookings";
+import { UserActivitiesTimeline } from "types/userActivitiesTimeline";
 const UserActivities = ({ title, date, editService, image, ipAddress, loggedInDate }: UserActivitiesTimeline) => {
     return (
 

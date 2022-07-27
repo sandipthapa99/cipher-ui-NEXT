@@ -1,25 +1,22 @@
 import Breadcrum from "@components/common/Breadcrum";
-
+import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
 import AboutProfile from "@components/Profile/AboutProfile";
+import UserActivities from "@components/Profile/Activities";
+import UserDocument from "@components/Profile/Document";
 import OrganizationProfile from "@components/Profile/OrganizationProfile";
-import UserProfileCard from "@components/common/UserProfile";
+import RewardCard from "@components/Profile/RewardCard";
+import SavedBookings from "@components/Profile/SavedBookings";
+import TasksProfileCard from "@components/Profile/TasksProfile";
 import type { NextPage } from "next";
-
 import { useState } from "react";
 import { Button, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
-
-import { tabContent } from "staticData/tab";
-import { userProfileCardInfo } from "staticData/userProfileCard";
-import TasksProfileCard from "@components/Profile/TasksProfile";
 import { profileTaskCard } from "staticData/profileTaskCard";
-import SavedBookings from "@components/Profile/SavedBookings";
-import UserActivities from "@components/Profile/Activities";
-import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
-import UserDocument from "@components/Profile/Document";
-import { userDocument } from "staticData/userDocument";
-import RewardCard from "@components/Profile/RewardCard";
 import { rewardCardContent } from "staticData/rewardCard";
+import { tabContent } from "staticData/tab";
+import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
+import { userDocument } from "staticData/userDocument";
+import { userProfileCardInfo } from "staticData/userProfileCard";
 
 const UserProfile: NextPage = () => {
     const [key, setKey] = useState("about");

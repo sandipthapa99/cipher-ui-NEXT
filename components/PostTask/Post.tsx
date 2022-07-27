@@ -1,12 +1,13 @@
 import InputField from '@components/common/InputField';
 import { faFolderOpen } from '@fortawesome/pro-regular-svg-icons';
+import {faSquareCheck} from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { Button, Col, Modal, Row } from 'react-bootstrap';
+
 import { PostCard } from './PostCard';
 import PostModal from './PostModal';
-import {faSquareCheck} from '@fortawesome/pro-regular-svg-icons'
 
 const Post = () => {
 	

@@ -1,18 +1,17 @@
-import Image from 'next/image'
-import { ProfileAboutContent } from 'staticData/profileAboutContent'
+import Reviews from '@components/common/Reviews'
+import SelectInputField from '@components/common/SelectInputField'
 import { faPencil } from '@fortawesome/pro-regular-svg-icons'
-import { Row, Col } from 'react-bootstrap'
+import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Formik } from 'formik'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Col,Row } from 'react-bootstrap'
+import { ProfileAboutContent } from 'staticData/profileAboutContent'
+import { reviewsContent } from 'staticData/reviews'
 import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
 import { HomeSearchdata } from 'utils/homeSearchData'
 import { personType, reviewType } from 'utils/options'
-import { reviewsContent } from 'staticData/reviews'
-import Reviews from '@components/common/Reviews'
-import SelectInputField from '@components/common/SelectInputField'
-import { Formik } from 'formik'
-import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
-import Link from 'next/link'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const AboutProfile = () => {
   return (

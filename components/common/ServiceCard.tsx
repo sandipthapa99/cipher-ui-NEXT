@@ -2,12 +2,12 @@ import { faHeart, faShare } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { ServiceCardProps } from "types/serviceCard";
 import { useState } from 'react'
+import { ServiceCardProps } from "types/serviceCard";
 
 import CardBtn from "./CardBtn";
-import ShareModal from "./ShareModalCard";
 import ShareIcon from "./ShareIcon";
+import ShareModal from "./ShareModalCard";
 
 const ServiceCard = ({
     serviceImage,

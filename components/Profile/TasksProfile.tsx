@@ -1,17 +1,17 @@
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Reviews from '@components/common/Reviews'
+import SelectInputField from '@components/common/SelectInputField'
+import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Formik } from 'formik'
+import Image from "next/image";
+import Link from 'next/link'
+import { Col,Row } from 'react-bootstrap'
+import { profileTaskCard } from "staticData/profileTaskCard";
+import { reviewsContent } from 'staticData/reviews'
 import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
 import { HomeSearchdata } from 'utils/homeSearchData'
 import { personType, reviewType } from 'utils/options'
-import { reviewsContent } from 'staticData/reviews'
-import Reviews from '@components/common/Reviews'
-import SelectInputField from '@components/common/SelectInputField'
-import { Formik } from 'formik'
-import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
-import Link from 'next/link'
-import { Row, Col } from 'react-bootstrap'
-import { profileTaskCard } from "staticData/profileTaskCard";
 
 const TasksProfileCard = () => {
     return (

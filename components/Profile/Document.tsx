@@ -1,5 +1,5 @@
-import { UserDocument } from "types/userDocument";
 import Image from "next/image";
+import { UserDocument } from "types/userDocument";
 const UserDocument = ({ name, type }: UserDocument) => {
     return (
         <div className="document-block">
