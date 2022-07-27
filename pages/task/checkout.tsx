@@ -1,5 +1,6 @@
 import TaskList from "@components/AppliedTask/TaskList";
 import BillingLocation from "@components/Checkout/BillingLocation";
+import EquipmentForm from "@components/Checkout/EquipmentForm";
 import ExtraSection from "@components/Checkout/ExtraSection";
 import Breadcrum from "@components/common/Breadcrum";
 import PackageOffersCard from "@components/common/packageCard";
@@ -33,6 +34,7 @@ const Checkout = () => {
                                 location={billingLocationContent.location}
                             />
                             <ExtraSection />
+                            <EquipmentForm />
                         </Col>
                         <Col lg={4}>
                             <TaskList task={taskListContent} />
