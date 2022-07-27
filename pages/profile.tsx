@@ -148,6 +148,7 @@ const UserProfile: NextPage = () => {
                                                         btnText={info.btnText}
                                                         description={info.description}
                                                         isAvailable={info.isAvailable}
+                                                        discount={info.discount}
                                                         daysLeft={info.daysLeft}
                                                         couponCode={info.couponCode}
                                                         haveCouponCode={info.haveCouponCode}

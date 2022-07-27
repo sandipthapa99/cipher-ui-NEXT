@@ -48,7 +48,7 @@ const RewardCard = ({
                     />
                 </figure>}
             <div className="card-content">
-                <h2>{haveDiscount ? `25% Off ${title}` : `${title}`}</h2>
+                <h2>{haveDiscount ? `${discount}% Off ${title}` : `${title}`}</h2>
                 <p>{description}</p>
                 {haveCouponCode ?
 
