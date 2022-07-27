@@ -14,7 +14,7 @@ const MembershipCard = ({
     return (
         <div
             className={`member-card-block ${
-                isRecommended ? "card-block-border-color" : ""
+                isRecommended ? "card-block-border-color-secondary" : ""
             }`}
         >
             <div className="top-container">

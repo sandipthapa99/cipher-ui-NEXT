@@ -1,5 +1,5 @@
-.card-block-border-color {
-    border: 1.4px solid $link-color !important;
+.card-block-border-color-secondary {
+    border: 2px solid #f98900;
 }
 .membership-section {
     h1 {
@@ -12,7 +12,7 @@
         display: block;
         margin: 0 0 3rem;
         border-radius: 0.4rem;
-        box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+        box-shadow: 0 0.4rem 1.4rem rgba(33, 29, 79, 0.1);
         background: #ffffff66;
         @include transition();
         cursor: pointer;
