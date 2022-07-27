@@ -1,4 +1,10 @@
-import { faFacebookF, faInstagram, faLinkedinIn,faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import {
+    faFacebookF,
+    faInstagram,
+    faLinkedinIn,
+    faTwitter,
+    faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
@@ -6,7 +12,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import emailValidationSchema from "utils/formValidation/emailValidation";
-import * as Yup from "yup";
 
 import InputField from "./common/InputField";
 
@@ -20,21 +25,21 @@ const Footer = () => {
                         <Row>
                             <Col sm={6} className="newsletter-text">
                                 <h5>Subscribe to CIPHER</h5>
-                                <p>A newsletter for customers covering techniques, technical guides, and hiring process coming from CIPHER.</p>
+                                <p>
+                                    A newsletter for customers covering
+                                    techniques, technical guides, and hiring
+                                    process coming from CIPHER.
+                                </p>
                             </Col>
                             <Col sm={6} className="newsletter-form">
                                 <Formik
                                     initialValues={{ email: "" }}
                                     validationSchema={emailValidationSchema}
                                     onSubmit={async (values) => {
-                                        console.log(values)
+                                        console.log(values);
                                     }}
                                 >
-                                    {({
-                                        isSubmitting,
-                                        errors,
-                                        touched,
-                                    }) => (
+                                    {({ isSubmitting, errors, touched }) => (
                                         <Form>
                                             <InputField
                                                 type="email"
@@ -47,8 +52,12 @@ const Footer = () => {
                                                 <button
                                                     type="submit"
                                                     className="btn"
-                                                    disabled={isSubmitting}>
-                                                    <FontAwesomeIcon icon={faArrowRight} className="svg-icon" />
+                                                    disabled={isSubmitting}
+                                                >
+                                                    <FontAwesomeIcon
+                                                        icon={faArrowRight}
+                                                        className="svg-icon"
+                                                    />
                                                 </button>
                                             </div>
                                         </Form>
@@ -66,18 +75,28 @@ const Footer = () => {
                                 <div className="footer-block">
                                     <h2>CIPHER</h2>
                                     <p>
-                                        As a digital and social entrepreneur, MICK invests and it is a consults with a wide array of start ups and early stage is an companies.  and social entrepreneur, MICK invests and op consults with a wide array of start ups and early stage on the companies. and social entrepreneur, MICK invests and consults with a wide array of start ups and early stage der it companies.<br /><br />
-
-                                        And social entrepreneur, MICK invests and consults with a wide array of start ups and early stage companies.
+                                        As a digital and social entrepreneur,
+                                        MICK invests and it is a consults with a
+                                        wide array of start ups and early stage
+                                        is an companies. and social
+                                        entrepreneur, MICK invests and op
+                                        consults with a wide array of start ups
+                                        and early stage on the companies. and
+                                        social entrepreneur, MICK invests and
+                                        consults with a wide array of start ups
+                                        and early stage der it companies.
+                                        <br />
+                                        <br />
+                                        And social entrepreneur, MICK invests
+                                        and consults with a wide array of start
+                                        ups and early stage companies.
                                     </p>
                                 </div>
                             </Col>
                             <Col md={2}>
                                 <div className="footer-block">
                                     <ul>
-                                        <li>
-                                            For Clients
-                                        </li>
+                                        <li>For Clients</li>
                                         <li>
                                             <Link href="">
                                                 <a>How to Hire?</a>
@@ -104,9 +123,7 @@ const Footer = () => {
                             <Col md={2}>
                                 <div className="footer-block">
                                     <ul>
-                                        <li>
-                                            For Merchants
-                                        </li>
+                                        <li>For Merchants</li>
                                         <li>
                                             <Link href="">
                                                 <a>How to find Tasks?</a>
@@ -123,9 +140,7 @@ const Footer = () => {
                             <Col md={2}>
                                 <div className="footer-block">
                                     <ul>
-                                        <li>
-                                            Resources
-                                        </li>
+                                        <li>Resources</li>
                                         <li>
                                             <Link href="/help">
                                                 <a>Help and Support</a>
@@ -152,12 +167,18 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/referral" as="affiliate-program">
+                                            <Link
+                                                href="/referral"
+                                                as="affiliate-program"
+                                            >
                                                 <a>Affiliate Program</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="socialResponsibilities" as="social-responsibilities">
+                                            <Link
+                                                href="socialResponsibilities"
+                                                as="social-responsibilities"
+                                            >
                                                 <a>Social Responsibilities</a>
                                             </Link>
                                         </li>
@@ -167,16 +188,17 @@ const Footer = () => {
                             <Col md={2}>
                                 <div className="footer-block">
                                     <ul>
-                                        <li>
-                                            Company
-                                        </li>
+                                        <li>Company</li>
                                         <li>
                                             <Link href="about" as="about-us">
                                                 <a>About Us</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/contact" as="contact-us">
+                                            <Link
+                                                href="/contact"
+                                                as="contact-us"
+                                            >
                                                 <a>Contact Us</a>
                                             </Link>
                                         </li>
@@ -217,40 +239,63 @@ const Footer = () => {
                                         href="https://www.facebook.com"
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="wrapper facebook">
-                                        <FontAwesomeIcon icon={faFacebookF} className="svg-icon " />
+                                        className="wrapper facebook"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faFacebookF}
+                                            className="svg-icon "
+                                        />
                                     </a>
                                     <a
                                         href="https://www.linkedin.com"
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="wrapper linkedIn">
-                                        <FontAwesomeIcon icon={faLinkedinIn} className="svg-icon " />
+                                        className="wrapper linkedIn"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faLinkedinIn}
+                                            className="svg-icon "
+                                        />
                                     </a>
                                     <a
                                         href="https://www.twitter.com"
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="wrapper twitter">
-                                        <FontAwesomeIcon icon={faTwitter} className="svg-icon " />
+                                        className="wrapper twitter"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faTwitter}
+                                            className="svg-icon "
+                                        />
                                     </a>
                                     <a
                                         href="https://www.instagram.com"
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="wrapper instagram">
-                                        <FontAwesomeIcon icon={faInstagram} className="svg-icon " />
+                                        className="wrapper instagram"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faInstagram}
+                                            className="svg-icon "
+                                        />
                                     </a>
                                     <a
                                         href="https://www.youtube.com"
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="wrapper youtube">
-                                        <FontAwesomeIcon icon={faYoutube} className="svg-icon " />
+                                        className="wrapper youtube"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faYoutube}
+                                            className="svg-icon "
+                                        />
                                     </a>
                                 </div>
                             </Col>
-                            <Col md={6} className="d-block d-md-flex justify-content-end">
+                            <Col
+                                md={6}
+                                className="d-block d-md-flex justify-content-end"
+                            >
                                 <div>
                                     <h2>Mobile App</h2>
                                     <Row>
@@ -290,6 +335,6 @@ const Footer = () => {
                 </Container>
             </footer>
         </>
-    )
-}
+    );
+};
 export default Footer;

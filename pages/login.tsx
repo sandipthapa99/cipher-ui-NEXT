@@ -35,80 +35,82 @@ const Login = () => {
 							console.log(values);
 							
 
-							// actions.setSubmitting(true);
-							// setTimeout(() => {
-							// 	if (typeof window !== 'undefined') {
-							// 		localStorage.setItem('user', JSON.stringify(values));
-							// 		localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9');
-							// 	}
-							// 	// localStorage.setItem('user', JSON.stringify(values));
-							// 	// localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9');
-							// 	actions.setSubmitting(false);
-							// 	router.push('/');
-							// }, 2000);
-							// const userValidation = users.find(
-							// 	user =>
-							// 		user.email === values.email &&
-							// 		user.password === values.password
-							// );
-							// 	if (!userValidation) {
-							// 		alert('Wrong Credentials');
-							// 	} else {
-							// 		alert('You are logged in');
-							// 		router.push('/');
-							// 		setToken('eyJhbGciOiJIUzI1NiJ9');
-							// 	}
-						}}
-					>
-						{({ isSubmitting, errors, touched }) => (
-							<Form className="login-form">
-								<InputField
-									type="email"
-									name="email"
-									labelName="Email or phone number"
-									touch={touched.email}
-									error={errors.email}
-									placeHolder="example@example.com"
-								/>
-								<PasswordField
-									type="password"
-									name="password"
-									labelName="Password"
-									touch={touched.password}
-									error={errors.password}
-									placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
-									forgotPassword="Forgot Password?"
-								/>
-								<FormButton
-									type="submit"
-									variant="primary"
-									name={isSubmitting ? 'Loading' : 'Login'}
-									className="login-btn"
-									isSubmitting={isSubmitting}
-									isSubmittingClass={isSubmittingClass(isSubmitting)}
-								/>
+                            // actions.setSubmitting(true);
+                            // setTimeout(() => {
+                            // 	if (typeof window !== 'undefined') {
+                            // 		localStorage.setItem('user', JSON.stringify(values));
+                            // 		localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9');
+                            // 	}
+                            // 	// localStorage.setItem('user', JSON.stringify(values));
+                            // 	// localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9');
+                            // 	actions.setSubmitting(false);
+                            // 	router.push('/');
+                            // }, 2000);
+                            // const userValidation = users.find(
+                            // 	user =>
+                            // 		user.email === values.email &&
+                            // 		user.password === values.password
+                            // );
+                            // 	if (!userValidation) {
+                            // 		alert('Wrong Credentials');
+                            // 	} else {
+                            // 		alert('You are logged in');
+                            // 		router.push('/');
+                            // 		setToken('eyJhbGciOiJIUzI1NiJ9');
+                            // 	}
+                        }}
+                    >
+                        {({ isSubmitting, errors, touched }) => (
+                            <Form className="login-form">
+                                <InputField
+                                    type="email"
+                                    name="email"
+                                    labelName="Email or phone number"
+                                    touch={touched.email}
+                                    error={errors.email}
+                                    placeHolder="example@example.com"
+                                />
+                                <PasswordField
+                                    type="password"
+                                    name="password"
+                                    labelName="Password"
+                                    touch={touched.password}
+                                    error={errors.password}
+                                    placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
+                                    forgotPassword="Forgot Password?"
+                                />
+                                <FormButton
+                                    type="submit"
+                                    variant="primary"
+                                    name={isSubmitting ? "Loading" : "Login"}
+                                    className="login-btn"
+                                    isSubmitting={isSubmitting}
+                                    isSubmittingClass={isSubmittingClass(
+                                        isSubmitting
+                                    )}
+                                />
 
-								<div className="horizontal-line">
-									<span className="or">OR</span>
-								</div>
+                                <div className="horizontal-line">
+                                    <span className="or">OR</span>
+                                </div>
 
-								<SocialLoginBtn
-									name={'Sign in with Facebook'}
-									icon="/illustrations/fb.svg"
-									className="facebook"
-								></SocialLoginBtn>
+                                <SocialLoginBtn
+                                    name={"Sign in with Facebook"}
+                                    icon="/illustrations/fb.svg"
+                                    className="facebook"
+                                ></SocialLoginBtn>
 
-								<SocialLoginBtn
-									name={'Sign in with Google'}
-									icon="/illustrations/google.svg"
-									className="google"
-								></SocialLoginBtn>
-							</Form>
-						)}
-					</Formik>
-				</div>
-			</OnBoardingLayout>
-		</section>
-	);
+                                <SocialLoginBtn
+                                    name={"Sign in with Google"}
+                                    icon="/illustrations/google.svg"
+                                    className="google"
+                                ></SocialLoginBtn>
+                            </Form>
+                        )}
+                    </Formik>
+                </div>
+            </OnBoardingLayout>
+        </section>
+    );
 };
 export default Login;

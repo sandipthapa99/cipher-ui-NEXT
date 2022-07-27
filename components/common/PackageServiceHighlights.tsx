@@ -1,29 +1,29 @@
 const PackageServiceHighlights = ({
-  title,
-  isChecked,
+    title,
+    isChecked,
 }: {
-  title: string
-  isChecked: boolean
+    title: string;
+    isChecked: boolean;
 }) => {
-  return (
-    <div className="py-2 checkbox">
-      {isChecked ? (
-        <div className="checked-content ">
-          <div className="check"></div>
-          <label className="label" style={{ marginLeft: '1.5rem' }}>
-            {title}
-          </label>
-        </div>
-      ) : (
-        <div className="unchecked-content">
-          <div className="check"></div>
+    return (
+        <div className="py-2 checkbox">
+            {isChecked ? (
+                <div className="checked-content ">
+                    <div className="check"></div>
+                    <label className="label" style={{ marginLeft: "1.5rem" }}>
+                        {title}
+                    </label>
+                </div>
+            ) : (
+                <div className="unchecked-content">
+                    <div className="check"></div>
 
-          <label className="label" style={{ marginLeft: '1.5rem' }}>
-            <del>{title}</del>
-          </label>
+                    <label className="label" style={{ marginLeft: "1.5rem" }}>
+                        <del>{title}</del>
+                    </label>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  )
-}
-export default PackageServiceHighlights
+    );
+};
+export default PackageServiceHighlights;

@@ -1,18 +1,20 @@
 import { faXmark, faCirclePlus } from '@fortawesome/pro-regular-svg-icons';
-import { InputGroup, Form, Button,Row,Col } from 'react-bootstrap';
 import { useState } from 'react';
-import { ChangeEvent } from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { KeyboardEvent } from "react";
+import { ChangeEvent } from "react";
+import { Button, Form, InputGroup, Row } from "react-bootstrap";
+import { Requirement } from "types/requirement";
 
-interface Props{
-	field: Function
+interface Props {
+    field: (label: string, value: unknown) => void;
 }
 
+const requirements: Requirement[] = [];
 
-const AddRequirements = ({field}: Props) => {
-	const requirements = [];
-	const [requirementState, setRequirementState] = useState(requirements);
-	const [require, setRequire] = useState('');
+const AddRequirements = ({ field }: Props) => {
+    const [requirementState, setRequirementState] = useState(requirements);
+    const [require, setRequire] = useState("");
 
 	const addRequirements = () => {
 		if(!require){
@@ -31,42 +33,41 @@ const AddRequirements = ({field}: Props) => {
 		
 		
 
-		setRequire('');
-	};
+        setRequire("");
+    };
 
-	const handleEnterAdd = (event:KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === 'Enter') {
-			addRequirements();
-		}
-	};
+    const handleEnterAdd = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            addRequirements();
+        }
+    };
 
-	const deleteRequirements = (requirementId: number) => {
-		setRequirementState(prev => {
-			const filtered = prev.filter(prevItem => prevItem.id !== requirementId)
+    const deleteRequirements = (requirementId: number) => {
+        setRequirementState((prev) => {
+            const filtered = prev.filter(
+                (prevItem) => prevItem.id !== requirementId
+            );
 
-			field('requirements', filtered)
+            field("requirements", filtered);
 
-			return filtered
-			
-			
-		
-		});
-		console.log(requirementId);
-		console.log(requirementState);
-	};
+            return filtered;
+        });
+        console.log(requirementId);
+        console.log(requirementState);
+    };
 
-	const renderTasks = requirementState.map((requirement, index) => {
-		return (
-			<div
-				key={index}
-				style={{
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'space-between',
-					marginTop: '1rem',
-				}}
-			>
-				<li>{requirement.name}</li>
+    const renderTasks = requirementState.map((requirement, index) => {
+        return (
+            <div
+                key={index}
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginTop: "1rem",
+                }}
+            >
+                <li>{requirement.name}</li>
 
 				<FontAwesomeIcon
 					icon={faXmark}

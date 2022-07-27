@@ -1,79 +1,91 @@
 .task-applied-card-block {
-  background: #ffffff66;
-  padding: 2.4rem 4rem;
-  border-radius: 0.4rem;
-  margin-bottom: 2.4rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+    background: #ffffff66;
+    padding: 2.4rem 4rem;
+    border-radius: 0.4rem;
+    margin-bottom: 2.4rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 
-  &__header {
-    .title {
-      font-size: 1.6rem;
-      font-weight: 500;
-      color: $primary-color;
-    }
-
-    .charge {
-      font-weight: 500;
-      font-size: 2rem;
-      color: #343a40;
-    }
-  }
-
-  &__body {
-    .task-description {
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: #495057;
-      line-height: 2.4rem;
-      margin-bottom: 2.4rem;
-    }
-
-    .location {
-      font-size: 1.2rem;
-      .svg-icon {
-        width: 1rem;
-        color: #fe5050;
-      }
-    }
-    .task-location-time {
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: #343a40;
-      span {
-        margin: 0;
-      }
-      .date {
-        .svg-icon {
-          width: 1.2rem;
-          color: #f06700;
+    &__header {
+        .title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: $primary-color;
+            @include respond(lg) {
+                font-size: 1.6rem;
+            }
+            @media screen and (min-width: 1024px) {
+                font-size: 1.6rem;
+            }
         }
-      }
-      .time {
-        .svg-icon {
-          width: 1.2rem;
-          color: #3eaeff;
+
+        .charge {
+            font-weight: 500;
+            font-size: 1.3rem;
+            color: #343a40;
+            @include respond(lg) {
+                font-size: 2rem;
+            }
+            @media screen and (min-width: 1024px) {
+                font-size: 2rem;
+            }
         }
-      }
     }
-    hr {
-      border: 1px solid #e9ecef;
+
+    &__body {
+        .task-description {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #495057;
+            line-height: 2.4rem;
+            margin-bottom: 2.4rem;
+        }
+
+        .location {
+            font-size: 1.2rem;
+            .svg-icon {
+                width: 1rem;
+                color: #fe5050;
+            }
+        }
+        .task-location-time {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #343a40;
+            span {
+                margin: 0;
+            }
+            .date {
+                .svg-icon {
+                    width: 1.2rem;
+                    color: #f06700;
+                }
+            }
+            .time {
+                .svg-icon {
+                    width: 1.2rem;
+                    color: #3eaeff;
+                }
+            }
+        }
+        hr {
+            border: 1px solid #e9ecef;
+        }
     }
-  }
-  &__footer {
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: #343a40;
-    .share {
-      .svg-icon {
-        width: 1.4rem;
-        color: #3eaeff;
-      }
+    &__footer {
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: #343a40;
+        .share {
+            .svg-icon {
+                width: 1.4rem;
+                color: #3eaeff;
+            }
+        }
+        .applicants {
+            .svg-icon {
+                width: 1.6rem;
+                color: #2d2d66;
+            }
+        }
     }
-    .applicants {
-      .svg-icon {
-        width: 1.6rem;
-        color: #2d2d66;
-      }
-    }
-  }
 }

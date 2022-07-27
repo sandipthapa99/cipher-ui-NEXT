@@ -1,25 +1,57 @@
+import { useSuccessContext } from "context/successContext/successContext";
+import { useFormik } from "formik";
+import Image from "next/image";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { PostTaskData } from "types/postTaskData";
 
-import { Form, Row, Col, Button } from 'react-bootstrap';
-import Image from 'next/image';
-import AddRequirements from './AddRequirements';
-import { useFormik } from 'formik';
-import { PostTaskData } from 'types/postTaskData';
-import { postTaskValidationSchema } from '../../utils/PostTask/postTaskValidation'
-import {
-	categoryData
-} from '../../types/categoryData'
-import { useSuccessContext } from 'context/successContext/successContext';
+import { categoryData } from "../../types/categoryData";
+import { postTaskValidationSchema } from "../../utils/PostTask/postTaskValidation";
+import AddRequirements from "./AddRequirements";
 
 interface Props {
-	onSubmit: Function
+    onSubmit: () => void;
 }
 const PostModal = ({ onSubmit }: Props) => {
-	const { setShowSuccessModal } = useSuccessContext()
+    const { setShowSuccessModal } = useSuccessContext();
 
+    const renderCategory = categoryData.map((category) => {
+        return (
+            <option
+                key={category.id}
+                value={category.name.split(" ").join("").toLowerCase()}
+            >
+                {category.name}
+            </option>
+        );
+    });
 
-	const renderCategory = categoryData.map(category => {
-		return <option key={category.id} value={category.name.split(' ').join("").toLowerCase()}>{category.name}</option>
-	})
+    const {
+        handleSubmit,
+        getFieldProps,
+        errors,
+        setFieldValue,
+        touched,
+        values,
+    } = useFormik<PostTaskData>({
+        initialValues: {
+            title: "",
+            titleDescription: "",
+            category: "",
+            subcategory: "",
+            dateTime: "",
+            estimatedHour: 0,
+            budgetType: "fixed",
+            fixedValue: 0,
+            minBudget: 0,
+            maxBudget: 1000000,
+            address: "",
+            requirements: [],
+            image: null,
+        },
+        onSubmit(values){
+            onSubmit();
+            console.log(values);
+            console.log(values.budgetType);
 
 	const { handleSubmit, getFieldProps, errors
 		, isSubmitting, setFieldValue, touched,values } = useFormik<PostTaskData>({
@@ -221,34 +253,43 @@ const PostModal = ({ onSubmit }: Props) => {
 export default PostModal;
 
 const DragAndDrop = () => {
-	return (
-		<Col md={4} className="drag-down">
-			<figure className="thumbnail-img" style={{ marginTop: '2rem' }}>
-				<Image
-					src="/service-details/file-upload.svg"
-					width="70px"
-					height={'70px'}
-					objectFit="cover"
-					alt="serviceprovider-image"
-				/>
-			</figure>
+    return (
+        <Col md={4} className="drag-down">
+            <figure className="thumbnail-img" style={{ marginTop: "2rem" }}>
+                <Image
+                    src="/service-details/file-upload.svg"
+                    width="70px"
+                    height={"70px"}
+                    objectFit="cover"
+                    alt="serviceprovider-image"
+                />
+            </figure>
 
-			<h5 style={{ margin: '1rem 0 0 0 ' }}>
-				Drag or {''}
-				<label htmlFor="choosefile" style={{ color: '#0693E3', cursor: 'pointer' }}>
-					Browse
-				</label>{' '}
-				Image/Video
-			</h5>
-			<p className="price-text" style={{ fontSize: '10px', color: '#868E96' }}>
-				Maximum Image Size 20 MB
-			</p>
-			<p className="price-text" style={{ fontSize: '10px', color: '#868E96' }}>
-				Maximum Video Size 200 MB
-			</p>
-			<div style={{ visibility: 'hidden' }}>
-				<input type={'file'} id="choosefile" />
-			</div>
-		</Col>
-	);
+            <h5 style={{ margin: "1rem 0 0 0 " }}>
+                Drag or {""}
+                <label
+                    htmlFor="choosefile"
+                    style={{ color: "#0693E3", cursor: "pointer" }}
+                >
+                    Browse
+                </label>{" "}
+                Image/Video
+            </h5>
+            <p
+                className="price-text"
+                style={{ fontSize: "10px", color: "#868E96" }}
+            >
+                Maximum Image Size 20 MB
+            </p>
+            <p
+                className="price-text"
+                style={{ fontSize: "10px", color: "#868E96" }}
+            >
+                Maximum Video Size 200 MB
+            </p>
+            <div style={{ visibility: "hidden" }}>
+                <input type={"file"} id="choosefile" />
+            </div>
+        </Col>
+    );
 };
