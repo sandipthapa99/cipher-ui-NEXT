@@ -1,9 +1,10 @@
+import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
-import { Pay } from "./Pay";
-import { faXmark } from "@fortawesome/pro-regular-svg-icons";
+
 import { AcceptReject } from "./AcceptReject";
+import { Pay } from "./Pay";
 
 export const AcceptedNotification = () => {
     return (

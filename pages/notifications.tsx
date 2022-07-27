@@ -9,7 +9,7 @@ function Notifications() {
             <Breadcrum currentPage="Notifications" />
             <GetNotifications />
         </Layout>
-    );    
+    );
 }
 
 export default Notifications;

@@ -1,10 +1,10 @@
 import {
     faAngleDown,
+    faBell,
     faListCheck,
     faLocationDot,
     faObjectsColumn,
     faTelescope,
-    faBell,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

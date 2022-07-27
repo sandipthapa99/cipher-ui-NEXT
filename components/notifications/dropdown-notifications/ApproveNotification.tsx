@@ -1,11 +1,12 @@
 import Image from "next/image";
 import React from "react";
+
 import { AcceptReject } from "../AcceptReject";
 import { Pay } from "../Pay";
 
-interface ApproveNotificationProps{
-    accept?: boolean
-    pay?: boolean
+interface ApproveNotificationProps {
+    accept?: boolean;
+    pay?: boolean;
 }
 
 export const ApproveNotification = ({

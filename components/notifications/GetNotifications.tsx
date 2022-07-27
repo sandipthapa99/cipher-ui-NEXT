@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { Container } from "react-bootstrap";
+
 import { AcceptedNotification } from "./AcceptedNotification";
 
 export default function GetNotifications() {

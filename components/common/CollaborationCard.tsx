@@ -1,14 +1,14 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
-import React from "react";
 import {
+    faAward,
     faEllipsisVertical,
     faGrinBeam,
-    faAward,
     faHeart,
     faShare,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import React from "react";
 
 export const CollaborationCard = () => {
     return (
