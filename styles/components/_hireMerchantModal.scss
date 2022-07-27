@@ -1,0 +1,68 @@
+//hmm -> prefix for css specific to hireMerchantModal component
+
+.hmm-divider {
+    margin-block: 32px;
+}
+.hmm-client-projects-container {
+    margin-block: 24px;
+}
+.hmm-label-text,
+.hmm-value-text {
+    font-size: 14px;
+    margin: 0 !important;
+    line-height: 22px;
+}
+.hmm-label-text {
+    font-weight: 500;
+}
+.hmm-value-text {
+    font-weight: normal;
+}
+.hmm-client-project {
+    &__header {
+        display: flex;
+        gap: 8px;
+    }
+}
+.hmm-time-and-charge-icons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+
+    @include respond(sm) {
+        gap: 24px;
+        justify-content: initial;
+    }
+    .hmm-icon-text {
+        display: flex;
+
+        @include respond(lg) {
+            gap: 8px;
+        }
+    }
+}
+.hmm-footer {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+
+    &__btn {
+        width: 40px;
+        width: 184px;
+        border-radius: 4px;
+        padding: 8px 16px;
+        border: 0;
+        outline: 0;
+        font-size: 16px;
+
+        &.cancel {
+            border: 1px solid $primary-color;
+            color: $primary-color;
+            background-color: transparent;
+        }
+        &.confirm {
+            background-color: $primary-color;
+            color: $white;
+        }
+    }
+}
