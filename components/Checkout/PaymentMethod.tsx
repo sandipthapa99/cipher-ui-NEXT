@@ -77,7 +77,7 @@ const PaymentMethod = () => {
               </Card.Header>
               <Accordion.Collapse eventKey="3">
                 <Card.Body>Hello! I'm another body</Card.Body>
-              </Accordion.Collapse>
+            </Accordion.Collapse>
             </Card>
         </Accordion>   
         </div>
