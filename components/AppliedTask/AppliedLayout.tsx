@@ -3,16 +3,16 @@ import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
-import type { NextPage } from "next";
+import { ReactNode } from "react";
 import { Container } from "react-bootstrap";
-const AppliedLayout: NextPage = () => {
+const AppliedLayout = ({ children }: { children: ReactNode }) => {
     return (
         <>
             <SearchHeader />
             <Header />
             <Container>
                 <SearchCategory />
-                <TaskAside />
+                <TaskAside>{children}</TaskAside>
             </Container>
             <Footer />
         </>

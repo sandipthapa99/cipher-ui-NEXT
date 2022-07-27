@@ -1,22 +1,31 @@
 import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { KeyboardEvent, useState } from "react";
+import type { KeyboardEvent } from "react";
+import { useState } from "react";
 import { ChangeEvent } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
+import { Button, Form, InputGroup, Row } from "react-bootstrap";
 import { Requirement } from "types/requirement";
+
+interface Props {
+    field: (label: string, value: unknown) => void;
+}
 
 const requirements: Requirement[] = [];
 
-const AddRequirements = () => {
-    const [requirementState, setRequirementState] =
-        useState<Requirement[]>(requirements);
+const AddRequirements = ({ field }: Props) => {
+    const [requirementState, setRequirementState] = useState(requirements);
     const [require, setRequire] = useState("");
 
     const addRequirements = () => {
-        setRequirementState((prev) => [
-            ...prev,
-            { id: prev.length === 0 ? 0 : prev.length, name: require },
-        ]);
+        setRequirementState((prev) => {
+            const updatedValue = [
+                ...prev,
+                { id: prev.length === 0 ? 0 : prev.length, name: require },
+            ];
+            field("requirements", updatedValue);
+            return updatedValue;
+        });
+
         setRequire("");
     };
 
@@ -27,9 +36,15 @@ const AddRequirements = () => {
     };
 
     const deleteRequirements = (requirementId: number) => {
-        setRequirementState((prev) =>
-            prev.filter((prevItem) => prevItem.id !== requirementId)
-        );
+        setRequirementState((prev) => {
+            const filtered = prev.filter(
+                (prevItem) => prevItem.id !== requirementId
+            );
+
+            field("requirements", filtered);
+
+            return filtered;
+        });
         console.log(requirementId);
         console.log(requirementState);
     };
@@ -50,7 +65,8 @@ const AddRequirements = () => {
                 <FontAwesomeIcon
                     icon={faXmark}
                     className="svg-icon"
-                    onClick={() => deleteRequirements(index)}
+                    style={{ marginRight: "2rem" }}
+                    onClick={() => deleteRequirements(requirement.id)}
                 />
             </div>
         );
@@ -66,30 +82,36 @@ const AddRequirements = () => {
             <p className="price-text" style={{ fontSize: "12px" }}>
                 This helps merchants to find about your requirements better.
             </p>
-            <div>
-                <ol>{renderTasks}</ol>
-            </div>
-            <div className="mt-4">
-                <InputGroup className="mb-3">
-                    <Form.Control
-                        placeholder="Add requirements"
-                        aria-label="Recipient's username"
-                        aria-describedby="basic-addon2"
-                        value={require}
-                        onKeyPress={handleEnterAdd}
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                            setRequire(event.target.value);
-                        }}
-                    />
-                    <Button
-                        variant="outline-secondary"
-                        id="button-addon2"
-                        onClick={addRequirements}
-                    >
-                        ADD
-                    </Button>
-                </InputGroup>
-            </div>
+            <Row>
+                <Row>
+                    <ol style={{ marginLeft: "1.5rem" }}>{renderTasks}</ol>
+                </Row>
+                <Row>
+                    <div className="mt-4">
+                        <InputGroup className="mb-3">
+                            <Form.Control
+                                placeholder="Add requirements"
+                                aria-label="Recipient's username"
+                                aria-describedby="basic-addon2"
+                                value={require}
+                                onKeyPress={handleEnterAdd}
+                                onChange={(
+                                    event: ChangeEvent<HTMLInputElement>
+                                ) => {
+                                    setRequire(event.target.value);
+                                }}
+                            />
+                            <Button
+                                variant="outline-secondary"
+                                id="button-addon2"
+                                onClick={addRequirements}
+                            >
+                                ADD
+                            </Button>
+                        </InputGroup>
+                    </div>
+                </Row>
+            </Row>
         </>
     );
 };

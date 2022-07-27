@@ -1,6 +1,7 @@
 import "../styles/bundle.scss";
 
 import SearchProvider from "context/searchProvider";
+import SuccessProvider from "context/successContext/successProvider";
 // import { useEffect } from 'react';
 // import { useLocalStorage } from 'hooks/use-local-storage';
 import UserProvider from "context/userContextProvider";
@@ -17,7 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <UserProvider>
             <SearchProvider>
-                <Component {...pageProps} />
+                <SuccessProvider>
+                    <Component {...pageProps} />
+                </SuccessProvider>
             </SearchProvider>
         </UserProvider>
     );

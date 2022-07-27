@@ -1,15 +1,15 @@
-import { SearchContext } from './searchContext';
+import { searchContext} from './searchContext';
 import { ReactNode, useState } from 'react';
 interface Props {
 	children: ReactNode;
 }
 
 const SearchProvider = ({ children }: Props) => {
-	const [state, setState] = useState('');
+	const [state, setState] = useState("");
 	const value = {
 		state,
 		setState,
 	};
-	return <SearchContext.Provider value={value}>{children}</SearchContext.Provider>;
+	return <searchContext.Provider value={value}>{children}</searchContext.Provider>;
 };
 export default SearchProvider;

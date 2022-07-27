@@ -138,10 +138,7 @@ const ServiceDetail: NextPage = () => {
                                 serviceHighlights.map((name) => (
                                     // <div >
                                     <Col key={name.id}>
-                                        <ServiceHighlights
-                                            isChecked={name.isChecked}
-                                            title={name.title}
-                                        />
+                                        <ServiceHighlights title={name.title} />
                                     </Col>
 
                                     // </div>
@@ -164,7 +161,7 @@ const ServiceDetail: NextPage = () => {
                                     >
                                         <PackageOffersCard
                                             title={offer.title}
-                                            price={offer.price}
+                                            price={offer.price.toString()}
                                             offers={offer.offers}
                                             isRecommended={offer.isRecommended}
                                             isPermium={offer.isPermium}

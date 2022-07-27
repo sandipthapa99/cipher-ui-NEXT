@@ -1,22 +1,30 @@
+import { faCheck } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const ServiceHighlights = ({
     title,
-    isChecked,
-}: {
+}: // isChecked,
+{
     title: string;
-    isChecked: boolean;
+    // isChecked: boolean
 }) => {
     return (
-        <div className="py-2 checkbox d-flex align-items-center">
-            <input
-                type="checkbox"
-                className="input"
-                id="defaultIndeterminate"
-                checked={isChecked}
-            />
-            <label className="label" style={{ marginLeft: "1.5rem" }}>
-                {title}
-            </label>
-        </div>
+        // <div className="py-2 checkbox d-flex align-items-center">
+        //   <input
+        //     type="checkbox"
+        //     className="input"
+        //     id="defaultIndeterminate"
+        //     checked={isChecked}
+        //     onChange={() => {}}
+        //   />
+        //   <label className="label" style={{ marginLeft: '1.5rem' }}>
+        //     {title}
+        //   </label>
+        // </div>
+        <p className="mb-4">
+            <FontAwesomeIcon icon={faCheck} className="me-3 svg-icon-check" />
+            {title}
+        </p>
     );
 };
 export default ServiceHighlights;

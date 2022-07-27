@@ -1,10 +1,15 @@
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import {
+    faCalendar,
     faChevronLeft,
+    faClockEight,
     faEllipsisVertical,
+    faEye,
     faHeart,
+    faLocationDot,
     faShare,
+    faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { NextPage } from "next";
@@ -14,10 +19,10 @@ import { Col, Row } from "react-bootstrap";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
 
-const ApplyTaskDetail: NextPage = () => {
+const AppliedTaskDetail: NextPage = () => {
     return (
         <div className="task-deatil p-5">
-            <Link href={""}>
+            <Link href="/task">
                 <a>
                     <FontAwesomeIcon
                         icon={faChevronLeft}
@@ -66,7 +71,7 @@ const ApplyTaskDetail: NextPage = () => {
                         />
                     </figure>
                 </Col>
-                <Col md={12} lg={5} className="gardener-col">
+                <Col md={12} lg={5} className="d-flex">
                     {serviceProvider &&
                         serviceProvider.map((provider) => (
                             <SimpleProfileCard
@@ -83,31 +88,63 @@ const ApplyTaskDetail: NextPage = () => {
                         ))}
                 </Col>
             </Row>
+            <div className="d-flex mt-4 task-deatil__loc-time">
+                <p>
+                    <FontAwesomeIcon
+                        icon={faLocationDot}
+                        className="svg-icon-location"
+                    />
+                    Buddhanagar, Kathmandu
+                </p>
+                <p>
+                    <FontAwesomeIcon
+                        icon={faCalendar}
+                        className="svg-icon-calender"
+                    />
+                    June 9, 2022
+                </p>
+                <p>
+                    <FontAwesomeIcon
+                        icon={faClockEight}
+                        className="svg-icon-clock"
+                    />
+                    08:11 PM
+                </p>
+                <p>
+                    <FontAwesomeIcon icon={faEye} className="svg-icon-eye" />
+                    2500 Views
+                </p>
+                <p>
+                    <FontAwesomeIcon
+                        icon={faUserGroup}
+                        className="svg-icon-user-group"
+                    />
+                    100 Applied
+                </p>
+            </div>
 
-            <h1>Description</h1>
-            <p>
-                Hiring a reputable professional landscape gardener entail paying
-                for their knowledge, experience, time, equipment, and materials.
-                They will be able to discuss your vision and tailor your garden
-                design to your exact needs, taking into account your taste,
-                lifestyle, budget.
-            </p>
+            <div className="task-deatil__desc">
+                <h3>Description</h3>
+                <p>
+                    Hiring a reputable professional landscape gardener entail
+                    paying for their knowledge, experience, time, equipment, and
+                    materials. They will be able to discuss your vision and
+                    tailor your garden design to your exact needs, taking into
+                    account your taste, lifestyle, budget.
+                </p>
+            </div>
 
-            <h1>Highlights</h1>
-
-            <Row className="content flex-column">
+            <h3>Highlights</h3>
+            <div className="mt-5">
                 {serviceHighlights &&
                     serviceHighlights.map((name) => (
-                        <Col key={name.id}>
-                            <ServiceHighlights
-                                isChecked={name.isChecked}
-                                title={name.title}
-                            />
-                        </Col>
+                        <div key={name.id}>
+                            <ServiceHighlights title={name.title} />
+                        </div>
                     ))}
-            </Row>
+            </div>
         </div>
     );
 };
 
-export default ApplyTaskDetail;
+export default AppliedTaskDetail;
