@@ -1,8 +1,6 @@
 import { UserTaskCard } from "@components/Task/UserTaskCard/UserTaskCard";
-import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { taskDetails } from "staticData/taskDetail";
 import { DUMMY_TASKS } from "types/tasks";
 
 export const Collaboration = () => {
