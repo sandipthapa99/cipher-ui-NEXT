@@ -7,7 +7,7 @@ import {
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Form,Formik } from "formik";
+import { Form, Formik } from "formik";
 import Image from "next/image";
 import React from "react";
 import { TaskList } from "staticData/taskListData";
