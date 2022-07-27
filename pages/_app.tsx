@@ -5,6 +5,7 @@ import SearchProvider from 'context/searchProvider';
 // import { useLocalStorage } from 'hooks/use-local-storage';
 import UserProvider from 'context/userContextProvider';
 import type { AppProps } from 'next/app';
+import SuccessProvider from 'context/successContext/successProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	// const [, setValue] = useLocalStorage<any[]>('users', []);
@@ -17,7 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<UserProvider>
 			<SearchProvider>
+				<SuccessProvider>
 				<Component {...pageProps} />
+				</SuccessProvider>
 			</SearchProvider>
 		</UserProvider>
 	);

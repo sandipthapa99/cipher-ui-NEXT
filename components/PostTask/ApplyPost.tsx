@@ -17,9 +17,9 @@ const ApplyPost = () => {
 
 			<Row>
 				<Col md={8}>
-					<div>
+					
 						<Post />
-					</div>
+					
 				</Col>
 				<Col md={4}>
 					<div>
