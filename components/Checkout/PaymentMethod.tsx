@@ -45,7 +45,7 @@ function ContextAwareToggle({
             ) : (
                 <FontAwesomeIcon
                     icon={faCircleDot}
-                    className="svg-icon-boolen-circle me-3"
+                    className="svg-icon-simple-circle me-3"
                 />
             )}
             {children}
