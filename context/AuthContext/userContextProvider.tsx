@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
+import { setCookie } from "nookies";
 import { ReactNode } from "react";
 import { LoginValuesProps } from "types/login";
 import { axiosClient } from "utils/axiosClient";
@@ -47,6 +48,10 @@ const AuthProvider = ({ children }: Props) => {
             console.log(emailExists);
 
             if (emailExists) {
+                setCookie(null, "token", `${new Date()}`, {
+                    maxAge: 30 * 24 * 60 * 60,
+                });
+
                 router.replace("/");
             }
         } catch (error) {
