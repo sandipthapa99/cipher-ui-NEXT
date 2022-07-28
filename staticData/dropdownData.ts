@@ -36,12 +36,7 @@ export const DUMMY_MENU_ITEMS = [
     {
         id: "3",
         name: "Cooking",
-        subMenu: [
-            `Pastry Chef`,
-            `Sushi Chef`,
-            `Home Chef`,
-            `Private Chef`,
-        ],
+        subMenu: [`Pastry Chef`, `Sushi Chef`, `Home Chef`, `Private Chef`],
     },
     {
         id: "4",

@@ -10,8 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { ProfileCardContent } from "staticData/profileCardContent";
 
-export const PostTaskModel = () => {
+export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
     return (
         <div className="profile-dropdown p-4">
             <div className="d-flex justify-content-between align-items-center profile-header">
@@ -26,8 +27,8 @@ export const PostTaskModel = () => {
                         />
                     </figure>
                     <div className="ms-3 d-flex justify-content-around flex-column profile-desc__detail">
-                        <h4>Harry Smith</h4>
-                        <span>Client</span>
+                        <h4>{profile.name}</h4>
+                        <span>{profile.type}</span>
                     </div>
                 </div>
                 <figure>
