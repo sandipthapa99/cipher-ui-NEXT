@@ -4,6 +4,7 @@ import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import Layout from "@components/Layout";
+import { withAuth } from "hoc/withAuth";
 import { Col, Container, Row } from "react-bootstrap";
 import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
@@ -192,4 +193,4 @@ const Gardening = () => {
         </Layout>
     );
 };
-export default Gardening;
+export default withAuth(Gardening);
