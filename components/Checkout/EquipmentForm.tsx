@@ -9,15 +9,25 @@ import { EquipmentFormData } from "utils/formData";
 import { equipmentFormSchema } from "utils/formValidation/equipmentFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-const EquipmentForm = ({setshowEqpForm}: {setshowEqpForm: Dispatch<SetStateAction<boolean>>}) => {
+const EquipmentForm = ({
+    setshowEqpForm,
+}: {
+    setshowEqpForm: Dispatch<SetStateAction<boolean>>;
+}) => {
     return (
         <>
             {/* Modal component */}
             <div className="equipment-modal mt-5">
                 <div className="d-flex justify-content-between equipment-model__header">
                     <h3>Add Equipment Charge</h3>
-                    <button className="btn" onClick={()=>setshowEqpForm(false)}>
-                        <FontAwesomeIcon icon={faXmark} className='svg-icon-cross'/>
+                    <button
+                        className="btn"
+                        onClick={() => setshowEqpForm(false)}
+                    >
+                        <FontAwesomeIcon
+                            icon={faXmark}
+                            className="svg-icon-cross"
+                        />
                     </button>
                 </div>
                 <div className="equipment-form">
@@ -26,7 +36,7 @@ const EquipmentForm = ({setshowEqpForm}: {setshowEqpForm: Dispatch<SetStateActio
                         validationSchema={equipmentFormSchema}
                         onSubmit={async (values) => {
                             console.log(values);
-                            setshowEqpForm(false)
+                            setshowEqpForm(false);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

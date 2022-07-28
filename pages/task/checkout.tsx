@@ -34,7 +34,7 @@ const Checkout = () => {
                                 location={billingLocationContent.location}
                             />
                             <ExtraSection />
-                            <PaymentMethod/>
+                            <PaymentMethod />
                         </Col>
                         <Col lg={4}>
                             <TaskList task={taskListContent} />

@@ -1,19 +1,20 @@
+import { faCircleDot } from "@fortawesome/pro-regular-svg-icons";
+import { faCircleDot as circleDot } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React, { ReactNode, useContext } from "react";
-import CreditCard from "./CreditCard";
-import {
-    creditCardContent,
-    CreditCardContent,
-} from "staticData/creditCardContent";
 import {
     Accordion,
     AccordionContext,
     Card,
     useAccordionButton,
 } from "react-bootstrap";
-import { faCircleDot } from "@fortawesome/pro-regular-svg-icons";
-import { faCircleDot as circleDot } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    CreditCardContent,
+    creditCardContent,
+} from "staticData/creditCardContent";
+
+import CreditCard from "./CreditCard";
 
 interface PaymentAccordion {
     children: ReactNode;
