@@ -78,7 +78,7 @@ const UserProfileCard = ({
                                 {" "}
                                 <FontAwesomeIcon
                                     icon={faStar}
-                                    className="svg-icon"
+                                    className="svg-icon star"
                                 />
                             </span>
                         ))}
