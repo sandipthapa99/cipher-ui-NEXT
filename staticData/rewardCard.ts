@@ -1,4 +1,3 @@
-
 export const rewardCardContent = [
     {
         id: "0",
@@ -12,7 +11,6 @@ export const rewardCardContent = [
         isAvailable: true,
         daysLeft: 10,
         isCouponCodeAvailable: true,
-
     },
     {
         id: "1",
@@ -25,7 +23,6 @@ export const rewardCardContent = [
         title: "Voucher for Website",
         isAvailable: false,
         isCouponCodeAvailable: false,
-
     },
 
     {
@@ -38,7 +35,6 @@ export const rewardCardContent = [
         btnText: "Use Gift Card",
         isCouponCodeAvailable: false,
         isAvailable: true,
-
     },
 
     {
@@ -52,6 +48,5 @@ export const rewardCardContent = [
         btnText: "Scratch Card",
         isCouponCodeAvailable: false,
         isAvailable: true,
-
     },
-]
+];

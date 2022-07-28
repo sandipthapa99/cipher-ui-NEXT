@@ -1,5 +1,6 @@
 import { ApplyValueProps } from "types/applyValueProps";
 import { ClientSignUpValueProps } from "types/clientSignUp";
+import { EquipmentValueProps } from "types/equipmentValueProps";
 import { LoginValuesProps } from "types/login";
 
 // Login page data
@@ -22,5 +23,11 @@ export const ClientSignUpFormData: ClientSignUpValueProps = {
 
 export const ApplyFormData: ApplyValueProps = {
     price: "",
-    remarks: "",
-};
+    remarks: ""
+}
+
+export const EquipmentFormData: EquipmentValueProps={
+    chargeFor: "",
+    price: 1,
+    remarks: ""
+}

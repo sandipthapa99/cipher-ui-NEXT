@@ -104,7 +104,7 @@ const Home: NextPage = () => {
                             serviceCategory.map((category) => {
                                 return (
                                     <Col xs={6} sm={4} lg={2} key={category.id}>
-                                        <Link href="/gardening">
+                                        <Link href="/category/gardening">
                                             <a>
                                                 <CategoryCard
                                                     categoryTitle={

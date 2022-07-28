@@ -4,10 +4,10 @@ import {
     faLinkedin,
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { faCopy } from "@fortawesome/pro-regular-svg-icons";
 import { faLink } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
 import Link from "next/link";
 import {
     FacebookShareButton,
@@ -16,8 +16,6 @@ import {
     TwitterShareButton,
 } from "next-share";
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { ShareButtonProps } from "types/shareButton";
 
@@ -50,10 +48,7 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                         >
                             <TwitterShareButton
                                 url={"https://github.com/next-share"}
-                                quote={
-                                    "next-share is a social share buttons for your next React apps."
-                                }
-                                hashtag={"#nextshare"}
+                                hashtags={["#nextshare"]}
                             >
                                 <FontAwesomeIcon
                                     icon={faTwitter}
@@ -64,10 +59,9 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                         <div className="social-media">
                             <InstapaperShareButton
                                 url={"https://github.com/next-share"}
-                                quote={
+                                description={
                                     "next-share is a social share buttons for your next React apps."
                                 }
-                                hashtag={"#nextshare"}
                             >
                                 <FontAwesomeIcon
                                     icon={faInstagram}
@@ -78,10 +72,6 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                         <div className="social-media">
                             <LinkedinShareButton
                                 url={"https://github.com/next-share"}
-                                quote={
-                                    "next-share is a social share buttons for your next React apps."
-                                }
-                                hashtag={"#nextshare"}
                             >
                                 <FontAwesomeIcon
                                     icon={faLinkedin}
