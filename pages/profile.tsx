@@ -4,22 +4,26 @@ import Layout from "@components/Layout";
 import AboutProfile from "@components/Profile/AboutProfile";
 import UserActivities from "@components/Profile/Activities";
 import UserDocument from "@components/Profile/Document";
-import OrganizationProfile from "@components/Profile/OrganizationProfile";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
 import type { NextPage } from "next";
 import { useState } from "react";
-import { Button, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
-import { profileTaskCard } from "staticData/profileTaskCard";
+import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import { rewardCardContent } from "staticData/rewardCard";
-import { tabContent } from "staticData/tab";
+import { TabContent } from "staticData/tab";
 import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
 import { userDocument } from "staticData/userDocument";
 import { userProfileCardInfo } from "staticData/userProfileCard";
 
 const UserProfile: NextPage = () => {
     const [key, setKey] = useState("about");
+    const [searchQuery, setSearchQuery] = useState("");
+    const [activeTaskIdx, setActiveTaskIdx] = useState<number | undefined>();
+
+    // const toggleActiveTask = (tab: TabContent) => {
+    //     setActiveTaskIdx(tab.title);
+    // };
     return (
         <Layout title="Profile | Cipher">
             <Container fluid="xl">
@@ -84,17 +88,9 @@ const UserProfile: NextPage = () => {
                                 <Tab key="0" eventKey="about" title="About">
                                     <AboutProfile />
                                 </Tab>
-                                {/* <Tab
-                                    key="1"
-                                    eventKey="organization"
-                                    title="Organization"
-                                >
-                                    <OrganizationProfile />
-                                </Tab> */}
+
                                 <Tab key="2" eventKey="tasks" title="Tasks">
-
                                     <TasksProfileCard />
-
                                 </Tab>
                                 <Tab key="3" eventKey="saved" title="Saved">
                                     <SavedBookings />
@@ -105,12 +101,27 @@ const UserProfile: NextPage = () => {
                                     title="Activities"
                                 >
                                     <div className="activities">
-                                        {userActivitiesTimeline && userActivitiesTimeline.map((activity) => (
-                                            <UserActivities key={activity.id} title={activity.title} date={activity.date} image={activity.image} editService={activity.editService} loggedInDate={activity.loggedInDate} ipAddress={activity.ipAddress} />
-                                        ))}
+                                        {userActivitiesTimeline &&
+                                            userActivitiesTimeline.map(
+                                                (activity) => (
+                                                    <UserActivities
+                                                        key={activity.id}
+                                                        title={activity.title}
+                                                        date={activity.date}
+                                                        image={activity.image}
+                                                        editService={
+                                                            activity.editService
+                                                        }
+                                                        loggedInDate={
+                                                            activity.loggedInDate
+                                                        }
+                                                        ipAddress={
+                                                            activity.ipAddress
+                                                        }
+                                                    />
+                                                )
+                                            )}
                                     </div>
-
-
                                 </Tab>
                                 <Tab
                                     key="5"
@@ -124,45 +135,91 @@ const UserProfile: NextPage = () => {
                                         </div>
                                         <div className="content">
                                             <Row>
-
-                                                {userDocument && userDocument.map((document) => (
-                                                    <Col key={document.id} md={3} lg={2} sm={4} xs={6} className="gx-5">
-                                                        <UserDocument name={document.name} type={document.type} />
-                                                    </Col>))}
-
+                                                {userDocument &&
+                                                    userDocument.map(
+                                                        (document) => (
+                                                            <Col
+                                                                key={
+                                                                    document.id
+                                                                }
+                                                                md={3}
+                                                                lg={2}
+                                                                sm={4}
+                                                                xs={6}
+                                                                className="gx-5"
+                                                            >
+                                                                <UserDocument
+                                                                    name={
+                                                                        document.name
+                                                                    }
+                                                                    type={
+                                                                        document.type
+                                                                    }
+                                                                />
+                                                            </Col>
+                                                        )
+                                                    )}
                                             </Row>
                                         </div>
-
                                     </div>
-
                                 </Tab>
                                 <Tab key="6" eventKey="rewards" title="Rewards">
                                     <div className="rewards">
                                         <Row className="d-flex align-items-stretch">
-                                            {rewardCardContent && rewardCardContent.map((info) => (
-                                                <Col key={info.id} className="d-flex gx-4 align-items-stretch" lg={3} md={4} sm={6}>
-                                                    <RewardCard
-                                                        rewardImage={info.rewardImage}
-                                                        title={info.title}
-                                                        haveDiscount={info.haveDiscount}
-                                                        btnText={info.btnText}
-                                                        description={info.description}
-                                                        isAvailable={info.isAvailable}
-                                                        discount={info.discount}
-                                                        daysLeft={info.daysLeft}
-                                                        couponCode={info.couponCode}
-                                                        haveCouponCode={info.haveCouponCode}
-                                                        isCouponCodeAvailable={info.isCouponCodeAvailable}
-                                                    />
-                                                </Col>
-                                            ))}
+                                            {rewardCardContent &&
+                                                rewardCardContent.map(
+                                                    (info) => (
+                                                        <Col
+                                                            key={info.id}
+                                                            className="d-flex gx-4 align-items-stretch"
+                                                            lg={3}
+                                                            md={4}
+                                                            sm={6}
+                                                        >
+                                                            <RewardCard
+                                                                rewardImage={
+                                                                    info.rewardImage
+                                                                }
+                                                                title={
+                                                                    info.title
+                                                                }
+                                                                haveDiscount={
+                                                                    info.haveDiscount
+                                                                }
+                                                                btnText={
+                                                                    info.btnText
+                                                                }
+                                                                description={
+                                                                    info.description
+                                                                }
+                                                                isAvailable={
+                                                                    info.isAvailable
+                                                                }
+                                                                discount={
+                                                                    info.discount
+                                                                }
+                                                                daysLeft={
+                                                                    info.daysLeft
+                                                                }
+                                                                couponCode={
+                                                                    info.couponCode
+                                                                }
+                                                                haveCouponCode={
+                                                                    info.haveCouponCode
+                                                                }
+                                                                isCouponCodeAvailable={
+                                                                    info.isCouponCodeAvailable
+                                                                }
+                                                            />
+                                                        </Col>
+                                                    )
+                                                )}
                                         </Row>
                                     </div>
                                 </Tab>
                             </Tabs>
                         </div>
                     </section>
-
                 </section>
             </Container>
         </Layout>
