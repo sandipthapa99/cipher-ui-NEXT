@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { KeyboardEvent } from "react";
 import { useState } from "react";
 import { ChangeEvent } from "react";
-import { Button, Form, InputGroup, Row } from "react-bootstrap";
+import { Form, InputGroup, Row } from "react-bootstrap";
 import { Requirement } from "types/requirement";
 
 interface Props {

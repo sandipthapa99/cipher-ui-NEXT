@@ -18,7 +18,7 @@ const AuthProvider = ({ children }: Props) => {
             const allUsers = await axiosClient.get("/users");
             const users: Array<ClientSignUpValueProps> = allUsers.data;
             const duplicateEmailAndPhone = users.find(
-                (user) =>
+                (user: { email: string; phoneNumber: string }) =>
                     user.email === signUpValues.email ||
                     user.phoneNumber === signUpValues.phoneNumber
             );
@@ -40,7 +40,7 @@ const AuthProvider = ({ children }: Props) => {
             const allUsers = await axiosClient.get("/users");
             const users: Array<ClientSignUpValueProps> = allUsers.data;
             const emailExists = users.find(
-                (user) =>
+                (user: { email: string; password: string }) =>
                     user.email === loginValues.email &&
                     user.password === loginValues.password
             );

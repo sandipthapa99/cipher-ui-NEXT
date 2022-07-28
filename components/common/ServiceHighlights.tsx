@@ -22,7 +22,10 @@ const ServiceHighlights = ({
         //   </label>
         // </div>
         <p className="mb-4">
-            <FontAwesomeIcon icon={faCheck} className="me-3 svg-icon-check" />
+            <FontAwesomeIcon
+                icon={faCheck}
+                className="me-3 svg-icon svg-icon-check"
+            />
             {title}
         </p>
     );

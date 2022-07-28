@@ -11,11 +11,18 @@
             border: 0.1rem solid $sub-title-color;
             background: transparent;
             box-shadow: none;
+            @include transition();
+            &:hover {
+                background-color: $primary-color;
+                color: #fff;
+            }
         }
-        .svg-icon {
+        .star {
             color: #ced4da;
-            font-size: 2rem;
-            margin-left: 1rem;
+            width: 2.3rem;
+            height: 2.3rem;
+            margin-bottom: 1.4rem;
+            margin-left: 0.5rem;
         }
     }
     &__general-info {
@@ -137,53 +144,6 @@
             .type {
                 padding-bottom: 0.7rem;
             }
-            //   .success-rate {
-            //     background-color: #ffeded;
-
-            //     h1 {
-            //       color: #fe5050;
-            //     }
-            //     p {
-            //       font-size: 1.3rem;
-
-            //       margin-bottom: 0rem;
-            //     }
-            //   }
-            //   .happy-clients {
-            //     background-color: #fff5e5;
-
-            //     h1 {
-            //       color: #ff9700;
-            //     }
-            //     p {
-            //       font-size: 1.3rem;
-            //       margin-bottom: 0rem;
-            //     }
-            //   }
-            //   .task-completed {
-            //     background-color: #ebf9f1;
-            //     padding-right: 3rem;
-
-            //     h1 {
-            //       color: #38c675;
-            //     }
-            //     p {
-            //       font-size: 1.3rem;
-            //       margin-bottom: 0rem;
-            //     }
-            //   }
-            // }
-            // .user-reviews {
-            //   background-color: #ecf7ff;
-
-            //   h1 {
-            //     color: #3eaeff;
-            //   }
-            //   p {
-            //     font-size: 1.3rem;
-            //     margin-bottom: 0rem;
-            //   }
-            // }
         }
     }
 }

@@ -1,7 +1,7 @@
 import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -14,6 +14,7 @@ const ModalCard = ({
     description,
     image,
     show,
+    problemDescription,
     handleClose,
 }: BookNowModalCardProps) => {
     return (

@@ -14,3 +14,9 @@ export const reviewType = [
     { id: 2, value: "latest", label: "Latest" },
     { id: 3, value: "top", label: "Top" },
 ];
+
+export const personType = [
+    { id: 1, value: "tasker", label: "Tasker" },
+    { id: 2, value: "latest", label: "Latest" },
+    { id: 3, value: "top", label: "Top" },
+];
