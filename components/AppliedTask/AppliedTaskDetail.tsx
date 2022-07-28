@@ -1,5 +1,6 @@
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
+import { Tab } from "@components/common/Tab";
 import {
     faCalendar,
     faChevronLeft,
@@ -9,17 +10,20 @@ import {
     faHeart,
     faLocationDot,
     faShare,
+    faSquareCheck,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
 
 const AppliedTaskDetail: NextPage = () => {
+    const [activeTabIdx, setActiveTabIdx] = useState(0);
     return (
         <div className="task-deatil p-5">
             <Link href="/task">
@@ -143,6 +147,15 @@ const AppliedTaskDetail: NextPage = () => {
                         </div>
                     ))}
             </div>
+            <Tab
+                activeIndex={activeTabIdx}
+                onTabClick={setActiveTabIdx}
+                items={[
+                    { title: "About", content: <div>About</div> },
+                    { title: "Service", content: <div>Service</div> },
+                    { title: "Documents", content: <div>Photos</div> },
+                ]}
+            />
         </div>
     );
 };
