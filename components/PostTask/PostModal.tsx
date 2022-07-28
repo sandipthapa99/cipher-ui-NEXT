@@ -423,7 +423,7 @@ const PostModal = ({ onSubmit }: Props) => {
 };
 export default PostModal;
 
-const DragAndDrop = () => {
+export const DragAndDrop = () => {
     return (
         <Col md={4} className="drag-down">
             <figure className="thumbnail-img" style={{ marginTop: "2rem" }}>

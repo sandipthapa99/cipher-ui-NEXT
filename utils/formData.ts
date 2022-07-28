@@ -1,5 +1,6 @@
 import { ApplyValueProps } from "types/applyValueProps";
 import { ClientSignUpValueProps } from "types/clientSignUp";
+import { AddPortfolio } from "types/editProfile";
 import { EquipmentValueProps } from "types/equipmentValueProps";
 import { LoginValuesProps } from "types/login";
 
@@ -30,4 +31,10 @@ export const EquipmentFormData: EquipmentValueProps = {
     chargeFor: "",
     price: 1,
     remarks: "",
+};
+export const AddPortfolioFormData: AddPortfolio = {
+    title: "",
+    description: "",
+    url: "",
+    date: "",
 };

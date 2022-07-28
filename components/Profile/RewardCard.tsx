@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { rewardCardContent } from "staticData/rewardCard";
+
 const RewardCard = () => {
     const [copySuccess, setCopySuccess] = useState("");
     // your function to copy here
