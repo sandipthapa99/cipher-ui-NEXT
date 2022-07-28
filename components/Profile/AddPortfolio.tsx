@@ -11,10 +11,11 @@ import { ImageVideoDragDop, PdfDragDrop } from "staticData/dragDropContent";
 import { AddPortfolio } from "types/editProfile";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
+import { isSubmittingClass } from "utils/helpers";
 
 const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
     return (
-        <>
+        <div className="">
             {/* Modal component */}
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -30,7 +31,7 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                     >
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
-                                <div className="d-flex justify-content-between align-items-end flex-column flex-md-row">
+                                <div className="d-flex add-portfolio justify-content-between align-items-end flex-column flex-md-row">
                                     <Row>
                                         <h4>Title</h4>
                                         <InputField
@@ -118,35 +119,31 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                         </Row>
                                     </Row>
                                 </div>
-                                {/* <FormButton
-                                    type="submit"
-                                    variant="primary"
-                                    name="Add Charges"
-                                    className="submit-btn h-25 mb-5"
-                                    isSubmitting={isSubmitting}
-                                    isSubmittingClass={isSubmittingClass(
-                                        isSubmitting
-                                    )}
-                                /> */}
+                                <Modal.Footer>
+                                    <Button
+                                        className="btn close-btn"
+                                        onClick={handleClose}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <FormButton
+                                        type="submit"
+                                        variant="primary"
+                                        name="Add"
+                                        className="submit-btn w-25"
+                                        isSubmitting={isSubmitting}
+                                        isSubmittingClass={isSubmittingClass(
+                                            isSubmitting
+                                        )}
+                                        onClick={handleClose}
+                                    />
+                                </Modal.Footer>
                             </Form>
                         )}
                     </Formik>
                 </div>
-
-                <Modal.Footer>
-                    <Button className="btn close-btn" onClick={handleClose}>
-                        Cancel
-                    </Button>
-
-                    <Button
-                        className="btn card-btn book-btn"
-                        onClick={handleClose}
-                    >
-                        Book Now
-                    </Button>
-                </Modal.Footer>
             </Modal>
-        </>
+        </div>
     );
 };
 export default AddPortfolio;

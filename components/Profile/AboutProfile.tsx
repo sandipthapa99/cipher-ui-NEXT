@@ -28,10 +28,6 @@ const AboutProfile = () => {
                                         setShowModal(!showModal)
                                     }
                                 />
-                                <AddPortfolio
-                                    showModal={showModal}
-                                    handleClose={() => setShowModal(false)}
-                                />
                             </div>
 
                             <div className="content">
@@ -194,6 +190,10 @@ const AboutProfile = () => {
                                 </Col>
                             </Row>
                         </div>
+                        <AddPortfolio
+                            showModal={showModal}
+                            handleClose={() => setShowModal(false)}
+                        />
                     </div>
                 ))}
         </>

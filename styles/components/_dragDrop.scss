@@ -6,10 +6,15 @@
     align-items: center;
     border-radius: 0.9rem;
     margin-bottom: 2rem;
-
+    .info {
+        .browse {
+            color: "#0693E3" !important;
+            cursor: "pointer" !important;
+        }
+    }
     .thumbnail-img {
-        height: 4rem;
-        width: 4rem;
+        height: 5rem;
+        width: 5rem;
         margin-top: 2.4rem;
     }
     .info {

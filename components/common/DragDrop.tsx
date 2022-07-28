@@ -20,11 +20,8 @@ const DragDrop = ({
             </figure>
             <p className="info">
                 Drag or
-                <label
-                    htmlFor="choosefile"
-                    style={{ color: "#0693E3", cursor: "pointer" }}
-                >
-                    Browse
+                <label htmlFor="choosefile" className="browse">
+                    &nbsp;Browse
                 </label>{" "}
                 <br />
                 {fileType}

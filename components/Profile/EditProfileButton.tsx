@@ -10,7 +10,7 @@ const EditProfileButton = ({ text, showModal, handleOnClick }: addNew) => {
             <a
                 onClick={() => handleOnClick(showModal)}
                 style={{ cursor: "pointer" }}
-                className="link"
+                className="lik"
             >
                 {text}
             </a>
