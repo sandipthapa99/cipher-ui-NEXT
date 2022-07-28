@@ -30,7 +30,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
                     <p>
                         <FontAwesomeIcon
                             icon={faLocationDot}
-                            className="svg-icon-location"
+                            className="svg-icon svg-icon-location"
                         />
                         {task.cardlocation}
                     </p>
@@ -38,14 +38,14 @@ const TaskList = ({ task }: { task: TaskList }) => {
                         <p>
                             <FontAwesomeIcon
                                 icon={faCalendar}
-                                className="svg-icon-calender"
+                                className="svg-icon svg-icon-calender"
                             />
                             {task.cardDate}
                         </p>
                         <p>
                             <FontAwesomeIcon
                                 icon={faClockEight}
-                                className="svg-icon-clock"
+                                className="svg-icon svg-icon-clock"
                             />
                             {task.cardTime}
                         </p>

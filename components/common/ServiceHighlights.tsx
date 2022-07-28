@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const ServiceHighlights = ({
     title,
 }: // isChecked,
-    {
-        title: string;
-        // isChecked: boolean
-    }) => {
+{
+    title: string;
+    // isChecked: boolean
+}) => {
     return (
         // <div className="py-2 checkbox d-flex align-items-center">
         //   <input
@@ -22,7 +22,10 @@ const ServiceHighlights = ({
         //   </label>
         // </div>
         <p className="mb-4">
-            <FontAwesomeIcon icon={faCheck} className="me-3 svg-icon-check" />
+            <FontAwesomeIcon
+                icon={faCheck}
+                className="me-3 svg-icon svg-icon-check"
+            />
             {title}
         </p>
     );
