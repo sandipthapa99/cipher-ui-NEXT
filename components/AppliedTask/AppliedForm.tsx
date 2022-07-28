@@ -4,7 +4,7 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { BookNowModalCardProps } from "types/bookNow";
