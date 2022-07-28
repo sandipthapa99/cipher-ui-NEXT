@@ -5,14 +5,12 @@ import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { useAuthContext } from "context/AuthContext/userContext";
 import { Form, Formik } from "formik";
-import { useRouter } from "next/router";
 import React from "react";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
-    const router = useRouter();
     const { loginUser } = useAuthContext();
 
     return (

@@ -9,10 +9,7 @@ import {
     Card,
     useAccordionButton,
 } from "react-bootstrap";
-import {
-    CreditCardContent,
-    creditCardContent,
-} from "staticData/creditCardContent";
+import { creditCardContent } from "staticData/creditCardContent";
 
 import CreditCard from "./CreditCard";
 
@@ -92,7 +89,7 @@ const PaymentMethod = () => {
                             </ContextAwareToggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="1">
-                            <Card.Body>Hello! I'm another body</Card.Body>
+                            <Card.Body>Test</Card.Body>
                         </Accordion.Collapse>
                     </Card>
                     <Card>
@@ -102,7 +99,7 @@ const PaymentMethod = () => {
                             </ContextAwareToggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="2">
-                            <Card.Body>Hello! I'm another body</Card.Body>
+                            <Card.Body>Test</Card.Body>
                         </Accordion.Collapse>
                     </Card>
                     <Card>
@@ -112,7 +109,7 @@ const PaymentMethod = () => {
                             </ContextAwareToggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="3">
-                            <Card.Body>Hello! I'm another body</Card.Body>
+                            <Card.Body>Test</Card.Body>
                         </Accordion.Collapse>
                     </Card>
                 </Accordion>

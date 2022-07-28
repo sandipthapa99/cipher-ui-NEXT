@@ -8,7 +8,6 @@ const MembershipCard = ({
     price,
     offers,
     isPermium,
-    advantage,
     isRecommended,
 }: PacakageCardProps) => {
     return (
