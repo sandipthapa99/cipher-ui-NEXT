@@ -1,0 +1,72 @@
+.profile-dropdown {
+    position: absolute;
+    background: white;
+    color: black;
+    max-width: 40.5rem;
+    z-index: 2;
+    right: 0;
+    padding: 1.6rem 0 0;
+    transform: translateY(5%);
+    border-radius: 1rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    margin: 0 0 1rem;
+    .profile-header {
+        cursor: pointer;
+        max-width: 30rem;
+        border-bottom: 0.1rem solid #e9ecef;
+        figure {
+            min-width: 9rem;
+            min-height: 7rem;
+            position: relative;
+        }
+
+        @include respond(md) {
+            width: 53.5rem;
+        }
+        .profile-desc {
+            figure {
+                min-width: 6rem;
+                min-height: 6rem;
+                position: relative;
+            }
+            &__detail {
+                h4 {
+                    font-weight: 500;
+                    font-size: 1.6rem;
+                    margin: 0;
+                }
+            }
+        }
+    }
+    ul {
+        list-style-type: none;
+        border-bottom: 0.1rem solid #e9ecef;
+        li {
+            padding: 0.9rem 0;
+            a {
+                color: #495057;
+                font-weight: 400;
+                font-size: 1.4rem;
+                svg {
+                    color: #868e96;
+                }
+            }
+            &:hover {
+                a,
+                svg {
+                    color: $secondary-color;
+                    @include transition();
+                }
+            }
+            // &:hover {
+            //     a {
+            //         color: $secondary-color;
+            //     }
+            //     svg {
+            //         color: $secondary-color;
+            //     }
+            // }
+        }
+    }
+}

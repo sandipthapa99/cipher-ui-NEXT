@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ReactNode, useState } from "react";
 import { useCallback, useEffect, useRef } from "react";
 import { DropdownSubMenu, DUMMY_MENU_ITEMS } from "staticData/dropdownData";
+import { randNumber } from "utils/randNumber";
 
 interface DropdownProps {
     children?: ReactNode;
@@ -45,8 +46,8 @@ export const Dropdown = ({ children }: DropdownProps) => {
     const renderSubMenus = subMenu.map((sub, index) => {
         return (
             <li className="dropdown-menu-items" key={index}>
-                <Link href={""}>
-                    <a className="dropdown-menu-item-link">{sub}</a>
+                <Link href={sub.replaceAll(" ", "-").toLowerCase()}>
+                    <a className="dropdown-menu-item-link">{`${sub} (${randNumber()})`}</a>
                 </Link>
             </li>
         );
