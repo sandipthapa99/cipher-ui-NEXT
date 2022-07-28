@@ -10,4 +10,4 @@ export interface RewardCardProps {
     isCouponCodeAvailable: boolean;
     couponCode?: string;
     btnText?: string;
-}  
+}

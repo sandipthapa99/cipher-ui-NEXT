@@ -2,7 +2,7 @@ import { faHeart, faShare } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { useState } from 'react'
+import { useState } from "react";
 import { ServiceCardProps } from "types/serviceCard";
 
 import CardBtn from "./CardBtn";
@@ -21,7 +21,7 @@ const ServiceCard = ({
     discountRate,
     discountOn,
 }: ServiceCardProps) => {
-    const [showModal, setShowModal] = useState(false)
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <div className="service-card-block">
@@ -60,8 +60,11 @@ const ServiceCard = ({
                     <p className="price">${servicePrice}/hr</p>
                 </div>
                 <div className="booking-wrapper d-flex justify-content-between">
-                    <div className='d-flex'>
-                        <FontAwesomeIcon icon={faHeart} className="svg-icon heart" />
+                    <div className="d-flex">
+                        <FontAwesomeIcon
+                            icon={faHeart}
+                            className="svg-icon heart"
+                        />
 
                         {/* <FontAwesomeIcon icon={faShare}
                             className="svg-icon share" /> */}
@@ -70,10 +73,7 @@ const ServiceCard = ({
                             handleOnClick={() => setShowModal(!showModal)}
                         />
                     </div>
-                    <CardBtn
-                        btnTitle="Book Now"
-                        backgroundColor="#211D4F"
-                    />
+                    <CardBtn btnTitle="Book Now" backgroundColor="#211D4F" />
                 </div>
                 <div className="share-modal">
                     <ShareModal
@@ -85,7 +85,6 @@ const ServiceCard = ({
                     show={showModal}
                     handleClose={() => setShowModal(false)}
                 />
-
             </div>
         </div>
     );

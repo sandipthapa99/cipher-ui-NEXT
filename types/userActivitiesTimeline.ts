@@ -1,8 +1,8 @@
 export interface UserActivitiesTimeline {
-    date?: string,
-    image: string,
-    title: string,
-    editService?: boolean,
-    loggedInDate?: string,
-    ipAddress?: string
+    date?: string;
+    image: string;
+    title: string;
+    editService?: boolean;
+    loggedInDate?: string;
+    ipAddress?: string;
 }

@@ -29,6 +29,4 @@ export const userDocument = [
         name: "gardenerOrg",
         type: "jpg",
     },
-
-
-]
+];

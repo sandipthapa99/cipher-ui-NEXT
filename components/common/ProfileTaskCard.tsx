@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import { CommonCardProps } from 'types/commonCard'
+import Image from "next/image";
+import { CommonCardProps } from "types/commonCard";
 
 const ProfileTaskCard = ({
     cardImage,
@@ -25,6 +25,6 @@ const ProfileTaskCard = ({
                 </p>
             </div>
         </div>
-    )
-}
-export default ProfileTaskCard
+    );
+};
+export default ProfileTaskCard;

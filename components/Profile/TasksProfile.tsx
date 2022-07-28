@@ -1,17 +1,17 @@
-import Reviews from '@components/common/Reviews'
-import SelectInputField from '@components/common/SelectInputField'
-import { faChevronDown } from '@fortawesome/pro-regular-svg-icons'
+import Reviews from "@components/common/Reviews";
+import SelectInputField from "@components/common/SelectInputField";
+import { faChevronDown } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Formik } from 'formik'
+import { Formik } from "formik";
 import Image from "next/image";
-import Link from 'next/link'
-import { Col,Row } from 'react-bootstrap'
+import Link from "next/link";
+import { Col, Row } from "react-bootstrap";
 import { profileTaskCard } from "staticData/profileTaskCard";
-import { reviewsContent } from 'staticData/reviews'
-import HomeSearchSchema from 'utils/formValidation/homeSearchValidation'
-import { HomeSearchdata } from 'utils/homeSearchData'
-import { personType, reviewType } from 'utils/options'
+import { reviewsContent } from "staticData/reviews";
+import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
+import { HomeSearchdata } from "utils/homeSearchData";
+import { personType, reviewType } from "utils/options";
 
 const TasksProfileCard = () => {
     return (
@@ -20,11 +20,7 @@ const TasksProfileCard = () => {
                 <Row>
                     {profileTaskCard &&
                         profileTaskCard.map((info) => (
-                            <Col
-                                lg={3}
-                                md={4}
-                                key={info.id}
-                            >
+                            <Col lg={3} md={4} key={info.id}>
                                 <div className="about-card-block">
                                     <figure className="thumbnail-img">
                                         <Image
@@ -35,9 +31,13 @@ const TasksProfileCard = () => {
                                         />
                                     </figure>
                                     <div className="card-content">
-                                        <h2 className="card-title">{info.title}</h2>
+                                        <h2 className="card-title">
+                                            {info.title}
+                                        </h2>
 
-                                        <p className="address">{info.address}</p>
+                                        <p className="address">
+                                            {info.address}
+                                        </p>
                                         <p className="description">
                                             {/* {`${cardDescription.substring(0, 80)}...`} */}
                                             {info.description}
@@ -45,32 +45,37 @@ const TasksProfileCard = () => {
 
                                         <div className="bottom d-flex justify-content-between">
                                             <div className="rating d-flex align-items-center">
-                                                <FontAwesomeIcon icon={faStar} className="svg-icon" />
-                                                <p className="value">{info.rating}</p>
+                                                <FontAwesomeIcon
+                                                    icon={faStar}
+                                                    className="svg-icon"
+                                                />
+                                                <p className="value">
+                                                    {info.rating}
+                                                </p>
                                             </div>
-                                            <p className="price">${info.price}/hr</p>
+                                            <p className="price">
+                                                ${info.price}/hr
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </Col>
-
                         ))}
                 </Row>
             </section>
-
 
             <section className="profile-task__bottom-container">
                 <div className="reviews">
                     <div className="head-container">
                         <h3>
-                            My Reviews <span>(3,003)</span>{' '}
+                            My Reviews <span>(3,003)</span>{" "}
                         </h3>
                         <div className="dropdowns">
                             <Formik
                                 initialValues={HomeSearchdata}
                                 validationSchema={HomeSearchSchema}
                                 onSubmit={async (values) => {
-                                    console.log(values)
+                                    console.log(values);
                                 }}
                             >
                                 <div className="dropdown-wrapper review-type">
@@ -79,7 +84,7 @@ const TasksProfileCard = () => {
                                             name="review"
                                             options={personType}
                                             fieldRequired
-                                            defaultValue='Tasker'
+                                            defaultValue="Tasker"
                                         />
                                         <FontAwesomeIcon
                                             icon={faChevronDown}
@@ -93,7 +98,7 @@ const TasksProfileCard = () => {
                                 initialValues={HomeSearchdata}
                                 validationSchema={HomeSearchSchema}
                                 onSubmit={async (values) => {
-                                    console.log(values)
+                                    console.log(values);
                                 }}
                             >
                                 <div className="dropdown-wrapper relevancy">
@@ -132,8 +137,7 @@ const TasksProfileCard = () => {
                     </div>
                 </div>
             </section>
-        </section >
-
+        </section>
     );
 };
 export default TasksProfileCard;
