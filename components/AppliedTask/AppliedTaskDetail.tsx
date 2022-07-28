@@ -25,7 +25,7 @@ import { serviceProvider } from "staticData/serviceProvider";
 const AppliedTaskDetail: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     return (
-        <div className="task-detail p-5">
+        <div className="task-detail mb-5 p-5">
             <Link href="/task">
                 <a>
                     <FontAwesomeIcon
