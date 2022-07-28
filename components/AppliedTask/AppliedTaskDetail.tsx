@@ -25,7 +25,7 @@ import { serviceProvider } from "staticData/serviceProvider";
 const AppliedTaskDetail: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     return (
-        <div className="task-deatil p-5">
+        <div className="task-detail p-5">
             <Link href="/task">
                 <a>
                     <FontAwesomeIcon
@@ -92,7 +92,7 @@ const AppliedTaskDetail: NextPage = () => {
                         ))}
                 </Col>
             </Row>
-            <div className="d-flex mt-4 task-deatil__loc-time">
+            <div className="d-flex mt-4 task-detail__loc-time">
                 <p>
                     <FontAwesomeIcon
                         icon={faLocationDot}
@@ -127,7 +127,7 @@ const AppliedTaskDetail: NextPage = () => {
                 </p>
             </div>
 
-            <div className="task-deatil__desc">
+            <div className="task-detail__desc">
                 <h3>Description</h3>
                 <p>
                     Hiring a reputable professional landscape gardener entail
