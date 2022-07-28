@@ -15,7 +15,7 @@ const BillingLocation = ({ location }: BillingLocationProps) => {
                 <span>
                     <FontAwesomeIcon
                         icon={faLocationDot}
-                        className="svg-icon-location"
+                        className="svg-icon svg-icon-location"
                     />
                     {location}
                 </span>
@@ -26,7 +26,7 @@ const BillingLocation = ({ location }: BillingLocationProps) => {
             <span>
                 <FontAwesomeIcon
                     icon={faCheck}
-                    className="me-3 svg-icon-check"
+                    className="me-3 svg-icon svg-icon-check"
                 />
                 Same as Task Location
             </span>
