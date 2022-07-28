@@ -3,6 +3,7 @@ import BillingLocation from "@components/Checkout/BillingLocation";
 import ExtraSection from "@components/Checkout/ExtraSection";
 import PaymentMethod from "@components/Checkout/PaymentMethod";
 import Breadcrum from "@components/common/Breadcrum";
+import Footer from "@components/Footer";
 import Header from "@components/Header";
 import MembershipCard from "@components/MembershipCard";
 import Popular from "@components/Popular";

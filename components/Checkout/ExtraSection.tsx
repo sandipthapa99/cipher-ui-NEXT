@@ -1,4 +1,3 @@
-import AnchorButton from "@components/common/AnchorButton";
 import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";

@@ -2,7 +2,6 @@ import Image from "next/image";
 import { PacakageCardProps } from "types/packageCard";
 
 import AnchorButton from "./common/AnchorButton";
-import PackageServiceHighlights from "./common/PackageServiceHighlights";
 
 const MembershipCard = ({
     title,
