@@ -8,11 +8,11 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { ImageVideoDragDop, PdfDragDrop } from "staticData/dragDropContent";
-import { AddPortfolioProps } from "types/editProfile";
+import { AddPortfolio } from "types/editProfile";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 
-const AddPortfolio = ({ handleClose, showModal }: AddPortfolioProps) => {
+const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
     return (
         <>
             {/* Modal component */}
