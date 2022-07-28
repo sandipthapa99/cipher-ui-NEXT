@@ -16,16 +16,15 @@ const RewardCard = ({
     couponCode,
     description,
 }: RewardCardProps) => {
-
-    const [copySuccess, setCopySuccess] = useState('');
+    const [copySuccess, setCopySuccess] = useState("");
     // your function to copy here
 
     const copyToClipBoard = async (copyMe: any) => {
         try {
             await navigator.clipboard.writeText(copyMe);
-            setCopySuccess('Copied!');
+            setCopySuccess("Copied!");
         } catch (err) {
-            setCopySuccess('Failed to copy!');
+            setCopySuccess("Failed to copy!");
         }
     };
     return (
@@ -38,38 +37,52 @@ const RewardCard = ({
                     alt="reward-image"
                 />
             </figure>
-            {isAvailable ? '' :
+            {isAvailable ? (
+                ""
+            ) : (
                 <figure className="expired-img">
                     <Image
-                        src='/userprofile/rewards/expired.svg'
+                        src="/userprofile/rewards/expired.svg"
                         layout="fill"
                         objectFit="cover"
                         alt="expired-image"
                     />
-                </figure>}
+                </figure>
+            )}
             <div className="card-content">
-                <h2>{haveDiscount ? `${discount}% Off ${title}` : `${title}`}</h2>
+                <h2>
+                    {haveDiscount ? `${discount}% Off ${title}` : `${title}`}
+                </h2>
                 <p>{description}</p>
-                {haveCouponCode ?
-
-                    <div className='coupon'>
-                        {isCouponCodeAvailable ?
+                {haveCouponCode ? (
+                    <div className="coupon">
+                        {isCouponCodeAvailable ? (
                             <div className="code">
                                 <p>{couponCode}</p>
-                            </div> :
+                            </div>
+                        ) : (
                             <div className="disabled disabled-color">
                                 <p>{couponCode}</p>
-                            </div>}
+                            </div>
+                        )}
 
-                        <div className={`${isCouponCodeAvailable ? 'abled' : 'disabled-copy-btn'} copy-btn`}
+                        <div
+                            className={`${
+                                isCouponCodeAvailable
+                                    ? "abled"
+                                    : "disabled-copy-btn"
+                            } copy-btn`}
                             onClick={() => copyToClipBoard(couponCode)}
-                        >Copy</div>
-
+                        >
+                            Copy
+                        </div>
                     </div>
-                    :
-                    <CardBtn btnTitle={`${btnText}`} backgroundColor="primary-color" />
-                }
-
+                ) : (
+                    <CardBtn
+                        btnTitle={`${btnText}`}
+                        backgroundColor="primary-color"
+                    />
+                )}
             </div>
         </div>
     );

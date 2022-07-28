@@ -1,5 +1,5 @@
 import ServiceCard from "@components/common/ServiceCard";
-import { Col,Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { userSavedBookings } from "staticData/userSavedBookings";
 
 const SavedBookings = () => {
@@ -16,32 +16,17 @@ const SavedBookings = () => {
                             key={service.id}
                         >
                             <ServiceCard
-                                serviceImage={
-                                    service.serviceImage
-                                }
-                                serviceTitle={
-                                    service.serviceTitle
-                                }
-                                serviceProvider={
-                                    service.serviceProvider
-                                }
+                                serviceImage={service.serviceImage}
+                                serviceTitle={service.serviceTitle}
+                                serviceProvider={service.serviceProvider}
                                 serviceProviderLocation={
                                     service.serviceProviderLocation
                                 }
-                                serviceDescription={
-                                    service.serviceDescription
-                                }
-                                serviceRating={
-                                    service.serviceRating
-                                }
-                                servicePrice={
-                                    service.servicePrice
-                                }
-
+                                serviceDescription={service.serviceDescription}
+                                serviceRating={service.serviceRating}
+                                servicePrice={service.servicePrice}
                             />
                         </Col>
-
-
                     ))}
             </Row>
         </div>
