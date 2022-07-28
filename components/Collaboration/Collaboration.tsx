@@ -1,3 +1,4 @@
+import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import { UserTaskCard } from "@components/Task/UserTaskCard/UserTaskCard";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -41,12 +42,14 @@ export const Collaboration = () => {
                 <Row>
                     {DUMMY_TASKS.map((item, index) => (
                         <Col md={6} sm={12} key={index}>
-                            <UserTaskCard
+                            {/* <UserTaskCard
                                 task={item}
                                 onTaskClick={() => {}}
                                 isButton={true}
                                 handleButtonClick={handleOpen}
-                            />
+                            /> */}
+
+                            <TeamMembersCard />
                         </Col>
                     ))}
                 </Row>

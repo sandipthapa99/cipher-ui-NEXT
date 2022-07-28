@@ -1,0 +1,27 @@
+.team-members-card {
+    padding: 2.4rem;
+    @include border();
+
+    .image-and-title {
+        .team-members-card-image {
+            margin: 0 2.4rem 0 0;
+            img {
+                border-radius: 50%;
+            }
+        }
+
+        .name-post-count {
+            .title-and-dots {
+                h5 {
+                    font: 500 1.4rem $poppins-font;
+                }
+
+                svg {
+                    height: 2.4rem;
+                    width: 2.4rem;
+                    fill: #000000;
+                }
+            }
+        }
+    }
+}
