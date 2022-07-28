@@ -23,7 +23,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
             <h2>Task List</h2>
             <div className="d-flex flex-column flex-sm-row my-4 py-4 task-list__detial">
                 <figure>
-                    <Image src={picture} layout="fill"></Image>
+                    <Image src={picture} alt="task-img" layout="fill"></Image>
                 </figure>
                 <div className="d-flex flex-column justify-content-around ps-4 task-list__detial--desc">
                     <h4>{task.cardTitle}</h4>
@@ -65,7 +65,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
                         <Form className="d-flex flex-column flex-sm-row justify-content-between g-5">
                             <span className="w-100 me-5">
                                 <InputField
-                                    type="number"
+                                    type="string"
                                     name="price"
                                     error={errors.price}
                                     touch={touched.price}

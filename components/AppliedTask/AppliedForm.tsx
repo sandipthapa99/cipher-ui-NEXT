@@ -1,5 +1,8 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import { PostCard } from "@components/PostTask/PostCard";
+import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import React from "react";
 import Button from "react-bootstrap/Button";
@@ -16,6 +19,7 @@ const AppliedForm = ({
     show,
     handleClose,
 }: BookNowModalCardProps) => {
+    const { setShowSuccessModal } = useSuccessContext();
     return (
         <>
             {/* Modal component */}
@@ -39,6 +43,7 @@ const AppliedForm = ({
                         initialValues={ApplyFormData}
                         validationSchema={applyFormSchema}
                         onSubmit={async (values) => {
+                            setShowSuccessModal(true);
                             console.log(values);
                         }}
                     >
@@ -89,6 +94,12 @@ const AppliedForm = ({
                     </Formik>
                 </div>
             </Modal>
+            <PostCard
+                text="You are good to continue."
+                buttonName="Continue"
+                type="Success"
+                iconName={faSquareCheck}
+            />
         </>
     );
 };

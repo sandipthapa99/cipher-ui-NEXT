@@ -1,5 +1,4 @@
 import BigButton from "@components/common/Button";
-import FormButton from "@components/common/FormButton";
 import React from "react";
 
 export const AcceptReject = () => {
