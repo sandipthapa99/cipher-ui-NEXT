@@ -35,6 +35,7 @@ const AddRequirements = ({ field }: Props) => {
 
     const handleEnterAdd = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
+            event.preventDefault();
             addRequirements();
         }
     };

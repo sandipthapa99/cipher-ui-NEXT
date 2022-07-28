@@ -3,15 +3,21 @@ import DiscountCard from "@components/common/discountCard";
 import ServiceCard from "@components/common/ServiceCard";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
-import ApplyPost from "@components/PostTask/ApplyPost";
 import { SearchBody } from "@components/SearchTask/searchBody";
 import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 
 import SearchHeader from "../components/SearchTask/searchHeader";
+
+// this gets rid of the hydration error
+// since the data required for this component comes from localstorage, there's no need for ssr
+const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
+    ssr: false,
+});
 const PostTask: NextPage = () => {
     return (
         <>

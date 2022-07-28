@@ -9,15 +9,16 @@ import { DUMMY_CLIENT_PROJECTS } from "staticData/clientProjects";
 import { TaskDetail } from "staticData/taskDetail";
 
 interface HireMerchantModalProps {
-    merchant: TaskDetail["user"];
+    task: TaskDetail;
     show: boolean;
     onHide: () => void;
 }
 export const HireMerchantModal = ({
-    merchant,
+    task,
     show,
     onHide,
 }: HireMerchantModalProps) => {
+    const { user: merchant } = task;
     const renderClientProjects = () => {
         return DUMMY_CLIENT_PROJECTS.map((project, index) => (
             <div className="hmm-client-project" key={index}>
