@@ -1,6 +1,6 @@
 import BigButton from "@components/common/Button";
 import {
-    faEllipsisVertical,
+    fa6,
     faHeart,
     faRibbon,
     faShare,
@@ -17,7 +17,12 @@ interface Props {
     onTaskClick: (task: Task) => void;
     handleButtonClick?: () => void;
 }
-export const UserTaskCard = ({ isButton, task, onTaskClick, handleButtonClick }: Props) => {
+export const UserTaskCard = ({
+    isButton,
+    task,
+    onTaskClick,
+    handleButtonClick,
+}: Props) => {
     return (
         <div className="user-task-card" onClick={() => onTaskClick(task)}>
             <div className="user-task-card__header">

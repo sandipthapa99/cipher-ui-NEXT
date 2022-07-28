@@ -6,7 +6,7 @@ export interface ServiceCardProps {
     serviceDescription: string;
     serviceRating: string;
     servicePrice: string;
-    hasOffer: boolean;
+    hasOffer?: boolean;
     discountRate?: number;
     discountOn?: string;
 }

@@ -1,5 +1,4 @@
-export const billingLocationContent = 
-    {
-        id:0,
-        location: 'kathmandu, nepal'
-    }
+export const billingLocationContent = {
+    id: 0,
+    location: "kathmandu, nepal",
+};

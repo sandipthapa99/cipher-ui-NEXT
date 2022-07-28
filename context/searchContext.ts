@@ -1,8 +1,8 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
 
 export interface SearchContext {
-	state: string;
-	setState: Function;
+    state: string;
+    setState: Function;
 }
 
 export const searchContext = createContext<SearchContext>({} as SearchContext);

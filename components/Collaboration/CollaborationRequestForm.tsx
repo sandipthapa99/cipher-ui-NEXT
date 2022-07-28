@@ -6,6 +6,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { Modal } from "react-bootstrap";
 import { ApplyFormData } from "utils/formData";
+
 import { CollaborateWith } from "./CollaborateWith";
 
 interface CollaborationRequestFormProps {

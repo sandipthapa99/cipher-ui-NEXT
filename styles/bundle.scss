@@ -59,6 +59,11 @@
 @import "components/collaboration";
 @import "components/collaborationRequestForm";
 @import "components/teamMembersCard";
+@import "components/equipmentModel";
+@import "components/payementMethod";
+@import "components/creditCard";
+@import "components/profileDropdown";
+
 // Pages
 @import "pages/privacyPolicy";
 @import "pages/referall";
@@ -108,9 +113,14 @@
 @import "components/searchBySort";
 @import "components/userProfileCard";
 @import "Profile/profile-about.scss";
-@import "components//searchBySort";
+@import "Profile/profile-organization.scss";
+@import "Profile/profileTask";
+@import "Profile/activities.scss";
+@import "Profile/document.scss";
+@import "Profile/rewardcard.scss";
 @import "components/applyPost";
 @import "components/userTaskCard";
+@import "components/shareModalCard";
 @import "components/userTaskDetail";
 @import "components/hireMerchantModal";
 

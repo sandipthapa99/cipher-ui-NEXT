@@ -1,212 +1,212 @@
 .service-details {
-  @include respond(sm) {
-    padding: 0rem 1.25rem;
-  }
-
-  @include respond(xs) {
-    padding: 0rem 1.25rem;
-  }
-  &__top-container {
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 500;
+    @include respond(sm) {
+        padding: 0rem 1.25rem;
     }
-    .gardener-col {
-      margin-top: 2rem;
-      @include respond(md) {
-        margin-top: 0rem;
-      }
 
-      .card-block {
-        align-items: center;
-        @include respond(lg) {
-          align-items: flex-start;
+    @include respond(xs) {
+        padding: 0rem 1.25rem;
+    }
+    &__top-container {
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
         }
-      }
-    }
-    .information {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      .provider-name {
-        font-size: 1.5rem;
-        font-weight: 400;
-      }
-      p {
-        font-size: 1.2rem;
-      }
-      @include respond(sm) {
-        flex-direction: row;
-      }
-
-      .reactions {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .save {
-        .heart {
-          color: #fe5050;
-          font-weight: 400;
-        }
-        .name {
-          margin-top: -0.4rem;
-          color: $default-text-color;
-        }
-      }
-
-      .share {
-        .share-icon {
-          color: #3eaeff;
-          font-weight: 400;
-          margin-left: 1.7rem;
-        }
-        .name {
-          margin-top: -0.4rem;
-          color: $default-text-color;
-        }
-      }
-      .option {
-        margin-left: 1.7rem;
-        margin-top: -3.4rem;
-      }
-    }
-    .thumbnail-img {
-      height: 43.5rem;
-    }
-  }
-
-  &__description {
-    padding-top: 2.5rem;
-    h1 {
-      font-size: 2rem;
-      font-weight: 500;
-    }
-    p {
-      font-size: 1.3rem;
-      font-weight: 400;
-      line-height: 2.2rem;
-      text-justify: inter-word;
-    }
-    .tags-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 1rem;
-    }
-  }
-  &__highlights {
-    padding-bottom: 5rem;
-    padding-top: 2.5rem;
-    h1 {
-      font-size: 2rem;
-      font-weight: 500;
-    }
-    .label {
-      font-size: 1.3rem;
-      color: $default-text-color;
-    }
-
-    @include respond(md) {
-      padding-top: 0rem;
-    }
-  }
-
-  &__offers {
-    padding-bottom: 5rem;
-    h1 {
-      font-size: 2rem;
-      font-weight: 500;
-    }
-  }
-  &__reviews {
-    padding-bottom: 5rem;
-
-    .head-container {
-      a {
-        font-size: 1.3rem;
-      }
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid #dde2f1;
-      border-bottom: 1px solid #dde2f1;
-      padding: 1.8rem 0rem;
-      h3 {
-        font-size: 1.9rem;
-        color: $primary-color;
-        padding-top: 1rem;
-        font-weight: 500;
-        span {
-          color: $default-text-color;
-          font-size: 1.3rem;
-          font-weight: 400;
-        }
-      }
-      .dropdown-wrapper {
-        width: 30%;
-        padding: 0rem 0;
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 0.4rem;
-        border: 1px solid #dde2f1;
-        @include respond(lg) {
-          width: 35%;
-        }
-        .dropdown-menu {
-          width: 6rem !important;
-        }
-        .dropdown {
-          color: #9fa3b1;
-          //position: relative;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          .form-group {
-            margin: 0;
-            z-index: 1;
-            .form-control {
-              border: none;
-              height: 3.4rem;
-              font-size: 1.3rem;
-              cursor: pointer;
-              background: transparent;
-              &::placeholder {
-                color: #868e96;
-                font-family: $poppins-font;
-                font-size: 1.6rem;
-                font-weight: 500;
-              }
+        .gardener-col {
+            margin-top: 2rem;
+            @include respond(md) {
+                margin-top: 0rem;
             }
-          }
-          .svg-icon {
-            //position: absolute;
-            //top: 35%;
-            //left: 100%;
-            margin-right: 2rem;
-            z-index: 0;
-          }
+
+            .card-block {
+                align-items: center;
+                @include respond(lg) {
+                    align-items: flex-start;
+                }
+            }
         }
-      }
-    }
-    .review-container {
-      border-bottom: 0.1rem solid #dde2f1;
-      padding-bottom: 1.5rem;
-    }
-  }
-  &__services {
-    padding-bottom: 5rem;
-    h1 {
-      font-size: 2rem;
-      padding-bottom: 1rem;
-      font-weight: 500;
+        .information {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .provider-name {
+                font-size: 1.5rem;
+                font-weight: 400;
+            }
+            p {
+                font-size: 1.2rem;
+            }
+            @include respond(sm) {
+                flex-direction: row;
+            }
+
+            .reactions {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .save {
+                .heart {
+                    color: #fe5050;
+                    font-weight: 400;
+                }
+                .name {
+                    margin-top: -0.4rem;
+                    color: $default-text-color;
+                }
+            }
+
+            .share {
+                .share-icon {
+                    color: #3eaeff;
+                    font-weight: 400;
+                    margin-left: 1.7rem;
+                }
+                .name {
+                    margin-top: -0.4rem;
+                    color: $default-text-color;
+                }
+            }
+            .option {
+                margin-left: 1.7rem;
+                margin-top: -3.4rem;
+            }
+        }
+        .thumbnail-img {
+            height: 43.5rem;
+        }
     }
 
-    .discover-col {
-      display: block;
-      @include respond(md) {
-        display: flex;
-        align-items: stretch;
-      }
+    &__description {
+        padding-top: 2.5rem;
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+        }
+        p {
+            font-size: 1.3rem;
+            font-weight: 400;
+            line-height: 2.2rem;
+            text-justify: inter-word;
+        }
+        .tags-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
     }
-  }
+    &__highlights {
+        padding-bottom: 5rem;
+        padding-top: 2.5rem;
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+        }
+        .label {
+            font-size: 1.3rem;
+            color: $default-text-color;
+        }
+
+        @include respond(md) {
+            padding-top: 0rem;
+        }
+    }
+
+    &__offers {
+        padding-bottom: 5rem;
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+        }
+    }
+    &__reviews {
+        padding-bottom: 5rem;
+
+        .head-container {
+            a {
+                font-size: 1.3rem;
+            }
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #dde2f1;
+            border-bottom: 1px solid #dde2f1;
+            padding: 1.8rem 0rem;
+            h3 {
+                font-size: 1.9rem;
+                color: $primary-color;
+                padding-top: 1rem;
+                font-weight: 500;
+                span {
+                    color: $default-text-color;
+                    font-size: 1.3rem;
+                    font-weight: 400;
+                }
+            }
+            .dropdown-wrapper {
+                width: 30%;
+                padding: 0rem 0;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 0.4rem;
+                border: 1px solid #dde2f1;
+                @include respond(lg) {
+                    width: 35%;
+                }
+                .dropdown-menu {
+                    width: 6rem !important;
+                }
+                .dropdown {
+                    color: #9fa3b1;
+                    //position: relative;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .form-group {
+                        margin: 0;
+                        z-index: 1;
+                        .form-control {
+                            border: none;
+                            height: 3.4rem;
+                            font-size: 1.3rem;
+                            cursor: pointer;
+                            background: transparent;
+                            &::placeholder {
+                                color: #868e96;
+                                font-family: $poppins-font;
+                                font-size: 1.6rem;
+                                font-weight: 500;
+                            }
+                        }
+                    }
+                    .svg-icon {
+                        //position: absolute;
+                        //top: 35%;
+                        //left: 100%;
+                        margin-right: 2rem;
+                        z-index: 0;
+                    }
+                }
+            }
+        }
+        .review-container {
+            border-bottom: 0.1rem solid #dde2f1;
+            padding-bottom: 1.5rem;
+        }
+    }
+    &__services {
+        padding-bottom: 5rem;
+        h1 {
+            font-size: 2rem;
+            padding-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .discover-col {
+            display: block;
+            @include respond(md) {
+                display: flex;
+                align-items: stretch;
+            }
+        }
+    }
 }

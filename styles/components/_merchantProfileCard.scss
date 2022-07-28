@@ -1,202 +1,202 @@
 .profile-card-block {
-  padding: 1.4rem;
-  background-color: #fff;
-  box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    padding: 1.4rem;
+    background-color: #fff;
+    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
 
-  &__profile {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    border-right: 0.1rem solid $border-color;
-    .thumbnail-img {
-      height: 10rem;
-      width: 10rem;
-    }
-    .name {
-      font-size: 2rem;
-      font-weight: 400;
-      margin-top: 1.9rem;
-      margin-bottom: 1rem;
-    }
-    .active {
-      border-radius: 50%;
-      height: 0.9rem;
-      width: 0.9rem;
-      margin-top: 2.6rem;
-      margin-left: 1rem;
-      background-color: #38c675;
-    }
-    .organization {
-      color: $primary-color;
-      font-size: 1.2rem;
-      margin-bottom: 0rem;
-      font-weight: 400;
-    }
-    .rating {
-      display: flex;
-      margin-bottom: 1.9rem;
-      margin-top: 1.6rem;
-      .thumbnail-img {
-        height: 2rem;
-        width: 2rem;
-        padding-left: 2rem;
-        margin-left: 0.5rem;
-      }
-    }
-    .price {
-      font-size: 1.8rem;
-      color: $primary-color;
-      font-weight: 500;
-      text-align: center;
-      margin-bottom: 1.4rem;
-      color: $default-text-color;
-    }
-    .button {
-      /* brand/secondary */
-      display: block;
-      outline: none;
-      border: none;
-      background: #ffca6a;
-      /* Container */
-      color: #000;
-      font-weight: 500;
-      font-size: 1.4rem;
-      padding: 1rem 6.8rem;
-      box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
-      border-radius: 0.4rem;
-    }
-  }
-  &__general-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 1rem 1.8rem;
-    .top-container {
-      border-bottom: 0.1rem solid $border-color;
-    }
-    h1 {
-      font-size: 1.6rem;
-      padding-top: 1rem;
-      font-weight: 500;
-    }
-    .content {
-      padding-top: 1rem;
-      .type {
-        padding-bottom: 0.4rem;
-        .thumbnail-img {
-          height: 2rem;
-          width: 2rem;
-          margin-right: 1rem;
-          color: $default-text-color !important;
-        }
-        p {
-          font-size: 1.3rem;
-          margin-bottom: 0rem;
-          margin-bottom: 0rem;
-        }
-      }
-    }
-    .reactions {
-      justify-content: end;
-      align-items: flex-end;
-
-      .heart {
-        color: #fe5050;
-        margin-right: 2.4rem;
-      }
-
-      .share {
-        color: #3eaeff;
-      }
-    }
-    .bio {
-      padding-bottom: 2rem;
-      padding-top: 3rem;
-      .title {
-        color: $default-text-color;
-        font-size: 1.5rem;
-        font-weight: 500;
-        margin-right: 1rem;
-      }
-      .details {
-        font-size: 1.3rem;
-        margin-bottom: 0rem;
-      }
-    }
-    .status {
-      padding: 2rem 0rem;
-      h1 {
-        font-size: 3rem;
-      }
-      .type {
+    &__profile {
         display: flex;
         justify-content: center;
         flex-direction: column;
-        margin-left: 0rem;
-        padding-top: 0.4rem;
-        padding-left: 1rem;
-        padding-right: 5rem;
-        padding-bottom: 0.7rem;
-        border-radius: 0.4rem;
-
-        @include respond(sm) {
-          margin-bottom: 2rem;
-          align-items: center;
+        align-items: center;
+        border-right: 0.1rem solid $border-color;
+        .thumbnail-img {
+            height: 10rem;
+            width: 10rem;
         }
-        @include respond(xs) {
-          margin-bottom: 2rem;
-          align-items: center;
-          text-align: center;
+        .name {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-top: 1.9rem;
+            margin-bottom: 1rem;
         }
-      }
-      .success-rate {
-        background-color: #ffeded;
-
-        h1 {
-          color: #fe5050;
+        .active {
+            border-radius: 50%;
+            height: 0.9rem;
+            width: 0.9rem;
+            margin-top: 2.6rem;
+            margin-left: 1rem;
+            background-color: #38c675;
         }
-        p {
-          font-size: 1.3rem;
-
-          margin-bottom: 0rem;
+        .organization {
+            color: $primary-color;
+            font-size: 1.2rem;
+            margin-bottom: 0rem;
+            font-weight: 400;
         }
-      }
-      .happy-clients {
-        background-color: #fff5e5;
-
-        h1 {
-          color: #ff9700;
+        .rating {
+            display: flex;
+            margin-bottom: 1.9rem;
+            margin-top: 1.6rem;
+            .thumbnail-img {
+                height: 2rem;
+                width: 2rem;
+                padding-left: 2rem;
+                margin-left: 0.5rem;
+            }
         }
-        p {
-          font-size: 1.3rem;
-          margin-bottom: 0rem;
+        .price {
+            font-size: 1.8rem;
+            color: $primary-color;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 1.4rem;
+            color: $default-text-color;
         }
-      }
-      .task-completed {
-        background-color: #ebf9f1;
-        padding-right: 3rem;
-
-        h1 {
-          color: #38c675;
+        .button {
+            /* brand/secondary */
+            display: block;
+            outline: none;
+            border: none;
+            background: #ffca6a;
+            /* Container */
+            color: #000;
+            font-weight: 500;
+            font-size: 1.4rem;
+            padding: 1rem 6.8rem;
+            box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+            border-radius: 0.4rem;
         }
-        p {
-          font-size: 1.3rem;
-          margin-bottom: 0rem;
-        }
-      }
     }
-    .user-reviews {
-      background-color: #ecf7ff;
+    &__general-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 1rem 1.8rem;
+        .top-container {
+            border-bottom: 0.1rem solid $border-color;
+        }
+        h1 {
+            font-size: 1.6rem;
+            padding-top: 1rem;
+            font-weight: 500;
+        }
+        .content {
+            padding-top: 1rem;
+            .type {
+                padding-bottom: 0.4rem;
+                .thumbnail-img {
+                    height: 2rem;
+                    width: 2rem;
+                    margin-right: 1rem;
+                    color: $default-text-color !important;
+                }
+                p {
+                    font-size: 1.3rem;
+                    margin-bottom: 0rem;
+                    margin-bottom: 0rem;
+                }
+            }
+        }
+        .reactions {
+            justify-content: end;
+            align-items: flex-end;
 
-      h1 {
-        color: #3eaeff;
-      }
-      p {
-        font-size: 1.3rem;
-        margin-bottom: 0rem;
-      }
+            .heart {
+                color: #fe5050;
+                margin-right: 2.4rem;
+            }
+
+            .share {
+                color: #3eaeff;
+            }
+        }
+        .bio {
+            padding-bottom: 2rem;
+            padding-top: 3rem;
+            .title {
+                color: $default-text-color;
+                font-size: 1.5rem;
+                font-weight: 500;
+                margin-right: 1rem;
+            }
+            .details {
+                font-size: 1.3rem;
+                margin-bottom: 0rem;
+            }
+        }
+        .status {
+            padding: 2rem 0rem;
+            h1 {
+                font-size: 3rem;
+            }
+            .type {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                margin-left: 0rem;
+                padding-top: 0.4rem;
+                padding-left: 1rem;
+                padding-right: 5rem;
+                padding-bottom: 0.7rem;
+                border-radius: 0.4rem;
+
+                @include respond(sm) {
+                    margin-bottom: 2rem;
+                    align-items: center;
+                }
+                @include respond(xs) {
+                    margin-bottom: 2rem;
+                    align-items: center;
+                    text-align: center;
+                }
+            }
+            .success-rate {
+                background-color: #ffeded;
+
+                h1 {
+                    color: #fe5050;
+                }
+                p {
+                    font-size: 1.3rem;
+
+                    margin-bottom: 0rem;
+                }
+            }
+            .happy-clients {
+                background-color: #fff5e5;
+
+                h1 {
+                    color: #ff9700;
+                }
+                p {
+                    font-size: 1.3rem;
+                    margin-bottom: 0rem;
+                }
+            }
+            .task-completed {
+                background-color: #ebf9f1;
+                padding-right: 3rem;
+
+                h1 {
+                    color: #38c675;
+                }
+                p {
+                    font-size: 1.3rem;
+                    margin-bottom: 0rem;
+                }
+            }
+        }
+        .user-reviews {
+            background-color: #ecf7ff;
+
+            h1 {
+                color: #3eaeff;
+            }
+            p {
+                font-size: 1.3rem;
+                margin-bottom: 0rem;
+            }
+        }
     }
-  }
 }

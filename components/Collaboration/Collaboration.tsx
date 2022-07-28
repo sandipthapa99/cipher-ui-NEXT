@@ -3,6 +3,7 @@ import { UserTaskCard } from "@components/Task/UserTaskCard/UserTaskCard";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { DUMMY_TASKS } from "types/tasks";
+
 import { CollaborationRequestForm } from "./CollaborationRequestForm";
 
 export const Collaboration = () => {
@@ -49,7 +50,7 @@ export const Collaboration = () => {
                                 handleButtonClick={handleOpen}
                             /> */}
 
-                            <TeamMembersCard />
+                            <TeamMembersCard task={item} />
                         </Col>
                     ))}
                 </Row>

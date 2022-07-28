@@ -12,6 +12,21 @@
             svg {
                 margin: 0 1rem 0 0;
             }
+            span {
+                margin: 2rem 0;
+            }
+            button {
+                font-weight: 400;
+                font-size: 1.6rem;
+                background: #e7e8f0;
+                color: $primary-color;
+                box-shadow: none;
+                border: none;
+                &:hover {
+                    background: $primary-color;
+                    color: #fff;
+                }
+            }
         }
     }
 }

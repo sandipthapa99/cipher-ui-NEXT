@@ -4,7 +4,6 @@ import Image from "next/image";
 import React from "react";
 
 import { AcceptReject } from "./AcceptReject";
-import { Pay } from "./Pay";
 
 export const AcceptedNotification = () => {
     return (

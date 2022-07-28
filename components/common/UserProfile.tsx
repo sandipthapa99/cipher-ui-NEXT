@@ -11,7 +11,9 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { Overlay, Tooltip } from "react-bootstrap";
 import { UserProfileInfoProps } from "types/userProfile";
 
 const UserProfileCard = ({
@@ -32,8 +34,13 @@ const UserProfileCard = ({
     pointGoal,
     happyClients,
     successRate,
+    userReviews,
     taskCompleted,
+    userActiveStatus,
+    tooltipMessage,
 }: UserProfileInfoProps) => {
+    const [show, setShow] = useState(false);
+    const target = useRef(null);
     return (
         <div className="profile-card-block">
             <Row>
@@ -160,7 +167,22 @@ const UserProfileCard = ({
                                     />
                                 </figure>
                                 <div className="left">
-                                    <div className="user-type d-flex">
+                                    <Overlay
+                                        target={target.current}
+                                        show={show}
+                                        placement="top"
+                                    >
+                                        {(props: any) => (
+                                            <Tooltip {...props}>
+                                                {tooltipMessage}
+                                            </Tooltip>
+                                        )}
+                                    </Overlay>
+                                    <div
+                                        ref={target}
+                                        onClick={() => setShow(!show)}
+                                        className="user-type d-flex"
+                                    >
                                         <h1>{userBadge}</h1>
                                         <FontAwesomeIcon
                                             icon={faCircleQuestion}

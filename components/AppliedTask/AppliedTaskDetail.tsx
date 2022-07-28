@@ -1,5 +1,6 @@
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
+import { Tab } from "@components/common/Tab";
 import {
     faCalendar,
     faChevronLeft,
@@ -15,13 +16,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
 
 const AppliedTaskDetail: NextPage = () => {
+    const [activeTabIdx, setActiveTabIdx] = useState(0);
     return (
-        <div className="task-deatil p-5">
+        <div className="task-detail mb-5 p-5">
             <Link href="/task">
                 <a>
                     <FontAwesomeIcon
@@ -88,42 +91,45 @@ const AppliedTaskDetail: NextPage = () => {
                         ))}
                 </Col>
             </Row>
-            <div className="d-flex mt-4 task-deatil__loc-time">
+            <div className="d-flex mt-4 task-detail__loc-time">
                 <p>
                     <FontAwesomeIcon
                         icon={faLocationDot}
-                        className="svg-icon-location"
+                        className="svg-icon svg-icon-location"
                     />
                     Buddhanagar, Kathmandu
                 </p>
                 <p>
                     <FontAwesomeIcon
                         icon={faCalendar}
-                        className="svg-icon-calender"
+                        className="svg-icon svg-icon-calender"
                     />
                     June 9, 2022
                 </p>
                 <p>
                     <FontAwesomeIcon
                         icon={faClockEight}
-                        className="svg-icon-clock"
+                        className="svg-icon svg-icon-clock"
                     />
                     08:11 PM
                 </p>
                 <p>
-                    <FontAwesomeIcon icon={faEye} className="svg-icon-eye" />
+                    <FontAwesomeIcon
+                        icon={faEye}
+                        className="svg-icon svg-icon-eye"
+                    />
                     2500 Views
                 </p>
                 <p>
                     <FontAwesomeIcon
                         icon={faUserGroup}
-                        className="svg-icon-user-group"
+                        className="svg-icon svg-icon-user-group"
                     />
                     100 Applied
                 </p>
             </div>
 
-            <div className="task-deatil__desc">
+            <div className="task-detail__desc">
                 <h3>Description</h3>
                 <p>
                     Hiring a reputable professional landscape gardener entail
@@ -143,6 +149,15 @@ const AppliedTaskDetail: NextPage = () => {
                         </div>
                     ))}
             </div>
+            <Tab
+                activeIndex={activeTabIdx}
+                onTabClick={setActiveTabIdx}
+                items={[
+                    { title: "About", content: <div>About</div> },
+                    { title: "Service", content: <div>Service</div> },
+                    { title: "Documents", content: <div>Photos</div> },
+                ]}
+            />
         </div>
     );
 };

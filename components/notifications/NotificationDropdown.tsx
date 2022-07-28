@@ -3,10 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
 
-import { AcceptedNotification } from "./AcceptedNotification";
 import { ApproveNotification } from "./dropdown-notifications/ApproveNotification";
 import { CreatedTask } from "./dropdown-notifications/CreatedTask";
-import { Pay } from "./Pay";
 
 export const NotificationDropdown = () => {
     return (

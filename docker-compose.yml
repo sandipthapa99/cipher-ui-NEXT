@@ -6,4 +6,3 @@ services: #This section defines all the different containers we will create.
         ports: #This is used to map the container’s ports to the host machine.
             - "3004:3004"
         restart: unless-stopped
-
