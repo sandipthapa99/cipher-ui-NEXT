@@ -9,13 +9,18 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import { ProfileCardContent } from "staticData/profileCardContent";
 
 export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
+    const router = useRouter();
     return (
         <div className="profile-dropdown p-4">
-            <div className="d-flex justify-content-between align-items-center profile-header">
+            <div
+                className="d-flex justify-content-between align-items-center profile-header"
+                onClick={() => router.push("/profile")}
+            >
                 <div className="d-flex justify-content-between profile-desc">
                     <figure>
                         <Image
