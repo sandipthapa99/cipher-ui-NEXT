@@ -1,13 +1,14 @@
-import { faBars, faBell } from "@fortawesome/pro-regular-svg-icons";
+import { faBars } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
+import { profileCardContent } from "staticData/profileCardContent";
 import { handleMenuActive } from "utils/helpers";
 
-import { PostTaskModel } from "./model/PostTaskModel";
+import { ProfileModel } from "./model/ProfileModel";
 
 export function UpperHeader() {
     const router = useRouter();
@@ -114,7 +115,9 @@ export function UpperHeader() {
                                     />
                                 </figure>
                             </span>
-                            {notopen && <PostTaskModel />}
+                            {notopen && (
+                                <ProfileModel profile={profileCardContent} />
+                            )}
                         </div>
 
                         <Link href="#!">
