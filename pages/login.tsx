@@ -3,8 +3,10 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import { useAuthContext } from "context/AuthContext/userContext";
 import { Form, Formik } from "formik";
 import { useLocalStorage } from "hooks/use-local-storage";
+import { useRouter } from "next/router";
 import React from "react";
 import { LoginValuesProps } from "types/login";
 import { loginFormData } from "utils/formData";
@@ -12,10 +14,8 @@ import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
-    const [user, setUser] = useLocalStorage<LoginValuesProps>("user", {
-        email: "",
-        password: "",
-    });
+    const router = useRouter();
+    const { loginUser } = useAuthContext();
 
     return (
         <section>
@@ -33,8 +33,7 @@ const Login = () => {
                         initialValues={loginFormData}
                         validationSchema={loginFormSchema}
                         onSubmit={async (values) => {
-                            setUser(values);
-                            console.log(user);
+                            loginUser(values);
 
                             // actions.setSubmitting(true);
                             // setTimeout(() => {
