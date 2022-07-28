@@ -7,7 +7,7 @@ const Breadcrum = ({
     subPage,
     hasSubPage,
 }: {
-    currentPage: string;
+    currentPage: string | undefined;
     subPage?: string;
     hasSubPage?: boolean;
 }) => {

@@ -15,16 +15,17 @@ import { withAuth } from "utils/Auth/withAuth";
 const Gardening = () => {
     const router = useRouter();
     const { categories } = router.query;
+
     return (
-        <Layout title="Gardening | Cipher">
+        <Layout title={`${categories} | Cipher`}>
             <div className="gardening -page">
-                <Breadcrum currentPage="Gardening" />
+                <Breadcrum currentPage={categories?.toString()} />
                 <Container fluid="xl">
-                    <h1 className="section-title">{categories}</h1>
+                    <h1 className="section-title">{categories?.toString()}</h1>
 
                     <section className="services-near-you">
                         <h1 className="heading-title mt-5">
-                            Gardening Services Near You
+                            {`${categories} Services Near You`}
                         </h1>
                         <Row className="gx-5">
                             {services &&
@@ -72,7 +73,7 @@ const Gardening = () => {
 
                     <section className="tasks-near-you">
                         <h1 className="heading-title">
-                            Gardening Tasks Near You
+                            {`  ${categories} Tasks Near You`}
                         </h1>
                         <Row className="gx-5">
                             {tasks &&
