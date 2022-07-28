@@ -1,16 +1,20 @@
-import {ReactNode, useState } from "react"
-import {successContext} from './successContext'
+import { ReactNode, useState } from "react";
+import { successContext } from "./successContext";
 interface Props {
-	children: ReactNode;
+    children: ReactNode;
 }
 
-const SuccessProvider = ({children}:Props) => {
-    const [showSuccessModal,  setShowSuccessModal] = useState(false)
+const SuccessProvider = ({ children }: Props) => {
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-const value = {
-    showSuccessModal,
-    setShowSuccessModal
-}
-return <successContext.Provider value={value}>{children}</successContext.Provider>
-}
-export default SuccessProvider
+    const value = {
+        showSuccessModal,
+        setShowSuccessModal,
+    };
+    return (
+        <successContext.Provider value={value}>
+            {children}
+        </successContext.Provider>
+    );
+};
+export default SuccessProvider;

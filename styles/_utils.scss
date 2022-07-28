@@ -4,4 +4,21 @@
     height: 24px;
 }
 .divider {
+    display: block;
+    height: 1px;
+    width: 100%;
+    background-color: #ced4da;
+}
+
+// sizings
+$sizes: (8, 16, 24, 48, 64, 96, 128, 256);
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+.mb-8 {
+    margin-bottom: 8px !important;
+}
+.mb-16 {
+    margin-bottom: 16px !important;
 }

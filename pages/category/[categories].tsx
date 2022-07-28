@@ -4,6 +4,7 @@ import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import Layout from "@components/Layout";
+import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
@@ -12,12 +13,14 @@ import { tasks } from "staticData/task";
 import { withAuth } from "utils/Auth/withAuth";
 
 const Gardening = () => {
+    const router = useRouter();
+    const { categories } = router.query;
     return (
         <Layout title="Gardening | Cipher">
             <div className="gardening -page">
                 <Breadcrum currentPage="Gardening" />
                 <Container fluid="xl">
-                    <h1 className="section-title">Gardening</h1>
+                    <h1 className="section-title">{categories}</h1>
 
                     <section className="services-near-you">
                         <h1 className="heading-title mt-5">

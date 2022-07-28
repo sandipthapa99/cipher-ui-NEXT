@@ -39,13 +39,13 @@ export const AllCategoryCardContent = [
         name: "Party Planner",
         image: "/discover/category8.svg",
     },
-    
+
     {
         id: "9",
         name: "Audio Visual",
         image: "/discover/category9.svg",
     },
-    
+
     {
         id: "10",
         name: "Educational Classes",
@@ -61,4 +61,4 @@ export const AllCategoryCardContent = [
         name: "Decorators",
         image: "/discover/category12.svg",
     },
-]
+];

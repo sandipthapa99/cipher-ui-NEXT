@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { KeyboardEvent } from "react";
 import { useState } from "react";
 import { ChangeEvent } from "react";
-import { Button, Form, InputGroup, Row } from "react-bootstrap";
+import { Form, InputGroup, Row } from "react-bootstrap";
 import { Requirement } from "types/requirement";
 
 interface Props {
@@ -109,7 +109,7 @@ const AddRequirements = ({ field }: Props) => {
                                     setRequire(event.target.value);
                                 }}
                             />
-                            <button
+                            {/* <button
                                 id="button-addon2"
                                 type="button"
                                 onClick={addRequirements}
@@ -124,7 +124,22 @@ const AddRequirements = ({ field }: Props) => {
                                     className="svg-icon"
                                     style={{ color: "#3EAEFF" }}
                                 />
-                            </button>
+                            </button> */}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "0 0 0 1rem",
+                                }}
+                            >
+                                <FontAwesomeIcon
+                                    onClick={addRequirements}
+                                    icon={faCirclePlus}
+                                    className="svg-icon"
+                                    style={{ color: "#3EAEFF" }}
+                                />
+                            </div>
                         </InputGroup>
                     </div>
                 </Row>

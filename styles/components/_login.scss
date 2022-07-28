@@ -1,203 +1,201 @@
 .login-layout-wrapper {
-  min-height: 100vh;
-  display: flex;
-
-  &__left {
-    width: 44%;
-    min-height: 100%;
-    background-size: cover;
-    position: fixed;
-    left: 0;
-    top: 0;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    display: none;
-
-    @include respond(lg) {
-      display: flex;
-    }
-
-    .brand-logo {
-      position: absolute;
-      top: 4rem;
-      left: 4rem;
-    }
-  }
-
-  &__right {
-    width: 100%;
-    background: white;
-    position: relative;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
-    padding: 0 4rem;
 
-    @include respond(lg) {
-      width: 56%;
-      padding-left: 14rem;
-    }
+    &__left {
+        width: 44%;
+        min-height: 100%;
+        background-size: cover;
+        position: fixed;
+        left: 0;
+        top: 0;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        display: none;
 
-    .redirection-text {
-      position: absolute;
-      bottom: 0;
-
-      @include respond(lg) {
-        top: 4rem;
-        right: 4rem;
-      }
-
-      p {
-        font-family: $poppins-font;
-        font-size: 1.4rem;
-        font-weight: 400;
-        color: #343A40;
-
-        a {
-          color: #0693E3;
-          margin-left: 0.4rem;
-
-          &:hover {
-            color: $secondary-color;
-          }
+        @include respond(lg) {
+            display: flex;
         }
-      }
+
+        .brand-logo {
+            position: absolute;
+            top: 4rem;
+            left: 4rem;
+        }
     }
-  }
+
+    &__right {
+        width: 100%;
+        background: white;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 0 4rem;
+
+        @include respond(lg) {
+            width: 56%;
+            padding-left: 14rem;
+        }
+
+        .redirection-text {
+            position: absolute;
+            bottom: 0;
+
+            @include respond(lg) {
+                top: 4rem;
+                right: 4rem;
+            }
+
+            p {
+                font-family: $poppins-font;
+                font-size: 1.4rem;
+                font-weight: 400;
+                color: #343a40;
+
+                a {
+                    color: #0693e3;
+                    margin-left: 0.4rem;
+
+                    &:hover {
+                        color: $secondary-color;
+                    }
+                }
+            }
+        }
+    }
 }
 
 //login component
 
 .form-wrapper {
-  width: 45rem;
-  padding: 5rem 0;
-  width: 100%;
-
-  @include respond(lg) {
+    width: 45rem;
+    padding: 5rem 0;
     width: 100%;
-  }
 
-  &.login,
-  &.forgot-password,
-  &.signup,
-  &.client-signup,
-  &.tasker-signup {
-    width: 100%;
-    @include respond(lg){
-      width: 70%;
+    @include respond(lg) {
+        width: 100%;
     }
-  }
 
-
+    &.login,
+    &.forgot-password,
+    &.signup,
+    &.client-signup,
+    &.tasker-signup {
+        width: 100%;
+        @include respond(lg) {
+            width: 70%;
+        }
+    }
 }
 
 .form-content {
-  .form-group {
-    a {
-      font-size: 1.2rem;
-      color: #0693E3;
-      font-weight: 500;
+    .form-group {
+        a {
+            font-size: 1.2rem;
+            color: #0693e3;
+            font-weight: 500;
+        }
+
+        .form-label {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #343a40;
+        }
+
+        .radio-block {
+            margin-right: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #212529;
+
+            &__input {
+                margin-right: 0.8rem;
+            }
+        }
     }
 
-    .form-label {
-      font-size: 1.4rem;
-      font-weight: 500;
-      color: #343A40;
+    .welcome-text {
+        font-family: $inter-font;
+        font-size: 1.3rem;
+        font-weight: 400;
+        color: #797979;
+        margin-bottom: 0.8rem;
     }
 
-    .radio-block {
-      margin-right: 1.5rem;
-      font-size: 1.2rem;
-      font-weight: 400;
-      color: #212529;
-
-      &__input {
-        margin-right: 0.8rem;
-      }
-    }
-  }
-
-  .welcome-text {
-    font-family: $inter-font;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: #797979;
-    margin-bottom: 0.8rem;
-  }
-
-  .login-text {
-    font-family: $poppins-font;
-    font-weight: 600;
-    font-size: 2rem;
-    margin-bottom: 4rem;
-  }
-
-  .forgot-pass-description {
-    font-size: 1.4rem;
-    font-weight: 400;
-    font-family: $inter-font;
-    color: #535353;
-  }
-
-  .terms-condition-agree-text {
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: #343A40;
-  }
-
-  .login-btn {
-    color: white;
-    width: 100%;
-    @include transition();
-  }
-  .continue-btn{
-    color: white;
-    width: 42.2rem;
-    @include transition();
-  }
-
-  .horizontal-line {
-    overflow: hidden;
-    text-align: center;
-    margin: 3.1rem 0 2.8rem 0;
-
-    &::before,
-    &::after {
-      background-color: rgba(0, 0, 0, 0.1);
-      content: "";
-      display: inline-block;
-      height: 1px;
-      position: relative;
-      vertical-align: middle;
-      width: 50%;
+    .login-text {
+        font-family: $poppins-font;
+        font-weight: 600;
+        font-size: 2rem;
+        margin-bottom: 4rem;
     }
 
-    &::before {
-      right: 0.5em;
-      margin-left: -50%;
+    .forgot-pass-description {
+        font-size: 1.4rem;
+        font-weight: 400;
+        font-family: $inter-font;
+        color: #535353;
     }
 
-    &::after {
-      left: 0.5em;
-      margin-right: -50%;
+    .terms-condition-agree-text {
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #343a40;
     }
-  }
 
-  .or {
-    font-size: 1.2rem;
-    font-weight: 500;
-    font-family: $inter-font;
-    color: #1f1f1f;
-  }
+    .login-btn {
+        color: white;
+        width: 100%;
+        @include transition();
+    }
+    .continue-btn {
+        color: white;
+        width: 42.2rem;
+        @include transition();
+    }
+
+    .horizontal-line {
+        overflow: hidden;
+        text-align: center;
+        margin: 3.1rem 0 2.8rem 0;
+
+        &::before,
+        &::after {
+            background-color: rgba(0, 0, 0, 0.1);
+            content: "";
+            display: inline-block;
+            height: 1px;
+            position: relative;
+            vertical-align: middle;
+            width: 50%;
+        }
+
+        &::before {
+            right: 0.5em;
+            margin-left: -50%;
+        }
+
+        &::after {
+            left: 0.5em;
+            margin-right: -50%;
+        }
+    }
+
+    .or {
+        font-size: 1.2rem;
+        font-weight: 500;
+        font-family: $inter-font;
+        color: #1f1f1f;
+    }
 }
 
 .social-btn {
-  width: 100%;
-  margin-bottom: 2.4rem;
+    width: 100%;
+    margin-bottom: 2.4rem;
 
-  .social-icon {
-    position: absolute;
-    left: 1.6rem;
-    margin: 0;
-  }
+    .social-icon {
+        position: absolute;
+        left: 1.6rem;
+        margin: 0;
+    }
 }

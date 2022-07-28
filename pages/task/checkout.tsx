@@ -1,8 +1,8 @@
 import TaskList from "@components/AppliedTask/TaskList";
 import BillingLocation from "@components/Checkout/BillingLocation";
 import ExtraSection from "@components/Checkout/ExtraSection";
+import PaymentMethod from "@components/Checkout/PaymentMethod";
 import Breadcrum from "@components/common/Breadcrum";
-import PackageOffersCard from "@components/common/packageCard";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 import MembershipCard from "@components/MembershipCard";
@@ -15,7 +15,6 @@ import { MembershipCardContent } from "staticData/membershipCard";
 import { taskListContent } from "staticData/taskListData";
 
 const Checkout = () => {
-    console.log(taskListContent);
     return (
         <Fragment>
             <SearchHeader />
@@ -33,6 +32,7 @@ const Checkout = () => {
                                 location={billingLocationContent.location}
                             />
                             <ExtraSection />
+                            <PaymentMethod />
                         </Col>
                         <Col lg={4}>
                             <TaskList task={taskListContent} />

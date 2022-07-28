@@ -10,7 +10,7 @@
             height: 20rem;
             margin: 0;
             border-radius: 0.4rem 0.4rem 0 0;
-            transition: .3s ease-in-out;
+            transition: 0.3s ease-in-out;
             overflow: hidden;
 
             @include respond(md) {
@@ -24,19 +24,23 @@
                 }
             }
         }
-        .offer{
+        .offer {
             position: absolute;
             bottom: 0;
             left: 0;
-            background: linear-gradient(180deg, rgba(252, 165, 0, 0.9) 0%, rgba(244, 88, 0, 0.81) 145%);
+            background: linear-gradient(
+                180deg,
+                rgba(252, 165, 0, 0.9) 0%,
+                rgba(244, 88, 0, 0.81) 145%
+            );
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            p{
+            p {
                 margin: 0;
-                color: #FFF;
-                &.discount-rate{
+                color: #fff;
+                &.discount-rate {
                     margin-right: 1.2rem;
                 }
             }
@@ -57,13 +61,12 @@
             font-size: 1.2rem;
             font-family: $inter-font;
             font-weight: 500;
-            color: #5C5F66;
+            color: #5c5f66;
             margin-bottom: 1.6rem;
 
             span {
                 font-family: $inter-font;
-                color: #3EAEFF;
-
+                color: #3eaeff;
             }
         }
 
@@ -106,12 +109,12 @@
             align-items: center;
 
             .heart {
-                color: #FE5050;
+                color: #fe5050;
                 margin-right: 3.4rem;
             }
 
             .share {
-                color: #3EAEFF;
+                color: #3eaeff;
             }
         }
     }

@@ -1,3 +1,3 @@
 export interface TabNameProps {
-  title: string
+    title: string;
 }
