@@ -1,3 +1,4 @@
+import { prefix } from "@fortawesome/free-brands-svg-icons";
 import { ApplyValueProps } from "types/applyValueProps";
 import { ClientSignUpValueProps } from "types/clientSignUp";
 import { LoginValuesProps } from "types/login";
@@ -22,5 +23,6 @@ export const ClientSignUpFormData : ClientSignUpValueProps = {
 
 export const ApplyFormData: ApplyValueProps={
     price: "",
-    remarks: ""
+    remarks: "",
+    prerequesties: [],
 }

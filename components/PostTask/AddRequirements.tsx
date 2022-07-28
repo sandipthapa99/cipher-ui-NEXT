@@ -7,12 +7,13 @@ import { Button, Form, InputGroup, Row } from "react-bootstrap";
 import { Requirement } from "types/requirement";
 
 interface Props {
-    field: (label: string, value: unknown) => void;
+    field?: (label: string, value: unknown) => void;
+    onSubmit?: (requirement: Requirement[]) => void;
 }
 
 const requirements: Requirement[] = [];
 
-const AddRequirements = ({ field }: Props) => {
+const AddRequirements = ({ field, onSubmit }: Props) => {
     const [requirementState, setRequirementState] = useState(requirements);
     const [require, setRequire] = useState("");
 
@@ -25,7 +26,9 @@ const AddRequirements = ({ field }: Props) => {
                     ...prev,
                     { id: prev.length === 0 ? 0 : prev.length, name: require },
                 ];
-                field("requirements", updatedValue);
+
+                onSubmit?.(updatedValue)
+                field?.("requirements", updatedValue);
                 return updatedValue;
             });
         }
@@ -45,7 +48,7 @@ const AddRequirements = ({ field }: Props) => {
                 (prevItem) => prevItem.id !== requirementId
             );
 
-            field("requirements", filtered);
+            field?.("requirements", filtered);
 
             return filtered;
         });
@@ -116,6 +119,7 @@ const AddRequirements = ({ field }: Props) => {
                                     margin: "0.7rem 0.5rem 0.5rem 0.5rem",
                                     border: "none",
                                     outline: "none",
+                                    background: "white",
                                 }}
                             >
                                 <FontAwesomeIcon

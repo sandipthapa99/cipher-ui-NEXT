@@ -15,8 +15,9 @@ interface Props {
     isButton?: boolean;
     task: Task;
     onTaskClick: (task: Task) => void;
+    handleButtonClick?: () => void;
 }
-export const UserTaskCard = ({ isButton, task, onTaskClick }: Props) => {
+export const UserTaskCard = ({ isButton, task, onTaskClick, handleButtonClick }: Props) => {
     return (
         <div className="user-task-card" onClick={() => onTaskClick(task)}>
             <div className="user-task-card__header">
@@ -28,6 +29,7 @@ export const UserTaskCard = ({ isButton, task, onTaskClick }: Props) => {
                     alt={`${task.user.username} profile picture`}
                     className="rounded-circle"
                 />
+
                 <div className="user-info">
                     <p className="user-info__username">{task.user.username}</p>
                     <span>
@@ -90,6 +92,7 @@ export const UserTaskCard = ({ isButton, task, onTaskClick }: Props) => {
                         btnTitle={"Collab"}
                         backgroundColor={"#211D4F"}
                         textColor={"white"}
+                        handleClick={handleButtonClick}
                     />
                 )}
                 {isButton === false && (

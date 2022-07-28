@@ -2,9 +2,20 @@ import { UserTaskCard } from "@components/Task/UserTaskCard/UserTaskCard";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { DUMMY_TASKS } from "types/tasks";
+import { CollaborationRequestForm } from "./CollaborationRequestForm";
 
 export const Collaboration = () => {
     const [onToogle, setOnToogle] = useState(false);
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => {
+        setShow(false);
+    };
+
+    const handleOpen = () => {
+        setShow(true);
+    };
+
     return (
         <div className="collaboration-tab">
             <div className="d-flex justify-content-between collaboration-header">
@@ -34,11 +45,14 @@ export const Collaboration = () => {
                                 task={item}
                                 onTaskClick={() => {}}
                                 isButton={true}
+                                handleButtonClick={handleOpen}
                             />
                         </Col>
                     ))}
                 </Row>
             )}
+
+            <CollaborationRequestForm show={show} handleClose={handleClose} />
         </div>
     );
 };
