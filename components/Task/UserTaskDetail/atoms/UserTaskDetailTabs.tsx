@@ -9,7 +9,7 @@ export interface UserTaskDetailTabsProps {
     user: TaskDetail["user"];
 }
 
-export const UserTaskDetailTabs = () => {
+export const UserTaskDetailTabs = ({ user }: UserTaskDetailTabsProps) => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     return (
         <Tab
