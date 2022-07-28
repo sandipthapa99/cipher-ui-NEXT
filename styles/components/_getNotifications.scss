@@ -1,0 +1,111 @@
+.get-notification {
+    h1 {
+        font: 500 4rem $poppins-font;
+        color: $primary-color;
+    }
+    &__body {
+        background: #fff;
+        padding: 3.2rem 0 4rem;
+        margin: 2.5rem 0 4rem;
+
+        .header {
+            padding: 0 3.2rem 0 2.4rem;
+            h4 {
+                font: 600 1.6rem $poppins-font;
+            }
+            a {
+                font: 400 1.2rem $poppins-font;
+                color: #2d2d66;
+            }
+        }
+    }
+}
+
+//Accepetd Notification
+.accepted-notification {
+    padding: 1.6rem 4rem;
+    background: #f8f9fa;
+    border-width: 1px 0px;
+    border-style: solid;
+    border-color: #edf4ff;
+    flex-direction: column;
+
+    @include respond(md) {
+        flex-direction: row;
+    }
+    // flex-wrap: wrap;
+
+    .notification-image {
+        padding: 0 0.8rem 0 0;
+        img {
+            border-radius: 50%;
+        }
+    }
+
+    .description-section {
+        h4 {
+            margin: 0 0 0.8rem;
+            font: 500 1.6rem $poppins-font;
+            span {
+                font: 400 1.2rem $poppins-font;
+            }
+        }
+        p {
+            font: 400 1.2rem $poppins-font;
+            margin: 0 0 0.8rem;
+        }
+
+        .date {
+            font: 400 1rem $poppins-font;
+            color: #868e96;
+        }
+    }
+    svg {
+        height: 2rem;
+        width: 2rem;
+        fill: $primary-color;
+        cursor: pointer;
+    }
+}
+
+//Pay Component
+.pay-component {
+    margin: 0 4rem;
+    p {
+        font: 500 1.6rem $poppins-font;
+        margin: 0 1.6rem 0 0;
+    }
+    button {
+        margin: 0 0 0 1.6rem;
+        color: white;
+        height: 2.4rem;
+        display: flex;
+        align-items: center;
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+//Accept reject component
+.accept-reject-component {
+    margin: 0 1rem;
+    button {
+        margin: 0 0 0 1.6rem;
+        border: 1px solid #211d4f;
+        height: 2.4rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .reject {
+        button {
+            color: black;
+        }
+    }
+    .accept {
+        button {
+            color: white;
+        }
+    }
+}
