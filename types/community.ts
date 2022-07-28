@@ -9,7 +9,7 @@ export interface CommunityActivityCardProps {
     cardTitle: string;
     cardDescription: any;
     react: number;
-    comments: number
-    name: string,
-    position:string
+    comments: number;
+    name: string;
+    position: string;
 }

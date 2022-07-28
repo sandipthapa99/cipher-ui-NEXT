@@ -1,8 +1,8 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
 
 export interface LoginProps {
-	userToken: string;
-	isUserLoggedIn: boolean;
+    userToken: string;
+    isUserLoggedIn: boolean;
 }
 
 export const UserContext = createContext<LoginProps>({} as LoginProps);

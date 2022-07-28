@@ -3,8 +3,7 @@ export interface CategoryCardProps {
     categoryIcon: string;
 }
 
-
-export interface AllCategoryCardProps{
+export interface AllCategoryCardProps {
     categoryTitle: string;
     categoryImage: string;
 }

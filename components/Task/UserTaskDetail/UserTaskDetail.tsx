@@ -19,5 +19,4 @@ const UserTaskDetail = ({ taskDetail }: UserTaskDetailProps) => {
         </div>
     );
 };
-
 export default UserTaskDetail;

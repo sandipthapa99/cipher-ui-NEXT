@@ -6,6 +6,6 @@ export interface MerchantCardProps {
     merchantDescription: string;
     merchantRating: string;
     merchantPrice: number;
-    happyClients:number;
-    successRate:number;
+    happyClients: number;
+    successRate: number;
 }

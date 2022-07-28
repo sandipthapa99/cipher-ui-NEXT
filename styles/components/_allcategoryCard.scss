@@ -1,38 +1,38 @@
 .allcategory-card-block {
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  .gradient {
-    position: absolute;
-    // height: 100%;
-    // width: 100%;
-    z-index: 1;
-  }
-
-  .thumbnail-img {
-    height: 18rem;
-    z-index: 0;
-    backdrop-filter: blur(0.4rem);
-    /* Note: backdrop-filter has minimal browser support */
-
-    border-radius: 4px;
-    img {
-      width: 100%;
-    }
-  }
-  .category-overlay {
-    display: flex;
+    position: relative;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    z-index: 1;
-    p {
-      position: absolute;
-      bottom: 2rem;
-      color: #fff !important;
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 5rem;
+    .gradient {
+        position: absolute;
+        // height: 100%;
+        // width: 100%;
+        z-index: 1;
     }
-  }
+
+    .thumbnail-img {
+        height: 18rem;
+        z-index: 0;
+        backdrop-filter: blur(0.4rem);
+        /* Note: backdrop-filter has minimal browser support */
+
+        border-radius: 4px;
+        img {
+            width: 100%;
+        }
+    }
+    .category-overlay {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        p {
+            position: absolute;
+            bottom: 2rem;
+            color: #fff !important;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5rem;
+        }
+    }
 }
