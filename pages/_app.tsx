@@ -1,5 +1,6 @@
 import "../styles/bundle.scss";
 
+import { ClientTaskContextProvider } from "context/ClientTaskContext";
 import SearchProvider from "context/searchProvider";
 import SuccessProvider from "context/successContext/successProvider";
 import UserProvider from "context/userContextProvider";
@@ -13,7 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             <SearchProvider>
                 <SuccessProvider>
                     <AuthProvider>
-                        <Component {...pageProps} />
+                        <ClientTaskContextProvider>
+                            <Component {...pageProps} />
+                        </ClientTaskContextProvider>
                     </AuthProvider>
                 </SuccessProvider>
             </SearchProvider>
