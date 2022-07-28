@@ -75,12 +75,6 @@ export const CollaborationRequestForm = ({
                                             as="textarea"
                                         />
 
-                                        <h5>Pre-requisites</h5>
-                                        <p>
-                                            This helps merchants to find about
-                                            your requirements better.
-                                        </p>
-
                                         <AddRequirements
                                             onSubmit={(requirements) =>
                                                 setFieldValue(
@@ -88,6 +82,8 @@ export const CollaborationRequestForm = ({
                                                     requirements
                                                 )
                                             }
+                                            title="Pre-requisites"
+                                            description="This helps merchants to find about your requirements better."
                                         />
                                         <CollaborateWith />
 
