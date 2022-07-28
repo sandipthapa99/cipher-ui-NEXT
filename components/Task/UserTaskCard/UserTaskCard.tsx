@@ -1,6 +1,6 @@
 import BigButton from "@components/common/Button";
 import {
-    fa6,
+    faEllipsisVertical,
     faHeart,
     faRibbon,
     faShare,
