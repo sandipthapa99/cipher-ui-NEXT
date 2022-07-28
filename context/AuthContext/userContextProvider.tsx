@@ -14,6 +14,7 @@ interface Props {
 
 const AuthProvider = ({ children }: Props) => {
     const router = useRouter();
+
     const signUp = async (signUpValues: ClientSignUpValueProps) => {
         try {
             const allUsers = await axiosClient.get("/users");

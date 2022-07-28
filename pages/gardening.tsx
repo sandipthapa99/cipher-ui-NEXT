@@ -9,6 +9,7 @@ import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 import { tasks } from "staticData/task";
+import { withAuth } from "utils/Auth/withAuth";
 
 const Gardening = () => {
     return (
@@ -192,4 +193,4 @@ const Gardening = () => {
         </Layout>
     );
 };
-export default Gardening;
+export default withAuth(Gardening);

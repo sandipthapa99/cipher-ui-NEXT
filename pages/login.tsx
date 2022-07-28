@@ -5,16 +5,13 @@ import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { useAuthContext } from "context/AuthContext/userContext";
 import { Form, Formik } from "formik";
-import { useLocalStorage } from "hooks/use-local-storage";
-import { useRouter } from "next/router";
 import React from "react";
-import { LoginValuesProps } from "types/login";
+import { withAuth } from "utils/Auth/withAuth";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
-    const router = useRouter();
     const { loginUser } = useAuthContext();
 
     return (
@@ -34,30 +31,6 @@ const Login = () => {
                         validationSchema={loginFormSchema}
                         onSubmit={async (values) => {
                             loginUser(values);
-
-                            // actions.setSubmitting(true);
-                            // setTimeout(() => {
-                            // 	if (typeof window !== 'undefined') {
-                            // 		localStorage.setItem('user', JSON.stringify(values));
-                            // 		localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9');
-                            // 	}
-                            // 	// localStorage.setItem('user', JSON.stringify(values));
-                            // 	// localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9');
-                            // 	actions.setSubmitting(false);
-                            // 	router.push('/');
-                            // }, 2000);
-                            // const userValidation = users.find(
-                            // 	user =>
-                            // 		user.email === values.email &&
-                            // 		user.password === values.password
-                            // );
-                            // 	if (!userValidation) {
-                            // 		alert('Wrong Credentials');
-                            // 	} else {
-                            // 		alert('You are logged in');
-                            // 		router.push('/');
-                            // 		setToken('eyJhbGciOiJIUzI1NiJ9');
-                            // 	}
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
@@ -113,4 +86,4 @@ const Login = () => {
         </section>
     );
 };
-export default Login;
+export default withAuth(Login);

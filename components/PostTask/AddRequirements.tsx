@@ -111,6 +111,7 @@ const AddRequirements = ({ field }: Props) => {
                             />
                             <button
                                 id="button-addon2"
+                                type="button"
                                 onClick={addRequirements}
                                 style={{
                                     margin: "0.7rem 0.5rem 0.5rem 0.5rem",

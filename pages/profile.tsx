@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { merchantProfileCardInfo } from "staticData/merchantProfileCard";
 import { reviewsContent } from "staticData/reviews";
+import { withAuth } from "utils/Auth/withAuth";
 
 const MerchantProfile: NextPage = () => {
     return (
@@ -59,4 +60,4 @@ const MerchantProfile: NextPage = () => {
     );
 };
 
-export default MerchantProfile;
+export default withAuth(MerchantProfile);

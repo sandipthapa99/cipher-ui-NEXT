@@ -12,4 +12,4 @@ function Notifications() {
     );
 }
 
-export default Notifications;
+export default withAuth(Notifications);
