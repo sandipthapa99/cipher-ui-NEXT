@@ -1,5 +1,5 @@
 export interface EquipmentValueProps {
     chargeFor: string;
-    price: number
+    price: number;
     remarks: string;
 }

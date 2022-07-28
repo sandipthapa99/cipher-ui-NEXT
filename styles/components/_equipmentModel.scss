@@ -1,13 +1,13 @@
 .equipment-modal {
     background: #fff;
     padding: 2.4rem;
-    .equipment-model__header{
-        button{
+    .equipment-model__header {
+        button {
             color: $primary-color;
             border: none;
-           &:hover{
-            color: $secondary-color;
-           }
+            &:hover {
+                color: $secondary-color;
+            }
         }
     }
     h3 {
@@ -15,11 +15,11 @@
         font-size: 2rem;
         color: $primary-color;
     }
-    .equipment-form{
-        form{
-            button{
+    .equipment-form {
+        form {
+            button {
                 width: 100%;
-                @include respond(md){
+                @include respond(md) {
                     width: 25%;
                 }
             }
