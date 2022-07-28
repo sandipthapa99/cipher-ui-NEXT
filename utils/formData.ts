@@ -23,11 +23,11 @@ export const ClientSignUpFormData: ClientSignUpValueProps = {
 
 export const ApplyFormData: ApplyValueProps = {
     price: "",
-    remarks: ""
-}
+    remarks: "",
+};
 
-export const EquipmentFormData: EquipmentValueProps={
+export const EquipmentFormData: EquipmentValueProps = {
     chargeFor: "",
     price: 1,
-    remarks: ""
-}
+    remarks: "",
+};

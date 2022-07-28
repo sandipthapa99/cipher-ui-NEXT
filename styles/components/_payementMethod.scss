@@ -1,40 +1,39 @@
-.payment-method{
+.payment-method {
     padding: 2.5rem;
     background: #fff;
-    h2{
-        border-bottom: 0.1rem solid #CED4DA;
+    h2 {
+        border-bottom: 0.1rem solid #ced4da;
         margin: 0;
         padding: 0 0 2.4rem;
         font-weight: 500;
         font-size: 2rem;
         color: $primary-color;
     }
-    .payment-method-wraper__cards{
-        ul{
+    .payment-method-wraper__cards {
+        ul {
             font-weight: 500;
             font-size: 1.4rem;
             padding: 0 0 0 2rem;
-            li{
+            li {
                 margin: 1rem 0 0;
-                h3{
+                h3 {
                     font-weight: 500;
                     font-size: 1.4rem;
                 }
             }
         }
     }
-    .accordion{
-        .card{
+    .accordion {
+        .card {
             border: none;
-            &-header{
+            &-header {
                 border: none;
                 background: none;
-                button{
+                button {
                     background: none;
                     border: none;
                 }
             }
         }
     }
-
 }
