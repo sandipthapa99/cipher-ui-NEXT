@@ -1,6 +1,6 @@
 .faq-page-header {
     margin-bottom: 4rem;
-    background-color: #FFFFFF40;
+    background-color: #ffffff40;
 
     &__description {
         display: flex;
@@ -11,7 +11,7 @@
         h1 {
             font-size: 2.4rem;
             font-weight: 500;
-            color: #211D4F;
+            color: #211d4f;
 
             @include respond(md) {
                 font-size: 4rem;
@@ -34,13 +34,13 @@
 
 .faq-body-section {
     .container {
-        @include respond(lg){
+        @include respond(lg) {
             padding: 0 19.6rem;
         }
         h1 {
             font-size: 2rem;
             font-weight: 500;
-            color: #343A40;
+            color: #343a40;
             margin-bottom: 1.6rem;
         }
     }
@@ -80,7 +80,7 @@
     .faq-topics {
         .accordion {
             .accordion-item {
-                background: #FFFFFF40;
+                background: #ffffff40;
                 margin-bottom: 0.8rem;
                 border-radius: 0.4rem;
                 border: none;
@@ -125,7 +125,7 @@
                                 background: none;
                                 border-bottom: 1px solid rgba(0, 0, 0, 0.125);
                                 border-radius: 0;
-                                &:last-child{
+                                &:last-child {
                                     border: none;
                                 }
 
@@ -144,7 +144,7 @@
                                             width: 1rem;
                                             height: 1rem;
                                             margin-right: 0;
-                
+
                                             @include respond(md) {
                                                 width: 1.2rem;
                                                 height: 1.2rem;
@@ -173,7 +173,7 @@
 
 .faq-form-section {
     .faq-form {
-        background-color: #E3D5FA;
+        background-color: #e3d5fa;
         border-radius: 0.4rem;
         margin: 2.4rem 0;
         padding: 1.6rem 2.4rem;
@@ -191,7 +191,7 @@
         h1 {
             font-size: 2.4rem;
             font-weight: 500;
-            color: #211D4F;
+            color: #211d4f;
             margin-bottom: 0.8rem;
 
             @include respond(md) {
@@ -202,7 +202,7 @@
         h2 {
             font-size: 1.6rem;
             font-weight: 500;
-            color: #343A40;
+            color: #343a40;
             margin-bottom: 2.4rem;
 
             @include respond(md) {

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { setCookie } from "nookies";
 import { ReactNode } from "react";
@@ -6,7 +5,7 @@ import { LoginValuesProps } from "types/login";
 import { axiosClient } from "utils/axiosClient";
 
 import { ClientSignUpValueProps } from "../../types/clientSignUp";
-import { AuthContext, AuthProps } from "./userContext";
+import { AuthContext } from "./userContext";
 
 interface Props {
     children: ReactNode;
@@ -17,7 +16,7 @@ const AuthProvider = ({ children }: Props) => {
     const signUp = async (signUpValues: ClientSignUpValueProps) => {
         try {
             const allUsers = await axiosClient.get("/users");
-            const users = allUsers.data;
+            const users: Array<ClientSignUpValueProps> = allUsers.data;
             const duplicateEmailAndPhone = users.find(
                 (user) =>
                     user.email === signUpValues.email ||
@@ -39,7 +38,7 @@ const AuthProvider = ({ children }: Props) => {
     const login = async (loginValues: LoginValuesProps) => {
         try {
             const allUsers = await axiosClient.get("/users");
-            const users = allUsers.data;
+            const users: Array<ClientSignUpValueProps> = allUsers.data;
             const emailExists = users.find(
                 (user) =>
                     user.email === loginValues.email &&

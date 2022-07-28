@@ -21,11 +21,10 @@ phoneValidate = Yup.string()
 stringReqOnly = Yup.string().required("Required field");
 isCheckValidate = Yup.bool().oneOf([true]).required();
 passwordValidate = Yup.string()
-    .required('Required field')
-    .min(8, 'Password is too short - should be 8 chars minimum.')
-    .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.');
-    genderValidate = Yup.string()
-    .required('Required Field')
+    .required("Required field")
+    .min(8, "Password is too short - should be 8 chars minimum.")
+    .matches(/[a-zA-Z]/, "Password can only contain Latin letters.");
+genderValidate = Yup.string().required("Required Field");
 
 const clientSignUpSchema = Yup.object().shape({
     firstName: stringReqOnly,

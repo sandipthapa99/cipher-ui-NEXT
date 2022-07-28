@@ -1,7 +1,7 @@
 .contact-page-header {
-    background-color: #CDE9F9;
+    background-color: #cde9f9;
     margin-bottom: 4rem;
-    @include respond(md){
+    @include respond(md) {
         margin-bottom: 8rem;
     }
 
@@ -14,8 +14,8 @@
         h1 {
             font-size: 2.4rem;
             font-weight: 500;
-            color: #211D4F;
-            @include respond(md){
+            color: #211d4f;
+            @include respond(md) {
                 font-size: 4rem;
             }
         }
@@ -25,7 +25,7 @@
             font-weight: 600;
             color: #495057;
             margin-bottom: 4rem;
-            @include respond(md){
+            @include respond(md) {
                 font-size: 2.4rem;
                 margin-bottom: 8rem;
             }
@@ -46,11 +46,11 @@
         }
 
         .location {
-            color: #FE5050;
+            color: #fe5050;
         }
 
         .phone {
-            color: #3D3F7D;
+            color: #3d3f7d;
         }
 
         .social-sites {
@@ -68,7 +68,7 @@
                 .google {
                     color: $google-logo-color;
                 }
-                &:hover{
+                &:hover {
                     cursor: pointer;
                 }
             }
@@ -90,7 +90,6 @@
                 border-radius: 0.4rem;
                 // height: 40rem;
                 // width: 60rem;
-
             }
         }
     }

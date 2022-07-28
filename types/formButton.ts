@@ -4,6 +4,6 @@ export interface FormButtonProps {
     isSubmittingClass?: string;
     variant?: "primary" | "secondary";
     className?: string;
-    icon?:string;
-    redirectionLink?:string;
+    icon?: string;
+    redirectionLink?: string;
 }
