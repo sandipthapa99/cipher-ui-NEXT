@@ -176,20 +176,20 @@
             }
         }
     }
+    .svg-icon {
+        width: 1.8rem;
+        height: 1.8rem;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 0.9rem;
+        &:hover {
+            color: $primary-color;
+        }
+    }
 }
 .site-header.sticky {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-}
-.svg-icon {
-    width: 1.8rem;
-    height: 1.8rem;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 0.9rem;
-    &:hover {
-        color: $primary-color;
-    }
 }

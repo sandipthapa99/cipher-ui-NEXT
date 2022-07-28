@@ -1,5 +1,6 @@
 .svg-icon {
     width: 1.5rem;
+    margin: 0 1rem 0 0;
     &-location {
         color: #fe5050;
     }
@@ -36,4 +37,7 @@
         width: 2rem;
         color: #adb5bd;
     }
+}
+.svg-180-transfrom {
+    transform: rotate(180deg);
 }

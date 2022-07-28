@@ -1,6 +1,14 @@
-import { faChartSimple } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faChartSimple,
+    faFileInvoiceDollar,
+    faGaugeHigh,
+    faGear,
+    faGift,
+    faRightFromBracket,
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export const PostTaskModel = () => {
@@ -34,14 +42,75 @@ export const PostTaskModel = () => {
             </div>
             <ul>
                 <li>
-                    <FontAwesomeIcon
-                        icon={faChartSimple}
-                        className="svg-icon svg-icon-chart-simple"
-                    />
-                    overview
+                    <Link href="">
+                        <a>
+                            <FontAwesomeIcon
+                                icon={faChartSimple}
+                                className="svg-icon"
+                            />
+                            overview
+                        </a>
+                    </Link>
                 </li>
-                <li>payment history</li>
-                <li>reedeem</li>
+                <li>
+                    <Link href="">
+                        <a>
+                            <FontAwesomeIcon
+                                icon={faFileInvoiceDollar}
+                                className="svg-icon"
+                            />
+                            payment history
+                        </a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href="">
+                        <a>
+                            <FontAwesomeIcon
+                                icon={faGift}
+                                className="svg-icon"
+                            />
+                            Redeem
+                        </a>
+                    </Link>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <Link href="">
+                        <a>
+                            <FontAwesomeIcon
+                                icon={faGaugeHigh}
+                                className="svg-icon"
+                            />
+                            overview
+                        </a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href="">
+                        <a>
+                            <FontAwesomeIcon
+                                icon={faGear}
+                                className="svg-icon"
+                            />
+                            payment history
+                        </a>
+                    </Link>
+                </li>
+            </ul>
+            <ul className="border-0">
+                <li>
+                    <Link href="">
+                        <a>
+                            <FontAwesomeIcon
+                                icon={faRightFromBracket}
+                                className="svg-icon svg-180-transfrom"
+                            />
+                            Logout
+                        </a>
+                    </Link>
+                </li>
             </ul>
         </div>
     );
