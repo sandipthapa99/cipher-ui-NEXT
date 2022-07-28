@@ -1,10 +1,7 @@
 import * as Yup from "yup";
 import { phoneRegExp } from "utils/helpers";
 
-let emailValidate,
-    stringValidate,
-    phoneValidate,
-    stringReqOnly;
+let emailValidate, stringValidate, phoneValidate, stringReqOnly;
 
 emailValidate = Yup.string()
     .email("Invalid email address")
@@ -37,7 +34,7 @@ export const SupportFormSchema = Yup.object().shape({
     fullName: stringValidate,
     email: emailValidate,
     phoneNumber: phoneValidate,
-    issueType:stringValidate,
+    issueType: stringValidate,
     message: stringReqOnly,
     // isAgree: isCheckValidate,
     // g_recaptcha_response: stringReqOnly,
