@@ -1,0 +1,90 @@
+.collaboration-request-modal {
+    .modal-content {
+        padding: 4rem;
+
+        .modal-header {
+            position: absolute;
+            top: 2.4rem;
+            right: 2.4rem;
+        }
+
+        .title-section {
+            padding: 0 0 3.2rem;
+            margin: 0 0 3rem;
+            border-bottom: 1px solid #ced4da;
+            h3 {
+                font: 500 2rem $poppins-font;
+                margin: 0 0 3.2rem;
+            }
+
+            h5 {
+                font: 500 1.4rem $poppins-font;
+                span {
+                    font: 400 1.4rem $poppins-font;
+                    color: $gray-text-color;
+                    margin: 0 0 0 3.7rem;
+                }
+            }
+
+            p {
+                font: 400 1.4rem $poppins-font;
+                color: $gray-text-color;
+            }
+
+            .budget {
+                span {
+                    margin: 0 0 0 1.6rem;
+                }
+            }
+        }
+
+        .form-section {
+            .hourly-rate-input {
+                input {
+                    max-width: 30rem;
+                }
+            }
+
+            h5 {
+                font: 500 1.4rem $poppins-font;
+            }
+            p {
+                font: 400 1.2rem $poppins-font;
+            }
+
+            .button-section {
+                margin: 8rem 0 0 0;
+
+                button {
+                    @include border();
+                    margin: 0 1.6rem;
+                    width: 18rem;
+                    height: 4rem;
+                    background-color: $primary-color;
+                    color: #fff;
+                    border-radius: 0.4rem;
+                }
+
+                .cancel-button {
+                    button {
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.collaborate-with {
+    padding: 3rem 0 0;
+    .collaborate-with-image-section {
+        flex-wrap: wrap;
+        .collaborate-with-image {
+            margin: 0.8rem;
+
+            img {
+                border-radius: 50%;
+            }
+        }
+    }
+}
