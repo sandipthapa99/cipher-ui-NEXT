@@ -19,10 +19,10 @@ import { Col, Row } from "react-bootstrap";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
 
-const ApplyTaskDetail: NextPage = () => {
+const AppliedTaskDetail: NextPage = () => {
     return (
         <div className="task-deatil p-5">
-            <Link href={""}>
+            <Link href="/task">
                 <a>
                     <FontAwesomeIcon
                         icon={faChevronLeft}
@@ -147,4 +147,4 @@ const ApplyTaskDetail: NextPage = () => {
     );
 };
 
-export default ApplyTaskDetail;
+export default AppliedTaskDetail;

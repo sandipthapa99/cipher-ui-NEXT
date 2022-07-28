@@ -1,5 +1,5 @@
 import { faHeart, faShare } from "@fortawesome/pro-regular-svg-icons";
-import { faStar } from '@fortawesome/pro-solid-svg-icons'
+import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from 'react'
@@ -19,7 +19,7 @@ const ServiceCard = ({
     servicePrice,
     hasOffer,
     discountRate,
-    discountOn
+    discountOn,
 }: ServiceCardProps) => {
     const [showModal, setShowModal] = useState(false)
 
@@ -34,25 +34,30 @@ const ServiceCard = ({
                         alt="servicecard-image"
                     />
                 </figure>
-                {hasOffer &&
+                {hasOffer && (
                     <div className="offer">
                         <p className="discount-rate">{discountRate}% OFF</p>
                         <p className="discount-on">{discountOn}</p>
                     </div>
-                }
+                )}
             </div>
             <div className="card-content">
                 <h2 className="card-title">{serviceTitle}</h2>
-                <h3 className="card-subtitle"><span>{serviceProvider}</span> | {serviceProviderLocation}</h3>
+                <h3 className="card-subtitle">
+                    <span>{serviceProvider}</span> | {serviceProviderLocation}
+                </h3>
                 <p className="card-description">
                     {`${serviceDescription.substring(0, 80)}...`}
                 </p>
                 <div className="ratings-wrapper d-flex justify-content-between">
-                    <p className='ratings d-flex align-items-center justify-content-center'>
-                        <FontAwesomeIcon icon={faStar} className="svg-icon star" />
+                    <p className="ratings d-flex align-items-center justify-content-center">
+                        <FontAwesomeIcon
+                            icon={faStar}
+                            className="svg-icon star"
+                        />
                         {serviceRating}
                     </p>
-                    <p className='price'>${servicePrice}/hr</p>
+                    <p className="price">${servicePrice}/hr</p>
                 </div>
                 <div className="booking-wrapper d-flex justify-content-between">
                     <div className='d-flex'>
@@ -83,6 +88,6 @@ const ServiceCard = ({
 
             </div>
         </div>
-    )
-}
+    );
+};
 export default ServiceCard;

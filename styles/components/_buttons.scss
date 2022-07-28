@@ -1,77 +1,77 @@
 .big-btn {
-  color: $primary-color;
-  background-image: linear-gradient(
-    -60deg,
-    transparent,
-    transparent 40%,
-    #ffffff44 40%,
-    #ffffff44 60%,
-    transparent 60%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  background-position-x: 150%;
-  background-repeat: no-repeat;
-  padding: 1.2rem 3rem;
-  font-weight: 500;
-  font-size: 1.875rem;
-  border-radius: 0.4rem;
-  border: none;
-  box-shadow: none;
-  transition: all 0.5s;
-  cursor: pointer;
-  &:hover {
-    background-color: $primary-color;
-    background-position-x: -150%;
-    transition: background-position-x 600ms;
     color: $primary-color;
-  }
-  &:focus {
+    background-image: linear-gradient(
+        -60deg,
+        transparent,
+        transparent 40%,
+        #ffffff44 40%,
+        #ffffff44 60%,
+        transparent 60%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    background-position-x: 150%;
+    background-repeat: no-repeat;
+    padding: 1.2rem 3rem;
+    font-weight: 500;
+    font-size: 1.875rem;
+    border-radius: 0.4rem;
     border: none;
-    box-shadow: none !important;
-  }
-  &:active:focus {
-    outline: 0;
-    -webkit-box-shadow: none;
     box-shadow: none;
-    outline: none !important;
-  }
-  @include respond(md) {
-    font-size: 1.4rem;
-  }
-  @include respond(xs) {
-    padding: 0.8rem 2rem;
-  }
-  @include respond(sm) {
-    padding: 0.8rem 4rem;
-  }
-  @include respond(md) {
-    padding: 1rem 3rem;
-  }
-  @include respond(lg) {
-    padding: 1.25rem 3rem;
-  }
-
-  span {
+    transition: all 0.5s;
     cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-    // color: $primary-color;
-    &::after {
-      content: '\00BB';
-      position: absolute;
-      opacity: 0;
-      top: 0;
-      right: -2rem;
-      transition: 0.5s;
+    &:hover {
+        background-color: $primary-color;
+        background-position-x: -150%;
+        transition: background-position-x 600ms;
+        color: $primary-color;
     }
-  }
-  &:hover span {
-    padding-right: 1.5rem;
-  }
-  &:hover span:after {
-    opacity: 1;
-    right: 0;
-  }
+    &:focus {
+        border: none;
+        box-shadow: none !important;
+    }
+    &:active:focus {
+        outline: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        outline: none !important;
+    }
+    @include respond(md) {
+        font-size: 1.4rem;
+    }
+    @include respond(xs) {
+        padding: 0.8rem 2rem;
+    }
+    @include respond(sm) {
+        padding: 0.8rem 4rem;
+    }
+    @include respond(md) {
+        padding: 1rem 3rem;
+    }
+    @include respond(lg) {
+        padding: 1.25rem 3rem;
+    }
+
+    span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+        // color: $primary-color;
+        &::after {
+            content: "\00BB";
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -2rem;
+            transition: 0.5s;
+        }
+    }
+    &:hover span {
+        padding-right: 1.5rem;
+    }
+    &:hover span:after {
+        opacity: 1;
+        right: 0;
+    }
 }

@@ -19,7 +19,7 @@ import { Formik } from "formik";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { PackageCard } from "staticData/packageCard";
 import { reviewsContent } from "staticData/reviews";
 import { serviceHighlights } from "staticData/serviceHighlights";
@@ -161,7 +161,7 @@ const ServiceDetail: NextPage = () => {
                                     >
                                         <PackageOffersCard
                                             title={offer.title}
-                                            price={offer.price}
+                                            price={offer.price.toString()}
                                             offers={offer.offers}
                                             isRecommended={offer.isRecommended}
                                             isPermium={offer.isPermium}

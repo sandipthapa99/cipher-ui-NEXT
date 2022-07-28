@@ -1,0 +1,40 @@
+{
+    "users": [
+        {
+            "firstName": "govind",
+            "lastName": "bohara",
+            "email": "subash@gmail.com",
+            "phoneNumber": "12345678900",
+            "password": "subash123",
+            "confirmPassword": "fgfdgfdgfdgfdg",
+            "gender": "male",
+            "isAgree": true,
+            "addToNewsletter": true,
+            "id": 1
+        },
+        {
+            "firstName": "govind",
+            "lastName": "bohara",
+            "email": "govind123@gmail.com",
+            "phoneNumber": "9865843701",
+            "password": "govind123",
+            "confirmPassword": "govind123",
+            "gender": "male",
+            "isAgree": true,
+            "addToNewsletter": true,
+            "id": 2
+        },
+        {
+            "firstName": "sandip",
+            "lastName": "thapa",
+            "email": "sandipthap@gmail.com",
+            "phoneNumber": "9876543210",
+            "password": "sandip12345",
+            "confirmPassword": "sandip12345",
+            "gender": "male",
+            "isAgree": true,
+            "addToNewsletter": true,
+            "id": 3
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 import { NextRouter } from "next/router";
 
 // To check active menu page
-export const handleMenuActive = (path:string, router: NextRouter) => {
+export const handleMenuActive = (path: string, router: NextRouter) => {
     const defaultClass = "nav-item";
     const activeClass = defaultClass + " nav-item--active";
     return router.pathname == path ? activeClass : defaultClass;
@@ -29,17 +29,15 @@ export const isSubmittingClass = (isSubmitting: boolean) => {
 };
 
 // Date formatter
-export const formatMonthDate = (dateString:any) => {
-    const dateArray = new Date(String(dateString)).toDateString().split(' ');
-    return `${dateArray[2]} ${dateArray[1]}, ${dateArray[3]}`  
-}
-
+export const formatMonthDate = (dateString: any) => {
+    const dateArray = new Date(String(dateString)).toDateString().split(" ");
+    return `${dateArray[2]} ${dateArray[1]}, ${dateArray[3]}`;
+};
 
 export const phoneRegExp =
     /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
 
-
 // Blog API Links
-export const BLOG_BASE_URL = "https://blog.api.cagtu.io/"
+export const BLOG_BASE_URL = "https://blog.api.cagtu.io/";
 export const blogListAPI = `${BLOG_BASE_URL}blog/list`;
-export const blogDetailAPI = `${BLOG_BASE_URL}blog/detail/`; 
+export const blogDetailAPI = `${BLOG_BASE_URL}blog/detail/`;

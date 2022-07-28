@@ -189,7 +189,6 @@ const UserProfileCard = ({
                                             className="svg-icon"
                                         />
                                     </div>
-
                                     <p className="user-point">
                                         {userPoints} points
                                     </p>

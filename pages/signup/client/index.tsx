@@ -3,6 +3,7 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import RadioField from "@components/common/RadioField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import { useAuthContext } from "context/AuthContext/userContext";
 import { Field, Form, Formik } from "formik";
 import Link from "next/link";
 import { ClientSignUpFormData } from "utils/formData";
@@ -10,6 +11,7 @@ import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const SignUpAsClient = () => {
+    const { signUpUser } = useAuthContext();
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
@@ -18,13 +20,13 @@ const SignUpAsClient = () => {
             mainImg="/illustrations/rocket.svg"
             redirectionLink="/login"
             currentPage="client-signup"
-            >
+        >
             <div>
                 <Formik
                     initialValues={ClientSignUpFormData}
                     validationSchema={clientSignUpSchema}
                     onSubmit={async (values) => {
-                        console.log(values)
+                        signUpUser(values);
                     }}
                 >
                     {({ isSubmitting, errors, touched }) => (
@@ -91,7 +93,7 @@ const SignUpAsClient = () => {
                                         name="addToNewsletter"
                                         className={
                                             errors.addToNewsletter &&
-                                                touched.addToNewsletter
+                                            touched.addToNewsletter
                                                 ? "form-check-input is-invalid"
                                                 : "form-check-input"
                                         }
@@ -101,7 +103,7 @@ const SignUpAsClient = () => {
                                         className="form-check-label"
                                         htmlFor="isAgree"
                                     >
-                                        Send me emails relevant to me. 
+                                        Send me emails relevant to me.
                                     </label>
                                 </div>
                             </div>
@@ -111,8 +113,7 @@ const SignUpAsClient = () => {
                                         type="checkbox"
                                         name="isAgree"
                                         className={
-                                            errors.isAgree &&
-                                                touched.isAgree
+                                            errors.isAgree && touched.isAgree
                                                 ? "form-check-input is-invalid"
                                                 : "form-check-input"
                                         }
@@ -122,10 +123,11 @@ const SignUpAsClient = () => {
                                         className="form-check-label"
                                         htmlFor="isAgree"
                                     >
-                                        Yes, I agree to the   
+                                        Yes, I agree to the
                                         <Link href="/terms-condition">
                                             <a target="_blank">
-                                            {" "}terms and condition{" "}
+                                                {" "}
+                                                terms and condition{" "}
                                             </a>
                                         </Link>
                                         of Cipher.
@@ -138,14 +140,15 @@ const SignUpAsClient = () => {
                                 name="Continue"
                                 className="login-btn"
                                 isSubmitting={isSubmitting}
-                                isSubmittingClass={isSubmittingClass(isSubmitting)}
+                                isSubmittingClass={isSubmittingClass(
+                                    isSubmitting
+                                )}
                             />
                         </Form>
                     )}
                 </Formik>
             </div>
-
         </OnBoardingLayout>
-    )
-}
+    );
+};
 export default SignUpAsClient;

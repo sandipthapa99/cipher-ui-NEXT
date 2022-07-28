@@ -17,16 +17,25 @@ const TaskCard = ({ title, charge, location, date, time }: TaskCardProps) => {
             </div>
             <div className="task-applied-card-block__body">
                 <p className="location mb-3">
-                    <FontAwesomeIcon icon={faLocationDot} className="svg-icon" />
+                    <FontAwesomeIcon
+                        icon={faLocationDot}
+                        className="svg-icon"
+                    />
                     {location}
                 </p>
                 <div className="task-location-time d-flex">
                     <span className="time me-4">
-                        <FontAwesomeIcon icon={faClockEight} className="svg-icon" />
+                        <FontAwesomeIcon
+                            icon={faClockEight}
+                            className="svg-icon"
+                        />
                         {time}
                     </span>
                     <span className="date">
-                        <FontAwesomeIcon icon={faCalendar} className="svg-icon" />
+                        <FontAwesomeIcon
+                            icon={faCalendar}
+                            className="svg-icon"
+                        />
                         {date}
                     </span>
                 </div>

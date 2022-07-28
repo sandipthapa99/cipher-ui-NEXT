@@ -1,30 +1,26 @@
 export const tabContent = [
-  {
-    id: '0',
-    title: 'About',
-  },
-  {
-    id: '1',
-    title: 'Organization',
-  },
-  {
-    id: '2',
-    title: 'Tasks',
-  },
-  {
-    id: '3',
-    title: 'Saved',
-  },
-  {
-    id: '4',
-    title: 'Activities',
-  },
-  {
-    id: '5',
-    title: 'Documents',
-  },
-  {
-    id: '6',
-    title: 'Rewards',
-  },
-]
+    {
+        id: "0",
+        title: "About",
+    },
+    {
+        id: "1",
+        title: "Tasks",
+    },
+    {
+        id: "2",
+        title: "Saved",
+    },
+    {
+        id: "3",
+        title: "Activities",
+    },
+    {
+        id: "4",
+        title: "Documents",
+    },
+    {
+        id: "5",
+        title: "Rewards",
+    },
+];

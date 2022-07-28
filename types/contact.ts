@@ -1,24 +1,24 @@
 export interface ContactValuesProps {
-    fullName:string;
+    fullName: string;
     email: string;
     message: string;
 }
 export interface FeedbackValuesProps {
-    fullName:string;
-    subject:string;
+    fullName: string;
+    subject: string;
     email: string;
     message: string;
 }
 export interface SupportValuesProps {
-    fullName:string;
+    fullName: string;
     email: string;
-    phoneNumber:string;
+    phoneNumber: string;
     issueType: string;
     message: string;
 }
 export interface FaqValuesProps {
-    fullName:string;
+    fullName: string;
     email: string;
-    phoneNumber:string;
+    phoneNumber: string;
     message: string;
 }
