@@ -1,0 +1,52 @@
+.share-modal {
+    max-width: 60.25rem !important;
+
+    .modal-header {
+        padding: 2rem 0rem;
+        border-bottom: none !important;
+    }
+    &__modal-body-content {
+        display: flex !important;
+        flex-direction: column;
+        border: none !important;
+        border-radius: 0.4rem !important;
+        align-items: center !important;
+        padding-bottom: 5rem;
+        h1 {
+            color: $sub-title-color;
+            font-size: 2.3rem;
+            font-weight: 500;
+            padding-top: 2.5rem;
+        }
+        .media-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding-top: 2rem;
+        }
+        .social-media {
+            background-color: rgba(99, 85, 85, 0.08);
+            border-radius: 50%;
+            margin: 0.7rem;
+            font-weight: 400;
+        }
+        .svg-icon {
+            margin: 2rem;
+            height: 2.3rem;
+            height: 2.3rem;
+        }
+        .facebook {
+            color: $facebook-logo-color;
+        }
+        .linkedin {
+            color: #0072b1;
+        }
+        .instagram {
+            color: #e95950;
+        }
+
+        .social-media .twitter {
+            color: #fff;
+        }
+    }
+}
