@@ -1,8 +1,8 @@
 .credit-card-wrapper{
-    border: 0.1rem solid #CED4DA;
     padding: 2.4rem;
     border-radius: 0.4rem;
     width: 25rem;
+    cursor: pointer;    
     @include respond(xl){
         width: 30rem;
     }
@@ -26,4 +26,10 @@
             margin: 0 0 0.8rem 0;
         }
     }
+}
+.credit-card-default{
+    border: 0.1rem solid #CED4DA;
+}
+.credit-card-select{
+    border: 0.1rem solid #3eaeff;
 }

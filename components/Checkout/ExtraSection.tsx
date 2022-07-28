@@ -32,7 +32,7 @@ const ExtraSection = () => {
                             Add
                         </button>
                     </div>
-                </div>:<ServiceForm/>}
+                </div>:<ServiceForm setshowServForm={setshowServForm}/>}
                 
                 {!showEqpForm ? 
                 <div className="extra-service mt-5">
@@ -56,7 +56,7 @@ const ExtraSection = () => {
                             Add
                         </button>
                     </div>
-                </div>:<EquipmentForm/>}
+            </div>:<EquipmentForm setshowEqpForm={setshowEqpForm}/>}
         </div>
     );
 };

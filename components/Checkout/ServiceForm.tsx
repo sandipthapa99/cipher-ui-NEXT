@@ -3,20 +3,20 @@ import InputField from "@components/common/InputField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
-import React from "react";
+import React,{ Dispatch, SetStateAction } from "react";
 import { Col, Row } from "react-bootstrap";
 import { EquipmentFormData } from "utils/formData";
 import { equipmentFormSchema } from "utils/formValidation/equipmentFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-const EquipmentForm = () => {
+const EquipmentForm = ({setshowServForm}: {setshowServForm: Dispatch<SetStateAction<boolean>>}) => {
     return (
         <>
             {/* Modal component */}
             <div className="equipment-modal mt-5">
                 <div className="d-flex justify-content-between equipment-model__header">
                     <h3>Add Service Charge</h3>
-                    <button className="btn">
+                    <button className="btn" onClick={()=>setshowServForm(false)}>
                         <FontAwesomeIcon icon={faXmark} className='svg-icon-cross'/>
                     </button>
                 </div>
