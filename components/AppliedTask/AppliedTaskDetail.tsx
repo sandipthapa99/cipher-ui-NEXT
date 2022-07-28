@@ -10,7 +10,6 @@ import {
     faHeart,
     faLocationDot,
     faShare,
-    faSquareCheck,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -96,32 +95,35 @@ const AppliedTaskDetail: NextPage = () => {
                 <p>
                     <FontAwesomeIcon
                         icon={faLocationDot}
-                        className="svg-icon-location"
+                        className="svg-icon svg-icon-location"
                     />
                     Buddhanagar, Kathmandu
                 </p>
                 <p>
                     <FontAwesomeIcon
                         icon={faCalendar}
-                        className="svg-icon-calender"
+                        className="svg-icon svg-icon-calender"
                     />
                     June 9, 2022
                 </p>
                 <p>
                     <FontAwesomeIcon
                         icon={faClockEight}
-                        className="svg-icon-clock"
+                        className="svg-icon svg-icon-clock"
                     />
                     08:11 PM
                 </p>
                 <p>
-                    <FontAwesomeIcon icon={faEye} className="svg-icon-eye" />
+                    <FontAwesomeIcon
+                        icon={faEye}
+                        className="svg-icon svg-icon-eye"
+                    />
                     2500 Views
                 </p>
                 <p>
                     <FontAwesomeIcon
                         icon={faUserGroup}
-                        className="svg-icon-user-group"
+                        className="svg-icon svg-icon-user-group"
                     />
                     100 Applied
                 </p>

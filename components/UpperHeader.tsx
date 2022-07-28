@@ -1,13 +1,17 @@
-import { faBars } from "@fortawesome/pro-regular-svg-icons";
+import { faBars, faBell } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { handleMenuActive } from "utils/helpers";
 
+import { PostTaskModel } from "./model/PostTaskModel";
+
 export function UpperHeader() {
     const router = useRouter();
+    const [notopen, setNotopen] = useState(false);
 
     return (
         <>
@@ -95,6 +99,23 @@ export function UpperHeader() {
                                 </a>
                             </Link>
                         }
+                        <div className="user-profile">
+                            <span
+                                className="btn location-btn d-none d-md-inline-block"
+                                onClick={() => setNotopen(!notopen)}
+                            >
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src="/userprofile/profile.svg"
+                                        layout="fill"
+                                        alt="profile-pic"
+                                        className="rounded-circle"
+                                        objectFit="cover"
+                                    />
+                                </figure>
+                            </span>
+                            {notopen && <PostTaskModel />}
+                        </div>
 
                         <Link href="#!">
                             <a className="btn nav-cta-btn d-none d-md-inline-block">
