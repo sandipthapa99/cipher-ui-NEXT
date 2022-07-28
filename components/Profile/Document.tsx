@@ -6,16 +6,18 @@ const UserDocument = ({ name, type }: UserDocument) => {
             <div className="type">
                 <figure className="thumbnail-img">
                     <Image
-                        src={type == "pdf" ? '/userprofile/documents/pdf.svg' : '/userprofile/documents/image.svg'}
+                        src={
+                            type == "pdf"
+                                ? "/userprofile/documents/pdf.svg"
+                                : "/userprofile/documents/image.svg"
+                        }
                         layout="fill"
                         objectFit="cover"
                         alt="document-type-icon"
                     />
                 </figure>
             </div>
-            <p>
-                {type == "pdf" ? `${name}.pdf` : `${name}.jpg`}
-            </p>
+            <p>{type == "pdf" ? `${name}.pdf` : `${name}.jpg`}</p>
         </div>
     );
 };
