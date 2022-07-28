@@ -121,6 +121,14 @@ body {
                 }
             }
         }
+        .user-profile {
+            span {
+                figure {
+                    min-width: 4rem;
+                    min-height: 4rem;
+                }
+            }
+        }
     }
 }
 .login-btn {

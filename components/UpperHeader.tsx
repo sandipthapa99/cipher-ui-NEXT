@@ -99,16 +99,21 @@ export function UpperHeader() {
                                 </a>
                             </Link>
                         }
-                        <div>
-                            <a
+                        <div className="user-profile">
+                            <span
                                 className="btn location-btn d-none d-md-inline-block"
                                 onClick={() => setNotopen(!notopen)}
                             >
-                                <FontAwesomeIcon
-                                    icon={faBell}
-                                    className="svg-icon"
-                                />
-                            </a>
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src="/userprofile/profile.svg"
+                                        layout="fill"
+                                        alt="profile-pic"
+                                        className="rounded-circle"
+                                        objectFit="cover"
+                                    />
+                                </figure>
+                            </span>
                             {notopen && <PostTaskModel />}
                         </div>
 

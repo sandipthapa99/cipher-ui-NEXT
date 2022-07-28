@@ -18,7 +18,7 @@ export const PostTaskModel = () => {
                 <div className="d-flex justify-content-between profile-desc">
                     <figure>
                         <Image
-                            src="/aboutus/scope-1.png"
+                            src="/userprofile/profile.svg"
                             layout="fill"
                             alt="profile-pic"
                             className="rounded-circle"
@@ -32,10 +32,9 @@ export const PostTaskModel = () => {
                 </div>
                 <figure>
                     <Image
-                        src="/aboutus/scope-1.png"
+                        src="/userprofile/badge.png"
                         layout="fill"
                         alt="profile-pic"
-                        className="rounded-circle"
                         objectFit="cover"
                     />
                 </figure>
