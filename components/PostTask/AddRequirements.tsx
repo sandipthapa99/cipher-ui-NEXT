@@ -7,12 +7,15 @@ import { Form, InputGroup, Row } from "react-bootstrap";
 import { Requirement } from "types/requirement";
 
 interface Props {
-    field: (label: string, value: unknown) => void;
+    field?: (label: string, value: unknown) => void;
+    onSubmit?: (requirement: Requirement[]) => void;
+    title?: string;
+    description?: string;
 }
 
 const requirements: Requirement[] = [];
 
-const AddRequirements = ({ field }: Props) => {
+const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
     const [requirementState, setRequirementState] = useState(requirements);
     const [require, setRequire] = useState("");
 
@@ -25,7 +28,9 @@ const AddRequirements = ({ field }: Props) => {
                     ...prev,
                     { id: prev.length === 0 ? 0 : prev.length, name: require },
                 ];
-                field("requirements", updatedValue);
+
+                onSubmit?.(updatedValue);
+                field?.("requirements", updatedValue);
                 return updatedValue;
             });
         }
@@ -46,7 +51,7 @@ const AddRequirements = ({ field }: Props) => {
                 (prevItem) => prevItem.id !== requirementId
             );
 
-            field("requirements", filtered);
+            field?.("requirements", filtered);
 
             return filtered;
         });
@@ -82,10 +87,10 @@ const AddRequirements = ({ field }: Props) => {
                 className="price-text"
                 style={{ fontSize: "14px", fontWeight: "bold" }}
             >
-                Next, provide detail requirements
+                {title}
             </p>
             <p className="price-text" style={{ fontSize: "12px" }}>
-                This helps merchants to find about your requirements better.
+                {description}
             </p>
             <Row>
                 <Row>
@@ -117,6 +122,7 @@ const AddRequirements = ({ field }: Props) => {
                                     margin: "0.7rem 0.5rem 0.5rem 0.5rem",
                                     border: "none",
                                     outline: "none",
+                                    background: "white",
                                 }}
                             >
                                 <FontAwesomeIcon

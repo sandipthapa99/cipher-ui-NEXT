@@ -89,3 +89,7 @@
     -ms-transform: scale(1);
     -o-transform: scale(1);
 }
+
+@mixin border {
+    border: 1px solid #e9ecef;
+}
