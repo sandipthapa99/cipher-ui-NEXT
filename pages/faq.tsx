@@ -4,6 +4,7 @@ import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
 import { Accordion, Container } from "react-bootstrap";
+import { withAuth } from "utils/Auth/withAuth";
 import { FaqFormData } from "utils/contactFormData";
 import { FaqFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -461,4 +462,4 @@ const FAQ = () => {
         </>
     );
 };
-export default FAQ;
+export default withAuth(FAQ);

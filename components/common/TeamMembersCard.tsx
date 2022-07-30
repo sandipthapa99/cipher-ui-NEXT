@@ -12,6 +12,7 @@ import Image from "next/image";
 import React from "react";
 import { DUMMY_TASKS } from "types/tasks";
 import { Task } from "types/tasks";
+
 import BigButton from "./Button";
 
 interface Props {

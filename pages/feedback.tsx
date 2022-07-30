@@ -4,6 +4,7 @@ import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
+import { withAuth } from "utils/Auth/withAuth";
 import { FeedbackFormData } from "utils/contactFormData";
 import { FeedbackFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -93,4 +94,4 @@ const Feedback = () => {
         </>
     );
 };
-export default Feedback;
+export default withAuth(Feedback);

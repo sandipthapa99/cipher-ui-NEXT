@@ -115,8 +115,9 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
                                     setRequire(event.target.value);
                                 }}
                             />
-                            <button
+                            {/* <button
                                 id="button-addon2"
+                                type="button"
                                 onClick={addRequirements}
                                 style={{
                                     margin: "0.7rem 0.5rem 0.5rem 0.5rem",
@@ -130,7 +131,22 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
                                     className="svg-icon"
                                     style={{ color: "#3EAEFF" }}
                                 />
-                            </button>
+                            </button> */}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "0 0 0 1rem",
+                                }}
+                            >
+                                <FontAwesomeIcon
+                                    onClick={addRequirements}
+                                    icon={faCirclePlus}
+                                    className="svg-icon"
+                                    style={{ color: "#3EAEFF" }}
+                                />
+                            </div>
                         </InputGroup>
                     </div>
                 </Row>
