@@ -46,6 +46,7 @@ const AboutProfile = () => {
                                 </span>
                                 <ExperienceForm
                                     show={showModal}
+                                    setShowModal={setShowModal}
                                     handleClose={() => setShowModal(false)}
                                 />
                             </div>

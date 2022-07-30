@@ -1,6 +1,7 @@
 import { ApplyValueProps } from "types/applyValueProps";
 import { ClientSignUpValueProps } from "types/clientSignUp";
 import { EquipmentValueProps } from "types/equipmentValueProps";
+import { ExperienceValueProps } from "types/experienceValueProps";
 import { LoginValuesProps } from "types/login";
 
 // Login page data
@@ -21,13 +22,26 @@ export const ClientSignUpFormData: ClientSignUpValueProps = {
     addToNewsletter: true,
 };
 
+//apply form data
 export const ApplyFormData: ApplyValueProps = {
     price: "",
     remarks: "",
 };
 
+//Equipment form data
 export const EquipmentFormData: EquipmentValueProps = {
     chargeFor: "",
     price: 1,
     remarks: "",
+};
+
+//Experience form data
+export const ExperienceFromData: ExperienceValueProps = {
+    title: "",
+    description: "",
+    typeOfEmployment: "",
+    companyName: "",
+    location: "",
+    startDate: null,
+    endDate: null,
 };
