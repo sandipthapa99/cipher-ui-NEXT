@@ -2,9 +2,17 @@
     padding: 2.4rem;
     @include border();
 
+    p {
+        font: 400 1.2rem $poppins-font;
+        text-align: justify;
+        margin: 0 0 2.4rem;
+    }
+
     .image-and-title {
-        .team-members-card-image {
+        .team-member-card-image {
             margin: 0 2.4rem 0 0;
+            width: 8rem;
+
             img {
                 border-radius: 50%;
             }
@@ -14,14 +22,92 @@
             .title-and-dots {
                 h5 {
                     font: 500 1.4rem $poppins-font;
+                    margin: 0 0 0.8rem;
                 }
 
                 svg {
                     height: 2.4rem;
                     width: 2.4rem;
                     fill: #000000;
+                    cursor: pointer;
                 }
             }
+
+            svg {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+
+            h6 {
+                font: 500 1.2rem $inter-font;
+                margin: 0 0 1.6rem;
+
+                span {
+                    color: #3eaeff;
+                }
+            }
+
+            .emoji-section {
+                font: 400 1.4rem $inter-font;
+                padding: 0 0 2.9rem;
+                flex-wrap: wrap;
+
+                span {
+                    display: flex;
+                    align-items: center;
+                }
+
+                svg {
+                    margin: 0 0.6rem 0 0;
+                }
+
+                .star {
+                    svg {
+                        color: #fab005;
+                    }
+                }
+                .emoji {
+                    svg {
+                        color: #f98900;
+                    }
+                }
+                .award {
+                    svg {
+                        color: #0693e3;
+                    }
+                }
+                .location {
+                    svg {
+                        color: #f06700;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-section {
+        font: 600 2rem $poppins-font;
+        .share-and-like {
+            svg {
+                height: 2.4rem;
+                width: 2.4rem;
+                margin: 0 2.4rem 0 0;
+                cursor: pointer;
+            }
+
+            .heart {
+                color: #fe5050;
+            }
+            .share {
+                color: #3eaeff;
+            }
+        }
+
+        button {
+            background: #211d4f;
+            color: white;
+            height: 3rem;
+            width: 7.8rem;
         }
     }
 }

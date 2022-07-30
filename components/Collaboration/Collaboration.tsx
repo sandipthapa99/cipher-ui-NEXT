@@ -40,9 +40,9 @@ export const Collaboration = () => {
             </div>
 
             {onToogle && (
-                <Row>
+                <Row className="g-5">
                     {DUMMY_TASKS.map((item, index) => (
-                        <Col md={6} sm={12} key={index}>
+                        <Col lg={6} md={12} sm={12} key={index}>
                             {/* <UserTaskCard
                                 task={item}
                                 onTaskClick={() => {}}
@@ -50,7 +50,7 @@ export const Collaboration = () => {
                                 handleButtonClick={handleOpen}
                             /> */}
 
-                            <TeamMembersCard task={item} />
+                            <TeamMembersCard task={item} collabButton={true} />
                         </Col>
                     ))}
                 </Row>
