@@ -10,7 +10,10 @@ import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
 import type { NextPage } from "next";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row, Tabs } from "react-bootstrap";
+import { rewardCardContent } from "staticData/rewardCard";
+import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
+import { userDocument } from "staticData/userDocument";
 import { userProfileCardInfo } from "staticData/userProfileCard";
 
 const UserProfile: NextPage = () => {
