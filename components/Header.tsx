@@ -29,6 +29,14 @@ const Header = () => {
         };
     }, []);
 
+    useEffect(() => {
+        if (notopen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+    }, [notopen]);
+
     const stickNavbar = () => {
         if (window !== undefined) {
             const windowHeight = window.scrollY;
