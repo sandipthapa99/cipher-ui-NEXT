@@ -1,4 +1,4 @@
-export const tabContent = [
+export const TabContent = [
     {
         id: "0",
         title: "About",
