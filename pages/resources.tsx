@@ -1,126 +1,181 @@
-import AllCategoryCard from "@components/common/AllCategoryCard";
+import BlogCard from "@components/common/BlogCard";
 import Breadcrum from "@components/common/Breadcrum";
-import LongSquareImageCard from "@components/common/LongSquareImageCard";
-import MessageCard from "@components/common/MessageCard";
+import BusinessGoal from "@components/common/BusinessGoal";
+import InputField from "@components/common/InputField";
+import RecommendationChips from "@components/common/RecommendationChips";
 import Layout from "@components/Layout";
+import { faSearch } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Form, Formik } from "formik";
 import type { NextPage } from "next";
 import Image from "next/image";
-import { Col, Container, Row } from "react-bootstrap";
-import { AllCategoryCardContent } from "staticData/categoryCardContent";
-import { howItWorkContent } from "staticData/howTtWork";
-import { messageCard } from "staticData/messageCard";
+import { Carousel, Col, Container, Row } from "react-bootstrap";
+import { blogCardContent } from "staticData/community";
+import { resourceCarouselContent } from "staticData/resourceCarouselContent";
+import { latestArticle, popularContent } from "staticData/resources";
+import searchValidationSchema from "utils/formValidation/searchValidation";
 const Resources: NextPage = () => {
     return (
         <Layout title="Resources | Cipher">
-            <Container fluid="xl">
-                <section className="resources">
-                    <Breadcrum currentPage="Resources" />
+            <section className="resource-page">
+                <section className="resource-page__header">
+                    <Container fluid="xl">
+                        <Breadcrum currentPage="Resources" />
+                        <Row className="d-flex align-items-center">
+                            <Col md={6}>
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src="/resources/home.svg"
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="boy-image"
+                                    />
+                                </figure>
+                            </Col>
+                            <Col md={6}>
+                                <h1>Resources Centre</h1>
 
-                    <div className="resources__top-container">
-                        <h1>See how things work in Cipher</h1>
-                        <p>
-                            Here is the video that can be very helpful to know
-                            about Cipher
-                        </p>
-                        <figure className="thumbnail-img footer-img">
-                            <Image
-                                src="/howitworks/economic.svg"
-                                layout="fill"
-                                objectFit="cover"
-                                alt="economic-image"
-                            />
-                        </figure>
-                    </div>
-                    <div className="resources__content card-block">
-                        {howItWorkContent &&
-                            howItWorkContent.map((info) => (
-                                <LongSquareImageCard
-                                    title={info.title}
-                                    subtitle={info.subtitle}
-                                    image={info.image}
-                                    description={info.description}
-                                    key={info.id}
-                                />
-                            ))}
-                    </div>
-                    <div className="resources__categories">
-                        <h1>Our categories</h1>
-                        <p>Choose category according to your needs.</p>
-                        <Row className="gy-4 align-tems-stretch">
-                            {AllCategoryCardContent &&
-                                AllCategoryCardContent.map((category) => {
-                                    return (
-                                        <Col
-                                            className="gx-4 align-items-stretch"
-                                            sm={4}
-                                            xs={12}
-                                            md={3}
-                                            // lg={4}
-                                            key={category.id}
-                                        >
-                                            <AllCategoryCard
-                                                categoryImage={category.image}
-                                                categoryTitle={category.name}
+                                <Formik
+                                    initialValues={{ name: "" }}
+                                    validationSchema={searchValidationSchema}
+                                    onSubmit={async (values) => {
+                                        console.log(values);
+                                    }}
+                                >
+                                    {({ isSubmitting, errors, touched }) => (
+                                        <Form className="search">
+                                            <InputField
+                                                type="text"
+                                                name="text"
+                                                error={errors.name}
+                                                touch={touched.name}
+                                                placeHolder="Search Resources"
                                             />
-                                        </Col>
-                                    );
-                                })}
+
+                                            <button
+                                                type="submit"
+                                                className="btn"
+                                                disabled={isSubmitting}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faSearch}
+                                                    className="svg-icon"
+                                                />
+                                            </button>
+                                        </Form>
+                                    )}
+                                </Formik>
+
+                                <div className="recommendation">
+                                    <RecommendationChips title="Guides" />
+                                    <RecommendationChips title="Research" />
+                                    <RecommendationChips title="Success Stories" />
+                                </div>
+                            </Col>
                         </Row>
-                    </div>
-                    <div className="resources__communicate service-card-block">
-                        <div className="communicate-card">
-                            <Row className="gx-2">
-                                <Col lg={5} md={12}>
-                                    <div className="communicate-card__left-container">
-                                        <h1>Communicate with us</h1>
-
-                                        <div className="connect">
-                                            <h4>Connect with us</h4>
-                                            <p>
-                                                Use Cipher to stay in contact
-                                                from the moment your task is
-                                                posted until it&apos;s
-                                                completed.
-                                            </p>
-                                        </div>
-                                        <div className="private-message">
-                                            <h1>Private Messaging</h1>
-                                            <p>
-                                                Once you&apos;ve accepted an
-                                                offer, you can instantly reach
-                                                out to the Tasker via private
-                                                messaging to discuss task
-                                                details, and get your task
-                                                completed.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </Col>
-                                <Col lg={7} md={12}>
-                                    {messageCard &&
-                                        messageCard.map((message) => (
-                                            <MessageCard
-                                                key={message.id}
-                                                clientImage={
-                                                    message.clientImage
-                                                }
-                                                merchantImage={
-                                                    message.merchantImage
-                                                }
-                                                clientMessages={
-                                                    message.clientMessages
-                                                }
-                                                merchantMessages={
-                                                    message.merchantMessages
-                                                }
-                                            />
-                                        ))}
-                                </Col>
+                    </Container>
+                </section>
+                <section className="resource-page__content">
+                    <Container fluid="xl">
+                        <div className="carousel">
+                            <Carousel>
+                                {resourceCarouselContent &&
+                                    resourceCarouselContent.map((goal) => {
+                                        return (
+                                            <Carousel.Item
+                                                //interval={1000}
+                                                key={goal.id}
+                                            >
+                                                <BusinessGoal
+                                                    cardImage={goal.cardImage}
+                                                    cardTitle={goal.cardTitle}
+                                                    cardAuthor={goal.cardAuthor}
+                                                    cardDescription={
+                                                        goal.cardDescription
+                                                    }
+                                                />
+                                            </Carousel.Item>
+                                        );
+                                    })}
+                            </Carousel>
+                        </div>
+                        <div className="featured-resources">
+                            <h3>Featured Resources</h3>
+                            <Row>
+                                {blogCardContent &&
+                                    blogCardContent.map((blog) => {
+                                        return (
+                                            <Col
+                                                className="d-flex align-items-stretch"
+                                                // sm={6}
+                                                md={4}
+                                                // lg={4}
+                                                key={blog.id}
+                                            >
+                                                <BlogCard
+                                                    cardImage={blog.cardImage}
+                                                    cardDescription={
+                                                        blog.cardDescription
+                                                    }
+                                                    cardTitle={blog.cardTitle}
+                                                />
+                                            </Col>
+                                        );
+                                    })}
                             </Row>
                         </div>
-                    </div>
+                        <div className="latest-article">
+                            <h1>Latest Article</h1>
+                            <Row>
+                                {latestArticle &&
+                                    latestArticle.map((blog) => {
+                                        return (
+                                            <Col
+                                                className="d-flex align-items-stretch"
+                                                // sm={6}
+                                                md={6}
+                                                // lg={4}
+                                                key={blog.id}
+                                            >
+                                                <BlogCard
+                                                    cardImage={blog.cardImage}
+                                                    cardDescription={
+                                                        blog.cardDescription
+                                                    }
+                                                    cardTitle={blog.cardTitle}
+                                                />
+                                            </Col>
+                                        );
+                                    })}
+                            </Row>
+                        </div>
+                        <div className="bottom-container">
+                            <Row>
+                                {popularContent &&
+                                    popularContent.map((blog) => {
+                                        return (
+                                            <Col
+                                                className="d-flex align-items-stretch"
+                                                // sm={6}
+                                                md={4}
+                                                // lg={4}
+                                                key={blog.id}
+                                            >
+                                                <BlogCard
+                                                    cardImage={blog.cardImage}
+                                                    cardDescription={
+                                                        blog.cardDescription
+                                                    }
+                                                    cardTitle={blog.cardTitle}
+                                                />
+                                            </Col>
+                                        );
+                                    })}
+                            </Row>
+                        </div>
+                    </Container>
                 </section>
-            </Container>
+            </section>
         </Layout>
     );
 };
