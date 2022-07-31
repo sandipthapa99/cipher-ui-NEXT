@@ -1,10 +1,12 @@
 import AllCategoryCard from "@components/common/AllCategoryCard";
 import Breadcrum from "@components/common/Breadcrum";
+import MessageCard from "@components/common/MessageCard";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { AllCategoryCardContent } from "staticData/categoryCardContent";
+import { messageCard } from "staticData/messageCard";
 const HowItWorks: NextPage = () => {
     return (
         <Layout title="How it Works | Cipher">
@@ -49,6 +51,58 @@ const HowItWorks: NextPage = () => {
                                     );
                                 })}
                         </Row>
+                    </div>
+                    <div className="how-it-works__communicate service-card-block">
+                        <div className="communicate-card">
+                            <Row className="gx-2">
+                                <Col lg={5} md={12}>
+                                    <div className="communicate-card__left-container">
+                                        <h1>Communicate with us</h1>
+
+                                        <div className="connect">
+                                            <h4>Connect with us</h4>
+                                            <p>
+                                                Use Cipher to stay in contact
+                                                from the moment your task is
+                                                posted until it&apos;s
+                                                completed.
+                                            </p>
+                                        </div>
+                                        <div className="private-message">
+                                            <h1>Private Messaging</h1>
+                                            <p>
+                                                Once you&apos;ve accepted an
+                                                offer, you can instantly reach
+                                                out to the Tasker via private
+                                                messaging to discuss task
+                                                details, and get your task
+                                                completed.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </Col>
+                                <Col lg={7} md={12}>
+                                    {messageCard &&
+                                        messageCard.map((message) => (
+                                            <MessageCard
+                                                key={message.id}
+                                                clientImage={
+                                                    message.clientImage
+                                                }
+                                                merchantImage={
+                                                    message.merchantImage
+                                                }
+                                                clientMessages={
+                                                    message.clientMessages
+                                                }
+                                                merchantMessages={
+                                                    message.merchantMessages
+                                                }
+                                            />
+                                        ))}
+                                </Col>
+                            </Row>
+                        </div>
                     </div>
                 </Container>
             </section>
