@@ -1,4 +1,8 @@
 .message-card {
+    padding-top: 0rem;
+    @include respond(sm) {
+        padding-top: 2rem;
+    }
     p {
         font-size: 1.2rem;
     }
@@ -8,7 +12,10 @@
         object-fit: contain;
     }
     .client-message > .content:not(:first-child) {
-        padding-top: 14rem;
+        padding-top: 5rem;
+        @include respond(md) {
+            padding-top: 14rem;
+        }
     }
     .message {
         background-color: #ffdfa6;
@@ -33,8 +40,12 @@
     .merchant-message {
         display: flex;
         justify-content: flex-end;
-        padding-top: 10rem;
+        padding-top: 5rem;
         color: $primary-color;
         margin-bottom: 5rem;
+
+        @include respond(md) {
+            padding-top: 10rem;
+        }
     }
 }

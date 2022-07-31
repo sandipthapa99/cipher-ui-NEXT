@@ -10,7 +10,7 @@ const MessageCard = ({
     return (
         <div className="message-card">
             <Row>
-                <Col md={7}>
+                <Col md={7} sm={12}>
                     <div className="client-message">
                         {clientMessages.map((info: any) => (
                             <div className="content" key={info.id}>
@@ -37,7 +37,7 @@ const MessageCard = ({
                         ))}
                     </div>
                 </Col>
-                <Col md={5}>
+                <Col md={5} sm={12}>
                     <div className="merchant-message">
                         {merchantMessages.map((info: any) => (
                             <div className="content" key={info.id}>
