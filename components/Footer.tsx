@@ -176,7 +176,7 @@ const Footer = () => {
                                         </li>
                                         <li>
                                             <Link
-                                                href="socialResponsibilities"
+                                                href="/social"
                                                 as="social-responsibilities"
                                             >
                                                 <a>Social Responsibilities</a>
