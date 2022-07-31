@@ -4,20 +4,12 @@ import { Col, Row } from "react-bootstrap";
 
 import { tasks } from "../../staticData/task";
 import GettingStartedTask from "./GettingStartedCard";
+
 const ApplyTask = () => {
-    const renderTasks = tasks.map((task) => {
-        return (
-            <TaskCard
-                charge={task.charge}
-                date={task.date}
-                description={task.description}
-                location={task.location}
-                time={task.time}
-                title={task.title}
-                key={task.id}
-            />
-        );
-    });
+    const renderTasks = () =>
+        tasks.map((task, index) => {
+            return <TaskCard key={index} {...task} />;
+        });
     return (
         <div style={{ margin: "2rem 0 0 0 " }}>
             <Row>
@@ -28,7 +20,7 @@ const ApplyTask = () => {
 
             <Row>
                 <Col>
-                    <div>{renderTasks}</div>
+                    <div>{renderTasks()}</div>
                 </Col>
                 <Col>
                     <div>

@@ -7,10 +7,10 @@ import { ProfileAboutContent } from "staticData/profileAboutContent";
 
 import AddPortfolio from "./AddPortfolio";
 import EditProfileButton from "./EditProfileButton";
+import ExperienceForm from "./ExperienceForm";
 
 const AboutProfile = () => {
     const [showModal, setShowModal] = useState(false);
-
     return (
         <>
             {ProfileAboutContent &&
@@ -49,7 +49,13 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>Experience</h1>
-                                <a href="#!">Add New</a>
+                                <span onClick={() => setShowModal(!showModal)}>
+                                    Add New
+                                </span>
+                                <ExperienceForm
+                                    show={showModal}
+                                    handleClose={() => setShowModal(false)}
+                                />
                             </div>
 
                             <Row>

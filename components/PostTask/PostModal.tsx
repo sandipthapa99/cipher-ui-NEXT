@@ -1,3 +1,4 @@
+import { useClientTasks } from "context/ClientTaskContext";
 import { useSuccessContext } from "context/successContext/successContext";
 import { useFormik } from "formik";
 import Image from "next/image";
@@ -12,6 +13,7 @@ interface Props {
     onSubmit: () => void;
 }
 const PostModal = ({ onSubmit }: Props) => {
+    const { addTask } = useClientTasks();
     const { setShowSuccessModal } = useSuccessContext();
 
     const renderCategory = categoryData.map((category) => {
@@ -49,11 +51,10 @@ const PostModal = ({ onSubmit }: Props) => {
             image: null,
         },
         onSubmit(values) {
-            onSubmit();
-            console.log(values);
-            console.log(values.budgetType);
-
-            setShowSuccessModal(true);
+            addTask(values, () => {
+                // setShowSuccessModal(true)    ;
+                onSubmit();
+            });
         },
         validationSchema: postTaskValidationSchema,
     });

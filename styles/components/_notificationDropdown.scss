@@ -12,6 +12,10 @@
     overflow-y: auto;
     margin: 0 0 1rem;
 
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
     @include respond(md) {
         width: 53.5rem;
     }

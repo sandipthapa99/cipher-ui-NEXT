@@ -44,9 +44,10 @@ export const Dropdown = ({ children }: DropdownProps) => {
     }, [handleBodyClick]);
 
     const renderSubMenus = subMenu.map((sub, index) => {
+        const menu = sub.replaceAll(" ", "-").toLowerCase();
         return (
             <li className="dropdown-menu-items" key={index}>
-                <Link href={sub.replaceAll(" ", "-").toLowerCase()}>
+                <Link href={`/category/${menu}`} passHref>
                     <a className="dropdown-menu-item-link">{`${sub} (${randNumber()})`}</a>
                 </Link>
             </li>

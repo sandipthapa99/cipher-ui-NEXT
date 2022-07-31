@@ -89,3 +89,13 @@
     -ms-transform: scale(1);
     -o-transform: scale(1);
 }
+
+@mixin border {
+    border: 1px solid #e9ecef;
+}
+
+//border mixins
+@mixin border {
+  border: 1px solid #ced4da;
+  border-radius: 0.4rem;
+}

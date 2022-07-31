@@ -40,3 +40,4 @@ export const tasks = [
         time: "08:11 PM",
     },
 ];
+export type Task = typeof tasks[0];

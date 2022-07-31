@@ -15,6 +15,7 @@ import {
 } from "staticData/growBusiness";
 import { servicesDiscover } from "staticData/services";
 import { services } from "staticData/services";
+import { withAuth } from "utils/Auth/withAuth";
 
 const GrowYourBusiness: NextPage = () => {
     return (
@@ -205,4 +206,4 @@ const GrowYourBusiness: NextPage = () => {
     );
 };
 
-export default GrowYourBusiness;
+export default withAuth(GrowYourBusiness);

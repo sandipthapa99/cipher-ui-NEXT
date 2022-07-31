@@ -4,6 +4,7 @@ import { SearchBody } from "@components/SearchTask/searchBody";
 import ApplyTask from "@components/Task/ApplyTask";
 import type { NextPage } from "next";
 import { Col, Container, Row } from "react-bootstrap";
+import { withAuth } from "utils/Auth/withAuth";
 
 import SearchHeader from "../components/SearchTask/searchHeader";
 
@@ -60,4 +61,4 @@ const SearchTask: NextPage = () => {
     );
 };
 
-export default SearchTask;
+export default withAuth(SearchTask);

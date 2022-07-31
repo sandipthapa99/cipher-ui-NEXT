@@ -1,3 +1,4 @@
+import { prefix } from "@fortawesome/free-brands-svg-icons";
 import { ApplyValueProps } from "types/applyValueProps";
 import { BookNowFormProps, BookNowModalCardProps } from "types/bookNow";
 import { ClientSignUpValueProps } from "types/clientSignUp";
@@ -26,6 +27,7 @@ export const ClientSignUpFormData: ClientSignUpValueProps = {
 export const ApplyFormData: ApplyValueProps = {
     price: "",
     remarks: "",
+    prerequesties: [],
 };
 
 export const EquipmentFormData: EquipmentValueProps = {

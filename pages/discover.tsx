@@ -14,6 +14,7 @@ import { merchantAdvice } from "staticData/merchantAdvice";
 import { merchants } from "staticData/merchants";
 import { oppurtunitiesCardContent } from "staticData/oppurtunities";
 import { servicesDiscover } from "staticData/services";
+import { withAuth } from "utils/Auth/withAuth";
 
 const Discover: NextPage = () => {
     return (
@@ -231,4 +232,4 @@ const Discover: NextPage = () => {
     );
 };
 
-export default Discover;
+export default withAuth(Discover);
