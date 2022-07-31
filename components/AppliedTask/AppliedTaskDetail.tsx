@@ -1,3 +1,4 @@
+import { Collaboration } from "@components/Collaboration/Collaboration";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
@@ -20,6 +21,8 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
+import { TaskersTab } from "./TaskersTab";
+import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -140,7 +143,7 @@ const AppliedTaskDetail: NextPage = () => {
                 </p>
             </div>
 
-            <h3>Highlights</h3>
+            <h3>Requirements</h3>
             <div className="mt-5">
                 {serviceHighlights &&
                     serviceHighlights.map((name) => (
@@ -153,9 +156,9 @@ const AppliedTaskDetail: NextPage = () => {
                 activeIndex={activeTabIdx}
                 onTabClick={setActiveTabIdx}
                 items={[
-                    { title: "About", content: <div>About</div> },
-                    { title: "Service", content: <div>Service</div> },
-                    { title: "Documents", content: <div>Photos</div> },
+                    { title: "Taskers(10)", content: <TaskersTab /> },
+                    { title: "Timeline", content: <TimelineTab /> },
+                    { title: "Collaboration(50)", content: <Collaboration /> },
                 ]}
             />
         </div>

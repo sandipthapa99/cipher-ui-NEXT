@@ -86,7 +86,9 @@
     }
 
     .footer-section {
-        font: 600 2rem $poppins-font;
+        span {
+            font: 600 2rem $poppins-font;
+        }
         .share-and-like {
             svg {
                 height: 2.4rem;
