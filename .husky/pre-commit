@@ -3,4 +3,4 @@
 
 yarn lint --fix
 yarn prettier -w .
-yarn build
+# yarn build

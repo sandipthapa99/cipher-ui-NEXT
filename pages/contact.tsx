@@ -10,9 +10,9 @@ import {
 import { faLocationDot, faPhone } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import { withAuth } from "utils/Auth/withAuth";
 import { ContactFormData } from "utils/contactFormData";
 import contactFormSchema from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -152,4 +152,4 @@ const Contact = () => {
         </Layout>
     );
 };
-export default Contact;
+export default withAuth(Contact);

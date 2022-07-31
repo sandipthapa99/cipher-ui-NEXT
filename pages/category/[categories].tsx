@@ -10,7 +10,6 @@ import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 import { tasks } from "staticData/task";
-import { withAuth } from "utils/Auth/withAuth";
 
 const Gardening = () => {
     const router = useRouter();

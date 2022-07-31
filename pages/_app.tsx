@@ -3,24 +3,25 @@ import "../styles/bundle.scss";
 import { ClientTaskContextProvider } from "context/ClientTaskContext";
 import SearchProvider from "context/searchProvider";
 import SuccessProvider from "context/successContext/successProvider";
-import UserProvider from "context/userContextProvider";
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
 
 import AuthProvider from "../context/AuthContext/userContextProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const router = useRouter();
+    console.log(typeof router.pathname);
+
     return (
-        <UserProvider>
-            <SearchProvider>
-                <SuccessProvider>
-                    <AuthProvider>
-                        <ClientTaskContextProvider>
-                            <Component {...pageProps} />
-                        </ClientTaskContextProvider>
-                    </AuthProvider>
-                </SuccessProvider>
-            </SearchProvider>
-        </UserProvider>
+        <SearchProvider>
+            <SuccessProvider>
+                <AuthProvider>
+                    <ClientTaskContextProvider>
+                        <Component {...pageProps} />
+                    </ClientTaskContextProvider>
+                </AuthProvider>
+            </SuccessProvider>
+        </SearchProvider>
     );
 }
 

@@ -3,6 +3,7 @@ import { LoginValuesProps } from "types/login";
 
 import { ClientSignUpValueProps } from "../../types/clientSignUp";
 export interface AuthProps {
+    token?: string;
     loginUser: (loginValues: LoginValuesProps) => void;
     signUpUser: (values: ClientSignUpValueProps) => void;
 }
