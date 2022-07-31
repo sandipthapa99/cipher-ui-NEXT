@@ -47,7 +47,6 @@ const SimpleProfileCard = ({
                         price={detail.price}
                         image={detail.image}
                         description={detail.description}
-                        problemDescription={detail.problemDescription}
                         show={showModal}
                         handleClose={() => setShowModal(false)}
                     />

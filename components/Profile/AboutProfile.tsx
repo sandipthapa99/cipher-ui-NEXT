@@ -1,14 +1,19 @@
-import { faEdit } from "@fortawesome/pro-regular-svg-icons";
+import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ProfileAboutContent } from "staticData/profileAboutContent";
 
+import AddPortfolio from "./AddPortfolio";
+import EditProfileButton from "./EditProfileButton";
 import ExperienceForm from "./ExperienceForm";
 
 const AboutProfile = () => {
     const [showExpForm, setShowExpForm] = useState(false);
+    const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
+    const [showAddSkillsModal, setShowAddSkillsModal] = useState(false);
+
     return (
         <>
             {ProfileAboutContent &&
@@ -22,7 +27,9 @@ const AboutProfile = () => {
                                     text="Add New"
                                     showModal={true}
                                     handleOnClick={() =>
-                                        setShowModal(!showModal)
+                                        setShowAddPortfolioModal(
+                                            !showAddPortfolioModal
+                                        )
                                     }
                                 /> */}
                             </div>
@@ -70,7 +77,7 @@ const AboutProfile = () => {
                                                 <div className="name d-flex">
                                                     <h3>{info.name}</h3>
                                                     <FontAwesomeIcon
-                                                        icon={faEdit}
+                                                        icon={faPencil}
                                                         className="svg-icon"
                                                     />
                                                 </div>
@@ -102,7 +109,15 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>Skills</h1>
-                                <a href="#!">Add New</a>
+                                <EditProfileButton
+                                    text="Add New"
+                                    showModal={true}
+                                    handleOnClick={() =>
+                                        setShowAddSkillsModal(
+                                            !showAddSkillsModal
+                                        )
+                                    }
+                                />
                             </div>
 
                             <Row>
@@ -139,7 +154,7 @@ const AboutProfile = () => {
                                                         {info.institution}
                                                     </h3>
                                                     <FontAwesomeIcon
-                                                        icon={faEdit}
+                                                        icon={faPencil}
                                                         className="svg-icon"
                                                     />
                                                 </div>
@@ -179,7 +194,7 @@ const AboutProfile = () => {
                                                         {info.name}
                                                     </h3>
                                                     <FontAwesomeIcon
-                                                        icon={faEdit}
+                                                        icon={faPencil}
                                                         className="svg-icon"
                                                     />
                                                 </div>
@@ -196,10 +211,10 @@ const AboutProfile = () => {
                                 </Col>
                             </Row>
                         </div>
-                        {/* <AddPortfolio
-                            showModal={showModal}
-                            handleClose={() => setShowModal(false)}
-                        /> */}
+                        <AddPortfolio
+                            showModal={showAddPortfolioModal}
+                            handleClose={() => setShowAddPortfolioModal(false)}
+                        />
                     </div>
                 ))}
         </>

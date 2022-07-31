@@ -2,8 +2,6 @@ import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { Form, Formik } from "formik";
-import Image from "next/image";
-import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -15,11 +13,11 @@ import { isSubmittingClass } from "utils/helpers";
 
 const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
     return (
-        <div className="">
+        <div>
             {/* Modal component */}
             <Modal show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add Portofolio</Modal.Title>
+                    <Modal.Title>Add Portfolio</Modal.Title>
                 </Modal.Header>
                 <div className="modal-body-content">
                     <Formik
