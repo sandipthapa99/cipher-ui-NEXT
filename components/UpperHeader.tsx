@@ -4,7 +4,6 @@ import { useAuthContext } from "context/AuthContext/userContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { parseCookies } from "nookies";
 import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { profileCardContent } from "staticData/profileCardContent";
