@@ -12,7 +12,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { serviceCategory } from "staticData/serviceCategory";
 import { servicesDiscover } from "staticData/services";
 import { services } from "staticData/services";
-import { withAuth } from "utils/Auth/withAuth";
+
 const ExploreServices: NextPage = () => {
     return (
         <Layout title="Explore Services | Cipher">

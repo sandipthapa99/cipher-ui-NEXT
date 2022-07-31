@@ -1,6 +1,7 @@
 import FormButton from "@components/common/FormButton";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -130,4 +131,4 @@ const Choose = () => {
         </OnBoardingLayout>
     );
 };
-export default Choose;
+export default withAuth(Choose);

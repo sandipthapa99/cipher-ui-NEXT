@@ -4,13 +4,14 @@ import BusinessGoal from "@components/common/BusinessGoal";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import React from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import { businessGoal } from "staticData/businessGoal";
 import { blogCardContent } from "staticData/community";
-import { withAuth } from "utils/Auth/withAuth";
+
 const SocialResponsibilities: NextPage = () => {
     return (
         <Layout title="Social Responsibilities | Cipher">
@@ -123,4 +124,4 @@ const SocialResponsibilities: NextPage = () => {
     );
 };
 
-export default withAuth(SocialResponsibilities);
+export default SocialResponsibilities;

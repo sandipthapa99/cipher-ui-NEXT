@@ -64,6 +64,7 @@
 @import "components/creditCard";
 @import "components/profileDropdown";
 @import "components/tooltip";
+@import "components/timelineTab";
 
 // Pages
 @import "pages/privacyPolicy";
@@ -134,6 +135,8 @@
 @import "components/offererCard";
 @import "components/readMore";
 @import "components/QnA";
+@import "components/messageCard";
+@import "components/longsquareImageCard";
 
 // Pages
 @import "pages/privacyPolicy";
@@ -154,3 +157,7 @@
 @import "pages/service-detail";
 @import "pages/accept";
 @import "pages/affiliate";
+@import "pages/howitworks";
+@import "pages/discover";
+@import "pages/growbusiness";
+@import "pages/resources";

@@ -1,6 +1,7 @@
 import {
     faCalendar,
     faClockEight,
+    faLocationArrow,
     faLocationDot,
     faShare,
     faUserGroup,
@@ -44,6 +45,13 @@ const TaskCard = ({
                             className="svg-icon"
                         />
                         {date}
+                    </span>
+                    <span className="date">
+                        <FontAwesomeIcon
+                            icon={faLocationArrow}
+                            className="svg-icon"
+                        />
+                        2 Km away
                     </span>
                 </div>
                 <hr className="mb-0" />

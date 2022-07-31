@@ -16,6 +16,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,7 +26,6 @@ import { reviewsContent } from "staticData/reviews";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
 import { servicesDiscover } from "staticData/services";
-import { withAuth } from "utils/Auth/withAuth";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { reviewType } from "utils/options";
@@ -289,4 +289,4 @@ const ServiceDetail: NextPage = () => {
     );
 };
 
-export default ServiceDetail;
+export default withAuth(ServiceDetail);

@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { destroyCookie } from "nookies";
 import React from "react";
 import { ProfileCardContent } from "staticData/profileCardContent";
 
@@ -105,17 +106,18 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
                 </li>
             </ul>
             <ul className="border-0">
-                <li>
-                    <Link href="">
-                        <a>
-                            <FontAwesomeIcon
-                                icon={faRightFromBracket}
-                                className="svg-icon svg-180-transfrom"
-                            />
-                            Logout
-                        </a>
-                    </Link>
-                </li>
+                <button
+                    onClick={() => {
+                        localStorage.removeItem("token");
+                        router.push("/login");
+                    }}
+                >
+                    <FontAwesomeIcon
+                        icon={faRightFromBracket}
+                        className="svg-icon svg-180-transfrom"
+                    />
+                    Logout
+                </button>
             </ul>
         </div>
     );

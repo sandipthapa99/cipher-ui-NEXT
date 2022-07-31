@@ -4,6 +4,7 @@ import ServiceCard from "@components/common/ServiceCard";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { SearchBody } from "@components/SearchTask/searchBody";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -222,4 +223,4 @@ const PostTask: NextPage = () => {
     );
 };
 
-export default PostTask;
+export default withAuth(PostTask);
