@@ -22,6 +22,7 @@ import { Col, Row } from "react-bootstrap";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
 import { TaskersTab } from "./TaskersTab";
+import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -156,7 +157,7 @@ const AppliedTaskDetail: NextPage = () => {
                 onTabClick={setActiveTabIdx}
                 items={[
                     { title: "Taskers(10)", content: <TaskersTab /> },
-                    { title: "Timeline", content: <div>Service</div> },
+                    { title: "Timeline", content: <TimelineTab /> },
                     { title: "Collaboration(50)", content: <Collaboration /> },
                 ]}
             />
