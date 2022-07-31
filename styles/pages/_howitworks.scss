@@ -1,0 +1,31 @@
+.how-it-works {
+    h1 {
+        color: $primary-color;
+        font-size: 2rem;
+        line-height: 4.4rem;
+        font-weight: 500;
+        line-height: 3.7rem;
+        margin-bottom: 0.5rem;
+    }
+    p {
+        color: $sub-title-color;
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+    &__top-container {
+        padding-top: 2rem;
+        padding-bottom: 5rem;
+        .thumbnail-img {
+            height: 40rem;
+            width: 100%;
+        }
+    }
+    &__categories {
+        .allcategory-card-block {
+            p {
+                font-size: 1.5rem;
+            }
+        }
+    }
+}
