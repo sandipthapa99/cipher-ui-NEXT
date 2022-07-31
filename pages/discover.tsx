@@ -215,4 +215,4 @@ const Discover: NextPage = () => {
     );
 };
 
-export default withAuth(Discover);
+export default Discover;

@@ -1,0 +1,37 @@
+.how-to-hire {
+    h1 {
+        color: $primary-color;
+        font-size: 2rem;
+        line-height: 4.4rem;
+        font-weight: 500;
+        margin-bottom: 0rem;
+    }
+    p {
+        color: $sub-title-color;
+        font-size: 1.3rem;
+        font-weight: 400;
+        line-height: 2.1rem;
+        margin-bottom: 0rem;
+    }
+    &__content {
+        margin: 5rem 0rem;
+        .card-content {
+            flex-direction: column-reverse;
+
+            .thumbnail-img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+    &__bottom-container {
+        padding-top: 5rem;
+        .thumbnail-img {
+            height: 45rem;
+            width: 100%;
+        }
+        p {
+            padding: 1.5rem 0rem;
+        }
+    }
+}
