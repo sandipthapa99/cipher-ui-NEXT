@@ -1,0 +1,72 @@
+.offerer-card {
+    padding: 24px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    background-color: $white;
+    min-width: 300px;
+
+    &__profile {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+
+        &--info > h4 {
+            font-size: 20px;
+            font-weight: 500;
+            color: $primary-color;
+            margin: 0 !important;
+        }
+        &--info > p {
+            font-size: 14px;
+            font-weight: 400;
+            margin: 0 !important;
+            color: #495057;
+        }
+    }
+    &__charge {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 60px 0 24px 0 !important;
+        padding: 24px;
+        border-top: 1px solid #ced4da;
+        border-bottom: 1px solid #ced4da;
+
+        &--label {
+            font-size: 12px;
+            color: #212529;
+        }
+        &--value {
+            font-size: 20px;
+            font-weight: 500;
+            color: $primary-color;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &--btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 0;
+            transition: transform 400ms;
+
+            &.confirm {
+                background-color: $primary-color;
+                color: $white;
+            }
+            &.cancel {
+                border: 1px solid #211d4f;
+                background-color: transparent;
+                color: $primary-color;
+            }
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+    }
+}

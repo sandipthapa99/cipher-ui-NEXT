@@ -18,19 +18,34 @@ Vel odit voluptatem nam et qui enim est nobis dolores. Perferendis perspiciatis 
  
 Pariatur architecto eius quia debitis assumenda magnam. Laudantium et quisquam nesciunt quaerat nihil. Sit aspernatur consequatur excepturi voluptatibus tempora labore quia. Ad impedit est officiis amet laborum voluptas eveniet ea.`,
         requirements: [
-            ...Array.from({ length: 6 }).map((index) => `Requirement ${index}`),
+            ...Array.from({ length: 6 })
+                .map((_, index) => index)
+                .map((index) => `Requirement ${index}`),
         ],
         questions: [
-            ...Array.from({ length: 4 }).map((index) => ({
-                question: `Question ${index}`,
-                answer: `Answer ${index}`,
-            })),
+            ...Array.from({ length: 4 })
+                .map((_, index) => index)
+                .map((index) => ({
+                    question: `Question ${index}`,
+                    answer: `Answer ${index}`,
+                })),
         ],
         offeredBy: {
             username: `User ${randNumber(1, 10)}`,
             category: `Category ${randNumber(1, 10)}`,
+            profileImage: `https://thispersondoesnotexist.com/image`,
         },
         charge: `${randNumber(1, 100)}`,
+        images: [
+            "https://picsum.photos/id/0/400/350",
+            "https://picsum.photos/id/1/400/350",
+            "https://picsum.photos/id/10/400/350",
+            "https://picsum.photos/id/100/400/350",
+            "https://picsum.photos/id/1000/400/350",
+            "https://picsum.photos/id/1001/400/350",
+            "https://picsum.photos/id/1002/400/350",
+        ],
     }));
 
 export type UserTask = typeof DUMMY_USER_TASKS[0];
+export type Question = UserTask["questions"][0];

@@ -10,9 +10,13 @@ const UserTaskList = ({ userTasks, onTaskClick }: UserTaskListProps) => {
     const renderUserTasks = () => {
         return userTasks.map((task, index) => (
             <TaskCard
-                onClick={() => onTaskClick?.(task)}
                 key={index}
-                {...task}
+                onClick={() => onTaskClick?.(task)}
+                charge={task.charge}
+                date={task.date}
+                location={task.location}
+                time={task.time}
+                title={task.title}
             />
         ));
     };
