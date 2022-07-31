@@ -1,0 +1,40 @@
+.about-card-block {
+    margin: 0 0 3rem;
+    border-radius: 0.4rem;
+    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    background: rgba(255, 255, 255, 0.4);
+
+    .thumbnail-img {
+        height: 20rem;
+        margin: 0;
+        border: 1px solid #e9ecef;
+
+        transition: 0.3s ease-in-out;
+        overflow: hidden;
+
+        &:hover {
+            img {
+                transform: scale(1.2);
+            }
+        }
+    }
+    .card-content {
+        padding: 2.7rem 2.2rem 2.6rem 2.2rem;
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: $primary-color;
+            text-align: left;
+            border-bottom: none;
+            margin-bottom: 1.4rem;
+            padding-bottom: 0rem;
+        }
+        .card-description {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: $default-text-color;
+            line-height: 1.7rem;
+            margin-bottom: 1.2rem;
+        }
+    }
+}

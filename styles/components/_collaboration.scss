@@ -1,0 +1,19 @@
+.collaboration-tab {
+    .collaboration-header {
+        padding: 2.4rem;
+        @include border();
+        margin: 0 0 3.2rem;
+
+        h4 {
+            font: 500 1.6rem $poppins-font;
+            margin: 0 0 1.6rem;
+        }
+        p {
+            font: 400 1.2rem $poppins-font;
+            margin: 0;
+        }
+        input {
+            width: 2.4rem;
+        }
+    }
+}

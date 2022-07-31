@@ -1,0 +1,58 @@
+.completed-tasks {
+    padding: 2rem 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #fff;
+
+    @include respond(xs) {
+        flex-direction: column;
+        // align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .user-name-detail {
+        @include respond(xs) {
+            margin-right: 7rem;
+            width: 100%;
+        }
+    }
+    .full-tasks {
+        gap: 2rem;
+        display: flex;
+        flex-direction: row;
+        @include respond(xs) {
+            gap: 1rem;
+            margin-right: 1rem;
+        }
+    }
+
+    .user-name {
+        margin-left: 7rem;
+        @include respond(xs) {
+            margin: 0;
+        }
+        h1 {
+            @include respond(xs) {
+                text-align: left;
+            }
+        }
+    }
+    .task-cards {
+        @media (max-width: 350px) {
+            display: none;
+        }
+        .task-card {
+            @include respond(xs) {
+                padding: 0 2px 0 0;
+            }
+        }
+    }
+}
+.discount-card {
+    display: flex;
+    flex-direction: row;
+
+    @include respond(xs) {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,105 @@
+.client-tasks {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 0;
+    gap: 24px;
+
+    @include respond(sm) {
+        width: 874px;
+    }
+}
+.client-task {
+    padding: 28px 14px;
+    background-color: $white;
+    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    border-radius: 4px;
+
+    @include respond(sm) {
+        padding: 28px 40px;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 16px;
+
+        @include respond(sm) {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        &--title {
+            font-size: 16px;
+            font-weight: 500;
+            color: $primary-color;
+        }
+        &--charge {
+            font-size: 24px;
+            font-weight: 600;
+            color: #343a40;
+        }
+    }
+    &__description {
+        font-size: 14px;
+        font-weight: 400;
+        color: #212529;
+        margin-block: 15px !important;
+
+        @include respond(sm) {
+            margin-block: 27px !important;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 27px;
+        gap: 20px;
+
+        @include respond(sm) {
+            gap: 40px;
+            flex-direction: row;
+        }
+    }
+    &__footer {
+        margin-top: 28px;
+        display: flex;
+        flex-direction: column;
+
+        @include respond(sm) {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        &--icons {
+            display: flex;
+            flex: 1;
+            gap: 16px;
+            margin-bottom: 16px;
+
+            @include respond(sm) {
+                gap: 40px;
+            }
+        }
+        &--btn {
+            padding: 4px 16px;
+            border-radius: 28px;
+            background-color: #0693e3;
+            color: $white;
+            border: 0;
+
+            &:hover {
+                background-color: #067bc2;
+            }
+        }
+    }
+}
+
+.icon-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    font-size: 14px;
+}

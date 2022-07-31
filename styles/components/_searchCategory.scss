@@ -1,0 +1,33 @@
+.search-category {
+    padding: 3rem 0;
+
+    .rows {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        .paragraph {
+            margin: 0 0;
+        }
+    }
+
+    .boxes {
+        display: flex;
+        flex-grow: initial;
+        background-color: #fff;
+        white-space: nowrap;
+        margin-left: 1rem;
+        border-radius: 20px;
+        gap: 1rem;
+        padding: 0.3rem 0.7rem;
+    }
+    .categories {
+        display: flex;
+        align-items: center;
+
+        @include respond(xs) {
+            overflow: scroll;
+            margin-top: 1rem;
+        }
+    }
+}

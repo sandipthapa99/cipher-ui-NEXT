@@ -1,0 +1,133 @@
+.modal-dialog {
+    max-width: 84.25rem !important;
+
+    @include respond(lg) {
+        margin: 1.75rem auto;
+        // width: 120rem !important;
+    }
+    .modal-content {
+        padding: 1rem 3rem;
+    }
+    .modal-header {
+        border-bottom: none !important;
+        .modal-title {
+            font-size: 1.7rem;
+            font-weight: 500;
+            border-bottom: none;
+            margin-left: -1rem;
+            padding-bottom: 1rem;
+        }
+    }
+    .modal-body-content {
+        .details {
+            display: flex;
+            flex-direction: column;
+
+            .title,
+            .price {
+                margin-bottom: 1.8rem;
+                font-size: 1.5rem;
+                .title-name {
+                    font-weight: 500;
+                    margin-bottom: 0rem !important;
+                }
+                span {
+                    margin-left: 5rem;
+                    color: $secondary-text-color;
+                }
+            }
+            .description {
+                font-size: 1.6rem;
+                padding-bottom: 2rem;
+                padding-top: 0.8rem;
+                line-height: 2.6rem;
+                font-weight: 400;
+                color: $secondary-text-color;
+                border-bottom: 1px solid $border-color;
+            }
+        }
+
+        .problem {
+            padding-top: 2rem;
+            textarea.form-control {
+                height: 10rem !important;
+            }
+        }
+        .completion {
+            padding-top: 1.5rem;
+        }
+
+        .problem,
+        .gallery,
+        .completion,
+        .size-warning {
+            h4 {
+                font-size: 1.6rem;
+                color: $sub-title-color;
+                font-weight: 500;
+            }
+            p {
+                font-size: 1.3rem;
+            }
+        }
+        .gallery {
+            h4 {
+                padding-top: 2.5rem;
+            }
+            .thumbnail-img {
+                height: 20rem;
+                width: 20rem;
+                border-radius: 0.4rem;
+            }
+            p {
+                font-size: 1.4rem;
+                font-weight: 400;
+                color: $sub-title-color;
+            }
+        }
+        .size-warning {
+            display: flex;
+            margin-top: 1.2rem;
+            .svg-icon {
+                color: #ff9700;
+                margin-top: 0.4rem;
+            }
+            p {
+                margin-left: 0.5rem;
+                color: #868e96;
+                font-weight: 400;
+                font-size: 1.2rem;
+            }
+        }
+    }
+
+    .modal-footer {
+        border-top: none !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 5rem;
+        .btn {
+            outline: none;
+            border-radius: 0.4rem;
+            padding: 0.8rem 4rem !important;
+            box-shadow: none;
+            font-size: 1.3rem;
+            font-weight: 400;
+            border: none;
+            &:focus {
+                outline: none;
+            }
+        }
+        .close-btn {
+            background-color: transparent;
+            border: 0.1rem solid $primary-color;
+            color: $primary-color;
+        }
+        .book-btn {
+            background-color: $primary-color;
+            margin-left: 1.4rem;
+            color: #f8faff;
+        }
+    }
+}

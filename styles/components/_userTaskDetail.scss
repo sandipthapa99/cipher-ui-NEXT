@@ -1,0 +1,131 @@
+// td = taskdetail
+// task detail
+.user-task-detail-container {
+    padding: 24px;
+    background-color: $white;
+    border-radius: 4px;
+}
+.td-task-detail-header-icons {
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+
+    @include respond(md) {
+        display: flex;
+    }
+}
+
+.td-text {
+    font-weight: normal;
+    font-size: 14px;
+}
+//task detail header
+.td-user-image-container {
+    position: relative;
+    width: fit-content;
+
+    &__badge {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+    }
+}
+.td-user-name {
+    max-width: fit-content;
+    position: relative;
+
+    &::before {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        content: "";
+        width: 10px;
+        height: 10px;
+        background-color: #38c675;
+        transform: translate(150%, -50%);
+        border-radius: 100%;
+        opacity: 0;
+        visibility: hidden;
+    }
+    &[data-is-online="true"]::before {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+.td-hire-me-btn {
+    width: 245px;
+    height: 48px;
+    border-radius: 4px;
+    background-color: #ffca6a;
+    color: #000;
+    outline: 1px solid transparent;
+    border: 1px solid transparent;
+
+    &:hover {
+        filter: brightness(95%);
+    }
+}
+
+.td-filter-review-container {
+    padding: 24px 0px 0;
+    border-block: 1px solid #ced4da;
+}
+.td-divider {
+    display: block;
+    height: 1px;
+    margin-block: 40px;
+    background-color: #ced4da;
+}
+
+// add review form styles
+.td-add-review-label {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    margin-bottom: 8px;
+    color: $default-text-color;
+}
+
+.td-submit-review-btn {
+    height: 48px;
+    width: 270px;
+    background-color: $primary-color;
+    outline: 1px solid transparent;
+    border: 1px solid transparent;
+    color: $white;
+    border-radius: 4px;
+
+    &:hover {
+        background-color: rgba($primary-color, 0.9);
+    }
+}
+.td-reviews-count {
+    color: $gray-text-color;
+    font-size: 14px;
+    font-weight: normal;
+    margin-left: 3px;
+}
+.td-task-charge {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+
+    @include respond(md) {
+        text-align: right;
+    }
+}
+.td-user-short-intro {
+    margin-top: 48px;
+}
+.td-user-short-intro-text {
+    font-size: 14px;
+    font-weight: normal;
+    margin-bottom: 16px;
+}
+.td-mt-24 {
+    margin-top: 24px;
+}
+.td-mb-24 {
+    margin-bottom: 24px;
+}

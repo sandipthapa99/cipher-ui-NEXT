@@ -1,0 +1,104 @@
+.card-block {
+    justify-content: start;
+    align-items: flex-start;
+    padding-bottom: 1.7rem;
+    padding-top: 1.7rem;
+    // align-items: stretch !important;
+    .profile {
+        display: flex;
+        .thumbnail-img {
+            height: 7rem;
+            width: 7rem;
+            border-radius: 50%;
+        }
+        .intro {
+            display: flex;
+            flex-direction: column;
+            padding-left: 1rem;
+            margin-top: 0.8rem;
+            p {
+                margin-bottom: 0rem;
+            }
+            .name {
+                font-weight: 500;
+                font-size: 1.8rem;
+                color: $primary-color;
+            }
+            .job {
+                color: $secondary-text-color;
+                font-weight: 400;
+                font-size: 1.4rem;
+            }
+        }
+    }
+
+    .description {
+        display: flex;
+        flex-direction: column;
+        padding-top: 2.9rem;
+        padding-bottom: 2.2rem;
+        .type {
+            margin-bottom: -1.8rem;
+        }
+        p {
+            font-size: 1.3rem;
+        }
+        .thumbnail-img {
+            height: 2rem;
+            width: 2rem;
+            margin-right: 1rem;
+        }
+    }
+    .starting-price {
+        border-top: 2px solid #ced4da;
+        border-bottom: 2px solid #ced4da;
+        display: flex;
+        margin-bottom: 2.2rem;
+        p {
+            margin-bottom: 0rem;
+            padding: 1.5rem 0rem;
+            font-size: 1.3rem;
+        }
+        .price {
+            margin-left: 12rem;
+            font-weight: 500;
+            font-size: 1.5rem;
+            color: $primary-color;
+        }
+    }
+    .big-btn {
+        span {
+            color: #fff;
+        }
+        background-color: $primary-color;
+    }
+    // .btn {
+    //   display: flex;
+    //   align-items: stretch;
+
+    //   color: #fff;
+    //   padding: 1rem 5rem;
+    //   box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    //   border-radius: 0.4rem;
+    //   font-size: 1.4rem;
+    //   outline: none;
+    //   border: none;
+    //   font-weight: 500;
+    //   &:focus {
+    //     outline: none;
+    //     box-shadow: none;
+    //   }
+
+    //   @include respond(lg) {
+    //     padding: 1rem 10rem;
+    //   }
+    // }
+    a {
+        color: $link-color;
+        text-decoration: underline;
+        font-size: 1.3rem;
+        text-align: center;
+        margin: auto;
+        padding-top: 1rem;
+    }
+}

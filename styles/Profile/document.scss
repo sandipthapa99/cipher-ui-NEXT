@@ -1,0 +1,39 @@
+.user-document {
+    padding-top: 2.7rem;
+    padding-bottom: 2.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    .content {
+        @include respond(md) {
+            padding-right: 9rem;
+        }
+    }
+    h1 {
+        font-weight: 500;
+        color: $default-text-color;
+        font-size: 1.7rem;
+        padding-bottom: 2rem;
+        padding-left: 1rem;
+        margin-bottom: 0rem;
+    }
+
+    .type {
+        border: 0.1rem solid $border-color;
+        border-radius: 0.4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .thumbnail-img {
+        height: 5.4rem;
+        width: 5.4rem;
+        margin: 3.9rem 2rem;
+        border: 0.4rem;
+    }
+    p {
+        margin-top: 1rem;
+        font-size: 1.3rem;
+        color: $sub-title-color;
+    }
+}

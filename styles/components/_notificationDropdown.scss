@@ -1,0 +1,158 @@
+.notification-dropdown {
+    position: absolute;
+    background: white;
+    color: black;
+    max-width: 53.5rem;
+    z-index: 2;
+    right: 0;
+    padding: 1.6rem 0 0;
+    transform: translateY(5%);
+    border-radius: 1rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    margin: 0 0 1rem;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    @include respond(md) {
+        width: 53.5rem;
+    }
+
+    .notification-title {
+        padding: 1.6rem 1.6rem;
+
+        svg {
+            height: 2rem;
+            width: 2rem;
+            fill: $primary-color;
+            margin: 0 0.8rem 0 0;
+        }
+        h3 {
+            font: 500 2rem $poppins-font;
+            margin: 0;
+        }
+    }
+
+    .second-title {
+        padding: 0 1.6rem;
+        .today,
+        .mark {
+            font: 400 1.2rem $poppins-font;
+            color: $primary-color;
+        }
+        .mark {
+            text-decoration: underline;
+        }
+    }
+
+    .footer-section {
+        height: 5rem;
+        background: $primary-color;
+
+        a {
+            font: 500 1.4rem $poppins-font;
+            color: #fff;
+        }
+    }
+}
+
+.notification-button {
+    position: relative;
+    color: white;
+
+    &:hover {
+        color: yellowgreen;
+    }
+}
+
+//Approve notification css
+.dropdown-notification-image {
+    padding: 0 0.8rem 0 0;
+
+    img {
+        border-radius: 50%;
+        min-width: 5rem;
+        min-height: 5rem;
+    }
+}
+.approve-notification-dropdown {
+    padding: 1.6rem;
+    background: #f8f9fa;
+
+    .description-section {
+        h4 {
+            font: 500 1.6rem $poppins-font;
+            color: #212529;
+            text-align: left;
+            margin: 0;
+
+            span {
+                font: 400 1.2rem $poppins-font;
+            }
+        }
+        p {
+            font: 400 1.2rem $poppins-font;
+            text-align: left;
+            margin: 0 0 0.6rem;
+        }
+        .date-approve-section {
+            .date {
+                font: 400 1rem $poppins-font;
+                color: $gray-text-color;
+            }
+            button {
+                height: 26px;
+                font-size: 1.2rem;
+
+                .accept {
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+//Create task notification section
+
+.created-task-notification {
+    padding: 1.6rem;
+    background: #f8f9fa;
+
+    .description-section {
+        h4 {
+            font: 500 1.6rem $poppins-font;
+            color: #212529;
+            text-align: left;
+            margin: 0;
+
+            span {
+                font: 400 1.2rem $poppins-font;
+            }
+        }
+        p {
+            text-align: left;
+            margin: 0;
+        }
+    }
+}
+
+.notification-dropdown-icon {
+    svg {
+        fill: white;
+    }
+    &hover {
+        &:hover {
+            fill: yellowgreen;
+        }
+    }
+}
+
+svg.svg-inline--fa.fa-bell.svg-icon {
+    fill: white;
+
+    &:hover {
+        fill: yellowgreen !important;
+    }
+}

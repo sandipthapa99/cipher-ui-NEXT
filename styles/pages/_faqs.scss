@@ -1,0 +1,213 @@
+.faq-page-header {
+    margin-bottom: 4rem;
+    background-color: #ffffff40;
+
+    &__description {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: #211d4f;
+
+            @include respond(md) {
+                font-size: 4rem;
+            }
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 4rem;
+
+            @include respond(md) {
+                font-size: 2.4rem;
+                margin-bottom: 8rem;
+            }
+        }
+    }
+}
+
+.faq-body-section {
+    .container {
+        @include respond(lg) {
+            padding: 0 19.6rem;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #343a40;
+            margin-bottom: 1.6rem;
+        }
+    }
+
+    .popular-faqs {
+        margin: 4rem 0;
+
+        .accordion {
+            .accordion-item {
+                background: none;
+                margin-bottom: 1.6rem;
+
+                .accordion-header {
+                    .accordion-button {
+                        padding-left: 1.2rem;
+                        background: none;
+
+                        @include respond(md) {
+                            padding-left: 1.6rem;
+                        }
+                    }
+                }
+
+                .accordion-body {
+                    padding: 0.8rem 2.4rem;
+
+                    p {
+                        font-size: 1.2rem;
+                        font-weight: 400;
+                        color: #212529;
+                    }
+                }
+            }
+        }
+    }
+
+    .faq-topics {
+        .accordion {
+            .accordion-item {
+                background: #ffffff40;
+                margin-bottom: 0.8rem;
+                border-radius: 0.4rem;
+                border: none;
+
+                .accordion-header {
+                    .accordion-button {
+                        padding: 1.2rem;
+                        background: none;
+
+                        @include respond(md) {
+                            padding: 1.6rem;
+                        }
+
+                        &::after {
+                            background-image: url("../#{$theme-imgpath}/icons/plus-circle.svg");
+                            background-position: center center;
+                            background-size: 100%;
+                            width: 1.4rem;
+                            height: 1.4rem;
+                            margin-right: 1.6rem;
+
+                            @include respond(md) {
+                                width: 1.8rem;
+                                height: 1.8rem;
+                            }
+                        }
+                    }
+                }
+
+                .accordion-body {
+                    padding: 0.8rem 2.4rem;
+
+                    p {
+                        font-size: 1.2rem;
+                        font-weight: 400;
+                        color: #212529;
+                    }
+
+                    .inner-accordion {
+                        .accordion {
+                            .accordion-item {
+                                background: none;
+                                border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+                                border-radius: 0;
+                                &:last-child {
+                                    border: none;
+                                }
+
+                                .accordion-header {
+                                    .accordion-button {
+                                        padding-left: 1.2rem;
+                                        background: none;
+
+                                        @include respond(md) {
+                                            padding-left: 1.6rem;
+                                        }
+                                        &::after {
+                                            background-image: url("../#{$theme-imgpath}/icons/chevron-down.svg");
+                                            background-position: center center;
+                                            background-size: 100%;
+                                            width: 1rem;
+                                            height: 1rem;
+                                            margin-right: 0;
+
+                                            @include respond(md) {
+                                                width: 1.2rem;
+                                                height: 1.2rem;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .accordion-body {
+                                    padding: 0.8rem 2.4rem;
+
+                                    p {
+                                        font-size: 1.2rem;
+                                        font-weight: 400;
+                                        color: #212529;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.faq-form-section {
+    .faq-form {
+        background-color: #e3d5fa;
+        border-radius: 0.4rem;
+        margin: 2.4rem 0;
+        padding: 1.6rem 2.4rem;
+
+        @include respond(md) {
+            margin: 0;
+            padding: 4rem 8rem;
+        }
+
+        @include respond(lg) {
+            margin: 4rem 19.6rem;
+            padding: 4rem 8rem;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: #211d4f;
+            margin-bottom: 0.8rem;
+
+            @include respond(md) {
+                font-size: 4rem;
+            }
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #343a40;
+            margin-bottom: 2.4rem;
+
+            @include respond(md) {
+                font-size: 2rem;
+            }
+        }
+    }
+}

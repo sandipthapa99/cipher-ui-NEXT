@@ -1,0 +1,39 @@
+.carousel-card {
+    background: #e3d5fa;
+    /* Container */
+    box-shadow: 0rem 0.4rem 0.9rem rgba(33, 29, 79, 0.1);
+    border-radius: 0.4rem 0rem;
+
+    .thumbnail-img {
+        height: 100%;
+        width: 100%;
+    }
+
+    .grow-business-content {
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: space-between;
+        padding: 9.1rem 10rem 9rem 6rem;
+
+        @include respond(xs) {
+            padding: 9.1rem 5rem 9rem 6rem;
+        }
+        @include respond(md) {
+            padding: 9.1rem 5rem 9rem 6rem;
+        }
+        @include respond(lg) {
+            padding: 9.1rem 10rem 9rem 6rem;
+        }
+        h1 {
+            font-size: 3.15rem;
+            line-height: 4.3rem;
+            font-weight: 500;
+        }
+        p {
+            font-weight: 500;
+            font-size: 1.6rem;
+            padding-top: 2rem;
+            padding-bottom: 2.2rem;
+        }
+    }
+}

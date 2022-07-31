@@ -1,0 +1,20 @@
+.page-not-found {
+    padding-bottom: 8rem;
+    .not-found-icon {
+        background-color: #fff;
+        border-radius: 50%;
+        padding: 7.7rem 5.4rem 7.6rem 5.5rem;
+        margin: 8rem 0 5.5rem 0;
+        .icon {
+            height: 15.6rem;
+            width: 20rem;
+            color: #ced4da;
+        }
+    }
+    .return-home {
+        background-color: #211d4f;
+        color: #fff;
+        padding: 1.2rem 3.55rem;
+        border-radius: 0.4rem;
+    }
+}

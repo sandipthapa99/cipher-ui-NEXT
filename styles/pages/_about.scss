@@ -1,0 +1,169 @@
+.about-page {
+    margin-bottom: 4.375rem;
+    @include respond(sm) {
+        padding: 0rem 1.25rem;
+    }
+
+    @include respond(xs) {
+        padding: 0rem 1.25rem;
+    }
+    &__top-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        margin-bottom: 100px;
+
+        .thumbnail-img {
+            height: 39.5rem;
+            z-index: 0;
+            // bottom: -2.875rem;
+        }
+        .aboutus_overlay {
+            position: absolute;
+            z-index: 1;
+
+            background-color: $secondary-color;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 0.4rem;
+            bottom: -4rem;
+
+            @include respond(xs) {
+                margin: 0px 3.5rem;
+
+                padding: 0 2rem;
+            }
+
+            @include respond(sm) {
+                margin: 0px 8.5rem;
+
+                padding: 0 4rem;
+            }
+
+            @include respond(md) {
+                margin: 0px 16.5rem;
+
+                padding: 0 8rem;
+            }
+
+            @include respond(lg) {
+                // margin: 0px 17.95rem;
+
+                margin: 0px 21.95rem;
+
+                padding: 0 12rem;
+
+                //
+            }
+
+            @include respond(xl) {
+                margin: 0px 16.75rem;
+                padding: 0 17rem;
+            }
+
+            @include respond(xxl) {
+                margin: 0px 20.75rem;
+
+                padding: 0 22rem;
+            }
+
+            p {
+                font-size: 1.75rem;
+                padding: 0rem 1.25rem;
+                text-align: center;
+                font-weight: 400;
+                margin-top: 2.45rem;
+                color: $primary-color;
+                @include respond(xs) {
+                    font-size: 1.4rem;
+                }
+            }
+        }
+    }
+    &__purpose {
+        padding-top: 9rem;
+        padding-bottom: 7rem;
+        .aboutus-images {
+            padding-left: 0rem;
+        }
+        @include respond(sm) {
+            margin: 0rem;
+            padding: 0rem;
+        }
+
+        .about-cipher {
+            padding-bottom: 5.5rem;
+
+            @include respond(sm) {
+                padding-bottom: 0rem;
+            }
+        }
+        .purpose-container {
+            padding-top: 6rem;
+            .about-information {
+                padding-left: 1rem;
+                h1 {
+                    padding-top: 3.5rem;
+                }
+                .purpose {
+                    padding-right: 2rem;
+                }
+                @include respond(sm) {
+                    margin-left: 0rem;
+                }
+            }
+        }
+
+        .thumbnail-img {
+            height: 100%;
+            width: 100%;
+            border-radius: 0.4rem;
+            filter: drop-shadow(0px 4px 14px rgba(33, 29, 79, 0.1));
+        }
+        .purpose {
+            margin-left: 1.2rem;
+            border-radius: 0.4rem;
+            @include respond(sm) {
+                margin-left: 0rem;
+            }
+        }
+
+        h4 {
+            font-weight: 500;
+            font-size: 1.4rem;
+            line-height: 1.8rem;
+            color: $sub-title-color;
+        }
+        p {
+            font-weight: 400;
+            font-size: 1.2rem;
+            line-height: 2rem;
+            color: $default-text-color;
+        }
+    }
+
+    &__scope {
+        padding: 5rem 0rem;
+    }
+    &__footer {
+        margin-bottom: 6rem;
+        p {
+            color: $sub-title-color;
+            font-size: 1.2rem;
+            font-weight: 400;
+            line-height: 2.3rem;
+        }
+        .thumbnail-img {
+            height: 42rem;
+        }
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: $primary-color;
+    }
+}

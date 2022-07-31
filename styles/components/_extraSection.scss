@@ -1,0 +1,32 @@
+.extra {
+    &-service {
+        margin: 3rem 0 0;
+        h2 {
+            font-weight: 500;
+            font-size: 2rem;
+        }
+        &__desc {
+            font-weight: 400;
+            font-size: 1.2rem;
+            color: #868e96;
+            svg {
+                margin: 0 1rem 0 0;
+            }
+            span {
+                margin: 2rem 0;
+            }
+            button {
+                font-weight: 400;
+                font-size: 1.6rem;
+                background: #e7e8f0;
+                color: $primary-color;
+                box-shadow: none;
+                border: none;
+                &:hover {
+                    background: $primary-color;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,52 @@
+.custom-tab {
+    display: flex;
+    flex-direction: column;
+
+    &__headers {
+        position: relative;
+        display: flex;
+        gap: 62px;
+        padding-block: 10px;
+        margin-bottom: 24px;
+
+        &::before {
+            position: absolute;
+            content: "";
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #ced4da;
+            transform: translateY(4px);
+        }
+        &--btn {
+            position: relative;
+            border: 1px solid transparent;
+            outline: 1px solid transparent;
+            background-color: transparent;
+
+            &::before {
+                position: absolute;
+                content: "";
+                bottom: 0;
+                right: 0;
+                width: 100%;
+                height: 6px;
+                background-color: #fca500;
+                opacity: 0;
+                transform: scaleX(0) translateY(18px);
+                transform-origin: left;
+                visibility: hidden;
+                transition: 100ms ease-in;
+                border-radius: 4px;
+            }
+            &[data-is-active="true"]::before {
+                opacity: 1;
+                transform: scaleX(1) translateY(18px);
+                visibility: visible;
+            }
+        }
+    }
+    &__content {
+    }
+}
