@@ -1,4 +1,5 @@
 import { ApplyValueProps } from "types/applyValueProps";
+import { BookNowFormProps, BookNowModalCardProps } from "types/bookNow";
 import { ClientSignUpValueProps } from "types/clientSignUp";
 import { AddPortfolio } from "types/editProfile";
 import { EquipmentValueProps } from "types/equipmentValueProps";
@@ -37,4 +38,11 @@ export const AddPortfolioFormData: AddPortfolio = {
     description: "",
     url: "",
     date: "",
+};
+
+export const BookServiceFormData: BookNowFormProps = {
+    problemDescription: "",
+    date: "",
+    time: 1,
+    image: "",
 };

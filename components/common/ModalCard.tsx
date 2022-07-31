@@ -1,12 +1,18 @@
+import DragDrop from "@components/common/DragDrop";
+import FormButton from "@components/common/FormButton";
+import InputField from "@components/common/InputField";
 import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Form, Formik } from "formik";
 import Image from "next/image";
-import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import { ImageVideoDragDop } from "staticData/dragDropContent";
 import { BookNowModalCardProps } from "types/bookNow";
+import { BookServiceFormData } from "utils/formData";
+import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidation";
+import { isSubmittingClass } from "utils/helpers";
 
 const ModalCard = ({
     title,
@@ -14,7 +20,6 @@ const ModalCard = ({
     description,
     image,
     show,
-    problemDescription,
     handleClose,
 }: BookNowModalCardProps) => {
     return (
@@ -24,6 +29,7 @@ const ModalCard = ({
                 <Modal.Header closeButton>
                     <Modal.Title>Booking Details</Modal.Title>
                 </Modal.Header>
+
                 <div className="modal-body-content">
                     <div className="details">
                         <div className="title d-flex">
@@ -38,96 +44,122 @@ const ModalCard = ({
                         </div>
                         <p className="description">{description}</p>
                     </div>
-
-                    <div className="problem">
-                        <h4>Problem Description</h4>
-                        <Form>
-                            <Form.Group
-                                className="mb-3"
-                                controlId="exampleForm.ControlTextarea1"
-                            >
-                                {/* <Form.Label>Example textarea</Form.Label> */}
-                                <Form.Control as="textarea" rows={1} />
-                            </Form.Group>
-                        </Form>
-                    </div>
-                    <div className="completion">
-                        <Row>
-                            <Col md={6}>
-                                <h4>Completion Date</h4>
-
-                                <Form.Control
-                                    type="date"
-                                    name="datepic"
-                                    placeholder="07/27/2022"
-                                    //value={date}
-                                    //onChange={(e) => setDate(e.target.value)}
-                                />
-                            </Col>
-                            <Col md={6}>
-                                <h4>Estimated Time(hr)</h4>
-                                <Form.Control type="number" />
-                            </Col>
-                        </Row>
-                    </div>
-                    <div className="gallery">
-                        <h4>Gallery</h4>
-                        <p>Add relevant images or videos</p>
-
-                        <Row>
-                            <Col md={3}>
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src={image}
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="serviceprovider-image"
-                                    />
-                                </figure>
-                            </Col>
-                            <Col md={3} className="drag-drop">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/service-details/file-upload.svg"
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="serviceprovider-image"
-                                    />
-                                </figure>
-                                <p className="info">
-                                    Drag or <span>Browse</span>
-                                    <br />
-                                    Image/Video
-                                </p>
-                                <p className="size">Maximum size 200MB</p>
-
-                                {/* <input type="file" className="drag-drop-input" /> */}
-                            </Col>
-                        </Row>
-                        <div className="size-warning">
-                            <FontAwesomeIcon
-                                icon={faCircleInfo}
-                                className="svg-icon"
-                            />
-                            <p>
-                                Images and videos should not be more than 200MB
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <Modal.Footer>
-                    <Button className="btn close-btn" onClick={handleClose}>
-                        Cancel
-                    </Button>
-
-                    <Button
-                        className="btn card-btn book-btn"
-                        onClick={handleClose}
+                    <Formik
+                        initialValues={BookServiceFormData}
+                        validationSchema={bookServiceSchema}
+                        onSubmit={async (values) => {
+                            console.log(values);
+                        }}
                     >
-                        Book Now
-                    </Button>
-                </Modal.Footer>
+                        {({ isSubmitting, errors, touched }) => (
+                            <Form>
+                                <div className="problem">
+                                    <h4>Problem Description</h4>
+                                    <InputField
+                                        type="textarea"
+                                        name="description"
+                                        min="1"
+                                        error={errors.problemDescription}
+                                        touch={touched.problemDescription}
+                                        placeHolder="Portfolio Description"
+                                    />
+                                </div>
+                                <div className="completion">
+                                    <Row>
+                                        <Col md={6}>
+                                            <h4>Completion Date</h4>
+                                            <InputField
+                                                type="textarea"
+                                                name="date"
+                                                error={errors.date}
+                                                touch={touched.date}
+                                                placeHolder="Portfolio Description"
+                                            />
+                                        </Col>
+                                        <Col md={6}>
+                                            <h4>Estimated Time(hr)</h4>
+                                            <InputField
+                                                type="number"
+                                                name="hour"
+                                                min="1"
+                                                error={errors.time}
+                                                touch={touched.time}
+                                                placeHolder="1"
+                                            />
+                                        </Col>
+                                    </Row>
+                                </div>
+
+                                <div className="book-now-gallery">
+                                    <h4>Gallery</h4>
+                                    <p>Add relevant images or videos</p>
+
+                                    <Row className="gx-5">
+                                        <Col md={4}>
+                                            <figure className="girl-thumbnail-img">
+                                                <Image
+                                                    src={image}
+                                                    height={130}
+                                                    width={120}
+                                                    alt="serviceprovider-image"
+                                                />
+                                            </figure>
+                                        </Col>
+                                        <Col md={4}>
+                                            {ImageVideoDragDop &&
+                                                ImageVideoDragDop.map(
+                                                    (info) => (
+                                                        <DragDrop
+                                                            key={info.id}
+                                                            image={info.image}
+                                                            fileType={
+                                                                info.fileType
+                                                            }
+                                                            maxImageSize={
+                                                                info.maxImageSize
+                                                            }
+                                                            maxVideoSize={
+                                                                info.maxVideoSize
+                                                            }
+                                                        />
+                                                    )
+                                                )}
+                                        </Col>
+                                    </Row>
+                                    <div className="size-warning">
+                                        <FontAwesomeIcon
+                                            icon={faCircleInfo}
+                                            className="svg-icon"
+                                        />
+                                        <p>
+                                            Images and videos should not be more
+                                            than 200MB
+                                        </p>
+                                    </div>
+                                </div>
+                                <Modal.Footer>
+                                    <Button
+                                        className="btn close-btn"
+                                        onClick={handleClose}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <FormButton
+                                        type="submit"
+                                        variant="primary"
+                                        name="Book Now"
+                                        className="submit-btn w-25"
+                                        isSubmitting={isSubmitting}
+                                        isSubmittingClass={isSubmittingClass(
+                                            isSubmitting
+                                        )}
+                                        onClick={handleClose}
+                                    />
+                                </Modal.Footer>
+                            </Form>
+                        )}
+                    </Formik>
+                </div>
             </Modal>
         </>
     );

@@ -1,0 +1,25 @@
+.tooltip > div.tooltip-inner {
+    background-color: #495057 !important;
+    color: #fff !important;
+    padding: 1.5rem 0rem;
+    padding-left: 2rem;
+    text-align: left;
+    font-size: 1.3rem;
+    padding-right: 2rem;
+}
+
+.tooltip.show {
+    opacity: 1 !important;
+}
+
+// .tooltip > div.arrow::before {
+//     color: #fff !important;
+//     border-bottom-color: #495057 !important;
+//     margin-right: 12rem;
+// }
+.tooltip::before {
+    width: 15px;
+    height: 15px;
+    background: #333;
+    display: none;
+}

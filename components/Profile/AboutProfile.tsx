@@ -1,4 +1,4 @@
-import { faEdit } from "@fortawesome/pro-regular-svg-icons";
+import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import Image from "next/image";
@@ -64,7 +64,7 @@ const AboutProfile = () => {
                                                 <div className="name d-flex">
                                                     <h3>{info.name}</h3>
                                                     <FontAwesomeIcon
-                                                        icon={faEdit}
+                                                        icon={faPencil}
                                                         className="svg-icon"
                                                     />
                                                 </div>
@@ -133,7 +133,7 @@ const AboutProfile = () => {
                                                         {info.institution}
                                                     </h3>
                                                     <FontAwesomeIcon
-                                                        icon={faEdit}
+                                                        icon={faPencil}
                                                         className="svg-icon"
                                                     />
                                                 </div>
@@ -173,7 +173,7 @@ const AboutProfile = () => {
                                                         {info.name}
                                                     </h3>
                                                     <FontAwesomeIcon
-                                                        icon={faEdit}
+                                                        icon={faPencil}
                                                         className="svg-icon"
                                                     />
                                                 </div>

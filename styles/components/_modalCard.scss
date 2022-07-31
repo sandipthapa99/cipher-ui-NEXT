@@ -1,5 +1,5 @@
 .modal-dialog {
-    max-width: 84.25rem !important;
+    max-width: 94.25rem !important;
 
     @include respond(lg) {
         margin: 1.75rem auto;
@@ -58,7 +58,7 @@
         }
 
         .problem,
-        .gallery,
+        .book-now-gallery,
         .completion,
         .size-warning {
             h4 {
@@ -70,13 +70,13 @@
                 font-size: 1.3rem;
             }
         }
-        .gallery {
+        .book-now-gallery {
             h4 {
                 padding-top: 2.5rem;
             }
-            .thumbnail-img {
-                height: 20rem;
-                width: 20rem;
+            .girl-thumbnail-img {
+                height: 33rem;
+                width: 33rem;
                 border-radius: 0.4rem;
             }
             p {
