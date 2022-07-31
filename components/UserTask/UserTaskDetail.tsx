@@ -4,5 +4,5 @@ interface UserTaskDetailProps {
     task: UserTask;
 }
 export const UserTaskDetail = ({ task }: UserTaskDetailProps) => {
-    return <div>UserTaskDetail</div>;
+    return <div className="accept-task__detail">{task.title}</div>;
 };

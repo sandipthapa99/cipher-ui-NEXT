@@ -33,7 +33,7 @@ export const Accept = () => {
             <Header />
             <Container>
                 <SearchCategory onChange={setQuery} />
-                <div className="accept-task-lists">
+                <div className="accept-task">
                     <UserTaskList
                         onTaskClick={setActiveTask}
                         userTasks={filteredTasks}

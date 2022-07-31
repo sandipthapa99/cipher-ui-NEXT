@@ -16,6 +16,6 @@ const UserTaskList = ({ userTasks, onTaskClick }: UserTaskListProps) => {
             />
         ));
     };
-    return <>{renderUserTasks()}</>;
+    return <div className="accept-task__list">{renderUserTasks()}</div>;
 };
 export default UserTaskList;

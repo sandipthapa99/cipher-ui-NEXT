@@ -1,0 +1,17 @@
+.accept-task {
+    display: flex;
+    flex-direction: column;
+
+    &__list {
+        min-width: 422px;
+        max-height: 50vh;
+        overflow-y: scroll;
+        padding: 1rem;
+    }
+    &__detail {
+    }
+
+    @include respond(sm) {
+        flex-direction: row;
+    }
+}
