@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
 import { MessageCardProps } from "types/messageCard";
+
 const MessageCard = ({
     clientImage,
     clientMessages,

@@ -50,7 +50,11 @@ export const Collaboration = () => {
                                 handleButtonClick={handleOpen}
                             /> */}
 
-                            <TeamMembersCard task={item} collabButton={true} />
+                            <TeamMembersCard
+                                task={item}
+                                collabButton={true}
+                                handleButtonClick={handleOpen}
+                            />
                         </Col>
                     ))}
                 </Row>

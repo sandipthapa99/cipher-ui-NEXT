@@ -69,18 +69,8 @@ const AuthProvider = ({ children }: Props) => {
             user = JSON.parse(localStorage.getItem("userDetails") as string);
         }
         if (typeof window !== "undefined") {
-            if (
-                user.email === signUpValues.email ||
-                user.phoneNumber === signUpValues.phoneNumber
-            ) {
-                alert("duplicated email or phone number");
-            } else {
-                localStorage.setItem(
-                    "userDetails",
-                    JSON.stringify(signUpValues)
-                );
-                router.push("/login");
-            }
+            localStorage.setItem("userDetails", JSON.stringify(signUpValues));
+            router.push("/login");
         }
     };
     const login = (loginValues: LoginValuesProps) => {
