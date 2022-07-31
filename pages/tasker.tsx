@@ -68,4 +68,4 @@ const Tasker = () => {
     );
 };
 
-export default withAuth(Tasker);
+export default Tasker;

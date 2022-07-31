@@ -104,4 +104,4 @@ const UserProfile: NextPage = () => {
     );
 };
 
-export default withAuth(UserProfile);
+export default UserProfile;

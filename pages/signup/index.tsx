@@ -42,4 +42,4 @@ const Signup = () => {
         </OnBoardingLayout>
     );
 };
-export default withAuth(Signup);
+export default Signup;

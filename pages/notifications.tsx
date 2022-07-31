@@ -13,4 +13,4 @@ function Notifications() {
     );
 }
 
-export default withAuth(Notifications);
+export default Notifications;

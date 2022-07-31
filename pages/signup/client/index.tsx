@@ -152,4 +152,4 @@ const SignUpAsClient = () => {
         </OnBoardingLayout>
     );
 };
-export default withAuth(SignUpAsClient);
+export default SignUpAsClient;

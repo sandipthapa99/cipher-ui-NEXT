@@ -197,4 +197,4 @@ const Gardening = () => {
         </Layout>
     );
 };
-export default withAuth(Gardening);
+export default Gardening;
