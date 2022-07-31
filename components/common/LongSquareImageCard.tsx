@@ -1,15 +1,18 @@
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
 import { HowItWorkProps } from "types/howitwork";
+
+import CardBtn from "./CardBtn";
 const LongSquareImageCard = ({
     title,
     subtitle,
     description,
     image,
+    buttonText,
 }: HowItWorkProps) => {
     return (
         <div className="long-square-image-card">
-            <Row className="gx-5">
+            <Row className="gx-5 card-content">
                 <Col md={5}>
                     <figure className="thumbnail-img">
                         <Image
@@ -17,6 +20,8 @@ const LongSquareImageCard = ({
                             layout="fill"
                             objectFit="cover"
                             alt="man-image"
+                            height={"100%"}
+                            width={"100%"}
                         />
                     </figure>
                 </Col>
@@ -26,6 +31,13 @@ const LongSquareImageCard = ({
                         <h4>{subtitle}</h4>
                         <p>{description}</p>
                     </div>
+                    {buttonText && (
+                        <CardBtn
+                            btnTitle={buttonText}
+                            color="#fff"
+                            backgroundColor="primary-color"
+                        />
+                    )}
                 </Col>
             </Row>
         </div>
