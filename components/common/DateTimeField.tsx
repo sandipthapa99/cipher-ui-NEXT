@@ -15,7 +15,6 @@ const DatePickerField = ({
     placeHolder,
     labelName,
     textMuted,
-    as,
     fieldRequired = false,
     ...restProps
 }: InputFieldProps & Partial<HTMLInputElement>) => {
@@ -37,7 +36,10 @@ const DatePickerField = ({
                                 id={name}
                                 {...field}
                                 {...restProps}
-                                className={checkFormControl(error, touch)}
+                                className={`${checkFormControl(
+                                    error,
+                                    touch
+                                )} ps-5 `}
                                 selected={value}
                                 placeholderText={placeHolder}
                                 onChange={(val) => setFieldValue(name, val)}
@@ -46,10 +48,10 @@ const DatePickerField = ({
                         );
                     }}
                 </Field>
-                <span className="position-absolute position-absolute top-50 end-0 translate-middle-y">
+                <span className="position-absolute top-50 translate-middle-y">
                     <FontAwesomeIcon
                         icon={faCalendar}
-                        className="svg-icon me-5"
+                        className="svg-icon svg-icon-calender-grey ms-3"
                     />
                 </span>
             </div>
