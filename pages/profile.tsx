@@ -8,16 +8,10 @@ import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
-import Link from "next/link";
 import { useState } from "react";
 import { Button, Col, Container, Row, Tabs } from "react-bootstrap";
-import { merchantProfileCardInfo } from "staticData/merchantProfileCard";
-import { profileTaskCard } from "staticData/profileTaskCard";
-import { reviewsContent } from "staticData/reviews";
-import { rewardCardContent } from "staticData/rewardCard";
-import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
-import { userDocument } from "staticData/userDocument";
 import { userProfileCardInfo } from "staticData/userProfileCard";
 
 const UserProfile: NextPage = () => {
@@ -103,4 +97,4 @@ const UserProfile: NextPage = () => {
     );
 };
 
-export default UserProfile;
+export default withAuth(UserProfile);

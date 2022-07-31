@@ -16,6 +16,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -288,4 +289,4 @@ const ServiceDetail: NextPage = () => {
     );
 };
 
-export default ServiceDetail;
+export default withAuth(ServiceDetail);

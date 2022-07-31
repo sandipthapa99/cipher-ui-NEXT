@@ -1,5 +1,6 @@
 import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import { withAuth } from "hoc/withAuth";
 import Link from "next/link";
 
 const Signup = () => {
@@ -41,4 +42,4 @@ const Signup = () => {
         </OnBoardingLayout>
     );
 };
-export default Signup;
+export default withAuth(Signup);

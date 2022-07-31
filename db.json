@@ -1,28 +1,28 @@
 {
-  "users": [
-    {
-      "firstName": "govind",
-      "lastName": "bohara",
-      "email": "govind123@gmail.com",
-      "phoneNumber": "12345678900",
-      "password": "govind123",
-      "confirmPassword": "dgdfgfdgdf",
-      "gender": "male",
-      "isAgree": true,
-      "addToNewsletter": true,
-      "id": 1
-    },
-    {
-      "firstName": "govind",
-      "lastName": "paudel",
-      "email": "sandip112@gmail.com",
-      "phoneNumber": "9865843701",
-      "password": "sandip123",
-      "confirmPassword": "tertretretert",
-      "gender": "male",
-      "isAgree": true,
-      "addToNewsletter": true,
-      "id": 2
-    }
-  ]
+    "users": [
+        {
+            "firstName": "govind",
+            "lastName": "bohara",
+            "email": "govind123@gmail.com",
+            "phoneNumber": "12345678900",
+            "password": "govind123",
+            "confirmPassword": "dgdfgfdgdf",
+            "gender": "male",
+            "isAgree": true,
+            "addToNewsletter": true,
+            "id": 1
+        },
+        {
+            "firstName": "govind",
+            "lastName": "paudel",
+            "email": "sandip112@gmail.com",
+            "phoneNumber": "9865843701",
+            "password": "sandip123",
+            "confirmPassword": "tertretretert",
+            "gender": "male",
+            "isAgree": true,
+            "addToNewsletter": true,
+            "id": 2
+        }
+    ]
 }

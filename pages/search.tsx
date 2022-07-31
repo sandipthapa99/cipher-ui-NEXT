@@ -2,6 +2,7 @@ import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchResults from "@components/SearchTask/SearchResults";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
@@ -34,4 +35,4 @@ const SearchPage: NextPage = () => {
         </>
     );
 };
-export default SearchPage;
+export default withAuth(SearchPage);

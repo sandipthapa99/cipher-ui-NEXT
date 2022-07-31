@@ -87,4 +87,4 @@ const Login = () => {
         </section>
     );
 };
-export default Login;
+export default withAuth(Login);

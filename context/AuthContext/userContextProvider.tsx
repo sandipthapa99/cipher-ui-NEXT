@@ -1,8 +1,7 @@
 import { useRouter } from "next/router";
 import { setCookie } from "nookies";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import { LoginValuesProps } from "types/login";
-import { axiosClient } from "utils/axiosClient";
 
 import { ClientSignUpValueProps } from "../../types/clientSignUp";
 import { AuthContext } from "./userContext";
@@ -14,9 +13,9 @@ interface Props {
 const AuthProvider = ({ children }: Props) => {
     const router = useRouter();
 
-    let token;
+    let token: string | undefined;
     if (typeof window !== "undefined") {
-        token = localStorage.getItem("token");
+        token = JSON.parse(localStorage.getItem("token") as string);
     }
 
     // const signUp = async (signUpValues: ClientSignUpValueProps) => {
@@ -67,7 +66,7 @@ const AuthProvider = ({ children }: Props) => {
     const signUp = (signUpValues: ClientSignUpValueProps) => {
         let user;
         if (typeof window !== "undefined") {
-            user = JSON.parse(localStorage.getItem("userDetails"));
+            user = JSON.parse(localStorage.getItem("userDetails") as string);
         }
         if (typeof window !== "undefined") {
             if (
@@ -87,7 +86,7 @@ const AuthProvider = ({ children }: Props) => {
     const login = (loginValues: LoginValuesProps) => {
         let user;
         if (typeof window !== "undefined") {
-            user = JSON.parse(localStorage.getItem("userDetails"));
+            user = JSON.parse(localStorage.getItem("userDetails") as string);
         }
         console.log(user.email, user.password);
 
@@ -95,7 +94,10 @@ const AuthProvider = ({ children }: Props) => {
             user.email === loginValues.email &&
             user.password === loginValues.password
         ) {
-            window.localStorage.setItem("token", "dadasdasdsa");
+            window.localStorage.setItem(
+                "token",
+                JSON.stringify(new Date().getTime())
+            );
             router.push("/");
         } else {
             alert("No user Found");

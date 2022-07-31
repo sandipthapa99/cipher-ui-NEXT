@@ -9,7 +9,7 @@ body {
     line-height: 1.5;
     color: $default-text-color;
     overflow-x: hidden;
-    background: #EDF4FF;
+    background: #edf4ff;
     @include respond(md) {
         font-size: 1.6rem;
     }
@@ -126,6 +126,12 @@ img {
     max-width: 100%;
     max-height: 100%;
 }
+section {
+    margin-bottom: 4rem;
+    @include respond(md) {
+        margin-bottom: 8rem;
+    }
+}
 
 .thumbnail-img {
     overflow: hidden;
@@ -133,7 +139,7 @@ img {
     img {
         width: 100%;
         object-fit: cover;
-        @transform();
+        @include transform();
         @include transition();
     }
 }
@@ -380,7 +386,7 @@ small.text-muted {
     font-weight: 500;
     margin: 0 0 2rem;
     font-weight: 500;
-    color: #343a40;
+    color: $primary-color;
     @include respond(md) {
         font-size: 2rem;
         margin: 0 0 2.4rem;
@@ -552,4 +558,24 @@ small.text-muted {
             color: $primary-color;
         }
     }
+}
+.react-datepicker {
+    font-size: 1.3rem !important;
+}
+
+.react-datepicker__current-month {
+    font-size: 1.5rem !important;
+}
+
+.react-datepicker__header {
+    padding-top: 6px !important;
+}
+
+.react-datepicker__navigation {
+    top: 13px !important;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+    margin: 0.5rem !important;
 }
