@@ -54,7 +54,7 @@ export function UpperHeader() {
                                 </li>
                                 <li
                                     className={handleMenuActive(
-                                        "/features",
+                                        "/resources",
                                         router
                                     )}
                                 >
