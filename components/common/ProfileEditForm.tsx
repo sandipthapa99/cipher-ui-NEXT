@@ -2,7 +2,13 @@ import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faFacebookF,
+    faGoogle,
+    faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
+import { faPlus, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import React, { Dispatch, SetStateAction } from "react";
@@ -17,12 +23,14 @@ interface ProfileEditProps {
     show?: boolean;
     handleClose?: () => void;
     setShowEdit: Dispatch<SetStateAction<boolean>>;
+    userName: string;
 }
 
 const ProfileEditForm = ({
     show,
     handleClose,
     setShowEdit,
+    userName,
 }: ProfileEditProps) => {
     const { setShowSuccessModal } = useSuccessContext();
     return (
@@ -30,7 +38,7 @@ const ProfileEditForm = ({
             {/* Modal component */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton> </Modal.Header>
-                <div className="applied-modal">
+                <div className="applied-modal edit-form">
                     <h3>Edit Profile</h3>
                     <Formik
                         initialValues={ProfileEditFromData}
@@ -53,7 +61,7 @@ const ProfileEditForm = ({
                                 />
                                 <InputField
                                     name="bio"
-                                    labelName="bio"
+                                    labelName="Bio"
                                     touch={touched.bio}
                                     error={errors.bio}
                                     placeHolder="Applying (Remark)"
@@ -63,7 +71,7 @@ const ProfileEditForm = ({
                                     <Col md={6}>
                                         <InputField
                                             name="email"
-                                            labelName="email"
+                                            labelName="Email Address"
                                             touch={touched.email}
                                             error={errors.email}
                                             placeHolder="Applying (Remark)"
@@ -72,7 +80,7 @@ const ProfileEditForm = ({
                                     <Col md={6}>
                                         <InputField
                                             name="phone"
-                                            labelName="phone"
+                                            labelName="Phone Number"
                                             touch={touched.phone}
                                             error={errors.phone}
                                             placeHolder="Applying (Remark)"
@@ -82,7 +90,7 @@ const ProfileEditForm = ({
                                 <InputField
                                     type="text"
                                     name="addressLine1"
-                                    labelName="addressLine1"
+                                    labelName="Address Line 1"
                                     error={errors.addressLine1}
                                     touch={touched.addressLine1}
                                     placeHolder="Enter your price"
@@ -90,16 +98,17 @@ const ProfileEditForm = ({
                                 <InputField
                                     type="text"
                                     name="addressLine2"
-                                    labelName="addressLine2"
+                                    labelName="Address Line 2"
                                     error={errors.addressLine2}
                                     touch={touched.addressLine2}
                                     placeHolder="Enter your price"
                                 />
+                                <h4>Active Hours</h4>
                                 <Row className="g-5">
                                     <Col md={3}>
                                         <DatePickerField
                                             name="activeHoursFrom"
-                                            labelName="activeHoursFrom"
+                                            labelName="From"
                                             dateFormat="h:mm aa"
                                             autocomplete="off"
                                             placeHolder="00:00"
@@ -111,7 +120,7 @@ const ProfileEditForm = ({
                                     <Col md={3}>
                                         <DatePickerField
                                             name="activeHoursTo"
-                                            labelName="activeHoursTo"
+                                            labelName="To"
                                             placeHolder="00:00"
                                             dateFormat="h:mm aa"
                                             timeOnly={true}
@@ -124,7 +133,7 @@ const ProfileEditForm = ({
                                 <InputField
                                     type="text"
                                     name="specialities"
-                                    labelName="specialities"
+                                    labelName="Specialities"
                                     error={errors.specialities}
                                     touch={touched.specialities}
                                     placeHolder="Enter your price"
@@ -133,12 +142,43 @@ const ProfileEditForm = ({
                                     <InputField
                                         type="number"
                                         name="baseRatePerHour"
-                                        labelName="baseRatePerHour"
+                                        labelName="Base Rate Per    Hour"
                                         error={errors.baseRatePerHour}
                                         touch={touched.baseRatePerHour}
                                         placeHolder="Enter your price"
                                     />
                                 </Col>
+                                <h4>Linked Accounts</h4>
+                                <div className="d-flex social-links">
+                                    <span className="d-flex align-items-center me-4">
+                                        <FontAwesomeIcon
+                                            icon={faFacebookF}
+                                            className="svg-icon"
+                                        />
+                                        Facebook
+                                    </span>
+                                    <span className="d-flex align-items-center me-4">
+                                        <FontAwesomeIcon
+                                            icon={faTwitter}
+                                            className="svg-icon"
+                                        />
+                                        Twitter
+                                    </span>
+                                    <span className="d-flex align-items-center me-4">
+                                        <FontAwesomeIcon
+                                            icon={faGoogle}
+                                            className="svg-icon"
+                                        />
+                                        Google
+                                    </span>
+                                    <span className="d-flex align-items-center me-4">
+                                        <FontAwesomeIcon
+                                            icon={faPlus}
+                                            className="svg-icon"
+                                        />
+                                        Dribble
+                                    </span>
+                                </div>
 
                                 <Modal.Footer>
                                     <Button

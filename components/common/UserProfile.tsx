@@ -93,6 +93,7 @@ const UserProfileCard = ({
                         show={showEdit}
                         setShowEdit={setShowEdit}
                         handleClose={() => setShowEdit(false)}
+                        userName={userName}
                     />
                 </Col>
 

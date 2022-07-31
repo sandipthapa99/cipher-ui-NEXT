@@ -21,5 +21,4 @@ export const profileEditFormSchema = Yup.object().shape({
     activeHoursTo: dateValidation,
     specialities: stringReqOnly,
     baseRatePerHour: stringReqOnly,
-    linkedAccounts: stringReqOnly,
 });
