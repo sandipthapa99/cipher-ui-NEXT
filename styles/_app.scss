@@ -579,3 +579,18 @@ small.text-muted {
 .react-datepicker__day {
     margin: 0.5rem !important;
 }
+
+.checkbox {
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #212529;
+    &-toggle {
+        accent-color: rgb(12, 84, 106);
+    }
+}
+.close-btn {
+    &:hover {
+        background: $primary-color !important;
+        color: #fff !important;
+    }
+}

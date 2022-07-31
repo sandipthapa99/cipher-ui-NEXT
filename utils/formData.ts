@@ -1,6 +1,6 @@
-import { prefix } from "@fortawesome/free-brands-svg-icons";
 import { ApplyValueProps } from "types/applyValueProps";
-import { BookNowFormProps, BookNowModalCardProps } from "types/bookNow";
+import { BookNowFormProps } from "types/bookNow";
+import { CertificationValueProps } from "types/CertificationValueProps";
 import { ClientSignUpValueProps } from "types/clientSignUp";
 import { AddPortfolio, AddSkills } from "types/editProfile";
 import { EquipmentValueProps } from "types/equipmentValueProps";
@@ -67,4 +67,15 @@ export const BookServiceFormData: BookNowFormProps = {
     date: "",
     time: 1,
     image: "",
+};
+
+export const CertificationFromData: CertificationValueProps = {
+    name: "",
+    organization: "",
+    description: "",
+    toggle: false,
+    credentialId: "",
+    certificateURL: "",
+    issuedDate: null,
+    expirationDate: null,
 };

@@ -6,6 +6,7 @@ import { Col, Row } from "react-bootstrap";
 import { ProfileAboutContent } from "staticData/profileAboutContent";
 
 import AddPortfolio from "./AddPortfolio";
+import CertificationForm from "./CertificationForm";
 import EditProfileButton from "./EditProfileButton";
 import ExperienceForm from "./ExperienceForm";
 
@@ -13,6 +14,7 @@ const AboutProfile = () => {
     const [showExpForm, setShowExpForm] = useState(false);
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
     const [showAddSkillsModal, setShowAddSkillsModal] = useState(false);
+    const [showCertificationModal, setShowCertificationModal] = useState(false);
 
     return (
         <>
@@ -179,7 +181,24 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>Certifications</h1>
-                                <a href="#!">Add New</a>
+                                <span
+                                    onClick={() =>
+                                        setShowCertificationModal(
+                                            !showCertificationModal
+                                        )
+                                    }
+                                >
+                                    Add New
+                                </span>
+                                <CertificationForm
+                                    show={showCertificationModal}
+                                    setShowCertificationModal={
+                                        setShowCertificationModal
+                                    }
+                                    handleClose={() =>
+                                        setShowCertificationModal(false)
+                                    }
+                                />
                             </div>
                             <Row>
                                 <Col md={9}>
