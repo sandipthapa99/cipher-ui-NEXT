@@ -72,7 +72,7 @@ const Header = () => {
                                     router
                                 )}
                             >
-                                <Link href="/resources">
+                                <Link href="/task">
                                     <a className="nav-link">
                                         <FontAwesomeIcon
                                             icon={faListCheck}
@@ -88,7 +88,7 @@ const Header = () => {
                                     router
                                 )}
                             >
-                                <Link href="/resources">
+                                <Link href="/tasker">
                                     <a className="nav-link">
                                         <FontAwesomeIcon
                                             icon={faUserHelmetSafety}
