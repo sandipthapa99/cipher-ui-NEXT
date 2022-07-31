@@ -289,4 +289,4 @@ const ServiceDetail: NextPage = () => {
     );
 };
 
-export default withAuth(ServiceDetail);
+export default ServiceDetail;

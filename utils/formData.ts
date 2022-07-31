@@ -2,7 +2,7 @@ import { prefix } from "@fortawesome/free-brands-svg-icons";
 import { ApplyValueProps } from "types/applyValueProps";
 import { BookNowFormProps, BookNowModalCardProps } from "types/bookNow";
 import { ClientSignUpValueProps } from "types/clientSignUp";
-import { AddPortfolio } from "types/editProfile";
+import { AddPortfolio, AddSkills } from "types/editProfile";
 import { EquipmentValueProps } from "types/equipmentValueProps";
 import { LoginValuesProps } from "types/login";
 
@@ -40,6 +40,10 @@ export const AddPortfolioFormData: AddPortfolio = {
     description: "",
     url: "",
     date: "",
+};
+
+export const AddSkillFormData: AddSkills = {
+    name: "",
 };
 
 export const BookServiceFormData: BookNowFormProps = {

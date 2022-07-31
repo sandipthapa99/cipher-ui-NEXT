@@ -10,7 +10,9 @@ import EditProfileButton from "./EditProfileButton";
 import ExperienceForm from "./ExperienceForm";
 
 const AboutProfile = () => {
-    const [showModal, setShowModal] = useState(false);
+    const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
+    const [showAddSkillsModal, setShowAddSkillsModal] = useState(false);
+
     return (
         <>
             {ProfileAboutContent &&
@@ -24,7 +26,9 @@ const AboutProfile = () => {
                                     text="Add New"
                                     showModal={true}
                                     handleOnClick={() =>
-                                        setShowModal(!showModal)
+                                        setShowAddPortfolioModal(
+                                            !showAddPortfolioModal
+                                        )
                                     }
                                 />
                             </div>
@@ -49,13 +53,13 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>Experience</h1>
-                                <span onClick={() => setShowModal(!showModal)}>
+                                {/* <span onClick={() => setShowModal(!showModal)}>
                                     Add New
                                 </span>
                                 <ExperienceForm
                                     show={showModal}
                                     handleClose={() => setShowModal(false)}
-                                />
+                                /> */}
                             </div>
 
                             <Row>
@@ -101,7 +105,15 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>Skills</h1>
-                                <a href="#!">Add New</a>
+                                <EditProfileButton
+                                    text="Add New"
+                                    showModal={true}
+                                    handleOnClick={() =>
+                                        setShowAddSkillsModal(
+                                            !showAddSkillsModal
+                                        )
+                                    }
+                                />
                             </div>
 
                             <Row>
@@ -196,8 +208,8 @@ const AboutProfile = () => {
                             </Row>
                         </div>
                         <AddPortfolio
-                            showModal={showModal}
-                            handleClose={() => setShowModal(false)}
+                            showModal={showAddPortfolioModal}
+                            handleClose={() => setShowAddPortfolioModal(false)}
                         />
                     </div>
                 ))}

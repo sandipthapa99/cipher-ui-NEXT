@@ -73,14 +73,14 @@ const ModalCard = ({
                                                 name="date"
                                                 error={errors.date}
                                                 touch={touched.date}
-                                                placeHolder="Portfolio Description"
+                                                placeHolder="dd/mm/yyy"
                                             />
                                         </Col>
                                         <Col md={6}>
                                             <h4>Estimated Time(hr)</h4>
                                             <InputField
                                                 type="number"
-                                                name="hour"
+                                                name="time"
                                                 min="1"
                                                 error={errors.time}
                                                 touch={touched.time}
@@ -95,17 +95,17 @@ const ModalCard = ({
                                     <p>Add relevant images or videos</p>
 
                                     <Row className="gx-5">
-                                        <Col md={4}>
+                                        <Col md={3}>
                                             <figure className="girl-thumbnail-img">
                                                 <Image
                                                     src={image}
-                                                    height={130}
-                                                    width={120}
+                                                    height={280}
+                                                    width={280}
                                                     alt="serviceprovider-image"
                                                 />
                                             </figure>
                                         </Col>
-                                        <Col md={4}>
+                                        <Col md={3}>
                                             {ImageVideoDragDop &&
                                                 ImageVideoDragDop.map(
                                                     (info) => (

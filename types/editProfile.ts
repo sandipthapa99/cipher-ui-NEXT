@@ -7,3 +7,10 @@ export interface AddPortfolio {
     url?: string;
     date?: string;
 }
+
+export interface AddSkills {
+    showModal?: boolean;
+    handleClose?: () => void;
+
+    name?: string;
+}

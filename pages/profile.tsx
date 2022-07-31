@@ -12,12 +12,6 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
 import { Button, Col, Container, Row, Tabs } from "react-bootstrap";
-import { merchantProfileCardInfo } from "staticData/merchantProfileCard";
-import { profileTaskCard } from "staticData/profileTaskCard";
-import { reviewsContent } from "staticData/reviews";
-import { rewardCardContent } from "staticData/rewardCard";
-import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
-import { userDocument } from "staticData/userDocument";
 import { userProfileCardInfo } from "staticData/userProfileCard";
 import { withAuth } from "utils/Auth/withAuth";
 
@@ -104,4 +98,4 @@ const UserProfile: NextPage = () => {
     );
 };
 
-export default withAuth(UserProfile);
+export default UserProfile;

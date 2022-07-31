@@ -1,4 +1,4 @@
-import { DatePickerField } from "@components/common/DateTimeField";
+// import { DatePickerField } from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
@@ -24,7 +24,7 @@ const ExperienceForm = ({ show, handleClose }: ExperienceProps) => {
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose}>
+            {/* <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
                     <h3>Task Details</h3>
@@ -118,7 +118,7 @@ const ExperienceForm = ({ show, handleClose }: ExperienceProps) => {
                 buttonName="Continue"
                 type="Success"
                 iconName={faSquareCheck}
-            />
+            /> */}
         </>
     );
 };
