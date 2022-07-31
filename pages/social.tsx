@@ -123,4 +123,4 @@ const SocialResponsibilities: NextPage = () => {
     );
 };
 
-export default withAuth(SocialResponsibilities);
+export default SocialResponsibilities;
