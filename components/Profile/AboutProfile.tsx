@@ -7,12 +7,11 @@ import { ProfileAboutContent } from "staticData/profileAboutContent";
 
 import AddPortfolio from "./AddPortfolio";
 import EditProfileButton from "./EditProfileButton";
-import ExperienceForm from "./ExperienceForm";
 
 const AboutProfile = () => {
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
     const [showAddSkillsModal, setShowAddSkillsModal] = useState(false);
-
+    const [showExpForm, setShowExpForm] = useState(false);
     return (
         <>
             {ProfileAboutContent &&
@@ -22,7 +21,7 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>My Portfolio</h1>
-                                <EditProfileButton
+                                {/* <EditProfileButton
                                     text="Add New"
                                     showModal={true}
                                     handleOnClick={() =>
@@ -30,7 +29,7 @@ const AboutProfile = () => {
                                             !showAddPortfolioModal
                                         )
                                     }
-                                />
+                                /> */}
                             </div>
 
                             <div className="content">

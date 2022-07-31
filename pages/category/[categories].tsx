@@ -10,7 +10,6 @@ import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 import { tasks } from "staticData/task";
-import { withAuth } from "utils/Auth/withAuth";
 
 const Gardening = () => {
     const router = useRouter();
@@ -197,4 +196,4 @@ const Gardening = () => {
         </Layout>
     );
 };
-export default withAuth(Gardening);
+export default Gardening;

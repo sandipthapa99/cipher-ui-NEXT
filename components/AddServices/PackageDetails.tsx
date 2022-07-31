@@ -49,7 +49,9 @@ export const PackageDetails = ({
                             <div className="service-form-body">
                                 <Formik
                                     initialValues={packageDetailsData}
-                                    onSubmit={() => {}}
+                                    onSubmit={() => {
+                                        console.log("test");
+                                    }}
                                 >
                                     {({ errors, touched }) => (
                                         <>

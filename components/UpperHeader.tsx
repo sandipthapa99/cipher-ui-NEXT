@@ -1,8 +1,10 @@
 import { faBars } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAuthContext } from "context/AuthContext/userContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { profileCardContent } from "staticData/profileCardContent";
@@ -13,6 +15,8 @@ import { ProfileModel } from "./model/ProfileModel";
 export function UpperHeader() {
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
+
+    const { token } = useAuthContext();
 
     return (
         <>
@@ -58,48 +62,52 @@ export function UpperHeader() {
                                         <a className="nav-link">Resources</a>
                                     </Link>
                                 </li>
-                                <li
-                                    className={handleMenuActive(
-                                        "/login",
-                                        router
-                                    )}
-                                >
-                                    <Link href="/login">
-                                        <a className="nav-link d-md-none d-inline-block">
-                                            Log In
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li
-                                    className={handleMenuActive(
-                                        "/signup",
-                                        router
-                                    )}
-                                >
-                                    <Link href="/signup">
-                                        <a className="nav-link d-md-none d-inline-block">
-                                            Sign Up
-                                        </a>
-                                    </Link>
-                                </li>
+                                {!token && (
+                                    <li
+                                        className={handleMenuActive(
+                                            "/login",
+                                            router
+                                        )}
+                                    >
+                                        <Link href="/login">
+                                            <a className="nav-link d-md-none d-inline-block">
+                                                Log In
+                                            </a>
+                                        </Link>
+                                    </li>
+                                )}
+                                {!token && (
+                                    <li
+                                        className={handleMenuActive(
+                                            "/signup",
+                                            router
+                                        )}
+                                    >
+                                        <Link href="/signup">
+                                            <a className="nav-link d-md-none d-inline-block">
+                                                Sign Up
+                                            </a>
+                                        </Link>
+                                    </li>
+                                )}
                             </nav>
                         </Navbar.Collapse>
 
-                        {
+                        {!token && (
                             <Link href="/login">
                                 <a className="btn login-btn d-none d-md-inline-block">
                                     Login
                                 </a>
                             </Link>
-                        }
+                        )}
 
-                        {
+                        {!token && (
                             <Link href="/signup">
                                 <a className="btn login-btn d-none d-md-inline-block">
                                     Sign Up
                                 </a>
                             </Link>
-                        }
+                        )}
                         <div className="user-profile">
                             <span
                                 className="btn location-btn d-none d-md-inline-block"

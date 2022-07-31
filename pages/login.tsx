@@ -5,14 +5,15 @@ import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { useAuthContext } from "context/AuthContext/userContext";
 import { Form, Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
 import React from "react";
-import { withAuth } from "utils/Auth/withAuth";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
     const { loginUser } = useAuthContext();
+    console.log(1);
 
     return (
         <section>
@@ -29,7 +30,7 @@ const Login = () => {
                     <Formik
                         initialValues={loginFormData}
                         validationSchema={loginFormSchema}
-                        onSubmit={async (values) => {
+                        onSubmit={(values) => {
                             loginUser(values);
                         }}
                     >

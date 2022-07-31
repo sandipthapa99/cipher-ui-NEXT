@@ -8,6 +8,7 @@ import Layout from "@components/Layout";
 import { faSearch } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import React from "react";
@@ -281,4 +282,4 @@ const Help: NextPage = () => {
     );
 };
 
-export default Help;
+export default withAuth(Help);
