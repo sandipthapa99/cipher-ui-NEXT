@@ -94,39 +94,42 @@ export function UpperHeader() {
                         </Navbar.Collapse>
 
                         {!token && (
-                            <Link href="/login">
-                                <a className="btn login-btn d-none d-md-inline-block">
-                                    Login
-                                </a>
-                            </Link>
+                            <>
+                                <Link href="/login">
+                                    <a className="btn login-btn d-none d-md-inline-block">
+                                        Login
+                                    </a>
+                                </Link>
+                                <Link href="/signup">
+                                    <a className="btn login-btn d-none d-md-inline-block">
+                                        Sign Up
+                                    </a>
+                                </Link>
+                            </>
                         )}
-
-                        {!token && (
-                            <Link href="/signup">
-                                <a className="btn login-btn d-none d-md-inline-block">
-                                    Sign Up
-                                </a>
-                            </Link>
-                        )}
-                        <div className="user-profile">
-                            <span
-                                className="btn location-btn d-none d-md-inline-block"
-                                onClick={() => setNotopen(!notopen)}
-                            >
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/userprofile/profile.svg"
-                                        layout="fill"
-                                        alt="profile-pic"
-                                        className="rounded-circle"
-                                        objectFit="cover"
+                        {token && (
+                            <div className="user-profile">
+                                <span
+                                    className="btn location-btn d-none d-md-inline-block"
+                                    onClick={() => setNotopen(!notopen)}
+                                >
+                                    <figure className="thumbnail-img">
+                                        <Image
+                                            src="/userprofile/profile.svg"
+                                            layout="fill"
+                                            alt="profile-pic"
+                                            className="rounded-circle"
+                                            objectFit="cover"
+                                        />
+                                    </figure>
+                                </span>
+                                {notopen && (
+                                    <ProfileModel
+                                        profile={profileCardContent}
                                     />
-                                </figure>
-                            </span>
-                            {notopen && (
-                                <ProfileModel profile={profileCardContent} />
-                            )}
-                        </div>
+                                )}
+                            </div>
+                        )}
 
                         <Link href="/post-task">
                             <a className="btn nav-cta-btn d-none d-md-inline-block">
