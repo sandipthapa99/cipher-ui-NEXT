@@ -4,7 +4,6 @@ import {
     faLinkedin,
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { faCopy } from "@fortawesome/pro-regular-svg-icons";
 import { faLink } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +14,6 @@ import {
     LinkedinShareButton,
     TwitterShareButton,
 } from "next-share";
-import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { ShareButtonProps } from "types/shareButton";
 
