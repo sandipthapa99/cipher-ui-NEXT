@@ -1,10 +1,9 @@
 .affiliate-hero-section {
-    background-color: #FFFFFF40;
+    background-color: #ffffff40;
     margin-bottom: 4rem;
 
     .row {
         padding: 4rem 0 9.2rem 0;
-
     }
 
     .thumbnail-img {
@@ -27,7 +26,7 @@
             font-size: 1.4rem;
             font-weight: 500;
             line-height: 2.2rem;
-            color: #343A40;
+            color: #343a40;
         }
 
         ul {
@@ -43,7 +42,7 @@
 
                 &::before {
                     content: "\2022";
-                    color: #0693E3;
+                    color: #0693e3;
                     font-weight: 700;
                     display: inline-block;
                     width: 1em;
@@ -59,7 +58,7 @@
     }
 
     h2 {
-        color: #343A40;
+        color: #343a40;
         font-size: 1.4rem;
         font-weight: 500;
     }
@@ -69,12 +68,12 @@
     h2 {
         font-size: 1.4rem;
         font-weight: 500;
-        color: #343A40;
+        color: #343a40;
         margin-bottom: 4rem;
     }
 
     .table-card {
-        background-color: #FFFFFF40;
+        background-color: #ffffff40;
         box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
         border-radius: 0.4rem;
 
@@ -82,15 +81,15 @@
             width: 100%;
 
             th {
-                color: #0693E3;
+                color: #0693e3;
                 font-size: 2rem;
                 font-weight: 500;
                 text-align: left;
                 padding: 3.2rem 6rem 3.2rem 6rem;
-                border-bottom: 1px solid #CED4DA;
+                border-bottom: 1px solid #ced4da;
 
                 &:first-child {
-                    border-right: 1px solid #CED4DA;
+                    border-right: 1px solid #ced4da;
                 }
             }
 
@@ -98,7 +97,7 @@
                 padding-left: 8rem;
 
                 &:first-child {
-                    border-right: 1px solid #CED4DA;
+                    border-right: 1px solid #ced4da;
                 }
 
                 ul {
@@ -112,7 +111,7 @@
                         margin-bottom: 2.4rem;
                         font-size: 1.4rem;
                         font-weight: 500;
-                        color: #343A40;
+                        color: #343a40;
                     }
                 }
             }
@@ -125,7 +124,7 @@
         p {
             font-size: 1.4rem;
             font-weight: 500;
-            color: #343A40;
+            color: #343a40;
             line-height: 2.2rem;
         }
     }
@@ -133,14 +132,14 @@
 
 .why-cipher {
     padding: 4rem;
-    background-color: #FFFFFF40;
+    background-color: #ffffff40;
     box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
     border-radius: 0.4rem;
 
     h2 {
         font-size: 1.6rem;
         font-weight: 500;
-        color: #343A40;
+        color: #343a40;
     }
 
     p {
@@ -159,7 +158,7 @@
     h1 {
         font-size: 2rem;
         font-weight: 500;
-        color: #343A40;
+        color: #343a40;
     }
 
     .accordion {
@@ -167,5 +166,4 @@
             background-color: transparent;
         }
     }
-
 }
