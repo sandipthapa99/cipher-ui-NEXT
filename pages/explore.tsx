@@ -6,7 +6,6 @@ import ServiceCard from "@components/common/ServiceCard";
 import Layout from "@components/Layout";
 import { faSearch } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
@@ -330,4 +329,4 @@ const ExploreServices: NextPage = () => {
     );
 };
 
-export default withAuth(ExploreServices);
+export default ExploreServices;

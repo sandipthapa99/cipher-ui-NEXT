@@ -4,7 +4,6 @@ import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
 import { UserTaskCardList } from "@components/Task/UserTaskCard/UserTaskCardList";
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
-import { withAuth } from "hoc/withAuth";
 import { useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { taskDetails } from "staticData/taskDetail";
@@ -68,4 +67,4 @@ const Tasker = () => {
     );
 };
 
-export default withAuth(Tasker);
+export default Tasker;

@@ -93,19 +93,18 @@ export function UpperHeader() {
                         </Navbar.Collapse>
 
                         {!token && (
-                            <Link href="/login">
-                                <a className="btn login-btn d-none d-md-inline-block">
-                                    Login
-                                </a>
-                            </Link>
-                        )}
-
-                        {!token && (
-                            <Link href="/signup">
-                                <a className="btn login-btn d-none d-md-inline-block">
-                                    Sign Up
-                                </a>
-                            </Link>
+                            <>
+                                <Link href="/login">
+                                    <a className="btn login-btn d-none d-md-inline-block">
+                                        Login
+                                    </a>
+                                </Link>
+                                <Link href="/signup">
+                                    <a className="btn login-btn d-none d-md-inline-block">
+                                        Sign Up
+                                    </a>
+                                </Link>
+                            </>
                         )}
                         {token && (
                             <div className="user-profile">
