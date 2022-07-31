@@ -18,9 +18,14 @@ import BigButton from "./Button";
 interface Props {
     task: Task;
     collabButton?: boolean;
+    handleButtonClick?: () => void;
 }
 
-export const TeamMembersCard = ({ task, collabButton }: Props) => {
+export const TeamMembersCard = ({
+    task,
+    collabButton,
+    handleButtonClick,
+}: Props) => {
     return (
         <div className="team-members-card">
             <div className="d-flex w-100 image-and-title">
@@ -84,6 +89,7 @@ export const TeamMembersCard = ({ task, collabButton }: Props) => {
                         <BigButton
                             btnTitle={"Collab"}
                             backgroundColor={"#211D4F"}
+                            handleClick={handleButtonClick}
                         />
                     ) : (
                         "Rs 600"
