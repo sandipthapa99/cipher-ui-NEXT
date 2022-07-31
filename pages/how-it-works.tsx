@@ -12,9 +12,10 @@ import { messageCard } from "staticData/messageCard";
 const HowItWorks: NextPage = () => {
     return (
         <Layout title="How it Works | Cipher">
-            <section className="how-it-works">
-                <Breadcrum currentPage="How it Works" />
-                <Container fluid="xl">
+            <Container fluid="xl">
+                <section className="how-it-works">
+                    <Breadcrum currentPage="How it Works" />
+
                     <div className="how-it-works__top-container">
                         <h1>See how things work in Cipher</h1>
                         <p>
@@ -118,8 +119,8 @@ const HowItWorks: NextPage = () => {
                             </Row>
                         </div>
                     </div>
-                </Container>
-            </section>
+                </section>
+            </Container>
         </Layout>
     );
 };
