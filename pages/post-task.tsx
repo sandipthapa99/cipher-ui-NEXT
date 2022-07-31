@@ -10,7 +10,6 @@ import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
-import { withAuth } from "utils/Auth/withAuth";
 
 import SearchHeader from "../components/SearchTask/searchHeader";
 
