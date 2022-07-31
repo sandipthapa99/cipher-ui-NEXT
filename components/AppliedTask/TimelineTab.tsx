@@ -1,8 +1,8 @@
 import BigButton from "@components/common/Button";
-import React, { useState } from "react";
-import { faCircleSmall, faCircleDot } from "@fortawesome/pro-solid-svg-icons";
-import { TaskDetailTimelineData } from "staticData/taskDetailTimeline";
+import { faCircleDot, faCircleSmall } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
+import { TaskDetailTimelineData } from "staticData/taskDetailTimeline";
 
 export const TimelineTab = () => {
     const [activeId, setActiveId] = useState<number>(1);
