@@ -1,17 +1,17 @@
 .accept-task {
     display: flex;
     flex-direction: column;
+    gap: 14px;
 
     &__list {
         min-width: 422px;
         max-height: 50vh;
         overflow-y: scroll;
-        padding: 1rem;
+        padding-inline: 10px;
     }
-    &__detail {
-    }
-
     @include respond(sm) {
         flex-direction: row;
     }
+}
+.user-task-detail {
 }
