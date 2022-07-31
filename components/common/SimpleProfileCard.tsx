@@ -1,4 +1,9 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faCirclePlus,
+    faCircleMinus,
+} from "@fortawesome/pro-regular-svg-icons";
 import Image from "next/image";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";
@@ -11,8 +16,11 @@ const SimpleProfileCard = ({
     name,
     speciality,
     startingPrice,
+    isApplied,
 }: ServiceProviderCardProps) => {
     const [showModal, setShowModal] = useState(false);
+    const [priceValue, setPriceValue] = useState(25);
+    const [priceChanged, setPriceChanged] = useState(false);
     return (
         <div className="simple-card my-5 my-lg-0 ">
             <div className="d-flex align-items-center simple-card__profile">
@@ -29,16 +37,71 @@ const SimpleProfileCard = ({
                     <p className="job">{speciality}</p>
                 </div>
             </div>
-            <div className="d-flex justify-content-around align-items-center flex-column flex-sm-row p-4 simple-card__price">
-                <span>Starting price</span>
+
+            {isApplied && (
+                <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
+                    <span>Your Price</span>
+                    <div className="d-flex price-edit">
+                        <FontAwesomeIcon
+                            icon={faCirclePlus}
+                            onClick={() => {
+                                setPriceValue(priceValue + 1);
+                                setPriceChanged(true);
+                            }}
+                        />
+                        <input
+                            type="text"
+                            name="changed_price_value"
+                            value={priceValue}
+                        />
+                        <FontAwesomeIcon
+                            icon={faCircleMinus}
+                            onClick={() => {
+                                setPriceValue(priceValue - 1);
+                                setPriceChanged(true);
+                            }}
+                        />
+                    </div>
+                </div>
+            )}
+
+            <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
+                <span>Budget Range</span>
                 <span className="price">Rs {startingPrice}</span>
             </div>
-            <BookNowButton
-                btnTitle={"Apply Now"}
-                backgroundColor={"#38C675"}
-                showModal={true}
-                handleOnClick={() => setShowModal(!showModal)}
-            />
+
+            {isApplied ? (
+                !priceChanged ? (
+                    <BookNowButton
+                        btnTitle="Leave Task"
+                        backgroundColor="#FE5050"
+                    />
+                ) : (
+                    <BookNowButton
+                        btnTitle={"Save"}
+                        backgroundColor={"#211D4F"}
+                        handleOnClick={() => setPriceChanged(false)}
+                    />
+                )
+            ) : (
+                <>
+                    {!priceChanged ? (
+                        <BookNowButton
+                            btnTitle={"Apply Now"}
+                            backgroundColor={"#38C675"}
+                            showModal={true}
+                            handleOnClick={() => setShowModal(!showModal)}
+                        />
+                    ) : (
+                        <BookNowButton
+                            btnTitle={"Save"}
+                            backgroundColor={"#211D4F"}
+                            handleOnClick={() => setPriceChanged(false)}
+                        />
+                    )}
+                </>
+            )}
+
             {BookingDetails &&
                 BookingDetails.map((detail) => (
                     <AppliedForm
