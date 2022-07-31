@@ -1,7 +1,7 @@
 import {
     faCalendar,
-    faLocationArrow,
     faClockEight,
+    faLocationArrow,
     faLocationDot,
     faShare,
     faUserGroup,

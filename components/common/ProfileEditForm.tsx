@@ -30,7 +30,6 @@ const ProfileEditForm = ({
     show,
     handleClose,
     setShowEdit,
-    userName,
 }: ProfileEditProps) => {
     const { setShowSuccessModal } = useSuccessContext();
     return (
