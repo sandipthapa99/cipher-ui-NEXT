@@ -1,11 +1,13 @@
 import AllCategoryCard from "@components/common/AllCategoryCard";
 import Breadcrum from "@components/common/Breadcrum";
+import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MessageCard from "@components/common/MessageCard";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { AllCategoryCardContent } from "staticData/categoryCardContent";
+import { howItWorkContent } from "staticData/howTtWork";
 import { messageCard } from "staticData/messageCard";
 const HowItWorks: NextPage = () => {
     return (
@@ -27,6 +29,18 @@ const HowItWorks: NextPage = () => {
                                 alt="economic-image"
                             />
                         </figure>
+                    </div>
+                    <div className="how-it-works__content card-block">
+                        {howItWorkContent &&
+                            howItWorkContent.map((info) => (
+                                <LongSquareImageCard
+                                    title={info.title}
+                                    subtitle={info.subtitle}
+                                    image={info.image}
+                                    description={info.description}
+                                    key={info.id}
+                                />
+                            ))}
                     </div>
                     <div className="how-it-works__categories">
                         <h1>Our categories</h1>
