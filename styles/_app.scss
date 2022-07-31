@@ -14,7 +14,9 @@ body {
         font-size: 1.6rem;
     }
 }
-
+li {
+    list-style-type: none;
+}
 a {
     color: #0693e3;
     text-decoration: none;
