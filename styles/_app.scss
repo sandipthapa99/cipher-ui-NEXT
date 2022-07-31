@@ -126,6 +126,12 @@ img {
     max-width: 100%;
     max-height: 100%;
 }
+section{
+	margin-bottom: 4rem;
+	@include respond(md){
+		margin-bottom: 8rem;
+	}
+}
 
 .thumbnail-img {
     overflow: hidden;
@@ -133,7 +139,7 @@ img {
     img {
         width: 100%;
         object-fit: cover;
-        @transform();
+        @include transform();
         @include transition();
     }
 }
@@ -376,18 +382,18 @@ small.text-muted {
 }
 
 .heading-title {
-    font-size: 1.6rem;
-    font-weight: 500;
-    margin: 0 0 2rem;
-    font-weight: 500;
-    color: #343a40;
-    @include respond(md) {
-        font-size: 2rem;
-        margin: 0 0 2.4rem;
-    }
-    span {
-        color: $primary-color;
-    }
+	font-size: 1.6rem;
+	font-weight: 500;
+	margin: 0 0 2rem;
+	font-weight: 500;
+	color: $primary-color;
+	@include respond(md) {
+		font-size: 2rem;
+		margin: 0 0 2.4rem;
+	}
+	span {
+		color: $primary-color;
+	}
 }
 .heading-title-sm {
     font-size: 2rem;
