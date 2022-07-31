@@ -11,10 +11,11 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { Overlay, Tooltip } from "react-bootstrap";
 import { UserProfileInfoProps } from "types/userProfile";
+
+import TooltipMessage from "./Tooltip";
 
 const UserProfileCard = ({
     userImage,
@@ -39,8 +40,6 @@ const UserProfileCard = ({
     userActiveStatus,
     tooltipMessage,
 }: UserProfileInfoProps) => {
-    const [show, setShow] = useState(false);
-    const target = useRef(null);
     return (
         <div className="profile-card-block">
             <Row>
@@ -167,28 +166,19 @@ const UserProfileCard = ({
                                     />
                                 </figure>
                                 <div className="left">
-                                    <Overlay
-                                        target={target.current}
-                                        show={show}
-                                        placement="top"
-                                    >
-                                        {(props: any) => (
-                                            <Tooltip {...props}>
-                                                {tooltipMessage}
-                                            </Tooltip>
-                                        )}
-                                    </Overlay>
-                                    <div
-                                        ref={target}
-                                        onClick={() => setShow(!show)}
-                                        className="user-type d-flex"
-                                    >
-                                        <h1>{userBadge}</h1>
+                                    <div className="user-type d-flex">
+                                        <TooltipMessage
+                                            message={tooltipMessage}
+                                            place="top"
+                                        >
+                                            <h1>{userBadge}</h1>
+                                        </TooltipMessage>
                                         <FontAwesomeIcon
                                             icon={faCircleQuestion}
                                             className="svg-icon"
                                         />
                                     </div>
+
                                     <p className="user-point">
                                         {userPoints} points
                                     </p>

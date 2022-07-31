@@ -206,4 +206,4 @@ const GrowYourBusiness: NextPage = () => {
     );
 };
 
-export default withAuth(GrowYourBusiness);
+export default GrowYourBusiness;

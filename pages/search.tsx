@@ -35,4 +35,4 @@ const SearchPage: NextPage = () => {
         </>
     );
 };
-export default withAuth(SearchPage);
+export default SearchPage;

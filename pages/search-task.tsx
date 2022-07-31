@@ -61,4 +61,4 @@ const SearchTask: NextPage = () => {
     );
 };
 
-export default withAuth(SearchTask);
+export default SearchTask;

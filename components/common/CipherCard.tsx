@@ -12,7 +12,7 @@ const CipherCard = ({
     thumbnailImg: string;
     title: string;
     description: string;
-    redirectTo: string;
+    redirectTo?: string;
 }) => {
     return (
         <div className="cipher-card-block">
@@ -28,15 +28,17 @@ const CipherCard = ({
                 <h2>{title}</h2>
                 <p>{description}</p>
 
-                <Link href={redirectTo}>
-                    <a>
-                        {title}
-                        <FontAwesomeIcon
-                            icon={faAngleRight}
-                            className="svg-icon"
-                        />
-                    </a>
-                </Link>
+                {redirectTo && (
+                    <Link href={redirectTo}>
+                        <a>
+                            {title}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
+                        </a>
+                    </Link>
+                )}
             </div>
         </div>
     );

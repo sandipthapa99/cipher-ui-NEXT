@@ -329,4 +329,4 @@ const ExploreServices: NextPage = () => {
     );
 };
 
-export default withAuth(ExploreServices);
+export default ExploreServices;

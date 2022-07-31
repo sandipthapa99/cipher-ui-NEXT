@@ -1,4 +1,4 @@
-import { faEdit } from "@fortawesome/pro-regular-svg-icons";
+import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
@@ -7,10 +7,11 @@ import { ProfileAboutContent } from "staticData/profileAboutContent";
 
 import AddPortfolio from "./AddPortfolio";
 import EditProfileButton from "./EditProfileButton";
-import ExperienceForm from "./ExperienceForm";
 
 const AboutProfile = () => {
-    const [showModal, setShowModal] = useState(false);
+    const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
+    const [showAddSkillsModal, setShowAddSkillsModal] = useState(false);
+    const [showExpForm, setShowExpForm] = useState(false);
     return (
         <>
             {ProfileAboutContent &&
@@ -20,13 +21,15 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>My Portfolio</h1>
-                                <EditProfileButton
+                                {/* <EditProfileButton
                                     text="Add New"
                                     showModal={true}
                                     handleOnClick={() =>
-                                        setShowModal(!showModal)
+                                        setShowAddPortfolioModal(
+                                            !showAddPortfolioModal
+                                        )
                                     }
-                                />
+                                /> */}
                             </div>
 
                             <div className="content">
@@ -49,13 +52,13 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>Experience</h1>
-                                <span onClick={() => setShowModal(!showModal)}>
+                                {/* <span onClick={() => setShowModal(!showModal)}>
                                     Add New
                                 </span>
                                 <ExperienceForm
                                     show={showModal}
                                     handleClose={() => setShowModal(false)}
-                                />
+                                /> */}
                             </div>
 
                             <Row>
@@ -69,7 +72,7 @@ const AboutProfile = () => {
                                                 <div className="name d-flex">
                                                     <h3>{info.name}</h3>
                                                     <FontAwesomeIcon
-                                                        icon={faEdit}
+                                                        icon={faPencil}
                                                         className="svg-icon"
                                                     />
                                                 </div>
@@ -101,7 +104,15 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>Skills</h1>
-                                <a href="#!">Add New</a>
+                                <EditProfileButton
+                                    text="Add New"
+                                    showModal={true}
+                                    handleOnClick={() =>
+                                        setShowAddSkillsModal(
+                                            !showAddSkillsModal
+                                        )
+                                    }
+                                />
                             </div>
 
                             <Row>
@@ -138,7 +149,7 @@ const AboutProfile = () => {
                                                         {info.institution}
                                                     </h3>
                                                     <FontAwesomeIcon
-                                                        icon={faEdit}
+                                                        icon={faPencil}
                                                         className="svg-icon"
                                                     />
                                                 </div>
@@ -178,7 +189,7 @@ const AboutProfile = () => {
                                                         {info.name}
                                                     </h3>
                                                     <FontAwesomeIcon
-                                                        icon={faEdit}
+                                                        icon={faPencil}
                                                         className="svg-icon"
                                                     />
                                                 </div>
@@ -196,8 +207,8 @@ const AboutProfile = () => {
                             </Row>
                         </div>
                         <AddPortfolio
-                            showModal={showModal}
-                            handleClose={() => setShowModal(false)}
+                            showModal={showAddPortfolioModal}
+                            handleClose={() => setShowAddPortfolioModal(false)}
                         />
                     </div>
                 ))}
