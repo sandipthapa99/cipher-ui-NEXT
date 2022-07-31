@@ -11,10 +11,11 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { UserProfileInfoProps } from "types/userProfile";
 
+import ProfileEditForm from "./ProfileEditForm";
 import TooltipMessage from "./Tooltip";
 
 const UserProfileCard = ({
@@ -35,11 +36,10 @@ const UserProfileCard = ({
     pointGoal,
     happyClients,
     successRate,
-    userReviews,
     taskCompleted,
-    userActiveStatus,
     tooltipMessage,
 }: UserProfileInfoProps) => {
+    const [showEdit, setShowEdit] = useState(false);
     return (
         <div className="profile-card-block">
             <Row>
@@ -83,7 +83,17 @@ const UserProfileCard = ({
                         ))}
                     </div>
                     <div className="price">${userPrice}/hr</div>
-                    <button className="button">Edit Profile</button>
+                    <button
+                        className="button"
+                        onClick={() => setShowEdit(!showEdit)}
+                    >
+                        Edit Profile
+                    </button>
+                    <ProfileEditForm
+                        show={showEdit}
+                        setShowEdit={setShowEdit}
+                        handleClose={() => setShowEdit(false)}
+                    />
                 </Col>
 
                 <Col md={9} className="profile-card-block__general-info">

@@ -6,6 +6,7 @@ import { AddPortfolio, AddSkills } from "types/editProfile";
 import { EquipmentValueProps } from "types/equipmentValueProps";
 import { ExperienceValueProps } from "types/experienceValueProps";
 import { LoginValuesProps } from "types/login";
+import { ProfileEditValueProps } from "types/ProfileEditValueProps";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
@@ -78,4 +79,18 @@ export const CertificationFromData: CertificationValueProps = {
     certificateURL: "",
     issuedDate: null,
     expirationDate: null,
+};
+
+export const ProfileEditFromData: ProfileEditValueProps = {
+    name: "",
+    bio: "",
+    email: "",
+    phone: "",
+    addressLine1: "",
+    addressLine2: "",
+    activeHoursFrom: "",
+    activeHoursTo: "",
+    specialities: "",
+    baseRatePerHour: "",
+    linkedAccounts: "",
 };
