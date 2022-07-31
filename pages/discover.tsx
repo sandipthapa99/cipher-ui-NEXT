@@ -4,9 +4,12 @@ import Breadcrum from "@components/common/Breadcrum";
 import BigButton from "@components/common/Button";
 import MerchantAdviceCard from "@components/common/MerchantAdviceCard";
 import MerchantCard from "@components/common/MerchantCard";
+import RecommendationChips from "@components/common/RecommendationChips";
 import ServiceCard from "@components/common/ServiceCard";
+import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
-import { withAuth } from "hoc/withAuth";
+import { faSearch } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
@@ -25,31 +28,11 @@ const Discover: NextPage = () => {
 
                     {/* Discover top container start */}
                     <section className="discover-page__top-container">
-                        <div className="gradient"></div>
-                        <figure className="thumbnail-img">
-                            <Image
-                                src="/discover/main.svg"
-                                layout="fill"
-                                objectFit="cover"
-                                alt="oppurtunities-page-main-image"
-                            />
-                        </figure>
-                        <div className="overlay">
-                            <h1>
-                                Looking to earn money <br /> quickly?
-                            </h1>
-                            <div className="bottom-content">
-                                <p>
-                                    It doesn&apos;t even take a minute to sign
-                                    up
-                                </p>
-                                <BigButton
-                                    btnTitle="Join Us"
-                                    backgroundColor="#fff"
-                                />
-                                {/* <Button className="btn">Join Us</Button> */}
-                            </div>
-                        </div>
+                        <GradientBanner
+                            title="Looking to earn money quickly?"
+                            subTitle="It doesn't even take a minute to sign up"
+                            image="/discover/main.svg"
+                        />
                     </section>
                     {/* Discover top container end */}
                     {/* Services near you section start */}
