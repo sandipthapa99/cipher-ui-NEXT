@@ -33,8 +33,8 @@ export const withAuth = <T,>(Component: ComponentType<T>) => {
         "/login",
         "/signup",
         "/signup/choose",
-        "signup/client",
-        "signup/tasker",
+        "/signup/client",
+        "/signup/tasker",
     ];
     const WrapperApp = (props: T) => {
         const router = useRouter();

@@ -165,4 +165,4 @@ const SignUpAsTasker = () => {
         </OnBoardingLayout>
     );
 };
-export default SignUpAsTasker;
+export default withAuth(SignUpAsTasker);
