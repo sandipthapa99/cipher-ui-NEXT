@@ -4,13 +4,13 @@
         font-size: 2rem;
         line-height: 4.4rem;
         font-weight: 500;
-        line-height: 3.7rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0rem;
     }
     p {
         color: $sub-title-color;
         font-size: 1.4rem;
         font-weight: 500;
+        line-height: 2.8rem;
         margin-bottom: 1rem;
     }
     &__top-container {
@@ -25,6 +25,39 @@
         .allcategory-card-block {
             p {
                 font-size: 1.5rem;
+            }
+        }
+    }
+
+    &__communicate {
+        margin: 5rem 0rem;
+        justify-content: center;
+        align-items: center;
+        .communicate-card {
+            padding-top: 3rem;
+            padding-left: 2.2rem;
+            padding-bottom: 2.6rem;
+            padding-right: 1rem;
+            .connect {
+                padding: 1.5rem 0rem;
+                h4 {
+                    font-size: 1.8rem;
+                    font-weight: 500;
+                    color: $sub-title-color;
+                }
+                p {
+                    color: $secondary-text-color;
+                    line-height: 2.3rem;
+                    font-size: 1.3rem;
+                }
+            }
+            .private-message {
+                h1 {
+                    font-size: 1.4rem;
+                }
+                p {
+                    font-size: 1.3rem;
+                }
             }
         }
     }
