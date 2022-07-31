@@ -21,7 +21,7 @@ export const userProfileCardInfo = [
         happyClients: 24,
         successRate: 30,
         userReviews: 14,
-        tooltipMessage: "Hello",
+        tooltipMessage: "Tooltip Message will show up here",
         taskCompleted: 30,
         userActiveStatus: true,
     },

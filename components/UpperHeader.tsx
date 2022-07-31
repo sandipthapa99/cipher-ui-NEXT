@@ -44,7 +44,7 @@ export function UpperHeader() {
                                         router
                                     )}
                                 >
-                                    <Link href="/discover">
+                                    <Link href="/how-it-works">
                                         <a className="nav-link">How It Works</a>
                                     </Link>
                                 </li>
