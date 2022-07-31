@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
 import React from "react";
 import DateView from "react-datepicker";
-import { InputFieldProps } from "types/inputField";
+import { DatePickerProps } from "types/datePickerProps";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 
 const DatePickerField = ({
@@ -14,10 +14,12 @@ const DatePickerField = ({
     touch,
     placeHolder,
     labelName,
+    timeOnly,
     textMuted,
+    dateFormat,
     fieldRequired = false,
     ...restProps
-}: InputFieldProps & Partial<HTMLInputElement>) => {
+}: DatePickerProps & Partial<HTMLInputElement>) => {
     return (
         <div className={checkFormGroup(error)}>
             {labelName && (
@@ -40,10 +42,13 @@ const DatePickerField = ({
                                     error,
                                     touch
                                 )} ps-5 `}
+                                showTimeSelect={timeOnly ?? undefined}
+                                showTimeSelectOnly={timeOnly ?? undefined}
+                                autocomplete="off"
                                 selected={value}
                                 placeholderText={placeHolder}
                                 onChange={(val) => setFieldValue(name, val)}
-                                dateFormat="dd/MM/yyy"
+                                dateFormat={dateFormat}
                             />
                         );
                     }}
