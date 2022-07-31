@@ -2,7 +2,6 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
-import { withAuth } from "utils/Auth/withAuth";
 import emailValidationSchema from "utils/formValidation/emailValidation";
 import { isSubmittingClass } from "utils/helpers";
 

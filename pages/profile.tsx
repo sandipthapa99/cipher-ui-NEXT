@@ -8,6 +8,7 @@ import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -96,4 +97,4 @@ const UserProfile: NextPage = () => {
     );
 };
 
-export default UserProfile;
+export default withAuth(UserProfile);
