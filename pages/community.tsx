@@ -247,4 +247,4 @@ const Community: NextPage = () => {
     );
 };
 
-export default withAuth(Community);
+export default Community;

@@ -56,4 +56,4 @@ const ForgotPassword = () => {
         </section>
     );
 };
-export default withAuth(ForgotPassword);
+export default ForgotPassword;
