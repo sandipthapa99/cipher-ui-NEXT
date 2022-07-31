@@ -17,7 +17,7 @@ import { isSubmittingClass } from "utils/helpers";
 interface ExperienceProps {
     show?: boolean;
     handleClose?: () => void;
-    setShowModal: Dispatch<SetStateAction<boolean>>;
+    setShowExpForm: Dispatch<SetStateAction<boolean>>;
 }
 
 const dropdownOptions = [
@@ -29,7 +29,7 @@ const dropdownOptions = [
 const ExperienceForm = ({
     show,
     handleClose,
-    setShowModal,
+    setShowExpForm,
 }: ExperienceProps) => {
     const { setShowSuccessModal } = useSuccessContext();
     return (
@@ -44,14 +44,13 @@ const ExperienceForm = ({
                         initialValues={ExperienceFromData}
                         validationSchema={experienceFormSchema}
                         onSubmit={async (values) => {
-                            setShowModal(false);
+                            setShowExpForm(false);
                             setShowSuccessModal(true);
                             console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
-                                <pre>{JSON.stringify(errors)}</pre>
                                 <InputField
                                     type="text"
                                     name="title"

@@ -10,7 +10,7 @@ import EditProfileButton from "./EditProfileButton";
 import ExperienceForm from "./ExperienceForm";
 
 const AboutProfile = () => {
-    const [showModal, setShowModal] = useState(false);
+    const [showExpForm, setShowExpForm] = useState(false);
     return (
         <>
             {ProfileAboutContent &&
@@ -20,13 +20,13 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>My Portfolio</h1>
-                                <EditProfileButton
+                                {/* <EditProfileButton
                                     text="Add New"
                                     showModal={true}
                                     handleOnClick={() =>
                                         setShowModal(!showModal)
                                     }
-                                />
+                                /> */}
                             </div>
 
                             <div className="content">
@@ -49,13 +49,15 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>Experience</h1>
-                                <span onClick={() => setShowModal(!showModal)}>
+                                <span
+                                    onClick={() => setShowExpForm(!showExpForm)}
+                                >
                                     Add New
                                 </span>
                                 <ExperienceForm
-                                    show={showModal}
-                                    setShowModal={setShowModal}
-                                    handleClose={() => setShowModal(false)}
+                                    show={showExpForm}
+                                    setShowExpForm={setShowExpForm}
+                                    handleClose={() => setShowExpForm(false)}
                                 />
                             </div>
 
@@ -196,10 +198,10 @@ const AboutProfile = () => {
                                 </Col>
                             </Row>
                         </div>
-                        <AddPortfolio
+                        {/* <AddPortfolio
                             showModal={showModal}
                             handleClose={() => setShowModal(false)}
-                        />
+                        /> */}
                     </div>
                 ))}
         </>
