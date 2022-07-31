@@ -12,8 +12,12 @@ interface Props {
 }
 
 const AuthProvider = ({ children }: Props) => {
-    const [userDetails, setUserDetails] = useState({});
     const router = useRouter();
+
+    let token;
+    if (typeof window !== "undefined") {
+        token = localStorage.getItem("token");
+    }
 
     // const signUp = async (signUpValues: ClientSignUpValueProps) => {
     //     try {
@@ -61,20 +65,45 @@ const AuthProvider = ({ children }: Props) => {
     // };
 
     const signUp = (signUpValues: ClientSignUpValueProps) => {
+        let user;
         if (typeof window !== "undefined") {
-            localStorage.setItem("userDetails", JSON.stringify(signUpValues));
-            router.push("/login");
+            user = JSON.parse(localStorage.getItem("userDetails"));
+        }
+        if (typeof window !== "undefined") {
+            if (
+                user.email === signUpValues.email ||
+                user.phoneNumber === signUpValues.phoneNumber
+            ) {
+                alert("duplicated email or phone number");
+            } else {
+                localStorage.setItem(
+                    "userDetails",
+                    JSON.stringify(signUpValues)
+                );
+                router.push("/login");
+            }
         }
     };
     const login = (loginValues: LoginValuesProps) => {
+        let user;
         if (typeof window !== "undefined") {
-            setUserDetails((prev) => localStorage.getItem("userDetails"));
+            user = JSON.parse(localStorage.getItem("userDetails"));
         }
+        console.log(user.email, user.password);
 
-        console.log(userDetails);
+        if (
+            user.email === loginValues.email &&
+            user.password === loginValues.password
+        ) {
+            window.localStorage.setItem("token", "dadasdasdsa");
+            router.push("/");
+        } else {
+            alert("No user Found");
+        }
     };
 
     const value = {
+        token: token,
         signUpUser: signUp,
         loginUser: login,
     };

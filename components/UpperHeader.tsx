@@ -1,5 +1,6 @@
 import { faBars } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAuthContext } from "context/AuthContext/userContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -15,8 +16,7 @@ export function UpperHeader() {
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
 
-    const cookies = parseCookies();
-    console.log({ cookies });
+    const { token } = useAuthContext();
 
     return (
         <>
@@ -62,7 +62,7 @@ export function UpperHeader() {
                                         <a className="nav-link">Resources</a>
                                     </Link>
                                 </li>
-                                {
+                                {!token && (
                                     <li
                                         className={handleMenuActive(
                                             "/login",
@@ -75,8 +75,8 @@ export function UpperHeader() {
                                             </a>
                                         </Link>
                                     </li>
-                                }
-                                {
+                                )}
+                                {!token && (
                                     <li
                                         className={handleMenuActive(
                                             "/signup",
@@ -89,25 +89,25 @@ export function UpperHeader() {
                                             </a>
                                         </Link>
                                     </li>
-                                }
+                                )}
                             </nav>
                         </Navbar.Collapse>
 
-                        {
+                        {!token && (
                             <Link href="/login">
                                 <a className="btn login-btn d-none d-md-inline-block">
                                     Login
                                 </a>
                             </Link>
-                        }
+                        )}
 
-                        {
+                        {!token && (
                             <Link href="/signup">
                                 <a className="btn login-btn d-none d-md-inline-block">
                                     Sign Up
                                 </a>
                             </Link>
-                        }
+                        )}
                         <div className="user-profile">
                             <span
                                 className="btn location-btn d-none d-md-inline-block"

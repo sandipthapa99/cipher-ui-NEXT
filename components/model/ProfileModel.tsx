@@ -108,8 +108,8 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
             <ul className="border-0">
                 <button
                     onClick={() => {
+                        localStorage.removeItem("token");
                         router.push("/login");
-                        destroyCookie(undefined, "token");
                     }}
                 >
                     <FontAwesomeIcon

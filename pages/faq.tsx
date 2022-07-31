@@ -3,6 +3,7 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
 import { Accordion, Container } from "react-bootstrap";
 import { FaqFormData } from "utils/contactFormData";
 import { FaqFormSchema } from "utils/formValidation/contactFormValidation";
@@ -461,4 +462,4 @@ const FAQ = () => {
         </>
     );
 };
-export default FAQ;
+export default withAuth(FAQ);

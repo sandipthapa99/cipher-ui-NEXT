@@ -6,6 +6,7 @@ import MerchantAdviceCard from "@components/common/MerchantAdviceCard";
 import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
 import Layout from "@components/Layout";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
@@ -231,4 +232,4 @@ const Discover: NextPage = () => {
     );
 };
 
-export default Discover;
+export default withAuth(Discover);
