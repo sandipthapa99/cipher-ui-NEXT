@@ -5,6 +5,8 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ProfileAboutContent } from "staticData/profileAboutContent";
 
+import AddPortfolio from "./AddPortfolio";
+import EditProfileButton from "./EditProfileButton";
 import ExperienceForm from "./ExperienceForm";
 
 const AboutProfile = () => {
@@ -18,7 +20,13 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>My Portfolio</h1>
-                                <a href="#!">Add New</a>
+                                <EditProfileButton
+                                    text="Add New"
+                                    showModal={true}
+                                    handleOnClick={() =>
+                                        setShowModal(!showModal)
+                                    }
+                                />
                             </div>
 
                             <div className="content">
@@ -188,6 +196,10 @@ const AboutProfile = () => {
                                 </Col>
                             </Row>
                         </div>
+                        <AddPortfolio
+                            showModal={showModal}
+                            handleClose={() => setShowModal(false)}
+                        />
                     </div>
                 ))}
         </>

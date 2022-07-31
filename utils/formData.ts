@@ -1,5 +1,7 @@
+import { prefix } from "@fortawesome/free-brands-svg-icons";
 import { ApplyValueProps } from "types/applyValueProps";
 import { ClientSignUpValueProps } from "types/clientSignUp";
+import { AddPortfolio } from "types/editProfile";
 import { EquipmentValueProps } from "types/equipmentValueProps";
 import { ExperienceValueProps } from "types/experienceValueProps";
 import { LoginValuesProps } from "types/login";
@@ -26,6 +28,7 @@ export const ClientSignUpFormData: ClientSignUpValueProps = {
 export const ApplyFormData: ApplyValueProps = {
     price: "",
     remarks: "",
+    prerequesties: [],
 };
 
 //Equipment form data
@@ -44,4 +47,11 @@ export const ExperienceFromData: ExperienceValueProps = {
     location: "",
     startDate: null,
     endDate: null,
+};
+
+export const AddPortfolioFormData: AddPortfolio = {
+    title: "",
+    description: "",
+    url: "",
+    date: "",
 };

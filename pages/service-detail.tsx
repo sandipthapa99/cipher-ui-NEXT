@@ -25,6 +25,7 @@ import { reviewsContent } from "staticData/reviews";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
 import { servicesDiscover } from "staticData/services";
+import { withAuth } from "utils/Auth/withAuth";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { reviewType } from "utils/options";
@@ -288,4 +289,4 @@ const ServiceDetail: NextPage = () => {
     );
 };
 
-export default ServiceDetail;
+export default withAuth(ServiceDetail);

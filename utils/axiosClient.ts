@@ -1,9 +1,13 @@
 import axios from "axios";
+import { GetServerSidePropsContext, PreviewData } from "next";
 import { parseCookies } from "nookies";
+import { ParsedUrlQuery } from "querystring";
 
-export const createAxiosClient = <T>(context?: T) => {
+export const createAxiosClient = (
+    context?: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+) => {
     const axiosClient = axios.create({
-        baseURL: "http://localhost:3000",
+        baseURL: process.env.NEXT_PUBLIC_API_URL ?? "/api",
         withCredentials: true,
     });
     const { token } = parseCookies(context);

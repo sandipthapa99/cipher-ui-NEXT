@@ -13,6 +13,7 @@ interface Props {
 
 const AuthProvider = ({ children }: Props) => {
     const router = useRouter();
+
     const signUp = async (signUpValues: ClientSignUpValueProps) => {
         try {
             const allUsers = await axiosClient.get("/users");
@@ -38,7 +39,7 @@ const AuthProvider = ({ children }: Props) => {
     const login = async (loginValues: LoginValuesProps) => {
         try {
             const allUsers = await axiosClient.get("/users");
-            const users: Array<ClientSignUpValueProps> = allUsers.data;
+            const users: Array<LoginValuesProps> = allUsers.data;
             const emailExists = users.find(
                 (user: { email: string; password: string }) =>
                     user.email === loginValues.email &&
@@ -47,7 +48,7 @@ const AuthProvider = ({ children }: Props) => {
             console.log(emailExists);
 
             if (emailExists) {
-                setCookie(null, "token", `${new Date()}`, {
+                setCookie(null, "token", `${new Date().getTime()}`, {
                     maxAge: 30 * 24 * 60 * 60,
                 });
 

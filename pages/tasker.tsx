@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { taskDetails } from "staticData/taskDetail";
 import { DUMMY_TASKS, Task } from "types/tasks";
+import { withAuth } from "utils/Auth/withAuth";
 
 const Tasker = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -67,4 +68,4 @@ const Tasker = () => {
     );
 };
 
-export default Tasker;
+export default withAuth(Tasker);

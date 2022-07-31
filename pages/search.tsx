@@ -6,6 +6,7 @@ import type { NextPage } from "next";
 import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
 import { servicesNearYou } from "staticData/servicesNearYouCard";
+import { withAuth } from "utils/Auth/withAuth";
 
 import SearchHeader from "../components/SearchTask/searchHeader";
 
@@ -34,4 +35,4 @@ const SearchPage: NextPage = () => {
         </>
     );
 };
-export default SearchPage;
+export default withAuth(SearchPage);

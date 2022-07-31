@@ -5,6 +5,7 @@ import { ServiceProviderCardProps } from "types/serviceDetail";
 
 import BookNowButton from "./BookNowButton";
 import ModalCard from "./ModalCard";
+
 const ServiceProviderCard = ({
     image,
     name,
