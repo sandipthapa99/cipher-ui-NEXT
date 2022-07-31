@@ -6,4 +6,5 @@ export interface ExperienceValueProps {
     location: string;
     startDate: string | null;
     endDate: string | null;
+    toggle: boolean;
 }

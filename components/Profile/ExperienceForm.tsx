@@ -5,7 +5,7 @@ import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useSuccessContext } from "context/successContext/successContext";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import React, { Dispatch, SetStateAction } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -24,6 +24,12 @@ const dropdownOptions = [
     { id: 1, label: "React", value: "react" },
     { id: 2, label: "Angular", value: "angular" },
     { id: 3, label: "Vue", value: "vue" },
+];
+
+const checkboxOptions = [
+    { key: "HTML", value: "html" },
+    { key: "CSS", value: "css" },
+    { key: "JavaScript", value: "javascript" },
 ];
 
 const ExperienceForm = ({
@@ -89,6 +95,10 @@ const ExperienceForm = ({
                                     error={errors.location}
                                     placeHolder="Applying (Remark)"
                                 />
+                                <p className="mb-3">
+                                    <Field type="checkbox" name="toggle" /> I am
+                                    currently working here
+                                </p>
                                 <Row className="g-5">
                                     <Col md={6}>
                                         <DatePickerField

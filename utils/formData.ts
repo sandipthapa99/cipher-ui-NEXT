@@ -47,6 +47,7 @@ export const ExperienceFromData: ExperienceValueProps = {
     location: "",
     startDate: null,
     endDate: null,
+    toggle: false,
 };
 
 export const AddPortfolioFormData: AddPortfolio = {

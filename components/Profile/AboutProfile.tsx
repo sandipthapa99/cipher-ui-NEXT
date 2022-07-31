@@ -5,8 +5,6 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ProfileAboutContent } from "staticData/profileAboutContent";
 
-import AddPortfolio from "./AddPortfolio";
-import EditProfileButton from "./EditProfileButton";
 import ExperienceForm from "./ExperienceForm";
 
 const AboutProfile = () => {
