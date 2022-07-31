@@ -6,15 +6,13 @@ interface addNew {
 
 const EditProfileButton = ({ text, showModal, handleOnClick }: addNew) => {
     return (
-        <>
-            <a
-                onClick={() => handleOnClick(showModal)}
-                style={{ cursor: "pointer" }}
-                className="lik"
-            >
-                {text}
-            </a>
-        </>
+        <a
+            onClick={() => handleOnClick(showModal)}
+            style={{ cursor: "pointer" }}
+            className="link"
+        >
+            {text}
+        </a>
     );
 };
 export default EditProfileButton;

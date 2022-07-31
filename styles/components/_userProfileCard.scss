@@ -28,8 +28,12 @@
         }
     }
     &__general-info {
-        padding: 3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
         padding-bottom: 0rem;
+        @include respond(md) {
+            padding: 3rem;
+        }
         h1 {
             font-size: 1.6rem;
             padding-top: 1rem;
@@ -108,9 +112,8 @@
                 }
                 .svg-icon {
                     color: #ff9700;
-                    margin-top: 1rem;
+                    margin-top: 1.3rem;
                     margin-left: 1rem;
-                    font-size: 1.3rem;
                 }
                 .user-point {
                     margin-bottom: 0rem;
