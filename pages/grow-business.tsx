@@ -4,6 +4,7 @@ import Breadcrum from "@components/common/Breadcrum";
 import GrowBusinessCarousel from "@components/common/GrowBusinessCarousel";
 import ServiceCard from "@components/common/ServiceCard";
 import Layout from "@components/Layout";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
@@ -15,7 +16,6 @@ import {
 } from "staticData/growBusiness";
 import { servicesDiscover } from "staticData/services";
 import { services } from "staticData/services";
-import { withAuth } from "utils/Auth/withAuth";
 
 const GrowYourBusiness: NextPage = () => {
     return (
@@ -206,4 +206,4 @@ const GrowYourBusiness: NextPage = () => {
     );
 };
 
-export default GrowYourBusiness;
+export default withAuth(GrowYourBusiness);
