@@ -19,7 +19,6 @@ import { rewardCardContent } from "staticData/rewardCard";
 import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
 import { userDocument } from "staticData/userDocument";
 import { userProfileCardInfo } from "staticData/userProfileCard";
-import { withAuth } from "utils/Auth/withAuth";
 
 const UserProfile: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -104,4 +103,4 @@ const UserProfile: NextPage = () => {
     );
 };
 
-export default withAuth(UserProfile);
+export default UserProfile;

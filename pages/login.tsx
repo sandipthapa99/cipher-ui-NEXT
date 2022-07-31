@@ -6,7 +6,6 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { useAuthContext } from "context/AuthContext/userContext";
 import { Form, Formik } from "formik";
 import React from "react";
-import { withAuth } from "utils/Auth/withAuth";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -29,7 +28,7 @@ const Login = () => {
                     <Formik
                         initialValues={loginFormData}
                         validationSchema={loginFormSchema}
-                        onSubmit={async (values) => {
+                        onSubmit={(values) => {
                             loginUser(values);
                         }}
                     >
@@ -86,4 +85,4 @@ const Login = () => {
         </section>
     );
 };
-export default withAuth(Login);
+export default Login;

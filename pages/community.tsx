@@ -17,7 +17,7 @@ import {
     communityActivityContent,
     communityGuidelineCardContent,
 } from "staticData/community";
-import { withAuth } from "utils/Auth/withAuth";
+
 const Community: NextPage = () => {
     return (
         <Layout title="Community | Cipher">
@@ -247,4 +247,4 @@ const Community: NextPage = () => {
     );
 };
 
-export default withAuth(Community);
+export default Community;

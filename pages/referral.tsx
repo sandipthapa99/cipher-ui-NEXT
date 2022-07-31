@@ -9,7 +9,6 @@ import Image from "next/image";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { referralCardContent } from "staticData/referralCard";
-import { withAuth } from "utils/Auth/withAuth";
 import emailValidationSchema from "utils/formValidation/emailValidation";
 
 const About: NextPage = () => {
@@ -155,4 +154,4 @@ const About: NextPage = () => {
     );
 };
 
-export default withAuth(About);
+export default About;
