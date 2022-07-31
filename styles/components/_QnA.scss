@@ -1,0 +1,12 @@
+.qna-container {
+    margin-block: 40px;
+}
+.qna-list {
+    &__item {
+        list-style-type: none;
+
+        &:not(:last-child) {
+            margin-bottom: 24px;
+        }
+    }
+}

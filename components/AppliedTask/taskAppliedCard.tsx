@@ -9,9 +9,16 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
-const TaskCard = ({ title, charge, location, date, time }: TaskCardProps) => {
+const TaskCard = ({
+    title,
+    charge,
+    location,
+    date,
+    time,
+    ...rest
+}: TaskCardProps) => {
     return (
-        <div className="task-applied-card-block">
+        <div className="task-applied-card-block" {...rest}>
             <div className="d-flex justify-content-between flex-column flex-sm-row task-applied-card-block__header">
                 <h4 className="title">{title}</h4>
                 <h4 className="charge">Rs {charge}</h4>

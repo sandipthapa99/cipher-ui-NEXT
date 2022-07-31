@@ -50,7 +50,7 @@ export const PackageDetails = ({
                                 <Formik
                                     initialValues={packageDetailsData}
                                     onSubmit={() => {
-                                        console.log("test");
+                                        console.log("submit");
                                     }}
                                 >
                                     {({ errors, touched }) => (
