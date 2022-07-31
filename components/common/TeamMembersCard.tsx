@@ -39,30 +39,31 @@ export const TeamMembersCard = ({
                 </figure>
                 <div className="w-100 name-post-count">
                     <div className="d-flex justify-content-between title-and-dots">
-                        <h5>Jane Cooper</h5>
+                        <h5>{task?.user?.username}</h5>
                         <FontAwesomeIcon
                             className="ellipsis-vertical"
                             icon={faEllipsisVertical}
                         />
                     </div>
                     <h6>
-                        <span>Teacher </span>| Balaju, KTM
+                        <span>{task?.user?.category} </span>|{" "}
+                        {task?.user?.location}
                     </h6>
                     <div className="d-flex justify-content-between align-items-center emoji-section">
                         <span className="star">
                             <FontAwesomeIcon className="star" icon={faStar} />
-                            4.0
+                            {task?.rating?.average}
                         </span>
                         <span className="emoji">
                             <FontAwesomeIcon
                                 className="emoji"
                                 icon={faFaceGrinBeam}
                             />
-                            200
+                            {task?.likes}
                         </span>
                         <span className="award">
                             <FontAwesomeIcon className="award" icon={faAward} />
-                            90%
+                            {task?.rewardPercentage}
                         </span>
                         <span className="location">
                             <FontAwesomeIcon
@@ -84,17 +85,16 @@ export const TeamMembersCard = ({
                     <FontAwesomeIcon className="heart" icon={faHeart} />
                     <FontAwesomeIcon className="share" icon={faShare} />
                 </span>
-                <span>
-                    {collabButton == true ? (
-                        <BigButton
-                            btnTitle={"Collab"}
-                            backgroundColor={"#211D4F"}
-                            handleClick={handleButtonClick}
-                        />
-                    ) : (
-                        "Rs 600"
-                    )}
-                </span>
+
+                {collabButton == true ? (
+                    <BigButton
+                        btnTitle={"Collab"}
+                        backgroundColor={"#211D4F"}
+                        handleClick={handleButtonClick}
+                    />
+                ) : (
+                    <span> {task?.price}</span>
+                )}
             </div>
         </div>
     );
