@@ -1,4 +1,4 @@
-import { DatePickerField } from "@components/common/DateTimeField";
+import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";

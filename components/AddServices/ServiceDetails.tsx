@@ -39,7 +39,9 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                             <div className="service-form-body">
                                 <Formik
                                     initialValues={serviceDetailsData}
-                                    onSubmit={() => {}}
+                                    onSubmit={(values) => {
+                                        console.log(values);
+                                    }}
                                 >
                                     {({ errors, touched }) => (
                                         <>

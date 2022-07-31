@@ -7,8 +7,8 @@ export const CollaborateWith = () => {
         <div className="collaborate-with">
             <h5>Collaborate with</h5>
             <div className="d-flex collaborate-with-image-section">
-                {DUMMY_TASKS.map((item) => (
-                    <figure className="collaborate-with-image">
+                {DUMMY_TASKS.map((item, index) => (
+                    <figure key={index} className="collaborate-with-image">
                         <Image
                             src={item?.user?.profileImage}
                             alt="collaborate-with-image"
