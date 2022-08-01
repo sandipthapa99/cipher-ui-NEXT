@@ -66,12 +66,7 @@ const Header = () => {
                                     </a>
                                 </Link>
                             </li>
-                            <li
-                                className={handleMenuActive(
-                                    "/features",
-                                    router
-                                )}
-                            >
+                            <li className={handleMenuActive("/task", router)}>
                                 <Link href="/task">
                                     <a className="nav-link">
                                         <FontAwesomeIcon
@@ -82,12 +77,7 @@ const Header = () => {
                                     </a>
                                 </Link>
                             </li>
-                            <li
-                                className={handleMenuActive(
-                                    "/features",
-                                    router
-                                )}
-                            >
+                            <li className={handleMenuActive("/tasker", router)}>
                                 <Link href="/tasker">
                                     <a className="nav-link">
                                         <FontAwesomeIcon
