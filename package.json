@@ -21,6 +21,7 @@
         "@fortawesome/pro-solid-svg-icons": "^6.1.1",
         "@fortawesome/pro-thin-svg-icons": "^6.1.1",
         "@fortawesome/react-fontawesome": "^0.1.18",
+        "@mantine/carousel": "^5.0.2",
         "@mantine/core": "^4.2.9",
         "@mantine/hooks": "^4.2.9",
         "@types/yaireo__tagify": "^4.12.0",
