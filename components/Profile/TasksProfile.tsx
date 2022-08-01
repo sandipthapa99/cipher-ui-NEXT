@@ -74,9 +74,7 @@ const TasksProfileCard = () => {
                             <Formik
                                 initialValues={HomeSearchdata}
                                 validationSchema={HomeSearchSchema}
-                                onSubmit={async (values) => {
-                                    console.log(values);
-                                }}
+                                onSubmit={async (values) => console.log(values)}
                             >
                                 <div className="dropdown-wrapper review-type">
                                     <div className="dropdown">

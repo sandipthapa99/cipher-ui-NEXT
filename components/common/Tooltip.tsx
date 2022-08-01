@@ -10,8 +10,6 @@ const TooltipMessage = ({
     place: any;
     children: React.ReactElement;
 }) => {
-    console.log("place=", place);
-
     return (
         <OverlayTrigger
             placement={place}
