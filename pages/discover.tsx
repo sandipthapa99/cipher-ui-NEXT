@@ -27,6 +27,7 @@ const Discover: NextPage = () => {
                             title="Looking to earn money quickly?"
                             subTitle="It doesn't even take a minute to sign up"
                             image="/discover/main.svg"
+                            btnText="Join Us"
                         />
                     </section>
                     {/* Discover top container end */}

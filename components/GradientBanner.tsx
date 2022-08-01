@@ -7,8 +7,14 @@ interface GradientBannerProps {
     title: string;
     subTitle: string;
     image: string;
+    btnText: string;
 }
-const GradientBanner = ({ title, subTitle, image }: GradientBannerProps) => {
+const GradientBanner = ({
+    title,
+    subTitle,
+    btnText,
+    image,
+}: GradientBannerProps) => {
     return (
         <div className="gradient-layout">
             <div className="gradient"></div>
@@ -22,15 +28,18 @@ const GradientBanner = ({ title, subTitle, image }: GradientBannerProps) => {
             </figure>
 
             <div className="overlay pb-3">
-                <h1>{title}</h1>
-                <div className="bottom-content">
-                    <p>{subTitle}</p>
-                </div>
-                <CardBtn
-                    btnTitle="Join Us"
-                    backgroundColor="#FFF"
-                    color="#000"
-                />
+                <>
+                    <h1>{title}</h1>
+                    <div className="bottom-content">
+                        <p>{subTitle}</p>
+                    </div>
+                    <CardBtn
+                        btnTitle={btnText}
+                        backgroundColor="#FFF"
+                        color="#000"
+                    />
+                </>
+                <div></div>
             </div>
         </div>
     );

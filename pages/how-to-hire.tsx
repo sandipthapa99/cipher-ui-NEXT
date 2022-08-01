@@ -1,6 +1,7 @@
 import Breadcrum from "@components/common/Breadcrum";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import SquareImageCarousel from "@components/common/SquareImageCarousel";
+import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
 import Image from "next/image";
@@ -66,6 +67,15 @@ const HowToHire: NextPage = () => {
                                     imageOnRight={info.imageOnRight}
                                 />
                             ))}
+                    </div>
+                    <div className="how-to-hire__gradient-container">
+                        <GradientBanner
+                            title="A client tasks are quickly finished 
+                            when searched through Cipher"
+                            subTitle="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500. "
+                            image="/discover/main.svg"
+                            btnText="Join Us"
+                        />
                     </div>
                     <div className="how-to-hire__bottom-container">
                         <h1>Ways to Use Cipher to Achieve Your Goals</h1>

@@ -28,6 +28,9 @@
     &__content {
         margin: 5rem 0rem;
     }
+    &__gradient-container {
+        position: relative;
+    }
     &__bottom-container {
         padding-top: 5rem;
         .thumbnail-img {

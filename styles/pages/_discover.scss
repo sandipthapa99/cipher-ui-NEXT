@@ -1,6 +1,9 @@
 .discover-page {
     margin-bottom: 4.375rem;
-
+    section {
+        margin-bottom: 0rem !important;
+        padding-bottom: 0rem !important;
+    }
     @include respond(sm) {
         padding: 0rem 1.25rem;
     }
