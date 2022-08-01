@@ -1,7 +1,6 @@
 import auth from "./authService";
 import http from "./httpService";
 
-
 export class API {
     uri: string;
 
