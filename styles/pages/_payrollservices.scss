@@ -80,5 +80,97 @@
                 }
             }
         }
+        .taskers {
+            padding: 2.5rem 2rem;
+            position: relative;
+            flex-direction: column;
+
+            @include respond(lg) {
+                flex-direction: row;
+            }
+            .images {
+                gap: 3rem;
+                justify-content: center;
+                @include respond(sm) {
+                    gap: 5rem;
+                }
+                @include respond(md) {
+                    justify-content: inherit;
+                }
+                p {
+                    color: $primary-color;
+                    padding-top: 1.3rem;
+                }
+            }
+            .thumbnail-img {
+                .images {
+                    @include respond(xs) {
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+                @include respond(xs) {
+                    height: 10.5rem;
+                    width: 11rem;
+                }
+                @include respond(xxs) {
+                    height: 9.5rem;
+                    width: 10rem;
+                }
+                @include respond(sm) {
+                    height: 16rem;
+                    width: 17rem;
+                }
+                @include respond(md) {
+                    height: 17rem;
+                    width: 18rem;
+                }
+                @include respond(lg) {
+                    height: 24rem;
+                    width: 25rem;
+                }
+            }
+            .content {
+                @include respond(sm) {
+                    padding-top: 0rem;
+                }
+                @include respond(md) {
+                    padding-top: 1rem;
+                    padding-left: 1rem;
+                }
+                @include respond(lg) {
+                    padding-top: 5rem;
+                }
+                h1 {
+                    font-weight: 400;
+                    font-size: 2.1rem;
+                    line-height: 3.4rem;
+                }
+                p {
+                    font-size: 1.5rem;
+                    color: $sub-title-color;
+                }
+            }
+        }
+        .video {
+            margin: 5rem 0rem;
+            h1 {
+                font-size: 2rem;
+                font-weight: 400;
+                page-break-inside: 2.5rem;
+            }
+            .thumbnail-img {
+                height: 47rem;
+            }
+        }
+        .gradient-container {
+            position: relative;
+            margin: 5rem 0rem;
+        }
+        .faq {
+            h1 {
+                font-size: 2rem;
+            }
+        }
     }
 }
