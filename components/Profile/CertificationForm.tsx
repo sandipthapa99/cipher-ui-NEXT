@@ -38,6 +38,7 @@ const CertificationForm = ({
                         onSubmit={async (values) => {
                             setShowCertificationModal(false);
                             setShowSuccessModal(true);
+                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
