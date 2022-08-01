@@ -1,14 +1,8 @@
 .search-results {
-    .results {
+    .map {
         @include respond(xs) {
-            flex-direction: column-reverse;
+            display: none;
         }
-
-        // .map {
-        //     @include respond(xs) {
-        //         display: none;
-        //     }
-        // }
     }
 }
 .search-input {

@@ -24,7 +24,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { PackageCard } from "staticData/packageCard";
 import { reviewsContent } from "staticData/reviews";
 import { serviceHighlights } from "staticData/serviceHighlights";
-import { serviceProviders } from "staticData/serviceProvider";
+import { serviceProvider } from "staticData/serviceProvider";
 import { servicesDiscover } from "staticData/services";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
@@ -84,8 +84,8 @@ const ServiceDetail: NextPage = () => {
                                 </figure>
                             </Col>
                             <Col md={4} className="gardener-col">
-                                {serviceProviders &&
-                                    serviceProviders.map((provider) => (
+                                {serviceProvider &&
+                                    serviceProvider.map((provider) => (
                                         <ServiceProviderCard
                                             image={provider.image}
                                             key={provider.id}

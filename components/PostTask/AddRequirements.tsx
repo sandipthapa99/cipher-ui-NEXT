@@ -59,7 +59,7 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
 
     const renderTasks = requirementState.map((requirement, index) => {
         return (
-            <li
+            <div
                 key={index}
                 style={{
                     display: "flex",
@@ -76,7 +76,7 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
                     style={{ marginRight: "2rem" }}
                     onClick={() => deleteRequirements(requirement.id)}
                 />
-            </li>
+            </div>
         );
     });
     return (
