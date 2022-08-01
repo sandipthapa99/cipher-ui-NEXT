@@ -38,10 +38,11 @@ const CertificationForm = ({
                         onSubmit={async (values) => {
                             setShowCertificationModal(false);
                             setShowSuccessModal(true);
+                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
-                            <Form>
+                            <Form autoComplete="off">
                                 <InputField
                                     type="text"
                                     name="name"

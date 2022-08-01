@@ -44,9 +44,9 @@ const Tasker = () => {
         <>
             <SearchHeader />
             <Header />
-            <Container>
+            <Container fluid="xl" className="px-5">
                 <SearchCategory onChange={setSearchQuery} />
-                <Row>
+                <Row className="gx-5">
                     <Col md={4}>
                         <UserTaskCardList
                             onTaskClick={toggleActiveTask}

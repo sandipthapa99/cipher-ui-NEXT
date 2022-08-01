@@ -1,8 +1,8 @@
 import AboutCard from "@components/common/AboutCard";
 import BlogCard from "@components/common/BlogCard";
 import Breadcrum from "@components/common/Breadcrum";
-import GrowBusinessCarousel from "@components/common/GrowBusinessCarousel";
 import ServiceCard from "@components/common/ServiceCard";
+import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
 import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
@@ -36,7 +36,7 @@ const GrowYourBusiness: NextPage = () => {
                                             key={item.id}
                                             //interval={1000}
                                         >
-                                            <GrowBusinessCarousel
+                                            <SquareImageCarousel
                                                 image={item.image}
                                                 title={item.title}
                                                 description={item.description}
@@ -206,4 +206,4 @@ const GrowYourBusiness: NextPage = () => {
     );
 };
 
-export default withAuth(GrowYourBusiness);
+export default GrowYourBusiness;

@@ -1,3 +1,4 @@
+import PhotoEdit from "@components/Profile/PhotoEdit";
 import {
     faAt,
     faCircleQuestion,
@@ -11,8 +12,9 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import Cropper from "react-easy-crop";
 import { UserProfileInfoProps } from "types/userProfile";
 
 import ProfileEditForm from "./ProfileEditForm";
@@ -40,19 +42,28 @@ const UserProfileCard = ({
     tooltipMessage,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
+    const [showExpForm, setShowExpForm] = useState(false);
     return (
         <div className="profile-card-block">
             <Row>
                 <Col md={3} className="profile-card-block__profile">
-                    <figure className="thumbnail-img">
+                    <figure
+                        className="thumbnail-img"
+                        onClick={() => setShowExpForm(!showExpForm)}
+                    >
                         <Image
                             src={userImage}
                             layout="fill"
-                            // height={300}
                             objectFit="cover"
                             alt="user-profile-image"
                         />
                     </figure>
+                    <PhotoEdit
+                        photo={userImage}
+                        show={showExpForm}
+                        setShowExpForm={setShowExpForm}
+                        handleClose={() => setShowExpForm(false)}
+                    />
                     <div className="profile-intro d-flex">
                         <h1 className="name">{userName}</h1>
                         <div className="active"></div>
