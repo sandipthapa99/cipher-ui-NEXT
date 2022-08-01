@@ -1,59 +1,59 @@
 .timeline-tab-component {
     @include border();
     padding: 4rem;
+}
 
-    .each-timelines {
-        border-left: 1px dashed #ced4da;
-        padding: 0 0 2.4rem;
+.each-timelines {
+    border-left: 1px dashed #ced4da;
+    padding: 0 0 2.4rem;
 
-        .for-border-div {
-            padding: 0 0 0 2.2rem;
-        }
+    .for-border-div {
+        padding: 0 0 0 2.2rem;
+    }
 
-        .for-border-div-active {
-            padding: 0 0 0 2.2rem;
-            border-bottom: 1px solid #e9ecef;
-        }
-        .point-title-button {
-            position: relative;
-            .point,
-            .active-point {
-                .circle-dot {
-                    color: #0693e3;
-                    height: 2.4rem;
-                    width: 2.4rem;
-                    position: absolute;
-                }
-
-                .circle-small {
-                    color: #ced4da;
-                    height: 1.2rem;
-                    width: 1.2rem;
-                }
-            }
-            .active-point {
+    .for-border-div-active {
+        padding: 0 0 0 2.2rem;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .point-title-button {
+        position: relative;
+        .point,
+        .active-point {
+            .circle-dot {
+                color: #0693e3;
+                height: 2.4rem;
+                width: 2.4rem;
                 position: absolute;
-                left: -3.4rem;
-            }
-            .point {
-                position: absolute;
-                left: -2.8rem;
             }
 
-            .title-date-section {
-                h4 {
-                    font: 500 1.6rem $poppins-font;
-                    margin: 0;
-                }
-                h5 {
-                    font: 400 1.4rem $poppins-font;
-                    color: $gray-text-color;
-                }
+            .circle-small {
+                color: #ced4da;
+                height: 1.2rem;
+                width: 1.2rem;
             }
         }
-        button {
-            width: 19.6rem;
-            height: 4rem;
+        .active-point {
+            position: absolute;
+            left: -3.4rem;
         }
+        .point {
+            position: absolute;
+            left: -2.8rem;
+        }
+
+        .title-date-section {
+            h4 {
+                font: 500 1.6rem $poppins-font;
+                margin: 0;
+            }
+            h5 {
+                font: 400 1.4rem $poppins-font;
+                color: $gray-text-color;
+            }
+        }
+    }
+    button {
+        width: 19.6rem;
+        height: 4rem;
     }
 }
