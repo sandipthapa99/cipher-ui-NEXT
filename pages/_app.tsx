@@ -1,6 +1,7 @@
 import "../styles/bundle.scss";
 
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ClientTaskContextProvider } from "context/ClientTaskContext";
 import SearchProvider from "context/searchProvider";
 import SuccessProvider from "context/successContext/successProvider";
@@ -16,7 +17,10 @@ function MyApp({ Component, pageProps }: AppProps) {
             <SuccessProvider>
                 <AuthProvider>
                     <ClientTaskContextProvider>
-                        <Component {...pageProps} />
+                        <QueryClientProvider client={queryClient}>
+                            <ReactQueryDevtools />
+                            <Component {...pageProps} />
+                        </QueryClientProvider>
                     </ClientTaskContextProvider>
                 </AuthProvider>
             </SuccessProvider>

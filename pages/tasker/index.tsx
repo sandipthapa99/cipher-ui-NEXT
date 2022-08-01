@@ -4,16 +4,22 @@ import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
 import { UserTaskCardList } from "@components/Task/UserTaskCard/UserTaskCardList";
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
-import { useMemo, useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { taskDetails } from "staticData/taskDetail";
 import { DUMMY_TASKS, Task } from "types/tasks";
 
 const Tasker = () => {
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTaskIdx, setActiveTaskIdx] = useState<number | undefined>();
 
     const toggleActiveTask = (task: Task) => {
+        router.push({
+            pathname: router.pathname,
+            query: { ...router.query, taskId: task.id },
+        });
         setActiveTaskIdx(task.id);
     };
 
@@ -28,6 +34,12 @@ const Tasker = () => {
                 : DUMMY_TASKS,
         [searchQuery]
     );
+    useEffect(() => {
+        const { taskId } = router.query;
+        if (taskId !== undefined && !isNaN(Number(taskId))) {
+            setActiveTaskIdx(Number(taskId));
+        }
+    }, [router.query, router.query.taskId]);
     return (
         <>
             <SearchHeader />
