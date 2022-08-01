@@ -5,6 +5,7 @@ import RadioField from "@components/common/RadioField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { useAuthContext } from "context/AuthContext/userContext";
 import { Field, Form, Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
 import Link from "next/link";
 import { ClientSignUpFormData } from "utils/formData";
 import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
@@ -151,4 +152,4 @@ const SignUpAsClient = () => {
         </OnBoardingLayout>
     );
 };
-export default SignUpAsClient;
+export default withAuth(SignUpAsClient);

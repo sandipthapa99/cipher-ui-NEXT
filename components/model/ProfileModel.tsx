@@ -105,8 +105,10 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
                     </Link>
                 </li>
             </ul>
-            <ul className="border-0">
+            <ul className="border-1">
                 <button
+                    className="login-btn"
+                    style={{ color: "#495057" }}
                     onClick={() => {
                         localStorage.removeItem("token");
                         router.push("/login");
@@ -115,6 +117,7 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
                     <FontAwesomeIcon
                         icon={faRightFromBracket}
                         className="svg-icon svg-180-transfrom"
+                        style={{ color: "#868E96" }}
                     />
                     Logout
                 </button>

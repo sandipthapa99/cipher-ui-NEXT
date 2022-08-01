@@ -40,4 +40,4 @@ export const TaskDetailTimelineData = [
         task_status: "Task Status : InProgress",
         date: "June 17, 2022",
     },
-]
+];

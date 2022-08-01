@@ -1,4 +1,4 @@
-// import { DatePickerField } from "@components/common/DateTimeField";
+import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
@@ -26,12 +26,6 @@ const dropdownOptions = [
     { id: 3, label: "Vue", value: "vue" },
 ];
 
-const checkboxOptions = [
-    { key: "HTML", value: "html" },
-    { key: "CSS", value: "css" },
-    { key: "JavaScript", value: "javascript" },
-];
-
 const ExperienceForm = ({
     show,
     handleClose,
@@ -41,7 +35,7 @@ const ExperienceForm = ({
     return (
         <>
             {/* Modal component */}
-            {/* <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
                     <h3>Task Details</h3>
@@ -52,7 +46,6 @@ const ExperienceForm = ({
                         onSubmit={async (values) => {
                             setShowExpForm(false);
                             setShowSuccessModal(true);
-                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
@@ -149,7 +142,7 @@ const ExperienceForm = ({
                 buttonName="Continue"
                 type="Success"
                 iconName={faSquareCheck}
-            /> */}
+            />
         </>
     );
 };

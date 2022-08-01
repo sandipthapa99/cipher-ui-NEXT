@@ -21,6 +21,7 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
+
 import { TaskersTab } from "./TaskersTab";
 import { TimelineTab } from "./TimelineTab";
 
@@ -90,6 +91,7 @@ const AppliedTaskDetail: NextPage = () => {
                                 successRate={provider.successRate}
                                 speciality={provider.speciality}
                                 startingPrice={provider.startingPrice}
+                                isApplied={true}
                             />
                         ))}
                 </Col>

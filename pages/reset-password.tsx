@@ -19,7 +19,7 @@ const ResetPassword = () => {
                 initialValues={{ password: "", confirmPassword: "" }}
                 validationSchema={loginFormSchema}
                 onSubmit={async (values, actions) => {
-                    console.log(values, actions);
+                    console.log(values);
                 }}
             >
                 {({ isSubmitting, errors, touched }) => (

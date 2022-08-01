@@ -11,7 +11,7 @@ import TasksProfileCard from "@components/Profile/TasksProfile";
 import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import { useState } from "react";
-import { Button, Col, Container, Row, Tabs } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { userProfileCardInfo } from "staticData/userProfileCard";
 
 const UserProfile: NextPage = () => {

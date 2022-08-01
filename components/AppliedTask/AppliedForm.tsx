@@ -46,7 +46,6 @@ const AppliedForm = ({
                         validationSchema={applyFormSchema}
                         onSubmit={async (values) => {
                             setShowSuccessModal(true);
-                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

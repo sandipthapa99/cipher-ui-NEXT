@@ -80,6 +80,9 @@
                 }
             }
         }
+        .user-profile {
+            margin-right: 2rem;
+        }
         @include respond(xl) {
             margin-right: 1.6rem;
         }

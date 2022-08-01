@@ -3,13 +3,19 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import RadioField from "@components/common/RadioField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import { useAuthContext } from "context/AuthContext/userContext";
 import { Field, Form, Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { ClientSignUpFormData } from "utils/formData";
 import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const SignUpAsTasker = () => {
+    const router = useRouter();
+
+    const { signUpUser } = useAuthContext();
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
@@ -24,7 +30,7 @@ const SignUpAsTasker = () => {
                     initialValues={ClientSignUpFormData}
                     validationSchema={clientSignUpSchema}
                     onSubmit={async (values) => {
-                        console.log(values);
+                        signUpUser(values);
                     }}
                 >
                     {({ isSubmitting, errors, touched }) => (
@@ -157,4 +163,4 @@ const SignUpAsTasker = () => {
         </OnBoardingLayout>
     );
 };
-export default SignUpAsTasker;
+export default withAuth(SignUpAsTasker);
