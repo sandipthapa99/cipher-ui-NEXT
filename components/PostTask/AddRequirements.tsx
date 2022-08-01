@@ -55,8 +55,6 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
 
             return filtered;
         });
-        console.log(requirementId);
-        console.log(requirementState);
     };
 
     const renderTasks = requirementState.map((requirement, index) => {

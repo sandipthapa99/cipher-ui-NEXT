@@ -1,7 +1,11 @@
 const urls = {
-    blog: {
-        list: "blog/list",
-        detail: "blog/detail/",
+    user: {
+        list: "user/list",
+        detail: "user/detail/",
+    },
+    task: {
+        list: "task/list",
+        detail: "task/detail/",
     },
 };
 

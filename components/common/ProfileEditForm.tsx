@@ -45,7 +45,6 @@ const ProfileEditForm = ({
                         onSubmit={async (values) => {
                             setShowEdit(false);
                             setShowSuccessModal(true);
-                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

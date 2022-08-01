@@ -10,7 +10,6 @@ import AuthProvider from "../context/AuthContext/userContextProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
-    console.log(typeof router.pathname);
 
     return (
         <SearchProvider>

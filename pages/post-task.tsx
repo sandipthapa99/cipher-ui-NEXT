@@ -9,6 +9,7 @@ import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
+import { SearchBodyData } from "staticData/searchBody";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 
@@ -34,30 +35,17 @@ const PostTask: NextPage = () => {
                             </div>
                         </Col>
                         <Col className="full-tasks">
-                            <SearchBody
-                                number="30"
-                                color="#ECF7FF"
-                                textOne="Tasks Assigned"
-                                textColor="#3EAEFF"
-                            />
-                            <SearchBody
-                                number="30"
-                                color="#EBF9F1"
-                                textOne="Tasks In Completed"
-                                textColor="#38C675"
-                            />
-                            <SearchBody
-                                number="30"
-                                color="#FFF5E5"
-                                textOne="Tasks In Progress"
-                                textColor="#FF9700"
-                            />
-                            <SearchBody
-                                number="4"
-                                color="#FFEDED"
-                                textOne="Tasks Cancelled"
-                                textColor="#FE5050"
-                            />
+                            {SearchBodyData.map((data) => {
+                                return (
+                                    <SearchBody
+                                        key={data.id}
+                                        number={data.number}
+                                        color={data.color}
+                                        textOne={data.textOne}
+                                        textColor={data.textColor}
+                                    />
+                                );
+                            })}
                         </Col>
                     </div>
                 </Row>

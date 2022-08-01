@@ -25,7 +25,7 @@ const ForgotPassword = () => {
                     initialValues={{ email: "" }}
                     validationSchema={emailValidationSchema}
                     onSubmit={async (values, actions) => {
-                        console.log(values, actions);
+                        console.log(values);
                     }}
                 >
                     {({ isSubmitting, errors, touched }) => (
