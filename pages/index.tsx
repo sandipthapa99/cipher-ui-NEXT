@@ -13,7 +13,6 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
-import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { Button, Col, Container, Row } from "react-bootstrap";
