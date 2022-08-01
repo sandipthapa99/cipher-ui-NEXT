@@ -1,7 +1,6 @@
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useSuccessContext } from "context/successContext/successContext";
@@ -10,27 +9,21 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { ExperienceFromData } from "utils/formData";
-import { experienceFormSchema } from "utils/formValidation/experienceFormValidation";
+import { CertificationFromData } from "utils/formData";
+import { certificateFormSchema } from "utils/formValidation/certificateFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-interface ExperienceProps {
+interface CertificationProps {
     show?: boolean;
     handleClose?: () => void;
-    setShowExpForm: Dispatch<SetStateAction<boolean>>;
+    setShowCertificationModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const dropdownOptions = [
-    { id: 1, label: "React", value: "react" },
-    { id: 2, label: "Angular", value: "angular" },
-    { id: 3, label: "Vue", value: "vue" },
-];
-
-const ExperienceForm = ({
+const CertificationForm = ({
     show,
     handleClose,
-    setShowExpForm,
-}: ExperienceProps) => {
+    setShowCertificationModal,
+}: CertificationProps) => {
     const { setShowSuccessModal } = useSuccessContext();
     return (
         <>
@@ -38,13 +31,12 @@ const ExperienceForm = ({
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
-                    <h3>Task Details</h3>
-                    <hr />
+                    <h3>Add Certifications</h3>
                     <Formik
-                        initialValues={ExperienceFromData}
-                        validationSchema={experienceFormSchema}
+                        initialValues={CertificationFromData}
+                        validationSchema={certificateFormSchema}
                         onSubmit={async (values) => {
-                            setShowExpForm(false);
+                            setShowCertificationModal(false);
                             setShowSuccessModal(true);
                         }}
                     >
@@ -52,63 +44,66 @@ const ExperienceForm = ({
                             <Form>
                                 <InputField
                                     type="text"
-                                    name="title"
-                                    labelName="Title"
-                                    error={errors.title}
-                                    touch={touched.title}
-                                    placeHolder="Enter your price"
+                                    name="name"
+                                    labelName="Name"
+                                    error={errors.name}
+                                    touch={touched.name}
+                                    placeHolder="Eg: Certified Gardener"
+                                />
+                                <InputField
+                                    name="organization"
+                                    labelName="Organization"
+                                    touch={touched.organization}
+                                    error={errors.organization}
+                                    placeHolder="Eg: Cagtu"
+                                    as="textarea"
                                 />
                                 <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
-                                    placeHolder="Applying (Remark)"
-                                    as="textarea"
+                                    placeHolder="Experience Description"
                                 />
-                                <SelectInputField
-                                    name="typeOfEmployment"
-                                    labelName="Employment"
-                                    touch={touched.typeOfEmployment}
-                                    error={errors.typeOfEmployment}
-                                    placeHolder="Select a type"
-                                    options={dropdownOptions}
-                                />
-                                <InputField
-                                    name="companyName"
-                                    labelName="companyName"
-                                    touch={touched.companyName}
-                                    error={errors.companyName}
-                                    placeHolder="Applying (Remark)"
-                                />
-                                <InputField
-                                    name="location"
-                                    labelName="location"
-                                    touch={touched.location}
-                                    error={errors.location}
-                                    placeHolder="Applying (Remark)"
-                                />
-                                <p className="mb-3">
-                                    <Field type="checkbox" name="toggle" /> I am
-                                    currently working here
+                                <p className="mb-3 d-flex checkbox">
+                                    <Field
+                                        type="checkbox"
+                                        name="toggle"
+                                        className="checkbox-toggle me-2"
+                                    />{" "}
+                                    This certifate does not expire
                                 </p>
+                                <InputField
+                                    name="credentialId"
+                                    labelName="Credential Id"
+                                    touch={touched.credentialId}
+                                    error={errors.credentialId}
+                                    placeHolder="Eg: Cagtu"
+                                />
+                                <InputField
+                                    name="certificateURL"
+                                    labelName="Certificate URL"
+                                    touch={touched.certificateURL}
+                                    error={errors.certificateURL}
+                                    placeHolder="Eg: Cagtu"
+                                />
                                 <Row className="g-5">
                                     <Col md={6}>
                                         <DatePickerField
-                                            name="startDate"
-                                            labelName="startDate"
-                                            placeHolder="01/01/2001"
-                                            touch={touched.startDate}
-                                            error={errors.startDate}
+                                            name="issuedDate"
+                                            labelName="issuedDate"
+                                            placeHolder="day/month/year"
+                                            touch={touched.issuedDate}
+                                            error={errors.issuedDate}
                                         />
                                     </Col>
                                     <Col md={6}>
                                         <DatePickerField
-                                            name="endDate"
-                                            labelName="endDate"
-                                            placeHolder="01/01/2001"
-                                            touch={touched.endDate}
-                                            error={errors.endDate}
+                                            name="expirationDate"
+                                            labelName="Expiration Date"
+                                            placeHolder="day/month/year"
+                                            touch={touched.expirationDate}
+                                            error={errors.expirationDate}
                                         />
                                     </Col>
                                 </Row>
@@ -146,4 +141,4 @@ const ExperienceForm = ({
         </>
     );
 };
-export default ExperienceForm;
+export default CertificationForm;

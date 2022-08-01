@@ -35,7 +35,6 @@ const EquipmentForm = ({
                         initialValues={EquipmentFormData}
                         validationSchema={equipmentFormSchema}
                         onSubmit={async (values) => {
-                            console.log(values);
                             setshowEqpForm(false);
                         }}
                     >

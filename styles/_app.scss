@@ -563,21 +563,36 @@ small.text-muted {
 }
 .react-datepicker {
     font-size: 1.3rem !important;
+    &__triangle {
+        font-size: 1.5rem !important;
+        left: -1rem !important;
+    }
+    &__current-month {
+        font-size: 1.5rem !important;
+    }
+    &__header {
+        padding-top: 6px !important;
+    }
+    &__navigation {
+        top: 13px !important;
+    }
+    &__day-name,
+    &__day {
+        margin: 0.5rem !important;
+    }
 }
 
-.react-datepicker__current-month {
-    font-size: 1.5rem !important;
+.checkbox {
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #212529;
+    &-toggle {
+        accent-color: rgb(12, 84, 106);
+    }
 }
-
-.react-datepicker__header {
-    padding-top: 6px !important;
-}
-
-.react-datepicker__navigation {
-    top: 13px !important;
-}
-
-.react-datepicker__day-name,
-.react-datepicker__day {
-    margin: 0.5rem !important;
+.close-btn {
+    &:hover {
+        background: $primary-color !important;
+        color: #fff !important;
+    }
 }
