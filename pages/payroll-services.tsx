@@ -9,8 +9,6 @@ import Image from "next/image";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { faqContent } from "staticData/faq";
 
-import Faq from "./faq";
-
 const PayrollServices: NextPage = () => {
     return (
         <Layout title="Payroll-Services | Cipher">
@@ -109,14 +107,15 @@ const PayrollServices: NextPage = () => {
                                 Find out how Upwork Payroll can help your
                                 business
                             </h1>
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src="/payrollservices/video.svg"
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt="man-image"
-                                />
-                            </figure>
+                            <iframe
+                                src="https://www.youtube.com/embed/E7wJTI-1dvQ"
+                                frameBorder="0"
+                                allow="autoplay; encrypted-media"
+                                allowFullScreen
+                                title="video"
+                                height={450}
+                                width="100%"
+                            />
                         </div>
                         <div className="gradient-container">
                             <GradientBanner
