@@ -23,6 +23,7 @@ import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
 
 import { TaskersTab } from "./TaskersTab";
+import { TeamMembersSection } from "./TeamMembersSection";
 import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail: NextPage = () => {
@@ -154,6 +155,9 @@ const AppliedTaskDetail: NextPage = () => {
                         </div>
                     ))}
             </div>
+
+            <TeamMembersSection />
+
             <Tab
                 activeIndex={activeTabIdx}
                 onTabClick={setActiveTabIdx}

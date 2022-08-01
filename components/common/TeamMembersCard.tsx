@@ -10,7 +10,6 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
-import { DUMMY_TASKS } from "types/tasks";
 import { Task } from "types/tasks";
 
 import BigButton from "./Button";
@@ -93,7 +92,7 @@ export const TeamMembersCard = ({
                         handleClick={handleButtonClick}
                     />
                 ) : (
-                    <span> {task?.price}</span>
+                    <span className="task-price"> {task?.price}</span>
                 )}
             </div>
         </div>
