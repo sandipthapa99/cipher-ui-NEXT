@@ -36,6 +36,7 @@ const EquipmentForm = ({
                         validationSchema={equipmentFormSchema}
                         onSubmit={async (values) => {
                             setshowEqpForm(false);
+                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

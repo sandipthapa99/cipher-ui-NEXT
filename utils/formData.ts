@@ -1,9 +1,10 @@
+import { AccountValueProps } from "types/accountValueProps";
 import { ApplyValueProps } from "types/applyValueProps";
 import { BookNowFormProps } from "types/bookNow";
-import { CertificationValueProps } from "types/CertificationValueProps";
+import { CertificationValueProps } from "types/certificationValueProps";
 import { ClientSignUpValueProps } from "types/clientSignUp";
 import { AddPortfolio, AddSkills } from "types/editProfile";
-import { EducationValueProps } from "types/EducationValueProps";
+import { EducationValueProps } from "types/educationValueProps";
 import { EquipmentValueProps } from "types/equipmentValueProps";
 import { ExperienceValueProps } from "types/experienceValueProps";
 import { LoginValuesProps } from "types/login";
@@ -106,6 +107,28 @@ export const EducationFormData: EducationValueProps = {
     startDate: null,
     endDate: null,
 };
+
 export const SkillsFromData: SkillsValueProps = {
     skills: "",
+};
+
+export const AccountFromData: AccountValueProps = {
+    fullName: "",
+    email: "",
+    bio: "",
+    gender: "",
+    dateOfBirth: null,
+    specialities: "",
+    experienceLevel: "",
+    activeHoursFrom: "",
+    activeHoursTo: null,
+    baseRatePerHour: null,
+    userType: "",
+    country: "",
+    addressLine1: "",
+    addressLine2: "",
+    language: "",
+    currency: "",
+    visibility: "",
+    taskPreferences: "",
 };
