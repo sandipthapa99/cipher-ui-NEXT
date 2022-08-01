@@ -27,7 +27,7 @@ const SearchPage: NextPage = () => {
         <>
             <SearchHeader />
             <Header />
-            <Container style={{ height: "200vh" }}>
+            <Container>
                 <SearchCategory onChange={setQuery} />
                 <SearchResults servicesNearYou={filteredServices} />
             </Container>
