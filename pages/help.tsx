@@ -2,6 +2,7 @@ import BlogCard from "@components/common/BlogCard";
 import Breadcrum from "@components/common/Breadcrum";
 import BigButton from "@components/common/Button";
 import CommonCard from "@components/common/CommonCard";
+import FaqContent from "@components/common/Faq";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
@@ -11,6 +12,7 @@ import Image from "next/image";
 import React from "react";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { blogCardContent } from "staticData/community";
+import { faqContent } from "staticData/faq";
 import { helpCardContent } from "staticData/helpCardContent";
 import searchValidationSchema from "utils/formValidation/searchValidation";
 
@@ -159,91 +161,15 @@ const Help: NextPage = () => {
                     <div className="help-page-content__faq-container">
                         <h1>Frequently Asked Questions</h1>
                         <Accordion flush>
-                            <Accordion.Item eventKey="1">
-                                <Accordion.Header>
-                                    What is Cipher?
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <p>
-                                        With Cagtu, a custom app development
-                                        project starts with you preparing and
-                                        then submitting a request for proposal,
-                                        also referred to as an RFP(request for
-                                        proposal). It will help us create a
-                                        tailored, individualised response.
-                                    </p>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="2">
-                                <Accordion.Header>
-                                    What is Cipher?
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <p>
-                                        With Cagtu, a custom app development
-                                        project starts with you preparing and
-                                        then submitting a request for proposal,
-                                        also referred to as an RFP(request for
-                                        proposal). It will help us create a
-                                        tailored, individualised response.
-                                    </p>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="3">
-                                <Accordion.Header>
-                                    What is Cipher?
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <p>
-                                        With Cagtu, a custom app development
-                                        project starts with you preparing and
-                                        then submitting a request for proposal,
-                                        also referred to as an RFP(request for
-                                        proposal). It will help us create a
-                                        tailored, individualised response.
-                                    </p>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="4">
-                                <Accordion.Header>
-                                    How long does the project take?
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <p>
-                                        The implementation time depends on the
-                                        type of order, the technology chosen,
-                                        and the amount of work that needs to be
-                                        done. We always try to establish a
-                                        realistic time frame for completing the
-                                        project. Most MVP (Minimum Viable
-                                        Product) versions are implemented within
-                                        2-4 months of signing the contract.
-                                        Also, we develop projects through
-                                        long-term collaboration plans that have
-                                        no end date.
-                                    </p>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="5">
-                                <Accordion.Header>
-                                    How do you provide project estimates? What
-                                    are the modes of communication that you use?
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <p>
-                                        Team Cagtu carries out scoping and
-                                        estimation for our customers&apos;
-                                        projects through the tools developed
-                                        in-house. We can schedule a call,
-                                        proceed with email communication, or
-                                        stay in contact through any instant
-                                        messenger convenient to you. If all the
-                                        specialists required for your project
-                                        are available, we start the work as soon
-                                        as possible, or even immediately.
-                                    </p>
-                                </Accordion.Body>
-                            </Accordion.Item>
+                            {faqContent &&
+                                faqContent.map((faq) => (
+                                    <FaqContent
+                                        answer={faq.answer}
+                                        key={faq.id}
+                                        id={faq.id}
+                                        question={faq.question}
+                                    />
+                                ))}
                         </Accordion>
                     </div>
                 </Container>
