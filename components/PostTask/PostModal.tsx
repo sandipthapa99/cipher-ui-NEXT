@@ -52,7 +52,8 @@ const PostModal = ({ onSubmit }: Props) => {
         },
         onSubmit(values) {
             addTask(values, () => {
-                // setShowSuccessModal(true)    ;
+                setShowSuccessModal(true);
+
                 onSubmit();
             });
         },
@@ -404,7 +405,6 @@ const PostModal = ({ onSubmit }: Props) => {
                             type="button"
                             onClick={() => {
                                 handleSubmit();
-                                setShowSuccessModal(true);
                             }}
                             className="post-modal"
                             style={{

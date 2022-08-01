@@ -137,14 +137,16 @@ export function UpperHeader() {
                             </div>
                         )}
 
-                        <button
-                            style={{ outline: "none", border: "none" }}
-                            onClick={handleShow}
-                        >
-                            <a className="btn nav-cta-btn d-none d-md-inline-block">
-                                Post Task
-                            </a>
-                        </button>
+                        {token && (
+                            <button
+                                style={{ outline: "none", border: "none" }}
+                                onClick={handleShow}
+                            >
+                                <a className="btn nav-cta-btn d-none d-md-inline-block">
+                                    Post Task
+                                </a>
+                            </button>
+                        )}
 
                         <Navbar.Toggle aria-controls="site-navigation">
                             <FontAwesomeIcon
