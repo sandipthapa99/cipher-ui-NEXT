@@ -1,18 +1,12 @@
 import AboutCard from "@components/common/AboutCard";
 import AllCategoryCard from "@components/common/AllCategoryCard";
 import Breadcrum from "@components/common/Breadcrum";
-import BigButton from "@components/common/Button";
 import MerchantAdviceCard from "@components/common/MerchantAdviceCard";
 import MerchantCard from "@components/common/MerchantCard";
-import RecommendationChips from "@components/common/RecommendationChips";
 import ServiceCard from "@components/common/ServiceCard";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
-import { faSearch } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
-import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { AllCategoryCardContent } from "staticData/categoryCardContent";
 import { merchantAdvice } from "staticData/merchantAdvice";
@@ -33,6 +27,7 @@ const Discover: NextPage = () => {
                             title="Looking to earn money quickly?"
                             subTitle="It doesn't even take a minute to sign up"
                             image="/discover/main.svg"
+                            btnText="Join Us"
                         />
                     </section>
                     {/* Discover top container end */}
@@ -216,4 +211,4 @@ const Discover: NextPage = () => {
     );
 };
 
-export default withAuth(Discover);
+export default Discover;
