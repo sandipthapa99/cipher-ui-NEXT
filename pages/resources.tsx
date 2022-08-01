@@ -1,7 +1,6 @@
 import BlogCard from "@components/common/BlogCard";
 import Breadcrum from "@components/common/Breadcrum";
 import BusinessGoal from "@components/common/BusinessGoal";
-import InputField from "@components/common/InputField";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
@@ -34,7 +33,7 @@ const Resources: NextPage = () => {
                                 <h1>Resources Centre</h1>
                                 <SearchInputField
                                     validationSchema={searchValidationSchema}
-                                    placeholder="Search Categories"
+                                    placeholder="Search Resources"
                                 />
 
                                 <div className="recommendation">
