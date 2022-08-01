@@ -8,6 +8,7 @@ import { ProfileAboutContent } from "staticData/profileAboutContent";
 import AddPortfolio from "./AddPortfolio";
 import CertificationForm from "./CertificationForm";
 import EditProfileButton from "./EditProfileButton";
+import EducationForm from "./EducationForm";
 import ExperienceForm from "./ExperienceForm";
 
 const AboutProfile = () => {
@@ -15,6 +16,7 @@ const AboutProfile = () => {
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
     const [showAddSkillsModal, setShowAddSkillsModal] = useState(false);
     const [showCertificationModal, setShowCertificationModal] = useState(false);
+    const [showEducationForm, setShowEducationForm] = useState(false);
 
     return (
         <>
@@ -25,7 +27,7 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>My Portfolio</h1>
-                                {/* <EditProfileButton
+                                <EditProfileButton
                                     text="Add New"
                                     showModal={true}
                                     handleOnClick={() =>
@@ -33,7 +35,7 @@ const AboutProfile = () => {
                                             !showAddPortfolioModal
                                         )
                                     }
-                                /> */}
+                                />
                             </div>
 
                             <div className="content">
@@ -56,11 +58,13 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>Experience</h1>
-                                <span
-                                    onClick={() => setShowExpForm(!showExpForm)}
-                                >
-                                    Add New
-                                </span>
+                                <EditProfileButton
+                                    text="Add New"
+                                    showModal={true}
+                                    handleOnClick={() =>
+                                        setShowExpForm(!showExpForm)
+                                    }
+                                />
                                 <ExperienceForm
                                     show={showExpForm}
                                     setShowExpForm={setShowExpForm}
@@ -141,7 +145,18 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>Education</h1>
-                                <a href="#!">Add New</a>
+                                <EditProfileButton
+                                    text="Add New"
+                                    showModal={true}
+                                    handleOnClick={() =>
+                                        setShowEducationForm(!showEducationForm)
+                                    }
+                                />
+                                <EducationForm
+                                    show={showEducationForm}
+                                    setShowEducationForm={setShowEducationForm}
+                                    handleClose={() => setShowExpForm(false)}
+                                />
                             </div>
                             <Row>
                                 <Col md={9}>
@@ -181,15 +196,15 @@ const AboutProfile = () => {
                             <div className="title-wrapper d-flex justify-content-between">
                                 {/* <h2 className="heading-title">Community activity</h2> */}
                                 <h1>Certifications</h1>
-                                <span
-                                    onClick={() =>
+                                <EditProfileButton
+                                    text="Add New"
+                                    showModal={true}
+                                    handleOnClick={() =>
                                         setShowCertificationModal(
                                             !showCertificationModal
                                         )
                                     }
-                                >
-                                    Add New
-                                </span>
+                                />
                                 <CertificationForm
                                     show={showCertificationModal}
                                     setShowCertificationModal={
