@@ -4,7 +4,7 @@ import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
 import Image from "next/image";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Carousel } from "react-bootstrap";
 import {
     browseTalent,
