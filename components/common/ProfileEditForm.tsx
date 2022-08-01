@@ -19,6 +19,8 @@ import { ProfileEditFromData } from "utils/formData";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
+import TagInputField from "./TagInputField";
+
 interface ProfileEditProps {
     show?: boolean;
     handleClose?: () => void;
@@ -45,6 +47,7 @@ const ProfileEditForm = ({
                         onSubmit={async (values) => {
                             setShowEdit(false);
                             setShowSuccessModal(true);
+                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
@@ -52,7 +55,7 @@ const ProfileEditForm = ({
                                 <InputField
                                     type="text"
                                     name="name"
-                                    labelName="Title"
+                                    labelName="Name"
                                     error={errors.name}
                                     touch={touched.name}
                                     placeHolder="Enter your price"
@@ -128,19 +131,18 @@ const ProfileEditForm = ({
                                         />
                                     </Col>
                                 </Row>
-                                <InputField
-                                    type="text"
+                                <TagInputField
                                     name="specialities"
-                                    labelName="Specialities"
                                     error={errors.specialities}
                                     touch={touched.specialities}
+                                    labelName="Specialities"
                                     placeHolder="Enter your price"
                                 />
                                 <Col md={3}>
                                     <InputField
                                         type="number"
                                         name="baseRatePerHour"
-                                        labelName="Base Rate Per    Hour"
+                                        labelName="Base Rate Per Hour"
                                         error={errors.baseRatePerHour}
                                         touch={touched.baseRatePerHour}
                                         placeHolder="Enter your price"
