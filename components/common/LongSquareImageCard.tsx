@@ -3,6 +3,16 @@ import { Col, Row } from "react-bootstrap";
 import { HowItWorkProps } from "types/howitwork";
 
 import CardBtn from "./CardBtn";
+
+export interface CardProps {
+    title: string;
+    subtitle?: string;
+    description: string;
+    image: string;
+    imageOnRight: boolean;
+    buttonText: string;
+    homeImage?: boolean;
+}
 const LongSquareImageCard = ({
     title,
     subtitle,
@@ -10,15 +20,16 @@ const LongSquareImageCard = ({
     image,
     imageOnRight,
     buttonText,
-}: HowItWorkProps) => {
-    console.log(imageOnRight);
+    homeImage,
+}: CardProps) => {
+    console.log(homeImage);
 
     return (
         <div className="long-square-image-card">
             <Row className="gx-5 card-content">
                 {imageOnRight ? (
                     <>
-                        <Col md={5}>
+                        <Col md={homeImage ? 6 : 5}>
                             <figure className="thumbnail-img">
                                 <Image
                                     src={image}
@@ -28,10 +39,10 @@ const LongSquareImageCard = ({
                                 />
                             </figure>
                         </Col>
-                        <Col md={7}>
+                        <Col md={homeImage ? 6 : 7}>
                             <div className="description">
                                 <h1>{title}</h1>
-                                <h4>{subtitle}</h4>
+                                {subtitle && <h4>{subtitle}</h4>}
                                 <p>{description}</p>
                             </div>
                             {buttonText && (
@@ -45,10 +56,10 @@ const LongSquareImageCard = ({
                     </>
                 ) : (
                     <>
-                        <Col md={7}>
+                        <Col md={homeImage ? 6 : 7}>
                             <div className="description">
                                 <h1>{title}</h1>
-                                <h4>{subtitle}</h4>
+                                {subtitle && <h4>{subtitle}</h4>}
                                 <p>{description}</p>
                             </div>
                             {buttonText && (
@@ -59,7 +70,7 @@ const LongSquareImageCard = ({
                                 />
                             )}
                         </Col>
-                        <Col md={5}>
+                        <Col md={homeImage ? 6 : 5}>
                             <figure className="thumbnail-img">
                                 <Image
                                     src={image}

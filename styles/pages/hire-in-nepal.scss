@@ -1,0 +1,30 @@
+.hire-in-nepal {
+    &__top-container {
+        background: #e3d5fa;
+        .card-content {
+            padding: 2.5rem 5rem !important;
+            padding-left: 6rem !important;
+        }
+        .description {
+            padding-top: 5rem !important;
+            padding-right: 2.4rem !important;
+        }
+
+        h1 {
+            font-size: 3rem !important;
+            line-height: 4rem !important;
+            font-weight: 500;
+        }
+        p {
+            padding-top: 2rem !important;
+            padding-bottom: 3.5rem !important;
+            font-size: 1.4rem !important;
+            font-weight: 500 !important;
+        }
+        .card-btn {
+            background-color: #fff !important;
+            color: #111 !important;
+            margin-bottom: 6rem !important;
+        }
+    }
+}
