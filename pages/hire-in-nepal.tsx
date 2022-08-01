@@ -5,7 +5,10 @@ import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
 import { Col, Container, Row } from "react-bootstrap";
-import { hireInNepalBrowseTalent } from "staticData/hireInNepal";
+import {
+    hireInNepalBrowseTalent,
+    topSkillsInNepal,
+} from "staticData/hireInNepal";
 import { DUMMY_TASKS } from "types/tasks";
 import searchValidationSchema from "utils/formValidation/searchValidation";
 const HireInNepal: NextPage = () => {
@@ -56,7 +59,17 @@ const HireInNepal: NextPage = () => {
                             ))}
                         </Row>
                     </div>
-                    <div className="hire-in-nepal__top-skills"></div>
+                    <div className="hire-in-nepal__top-skills">
+                        <h1>Top skills in Nepal</h1>
+                        <Row>
+                            {topSkillsInNepal &&
+                                topSkillsInNepal.map((skill) => (
+                                    <Col md={3} key={skill.id}>
+                                        <p>{skill.name}</p>
+                                    </Col>
+                                ))}
+                        </Row>
+                    </div>
                 </section>
             </Container>
         </Layout>

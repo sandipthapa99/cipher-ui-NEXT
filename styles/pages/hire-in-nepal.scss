@@ -87,4 +87,17 @@
             }
         }
     }
+    &__top-skills {
+        h1 {
+            padding-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        p {
+            margin-bottom: 0rem;
+            color: $secondary-text-color;
+            font-weight: 500;
+            padding-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+    }
 }
