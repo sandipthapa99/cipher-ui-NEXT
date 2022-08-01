@@ -1,12 +1,20 @@
 .search-results {
-    .map {
-        @include respond(xs) {
-            display: none;
+    
+    .results{
+        @include respond(xs){
+            flex-direction: column-reverse;
         }
-    }
+       
+    // .map {
+    //     @include respond(xs) {
+    //         display: none;
+    //     }
+    // }
+}
 }
 .search-input {
     @include respond(xs) {
         display: none;
     }
 }
+

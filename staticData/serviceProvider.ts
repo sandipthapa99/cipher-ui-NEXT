@@ -1,4 +1,4 @@
-export const serviceProvider = [
+export const serviceProviders = [
     {
         id: "0",
         name: "Harry Smith",

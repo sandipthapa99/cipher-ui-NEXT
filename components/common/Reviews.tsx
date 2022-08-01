@@ -20,7 +20,10 @@ const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
                         <div className="reviewer">
                             <h3 className="name">{name}</h3>
 
-                            <div className="ratings d-flex">
+                            <div
+                                className="ratings d-flex"
+                                style={{ marginTop: "1.8rem" }}
+                            >
                                 {Array.from({ length: ratings }, (_, i) => (
                                     <span key={i}>
                                         <figure className="thumbnail-img">
