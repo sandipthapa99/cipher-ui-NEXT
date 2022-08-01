@@ -1,20 +1,26 @@
 import { faBars } from "@fortawesome/pro-regular-svg-icons";
+import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuthContext } from "context/AuthContext/userContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { parseCookies } from "nookies";
 import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { profileCardContent } from "staticData/profileCardContent";
 import { handleMenuActive } from "utils/helpers";
 
 import { ProfileModel } from "./model/ProfileModel";
+import { PostCard } from "./PostTask/PostCard";
+import PostModal from "./PostTask/PostModal";
 
 export function UpperHeader() {
     const router = useRouter();
+    const [showModal, setShowModal] = useState(false);
     const [notopen, setNotopen] = useState(false);
+    const handleShow = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
 
     const { token } = useAuthContext();
 
@@ -131,11 +137,17 @@ export function UpperHeader() {
                             </div>
                         )}
 
-                        <Link href="/post-task">
-                            <a className="btn nav-cta-btn d-none d-md-inline-block">
-                                Post Task
-                            </a>
-                        </Link>
+                        {token && (
+                            <button
+                                style={{ outline: "none", border: "none" }}
+                                onClick={handleShow}
+                            >
+                                <a className="btn nav-cta-btn d-none d-md-inline-block">
+                                    Post Task
+                                </a>
+                            </button>
+                        )}
+
                         <Navbar.Toggle aria-controls="site-navigation">
                             <FontAwesomeIcon
                                 icon={faBars}
@@ -148,6 +160,24 @@ export function UpperHeader() {
                     </Navbar>
                 </Container>
             </header>
+            <Modal
+                show={showModal}
+                onHide={handleClose}
+                backdrop="static"
+                className="post-modal"
+            >
+                <Modal.Header className="mt-4" closeButton></Modal.Header>
+                <Modal.Body>
+                    <PostModal onSubmit={handleClose} />
+                </Modal.Body>
+            </Modal>
+            <PostCard
+                text="You are good to continue."
+                buttonName="Continue"
+                type="Success"
+                iconName={faSquareCheck}
+            />
+
             {/* Site Upper Header End */}
         </>
     );

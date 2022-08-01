@@ -12,7 +12,7 @@ import { Component } from "react";
 //     const WrapperApp = (props: T) => {
 //         const { token } = useAuthContext();
 //         const router = useRouter();
-//         console.log(router.pathname);
+//
 
 //         useEffect(() => {
 //             if (
@@ -39,7 +39,6 @@ export const withAuth = <T,>(Component: ComponentType<T>) => {
     const WrapperApp = (props: T) => {
         const router = useRouter();
         const { token } = useAuthContext();
-        console.log(token);
 
         useEffect(() => {
             if (token && RESTRICTED_ROUTES.includes(router.pathname)) {
