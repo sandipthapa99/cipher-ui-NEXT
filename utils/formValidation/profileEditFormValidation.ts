@@ -9,6 +9,7 @@ const emailValidate = Yup.string()
 const phoneValidate = Yup.string()
     .matches(phoneRegExp, "Invalid phone number")
     .required("Required field");
+const tagValidate = Yup.array(Yup.string()).required("Required field");
 
 export const profileEditFormSchema = Yup.object().shape({
     name: stringReqOnly,
@@ -19,6 +20,6 @@ export const profileEditFormSchema = Yup.object().shape({
     addressLine2: stringReqOnly,
     activeHoursFrom: dateValidation,
     activeHoursTo: dateValidation,
-    specialities: stringReqOnly,
+    specialities: tagValidate,
     baseRatePerHour: stringReqOnly,
 });

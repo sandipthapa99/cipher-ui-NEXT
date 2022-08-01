@@ -75,7 +75,7 @@ const Resources: NextPage = () => {
                         </Row>
                     </Container>
                 </section>
-                <section className="resource-page__content">
+                <div className="resource-page__content">
                     <Container fluid="xl">
                         <div className="carousel">
                             <Carousel>
@@ -174,7 +174,7 @@ const Resources: NextPage = () => {
                             </Row>
                         </div>
                     </Container>
-                </section>
+                </div>
             </section>
         </Layout>
     );

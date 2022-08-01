@@ -4,26 +4,26 @@ import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useSuccessContext } from "context/successContext/successContext";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { Dispatch, SetStateAction } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { CertificationFromData } from "utils/formData";
-import { certificateFormSchema } from "utils/formValidation/certificateFormValidation";
+import { EducationFormData } from "utils/formData";
+import { educationFormSchema } from "utils/formValidation/educationFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-interface CertificationProps {
+interface EducationProps {
     show?: boolean;
     handleClose?: () => void;
-    setShowCertificationModal: Dispatch<SetStateAction<boolean>>;
+    setShowEducationForm: Dispatch<SetStateAction<boolean>>;
 }
 
-const CertificationForm = ({
+const EducationForm = ({
     show,
     handleClose,
-    setShowCertificationModal,
-}: CertificationProps) => {
+    setShowEducationForm,
+}: EducationProps) => {
     const { setShowSuccessModal } = useSuccessContext();
     return (
         <>
@@ -31,12 +31,12 @@ const CertificationForm = ({
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
-                    <h3>Add Certifications</h3>
+                    <h3>Add Education</h3>
                     <Formik
-                        initialValues={CertificationFromData}
-                        validationSchema={certificateFormSchema}
+                        initialValues={EducationFormData}
+                        validationSchema={educationFormSchema}
                         onSubmit={async (values) => {
-                            setShowCertificationModal(false);
+                            setShowEducationForm(false);
                             setShowSuccessModal(true);
                             console.log(values);
                         }}
@@ -45,66 +45,58 @@ const CertificationForm = ({
                             <Form autoComplete="off">
                                 <InputField
                                     type="text"
-                                    name="name"
-                                    labelName="Name"
-                                    error={errors.name}
-                                    touch={touched.name}
-                                    placeHolder="Eg: Certified Gardener"
-                                />
-                                <InputField
-                                    name="organization"
-                                    labelName="Organization"
-                                    touch={touched.organization}
-                                    error={errors.organization}
-                                    placeHolder="Eg: Cagtu"
-                                    as="textarea"
+                                    name="school"
+                                    labelName="school"
+                                    error={errors.school}
+                                    touch={touched.school}
+                                    placeHolder="Enter your price"
                                 />
                                 <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
-                                    placeHolder="Experience Description"
-                                />
-                                <p className="mb-3 d-flex checkbox">
-                                    <Field
-                                        type="checkbox"
-                                        name="toggle"
-                                        className="checkbox-toggle me-2"
-                                    />{" "}
-                                    This certifate does not expire
-                                </p>
-                                <InputField
-                                    name="credentialId"
-                                    labelName="Credential Id"
-                                    touch={touched.credentialId}
-                                    error={errors.credentialId}
-                                    placeHolder="Eg: Cagtu"
+                                    placeHolder="Applying (Remark)"
+                                    as="textarea"
                                 />
                                 <InputField
-                                    name="certificateURL"
-                                    labelName="Certificate URL"
-                                    touch={touched.certificateURL}
-                                    error={errors.certificateURL}
-                                    placeHolder="Eg: Cagtu"
+                                    name="degree"
+                                    labelName="degree"
+                                    touch={touched.degree}
+                                    error={errors.degree}
+                                    placeHolder="Applying (Remark)"
+                                />
+                                <InputField
+                                    name="fieldOfStudy"
+                                    labelName="fieldOfStudy"
+                                    touch={touched.fieldOfStudy}
+                                    error={errors.fieldOfStudy}
+                                    placeHolder="Applying (Remark)"
+                                />
+                                <InputField
+                                    name="location"
+                                    labelName="location"
+                                    touch={touched.location}
+                                    error={errors.location}
+                                    placeHolder="Applying (Remark)"
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
                                         <DatePickerField
-                                            name="issuedDate"
-                                            labelName="issuedDate"
-                                            placeHolder="day/month/year"
-                                            touch={touched.issuedDate}
-                                            error={errors.issuedDate}
+                                            name="startDate"
+                                            labelName="startDate"
+                                            placeHolder="01/01/2001"
+                                            touch={touched.startDate}
+                                            error={errors.startDate}
                                         />
                                     </Col>
                                     <Col md={6}>
                                         <DatePickerField
-                                            name="expirationDate"
-                                            labelName="Expiration Date"
-                                            placeHolder="day/month/year"
-                                            touch={touched.expirationDate}
-                                            error={errors.expirationDate}
+                                            name="endDate"
+                                            labelName="endDate"
+                                            placeHolder="01/01/2001"
+                                            touch={touched.endDate}
+                                            error={errors.endDate}
                                         />
                                     </Col>
                                 </Row>
@@ -142,4 +134,4 @@ const CertificationForm = ({
         </>
     );
 };
-export default CertificationForm;
+export default EducationForm;
