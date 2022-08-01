@@ -9,6 +9,12 @@
         padding-block: 10px;
         margin-bottom: 24px;
 
+        @include media("<=tablet") {
+            overflow-x: scroll;
+            flex-wrap: nowrap;
+            gap: 32px;
+        }
+
         &::before {
             position: absolute;
             content: "";
@@ -45,8 +51,12 @@
                 transform: scaleX(1) translateY(18px);
                 visibility: visible;
             }
+            @include media("<=tablet") {
+                &[data-is-active="true"] {
+                    color: #fca500;
+                    font-weight: 500;
+                }
+            }
         }
-    }
-    &__content {
     }
 }

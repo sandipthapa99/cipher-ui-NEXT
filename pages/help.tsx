@@ -2,12 +2,9 @@ import BlogCard from "@components/common/BlogCard";
 import Breadcrum from "@components/common/Breadcrum";
 import BigButton from "@components/common/Button";
 import CommonCard from "@components/common/CommonCard";
-import InputField from "@components/common/InputField";
 import RecommendationChips from "@components/common/RecommendationChips";
+import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import { faSearch } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Form, Formik } from "formik";
 import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
@@ -15,7 +12,7 @@ import React from "react";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { blogCardContent } from "staticData/community";
 import { helpCardContent } from "staticData/helpCardContent";
-import emailValidationSchema from "utils/formValidation/emailValidation";
+import searchValidationSchema from "utils/formValidation/searchValidation";
 
 const Help: NextPage = () => {
     return (
@@ -38,37 +35,10 @@ const Help: NextPage = () => {
                             <Col md={6}>
                                 <h1>What help do you need?</h1>
 
-                                <Formik
-                                    initialValues={{ email: "" }}
-                                    validationSchema={emailValidationSchema}
-                                    onSubmit={async (values) => {
-                                        console.log(values);
-                                    }}
-                                >
-                                    {({ isSubmitting, errors, touched }) => (
-                                        <Form className="search">
-                                            <InputField
-                                                type="email"
-                                                name="text"
-                                                error={errors.email}
-                                                touch={touched.email}
-                                                placeHolder="Search Categories"
-                                            />
-
-                                            <button
-                                                type="submit"
-                                                className="btn"
-                                                disabled={isSubmitting}
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faSearch}
-                                                    className="svg-icon"
-                                                />
-                                            </button>
-                                        </Form>
-                                    )}
-                                </Formik>
-
+                                <SearchInputField
+                                    validationSchema={searchValidationSchema}
+                                    placeholder="Search Categories"
+                                />
                                 <div className="recommendation">
                                     <RecommendationChips title="Connects" />
                                     <RecommendationChips title="Get Paid" />
@@ -282,4 +252,4 @@ const Help: NextPage = () => {
     );
 };
 
-export default withAuth(Help);
+export default Help;

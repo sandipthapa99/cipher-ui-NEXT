@@ -1,12 +1,9 @@
 import BlogCard from "@components/common/BlogCard";
 import Breadcrum from "@components/common/Breadcrum";
 import BusinessGoal from "@components/common/BusinessGoal";
-import InputField from "@components/common/InputField";
 import RecommendationChips from "@components/common/RecommendationChips";
+import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import { faSearch } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Form, Formik } from "formik";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
@@ -34,37 +31,10 @@ const Resources: NextPage = () => {
                             </Col>
                             <Col md={6}>
                                 <h1>Resources Centre</h1>
-
-                                <Formik
-                                    initialValues={{ name: "" }}
+                                <SearchInputField
                                     validationSchema={searchValidationSchema}
-                                    onSubmit={async (values) => {
-                                        console.log(values);
-                                    }}
-                                >
-                                    {({ isSubmitting, errors, touched }) => (
-                                        <Form className="search">
-                                            <InputField
-                                                type="text"
-                                                name="text"
-                                                error={errors.name}
-                                                touch={touched.name}
-                                                placeHolder="Search Resources"
-                                            />
-
-                                            <button
-                                                type="submit"
-                                                className="btn"
-                                                disabled={isSubmitting}
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faSearch}
-                                                    className="svg-icon"
-                                                />
-                                            </button>
-                                        </Form>
-                                    )}
-                                </Formik>
+                                    placeholder="Search Resources"
+                                />
 
                                 <div className="recommendation">
                                     <RecommendationChips title="Guides" />
@@ -75,7 +45,7 @@ const Resources: NextPage = () => {
                         </Row>
                     </Container>
                 </section>
-                <section className="resource-page__content">
+                <div className="resource-page__content">
                     <Container fluid="xl">
                         <div className="carousel">
                             <Carousel>
@@ -174,7 +144,7 @@ const Resources: NextPage = () => {
                             </Row>
                         </div>
                     </Container>
-                </section>
+                </div>
             </section>
         </Layout>
     );

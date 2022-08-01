@@ -3,16 +3,16 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { useAuthContext } from "context/AuthContext/userContext";
 import { Form, Formik } from "formik";
 import { withAuth } from "hoc/withAuth";
+import { useLogin } from "hooks/auth/useLogin";
 import React from "react";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
-    const { loginUser } = useAuthContext();
+    const { mutate, isLoading } = useLogin();
 
     return (
         <section>
@@ -30,10 +30,14 @@ const Login = () => {
                         initialValues={loginFormData}
                         validationSchema={loginFormSchema}
                         onSubmit={(values) => {
-                            loginUser(values);
+                            mutate(values, {
+                                onError: (error) => console.log(error),
+                                onSuccess: (accessToken) =>
+                                    console.log(accessToken),
+                            });
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ errors, touched }) => (
                             <Form className="login-form">
                                 <InputField
                                     type="email"
@@ -55,11 +59,11 @@ const Login = () => {
                                 <FormButton
                                     type="submit"
                                     variant="primary"
-                                    name={isSubmitting ? "Loading" : "Login"}
+                                    name={isLoading ? "Loading" : "Login"}
                                     className="login-btn"
-                                    isSubmitting={isSubmitting}
+                                    isSubmitting={isLoading}
                                     isSubmittingClass={isSubmittingClass(
-                                        isSubmitting
+                                        isLoading
                                     )}
                                 />
 

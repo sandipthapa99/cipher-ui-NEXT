@@ -1,20 +1,25 @@
 import BigButton from "@components/common/Button";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
-import { GrowYourBusinessProps } from "types/growBusiness";
-const GrowBusinessCarousel = ({
+import { squareImageCarousel } from "types/growBusiness";
+
+const SquareImageCarousel = ({
     image,
     description,
     title,
     buttonText,
-}: GrowYourBusinessProps) => {
+}: squareImageCarousel) => {
     return (
         <Row className="carousel-card">
             <Col md={6}>
                 <div className="grow-business-content">
                     <h1>{title}</h1>
                     <p>{description}</p>
-                    <BigButton btnTitle={buttonText} backgroundColor="#fff" />
+                    <BigButton
+                        btnTitle={buttonText}
+                        backgroundColor="#fff"
+                        textColor="#111"
+                    />
                 </div>
             </Col>
             <Col md={6}>
@@ -30,4 +35,4 @@ const GrowBusinessCarousel = ({
         </Row>
     );
 };
-export default GrowBusinessCarousel;
+export default SquareImageCarousel;

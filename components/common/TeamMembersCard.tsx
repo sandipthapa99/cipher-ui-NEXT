@@ -76,8 +76,8 @@ export const TeamMembersCard = ({
             </div>
 
             <p>
-                I’m punctual and hardworking person. I love teaching what I. We
-                want a garden cleaner for our bunglow.
+                I&apos;m punctual and hardworking person. I love teaching what
+                I. We want a garden cleaner for our bunglow.
             </p>
             <div className="d-flex justify-content-between footer-section">
                 <span className="share-and-like">

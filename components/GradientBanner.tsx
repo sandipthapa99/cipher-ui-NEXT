@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Col, Row } from "react-bootstrap";
 
 import CardBtn from "./common/CardBtn";
 
@@ -6,33 +7,41 @@ interface GradientBannerProps {
     title: string;
     subTitle: string;
     image: string;
+    btnText: string;
 }
-const GradientBanner = ({ title, subTitle, image }: GradientBannerProps) => {
+const GradientBanner = ({
+    title,
+    subTitle,
+    btnText,
+    image,
+}: GradientBannerProps) => {
     return (
-        <>
-            <section className="explore-services__top-container">
-                <div className="gradient"></div>
-                <figure className="thumbnail-img">
-                    <Image
-                        src={image}
-                        layout="fill"
-                        objectFit="cover"
-                        alt="oppurtunities-page-main-image"
-                    />
-                </figure>
-                <div className="overlay pb-3">
+        <div className="gradient-layout">
+            <div className="gradient"></div>
+            <figure className="thumbnail-img">
+                <Image
+                    src={image}
+                    layout="fill"
+                    objectFit="cover"
+                    alt="oppurtunities-page-main-image"
+                />
+            </figure>
+
+            <div className="overlay pb-3">
+                <>
                     <h1>{title}</h1>
                     <div className="bottom-content">
                         <p>{subTitle}</p>
                     </div>
                     <CardBtn
-                        btnTitle="Join Us"
+                        btnTitle={btnText}
                         backgroundColor="#FFF"
                         color="#000"
                     />
-                </div>
-            </section>
-        </>
+                </>
+                <div></div>
+            </div>
+        </div>
     );
 };
 export default GradientBanner;
