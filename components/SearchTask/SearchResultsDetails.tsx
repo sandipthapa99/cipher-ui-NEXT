@@ -24,9 +24,9 @@ import {
     faShare,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
+import { faArrowLeft, faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
@@ -198,8 +198,22 @@ const SearchResultsDetail = ({
                             slideGap="md"
                             align="start"
                             slidesToScroll={2}
-                            nextControlIcon={<IconArrowRight size={16} />}
-                            previousControlIcon={<IconArrowLeft size={16} />}
+                            nextControlIcon={
+                                <FontAwesomeIcon
+                                    width={"20px"}
+                                    height={"20px"}
+                                    icon={faArrowRight}
+                                    style={{ fontSize: "16px" }}
+                                />
+                            }
+                            previousControlIcon={
+                                <FontAwesomeIcon
+                                    width={"20px"}
+                                    height={"20px"}
+                                    icon={faArrowLeft}
+                                    style={{ fontSize: "16px" }}
+                                />
+                            }
                             style={{ padding: "2rem 0" }}
                         >
                             {PackageCard &&
@@ -242,13 +256,27 @@ const SearchResultsDetail = ({
                     </Row>
                     <Carousel
                         height={550}
-                        slideSize="33.33%"
+                        slideSize="34%"
                         slideGap="md"
                         align="start"
                         loop
                         slidesToScroll={1}
-                        nextControlIcon={<IconArrowRight size={16} />}
-                        previousControlIcon={<IconArrowLeft size={16} />}
+                        nextControlIcon={
+                            <FontAwesomeIcon
+                                width={"20px"}
+                                height={"20px"}
+                                icon={faArrowRight}
+                                style={{ fontSize: "10px" }}
+                            />
+                        }
+                        previousControlIcon={
+                            <FontAwesomeIcon
+                                width={"20px"}
+                                height={"20px"}
+                                icon={faArrowLeft}
+                                style={{ fontSize: "16px" }}
+                            />
+                        }
                         style={{ padding: "2rem 0" }}
                     >
                         {services &&
