@@ -19,7 +19,7 @@ const Footer = () => {
     return (
         <>
             <footer id="site-footer" className="site-footer">
-                <Container>
+                <Container fluid="xl" className="px-5">
                     {/* Cipher Newsletter section start */}
                     <div className="site-footer__newsletter">
                         <Row>

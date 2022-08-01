@@ -32,7 +32,7 @@ const Tasker = () => {
         <>
             <SearchHeader />
             <Header />
-            <Container>
+            <Container fluid="xl" className="px-5">
                 <SearchCategory onChange={setSearchQuery} />
                 <Row>
                     <Col md={4}>
