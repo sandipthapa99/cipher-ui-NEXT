@@ -28,7 +28,7 @@ export function UpperHeader() {
         <>
             {/* Site Upper Header Start */}
             <header id="site-upper-header" className="site-upper-header">
-                <Container className="">
+                <Container fluid="xl" className="px-5">
                     <Navbar expand="lg" className="upper-navigation">
                         <Link href="/">
                             <a>

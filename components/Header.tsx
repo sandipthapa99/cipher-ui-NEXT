@@ -50,7 +50,7 @@ const Header = () => {
         <>
             {/* Site Upper Header Start */}
             <header id="site-header" className={`site-header ${stickyClass}`}>
-                <Container className="">
+                <Container fluid="xl" className="px-5">
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li
