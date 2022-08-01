@@ -10,11 +10,12 @@ import CertificationForm from "./CertificationForm";
 import EditProfileButton from "./EditProfileButton";
 import EducationForm from "./EducationForm";
 import ExperienceForm from "./ExperienceForm";
+import AddSkills from "./SkillsForm";
 
 const AboutProfile = () => {
     const [showExpForm, setShowExpForm] = useState(false);
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
-    const [showAddSkillsModal, setShowAddSkillsModal] = useState(false);
+    const [showAddSkillsForm, setShowAddSkillsForm] = useState(false);
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
 
@@ -119,9 +120,14 @@ const AboutProfile = () => {
                                     text="Add New"
                                     showModal={true}
                                     handleOnClick={() =>
-                                        setShowAddSkillsModal(
-                                            !showAddSkillsModal
-                                        )
+                                        setShowAddSkillsForm(!showAddSkillsForm)
+                                    }
+                                />
+                                <AddSkills
+                                    show={showAddSkillsForm}
+                                    setShowAddSkillsForm={setShowAddSkillsForm}
+                                    handleClose={() =>
+                                        setShowAddSkillsForm(false)
                                     }
                                 />
                             </div>
@@ -155,7 +161,9 @@ const AboutProfile = () => {
                                 <EducationForm
                                     show={showEducationForm}
                                     setShowEducationForm={setShowEducationForm}
-                                    handleClose={() => setShowExpForm(false)}
+                                    handleClose={() =>
+                                        setShowEducationForm(false)
+                                    }
                                 />
                             </div>
                             <Row>

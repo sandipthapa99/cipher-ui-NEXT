@@ -8,6 +8,7 @@ import { EquipmentValueProps } from "types/equipmentValueProps";
 import { ExperienceValueProps } from "types/experienceValueProps";
 import { LoginValuesProps } from "types/login";
 import { ProfileEditValueProps } from "types/ProfileEditValueProps";
+import { SkillsValueProps } from "types/skillsValueProps";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
@@ -104,4 +105,7 @@ export const EducationFormData: EducationValueProps = {
     location: "",
     startDate: null,
     endDate: null,
+};
+export const SkillsFromData: SkillsValueProps = {
+    skills: "",
 };
