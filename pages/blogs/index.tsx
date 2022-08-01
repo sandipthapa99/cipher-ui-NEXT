@@ -63,7 +63,7 @@ const Blog = ({ blogsData }: BlogsProps) => {
                             {result && result.length > 0 ? (
                                 result?.map((blog) => {
                                     const category = JSON.parse(blog?.category);
-                                    console.log(blog);
+
                                     return (
                                         <Col md={4} key={blog?.id}>
                                             <Link href={`/blogs/${blog?.slug}`}>

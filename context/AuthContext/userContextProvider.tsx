@@ -27,7 +27,7 @@ const AuthProvider = ({ children }: Props) => {
     //                 user.email === signUpValues.email ||
     //                 user.phoneNumber === signUpValues.phoneNumber
     //         );
-    //         console.log(duplicateEmailAndPhone);
+    //
 
     //         if (duplicateEmailAndPhone) {
     //             alert("duplicated email and phone");
@@ -49,7 +49,7 @@ const AuthProvider = ({ children }: Props) => {
     //                 user.email === loginValues.email &&
     //                 user.password === loginValues.password
     //         );
-    //         console.log(emailExists);
+    //
 
     //         if (emailExists) {
     //             setCookie(null, "token", "dfdsfdsfdsfsdfsdf", {
@@ -59,7 +59,7 @@ const AuthProvider = ({ children }: Props) => {
     //             router.replace("/");
     //         }
     //     } catch (error) {
-    //         console.log(error);
+    //
     //     }
     // };
 
@@ -78,7 +78,6 @@ const AuthProvider = ({ children }: Props) => {
         if (typeof window !== "undefined") {
             user = JSON.parse(localStorage.getItem("userDetails") as string);
         }
-        console.log(user.email, user.password);
 
         if (
             user.email === loginValues.email &&

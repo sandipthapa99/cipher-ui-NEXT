@@ -15,8 +15,6 @@ import { isSubmittingClass } from "utils/helpers";
 const SignUpAsTasker = () => {
     const router = useRouter();
 
-    console.log(router.pathname);
-
     const { signUpUser } = useAuthContext();
     return (
         <OnBoardingLayout

@@ -13,7 +13,6 @@ import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
     const { loginUser } = useAuthContext();
-    console.log(1);
 
     return (
         <section>

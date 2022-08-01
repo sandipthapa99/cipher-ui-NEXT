@@ -59,6 +59,7 @@
                     @include transition();
                 }
             }
+
             // &:hover {
             //     a {
             //         color: $secondary-color;
@@ -67,6 +68,12 @@
             //         color: $secondary-color;
             //     }
             // }
+        }
+
+        login-btn {
+            border: none;
+            outline: none;
+            font-size: 14px;
         }
     }
 }
