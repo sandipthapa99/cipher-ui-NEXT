@@ -14,101 +14,101 @@
         padding-bottom: 5rem;
         position: relative;
 
-        .gradient {
-            z-index: 1;
-            position: absolute;
-            height: 86%;
-            width: 100%;
+        // .gradient {
+        //     z-index: 1;
+        //     position: absolute;
+        //     height: 86%;
+        //     width: 100%;
 
-            background: linear-gradient(
-                90.26deg,
-                #ffca6a 31.38%,
-                rgba(255, 255, 255, 0) 99.78%
-            );
-            opacity: 0.9;
-        }
+        //     background: linear-gradient(
+        //         90.26deg,
+        //         #ffca6a 31.38%,
+        //         rgba(255, 255, 255, 0) 99.78%
+        //     );
+        //     opacity: 0.9;
+        // }
 
-        .thumbnail-img {
-            height: 43rem;
-            object-fit: contain;
-            z-index: 0;
-            border-radius: 0.4rem;
-            width: 100%;
-        }
+        // .thumbnail-img {
+        //     height: 43rem;
+        //     object-fit: contain;
+        //     z-index: 0;
+        //     border-radius: 0.4rem;
+        //     width: 100%;
+        // }
 
-        .overlay {
-            position: absolute;
-            opacity: 0.9;
-            top: 1rem;
-            //   left: 3rem;
-            z-index: 2;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 5rem 8rem;
-            justify-content: space-between;
+        // .overlay {
+        //     position: absolute;
+        //     opacity: 0.9;
+        //     top: 1rem;
+        //     //   left: 3rem;
+        //     z-index: 2;
+        //     width: 100%;
+        //     display: flex;
+        //     flex-direction: column;
+        //     padding: 5rem 8rem;
+        //     justify-content: space-between;
 
-            @include respond(xs) {
-                padding: 2rem 2.5rem;
-            }
+        //     @include respond(xs) {
+        //         padding: 2rem 2.5rem;
+        //     }
 
-            @include respond(sm) {
-                padding: 5.5rem 3rem;
-            }
+        //     @include respond(sm) {
+        //         padding: 5.5rem 3rem;
+        //     }
 
-            @include respond(lg) {
-                padding: 5rem 8rem;
-            }
+        //     @include respond(lg) {
+        //         padding: 5rem 8rem;
+        //     }
 
-            h1 {
-                color: $primary-color;
+        //     h1 {
+        //         color: $primary-color;
 
-                line-height: 4.5rem;
-                font-weight: 500;
-                line-height: 3.7rem;
+        //         line-height: 4.5rem;
+        //         font-weight: 500;
+        //         line-height: 3.7rem;
 
-                @include respond(xs) {
-                    font-size: 2rem;
-                    line-height: 4.2rem;
-                }
+        //         @include respond(xs) {
+        //             font-size: 2rem;
+        //             line-height: 4.2rem;
+        //         }
 
-                @include respond(sm) {
-                    font-size: 2.8rem;
-                }
+        //         @include respond(sm) {
+        //             font-size: 2.8rem;
+        //         }
 
-                @include respond(md) {
-                    font-size: 3.125rem;
-                }
-            }
+        //         @include respond(md) {
+        //             font-size: 3.125rem;
+        //         }
+        //     }
 
-            .bottom-content {
-                padding-top: 9rem;
+        //     .bottom-content {
+        //         padding-top: 9rem;
 
-                @include respond(xs) {
-                    padding-top: 8rem;
-                    margin-bottom: 3rem;
-                }
+        //         @include respond(xs) {
+        //             padding-top: 8rem;
+        //             margin-bottom: 3rem;
+        //         }
 
-                @include respond(sm) {
-                    padding-top: 9rem;
-                }
+        //         @include respond(sm) {
+        //             padding-top: 9rem;
+        //         }
 
-                p {
-                    color: $sub-title-color;
-                    font-size: 1.8rem;
-                    font-weight: 600;
-                    margin-bottom: 3.7rem;
+        //         p {
+        //             color: $sub-title-color;
+        //             font-size: 1.8rem;
+        //             font-weight: 600;
+        //             margin-bottom: 3.7rem;
 
-                    @include respond(xs) {
-                        font-size: 1.4rem;
-                    }
+        //             @include respond(xs) {
+        //                 font-size: 1.4rem;
+        //             }
 
-                    @include respond(xs) {
-                        font-size: 1.5rem;
-                    }
-                }
-            }
-        }
+        //             @include respond(xs) {
+        //                 font-size: 1.5rem;
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     &__services-section {
