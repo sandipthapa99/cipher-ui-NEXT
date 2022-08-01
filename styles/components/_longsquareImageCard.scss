@@ -2,6 +2,7 @@
     .card-content {
         @include respond(md) {
             padding: 2.5rem;
+            padding-right: 2rem;
         }
         .thumbnail-img {
             width: 100%;

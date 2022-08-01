@@ -49,6 +49,7 @@ const HowToHire: NextPage = () => {
                                     description={info.description}
                                     key={info.id}
                                     buttonText={info.buttonText}
+                                    imageOnRight={info.imageOnRight}
                                 />
                             ))}
                     </div>
@@ -62,6 +63,7 @@ const HowToHire: NextPage = () => {
                                     description={info.description}
                                     key={info.id}
                                     buttonText={info.buttonText}
+                                    imageOnRight={info.imageOnRight}
                                 />
                             ))}
                     </div>

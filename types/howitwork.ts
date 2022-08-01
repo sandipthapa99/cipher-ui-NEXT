@@ -4,4 +4,5 @@ export interface HowItWorkProps {
     subtitle: string;
     description: string;
     buttonText?: string;
+    imageOnRight?: boolean;
 }

@@ -13,16 +13,20 @@
         line-height: 2.1rem;
         margin-bottom: 0rem;
     }
+    .carousel {
+        .carousel-indicators [data-bs-target] {
+            border-radius: 50%;
+            height: 1rem !important;
+            background-color: #f1f3f5;
+            width: 1rem !important;
+        }
+
+        .carousel-indicators .active {
+            background-color: $secondary-color !important;
+        }
+    }
     &__content {
         margin: 5rem 0rem;
-        .card-content {
-            flex-direction: column-reverse;
-
-            .thumbnail-img {
-                height: 100%;
-                width: 100%;
-            }
-        }
     }
     &__bottom-container {
         padding-top: 5rem;
