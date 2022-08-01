@@ -15,6 +15,46 @@
         padding: 0 0 0 2.2rem;
         border-bottom: 1px solid #e9ecef;
     }
+
+    .upper-wrapper {
+        .edit-delete-button {
+            button {
+                width: 10rem;
+                height: 3rem;
+                @include border();
+                color: black;
+            }
+
+            span {
+                button {
+                    background-color: #211d4f;
+                    color: white;
+                    margin: 0 0 0 1.6rem;
+                }
+            }
+        }
+    }
+
+    .revision-reason-section {
+        margin: 0 0 2.4rem;
+        button {
+            background: $primary-color;
+            color: #fff;
+            height: 3rem;
+            width: 10rem;
+            border-radius: 0.4rem;
+        }
+
+        .cancel-button {
+            button {
+                background-color: white;
+                color: black;
+                @include border();
+                margin: 0 1.6rem 0 0;
+            }
+        }
+    }
+
     .point-title-button {
         position: relative;
         .point,
