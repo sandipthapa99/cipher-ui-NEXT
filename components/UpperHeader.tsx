@@ -69,32 +69,32 @@ export function UpperHeader() {
                                     </Link>
                                 </li>
                                 {!token && (
-                                    <li
-                                        className={handleMenuActive(
-                                            "/login",
-                                            router
-                                        )}
-                                    >
-                                        <Link href="/login">
-                                            <a className="nav-link d-md-none d-inline-block">
-                                                Log In
-                                            </a>
-                                        </Link>
-                                    </li>
-                                )}
-                                {!token && (
-                                    <li
-                                        className={handleMenuActive(
-                                            "/signup",
-                                            router
-                                        )}
-                                    >
-                                        <Link href="/signup">
-                                            <a className="nav-link d-md-none d-inline-block">
-                                                Sign Up
-                                            </a>
-                                        </Link>
-                                    </li>
+                                    <>
+                                        <li
+                                            className={handleMenuActive(
+                                                "/login",
+                                                router
+                                            )}
+                                        >
+                                            <Link href="/login">
+                                                <a className="nav-link d-md-none d-inline-block">
+                                                    Log In
+                                                </a>
+                                            </Link>
+                                        </li>
+                                        <li
+                                            className={handleMenuActive(
+                                                "/signup",
+                                                router
+                                            )}
+                                        >
+                                            <Link href="/signup">
+                                                <a className="nav-link d-md-none d-inline-block">
+                                                    Sign Up
+                                                </a>
+                                            </Link>
+                                        </li>
+                                    </>
                                 )}
                             </nav>
                         </Navbar.Collapse>
