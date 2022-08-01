@@ -1,9 +1,9 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faCirclePlus,
     faCircleMinus,
+    faCirclePlus,
 } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";

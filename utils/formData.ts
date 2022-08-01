@@ -3,6 +3,7 @@ import { BookNowFormProps } from "types/bookNow";
 import { CertificationValueProps } from "types/CertificationValueProps";
 import { ClientSignUpValueProps } from "types/clientSignUp";
 import { AddPortfolio, AddSkills } from "types/editProfile";
+import { EducationValueProps } from "types/EducationValueProps";
 import { EquipmentValueProps } from "types/equipmentValueProps";
 import { ExperienceValueProps } from "types/experienceValueProps";
 import { LoginValuesProps } from "types/login";
@@ -93,4 +94,14 @@ export const ProfileEditFromData: ProfileEditValueProps = {
     specialities: "",
     baseRatePerHour: "",
     linkedAccounts: "",
+};
+
+export const EducationFormData: EducationValueProps = {
+    school: "",
+    description: "",
+    degree: "",
+    fieldOfStudy: "",
+    location: "",
+    startDate: null,
+    endDate: null,
 };
