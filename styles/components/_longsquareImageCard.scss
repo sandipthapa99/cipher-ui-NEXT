@@ -1,23 +1,34 @@
 .long-square-image-card {
-    @include respond(md) {
-        padding: 2.5rem;
-    }
-    .thumbnail-img {
-        width: 100%;
-        height: 15rem;
-        border-radius: 0.4rem;
-    }
-    .description {
-        padding-top: 0rem;
-        h4 {
-            font-size: 2rem;
-            padding-top: 1.6rem;
-            font-weight: 500;
+    .card-content {
+        @include respond(md) {
+            padding: 2.5rem;
+            padding-right: 2rem;
         }
-        p {
-            color: $secondary-text-color;
-            line-height: 2.2rem;
-            font-weight: 400;
+        .thumbnail-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 0.4rem;
+        }
+        .description {
+            padding-top: 0rem;
+            h1 {
+                color: #211d4f;
+                font-size: 2rem;
+                line-height: 4.4rem;
+                font-weight: 500;
+                margin-bottom: 0rem;
+            }
+            h4 {
+                font-size: 2rem;
+                padding-top: 1.6rem;
+                font-weight: 500;
+            }
+            p {
+                color: $secondary-text-color;
+                line-height: 2.2rem;
+                font-weight: 400;
+                margin-bottom: 0rem;
+            }
         }
     }
 }

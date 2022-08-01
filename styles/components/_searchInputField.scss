@@ -1,0 +1,69 @@
+.search-input-field {
+    display: flex;
+
+    .form-control {
+        border-right: none;
+        border-top-right-radius: 0rem;
+        border: 0.1rem solid #dee2e6;
+        border-bottom-right-radius: 0rem;
+        // @include respond(sm) {
+        //     width: 35rem;
+        // }
+        // @include respond(md) {
+        //     width: 28rem;
+        // }
+        // @include respond(lg) {
+        //     width: 40rem;
+        // }
+    }
+    .btn {
+        padding: 0rem 1.8rem;
+        height: 4.7rem;
+        color: #fff;
+        border-radius: 0rem;
+        background-color: $primary-color;
+        .svg-icon {
+            width: 2.2rem;
+            height: 2.2rem;
+        }
+        .search {
+            display: flex;
+
+            .form-control {
+                border-right: none;
+                border-top-right-radius: 0rem;
+                border: 0.1rem solid #dee2e6;
+                border-bottom-right-radius: 0rem;
+                @include respond(sm) {
+                    width: 35rem;
+                }
+                @include respond(md) {
+                    width: 28rem;
+                }
+                @include respond(lg) {
+                    width: 40rem;
+                }
+            }
+            .btn {
+                padding: 0rem 1.8rem;
+                height: 4.7rem;
+                color: #fff;
+                border-radius: 0rem;
+                background-color: $primary-color;
+                .svg-icon {
+                    width: 2.2rem;
+                    height: 2.2rem;
+                }
+                &:focus {
+                    box-shadow: none;
+                }
+                @include respond(xs) {
+                    padding: 0rem 1.3rem;
+                }
+            }
+        }
+        @include respond(xs) {
+            padding: 0rem 1.3rem;
+        }
+    }
+}
