@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export const LeaveTask = () => {
-  return (
-    <div>LeaveTask</div>
-  )
-}
+    return <div>LeaveTask</div>;
+};

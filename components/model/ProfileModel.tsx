@@ -111,7 +111,7 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
                     style={{ color: "#495057" }}
                     onClick={() => {
                         localStorage.removeItem("token");
-                        router.push("/login");
+                        router.push("/");
                     }}
                 >
                     <FontAwesomeIcon
