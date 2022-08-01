@@ -28,9 +28,7 @@ const ApplyPost = () => {
                     <Post />
                 </Col>
                 <Col md={4}>
-                    <div>
-                        <GettingStartedTask />
-                    </div>
+                    <GettingStartedTask />
                 </Col>
             </Row>
         </div>
