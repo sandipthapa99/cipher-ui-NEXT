@@ -8,8 +8,8 @@ export interface CardProps {
     subtitle?: string;
     description: string;
     image: string;
-    imageOnRight: boolean;
-    buttonText: string;
+    imageOnRight?: boolean;
+    buttonText?: string;
     homeImage?: boolean;
 }
 const LongSquareImageCard = ({

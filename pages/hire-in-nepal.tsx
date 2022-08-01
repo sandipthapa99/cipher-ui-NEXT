@@ -64,11 +64,19 @@ const HireInNepal: NextPage = () => {
                         <Row>
                             {topSkillsInNepal &&
                                 topSkillsInNepal.map((skill) => (
-                                    <Col md={3} key={skill.id}>
+                                    <Col md={3} sm={6} xs={6} key={skill.id}>
                                         <p>{skill.name}</p>
                                     </Col>
                                 ))}
                         </Row>
+                    </div>
+                    <div className="hire-in-nepal__bottom-container">
+                        <LongSquareImageCard
+                            title="An employee takes home 10% more with Cipher Payroll"
+                            image="/hireinnepal/plant.svg"
+                            imageOnRight={true}
+                            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500."
+                        />
                     </div>
                 </section>
             </Container>
