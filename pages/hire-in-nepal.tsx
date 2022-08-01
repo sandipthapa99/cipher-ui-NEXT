@@ -1,10 +1,13 @@
 import Breadcrum from "@components/common/Breadcrum";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
+import { SearchInputField } from "@components/common/SearchInputField";
+import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { hireInNepalBrowseTalent } from "staticData/hireInNepal";
-
+import { DUMMY_TASKS } from "types/tasks";
+import searchValidationSchema from "utils/formValidation/searchValidation";
 const HireInNepal: NextPage = () => {
     return (
         <Layout title="Hire in Nepal | Cipher">
@@ -29,7 +32,31 @@ const HireInNepal: NextPage = () => {
                     <div className="hire-in-nepal__hire-tasker">
                         <h1>Hire a tasker from Nepal</h1>
                         <p>Connect with a freelancer from Nepal</p>
+                        <Row>
+                            <Col md={4}>
+                                <SearchInputField
+                                    validationSchema={searchValidationSchema}
+                                    placeholder="Search for a Tasker"
+                                />
+                            </Col>
+                        </Row>
+
+                        <Row className="g-5">
+                            {DUMMY_TASKS.map((item, index) => (
+                                <Col lg={4} md={6} sm={12} key={index}>
+                                    <TeamMembersCard task={item} />
+                                </Col>
+                            ))}
+                        </Row>
+                        <Row className="g-5 pt-5">
+                            {DUMMY_TASKS.map((item, index) => (
+                                <Col lg={4} md={6} sm={12} key={index}>
+                                    <TeamMembersCard task={item} />
+                                </Col>
+                            ))}
+                        </Row>
                     </div>
+                    <div className="hire-in-nepal__top-skills"></div>
                 </section>
             </Container>
         </Layout>

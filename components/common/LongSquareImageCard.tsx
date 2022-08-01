@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
-import { HowItWorkProps } from "types/howitwork";
 
 import CardBtn from "./CardBtn";
 
