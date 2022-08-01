@@ -1,4 +1,6 @@
 .how-to-hire {
+    margin-bottom: 0rem !important;
+
     h1 {
         color: $primary-color;
         font-size: 2rem;
@@ -28,11 +30,14 @@
     &__content {
         margin: 5rem 0rem;
     }
+    &__browse-talent {
+        margin-bottom: 5rem;
+    }
     &__gradient-container {
         position: relative;
     }
     &__bottom-container {
-        padding-top: 5rem;
+        padding: 5rem 0rem;
         .thumbnail-img {
             height: 45rem;
             width: 100%;
