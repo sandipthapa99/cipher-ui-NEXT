@@ -4,18 +4,22 @@ import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import { Form, Formik } from "formik";
 import Image from "next/image";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Modal } from "react-bootstrap";
 import { SelectOptionProps } from "types/selectInputField";
 
 interface ReportRevisionFormProps {
     show: boolean;
     handleClose: () => void;
+    handleButtonClick?: () => void;
+    setRevisionText?: Dispatch<SetStateAction<string>>;
 }
 
 export const ReportRevisionForm = ({
     show,
     handleClose,
+    handleButtonClick,
+    setRevisionText,
 }: ReportRevisionFormProps) => {
     const initialValues = {
         report_type: "",
@@ -65,6 +69,7 @@ export const ReportRevisionForm = ({
                             initialValues={initialValues}
                             onSubmit={async (values) => {
                                 console.log(values);
+                                setRevisionText?.(values?.revision_reason);
                             }}
                         >
                             {({ setFieldValue, errors }) => {
@@ -78,7 +83,7 @@ export const ReportRevisionForm = ({
                                         />
 
                                         <InputField
-                                            name="reason"
+                                            name="revision_reason"
                                             labelName="Reason"
                                             placeHolder="Write your reason here"
                                             as="textarea"
@@ -93,7 +98,7 @@ export const ReportRevisionForm = ({
                                                 />
                                             </span>
                                             <FormButton
-                                                handleClick={handleClose}
+                                                handleClick={handleButtonClick}
                                                 name={"Request"}
                                             />
                                         </div>
