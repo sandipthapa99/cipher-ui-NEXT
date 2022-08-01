@@ -44,7 +44,6 @@ const DatePickerField = ({
                                 )} ps-5 `}
                                 showTimeSelect={timeOnly ?? undefined}
                                 showTimeSelectOnly={timeOnly ?? undefined}
-                                autocomplete="off"
                                 selected={value}
                                 placeholderText={placeHolder}
                                 onChange={(val) => setFieldValue(name, val)}
