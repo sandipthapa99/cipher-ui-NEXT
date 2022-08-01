@@ -14,7 +14,6 @@ export const SearchCategory = ({ onChange }: SearchCategoryProps) => {
                 <Col md={4}>
                     <InputGroup
                         style={{
-                            width: "100%",
                             height: "50px",
                             border: "1px solid #ccc",
                         }}
