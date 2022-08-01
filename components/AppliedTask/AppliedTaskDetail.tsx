@@ -91,6 +91,7 @@ const AppliedTaskDetail: NextPage = () => {
                                 successRate={provider.successRate}
                                 speciality={provider.speciality}
                                 startingPrice={provider.startingPrice}
+                                isApplied={true}
                             />
                         ))}
                 </Col>
