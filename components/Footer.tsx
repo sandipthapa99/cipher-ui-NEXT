@@ -98,23 +98,23 @@ const Footer = () => {
                                     <ul>
                                         <li>For Clients</li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="how-to-hire">
                                                 <a>How to Hire?</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="merchant-marketplace">
                                                 <a>Merchant Marketplace</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/">
+                                            <Link href="payroll-services">
                                                 <a>Payroll Services</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
-                                                <a>Hire in the Nepal</a>
+                                            <Link href="hire-in-nepal">
+                                                <a>Hire in Nepal</a>
                                             </Link>
                                         </li>
                                     </ul>

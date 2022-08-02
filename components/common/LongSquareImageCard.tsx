@@ -39,35 +39,39 @@ const LongSquareImageCard = ({
                             </figure>
                         </Col>
                         <Col md={homeImage ? 6 : 7}>
-                            <div className="description">
-                                <h1>{title}</h1>
-                                {subtitle && <h4>{subtitle}</h4>}
-                                <p>{description}</p>
+                            <div className="content">
+                                <div className="description">
+                                    <h1>{title}</h1>
+                                    {subtitle && <h4>{subtitle}</h4>}
+                                    <p>{description}</p>
+                                </div>
+                                {buttonText && (
+                                    <CardBtn
+                                        btnTitle={buttonText}
+                                        color="#fff"
+                                        backgroundColor="primary-color"
+                                    />
+                                )}
                             </div>
-                            {buttonText && (
-                                <CardBtn
-                                    btnTitle={buttonText}
-                                    color="#fff"
-                                    backgroundColor="primary-color"
-                                />
-                            )}
                         </Col>
                     </>
                 ) : (
                     <>
                         <Col md={homeImage ? 6 : 7}>
-                            <div className="description">
-                                <h1>{title}</h1>
-                                {subtitle && <h4>{subtitle}</h4>}
-                                <p>{description}</p>
+                            <div className="content">
+                                <div className="description">
+                                    <h1>{title}</h1>
+                                    {subtitle && <h4>{subtitle}</h4>}
+                                    <p>{description}</p>
+                                </div>
+                                {buttonText && (
+                                    <CardBtn
+                                        btnTitle={buttonText}
+                                        color="#fff"
+                                        backgroundColor="primary-color"
+                                    />
+                                )}
                             </div>
-                            {buttonText && (
-                                <CardBtn
-                                    btnTitle={buttonText}
-                                    color="#fff"
-                                    backgroundColor="primary-color"
-                                />
-                            )}
                         </Col>
                         <Col md={homeImage ? 6 : 5}>
                             <figure className="thumbnail-img">

@@ -7,6 +7,7 @@ const FormButton = ({
     isSubmittingClass,
     className,
     variant,
+    handleClick,
     ...restProps
 }: FormButtonProps &
     Partial<
@@ -19,6 +20,7 @@ const FormButton = ({
         <button
             {...restProps}
             className={`${isSubmittingClass} ${variant} ${className}`}
+            onClick={handleClick}
         >
             <span>{name}</span>
         </button>
