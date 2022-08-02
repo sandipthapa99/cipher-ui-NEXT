@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { DragAndDropProps } from "types/dragDrop";
+import type { DragAndDropProps } from "types/dragDrop";
 
 const DragDrop = ({
     image,

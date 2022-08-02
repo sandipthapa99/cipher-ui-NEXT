@@ -25,31 +25,29 @@ const PostTask: NextPage = () => {
         <>
             <SearchHeader />
             <Header />
-            <div>
-                <Row>
-                    <div className="completed-tasks">
-                        <Col className="user-name-detail">
-                            <div className="user-name">
-                                <h1>Hi Harry!</h1>
-                                <h1>Welcome Back!</h1>
-                            </div>
-                        </Col>
-                        <Col className="full-tasks">
-                            {SearchBodyData.map((data) => {
-                                return (
-                                    <SearchBody
-                                        key={data.id}
-                                        number={data.number}
-                                        color={data.color}
-                                        textOne={data.textOne}
-                                        textColor={data.textColor}
-                                    />
-                                );
-                            })}
-                        </Col>
-                    </div>
+            <Container>
+                <Row className="user-stats">
+                    <Col md={7} className="user-details">
+                        <div className="user-name">
+                            <h1>Hi Harry!</h1>
+                            <h1>Welcome Back!</h1>
+                        </div>
+                    </Col>
+                    <Col md={5} className="user-stat-card">
+                        {SearchBodyData.map((data) => {
+                            return (
+                                <SearchBody
+                                    key={data.id}
+                                    number={data.number}
+                                    color={data.color}
+                                    textOne={data.textOne}
+                                    textColor={data.textColor}
+                                />
+                            );
+                        })}
+                    </Col>
                 </Row>
-            </div>
+            </Container>
             <Container>
                 <ApplyPost />
                 <h4>Special Offers & Discount</h4>

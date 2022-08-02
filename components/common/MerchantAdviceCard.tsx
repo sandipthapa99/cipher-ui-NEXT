@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MerchantAdviceProps } from "types/merchantAdvice";
+import type { MerchantAdviceProps } from "types/merchantAdvice";
 
 import CardBtn from "./CardBtn";
 const MerchantAdviceCard = ({

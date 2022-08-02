@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
 import Link from "next/link";
 import { useState } from "react";
-import { InputFieldProps } from "types/inputField";
+import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 
 const PasswordField = ({

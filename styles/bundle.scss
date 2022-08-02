@@ -4,8 +4,8 @@
 @import "paths";
 @import "mixins";
 @import "app";
-@import "utils";
 @import "abstracts/includeMedia";
+@import "utils";
 
 // Components
 @import "choose";
@@ -70,6 +70,9 @@
 
 @import "components/accountForm";
 
+@import "components/searchHeader";
+@import "components/postModal";
+@import "components/addRequirements";
 // Pages
 @import "pages/privacyPolicy";
 @import "pages/referall";
@@ -144,6 +147,7 @@
 @import "components/gradientLayout";
 @import "components/searchInputField";
 @import "components/faq";
+@import "components/goBack";
 
 // Pages
 @import "pages/privacyPolicy";

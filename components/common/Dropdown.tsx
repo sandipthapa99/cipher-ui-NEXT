@@ -1,9 +1,11 @@
 import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import { useCallback, useEffect, useRef } from "react";
-import { DropdownSubMenu, DUMMY_MENU_ITEMS } from "staticData/dropdownData";
+import type { DropdownSubMenu } from "staticData/dropdownData";
+import { DUMMY_MENU_ITEMS } from "staticData/dropdownData";
 import { randNumber } from "utils/randNumber";
 
 interface DropdownProps {

@@ -1,7 +1,7 @@
 import BigButton from "@components/common/Button";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
-import { squareImageCarousel } from "types/growBusiness";
+import type { squareImageCarousel } from "types/growBusiness";
 
 const SquareImageCarousel = ({
     image,

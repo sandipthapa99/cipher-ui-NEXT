@@ -3,7 +3,7 @@ import { useSuccessContext } from "context/successContext/successContext";
 import { useFormik } from "formik";
 import Image from "next/image";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { PostTaskData } from "types/postTaskData";
+import type { PostTaskData } from "types/postTaskData";
 
 import { categoryData } from "../../types/categoryData";
 import { postTaskValidationSchema } from "../../utils/PostTask/postTaskValidation";
@@ -63,7 +63,7 @@ const PostModal = ({ onSubmit }: Props) => {
         <>
             <h3>Post a Task</h3>
 
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className="post-modal-form">
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Give a title to your task</Form.Label>
                     <Form.Control
@@ -77,12 +77,7 @@ const PostModal = ({ onSubmit }: Props) => {
                         {...getFieldProps("title")}
                     />
                     {touched.title && errors.title ? (
-                        <div
-                            className="error-message"
-                            style={{ color: "red", fontSize: "12px" }}
-                        >
-                            {errors.title}
-                        </div>
+                        <div className="error-message">{errors.title}</div>
                     ) : null}
                 </Form.Group>
 
@@ -99,10 +94,7 @@ const PostModal = ({ onSubmit }: Props) => {
                         {...getFieldProps("titleDescription")}
                     />
                     {errors.titleDescription && touched.titleDescription ? (
-                        <div
-                            className="error-message"
-                            style={{ color: "red", fontSize: "12px" }}
-                        >
+                        <div className="error-message">
                             {errors.titleDescription}
                         </div>
                     ) : null}
@@ -125,10 +117,7 @@ const PostModal = ({ onSubmit }: Props) => {
                                 {renderCategory}
                             </Form.Select>
                             {errors.category && touched.category ? (
-                                <div
-                                    style={{ color: "red", fontSize: "12px" }}
-                                    className="error-message"
-                                >
+                                <div className="error-message">
                                     {errors.category}
                                 </div>
                             ) : null}
@@ -151,10 +140,7 @@ const PostModal = ({ onSubmit }: Props) => {
                                 {renderCategory}
                             </Form.Select>
                             {errors.subcategory && touched.subcategory ? (
-                                <div
-                                    style={{ color: "red", fontSize: "12px" }}
-                                    className="error-message"
-                                >
+                                <div className="error-message">
                                     {errors.subcategory}
                                 </div>
                             ) : null}
@@ -176,10 +162,7 @@ const PostModal = ({ onSubmit }: Props) => {
                                 {...getFieldProps("dateTime")}
                             />
                             {errors.dateTime && touched.dateTime ? (
-                                <div
-                                    style={{ color: "red", fontSize: "12px" }}
-                                    className="error-message"
-                                >
+                                <div className="error-message">
                                     {errors.dateTime}
                                 </div>
                             ) : null}
@@ -204,10 +187,7 @@ const PostModal = ({ onSubmit }: Props) => {
                                 {...getFieldProps("estimatedHour")}
                             />
                             {errors.estimatedHour && touched.estimatedHour ? (
-                                <div
-                                    style={{ color: "red", fontSize: "12px" }}
-                                    className="error-message"
-                                >
+                                <div className="error-message">
                                     {errors.estimatedHour}
                                 </div>
                             ) : null}
@@ -292,13 +272,7 @@ const PostModal = ({ onSubmit }: Props) => {
                                         {...getFieldProps("minBudget")}
                                     />
                                     {errors.minBudget && touched.minBudget ? (
-                                        <div
-                                            style={{
-                                                color: "red",
-                                                fontSize: "12px",
-                                            }}
-                                            className="error-message"
-                                        >
+                                        <div className="error-message">
                                             {errors.minBudget}
                                         </div>
                                     ) : null}
@@ -319,13 +293,7 @@ const PostModal = ({ onSubmit }: Props) => {
                                         {...getFieldProps("maxBudget")}
                                     />
                                     {errors.maxBudget && touched.maxBudget ? (
-                                        <div
-                                            style={{
-                                                color: "red",
-                                                fontSize: "12px",
-                                            }}
-                                            className="error-message"
-                                        >
+                                        <div className="error-message">
                                             {errors.maxBudget}
                                         </div>
                                     ) : null}
@@ -348,10 +316,7 @@ const PostModal = ({ onSubmit }: Props) => {
                             {...getFieldProps("address")}
                         />
                         {errors.address && touched.address ? (
-                            <div
-                                style={{ color: "red", fontSize: "12px" }}
-                                className="error-message"
-                            >
+                            <div className="error-message">
                                 {errors.address}
                             </div>
                         ) : null}
@@ -362,15 +327,10 @@ const PostModal = ({ onSubmit }: Props) => {
                         <AddRequirements field={setFieldValue} />
                     </Col>
                 </Row>
-                <Row className="mt-3">
-                    <Col>
-                        <p
-                            className="price-text"
-                            style={{ fontSize: "14px", fontWeight: "bold" }}
-                        >
-                            Images & Videos
-                        </p>
-                        <p className="price-text" style={{ fontSize: "10px" }}>
+                <Row className="img-cont">
+                    <Col className="img-label">
+                        <p className="img-title">Images & Videos</p>
+                        <p className="desc">
                             Including images or videos helps you find best
                             merchant for your task.
                         </p>
@@ -380,25 +340,19 @@ const PostModal = ({ onSubmit }: Props) => {
                     <DragAndDrop />
                 </Row>
                 <div className="submit-buttons">
-                    <div style={{ width: "183px", height: "40px" }}>
-                        <Button
-                            variant="light"
-                            style={{
-                                border: "1px solid #211d4f",
-                                padding: "8px 16px 8px 16px",
-                                fontSize: "16px",
-                                width: "100%",
-                                height: "100%",
-                                borderRadius: "4px",
-                                outline: "none",
-                            }}
-                            className="save-draft"
-                        >
+                    <div
+                        className="button-cont"
+                        style={{ width: "183px", height: "40px" }}
+                    >
+                        <Button variant="light" className="save-draft">
                             Save Draft
                         </Button>
                     </div>
 
-                    <div style={{ width: "183px", height: "40px" }}>
+                    <div
+                        className="post-cont"
+                        style={{ width: "183px", height: "40px" }}
+                    >
                         <Button
                             disabled={Object.values(errors).length > 0}
                             variant="light"
@@ -406,16 +360,7 @@ const PostModal = ({ onSubmit }: Props) => {
                             onClick={() => {
                                 handleSubmit();
                             }}
-                            className="post-modal"
-                            style={{
-                                border: "1px solid #211d4f",
-                                fontSize: "16px",
-                                borderRadius: "4px",
-                                width: "100%",
-                                height: "100%",
-                                padding: "8px 16px 8px 16px",
-                                outline: "none",
-                            }}
+                            className="post-btn"
                         >
                             Post
                         </Button>
@@ -430,7 +375,7 @@ export default PostModal;
 export const DragAndDrop = () => {
     return (
         <Col md={4} className="drag-down">
-            <figure className="thumbnail-img" style={{ marginTop: "2rem" }}>
+            <figure className="thumbnail-img">
                 <Image
                     src="/service-details/file-upload.svg"
                     width="70px"
@@ -440,28 +385,12 @@ export const DragAndDrop = () => {
                 />
             </figure>
 
-            <h5 style={{ margin: "1rem 0 0 0 " }}>
+            <h5>
                 Drag or {""}
-                <label
-                    htmlFor="choosefile"
-                    style={{ color: "#0693E3", cursor: "pointer" }}
-                >
-                    Browse
-                </label>{" "}
-                Image/Video
+                <label htmlFor="choosefile">Browse</label> Image/Video
             </h5>
-            <p
-                className="price-text"
-                style={{ fontSize: "10px", color: "#868E96" }}
-            >
-                Maximum Image Size 20 MB
-            </p>
-            <p
-                className="price-text"
-                style={{ fontSize: "10px", color: "#868E96" }}
-            >
-                Maximum Video Size 200 MB
-            </p>
+            <p>Maximum Image Size 20 MB</p>
+            <p>Maximum Video Size 200 MB</p>
             <div style={{ visibility: "hidden" }}>
                 <input type={"file"} id="choosefile" />
             </div>

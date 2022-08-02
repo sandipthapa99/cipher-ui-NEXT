@@ -1,7 +1,24 @@
 .search-results {
-    .map {
-        @include respond(xs) {
-            display: none;
+    .search-results--col {
+        overflow-y: scroll;
+        max-height: 282rem;
+
+        p {
+            font-size: 12px;
+            color: #495057;
+            line-height: 18px;
+        }
+    }
+    .map-cont {
+        .map {
+            width:700px;
+            height:550px;
+            
+            @include respond(xs) {
+                margin: 1rem;
+                width: 300px;
+                height: 250px;
+            }
         }
     }
 }
