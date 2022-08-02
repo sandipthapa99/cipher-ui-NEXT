@@ -83,6 +83,8 @@ const SearchHeader = () => {
                                     Post Task
                                 </a>
                             </button>
+                        </Col>
+                        <Col md={4}>
                             <Navbar.Toggle aria-controls="site-navigation">
                                 <FontAwesomeIcon
                                     icon={faBars}

@@ -11,8 +11,13 @@
     }
     .map-cont {
         .map {
+            width:700px;
+            height:550px;
+            
             @include respond(xs) {
-                display: none;
+                margin: 1rem;
+                width: 300px;
+                height: 250px;
             }
         }
     }
