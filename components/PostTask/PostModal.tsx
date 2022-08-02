@@ -63,7 +63,7 @@ const PostModal = ({ onSubmit }: Props) => {
         <>
             <h3>Post a Task</h3>
 
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className="post-modal-form">
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Give a title to your task</Form.Label>
                     <Form.Control
