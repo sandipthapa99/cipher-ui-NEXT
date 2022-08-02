@@ -13,7 +13,7 @@ export const useLogin = () => {
     return useMutation<string, Error, LoginPayload>(async (loginPayload) => {
         try {
             const { data } = await axiosClient.post<LoginSuccessResponse>(
-                "/user/login",
+                "/user/login/",
                 loginPayload
             );
             return data.accessToken;

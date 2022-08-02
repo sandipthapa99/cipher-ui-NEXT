@@ -3,6 +3,7 @@ import { FormButtonProps } from "types/formButton";
 
 const FormButton = ({
     name,
+    isSubmitting,
     isSubmittingClass,
     className,
     variant,
