@@ -1,5 +1,5 @@
 import FormButton from "@components/common/FormButton";
-import InputField from "@components/common/InputField";
+import PasswordField from "@components/common/PasswordField";
 import SwitchValue from "@components/common/SwitchValue";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faPencil, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
@@ -32,24 +32,24 @@ const ChangePasswordForm = () => {
                 >
                     {({ isSubmitting, errors, touched, resetForm }) => (
                         <Form autoComplete="off">
-                            <InputField
-                                type="password"
+                            <PasswordField
                                 name="currentPassword"
+                                typeOf="password"
                                 labelName="Current Password"
                                 error={errors.currentPassword}
                                 touch={touched.currentPassword}
                                 placeHolder="Current Password"
                             />
-                            <InputField
-                                type="password"
+                            <PasswordField
+                                typeOf="password"
                                 name="newPassword"
                                 labelName="New Password"
                                 error={errors.newPassword}
                                 touch={touched.newPassword}
                                 placeHolder="New Password"
                             />
-                            <InputField
-                                type="password"
+                            <PasswordField
+                                typeOf="password"
                                 name="confirmPassword"
                                 labelName="Confirm Password"
                                 touch={touched.confirmPassword}

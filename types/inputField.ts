@@ -6,6 +6,7 @@ export interface InputFieldProps {
     placeHolder?: string;
     textMuted?: string;
     as?: string;
+    typeOf?: string;
     fieldRequired?: boolean;
     forgotPassword?: string;
     variables?: {

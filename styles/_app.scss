@@ -198,6 +198,7 @@ textarea.form-control {
 .invalid-feedback {
     font-size: 1.2rem;
     font-weight: 400;
+    display: block;
     &::first-letter {
         text-transform: capitalize;
     }
