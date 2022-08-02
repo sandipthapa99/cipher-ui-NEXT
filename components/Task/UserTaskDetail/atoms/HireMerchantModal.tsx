@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormCheck, Modal } from "react-bootstrap";
 import { DUMMY_CLIENT_PROJECTS } from "staticData/clientProjects";
-import { TaskDetail } from "staticData/taskDetail";
+import type { TaskDetail } from "staticData/taskDetail";
 
 interface HireMerchantModalProps {
     task: TaskDetail;

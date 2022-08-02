@@ -2,7 +2,8 @@ import { faCircleDot } from "@fortawesome/pro-regular-svg-icons";
 import { faCircleDot as circleDot } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React, { ReactNode, useContext } from "react";
+import type { ReactNode } from "react";
+import React, { useContext } from "react";
 import {
     Accordion,
     AccordionContext,

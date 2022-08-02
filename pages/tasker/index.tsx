@@ -8,7 +8,8 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { taskDetails } from "staticData/taskDetail";
-import { DUMMY_TASKS, Task } from "types/tasks";
+import type { Task } from "types/tasks";
+import { DUMMY_TASKS } from "types/tasks";
 
 const Tasker = () => {
     const router = useRouter();
@@ -22,6 +23,7 @@ const Tasker = () => {
         });
         setActiveTaskIdx(task.id);
     };
+    const removeActiveTaskIdx = () => setActiveTaskIdx(undefined);
 
     const filteredTasks = useMemo(
         () =>
@@ -55,10 +57,13 @@ const Tasker = () => {
                     </Col>
                     <Col md={8}>
                         {activeTaskIdx !== undefined ? (
-                            <div className="task-detail-container">
-                                <UserTaskDetail
-                                    taskDetail={taskDetails[activeTaskIdx]}
-                                />
+                            <div className="aside-detail-wrapper">
+                                <div className="task-detail-container">
+                                    <UserTaskDetail
+                                        onExitTaskDetail={removeActiveTaskIdx}
+                                        taskDetail={taskDetails[activeTaskIdx]}
+                                    />
+                                </div>
                             </div>
                         ) : (
                             <iframe

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
-import { ServiceNearYou } from "../../staticData/servicesNearYouCard";
+import type { ServiceNearYou } from "../../staticData/servicesNearYouCard";
 import ServiceNearYouCard from "./searchAside";
 import SearchResultsDetail from "./SearchResultsDetails";
 
@@ -16,7 +16,11 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
     const renderServiceCards = () =>
         servicesNearYou.map((service) => {
             return (
-                <div key={service.id} onClick={() => setActiveService(service)}>
+                <div
+                    key={service.id}
+                    onClick={() => setActiveService(service)}
+                    style={{ cursor: "pointer" }}
+                >
                     <ServiceNearYouCard {...service} />
                 </div>
             );
@@ -24,24 +28,15 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
     return (
         <div className="search-results">
             <Row>
-                <Col
-                    md={4}
-                    style={{ overflowY: "scroll", maxHeight: "282rem" }}
-                >
-                    <p
-                        style={{
-                            fontSize: "12px",
-                            color: "#495057",
-                            lineHeight: "18px",
-                        }}
-                    >
+                <Col className="search-results--col" md={4}>
+                    <p>
                         {servicesNearYou.length} Services in Kathmandu, Nepal (1
                         new)
                     </p>
                     {renderServiceCards()}
                 </Col>
 
-                <Col md={8}>
+                <Col md={8} className="map-cont">
                     {activeService !== undefined ? (
                         <SearchResultsDetail {...activeService} />
                     ) : (

@@ -15,7 +15,7 @@ import Image from "next/image";
 import React, { useCallback, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Cropper from "react-easy-crop";
-import { UserProfileInfoProps } from "types/userProfile";
+import type { UserProfileInfoProps } from "types/userProfile";
 
 import ProfileEditForm from "./ProfileEditForm";
 import TooltipMessage from "./Tooltip";

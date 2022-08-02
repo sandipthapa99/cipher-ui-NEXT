@@ -3,7 +3,7 @@ import { useSuccessContext } from "context/successContext/successContext";
 import { useFormik } from "formik";
 import Image from "next/image";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { PostTaskData } from "types/postTaskData";
+import type { PostTaskData } from "types/postTaskData";
 
 import { categoryData } from "../../types/categoryData";
 import { postTaskValidationSchema } from "../../utils/PostTask/postTaskValidation";
@@ -63,7 +63,7 @@ const PostModal = ({ onSubmit }: Props) => {
         <>
             <h3>Post a Task</h3>
 
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className="post-modal-form">
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Give a title to your task</Form.Label>
                     <Form.Control
