@@ -1,6 +1,16 @@
 .account-form {
     background: #fff;
     padding: 8rem;
+    h2 {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: $sub-title-color;
+    }
+    p {
+        font-weight: 400;
+        font-size: 1.4rem;
+        color: $sub-title-color;
+    }
     figure {
         width: 14.8rem;
         height: 14.8rem;
@@ -21,6 +31,16 @@
             margin: 0 2rem 0 0;
             &__input {
                 margin: 0 1rem 0 0;
+            }
+        }
+        .security-toggle {
+            font-weight: 400;
+            font-size: 1.4rem;
+            color: $sub-title-color;
+            margin: 0 0 2.4rem 0;
+            input {
+                width: 2.5rem;
+                border-color: $grayScale6;
             }
         }
     }
