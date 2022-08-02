@@ -1,5 +1,5 @@
 import { UserTaskCard } from "@components/Task/UserTaskCard/UserTaskCard";
-import { Task } from "types/tasks";
+import type { Task } from "types/tasks";
 
 export interface Props {
     tasks: Task[];

@@ -1,4 +1,4 @@
-import { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
+import type { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSuccessContext } from "context/successContext/successContext";
 import { Button, Modal } from "react-bootstrap";

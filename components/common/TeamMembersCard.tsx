@@ -10,7 +10,7 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
-import { Task } from "types/tasks";
+import type { Task } from "types/tasks";
 
 import BigButton from "./Button";
 

@@ -21,7 +21,6 @@ export const TaskImageCarousel = ({ images }: TaskImageCarouselProps) => {
                 alt={`Task image ${currentImage}`}
                 objectFit="cover"
             />
-            <pre>{JSON.stringify(images, null, 4)}</pre>
             <ul className="task-image-carousel__controls">
                 {images.map((_, index) => (
                     <li

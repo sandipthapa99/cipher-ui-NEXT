@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
 
-import { ServiceNearYouCardProps } from "../../types/serviceNearYouCard";
+import type { ServiceNearYouCardProps } from "../../types/serviceNearYouCard";
 
 const ServiceNearYouCard = ({
     image,

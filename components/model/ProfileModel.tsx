@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
 import React from "react";
-import { ProfileCardContent } from "staticData/profileCardContent";
+import type { ProfileCardContent } from "staticData/profileCardContent";
 
 export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
     const router = useRouter();

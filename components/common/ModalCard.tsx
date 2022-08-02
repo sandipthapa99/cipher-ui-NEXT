@@ -9,7 +9,7 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { ImageVideoDragDop } from "staticData/dragDropContent";
-import { BookNowModalCardProps } from "types/bookNow";
+import type { BookNowModalCardProps } from "types/bookNow";
 import { BookServiceFormData } from "utils/formData";
 import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidation";
 import { isSubmittingClass } from "utils/helpers";

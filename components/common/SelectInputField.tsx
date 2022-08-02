@@ -1,5 +1,5 @@
 import { ErrorMessage, Field } from "formik";
-import {
+import type {
     SelectInputFieldProps,
     SelectOptionProps,
 } from "types/selectInputField";

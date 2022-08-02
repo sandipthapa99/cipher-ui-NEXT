@@ -1,5 +1,5 @@
 import { ErrorMessage, Field } from "formik";
-import { InputFieldProps } from "types/inputField";
+import type { InputFieldProps } from "types/inputField";
 import { checkFormGroup } from "utils/helpers";
 
 const RadioField = ({

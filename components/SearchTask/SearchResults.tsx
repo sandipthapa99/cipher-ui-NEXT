@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
-import { ServiceNearYou } from "../../staticData/servicesNearYouCard";
+import type { ServiceNearYou } from "../../staticData/servicesNearYouCard";
 import ServiceNearYouCard from "./searchAside";
 import SearchResultsDetail from "./SearchResultsDetails";
 
