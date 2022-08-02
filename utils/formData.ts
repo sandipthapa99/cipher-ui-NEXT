@@ -119,5 +119,5 @@ export const TaxCalculatorFormData: TaxCalculatorValueProps = {
     providentFund: "Provident Fund",
     investmentTrust: "Citizen Investment Trust",
     insurance: "Life Insurance",
-    annualMedicalExpense: "Annual Medical Expense",
+    medicalInsurance: "Medical Insurance",
 };

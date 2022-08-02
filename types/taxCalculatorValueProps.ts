@@ -7,5 +7,5 @@ export interface TaxCalculatorValueProps {
     providentFund: string;
     investmentTrust: string;
     insurance: string;
-    annualMedicalExpense: string;
+    medicalInsurance: string;
 }

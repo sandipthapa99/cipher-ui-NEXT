@@ -10,7 +10,7 @@ export const taxCalculatorSchema = Yup.object().shape({
     maritalStatus: stringValidate,
     incomeType: stringValidate,
     providentFund: numberValidate,
-    investmentTrust: stringValidate,
+    investmentTrust: numberValidate,
     insurance: numberValidate,
 });
 

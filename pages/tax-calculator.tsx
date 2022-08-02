@@ -9,23 +9,89 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
 import { NextPage } from "next";
 import Link from "next/link";
+import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
 import { TaxCalculatorFormData } from "utils/formData";
 import taxCalculatorSchema from "utils/formValidation/taxCalculatorFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { incomeType, maritalStatus } from "utils/options";
 const TaxCalculator: NextPage = () => {
+    const taxContent = [
+        {
+            id: "0",
+            name: "Annual Gross Salary",
+            amount: "0.00",
+        },
+        {
+            id: "1",
+            name: "Taxable Income",
+            amount: "0.00",
+        },
+        {
+            id: "2",
+            name: "Net Payable Tax",
+            amount: "0.00",
+        },
+    ];
+
+    const table = [
+        {
+            id: "0",
+            heading: [
+                {
+                    id: "0",
+                    name: "Taxable Salary",
+                },
+                {
+                    id: "1",
+                    name: "Taxable Amount",
+                },
+                {
+                    id: "2",
+                    name: "Tax Rate",
+                },
+                {
+                    id: "3",
+                    name: "Tax Liability",
+                },
+            ],
+            data: [
+                {
+                    id: "0",
+                    salary: "First Slab",
+                    amount: "3003,0330",
+                    rate: "1%",
+                    liability: "3003,0330",
+                },
+                {
+                    id: "1",
+                    salary: "Net Tax Liability(yearly)",
+                    amount: "",
+                    rate: "",
+                    liability: "3003,0330",
+                },
+                {
+                    id: "2",
+                    salary: "Net Tax Liability(monthly)",
+                    amount: "",
+                    rate: "",
+                    liability: "30030",
+                },
+            ],
+        },
+    ];
     return (
         <Layout title="Tax-Calculator | Cipher">
             <section className="tax-calculator ">
                 <Container fluid="xl">
                     <Breadcrum currentPage="Tax Calculator" />
-                    <div className="card-block tax-block">
+                    <div className="card-block">
                         <div className="content">
                             <h1>Tax Calculator</h1>
                         </div>
 
-                        <Row className="d-flex align-items-center">
+                        <Row className="gx-5">
                             <Col md={6}>
                                 <div className="tax-calculator__header">
                                     <h2>Calculate your Personal Income TAX</h2>
@@ -272,12 +338,12 @@ const TaxCalculator: NextPage = () => {
                                                     <div className="input-wrapper">
                                                         <InputField
                                                             type="text"
-                                                            name="annualMedicalExpense"
+                                                            name="medicalInsurance"
                                                             error={
-                                                                errors.annualMedicalExpense
+                                                                errors.medicalInsurance
                                                             }
                                                             touch={
-                                                                touched.annualMedicalExpense
+                                                                touched.medicalInsurance
                                                             }
                                                             haveIcon={true}
                                                             inputIcon={
@@ -342,7 +408,56 @@ const TaxCalculator: NextPage = () => {
                                     </div>
                                 </div>
                             </Col>
-                            <Col md={6}></Col>
+                            <Col md={6}>
+                                <Row className="d-flex tax-blocks align-items-stretch">
+                                    {taxContent.map((tax) => (
+                                        <Col
+                                            className="d-flex tax-block"
+                                            lg={3}
+                                            md={12}
+                                            key={tax.id}
+                                        >
+                                            <h1>{tax.name}</h1>
+                                            <span>{tax.amount}</span>
+                                        </Col>
+                                    ))}
+                                </Row>
+                                <div className="tax-slab">
+                                    <h1>Your tax slab is</h1>
+                                    <span>Upto 1 %</span>
+                                </div>
+                                <div className="table-content">
+                                    <Table responsive>
+                                        {table.map((info) => (
+                                            <>
+                                                <thead>
+                                                    <tr>
+                                                        {info.heading.map(
+                                                            (th) => (
+                                                                <th key={th.id}>
+                                                                    {th.name}
+                                                                </th>
+                                                            )
+                                                        )}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {info.data.map((td) => (
+                                                        <tr key={td.id}>
+                                                            <td>{td.salary}</td>
+                                                            <td>{td.amount}</td>
+                                                            <td>{td.rate}</td>
+                                                            <td>
+                                                                {td.liability}
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </>
+                                        ))}
+                                    </Table>
+                                </div>
+                            </Col>
                         </Row>
                     </div>
                 </Container>

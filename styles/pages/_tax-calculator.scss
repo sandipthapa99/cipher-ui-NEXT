@@ -1,11 +1,11 @@
 .tax-calculator {
-    .tax-block {
-        background: rgba(255, 255, 255, 0.4);
-    }
     .card-block {
         padding: 5rem;
         padding-right: 2rem;
-
+        padding-left: 2rem;
+        @include respond(md) {
+            padding-left: 5rem;
+        }
         h1 {
             font-size: 2.8rem;
             font-weight: 500;
@@ -58,9 +58,17 @@
                 color: $default-text-color;
             }
         }
-        .buttons {
+        .buttons,
+        .deduction {
             border-top: 0.1rem solid #ced4da;
             padding-top: 2.6rem;
+        }
+        .add-new {
+            color: #0693e3;
+            border: none;
+            background: transparent;
+            outline: none;
+            margin-bottom: 1.6rem;
         }
         .close-btn {
             width: 100%;
@@ -75,6 +83,10 @@
         .submit-btn {
             font-weight: 400;
             width: 100%;
+            margin-top: 2rem;
+            @include respond(md) {
+                margin-top: 0rem;
+            }
         }
         .note {
             padding-top: 2.6rem;
@@ -88,6 +100,86 @@
 
                 text-decoration: none;
             }
+        }
+    }
+    .tax-blocks {
+        @include respond(md) {
+            margin-top: 0rem;
+        }
+        margin-top: 2rem;
+        :not(:first-child) {
+            margin-top: 1rem;
+            @include respond(lg) {
+                margin-left: 2.5rem;
+                margin-top: 0rem;
+            }
+        }
+    }
+    .tax-block {
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0rem;
+        box-shadow: none;
+        border: 0.1rem solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.4rem;
+        padding: 4rem 1rem;
+        padding-bottom: 1.8rem;
+        @include respond(lg) {
+            width: 13.5rem;
+        }
+        @include respond(xl) {
+            width: 15.6rem;
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 0rem;
+        }
+        span {
+            font-size: 3rem;
+            margin-left: 0rem !important;
+            color: $primary-color;
+            padding-top: 3rem;
+        }
+    }
+    .tax-slab {
+        margin-top: 2rem;
+        margin-bottom: 5rem;
+        text-align: center;
+        padding: 2.8rem 1rem;
+        border: 0.1rem solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.4rem;
+        background-color: #fff;
+        margin-left: -0.8rem;
+    }
+    .table-content {
+        @include respond(xxs) {
+            width: 22rem;
+        }
+    }
+    .table {
+        thead > tr > th,
+        tbody > tr > td {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: $default-text-color;
+        }
+        tbody > tr {
+            &:first-child {
+                td {
+                    color: $secondary-text-color;
+                }
+            }
+            td {
+                padding: 1.3rem 0rem;
+            }
+        }
+        @include respond(xs) {
+            overflow: scroll;
         }
     }
 }
