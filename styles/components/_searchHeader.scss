@@ -11,7 +11,7 @@
                 }
 
                 .search-input {
-                    width: 576px;
+                    width: 535px;
                     height: 48px;
                 }
 
@@ -38,7 +38,7 @@
                 margin-left: 9rem;
 
                 @include respond(xs) {
-                    padding: 5px 5px;
+                    display: none;
                 }
 
                 .post-btn {
