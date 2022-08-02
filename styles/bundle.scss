@@ -4,8 +4,8 @@
 @import "paths";
 @import "mixins";
 @import "app";
-@import "utils";
 @import "abstracts/includeMedia";
+@import "utils";
 
 // Components
 @import "choose";
@@ -142,6 +142,7 @@
 @import "components/gradientLayout";
 @import "components/searchInputField";
 @import "components/faq";
+@import "components/goBack";
 
 // Pages
 @import "pages/privacyPolicy";

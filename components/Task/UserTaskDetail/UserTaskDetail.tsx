@@ -1,3 +1,4 @@
+import { GoBack } from "@components/common/GoBack";
 import { UserShortIntro } from "@components/Task/UserTaskDetail/atoms/UserShortIntro";
 import { UserTaskDetailHeader } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailHeader";
 import { UserTaskDetailTabs } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailTabs";
@@ -7,11 +8,20 @@ import type { TaskDetail } from "staticData/taskDetail";
 
 interface UserTaskDetailProps {
     taskDetail: TaskDetail;
+    onExitTaskDetail: () => void;
 }
 
-const UserTaskDetail = ({ taskDetail }: UserTaskDetailProps) => {
+const UserTaskDetail = ({
+    taskDetail,
+    onExitTaskDetail,
+}: UserTaskDetailProps) => {
     return (
         <div className="user-task-detail-container">
+            <GoBack
+                type="button"
+                onClick={onExitTaskDetail}
+                className="mb-24"
+            />
             <UserTaskDetailHeader taskDetail={taskDetail} />
             <UserShortIntro user={taskDetail.user} />
             <UserTaskDetailTabs user={taskDetail.user} />

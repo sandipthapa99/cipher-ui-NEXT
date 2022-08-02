@@ -19,6 +19,8 @@ export const Accept = () => {
     const [query, setQuery] = useState("");
     const [activeTask, setActiveTask] = useState<UserTask | undefined>();
 
+    const removeActiveTask = () => setActiveTask(undefined);
+
     const filteredTasks = useMemo(
         () =>
             query
@@ -39,7 +41,12 @@ export const Accept = () => {
                         onTaskClick={setActiveTask}
                         userTasks={filteredTasks}
                     />
-                    {activeTask && <UserTaskDetail task={activeTask} />}
+                    {activeTask && (
+                        <UserTaskDetail
+                            onExitTask={removeActiveTask}
+                            task={activeTask}
+                        />
+                    )}
                 </div>
             </Container>
             <Footer />

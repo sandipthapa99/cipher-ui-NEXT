@@ -1,0 +1,12 @@
+.go-back {
+    position: relative;
+    display: inline-block;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    color: #3eaeff;
+
+    &:hover {
+        color: #fd7e14;
+    }
+}

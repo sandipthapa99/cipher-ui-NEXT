@@ -23,6 +23,7 @@ const Tasker = () => {
         });
         setActiveTaskIdx(task.id);
     };
+    const removeActiveTaskIdx = () => setActiveTaskIdx(undefined);
 
     const filteredTasks = useMemo(
         () =>
@@ -56,10 +57,13 @@ const Tasker = () => {
                     </Col>
                     <Col md={8}>
                         {activeTaskIdx !== undefined ? (
-                            <div className="task-detail-container">
-                                <UserTaskDetail
-                                    taskDetail={taskDetails[activeTaskIdx]}
-                                />
+                            <div className="aside-detail-wrapper">
+                                <div className="task-detail-container">
+                                    <UserTaskDetail
+                                        onExitTaskDetail={removeActiveTaskIdx}
+                                        taskDetail={taskDetails[activeTaskIdx]}
+                                    />
+                                </div>
                             </div>
                         ) : (
                             <iframe
