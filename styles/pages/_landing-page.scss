@@ -16,7 +16,10 @@
                     color: $primary-color;
                     line-height: 4.4rem;
                     margin-bottom: 4rem;
+                    text-align: center;
+                    word-wrap: break-word;
                     @include respond(md){
+                        text-align: left;
                         font-size: 6.4rem;
                         line-height: 9.6rem;
                         margin-bottom: 8rem;
@@ -200,6 +203,39 @@
             .hero-img{
                 height:60.3rem ;
                 width: 60rem;
+            }
+        }
+    }
+    .hero-category{
+        &__card-block{
+            background: #FFF;
+            border-radius: 0.4rem;
+            padding: 2.4rem;
+            margin-top: 8rem;
+            .image-block{
+                height: 6rem;
+                width: 5.6rem;
+                border-radius: 0.4rem;
+                padding: 0.6rem 1.2rem;
+                background: #752DE820;
+                margin-right: 2.4rem;
+            }
+            .details{
+                h1{
+                    font-size: 2rem;
+                    font-weight: 500;
+                    color: $primary-color;
+                }
+                a{
+                    color: #868E96;
+                    .icon{
+                        margin-left: 1.6rem;
+                        color: #3EAEFF;
+                    }
+                    &:hover{
+                        color: $secondary-color;
+                    }
+                }
             }
         }
     }

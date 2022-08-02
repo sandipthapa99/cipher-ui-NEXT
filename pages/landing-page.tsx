@@ -1,7 +1,11 @@
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
-import { faChevronDown, faSearch } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faArrowRight,
+    faChevronDown,
+    faSearch,
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import { NextPage } from "next";
@@ -89,14 +93,125 @@ const LandingPage: NextPage = () => {
                             </div>
                         </Col>
                         <Col md="6" className="right">
-                            <figure className="hero-img">
+                            <figure className="new-img">
                                 <Image
                                     src="/hero-img.svg"
                                     alt="hero-img"
-                                    layout="fill"
-                                    objectFit="contain"
+                                    height={600}
+                                    width={600}
+                                    // objectFit="contain"
                                 />
                             </figure>
+                        </Col>
+                    </Row>
+                    <Row className="gx-5">
+                        <Col md={3}>
+                            <div className="hero-category__card-block d-inline-block flex-row">
+                                <div className="wrapper d-flex">
+                                    <div className="image-block">
+                                        <figure className="thumbnail-icon">
+                                            <Image
+                                                src="/heroImages/beauty.svg"
+                                                alt="category-icon"
+                                                height={48}
+                                                width={32}
+                                            />
+                                        </figure>
+                                    </div>
+                                    <div className="details d-flex flex-column justify-content-between">
+                                        <h1>Beauty</h1>
+                                        <a href="">
+                                            Beauty related services
+                                            <FontAwesomeIcon
+                                                icon={faArrowRight}
+                                                className="icon"
+                                            />
+                                        </a>
+                                    </div>
+                                </div>
+                                <p></p>
+                            </div>
+                        </Col>
+                        <Col md={3}>
+                            <div className="hero-category__card-block d-inline-block flex-row">
+                                <div className="wrapper d-flex">
+                                    <div className="image-block">
+                                        <figure className="thumbnail-icon">
+                                            <Image
+                                                src="/heroImages/beauty.svg"
+                                                alt="category-icon"
+                                                height={48}
+                                                width={32}
+                                            />
+                                        </figure>
+                                    </div>
+                                    <div className="details d-flex flex-column justify-content-between">
+                                        <h1>Beauty</h1>
+                                        <a href="">
+                                            Beauty related services
+                                            <FontAwesomeIcon
+                                                icon={faArrowRight}
+                                                className="icon"
+                                            />
+                                        </a>
+                                    </div>
+                                </div>
+                                <p></p>
+                            </div>
+                        </Col>
+                        <Col md={3}>
+                            <div className="hero-category__card-block d-inline-block flex-row">
+                                <div className="wrapper d-flex">
+                                    <div className="image-block">
+                                        <figure className="thumbnail-icon">
+                                            <Image
+                                                src="/heroImages/beauty.svg"
+                                                alt="category-icon"
+                                                height={48}
+                                                width={32}
+                                            />
+                                        </figure>
+                                    </div>
+                                    <div className="details d-flex flex-column justify-content-between">
+                                        <h1>Beauty</h1>
+                                        <a href="">
+                                            Beauty related services
+                                            <FontAwesomeIcon
+                                                icon={faArrowRight}
+                                                className="icon"
+                                            />
+                                        </a>
+                                    </div>
+                                </div>
+                                <p></p>
+                            </div>
+                        </Col>
+                        <Col md={3}>
+                            <div className="hero-category__card-block d-inline-block flex-row">
+                                <div className="wrapper d-flex">
+                                    <div className="image-block">
+                                        <figure className="thumbnail-icon">
+                                            <Image
+                                                src="/heroImages/beauty.svg"
+                                                alt="category-icon"
+                                                height={48}
+                                                width={32}
+                                            />
+                                        </figure>
+                                    </div>
+                                    <div className="details d-flex flex-column justify-content-between">
+                                        <h1>Beauty</h1>
+                                        <a href="">
+                                            Beauty related services
+                                            <FontAwesomeIcon
+                                                icon={faArrowRight}
+                                                className="icon"
+                                            />
+                                        </a>
+                                    </div>
+                                </div>
+                                <p></p>
+                            </div>
                         </Col>
                     </Row>
                 </Container>
