@@ -33,7 +33,7 @@ import { PackageCard } from "staticData/packageCard";
 import { reviewsContent } from "staticData/reviews";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { services } from "staticData/services";
-import { ServiceNearYouCardProps } from "types/serviceNearYouCard";
+import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 
 const SearchResultsDetail = ({
     image,

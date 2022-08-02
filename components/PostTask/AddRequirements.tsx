@@ -1,10 +1,10 @@
 import { faCirclePlus, faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { KeyboardEvent } from "react";
+import type { ChangeEvent } from "react";
 import { useState } from "react";
-import { ChangeEvent } from "react";
 import { Form, InputGroup, Row } from "react-bootstrap";
-import { Requirement } from "types/requirement";
+import type { Requirement } from "types/requirement";
 
 interface Props {
     field?: (label: string, value: unknown) => void;

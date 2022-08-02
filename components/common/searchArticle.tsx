@@ -1,7 +1,7 @@
 import { faRemove } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-bootstrap";
-import { HelpSearchValueProps } from "types/searchArticle";
+import type { HelpSearchValueProps } from "types/searchArticle";
 
 const SearchArticle = ({ search_category }: HelpSearchValueProps) => {
     return (

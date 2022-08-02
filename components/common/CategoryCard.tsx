@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CategoryCardProps } from "types/categoryCard";
+import type { CategoryCardProps } from "types/categoryCard";
 
 const CategoryCard = ({ categoryTitle, categoryIcon }: CategoryCardProps) => {
     return (

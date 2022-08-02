@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
 import React from "react";
 import DateView from "react-datepicker";
-import { DatePickerProps } from "types/datePickerProps";
+import type { DatePickerProps } from "types/datePickerProps";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 
 const DatePickerField = ({

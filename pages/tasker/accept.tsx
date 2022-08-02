@@ -1,3 +1,4 @@
+import AppliedMap from "@components/AppliedTask/AppliedMap";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
@@ -7,7 +8,8 @@ import { UserTaskDetail } from "@components/UserTask/UserTaskDetail";
 import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
-import { DUMMY_USER_TASKS, UserTask } from "staticData/userTasks";
+import type { UserTask } from "staticData/userTasks";
+import { DUMMY_USER_TASKS } from "staticData/userTasks";
 
 const UserTaskList = dynamic(
     () => import("@components/UserTask/UserTaskList"),
@@ -17,6 +19,8 @@ const UserTaskList = dynamic(
 export const Accept = () => {
     const [query, setQuery] = useState("");
     const [activeTask, setActiveTask] = useState<UserTask | undefined>();
+
+    const removeActiveTask = () => setActiveTask(undefined);
 
     const filteredTasks = useMemo(
         () =>
@@ -31,14 +35,21 @@ export const Accept = () => {
         <>
             <SearchHeader />
             <Header />
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="position-relative px-5">
                 <SearchCategory onChange={setQuery} />
                 <div className="accept-task">
                     <UserTaskList
                         onTaskClick={setActiveTask}
                         userTasks={filteredTasks}
                     />
-                    {activeTask && <UserTaskDetail task={activeTask} />}
+                    {activeTask ? (
+                        <UserTaskDetail
+                            onExitTask={removeActiveTask}
+                            task={activeTask}
+                        />
+                    ) : (
+                        <AppliedMap />
+                    )}
                 </div>
             </Container>
             <Footer />

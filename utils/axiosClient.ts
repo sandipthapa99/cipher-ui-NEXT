@@ -1,7 +1,8 @@
-import axios, { AxiosInstance } from "axios";
-import { GetServerSidePropsContext, PreviewData } from "next";
+import type { AxiosInstance } from "axios";
+import axios from "axios";
+import type { GetServerSidePropsContext, PreviewData } from "next";
 import { parseCookies } from "nookies";
-import { ParsedUrlQuery } from "querystring";
+import type { ParsedUrlQuery } from "querystring";
 
 const getApiEndpoint = () => {
     const url = process.env.NEXT_PUBLIC_API_URL;
