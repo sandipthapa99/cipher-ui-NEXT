@@ -9,6 +9,24 @@
             z-index: 2;
         }
 
+        .revision-title-section {
+            margin: 0 0 5rem;
+            h3 {
+                font: 500 2rem $poppins-font;
+                margin: 0 0 1.6rem;
+            }
+            p {
+                font: 400 1.2rem $poppins-font;
+                color: #757575;
+            }
+
+            .revision_report_image {
+                position: absolute;
+                right: 10rem;
+                top: 1.5rem;
+            }
+        }
+
         .title-section {
             padding: 0 0 3.2rem;
             margin: 0 0 3rem;

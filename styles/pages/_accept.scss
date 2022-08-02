@@ -10,7 +10,7 @@
         // overflow-y: scroll;
         padding-inline: 10px;
     }
-    @include respond(sm) {
+    @include media(">laptop") {
         flex-direction: row;
     }
 }

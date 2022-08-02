@@ -31,7 +31,7 @@ export const Accept = () => {
         <>
             <SearchHeader />
             <Header />
-            <Container>
+            <Container fluid="xl" className="px-5">
                 <SearchCategory onChange={setQuery} />
                 <div className="accept-task">
                     <UserTaskList
