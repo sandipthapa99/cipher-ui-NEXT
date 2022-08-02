@@ -1,4 +1,5 @@
 import { ErrorMessage, Field } from "formik";
+import { Fragment } from "react";
 import { InputFieldProps } from "types/inputField";
 import { checkFormGroup } from "utils/helpers";
 
@@ -7,6 +8,7 @@ const RadioField = ({
     labelName,
     textMuted,
     error,
+    variables,
     fieldRequired = false,
     ...restProps
 }: InputFieldProps & Partial<HTMLInputElement>) => {
@@ -20,36 +22,39 @@ const RadioField = ({
                     </label>
                 </div>
             )}
-            <label className="radio-block">
-                <Field
-                    {...restProps}
-                    value="male"
-                    name={name}
-                    className="radio-block__input"
-                    checked
-                />
-                Male
-            </label>
-
-            <label className="radio-block">
-                <Field
-                    {...restProps}
-                    name={name}
-                    value="female"
-                    className="radio-block__input"
-                />
-                Female
-            </label>
-
-            <label className="radio-block">
-                <Field
-                    {...restProps}
-                    name={name}
-                    value="other"
-                    className="radio-block__input"
-                />
-                Other
-            </label>
+            {/* {variables?.map((value, key) => (
+                <label className="radio-block" key={key}>
+                    <Field
+                        {...restProps}
+                        value={value.value}
+                        name={name}
+                        className="radio-block__input"
+                        checked
+                    />
+                    {value.label}
+                </label>
+            ))} */}
+            <Field name={name} className={checkFormGroup(error)}>
+                {({ field }: any) => {
+                    return variables?.map((option) => {
+                        return (
+                            <Fragment key={option.value}>
+                                <input
+                                    type="radio"
+                                    id={option.value}
+                                    {...field}
+                                    {...restProps}
+                                    value={option.value}
+                                    checked={field.value === option.value}
+                                />
+                                <label htmlFor={option.value} className="mx-3">
+                                    {option.label}
+                                </label>
+                            </Fragment>
+                        );
+                    });
+                }}
+            </Field>
             <ErrorMessage
                 name={name}
                 component="span"
