@@ -11,7 +11,8 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import type { ReactNode } from "react";
+import React from "react";
 import { Col, Container, Nav, Row } from "react-bootstrap";
 
 import Layout from "./Layout";
@@ -26,7 +27,11 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                             <Nav>
                                 <ul>
                                     <li>
-                                        <Link href={""}>
+                                        <Link
+                                            href={
+                                                "/settings/account/individual"
+                                            }
+                                        >
                                             <a>
                                                 <FontAwesomeIcon
                                                     icon={faUser}
@@ -50,7 +55,11 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href={""}>
+                                        <Link
+                                            href={
+                                                "/settings/account/membership"
+                                            }
+                                        >
                                             <a>
                                                 <FontAwesomeIcon
                                                     icon={faUserTag}
