@@ -5,7 +5,7 @@ import { Form, Formik } from "formik";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { SelectOptionProps } from "types/selectInputField";
+import type { SelectOptionProps } from "types/selectInputField";
 
 import { ServiceVideo } from "./ServiceVideo";
 

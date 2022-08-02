@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { BusinessGoalProps } from "types/businessGoal";
+import type { BusinessGoalProps } from "types/businessGoal";
 const BusinessGoal = ({
     cardImage,
     cardDescription,

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { OnBoardingLayoutProps } from "types/OnBoardingLayoutProps";
+import type { OnBoardingLayoutProps } from "types/OnBoardingLayoutProps";
 
 const OnBoardingLayout = ({
     children,

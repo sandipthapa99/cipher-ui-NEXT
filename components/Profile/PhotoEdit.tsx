@@ -1,5 +1,6 @@
 import FormButton from "@components/common/FormButton";
-import React, { Dispatch, SetStateAction, useCallback, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import React, { useCallback, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Cropper from "react-easy-crop";

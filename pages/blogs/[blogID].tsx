@@ -2,12 +2,12 @@ import Layout from "@components/Layout";
 import { faFacebookF, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faLink } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GetStaticPaths, GetStaticProps } from "next";
+import type { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { FacebookShareButton, TwitterShareButton } from "next-share";
 import http from "pages/api/httpService";
 import { Col, Container, Row } from "react-bootstrap";
-import { BlogDetailProps, BlogsResult } from "types/blogs";
+import type { BlogDetailProps, BlogsResult } from "types/blogs";
 import { blogDetailAPI, blogListAPI, formatMonthDate } from "utils/helpers";
 
 const SingleBlog = ({ blog }: BlogDetailProps) => {

@@ -3,7 +3,7 @@ import { useSuccessContext } from "context/successContext/successContext";
 import { useFormik } from "formik";
 import Image from "next/image";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { PostTaskData } from "types/postTaskData";
+import type { PostTaskData } from "types/postTaskData";
 
 import { categoryData } from "../../types/categoryData";
 import { postTaskValidationSchema } from "../../utils/PostTask/postTaskValidation";

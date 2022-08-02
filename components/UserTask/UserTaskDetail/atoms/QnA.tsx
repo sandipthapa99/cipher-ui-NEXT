@@ -1,5 +1,5 @@
 import React from "react";
-import { Question } from "staticData/userTasks";
+import type { Question } from "staticData/userTasks";
 
 interface QnAProps {
     questions: Question[];

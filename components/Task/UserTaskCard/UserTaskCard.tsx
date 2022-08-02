@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { Task } from "types/tasks";
+import type { Task } from "types/tasks";
 
 interface Props {
     isButton?: boolean;

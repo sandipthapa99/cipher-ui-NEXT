@@ -3,7 +3,7 @@ import { UserTaskDetailHeader } from "@components/Task/UserTaskDetail/atoms/User
 import { UserTaskDetailTabs } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailTabs";
 import { UserTaskReviews } from "@components/Task/UserTaskDetail/atoms/UserTaskReviews";
 import React from "react";
-import { TaskDetail } from "staticData/taskDetail";
+import type { TaskDetail } from "staticData/taskDetail";
 
 interface UserTaskDetailProps {
     taskDetail: TaskDetail;

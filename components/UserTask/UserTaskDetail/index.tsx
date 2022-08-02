@@ -13,7 +13,7 @@ import {
     faShare,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { UserTask } from "staticData/userTasks";
+import type { UserTask } from "staticData/userTasks";
 
 interface UserTaskDetailProps {
     task: UserTask;

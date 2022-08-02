@@ -8,7 +8,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
-import { MerchantProfileInfoProps } from "types/merchantProfile";
+import type { MerchantProfileInfoProps } from "types/merchantProfile";
 
 const MerchantProfileCard = ({
     merchantImage,

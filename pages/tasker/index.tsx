@@ -8,7 +8,8 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { taskDetails } from "staticData/taskDetail";
-import { DUMMY_TASKS, Task } from "types/tasks";
+import type { Task } from "types/tasks";
+import { DUMMY_TASKS } from "types/tasks";
 
 const Tasker = () => {
     const router = useRouter();

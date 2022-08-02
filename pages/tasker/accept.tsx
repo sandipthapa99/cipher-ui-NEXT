@@ -7,7 +7,8 @@ import { UserTaskDetail } from "@components/UserTask/UserTaskDetail";
 import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
-import { DUMMY_USER_TASKS, UserTask } from "staticData/userTasks";
+import type { UserTask } from "staticData/userTasks";
+import { DUMMY_USER_TASKS } from "staticData/userTasks";
 
 const UserTaskList = dynamic(
     () => import("@components/UserTask/UserTaskList"),

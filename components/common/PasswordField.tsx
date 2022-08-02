@@ -1,6 +1,6 @@
 import { ErrorMessage, Field } from "formik";
 import Link from "next/link";
-import { InputFieldProps } from "types/inputField";
+import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 
 const PasswordField = ({

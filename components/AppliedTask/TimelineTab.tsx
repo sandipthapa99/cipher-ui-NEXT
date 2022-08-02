@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TaskDetailTimelineData } from "staticData/taskDetailTimeline";
+
 import { EachTimeline } from "./EachTimeline";
 
 export const TimelineTab = () => {

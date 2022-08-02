@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { PacakageCardProps } from "types/packageCard";
+import type { PacakageCardProps } from "types/packageCard";
 
 import CardBtn from "./CardBtn";
 import PackageServiceHighlights from "./PackageServiceHighlights";

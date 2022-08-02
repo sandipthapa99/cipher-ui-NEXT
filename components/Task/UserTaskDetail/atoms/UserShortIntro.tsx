@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Row } from "react-bootstrap";
-import { TaskDetail } from "staticData/taskDetail";
+import type { TaskDetail } from "staticData/taskDetail";
 
 interface UserShortIntroProps {
     user: TaskDetail["user"];
