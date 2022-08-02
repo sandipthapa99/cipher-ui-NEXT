@@ -5,6 +5,7 @@ import { faChevronDown, faSearch } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import { NextPage } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
@@ -87,7 +88,16 @@ const LandingPage: NextPage = () => {
                                 </div>
                             </div>
                         </Col>
-                        <Col md="6" className="right"></Col>
+                        <Col md="6" className="right">
+                            <figure className="hero-img">
+                                <Image
+                                    src="/hero-img.svg"
+                                    alt="hero-img"
+                                    layout="fill"
+                                    objectFit="contain"
+                                />
+                            </figure>
+                        </Col>
                     </Row>
                 </Container>
             </section>
