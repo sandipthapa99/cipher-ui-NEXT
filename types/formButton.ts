@@ -6,4 +6,5 @@ export interface FormButtonProps {
     className?: string;
     icon?: string;
     redirectionLink?: string;
+    handleClick?: () => void;
 }

@@ -93,9 +93,13 @@ export const CollaborationRequestForm = ({
                                                 <BigButton
                                                     btnTitle={"Cancel"}
                                                     backgroundColor={"white"}
+                                                    handleClick={handleClose}
                                                 />
                                             </span>
-                                            <FormButton name={"Request"} />
+                                            <FormButton
+                                                handleClick={handleClose}
+                                                name={"Request"}
+                                            />
                                         </div>
                                     </Form>
                                 );
