@@ -2,6 +2,7 @@ import { AccountValueProps } from "types/accountValueProps";
 import { ApplyValueProps } from "types/applyValueProps";
 import { BookNowFormProps } from "types/bookNow";
 import { CertificationValueProps } from "types/certificationValueProps";
+import { changePasswordValueProps } from "types/changePasswordValueProps";
 import { ClientSignUpValueProps } from "types/clientSignUp";
 import { AddPortfolio, AddSkills } from "types/editProfile";
 import { EducationValueProps } from "types/educationValueProps";
@@ -131,4 +132,11 @@ export const AccountFromData: AccountValueProps = {
     currency: "",
     visibility: "",
     taskPreferences: "",
+};
+
+export const ChangePasswordFromData: changePasswordValueProps = {
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+    toggle: false,
 };
