@@ -70,3 +70,23 @@
         right: 0;
     }
 }
+.cancel-btn {
+    background: transparent;
+    color: $primary-color;
+    font-weight: 400;
+    font-size: 1.6rem;
+    border: transparent;
+    padding: 0 2rem;
+    &:hover {
+        background: $secondary-color;
+        color: #fff;
+        border: none;
+        outline: none;
+    }
+    &:focus {
+        background: transparent;
+        color: $primary-color;
+        border: none;
+        outline: none;
+    }
+}

@@ -35,7 +35,7 @@ const TagInputField = ({
                             id={name}
                             {...field}
                             placeholderText={placeHolder}
-                            className={checkFormControl(error, touch)}
+                            className="w-100"
                             onChange={(val) =>
                                 setFieldValue(
                                     name,

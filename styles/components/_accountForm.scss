@@ -12,5 +12,16 @@
             font-size: 2rem;
             color: $sub-title-color;
         }
+        h4 {
+            font-weight: 500;
+            font-size: 1.4rem;
+            color: $sub-title-color;
+        }
+        .radio-block {
+            margin: 0 2rem 0 0;
+            &__input {
+                margin: 0 1rem 0 0;
+            }
+        }
     }
 }

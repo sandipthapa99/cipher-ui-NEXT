@@ -1,14 +1,16 @@
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import Image from "next/image";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import { AccountFromData } from "utils/formData";
-import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
+import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const dropdownCountryOptions = [
@@ -25,6 +27,16 @@ const dropdownCurrencyOptions = [
     { id: 1, label: "Rupees", value: "rupees" },
     { id: 2, label: "Dollar", value: "dollar" },
     { id: 3, label: "CDollar", value: "cdollar" },
+];
+const genders = [
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+    { label: "Other", value: "other" },
+];
+const experience = [
+    { label: "I am Beginner", value: "beginner" },
+    { label: "I am Intermediate", value: "intermediate" },
+    { label: "I am Expert", value: "expert" },
 ];
 
 const AccountForm = () => {
@@ -43,12 +55,12 @@ const AccountForm = () => {
                 </figure>
                 <Formik
                     initialValues={AccountFromData}
-                    validationSchema={profileEditFormSchema}
+                    validationSchema={accountFormSchema}
                     onSubmit={async (values) => {
                         console.log(values);
                     }}
                 >
-                    {({ isSubmitting, errors, touched }) => (
+                    {({ isSubmitting, errors, touched, resetForm }) => (
                         <Form autoComplete="off">
                             <InputField
                                 type="text"
@@ -74,13 +86,13 @@ const AccountForm = () => {
                                 placeHolder="Enter your Bio"
                                 as="textarea"
                             />
-                            <InputField
-                                type="text"
+                            <RadioField
+                                type="radio"
                                 name="gender"
-                                labelName="Are You ?"
-                                error={errors.gender}
+                                variables={genders}
+                                labelName="Are You?"
                                 touch={touched.gender}
-                                placeHolder="Enter your price"
+                                error={errors.gender}
                             />
                             <DatePickerField
                                 name="dateOfBirth"
@@ -98,15 +110,15 @@ const AccountForm = () => {
                                 labelName="Specialities"
                                 placeHolder="Enter your price"
                             />
-                            <InputField
-                                type="text"
+                            <RadioField
+                                type="radio"
                                 name="experienceLevel"
-                                labelName="experienceLevel"
-                                error={errors.experienceLevel}
+                                variables={experience}
+                                labelName="Experience Level"
                                 touch={touched.experienceLevel}
-                                placeHolder="Enter your price"
+                                error={errors.experienceLevel}
                             />
-                            <h3>Active Hours</h3>
+                            <h4>Active Hours</h4>
                             <Row className="g-5">
                                 <Col md={3}>
                                     <DatePickerField
@@ -127,14 +139,27 @@ const AccountForm = () => {
                                     />
                                 </Col>
                             </Row>
-                            <InputField
-                                type="text"
-                                name="userType"
-                                labelName="Select User Type"
-                                error={errors.userType}
-                                touch={touched.userType}
-                                placeHolder="Enter your price"
-                            />
+                            <h4>Select User Type</h4>
+                            <div role="group" aria-labelledby="checkbox-group">
+                                <label className="me-3">
+                                    <Field
+                                        type="checkbox"
+                                        name="userType"
+                                        value="Client"
+                                        className="me-2"
+                                    />
+                                    Client
+                                </label>
+                                <label className="me-3">
+                                    <Field
+                                        type="checkbox"
+                                        name="userType"
+                                        className="me-2"
+                                        value="Tasker"
+                                    />
+                                    Tasker
+                                </label>
+                            </div>
                             <hr />
                             <h3>Active Hours</h3>
                             <SelectInputField
@@ -195,16 +220,24 @@ const AccountForm = () => {
                                 placeHolder="Select your preferences"
                                 options={dropdownCurrencyOptions}
                             />
-                            <FormButton
-                                type="submit"
-                                variant="primary"
-                                name="Apply"
-                                className="submit-btn w-25"
-                                isSubmitting={isSubmitting}
-                                isSubmittingClass={isSubmittingClass(
-                                    isSubmitting
-                                )}
-                            />
+                            <div className="d-flex justify-content-end">
+                                <Button
+                                    className="me-3 mb-0 cancel-btn"
+                                    onClick={() => resetForm}
+                                >
+                                    Cancel
+                                </Button>
+                                <FormButton
+                                    type="submit"
+                                    variant="primary"
+                                    name="Save"
+                                    className="submit-btn w-25"
+                                    isSubmitting={isSubmitting}
+                                    isSubmittingClass={isSubmittingClass(
+                                        isSubmitting
+                                    )}
+                                />
+                            </div>
                         </Form>
                     )}
                 </Formik>
