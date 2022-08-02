@@ -94,4 +94,4 @@ const Feedback = () => {
         </>
     );
 };
-export default withAuth(Feedback);
+export default Feedback;
