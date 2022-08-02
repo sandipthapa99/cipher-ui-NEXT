@@ -161,6 +161,39 @@
                 //     margin: 0 1rem 0.8rem 0;
                 // }
             }
+
+            .come-with-us{
+                h1{
+                    font-size: 3.2rem;
+                    font-weight: 400;
+                    color: $primary-color;
+                    margin: 6.4rem 0 4rem 0;
+                }
+                .hero-cta{
+                    background-color: $primary-color;
+                    color: #FFF;
+                    padding: 1rem 4rem;
+                    border-radius: 3rem;
+                    font-size: 2rem;
+                    font-weight: 500;
+                    margin-top: 2rem;
+                    &:hover{
+                        background:$secondary-color;
+                        color: $primary-color;
+                    }
+                    &:first-child{
+                        margin-right: 3rem;
+                        background: none;
+                        border: 1px solid #211D4F;
+                        color: $primary-color;
+                        &:hover{
+                            background: $primary-color;
+                            color: #FFF;
+                            border: 1px solid $primary-color;
+                        }
+                    }
+                }
+            }
         }
 
         .right {}

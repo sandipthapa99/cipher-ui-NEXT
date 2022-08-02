@@ -70,6 +70,22 @@ const LandingPage: NextPage = () => {
                                 <RecommendationChips title="Electrician" />
                                 <RecommendationChips title="Washing Machine" />
                             </div>
+
+                            <div className="come-with-us">
+                                <h1>Come with Us For</h1>
+                                <div className="">
+                                    <Link href="">
+                                        <a href="" className="hero-cta">
+                                            Earn Money as a Professional
+                                        </a>
+                                    </Link>
+                                    <Link href="">
+                                        <a href="" className="hero-cta">
+                                            Post a Task
+                                        </a>
+                                    </Link>
+                                </div>
+                            </div>
                         </Col>
                         <Col md="6" className="right"></Col>
                     </Row>
