@@ -1,11 +1,11 @@
 export interface TaxCalculatorValueProps {
     marriedStatus: string;
-    salary: string;
-    festivalBonus: string;
-    allowances: string;
-    others: string;
-    providentFund: string;
-    investmentTrust: string;
-    insurance: string;
-    medicalInsurance: string;
+    salary: number | null;
+    festivalBonus: number | null;
+    allowances: number | null;
+    others: number | null;
+    providentFund: number | null;
+    investmentTrust: number | null;
+    insurance: number | null;
+    medicalInsurance: number | null;
 }

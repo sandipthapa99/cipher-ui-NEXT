@@ -16,6 +16,7 @@ import { TaxCalculatorFormData } from "utils/formData";
 import taxCalculatorSchema from "utils/formValidation/taxCalculatorFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { incomeType, maritalStatus } from "utils/options";
+
 const TaxCalculator: NextPage = () => {
     const taxContent = [
         {
@@ -107,12 +108,13 @@ const TaxCalculator: NextPage = () => {
                                         initialValues={TaxCalculatorFormData}
                                         validationSchema={taxCalculatorSchema}
                                         onSubmit={async (values) => {
-                                            console.log(values);
+                                            console.log("calues", values);
                                         }}
                                     >
                                         {({
                                             isSubmitting,
                                             errors,
+                                            resetForm,
                                             touched,
                                         }) => (
                                             <Form>
@@ -127,9 +129,9 @@ const TaxCalculator: NextPage = () => {
                                                                 options={
                                                                     maritalStatus
                                                                 }
+                                                                placeHolder="Unmarried"
                                                                 fieldRequired
                                                                 haveIcon={true}
-                                                                placeHolder="Unmarried"
                                                             />
                                                         </Col>
                                                     </Row>
@@ -141,8 +143,8 @@ const TaxCalculator: NextPage = () => {
                                                     <Row>
                                                         <Col md={7}>
                                                             <InputField
-                                                                type="text"
                                                                 name="salary"
+                                                                type="text"
                                                                 error={
                                                                     errors.salary
                                                                 }
@@ -155,6 +157,7 @@ const TaxCalculator: NextPage = () => {
                                                         <Col md={5}>
                                                             <SelectInputField
                                                                 name="salary-type"
+                                                                type="text"
                                                                 options={
                                                                     incomeType
                                                                 }
@@ -166,8 +169,8 @@ const TaxCalculator: NextPage = () => {
                                                     </Row>
                                                     <div className="input-wrapper">
                                                         <InputField
-                                                            type="text"
                                                             name="festivalBonus"
+                                                            type="text"
                                                             error={
                                                                 errors.festivalBonus
                                                             }
@@ -177,6 +180,7 @@ const TaxCalculator: NextPage = () => {
                                                             inputIcon={
                                                                 faCircleQuestion
                                                             }
+                                                            placeHolder="Festival Bonus"
                                                         />
                                                         <TooltipMessage
                                                             message="Medical TAX(15% of Medical Expenses)"
@@ -196,6 +200,7 @@ const TaxCalculator: NextPage = () => {
                                                         <InputField
                                                             type="text"
                                                             name="allowances"
+                                                            placeHolder="Allowances"
                                                             error={
                                                                 errors.allowances
                                                             }
@@ -221,6 +226,7 @@ const TaxCalculator: NextPage = () => {
                                                         <InputField
                                                             type="text"
                                                             name="others"
+                                                            placeHolder="Others"
                                                             error={
                                                                 errors.others
                                                             }
@@ -255,6 +261,7 @@ const TaxCalculator: NextPage = () => {
                                                             error={
                                                                 errors.providentFund
                                                             }
+                                                            placeHolder="Provident Fund"
                                                             touch={
                                                                 touched.providentFund
                                                             }
@@ -281,6 +288,7 @@ const TaxCalculator: NextPage = () => {
                                                         <InputField
                                                             type="text"
                                                             name="investmentTrust"
+                                                            placeHolder="Investment Trust"
                                                             error={
                                                                 errors.investmentTrust
                                                             }
@@ -309,6 +317,7 @@ const TaxCalculator: NextPage = () => {
                                                     <div className="input-wrapper">
                                                         <InputField
                                                             type="text"
+                                                            placeHolder="Insurance"
                                                             name="insurance"
                                                             error={
                                                                 errors.insurance
@@ -339,6 +348,7 @@ const TaxCalculator: NextPage = () => {
                                                         <InputField
                                                             type="text"
                                                             name="medicalInsurance"
+                                                            placeHolder="Medical Insurance"
                                                             error={
                                                                 errors.medicalInsurance
                                                             }
@@ -368,9 +378,21 @@ const TaxCalculator: NextPage = () => {
                                                 <div className="buttons">
                                                     <Row>
                                                         <Col md={6}>
-                                                            <Button className="btn close-btn">
-                                                                Reset
-                                                            </Button>
+                                                            <FormButton
+                                                                type="submit"
+                                                                variant="primary"
+                                                                name="Reset"
+                                                                className="btn close-btn"
+                                                                isSubmitting={
+                                                                    isSubmitting
+                                                                }
+                                                                isSubmittingClass={isSubmittingClass(
+                                                                    isSubmitting
+                                                                )}
+                                                                onClick={() =>
+                                                                    resetForm()
+                                                                }
+                                                            />
                                                         </Col>
                                                         <Col md={6}>
                                                             <FormButton
@@ -384,7 +406,6 @@ const TaxCalculator: NextPage = () => {
                                                                 isSubmittingClass={isSubmittingClass(
                                                                     isSubmitting
                                                                 )}
-                                                                //onClick={handleClose}
                                                             />
                                                         </Col>
                                                     </Row>
@@ -427,35 +448,29 @@ const TaxCalculator: NextPage = () => {
                                     <span>Upto 1 %</span>
                                 </div>
                                 <div className="table-content">
-                                    <Table responsive>
-                                        {table.map((info) => (
-                                            <>
-                                                <thead>
-                                                    <tr>
-                                                        {info.heading.map(
-                                                            (th) => (
-                                                                <th key={th.id}>
-                                                                    {th.name}
-                                                                </th>
-                                                            )
-                                                        )}
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {info.data.map((td) => (
-                                                        <tr key={td.id}>
-                                                            <td>{td.salary}</td>
-                                                            <td>{td.amount}</td>
-                                                            <td>{td.rate}</td>
-                                                            <td>
-                                                                {td.liability}
-                                                            </td>
-                                                        </tr>
+                                    {table.map((info) => (
+                                        <Table responsive key={info.id}>
+                                            <thead>
+                                                <tr>
+                                                    {info.heading.map((th) => (
+                                                        <th key={th.id}>
+                                                            {th.name}
+                                                        </th>
                                                     ))}
-                                                </tbody>
-                                            </>
-                                        ))}
-                                    </Table>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {info.data.map((td) => (
+                                                    <tr key={td.id}>
+                                                        <td>{td.salary}</td>
+                                                        <td>{td.amount}</td>
+                                                        <td>{td.rate}</td>
+                                                        <td>{td.liability}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </Table>
+                                    ))}
                                 </div>
                             </Col>
                         </Row>

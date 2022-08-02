@@ -112,12 +112,12 @@ export const SkillsFromData: SkillsValueProps = {
 };
 export const TaxCalculatorFormData: TaxCalculatorValueProps = {
     marriedStatus: "Unmarried",
-    salary: "Salary",
-    festivalBonus: "Festival Bonus",
-    allowances: "Allowances",
-    others: "Others",
-    providentFund: "Provident Fund",
-    investmentTrust: "Citizen Investment Trust",
-    insurance: "Life Insurance",
-    medicalInsurance: "Medical Insurance",
+    salary: null,
+    festivalBonus: null,
+    allowances: null,
+    others: null,
+    providentFund: null,
+    investmentTrust: null,
+    insurance: null,
+    medicalInsurance: null,
 };
