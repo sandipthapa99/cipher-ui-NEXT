@@ -31,7 +31,7 @@ const TaskCard = ({
                     />
                     {location}
                 </p>
-                <div className="task-location-time d-flex">
+                <div className="task-location-time d-flex justify-content-between">
                     <span className="time me-4">
                         <FontAwesomeIcon
                             icon={faClockEight}
