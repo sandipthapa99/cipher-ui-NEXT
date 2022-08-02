@@ -81,7 +81,10 @@ const ChangePasswordForm = () => {
                             </div>
                             <div className="d-flex justify-content-between security-toggle">
                                 <h2>Security Question</h2>
-                                <FontAwesomeIcon icon={faPencil} />
+                                <FontAwesomeIcon
+                                    icon={faPencil}
+                                    className="svg-icon"
+                                />
                             </div>
                             <p className="mb-3 d-flex align-content-center">
                                 <Field

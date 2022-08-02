@@ -21,7 +21,7 @@ const PasswordField = ({
     const Icon = (
         <FontAwesomeIcon
             icon={visible ? faEye : faEyeSlash}
-            className="svg-color-grey"
+            className="svg-icon svg-color-grey svg-icon-eye-slash"
         />
     );
 
