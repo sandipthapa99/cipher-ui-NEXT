@@ -9,6 +9,7 @@ import { ExperienceValueProps } from "types/experienceValueProps";
 import { LoginValuesProps } from "types/login";
 import { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import { SkillsValueProps } from "types/skillsValueProps";
+import { TaxCalculatorValueProps } from "types/taxCalculatorValueProps";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
@@ -108,4 +109,15 @@ export const EducationFormData: EducationValueProps = {
 };
 export const SkillsFromData: SkillsValueProps = {
     skills: "",
+};
+export const TaxCalculatorFormData: TaxCalculatorValueProps = {
+    marriedStatus: "Unmarried",
+    salary: "Salary",
+    festivalBonus: "Festival Bonus",
+    allowances: "Allowances",
+    others: "Others",
+    providentFund: "Provident Fund",
+    investmentTrust: "Citizen Investment Trust",
+    insurance: "Life Insurance",
+    annualMedicalExpense: "Annual Medical Expense",
 };

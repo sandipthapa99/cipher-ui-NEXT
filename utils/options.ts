@@ -20,3 +20,12 @@ export const personType = [
     { id: 2, value: "latest", label: "Latest" },
     { id: 3, value: "top", label: "Top" },
 ];
+export const maritalStatus = [
+    { id: 1, value: "unmarried", label: "Unmarried" },
+    { id: 2, value: "married", label: "Married" },
+];
+
+export const incomeType = [
+    { id: 1, value: "yearly", label: "Yearly" },
+    { id: 2, value: "monthly", label: "Monthly" },
+];
