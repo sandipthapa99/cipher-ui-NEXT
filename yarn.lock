@@ -332,9 +332,9 @@
     stylis "4.0.13"
 
 "@emotion/cache@^11.10.0":
-  version "11.10.0"
-  resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-11.10.0.tgz#9eb9d3245c2c25ae31028d5ff0929987824c77da"
-  integrity sha512-3FoUWnDbHWg/pXGCvL46jvpOSJP0xvRZLY8khUcUHGOBcp0S/MCIk+osp84/dby2Ctahw/Ev4KTHWkY3i0g39g==
+  version "11.10.1"
+  resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-11.10.1.tgz#75a157c2a6bb9220450f73ebef1df2e1467dc65d"
+  integrity sha512-uZTj3Yz5D69GE25iFZcIQtibnVCFsc/6+XIozyL3ycgWvEdif2uEw9wlUt6umjLr4Keg9K6xRPHmD8LGi+6p1A==
   dependencies:
     "@emotion/memoize" "^0.8.0"
     "@emotion/sheet" "^1.2.0"
@@ -5076,7 +5076,7 @@ styled-jsx@5.0.2:
 
 stylis@4.0.13:
   version "4.0.13"
-  resolved "https://registry.npmjs.org/stylis/-/stylis-4.0.13.tgz"
+  resolved "https://registry.yarnpkg.com/stylis/-/stylis-4.0.13.tgz#f5db332e376d13cc84ecfe5dace9a2a51d954c91"
   integrity sha512-xGPXiFVl4YED9Jh7Euv2V220mriG9u4B2TA6Ybjc1catrstKD2PpIdU3U0RKpkVBC2EhmL/F0sPCr9vrFTNRag==
 
 supports-color@^5.3.0:
@@ -5488,11 +5488,6 @@ yargs@^17.0.1, yargs@^17.3.1:
     string-width "^4.2.3"
     y18n "^5.0.5"
     yargs-parser "^21.0.0"
-
-yarn@^1.22.19:
-  version "1.22.19"
-  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.19.tgz#4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
-  integrity sha512-/0V5q0WbslqnwP91tirOvldvYISzaqhClxzyUKXYxs07yUILIs5jx/k6CFe8bvKSkds5w+eiOqta39Wk3WxdcQ==
 
 yocto-queue@^0.1.0:
   version "0.1.0"
