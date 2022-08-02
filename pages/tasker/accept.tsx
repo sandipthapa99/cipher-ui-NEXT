@@ -1,3 +1,4 @@
+import AppliedMap from "@components/AppliedTask/AppliedMap";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
@@ -34,18 +35,20 @@ export const Accept = () => {
         <>
             <SearchHeader />
             <Header />
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="position-relative px-5">
                 <SearchCategory onChange={setQuery} />
                 <div className="accept-task">
                     <UserTaskList
                         onTaskClick={setActiveTask}
                         userTasks={filteredTasks}
                     />
-                    {activeTask && (
+                    {activeTask ? (
                         <UserTaskDetail
                             onExitTask={removeActiveTask}
                             task={activeTask}
                         />
+                    ) : (
+                        <AppliedMap />
                     )}
                 </div>
             </Container>
