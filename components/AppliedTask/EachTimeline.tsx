@@ -165,9 +165,8 @@ export const EachTimeline = ({
 
                                         <div className="d-flex justify-content-end button-section">
                                             <span className="cancel-button">
-                                                <BigButton
-                                                    btnTitle={"Cancel"}
-                                                    backgroundColor={"white"}
+                                                <FormButton
+                                                    name={"Cancel"}
                                                     handleClick={
                                                         handleCancelClick
                                                     }
