@@ -46,6 +46,7 @@ const ExperienceForm = ({
                         onSubmit={async (values) => {
                             setShowExpForm(false);
                             setShowSuccessModal(true);
+                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

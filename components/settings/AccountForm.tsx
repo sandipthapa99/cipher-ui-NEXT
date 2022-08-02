@@ -4,6 +4,9 @@ import InputField from "@components/common/InputField";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
+import { PostCard } from "@components/PostTask/PostCard";
+import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { useSuccessContext } from "context/successContext/successContext";
 import { Field, Form, Formik } from "formik";
 import Image from "next/image";
 import React from "react";
@@ -40,6 +43,7 @@ const experience = [
 ];
 
 const AccountForm = () => {
+    const { setShowSuccessModal } = useSuccessContext();
     return (
         <>
             {/* Modal component */}
@@ -56,8 +60,10 @@ const AccountForm = () => {
                 <Formik
                     initialValues={AccountFromData}
                     validationSchema={accountFormSchema}
-                    onSubmit={async (values) => {
+                    onSubmit={async (values, action) => {
+                        setShowSuccessModal(true);
                         console.log(values);
+                        action.resetForm();
                     }}
                 >
                     {({ isSubmitting, errors, touched, resetForm }) => (
@@ -242,6 +248,12 @@ const AccountForm = () => {
                     )}
                 </Formik>
             </div>
+            <PostCard
+                text="You are good to continue."
+                buttonName="Continue"
+                type="Success"
+                iconName={faSquareCheck}
+            />
         </>
     );
 };

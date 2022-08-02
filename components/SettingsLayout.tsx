@@ -37,7 +37,9 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href={""}>
+                                        <Link
+                                            href={"/settings/account/security"}
+                                        >
                                             <a>
                                                 <FontAwesomeIcon
                                                     icon={faKey}
