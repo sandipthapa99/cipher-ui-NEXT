@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <SearchProvider>
             <SuccessProvider>
                 <AuthProvider>
-                    <MantineProvider withGlobalStyles withNormalizeCSS>
+                    <MantineProvider>
                         <ClientTaskContextProvider>
                             <QueryClientProvider client={queryClient}>
                                 <ReactQueryDevtools />
