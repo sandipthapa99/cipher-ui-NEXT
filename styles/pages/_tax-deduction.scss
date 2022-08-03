@@ -1,0 +1,57 @@
+.tax-deduction {
+    h1 {
+        font-weight: 500;
+        margin-bottom: 0rem;
+    }
+    li {
+        list-style: decimal;
+    }
+    p,
+    li {
+        font-size: 1.4rem;
+        line-height: 2.3rem;
+        font-weight: 500;
+    }
+    &__header {
+        h1 {
+            font-size: 2.8rem;
+            padding-bottom: 2.5rem;
+            text-transform: capitalize;
+        }
+    }
+    &__calculation {
+        .intro {
+            h1 {
+                padding-bottom: 0.6rem;
+                font-size: 2rem;
+            }
+        }
+        .steps-container {
+            .intro {
+                padding-bottom: 2.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                color: $secondary-text-color;
+                padding-bottom: 0.6rem;
+            }
+
+            .steps {
+                color: $secondary-text-color;
+                margin-left: 1.6rem;
+            }
+        }
+        .example-container {
+            padding-top: 2rem;
+            .description {
+                line-height: 5rem;
+                font-weight: 500;
+                font-size: 1.4rem;
+                p {
+                    line-height: 2.3rem;
+                }
+            }
+        }
+    }
+}
