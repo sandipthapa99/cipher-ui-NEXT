@@ -61,7 +61,8 @@ const ServiceNearYouCard = ({
                                     <p>{serviceRating}</p>
                                 </div>
                             </div>
-                            <h1 className="price">Rs {servicePrice}</h1>
+                            <div></div>
+                            <h1 className="price">Rs. {servicePrice}</h1>
                         </div>
                     </div>
                 </Col>
