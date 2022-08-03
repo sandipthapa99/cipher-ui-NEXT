@@ -4,8 +4,8 @@
 @import "paths";
 @import "mixins";
 @import "app";
-@import "utils";
 @import "abstracts/includeMedia";
+@import "utils";
 
 // Components
 @import "choose";
@@ -67,7 +67,11 @@
 @import "components/tooltip";
 @import "components/timelineTab";
 @import "components/teamMembersSection";
-
+@import "components/searchHeader";
+@import "components/postModal";
+@import "components/addRequirements";
+@import "components/searchBody";
+@import "components/postCard";
 // Pages
 @import "pages/privacyPolicy";
 @import "pages/referall";
@@ -142,6 +146,7 @@
 @import "components/gradientLayout";
 @import "components/searchInputField";
 @import "components/faq";
+@import "components/goBack";
 
 
 
@@ -174,6 +179,7 @@
 @import "pages/hire-in-nepal";
 @import "pages/payrollservices";
 
-
-
 @import "pages/landing-page";
+@import "pages/tax-calculator";
+@import "pages/tax-deduction";
+@import "pages/categories";

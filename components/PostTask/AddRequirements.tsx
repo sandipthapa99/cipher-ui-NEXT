@@ -1,10 +1,10 @@
 import { faCirclePlus, faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { KeyboardEvent } from "react";
+import type { ChangeEvent } from "react";
 import { useState } from "react";
-import { ChangeEvent } from "react";
 import { Form, InputGroup, Row } from "react-bootstrap";
-import { Requirement } from "types/requirement";
+import type { Requirement } from "types/requirement";
 
 interface Props {
     field?: (label: string, value: unknown) => void;
@@ -59,16 +59,10 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
 
     const renderTasks = requirementState.map((requirement, index) => {
         return (
-            <div
-                key={index}
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginTop: "1rem",
-                }}
-            >
-                <li>{requirement.name}</li>
+            <div className="list-item-requirements" key={index}>
+                <li>
+                    {index + 1}. {requirement.name}
+                </li>
 
                 <FontAwesomeIcon
                     icon={faXmark}
@@ -80,32 +74,22 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
         );
     });
     return (
-        <>
-            <p
-                className="price-text"
-                style={{ fontSize: "14px", fontWeight: "bold" }}
-            >
-                {title}
-            </p>
-            <p className="price-text" style={{ fontSize: "12px" }}>
-                {description}
-            </p>
+        <div className="add-requirements">
+            <p className="requirements-title">{title}</p>
+            <p className="requirement-desc">{description}</p>
             <Row>
                 <Row>
-                    <ol style={{ marginLeft: "1.5rem" }}>{renderTasks}</ol>
+                    <ol className="list-requirements">{renderTasks}</ol>
                 </Row>
                 <Row>
                     <div className="mt-4">
-                        <InputGroup
-                            className="mb-3"
-                            style={{ border: "1px solid #dee2e6" }}
-                        >
+                        <InputGroup className="add-requirements--input-group">
                             <Form.Control
+                                className="add-requirements--input"
                                 placeholder="Add requirements"
                                 aria-label="Recipient's username"
                                 aria-describedby="basic-addon2"
                                 value={require}
-                                style={{ border: "none", outline: "none" }}
                                 onKeyPress={handleEnterAdd}
                                 onChange={(
                                     event: ChangeEvent<HTMLInputElement>
@@ -113,35 +97,12 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
                                     setRequire(event.target.value);
                                 }}
                             />
-                            {/* <button
-                                id="button-addon2"
-                                type="button"
-                                onClick={addRequirements}
-                                style={{
-                                    margin: "0.7rem 0.5rem 0.5rem 0.5rem",
-                                    border: "none",
-                                    outline: "none",
-                                    background: "white",
-                                }}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faCirclePlus}
-                                    className="svg-icon"
-                                    style={{ color: "#3EAEFF" }}
-                                />
-                            </button> */}
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    padding: "0 0 0 1rem",
-                                }}
-                            >
+
+                            <div className="add-requirements--button">
                                 <FontAwesomeIcon
                                     onClick={addRequirements}
                                     icon={faCirclePlus}
-                                    className="svg-icon"
+                                    className="svg-icon "
                                     style={{ color: "#3EAEFF" }}
                                 />
                             </div>
@@ -149,7 +110,7 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
                     </div>
                 </Row>
             </Row>
-        </>
+        </div>
     );
 };
 export default AddRequirements;

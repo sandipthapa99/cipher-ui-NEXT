@@ -169,4 +169,4 @@ const About: NextPage = () => {
     );
 };
 
-export default withAuth(About);
+export default About;

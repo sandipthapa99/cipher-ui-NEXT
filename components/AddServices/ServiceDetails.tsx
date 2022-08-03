@@ -4,7 +4,7 @@ import SelectInputField from "@components/common/SelectInputField";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { SelectOptionProps } from "types/selectInputField";
+import type { SelectOptionProps } from "types/selectInputField";
 
 import { ServiceVideo } from "./ServiceVideo";
 

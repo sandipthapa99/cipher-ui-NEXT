@@ -11,49 +11,29 @@ export const SearchCategory = ({ onChange }: SearchCategoryProps) => {
     return (
         <div className="search-category">
             <Row className="rows">
-                <Col md={4}>
-                    <InputGroup
-                        style={{
-                            height: "50px",
-                            border: "1px solid #ccc",
-                        }}
-                    >
+                <Col md={4} className="input-col">
+                    <InputGroup className="search-category--input-group">
                         <Form.Control
+                            className="search-category--input"
                             placeholder="Find your Services &amp; Merchants"
                             aria-label="Find your Services &amp; Merchants"
                             aria-describedby="basic-addon2"
-                            style={{ border: "none", outline: "none" }}
                             onChange={(event) =>
                                 onChange?.(event.currentTarget.value)
                             }
                         />
                         <Button
-                            style={{
-                                backgroundColor: "#fff",
-                                padding: "0 2rem",
-                                border: "none",
-                            }}
+                            className="search-category--button"
                             id="button-addon2"
                         >
                             <FontAwesomeIcon
+                                className="search-category--icon"
                                 icon={faMagnifyingGlass}
-                                style={{
-                                    width: "1.5rem",
-                                    height: "1.5rem",
-                                    verticalAlign: "middle",
-                                    display: "inline-block",
-                                    fontSize: "12px",
-                                    color: "#000",
-                                }}
                             />
                         </Button>
                     </InputGroup>
                 </Col>
-                <Col
-                    md={8}
-                    className="categories"
-                    style={{ display: "flex", flexDirection: "row" }}
-                >
+                <Col md={8} className="categories">
                     <Category text="Category" />
                     <Category text="30 km New Baneshwor, Kathmandu" />
                     <Category text="Any Price" />
@@ -68,21 +48,9 @@ export const SearchCategory = ({ onChange }: SearchCategoryProps) => {
 function Category({ text }: { text: string }) {
     return (
         <div className="boxes">
-            <p style={{ margin: "0 0", fontSize: "12px", color: "#868E96" }}>
-                {text}
-            </p>
+            <p>{text}</p>
             <a>
-                <FontAwesomeIcon
-                    icon={faAngleDown}
-                    style={{
-                        width: "1.8rem",
-                        height: "1.8rem",
-                        verticalAlign: "middle",
-
-                        fontSize: "12px",
-                        color: "#868E96",
-                    }}
-                />
+                <FontAwesomeIcon className="boxes--icon" icon={faAngleDown} />
             </a>
         </div>
     );

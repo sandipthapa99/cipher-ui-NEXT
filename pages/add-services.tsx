@@ -1,7 +1,7 @@
 import { MainStep } from "@components/AddServices/MainStep";
 import Layout from "@components/Layout";
 import { withAuth } from "hoc/withAuth";
-import { NextPage } from "next";
+import type { NextPage } from "next";
 
 const AddServices: NextPage = () => {
     return (

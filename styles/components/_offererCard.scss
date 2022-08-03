@@ -5,6 +5,11 @@
     background-color: $white;
     min-width: 300px;
 
+    @include media("<=tablet") {
+        min-width: unset;
+        width: 100%;
+    }
+
     &__profile {
         display: flex;
         align-items: flex-start;

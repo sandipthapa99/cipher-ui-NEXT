@@ -3,13 +3,15 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { log } from "console";
 import { Form, Formik } from "formik";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { ImageVideoDragDop } from "staticData/dragDropContent";
-import { BookNowModalCardProps } from "types/bookNow";
+import type { BookNowModalCardProps } from "types/bookNow";
 import { BookServiceFormData } from "utils/formData";
 import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -22,6 +24,7 @@ const ModalCard = ({
     show,
     handleClose,
 }: BookNowModalCardProps) => {
+    const router = useRouter();
     return (
         <>
             {/* Modal component */}
@@ -49,16 +52,16 @@ const ModalCard = ({
                         validationSchema={bookServiceSchema}
                         onSubmit={async (values) => {
                             console.log(values);
+                            await router.push("task/checkout");
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, errors, touched, handleSubmit }) => (
                             <Form>
                                 <div className="problem">
                                     <h4>Problem Description</h4>
                                     <InputField
-                                        type="textarea"
-                                        name="description"
-                                        min="1"
+                                        type="text"
+                                        name="problemDescription"
                                         error={errors.problemDescription}
                                         touch={touched.problemDescription}
                                         placeHolder="Portfolio Description"
@@ -67,28 +70,40 @@ const ModalCard = ({
                                 <div className="completion">
                                     <Row>
                                         <Col md={6}>
-                                            <h4>Completion Date</h4>
+                                            <h4>Start Date</h4>
                                             <InputField
-                                                type="textarea"
-                                                name="date"
-                                                error={errors.date}
-                                                touch={touched.date}
+                                                type="date"
+                                                name="startdate"
+                                                error={errors.startdate}
+                                                touch={touched.startdate}
                                                 placeHolder="dd/mm/yyy"
                                             />
                                         </Col>
                                         <Col md={6}>
-                                            <h4>Estimated Time(hr)</h4>
+                                            <h4>End Date</h4>
                                             <InputField
-                                                type="number"
-                                                name="time"
-                                                min="1"
-                                                error={errors.time}
-                                                touch={touched.time}
-                                                placeHolder="1"
+                                                type="date"
+                                                name="enddate"
+                                                error={errors.enddate}
+                                                touch={touched.enddate}
+                                                placeHolder="dd/mm/yyy"
                                             />
                                         </Col>
                                     </Row>
                                 </div>
+                                <Row>
+                                    <Col md={6} className="estimated-time">
+                                        <h4>Estimated Time(hr)</h4>
+                                        <InputField
+                                            type="number"
+                                            name="time"
+                                            min="1"
+                                            error={errors.time}
+                                            touch={touched.time}
+                                            placeHolder="1"
+                                        />
+                                    </Col>
+                                </Row>
 
                                 <div className="book-now-gallery">
                                     <h4>Gallery</h4>
@@ -155,6 +170,25 @@ const ModalCard = ({
                                         )}
                                         onClick={handleClose}
                                     />
+
+                                    {/* <Button
+                                        style={{
+                                            backgroundColor: "#211d4f",
+                                        }}
+                                        type="submit"
+                                        onClick={() => {
+                                            console.log(Object.keys(errors));
+
+                                            if (
+                                                Object.keys(errors).length === 1
+                                            ) {
+                                                console.log("form");
+                                            }
+                                        }}
+                                        className="submit-btn w-25"
+                                    >
+                                        Book Now
+                                    </Button> */}
                                 </Modal.Footer>
                             </Form>
                         )}

@@ -2,7 +2,7 @@ import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-import { CommunityGuidelineCardProps } from "types/community";
+import type { CommunityGuidelineCardProps } from "types/community";
 const CommunityBlogCard = ({
     cardImage,
     cardDescription,

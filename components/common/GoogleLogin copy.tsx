@@ -1,6 +1,6 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
-import { FormButtonProps } from "../../types/formButton";
+import type { FormButtonProps } from "../../types/formButton";
 
 const GoogleButton = ({
     name,

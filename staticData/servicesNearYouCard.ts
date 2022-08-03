@@ -1,18 +1,20 @@
 export const servicesNearYou = [
     {
         id: "0",
-        serviceProvider: "Lalit Kumar",
-        serviceTitle: "Garden Cleaner",
+        serviceProvider: "Eleven",
+        serviceTitle: "Learn Telepathy",
         serviceProviderLocation: "Buddhanagar, Kathmandu",
-        servicePrice: 1000,
+        servicePrice: 100000,
         haveDiscount: false,
         serviceRating: "4.5(200)",
         image: "/services/s1.png",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "1",
-        serviceProvider: "Lalit Kumar",
-        serviceTitle: "House Cleaner",
+        serviceProvider: "Demogordon",
+        serviceTitle: "Destroy Bugs",
         serviceProviderLocation: "Buddhanagar, Kathmandu",
         servicePrice: 1000,
         serviceRating: "4.5(200)",
@@ -20,11 +22,13 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "2",
-        serviceProvider: "Lalit Kumar",
-        serviceTitle: "Bike Rider",
+        serviceProvider: "Ghachin Aryal",
+        serviceTitle: "learn Coding",
         serviceProviderLocation: "Buddhanagar, Kathmandu",
         servicePrice: 1000,
         serviceRating: "4.5(200)",
@@ -32,11 +36,14 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "3",
-        serviceProvider: "Lalit Kumar",
-        serviceTitle: "Garden Cleaner",
+        serviceProvider: "Tanjirou",
+        serviceTitle: "Water form",
         serviceProviderLocation: "Buddhanagar, Kathmandu",
         servicePrice: 1000,
         serviceRating: "4.5(200)",
@@ -44,11 +51,13 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "4",
-        serviceProvider: "Lalit Kumar",
-        serviceTitle: "Garden Cleaner",
+        serviceProvider: "Zenitsu",
+        serviceTitle: "Lightening form",
         serviceProviderLocation: "Buddhanagar, Kathmandu",
         servicePrice: 1000,
         serviceRating: "4.5(200)",
@@ -56,11 +65,13 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "5",
-        serviceProvider: "Lalit Kumar",
-        serviceTitle: "Garden Cleaner",
+        serviceProvider: "Uzumaki naruto",
+        serviceTitle: "Martial arts ",
         serviceProviderLocation: "Buddhanagar, Kathmandu",
         servicePrice: 1000,
         serviceRating: "4.5(200)",
@@ -68,11 +79,13 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "6",
-        serviceProvider: "Lalit Kumar",
-        serviceTitle: "Garden Cleaner",
+        serviceProvider: "Uchiha Itachi",
+        serviceTitle: "Tax Payer",
         serviceProviderLocation: "Buddhanagar, Kathmandu",
         servicePrice: 1000,
         serviceRating: "4.5(200)",
@@ -80,11 +93,13 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "7",
-        serviceProvider: "Lalit Kumar",
-        serviceTitle: "Garden Cleaner",
+        serviceProvider: "Eren Yaeger",
+        serviceTitle: "Cleaner",
         serviceProviderLocation: "Buddhanagar, Kathmandu",
         servicePrice: 1000,
         serviceRating: "4.5(200)",
@@ -92,11 +107,13 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "8",
-        serviceProvider: "Lalit Kumar",
-        serviceTitle: "Garden Cleaner",
+        serviceProvider: "Mikasa Ackerman",
+        serviceTitle: "BodyGuard",
         serviceProviderLocation: "Buddhanagar, Kathmandu",
         servicePrice: 1000,
         serviceRating: "4.5(200)",
@@ -104,6 +121,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "9",
@@ -116,6 +135,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "10",
@@ -128,6 +149,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "11",
@@ -140,30 +163,36 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "12",
         serviceProvider: "Lalit Kumar",
         serviceTitle: "Garden Cleaner",
         serviceProviderLocation: "Buddhanagar, Kathmandu",
-        servicePrice: 1000,
+        servicePrice: 15000,
         serviceRating: "4.5(200)",
         haveDiscount: true,
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "13",
         serviceProvider: "Lalit Kumar",
         serviceTitle: "Garden Cleaner",
         serviceProviderLocation: "Buddhanagar, Kathmandu",
-        servicePrice: 1000,
+        servicePrice: 2000,
         serviceRating: "4.5(200)",
         haveDiscount: true,
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
 ];
 export type ServiceNearYou = typeof servicesNearYou[0];

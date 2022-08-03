@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CommunityGuidelineCardProps } from "types/community";
+import type { CommunityGuidelineCardProps } from "types/community";
 
 const CommunityGuidelineCard = ({
     cardImage,

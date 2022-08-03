@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { FC } from "react";
-import { MetaDataProps } from "types/metaData";
+import type { FC } from "react";
+import type { MetaDataProps } from "types/metaData";
 
 import meta from "../staticData/siteMetaData.json";
 import Footer from "./Footer";

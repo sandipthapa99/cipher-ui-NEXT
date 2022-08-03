@@ -5,6 +5,7 @@ import BookNowButton from "@components/common/BookNowButton";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCard from "@components/common/CategoryCard";
 import { FilterReview } from "@components/common/FilterReview";
+import ModalCard from "@components/common/ModalCard";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
 import ServiceCard from "@components/common/ServiceCard";
@@ -26,27 +27,31 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faArrowLeft, faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Carousel } from "@mantine/carousel";
 import Image from "next/image";
 import Link from "next/link";
-import { Col, Row } from "react-bootstrap";
+import { useState } from "react";
+import { Carousel, Col, Row } from "react-bootstrap";
 import { PackageCard } from "staticData/packageCard";
 import { reviewsContent } from "staticData/reviews";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { services } from "staticData/services";
-import { ServiceNearYouCardProps } from "types/serviceNearYouCard";
+import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 
 const SearchResultsDetail = ({
     image,
     servicePrice,
     serviceProvider,
     serviceProviderLocation,
+    serviceDescription,
     serviceRating,
     serviceTitle,
     haveDiscount,
     discountOn,
     discount,
 }: ServiceNearYouCardProps) => {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+
     return (
         <>
             <div className="task-detail mb-5 p-5">
@@ -123,6 +128,10 @@ const SearchResultsDetail = ({
                             <CardBtn
                                 btnTitle="Book Now"
                                 backgroundColor="#211D4F"
+                                handleClick={() => {
+                                    setShow(true);
+                                    console.log("clicked");
+                                }}
                             />
                         </div>
                     </Col>
@@ -167,14 +176,7 @@ const SearchResultsDetail = ({
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    <p>
-                        Hiring a reputable professional landscape gardener
-                        entail paying for their knowledge, experience, time,
-                        equipment, and materials. They will be able to discuss
-                        your vision and tailor your garden design to your exact
-                        needs, taking into account your taste, lifestyle,
-                        budget.
-                    </p>
+                    <p>{serviceDescription}</p>
                 </div>
 
                 <h3>Requirements</h3>
@@ -192,33 +194,10 @@ const SearchResultsDetail = ({
                 >
                     <h1>Packages &amp; Offers</h1>
                     <Row className="gx-4 d-flex align-items-stretch">
-                        <Carousel
-                            height={425}
-                            slideSize="40%"
-                            slideGap="md"
-                            align="start"
-                            slidesToScroll={2}
-                            nextControlIcon={
-                                <FontAwesomeIcon
-                                    width={"20px"}
-                                    height={"20px"}
-                                    icon={faArrowRight}
-                                    style={{ fontSize: "16px" }}
-                                />
-                            }
-                            previousControlIcon={
-                                <FontAwesomeIcon
-                                    width={"20px"}
-                                    height={"20px"}
-                                    icon={faArrowLeft}
-                                    style={{ fontSize: "16px" }}
-                                />
-                            }
-                            style={{ padding: "2rem 0" }}
-                        >
+                        <Carousel slide={false} style={{ padding: "2rem 0" }}>
                             {PackageCard &&
                                 PackageCard.map((offer) => (
-                                    <Carousel.Slide key={offer.id}>
+                                    <Carousel.Item key={offer.id}>
                                         <Col className="align-items-stretch">
                                             <PackageOffersCard
                                                 title={offer.title}
@@ -231,7 +210,7 @@ const SearchResultsDetail = ({
                                                 advantage={offer.advantage}
                                             />
                                         </Col>
-                                    </Carousel.Slide>
+                                    </Carousel.Item>
                                 ))}
                         </Carousel>
                     </Row>
@@ -254,35 +233,11 @@ const SearchResultsDetail = ({
                             </h4>
                         </Col>
                     </Row>
-                    <Carousel
-                        height={550}
-                        slideSize="34%"
-                        slideGap="md"
-                        align="start"
-                        loop
-                        slidesToScroll={1}
-                        nextControlIcon={
-                            <FontAwesomeIcon
-                                width={"20px"}
-                                height={"20px"}
-                                icon={faArrowRight}
-                                style={{ fontSize: "10px" }}
-                            />
-                        }
-                        previousControlIcon={
-                            <FontAwesomeIcon
-                                width={"20px"}
-                                height={"20px"}
-                                icon={faArrowLeft}
-                                style={{ fontSize: "16px" }}
-                            />
-                        }
-                        style={{ padding: "2rem 0" }}
-                    >
+                    <Carousel style={{ padding: "2rem 0" }}>
                         {services &&
                             services.map((service) => {
                                 return (
-                                    <Carousel.Slide key={service.id}>
+                                    <Carousel.Item key={service.id}>
                                         <Col>
                                             <Link href="/service-detail">
                                                 <a>
@@ -321,12 +276,21 @@ const SearchResultsDetail = ({
                                                 </a>
                                             </Link>
                                         </Col>
-                                    </Carousel.Slide>
+                                    </Carousel.Item>
                                 );
                             })}
                     </Carousel>
                 </Row>
             </div>
+            <ModalCard
+                description={serviceDescription}
+                image={image}
+                price={servicePrice}
+                title={serviceTitle}
+                key={serviceTitle}
+                show={show}
+                handleClose={handleClose}
+            />
         </>
     );
 };

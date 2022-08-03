@@ -1,6 +1,6 @@
 import { useSearchContext } from "context/searchContext";
 import Link from "next/link";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
 
 import { taskApplied } from "../../staticData/taskApplied";

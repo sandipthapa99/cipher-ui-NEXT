@@ -7,7 +7,7 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TaskCardProps } from "types/taskCard";
+import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
 const TaskCard = ({
     title,
@@ -31,7 +31,7 @@ const TaskCard = ({
                     />
                     {location}
                 </p>
-                <div className="task-location-time d-flex">
+                <div className="task-location-time d-flex justify-content-between">
                     <span className="time me-4">
                         <FontAwesomeIcon
                             icon={faClockEight}

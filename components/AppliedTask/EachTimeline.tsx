@@ -4,8 +4,10 @@ import InputField from "@components/common/InputField";
 import { faCircleDot, faCircleSmall } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { text } from "stream/consumers";
+import type { Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState } from "react";
+import { reportRevisionFormSchema } from "utils/formValidation/ReportRevisionFormValidation";
+
 import { ReportRevisionForm } from "./ReportRevisionForm";
 
 interface EachTimelineProps {
@@ -14,7 +16,7 @@ interface EachTimelineProps {
     date: string;
     buttonName: string;
     activeId: number;
-    setActiveId: Function;
+    setActiveId: (id: number) => void;
     isGivingRevision?: boolean;
     handleRevisionOpen?: () => void;
     setIsGivingRevision: Dispatch<SetStateAction<boolean>>;
@@ -148,26 +150,29 @@ export const EachTimeline = ({
                     <div className="revision-reason-section">
                         <Formik
                             initialValues={initialValues}
+                            validationSchema={reportRevisionFormSchema}
                             onSubmit={async (values) => {
                                 console.log(values);
                                 setRevisionText(values?.revision_reason);
                             }}
                         >
-                            {({ setFieldValue, errors }) => {
+                            {({ setFieldValue, errors, touched }) => {
                                 return (
                                     <Form>
                                         <InputField
                                             name="revision_reason"
                                             labelName="Revision Reason"
+                                            error={errors.revision_reason}
+                                            touch={touched.revision_reason}
                                             placeHolder="Write revision reason here."
                                             as="textarea"
+                                            defaultValue={revisionText}
                                         />
 
                                         <div className="d-flex justify-content-end button-section">
                                             <span className="cancel-button">
-                                                <BigButton
-                                                    btnTitle={"Cancel"}
-                                                    backgroundColor={"white"}
+                                                <FormButton
+                                                    name={"Cancel"}
                                                     handleClick={
                                                         handleCancelClick
                                                     }
@@ -176,6 +181,7 @@ export const EachTimeline = ({
                                             <FormButton
                                                 handleClick={handleRequestClick}
                                                 name={"Request"}
+                                                type="submit"
                                             />
                                         </div>
                                     </Form>

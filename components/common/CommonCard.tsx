@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CommonCardProps } from "types/commonCard";
+import type { CommonCardProps } from "types/commonCard";
 
 const CommonCard = ({
     cardImage,

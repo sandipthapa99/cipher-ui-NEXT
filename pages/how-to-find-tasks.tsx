@@ -46,4 +46,4 @@ const HowToFindTasks = () => {
         </Layout>
     );
 };
-export default withAuth(HowToFindTasks);
+export default HowToFindTasks;

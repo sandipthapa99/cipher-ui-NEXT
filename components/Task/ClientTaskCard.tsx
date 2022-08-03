@@ -7,7 +7,7 @@ import {
 import { faCalendar } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { PostTaskData } from "types/postTaskData";
+import type { PostTaskData } from "types/postTaskData";
 
 interface Props {
     task: PostTaskData;
