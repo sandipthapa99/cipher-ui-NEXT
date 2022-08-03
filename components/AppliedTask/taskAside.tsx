@@ -1,23 +1,19 @@
-import { useSearchContext } from "context/searchContext";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
 
-import { taskApplied } from "../../staticData/taskApplied";
+import type { AppliedTask } from "../../staticData/taskApplied";
 import TaskAppliedCard from "./taskAppliedCard";
 
-const TaskAside = ({ children }: { children: ReactNode }) => {
-    const { state } = useSearchContext();
+interface TaskAsideProps {
+    children: ReactNode;
+    appliedTasks: AppliedTask[];
+    query: string;
+}
+const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
+    const totalAppliedTasks = appliedTasks.length;
 
-    const filteredServices = taskApplied.filter((task) =>
-        task.title
-            .split(" ")
-            .join("")
-            .toLowerCase()
-            .includes(state.toLowerCase())
-    );
-
-    const renderTaskCards = filteredServices.map((task) => {
+    const renderTaskCards = appliedTasks.map((task) => {
         return (
             <div key={task.id}>
                 <Link href="/task/task-detail">
@@ -37,17 +33,17 @@ const TaskAside = ({ children }: { children: ReactNode }) => {
     return (
         <div className="search-results">
             <Row>
-                <Col md={4} style={{ overflowY: "scroll", maxHeight: "175vh" }}>
-                    <p
-                        style={{
-                            fontSize: "12px",
-                            color: "#495057",
-                            lineHeight: "18px",
-                        }}
-                    >
-                        {filteredServices.length} {state} Services in Kathmandu,
-                        Nepal (1 new)
-                    </p>
+                <Col md={4} style={{ overflowY: "scroll", maxHeight: "90vh" }}>
+                    {query && totalAppliedTasks > 0 ? (
+                        <p className="search-results-text">
+                            {`${totalAppliedTasks} ${appliedTasks[0].title} service found`}
+                        </p>
+                    ) : null}
+                    {query && totalAppliedTasks === 0 ? (
+                        <p className="search-results-text">
+                            No services matching {query} found
+                        </p>
+                    ) : null}
                     {renderTaskCards}
                 </Col>
 
