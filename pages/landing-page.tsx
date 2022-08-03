@@ -115,7 +115,7 @@ const LandingPage: NextPage = () => {
                         {serviceCategory &&
                             serviceCategory.map((category) => {
                                 return (
-                                    <Col md={3} key={category.id}>
+                                    <Col md={3} sm={6} key={category.id}>
                                         <CategoryCardNew
                                             categoryTitle={
                                                 category.categoryTitle
@@ -276,6 +276,22 @@ const LandingPage: NextPage = () => {
                             Pay &amp; Done
                         </li>
                     </ul>
+
+                    <Row className="gx-5">
+                        {serviceCategory &&
+                            serviceCategory.map((category) => {
+                                return (
+                                    <Col md={3} sm={6} key={category.id}>
+                                        <CategoryCardNew
+                                            categoryTitle={
+                                                category.categoryTitle
+                                            }
+                                            categoryIcon={category.categoryIcon}
+                                        />
+                                    </Col>
+                                );
+                            })}
+                    </Row>
                 </Container>
             </section>
             {/* Get services section end */}

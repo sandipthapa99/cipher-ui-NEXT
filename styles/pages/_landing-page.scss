@@ -207,40 +207,7 @@
             }
         }
     }
-    .hero-category{
-        &__card-block{
-            background: #FFF;
-            border-radius: 0.4rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            .image-block{
-                height: 6rem;
-                width: 5.6rem;
-                border-radius: 0.4rem;
-                padding: 0.6rem 1.2rem;
-                background: #752DE820;
-                margin-right: 2.4rem;
-            }
-            .details{
-                h1{
-                    font-size: 2rem;
-                    font-weight: 500;
-                    color: $primary-color;
-                }
-                a{
-                    color: #868E96;
-                    font-size: 1.2rem;
-                    .icon{
-                        margin-left: 1.6rem;
-                        color: #3EAEFF;
-                    }
-                    &:hover{
-                        color: $secondary-color;
-                    }
-                }
-            }
-        }
-    }
+    
 }
 
 .get-services{
@@ -248,6 +215,7 @@
         margin-bottom: 4rem;
     }
     ul{
+        margin-bottom: 4rem;
         li{
             margin-right: 8rem;
             span{
