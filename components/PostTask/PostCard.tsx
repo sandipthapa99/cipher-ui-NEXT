@@ -18,27 +18,10 @@ export const PostCard = ({ text, buttonName, iconName, type }: Props) => {
             size="sm"
             onHide={handleClose}
             className="success-modal"
-            style={{ display: "flex" }}
         >
             <div className="success-content">
-                <FontAwesomeIcon
-                    icon={iconName}
-                    className="svg-icon"
-                    style={{
-                        color: "#38C675",
-                        width: "100px",
-                        height: "100px",
-                    }}
-                />
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexDirection: "column",
-                        marginTop: "1rem",
-                    }}
-                >
+                <FontAwesomeIcon icon={iconName} className="svg-icon" />
+                <div className="success-text">
                     <h4>{type}</h4>
                     <p>{text}</p>
                 </div>

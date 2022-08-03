@@ -1,14 +1,14 @@
-import { ApplyValueProps } from "types/applyValueProps";
-import { BookNowFormProps } from "types/bookNow";
-import { CertificationValueProps } from "types/CertificationValueProps";
-import { ClientSignUpValueProps } from "types/clientSignUp";
-import { AddPortfolio, AddSkills } from "types/editProfile";
-import { EducationValueProps } from "types/EducationValueProps";
-import { EquipmentValueProps } from "types/equipmentValueProps";
-import { ExperienceValueProps } from "types/experienceValueProps";
-import { LoginValuesProps } from "types/login";
-import { ProfileEditValueProps } from "types/ProfileEditValueProps";
-import { SkillsValueProps } from "types/skillsValueProps";
+import type { ApplyValueProps } from "types/applyValueProps";
+import type { BookNowFormProps } from "types/bookNow";
+import type { CertificationValueProps } from "types/CertificationValueProps";
+import type { ClientSignUpValueProps } from "types/clientSignUp";
+import type { AddPortfolio, AddSkills } from "types/editProfile";
+import type { EducationValueProps } from "types/EducationValueProps";
+import type { EquipmentValueProps } from "types/equipmentValueProps";
+import type { ExperienceValueProps } from "types/experienceValueProps";
+import type { LoginValuesProps } from "types/login";
+import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
+import type { SkillsValueProps } from "types/skillsValueProps";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
@@ -67,9 +67,10 @@ export const AddSkillFormData: AddSkills = {
 
 export const BookServiceFormData: BookNowFormProps = {
     problemDescription: "",
-    date: "",
+    startdate: "",
+    enddate: "",
     time: 1,
-    image: "",
+    image: "/services/s1.png",
 };
 
 export const CertificationFromData: CertificationValueProps = {
