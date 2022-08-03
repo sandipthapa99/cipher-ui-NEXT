@@ -5,14 +5,14 @@ import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import Link from "next/link";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { TaxCalculatorFormData } from "utils/formData";
 import taxCalculatorSchema from "utils/formValidation/taxCalculatorFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { incomeType, maritalStatus } from "utils/options";
+import { maritalStatus, salaryType } from "utils/options";
 
 const TaxCalculator: NextPage = () => {
     const taxContent = [
@@ -119,6 +119,7 @@ const TaxCalculator: NextPage = () => {
                                                 errors,
                                                 resetForm,
                                                 touched,
+                                                handleSubmit,
                                             }) => (
                                                 <Form>
                                                     <div className="marital-status">
@@ -130,7 +131,7 @@ const TaxCalculator: NextPage = () => {
                                                         <Row>
                                                             <Col md={7}>
                                                                 <SelectInputField
-                                                                    name="marital-status"
+                                                                    name="maritalStatus"
                                                                     options={
                                                                         maritalStatus
                                                                     }
@@ -163,10 +164,10 @@ const TaxCalculator: NextPage = () => {
                                                             </Col>
                                                             <Col md={5}>
                                                                 <SelectInputField
-                                                                    name="salary-type"
+                                                                    name="salaryType"
                                                                     type="text"
                                                                     options={
-                                                                        incomeType
+                                                                        salaryType
                                                                     }
                                                                     fieldRequired
                                                                     haveIcon={
@@ -337,6 +338,22 @@ const TaxCalculator: NextPage = () => {
                                                                         isSubmitting
                                                                     )}
                                                                 />
+                                                                {/* <Button
+                                                                    onClick={() => {
+                                                                        console.log(
+                                                                            Object.keys(
+                                                                                errors
+                                                                            )
+                                                                        );
+
+                                                                        handleSubmit();
+                                                                        console.log(
+                                                                            "123"
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    Calculate
+                                                                </Button> */}
                                                             </Col>
                                                         </Row>
                                                     </div>

@@ -1,6 +1,9 @@
+import type { StringLocale } from "yup/lib/locale";
+
 export interface TaxCalculatorValueProps {
-    marriedStatus: string;
+    maritalStatus: string;
     salary: number | null;
+    salaryType: string;
     festivalBonus: number | null;
     allowances: number | null;
     others: number | null;

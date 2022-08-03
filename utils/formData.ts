@@ -1,15 +1,15 @@
-import { ApplyValueProps } from "types/applyValueProps";
-import { BookNowFormProps } from "types/bookNow";
-import { CertificationValueProps } from "types/CertificationValueProps";
-import { ClientSignUpValueProps } from "types/clientSignUp";
-import { AddPortfolio, AddSkills } from "types/editProfile";
-import { EducationValueProps } from "types/EducationValueProps";
-import { EquipmentValueProps } from "types/equipmentValueProps";
-import { ExperienceValueProps } from "types/experienceValueProps";
-import { LoginValuesProps } from "types/login";
-import { ProfileEditValueProps } from "types/ProfileEditValueProps";
-import { SkillsValueProps } from "types/skillsValueProps";
-import { TaxCalculatorValueProps } from "types/taxCalculatorValueProps";
+import type { ApplyValueProps } from "types/applyValueProps";
+import type { BookNowFormProps } from "types/bookNow";
+import type { CertificationValueProps } from "types/CertificationValueProps";
+import type { ClientSignUpValueProps } from "types/clientSignUp";
+import type { AddPortfolio, AddSkills } from "types/editProfile";
+import type { EducationValueProps } from "types/EducationValueProps";
+import type { EquipmentValueProps } from "types/equipmentValueProps";
+import type { ExperienceValueProps } from "types/experienceValueProps";
+import type { LoginValuesProps } from "types/login";
+import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
+import type { SkillsValueProps } from "types/skillsValueProps";
+import type { TaxCalculatorValueProps } from "types/taxCalculatorValueProps";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
@@ -111,9 +111,10 @@ export const SkillsFromData: SkillsValueProps = {
     skills: "",
 };
 export const TaxCalculatorFormData: TaxCalculatorValueProps = {
-    marriedStatus: "Unmarried",
+    maritalStatus: "Unmarried",
     salary: 0,
     festivalBonus: 0,
+    salaryType: "Yearly",
     allowances: 0,
     others: 0,
     providentFund: 0,

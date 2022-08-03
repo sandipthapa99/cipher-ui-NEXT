@@ -22,4 +22,4 @@ export const personType = [
 ];
 export const maritalStatus = [{ id: 1, value: "married", label: "Married" }];
 
-export const incomeType = [{ id: 1, value: "monthly", label: "Monthly" }];
+export const salaryType = [{ id: 1, value: "monthly", label: "Monthly" }];
