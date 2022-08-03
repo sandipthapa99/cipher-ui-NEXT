@@ -1,7 +1,9 @@
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
+import ServiceCard from "@components/common/ServiceCard";
 import Layout from "@components/Layout";
 import {
+    faAngleRight,
     faArrowRight,
     faChevronDown,
     faSearch,
@@ -12,6 +14,7 @@ import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { services } from "staticData/services";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
@@ -104,7 +107,7 @@ const LandingPage: NextPage = () => {
                             </figure>
                         </Col>
                     </Row>
-                    <Row className="gx-5">
+                    <Row className="">
                         <Col md={3}>
                             <div className="hero-category__card-block d-inline-block flex-row">
                                 <div className="wrapper d-flex">
@@ -216,6 +219,127 @@ const LandingPage: NextPage = () => {
                     </Row>
                 </Container>
             </section>
+
+            {/* Popular verified services section start */}
+            <section id="services-near-you" className="services-near-you">
+                <Container fluid="xl" className="px-5">
+                    <div className="title-wrapper d-flex justify-content-between">
+                        <h2 className="heading-title">
+                            Popular Verified Services
+                        </h2>
+                        <a href="" className="view-more">
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
+                        </a>
+                    </div>
+                    <Row className="gx-5">
+                        {services &&
+                            services.map((service) => {
+                                return (
+                                    <Col sm={6} md={4} lg={3} key={service.id}>
+                                        <Link href="/service-detail">
+                                            <a>
+                                                <ServiceCard
+                                                    serviceImage={
+                                                        service.serviceImage
+                                                    }
+                                                    serviceTitle={
+                                                        service.serviceTitle
+                                                    }
+                                                    serviceProvider={
+                                                        service.serviceProvider
+                                                    }
+                                                    serviceProviderLocation={
+                                                        service.serviceProviderLocation
+                                                    }
+                                                    serviceDescription={
+                                                        service.serviceDescription
+                                                    }
+                                                    serviceRating={
+                                                        service.serviceRating
+                                                    }
+                                                    servicePrice={
+                                                        service.servicePrice
+                                                    }
+                                                    hasOffer={service.hasOffer}
+                                                    discountRate={
+                                                        service.discountRate
+                                                    }
+                                                    discountOn={
+                                                        service.discountOn
+                                                    }
+                                                />
+                                            </a>
+                                        </Link>
+                                    </Col>
+                                );
+                            })}
+                    </Row>
+                </Container>
+            </section>
+            {/* Services near you section end */}
+            {/* Services near you section start */}
+            <section id="services-near-you" className="services-near-you">
+                <Container fluid="xl" className="px-5">
+                    <div className="title-wrapper d-flex justify-content-between">
+                        <h2 className="heading-title">Services near you</h2>
+                        <a href="" className="view-more">
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
+                        </a>
+                    </div>
+                    <Row className="gx-5">
+                        {services &&
+                            services.map((service) => {
+                                return (
+                                    <Col sm={6} md={4} lg={3} key={service.id}>
+                                        <Link href="/service-detail">
+                                            <a>
+                                                <ServiceCard
+                                                    serviceImage={
+                                                        service.serviceImage
+                                                    }
+                                                    serviceTitle={
+                                                        service.serviceTitle
+                                                    }
+                                                    serviceProvider={
+                                                        service.serviceProvider
+                                                    }
+                                                    serviceProviderLocation={
+                                                        service.serviceProviderLocation
+                                                    }
+                                                    serviceDescription={
+                                                        service.serviceDescription
+                                                    }
+                                                    serviceRating={
+                                                        service.serviceRating
+                                                    }
+                                                    servicePrice={
+                                                        service.servicePrice
+                                                    }
+                                                    hasOffer={service.hasOffer}
+                                                    discountRate={
+                                                        service.discountRate
+                                                    }
+                                                    discountOn={
+                                                        service.discountOn
+                                                    }
+                                                />
+                                            </a>
+                                        </Link>
+                                    </Col>
+                                );
+                            })}
+                    </Row>
+                </Container>
+            </section>
+            {/* Services near you section end */}
         </Layout>
     );
 };
