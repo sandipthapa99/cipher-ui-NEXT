@@ -480,6 +480,15 @@ const LandingPage: NextPage = () => {
                 </Container>
             </section>
             {/* blog section end */}
+
+            <section className="top-categories-section">
+                <Container fluid="xl" className="px-5">
+                    <h1 className="section-main-title">Top Categories</h1>
+                    <h2 className="section-sub-title">
+                        See some of our top categories in your area
+                    </h2>
+                </Container>
+            </section>
         </Layout>
     );
 };
