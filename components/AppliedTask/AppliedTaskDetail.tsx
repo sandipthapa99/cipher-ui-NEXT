@@ -1,4 +1,5 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
+import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { GoBack } from "@components/common/GoBack";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
@@ -64,10 +65,16 @@ const AppliedTaskDetail: NextPage = () => {
                                 />
                                 <span className="name">Share</span>
                             </div>
-                            <FontAwesomeIcon
+                            <EllipsisDropdown>
+                                <FontAwesomeIcon
+                                    icon={faEllipsisVertical}
+                                    className="svg-icon option"
+                                />
+                            </EllipsisDropdown>
+                            {/* <FontAwesomeIcon
                                 icon={faEllipsisVertical}
                                 className="svg-icon option"
-                            />
+                            /> */}
                         </div>
                     </div>
                 </Row>
