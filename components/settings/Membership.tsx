@@ -1,6 +1,4 @@
-import CreditCard from "@components/Checkout/CreditCard";
 import BigButton from "@components/common/Button";
-import FormButton from "@components/common/FormButton";
 import {
     faChevronDown,
     faChevronRight,
@@ -15,7 +13,6 @@ import {
     Card,
     useAccordionButton,
 } from "react-bootstrap";
-import { creditCardContent } from "staticData/creditCardContent";
 import { membershipPlanData } from "staticData/membershipPlanData";
 
 interface PaymentAccordion {
@@ -67,7 +64,7 @@ const Membership = () => {
                 <Card className="border-0">
                     <Card.Header
                         className={
-                            "d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between bg-transparent"
+                            "d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between bg-transparent py-4 px-0"
                         }
                     >
                         <p className="m-0">
@@ -97,13 +94,13 @@ const Membership = () => {
                             </ul>
                             <BigButton
                                 backgroundColor={"#211D4F"}
-                                btnTitle={"sdsd"}
+                                btnTitle={"Select Plan"}
                             />
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
                 <Card className="border-0">
-                    <Card.Header className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between bg-transparent">
+                    <Card.Header className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between bg-transparent py-4 px-0">
                         <p className="m-0">
                             BASIC <br></br>
                             <span>Cipher Basic Plan</span>
@@ -131,13 +128,13 @@ const Membership = () => {
                             </ul>
                             <BigButton
                                 backgroundColor={"#211D4F"}
-                                btnTitle={"sdsd"}
+                                btnTitle={"Select Plan"}
                             />
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
                 <Card className="border-0">
-                    <Card.Header className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between bg-transparent">
+                    <Card.Header className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between bg-transparent py-4 px-0">
                         <p className="m-0">
                             SILVER <br></br>
                             <span>Cipher Silver Plan</span>
@@ -165,13 +162,13 @@ const Membership = () => {
                             </ul>
                             <BigButton
                                 backgroundColor={"#211D4F"}
-                                btnTitle={"sdsd"}
+                                btnTitle={"Select Plan"}
                             />
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
                 <Card className="border-0">
-                    <Card.Header className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between bg-transparent">
+                    <Card.Header className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between bg-transparent py-4 px-0">
                         <p className="m-0">
                             PREMIUM <br></br>
                             <span>Cipher Premium Plan</span>
@@ -199,7 +196,7 @@ const Membership = () => {
                             </ul>
                             <BigButton
                                 backgroundColor={"#211D4F"}
-                                btnTitle={"sdsd"}
+                                btnTitle={"Select Plan"}
                             />
                         </Card.Body>
                     </Accordion.Collapse>

@@ -1,6 +1,9 @@
 .account-form {
     background: #fff;
-    padding: 8rem;
+    padding: 3rem;
+    @include respond(md) {
+        padding: 8rem;
+    }
     h2 {
         font-size: 1.6rem;
         font-weight: 500;
