@@ -9,9 +9,10 @@ import { SearchBody } from "@components/SearchTask/searchBody";
 import GettingStartedTask from "@components/Task/GettingStartedCard";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
+
 import { Recommended } from "./Recommended";
 
 export const UserClient = () => {
