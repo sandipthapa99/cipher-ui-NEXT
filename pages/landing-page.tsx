@@ -1,6 +1,7 @@
 import CategoryCard from "@components/common/CategoryCard";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
+import MerchantCard from "@components/common/MerchantCard";
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
@@ -19,6 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { findHire } from "staticData/findHire";
+import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
@@ -337,6 +339,55 @@ const LandingPage: NextPage = () => {
                 </Container>
             </section>
             {/* Find & Hire section end */}
+
+            {/* Top Taksers Section Start */}
+            <section id="top-merchants" className="top-merchants">
+                <Container fluid="xl" className="px-5">
+                    <div className="title-wrapper d-flex justify-content-between">
+                        <h2 className="heading-title">Top Taskers</h2>
+                        <a href="" className="view-more">
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
+                        </a>
+                    </div>
+                    <Row className="gx-5">
+                        {merchants &&
+                            merchants.map((merchant) => {
+                                return (
+                                    <Col sm={6} lg={4} xl={3} key={merchant.id}>
+                                        <MerchantCard
+                                            merchantImage={
+                                                merchant.merchantImage
+                                            }
+                                            merchantName={merchant.merchantName}
+                                            merchantCategory={
+                                                merchant.merchantCategory
+                                            }
+                                            merchantLocation={
+                                                merchant.merchantLocation
+                                            }
+                                            merchantDescription={
+                                                merchant.merchantDescription
+                                            }
+                                            merchantRating={
+                                                merchant.merchantRating
+                                            }
+                                            merchantPrice={
+                                                merchant.merchantPrice
+                                            }
+                                            happyClients={merchant.happyClients}
+                                            successRate={merchant.successRate}
+                                        />
+                                    </Col>
+                                );
+                            })}
+                    </Row>
+                </Container>
+            </section>
+            {/* Top Taskers Section End */}
         </Layout>
     );
 };
