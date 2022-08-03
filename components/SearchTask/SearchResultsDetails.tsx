@@ -27,6 +27,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faArrowLeft, faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useBookContext } from "context/BookNowContext/bookNowContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -51,6 +52,7 @@ const SearchResultsDetail = ({
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
+    const { setBookNowDetails } = useBookContext();
 
     return (
         <>
@@ -130,7 +132,18 @@ const SearchResultsDetail = ({
                                 backgroundColor="#211D4F"
                                 handleClick={() => {
                                     setShow(true);
-                                    console.log("clicked");
+                                    setBookNowDetails({
+                                        image,
+                                        servicePrice,
+                                        serviceProvider,
+                                        serviceProviderLocation,
+                                        serviceDescription,
+                                        serviceRating,
+                                        serviceTitle,
+                                        haveDiscount,
+                                        discountOn,
+                                        discount,
+                                    });
                                 }}
                             />
                         </div>

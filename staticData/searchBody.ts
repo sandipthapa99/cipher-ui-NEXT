@@ -10,7 +10,7 @@ export const SearchBodyData = [
         id: "1",
         number: "30",
         color: "#EBF9F1",
-        textOne: "Tasks In Completed",
+        textOne: "Tasks Completed",
         textColor: "#38C675",
     },
     {

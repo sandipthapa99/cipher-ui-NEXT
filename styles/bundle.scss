@@ -70,10 +70,12 @@
 @import "components/searchHeader";
 @import "components/postModal";
 @import "components/addRequirements";
+@import "components/welcomeCompnent";
 @import "components/searchBody";
 @import "components/postCard";
 @import "components/paymentHistory";
 
+@import "components/checkoutModal";
 // Pages
 @import "pages/privacyPolicy";
 @import "pages/referall";
@@ -149,6 +151,7 @@
 @import "components/searchInputField";
 @import "components/faq";
 @import "components/goBack";
+@import "components/ellipisdropdown";
 
 // Pages
 @import "pages/privacyPolicy";
