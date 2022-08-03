@@ -1,3 +1,4 @@
+import "mapbox-gl/dist/mapbox-gl.css";
 import "../styles/bundle.scss";
 
 import { MantineProvider } from "@mantine/core";

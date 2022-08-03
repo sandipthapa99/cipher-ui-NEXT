@@ -25,7 +25,6 @@ export const createAxiosClient = (
 ) => {
     const axiosClient = axios.create({
         baseURL: getApiEndpoint(),
-        withCredentials: true,
     });
     const { token } = parseCookies(context, "token");
     if (token) {

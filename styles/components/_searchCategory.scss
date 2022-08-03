@@ -37,7 +37,6 @@
         .categories {
             display: flex;
             align-items: center;
-            background-color: #fff;
 
             @include respond(md) {
                 overflow: auto;
