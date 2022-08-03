@@ -136,9 +136,6 @@ const TaxCalculator: NextPage = () => {
                                                                     }
                                                                     placeHolder="Unmarried"
                                                                     fieldRequired
-                                                                    haveIcon={
-                                                                        true
-                                                                    }
                                                                 />
                                                             </Col>
                                                         </Row>
@@ -169,12 +166,6 @@ const TaxCalculator: NextPage = () => {
                                                                         salaryType
                                                                     }
                                                                     fieldRequired
-                                                                    haveIcon={
-                                                                        true
-                                                                    }
-                                                                    inputIcon={
-                                                                        faCircleQuestion
-                                                                    }
                                                                     placeHolder="Yearly"
                                                                 />
                                                             </Col>
