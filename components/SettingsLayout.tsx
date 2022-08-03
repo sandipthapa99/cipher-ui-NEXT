@@ -70,13 +70,17 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href={""}>
+                                        <Link
+                                            href={
+                                                "/settings/account/connectedAccount"
+                                            }
+                                        >
                                             <a>
                                                 <FontAwesomeIcon
                                                     icon={faLinkSimple}
                                                     className="svg-icon"
                                                 />
-                                                Password & Security
+                                                Connected Account
                                             </a>
                                         </Link>
                                     </li>
