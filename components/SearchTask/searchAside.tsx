@@ -16,6 +16,7 @@ const ServiceNearYouCard = ({
     haveDiscount,
     discountOn,
     discount,
+    serviceDescription,
 }: ServiceNearYouCardProps) => {
     return (
         <div className="service-card-block service-near-you-card-block">

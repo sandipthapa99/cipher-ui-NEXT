@@ -33,11 +33,7 @@ export const SearchCategory = ({ onChange }: SearchCategoryProps) => {
                         </Button>
                     </InputGroup>
                 </Col>
-                <Col
-                    md={8}
-                    className="categories"
-                    style={{ display: "flex", flexDirection: "row" }}
-                >
+                <Col md={8} className="categories">
                     <Category text="Category" />
                     <Category text="30 km New Baneshwor, Kathmandu" />
                     <Category text="Any Price" />

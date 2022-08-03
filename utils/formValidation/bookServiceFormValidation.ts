@@ -7,5 +7,6 @@ export const bookServiceSchema = Yup.object().shape({
     problemDescription: stringReqOnly,
     time: numReqOnly,
     image: stringReqOnly,
-    date: stringReqOnly,
+    startdate: stringReqOnly,
+    enddate: stringReqOnly,
 });
