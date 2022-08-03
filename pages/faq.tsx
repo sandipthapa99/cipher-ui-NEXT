@@ -462,4 +462,4 @@ const FAQ = () => {
         </>
     );
 };
-export default withAuth(FAQ);
+export default FAQ;

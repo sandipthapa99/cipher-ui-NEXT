@@ -225,4 +225,4 @@ const AffiliateProgram = () => {
         </Layout>
     );
 };
-export default withAuth(AffiliateProgram);
+export default AffiliateProgram;

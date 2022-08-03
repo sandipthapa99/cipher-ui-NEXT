@@ -234,4 +234,4 @@ const PrivacyPolicy = () => {
         </Layout>
     );
 };
-export default withAuth(PrivacyPolicy);
+export default PrivacyPolicy;
