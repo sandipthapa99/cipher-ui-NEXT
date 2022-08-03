@@ -5,14 +5,26 @@ import React from "react";
 import { AccountFromData } from "utils/formData";
 
 const dropdownCountryOptions = [
-    { id: 1, label: "Nepal", value: "nepal" },
+    { id: 1, label: "All activity", value: "All activity" },
     { id: 2, label: "USA", value: "usa" },
     { id: 3, label: "Canda", value: "canda" },
 ];
 const dropdownCurrencyOptions = [
-    { id: 1, label: "Rupees", value: "rupees" },
+    {
+        id: 1,
+        label: "Important activity Only",
+        value: "Important activity Only",
+    },
     { id: 2, label: "Dollar", value: "dollar" },
     { id: 3, label: "CDollar", value: "cdollar" },
+];
+const serviceBackendOptions = [
+    {
+        id: 1,
+        label: "Yes",
+        value: "yes",
+    },
+    { id: 2, label: "No", value: "no" },
 ];
 
 const NotificationSettings = () => {
@@ -53,8 +65,8 @@ const NotificationSettings = () => {
                     <SelectInputField
                         name="country"
                         labelName="Receive Emails for Service Backend"
-                        placeHolder="Yes"
-                        options={dropdownCurrencyOptions}
+                        placeHolder="select"
+                        options={serviceBackendOptions}
                     />
                 </Form>
             </Formik>

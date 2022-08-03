@@ -62,4 +62,43 @@
             }
         }
     }
+    .accordion {
+        .accordion-item {
+            border-color: #e2e2e2;
+            .accordion-header {
+                .accordion-button {
+                    font-size: 1.4rem;
+                    font-weight: 400;
+                    color: #212529;
+                    padding: 1rem 0;
+                    border: none;
+                    @include respond(md) {
+                        font-size: 1.4rem;
+                        // padding: 0.8rem 0;
+                    }
+                    &::after {
+                        background-size: 100%;
+                        width: 1.4rem;
+                        height: 1.4rem;
+                        @include respond(md) {
+                            width: 1.8rem;
+                            height: 1.8rem;
+                        }
+                    }
+                    &:focus {
+                        background: none;
+                        box-shadow: none;
+                    }
+                }
+            }
+            .accordion-body {
+                padding: 0 0 3rem;
+                p {
+                    &:last-child {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
 }
