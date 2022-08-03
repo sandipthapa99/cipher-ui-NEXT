@@ -3,7 +3,7 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
-import { ServiceNearYouCardProps } from "types/serviceNearYouCards";
+import type { ServiceNearYouCardProps } from "types/serviceNearYouCards";
 
 const ServiceNearYouCard = ({
     image,

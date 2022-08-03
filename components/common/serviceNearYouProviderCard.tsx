@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";
-import { ServiceNearYouProviderCardProps } from "types/serviceNearYouCards";
+import type { ServiceNearYouProviderCardProps } from "types/serviceNearYouCards";
 
 import BookNowButton from "./BookNowButton";
 import ModalCard from "./ModalCard";

@@ -1,6 +1,5 @@
 import Breadcrum from "@components/common/Breadcrum";
 import Layout from "@components/Layout";
-import { withAuth } from "hoc/withAuth";
 import { Container } from "react-bootstrap";
 
 const TermsConditions = () => {
@@ -143,4 +142,4 @@ const TermsConditions = () => {
         </Layout>
     );
 };
-export default withAuth(TermsConditions);
+export default TermsConditions;

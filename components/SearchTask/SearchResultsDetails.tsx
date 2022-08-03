@@ -26,7 +26,6 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faArrowLeft, faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Carousel } from "@mantine/carousel";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
@@ -34,7 +33,7 @@ import { PackageCard } from "staticData/packageCard";
 import { reviewsContent } from "staticData/reviews";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { services } from "staticData/services";
-import { ServiceNearYouCardProps } from "types/serviceNearYouCard";
+import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 
 const SearchResultsDetail = ({
     image,
@@ -192,7 +191,7 @@ const SearchResultsDetail = ({
                 >
                     <h1>Packages &amp; Offers</h1>
                     <Row className="gx-4 d-flex align-items-stretch">
-                        <Carousel
+                        {/* <Carousel
                             height={425}
                             slideSize="40%"
                             slideGap="md"
@@ -233,7 +232,7 @@ const SearchResultsDetail = ({
                                         </Col>
                                     </Carousel.Slide>
                                 ))}
-                        </Carousel>
+                        </Carousel> */}
                     </Row>
                 </section>
                 <FilterReview totalReviews={reviewsContent.length} />
@@ -242,7 +241,7 @@ const SearchResultsDetail = ({
                         <Reviews key={index} {...reviewContent} />
                     ))}
                 </div>
-                <Link href="/all-reviews">
+                {/* <Link href="/all-reviews">
                     <a>See all reviews</a>
                 </Link>
                 <span className="td-divider"></span>
@@ -325,7 +324,7 @@ const SearchResultsDetail = ({
                                 );
                             })}
                     </Carousel>
-                </Row>
+                </Row> */}
             </div>
         </>
     );

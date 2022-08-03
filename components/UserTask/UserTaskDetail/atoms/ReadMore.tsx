@@ -1,4 +1,5 @@
-import { HTMLAttributes, useMemo } from "react";
+import type { HTMLAttributes } from "react";
+import { useMemo } from "react";
 import { useState } from "react";
 
 interface ReadMoreProps extends HTMLAttributes<HTMLParagraphElement> {

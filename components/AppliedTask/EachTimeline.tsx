@@ -4,8 +4,9 @@ import InputField from "@components/common/InputField";
 import { faCircleDot, faCircleSmall } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { text } from "stream/consumers";
+import type { Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState } from "react";
+
 import { ReportRevisionForm } from "./ReportRevisionForm";
 
 interface EachTimelineProps {
@@ -14,7 +15,7 @@ interface EachTimelineProps {
     date: string;
     buttonName: string;
     activeId: number;
-    setActiveId: Function;
+    setActiveId: (id: number) => void;
     isGivingRevision?: boolean;
     handleRevisionOpen?: () => void;
     setIsGivingRevision: Dispatch<SetStateAction<boolean>>;
@@ -165,9 +166,8 @@ export const EachTimeline = ({
 
                                         <div className="d-flex justify-content-end button-section">
                                             <span className="cancel-button">
-                                                <BigButton
-                                                    btnTitle={"Cancel"}
-                                                    backgroundColor={"white"}
+                                                <FormButton
+                                                    name={"Cancel"}
                                                     handleClick={
                                                         handleCancelClick
                                                     }

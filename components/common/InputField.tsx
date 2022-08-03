@@ -2,7 +2,7 @@ import TooltipMessage from "@components/common/Tooltip";
 import { faCircleInfo } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
-import { InputFieldProps } from "types/inputField";
+import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 
 const InputField = ({

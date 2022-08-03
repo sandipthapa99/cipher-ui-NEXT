@@ -131,4 +131,4 @@ const Choose = () => {
         </OnBoardingLayout>
     );
 };
-export default withAuth(Choose);
+export default Choose;

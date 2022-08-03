@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { AllCategoryCardProps } from "types/categoryCard";
+import type { AllCategoryCardProps } from "types/categoryCard";
 
 const AllCategoryCard = ({
     categoryTitle,

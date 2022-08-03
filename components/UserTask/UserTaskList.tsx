@@ -1,5 +1,5 @@
 import TaskCard from "@components/AppliedTask/taskAppliedCard";
-import { UserTask } from "staticData/userTasks";
+import type { UserTask } from "staticData/userTasks";
 
 interface UserTaskListProps {
     userTasks: UserTask[];

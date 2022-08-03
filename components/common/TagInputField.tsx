@@ -2,7 +2,7 @@ import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS
 
 import Tags from "@yaireo/tagify/dist/react.tagify"; // React-wrapper file
 import { ErrorMessage, Field } from "formik";
-import { InputFieldProps } from "types/inputField";
+import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 
 const TagInputField = ({

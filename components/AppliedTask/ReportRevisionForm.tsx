@@ -4,9 +4,10 @@ import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import { Form, Formik } from "formik";
 import Image from "next/image";
-import React, { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { Modal } from "react-bootstrap";
-import { SelectOptionProps } from "types/selectInputField";
+import type { SelectOptionProps } from "types/selectInputField";
 
 interface ReportRevisionFormProps {
     show: boolean;

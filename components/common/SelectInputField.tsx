@@ -1,7 +1,7 @@
 import { faChevronDown } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
-import {
+import type {
     SelectInputFieldProps,
     SelectOptionProps,
 } from "types/selectInputField";
