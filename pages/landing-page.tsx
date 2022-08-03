@@ -5,6 +5,7 @@ import MerchantCard from "@components/common/MerchantCard";
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
+import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import {
     faAngleRight,
@@ -388,6 +389,20 @@ const LandingPage: NextPage = () => {
                 </Container>
             </section>
             {/* Top Taskers Section End */}
+
+            {/* Gradient Banner section Start */}
+            <section className="gradient-banner">
+                <Container fluid="xl" className="px-5">
+                    <GradientBanner
+                        title="A client tasks are quickly finished 
+                            when searched through Cipher"
+                        subTitle="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500. "
+                        image="/discover/main.svg"
+                        btnText="Join Us"
+                    />
+                </Container>
+            </section>
+            {/* Gradient Banner section End */}
         </Layout>
     );
 };
