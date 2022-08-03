@@ -211,7 +211,7 @@
         &__card-block{
             background: #FFF;
             border-radius: 0.4rem;
-            padding: 2.4rem;
+            padding: 2rem;
             margin-bottom: 2rem;
             .image-block{
                 height: 6rem;
@@ -241,5 +241,25 @@
             }
         }
     }
+}
 
+.get-services{
+    h1{
+        margin-bottom: 4rem;
+    }
+    ul{
+        li{
+            margin-right: 8rem;
+            span{
+                background-color: #5C6096;
+                padding: 0.5rem 1.2rem;
+                border-radius: 50%;
+                color: #FFF;
+                font-size: 1.2rem;
+                margin-right: 0.8rem;
+                height: 2.8rem;
+                width: 2.8rem;
+            }
+        }
+    }
 }

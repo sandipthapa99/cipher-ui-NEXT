@@ -1,3 +1,5 @@
+import CategoryCard from "@components/common/CategoryCard";
+import CategoryCardNew from "@components/common/CategoryCardNew";
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
@@ -14,6 +16,7 @@ import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
@@ -107,116 +110,23 @@ const LandingPage: NextPage = () => {
                             </figure>
                         </Col>
                     </Row>
-                    <Row className="">
-                        <Col md={3}>
-                            <div className="hero-category__card-block d-inline-block flex-row">
-                                <div className="wrapper d-flex">
-                                    <div className="image-block">
-                                        <figure className="thumbnail-icon">
-                                            <Image
-                                                src="/heroImages/beauty.svg"
-                                                alt="category-icon"
-                                                height={48}
-                                                width={32}
-                                            />
-                                        </figure>
-                                    </div>
-                                    <div className="details d-flex flex-column justify-content-between">
-                                        <h1>Beauty</h1>
-                                        <a href="">
-                                            Beauty related services
-                                            <FontAwesomeIcon
-                                                icon={faArrowRight}
-                                                className="icon"
-                                            />
-                                        </a>
-                                    </div>
-                                </div>
-                                <p></p>
-                            </div>
-                        </Col>
-                        <Col md={3}>
-                            <div className="hero-category__card-block d-inline-block flex-row">
-                                <div className="wrapper d-flex">
-                                    <div className="image-block">
-                                        <figure className="thumbnail-icon">
-                                            <Image
-                                                src="/heroImages/beauty.svg"
-                                                alt="category-icon"
-                                                height={48}
-                                                width={32}
-                                            />
-                                        </figure>
-                                    </div>
-                                    <div className="details d-flex flex-column justify-content-between">
-                                        <h1>Beauty</h1>
-                                        <a href="">
-                                            Beauty related services
-                                            <FontAwesomeIcon
-                                                icon={faArrowRight}
-                                                className="icon"
-                                            />
-                                        </a>
-                                    </div>
-                                </div>
-                                <p></p>
-                            </div>
-                        </Col>
-                        <Col md={3}>
-                            <div className="hero-category__card-block d-inline-block flex-row">
-                                <div className="wrapper d-flex">
-                                    <div className="image-block">
-                                        <figure className="thumbnail-icon">
-                                            <Image
-                                                src="/heroImages/beauty.svg"
-                                                alt="category-icon"
-                                                height={48}
-                                                width={32}
-                                            />
-                                        </figure>
-                                    </div>
-                                    <div className="details d-flex flex-column justify-content-between">
-                                        <h1>Beauty</h1>
-                                        <a href="">
-                                            Beauty related services
-                                            <FontAwesomeIcon
-                                                icon={faArrowRight}
-                                                className="icon"
-                                            />
-                                        </a>
-                                    </div>
-                                </div>
-                                <p></p>
-                            </div>
-                        </Col>
-                        <Col md={3}>
-                            <div className="hero-category__card-block d-inline-block flex-row">
-                                <div className="wrapper d-flex">
-                                    <div className="image-block">
-                                        <figure className="thumbnail-icon">
-                                            <Image
-                                                src="/heroImages/beauty.svg"
-                                                alt="category-icon"
-                                                height={48}
-                                                width={32}
-                                            />
-                                        </figure>
-                                    </div>
-                                    <div className="details d-flex flex-column justify-content-between">
-                                        <h1>Beauty</h1>
-                                        <a href="">
-                                            Beauty related services
-                                            <FontAwesomeIcon
-                                                icon={faArrowRight}
-                                                className="icon"
-                                            />
-                                        </a>
-                                    </div>
-                                </div>
-                                <p></p>
-                            </div>
-                        </Col>
+                    {/* Service category listing start */}
+                    <Row className="gx-5">
+                        {serviceCategory &&
+                            serviceCategory.map((category) => {
+                                return (
+                                    <Col md={3} key={category.id}>
+                                        <CategoryCardNew
+                                            categoryTitle={
+                                                category.categoryTitle
+                                            }
+                                            categoryIcon={category.categoryIcon}
+                                        />
+                                    </Col>
+                                );
+                            })}
                     </Row>
+                    {/* Service category listing end */}
                 </Container>
             </section>
 
@@ -280,7 +190,8 @@ const LandingPage: NextPage = () => {
                     </Row>
                 </Container>
             </section>
-            {/* Services near you section end */}
+            {/* Popular verified services section end */}
+
             {/* Services near you section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
@@ -340,6 +251,34 @@ const LandingPage: NextPage = () => {
                 </Container>
             </section>
             {/* Services near you section end */}
+
+            {/* Get services section start */}
+            <section className="get-services">
+                <Container fluid="xl">
+                    <h1 className="section-main-title">
+                        Get Services In An Instant
+                    </h1>
+                    <ul className="d-flex align-items-center justify-content-center">
+                        <li>
+                            <span>1</span>
+                            Post the service you need
+                        </li>
+                        <li>
+                            <span>2</span>
+                            Set your budget
+                        </li>
+                        <li>
+                            <span>3</span>
+                            Get offers &amp; select most suited to you
+                        </li>
+                        <li>
+                            <span>4</span>
+                            Pay &amp; Done
+                        </li>
+                    </ul>
+                </Container>
+            </section>
+            {/* Get services section end */}
         </Layout>
     );
 };
