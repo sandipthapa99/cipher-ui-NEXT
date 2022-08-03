@@ -1,8 +1,9 @@
 import SelectInputField from "@components/common/SelectInputField";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilterList } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Container } from "react-bootstrap";
+
 import { PaymentHistoryTable } from "./PaymentHistoryTable";
 
 export const PaymentHistory = () => {
