@@ -5,6 +5,7 @@ import Map, {
     FullscreenControl,
     GeolocateControl,
     Marker,
+    NavigationControl,
     Popup,
 } from "react-map-gl";
 
@@ -41,6 +42,7 @@ export const MapboxMap = ({
                 style={{ width: width ?? "100%", height: height ?? "600px" }}
                 mapStyle="mapbox://styles/mapbox/streets-v11"
             >
+                <NavigationControl />
                 <FullscreenControl />
                 <GeolocateControl />
                 <Popup longitude={longitude} latitude={latitude}>

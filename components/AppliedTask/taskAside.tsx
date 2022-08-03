@@ -36,7 +36,7 @@ const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
                 <Col md={4} style={{ overflowY: "scroll", maxHeight: "90vh" }}>
                     {query && totalAppliedTasks > 0 ? (
                         <p className="search-results-text">
-                            {`${totalAppliedTasks} ${appliedTasks[0].title} service found`}
+                            {`${totalAppliedTasks} service matching ${query} found`}
                         </p>
                     ) : null}
                     {query && totalAppliedTasks === 0 ? (
