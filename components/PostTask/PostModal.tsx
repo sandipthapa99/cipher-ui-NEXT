@@ -45,7 +45,7 @@ const PostModal = ({ onSubmit }: Props) => {
             budgetType: "fixed",
             fixedValue: 0,
             minBudget: 0,
-            maxBudget: 1000000,
+            maxBudget: 0,
             address: "",
             requirements: [],
             image: null,
@@ -195,9 +195,9 @@ const PostModal = ({ onSubmit }: Props) => {
                     </Col>
                 </Row>
 
-                <Row className="mt-3">
+                <Row className="buget-type-cont">
                     <Col>
-                        <p className="price-text">Budget ($)</p>
+                        <p className="budget-label">Budget ($)</p>
                     </Col>
                 </Row>
                 <Row className="mt-3">
@@ -329,7 +329,7 @@ const PostModal = ({ onSubmit }: Props) => {
                 </Row>
                 <Row className="img-cont">
                     <Col className="img-label">
-                        <p className="img-title">Images & Videos</p>
+                        <p className="img-title">Images &amp; Videos</p>
                         <p className="desc">
                             Including images or videos helps you find best
                             merchant for your task.

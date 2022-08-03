@@ -7,5 +7,6 @@ export interface ServiceNearYouCardProps {
     servicePrice: number;
     haveDiscount: boolean;
     discount?: number;
+    serviceDescription: string;
     discountOn?: string;
 }

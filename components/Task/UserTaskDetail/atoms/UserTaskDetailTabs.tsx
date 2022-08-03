@@ -1,4 +1,3 @@
-import { Collaboration } from "@components/Collaboration/Collaboration";
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
 import { useState } from "react";
@@ -20,7 +19,6 @@ export const UserTaskDetailTabs = ({ user }: UserTaskDetailTabsProps) => {
                 { title: "About", content: <div>About</div> },
                 { title: "Service", content: <ServiceList /> },
                 { title: "Documents", content: <div>Photos</div> },
-                { title: "Collaboration", content: <Collaboration /> },
             ]}
         />
     );

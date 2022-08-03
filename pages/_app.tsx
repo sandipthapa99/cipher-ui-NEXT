@@ -1,7 +1,6 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../styles/bundle.scss";
 
-import { MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ClientTaskContextProvider } from "context/ClientTaskContext";
@@ -18,14 +17,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <SearchProvider>
             <SuccessProvider>
                 <AuthProvider>
-                    <MantineProvider>
-                        <ClientTaskContextProvider>
-                            <QueryClientProvider client={queryClient}>
-                                <ReactQueryDevtools />
-                                <Component {...pageProps} />
-                            </QueryClientProvider>
-                        </ClientTaskContextProvider>
-                    </MantineProvider>
+                    <ClientTaskContextProvider>
+                        <QueryClientProvider client={queryClient}>
+                            <ReactQueryDevtools />
+                            <Component {...pageProps} />
+                        </QueryClientProvider>
+                    </ClientTaskContextProvider>
                 </AuthProvider>
             </SuccessProvider>
         </SearchProvider>

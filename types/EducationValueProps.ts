@@ -4,6 +4,6 @@ export interface EducationValueProps {
     degree: string;
     fieldOfStudy: string;
     location: string;
-    startDate: string | null;
-    endDate: string | null;
+    startDate: any | null;
+    endDate: any | null;
 }

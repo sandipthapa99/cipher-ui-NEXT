@@ -34,6 +34,7 @@
         font-weight: 400;
         border-top: 0.1rem solid #ced4da;
         border-bottom: 0.1rem solid #ced4da;
+        margin: 0 0 1rem;
         .price {
             font-size: 2rem;
         }
@@ -47,17 +48,19 @@
                 cursor: pointer;
             }
 
-            input {
-                max-width: 10rem;
-                height: 4rem;
+            .input-pricerange {
+                @include border();
+                padding: 0 0 0 0.5rem;
                 font: 500 2rem $poppins-font;
-                color: $primary-color;
-                border: 1px solid #dee2e6;
-                border-radius: 4px;
-                padding: 0 1rem;
+                color: $gray-text-color;
 
-                &:focus-visible {
-                    border: 1px solid #dee2e6;
+                input {
+                    height: 4rem;
+                    color: $primary-color;
+                    border: none;
+                    outline: none;
+                    max-width: 6rem;
+                    padding: 0 0 0 0.5rem;
                 }
             }
         }
