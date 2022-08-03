@@ -41,15 +41,15 @@ export const UserClient = () => {
                                     },
                                     {
                                         title: "In Progress",
-                                        content: <div>InProgress</div>,
+                                        content: <Recommended />,
                                     },
                                     {
                                         title: "History",
-                                        content: <div>History</div>,
+                                        content: <Recommended />,
                                     },
                                     {
                                         title: "Draft",
-                                        content: <div>Draft</div>,
+                                        content: <Recommended />,
                                     },
                                 ]}
                             />
