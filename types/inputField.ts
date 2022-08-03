@@ -8,4 +8,6 @@ export interface InputFieldProps {
     as?: string;
     fieldRequired?: boolean;
     forgotPassword?: string;
+    haveIcon?: boolean;
+    inputIcon?: any;
 }
