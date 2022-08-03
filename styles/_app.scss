@@ -9,7 +9,7 @@ body {
     line-height: 1.5;
     color: $default-text-color;
     overflow-x: hidden;
-    background: #edf4ff;
+    background: #edf4ff ;
     @include respond(md) {
         font-size: 1.6rem;
     }
@@ -594,5 +594,38 @@ small.text-muted {
     &:hover {
         background: $primary-color !important;
         color: #fff !important;
+    }
+}
+.dropdown-with-icon,
+.input-with-icon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .form-group {
+        margin: 0;
+        z-index: 1;
+
+        .form-control {
+            border: none;
+            height: 3.4rem;
+            font-size: 1.3rem;
+            cursor: pointer;
+            background: transparent;
+            padding-right: 0rem;
+
+            &::placeholder {
+                color: #868e96;
+                font-family: $poppins-font;
+                font-size: 1.6rem;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .svg-icon {
+        position: absolute;
+        right: 1rem;
+        color: #868e96;
     }
 }

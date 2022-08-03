@@ -1,0 +1,198 @@
+.tax-calculator {
+    .card-block {
+        padding: 5rem;
+        padding-right: 2rem;
+        padding-left: 2rem;
+        align-items: center;
+        @include respond(md) {
+            padding-left: 5rem;
+        }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 500;
+            padding-bottom: 2.5rem;
+            text-transform: capitalize;
+        }
+    }
+
+    &__header {
+        h2 {
+            font-size: 2rem;
+            color: $primary-color;
+            font-weight: 500;
+        }
+        p {
+            font-size: 1.3rem;
+            font-weight: 400;
+            line-height: 2rem;
+            text-align: initial;
+        }
+    }
+    &__form {
+        .tooltip > div {
+            display: none !important;
+        }
+        .tooltip > div.tooltip-inner {
+            padding: 10rem !important;
+            margin-left: 10rem !important;
+        }
+        .marital-status {
+            border-bottom: 0.1rem solid $border-color;
+        }
+        .income,
+        .deduction {
+            padding-top: 1.6rem;
+        }
+        .input-wrapper {
+            display: flex;
+
+            position: relative;
+            .form-group {
+                flex: 1;
+            }
+            .svg-icon {
+                //   position: absolute;
+                z-index: 1;
+                top: 1.6rem;
+                right: 1rem;
+                color: #868e96;
+            }
+        }
+
+        .label {
+            p {
+                font-size: 1.4rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: $default-text-color;
+            }
+        }
+        .buttons,
+        .deduction {
+            border-top: 0.1rem solid #ced4da;
+            padding-top: 2.6rem;
+        }
+        .add-new {
+            color: #0693e3;
+            border: none;
+            background: transparent;
+            outline: none;
+            margin-bottom: 1.6rem;
+        }
+        .close-btn {
+            width: 100%;
+            font-size: 1.6rem;
+            padding: 1rem 8rem;
+            background: #ffffff;
+            border: 0.1rem solid $primary-color;
+            border-radius: 0.4rem;
+            box-shadow: none;
+            color: $primary-color;
+        }
+        .submit-btn {
+            font-weight: 400;
+            width: 100%;
+            margin-top: 2rem;
+            padding-top: 0.9rem;
+            padding-bottom: 0.9rem;
+            @include respond(md) {
+                margin-top: 0rem;
+            }
+        }
+        .note {
+            padding-top: 2.6rem;
+            font-size: 1.4rem;
+            font-weight: 500;
+            span {
+                color: $gray-text-color;
+            }
+            .link {
+                color: #0693e3;
+
+                text-decoration: none;
+            }
+        }
+    }
+    .tax-blocks {
+        flex-wrap: wrap;
+        @include respond(md) {
+            margin-top: 0rem;
+        }
+        margin-top: 2rem;
+        :not(:first-child) {
+            margin-top: 1rem;
+            @include respond(lg) {
+                margin-left: 2.5rem;
+                margin-top: 0rem;
+            }
+        }
+    }
+    .tax-block {
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0rem;
+        box-shadow: none;
+        border: 0.1rem solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.4rem;
+        padding: 4.2rem 1rem;
+        padding-bottom: 1.8rem;
+        @include respond(lg) {
+            width: 13.5rem;
+        }
+        @include respond(xl) {
+            width: 15.6rem;
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 0rem;
+        }
+        span {
+            font-size: 3.5rem;
+            margin-left: 0rem !important;
+            color: $primary-color;
+            padding-top: 3rem;
+            font-weight: 400;
+        }
+    }
+    .tax-slab {
+        margin-top: 2.3rem;
+        margin-bottom: 5rem;
+        text-align: center;
+        padding: 2.8rem 1rem;
+        border: 0.1rem solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.4rem;
+        background-color: #fff;
+        margin-left: -0.8rem;
+    }
+    .table-content {
+        @include respond(xxs) {
+            width: 22rem;
+        }
+    }
+    .table {
+        thead > tr > th,
+        tbody > tr > td {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: $default-text-color;
+        }
+        tbody > tr {
+            &:first-child {
+                td {
+                    color: $secondary-text-color;
+                }
+            }
+            td {
+                padding: 1.3rem 0rem;
+            }
+        }
+        @include respond(xs) {
+            overflow: scroll;
+        }
+    }
+}

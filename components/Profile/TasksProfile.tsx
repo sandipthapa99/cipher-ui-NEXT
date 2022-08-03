@@ -82,7 +82,7 @@ const TasksProfileCard = () => {
                                             name="review"
                                             options={personType}
                                             fieldRequired
-                                            defaultValue="Tasker"
+                                            placeHolder="Tasker"
                                         />
                                         <FontAwesomeIcon
                                             icon={faChevronDown}
@@ -106,6 +106,7 @@ const TasksProfileCard = () => {
                                             options={reviewType}
                                             placeholder="Most Relevant"
                                             fieldRequired
+                                            placeHolder="Most Relevant"
                                         />
                                         <FontAwesomeIcon
                                             icon={faChevronDown}
