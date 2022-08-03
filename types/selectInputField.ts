@@ -13,6 +13,4 @@ export interface SelectInputFieldProps {
     textMuted?: string;
     fieldRequired?: boolean;
     options: SelectOptionProps[];
-    haveIcon?: boolean;
-    inputIcon?: any;
 }
