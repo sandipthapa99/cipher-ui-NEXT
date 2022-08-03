@@ -56,21 +56,20 @@
 //         flex-direction: column;
 //     }
 // }
-.user-stats{
+.user-stats {
     padding: 40px 0;
-    .user-details{
-        .user-name{
-            h1{
+    .user-details {
+        .user-name {
+            h1 {
                 font-size: 40px;
                 font-weight: 600;
                 margin: 0;
             }
-
         }
     }
-    .user-stat-card{
+    .user-stat-card {
         display: flex;
-        
-        gap:24px
+
+        gap: 24px;
     }
 }
