@@ -90,3 +90,23 @@
         outline: none;
     }
 }
+.close-btn {
+    background-size: 200% 100%;
+    border: 0.1rem solid $primary-color;
+    background: transparent;
+    color: $primary-color;
+    height: 4rem;
+    font-size: 1.6rem;
+    &:hover {
+        background-position-x: -150%;
+        transition: background-position-x 600ms;
+        color: $primary-color;
+    }
+    &:focus {
+        background: transparent;
+        color: $primary-color;
+        border: 0.1rem solid $primary-color;
+        outline: none;
+        box-shadow: none !important;
+    }
+}

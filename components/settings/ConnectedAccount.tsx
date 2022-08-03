@@ -1,5 +1,6 @@
 import SocialConnection from "@components/Profile/SocialConnection";
 import React from "react";
+import { socialConnectionValues } from "staticData/socialConnection";
 
 const ConnectedAccount = () => {
     return (
@@ -7,8 +8,9 @@ const ConnectedAccount = () => {
             <h2>Connected Account</h2>
             <p>Connected Account</p>
             <div className="d-flex">
-                <SocialConnection />
-                <SocialConnection />
+                {socialConnectionValues.map((values, key) => (
+                    <SocialConnection key={key} values={values} />
+                ))}
             </div>
         </div>
     );
