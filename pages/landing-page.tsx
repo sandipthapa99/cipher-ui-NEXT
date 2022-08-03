@@ -5,6 +5,7 @@ import MerchantCard from "@components/common/MerchantCard";
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
+import TaskCard from "@components/common/TaskCard";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import {
@@ -24,6 +25,7 @@ import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
+import { tasks } from "staticData/task";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
@@ -403,6 +405,40 @@ const LandingPage: NextPage = () => {
                 </Container>
             </section>
             {/* Gradient Banner section End */}
+
+            {/* Tasks you may like section start */}
+            <section id="tasks-you-may-like" className="tasks-you-may-like">
+                <Container fluid="xl" className="px-5">
+                    <div className="title-wrapper d-flex justify-content-between">
+                        <h2 className="heading-title">Tasks You May Like</h2>
+                        <a href="" className="view-more">
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
+                        </a>
+                    </div>
+                    <Row className="gx-5">
+                        {tasks &&
+                            tasks.map((task) => {
+                                return (
+                                    <Col md={6} key={task.id}>
+                                        <TaskCard
+                                            title={task.title}
+                                            charge={task.charge}
+                                            description={task.description}
+                                            location={task.location}
+                                            date={task.date}
+                                            time={task.time}
+                                        />
+                                    </Col>
+                                );
+                            })}
+                    </Row>
+                </Container>
+            </section>
+            {/* Tasks you may like section end */}
         </Layout>
     );
 };
