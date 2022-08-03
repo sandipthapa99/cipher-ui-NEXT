@@ -15,7 +15,6 @@ const SelectInputField = ({
     textMuted,
     fieldRequired = false,
     options,
-    haveIcon,
     ...restProps
 }: SelectInputFieldProps & Partial<HTMLInputElement>) => {
     return (

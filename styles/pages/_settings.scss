@@ -13,6 +13,9 @@
                     &:hover {
                         color: $secondary-color;
                     }
+                    &.active {
+                        color: $secondary-color;
+                    }
                 }
             }
         }

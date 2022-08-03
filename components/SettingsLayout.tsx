@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import React from "react";
 import { Col, Container, Nav, Row } from "react-bootstrap";
@@ -18,6 +19,11 @@ import { Col, Container, Nav, Row } from "react-bootstrap";
 import Layout from "./Layout";
 
 const SettingsLayout = ({ children }: { children: ReactNode }) => {
+    const router = useRouter();
+
+    const isRouteActive = (pathname: string) =>
+        router.asPath === pathname ? "active" : "";
+
     return (
         <Layout title="Settings" description="User profile settings">
             <section className="account-settings" id="account-settings">
@@ -32,7 +38,11 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                                 "/settings/account/individual"
                                             }
                                         >
-                                            <a>
+                                            <a
+                                                className={isRouteActive(
+                                                    "/settings/account/individual"
+                                                )}
+                                            >
                                                 <FontAwesomeIcon
                                                     icon={faUser}
                                                     className="svg-icon"
@@ -45,7 +55,11 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                         <Link
                                             href={"/settings/account/security"}
                                         >
-                                            <a>
+                                            <a
+                                                className={isRouteActive(
+                                                    "/settings/account/security"
+                                                )}
+                                            >
                                                 <FontAwesomeIcon
                                                     icon={faKey}
                                                     className="svg-icon"
@@ -60,7 +74,11 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                                 "/settings/account/membership"
                                             }
                                         >
-                                            <a>
+                                            <a
+                                                className={isRouteActive(
+                                                    "/settings/account/membership"
+                                                )}
+                                            >
                                                 <FontAwesomeIcon
                                                     icon={faUserTag}
                                                     className="svg-icon"
@@ -75,7 +93,11 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                                 "/settings/account/connectedAccount"
                                             }
                                         >
-                                            <a>
+                                            <a
+                                                className={isRouteActive(
+                                                    "/settings/account/connectedAccount"
+                                                )}
+                                            >
                                                 <FontAwesomeIcon
                                                     icon={faLinkSimple}
                                                     className="svg-icon"
@@ -90,7 +112,11 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                                 "/settings/account/notification"
                                             }
                                         >
-                                            <a>
+                                            <a
+                                                className={isRouteActive(
+                                                    "/settings/account/notification"
+                                                )}
+                                            >
                                                 <FontAwesomeIcon
                                                     icon={faBell}
                                                     className="svg-icon"
@@ -100,8 +126,14 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href={""}>
-                                            <a>
+                                        <Link
+                                            href={"/settings/account/languages"}
+                                        >
+                                            <a
+                                                className={isRouteActive(
+                                                    "/settings/account/languages"
+                                                )}
+                                            >
                                                 <FontAwesomeIcon
                                                     icon={faGlobe}
                                                     className="svg-icon"
@@ -112,7 +144,11 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                     </li>
                                     <li>
                                         <Link href={""}>
-                                            <a>
+                                            <a
+                                                className={isRouteActive(
+                                                    "/settings/account/connectedAccount"
+                                                )}
+                                            >
                                                 <FontAwesomeIcon
                                                     icon={faFileInvoiceDollar}
                                                     className="svg-icon"
@@ -123,7 +159,11 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                     </li>
                                     <li>
                                         <Link href={""}>
-                                            <a>
+                                            <a
+                                                className={isRouteActive(
+                                                    "/settings/account/connectedAccount"
+                                                )}
+                                            >
                                                 <FontAwesomeIcon
                                                     icon={faLifeRing}
                                                     className="svg-icon"
@@ -134,7 +174,11 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                     </li>
                                     <li>
                                         <Link href={""}>
-                                            <a>
+                                            <a
+                                                className={isRouteActive(
+                                                    "/settings/account/connectedAccount"
+                                                )}
+                                            >
                                                 <FontAwesomeIcon
                                                     icon={faXmark}
                                                     className="svg-icon"
