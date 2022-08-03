@@ -1,3 +1,4 @@
+import CommunityBlogCard from "@components/common/BlogCard";
 import CategoryCard from "@components/common/CategoryCard";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
@@ -17,10 +18,11 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { blogCardContent } from "staticData/community";
 import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
@@ -439,6 +441,45 @@ const LandingPage: NextPage = () => {
                 </Container>
             </section>
             {/* Tasks you may like section end */}
+
+            {/* blog section start */}
+            <section id="our-blogs" className="our-blogs">
+                <Container fluid="xl" className="px-5">
+                    <div className="title-wrapper d-flex justify-content-between">
+                        <h2 className="heading-title">Our blogs</h2>
+                        <a href="" className="view-more">
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
+                        </a>
+                    </div>
+                    <Row className="gx-5">
+                        {blogCardContent &&
+                            blogCardContent.map((blog) => {
+                                return (
+                                    <Col
+                                        className="d-flex align-items-stretch"
+                                        // sm={6}
+                                        md={4}
+                                        // lg={4}
+                                        key={blog.id}
+                                    >
+                                        <CommunityBlogCard
+                                            cardImage={blog.cardImage}
+                                            cardDescription={
+                                                blog.cardDescription
+                                            }
+                                            cardTitle={blog.cardTitle}
+                                        />
+                                    </Col>
+                                );
+                            })}
+                    </Row>
+                </Container>
+            </section>
+            {/* blog section end */}
         </Layout>
     );
 };
