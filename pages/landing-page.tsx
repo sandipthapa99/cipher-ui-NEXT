@@ -1,5 +1,6 @@
 import CategoryCard from "@components/common/CategoryCard";
 import CategoryCardNew from "@components/common/CategoryCardNew";
+import CipherCard from "@components/common/CipherCard";
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
@@ -17,6 +18,7 @@ import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { findHire } from "staticData/findHire";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
@@ -307,6 +309,34 @@ const LandingPage: NextPage = () => {
                 </Container>
             </section>
             {/* Get services section end */}
+
+            {/* Find & Hire section start */}
+            <section id="find-hire" className="find-hire">
+                <Container fluid="xl" className="px-5">
+                    <h1 className="section-main-title">Find &amp; Hire</h1>
+                    <h2 className="section-sub-title">Get those work done.</h2>
+                    <Row className="gx-5">
+                        {findHire &&
+                            findHire.map((card) => {
+                                return (
+                                    <Col
+                                        md={4}
+                                        key={card.id}
+                                        className="d-flex align-items-stretch"
+                                    >
+                                        <CipherCard
+                                            thumbnailImg={card.thumbnailImg}
+                                            title={card.title}
+                                            description={card.description}
+                                            redirectTo={card.redirectTo}
+                                        />
+                                    </Col>
+                                );
+                            })}
+                    </Row>
+                </Container>
+            </section>
+            {/* Find & Hire section end */}
         </Layout>
     );
 };
