@@ -7,6 +7,7 @@ import Layout from "@components/Layout";
 import {
     faAngleRight,
     faArrowRight,
+    faChevronCircleRight,
     faChevronDown,
     faSearch,
 } from "@fortawesome/pro-regular-svg-icons";
@@ -292,6 +293,17 @@ const LandingPage: NextPage = () => {
                                 );
                             })}
                     </Row>
+                    <div className="how-it-works d-flex justify-content-center">
+                        <Link href="">
+                            <a>
+                                See How It Works
+                                <FontAwesomeIcon
+                                    icon={faChevronCircleRight}
+                                    className="svg-icon"
+                                />
+                            </a>
+                        </Link>
+                    </div>
                 </Container>
             </section>
             {/* Get services section end */}

@@ -230,4 +230,17 @@
             }
         }
     }
+    .how-it-works{
+        margin-top: 5.2rem;
+        a{
+            color: $primary-color;
+            font-size: 1.6rem;
+            &:hover{
+                color: $secondary-color;
+            }
+            .svg-icon{
+                margin-left: 1.2rem;
+            }
+        }
+    }
 }
