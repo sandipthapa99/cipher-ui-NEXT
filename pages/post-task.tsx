@@ -209,4 +209,4 @@ const PostTask: NextPage = () => {
     );
 };
 
-export default withAuth(PostTask);
+export default PostTask;
