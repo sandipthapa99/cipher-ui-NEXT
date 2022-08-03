@@ -12,7 +12,8 @@ export const taxCalculatorSchema = Yup.object().shape({
     providentFund: numberValidate,
     investmentTrust: numberValidate,
     insurance: numberValidate,
-    mediaclInsurance: numberValidate,
+    medicalInsurance: numberValidate,
+    others: numberValidate,
 });
 
 export default taxCalculatorSchema;

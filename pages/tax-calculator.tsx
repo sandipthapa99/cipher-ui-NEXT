@@ -2,15 +2,12 @@ import Breadcrum from "@components/common/Breadcrum";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
-import TooltipMessage from "@components/common/Tooltip";
 import Layout from "@components/Layout";
 import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
 import { NextPage } from "next";
 import Link from "next/link";
-import React, { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { TaxCalculatorFormData } from "utils/formData";
 import taxCalculatorSchema from "utils/formValidation/taxCalculatorFormValidation";
@@ -88,392 +85,331 @@ const TaxCalculator: NextPage = () => {
                 <Container fluid="xl">
                     <Breadcrum currentPage="Tax Calculator" />
                     <div className="card-block">
-                        <div className="content">
+                        <div className="header">
                             <h1>Tax Calculator</h1>
                         </div>
-
-                        <Row className="gx-5">
-                            <Col md={6}>
-                                <div className="tax-calculator__header">
-                                    <h2>Calculate your Personal Income TAX</h2>
-                                    <p>
-                                        This tax calculator tool is designed as
-                                        per the new salary tax which was
-                                        announced during Budget Announcement of
-                                        2077/2078.
-                                    </p>
-                                </div>
-                                <div className="tax-calculator__form">
-                                    <Formik
-                                        initialValues={TaxCalculatorFormData}
-                                        validationSchema={taxCalculatorSchema}
-                                        onSubmit={async (values) => {
-                                            console.log("calues", values);
-                                        }}
-                                    >
-                                        {({
-                                            isSubmitting,
-                                            errors,
-                                            resetForm,
-                                            touched,
-                                        }) => (
-                                            <Form>
-                                                <div className="marital-status">
-                                                    <div className="label">
-                                                        <p>Marital Status</p>
+                        <div className="content">
+                            <Row className="gx-5">
+                                <Col md={6}>
+                                    <div className="tax-calculator__header">
+                                        <h2>
+                                            Calculate your Personal Income TAX
+                                        </h2>
+                                        <p>
+                                            This tax calculator tool is designed
+                                            as per the new salary tax which was
+                                            announced during Budget Announcement
+                                            of 2077/2078.
+                                        </p>
+                                    </div>
+                                    <div className="tax-calculator__form">
+                                        <Formik
+                                            initialValues={
+                                                TaxCalculatorFormData
+                                            }
+                                            validationSchema={
+                                                taxCalculatorSchema
+                                            }
+                                            onSubmit={async (values) => {
+                                                console.log("values", values);
+                                            }}
+                                        >
+                                            {({
+                                                isSubmitting,
+                                                errors,
+                                                resetForm,
+                                                touched,
+                                            }) => (
+                                                <Form>
+                                                    <div className="marital-status">
+                                                        <div className="label">
+                                                            <p>
+                                                                Marital Status
+                                                            </p>
+                                                        </div>
+                                                        <Row>
+                                                            <Col md={7}>
+                                                                <SelectInputField
+                                                                    name="marital-status"
+                                                                    options={
+                                                                        maritalStatus
+                                                                    }
+                                                                    placeHolder="Unmarried"
+                                                                    fieldRequired
+                                                                    haveIcon={
+                                                                        true
+                                                                    }
+                                                                />
+                                                            </Col>
+                                                        </Row>
                                                     </div>
-                                                    <Row>
-                                                        <Col md={7}>
-                                                            <SelectInputField
-                                                                name="marital-status"
-                                                                options={
-                                                                    maritalStatus
-                                                                }
-                                                                placeHolder="Unmarried"
-                                                                fieldRequired
-                                                                haveIcon={true}
-                                                            />
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                                <div className="income">
-                                                    <div className="label">
-                                                        <p>Income</p>
-                                                    </div>
-                                                    <Row>
-                                                        <Col md={7}>
+                                                    <div className="income">
+                                                        <div className="label">
+                                                            <p>Income</p>
+                                                        </div>
+                                                        <Row>
+                                                            <Col md={7}>
+                                                                <InputField
+                                                                    name="salary"
+                                                                    type="text"
+                                                                    error={
+                                                                        errors.salary
+                                                                    }
+                                                                    touch={
+                                                                        touched.salary
+                                                                    }
+                                                                    placeHolder="Salary"
+                                                                />
+                                                            </Col>
+                                                            <Col md={5}>
+                                                                <SelectInputField
+                                                                    name="salary-type"
+                                                                    type="text"
+                                                                    options={
+                                                                        incomeType
+                                                                    }
+                                                                    fieldRequired
+                                                                    haveIcon={
+                                                                        true
+                                                                    }
+                                                                    inputIcon={
+                                                                        faCircleQuestion
+                                                                    }
+                                                                    placeHolder="Yearly"
+                                                                />
+                                                            </Col>
+                                                        </Row>
+                                                        <div className="input-wrapper">
                                                             <InputField
-                                                                name="salary"
+                                                                name="festivalBonus"
                                                                 type="text"
                                                                 error={
-                                                                    errors.salary
+                                                                    errors.festivalBonus
                                                                 }
                                                                 touch={
-                                                                    touched.salary
+                                                                    touched.festivalBonus
                                                                 }
-                                                                placeHolder="Salary"
-                                                            />
-                                                        </Col>
-                                                        <Col md={5}>
-                                                            <SelectInputField
-                                                                name="salary-type"
-                                                                type="text"
-                                                                options={
-                                                                    incomeType
-                                                                }
-                                                                fieldRequired
                                                                 haveIcon={true}
-                                                                placeHolder="Yearly"
+                                                                inputIcon={
+                                                                    faCircleQuestion
+                                                                }
+                                                                placeHolder="Festival Bonus"
                                                             />
-                                                        </Col>
-                                                    </Row>
-                                                    <div className="input-wrapper">
-                                                        <InputField
-                                                            name="festivalBonus"
-                                                            type="text"
-                                                            error={
-                                                                errors.festivalBonus
-                                                            }
-                                                            touch={
-                                                                touched.festivalBonus
-                                                            }
-                                                            inputIcon={
-                                                                faCircleQuestion
-                                                            }
-                                                            placeHolder="Festival Bonus"
-                                                        />
-                                                        <TooltipMessage
-                                                            message="Medical TAX(15% of Medical Expenses)"
-                                                            place="right"
-                                                        >
-                                                            <div>
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCircleQuestion
-                                                                    }
-                                                                    className="svg-icon"
-                                                                />
-                                                            </div>
-                                                        </TooltipMessage>
+                                                        </div>
+                                                        <div className="input-wrapper">
+                                                            <InputField
+                                                                type="text"
+                                                                name="allowances"
+                                                                placeHolder="Allowances"
+                                                                error={
+                                                                    errors.allowances
+                                                                }
+                                                                touch={
+                                                                    touched.allowances
+                                                                }
+                                                                haveIcon={true}
+                                                                inputIcon={
+                                                                    faCircleQuestion
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="input-wrapper">
+                                                            <InputField
+                                                                type="text"
+                                                                name="others"
+                                                                placeHolder="Others"
+                                                                error={
+                                                                    errors.others
+                                                                }
+                                                                touch={
+                                                                    touched.others
+                                                                }
+                                                                haveIcon={true}
+                                                                inputIcon={
+                                                                    faCircleQuestion
+                                                                }
+                                                            />
+                                                        </div>
                                                     </div>
-                                                    <div className="input-wrapper">
-                                                        <InputField
-                                                            type="text"
-                                                            name="allowances"
-                                                            placeHolder="Allowances"
-                                                            error={
-                                                                errors.allowances
-                                                            }
-                                                            touch={
-                                                                touched.allowances
-                                                            }
-                                                        />
-                                                        <TooltipMessage
-                                                            message="Medical TAX(15% of Medical Expenses)"
-                                                            place="right"
-                                                        >
-                                                            <div>
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCircleQuestion
-                                                                    }
-                                                                    className="svg-icon"
-                                                                />
-                                                            </div>
-                                                        </TooltipMessage>
-                                                    </div>
-                                                    <div className="input-wrapper">
-                                                        <InputField
-                                                            type="text"
-                                                            name="others"
-                                                            placeHolder="Others"
-                                                            error={
-                                                                errors.others
-                                                            }
-                                                            touch={
-                                                                touched.others
-                                                            }
-                                                        />
-                                                        <TooltipMessage
-                                                            message="Medical TAX(15% of Medical Expenses)"
-                                                            place="right"
-                                                        >
-                                                            <div>
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCircleQuestion
-                                                                    }
-                                                                    className="svg-icon"
-                                                                />
-                                                            </div>
-                                                        </TooltipMessage>
-                                                    </div>
-                                                </div>
 
-                                                <div className="deduction">
-                                                    <div className="label">
-                                                        <p>Deduction</p>
-                                                    </div>
-                                                    <div className="input-wrapper">
-                                                        <InputField
-                                                            type="text"
-                                                            name="providentFund"
-                                                            error={
-                                                                errors.providentFund
-                                                            }
-                                                            placeHolder="Provident Fund"
-                                                            touch={
-                                                                touched.providentFund
-                                                            }
-                                                            haveIcon={true}
-                                                            inputIcon={
-                                                                faCircleQuestion
-                                                            }
-                                                        />
-                                                        <TooltipMessage
-                                                            message="Medical TAX(15% of Medical Expenses)"
-                                                            place="right"
-                                                        >
-                                                            <div>
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCircleQuestion
-                                                                    }
-                                                                    className="svg-icon"
-                                                                />
-                                                            </div>
-                                                        </TooltipMessage>
-                                                    </div>
-                                                    <div className="input-wrapper">
-                                                        <InputField
-                                                            type="text"
-                                                            name="investmentTrust"
-                                                            placeHolder="Investment Trust"
-                                                            error={
-                                                                errors.investmentTrust
-                                                            }
-                                                            touch={
-                                                                touched.investmentTrust
-                                                            }
-                                                            haveIcon={true}
-                                                            inputIcon={
-                                                                faCircleQuestion
-                                                            }
-                                                        />
-                                                        <TooltipMessage
-                                                            message="Medical TAX(15% of Medical Expenses)"
-                                                            place="right"
-                                                        >
-                                                            <div>
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCircleQuestion
-                                                                    }
-                                                                    className="svg-icon"
-                                                                />
-                                                            </div>
-                                                        </TooltipMessage>
-                                                    </div>
-                                                    <div className="input-wrapper">
-                                                        <InputField
-                                                            type="text"
-                                                            placeHolder="Insurance"
-                                                            name="insurance"
-                                                            error={
-                                                                errors.insurance
-                                                            }
-                                                            touch={
-                                                                touched.insurance
-                                                            }
-                                                            haveIcon={true}
-                                                            inputIcon={
-                                                                faCircleQuestion
-                                                            }
-                                                        />
-                                                        <TooltipMessage
-                                                            message="Medical TAX(15% of Medical Expenses)"
-                                                            place="right"
-                                                        >
-                                                            <div>
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCircleQuestion
-                                                                    }
-                                                                    className="svg-icon"
-                                                                />
-                                                            </div>
-                                                        </TooltipMessage>
-                                                    </div>
-                                                    <div className="input-wrapper">
-                                                        <InputField
-                                                            type="text"
-                                                            name="medicalInsurance"
-                                                            placeHolder="Medical Insurance"
-                                                            error={
-                                                                errors.medicalInsurance
-                                                            }
-                                                            touch={
-                                                                touched.medicalInsurance
-                                                            }
-                                                            haveIcon={true}
-                                                            inputIcon={
-                                                                faCircleQuestion
-                                                            }
-                                                        />
-                                                        <TooltipMessage
-                                                            message="Medical TAX(15% of Medical Expenses)"
-                                                            place="right"
-                                                        >
-                                                            <div>
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCircleQuestion
-                                                                    }
-                                                                    className="svg-icon"
-                                                                />
-                                                            </div>
-                                                        </TooltipMessage>
-                                                    </div>
-                                                </div>
-                                                <div className="buttons">
-                                                    <Row>
-                                                        <Col md={6}>
-                                                            <FormButton
-                                                                type="submit"
-                                                                variant="primary"
-                                                                name="Reset"
-                                                                className="btn close-btn"
-                                                                isSubmitting={
-                                                                    isSubmitting
+                                                    <div className="deduction">
+                                                        <div className="label">
+                                                            <p>Deduction</p>
+                                                        </div>
+                                                        <div className="input-wrapper">
+                                                            <InputField
+                                                                type="text"
+                                                                name="providentFund"
+                                                                error={
+                                                                    errors.providentFund
                                                                 }
-                                                                isSubmittingClass={isSubmittingClass(
-                                                                    isSubmitting
-                                                                )}
-                                                                onClick={() =>
-                                                                    resetForm()
+                                                                placeHolder="Provident Fund"
+                                                                touch={
+                                                                    touched.providentFund
+                                                                }
+                                                                haveIcon={true}
+                                                                inputIcon={
+                                                                    faCircleQuestion
                                                                 }
                                                             />
-                                                        </Col>
-                                                        <Col md={6}>
-                                                            <FormButton
-                                                                type="submit"
-                                                                variant="primary"
-                                                                name="Calculate Tax"
-                                                                className="submit-btn"
-                                                                isSubmitting={
-                                                                    isSubmitting
+                                                        </div>
+                                                        <div className="input-wrapper">
+                                                            <InputField
+                                                                type="text"
+                                                                name="investmentTrust"
+                                                                placeHolder="Investment Trust"
+                                                                error={
+                                                                    errors.investmentTrust
                                                                 }
-                                                                isSubmittingClass={isSubmittingClass(
-                                                                    isSubmitting
-                                                                )}
+                                                                touch={
+                                                                    touched.investmentTrust
+                                                                }
+                                                                haveIcon={true}
+                                                                inputIcon={
+                                                                    faCircleQuestion
+                                                                }
                                                             />
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                            </Form>
-                                        )}
-                                    </Formik>
-                                    <div className="note">
-                                        Note:{" "}
-                                        <span>
-                                            This tool is made for general tax
-                                            calculation only. Information from
-                                            this tool should not be used for any
-                                            other purpose.
-                                        </span>
-                                        <Link href="#!">
-                                            <a href="" className="link">
-                                                &nbsp;Learn More
-                                            </a>
-                                        </Link>
+                                                        </div>
+                                                        <div className="input-wrapper">
+                                                            <InputField
+                                                                type="text"
+                                                                placeHolder="Insurance"
+                                                                name="insurance"
+                                                                error={
+                                                                    errors.insurance
+                                                                }
+                                                                touch={
+                                                                    touched.insurance
+                                                                }
+                                                                haveIcon={true}
+                                                                inputIcon={
+                                                                    faCircleQuestion
+                                                                }
+                                                            />
+                                                        </div>
+                                                        <div className="input-wrapper">
+                                                            <InputField
+                                                                type="text"
+                                                                name="medicalInsurance"
+                                                                placeHolder="Medical Insurance"
+                                                                error={
+                                                                    errors.medicalInsurance
+                                                                }
+                                                                touch={
+                                                                    touched.medicalInsurance
+                                                                }
+                                                                haveIcon={true}
+                                                                inputIcon={
+                                                                    faCircleQuestion
+                                                                }
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="buttons">
+                                                        <Row>
+                                                            <Col md={6}>
+                                                                <FormButton
+                                                                    type="submit"
+                                                                    variant="primary"
+                                                                    name="Reset"
+                                                                    className="btn close-btn"
+                                                                    isSubmitting={
+                                                                        isSubmitting
+                                                                    }
+                                                                    isSubmittingClass={isSubmittingClass(
+                                                                        isSubmitting
+                                                                    )}
+                                                                    onClick={() =>
+                                                                        resetForm()
+                                                                    }
+                                                                />
+                                                            </Col>
+                                                            <Col md={6}>
+                                                                <FormButton
+                                                                    type="submit"
+                                                                    variant="primary"
+                                                                    name="Calculate Tax"
+                                                                    className="submit-btn"
+                                                                    isSubmitting={
+                                                                        isSubmitting
+                                                                    }
+                                                                    isSubmittingClass={isSubmittingClass(
+                                                                        isSubmitting
+                                                                    )}
+                                                                />
+                                                            </Col>
+                                                        </Row>
+                                                    </div>
+                                                </Form>
+                                            )}
+                                        </Formik>
+                                        <div className="note">
+                                            Note:{" "}
+                                            <span>
+                                                This tool is made for general
+                                                tax calculation only.
+                                                Information from this tool
+                                                should not be used for any other
+                                                purpose.
+                                            </span>
+                                            <Link href="#!">
+                                                <a href="" className="link">
+                                                    &nbsp;Learn More
+                                                </a>
+                                            </Link>
+                                        </div>
                                     </div>
-                                </div>
-                            </Col>
-                            <Col md={6}>
-                                <Row className="d-flex tax-blocks align-items-stretch">
-                                    {taxContent.map((tax) => (
-                                        <Col
-                                            className="d-flex tax-block"
-                                            lg={3}
-                                            md={12}
-                                            key={tax.id}
-                                        >
-                                            <h1>{tax.name}</h1>
-                                            <span>{tax.amount}</span>
-                                        </Col>
-                                    ))}
-                                </Row>
-                                <div className="tax-slab">
-                                    <h1>Your tax slab is</h1>
-                                    <span>Upto 1 %</span>
-                                </div>
-                                <div className="table-content">
-                                    {table.map((info) => (
-                                        <Table responsive key={info.id}>
-                                            <thead>
-                                                <tr>
-                                                    {info.heading.map((th) => (
-                                                        <th key={th.id}>
-                                                            {th.name}
-                                                        </th>
-                                                    ))}
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {info.data.map((td) => (
-                                                    <tr key={td.id}>
-                                                        <td>{td.salary}</td>
-                                                        <td>{td.amount}</td>
-                                                        <td>{td.rate}</td>
-                                                        <td>{td.liability}</td>
+                                </Col>
+                                <Col md={6}>
+                                    <Row className="d-flex tax-blocks align-items-stretch">
+                                        {taxContent.map((tax) => (
+                                            <Col
+                                                className="d-flex tax-block"
+                                                lg={3}
+                                                md={12}
+                                                key={tax.id}
+                                            >
+                                                <h1>{tax.name}</h1>
+                                                <span>{tax.amount}</span>
+                                            </Col>
+                                        ))}
+                                    </Row>
+                                    <div className="tax-slab">
+                                        <h1>Your tax slab is</h1>
+                                        <span>Upto 1 %</span>
+                                    </div>
+                                    <div className="table-content">
+                                        {table.map((info) => (
+                                            <Table responsive key={info.id}>
+                                                <thead>
+                                                    <tr>
+                                                        {info.heading.map(
+                                                            (th) => (
+                                                                <th key={th.id}>
+                                                                    {th.name}
+                                                                </th>
+                                                            )
+                                                        )}
                                                     </tr>
-                                                ))}
-                                            </tbody>
-                                        </Table>
-                                    ))}
-                                </div>
-                            </Col>
-                        </Row>
+                                                </thead>
+                                                <tbody>
+                                                    {info.data.map((td) => (
+                                                        <tr key={td.id}>
+                                                            <td>{td.salary}</td>
+                                                            <td>{td.amount}</td>
+                                                            <td>{td.rate}</td>
+                                                            <td>
+                                                                {td.liability}
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </Table>
+                                        ))}
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
                     </div>
                 </Container>
             </section>

@@ -1,8 +1,10 @@
+import TooltipMessage from "@components/common/Tooltip";
 import { faCircleInfo } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
 import { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
+
 const InputField = ({
     name,
     error,
@@ -34,7 +36,17 @@ const InputField = ({
                         placeholder={placeHolder}
                         as={as}
                     />
-                    <FontAwesomeIcon icon={inputIcon} className="svg-icon" />
+                    <TooltipMessage
+                        message="Medical TAX(15% of Medical Expenses)"
+                        place="right"
+                    >
+                        <div>
+                            <FontAwesomeIcon
+                                icon={inputIcon}
+                                className="svg-icon"
+                            />
+                        </div>
+                    </TooltipMessage>
                 </div>
             ) : (
                 <Field
