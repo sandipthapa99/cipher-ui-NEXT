@@ -75,3 +75,62 @@ export const taxDeductionSlab = [
         ],
     },
 ];
+
+export const taxRegime = [
+    {
+        id: "0",
+        heading: [
+            {
+                id: "0",
+                name: "Income Tax Slab",
+            },
+            {
+                id: "1",
+                name: "New Tax Rate",
+            },
+        ],
+        data: [
+            {
+                id: "0",
+                taxSlab: "Rs.2.5 lakhs to Rs 5 lakhs",
+                taxRate: "Nil",
+            },
+            {
+                id: "1",
+                taxSlab: "From Rs.2,50,001 to Rs.5 lakh",
+                taxRate:
+                    "5% of the total income that is more than Rs.2.5 lakh + 4% cess",
+            },
+            {
+                id: "2",
+                taxSlab: "From Rs.5,00,001 to Rs.7.5 lakh",
+                taxRate:
+                    "10% of the total income that is more than Rs.5 lakh + 4% cess",
+            },
+            {
+                id: "3",
+                taxSlab: "From Rs.7,50,001 to Rs.10 lakh",
+                taxRate:
+                    "15% of the total income that is more than Rs.7.5 lakh + 4% cess",
+            },
+            {
+                id: "4",
+                taxSlab: "From Rs.10,00,001 to Rs.12.50 lakh",
+                taxRate:
+                    "20% of the total income that is more than Rs.10 lakh + 4% cess",
+            },
+            {
+                id: "5",
+                taxSlab: "From Rs.12,50,001 to Rs.15 lakh",
+                taxRate:
+                    "20% of the total income that is more than Rs.10 lakh + 4% cess",
+            },
+            {
+                id: "6",
+                taxSlab: "Income above Rs.15,00,001",
+                taxRate:
+                    "30% of the total income that is more than Rs.15 lakh + 4% cess",
+            },
+        ],
+    },
+];

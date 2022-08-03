@@ -8,6 +8,7 @@ import {
     exampleSteps,
     taxDeductionSlab,
     taxDeductionSteps,
+    taxRegime,
 } from "staticData/tax";
 
 const TaxDeduction: NextPage = () => {
@@ -99,12 +100,7 @@ const TaxDeduction: NextPage = () => {
                         </div>
                         <div className="table">
                             {taxDeductionSlab.map((info) => (
-                                <Table
-                                    striped
-                                    bordered
-                                    responsive
-                                    key={info.id}
-                                >
+                                <Table bordered responsive key={info.id}>
                                     <thead>
                                         <tr>
                                             {info.heading.map((th) => (
@@ -145,6 +141,27 @@ const TaxDeduction: NextPage = () => {
                                     The tax rates as per the new regime are
                                     listed below:
                                 </p>
+                                {taxRegime.map((info) => (
+                                    <Table bordered responsive key={info.id}>
+                                        <thead>
+                                            <tr>
+                                                {info.heading.map((th) => (
+                                                    <th key={th.id}>
+                                                        {th.name}
+                                                    </th>
+                                                ))}
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {info.data.map((td) => (
+                                                <tr key={td.id}>
+                                                    <td>{td.taxSlab}</td>
+                                                    <td>{td.taxRate}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </Table>
+                                ))}
                             </div>
                         </div>
                     </div>
