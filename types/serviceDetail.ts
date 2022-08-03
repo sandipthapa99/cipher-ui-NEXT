@@ -8,4 +8,5 @@ export interface ServiceProviderCardProps {
     startingPrice: number | string;
     image: string;
     isApplied?: boolean;
+    isPermission?: boolean;
 }

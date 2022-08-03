@@ -99,9 +99,20 @@
 
             .heart {
                 color: #fe5050;
+                &:hover {
+                    color: white;
+                    background-color: #fe5050;
+                    padding: 0.2rem;
+                }
             }
             .share {
                 color: #3eaeff;
+
+                &:hover {
+                    color: white;
+                    background-color: #3eaeff;
+                    padding: 0.2rem;
+                }
             }
         }
 

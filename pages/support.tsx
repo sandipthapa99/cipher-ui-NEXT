@@ -104,4 +104,4 @@ const Support = () => {
         </>
     );
 };
-export default withAuth(Support);
+export default Support;

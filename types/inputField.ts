@@ -13,4 +13,6 @@ export interface InputFieldProps {
         label: string;
         value: string;
     }[];
+    haveIcon?: boolean;
+    inputIcon?: any;
 }

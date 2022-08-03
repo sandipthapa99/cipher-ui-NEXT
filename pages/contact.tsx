@@ -152,4 +152,4 @@ const Contact = () => {
         </Layout>
     );
 };
-export default withAuth(Contact);
+export default Contact;
