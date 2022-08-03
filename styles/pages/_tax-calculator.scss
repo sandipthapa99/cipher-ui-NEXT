@@ -82,7 +82,7 @@
         .close-btn {
             width: 100%;
             font-size: 1.6rem;
-            padding: 1.2rem 8rem;
+            padding: 1rem 8rem;
             background: #ffffff;
             border: 0.1rem solid $primary-color;
             border-radius: 0.4rem;
@@ -93,6 +93,8 @@
             font-weight: 400;
             width: 100%;
             margin-top: 2rem;
+            padding-top: 0.9rem;
+            padding-bottom: 0.9rem;
             @include respond(md) {
                 margin-top: 0rem;
             }
@@ -135,7 +137,7 @@
         box-shadow: none;
         border: 0.1rem solid rgba(0, 0, 0, 0.1);
         border-radius: 0.4rem;
-        padding: 4rem 1rem;
+        padding: 4.2rem 1rem;
         padding-bottom: 1.8rem;
         @include respond(lg) {
             width: 13.5rem;
@@ -150,14 +152,15 @@
             margin-bottom: 0rem;
         }
         span {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-left: 0rem !important;
             color: $primary-color;
             padding-top: 3rem;
+            font-weight: 400;
         }
     }
     .tax-slab {
-        margin-top: 2rem;
+        margin-top: 2.3rem;
         margin-bottom: 5rem;
         text-align: center;
         padding: 2.8rem 1rem;

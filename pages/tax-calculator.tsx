@@ -7,7 +7,7 @@ import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { TaxCalculatorFormData } from "utils/formData";
 import taxCalculatorSchema from "utils/formValidation/taxCalculatorFormValidation";
@@ -119,7 +119,6 @@ const TaxCalculator: NextPage = () => {
                                                 errors,
                                                 resetForm,
                                                 touched,
-                                                handleSubmit,
                                             }) => (
                                                 <Form>
                                                     <div className="marital-status">
@@ -338,22 +337,6 @@ const TaxCalculator: NextPage = () => {
                                                                         isSubmitting
                                                                     )}
                                                                 />
-                                                                {/* <Button
-                                                                    onClick={() => {
-                                                                        console.log(
-                                                                            Object.keys(
-                                                                                errors
-                                                                            )
-                                                                        );
-
-                                                                        handleSubmit();
-                                                                        console.log(
-                                                                            "123"
-                                                                        );
-                                                                    }}
-                                                                >
-                                                                    Calculate
-                                                                </Button> */}
                                                             </Col>
                                                         </Row>
                                                     </div>
