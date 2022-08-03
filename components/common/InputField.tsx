@@ -15,7 +15,7 @@ const InputField = ({
     labelName,
     textMuted,
     as,
-    fieldRequired = false,
+    fieldRequired,
     ...restProps
 }: InputFieldProps & Partial<HTMLInputElement>) => {
     return (

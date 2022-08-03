@@ -8,6 +8,8 @@ export const servicesNearYou = [
         haveDiscount: false,
         serviceRating: "4.5(200)",
         image: "/services/s1.png",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "1",
@@ -20,6 +22,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "2",
@@ -32,6 +36,9 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "3",
@@ -44,6 +51,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "4",
@@ -56,6 +65,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "5",
@@ -68,6 +79,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "6",
@@ -80,6 +93,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "7",
@@ -92,6 +107,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "8",
@@ -104,6 +121,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "9",
@@ -116,6 +135,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "10",
@@ -128,6 +149,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "11",
@@ -140,6 +163,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "12",
@@ -152,6 +177,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
     {
         id: "13",
@@ -164,6 +191,8 @@ export const servicesNearYou = [
         discount: 20,
         image: "/services/s1.png",
         discountOn: "Service Charge",
+        serviceDescription:
+            "Hiring a reputable professional landscape gardenerentail paying for their knowledge, experience, time, equipment, and materials. They will be able to discuss your vision and tailor your garden design to your exact needs, taking into account your taste, lifestyle,budget. ",
     },
 ];
 export type ServiceNearYou = typeof servicesNearYou[0];

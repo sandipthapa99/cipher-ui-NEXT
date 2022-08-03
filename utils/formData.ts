@@ -68,9 +68,10 @@ export const AddSkillFormData: AddSkills = {
 
 export const BookServiceFormData: BookNowFormProps = {
     problemDescription: "",
-    date: "",
+    startdate: "",
+    enddate: "",
     time: 1,
-    image: "",
+    image: "/services/s1.png",
 };
 
 export const CertificationFromData: CertificationValueProps = {

@@ -2,12 +2,14 @@ import BigButton from "@components/common/Button";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
+import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import { Modal } from "react-bootstrap";
 import type { SelectOptionProps } from "types/selectInputField";
+import { reportRevisionFormSchema } from "utils/formValidation/ReportRevisionFormValidation";
 
 interface ReportRevisionFormProps {
     show: boolean;
@@ -22,6 +24,7 @@ export const ReportRevisionForm = ({
     handleButtonClick,
     setRevisionText,
 }: ReportRevisionFormProps) => {
+    const { setShowSuccessModal } = useSuccessContext();
     const initialValues = {
         report_type: "",
         revision_reason: "",
@@ -68,12 +71,14 @@ export const ReportRevisionForm = ({
                     <div className="form-section">
                         <Formik
                             initialValues={initialValues}
+                            validationSchema={reportRevisionFormSchema}
                             onSubmit={async (values) => {
                                 console.log(values);
                                 setRevisionText?.(values?.revision_reason);
+                                setShowSuccessModal(true);
                             }}
                         >
-                            {({ setFieldValue, errors }) => {
+                            {({ setFieldValue, errors, touched }) => {
                                 return (
                                     <Form>
                                         <SelectInputField
@@ -81,6 +86,7 @@ export const ReportRevisionForm = ({
                                             labelName="Select report type"
                                             options={options}
                                             placeHolder="Request for Refund"
+                                            fieldRequired={true}
                                         />
 
                                         <InputField
@@ -88,6 +94,9 @@ export const ReportRevisionForm = ({
                                             labelName="Reason"
                                             placeHolder="Write your reason here"
                                             as="textarea"
+                                            error={errors.revision_reason}
+                                            touch={touched.revision_reason}
+                                            fieldRequired={true}
                                         />
 
                                         <div className="d-flex justify-content-center button-section">
