@@ -7,8 +7,8 @@ export const Recommended = () => {
     return (
         <div className="recommended-tab">
             <Row>
-                {tasks?.map((task) => (
-                    <Col sm="12">
+                {tasks?.map((task, key) => (
+                    <Col sm="12" key={key}>
                         <TaskCard
                             title={task.title}
                             charge={task.charge}

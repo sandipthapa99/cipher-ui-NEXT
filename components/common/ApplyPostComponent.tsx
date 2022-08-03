@@ -1,8 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PostModal from "@components/PostTask/PostModal";
 import { faFolderOpen } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import PostModal from "@components/PostTask/PostModal";
 
 export const ApplyPostComponent = () => {
     const [showModal, setShowModal] = useState(false);

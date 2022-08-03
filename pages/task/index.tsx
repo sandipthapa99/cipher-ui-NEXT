@@ -1,10 +1,13 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
-import AppliedMap from "@components/AppliedTask/AppliedMap";
+import { MapboxMap } from "@components/common/MapboxMap";
 const AppliedTask = () => {
     return (
         <>
             <AppliedLayout>
-                <AppliedMap />
+                <MapboxMap
+                    latitude={27.687713889865993}
+                    longitude={85.32806957052709}
+                />
             </AppliedLayout>
         </>
     );

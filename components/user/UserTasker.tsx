@@ -3,8 +3,9 @@ import { WelcomeComponent } from "@components/common/WelcomeComponent";
 import { SearchBody } from "@components/SearchTask/searchBody";
 import GettingStartedTask from "@components/Task/GettingStartedCard";
 import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { SearchBodyData } from "staticData/searchBody";
+
 import { Recommended } from "./Recommended";
 
 export const UserTasker = () => {

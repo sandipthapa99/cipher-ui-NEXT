@@ -112,12 +112,14 @@ const ModalCard = ({
                                     <Row className="gx-5">
                                         <Col md={3}>
                                             <figure className="girl-thumbnail-img">
-                                                <Image
-                                                    src={image}
-                                                    height={280}
-                                                    width={280}
-                                                    alt="serviceprovider-image"
-                                                />
+                                                {image && (
+                                                    <Image
+                                                        src={image}
+                                                        height={280}
+                                                        width={280}
+                                                        alt="serviceprovider-image"
+                                                    />
+                                                )}
                                             </figure>
                                         </Col>
                                         <Col md={3}>
