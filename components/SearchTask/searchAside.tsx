@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
 
-import { ServiceNearYouCardProps } from "../../types/serviceNearYouCard";
+import type { ServiceNearYouCardProps } from "../../types/serviceNearYouCard";
 
 const ServiceNearYouCard = ({
     image,
@@ -16,6 +16,7 @@ const ServiceNearYouCard = ({
     haveDiscount,
     discountOn,
     discount,
+    serviceDescription,
 }: ServiceNearYouCardProps) => {
     return (
         <div className="service-card-block service-near-you-card-block">
@@ -60,7 +61,8 @@ const ServiceNearYouCard = ({
                                     <p>{serviceRating}</p>
                                 </div>
                             </div>
-                            <h1 className="price">Rs {servicePrice}</h1>
+                            <div></div>
+                            <h1 className="price">Rs. {servicePrice}</h1>
                         </div>
                     </div>
                 </Col>

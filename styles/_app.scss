@@ -14,7 +14,9 @@ body {
         font-size: 1.6rem;
     }
 }
-
+li {
+    list-style-type: none;
+}
 a {
     color: #0693e3;
     text-decoration: none;
@@ -196,6 +198,7 @@ textarea.form-control {
 .invalid-feedback {
     font-size: 1.2rem;
     font-weight: 400;
+    display: block;
     &::first-letter {
         text-transform: capitalize;
     }
@@ -561,21 +564,69 @@ small.text-muted {
 }
 .react-datepicker {
     font-size: 1.3rem !important;
+    &__triangle {
+        font-size: 1.5rem !important;
+        left: -1rem !important;
+    }
+    &__current-month {
+        font-size: 1.5rem !important;
+    }
+    &__header {
+        padding-top: 6px !important;
+    }
+    &__navigation {
+        top: 13px !important;
+    }
+    &__day-name,
+    &__day {
+        margin: 0.5rem !important;
+    }
 }
 
-.react-datepicker__current-month {
-    font-size: 1.5rem !important;
+.checkbox {
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #212529;
+    &-toggle {
+        accent-color: rgb(12, 84, 106);
+    }
 }
-
-.react-datepicker__header {
-    padding-top: 6px !important;
+.close-btn {
+    &:hover {
+        background: $primary-color !important;
+        color: #fff !important;
+    }
 }
+.dropdown-with-icon,
+.input-with-icon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-.react-datepicker__navigation {
-    top: 13px !important;
-}
+    .form-group {
+        margin: 0;
+        z-index: 1;
 
-.react-datepicker__day-name,
-.react-datepicker__day {
-    margin: 0.5rem !important;
+        .form-control {
+            border: none;
+            height: 3.4rem;
+            font-size: 1.3rem;
+            cursor: pointer;
+            background: transparent;
+            padding-right: 0rem;
+
+            &::placeholder {
+                color: #868e96;
+                font-family: $poppins-font;
+                font-size: 1.6rem;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .svg-icon {
+        position: absolute;
+        right: 1rem;
+        color: #868e96;
+    }
 }

@@ -1,10 +1,9 @@
-import { Collaboration } from "@components/Collaboration/Collaboration";
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { serviceCards } from "staticData/serviceCards";
-import { TaskDetail } from "staticData/taskDetail";
+import type { TaskDetail } from "staticData/taskDetail";
 
 export interface UserTaskDetailTabsProps {
     user: TaskDetail["user"];
@@ -20,7 +19,6 @@ export const UserTaskDetailTabs = ({ user }: UserTaskDetailTabsProps) => {
                 { title: "About", content: <div>About</div> },
                 { title: "Service", content: <ServiceList /> },
                 { title: "Documents", content: <div>Photos</div> },
-                { title: "Collaboration", content: <Collaboration /> },
             ]}
         />
     );

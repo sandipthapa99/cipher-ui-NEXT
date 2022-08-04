@@ -1,84 +1,98 @@
+import { ProfileModel } from "@components/model/ProfileModel";
 import { faBars } from "@fortawesome/pro-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-import { Button, Container, Form, InputGroup, Navbar } from "react-bootstrap";
+import { useState } from "react";
+import {
+    Button,
+    Col,
+    Container,
+    Form,
+    InputGroup,
+    Navbar,
+    Row,
+} from "react-bootstrap";
+import { profileCardContent } from "staticData/profileCardContent";
 
 const SearchHeader = () => {
+    const [notopen, setNotopen] = useState(false);
     return (
         <header id="site-upper-header" className="site-upper-header">
-            <Container className="p-3">
+            <Container>
                 <Navbar expand="lg" className="upper-navigation">
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                        }}
-                    >
-                        <Link href="/">
-                            <a>
-                                <Navbar.Brand>
-                                    <Image
-                                        src="/logo/logo.svg"
-                                        alt="Logo"
-                                        width={95}
-                                        height={48}
-                                        priority
-                                    />
-                                </Navbar.Brand>
-                            </a>
-                        </Link>
-                        <div className="search-input">
-                            <InputGroup
-                                style={{ width: "576px", height: "48px" }}
-                            >
+                    <Row className="row-logo-search">
+                        <Col md={8} className="logo-search-cont">
+                            <Link href="/">
+                                <a>
+                                    <Navbar.Brand>
+                                        <Image
+                                            src="/logo/logo.svg"
+                                            alt="Logo"
+                                            width={95}
+                                            height={48}
+                                            priority
+                                        />
+                                    </Navbar.Brand>
+                                </a>
+                            </Link>
+
+                            <InputGroup className="search-input">
                                 <Form.Control
                                     placeholder="Find your Services &amp; Merchants"
                                     aria-label="Find your Services &amp; Merchants"
                                     aria-describedby="basic-addon2"
                                 />
                                 <Button
-                                    style={{
-                                        backgroundColor: "#ffca6a",
-                                        padding: "0 1.3rem",
-                                        border: "none",
-                                        paddding: "3px 0",
-                                    }}
+                                    className="search-btn"
                                     id="button-addon2"
                                 >
                                     <FontAwesomeIcon
+                                        className="search-icon"
                                         icon={faMagnifyingGlass}
-                                        style={{
-                                            width: "1.5rem",
-                                            height: "1.5rem",
-                                            verticalAlign: "middle",
-                                            display: "inline-block",
-                                            fontSize: "12px",
-                                            color: "#000",
-                                        }}
                                     />
                                 </Button>
                             </InputGroup>
-                        </div>
-                    </div>
-                    <div>
-                        <Link href="#!">
-                            <a className="btn nav-cta-btn d-none d-md-inline-block">
-                                Post Task
-                            </a>
-                        </Link>
-                        <Navbar.Toggle aria-controls="site-navigation">
-                            <FontAwesomeIcon
-                                icon={faBars}
-                                className="svg-icon"
-                            />
-                        </Navbar.Toggle>
-                    </div>
-                    {/* <Button type="button" className="mega-menu-toggler">
-                            <DragHandle className="svg-icon" />
-                        </Button> */}
+                        </Col>
+                        <Col md={3} className="profile-post">
+                            <div className="user-profile">
+                                <span
+                                    onClick={() => setNotopen(!notopen)}
+                                    className="btn location-btn d-none d-md-inline-block"
+                                >
+                                    <figure className="thumbnail-img">
+                                        <Image
+                                            src="/userprofile/profile.svg"
+                                            layout="fill"
+                                            alt="profile-pic"
+                                            className="rounded-circle"
+                                            objectFit="cover"
+                                        />
+                                    </figure>
+                                </span>
+
+                                {notopen && (
+                                    <ProfileModel
+                                        profile={profileCardContent}
+                                    />
+                                )}
+                            </div>
+                            <button className="post-btn">
+                                <a className="btn nav-cta-btn d-none d-md-inline-block">
+                                    Post Task
+                                </a>
+                            </button>
+                        </Col>
+                        <Col md={4}>
+                            <Navbar.Toggle aria-controls="site-navigation">
+                                <FontAwesomeIcon
+                                    icon={faBars}
+                                    className="svg-icon"
+                                />
+                            </Navbar.Toggle>
+                        </Col>
+                    </Row>
                 </Navbar>
             </Container>
         </header>

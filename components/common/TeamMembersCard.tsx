@@ -10,17 +10,21 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
-import { DUMMY_TASKS } from "types/tasks";
-import { Task } from "types/tasks";
+import type { Task } from "types/tasks";
 
 import BigButton from "./Button";
 
 interface Props {
     task: Task;
     collabButton?: boolean;
+    handleButtonClick?: () => void;
 }
 
-export const TeamMembersCard = ({ task, collabButton }: Props) => {
+export const TeamMembersCard = ({
+    task,
+    collabButton,
+    handleButtonClick,
+}: Props) => {
     return (
         <div className="team-members-card">
             <div className="d-flex w-100 image-and-title">
@@ -34,30 +38,31 @@ export const TeamMembersCard = ({ task, collabButton }: Props) => {
                 </figure>
                 <div className="w-100 name-post-count">
                     <div className="d-flex justify-content-between title-and-dots">
-                        <h5>Jane Cooper</h5>
+                        <h5>{task?.user?.username}</h5>
                         <FontAwesomeIcon
                             className="ellipsis-vertical"
                             icon={faEllipsisVertical}
                         />
                     </div>
                     <h6>
-                        <span>Teacher </span>| Balaju, KTM
+                        <span>{task?.user?.category} </span>|{" "}
+                        {task?.user?.location}
                     </h6>
                     <div className="d-flex justify-content-between align-items-center emoji-section">
                         <span className="star">
                             <FontAwesomeIcon className="star" icon={faStar} />
-                            4.0
+                            {task?.rating?.average}
                         </span>
                         <span className="emoji">
                             <FontAwesomeIcon
                                 className="emoji"
                                 icon={faFaceGrinBeam}
                             />
-                            200
+                            {task?.likes}
                         </span>
                         <span className="award">
                             <FontAwesomeIcon className="award" icon={faAward} />
-                            90%
+                            {task?.rewardPercentage}
                         </span>
                         <span className="location">
                             <FontAwesomeIcon
@@ -71,24 +76,24 @@ export const TeamMembersCard = ({ task, collabButton }: Props) => {
             </div>
 
             <p>
-                I’m punctual and hardworking person. I love teaching what I. We
-                want a garden cleaner for our bunglow.
+                I&apos;m punctual and hardworking person. I love teaching what
+                I. We want a garden cleaner for our bunglow.
             </p>
             <div className="d-flex justify-content-between footer-section">
                 <span className="share-and-like">
                     <FontAwesomeIcon className="heart" icon={faHeart} />
                     <FontAwesomeIcon className="share" icon={faShare} />
                 </span>
-                <span>
-                    {collabButton == true ? (
-                        <BigButton
-                            btnTitle={"Collab"}
-                            backgroundColor={"#211D4F"}
-                        />
-                    ) : (
-                        "Rs 600"
-                    )}
-                </span>
+
+                {collabButton == true ? (
+                    <BigButton
+                        btnTitle={"Collab"}
+                        backgroundColor={"#211D4F"}
+                        handleClick={handleButtonClick}
+                    />
+                ) : (
+                    <span className="task-price"> {task?.price}</span>
+                )}
             </div>
         </div>
     );

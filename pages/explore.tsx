@@ -12,11 +12,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import { serviceCategory } from "staticData/serviceCategory";
 import { servicesDiscover } from "staticData/services";
 import { services } from "staticData/services";
-import { withAuth } from "utils/Auth/withAuth";
+
 const ExploreServices: NextPage = () => {
     return (
         <Layout title="Explore Services | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="explore-services">
                     <Breadcrum currentPage="Explore Services" />
 
@@ -65,7 +65,7 @@ const ExploreServices: NextPage = () => {
                     <section className="explore-services__offers">
                         <h1>Special Offers &amp; Discount</h1>
 
-                        <Row>
+                        <Row className="gx-5">
                             <Col md={4}>
                                 <DiscountCard />
                             </Col>

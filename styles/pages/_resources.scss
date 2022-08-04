@@ -1,0 +1,65 @@
+.resource-page {
+    margin-bottom: 0rem !important;
+    &__header {
+        background: rgba(255, 255, 255, 0.4);
+
+        padding-bottom: 5rem;
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+        }
+        .thumbnail-img {
+            width: 100%;
+            height: 100%;
+            img {
+                width: 100%;
+            }
+            // display: none;
+
+            @include respond(md) {
+                height: 29.75rem;
+                width: 34.5rem;
+                margin-top: 5rem;
+
+                margin-right: 4rem;
+            }
+            @include respond(lg) {
+                height: 32.75rem;
+                width: 42.375rem;
+                margin-right: 4rem;
+            }
+        }
+
+        .recommendation {
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            @include respond(md) {
+                margin: 0;
+            }
+
+            .chips-wrapper {
+                margin: 0 1rem 0.8rem 0;
+            }
+        }
+    }
+    &__content {
+        padding-top: 4rem;
+        padding-bottom: 5rem;
+        .featured-resources {
+            padding: 5rem 0rem;
+
+            h3 {
+                font-size: 1.6rem;
+                font-weight: 500;
+            }
+        }
+        .latest-article {
+            h1 {
+                font-size: 1.6rem;
+                font-weight: 500;
+            }
+            padding-bottom: 5rem;
+        }
+    }
+}

@@ -6,6 +6,25 @@
             position: absolute;
             top: 2.4rem;
             right: 2.4rem;
+            z-index: 2;
+        }
+
+        .revision-title-section {
+            margin: 0 0 6rem;
+            h3 {
+                font: 500 2rem $poppins-font;
+                margin: 0 0 1.6rem;
+            }
+            p {
+                font: 400 1.2rem $poppins-font;
+                color: #757575;
+            }
+
+            .revision_report_image {
+                position: absolute;
+                right: 10rem;
+                top: 1.3rem;
+            }
         }
 
         .title-section {

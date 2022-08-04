@@ -1,16 +1,24 @@
 import {
     faCalendar,
     faClockEight,
+    faLocationArrow,
     faLocationDot,
     faShare,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TaskCardProps } from "types/taskCard";
+import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
-const TaskCard = ({ title, charge, location, date, time }: TaskCardProps) => {
+const TaskCard = ({
+    title,
+    charge,
+    location,
+    date,
+    time,
+    ...rest
+}: TaskCardProps) => {
     return (
-        <div className="task-applied-card-block">
+        <div className="task-applied-card-block" {...rest}>
             <div className="d-flex justify-content-between flex-column flex-sm-row task-applied-card-block__header">
                 <h4 className="title">{title}</h4>
                 <h4 className="charge">Rs {charge}</h4>
@@ -23,7 +31,7 @@ const TaskCard = ({ title, charge, location, date, time }: TaskCardProps) => {
                     />
                     {location}
                 </p>
-                <div className="task-location-time d-flex">
+                <div className="task-location-time d-flex justify-content-between">
                     <span className="time me-4">
                         <FontAwesomeIcon
                             icon={faClockEight}
@@ -37,6 +45,13 @@ const TaskCard = ({ title, charge, location, date, time }: TaskCardProps) => {
                             className="svg-icon"
                         />
                         {date}
+                    </span>
+                    <span className="date">
+                        <FontAwesomeIcon
+                            icon={faLocationArrow}
+                            className="svg-icon"
+                        />
+                        2 Km away
                     </span>
                 </div>
                 <hr className="mb-0" />

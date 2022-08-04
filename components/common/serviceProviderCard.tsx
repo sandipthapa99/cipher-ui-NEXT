@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";
-import { ServiceProviderCardProps } from "types/serviceDetail";
+import type { ServiceProviderCardProps } from "types/serviceDetail";
 
 import BookNowButton from "./BookNowButton";
 import ModalCard from "./ModalCard";
@@ -17,6 +17,9 @@ const ServiceProviderCard = ({
     happyClients,
 }: ServiceProviderCardProps) => {
     const [showModal, setShowModal] = useState(false);
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
     return (
         <div className="card-block align-items-stretch">
             <div className="profile">
@@ -96,8 +99,8 @@ const ServiceProviderCard = ({
             <BookNowButton
                 btnTitle="Book Now"
                 backgroundColor="$primary-color"
-                showModal={true}
-                handleOnClick={() => setShowModal(!showModal)}
+                //  showModal={true}
+                handleOnClick={handleShowModal}
             />
             {BookingDetails &&
                 BookingDetails.map((detail) => (

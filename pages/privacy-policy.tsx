@@ -1,7 +1,7 @@
 import Breadcrum from "@components/common/Breadcrum";
 import Layout from "@components/Layout";
+import { withAuth } from "hoc/withAuth";
 import { Container } from "react-bootstrap";
-import { withAuth } from "utils/Auth/withAuth";
 
 const PrivacyPolicy = () => {
     return (

@@ -74,9 +74,7 @@ const TasksProfileCard = () => {
                             <Formik
                                 initialValues={HomeSearchdata}
                                 validationSchema={HomeSearchSchema}
-                                onSubmit={async (values) => {
-                                    console.log(values);
-                                }}
+                                onSubmit={async (values) => console.log(values)}
                             >
                                 <div className="dropdown-wrapper review-type">
                                     <div className="dropdown">
@@ -84,7 +82,7 @@ const TasksProfileCard = () => {
                                             name="review"
                                             options={personType}
                                             fieldRequired
-                                            defaultValue="Tasker"
+                                            placeHolder="Tasker"
                                         />
                                         <FontAwesomeIcon
                                             icon={faChevronDown}
@@ -108,6 +106,7 @@ const TasksProfileCard = () => {
                                             options={reviewType}
                                             placeholder="Most Relevant"
                                             fieldRequired
+                                            placeHolder="Most Relevant"
                                         />
                                         <FontAwesomeIcon
                                             icon={faChevronDown}

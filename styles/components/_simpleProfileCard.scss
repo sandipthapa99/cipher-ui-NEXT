@@ -34,8 +34,35 @@
         font-weight: 400;
         border-top: 0.1rem solid #ced4da;
         border-bottom: 0.1rem solid #ced4da;
+        margin: 0 0 1rem;
         .price {
             font-size: 2rem;
+        }
+
+        .price-edit {
+            svg {
+                height: 2.3rem;
+                width: 2.3rem;
+                color: #3eaeff;
+                margin: 0.8rem;
+                cursor: pointer;
+            }
+
+            .input-pricerange {
+                @include border();
+                padding: 0 0 0 0.5rem;
+                font: 500 2rem $poppins-font;
+                color: $gray-text-color;
+
+                input {
+                    height: 4rem;
+                    color: $primary-color;
+                    border: none;
+                    outline: none;
+                    max-width: 6rem;
+                    padding: 0 0 0 0.5rem;
+                }
+            }
         }
     }
     button {

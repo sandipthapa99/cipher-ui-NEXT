@@ -4,25 +4,26 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { referralCardContent } from "staticData/referralCard";
-import { withAuth } from "utils/Auth/withAuth";
 import emailValidationSchema from "utils/formValidation/emailValidation";
+import referralFormValidationSchema from "utils/formValidation/referralFormValidation";
 
 const About: NextPage = () => {
     return (
         <Layout title="Referral Programs | Cipher">
             <div className="referral-page">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <Breadcrum currentPage="Referral programs" />
                     <div className="referral-page__top-container">
                         <h1 className='"pt-1'>
                             Spread the word and earn rewards
                         </h1>
-                        <Row>
+                        <Row className="gx-5">
                             <Col md={6} className="pt-4">
                                 {" "}
                                 <h6>
@@ -36,7 +37,7 @@ const About: NextPage = () => {
                                     Ipsum has been the industry&apos;s standard
                                     dummy text ever since the 1500s, when an
                                 </p>
-                                <Row className="form-input">
+                                <Row className="form-input gx-5">
                                     <p>Invite via email</p>
                                     <Col md={7} sm={9}>
                                         {" "}
@@ -78,9 +79,11 @@ const About: NextPage = () => {
                                     <Col md={7} sm={9}>
                                         {" "}
                                         <Formik
-                                            initialValues={{ email: "" }}
+                                            initialValues={{
+                                                link: "",
+                                            }}
                                             validationSchema={
-                                                emailValidationSchema
+                                                referralFormValidationSchema
                                             }
                                             onSubmit={async (values) => {
                                                 console.log(values);
@@ -89,10 +92,10 @@ const About: NextPage = () => {
                                             {({ errors, touched }) => (
                                                 <Form>
                                                     <InputField
-                                                        type="email"
-                                                        name="email"
-                                                        error={errors.email}
-                                                        touch={touched.email}
+                                                        type="url"
+                                                        name="link"
+                                                        error={errors.link}
+                                                        touch={touched.link}
                                                         placeHolder="https://link.com"
                                                     />
                                                 </Form>
@@ -127,7 +130,7 @@ const About: NextPage = () => {
                     </div>
                     <div className="referral-page__bottom-container">
                         <h1>How does it work?</h1>
-                        <Row>
+                        <Row className="gx-5">
                             {referralCardContent &&
                                 referralCardContent.map((referral) => {
                                     return (

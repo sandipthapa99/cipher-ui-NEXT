@@ -1,5 +1,4 @@
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
-import { UserTaskCard } from "@components/Task/UserTaskCard/UserTaskCard";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { DUMMY_TASKS } from "types/tasks";
@@ -50,7 +49,11 @@ export const Collaboration = () => {
                                 handleButtonClick={handleOpen}
                             /> */}
 
-                            <TeamMembersCard task={item} collabButton={true} />
+                            <TeamMembersCard
+                                task={item}
+                                collabButton={true}
+                                handleButtonClick={handleOpen}
+                            />
                         </Col>
                     ))}
                 </Row>

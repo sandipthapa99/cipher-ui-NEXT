@@ -2,10 +2,12 @@ import BigButton from "@components/common/Button";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import AddRequirements from "@components/PostTask/AddRequirements";
+import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import React from "react";
 import { Modal } from "react-bootstrap";
 import { ApplyFormData } from "utils/formData";
+import { collaborationRequestFormSchema } from "utils/formValidation/CollaborationRequestFormValidation";
 
 import { CollaborateWith } from "./CollaborateWith";
 
@@ -18,6 +20,8 @@ export const CollaborationRequestForm = ({
     show,
     handleClose,
 }: CollaborationRequestFormProps) => {
+    const { setShowSuccessModal } = useSuccessContext();
+
     const initialValues = {
         hourly_rate: "",
         message: "",
@@ -53,11 +57,13 @@ export const CollaborationRequestForm = ({
                     <div className="form-section">
                         <Formik
                             initialValues={initialValues}
+                            validationSchema={collaborationRequestFormSchema}
                             onSubmit={async (values) => {
                                 console.log(values);
+                                setShowSuccessModal(true);
                             }}
                         >
-                            {({ setFieldValue, errors }) => {
+                            {({ setFieldValue, errors, touched }) => {
                                 return (
                                     <Form>
                                         <span className="hourly-rate-input">
@@ -65,7 +71,10 @@ export const CollaborationRequestForm = ({
                                                 labelName="Hourly Rate"
                                                 name={"hourly_rate"}
                                                 placeHolder="$ 15 /hr"
+                                                error={errors.hourly_rate}
+                                                touch={touched.hourly_rate}
                                                 type="number"
+                                                fieldRequired={true}
                                             />
                                         </span>
 
@@ -74,6 +83,9 @@ export const CollaborationRequestForm = ({
                                             labelName="Message"
                                             placeHolder="Your role in project"
                                             as="textarea"
+                                            error={errors.message}
+                                            touch={touched.message}
+                                            fieldRequired={true}
                                         />
 
                                         <AddRequirements
@@ -93,9 +105,13 @@ export const CollaborationRequestForm = ({
                                                 <BigButton
                                                     btnTitle={"Cancel"}
                                                     backgroundColor={"white"}
+                                                    handleClick={handleClose}
                                                 />
                                             </span>
-                                            <FormButton name={"Request"} />
+                                            <FormButton
+                                                handleClick={handleClose}
+                                                name={"Request"}
+                                            />
                                         </div>
                                     </Form>
                                 );

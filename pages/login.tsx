@@ -3,16 +3,19 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { useAuthContext } from "context/AuthContext/userContext";
 import { Form, Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
+import { useLogin } from "hooks/auth/useLogin";
+import { useRouter } from "next/router";
 import React from "react";
-import { withAuth } from "utils/Auth/withAuth";
+import { autoLogin } from "utils/auth";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
-    const { loginUser } = useAuthContext();
+    const router = useRouter();
+    const { mutate, isLoading } = useLogin();
 
     return (
         <section>
@@ -29,11 +32,17 @@ const Login = () => {
                     <Formik
                         initialValues={loginFormData}
                         validationSchema={loginFormSchema}
-                        onSubmit={async (values) => {
-                            loginUser(values);
+                        onSubmit={(values) => {
+                            mutate(values, {
+                                onError: (error) => console.log(error),
+                                onSuccess: (accessToken) => {
+                                    autoLogin(accessToken);
+                                    router.push("/");
+                                },
+                            });
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ errors, touched }) => (
                             <Form className="login-form">
                                 <InputField
                                     type="email"
@@ -55,11 +64,11 @@ const Login = () => {
                                 <FormButton
                                     type="submit"
                                     variant="primary"
-                                    name={isSubmitting ? "Loading" : "Login"}
+                                    name={isLoading ? "Loading" : "Login"}
                                     className="login-btn"
-                                    isSubmitting={isSubmitting}
+                                    isSubmitting={isLoading}
                                     isSubmittingClass={isSubmittingClass(
-                                        isSubmitting
+                                        isLoading
                                     )}
                                 />
 
@@ -86,4 +95,4 @@ const Login = () => {
         </section>
     );
 };
-export default Login;
+export default withAuth(Login);

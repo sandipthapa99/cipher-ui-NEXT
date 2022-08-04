@@ -1,3 +1,4 @@
+import PhotoEdit from "@components/Profile/PhotoEdit";
 import {
     faAt,
     faCircleQuestion,
@@ -11,10 +12,12 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { UserProfileInfoProps } from "types/userProfile";
+import Cropper from "react-easy-crop";
+import type { UserProfileInfoProps } from "types/userProfile";
 
+import ProfileEditForm from "./ProfileEditForm";
 import TooltipMessage from "./Tooltip";
 
 const UserProfileCard = ({
@@ -35,24 +38,32 @@ const UserProfileCard = ({
     pointGoal,
     happyClients,
     successRate,
-    userReviews,
     taskCompleted,
-    userActiveStatus,
     tooltipMessage,
 }: UserProfileInfoProps) => {
+    const [showEdit, setShowEdit] = useState(false);
+    const [showExpForm, setShowExpForm] = useState(false);
     return (
         <div className="profile-card-block">
             <Row>
                 <Col md={3} className="profile-card-block__profile">
-                    <figure className="thumbnail-img">
+                    <figure
+                        className="thumbnail-img"
+                        onClick={() => setShowExpForm(!showExpForm)}
+                    >
                         <Image
                             src={userImage}
                             layout="fill"
-                            // height={300}
                             objectFit="cover"
                             alt="user-profile-image"
                         />
                     </figure>
+                    <PhotoEdit
+                        photo={userImage}
+                        show={showExpForm}
+                        setShowExpForm={setShowExpForm}
+                        handleClose={() => setShowExpForm(false)}
+                    />
                     <div className="profile-intro d-flex">
                         <h1 className="name">{userName}</h1>
                         <div className="active"></div>
@@ -83,7 +94,18 @@ const UserProfileCard = ({
                         ))}
                     </div>
                     <div className="price">${userPrice}/hr</div>
-                    <button className="button">Edit Profile</button>
+                    <button
+                        className="button"
+                        onClick={() => setShowEdit(!showEdit)}
+                    >
+                        Edit Profile
+                    </button>
+                    <ProfileEditForm
+                        show={showEdit}
+                        setShowEdit={setShowEdit}
+                        handleClose={() => setShowEdit(false)}
+                        userName={userName}
+                    />
                 </Col>
 
                 <Col md={9} className="profile-card-block__general-info">

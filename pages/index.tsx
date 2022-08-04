@@ -32,7 +32,7 @@ const Home: NextPage = () => {
             {/* Site Main Banner Start */}
             <section id="main-banner" className="site-main-banner ">
                 <span className="shape-blob d-none d-md-inline-block"></span>
-                <Container fluid="xl" className="px-4">
+                <Container fluid="xl" className="px-5">
                     <div className="site-main-banner--content d-flex align-items-center justify-content-center text-center">
                         {/* Hero Text Start Here */}
                         <div className="site-main-banner--content__inner">
@@ -127,7 +127,7 @@ const Home: NextPage = () => {
 
             {/* Services near you section start */}
             <section id="services-near-you" className="services-near-you">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex justify-content-between">
                         <h2 className="heading-title">Services near you</h2>
                         <a href="" className="view-more">
@@ -187,7 +187,7 @@ const Home: NextPage = () => {
 
             {/* Popular services section start */}
             <section id="services-near-you" className="services-near-you">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex justify-content-between">
                         <h2 className="heading-title">Our Popular Services</h2>
                         <a href="" className="view-more">
@@ -247,7 +247,7 @@ const Home: NextPage = () => {
 
             {/* Browse service by category section start */}
             <section id="browse-category" className="browse-category">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">
                         Browse services by category
                     </h1>
@@ -288,7 +288,7 @@ const Home: NextPage = () => {
 
             {/* Find & Hire section start */}
             <section id="find-hire" className="find-hire">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">Find &amp; Hire</h1>
                     <h2 className="section-sub-title">Get those work done.</h2>
                     <Row className="gx-5">
@@ -316,7 +316,7 @@ const Home: NextPage = () => {
 
             {/* Top Rated Merchant Section Start */}
             <section id="top-merchants" className="top-merchants">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex justify-content-between">
                         <h2 className="heading-title">Top Rated Merchants</h2>
                         <a href="" className="view-more">
@@ -365,7 +365,7 @@ const Home: NextPage = () => {
 
             {/* Find oppurtunities section start */}
             <section id="find-hire" className="find-hire">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">Find Oppurtunities</h1>
                     <h2 className="section-sub-title">
                         Finding job can never be this easy
@@ -395,7 +395,7 @@ const Home: NextPage = () => {
 
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex justify-content-between">
                         <h2 className="heading-title">Tasks You May Like</h2>
                         <a href="" className="view-more">
@@ -429,5 +429,4 @@ const Home: NextPage = () => {
         </Layout>
     );
 };
-
 export default Home;

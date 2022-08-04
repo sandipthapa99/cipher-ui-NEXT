@@ -86,7 +86,9 @@
     }
 
     .footer-section {
-        font: 600 2rem $poppins-font;
+        .task-price {
+            font: 600 2rem $poppins-font;
+        }
         .share-and-like {
             svg {
                 height: 2.4rem;
@@ -97,9 +99,20 @@
 
             .heart {
                 color: #fe5050;
+                &:hover {
+                    color: white;
+                    background-color: #fe5050;
+                    padding: 0.2rem;
+                }
             }
             .share {
                 color: #3eaeff;
+
+                &:hover {
+                    color: white;
+                    background-color: #3eaeff;
+                    padding: 0.2rem;
+                }
             }
         }
 

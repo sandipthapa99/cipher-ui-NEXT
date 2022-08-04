@@ -4,6 +4,7 @@ import CardBtn from "@components/common/CardBtn";
 import CipherCard from "@components/common/CipherCard";
 import FormButton from "@components/common/FormButton";
 import Layout from "@components/Layout";
+import { withAuth } from "hoc/withAuth";
 import Image from "next/image";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { affiliateGetStarted } from "staticData/affiliate";

@@ -8,9 +8,10 @@ import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import { useState } from "react";
-import { Button, Col, Container, Row, Tabs } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { userProfileCardInfo } from "staticData/userProfileCard";
 
 const UserProfile: NextPage = () => {
@@ -18,7 +19,7 @@ const UserProfile: NextPage = () => {
 
     return (
         <Layout title="Profile | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="user-profile">
                     <Breadcrum
                         currentPage="Profile"

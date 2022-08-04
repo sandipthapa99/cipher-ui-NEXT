@@ -1,9 +1,14 @@
 .user-task-card-list {
     max-height: 90vh;
     overflow: hidden scroll;
+
+    @include media("<=tablet") {
+        max-height: auto;
+        overflow: auto;
+    }
 }
 .user-task-card {
-    // min-width: 422px;
+    width: 100%;
     border: 1px solid $border-color;
     background-color: $white;
     padding: 24px;
@@ -54,7 +59,6 @@
 .big-btn {
     color: white;
     height: 3rem;
-    width: 8rem;
     display: flex;
     justify-content: center;
     align-items: center;

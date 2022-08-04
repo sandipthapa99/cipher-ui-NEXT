@@ -1,11 +1,13 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
-import { FormButtonProps } from "types/formButton";
+import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import type { FormButtonProps } from "types/formButton";
 
 const FormButton = ({
     name,
+    isSubmitting,
     isSubmittingClass,
     className,
     variant,
+    handleClick,
     ...restProps
 }: FormButtonProps &
     Partial<
@@ -18,6 +20,7 @@ const FormButton = ({
         <button
             {...restProps}
             className={`${isSubmittingClass} ${variant} ${className}`}
+            onClick={handleClick}
         >
             <span>{name}</span>
         </button>

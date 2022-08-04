@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
-import { FormButtonProps } from "types/formButton";
+import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import type { FormButtonProps } from "types/formButton";
 
 const SocialLoginBtn = ({
     name,

@@ -4,12 +4,13 @@ export interface BookNowModalCardProps {
     description: string;
     show?: boolean;
     handleClose?: () => void;
-    image: string;
+    image?: string;
 }
 
 export interface BookNowFormProps {
     problemDescription: string;
-    image?: string;
+    image: string;
     time: number;
-    date: string;
+    startdate: string | null;
+    enddate: string | null;
 }

@@ -3,21 +3,20 @@ import { Button } from "react-bootstrap";
 interface BookNowButtonProps {
     btnTitle: string;
     backgroundColor: string;
-    showModal: boolean;
-    handleOnClick: (show: any) => void;
+    showModal?: boolean;
+    handleOnClick?: () => void;
 }
 
 const BookNowButton = ({
     btnTitle,
     backgroundColor,
-    showModal,
     handleOnClick,
 }: BookNowButtonProps) => {
     return (
         <>
             <Button
                 className="big-btn"
-                onClick={() => handleOnClick(showModal)}
+                onClick={handleOnClick}
                 style={{
                     backgroundColor: `${backgroundColor}`,
                     color: "white !important",

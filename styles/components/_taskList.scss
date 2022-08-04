@@ -60,3 +60,16 @@
         margin: 4rem 0 0;
     }
 }
+.task-list-modal {
+    .task-list-modal__modal {
+        .modal-body {
+            width: 648px;
+            margin: auto auto;
+
+            .modal-title {
+                font-size: 20px;
+                font-weight: 500;
+            }
+        }
+    }
+}

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
 import React from "react";
 import DateView from "react-datepicker";
-import { InputFieldProps } from "types/inputField";
+import type { DatePickerProps } from "types/datePickerProps";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 
 const DatePickerField = ({
@@ -14,11 +14,12 @@ const DatePickerField = ({
     touch,
     placeHolder,
     labelName,
+    timeOnly,
     textMuted,
-    as,
+    dateFormat,
     fieldRequired = false,
     ...restProps
-}: InputFieldProps & Partial<HTMLInputElement>) => {
+}: DatePickerProps & Partial<HTMLInputElement>) => {
     return (
         <div className={checkFormGroup(error)}>
             {labelName && (
@@ -37,19 +38,24 @@ const DatePickerField = ({
                                 id={name}
                                 {...field}
                                 {...restProps}
-                                className={checkFormControl(error, touch)}
+                                className={`${checkFormControl(
+                                    error,
+                                    touch
+                                )} ps-5 `}
+                                showTimeSelect={timeOnly ?? undefined}
+                                showTimeSelectOnly={timeOnly ?? undefined}
                                 selected={value}
                                 placeholderText={placeHolder}
                                 onChange={(val) => setFieldValue(name, val)}
-                                dateFormat="dd/MM/yyy"
+                                dateFormat={dateFormat}
                             />
                         );
                     }}
                 </Field>
-                <span className="position-absolute position-absolute top-50 end-0 translate-middle-y">
+                <span className="position-absolute top-50 translate-middle-y">
                     <FontAwesomeIcon
                         icon={faCalendar}
-                        className="svg-icon me-5"
+                        className="svg-icon svg-icon-calender-grey ms-3"
                     />
                 </span>
             </div>

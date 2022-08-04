@@ -4,13 +4,14 @@ import ServiceCard from "@components/common/ServiceCard";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { SearchBody } from "@components/SearchTask/searchBody";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
+import { SearchBodyData } from "staticData/searchBody";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
-import { withAuth } from "utils/Auth/withAuth";
 
 import SearchHeader from "../components/SearchTask/searchHeader";
 
@@ -24,44 +25,29 @@ const PostTask: NextPage = () => {
         <>
             <SearchHeader />
             <Header />
-            <div>
-                <Row>
-                    <div className="completed-tasks">
-                        <Col className="user-name-detail">
-                            <div className="user-name">
-                                <h1>Hi Harry!</h1>
-                                <h1>Welcome Back!</h1>
-                            </div>
-                        </Col>
-                        <Col className="full-tasks">
-                            <SearchBody
-                                number="30"
-                                color="#ECF7FF"
-                                textOne="Tasks Assigned"
-                                textColor="#3EAEFF"
-                            />
-                            <SearchBody
-                                number="30"
-                                color="#EBF9F1"
-                                textOne="Tasks In Completed"
-                                textColor="#38C675"
-                            />
-                            <SearchBody
-                                number="30"
-                                color="#FFF5E5"
-                                textOne="Tasks In Progress"
-                                textColor="#FF9700"
-                            />
-                            <SearchBody
-                                number="4"
-                                color="#FFEDED"
-                                textOne="Tasks Cancelled"
-                                textColor="#FE5050"
-                            />
-                        </Col>
-                    </div>
+            <Container>
+                <Row className="user-stats">
+                    <Col md={7} className="user-details">
+                        <div className="user-name">
+                            <h1>Hi Harry!</h1>
+                            <h1>Welcome Back!</h1>
+                        </div>
+                    </Col>
+                    <Col md={5} className="user-stat-card">
+                        {SearchBodyData.map((data) => {
+                            return (
+                                <SearchBody
+                                    key={data.id}
+                                    number={data.number}
+                                    color={data.color}
+                                    textOne={data.textOne}
+                                    textColor={data.textColor}
+                                />
+                            );
+                        })}
+                    </Col>
                 </Row>
-            </div>
+            </Container>
             <Container>
                 <ApplyPost />
                 <h4>Special Offers & Discount</h4>

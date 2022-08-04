@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
-import { ReviewsProps } from "types/reviews";
+import type { ReviewsProps } from "types/reviews";
 const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
     return (
         <>
@@ -20,7 +20,10 @@ const Reviews = ({ name, ratings, image, description, time }: ReviewsProps) => {
                         <div className="reviewer">
                             <h3 className="name">{name}</h3>
 
-                            <div className="ratings d-flex">
+                            <div
+                                className="ratings d-flex "
+                                style={{ marginTop: "2rem" }}
+                            >
                                 {Array.from({ length: ratings }, (_, i) => (
                                     <span key={i}>
                                         <figure className="thumbnail-img">

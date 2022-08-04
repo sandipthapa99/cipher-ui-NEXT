@@ -1,9 +1,7 @@
 import { MainStep } from "@components/AddServices/MainStep";
-import { PackageDetails } from "@components/AddServices/PackageDetails";
-import { ServiceDetails } from "@components/AddServices/ServiceDetails";
 import Layout from "@components/Layout";
-import { NextPage } from "next";
-import React, { useState } from "react";
+import { withAuth } from "hoc/withAuth";
+import type { NextPage } from "next";
 
 const AddServices: NextPage = () => {
     return (
@@ -13,4 +11,4 @@ const AddServices: NextPage = () => {
     );
 };
 
-export default AddServices;
+export default withAuth(AddServices);

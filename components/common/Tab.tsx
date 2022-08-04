@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { ReactNode, useMemo } from "react";
+import type { ReactNode } from "react";
+import { useMemo } from "react";
 
 export interface TabProps {
     items: {
@@ -34,7 +35,7 @@ export const Tab = ({ items, activeIndex, onTabClick }: TabProps) => {
     const renderTabItems = () => {
         return items.map((item, index) => (
             <button
-                data-is-active={JSON.stringify(index === activeIndex)}
+                data-is-active={JSON.stringify(index === currentActiveIndex)}
                 className="custom-tab__headers--btn"
                 onClick={() => handleTabClick(index)}
                 key={index}

@@ -1,0 +1,51 @@
+.message-card {
+    padding-top: 0rem;
+    @include respond(sm) {
+        padding-top: 2rem;
+    }
+    p {
+        font-size: 1.2rem;
+    }
+    .thumbnail-img {
+        height: 4rem;
+        width: 4rem;
+        object-fit: contain;
+    }
+    .client-message > .content:not(:first-child) {
+        padding-top: 5rem;
+        @include respond(md) {
+            padding-top: 14rem;
+        }
+    }
+    .message {
+        background-color: #ffdfa6;
+        border-radius: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 1rem;
+        p {
+            padding: 1rem 1.1rem;
+            margin-bottom: 0rem;
+            font-size: 1.2rem;
+            line-height: 1.8rem;
+        }
+    }
+    .time {
+        font-size: 1.2rem;
+        padding-top: 1.2rem;
+        color: $primary-color;
+        margin-left: 2rem;
+    }
+    .merchant-message {
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 5rem;
+        color: $primary-color;
+        margin-bottom: 5rem;
+
+        @include respond(md) {
+            padding-top: 10rem;
+        }
+    }
+}

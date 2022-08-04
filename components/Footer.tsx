@@ -19,7 +19,7 @@ const Footer = () => {
     return (
         <>
             <footer id="site-footer" className="site-footer">
-                <Container>
+                <Container fluid="xl" className="px-5">
                     {/* Cipher Newsletter section start */}
                     <div className="site-footer__newsletter">
                         <Row>
@@ -98,23 +98,23 @@ const Footer = () => {
                                     <ul>
                                         <li>For Clients</li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="how-to-hire">
                                                 <a>How to Hire?</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="merchant-marketplace">
                                                 <a>Merchant Marketplace</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/">
+                                            <Link href="payroll-services">
                                                 <a>Payroll Services</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
-                                                <a>Hire in the Nepal</a>
+                                            <Link href="hire-in-nepal">
+                                                <a>Hire in Nepal</a>
                                             </Link>
                                         </li>
                                     </ul>
@@ -176,7 +176,7 @@ const Footer = () => {
                                         </li>
                                         <li>
                                             <Link
-                                                href="socialResponsibilities"
+                                                href="/social"
                                                 as="social-responsibilities"
                                             >
                                                 <a>Social Responsibilities</a>

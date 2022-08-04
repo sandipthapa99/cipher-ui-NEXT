@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Row } from "react-bootstrap";
-import { TaskDetail } from "staticData/taskDetail";
+import type { TaskDetail } from "staticData/taskDetail";
 
 interface UserShortIntroProps {
     user: TaskDetail["user"];
@@ -14,7 +14,7 @@ interface UserShortIntroProps {
 export const UserShortIntro = ({ user }: UserShortIntroProps) => {
     return (
         <Row className="td-mt-24">
-            <Col>
+            <Col md={6}>
                 <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faLocation} />
                     <span>{user.location}</span>
@@ -32,7 +32,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                     <span>{user.offeredServices.join(", ")}</span>
                 </p>
             </Col>
-            <Col>
+            <Col md={6}>
                 <p className="td-user-short-intro-text">{user.bio}</p>
             </Col>
         </Row>

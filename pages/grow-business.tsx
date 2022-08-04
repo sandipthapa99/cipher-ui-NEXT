@@ -1,9 +1,10 @@
 import AboutCard from "@components/common/AboutCard";
 import BlogCard from "@components/common/BlogCard";
 import Breadcrum from "@components/common/Breadcrum";
-import GrowBusinessCarousel from "@components/common/GrowBusinessCarousel";
 import ServiceCard from "@components/common/ServiceCard";
+import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
@@ -15,12 +16,11 @@ import {
 } from "staticData/growBusiness";
 import { servicesDiscover } from "staticData/services";
 import { services } from "staticData/services";
-import { withAuth } from "utils/Auth/withAuth";
 
 const GrowYourBusiness: NextPage = () => {
     return (
         <Layout title="Grow Your Business | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="grow-business">
                     <Breadcrum currentPage="Grow Your Business" />
 
@@ -36,7 +36,7 @@ const GrowYourBusiness: NextPage = () => {
                                             key={item.id}
                                             //interval={1000}
                                         >
-                                            <GrowBusinessCarousel
+                                            <SquareImageCarousel
                                                 image={item.image}
                                                 title={item.title}
                                                 description={item.description}
@@ -169,7 +169,7 @@ const GrowYourBusiness: NextPage = () => {
                     {/* blog section start */}
                     <section className="grow-business__blogs">
                         <h1>Blogs</h1>
-                        <Row>
+                        <Row className="gx-5">
                             {blogCardContent &&
                                 blogCardContent.map((blog) => {
                                     return (

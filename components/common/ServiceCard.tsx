@@ -3,7 +3,7 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
-import { ServiceCardProps } from "types/serviceCard";
+import type { ServiceCardProps } from "types/serviceCard";
 
 import CardBtn from "./CardBtn";
 import ShareIcon from "./ShareIcon";
@@ -37,7 +37,7 @@ const ServiceCard = ({
                 {hasOffer && (
                     <div className="offer">
                         <p className="discount-rate">{discountRate}% OFF</p>
-                        <p className="discount-on">{discountOn}</p>
+                        {/* <p className="discount-on">{discountOn}</p> */}
                     </div>
                 )}
             </div>

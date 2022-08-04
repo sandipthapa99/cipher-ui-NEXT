@@ -1,4 +1,4 @@
-// import { DatePickerField } from "@components/common/DateTimeField";
+import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
@@ -6,7 +6,8 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useSuccessContext } from "context/successContext/successContext";
 import { Field, Form, Formik } from "formik";
-import React, { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -26,12 +27,6 @@ const dropdownOptions = [
     { id: 3, label: "Vue", value: "vue" },
 ];
 
-const checkboxOptions = [
-    { key: "HTML", value: "html" },
-    { key: "CSS", value: "css" },
-    { key: "JavaScript", value: "javascript" },
-];
-
 const ExperienceForm = ({
     show,
     handleClose,
@@ -41,7 +36,7 @@ const ExperienceForm = ({
     return (
         <>
             {/* Modal component */}
-            {/* <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
                     <h3>Task Details</h3>
@@ -51,6 +46,12 @@ const ExperienceForm = ({
                         validationSchema={experienceFormSchema}
                         onSubmit={async (values) => {
                             setShowExpForm(false);
+                            // To be used for API
+                            // try {
+                            //     axiosClient.post("/routes", values);
+                            // } catch (error: any) {
+                            //     error.response.data.message;
+                            // }
                             setShowSuccessModal(true);
                             console.log(values);
                         }}
@@ -149,7 +150,7 @@ const ExperienceForm = ({
                 buttonName="Continue"
                 type="Success"
                 iconName={faSquareCheck}
-            /> */}
+            />
         </>
     );
 };

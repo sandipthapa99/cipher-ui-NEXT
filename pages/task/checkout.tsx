@@ -7,7 +7,10 @@ import Footer from "@components/Footer";
 import Header from "@components/Header";
 import MembershipCard from "@components/MembershipCard";
 import Popular from "@components/Popular";
+import { PostCard } from "@components/PostTask/PostCard";
 import SearchHeader from "@components/SearchTask/searchHeader";
+import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { useBookContext } from "context/BookNowContext/bookNowContext";
 import React, { Fragment } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { billingLocationContent } from "staticData/billingLocationData";
@@ -15,6 +18,7 @@ import { MembershipCardContent } from "staticData/membershipCard";
 import { taskListContent } from "staticData/taskListData";
 
 const Checkout = () => {
+    const { bookNowDetails } = useBookContext();
     return (
         <Fragment>
             <SearchHeader />
@@ -29,7 +33,9 @@ const Checkout = () => {
                     <Row className="g-5">
                         <Col lg={8}>
                             <BillingLocation
-                                location={billingLocationContent.location}
+                                location={
+                                    bookNowDetails.serviceProviderLocation
+                                }
                             />
                             <ExtraSection />
                             <PaymentMethod />
@@ -73,6 +79,12 @@ const Checkout = () => {
             <Popular />
             <Popular />
             <Footer />
+            <PostCard
+                text="You are good to continue."
+                buttonName="Continue"
+                type="Success"
+                iconName={faSquareCheck}
+            />
         </Fragment>
     );
 };

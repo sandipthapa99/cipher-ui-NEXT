@@ -7,4 +7,6 @@ export interface ServiceProviderCardProps {
     successRate: number;
     startingPrice: number | string;
     image: string;
+    isApplied?: boolean;
+    isPermission?: boolean;
 }

@@ -4,6 +4,7 @@
 @import "paths";
 @import "mixins";
 @import "app";
+@import "abstracts/includeMedia";
 @import "utils";
 
 // Components
@@ -64,7 +65,20 @@
 @import "components/creditCard";
 @import "components/profileDropdown";
 @import "components/tooltip";
+@import "components/timelineTab";
+@import "components/teamMembersSection";
 
+@import "components/accountForm";
+
+@import "components/searchHeader";
+@import "components/postModal";
+@import "components/addRequirements";
+@import "components/welcomeCompnent";
+@import "components/searchBody";
+@import "components/postCard";
+@import "components/paymentHistory";
+
+@import "components/checkoutModal";
 // Pages
 @import "pages/privacyPolicy";
 @import "pages/referall";
@@ -130,6 +144,22 @@
 @import "components/hireMerchantModal";
 @import "components/clientTaskCard";
 @import "components/serviceDetails";
+@import "components/taskImageCarousel";
+@import "components/offererCard";
+@import "components/readMore";
+@import "components/QnA";
+@import "components/messageCard";
+@import "components/longsquareImageCard";
+@import "components/gradientLayout";
+@import "components/searchInputField";
+@import "components/faq";
+@import "components/goBack";
+@import "components/ellipisdropdown";
+
+@import "components/newCategory";
+@import "components/cards/marketplace";
+
+@import "components/socialConnection";
 
 // Pages
 @import "pages/privacyPolicy";
@@ -148,4 +178,21 @@
 @import "pages/profile";
 @import "pages/exploreservices";
 @import "pages/service-detail";
+@import "pages/accept";
 @import "pages/affiliate";
+@import "pages/howitworks";
+@import "pages/discover";
+@import "pages/growbusiness";
+@import "pages/resources";
+@import "pages/howtohire";
+
+@import "pages/settings";
+@import "pages/hire-in-nepal";
+@import "pages/payrollservices";
+
+@import "pages/landing-page";
+@import "pages/tax-calculator";
+@import "pages/tax-deduction";
+@import "pages/categories";
+@import "pages/tasker-marketplace";
+@import "pages/message";

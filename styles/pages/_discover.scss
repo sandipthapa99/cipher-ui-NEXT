@@ -1,122 +1,18 @@
 .discover-page {
-    margin-bottom: 4.375rem;
-
-    @include respond(sm) {
-        padding: 0rem 1.25rem;
-    }
-
-    @include respond(xs) {
-        padding: 0rem 1.25rem;
+    margin-bottom: 5rem;
+    section {
+        margin-bottom: 5rem;
     }
 
     &__top-container {
         padding-top: 2rem;
-        padding-bottom: 5rem;
         position: relative;
-
-        .gradient {
-            z-index: 1;
-            position: absolute;
-            height: 86%;
-            width: 100%;
-
-            background: linear-gradient(
-                90.26deg,
-                #ffca6a 31.38%,
-                rgba(255, 255, 255, 0) 99.78%
-            );
-            opacity: 0.9;
-        }
-
-        .thumbnail-img {
-            height: 43rem;
-            object-fit: contain;
-            z-index: 0;
-            border-radius: 0.4rem;
-            width: 100%;
-        }
-
-        .overlay {
-            position: absolute;
-            opacity: 0.9;
-            top: 1rem;
-            //   left: 3rem;
-            z-index: 2;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 5rem 8rem;
-            justify-content: space-between;
-
-            @include respond(xs) {
-                padding: 2rem 2.5rem;
-            }
-
-            @include respond(sm) {
-                padding: 5.5rem 3rem;
-            }
-
-            @include respond(lg) {
-                padding: 5rem 8rem;
-            }
-
-            h1 {
-                color: $primary-color;
-
-                line-height: 4.5rem;
-                font-weight: 500;
-                line-height: 3.7rem;
-
-                @include respond(xs) {
-                    font-size: 2rem;
-                    line-height: 4.2rem;
-                }
-
-                @include respond(sm) {
-                    font-size: 2.8rem;
-                }
-
-                @include respond(md) {
-                    font-size: 3.125rem;
-                }
-            }
-
-            .bottom-content {
-                padding-top: 9rem;
-
-                @include respond(xs) {
-                    padding-top: 8rem;
-                    margin-bottom: 3rem;
-                }
-
-                @include respond(sm) {
-                    padding-top: 9rem;
-                }
-
-                p {
-                    color: $sub-title-color;
-                    font-size: 1.8rem;
-                    font-weight: 600;
-                    margin-bottom: 3.7rem;
-
-                    @include respond(xs) {
-                        font-size: 1.4rem;
-                    }
-
-                    @include respond(xs) {
-                        font-size: 1.5rem;
-                    }
-                }
-            }
-        }
     }
 
     &__services-section {
-        padding-top: 5rem;
-
         .discover-col {
             @include respond(sm) {
-                display: block !important;
+                display: block;
             }
 
             @include respond(md) {
@@ -135,19 +31,15 @@
             }
         }
     }
-
+    h1 {
+        color: $primary-color;
+        font-size: 2rem;
+        line-height: 4.4rem;
+        font-weight: 500;
+        line-height: 3.7rem;
+        margin-bottom: 1rem;
+    }
     &__categories {
-        padding-top: 2rem;
-
-        h1 {
-            color: $primary-color;
-            font-size: 2rem;
-            line-height: 4.4rem;
-            font-weight: 500;
-            line-height: 3.7rem;
-            margin-bottom: 0.5rem;
-        }
-
         .bottom-content {
             padding-top: 9rem;
             width: 50%;
@@ -182,30 +74,7 @@
         }
     }
 
-    &__merchants {
-        padding: 5rem 0rem;
-
-        h1 {
-            color: $primary-color;
-            font-size: 2rem;
-            line-height: 4.4rem;
-            font-weight: 500;
-            line-height: 3.7rem;
-        }
-    }
-
     &__oppurtunities {
-        padding-bottom: 5rem;
-
-        h1 {
-            color: $primary-color;
-            font-size: 2rem;
-            line-height: 4.4rem;
-            font-weight: 500;
-            line-height: 3.7rem;
-            margin-bottom: 0.5rem;
-        }
-
         p {
             color: $sub-title-color;
             font-size: 1.3rem;
@@ -215,8 +84,6 @@
     }
 
     .merchant-advice {
-        padding-bottom: 5rem;
-
         &__card {
             padding: 2.5rem 5.4rem;
             display: flex;

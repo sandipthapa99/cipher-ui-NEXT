@@ -1,12 +1,12 @@
 import Layout from "@components/Layout";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GetStaticProps } from "next";
+import type { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import http from "pages/api/httpService";
 import { Alert, Col, Container, Row } from "react-bootstrap";
-import { BlogsProps } from "types/blogs";
+import type { BlogsProps } from "types/blogs";
 import { blogListAPI, formatMonthDate } from "utils/helpers";
 
 const Blog = ({ blogsData }: BlogsProps) => {
@@ -63,7 +63,7 @@ const Blog = ({ blogsData }: BlogsProps) => {
                             {result && result.length > 0 ? (
                                 result?.map((blog) => {
                                     const category = JSON.parse(blog?.category);
-                                    console.log(blog);
+
                                     return (
                                         <Col md={4} key={blog?.id}>
                                             <Link href={`/blogs/${blog?.slug}`}>

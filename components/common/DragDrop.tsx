@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { DragAndDropProps } from "types/dragDrop";
+import { useRef } from "react";
+import type { DragAndDropProps } from "types/dragDrop";
 
 const DragDrop = ({
     image,
@@ -8,8 +9,13 @@ const DragDrop = ({
     maxPdfSize,
     maxVideoSize,
 }: DragAndDropProps) => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    const onButtonClick = () => {
+        // `current` points to the mounted file input element
+        inputRef?.current?.click();
+    };
     return (
-        <div className="drag-drop">
+        <div className="drag-drop" onClick={onButtonClick}>
             <figure className="thumbnail-img">
                 <Image
                     src={image}
@@ -20,10 +26,7 @@ const DragDrop = ({
             </figure>
             <p className="info">
                 Drag or
-                <label htmlFor="choosefile" className="browse">
-                    &nbsp;Browse
-                </label>{" "}
-                <br />
+                <label className="browse">&nbsp;Browse</label> <br />
                 {fileType}
             </p>
             {maxImageSize ? (
@@ -42,9 +45,12 @@ const DragDrop = ({
                 ""
             )}
 
-            <div style={{ visibility: "hidden" }}>
-                <input type={"file"} id="choosefile" />
-            </div>
+            <input
+                type={"file"}
+                id="choosefile"
+                ref={inputRef}
+                style={{ display: "none" }}
+            />
         </div>
     );
 };

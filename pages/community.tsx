@@ -7,6 +7,7 @@ import CommunityGuidelineCard from "@components/common/CommunityGuidelineCard";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
@@ -22,9 +23,9 @@ const Community: NextPage = () => {
         <Layout title="Community | Cipher">
             <section className="community-page">
                 <Breadcrum currentPage="Community" />
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <div className="community-page__top-container">
-                        <Row className="top-row">
+                        <Row className="top-row gx-5">
                             <Col
                                 md={6}
                                 sm={6}
@@ -50,7 +51,7 @@ const Community: NextPage = () => {
                                 <BigButton
                                     btnTitle="Join Us"
                                     backgroundColor="#fff"
-                                    textColor=""
+                                    textColor="#111"
                                 />
                                 {/* <Button className="button">Join Us</Button> */}
                             </Col>
@@ -59,11 +60,11 @@ const Community: NextPage = () => {
                 </Container>
             </section>
             <section className="community-page-main">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <div className="community-page-main__gallery">
                         <h1>Community Gallery</h1>
 
-                        <Row>
+                        <Row className="gx-5">
                             <Col md={6} className="leftImage">
                                 <figure className="thumbnail-img">
                                     <Image

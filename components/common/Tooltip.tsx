@@ -10,12 +10,10 @@ const TooltipMessage = ({
     place: any;
     children: React.ReactElement;
 }) => {
-    console.log("place=", place);
-
     return (
         <OverlayTrigger
             placement={place}
-            //  delay={{ show: 250, hide: 400 }}
+            delay={{ show: 250, hide: 400 }}
             overlay={<Tooltip>{message}</Tooltip>}
         >
             {children}

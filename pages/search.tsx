@@ -2,11 +2,11 @@ import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchResults from "@components/SearchTask/SearchResults";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
 import { servicesNearYou } from "staticData/servicesNearYouCard";
-import { withAuth } from "utils/Auth/withAuth";
 
 import SearchHeader from "../components/SearchTask/searchHeader";
 
@@ -27,7 +27,7 @@ const SearchPage: NextPage = () => {
         <>
             <SearchHeader />
             <Header />
-            <Container style={{ height: "200vh" }}>
+            <Container>
                 <SearchCategory onChange={setQuery} />
                 <SearchResults servicesNearYou={filteredServices} />
             </Container>

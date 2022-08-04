@@ -2,28 +2,28 @@ import BlogCard from "@components/common/BlogCard";
 import Breadcrum from "@components/common/Breadcrum";
 import BigButton from "@components/common/Button";
 import CommonCard from "@components/common/CommonCard";
-import InputField from "@components/common/InputField";
+import FaqContent from "@components/common/Faq";
 import RecommendationChips from "@components/common/RecommendationChips";
+import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import { faSearch } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Form, Formik } from "formik";
+import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import React from "react";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { blogCardContent } from "staticData/community";
+import { faqContent } from "staticData/faq";
 import { helpCardContent } from "staticData/helpCardContent";
-import emailValidationSchema from "utils/formValidation/emailValidation";
+import searchValidationSchema from "utils/formValidation/searchValidation";
 
 const Help: NextPage = () => {
     return (
         <Layout title="Help &amp; Support | Cipher">
             <section className="help-page-header">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <Breadcrum currentPage="Help &amp; Support" />
                     <div className="help-page-header__top-container">
-                        <Row className="d-flex align-items-center">
+                        <Row className="d-flex align-items-center gx-5">
                             <Col md={6}>
                                 <figure className="thumbnail-img">
                                     <Image
@@ -37,37 +37,10 @@ const Help: NextPage = () => {
                             <Col md={6}>
                                 <h1>What help do you need?</h1>
 
-                                <Formik
-                                    initialValues={{ email: "" }}
-                                    validationSchema={emailValidationSchema}
-                                    onSubmit={async (values) => {
-                                        console.log(values);
-                                    }}
-                                >
-                                    {({ isSubmitting, errors, touched }) => (
-                                        <Form className="search">
-                                            <InputField
-                                                type="email"
-                                                name="text"
-                                                error={errors.email}
-                                                touch={touched.email}
-                                                placeHolder="Search Categories"
-                                            />
-
-                                            <button
-                                                type="submit"
-                                                className="btn"
-                                                disabled={isSubmitting}
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faSearch}
-                                                    className="svg-icon"
-                                                />
-                                            </button>
-                                        </Form>
-                                    )}
-                                </Formik>
-
+                                <SearchInputField
+                                    validationSchema={searchValidationSchema}
+                                    placeholder="Search Categories"
+                                />
                                 <div className="recommendation">
                                     <RecommendationChips title="Connects" />
                                     <RecommendationChips title="Get Paid" />
@@ -79,10 +52,10 @@ const Help: NextPage = () => {
                 </Container>
             </section>
             <section className="help-page-content">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <div className="help-page-content__browse-container">
                         <h1>Browse help categories</h1>
-                        <Row>
+                        <Row className="gx-5">
                             {helpCardContent &&
                                 helpCardContent.map((help) => {
                                     return (
@@ -105,8 +78,8 @@ const Help: NextPage = () => {
                                 })}
                         </Row>
                     </div>
-                    <div className="help-page-content__contact-container">
-                        <Row className="d-flex align-items-stretch">
+                    <div className="help-page-content__contact-container gx-5">
+                        <Row className="d-flex align-items-stretch gx-5">
                             <Col md={6} className="d-flex align-items-stretch">
                                 <div className="card-block ">
                                     <h1>Get In Touch With Us</h1>
@@ -162,7 +135,7 @@ const Help: NextPage = () => {
                     </div>
                     <div className="help-page-content__blog-container">
                         <h1>Promoted Blogs</h1>
-                        <Row>
+                        <Row className="gx-5">
                             {blogCardContent &&
                                 blogCardContent.map((blog) => {
                                     return (
@@ -188,91 +161,15 @@ const Help: NextPage = () => {
                     <div className="help-page-content__faq-container">
                         <h1>Frequently Asked Questions</h1>
                         <Accordion flush>
-                            <Accordion.Item eventKey="1">
-                                <Accordion.Header>
-                                    What is Cipher?
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <p>
-                                        With Cagtu, a custom app development
-                                        project starts with you preparing and
-                                        then submitting a request for proposal,
-                                        also referred to as an RFP(request for
-                                        proposal). It will help us create a
-                                        tailored, individualised response.
-                                    </p>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="2">
-                                <Accordion.Header>
-                                    What is Cipher?
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <p>
-                                        With Cagtu, a custom app development
-                                        project starts with you preparing and
-                                        then submitting a request for proposal,
-                                        also referred to as an RFP(request for
-                                        proposal). It will help us create a
-                                        tailored, individualised response.
-                                    </p>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="3">
-                                <Accordion.Header>
-                                    What is Cipher?
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <p>
-                                        With Cagtu, a custom app development
-                                        project starts with you preparing and
-                                        then submitting a request for proposal,
-                                        also referred to as an RFP(request for
-                                        proposal). It will help us create a
-                                        tailored, individualised response.
-                                    </p>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="4">
-                                <Accordion.Header>
-                                    How long does the project take?
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <p>
-                                        The implementation time depends on the
-                                        type of order, the technology chosen,
-                                        and the amount of work that needs to be
-                                        done. We always try to establish a
-                                        realistic time frame for completing the
-                                        project. Most MVP (Minimum Viable
-                                        Product) versions are implemented within
-                                        2-4 months of signing the contract.
-                                        Also, we develop projects through
-                                        long-term collaboration plans that have
-                                        no end date.
-                                    </p>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="5">
-                                <Accordion.Header>
-                                    How do you provide project estimates? What
-                                    are the modes of communication that you use?
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                    <p>
-                                        Team Cagtu carries out scoping and
-                                        estimation for our customers&apos;
-                                        projects through the tools developed
-                                        in-house. We can schedule a call,
-                                        proceed with email communication, or
-                                        stay in contact through any instant
-                                        messenger convenient to you. If all the
-                                        specialists required for your project
-                                        are available, we start the work as soon
-                                        as possible, or even immediately.
-                                    </p>
-                                </Accordion.Body>
-                            </Accordion.Item>
+                            {faqContent &&
+                                faqContent.map((faq) => (
+                                    <FaqContent
+                                        answer={faq.answer}
+                                        key={faq.id}
+                                        id={faq.id}
+                                        question={faq.question}
+                                    />
+                                ))}
                         </Accordion>
                     </div>
                 </Container>
