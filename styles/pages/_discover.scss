@@ -3,13 +3,6 @@
     section {
         margin-bottom: 5rem;
     }
-    @include respond(sm) {
-        padding: 0rem 1.25rem;
-    }
-
-    @include respond(xs) {
-        padding: 0rem 1.25rem;
-    }
 
     &__top-container {
         padding-top: 2rem;

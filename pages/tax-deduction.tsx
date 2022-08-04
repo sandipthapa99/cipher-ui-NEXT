@@ -15,7 +15,7 @@ const TaxDeduction: NextPage = () => {
     return (
         <Layout title="Tax-Deduction | Cipher">
             <section className="tax-deduction">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <Breadcrum currentPage="Tax Deduction" />
                     <div className="tax-deduction__header">
                         <h1 className="text-center">Tax Deduction</h1>

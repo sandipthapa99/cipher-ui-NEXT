@@ -16,7 +16,7 @@ const SocialResponsibilities: NextPage = () => {
     return (
         <Layout title="Social Responsibilities | Cipher">
             <section className="social-page">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <Breadcrum currentPage="Social responsibilities" />
                     <div className="social-page__top-container">
                         <h1>Social Responsibilites</h1>
@@ -95,7 +95,7 @@ const SocialResponsibilities: NextPage = () => {
                                 />
                             </a>
                         </div>
-                        <Row>
+                        <Row className="gx-5">
                             {blogCardContent &&
                                 blogCardContent.map((blog) => {
                                     return (

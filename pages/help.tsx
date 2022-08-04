@@ -20,10 +20,10 @@ const Help: NextPage = () => {
     return (
         <Layout title="Help &amp; Support | Cipher">
             <section className="help-page-header">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <Breadcrum currentPage="Help &amp; Support" />
                     <div className="help-page-header__top-container">
-                        <Row className="d-flex align-items-center">
+                        <Row className="d-flex align-items-center gx-5">
                             <Col md={6}>
                                 <figure className="thumbnail-img">
                                     <Image
@@ -52,10 +52,10 @@ const Help: NextPage = () => {
                 </Container>
             </section>
             <section className="help-page-content">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <div className="help-page-content__browse-container">
                         <h1>Browse help categories</h1>
-                        <Row>
+                        <Row className="gx-5">
                             {helpCardContent &&
                                 helpCardContent.map((help) => {
                                     return (
@@ -78,8 +78,8 @@ const Help: NextPage = () => {
                                 })}
                         </Row>
                     </div>
-                    <div className="help-page-content__contact-container">
-                        <Row className="d-flex align-items-stretch">
+                    <div className="help-page-content__contact-container gx-5">
+                        <Row className="d-flex align-items-stretch gx-5">
                             <Col md={6} className="d-flex align-items-stretch">
                                 <div className="card-block ">
                                     <h1>Get In Touch With Us</h1>
@@ -135,7 +135,7 @@ const Help: NextPage = () => {
                     </div>
                     <div className="help-page-content__blog-container">
                         <h1>Promoted Blogs</h1>
-                        <Row>
+                        <Row className="gx-5">
                             {blogCardContent &&
                                 blogCardContent.map((blog) => {
                                     return (

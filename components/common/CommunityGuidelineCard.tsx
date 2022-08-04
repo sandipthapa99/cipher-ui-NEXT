@@ -29,11 +29,11 @@ const CommunityGuidelineCard = ({
 
                 <div className="card-block__card-description">
                     {Array.isArray(cardDescription) ? (
-                        cardDescription.map((guide: any) => (
-                            <ul key={mapKey}>
-                                <li>{guide}</li>
-                            </ul>
-                        ))
+                        <ul>
+                            {cardDescription.map((guide: any) => (
+                                <li key={guide.id}>{guide}</li>
+                            ))}
+                        </ul>
                     ) : (
                         <p>{cardDescription}</p>
                     )}

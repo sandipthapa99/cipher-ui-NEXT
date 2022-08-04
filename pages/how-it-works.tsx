@@ -12,7 +12,7 @@ import { messageCard } from "staticData/messageCard";
 const HowItWorks: NextPage = () => {
     return (
         <Layout title="How it Works | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="how-it-works">
                     <Breadcrum currentPage="How it Works" />
 
