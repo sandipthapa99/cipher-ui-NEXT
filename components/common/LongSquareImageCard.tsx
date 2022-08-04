@@ -6,7 +6,7 @@ import CardBtn from "./CardBtn";
 export interface CardProps {
     title: string;
     subtitle?: string;
-    description: string;
+    description: any;
     image: string;
     imageOnRight?: boolean;
     buttonText?: string;
@@ -21,7 +21,7 @@ const LongSquareImageCard = ({
     buttonText,
     homeImage,
 }: CardProps) => {
-    console.log(homeImage);
+    console.log(description);
 
     return (
         <div className="long-square-image-card">
@@ -43,13 +43,26 @@ const LongSquareImageCard = ({
                                 <div className="description">
                                     <h1>{title}</h1>
                                     {subtitle && <h4>{subtitle}</h4>}
-                                    <p>{description}</p>
+                                    {Array.isArray(description) ? (
+                                        <ul>
+                                            {description.map((info: any) => (
+                                                <div
+                                                    className="list"
+                                                    key={info.id}
+                                                >
+                                                    <h6>{info.title}</h6>
+                                                    <li>{info.desc}</li>
+                                                </div>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p>{description}</p>
+                                    )}
                                 </div>
                                 {buttonText && (
                                     <CardBtn
                                         btnTitle={buttonText}
-                                        color="#fff"
-                                        backgroundColor="primary-color"
+                                        backgroundColor="#fff"
                                     />
                                 )}
                             </div>
@@ -62,7 +75,21 @@ const LongSquareImageCard = ({
                                 <div className="description">
                                     <h1>{title}</h1>
                                     {subtitle && <h4>{subtitle}</h4>}
-                                    <p>{description}</p>
+                                    {Array.isArray(description) ? (
+                                        <ul>
+                                            {description.map((info: any) => (
+                                                <div
+                                                    className="list"
+                                                    key={info.id}
+                                                >
+                                                    <p>{info.title}</p>
+                                                    <li>{info.desc}</li>
+                                                </div>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p>{description}</p>
+                                    )}
                                 </div>
                                 {buttonText && (
                                     <CardBtn
