@@ -43,7 +43,10 @@ const SelectInputField = ({
                         </option>
                     ))}
                 </Field>
-                <FontAwesomeIcon icon={faChevronDown} className="svg-icon" />
+                <FontAwesomeIcon
+                    icon={faChevronDown}
+                    className="svg-icon me-4    "
+                />
             </div>
             <ErrorMessage
                 name={name}

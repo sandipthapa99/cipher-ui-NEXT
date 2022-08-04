@@ -4,6 +4,7 @@ import type { BookNowFormProps } from "types/bookNow";
 import type { CertificationValueProps } from "types/certificationValueProps";
 import type { changePasswordValueProps } from "types/changePasswordValueProps";
 import type { ClientSignUpValueProps } from "types/clientSignUp";
+import type { deactivateValueProps } from "types/deactivateValueProps";
 import type { AddPortfolio, AddSkills } from "types/editProfile";
 import type { EducationValueProps } from "types/educationValueProps";
 import type { EquipmentValueProps } from "types/equipmentValueProps";
@@ -154,4 +155,10 @@ export const TaxCalculatorFormData: TaxCalculatorValueProps = {
     investmentTrust: 0,
     insurance: 0,
     medicalInsurance: 0,
+};
+
+export const DeactivateFromData: deactivateValueProps = {
+    reason: "",
+    duration: "",
+    explaination: "",
 };
