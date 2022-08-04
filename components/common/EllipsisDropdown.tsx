@@ -1,4 +1,3 @@
-import PostModal from "@components/PostTask/PostModal";
 import {
     faEyeSlash,
     faPencil,
@@ -6,26 +5,21 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ReactNode } from "react";
-import { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
 import Dropdown from "react-bootstrap/Dropdown";
 
 interface DropdownProps {
     children?: ReactNode;
+    showModal?: boolean;
+    handleOnClick?: () => void;
 }
 
-const EllipsisDropdown = ({ children }: DropdownProps) => {
-    const [showModal, setShowModal] = useState(false);
-
-    const handleShow = () => setShowModal(true);
-    const handleClose = () => setShowModal(false);
-
+const EllipsisDropdown = ({ children, handleOnClick }: DropdownProps) => {
     return (
         <div className="ellipsis">
             <Dropdown>
                 <Dropdown.Toggle>{children && <>{children}</>}</Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1" onClick={handleShow}>
+                    <Dropdown.Item href="#/action-1" onClick={handleOnClick}>
                         <FontAwesomeIcon className="svg-icon" icon={faPencil} />
                         Edit
                     </Dropdown.Item>
@@ -45,18 +39,6 @@ const EllipsisDropdown = ({ children }: DropdownProps) => {
                     </Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
-
-            <Modal
-                show={showModal}
-                onHide={handleClose}
-                backdrop="static"
-                className="post-modal"
-            >
-                <Modal.Header className="mt-4" closeButton></Modal.Header>
-                <Modal.Body>
-                    <PostModal onSubmit={handleClose} />
-                </Modal.Body>
-            </Modal>
         </div>
     );
 };
