@@ -46,7 +46,7 @@ export const MessageHeader = ({
             <div className="message-header__right">
                 <GoBack
                     type="button"
-                    text="Return to Task"
+                    text="Back to Task"
                     onClick={onBackClick}
                 />
                 <FontAwesomeIcon icon={faPhone} color="#868E96" />

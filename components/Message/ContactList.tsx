@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import Image from "next/image";
 import React from "react";
 import type { Contact } from "staticData/messages";
@@ -12,6 +13,12 @@ export const ContactList = ({
     contacts,
     onContactClick,
 }: ContactListProps) => {
+    const lastMessageDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const currentDay = format(date, "cccc");
+        const currentTime = format(date, "p");
+        return `${currentDay} ${currentTime}`;
+    };
     const renderContacts = () => {
         return contacts.map((contact) => (
             <div
@@ -32,7 +39,7 @@ export const ContactList = ({
                     <h4 className="title">{contact.name}</h4>
                     <p className="last-message">{contact.lastMessage}</p>
                     <span className="last-message-date">
-                        {contact.lastMessageCreatedAt}
+                        {lastMessageDate(contact.lastMessageCreatedAt)}
                     </span>
                 </div>
             </div>

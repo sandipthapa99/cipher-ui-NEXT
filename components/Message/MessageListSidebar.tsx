@@ -1,4 +1,5 @@
 import { MessageHeader } from "@components/Message/MessageHeader";
+import { MessageList } from "@components/Message/MessageList";
 import type { Contact } from "staticData/messages";
 
 interface MessageListSidebarProps {
@@ -12,7 +13,7 @@ export const MessageListSidebar = ({
     const { name, profileImage, messages, isOnline, isFavorite, lastMessage } =
         contact;
     return (
-        <>
+        <div className="message-list-sidebar">
             <MessageHeader
                 username={name}
                 profileImage={profileImage}
@@ -21,6 +22,7 @@ export const MessageListSidebar = ({
                 lastMessage={lastMessage}
                 isFavorite={isFavorite}
             />
-        </>
+            <MessageList messages={messages} />
+        </div>
     );
 };

@@ -5,11 +5,14 @@
     margin-bottom: 70px;
     display: flex;
     align-items: flex-start;
+    max-height: 80vh;
+    overflow-y: scroll;
 }
 
 /* ===================== ContactList.tsx ===================== */
 .contact-list {
     max-width: 305px;
+    min-width: 305px;
     border-right: 1px solid #edf4ff;
     &__title {
         font-size: 16px;
@@ -51,12 +54,14 @@
         }
     }
 }
-/* ===================== MessageHeader.tsx ===================== */
+/* ===================== MessageListSidebar.tsx and MessageHeader.tsx ===================== */
+.message-list-sidebar {
+    flex: 1;
+}
 .message-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex: 1;
     padding: 16px 48px;
     border-bottom: 1px solid #edf4ff;
     height: 82px;
@@ -76,5 +81,37 @@
         display: flex;
         align-items: center;
         gap: 32px;
+    }
+}
+/* ===================== MessageList.tsx ===================== */
+.messages {
+    padding: 128px 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+}
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    &[data-is-self="true"] {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    &__info {
+        &--text {
+            padding: 4px 16px;
+            border-radius: 20px;
+            background-color: #ffdfa6;
+            color: #212529;
+            font-size: 12px;
+            margin: 0 !important;
+        }
+        &--createdAt {
+            font-size: 10px;
+            color: $primary-color;
+        }
     }
 }

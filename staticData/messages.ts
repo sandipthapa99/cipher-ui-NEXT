@@ -8,6 +8,7 @@ export const DUMMY_MESSAGES = Array.from({ length: 50 })
         createdAt: randPastDate().toISOString(),
         user: {
             id: randBoolean() ? "current-logged-in-user-id" : randUuid(),
+            profileImage: "https://thispersondoesnotexist.com/image",
         },
     }));
 
