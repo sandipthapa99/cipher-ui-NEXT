@@ -10,14 +10,13 @@ interface BookNowButtonProps {
 const BookNowButton = ({
     btnTitle,
     backgroundColor,
-    showModal,
     handleOnClick,
 }: BookNowButtonProps) => {
     return (
         <>
             <Button
                 className="big-btn"
-                onClick={() => handleOnClick}
+                onClick={handleOnClick}
                 style={{
                     backgroundColor: `${backgroundColor}`,
                     color: "white !important",
