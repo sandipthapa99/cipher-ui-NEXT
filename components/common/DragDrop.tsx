@@ -40,7 +40,7 @@ const DragDrop = ({
                 ""
             )}
             {maxPdfSize ? (
-                <p className="size">Maximum Pdf size {maxVideoSize} MB</p>
+                <p className="size">Maximum Pdf size {maxPdfSize} MB</p>
             ) : (
                 ""
             )}
