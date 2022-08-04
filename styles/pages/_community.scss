@@ -1,5 +1,8 @@
 .community-page {
     background-color: rgba(255, 255, 255, 0.4);
+    section {
+        margin-bottom: 5rem;
+    }
     @include respond(sm) {
         padding: 0rem 1.25rem;
     }
@@ -8,8 +11,9 @@
         padding: 0rem 1.25rem;
     }
     &__top-container {
-        margin-bottom: 5rem;
-        padding-bottom: 5rem;
+        section {
+            margin-bottom: 5rem;
+        }
         padding-top: 4.4rem;
         @include respond(sm) {
             padding-left: 1.25rem;
@@ -88,6 +92,9 @@
     }
 }
 .community-page-main {
+    section {
+        margin-bottom: 5rem;
+    }
     @include respond(sm) {
         padding: 0rem 1.25rem;
     }
@@ -106,8 +113,6 @@
         }
     }
     &__gallery {
-        padding-top: 5rem;
-
         .leftImage {
             .thumbnail-img {
                 height: 43.75rem;
@@ -231,7 +236,7 @@
         }
     }
     &__blogs {
-        padding: 5rem 0rem;
+        padding-top: 5rem;
     }
     h1 {
         font-weight: 500;

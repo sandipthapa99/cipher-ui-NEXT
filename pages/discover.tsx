@@ -36,6 +36,7 @@ const Discover: NextPage = () => {
                         id="services-near-you"
                         className="discover-page__services-section"
                     >
+                        <h1>Popular On Cipher</h1>
                         <Row className="gx-5 d-flex align-items-stretch">
                             {servicesDiscover &&
                                 servicesDiscover.map((service) => {

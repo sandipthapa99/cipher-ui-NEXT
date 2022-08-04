@@ -60,13 +60,12 @@
             }
 
             @include respond(xl) {
-                margin: 0px 16.75rem;
+                margin: 0px 24.75rem;
                 padding: 0 17rem;
             }
 
             @include respond(xxl) {
-                margin: 0px 20.75rem;
-
+                margin: 0px 24.75rem;
                 padding: 0 22rem;
             }
 
