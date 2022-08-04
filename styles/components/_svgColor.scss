@@ -42,7 +42,13 @@
         width: 2rem;
         color: #adb5bd;
     }
+    &-eye-slash {
+        width: 2rem;
+    }
 }
 .svg-180-transfrom {
     transform: rotate(180deg);
+}
+.svg-color-grey {
+    color: $grayScale6;
 }

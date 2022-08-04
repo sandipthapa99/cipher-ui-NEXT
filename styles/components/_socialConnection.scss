@@ -1,0 +1,19 @@
+.social-connection {
+    border: 0.1rem solid #dee2e6;
+    border-radius: 1rem;
+    padding: 1.9rem;
+    span {
+        svg {
+            color: #868e96;
+        }
+        h4 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: $sub-title-color;
+            margin: 0;
+        }
+    }
+    p {
+        color: $secondary-text-color;
+    }
+}
