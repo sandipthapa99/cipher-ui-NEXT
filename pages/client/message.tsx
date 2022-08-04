@@ -1,10 +1,27 @@
+import Breadcrum from "@components/common/Breadcrum";
+import Layout from "@components/Layout";
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import { Container } from "react-bootstrap";
+import type { Contact } from "staticData/messages";
+import { DUMMY_CONTACTS } from "staticData/messages";
 
-export const ClientMessagePage = () => {
+export const ClientMessagePage = ({
+    contacts,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
-        <Container>
-            <h4 className="title">Messages</h4>
-        </Container>
+        <Layout>
+            <Container>
+                <Breadcrum currentPage="Messages" />
+                <h4 className="title">Messages</h4>
+            </Container>
+        </Layout>
     );
+};
+export const getStaticProps: GetStaticProps<{ contacts: Contact[] }> = () => {
+    return {
+        props: {
+            contacts: DUMMY_CONTACTS,
+        },
+    };
 };
 export default ClientMessagePage;
