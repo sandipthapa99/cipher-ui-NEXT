@@ -122,24 +122,11 @@ const ModalCard = ({
                                             </figure>
                                         </Col>
                                         <Col md={3}>
-                                            {ImageVideoDragDop &&
-                                                ImageVideoDragDop.map(
-                                                    (info) => (
-                                                        <DragDrop
-                                                            key={info.id}
-                                                            image={info.image}
-                                                            fileType={
-                                                                info.fileType
-                                                            }
-                                                            maxImageSize={
-                                                                info.maxImageSize
-                                                            }
-                                                            maxVideoSize={
-                                                                info.maxVideoSize
-                                                            }
-                                                        />
-                                                    )
-                                                )}
+                                            <DragDrop
+                                                image="/service-details/file-upload.svg"
+                                                fileType="Image/Video"
+                                                maxImageSize={20}
+                                            />
                                         </Col>
                                     </Row>
                                     <div className="size-warning">
