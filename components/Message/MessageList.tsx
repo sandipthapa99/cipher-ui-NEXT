@@ -1,3 +1,4 @@
+import { SendMessageInput } from "@components/Message/SendMessageInput";
 import { format } from "date-fns";
 import Image from "next/image";
 import type { Message } from "staticData/messages";
@@ -38,6 +39,7 @@ export const MessageList = ({ messages }: MessageListProps) => {
         <div className="messages">
             <h4 className="text-center title">{currentDate}</h4>
             {renderMessages()}
+            <SendMessageInput placeholder="Type a message" />
         </div>
     );
 };
