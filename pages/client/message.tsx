@@ -1,5 +1,6 @@
 import Breadcrum from "@components/common/Breadcrum";
 import Layout from "@components/Layout";
+import { ContactListSideBar } from "@components/Message/ContactListSidebar";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import { Container } from "react-bootstrap";
 import type { Contact } from "staticData/messages";
@@ -13,6 +14,7 @@ export const ClientMessagePage = ({
             <Container>
                 <Breadcrum currentPage="Messages" />
                 <h4 className="title">Messages</h4>
+                <ContactListSideBar contacts={contacts} />
             </Container>
         </Layout>
     );

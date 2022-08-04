@@ -1,0 +1,49 @@
+/* ===================== ContactListSidebar.tsx ===================== */
+.contact-sidebar {
+    background-color: $white;
+    border-radius: 4px;
+    margin-bottom: 70px;
+    &__contacts {
+    }
+}
+
+/* ===================== ContactList.tsx ===================== */
+.contact-list {
+    max-width: 305px;
+    border-right: 1px solid #edf4ff;
+    &__title {
+        font-size: 16px;
+        font-weight: 600;
+        color: $primary-color;
+        padding: 32px 16px;
+        border-bottom: 1px solid #edf4ff;
+    }
+    &__item {
+        padding: 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        border: 1px solid transparent;
+
+        &:hover {
+            background-color: #edf4ff;
+            border-inline: 1px solid $white;
+        }
+
+        &--info .title {
+            color: #212529;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 0 !important;
+        }
+        &--info .last-message {
+            color: #212529;
+            font-size: 12px;
+            margin-block: 6px !important;
+        }
+        &--info .last-message-date {
+            color: #868e96;
+            font-size: 10px;
+        }
+    }
+}
