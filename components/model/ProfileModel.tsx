@@ -112,9 +112,9 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
                     className="login-btn"
                     style={{ color: "#495057" }}
                     onClick={() => {
+                        queryClient.removeQueries(["user"]);
                         autoLogout();
-                        queryClient.invalidateQueries(["user"]);
-                        router.push("/");
+                        router.push("/login");
                     }}
                 >
                     <FontAwesomeIcon
