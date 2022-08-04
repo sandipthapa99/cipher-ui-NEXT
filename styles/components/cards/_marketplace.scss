@@ -5,12 +5,19 @@
     padding: 4rem 2.4rem;
 }
 
-.icon {
+.icon-wrapper {
     margin-bottom: 3.2rem;
+    border-radius: 50%;
 
-    .icon-img {
+    .img-wrapper {
+        height: 10rem;
+        width: 10rem;
         padding: 2.5rem;
-        border-radius: 50%;
+
+        .icon-img {
+            // padding: 2.5rem;
+            // border-radius: 50%;
+        }
     }
 }
 

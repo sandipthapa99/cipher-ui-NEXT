@@ -1,5 +1,5 @@
+import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
 import CommunityBlogCard from "@components/common/BlogCard";
-import CategoryCard from "@components/common/CategoryCard";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
 import MerchantCard from "@components/common/MerchantCard";
@@ -480,6 +480,44 @@ const LandingPage: NextPage = () => {
                 </Container>
             </section>
             {/* blog section end */}
+            <section className="explore-marketplace">
+                <Container fluid="xl" className="px-5">
+                    <h1 className="section-main-title">
+                        Explore Our Marketplace
+                    </h1>
+                    <Row className="gx-5">
+                        <Col md={4} className="d-flex align-items-stretch">
+                            <MarketPlaceCard
+                                icon="/icons/globe-location.svg"
+                                title="Location"
+                                description="It is always convenient to to be connected to clients, and
+                                tasks closer to you, and with us, you can see who or which
+                                tasks are closer to you, or at your preferred location."
+                                redirectionTo=""
+                                iconBackground="#CDE9F9"
+                            />
+                        </Col>
+                        <Col md={4} className="d-flex align-items-stretch">
+                            <MarketPlaceCard
+                                icon="/icons/category.svg"
+                                title="Category"
+                                description="Looking for a particular service, or multitude of them ? Or do you provide multitude of services, or jus want to stick to a particular one ? We have made it easier for you to filter, and sort out categories as per your convenience."
+                                redirectionTo=""
+                                iconBackground="#E3D5FA"
+                            />
+                        </Col>
+                        <Col md={4} className="d-flex align-items-stretch">
+                            <MarketPlaceCard
+                                icon="/icons/recommendation-badge.svg"
+                                title="Recommended by us"
+                                description="We know each of our users, and we do know their preferences, and their choices, so you can always rely on our recommendations for a customized search feed just for you."
+                                redirectionTo=""
+                                iconBackground="#CCF6E6"
+                            />
+                        </Col>
+                    </Row>
+                </Container>
+            </section>
 
             <section className="top-categories-section">
                 <Container fluid="xl" className="px-5">
