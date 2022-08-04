@@ -1,3 +1,4 @@
+import type { CreditCardContent } from "staticData/creditCardContent";
 import type { AccountValueProps } from "types/accountValueProps";
 import type { ApplyValueProps } from "types/applyValueProps";
 import type { BookNowFormProps } from "types/bookNow";
@@ -161,4 +162,13 @@ export const DeactivateFromData: deactivateValueProps = {
     reason: "",
     duration: "",
     explaination: "",
+};
+
+export const CreditCardFromData: CreditCardContent = {
+    id: "",
+    number: "",
+    name: "",
+    expDate: "",
+    cvv: "",
+    isDefault: false,
 };

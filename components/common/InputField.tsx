@@ -1,5 +1,4 @@
 import TooltipMessage from "@components/common/Tooltip";
-import { faCircleInfo } from "@fortawesome/pro-duotone-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
 import type { InputFieldProps } from "types/inputField";
