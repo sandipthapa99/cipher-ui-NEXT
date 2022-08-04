@@ -1,6 +1,7 @@
 import BigButton from "@components/common/Button";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
+import AddRequirements from "@components/PostTask/AddRequirements";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -43,7 +44,7 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                         console.log(values);
                                     }}
                                 >
-                                    {({ errors, touched }) => (
+                                    {({ setFieldValue, errors, touched }) => (
                                         <>
                                             <Form>
                                                 <h3>Service Details</h3>
@@ -66,32 +67,41 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                                     placeHolder="Choose Service Type"
                                                     options={options}
                                                 />
-                                                <Row>
-                                                    <Col md={6} sm={12}>
-                                                        <SelectInputField
-                                                            name="category"
-                                                            labelName="Category"
-                                                            placeHolder="Choose Category"
-                                                            options={options}
-                                                        />
-                                                    </Col>
-                                                    <Col md={6} sm={12}>
-                                                        <SelectInputField
-                                                            name="sub_category"
-                                                            labelName="Sub-Category"
-                                                            placeHolder="Choose Sub-Category"
-                                                            options={options}
-                                                        />
-                                                    </Col>
-                                                </Row>
 
-                                                <h5>Requirement</h5>
-                                                <h6>
-                                                    Add services which you Offer
-                                                </h6>
+                                                <SelectInputField
+                                                    name="category"
+                                                    labelName="Category"
+                                                    placeHolder="Choose Category"
+                                                    options={options}
+                                                />
+
+                                                <AddRequirements
+                                                    onSubmit={(requirements) =>
+                                                        setFieldValue(
+                                                            "reuqirement",
+                                                            requirements
+                                                        )
+                                                    }
+                                                    title="Requirement"
+                                                    description="Add services which you Offer"
+                                                />
+
+                                                <InputField
+                                                    labelName="Starting Price"
+                                                    placeholder="Starting Price"
+                                                    name="starting_price"
+                                                />
+
+                                                <SelectInputField
+                                                    name="no_of_revisioins"
+                                                    labelName="Number of Revisions"
+                                                    placeHolder="No. of Revisions"
+                                                    options={options}
+                                                />
+
                                                 <div className="d-flex justify-content-end next-button">
                                                     <BigButton
-                                                        btnTitle={"Next"}
+                                                        btnTitle={"Next Step"}
                                                         backgroundColor={
                                                             "#211D4F"
                                                         }

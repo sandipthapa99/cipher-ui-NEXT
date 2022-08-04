@@ -11,4 +11,4 @@ const AddServices: NextPage = () => {
     );
 };
 
-export default withAuth(AddServices);
+export default AddServices;

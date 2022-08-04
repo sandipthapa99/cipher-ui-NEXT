@@ -15,7 +15,7 @@ interface Props {
 
 const requirements: Requirement[] = [];
 
-const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
+const AddRequirements = ({ field, onSubmit, title, description }: Props) => {   
     const [requirementState, setRequirementState] = useState(requirements);
     const [require, setRequire] = useState("");
 
