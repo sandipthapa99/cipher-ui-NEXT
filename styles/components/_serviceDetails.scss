@@ -32,6 +32,16 @@
                 margin: 0 0 0 1.6rem;
                 @include border();
             }
+            span {
+                button {
+                    background-color: #ffff;
+                    color: $secondary-text-color;
+                }
+            }
+        }
+
+        .added-packages {
+            margin: 0 0 2.4rem;
         }
     }
 }
