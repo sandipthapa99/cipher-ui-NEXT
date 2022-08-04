@@ -1,4 +1,11 @@
+section {
+    margin-bottom: 5rem;
+}
 .service-details {
+    section {
+        margin-bottom: 0rem;
+    }
+
     @include respond(sm) {
         padding: 0rem 1.25rem;
     }
@@ -7,6 +14,9 @@
         padding: 0rem 1.25rem;
     }
     &__top-container {
+        section {
+            margin-bottom: 0rem;
+        }
         h1 {
             font-size: 2.5rem;
             font-weight: 500;
@@ -41,7 +51,7 @@
 
             .reactions {
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: space-between;
             }
             .save {
@@ -194,7 +204,6 @@
         }
     }
     &__services {
-        padding-bottom: 5rem;
         h1 {
             font-size: 2rem;
             padding-bottom: 1rem;

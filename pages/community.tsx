@@ -51,7 +51,7 @@ const Community: NextPage = () => {
                                 <BigButton
                                     btnTitle="Join Us"
                                     backgroundColor="#fff"
-                                    textColor=""
+                                    textColor="#111"
                                 />
                                 {/* <Button className="button">Join Us</Button> */}
                             </Col>

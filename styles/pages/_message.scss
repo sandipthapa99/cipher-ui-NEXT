@@ -1,0 +1,157 @@
+/* ===================== ContactListSidebar.tsx ===================== */
+.contact-sidebar {
+    background-color: $white;
+    border-radius: 4px;
+    margin-bottom: 70px;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* ===================== ContactList.tsx ===================== */
+.contact-list {
+    max-width: 305px;
+    min-width: 305px;
+    border-right: 1px solid #edf4ff;
+    &__title {
+        font-size: 16px;
+        font-weight: 600;
+        color: $primary-color;
+        padding-inline: 16px;
+        border-bottom: 1px solid #edf4ff;
+        margin-bottom: 0;
+        height: 82px;
+        display: flex;
+        align-items: center;
+    }
+    &__item {
+        padding: 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        border: 1px solid transparent;
+
+        &:hover {
+            background-color: #edf4ff;
+            border-inline: 1px solid $white;
+        }
+
+        &--info .title {
+            color: #212529;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 0 !important;
+        }
+        &--info .last-message {
+            color: #212529;
+            font-size: 12px;
+            margin-block: 6px !important;
+        }
+        &--info .last-message-date {
+            color: #868e96;
+            font-size: 10px;
+        }
+    }
+}
+/* ===================== MessageListSidebar.tsx and MessageHeader.tsx ===================== */
+.message-list-sidebar {
+    flex: 1;
+}
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 48px;
+    border-bottom: 1px solid #edf4ff;
+    height: 82px;
+
+    @include media("<=tablet") {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    &__left {
+        &--user {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        &--user .text {
+            font-size: 12px;
+            font-weight: 400;
+        }
+    }
+    &__right {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+    }
+}
+/* ===================== MessageList.tsx ===================== */
+.messages {
+    padding: 128px 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+
+    @include media("<=tablet") {
+        padding: 64px 16px 16px;
+    }
+}
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    &[data-is-self="true"] {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    &__info {
+        &--text {
+            padding: 4px 16px;
+            border-radius: 20px;
+            background-color: #ffdfa6;
+            color: #212529;
+            font-size: 12px;
+            margin: 0 !important;
+        }
+        &--createdAt {
+            font-size: 10px;
+            color: $primary-color;
+        }
+    }
+}
+/* ===================== MessageInput.tsx ===================== */
+.send-message-input {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    overflow: hidden;
+
+    &__input {
+        flex: 1;
+        border: 0;
+        outline: 0;
+        padding: 12px;
+    }
+    &__icons {
+        display: flex;
+        gap: 16px;
+    }
+    &__btn {
+        padding: 12px 24px;
+        border: 0;
+        outline: 0;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        background-color: $primary-color;
+        color: $white;
+        z-index: 10;
+    }
+}

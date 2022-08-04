@@ -12,10 +12,10 @@ interface GoBackButtonProps extends HTMLAttributes<HTMLButtonElement> {
     onClick: () => void;
 }
 
-type GoBackProps = GoBackLinkProps | GoBackButtonProps;
+type GoBackProps = (GoBackLinkProps | GoBackButtonProps) & { text?: string };
 
 export const GoBack = (props: GoBackProps) => {
-    const { className, ...restProps } = props;
+    const { className, text, ...restProps } = props;
     const goBackClass = ["go-back", className].join(" ");
 
     const GoBackButton = () => {
@@ -23,7 +23,7 @@ export const GoBack = (props: GoBackProps) => {
         return (
             <button className={goBackClass} {...rest} onClick={onClick}>
                 <FontAwesomeIcon className="svg-icon" icon={faChevronLeft} />
-                <span>Go Back</span>
+                <span>{text ?? "Go Back"}</span>
             </button>
         );
     };

@@ -3,16 +3,13 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { log } from "console";
 import { useBookContext } from "context/BookNowContext/bookNowContext";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { Prev } from "react-bootstrap/esm/PageItem";
 import Modal from "react-bootstrap/Modal";
-import { ImageVideoDragDop } from "staticData/dragDropContent";
 import type { BookNowModalCardProps } from "types/bookNow";
 import { BookServiceFormData } from "utils/formData";
 import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidation";
@@ -124,24 +121,11 @@ const ModalCard = ({
                                             </figure>
                                         </Col>
                                         <Col md={3}>
-                                            {ImageVideoDragDop &&
-                                                ImageVideoDragDop.map(
-                                                    (info) => (
-                                                        <DragDrop
-                                                            key={info.id}
-                                                            image={info.image}
-                                                            fileType={
-                                                                info.fileType
-                                                            }
-                                                            maxImageSize={
-                                                                info.maxImageSize
-                                                            }
-                                                            maxVideoSize={
-                                                                info.maxVideoSize
-                                                            }
-                                                        />
-                                                    )
-                                                )}
+                                            <DragDrop
+                                                image="/service-details/file-upload.svg"
+                                                fileType="Image/Video"
+                                                maxImageSize={20}
+                                            />
                                         </Col>
                                     </Row>
                                     <div className="size-warning">
