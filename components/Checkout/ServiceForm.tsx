@@ -36,6 +36,12 @@ const EquipmentForm = ({
                         initialValues={EquipmentFormData}
                         validationSchema={equipmentFormSchema}
                         onSubmit={async (values) => {
+                            // To be used for API
+                            // try {
+                            //     axiosClient.post("/routes", values);
+                            // } catch (error: any) {
+                            //     error.response.data.message;
+                            // }
                             console.log(values);
                         }}
                     >

@@ -39,6 +39,12 @@ const EducationForm = ({
                         onSubmit={async (values) => {
                             setShowEducationForm(false);
                             setShowSuccessModal(true);
+                            // To be used for API
+                            // try {
+                            //     axiosClient.post("/routes", values);
+                            // } catch (error: any) {
+                            //     error.response.data.message;
+                            // }
                             console.log(values);
                         }}
                     >
