@@ -25,10 +25,12 @@ export const ContactListSideBar = ({ contacts }: ContactsProps) => {
                 />
             </div>
             {activeContact !== undefined && (
-                <MessageListSidebar
-                    onBackClick={removeActiveContact}
-                    contact={activeContact}
-                />
+                <div className="aside-detail-wrapper flex-fill">
+                    <MessageListSidebar
+                        onBackClick={removeActiveContact}
+                        contact={activeContact}
+                    />
+                </div>
             )}
         </div>
     );
