@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { GalleryFrom } from "./GalleryFrom";
 
 import { PackageDetails } from "./PackageDetails";
 import { ServiceDetails } from "./ServiceDetails";
@@ -24,6 +25,11 @@ export const MainStep = () => {
                     handlePrev={handlePrev}
                 />
             );
+
+        case 3: 
+        return (
+            <GalleryFrom />
+        )
 
         default:
             return <ServiceDetails handleNext={handleNext} />;
