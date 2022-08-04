@@ -2,6 +2,7 @@ import { faBars } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuthContext } from "context/AuthContext/userContext";
+import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -23,6 +24,7 @@ export function UpperHeader() {
     const handleClose = () => setShowModal(false);
 
     const { token } = useAuthContext();
+    const { data: user } = useUser();
 
     return (
         <>
@@ -68,7 +70,7 @@ export function UpperHeader() {
                                         <a className="nav-link">Resources</a>
                                     </Link>
                                 </li>
-                                {!token && (
+                                {!user && (
                                     <>
                                         <li
                                             className={handleMenuActive(
@@ -99,7 +101,7 @@ export function UpperHeader() {
                             </nav>
                         </Navbar.Collapse>
 
-                        {!token && (
+                        {!user && (
                             <>
                                 <Link href="/login">
                                     <a className="btn login-btn d-none d-md-inline-block">
@@ -113,7 +115,7 @@ export function UpperHeader() {
                                 </Link>
                             </>
                         )}
-                        {token && (
+                        {user && (
                             <div className="user-profile">
                                 <span
                                     className="btn location-btn d-none d-md-inline-block"
@@ -137,7 +139,7 @@ export function UpperHeader() {
                             </div>
                         )}
 
-                        {token && (
+                        {user && (
                             <button
                                 style={{ outline: "none", border: "none" }}
                                 onClick={handleShow}
