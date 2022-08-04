@@ -11,8 +11,8 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { ImageVideoDragDop } from "staticData/dragDropContent";
-import { AccountFromData } from "utils/formData";
-import { accountFormSchema } from "utils/formValidation/accountFormValidation";
+import { KYCFormData } from "utils/formData";
+import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
 import { isSubmittingClass } from "utils/helpers";
 
 const dropdownCountryOptions = [
@@ -29,8 +29,8 @@ const KYCForm = () => {
             <div className="account-form mt-5">
                 <h3>KYC Details</h3>
                 <Formik
-                    initialValues={AccountFromData}
-                    validationSchema={accountFormSchema}
+                    initialValues={KYCFormData}
+                    validationSchema={KYCFormSchema}
                     onSubmit={async (values, action) => {
                         setShowSuccessModal(true);
                         // To be used for API
@@ -51,51 +51,50 @@ const KYCForm = () => {
                                 labelName="Name"
                                 error={errors.fullName}
                                 touch={touched.fullName}
-                                placeHolder="Enter your Name"
+                                placeHolder="Enter your Full Name"
                             />
                             <h5>Identity Information</h5>
                             <Col md={5}>
                                 <SelectInputField
-                                    name="country"
-                                    labelName="Country"
-                                    touch={touched.country}
-                                    error={errors.country}
-                                    placeHolder="Select your country"
+                                    name="identityType"
+                                    labelName="Identity Type"
+                                    touch={touched.identityType}
+                                    error={errors.identityType}
+                                    placeHolder="Select Identity Type"
                                     options={dropdownCountryOptions}
                                 />
                             </Col>
                             <Row>
                                 <Col lg={5} md={6}>
                                     <InputField
-                                        type="text"
-                                        name="fullName"
-                                        labelName="Name"
-                                        error={errors.fullName}
-                                        touch={touched.fullName}
-                                        placeHolder="Enter your Name"
+                                        name="identityNumber"
+                                        labelName="Identity Number"
+                                        error={errors.identityNumber}
+                                        touch={touched.identityNumber}
+                                        placeHolder="Enter your identity Number"
                                     />
                                     <DatePickerField
-                                        name="dateOfBirth"
-                                        labelName="Date of birth"
+                                        name="issuedDate"
+                                        labelName="Issued date"
                                         placeHolder="dd/mm/yy"
-                                        touch={touched.dateOfBirth}
-                                        error={errors.dateOfBirth}
+                                        touch={touched.issuedDate}
+                                        error={errors.issuedDate}
                                     />
                                 </Col>
                                 <Col lg={{ span: 5, offset: 2 }} md={6}>
                                     <DatePickerField
-                                        name="dateOfBirth"
-                                        labelName="Date of birth"
+                                        name="issuedFrom"
+                                        labelName="Issued From"
                                         placeHolder="dd/mm/yy"
-                                        touch={touched.dateOfBirth}
-                                        error={errors.dateOfBirth}
+                                        touch={touched.issuedFrom}
+                                        error={errors.issuedFrom}
                                     />
                                     <DatePickerField
-                                        name="dateOfBirth"
-                                        labelName="Date of birth"
+                                        name="expiryDate"
+                                        labelName="Expiry Date"
                                         placeHolder="dd/mm/yy"
-                                        touch={touched.dateOfBirth}
-                                        error={errors.dateOfBirth}
+                                        touch={touched.expiryDate}
+                                        error={errors.expiryDate}
                                     />
                                 </Col>
                             </Row>
@@ -122,27 +121,28 @@ const KYCForm = () => {
                                 <Col lg={5} md={6}>
                                     <InputField
                                         type="text"
-                                        name="fullName"
-                                        labelName="Name"
-                                        error={errors.fullName}
-                                        touch={touched.fullName}
-                                        placeHolder="Enter your Name"
+                                        name="panNumber"
+                                        labelName="PAN Number"
+                                        error={errors.panNumber}
+                                        touch={touched.panNumber}
+                                        placeHolder="Enter your Pan Number"
                                     />
                                     <DatePickerField
-                                        name="dateOfBirth"
-                                        labelName="Date of birth"
+                                        name="panIssuedDate"
+                                        labelName="Issued Date"
                                         placeHolder="dd/mm/yy"
-                                        touch={touched.dateOfBirth}
-                                        error={errors.dateOfBirth}
+                                        touch={touched.panIssuedDate}
+                                        error={errors.panIssuedDate}
                                     />
                                 </Col>
                                 <Col lg={{ span: 5, offset: 2 }} md={6}>
-                                    <DatePickerField
-                                        name="dateOfBirth"
-                                        labelName="Date of birth"
-                                        placeHolder="dd/mm/yy"
-                                        touch={touched.dateOfBirth}
-                                        error={errors.dateOfBirth}
+                                    <InputField
+                                        type="text"
+                                        name="issuedLoaction"
+                                        labelName="Issued Loaction"
+                                        error={errors.issuedLoaction}
+                                        touch={touched.issuedLoaction}
+                                        placeHolder="Enter your Issued Loaction"
                                     />
                                 </Col>
                             </Row>
@@ -201,32 +201,31 @@ const KYCForm = () => {
                             <h5>Bank Details (Optional)</h5>
                             <Col md={5}>
                                 <InputField
-                                    type="text"
-                                    name="fullName"
-                                    labelName="Name"
-                                    error={errors.fullName}
-                                    touch={touched.fullName}
-                                    placeHolder="Enter your Name"
+                                    name="bankName"
+                                    labelName="Bank Name"
+                                    error={errors.bankName}
+                                    touch={touched.bankName}
+                                    placeHolder="Enter your Account Name"
                                 />
                             </Col>
                             <Row>
                                 <Col lg={5} md={6}>
                                     <InputField
-                                        type="text"
-                                        name="fullName"
-                                        labelName="Name"
-                                        error={errors.fullName}
-                                        touch={touched.fullName}
-                                        placeHolder="Enter your Name"
+                                        name="bankAccountName"
+                                        labelName="Bank Account Name"
+                                        error={errors.bankAccountName}
+                                        touch={touched.bankAccountName}
+                                        placeHolder="Enter bank Account Name"
                                     />
                                 </Col>
                                 <Col lg={{ span: 5, offset: 2 }} md={6}>
-                                    <DatePickerField
-                                        name="dateOfBirth"
-                                        labelName="Date of birth"
-                                        placeHolder="dd/mm/yy"
-                                        touch={touched.dateOfBirth}
-                                        error={errors.dateOfBirth}
+                                    <InputField
+                                        type="text"
+                                        name="bankAccountNumber"
+                                        labelName="Bank Account Number"
+                                        error={errors.bankAccountNumber}
+                                        touch={touched.bankAccountNumber}
+                                        placeHolder="Enter your Account Number"
                                     />
                                 </Col>
                             </Row>

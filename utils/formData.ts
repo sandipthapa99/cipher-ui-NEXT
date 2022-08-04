@@ -10,6 +10,7 @@ import type { AddPortfolio, AddSkills } from "types/editProfile";
 import type { EducationValueProps } from "types/educationValueProps";
 import type { EquipmentValueProps } from "types/equipmentValueProps";
 import type { ExperienceValueProps } from "types/experienceValueProps";
+import type { KYCFormProps } from "types/kycFormProps";
 import type { LoginValuesProps } from "types/login";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { SkillsValueProps } from "types/skillsValueProps";
@@ -171,4 +172,23 @@ export const CreditCardFromData: CreditCardContent = {
     expDate: "",
     cvv: "",
     isDefault: false,
+};
+
+export const KYCFormData: KYCFormProps = {
+    fullName: "",
+    identityType: "",
+    identityNumber: "",
+    issuedFrom: null,
+    issuedDate: null,
+    expiryDate: null,
+    identityCard: [],
+    panNumber: "",
+    issuedLoaction: "",
+    panIssuedDate: "",
+    panPhoto: [],
+    passwordPhoto: [],
+    addressVerifiactionDocument: [],
+    bankName: "",
+    bankAccountName: "",
+    bankAccountNumber: "",
 };
