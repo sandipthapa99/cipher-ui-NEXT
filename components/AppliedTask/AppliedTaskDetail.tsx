@@ -4,6 +4,7 @@ import { GoBack } from "@components/common/GoBack";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
+import PostModal from "@components/PostTask/PostModal";
 import {
     faCalendar,
     faChevronLeft,
@@ -20,6 +21,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
@@ -30,6 +32,12 @@ import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
+    const [showModal, setShowModal] = useState(false);
+
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
+
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
@@ -65,16 +73,31 @@ const AppliedTaskDetail: NextPage = () => {
                                 />
                                 <span className="name">Share</span>
                             </div>
-                            <EllipsisDropdown>
+                            <EllipsisDropdown
+                                showModal={true}
+                                handleOnClick={handleShowModal}
+                            >
                                 <FontAwesomeIcon
                                     icon={faEllipsisVertical}
                                     className="svg-icon option"
                                 />
                             </EllipsisDropdown>
-                            {/* <FontAwesomeIcon
-                                icon={faEllipsisVertical}
-                                className="svg-icon option"
-                            /> */}
+                            <Modal
+                                show={showModal}
+                                onHide={() => setShowModal(false)}
+                                backdrop="static"
+                                className="post-modal"
+                            >
+                                <Modal.Header
+                                    className="mt-4"
+                                    closeButton
+                                ></Modal.Header>
+                                <Modal.Body>
+                                    <PostModal
+                                        onSubmit={() => setShowModal(false)}
+                                    />
+                                </Modal.Body>
+                            </Modal>
                         </div>
                     </div>
                 </Row>

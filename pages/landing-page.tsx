@@ -1,5 +1,6 @@
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
 import CommunityBlogCard from "@components/common/BlogCard";
+import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
 import MerchantCard from "@components/common/MerchantCard";
@@ -94,13 +95,13 @@ const LandingPage: NextPage = () => {
 
                             <div className="come-with-us">
                                 <h1>Come with Us For</h1>
-                                <div className="">
-                                    <Link href="">
+                                <div className="d-flex">
+                                    <Link href="/earn-money">
                                         <a href="" className="hero-cta">
                                             Earn Money as a Professional
                                         </a>
                                     </Link>
-                                    <Link href="">
+                                    <Link href="/post-task">
                                         <a href="" className="hero-cta">
                                             Post a Task
                                         </a>
@@ -264,24 +265,24 @@ const LandingPage: NextPage = () => {
 
             {/* Get services section start */}
             <section className="get-services">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">
                         Get Services In An Instant
                     </h1>
-                    <ul className="d-flex align-items-center justify-content-center">
-                        <li>
+                    <ul className="d-block d-md-flex align-items-center justify-content-center">
+                        <li className="d-flex align-items-center">
                             <span>1</span>
                             Post the service you need
                         </li>
-                        <li>
+                        <li className="d-flex align-items-center">
                             <span>2</span>
                             Set your budget
                         </li>
-                        <li>
+                        <li className="d-flex align-items-center">
                             <span>3</span>
                             Get offers &amp; select most suited to you
                         </li>
-                        <li>
+                        <li className="d-flex align-items-center">
                             <span>4</span>
                             Pay &amp; Done
                         </li>
@@ -480,6 +481,49 @@ const LandingPage: NextPage = () => {
                 </Container>
             </section>
             {/* blog section end */}
+
+            {/* Tax calculator section start */}
+            <section className="tax-calculator">
+                <Container fluid="xl" className="px-5">
+                    <div className="gradient-wrapper">
+                        <span className="gradient"></span>
+                        <figure className="gradient-img">
+                            <Image
+                                src="/tax-calculator.png"
+                                alt="gradient-img"
+                                layout="fill"
+                                objectFit="cover"
+                            />
+                        </figure>
+                        <div className="overlay">
+                            <>
+                                <h1>
+                                    Nepali <span>Income Tax</span> and{" "}
+                                    <span>Pay Calculator</span>
+                                </h1>
+                                <div className="bottom-content">
+                                    <p>
+                                        Designing a calendar isn&apos;t always
+                                        as simple as filling.
+                                    </p>
+                                </div>
+                                <Link href="/tax-calculator">
+                                    <a>
+                                        <CardBtn
+                                            btnTitle="Calculate Now"
+                                            backgroundColor="#211D4F"
+                                            color="#FFF"
+                                        />
+                                    </a>
+                                </Link>
+                            </>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+            {/* Tax calculator section end */}
+
+            {/* Expore marketplace section start */}
             <section className="explore-marketplace">
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">
@@ -518,6 +562,7 @@ const LandingPage: NextPage = () => {
                     </Row>
                 </Container>
             </section>
+            {/* Expore marketplace section end */}
 
             <section className="top-categories-section">
                 <Container fluid="xl" className="px-5">

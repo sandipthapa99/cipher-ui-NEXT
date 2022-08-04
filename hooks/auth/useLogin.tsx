@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
 export interface LoginPayload {
