@@ -17,13 +17,13 @@ const About: NextPage = () => {
     return (
         <Layout title="Referral Programs | Cipher">
             <div className="referral-page">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <Breadcrum currentPage="Referral programs" />
                     <div className="referral-page__top-container">
                         <h1 className='"pt-1'>
                             Spread the word and earn rewards
                         </h1>
-                        <Row>
+                        <Row className="gx-5">
                             <Col md={6} className="pt-4">
                                 {" "}
                                 <h6>
@@ -37,7 +37,7 @@ const About: NextPage = () => {
                                     Ipsum has been the industry&apos;s standard
                                     dummy text ever since the 1500s, when an
                                 </p>
-                                <Row className="form-input">
+                                <Row className="form-input gx-5">
                                     <p>Invite via email</p>
                                     <Col md={7} sm={9}>
                                         {" "}
@@ -130,7 +130,7 @@ const About: NextPage = () => {
                     </div>
                     <div className="referral-page__bottom-container">
                         <h1>How does it work?</h1>
-                        <Row>
+                        <Row className="gx-5">
                             {referralCardContent &&
                                 referralCardContent.map((referral) => {
                                     return (
