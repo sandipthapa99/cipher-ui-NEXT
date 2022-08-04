@@ -6,23 +6,22 @@ import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
-import { ServiceClient } from "services/serviceClient";
-import { servicesNearYou } from "staticData/servicesNearYouCard";
+import { getAllServicesNearYou } from "services/commonServices";
 
 import SearchHeader from "../components/SearchTask/searchHeader";
 
 const SearchPage: NextPage = () => {
+    const servicesNearYou = getAllServicesNearYou();
     const [query, setQuery] = useState("");
-    const services = ServiceClient();
     const filteredServices = useMemo(
         () =>
             query
-                ? services.filter((service) =>
+                ? servicesNearYou.filter((service) =>
                       service.serviceTitle
                           .toLowerCase()
                           .includes(query.toLowerCase())
                   )
-                : services,
+                : servicesNearYou,
         [query]
     );
     return (
