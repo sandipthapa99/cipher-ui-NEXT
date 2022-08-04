@@ -95,7 +95,7 @@ const LandingPage: NextPage = () => {
 
                             <div className="come-with-us">
                                 <h1>Come with Us For</h1>
-                                <div className="">
+                                <div className="d-flex">
                                     <Link href="/earn-money">
                                         <a href="" className="hero-cta">
                                             Earn Money as a Professional
@@ -265,24 +265,24 @@ const LandingPage: NextPage = () => {
 
             {/* Get services section start */}
             <section className="get-services">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">
                         Get Services In An Instant
                     </h1>
-                    <ul className="d-flex align-items-center justify-content-center">
-                        <li>
+                    <ul className="d-block d-md-flex align-items-center justify-content-center">
+                        <li className="d-flex align-items-center">
                             <span>1</span>
                             Post the service you need
                         </li>
-                        <li>
+                        <li className="d-flex align-items-center">
                             <span>2</span>
                             Set your budget
                         </li>
-                        <li>
+                        <li className="d-flex align-items-center">
                             <span>3</span>
                             Get offers &amp; select most suited to you
                         </li>
-                        <li>
+                        <li className="d-flex align-items-center">
                             <span>4</span>
                             Pay &amp; Done
                         </li>

@@ -171,23 +171,35 @@
             }
 
             .come-with-us {
-                margin-bottom: 8rem;
+                margin-bottom: 4rem;
+                @include respond(md){
+                    margin-bottom: 8rem;
+                }
 
                 h1 {
-                    font-size: 3.2rem;
+                    font-size: 2.4rem;
                     font-weight: 400;
                     color: $primary-color;
-                    margin: 6.4rem 0 4rem 0;
+                    margin: 3.2rem 0 1.4rem 0;
+                    @include respond(md){
+                        font-size: 3.2rem;
+                        margin: 6.4rem 0 2rem 0;
+                    }
                 }
 
                 .hero-cta {
                     background-color: $primary-color;
                     color: #FFF;
-                    padding: 1rem 4rem;
-                    border-radius: 3rem;
-                    font-size: 2rem;
+                    padding: 0.8rem 1.2rem;
+                    border-radius: 2.4rem;
+                    font-size: 1.2rem;
                     font-weight: 500;
                     margin-top: 2rem;
+                    @include respond(md){
+                        font-size: 2rem;
+                        padding: 1rem 4rem;
+                        border-radius: 3rem;
+                    }
 
                     &:hover {
                         background: $secondary-color;
@@ -195,10 +207,13 @@
                     }
 
                     &:first-child {
-                        margin-right: 3rem;
+                        margin-right: 0.6rem;
                         background: none;
                         border: 1px solid #211D4F;
                         color: $primary-color;
+                        @include respond(md){
+                            margin-right: 3rem;
+                        }
 
                         &:hover {
                             background: $secondary-color;
@@ -229,7 +244,11 @@
         margin-bottom: 4rem;
 
         li {
-            margin-right: 8rem;
+            margin-right: 0;
+            margin-bottom: 2rem;
+            @include respond(md){
+                margin-right: 8rem;
+            }
 
             span {
                 background-color: #5C6096;
