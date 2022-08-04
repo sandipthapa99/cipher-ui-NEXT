@@ -12,7 +12,6 @@ const PackageOffersCard = ({
     isRecommended,
     isFromAddService,
 }: PacakageCardProps) => {
-    console.log("offers inside package offer card", offers);
     return (
         <div
             className={`package-card-block ${

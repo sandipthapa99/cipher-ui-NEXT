@@ -67,9 +67,7 @@
 @import "components/tooltip";
 @import "components/timelineTab";
 @import "components/teamMembersSection";
-
 @import "components/accountForm";
-
 @import "components/searchHeader";
 @import "components/postModal";
 @import "components/addRequirements";
@@ -77,8 +75,9 @@
 @import "components/searchBody";
 @import "components/postCard";
 @import "components/paymentHistory";
-
 @import "components/checkoutModal";
+@import "components/galleryForm";
+
 // Pages
 @import "pages/privacyPolicy";
 @import "pages/referall";
@@ -155,8 +154,6 @@
 @import "components/faq";
 @import "components/goBack";
 @import "components/ellipisdropdown";
-
-
 
 @import "components/newCategory";
 @import "components/cards/marketplace";
