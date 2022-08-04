@@ -11,6 +11,7 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { referralCardContent } from "staticData/referralCard";
 import emailValidationSchema from "utils/formValidation/emailValidation";
+import referralFormValidationSchema from "utils/formValidation/referralFormValidation";
 
 const About: NextPage = () => {
     return (
@@ -78,9 +79,11 @@ const About: NextPage = () => {
                                     <Col md={7} sm={9}>
                                         {" "}
                                         <Formik
-                                            initialValues={{ email: "" }}
+                                            initialValues={{
+                                                link: "",
+                                            }}
                                             validationSchema={
-                                                emailValidationSchema
+                                                referralFormValidationSchema
                                             }
                                             onSubmit={async (values) => {
                                                 console.log(values);
@@ -89,10 +92,10 @@ const About: NextPage = () => {
                                             {({ errors, touched }) => (
                                                 <Form>
                                                     <InputField
-                                                        type="email"
-                                                        name="email"
-                                                        error={errors.email}
-                                                        touch={touched.email}
+                                                        type="url"
+                                                        name="link"
+                                                        error={errors.link}
+                                                        touch={touched.link}
                                                         placeHolder="https://link.com"
                                                     />
                                                 </Form>

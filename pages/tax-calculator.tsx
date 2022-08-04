@@ -136,9 +136,6 @@ const TaxCalculator: NextPage = () => {
                                                                     }
                                                                     placeHolder="Unmarried"
                                                                     fieldRequired
-                                                                    haveIcon={
-                                                                        true
-                                                                    }
                                                                 />
                                                             </Col>
                                                         </Row>
@@ -169,141 +166,126 @@ const TaxCalculator: NextPage = () => {
                                                                         salaryType
                                                                     }
                                                                     fieldRequired
-                                                                    haveIcon={
-                                                                        true
-                                                                    }
-                                                                    inputIcon={
-                                                                        faCircleQuestion
-                                                                    }
                                                                     placeHolder="Yearly"
                                                                 />
                                                             </Col>
                                                         </Row>
-                                                        <div className="input-wrapper">
-                                                            <InputField
-                                                                name="festivalBonus"
-                                                                type="text"
-                                                                error={
-                                                                    errors.festivalBonus
-                                                                }
-                                                                touch={
-                                                                    touched.festivalBonus
-                                                                }
-                                                                haveIcon={true}
-                                                                inputIcon={
-                                                                    faCircleQuestion
-                                                                }
-                                                                placeHolder="Festival Bonus"
-                                                            />
-                                                        </div>
-                                                        <div className="input-wrapper">
-                                                            <InputField
-                                                                type="text"
-                                                                name="allowances"
-                                                                placeHolder="Allowances"
-                                                                error={
-                                                                    errors.allowances
-                                                                }
-                                                                touch={
-                                                                    touched.allowances
-                                                                }
-                                                                haveIcon={true}
-                                                                inputIcon={
-                                                                    faCircleQuestion
-                                                                }
-                                                            />
-                                                        </div>
-                                                        <div className="input-wrapper">
-                                                            <InputField
-                                                                type="text"
-                                                                name="others"
-                                                                placeHolder="Others"
-                                                                error={
-                                                                    errors.others
-                                                                }
-                                                                touch={
-                                                                    touched.others
-                                                                }
-                                                                haveIcon={true}
-                                                                inputIcon={
-                                                                    faCircleQuestion
-                                                                }
-                                                            />
-                                                        </div>
+                                                        <InputField
+                                                            name="festivalBonus"
+                                                            type="text"
+                                                            error={
+                                                                errors.festivalBonus
+                                                            }
+                                                            touch={
+                                                                touched.festivalBonus
+                                                            }
+                                                            haveIcon={true}
+                                                            inputIcon={
+                                                                faCircleQuestion
+                                                            }
+                                                            placeHolder="Festival Bonus"
+                                                        />
+
+                                                        <InputField
+                                                            type="text"
+                                                            name="allowances"
+                                                            placeHolder="Allowances"
+                                                            error={
+                                                                errors.allowances
+                                                            }
+                                                            touch={
+                                                                touched.allowances
+                                                            }
+                                                            haveIcon={true}
+                                                            inputIcon={
+                                                                faCircleQuestion
+                                                            }
+                                                        />
+
+                                                        <InputField
+                                                            type="text"
+                                                            name="others"
+                                                            placeHolder="Others"
+                                                            error={
+                                                                errors.others
+                                                            }
+                                                            touch={
+                                                                touched.others
+                                                            }
+                                                            haveIcon={true}
+                                                            inputIcon={
+                                                                faCircleQuestion
+                                                            }
+                                                        />
                                                     </div>
 
                                                     <div className="deduction">
                                                         <div className="label">
                                                             <p>Deduction</p>
                                                         </div>
-                                                        <div className="input-wrapper">
-                                                            <InputField
-                                                                type="text"
-                                                                name="providentFund"
-                                                                error={
-                                                                    errors.providentFund
-                                                                }
-                                                                placeHolder="Provident Fund"
-                                                                touch={
-                                                                    touched.providentFund
-                                                                }
-                                                                haveIcon={true}
-                                                                inputIcon={
-                                                                    faCircleQuestion
-                                                                }
-                                                            />
-                                                        </div>
-                                                        <div className="input-wrapper">
-                                                            <InputField
-                                                                type="text"
-                                                                name="investmentTrust"
-                                                                placeHolder="Investment Trust"
-                                                                error={
-                                                                    errors.investmentTrust
-                                                                }
-                                                                touch={
-                                                                    touched.investmentTrust
-                                                                }
-                                                                haveIcon={true}
-                                                                inputIcon={
-                                                                    faCircleQuestion
-                                                                }
-                                                            />
-                                                        </div>
-                                                        <div className="input-wrapper">
-                                                            <InputField
-                                                                type="text"
-                                                                placeHolder="Insurance"
-                                                                name="insurance"
-                                                                error={
-                                                                    errors.insurance
-                                                                }
-                                                                touch={
-                                                                    touched.insurance
-                                                                }
-                                                                haveIcon={true}
-                                                                inputIcon={
-                                                                    faCircleQuestion
-                                                                }
-                                                            />
-                                                        </div>
-                                                        <div className="input-wrapper">
-                                                            <InputField
-                                                                type="text"
-                                                                name="medicalInsurance"
-                                                                placeHolder="Medical Insurance"
-                                                                error={
-                                                                    errors.medicalInsurance
-                                                                }
-                                                                touch={
-                                                                    touched.medicalInsurance
-                                                                }
-                                                                haveIcon={true}
-                                                                inputIcon={
-                                                                    faCircleQuestion
-                                                                }
-                                                            />
-                                                        </div>
+                                                        <InputField
+                                                            type="text"
+                                                            name="providentFund"
+                                                            error={
+                                                                errors.providentFund
+                                                            }
+                                                            placeHolder="Provident Fund"
+                                                            touch={
+                                                                touched.providentFund
+                                                            }
+                                                            haveIcon={true}
+                                                            inputIcon={
+                                                                faCircleQuestion
+                                                            }
+                                                        />
+
+                                                        <InputField
+                                                            type="text"
+                                                            name="investmentTrust"
+                                                            placeHolder="Investment Trust"
+                                                            error={
+                                                                errors.investmentTrust
+                                                            }
+                                                            touch={
+                                                                touched.investmentTrust
+                                                            }
+                                                            haveIcon={true}
+                                                            inputIcon={
+                                                                faCircleQuestion
+                                                            }
+                                                        />
+
+                                                        <InputField
+                                                            type="text"
+                                                            placeHolder="Insurance"
+                                                            name="insurance"
+                                                            error={
+                                                                errors.insurance
+                                                            }
+                                                            touch={
+                                                                touched.insurance
+                                                            }
+                                                            haveIcon={true}
+                                                            inputIcon={
+                                                                faCircleQuestion
+                                                            }
+                                                        />
+
+                                                        <InputField
+                                                            type="text"
+                                                            name="medicalInsurance"
+                                                            placeHolder="Medical Insurance"
+                                                            error={
+                                                                errors.medicalInsurance
+                                                            }
+                                                            touch={
+                                                                touched.medicalInsurance
+                                                            }
+                                                            haveIcon={true}
+                                                            inputIcon={
+                                                                faCircleQuestion
+                                                            }
+                                                        />
                                                     </div>
                                                     <div className="buttons">
                                                         <Row>

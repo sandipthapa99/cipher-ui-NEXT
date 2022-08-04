@@ -13,6 +13,7 @@ const CreditCard = ({ cardDetail }: { cardDetail: CreditCardContent[0] }) => {
     return (
         <div
             onClick={isSelected}
+            style={{ backgroundColor: "#E9ECEF" }}
             className={`credit-card-wrapper ${
                 selected ? "credit-card-select" : "credit-card-default"
             } mt-3 mt-md-0 me-5`}
@@ -33,7 +34,7 @@ const CreditCard = ({ cardDetail }: { cardDetail: CreditCardContent[0] }) => {
                     <span>{cardDetail.name}</span>
                     <span>{cardDetail.expDate}</span>
                 </div>
-                <figure>
+                <figure className="credit-card-figure">
                     <Image
                         src={"/credit-card/Group.jpg"}
                         alt="card-image"

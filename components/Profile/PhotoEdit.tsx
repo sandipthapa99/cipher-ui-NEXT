@@ -12,12 +12,7 @@ interface ExperienceProps {
     photo: string;
 }
 
-const PhotoEdit = ({
-    show,
-    handleClose,
-    setShowExpForm,
-    photo,
-}: ExperienceProps) => {
+const PhotoEdit = ({ show, handleClose, photo }: ExperienceProps) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(3);
 

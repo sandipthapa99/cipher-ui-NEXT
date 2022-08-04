@@ -1,9 +1,12 @@
+import type { AccountValueProps } from "types/accountValueProps";
 import type { ApplyValueProps } from "types/applyValueProps";
 import type { BookNowFormProps } from "types/bookNow";
-import type { CertificationValueProps } from "types/CertificationValueProps";
+import type { CertificationValueProps } from "types/certificationValueProps";
+import type { changePasswordValueProps } from "types/changePasswordValueProps";
 import type { ClientSignUpValueProps } from "types/clientSignUp";
+import type { deactivateValueProps } from "types/deactivateValueProps";
 import type { AddPortfolio, AddSkills } from "types/editProfile";
-import type { EducationValueProps } from "types/EducationValueProps";
+import type { EducationValueProps } from "types/educationValueProps";
 import type { EquipmentValueProps } from "types/equipmentValueProps";
 import type { ExperienceValueProps } from "types/experienceValueProps";
 import type { LoginValuesProps } from "types/login";
@@ -108,18 +111,54 @@ export const EducationFormData: EducationValueProps = {
     startDate: null,
     endDate: null,
 };
+
 export const SkillsFromData: SkillsValueProps = {
     skills: "",
 };
+
+export const AccountFromData: AccountValueProps = {
+    fullName: "",
+    email: "",
+    bio: "",
+    gender: "",
+    dateOfBirth: null,
+    specialities: "",
+    experienceLevel: "",
+    activeHoursFrom: "",
+    activeHoursTo: null,
+    baseRatePerHour: null,
+    userType: "",
+    country: "",
+    addressLine1: "",
+    addressLine2: "",
+    language: "",
+    currency: "",
+    visibility: "",
+    taskPreferences: "",
+};
+
+export const ChangePasswordFromData: changePasswordValueProps = {
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+    toggle: false,
+};
+
 export const TaxCalculatorFormData: TaxCalculatorValueProps = {
     maritalStatus: "Unmarried",
-    salary: 0,
-    festivalBonus: 0,
+    salary: null,
+    festivalBonus: null,
     salaryType: "Yearly",
-    allowances: 0,
-    others: 0,
-    providentFund: 0,
-    investmentTrust: 0,
-    insurance: 0,
-    medicalInsurance: 0,
+    allowances: null,
+    others: null,
+    providentFund: null,
+    investmentTrust: null,
+    insurance: null,
+    medicalInsurance: null,
+};
+
+export const DeactivateFromData: deactivateValueProps = {
+    reason: "",
+    duration: "",
+    explaination: "",
 };

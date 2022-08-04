@@ -1,4 +1,6 @@
-import { ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
+
 import { successContext } from "./successContext";
 interface Props {
     children: ReactNode;

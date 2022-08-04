@@ -3,7 +3,7 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { log } from "console";
+import { useBookContext } from "context/BookNowContext/bookNowContext";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -24,6 +24,7 @@ const ModalCard = ({
     show,
     handleClose,
 }: BookNowModalCardProps) => {
+    const { setBookNowDetails, bookNowDetails } = useBookContext();
     const router = useRouter();
     return (
         <>
@@ -55,7 +56,7 @@ const ModalCard = ({
                             await router.push("task/checkout");
                         }}
                     >
-                        {({ isSubmitting, errors, touched, handleSubmit }) => (
+                        {({ isSubmitting, errors, touched }) => (
                             <Form>
                                 <div className="problem">
                                     <h4>Problem Description</h4>
@@ -112,14 +113,12 @@ const ModalCard = ({
                                     <Row className="gx-5">
                                         <Col md={3}>
                                             <figure className="girl-thumbnail-img">
-                                                {image && (
-                                                    <Image
-                                                        src={image}
-                                                        height={280}
-                                                        width={280}
-                                                        alt="serviceprovider-image"
-                                                    />
-                                                )}
+                                                <Image
+                                                    src={"/services/s1.png"}
+                                                    height={280}
+                                                    width={280}
+                                                    alt="serviceprovider-image"
+                                                />
                                             </figure>
                                         </Col>
                                         <Col md={3}>

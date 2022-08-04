@@ -5,7 +5,7 @@ import { Col, Row } from "react-bootstrap";
 import { rewardCardContent } from "staticData/rewardCard";
 
 const RewardCard = () => {
-    const [copySuccess, setCopySuccess] = useState("");
+    const [, setCopySuccess] = useState("");
     // your function to copy here
 
     const copyToClipBoard = async (copyMe: any) => {

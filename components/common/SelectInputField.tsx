@@ -15,8 +15,6 @@ const SelectInputField = ({
     textMuted,
     fieldRequired = false,
     options,
-    haveIcon,
-    inputIcon,
     ...restProps
 }: SelectInputFieldProps & Partial<HTMLInputElement>) => {
     return (
@@ -27,31 +25,8 @@ const SelectInputField = ({
                     {fieldRequired && <span className="asterisk">*</span>}
                 </label>
             )}
-            {haveIcon ? (
-                <div className="dropdown-with-icon">
-                    <Field
-                        {...restProps}
-                        name={name}
-                        id={name}
-                        className={checkFormControl(error, touch)}
-                        placeholder={placeHolder}
-                        as="select"
-                    >
-                        <option value="" defaultValue="">
-                            {placeHolder}
-                        </option>
-                        {options.map((option: SelectOptionProps) => (
-                            <option key={option?.id} value={option?.value}>
-                                {option?.label}
-                            </option>
-                        ))}
-                    </Field>
-                    <FontAwesomeIcon
-                        icon={faChevronDown}
-                        className="svg-icon"
-                    />
-                </div>
-            ) : (
+
+            <div className="dropdown-with-icon">
                 <Field
                     {...restProps}
                     name={name}
@@ -69,8 +44,11 @@ const SelectInputField = ({
                         </option>
                     ))}
                 </Field>
-            )}
-
+                <FontAwesomeIcon
+                    icon={faChevronDown}
+                    className="svg-icon me-4"
+                />
+            </div>
             <ErrorMessage
                 name={name}
                 component="span"

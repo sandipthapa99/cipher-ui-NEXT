@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { destroyCookie } from "nookies";
 import React from "react";
 import type { ProfileCardContent } from "staticData/profileCardContent";
 
@@ -94,13 +93,13 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link href="">
+                    <Link href="/settings/account/individual">
                         <a>
                             <FontAwesomeIcon
                                 icon={faGear}
                                 className="svg-icon"
                             />
-                            payment history
+                            Settings
                         </a>
                     </Link>
                 </li>

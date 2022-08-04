@@ -70,3 +70,48 @@
         right: 0;
     }
 }
+.cancel-btn {
+    background: transparent;
+    color: $primary-color;
+    font-weight: 400;
+    font-size: 1.6rem;
+    border: transparent;
+    padding: 0 2rem;
+    &:hover {
+        background: $secondary-color;
+        color: #fff;
+        border: none;
+        outline: none;
+    }
+    &:focus {
+        background: transparent;
+        color: $primary-color;
+        border: none;
+        outline: none;
+    }
+}
+.close-btn {
+    background-size: 200% 100%;
+    border: 0.1rem solid $primary-color;
+    background: transparent;
+    color: $primary-color;
+    height: 4rem;
+    font-size: 1.6rem;
+    &:hover {
+        background-position-x: -150%;
+        transition: background-position-x 600ms;
+        color: $primary-color;
+    }
+    &:focus {
+        background: transparent;
+        color: $primary-color;
+        border: 0.1rem solid $primary-color;
+        outline: none;
+        box-shadow: none !important;
+    }
+}
+.default {
+    background: $grayScale6;
+    border: none;
+    font-size: 1.4rem;
+}

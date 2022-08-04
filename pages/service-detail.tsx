@@ -1,4 +1,5 @@
 import Breadcrum from "@components/common/Breadcrum";
+import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
 import SelectInputField from "@components/common/SelectInputField";
@@ -64,10 +65,13 @@ const ServiceDetail: NextPage = () => {
                                             />
                                             <p className="name">Share</p>
                                         </div>
-                                        <FontAwesomeIcon
-                                            icon={faEllipsisVertical}
-                                            className="svg-icon option"
-                                        />
+
+                                        <EllipsisDropdown>
+                                            <FontAwesomeIcon
+                                                icon={faEllipsisVertical}
+                                                className="svg-icon option"
+                                            />
+                                        </EllipsisDropdown>
                                     </div>
                                 </div>
                             </Col>
