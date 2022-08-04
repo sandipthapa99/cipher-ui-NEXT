@@ -60,7 +60,6 @@ const NotificationSettings = () => {
                         labelName="Send an Email with unread activity for"
                         placeHolder="All activity"
                         options={dropdownCurrencyOptions}
-                        haveIcon
                     />
                     <SelectInputField
                         name="country"
