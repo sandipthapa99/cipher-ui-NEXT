@@ -51,7 +51,7 @@ const TaskerMarketPlace: NextPage = () => {
                         />
                     </div>
                     <div className="tasker-marketplace__services">
-                        <h1>What you&npos;ll get?</h1>
+                        <h1>What you&apos;ll get?</h1>
                         <Row>
                             {taskerServices &&
                                 taskerServices.map((info) => (
