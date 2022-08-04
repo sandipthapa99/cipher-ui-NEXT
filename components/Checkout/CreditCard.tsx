@@ -33,7 +33,7 @@ const CreditCard = ({ cardDetail }: { cardDetail: CreditCardContent[0] }) => {
                     <span>{cardDetail.name}</span>
                     <span>{cardDetail.expDate}</span>
                 </div>
-                <figure>
+                <figure className="credit-card-figure">
                     <Image
                         src={"/credit-card/Group.jpg"}
                         alt="card-image"

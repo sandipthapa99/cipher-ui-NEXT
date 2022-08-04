@@ -27,7 +27,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
     return (
         <Layout title="Settings" description="User profile settings">
             <section className="account-settings" id="account-settings">
-                <Container>
+                <Container fluid="xl">
                     <Row>
                         <Col md={3}>
                             <Nav>
