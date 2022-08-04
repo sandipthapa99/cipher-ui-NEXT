@@ -37,7 +37,7 @@ const ServiceCard = ({
                 {hasOffer && (
                     <div className="offer">
                         <p className="discount-rate">{discountRate}% OFF</p>
-                        <p className="discount-on">{discountOn}</p>
+                        {/* <p className="discount-on">{discountOn}</p> */}
                     </div>
                 )}
             </div>
