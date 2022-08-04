@@ -1,5 +1,6 @@
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
 import CommunityBlogCard from "@components/common/BlogCard";
+import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
 import MerchantCard from "@components/common/MerchantCard";
@@ -480,6 +481,49 @@ const LandingPage: NextPage = () => {
                 </Container>
             </section>
             {/* blog section end */}
+
+            {/* Tax calculator section start */}
+            <section className="tax-calculator">
+                <Container fluid="xl" className="px-5">
+                    <div className="gradient-wrapper">
+                        <span className="gradient"></span>
+                        <figure className="gradient-img">
+                            <Image
+                                src="/tax-calculator.png"
+                                alt="gradient-img"
+                                layout="fill"
+                                objectFit="cover"
+                            />
+                        </figure>
+                        <div className="overlay">
+                            <>
+                                <h1>
+                                    Nepali <span>Income Tax</span> and{" "}
+                                    <span>Pay Calculator</span>
+                                </h1>
+                                <div className="bottom-content">
+                                    <p>
+                                        Designing a calendar isn&apos;t always
+                                        as simple as filling.
+                                    </p>
+                                </div>
+                                <Link href="/tax-calculator">
+                                    <a>
+                                        <CardBtn
+                                            btnTitle="Calculate Now"
+                                            backgroundColor="#211D4F"
+                                            color="#FFF"
+                                        />
+                                    </a>
+                                </Link>
+                            </>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+            {/* Tax calculator section end */}
+
+            {/* Expore marketplace section start */}
             <section className="explore-marketplace">
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">
@@ -518,6 +562,7 @@ const LandingPage: NextPage = () => {
                     </Row>
                 </Container>
             </section>
+            {/* Expore marketplace section end */}
 
             <section className="top-categories-section">
                 <Container fluid="xl" className="px-5">
