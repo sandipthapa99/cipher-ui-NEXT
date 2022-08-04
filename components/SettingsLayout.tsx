@@ -143,10 +143,12 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href={""}>
+                                        <Link
+                                            href={"/settings/account/payment"}
+                                        >
                                             <a
                                                 className={isRouteActive(
-                                                    "/settings/account/connectedAccount"
+                                                    "/settings/account/payment"
                                                 )}
                                             >
                                                 <FontAwesomeIcon
