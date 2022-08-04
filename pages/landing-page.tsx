@@ -96,12 +96,12 @@ const LandingPage: NextPage = () => {
                             <div className="come-with-us">
                                 <h1>Come with Us For</h1>
                                 <div className="">
-                                    <Link href="">
+                                    <Link href="/earn-money">
                                         <a href="" className="hero-cta">
                                             Earn Money as a Professional
                                         </a>
                                     </Link>
-                                    <Link href="">
+                                    <Link href="/post-task">
                                         <a href="" className="hero-cta">
                                             Post a Task
                                         </a>

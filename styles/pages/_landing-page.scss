@@ -201,9 +201,9 @@
                         color: $primary-color;
 
                         &:hover {
-                            background: $primary-color;
-                            color: #FFF;
-                            border: 1px solid $primary-color;
+                            background: $secondary-color;
+                            color: $primary-color;
+                            border: 1px solid $secondary-color;
                         }
                     }
                 }
