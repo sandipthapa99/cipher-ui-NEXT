@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const numberValidate = Yup.number().required("Required field");
+const numberValidate = Yup.number().nullable().required("Required field");
 const maritalStatusValidate = Yup.mixed().oneOf(["married", "Unmarried"]);
 const incomeStatusValidate = Yup.mixed().oneOf(["Yearly", "monthly"]);
 
