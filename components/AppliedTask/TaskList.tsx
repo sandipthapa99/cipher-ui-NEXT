@@ -65,7 +65,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
                                 {task.cardTime}
                             </p>
                         </div>
-                        <span>{bookNowDetails.servicePrice}</span>
+                        <span>Rs. {bookNowDetails.servicePrice}</span>
                     </div>
                 </div>
                 <div className="task-list__promo">
@@ -111,7 +111,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
                 </div>
                 <div className="d-flex justify-content-between mt-4 task-list__totalprice">
                     Total
-                    <span>{bookNowDetails.servicePrice}</span>
+                    <span>Rs. {bookNowDetails.servicePrice}</span>
                 </div>
                 <AnchorButton
                     className={"w-100 task-list__button"}

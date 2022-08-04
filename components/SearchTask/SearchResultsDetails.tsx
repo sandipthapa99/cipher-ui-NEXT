@@ -1,7 +1,3 @@
-import AppliedForm from "@components/AppliedTask/AppliedForm";
-import TaskCard from "@components/AppliedTask/taskAppliedCard";
-import { Collaboration } from "@components/Collaboration/Collaboration";
-import BookNowButton from "@components/common/BookNowButton";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCard from "@components/common/CategoryCard";
 import { FilterReview } from "@components/common/FilterReview";
@@ -10,10 +6,6 @@ import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
 import ServiceCard from "@components/common/ServiceCard";
 import ServiceHighlights from "@components/common/ServiceHighlights";
-import SimpleProfileCard from "@components/common/SimpleProfileCard";
-import { Tab } from "@components/common/Tab";
-import MembershipCard from "@components/MembershipCard";
-import { UserTaskReviews } from "@components/Task/UserTaskDetail/atoms/UserTaskReviews";
 import {
     faCalendar,
     faChevronLeft,
@@ -25,7 +17,6 @@ import {
     faShare,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
-import { faArrowLeft, faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useBookContext } from "context/BookNowContext/bookNowContext";
 import Image from "next/image";

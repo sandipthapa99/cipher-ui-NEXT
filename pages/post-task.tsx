@@ -9,9 +9,9 @@ import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import { SearchBodyData } from "staticData/searchBody";
-import { serviceCategory } from "staticData/serviceCategory";
-import { services } from "staticData/services";
+import { SearchBodyClient } from "services/searchBodyClient";
+import { SearchCategoryClient } from "services/serviceCategoryClient";
+import { ServicesItemClient } from "services/services";
 
 import SearchHeader from "../components/SearchTask/searchHeader";
 
@@ -21,6 +21,9 @@ const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
     ssr: false,
 });
 const PostTask: NextPage = () => {
+    const searchBodyContent = SearchBodyClient();
+    const serviceCategoryItems = SearchCategoryClient();
+    const ServicesItem = ServicesItemClient();
     return (
         <>
             <SearchHeader />
@@ -34,7 +37,7 @@ const PostTask: NextPage = () => {
                         </div>
                     </Col>
                     <Col md={5} className="user-stat-card">
-                        {SearchBodyData.map((data) => {
+                        {searchBodyContent.map((data) => {
                             return (
                                 <SearchBody
                                     key={data.id}
@@ -72,8 +75,8 @@ const PostTask: NextPage = () => {
                         </Col>
                     </Row>
 
-                    {services &&
-                        services.map((service) => {
+                    {ServicesItem &&
+                        ServicesItem.map((service) => {
                             return (
                                 <Col sm={6} md={4} lg={3} key={service.id}>
                                     <Link href="/service-detail">
@@ -119,8 +122,8 @@ const PostTask: NextPage = () => {
                         Our services by category
                     </h1>
                     <Row className="gx-5">
-                        {serviceCategory &&
-                            serviceCategory.map((category) => {
+                        {serviceCategoryItems &&
+                            serviceCategoryItems.map((category) => {
                                 return (
                                     <Col xs={6} sm={4} lg={2} key={category.id}>
                                         <CategoryCard
@@ -134,8 +137,8 @@ const PostTask: NextPage = () => {
                             })}
                     </Row>
                     <Row className="gx-5">
-                        {serviceCategory &&
-                            serviceCategory.map((category) => {
+                        {serviceCategoryItems &&
+                            serviceCategoryItems.map((category) => {
                                 return (
                                     <Col xs={6} sm={4} lg={2} key={category.id}>
                                         <CategoryCard
@@ -162,8 +165,8 @@ const PostTask: NextPage = () => {
                         </Col>
                     </Row>
 
-                    {services &&
-                        services.map((service) => {
+                    {ServicesItem &&
+                        ServicesItem.map((service) => {
                             return (
                                 <Col sm={6} md={4} lg={3} key={service.id}>
                                     <Link href="/service-detail">

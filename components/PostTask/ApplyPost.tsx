@@ -18,13 +18,13 @@ const ApplyPost = () => {
 
             <Row>
                 <Col md={8}>
-                    {tasks.length > 0 && typeof window !== "undefined" ? (
+                    {/* {tasks.length > 0 && typeof window !== "undefined" ? (
                         <div className="client-tasks">
                             {tasks.map((task, index) => (
                                 <ClientTaskCard key={index} task={task} />
                             ))}
                         </div>
-                    ) : null}
+                    ) : null} */}
                     <Post />
                 </Col>
                 <Col md={4}>
