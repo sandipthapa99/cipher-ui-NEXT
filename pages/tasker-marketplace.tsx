@@ -6,7 +6,7 @@ import Layout from "@components/Layout";
 import type { NextPage } from "next";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { faqContent } from "staticData/faq";
-import { taskerServices } from "staticData/taskerMarketPlace";
+import { taskerServices, trustedPartners } from "staticData/taskerMarketPlace";
 
 const waysToHire = [
     {
@@ -25,6 +25,7 @@ const waysToHire = [
         desc: "Choose the best fit for your team.",
     },
 ];
+
 const TaskerMarketPlace: NextPage = () => {
     return (
         <Layout title="Tasker Marketplace | Cipher">
@@ -55,7 +56,10 @@ const TaskerMarketPlace: NextPage = () => {
                         <Row>
                             {taskerServices &&
                                 taskerServices.map((info) => (
-                                    <Col key={info.id}>
+                                    <Col
+                                        className="d-flex align-items-stretch"
+                                        key={info.id}
+                                    >
                                         <CommunityGuidelineCard
                                             cardTitle={info.cardTitle}
                                             cardDescription={
@@ -69,8 +73,15 @@ const TaskerMarketPlace: NextPage = () => {
                     </div>
                     <div className="tasker-marketplace__partners">
                         <h1>Trusted Partners</h1>
+                        <div className="content">
+                            {trustedPartners &&
+                                trustedPartners.map((partner) => (
+                                    <h1 key={partner.id}>{partner.name}</h1>
+                                ))}
+                        </div>
                     </div>
                     <div className="tasker-marketplace__faq">
+                        <h1>Frequently Asked Questions</h1>
                         <Accordion flush>
                             {faqContent &&
                                 faqContent.map((faq) => (

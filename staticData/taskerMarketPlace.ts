@@ -31,3 +31,31 @@ export const taskerServices = [
         ],
     },
 ];
+
+export const trustedPartners = [
+    {
+        id: "0",
+        name: "Cagtu",
+    },
+    {
+        id: "1",
+        name: "Cipher",
+    },
+    {
+        id: "2",
+        name: "Code Sharav",
+    },
+    {
+        id: "3",
+        name: "Buzz",
+    },
+
+    {
+        id: "4",
+        name: "Cipher",
+    },
+    {
+        id: "5",
+        name: "Code Sharav",
+    },
+];
