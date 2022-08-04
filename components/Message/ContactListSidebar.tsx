@@ -1,12 +1,15 @@
 import { ContactList } from "@components/Message/ContactList";
+import { MessageListSidebar } from "@components/Message/MessageListSidebar";
 import { useState } from "react";
-import { Contact, TODAY_CONTACTS } from "staticData/messages";
+import type { Contact } from "staticData/messages";
 
 interface ContactsProps {
     contacts: Contact[];
 }
 export const ContactListSideBar = ({ contacts }: ContactsProps) => {
     const [activeContact, setActiveContact] = useState<Contact | undefined>();
+
+    const removeActiveContact = () => setActiveContact(undefined);
     return (
         <div className="contact-sidebar">
             <div className="contact-sidebar__contacts">
@@ -21,6 +24,12 @@ export const ContactListSideBar = ({ contacts }: ContactsProps) => {
                     onContactClick={setActiveContact}
                 />
             </div>
+            {activeContact !== undefined && (
+                <MessageListSidebar
+                    onBackClick={removeActiveContact}
+                    contact={activeContact}
+                />
+            )}
         </div>
     );
 };

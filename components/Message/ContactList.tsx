@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { Contact } from "staticData/messages";
+import type { Contact } from "staticData/messages";
 
 export interface ContactListProps {
     title: string;

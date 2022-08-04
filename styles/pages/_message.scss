@@ -3,8 +3,8 @@
     background-color: $white;
     border-radius: 4px;
     margin-bottom: 70px;
-    &__contacts {
-    }
+    display: flex;
+    align-items: flex-start;
 }
 
 /* ===================== ContactList.tsx ===================== */
@@ -15,8 +15,12 @@
         font-size: 16px;
         font-weight: 600;
         color: $primary-color;
-        padding: 32px 16px;
+        padding-inline: 16px;
         border-bottom: 1px solid #edf4ff;
+        margin-bottom: 0;
+        height: 82px;
+        display: flex;
+        align-items: center;
     }
     &__item {
         padding: 16px;
@@ -45,5 +49,32 @@
             color: #868e96;
             font-size: 10px;
         }
+    }
+}
+/* ===================== MessageHeader.tsx ===================== */
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    padding: 16px 48px;
+    border-bottom: 1px solid #edf4ff;
+    height: 82px;
+
+    &__left {
+        &--user {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        &--user .text {
+            font-size: 12px;
+            font-weight: 400;
+        }
+    }
+    &__right {
+        display: flex;
+        align-items: center;
+        gap: 32px;
     }
 }
