@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { ServiceClient } from "services/serviceClient";
 
 import type { ServiceNearYou } from "../../staticData/servicesNearYouCard";
 import ServiceNearYouCard from "./searchAside";
@@ -14,9 +13,8 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
     const [activeService, setActiveService] = useState<
         ServiceNearYou | undefined
     >();
-    const services = ServiceClient();
     const renderServiceCards = () =>
-        services.map((service) => {
+        servicesNearYou.map((service) => {
             return (
                 <div
                     key={service.id}
@@ -32,7 +30,8 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
             <Row>
                 <Col className="search-results--col" md={4}>
                     <p>
-                        {services.length} Services in Kathmandu, Nepal (1 new)
+                        {servicesNearYou.length} Services in Kathmandu, Nepal (1
+                        new)
                     </p>
                     {renderServiceCards()}
                 </Col>

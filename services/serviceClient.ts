@@ -199,7 +199,8 @@ const servicesNearYou = [
 ];
 
 export const ServiceClient = () => {
-    const [services, setServices] = useState<typeof servicesNearYou>([]);
+    const [services, setServices] =
+        useState<typeof servicesNearYou>(servicesNearYou);
 
     // const service = axiosClient.get(`/services`);
     useEffect(() => {

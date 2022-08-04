@@ -56,6 +56,10 @@ const ModalCard = ({
                         onSubmit={async (values) => {
                             console.log(values);
                             await router.push("task/checkout");
+                            setBookNowDetails((prev) => ({
+                                ...prev,
+                                ...values,
+                            }));
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

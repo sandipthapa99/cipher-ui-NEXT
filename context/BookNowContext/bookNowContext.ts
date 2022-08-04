@@ -1,8 +1,9 @@
 import { createContext, useContext } from "react";
+import type { BookNowDetails } from "types/serviceNearYouCard";
 
 interface BookNowContext {
-    bookNowDetails: any;
-    setBookNowDetails: Function;
+    bookNowDetails: BookNowDetails;
+    setBookNowDetails: React.Dispatch<React.SetStateAction<BookNowDetails>>;
 }
 
 export const bookNowContext = createContext<BookNowContext>(

@@ -10,3 +10,9 @@ export interface ServiceNearYouCardProps {
     serviceDescription: string;
     discountOn?: string;
 }
+export interface BookNowDetails extends ServiceNearYouCardProps {
+    problemDescription?: string;
+    startdate?: string;
+    endDate?: string;
+    estimatedHours?: number;
+}

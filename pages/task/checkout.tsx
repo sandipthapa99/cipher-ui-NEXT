@@ -19,6 +19,8 @@ import { taskListContent } from "staticData/taskListData";
 
 const Checkout = () => {
     const { bookNowDetails } = useBookContext();
+    console.log(bookNowDetails);
+
     return (
         <>
             {!bookNowDetails ? (

@@ -55,7 +55,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
                                     icon={faCalendar}
                                     className="svg-icon svg-icon-calender"
                                 />
-                                {task.cardDate}
+                                {bookNowDetails.startdate}
                             </p>
                             <p>
                                 <FontAwesomeIcon
