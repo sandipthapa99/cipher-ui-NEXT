@@ -10,7 +10,6 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { ImageVideoDragDop } from "staticData/dragDropContent";
 import { KYCFormData } from "utils/formData";
 import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
 import { isSubmittingClass } from "utils/helpers";
@@ -104,16 +103,12 @@ const KYCForm = () => {
                                 License or Passport{" "}
                             </p>
                             <Col md={5}>
-                                {ImageVideoDragDop &&
-                                    ImageVideoDragDop.map((info) => (
-                                        <DragDrop
-                                            key={info.id}
-                                            image={info.image}
-                                            fileType={info.fileType}
-                                            maxImageSize={info.maxImageSize}
-                                            maxVideoSize={info.maxVideoSize}
-                                        />
-                                    ))}
+                                <DragDrop
+                                    image="/service-details/file-upload.svg"
+                                    fileType="Image/Video"
+                                    maxImageSize={20}
+                                    maxVideoSize={200}
+                                />
                             </Col>
                             <hr />
                             <h5>PAN/VAT Information </h5>
@@ -149,16 +144,12 @@ const KYCForm = () => {
                             <h4>PAN/ VAT Card</h4>
                             <p>Document can be PAN or VAT Card </p>
                             <Col md={5}>
-                                {ImageVideoDragDop &&
-                                    ImageVideoDragDop.map((info) => (
-                                        <DragDrop
-                                            key={info.id}
-                                            image={info.image}
-                                            fileType={info.fileType}
-                                            maxImageSize={info.maxImageSize}
-                                            maxVideoSize={info.maxVideoSize}
-                                        />
-                                    ))}
+                                <DragDrop
+                                    image="/service-details/file-upload.svg"
+                                    fileType="Image/Video"
+                                    maxImageSize={20}
+                                    maxVideoSize={200}
+                                />
                             </Col>
                             <hr />
                             <Row>
@@ -168,16 +159,12 @@ const KYCForm = () => {
                                         Upload your recent passport sized
                                         picture
                                     </p>
-                                    {ImageVideoDragDop &&
-                                        ImageVideoDragDop.map((info) => (
-                                            <DragDrop
-                                                key={info.id}
-                                                image={info.image}
-                                                fileType={info.fileType}
-                                                maxImageSize={info.maxImageSize}
-                                                maxVideoSize={info.maxVideoSize}
-                                            />
-                                        ))}
+                                    <DragDrop
+                                        image="/service-details/file-upload.svg"
+                                        fileType="Image/Video"
+                                        maxImageSize={20}
+                                        maxVideoSize={200}
+                                    />
                                 </Col>
                                 <Col lg={{ span: 5, offset: 2 }} md={6}>
                                     <h5>Address Verification Document</h5>
@@ -185,16 +172,12 @@ const KYCForm = () => {
                                         Document can be Electricity Bill, Water
                                         Bill, Rental Aggrement.
                                     </p>
-                                    {ImageVideoDragDop &&
-                                        ImageVideoDragDop.map((info) => (
-                                            <DragDrop
-                                                key={info.id}
-                                                image={info.image}
-                                                fileType={info.fileType}
-                                                maxImageSize={info.maxImageSize}
-                                                maxVideoSize={info.maxVideoSize}
-                                            />
-                                        ))}
+                                    <DragDrop
+                                        image="/service-details/file-upload.svg"
+                                        fileType="Image/Video"
+                                        maxImageSize={20}
+                                        maxVideoSize={200}
+                                    />
                                 </Col>
                             </Row>
                             <hr />
