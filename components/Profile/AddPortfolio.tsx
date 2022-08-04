@@ -5,7 +5,6 @@ import { Form, Formik } from "formik";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { ImageVideoDragDop, PdfDragDrop } from "staticData/dragDropContent";
 import { AddPortfolio } from "types/editProfile";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
@@ -74,45 +73,24 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                                 <p>
                                                     Add relevant images or video
                                                 </p>
-                                                {ImageVideoDragDop &&
-                                                    ImageVideoDragDop.map(
-                                                        (info) => (
-                                                            <DragDrop
-                                                                key={info.id}
-                                                                image={
-                                                                    info.image
-                                                                }
-                                                                fileType={
-                                                                    info.fileType
-                                                                }
-                                                                maxImageSize={
-                                                                    info.maxImageSize
-                                                                }
-                                                                maxVideoSize={
-                                                                    info.maxVideoSize
-                                                                }
-                                                            />
-                                                        )
-                                                    )}
+
+                                                <DragDrop
+                                                    image="/service-details/file-upload.svg"
+                                                    fileType="Image/Video"
+                                                    maxImageSize={20}
+                                                    maxVideoSize={200}
+                                                />
                                             </Col>
                                         </Row>
                                         <Row>
                                             <Col md={5}>
                                                 <h4>Pdf</h4>
                                                 <p>Add relevant pdf</p>
-                                                {PdfDragDrop &&
-                                                    PdfDragDrop.map((info) => (
-                                                        <DragDrop
-                                                            key={info.id}
-                                                            image={info.image}
-                                                            fileType={
-                                                                info.fileType
-                                                            }
-                                                            maxPdfSize={
-                                                                info.maxPdfSize
-                                                            }
-                                                        />
-                                                    ))}
+                                                <DragDrop
+                                                    image="/userprofile/pdf.svg"
+                                                    fileType="Pdf"
+                                                    maxPdfSize={20}
+                                                />
                                             </Col>
                                         </Row>
                                     </Row>
