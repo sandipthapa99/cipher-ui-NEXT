@@ -26,6 +26,12 @@ const ChangePasswordForm = () => {
                     validationSchema={changePasswordFormSchema}
                     onSubmit={async (values, action) => {
                         setShowSuccessModal(true);
+                        // To be used for API
+                        // try {
+                        //     axiosClient.post("/routes", values);
+                        // } catch (error: any) {
+                        //     error.response.data.message;
+                        // }
                         console.log(values);
                         action.resetForm();
                     }}
