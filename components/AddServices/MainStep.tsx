@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { GalleryFrom } from "./GalleryFrom";
 
 import { PackageDetails } from "./PackageDetails";
+import { PublishComponent } from "./PublishComponent";
 import { ServiceDetails } from "./ServiceDetails";
 
 export const MainStep = () => {
@@ -26,10 +27,13 @@ export const MainStep = () => {
                 />
             );
 
-        case 3: 
-        return (
-            <GalleryFrom />
-        )
+        case 3:
+            return (
+                <GalleryFrom handleNext={handleNext} handlePrev={handlePrev} />
+            );
+
+        case 4:
+            return <PublishComponent handlePrev={handlePrev}/>;
 
         default:
             return <ServiceDetails handleNext={handleNext} />;
