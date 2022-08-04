@@ -1,7 +1,9 @@
+import { log } from "console";
 import { useClientTasks } from "context/ClientTaskContext";
 import { useSuccessContext } from "context/successContext/successContext";
 import { useFormik } from "formik";
 import Image from "next/image";
+import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import type { PostTaskData } from "types/postTaskData";
 
@@ -48,9 +50,11 @@ const PostModal = ({ onSubmit }: Props) => {
             maxBudget: 0,
             address: "",
             requirements: [],
-            image: null,
+            image: File | null | undefined,
         },
         onSubmit(values) {
+            console.log(values);
+
             addTask(values, () => {
                 setShowSuccessModal(true);
 
@@ -337,7 +341,7 @@ const PostModal = ({ onSubmit }: Props) => {
                     </Col>
                 </Row>
                 <Row>
-                    <DragAndDrop />
+                    <DragAndDrop field={setFieldValue} />
                 </Row>
                 <div className="submit-buttons">
                     <div
@@ -372,7 +376,23 @@ const PostModal = ({ onSubmit }: Props) => {
 };
 export default PostModal;
 
-export const DragAndDrop = () => {
+export const DragAndDrop = ({ field }) => {
+    function handleChange(event) {
+        const files = event.target.files;
+        const file = files[0];
+        getBase64(file);
+    }
+    const onLoad = (fileString) => {
+        field?.("images", ["image", fileString]);
+    };
+
+    const getBase64 = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            onLoad(reader.result);
+        };
+    };
     return (
         <Col md={4} className="drag-down">
             <figure className="thumbnail-img">
@@ -392,7 +412,7 @@ export const DragAndDrop = () => {
             <p>Maximum Image Size 20 MB</p>
             <p>Maximum Video Size 200 MB</p>
             <div style={{ visibility: "hidden" }}>
-                <input type={"file"} id="choosefile" />
+                <input type={"file"} id="choosefile" onChange={handleChange} />
             </div>
         </Col>
     );
