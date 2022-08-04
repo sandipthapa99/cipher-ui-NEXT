@@ -20,7 +20,11 @@ const DragDrop = ({
             </figure>
             <p className="info">
                 Drag or
-                <label htmlFor="choosefile" className="browse">
+                <label
+                    htmlFor="choosefile"
+                    className="browse text-primary"
+                    role="button"
+                >
                     &nbsp;Browse
                 </label>{" "}
                 <br />
