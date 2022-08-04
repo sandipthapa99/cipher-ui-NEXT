@@ -43,20 +43,8 @@
         .deduction {
             padding-top: 1.6rem;
         }
-        .input-wrapper {
-            display: flex;
-
-            position: relative;
-            .form-group {
-                flex: 1;
-            }
-            .svg-icon {
-                //   position: absolute;
-                z-index: 1;
-                top: 1.6rem;
-                right: 1rem;
-                color: #868e96;
-            }
+        .form-control::placeholder {
+            color: #212529;
         }
 
         .label {
