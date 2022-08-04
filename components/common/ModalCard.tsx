@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { ImageVideoDragDop } from "staticData/dragDropContent";
 import type { BookNowModalCardProps } from "types/bookNow";
 import { BookServiceFormData } from "utils/formData";
 import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidation";

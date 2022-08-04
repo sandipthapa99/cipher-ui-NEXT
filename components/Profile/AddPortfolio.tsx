@@ -5,7 +5,6 @@ import { Form, Formik } from "formik";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { ImageVideoDragDop, PdfDragDrop } from "staticData/dragDropContent";
 import { AddPortfolio } from "types/editProfile";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
