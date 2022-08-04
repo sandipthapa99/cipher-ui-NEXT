@@ -4,11 +4,13 @@ import InputField from "@components/common/InputField";
 import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { log } from "console";
+import { useBookContext } from "context/BookNowContext/bookNowContext";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { Prev } from "react-bootstrap/esm/PageItem";
 import Modal from "react-bootstrap/Modal";
 import { ImageVideoDragDop } from "staticData/dragDropContent";
 import type { BookNowModalCardProps } from "types/bookNow";
@@ -24,6 +26,7 @@ const ModalCard = ({
     show,
     handleClose,
 }: BookNowModalCardProps) => {
+    const { setBookNowDetails, bookNowDetails } = useBookContext();
     const router = useRouter();
     return (
         <>
@@ -55,7 +58,7 @@ const ModalCard = ({
                             await router.push("task/checkout");
                         }}
                     >
-                        {({ isSubmitting, errors, touched, handleSubmit }) => (
+                        {({ isSubmitting, errors, touched }) => (
                             <Form>
                                 <div className="problem">
                                     <h4>Problem Description</h4>
@@ -113,7 +116,7 @@ const ModalCard = ({
                                         <Col md={3}>
                                             <figure className="girl-thumbnail-img">
                                                 <Image
-                                                    src={image}
+                                                    src={"/services/s1.png"}
                                                     height={280}
                                                     width={280}
                                                     alt="serviceprovider-image"

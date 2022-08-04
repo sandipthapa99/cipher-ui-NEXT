@@ -13,6 +13,7 @@ const CreditCard = ({ cardDetail }: { cardDetail: CreditCardContent[0] }) => {
     return (
         <div
             onClick={isSelected}
+            style={{ backgroundColor: "#E9ECEF" }}
             className={`credit-card-wrapper ${
                 selected ? "credit-card-select" : "credit-card-default"
             } mt-3 mt-md-0 me-5`}

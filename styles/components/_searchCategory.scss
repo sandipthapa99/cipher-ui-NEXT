@@ -37,17 +37,12 @@
         .categories {
             display: flex;
             align-items: center;
-            
-          
 
-            @include respond(md){
+            @include respond(md) {
                 overflow: auto;
-                
-
             }
 
             @include respond(xs) {
-                
                 overflow: scroll;
                 margin: 1rem 0;
             }
@@ -59,29 +54,24 @@
                 margin-left: 1rem;
                 border-radius: 20px;
                 gap: 1rem;
-                border: 1px solid #CED4DA;
+                border: 1px solid #ced4da;
                 padding: 0.3rem 0.7rem;
                 cursor: pointer;
-               
-                &:active{
 
-                    background-color: #0693E3;
-                    p{
+                &:active {
+                    background-color: #0693e3;
+                    p {
                         color: #fff;
                     }
-                    .boxes--icon{
+                    .boxes--icon {
                         color: #fff;
                     }
-
-                   
                 }
 
                 p {
                     margin: 0 0;
                     font-size: 12px;
                     color: #868e96;
-
-                    
                 }
                 .boxes--icon {
                     width: 1.8rem;
@@ -89,8 +79,6 @@
                     vertical-align: middle;
                     font-size: 12px;
                     color: #868e96;
-
-                   
                 }
             }
         }

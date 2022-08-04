@@ -9,7 +9,7 @@ body {
     line-height: 1.5;
     color: $default-text-color;
     overflow-x: hidden;
-    background: #edf4ff ;
+    background: #edf4ff;
     @include respond(md) {
         font-size: 1.6rem;
     }

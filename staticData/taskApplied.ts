@@ -32,3 +32,4 @@ export const taskApplied = [
         time: "08:11 PM",
     },
 ];
+export type AppliedTask = typeof taskApplied[0];

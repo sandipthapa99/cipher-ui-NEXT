@@ -1,7 +1,9 @@
+import "mapbox-gl/dist/mapbox-gl.css";
 import "../styles/bundle.scss";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import BookNowProvider from "context/BookNowContext/bookNowProvider";
 import { ClientTaskContextProvider } from "context/ClientTaskContext";
 import SearchProvider from "context/searchProvider";
 import SuccessProvider from "context/successContext/successProvider";
@@ -17,10 +19,12 @@ function MyApp({ Component, pageProps }: AppProps) {
             <SuccessProvider>
                 <AuthProvider>
                     <ClientTaskContextProvider>
-                        <QueryClientProvider client={queryClient}>
-                            <ReactQueryDevtools />
-                            <Component {...pageProps} />
-                        </QueryClientProvider>
+                        <BookNowProvider>
+                            <QueryClientProvider client={queryClient}>
+                                <ReactQueryDevtools />
+                                <Component {...pageProps} />
+                            </QueryClientProvider>
+                        </BookNowProvider>
                     </ClientTaskContextProvider>
                 </AuthProvider>
             </SuccessProvider>

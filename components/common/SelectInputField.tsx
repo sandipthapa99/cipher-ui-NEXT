@@ -25,6 +25,7 @@ const SelectInputField = ({
                     {fieldRequired && <span className="asterisk">*</span>}
                 </label>
             )}
+
             <div className="dropdown-with-icon">
                 <Field
                     {...restProps}
@@ -45,7 +46,7 @@ const SelectInputField = ({
                 </Field>
                 <FontAwesomeIcon
                     icon={faChevronDown}
-                    className="svg-icon me-4    "
+                    className="svg-icon me-4"
                 />
             </div>
             <ErrorMessage
