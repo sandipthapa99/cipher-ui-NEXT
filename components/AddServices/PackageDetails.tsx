@@ -146,9 +146,13 @@ export const PackageDetails = ({
                                                         </Col>
                                                     </Row>
                                                 )}
-                                                <FormButton
-                                                    name={"add more package"}
-                                                />
+                                                <span className="add-more-button">
+                                                    <FormButton
+                                                        name={
+                                                            "+ add more package"
+                                                        }
+                                                    />
+                                                </span>
                                                 {/* <a>+ Add More Package</a> */}
 
                                                 <div className="d-flex justify-content-end next-button">
