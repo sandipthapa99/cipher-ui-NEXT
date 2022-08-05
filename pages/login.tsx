@@ -6,12 +6,15 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { withAuth } from "hoc/withAuth";
 import { useLogin } from "hooks/auth/useLogin";
+import { useRouter } from "next/router";
 import React from "react";
+import { autoLogin } from "utils/auth";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
+    const router = useRouter();
     const { mutate, isLoading } = useLogin();
 
     return (
@@ -32,8 +35,10 @@ const Login = () => {
                         onSubmit={(values) => {
                             mutate(values, {
                                 onError: (error) => console.log(error),
-                                onSuccess: (accessToken) =>
-                                    console.log(accessToken),
+                                onSuccess: (accessToken) => {
+                                    autoLogin(accessToken);
+                                    router.push("/");
+                                },
                             });
                         }}
                     >

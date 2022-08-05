@@ -61,8 +61,8 @@ export const ExperienceFromData: ExperienceValueProps = {
 export const AddPortfolioFormData: AddPortfolio = {
     title: "",
     description: "",
-    url: "",
-    date: "",
+    url: null,
+    date: null,
 };
 
 export const AddSkillFormData: AddSkills = {
@@ -71,8 +71,8 @@ export const AddSkillFormData: AddSkills = {
 
 export const BookServiceFormData: BookNowFormProps = {
     problemDescription: "",
-    startdate: "",
-    enddate: "",
+    startdate: null,
+    enddate: null,
     time: 1,
     image: "/services/s1.png",
 };

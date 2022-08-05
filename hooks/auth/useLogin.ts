@@ -7,7 +7,8 @@ export interface LoginPayload {
     password: string;
 }
 export interface LoginSuccessResponse {
-    accessToken: string;
+    refresh: string;
+    access: string;
 }
 export const useLogin = () => {
     return useMutation<string, Error, LoginPayload>(async (loginPayload) => {
@@ -16,7 +17,7 @@ export const useLogin = () => {
                 "/user/login/",
                 loginPayload
             );
-            return data.accessToken;
+            return data.access;
         } catch (error) {
             if (error instanceof AxiosError) {
                 throw new Error(error?.response?.data?.message);

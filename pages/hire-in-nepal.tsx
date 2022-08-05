@@ -14,7 +14,7 @@ import searchValidationSchema from "utils/formValidation/searchValidation";
 const HireInNepal: NextPage = () => {
     return (
         <Layout title="Hire in Nepal | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="hire-in-nepal">
                     <Breadcrum currentPage="Hire in Nepal" />
 
@@ -61,7 +61,7 @@ const HireInNepal: NextPage = () => {
                     </div>
                     <div className="hire-in-nepal__top-skills">
                         <h1>Top skills in Nepal</h1>
-                        <Row>
+                        <Row className="gx-5">
                             {topSkillsInNepal &&
                                 topSkillsInNepal.map((skill) => (
                                     <Col md={3} sm={6} xs={6} key={skill.id}>

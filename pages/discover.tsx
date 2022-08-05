@@ -17,7 +17,7 @@ import { servicesDiscover } from "staticData/services";
 const Discover: NextPage = () => {
     return (
         <Layout title="Discover | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="discover-page">
                     <Breadcrum currentPage="Discover" />
 
@@ -87,7 +87,7 @@ const Discover: NextPage = () => {
                     <section className="discover-page__categories">
                         <h1>Our categories</h1>
                         <p>Choose category according to your needs.</p>
-                        <Row className="gy-4 align-tems-stretch">
+                        <Row className="gy-4 gx-5 align-tems-stretch">
                             {AllCategoryCardContent &&
                                 AllCategoryCardContent.map((category) => {
                                     return (

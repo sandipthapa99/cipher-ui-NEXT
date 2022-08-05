@@ -16,7 +16,7 @@ import {
 const HowToHire: NextPage = () => {
     return (
         <Layout title="How To Hire | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="how-to-hire">
                     <Breadcrum currentPage="How To Hire" />
 
