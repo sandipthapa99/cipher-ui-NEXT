@@ -50,6 +50,9 @@
             @include respond(xs) {
                 padding: 5.8rem 2.5rem;
             }
+            @include respond(xxs) {
+                padding: 0.8rem 2.5rem;
+            }
             @include respond(sm) {
                 padding: 4.4rem 3rem;
             }
@@ -116,6 +119,12 @@
                         padding-left: 4rem;
                         font-weight: 500;
                         flex: 0.4;
+                        @include respond(xs) {
+                            width: 15rem;
+                        }
+                        @include respond(xxs) {
+                            width: 12rem;
+                        }
                         color: $default-text-color;
                         border: 1px solid rgba(0, 0, 0, 0.08) !important;
 

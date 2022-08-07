@@ -1,6 +1,6 @@
 import { useBookContext } from "context/BookNowContext/bookNowContext";
 import { useSuccessContext } from "context/successContext/successContext";
-import { Button, Col, Modal, Row } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { creditCardContent } from "staticData/creditCardContent";
 
 import CreditCard from "./CreditCard";

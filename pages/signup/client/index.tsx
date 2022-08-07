@@ -3,13 +3,14 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
-import { withAuth } from "hoc/withAuth";
 import { useSignup } from "hooks/auth/useSignup";
+import type { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
 import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { restrictOnLogin } from "utils/restrictOnLogin";
 
 const SignUpAsClient = () => {
     const { mutate, isLoading } = useSignup();
@@ -143,4 +144,7 @@ const SignUpAsClient = () => {
         </OnBoardingLayout>
     );
 };
-export default withAuth(SignUpAsClient);
+export const getServerSideProps: GetServerSideProps = (context) =>
+    restrictOnLogin(context);
+
+export default SignUpAsClient;

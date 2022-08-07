@@ -82,9 +82,12 @@ const Header = () => {
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li
-                                className={handleMenuActive("/explore", router)}
+                                className={handleMenuActive(
+                                    "/explore-services",
+                                    router
+                                )}
                             >
-                                <Link href="/explore">
+                                <Link href="/explore-services">
                                     <a className="nav-link">
                                         <FontAwesomeIcon
                                             icon={faTelescope}

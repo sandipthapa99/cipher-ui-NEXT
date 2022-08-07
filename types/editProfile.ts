@@ -3,7 +3,7 @@ export interface AddPortfolio {
     handleClose?: () => void;
     title?: string;
     description?: string;
-    url?: null;
+    url?: string | null;
     date?: string | null;
 }
 

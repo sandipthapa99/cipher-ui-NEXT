@@ -1,5 +1,4 @@
 import CardBtn from "@components/common/CardBtn";
-import CategoryCard from "@components/common/CategoryCard";
 import { FilterReview } from "@components/common/FilterReview";
 import ModalCard from "@components/common/ModalCard";
 import PackageOffersCard from "@components/common/packageCard";

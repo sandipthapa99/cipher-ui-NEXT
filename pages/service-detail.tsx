@@ -9,7 +9,6 @@ import ServiceProviderCard from "@components/common/serviceProviderCard";
 import Tags from "@components/common/Tags";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import { faChevronDown } from "@fortawesome/pro-regular-svg-icons";
 import {
     faEllipsisVertical,
     faHeart,
@@ -17,7 +16,6 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
-import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";

@@ -6,11 +6,7 @@ import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import Layout from "@components/Layout";
-import {
-    faAngleRight,
-    faChevronDown,
-    faSearch,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faAngleRight, faSearch } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import type { NextPage } from "next";

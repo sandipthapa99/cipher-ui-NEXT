@@ -1,7 +1,6 @@
 import { MainStep } from "@components/AddServices/MainStep";
 import Breadcrum from "@components/common/Breadcrum";
 import Layout from "@components/Layout";
-import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 
 const AddServices: NextPage = () => {
