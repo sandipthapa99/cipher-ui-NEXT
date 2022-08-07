@@ -94,6 +94,7 @@
     &__partners {
         .content {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
             background-color: #fff;
             align-items: center;
