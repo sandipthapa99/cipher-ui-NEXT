@@ -22,15 +22,13 @@ export function UpperHeader() {
     const [notopen, setNotopen] = useState(false);
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
-
-    const { token } = useAuthContext();
     const { data: user } = useUser();
 
     return (
         <>
             {/* Site Upper Header Start */}
             <header id="site-upper-header" className="site-upper-header">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl">
                     <Navbar expand="lg" className="upper-navigation">
                         <Link href="/">
                             <a>
