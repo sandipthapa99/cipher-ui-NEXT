@@ -38,7 +38,7 @@
                 .search_box {
                     width: 100%;
                     background: #fff;
-                    border: 0.1rem solid #DEE2E6;
+                    border: 0.1rem solid #dee2e6;
                     border-right: none;
                     border-radius: 0.4rem;
                     display: flex;
@@ -79,7 +79,6 @@
                             right: 10%;
                             z-index: 0;
                         }
-
                     }
 
                     .search_field {
@@ -143,7 +142,7 @@
                             background: $primary-color;
 
                             .icon {
-                                color: #FFF;
+                                color: #fff;
                             }
                         }
                     }
@@ -172,7 +171,7 @@
 
             .come-with-us {
                 margin-bottom: 4rem;
-                @include respond(md){
+                @include respond(md) {
                     margin-bottom: 8rem;
                 }
 
@@ -181,7 +180,7 @@
                     font-weight: 400;
                     color: $primary-color;
                     margin: 3.2rem 0 1.4rem 0;
-                    @include respond(md){
+                    @include respond(md) {
                         font-size: 3.2rem;
                         margin: 6.4rem 0 2rem 0;
                     }
@@ -189,13 +188,13 @@
 
                 .hero-cta {
                     background-color: $primary-color;
-                    color: #FFF;
+                    color: #fff;
                     padding: 0.8rem 1.2rem;
                     border-radius: 2.4rem;
                     font-size: 1.2rem;
                     font-weight: 500;
                     margin-top: 2rem;
-                    @include respond(md){
+                    @include respond(md) {
                         font-size: 2rem;
                         padding: 1rem 4rem;
                         border-radius: 3rem;
@@ -209,9 +208,9 @@
                     &:first-child {
                         margin-right: 0.6rem;
                         background: none;
-                        border: 1px solid #211D4F;
+                        border: 1px solid #211d4f;
                         color: $primary-color;
-                        @include respond(md){
+                        @include respond(md) {
                             margin-right: 3rem;
                         }
 
@@ -232,7 +231,6 @@
             }
         }
     }
-
 }
 
 .get-services {
@@ -246,15 +244,15 @@
         li {
             margin-right: 0;
             margin-bottom: 2rem;
-            @include respond(md){
+            @include respond(md) {
                 margin-right: 8rem;
             }
 
             span {
-                background-color: #5C6096;
+                background-color: #5c6096;
                 padding: 0.5rem 1.2rem;
                 border-radius: 50%;
-                color: #FFF;
+                color: #fff;
                 font-size: 1.2rem;
                 margin-right: 0.8rem;
                 height: 2.8rem;
@@ -282,8 +280,7 @@
 }
 
 .gradient-banner {
-    .gradient-layout{
-
+    .gradient-layout {
         position: relative;
     }
 }
@@ -297,7 +294,11 @@
             position: absolute;
             height: 36.8rem;
             width: 100%;
-            background: linear-gradient(90.3deg, #ECF7FF 37.14%, rgba(255, 255, 255, 0) 75.06%);
+            background: linear-gradient(
+                90.3deg,
+                #ecf7ff 37.14%,
+                rgba(255, 255, 255, 0) 75.06%
+            );
             opacity: 0.9;
         }
 
@@ -316,7 +317,7 @@
             z-index: 2;
             width: 50%;
             padding: 5.6rem 0 5.6rem 6.4rem;
-    
+
             // @include respond(xs) {
             //     width: 100%;
             //     padding-top: 4.6rem;
@@ -325,7 +326,7 @@
             //     width: 100%;
             //     padding-top: 2rem;
             // }
-    
+
             // @include respond(sm) {
             //     width: 100%;
             //     padding-left: 2rem;
@@ -341,20 +342,20 @@
             //     padding-left: 8rem;
             // }
             // padding: 8rem;
-    
+
             h1 {
                 color: $primary-color;
                 font-size: 4rem;
                 font-weight: 400;
                 line-height: 6rem;
-                span{
+                span {
                     font-weight: 600;
                 }
             }
-    
+
             .bottom-content {
                 // padding-top: 12rem;
-    
+
                 // @include respond(xs) {
                 //     padding-top: 5rem;
                 //     margin-bottom: 3rem;
@@ -366,7 +367,7 @@
                 // @include respond(sm) {
                 //     padding-top: 9rem;
                 // }
-    
+
                 p {
                     color: $sub-title-color;
                     font-size: 1.5rem;
@@ -376,7 +377,7 @@
                     @include respond(xxs) {
                         font-size: 1.4rem;
                     }
-    
+
                     @include respond(xs) {
                         font-size: 1.5rem;
                         line-height: 2.1rem;
