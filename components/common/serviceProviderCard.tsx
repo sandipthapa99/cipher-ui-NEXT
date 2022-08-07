@@ -4,7 +4,7 @@ import { BookingDetails } from "staticData/bookNowModalCard";
 import type { ServiceProviderCardProps } from "types/serviceDetail";
 
 import BookNowButton from "./BookNowButton";
-import ModalCard from "./ModalCard";
+import ModalCard from "./BookNowModalCard";
 
 const ServiceProviderCard = ({
     image,

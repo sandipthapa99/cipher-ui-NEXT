@@ -63,7 +63,7 @@ export const ExperienceFromData: ExperienceValueProps = {
 export const AddPortfolioFormData: AddPortfolio = {
     title: "",
     description: "",
-    url: null,
+    url: "",
     date: null,
 };
 

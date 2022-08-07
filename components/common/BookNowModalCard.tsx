@@ -19,7 +19,6 @@ const ModalCard = ({
     title,
     price,
     description,
-    image,
     show,
     handleClose,
 }: BookNowModalCardProps) => {
@@ -157,25 +156,6 @@ const ModalCard = ({
                                         )}
                                         onClick={handleClose}
                                     />
-
-                                    {/* <Button
-                                        style={{
-                                            backgroundColor: "#211d4f",
-                                        }}
-                                        type="submit"
-                                        onClick={() => {
-                                            console.log(Object.keys(errors));
-
-                                            if (
-                                                Object.keys(errors).length === 1
-                                            ) {
-                                                console.log("form");
-                                            }
-                                        }}
-                                        className="submit-btn w-25"
-                                    >
-                                        Book Now
-                                    </Button> */}
                                 </Modal.Footer>
                             </Form>
                         )}
