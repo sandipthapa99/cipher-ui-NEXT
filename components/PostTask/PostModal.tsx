@@ -2,6 +2,7 @@ import { log } from "console";
 import { useClientTasks } from "context/ClientTaskContext";
 import { useSuccessContext } from "context/successContext/successContext";
 import { useFormik } from "formik";
+import { usePostTask } from "hooks/post-task/usePostTask";
 import Image from "next/image";
 import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
@@ -17,6 +18,7 @@ interface Props {
 const PostModal = ({ onSubmit }: Props) => {
     const { addTask } = useClientTasks();
     const { setShowSuccessModal } = useSuccessContext();
+    const { mutate, isLoading } = usePostTask();
 
     const renderCategory = categoryData.map((category) => {
         return (
@@ -54,12 +56,19 @@ const PostModal = ({ onSubmit }: Props) => {
         },
         onSubmit(values) {
             console.log(values);
-
-            addTask(values, () => {
-                setShowSuccessModal(true);
-
-                onSubmit();
+            mutate(values, {
+                onError: (error) => console.log(error),
+                onSuccess: () => {
+                    console.log("sucessfully posted task");
+                    onSubmit();
+                },
             });
+
+            // addTask(values, () => {
+            //     setShowSuccessModal(true);
+
+            //
+            // });
         },
         validationSchema: postTaskValidationSchema,
     });
