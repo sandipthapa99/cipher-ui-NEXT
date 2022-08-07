@@ -19,7 +19,7 @@ const UserProfile: NextPage = () => {
 
     return (
         <Layout title="Profile | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="user-profile">
                     <Breadcrum
                         currentPage="Profile"

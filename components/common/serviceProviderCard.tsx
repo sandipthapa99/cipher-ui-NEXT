@@ -17,7 +17,9 @@ const ServiceProviderCard = ({
     happyClients,
 }: ServiceProviderCardProps) => {
     const [showModal, setShowModal] = useState(false);
-
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
     return (
         <div className="card-block align-items-stretch">
             <div className="profile">
@@ -97,8 +99,8 @@ const ServiceProviderCard = ({
             <BookNowButton
                 btnTitle="Book Now"
                 backgroundColor="$primary-color"
-                showModal={showModal}
-                handleOnClick={() => setShowModal(false)}
+                //  showModal={true}
+                handleOnClick={handleShowModal}
             />
             {BookingDetails &&
                 BookingDetails.map((detail) => (

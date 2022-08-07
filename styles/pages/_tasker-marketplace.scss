@@ -111,8 +111,11 @@
         align-items: stretch;
         margin-bottom: 5rem;
         .thumbnail-img {
-            height: 9rem;
-            width: 9rem;
+            height: 7rem;
+            width: 7rem;
+        }
+        .card-block__card-description li {
+            list-style: disc;
         }
     }
     &__faq {
