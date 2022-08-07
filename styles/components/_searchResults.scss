@@ -1,7 +1,8 @@
 .search-results {
     .search-results--col {
         overflow-y: scroll;
-        max-height: 282rem;
+        max-height: 1161px;
+        margin-bottom: 80px;
 
         p {
             font-size: 12px;
@@ -10,6 +11,10 @@
         }
     }
     .map-cont {
+        overflow-y: scroll;
+        max-height: 1161px;
+        margin-bottom: 80px;
+
         .map {
             width: 700px;
             height: 550px;

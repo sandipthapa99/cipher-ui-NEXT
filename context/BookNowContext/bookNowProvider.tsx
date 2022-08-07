@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
+import type { BookNowDetails } from "types/serviceNearYouCard";
 
 import { bookNowContext } from "./bookNowContext";
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
 }
 
 const BookNowProvider = ({ children }: Props) => {
-    const [bookNowDetails, setBookNowDetails] = useState({});
+    const [bookNowDetails, setBookNowDetails] = useState({} as BookNowDetails);
 
     const value = {
         bookNowDetails,

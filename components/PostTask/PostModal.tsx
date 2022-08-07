@@ -1,7 +1,11 @@
+import { log } from "console";
 import { useClientTasks } from "context/ClientTaskContext";
 import { useSuccessContext } from "context/successContext/successContext";
 import { useFormik } from "formik";
+import { usePostTask } from "hooks/post-task/usePostTask";
 import Image from "next/image";
+import type { ChangeEvent } from "react";
+import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import type { PostTaskData } from "types/postTaskData";
 
@@ -15,6 +19,7 @@ interface Props {
 const PostModal = ({ onSubmit }: Props) => {
     const { addTask } = useClientTasks();
     const { setShowSuccessModal } = useSuccessContext();
+    const { mutate, isLoading } = usePostTask();
 
     const renderCategory = categoryData.map((category) => {
         return (
@@ -48,14 +53,22 @@ const PostModal = ({ onSubmit }: Props) => {
             maxBudget: 0,
             address: "",
             requirements: [],
-            image: null,
         },
         onSubmit(values) {
-            addTask(values, () => {
-                setShowSuccessModal(true);
-
-                onSubmit();
+            console.log(values);
+            mutate(values, {
+                onError: (error) => console.log(error),
+                onSuccess: () => {
+                    console.log("sucessfully posted task");
+                    onSubmit();
+                },
             });
+
+            // addTask(values, () => {
+            //     setShowSuccessModal(true);
+
+            //
+            // });
         },
         validationSchema: postTaskValidationSchema,
     });
@@ -337,7 +350,7 @@ const PostModal = ({ onSubmit }: Props) => {
                     </Col>
                 </Row>
                 <Row>
-                    <DragAndDrop />
+                    <DragAndDrop field={setFieldValue} />
                 </Row>
                 <div className="submit-buttons">
                     <div
@@ -372,7 +385,27 @@ const PostModal = ({ onSubmit }: Props) => {
 };
 export default PostModal;
 
-export const DragAndDrop = () => {
+export const DragAndDrop = ({ field }: { field: any }) => {
+    function handleChange(event: ChangeEvent<HTMLInputElement>) {
+        const files = event.target.files;
+        if (files) {
+            const file = files[0];
+            getBase64(file);
+        }
+    }
+    const onLoad = (fileString: string | ArrayBuffer) => {
+        field?.("images", ["image", fileString]);
+    };
+
+    const getBase64 = (file: File) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            if (reader.result) {
+                onLoad(reader.result);
+            }
+        };
+    };
     return (
         <Col md={4} className="drag-down">
             <figure className="thumbnail-img">
@@ -392,7 +425,7 @@ export const DragAndDrop = () => {
             <p>Maximum Image Size 20 MB</p>
             <p>Maximum Video Size 200 MB</p>
             <div style={{ visibility: "hidden" }}>
-                <input type={"file"} id="choosefile" />
+                <input type={"file"} id="choosefile" onChange={handleChange} />
             </div>
         </Col>
     );

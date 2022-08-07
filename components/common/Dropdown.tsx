@@ -1,5 +1,7 @@
 import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { log } from "console";
+import { useCategories } from "hooks/category/useCategories";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useState } from "react";
@@ -13,6 +15,9 @@ interface DropdownProps {
 }
 
 export const Dropdown = ({ children }: DropdownProps) => {
+    const { data, isLoading } = useCategories();
+    console.log(data);
+
     const [subMenu, setSubMenu] = useState<DropdownSubMenu>([]);
     const [prevIndex, setPrevIndex] = useState();
     const dropdownContainer = useRef<HTMLDivElement | null>(null);

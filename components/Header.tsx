@@ -8,16 +8,44 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useLocation } from "hooks/location/useLocation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
+import { axiosClient } from "utils/axiosClient";
 import { handleMenuActive } from "utils/helpers";
 
 // import { handleMenuActive } from "../../../../libs/util-formatter/src";
 import { Dropdown } from "./common/Dropdown";
 import { NotificationDropdown } from "./notifications/NotificationDropdown";
+
 const Header = () => {
+    // const [state, setState] = useState({
+    //     city: "",
+    // });
+    // const getGeoInfo = () => {
+    //     axiosClient
+    //         .get("https://ipapi.co/json/")
+    //         .then((response) => {
+    //             const data = response.data;
+    //             setState({
+    //                 ...state,
+    //                 city: data.city,
+    //             });
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // };
+
+    // useEffect(() => {
+    //     getGeoInfo();
+    // }, []);
+
+    const { data } = useLocation();
+    console.log(data);
+
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
     const [stickyClass, setStickyClass] = useState("relative");
@@ -50,7 +78,7 @@ const Header = () => {
         <>
             {/* Site Upper Header Start */}
             <header id="site-header" className={`site-header ${stickyClass}`}>
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl">
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li
@@ -123,8 +151,11 @@ const Header = () => {
                         </nav>
 
                         <Link href="#!">
-                            <a className="btn location-btn d-none d-md-inline-block">
-                                Nepal
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ marginRight: "1.6rem" }}
+                            >
+                                {data?.data.city}
                                 <FontAwesomeIcon
                                     icon={faLocationDot}
                                     className="svg-icon"

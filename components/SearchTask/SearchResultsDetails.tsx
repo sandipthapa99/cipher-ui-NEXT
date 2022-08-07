@@ -22,10 +22,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Carousel, Col, Row } from "react-bootstrap";
-import { PackageCard } from "staticData/packageCard";
-import { reviewsContent } from "staticData/reviews";
-import { serviceHighlights } from "staticData/serviceHighlights";
-import { services } from "staticData/services";
+import {
+    getAllPackageCard,
+    getReviews,
+    getServiceHighlights,
+    getServices,
+} from "services/commonServices";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 
 const SearchResultsDetail = ({
@@ -43,6 +45,10 @@ const SearchResultsDetail = ({
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const { setBookNowDetails } = useBookContext();
+    const services = getServices();
+    const PackageCard = getAllPackageCard();
+    const reviewsContent = getReviews();
+    const serviceHighlights = getServiceHighlights();
 
     return (
         <>
@@ -294,7 +300,7 @@ const SearchResultsDetail = ({
                 key={serviceTitle}
                 show={show}
                 handleClose={handleClose}
-            />
+            /> */}
         </>
     );
 };
