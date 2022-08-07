@@ -32,12 +32,12 @@ const requestRefreshToken = async (
 
 const axiosInterceptor = (axiosClient: AxiosInstance) => {
     axiosClient.interceptors.request.use((config) => {
-        const { refresh } = nookies.get(undefined, "refresh");
-        const { exp } = jwtDecode<{ exp: number }>(refresh);
-        const expirationDate = new Date(exp * 1000);
-        if (expirationDate < new Date()) {
-            requestRefreshToken(axiosClient, refresh);
-        }
+        // const { refresh } = nookies.get(undefined, "refresh");
+        // const { exp } = jwtDecode<{ exp: number }>(refresh);
+        // const expirationDate = new Date(exp * 1000);
+        // if (expirationDate < new Date()) {
+        //     requestRefreshToken(axiosClient, refresh);
+        // }
         return config;
     });
 };
