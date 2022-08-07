@@ -16,6 +16,9 @@
 
         .next-button {
             margin: 5rem 0 0;
+            @include respond(sm) {
+                margin: 5rem 0;
+            }
             button {
                 margin: 0 0 0 1.6rem;
                 @include border();
@@ -73,6 +76,7 @@
 
 .steps-line-add-service {
     .steps-line {
+        flex-wrap: wrap;
         .step-one,
         .step-two,
         .step-three,
