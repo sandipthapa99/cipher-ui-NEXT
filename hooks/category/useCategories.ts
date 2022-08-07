@@ -1,10 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
-const fetchCategory = async () => {
-    return axiosClient.get("/task/cms/task-category/");
-};
-
 export const useCategories = () => {
-    return useQuery(["categories"], fetchCategory);
+    return useMutation<void, Error>(async () => {
+        try {
+            const { data } = await axiosClient.get("/task/cms/task-category/");
+            return data.access;
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                throw new Error(error?.response?.data?.message);
+            }
+            throw new Error("Something went wrong");
+        }
+    });
 };
