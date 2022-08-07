@@ -9,4 +9,5 @@ export interface ServiceProviderCardProps {
     image: string;
     isApplied?: boolean;
     isPermission?: boolean;
+    isAddServiceForm?: boolean;
 }

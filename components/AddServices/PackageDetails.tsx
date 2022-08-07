@@ -1,6 +1,9 @@
 import BigButton from "@components/common/Button";
+import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import PackageOffersCard from "@components/common/packageCard";
 import SelectInputField from "@components/common/SelectInputField";
+import AddRequirements from "@components/PostTask/AddRequirements";
 import { Form, Formik } from "formik";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -11,7 +14,7 @@ import { ServiceVideo } from "./ServiceVideo";
 
 interface PackageDetailsProps {
     handlePrev: () => void;
-    handleNext: () => void;
+    handleNext: (data?: unknown) => void;
 }
 
 export const PackageDetails = ({
@@ -19,6 +22,7 @@ export const PackageDetails = ({
     handleNext,
 }: PackageDetailsProps) => {
     const [checked, setChecked] = useState(false);
+    const [packageArray, setPackageArray] = useState<any[]>([]);
 
     const handleChange = () => {
         setChecked(!checked);
@@ -46,14 +50,41 @@ export const PackageDetails = ({
                 <div className="service-details-body">
                     <Row>
                         <Col md={7} sm={12}>
+                            <Row>
+                                <h3 className="added-packages">Packages</h3>
+
+                                {packageArray.map((item, index) => (
+                                    <Col md={6} sm={12} key={index}>
+                                        <PackageOffersCard
+                                            title={item?.package_title}
+                                            price={item?.package_price}
+                                            offers={item?.services}
+                                            isPermium={false}
+                                            advantage={""}
+                                            isRecommended={false}
+                                            isFromAddService={true}
+                                        />
+                                    </Col>
+                                ))}
+                            </Row>
                             <div className="service-form-body">
                                 <Formik
                                     initialValues={packageDetailsData}
                                     onSubmit={(values) => {
                                         console.log(values);
+                                        setPackageArray((prev) => {
+                                            return prev.length < 3
+                                                ? [...prev, values]
+                                                : prev;
+                                        });
                                     }}
                                 >
-                                    {({ errors, touched }) => (
+                                    {({
+                                        setFieldValue,
+                                        errors,
+                                        touched,
+                                        values,
+                                    }) => (
                                         <>
                                             <Form>
                                                 <h3>Package Details</h3>
@@ -68,19 +99,26 @@ export const PackageDetails = ({
                                                     name="package_description"
                                                     as="textarea"
                                                 />
-                                                <h5>Services Offered </h5>
-                                                <h6>
-                                                    Add services which you Offer
-                                                </h6>
+
+                                                <AddRequirements
+                                                    onSubmit={(requirements) =>
+                                                        setFieldValue(
+                                                            "services",
+                                                            requirements
+                                                        )
+                                                    }
+                                                    title="Services Offered"
+                                                    description="Add services which you Offer"
+                                                />
                                                 <InputField
                                                     name="package_price"
                                                     labelName="Price"
                                                     placeHolder="Price"
                                                 />
                                                 <SelectInputField
-                                                    name="package_revisions"
-                                                    labelName="Revisions"
-                                                    placeHolder="Select Revisions"
+                                                    name="package_revisions_number"
+                                                    labelName="Number of Revisions"
+                                                    placeHolder="No. of Revisions"
                                                     options={options}
                                                 />
                                                 <div className="checkbox">
@@ -113,23 +151,39 @@ export const PackageDetails = ({
                                                         </Col>
                                                     </Row>
                                                 )}
-                                                <Link href="">
-                                                    <a>Create More Package</a>
-                                                </Link>
-                                                <div className="d-flex justify-content-end next-button">
-                                                    <BigButton
-                                                        btnTitle={"Go Back"}
-                                                        backgroundColor={"#fff"}
-                                                        textColor="black"
-                                                        handleClick={handlePrev}
+                                                <span className="add-more-button">
+                                                    <FormButton
+                                                        name={
+                                                            "+ add more package"
+                                                        }
                                                     />
+                                                </span>
+                                                {/* <a>+ Add More Package</a> */}
+
+                                                <div className="d-flex justify-content-end next-button">
+                                                    <span className="previous-step-button">
+                                                        <BigButton
+                                                            btnTitle={
+                                                                "Previous Step"
+                                                            }
+                                                            backgroundColor={
+                                                                "#fff"
+                                                            }
+                                                            textColor="black"
+                                                            handleClick={
+                                                                handlePrev
+                                                            }
+                                                        />
+                                                    </span>
                                                     <BigButton
                                                         btnTitle={"Next"}
                                                         backgroundColor={
                                                             "#211D4F"
                                                         }
                                                         textColor="#fff"
-                                                        handleClick={handleNext}
+                                                        handleClick={() =>
+                                                            handleNext(values)
+                                                        }
                                                     />
                                                 </div>
                                             </Form>
