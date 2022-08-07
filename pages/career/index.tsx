@@ -1,11 +1,16 @@
+import CareerCard from "@components/Career/CareerCard";
+import HiringStage from "@components/Career/HiringStage";
 import Breadcrum from "@components/common/Breadcrum";
+import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { careerCardValues } from "staticData/careerCardValues";
 
 const Career = () => {
+    const [tabIndex, setTabIndex] = useState(0);
     return (
         <Layout title="Cipher | Careers">
             <section id="careers-section" className="careers-section">
@@ -36,8 +41,8 @@ const Career = () => {
                             />
                         </figure>
                     </div>
-                    <Row className="g-5">
-                        <Col md={3}>
+                    <Row className="g-5 mt-5">
+                        <Col lg={3}>
                             <figure className="demand-img">
                                 <Image
                                     src={"/womenBuis.png"}
@@ -46,20 +51,79 @@ const Career = () => {
                                 />
                             </figure>
                         </Col>
-                        <Col md={9}>
-                            <div className="d-flex justify-content-between align-items-center">
+                        <Col md={12} lg={9}>
+                            <div className="d-flex justify-content-between align-items-sm-center flex-column flex-sm-row">
                                 <h2>Demanded Positions</h2>
                                 <Link href={""}>
                                     <a>View all</a>
                                 </Link>
                             </div>
-                            <Row>
-                                <Col md={4}>asdasd</Col>
-                                <Col md={4}>asdasd</Col>
-                                <Col md={4}>asdasd</Col>
+                            <Row className="gx-5">
+                                {careerCardValues
+                                    ?.slice(0, 6)
+                                    ?.map((values, key) => (
+                                        <Col
+                                            lg={4}
+                                            md={6}
+                                            className="d-flex"
+                                            key={key}
+                                        >
+                                            <CareerCard values={values} />
+                                        </Col>
+                                    ))}
                             </Row>
                         </Col>
                     </Row>
+                    <div className="mt-5">
+                        <h4>New Job Listings</h4>
+                        <Tab
+                            items={[
+                                {
+                                    title: "All categories",
+                                    content: (
+                                        <Row className="gx-5">
+                                            {careerCardValues.map(
+                                                (values, key) => (
+                                                    <Col
+                                                        lg={3}
+                                                        md={4}
+                                                        className="d-flex"
+                                                        key={key}
+                                                    >
+                                                        <CareerCard
+                                                            values={values}
+                                                        />
+                                                    </Col>
+                                                )
+                                            )}
+                                        </Row>
+                                    ),
+                                },
+                                {
+                                    title: "Design",
+                                    content: (
+                                        <Row className="gx-5">
+                                            {careerCardValues.map(
+                                                (values, key) => (
+                                                    <Col
+                                                        lg={4}
+                                                        md={6}
+                                                        className="d-flex"
+                                                        key={key}
+                                                    >
+                                                        test
+                                                    </Col>
+                                                )
+                                            )}
+                                        </Row>
+                                    ),
+                                },
+                            ]}
+                            activeIndex={tabIndex}
+                            onTabClick={setTabIndex}
+                        />
+                    </div>
+                    <HiringStage />
                 </Container>
             </section>
         </Layout>
