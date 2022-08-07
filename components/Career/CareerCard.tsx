@@ -8,7 +8,7 @@ const CareerCard = ({ values }: { values: CareerCardProps }) => {
     return (
         <div className="bg-white w-100 mt-5 p-5 d-flex flex-column justify-content-between rounded">
             <h3>{values.Title}</h3>
-            <Link href={""}>
+            <Link href={`/career/${values.id}`}>
                 <a>
                     Apply <FontAwesomeIcon icon={faArrowRight} />
                 </a>
