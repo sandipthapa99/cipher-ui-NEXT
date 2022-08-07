@@ -126,7 +126,12 @@ const Home: NextPage = () => {
                         {serviceCategory &&
                             serviceCategory.map((category) => {
                                 return (
-                                    <Col md={3} sm={6} key={category.id}>
+                                    <Col
+                                        md={3}
+                                        sm={6}
+                                        key={category.id}
+                                        className="d-flex align-items-strecth"
+                                    >
                                         <CategoryCardNew
                                             categoryTitle={
                                                 category.categoryTitle

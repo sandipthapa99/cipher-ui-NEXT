@@ -103,11 +103,6 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="merchant-marketplace">
-                                                <a>Merchant Marketplace</a>
-                                            </Link>
-                                        </li>
-                                        <li>
                                             <Link href="payroll-services">
                                                 <a>Payroll Services</a>
                                             </Link>
@@ -208,13 +203,8 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
-                                                <a>Sitemap</a>
-                                            </Link>
-                                        </li>
-                                        <li>
                                             <Link href="/faq">
-                                                <a>Faqs</a>
+                                                <a>FAQs</a>
                                             </Link>
                                         </li>
                                         <li>
