@@ -130,7 +130,12 @@ section {
     }
     &__reviews {
         padding-bottom: 5rem;
-
+        .head-container .dropdown-wrapper .dropdown .svg-icon {
+            right: 2rem;
+        }
+        .dropdown {
+            position: absolute;
+        }
         .head-container {
             a {
                 font-size: 1.3rem;

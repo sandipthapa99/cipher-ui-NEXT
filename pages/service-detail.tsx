@@ -198,10 +198,10 @@ const ServiceDetail: NextPage = () => {
                                             placeholder="Most Relevant"
                                             fieldRequired
                                         />
-                                        <FontAwesomeIcon
+                                        {/* <FontAwesomeIcon
                                             icon={faChevronDown}
                                             className="svg-icon"
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                             </Formik>
