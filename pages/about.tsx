@@ -1,7 +1,6 @@
 import AboutCard from "@components/common/AboutCard";
 import Breadcrum from "@components/common/Breadcrum";
 import Layout from "@components/Layout";
-import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";

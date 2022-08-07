@@ -1,8 +1,11 @@
 import type { AxiosInstance } from "axios";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 import type { GetServerSidePropsContext, PreviewData } from "next";
+import nookies from "nookies";
 import { parseCookies } from "nookies";
 import type { ParsedUrlQuery } from "querystring";
+import { autoLogin } from "utils/auth";
 
 const getApiEndpoint = () => {
     const url = process.env.NEXT_PUBLIC_API_URL;
@@ -13,9 +16,28 @@ const getApiEndpoint = () => {
     return url;
 };
 
+const requestRefreshToken = async (
+    axiosClient: AxiosInstance,
+    refreshToken: string
+) => {
+    const { data } = await axiosClient.post<{
+        access: string;
+        refresh: string;
+    }>("/user/token/refresh", {
+        refresh: refreshToken,
+    });
+    const { access, refresh } = data;
+    autoLogin(access, refresh);
+};
+
 const axiosInterceptor = (axiosClient: AxiosInstance) => {
     axiosClient.interceptors.request.use((config) => {
-        console.log("AXIOS INTERCEPTOR");
+        const { refresh } = nookies.get(undefined, "refresh");
+        const { exp } = jwtDecode<{ exp: number }>(refresh);
+        const expirationDate = new Date(exp * 1000);
+        if (expirationDate < new Date()) {
+            requestRefreshToken(axiosClient, refresh);
+        }
         return config;
     });
 };

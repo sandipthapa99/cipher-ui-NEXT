@@ -1,4 +1,3 @@
-import SelectInputField from "@components/common/SelectInputField";
 import { faFilterList } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";

@@ -40,7 +40,10 @@ const Login = () => {
                                     toast.error(error.message);
                                 },
                                 onSuccess: async () => {
-                                    await router.push("/");
+                                    const { next } = router.query;
+                                    await router.push(
+                                        typeof next === "string" ? next : "/"
+                                    );
                                     toast.success("Login Successful!");
                                 },
                             });

@@ -6,7 +6,6 @@ import FaqContent from "@components/common/Faq";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import React from "react";

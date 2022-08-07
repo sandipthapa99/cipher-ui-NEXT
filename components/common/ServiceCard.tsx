@@ -1,4 +1,4 @@
-import { faHeart, faShare } from "@fortawesome/pro-regular-svg-icons";
+import { faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";

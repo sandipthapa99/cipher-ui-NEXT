@@ -7,7 +7,6 @@ import { Tab } from "@components/common/Tab";
 import PostModal from "@components/PostTask/PostModal";
 import {
     faCalendar,
-    faChevronLeft,
     faClockEight,
     faEllipsisVertical,
     faEye,
@@ -19,7 +18,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { NextPage } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";

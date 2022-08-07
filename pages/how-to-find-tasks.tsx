@@ -1,7 +1,6 @@
 import Breadcrum from "@components/common/Breadcrum";
 import BigButton from "@components/common/Button";
 import Layout from "@components/Layout";
-import { withAuth } from "hoc/withAuth";
 import Image from "next/image";
 import { Container } from "react-bootstrap";
 

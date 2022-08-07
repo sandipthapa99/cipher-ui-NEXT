@@ -4,7 +4,6 @@ import Breadcrum from "@components/common/Breadcrum";
 import ServiceCard from "@components/common/ServiceCard";
 import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
-import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";

@@ -4,9 +4,10 @@ import { axiosClient } from "utils/axiosClient";
 /**
  * @description Stores token received after login into axiosclient and browser cookie
  */
-export const autoLogin = (token: string) => {
-    axiosClient.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    setCookie(undefined, "access", token);
+export const autoLogin = (access: string, refresh: string) => {
+    axiosClient.defaults.headers.common["Authorization"] = `Bearer ${access}`;
+    setCookie(undefined, "access", access);
+    setCookie(undefined, "refresh", refresh);
 };
 
 /**

@@ -2,7 +2,6 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
-import { withAuth } from "hoc/withAuth";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { FeedbackFormData } from "utils/contactFormData";

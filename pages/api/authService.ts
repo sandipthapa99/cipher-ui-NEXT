@@ -1,8 +1,5 @@
 import jwtDecode from "jwt-decode";
 
-import urls from "../../constants/urls";
-import http from "./httpService";
-
 const accessTokenKey = "access";
 
 interface LoginValuesProps {
