@@ -110,8 +110,18 @@ const TaxCalculator: NextPage = () => {
                                             validationSchema={
                                                 taxCalculatorSchema
                                             }
-                                            onSubmit={async (values) => {
-                                                console.log("values", values);
+                                            onSubmit={async (
+                                                values,
+                                                action
+                                            ) => {
+                                                // To be used for API
+                                                // try {
+                                                //     axiosClient.post("/routes", values);
+                                                // } catch (error: any) {
+                                                //     error.response.data.message;
+                                                // }
+                                                console.log(values);
+                                                action.resetForm();
                                             }}
                                         >
                                             {({
@@ -149,9 +159,9 @@ const TaxCalculator: NextPage = () => {
                                                                 <InputField
                                                                     name="salary"
                                                                     type="text"
-                                                                    error={
-                                                                        errors.salary
-                                                                    }
+                                                                    // error={
+                                                                    //    errors.salary
+                                                                    //}
                                                                     touch={
                                                                         touched.salary
                                                                     }
@@ -173,9 +183,9 @@ const TaxCalculator: NextPage = () => {
                                                         <InputField
                                                             name="festivalBonus"
                                                             type="text"
-                                                            error={
-                                                                errors.festivalBonus
-                                                            }
+                                                            // error={
+                                                            //    errors.festivalBonus
+                                                            //}
                                                             touch={
                                                                 touched.festivalBonus
                                                             }
@@ -190,9 +200,9 @@ const TaxCalculator: NextPage = () => {
                                                             type="text"
                                                             name="allowances"
                                                             placeHolder="Allowances"
-                                                            error={
-                                                                errors.allowances
-                                                            }
+                                                            // error={
+                                                            //    errors.allowances
+                                                            //}
                                                             touch={
                                                                 touched.allowances
                                                             }
@@ -206,9 +216,9 @@ const TaxCalculator: NextPage = () => {
                                                             type="text"
                                                             name="others"
                                                             placeHolder="Others"
-                                                            error={
-                                                                errors.others
-                                                            }
+                                                            // error={
+                                                            //    errors.others
+                                                            //}
                                                             touch={
                                                                 touched.others
                                                             }
@@ -226,9 +236,9 @@ const TaxCalculator: NextPage = () => {
                                                         <InputField
                                                             type="text"
                                                             name="providentFund"
-                                                            error={
-                                                                errors.providentFund
-                                                            }
+                                                            // error={
+                                                            //    errors.providentFund
+                                                            //}
                                                             placeHolder="Provident Fund"
                                                             touch={
                                                                 touched.providentFund
@@ -243,9 +253,9 @@ const TaxCalculator: NextPage = () => {
                                                             type="text"
                                                             name="investmentTrust"
                                                             placeHolder="Investment Trust"
-                                                            error={
-                                                                errors.investmentTrust
-                                                            }
+                                                            // error={
+                                                            //    errors.investmentTrust
+                                                            //}
                                                             touch={
                                                                 touched.investmentTrust
                                                             }
@@ -259,9 +269,9 @@ const TaxCalculator: NextPage = () => {
                                                             type="text"
                                                             placeHolder="Insurance"
                                                             name="insurance"
-                                                            error={
-                                                                errors.insurance
-                                                            }
+                                                            // error={
+                                                            //    errors.insurance
+                                                            //}
                                                             touch={
                                                                 touched.insurance
                                                             }
@@ -275,9 +285,9 @@ const TaxCalculator: NextPage = () => {
                                                             type="text"
                                                             name="medicalInsurance"
                                                             placeHolder="Medical Insurance"
-                                                            error={
-                                                                errors.medicalInsurance
-                                                            }
+                                                            // error={
+                                                            //    errors.medicalInsurance
+                                                            //}
                                                             touch={
                                                                 touched.medicalInsurance
                                                             }
@@ -291,18 +301,11 @@ const TaxCalculator: NextPage = () => {
                                                         <Row>
                                                             <Col md={6}>
                                                                 <FormButton
-                                                                    type="submit"
                                                                     variant="primary"
                                                                     name="Reset"
                                                                     className="btn close-btn"
-                                                                    isSubmitting={
-                                                                        isSubmitting
-                                                                    }
-                                                                    isSubmittingClass={isSubmittingClass(
-                                                                        isSubmitting
-                                                                    )}
                                                                     onClick={() =>
-                                                                        resetForm()
+                                                                        resetForm
                                                                     }
                                                                 />
                                                             </Col>
