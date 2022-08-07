@@ -1,18 +1,19 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
-import RadioField from "@components/common/RadioField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { useAuthContext } from "context/AuthContext/userContext";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { withAuth } from "hoc/withAuth";
-import Link from "next/link";
+import { useSignup } from "hooks/auth/useSignup";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
 import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const SignUpAsClient = () => {
-    const { signUpUser } = useAuthContext();
+    const { mutate, isLoading } = useSignup();
+    const router = useRouter();
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
@@ -27,7 +28,21 @@ const SignUpAsClient = () => {
                     initialValues={ClientSignUpFormData}
                     validationSchema={clientSignUpSchema}
                     onSubmit={async (values) => {
-                        await signUpUser(values);
+                        const { email, password, confirmPassword } = values;
+                        mutate(
+                            { email, password, confirmPassword },
+                            {
+                                onSuccess: async () => {
+                                    await router.push("/login");
+                                    toast.success(
+                                        "Please check your email for verification link"
+                                    );
+                                },
+                                onError: (error) => {
+                                    toast.error(error.message);
+                                },
+                            }
+                        );
                     }}
                 >
                     {({ isSubmitting, errors, touched }) => (
@@ -56,14 +71,14 @@ const SignUpAsClient = () => {
                                 error={errors.confirmPassword}
                                 placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
                             />
-                            <RadioField
+                            {/* <RadioField
                                 type="radio"
                                 name="gender"
                                 labelName="Are You?"
                                 touch={touched.gender}
                                 error={errors.gender}
-                            />
-                            <div className="form-group">
+                            /> */}
+                            {/* <div className="form-group">
                                 <div className="form-check">
                                     <Field
                                         type="checkbox"
@@ -83,8 +98,8 @@ const SignUpAsClient = () => {
                                         Send me emails relevant to me.
                                     </label>
                                 </div>
-                            </div>
-                            <div className="form-group">
+                            </div> */}
+                            {/* <div className="form-group">
                                 <div className="form-check">
                                     <Field
                                         type="checkbox"
@@ -110,11 +125,11 @@ const SignUpAsClient = () => {
                                         of Cipher.
                                     </label>
                                 </div>
-                            </div>
+                            </div> */}
                             <FormButton
                                 type="submit"
                                 variant="primary"
-                                name="Continue"
+                                name={isLoading ? "Loading..." : "Continue"}
                                 className="login-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(

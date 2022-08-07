@@ -7,7 +7,10 @@ export const useUser = () => {
     return useQuery<User | undefined>(["user"], async () => {
         const { access } = nookies.get(undefined, "access");
         if (access === undefined) return undefined;
-        const user = await UserService.fetchUser(access);
+        const user = await UserService.fetchUser({
+            type: "client",
+            token: access,
+        });
         return user;
     });
 };

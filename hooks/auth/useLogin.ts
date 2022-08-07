@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 
@@ -22,10 +21,7 @@ export const useLogin = () => {
                 );
                 autoLogin(data.access);
             } catch (error) {
-                if (error instanceof AxiosError) {
-                    throw new Error(error?.response?.data?.message);
-                }
-                throw new Error("Something went wrong");
+                throw new Error("Invalid email or password");
             }
         },
         { onSuccess: () => queryClient.invalidateQueries(["user"]) }

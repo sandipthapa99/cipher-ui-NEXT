@@ -19,17 +19,17 @@ const passwordValidate = Yup.string()
 const genderValidate = Yup.string().required("Required Field");
 
 const clientSignUpSchema = Yup.object().shape({
-    firstName: stringReqOnly,
-    lastName: stringReqOnly,
+    // firstName: stringReqOnly,
+    // lastName: stringReqOnly,
     email: emailValidate,
-    phoneNumber: phoneValidate,
+    // phoneNumber: phoneValidate,
     password: passwordValidate,
     confirmPassword: Yup.string().oneOf(
         [Yup.ref("password")],
         "Passwords must match"
     ),
-    gender: genderValidate,
-    isAgree: isCheckValidate,
+    // gender: genderValidate,
+    // isAgree: isCheckValidate,
 });
 
 export default clientSignUpSchema;

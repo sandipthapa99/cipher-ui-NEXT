@@ -12,12 +12,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { toast } from "react-toastify";
 import type { ProfileCardContent } from "staticData/profileCardContent";
 import { autoLogout } from "utils/auth";
 
 export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
     const queryClient = useQueryClient();
     const router = useRouter();
+
+    const handleLogout = () => {
+        queryClient.setQueryData(["user"], null);
+        autoLogout();
+        toast.success("Logged out successfully");
+    };
     return (
         <div className="profile-dropdown p-4">
             <div
@@ -111,10 +118,7 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
                 <button
                     className="login-btn"
                     style={{ color: "#495057" }}
-                    onClick={() => {
-                        queryClient.setQueryData(["user"], null);
-                        autoLogout();
-                    }}
+                    onClick={handleLogout}
                 >
                     <FontAwesomeIcon
                         icon={faRightFromBracket}

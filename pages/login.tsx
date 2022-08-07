@@ -9,7 +9,7 @@ import { useLogin } from "hooks/auth/useLogin";
 import type { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
-import { autoLogin } from "utils/auth";
+import { toast } from "react-toastify";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -36,8 +36,13 @@ const Login = () => {
                         validationSchema={loginFormSchema}
                         onSubmit={(values) => {
                             mutate(values, {
-                                onError: (error) => console.log(error),
-                                onSuccess: () => router.push("/"),
+                                onError: (error) => {
+                                    toast.error(error.message);
+                                },
+                                onSuccess: async () => {
+                                    await router.push("/");
+                                    toast.success("Login Successful!");
+                                },
                             });
                         }}
                     >
