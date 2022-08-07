@@ -82,7 +82,7 @@ const TaxCalculator: NextPage = () => {
     return (
         <Layout title="Tax-Calculator | Cipher">
             <section className="tax-calculator ">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <Breadcrum currentPage="Tax Calculator" />
                     <div className="card-block">
                         <div className="header">

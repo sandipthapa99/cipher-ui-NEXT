@@ -26,7 +26,14 @@ const DragDrop = ({
             </figure>
             <p className="info">
                 Drag or
-                <label className="browse">&nbsp;Browse</label> <br />
+                <label
+                    htmlFor="choosefile"
+                    className="browse text-primary"
+                    role="button"
+                >
+                    &nbsp;Browse
+                </label>{" "}
+                <br />
                 {fileType}
             </p>
             {maxImageSize ? (
@@ -40,7 +47,7 @@ const DragDrop = ({
                 ""
             )}
             {maxPdfSize ? (
-                <p className="size">Maximum Pdf size {maxVideoSize} MB</p>
+                <p className="size">Maximum Pdf size {maxPdfSize} MB</p>
             ) : (
                 ""
             )}

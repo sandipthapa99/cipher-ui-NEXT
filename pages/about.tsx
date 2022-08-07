@@ -12,7 +12,7 @@ const About: NextPage = () => {
         <Layout title="About Us | Cipher">
             <div className="about-page">
                 <Breadcrum currentPage="About Us" />
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <div className="about-page__top-container">
                         <div className="main-image">
                             <figure className="thumbnail-img">
@@ -75,7 +75,7 @@ const About: NextPage = () => {
                                 </div>
                             </Col>
                         </Row>
-                        <Row className="purpose-container">
+                        <Row className="purpose-container gx-5">
                             <Col md={6}>
                                 <div className="about-information purpose">
                                     <h1>Our Purpose</h1>

@@ -1,13 +1,6 @@
 .social-page {
     margin-bottom: 0rem;
 
-    @include respond(sm) {
-        padding: 0rem 1.25rem;
-    }
-
-    @include respond(xs) {
-        padding: 0rem 1.25rem;
-    }
     &__top-container {
         display: flex;
         flex-direction: column;

@@ -94,6 +94,7 @@
     &__partners {
         .content {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
             background-color: #fff;
             align-items: center;
@@ -110,9 +111,22 @@
         flex-direction: column;
         align-items: stretch;
         margin-bottom: 5rem;
+        .guideline-col {
+            @include respond(sm) {
+                display: block;
+            }
+
+            @include respond(md) {
+                display: flex;
+                align-items: stretch;
+            }
+        }
         .thumbnail-img {
-            height: 9rem;
-            width: 9rem;
+            height: 7rem;
+            width: 7rem;
+        }
+        .card-block__card-description li {
+            list-style: disc;
         }
     }
     &__faq {

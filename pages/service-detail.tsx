@@ -34,7 +34,7 @@ import { reviewType } from "utils/options";
 const ServiceDetail: NextPage = () => {
     return (
         <Layout title="Service Details | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="service-details">
                     <Breadcrum
                         currentPage="Service Details"
@@ -44,7 +44,7 @@ const ServiceDetail: NextPage = () => {
                     {/* Explore top container start */}
                     <section className="service-details__top-container">
                         <h1>Garden Cleaning</h1>
-                        <Row>
+                        <Row className="gx-5">
                             <Col md={8}>
                                 <div className="information">
                                     <p className="provider-name">
@@ -76,7 +76,7 @@ const ServiceDetail: NextPage = () => {
                                 </div>
                             </Col>
                         </Row>
-                        <Row>
+                        <Row className="gx-5">
                             <Col md={8}>
                                 <figure className="thumbnail-img">
                                     <Image
@@ -109,7 +109,7 @@ const ServiceDetail: NextPage = () => {
                     </section>
                     {/* Explore top container end */}
                     <section className="service-details__description">
-                        <Row>
+                        <Row className="gx-5">
                             <Col md={8}>
                                 <h1>Description</h1>
                                 <p>
@@ -138,7 +138,7 @@ const ServiceDetail: NextPage = () => {
                     <section className="service-details__highlights">
                         <h1>Highlights</h1>
 
-                        <Row className="content flex-column">
+                        <Row className="content gx-5 flex-column">
                             {serviceHighlights &&
                                 serviceHighlights.map((name) => (
                                     // <div >
@@ -154,7 +154,7 @@ const ServiceDetail: NextPage = () => {
                     {/* Service details package and offers start */}
                     <section className="service-details__offers">
                         <h1>Packages &amp; Offers</h1>
-                        <Row className="gx-4 d-flex align-items-stretch">
+                        <Row className="gx-5 d-flex align-items-stretch">
                             {PackageCard &&
                                 PackageCard.map((offer) => (
                                     <Col
@@ -171,6 +171,7 @@ const ServiceDetail: NextPage = () => {
                                             isRecommended={offer.isRecommended}
                                             isPermium={offer.isPermium}
                                             advantage={offer.advantage}
+                                            isFromAddService={false}
                                         />
                                     </Col>
                                 ))}
@@ -190,24 +191,16 @@ const ServiceDetail: NextPage = () => {
                                     console.log(values);
                                 }}
                             >
-                                <div className="dropdown-wrapper">
-                                    <div className="dropdown">
-                                        <SelectInputField
-                                            name="review"
-                                            options={reviewType}
-                                            placeholder="Most Relevant"
-                                            fieldRequired
-                                        />
-                                        <FontAwesomeIcon
-                                            icon={faChevronDown}
-                                            className="svg-icon"
-                                        />
-                                    </div>
-                                </div>
+                                <SelectInputField
+                                    name="review"
+                                    options={reviewType}
+                                    placeHolder="Most Relevant"
+                                    fieldRequired
+                                />
                             </Formik>
                         </div>
                         <div className="review-container">
-                            <Row>
+                            <Row className="gx-5">
                                 {reviewsContent &&
                                     reviewsContent.map((review) => (
                                         <Col md={8} key={review.id}>
