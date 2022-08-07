@@ -148,7 +148,10 @@ const Header = () => {
                         </nav>
 
                         <Link href="#!">
-                            <a className="btn location-btn d-none d-md-inline-block">
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ marginRight: "1.6rem" }}
+                            >
                                 {data?.data.city}
                                 <FontAwesomeIcon
                                     icon={faLocationDot}
