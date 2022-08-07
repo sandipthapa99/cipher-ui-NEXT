@@ -21,15 +21,15 @@ export const loginFormData: LoginValuesProps = {
 };
 
 export const ClientSignUpFormData: ClientSignUpValueProps = {
-    firstName: "",
-    lastName: "",
+    // firstName: "",
+    // lastName: "",
     email: "",
-    phoneNumber: "",
+    // phoneNumber: "",
     password: "",
     confirmPassword: "",
-    gender: "male",
-    isAgree: true,
-    addToNewsletter: true,
+    // gender: "male",
+    // isAgree: true,
+    // addToNewsletter: true,
 };
 
 //apply form data

@@ -36,7 +36,7 @@ const SignUpAsTasker = () => {
                     {({ isSubmitting, errors, touched }) => (
                         <Form className="login-form">
                             <div className="form-group"></div>
-                            <RadioField
+                            {/* <RadioField
                                 type="radio"
                                 name="gender"
                                 labelName="Signing up as?"
@@ -58,7 +58,7 @@ const SignUpAsTasker = () => {
                                 touch={touched.lastName}
                                 error={errors.lastName}
                                 placeHolder="Lisa"
-                            />
+                            /> */}
                             <InputField
                                 type="email"
                                 name="email"
@@ -67,14 +67,14 @@ const SignUpAsTasker = () => {
                                 error={errors.email}
                                 placeHolder="example@example.com"
                             />
-                            <InputField
+                            {/* <InputField
                                 type="text"
                                 name="phoneNumber"
                                 labelName="Phone Number"
                                 touch={touched.phoneNumber}
                                 error={errors.phoneNumber}
                                 placeHolder="+00 420 420 4200"
-                            />
+                            /> */}
                             <PasswordField
                                 type="password"
                                 name="password"
@@ -91,14 +91,14 @@ const SignUpAsTasker = () => {
                                 error={errors.confirmPassword}
                                 placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
                             />
-                            <RadioField
+                            {/* <RadioField
                                 type="radio"
                                 name="gender"
                                 labelName="Are You?"
                                 touch={touched.gender}
                                 error={errors.gender}
-                            />
-                            <div className="form-group">
+                            /> */}
+                            {/* <div className="form-group">
                                 <div className="form-check">
                                     <Field
                                         type="checkbox"
@@ -118,8 +118,8 @@ const SignUpAsTasker = () => {
                                         Send me emails relevant to me.
                                     </label>
                                 </div>
-                            </div>
-                            <div className="form-group">
+                            </div> */}
+                            {/* <div className="form-group">
                                 <div className="form-check">
                                     <Field
                                         type="checkbox"
@@ -145,7 +145,7 @@ const SignUpAsTasker = () => {
                                         of Cipher.
                                     </label>
                                 </div>
-                            </div>
+                            </div> */}
                             <FormButton
                                 type="submit"
                                 variant="primary"
