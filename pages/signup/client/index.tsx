@@ -33,36 +33,12 @@ const SignUpAsClient = () => {
                     {({ isSubmitting, errors, touched }) => (
                         <Form className="login-form">
                             <InputField
-                                type="text"
-                                name="firstName"
-                                labelName="First Name"
-                                touch={touched.firstName}
-                                error={errors.firstName}
-                                placeHolder="Lisa"
-                            />
-                            <InputField
-                                type="text"
-                                name="lastName"
-                                labelName="Last Name"
-                                touch={touched.lastName}
-                                error={errors.lastName}
-                                placeHolder="Lisa"
-                            />
-                            <InputField
                                 type="email"
                                 name="email"
                                 labelName="Email or phone number"
                                 touch={touched.email}
                                 error={errors.email}
                                 placeHolder="example@example.com"
-                            />
-                            <InputField
-                                type="text"
-                                name="phoneNumber"
-                                labelName="Phone Number"
-                                touch={touched.phoneNumber}
-                                error={errors.phoneNumber}
-                                placeHolder="+00 420 420 4200"
                             />
                             <PasswordField
                                 type="password"

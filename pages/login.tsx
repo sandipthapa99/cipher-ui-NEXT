@@ -6,12 +6,14 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { withAuth } from "hoc/withAuth";
 import { useLogin } from "hooks/auth/useLogin";
+import type { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
 import { autoLogin } from "utils/auth";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { restrictOnLogin } from "utils/restrictOnLogin";
 
 const Login = () => {
     const router = useRouter();
@@ -35,10 +37,7 @@ const Login = () => {
                         onSubmit={(values) => {
                             mutate(values, {
                                 onError: (error) => console.log(error),
-                                onSuccess: (accessToken) => {
-                                    autoLogin(accessToken);
-                                    router.push("/");
-                                },
+                                onSuccess: () => router.push("/"),
                             });
                         }}
                     >
@@ -95,4 +94,7 @@ const Login = () => {
         </section>
     );
 };
+export const getServerSideProps: GetServerSideProps = (context) =>
+    restrictOnLogin(context);
+
 export default withAuth(Login);
