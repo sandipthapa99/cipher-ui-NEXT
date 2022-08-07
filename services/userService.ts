@@ -3,7 +3,7 @@ import type { GetServerSidePropsContext, PreviewData } from "next";
 import nookies from "nookies";
 import type { ParsedUrlQuery } from "querystring";
 import type { User } from "types/user";
-import { axiosClient, createAxiosClient } from "utils/axiosClient";
+import { createAxiosClient } from "utils/axiosClient";
 
 type FetchUser =
     | { type: "client"; token: string }
@@ -17,7 +17,7 @@ export class UserService {
             fetchUserData.type === "client"
                 ? fetchUserData.token
                 : nookies.get(fetchUserData.context, "access").access;
-        if (token === undefined) return undefined;
+        if (token === undefined) return null;
         const { user_id: userId } = jwtDecode<{ user_id: string }>(token);
         const { data } = await createAxiosClient(
             fetchUserData.type === "server" ? fetchUserData.context : undefined
