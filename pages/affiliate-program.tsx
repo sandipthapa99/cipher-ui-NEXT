@@ -2,21 +2,22 @@ import Breadcrum from "@components/common/Breadcrum";
 import CardBtn from "@components/common/CardBtn";
 import CipherCard from "@components/common/CipherCard";
 import FaqContent from "@components/common/Faq";
-import FormButton from "@components/common/FormButton";
+import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import Layout from "@components/Layout";
 import { withAuth } from "hoc/withAuth";
 import Image from "next/image";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { affiliateGetStarted } from "staticData/affiliate";
 import { faqContent } from "staticData/faq";
-import { findHire } from "staticData/findHire";
-import { isSubmittingClass } from "utils/helpers";
+import { trustedPartners } from "staticData/taskerMarketPlace";
+
 const AffiliateProgram = () => {
     return (
         <Layout title="Affiliate Program | Cipher">
             <section className="affiliate-hero-section">
                 <Breadcrum currentPage="Affiliate Program" />
-                <Container fluid="xl">
+                <Container className="px-5" fluid="xl">
                     <Row className="gx-5">
                         <Col
                             md={5}
@@ -59,7 +60,15 @@ const AffiliateProgram = () => {
                     </Row>
                 </Container>
             </section>
-            <Container fluid="xl">
+            <Container className="px-5" fluid="xl">
+                <section className="affiliate-partners-section">
+                    <div className="content">
+                        {trustedPartners &&
+                            trustedPartners.map((partner) => (
+                                <h1 key={partner.id}>{partner.name}</h1>
+                            ))}
+                    </div>
+                </section>
                 <section className="affiliate-get-started-section">
                     <h1 className="heading-title">Get started</h1>
                     <h2>It&apos;s easy to join us</h2>
@@ -67,11 +76,7 @@ const AffiliateProgram = () => {
                         {affiliateGetStarted &&
                             affiliateGetStarted.map((card) => {
                                 return (
-                                    <Col
-                                        md={4}
-                                        key={card.id}
-                                        className="d-flex align-items-stretch"
-                                    >
+                                    <Col md={4} key={card.id}>
                                         <CipherCard
                                             thumbnailImg={card.thumbnailImg}
                                             title={card.title}
@@ -86,14 +91,14 @@ const AffiliateProgram = () => {
                 <section className="affiliate-how-it-works">
                     <h1 className="heading-title">How does it work?</h1>
                     <h2>
-                        We handle everything &#8211; hosting the products,
+                        We handle everything &#8211; hosting the roducts,
                         handling customer service, and you get paid for
                         referring visitors to our websites.
                     </h2>
                     <Row className="gx-5">
                         <Col md={6}>
                             <div className="table-card">
-                                <table>
+                                <Table responsive>
                                     <thead>
                                         <tr>
                                             <th>Referred sales</th>
@@ -120,7 +125,7 @@ const AffiliateProgram = () => {
                                             </td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </Table>
                             </div>
                         </Col>
                         <Col md={6}>
@@ -141,32 +146,17 @@ const AffiliateProgram = () => {
                 </section>
 
                 <section className="why-cipher">
-                    <Row className="gx-5 justify-content-center align-items-center">
-                        <Col md={8}>
-                            <h1 className="heading-title">Why Cipher</h1>
-                            <h2>The world&apos;s work marketplace</h2>
-                            <p>
-                                Businesses and independent professionals from
+                    <LongSquareImageCard
+                        title="Why Cipher"
+                        subtitle="The world's work marketplace"
+                        image="/affiliate/why-cipher.png"
+                        description="Businesses and independent professionals from
                                 around the world come to Upwork to grow their
                                 businesses, take control of their careers, and
-                                create meaningful work relationships.
-                            </p>
-                            <CardBtn
-                                backgroundColor="#211D4F"
-                                btnTitle="See how"
-                            />
-                        </Col>
-                        <Col md={4}>
-                            <figure className="thumbnail-img d-none d-md-block">
-                                <Image
-                                    src="/affiliate/why-cipher.png"
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt="affiliate-hero-img"
-                                />
-                            </figure>
-                        </Col>
-                    </Row>
+                                create meaningful work relationships."
+                        buttonText="See How"
+                        imageOnRight={false}
+                    />
                 </section>
 
                 <section className="affiliate-faqs">
