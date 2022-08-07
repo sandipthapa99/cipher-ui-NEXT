@@ -26,11 +26,11 @@ export const createAxiosClient = (
     const axiosClient = axios.create({
         baseURL: getApiEndpoint(),
     });
-    const { token } = parseCookies(context, "token");
-    if (token) {
+    const { access } = parseCookies(context, "access");
+    if (access) {
         axiosClient.defaults.headers.common[
             "Authorization"
-        ] = `Bearer ${token}`;
+        ] = `Bearer ${access}`;
     }
     axiosInterceptor(axiosClient);
     return axiosClient;
