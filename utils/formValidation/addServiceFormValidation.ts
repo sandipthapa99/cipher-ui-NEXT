@@ -1,6 +1,18 @@
 import * as Yup from "yup";
 
-let serviceTitleValidate, serviceDescriptionValidate, serviceTypeValidate, serviceCategoryValidate, serviceRequirementValidate, startingPriceValidate, revisionNumberValidate, packageTitleValidate, packageDesctiptionValidate, servicesOfferedValidate, packagePriceValidate, revisionPriceValidate, revisionDayValidate;
+let serviceTitleValidate,
+    serviceDescriptionValidate,
+    serviceTypeValidate,
+    serviceCategoryValidate,
+    serviceRequirementValidate,
+    startingPriceValidate,
+    revisionNumberValidate,
+    packageTitleValidate,
+    packageDesctiptionValidate,
+    servicesOfferedValidate,
+    packagePriceValidate,
+    revisionPriceValidate,
+    revisionDayValidate;
 
 serviceTitleValidate = Yup.string().required("Required field");
 serviceDescriptionValidate = Yup.string().required("Required field");
@@ -17,17 +29,18 @@ revisionPriceValidate = Yup.string().required("Required field");
 revisionDayValidate = Yup.string().required("Required field");
 
 export const addServiceFormSchema = Yup.object().shape({
-   service_title: serviceTitleValidate,
-   service_description: serviceDescriptionValidate,
-   service_type: serviceTypeValidate,
-   serviceCategory: serviceCategoryValidate,
-   requirement: serviceRequirementValidate,
-   starting_price: startingPriceValidate,
-   revision_number: revisionNumberValidate,
-   package_title: packageTitleValidate,
-   package_description: packageDesctiptionValidate,
-   services_offered: servicesOfferedValidate,
-   package_price: packagePriceValidate,
-   revision_price: revisionPriceValidate,
-   revision_day: revisionDayValidate,
+    service_title: serviceTitleValidate,
+    service_description: serviceDescriptionValidate,
+    service_type: serviceTypeValidate,
+    service_category: serviceCategoryValidate,
+    requirement: serviceRequirementValidate,
+    starting_price: startingPriceValidate,
+    revision_number: revisionNumberValidate,
+    package_title: packageTitleValidate,
+    package_description: packageDesctiptionValidate,
+    package_revisions_number: revisionNumberValidate,
+    services_offered: servicesOfferedValidate,
+    package_price: packagePriceValidate,
+    revision_price: revisionPriceValidate,
+    revision_day: revisionDayValidate,
 });

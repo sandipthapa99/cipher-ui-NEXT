@@ -9,6 +9,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { SelectOptionProps } from "types/selectInputField";
+import { addServiceFormSchema } from "utils/formValidation/addServiceFormValidation";
 
 import { ServiceVideo } from "./ServiceVideo";
 
@@ -33,7 +34,7 @@ export const PackageDetails = ({
         package_description: "",
         service_offered: "",
         package_price: "",
-        package_revisions: "",
+        package_revisions_number: "",
         revision_price: "",
         revision_day: "",
     };
@@ -70,6 +71,7 @@ export const PackageDetails = ({
                             <div className="service-form-body">
                                 <Formik
                                     initialValues={packageDetailsData}
+                                    validationSchema={addServiceFormSchema}
                                     onSubmit={(values) => {
                                         console.log(values);
                                         setPackageArray((prev) => {
@@ -81,6 +83,7 @@ export const PackageDetails = ({
                                 >
                                     {({
                                         setFieldValue,
+                                        isSubmitting,
                                         errors,
                                         touched,
                                         values,
@@ -92,12 +95,22 @@ export const PackageDetails = ({
                                                     labelName="Package Title"
                                                     placeHolder="package title"
                                                     name="package_title"
+                                                    error={errors.package_title}
+                                                    touch={
+                                                        touched.package_title
+                                                    }
                                                 />
                                                 <InputField
                                                     labelName="Package Description"
                                                     placeholder="Package Description"
                                                     name="package_description"
                                                     as="textarea"
+                                                    error={
+                                                        errors.package_description
+                                                    }
+                                                    touch={
+                                                        touched.package_description
+                                                    }
                                                 />
 
                                                 <AddRequirements
@@ -114,12 +127,22 @@ export const PackageDetails = ({
                                                     name="package_price"
                                                     labelName="Price"
                                                     placeHolder="Price"
+                                                    error={errors.package_price}
+                                                    touch={
+                                                        touched.package_price
+                                                    }
                                                 />
                                                 <SelectInputField
                                                     name="package_revisions_number"
                                                     labelName="Number of Revisions"
                                                     placeHolder="No. of Revisions"
                                                     options={options}
+                                                    error={
+                                                        errors.package_revisions_number
+                                                    }
+                                                    touch={
+                                                        touched.package_revisions_number
+                                                    }
                                                 />
                                                 <div className="checkbox">
                                                     <input
@@ -137,6 +160,12 @@ export const PackageDetails = ({
                                                                 name="revision_price"
                                                                 labelName="Revision Price"
                                                                 placeHolder="Revision Price"
+                                                                error={
+                                                                    errors.revision_price
+                                                                }
+                                                                touch={
+                                                                    touched.revision_price
+                                                                }
                                                             />
                                                         </Col>
                                                         <Col md={6} sm={12}>
@@ -144,6 +173,12 @@ export const PackageDetails = ({
                                                                 name="revision_day"
                                                                 labelName="Revision Day"
                                                                 placeHolder="Select Revision Day"
+                                                                error={
+                                                                    errors.revision_day
+                                                                }
+                                                                touch={
+                                                                    touched.revision_day
+                                                                }
                                                                 options={
                                                                     options
                                                                 }
@@ -158,7 +193,6 @@ export const PackageDetails = ({
                                                         }
                                                     />
                                                 </span>
-                                                {/* <a>+ Add More Package</a> */}
 
                                                 <div className="d-flex justify-content-end next-button">
                                                     <span className="previous-step-button">
