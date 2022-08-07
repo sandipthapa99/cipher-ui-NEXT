@@ -190,20 +190,12 @@ const ServiceDetail: NextPage = () => {
                                     console.log(values);
                                 }}
                             >
-                                <div className="dropdown-wrapper">
-                                    <div className="dropdown">
-                                        <SelectInputField
-                                            name="review"
-                                            options={reviewType}
-                                            placeholder="Most Relevant"
-                                            fieldRequired
-                                        />
-                                        <FontAwesomeIcon
-                                            icon={faChevronDown}
-                                            className="svg-icon"
-                                        />
-                                    </div>
-                                </div>
+                                <SelectInputField
+                                    name="review"
+                                    options={reviewType}
+                                    placeHolder="Most Relevant"
+                                    fieldRequired
+                                />
                             </Formik>
                         </div>
                         <div className="review-container">
