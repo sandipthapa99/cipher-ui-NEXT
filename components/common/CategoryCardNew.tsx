@@ -1,7 +1,7 @@
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { CategoryCardProps } from "types/categoryCard";
+import type { CategoryCardProps } from "types/categoryCard";
 
 const CategoryCardNew = ({
     categoryTitle,

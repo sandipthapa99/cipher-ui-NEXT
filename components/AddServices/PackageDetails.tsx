@@ -79,7 +79,12 @@ export const PackageDetails = ({
                                         });
                                     }}
                                 >
-                                    {({ setFieldValue, errors, touched, values }) => (
+                                    {({
+                                        setFieldValue,
+                                        errors,
+                                        touched,
+                                        values,
+                                    }) => (
                                         <>
                                             <Form>
                                                 <h3>Package Details</h3>
@@ -176,7 +181,9 @@ export const PackageDetails = ({
                                                             "#211D4F"
                                                         }
                                                         textColor="#fff"
-                                                        handleClick={() => handleNext(values)}
+                                                        handleClick={() =>
+                                                            handleNext(values)
+                                                        }
                                                     />
                                                 </div>
                                             </Form>
