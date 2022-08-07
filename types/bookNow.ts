@@ -11,6 +11,6 @@ export interface BookNowFormProps {
     problemDescription: string;
     image: string;
     time: number;
-    startdate: string;
-    enddate: string;
+    startdate: string | null;
+    enddate: string | null;
 }

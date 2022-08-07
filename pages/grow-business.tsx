@@ -20,7 +20,7 @@ import { services } from "staticData/services";
 const GrowYourBusiness: NextPage = () => {
     return (
         <Layout title="Grow Your Business | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="grow-business">
                     <Breadcrum currentPage="Grow Your Business" />
 
@@ -169,7 +169,7 @@ const GrowYourBusiness: NextPage = () => {
                     {/* blog section start */}
                     <section className="grow-business__blogs">
                         <h1>Blogs</h1>
-                        <Row>
+                        <Row className="gx-5">
                             {blogCardContent &&
                                 blogCardContent.map((blog) => {
                                     return (

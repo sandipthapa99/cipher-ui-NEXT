@@ -14,9 +14,9 @@ const PayrollServices: NextPage = () => {
         <Layout title="Payroll-Services | Cipher">
             <section className="payroll-services">
                 <section className="payroll-services__header">
-                    <Container fluid="xl">
+                    <Container fluid="xl" className="px-5">
                         <Breadcrum currentPage="Payroll Services" />
-                        <Row className="d-flex align-items-center">
+                        <Row className="d-flex gx-5 align-items-center">
                             <Col md={6}>
                                 <figure className="thumbnail-img">
                                     <Image
@@ -45,7 +45,7 @@ const PayrollServices: NextPage = () => {
                     </Container>
                 </section>
                 <div className="payroll-services__content">
-                    <Container fluid="xl">
+                    <Container fluid="xl" className="px-5">
                         <div className="clients">
                             <LongSquareImageCard
                                 title="A Existing Clients in Cipher"
@@ -57,9 +57,9 @@ const PayrollServices: NextPage = () => {
                             />
                         </div>
                         <div className="taskers card-block">
-                            <Row>
+                            <Row className="gx-5">
                                 <Col md={7} sm={12}>
-                                    <Row>
+                                    <Row className="gx-5">
                                         <div className="d-flex images">
                                             <div className="text-center">
                                                 <figure className="thumbnail-img">

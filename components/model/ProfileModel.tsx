@@ -7,13 +7,16 @@ import {
     faRightFromBracket,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import type { ProfileCardContent } from "staticData/profileCardContent";
+import { autoLogout } from "utils/auth";
 
 export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
+    const queryClient = useQueryClient();
     const router = useRouter();
     return (
         <div className="profile-dropdown p-4">
@@ -109,8 +112,9 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
                     className="login-btn"
                     style={{ color: "#495057" }}
                     onClick={() => {
-                        localStorage.removeItem("token");
-                        router.push("/");
+                        queryClient.removeQueries(["user"]);
+                        autoLogout();
+                        router.push("/login");
                     }}
                 >
                     <FontAwesomeIcon

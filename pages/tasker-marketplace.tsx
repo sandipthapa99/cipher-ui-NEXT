@@ -29,7 +29,7 @@ const waysToHire = [
 const TaskerMarketPlace: NextPage = () => {
     return (
         <Layout title="Tasker Marketplace | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="tasker-marketplace">
                     <Breadcrum currentPage="Tasker Marketplace" />
 
@@ -53,7 +53,7 @@ const TaskerMarketPlace: NextPage = () => {
                     </div>
                     <div className="tasker-marketplace__services">
                         <h1>What you&apos;ll get?</h1>
-                        <Row>
+                        <Row className="gx-5">
                             {taskerServices &&
                                 taskerServices.map((info) => (
                                     <Col
