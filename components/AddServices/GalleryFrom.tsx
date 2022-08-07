@@ -7,7 +7,7 @@ import { ServiceVideo } from "./ServiceVideo";
 
 interface GalleryFormProps {
     handlePrev: () => void;
-    handleNext: () => void;
+    handleNext: (data: unknown) => void;
 }
 
 const initialValues = {
@@ -29,7 +29,12 @@ export const GalleryFrom = ({ handlePrev, handleNext }: GalleryFormProps) => {
                                         console.log(values);
                                     }}
                                 >
-                                    {({ setFieldValue, errors, touched }) => (
+                                    {({
+                                        setFieldValue,
+                                        errors,
+                                        touched,
+                                        values,
+                                    }) => (
                                         <>
                                             <Form>
                                                 <h5>Gallery</h5>
@@ -82,7 +87,9 @@ export const GalleryFrom = ({ handlePrev, handleNext }: GalleryFormProps) => {
                                                             "#211D4F"
                                                         }
                                                         textColor="#fff"
-                                                        handleClick={handleNext}
+                                                        handleClick={() =>
+                                                            handleNext(values)
+                                                        }
                                                     />
                                                 </div>
                                             </Form>

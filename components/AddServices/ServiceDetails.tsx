@@ -10,7 +10,7 @@ import type { SelectOptionProps } from "types/selectInputField";
 import { ServiceVideo } from "./ServiceVideo";
 
 interface ServiceDetailsProps {
-    handleNext: () => void;
+    handleNext: (data: unknown) => void;
 }
 
 export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
@@ -44,7 +44,12 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                         console.log(values);
                                     }}
                                 >
-                                    {({ setFieldValue, errors, touched }) => (
+                                    {({
+                                        setFieldValue,
+                                        errors,
+                                        touched,
+                                        values,
+                                    }) => (
                                         <>
                                             <Form>
                                                 <h3>Service Details</h3>
@@ -106,7 +111,9 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                                             "#211D4F"
                                                         }
                                                         textColor="#fff"
-                                                        handleClick={handleNext}
+                                                        handleClick={() =>
+                                                            handleNext(values)
+                                                        }
                                                     />
                                                 </div>
                                             </Form>

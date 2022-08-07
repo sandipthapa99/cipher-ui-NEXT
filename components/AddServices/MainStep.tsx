@@ -8,13 +8,19 @@ import { StepsLine } from "./StepsLine";
 
 export const MainStep = () => {
     const [step, setStep] = useState(1);
+    const [allData, setAllData] = useState({});
 
-    const handleNext = () => {
+    console.log("all data..........", allData);
+
+    const handleNext = (data?: unknown) => {
         setStep(step + 1);
+        window.scrollTo({ top: 100 });
+        setAllData((prev) => ({ ...prev, ...(data as object) }));
     };
 
     const handlePrev = () => {
         setStep(step - 1);
+        window.scrollTo({ top: 100 });
     };
 
     switch (step) {
