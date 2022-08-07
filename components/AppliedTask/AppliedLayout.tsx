@@ -3,6 +3,7 @@ import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
+import { useApplyTask } from "hooks/apply-task/useTask";
 import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
@@ -10,6 +11,9 @@ import { taskApplied } from "staticData/taskApplied";
 
 const AppliedLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
+
+    const { data } = useApplyTask();
+    console.log("dataaaaaa", data);
     const filteredTasks = useMemo(
         () =>
             query
