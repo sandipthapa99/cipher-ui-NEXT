@@ -1,8 +1,9 @@
+import { format } from "date-fns";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
-import { AllTaskResult } from "types/applytask";
-import { format } from "date-fns";
+import type { AllTaskResult } from "types/applytask";
+
 import type { AppliedTask } from "../../staticData/taskApplied";
 import TaskAppliedCard from "./taskAppliedCard";
 
