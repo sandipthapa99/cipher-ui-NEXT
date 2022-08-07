@@ -13,7 +13,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
-import { axiosClient } from "utils/axiosClient";
 import { handleMenuActive } from "utils/helpers";
 
 // import { handleMenuActive } from "../../../../libs/util-formatter/src";

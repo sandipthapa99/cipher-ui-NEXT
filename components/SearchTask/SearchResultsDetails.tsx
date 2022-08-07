@@ -300,7 +300,7 @@ const SearchResultsDetail = ({
                 key={serviceTitle}
                 show={show}
                 handleClose={handleClose}
-            /> */}
+            />
         </>
     );
 };

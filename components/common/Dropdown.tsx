@@ -1,6 +1,5 @@
 import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { log } from "console";
 import { useCategories } from "hooks/category/useCategories";
 import Link from "next/link";
 import type { ReactNode } from "react";

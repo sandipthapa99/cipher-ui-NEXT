@@ -1,7 +1,6 @@
 import { faBars } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useAuthContext } from "context/AuthContext/userContext";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";

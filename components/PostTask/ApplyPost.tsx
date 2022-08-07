@@ -1,5 +1,4 @@
 import SearchBySort from "@components/SearchTask/searchPageSort";
-import { ClientTaskCard } from "@components/Task/ClientTaskCard";
 import { useClientTasks } from "context/ClientTaskContext";
 import { Col, Row } from "react-bootstrap";
 
