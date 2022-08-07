@@ -1,6 +1,6 @@
 import CardBtn from "@components/common/CardBtn";
 import { FilterReview } from "@components/common/FilterReview";
-import ModalCard from "@components/common/ModalCard";
+// import ModalCard from "@components/common/ModalCard";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
 import ServiceCard from "@components/common/ServiceCard";
@@ -286,7 +286,7 @@ const SearchResultsDetail = ({
                     </Carousel>
                 </Row>
             </div>
-            <ModalCard
+            {/* <ModalCard
                 description={serviceDescription}
                 image={image}
                 price={servicePrice}
@@ -294,7 +294,7 @@ const SearchResultsDetail = ({
                 key={serviceTitle}
                 show={show}
                 handleClose={handleClose}
-            />
+            /> */}
         </>
     );
 };
