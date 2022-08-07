@@ -115,18 +115,20 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
                 </li>
             </ul>
             <ul className="border-1">
-                <button
-                    className="login-btn"
-                    style={{ color: "#495057" }}
-                    onClick={handleLogout}
-                >
-                    <FontAwesomeIcon
-                        icon={faRightFromBracket}
-                        className="svg-icon svg-180-transfrom"
-                        style={{ color: "#868E96" }}
-                    />
-                    Logout
-                </button>
+                <li>
+                    <button
+                        className="logout-btn"
+                        style={{ color: "#495057" }}
+                        onClick={handleLogout}
+                    >
+                        <FontAwesomeIcon
+                            icon={faRightFromBracket}
+                            className="svg-icon svg-180-transfrom"
+                            style={{ color: "#868E96" }}
+                        />
+                        Logout
+                    </button>
+                </li>
             </ul>
         </div>
     );
