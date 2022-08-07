@@ -111,6 +111,16 @@
         flex-direction: column;
         align-items: stretch;
         margin-bottom: 5rem;
+        .guideline-col {
+            @include respond(sm) {
+                display: block;
+            }
+
+            @include respond(md) {
+                display: flex;
+                align-items: stretch;
+            }
+        }
         .thumbnail-img {
             height: 7rem;
             width: 7rem;

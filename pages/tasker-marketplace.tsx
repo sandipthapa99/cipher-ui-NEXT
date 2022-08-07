@@ -57,8 +57,11 @@ const TaskerMarketPlace: NextPage = () => {
                             {taskerServices &&
                                 taskerServices.map((info) => (
                                     <Col
-                                        className="d-flex align-items-stretch"
+                                        className="guideline-col"
                                         key={info.id}
+                                        lg={4}
+                                        md={6}
+                                        sm={12}
                                     >
                                         <CommunityGuidelineCard
                                             cardTitle={info.cardTitle}
