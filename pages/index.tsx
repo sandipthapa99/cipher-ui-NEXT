@@ -64,10 +64,6 @@ const Home: NextPage = () => {
                                             options={myOptions}
                                             fieldRequired
                                         />
-                                        <FontAwesomeIcon
-                                            icon={faChevronDown}
-                                            className="svg-icon"
-                                        />
                                     </div>
                                 </div>
                                 <div className="search_field">

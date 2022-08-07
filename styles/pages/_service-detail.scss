@@ -153,49 +153,33 @@ section {
                     font-weight: 400;
                 }
             }
-            .dropdown-wrapper {
-                width: 30%;
-                padding: 0rem 0;
+
+            .form-group {
+                margin: 0;
+                flex: 0.4;
+                z-index: 1;
                 background: rgba(255, 255, 255, 0.8);
                 border-radius: 0.4rem;
                 border: 1px solid #dde2f1;
-                @include respond(lg) {
-                    width: 35%;
-                }
-                .dropdown-menu {
-                    width: 6rem !important;
-                }
-                .dropdown {
-                    color: #9fa3b1;
-                    //position: relative;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    .form-group {
-                        margin: 0;
-                        z-index: 1;
-                        .form-control {
-                            border: none;
-                            height: 3.4rem;
-                            font-size: 1.3rem;
-                            cursor: pointer;
-                            background: transparent;
-                            &::placeholder {
-                                color: #868e96;
-                                font-family: $poppins-font;
-                                font-size: 1.6rem;
-                                font-weight: 500;
-                            }
-                        }
-                    }
-                    .svg-icon {
-                        //position: absolute;
-                        //top: 35%;
-                        //left: 100%;
-                        margin-right: 2rem;
-                        z-index: 0;
+                .form-control {
+                    border: none;
+                    height: 3.4rem;
+                    font-size: 1.3rem;
+                    cursor: pointer;
+                    background: transparent;
+                    &::placeholder {
+                        color: #868e96;
+                        font-family: $poppins-font;
+                        font-size: 1.6rem;
+                        font-weight: 500;
                     }
                 }
+            }
+
+            .svg-icon {
+                top: 1rem;
+                margin-right: 2rem;
+                z-index: 0;
             }
         }
         .review-container {

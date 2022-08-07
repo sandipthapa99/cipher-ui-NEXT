@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import type { CreditCardContent } from "staticData/creditCardContent";
 
-const CreditCard = ({ cardDetail }: { cardDetail: CreditCardContent[0] }) => {
+const CreditCard = ({ cardDetail }: { cardDetail: CreditCardContent }) => {
     const [selected, setSelected] = useState(false);
 
     const isSelected = () => {
