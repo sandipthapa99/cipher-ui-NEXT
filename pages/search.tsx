@@ -5,11 +5,12 @@ import SearchResults from "@components/SearchTask/SearchResults";
 import type { NextPage } from "next";
 import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
-import { servicesNearYou } from "staticData/servicesNearYouCard";
+import { getAllServicesNearYou } from "services/commonServices";
 
 import SearchHeader from "../components/SearchTask/searchHeader";
 
 const SearchPage: NextPage = () => {
+    const servicesNearYou = getAllServicesNearYou();
     const [query, setQuery] = useState("");
     const filteredServices = useMemo(
         () =>

@@ -13,6 +13,8 @@ interface props {
 export const CheckoutModal = ({ show, onHide }: props) => {
     const { setShowSuccessModal } = useSuccessContext();
     const { bookNowDetails } = useBookContext();
+    const serviceCharge = 200;
+    const GST = 100;
     return (
         <div className="checkout-modal-div">
             <Modal
@@ -65,15 +67,18 @@ export const CheckoutModal = ({ show, onHide }: props) => {
                     </div>
                     <div className="price-modal">
                         <p>Service Charge</p>
-                        <p>Rs. 200</p>
+                        <p>Rs. {serviceCharge}</p>
                     </div>
                     <div className="price-modal">
                         <p>GST</p>
-                        <p>Rs. 100</p>
+                        <p>Rs. {GST}</p>
                     </div>
                     <div className="grand-total">
                         <p>Grand Total:</p>
-                        <p>Rs {bookNowDetails.servicePrice + 200 + 100}</p>
+                        <p>
+                            Rs.{" "}
+                            {bookNowDetails.servicePrice + serviceCharge + GST}
+                        </p>
                     </div>
                 </div>
                 <div className="submit-buttons">
