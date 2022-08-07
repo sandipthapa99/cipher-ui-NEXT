@@ -11,11 +11,11 @@ import { axiosClient } from "utils/axiosClient";
 // };
 
 const fetchTask = () => {
- return   axiosClient.get("/task/application/")
+ return   axiosClient.get("/task/")
     
 }
 
 export const useApplyTask = () => {
-  return  useQuery(["apply-task"], fetchTask);
+  return  useQuery(["all-task"], fetchTask);
     
 }

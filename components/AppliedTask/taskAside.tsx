@@ -1,17 +1,19 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
-
+import { AllTaskResult } from "types/applytask";
+import d
 import type { AppliedTask } from "../../staticData/taskApplied";
 import TaskAppliedCard from "./taskAppliedCard";
 
 interface TaskAsideProps {
     children: ReactNode;
-    appliedTasks: AppliedTask[];
+    appliedTasks: AllTaskResult[];
     query: string;
 }
 const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks.length;
+    console.log(appliedTasks, "appliedTakssssss");
 
     const renderTaskCards = appliedTasks.map((task) => {
         return (
@@ -22,7 +24,7 @@ const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
                             title={task.title}
                             charge={task.charge}
                             location={task.location}
-                            date={task.date}
+                            date={ Intl.DateTimeFormat('en-US').format(date)}
                             time={task.time}
                         />
                     </a>
