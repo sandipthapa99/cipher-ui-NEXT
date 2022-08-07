@@ -10,7 +10,6 @@ import {
 import { faLocationDot, faPhone } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
-import { withAuth } from "hoc/withAuth";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { ContactFormData } from "utils/contactFormData";

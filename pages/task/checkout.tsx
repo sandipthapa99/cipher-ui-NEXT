@@ -13,7 +13,6 @@ import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useBookContext } from "context/BookNowContext/bookNowContext";
 import React, { Fragment } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { billingLocationContent } from "staticData/billingLocationData";
 import { MembershipCardContent } from "staticData/membershipCard";
 import { taskListContent } from "staticData/taskListData";
 

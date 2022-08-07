@@ -12,7 +12,6 @@ import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import {
     faAngleRight,
-    faArrowRight,
     faChevronCircleRight,
     faChevronDown,
     faSearch,

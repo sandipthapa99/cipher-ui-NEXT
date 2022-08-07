@@ -17,7 +17,8 @@ export class UserService {
             fetchUserData.type === "client"
                 ? fetchUserData.token
                 : nookies.get(fetchUserData.context, "access").access;
-        if (token === undefined) return null;
+        if (!token) return null;
+        console.log(token);
         const { user_id: userId } = jwtDecode<{ user_id: string }>(token);
         const { data } = await createAxiosClient(
             fetchUserData.type === "server" ? fetchUserData.context : undefined
