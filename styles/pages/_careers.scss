@@ -103,4 +103,70 @@
             }
         }
     }
+    .banner-wrapper {
+        background: $primary-color;
+        padding: 3.3rem 5.2rem;
+        margin: 4rem 0;
+        @include respond(md) {
+            padding: 3.3rem 12.2rem;
+        }
+        @include respond(lg) {
+            padding: 3.3rem 19.2rem;
+        }
+        &__detail {
+            h2 {
+                font-weight: 400;
+                font-size: 4rem;
+                color: #fff;
+                @include respond(md) {
+                    font-size: 6rem;
+                }
+            }
+            p {
+                font-weight: 400;
+                font-size: 2.4rem;
+                color: #fff;
+            }
+        }
+        button {
+            background: $secondary-color;
+            color: $primary-color;
+        }
+    }
+    .part-wrapper {
+        margin: 4rem 0;
+        padding: 6.3rem 0 6.3rem 4.3rem;
+        @include respond(xxl) {
+            padding: 6.3rem 0 6.3rem 9.3rem;
+        }
+        background: $primary-color;
+        color: #fff;
+        position: relative;
+        &__details {
+            font-weight: 400;
+            font-size: 2rem;
+            @include respond(xxl) {
+                font-size: 4rem;
+            }
+            span {
+                font-weight: 500;
+                font-size: 6rem;
+            }
+            p {
+                font-weight: 400;
+                font-size: 2rem;
+                color: $grayScale5;
+            }
+        }
+        figure {
+            position: absolute;
+            right: 0;
+            width: 45rem;
+            height: 30rem;
+            display: none;
+            @include respond(lg) {
+                display: block;
+            }
+        }
+    }
 }

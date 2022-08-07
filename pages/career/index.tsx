@@ -1,5 +1,6 @@
 import CareerCard from "@components/Career/CareerCard";
 import HiringStage from "@components/Career/HiringStage";
+import LeaveYourCV from "@components/Career/LeaveYourCV";
 import Breadcrum from "@components/common/Breadcrum";
 import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
@@ -74,6 +75,19 @@ const Career = () => {
                             </Row>
                         </Col>
                     </Row>
+                    <div className="d-flex justify-content-between align-items-lg-center pe-0 part-wrapper">
+                        <div className="part-wrapper__details">
+                            Become a part of <span>Cipher</span>
+                            <p>Boost your skills and excel with us.</p>
+                        </div>
+                        <figure>
+                            <Image
+                                src={"/groupB.png"}
+                                alt="buiness pic"
+                                layout="fill"
+                            />
+                        </figure>
+                    </div>
                     <div className="mt-5">
                         <h4>New Job Listings</h4>
                         <Tab
@@ -124,6 +138,7 @@ const Career = () => {
                         />
                     </div>
                     <HiringStage />
+                    <LeaveYourCV />
                 </Container>
             </section>
         </Layout>
