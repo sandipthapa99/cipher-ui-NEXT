@@ -6,6 +6,7 @@ import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { SelectOptionProps } from "types/selectInputField";
+import { addServiceFormSchema } from "utils/formValidation/addServiceFormValidation";
 
 import { ServiceVideo } from "./ServiceVideo";
 
@@ -20,7 +21,9 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
         service_title: "",
         service_description: "",
         service_type: "",
-        category: "",
+        service_category: "",
+        starting_price: "",
+        revision_number: "",
         sub_category: "",
         requirements: "",
     };
@@ -40,12 +43,14 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                             <div className="service-form-body">
                                 <Formik
                                     initialValues={serviceDetailsData}
+                                    validationSchema={addServiceFormSchema}
                                     onSubmit={(values) => {
                                         console.log(values);
                                     }}
                                 >
                                     {({
                                         setFieldValue,
+                                        isSubmitting,
                                         errors,
                                         touched,
                                         values,
@@ -57,6 +62,10 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                                     labelName="Service Title"
                                                     placeHolder="service title"
                                                     name="service_title"
+                                                    error={errors.service_title}
+                                                    touch={
+                                                        touched.service_title
+                                                    }
                                                 />
 
                                                 <InputField
@@ -64,6 +73,12 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                                     placeholder="Service Description"
                                                     name="service_description"
                                                     as="textarea"
+                                                    error={
+                                                        errors.service_description
+                                                    }
+                                                    touch={
+                                                        touched.service_description
+                                                    }
                                                 />
 
                                                 <SelectInputField
@@ -71,13 +86,21 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                                     labelName="Service Type"
                                                     placeHolder="Choose Service Type"
                                                     options={options}
+                                                    error={errors.service_type}
+                                                    touch={touched.service_type}
                                                 />
 
                                                 <SelectInputField
-                                                    name="category"
+                                                    name="service_category"
                                                     labelName="Category"
                                                     placeHolder="Choose Category"
                                                     options={options}
+                                                    error={
+                                                        errors.service_category
+                                                    }
+                                                    touch={
+                                                        touched.service_category
+                                                    }
                                                 />
 
                                                 <AddRequirements
@@ -95,13 +118,25 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                                     labelName="Starting Price"
                                                     placeholder="Starting Price"
                                                     name="starting_price"
+                                                    error={
+                                                        errors.starting_price
+                                                    }
+                                                    touch={
+                                                        touched.starting_price
+                                                    }
                                                 />
 
                                                 <SelectInputField
-                                                    name="no_of_revisioins"
+                                                    name="revision_number"
                                                     labelName="Number of Revisions"
                                                     placeHolder="No. of Revisions"
                                                     options={options}
+                                                    error={
+                                                        errors.revision_number
+                                                    }
+                                                    touch={
+                                                        touched.revision_number
+                                                    }
                                                 />
 
                                                 <div className="d-flex justify-content-end next-button">
