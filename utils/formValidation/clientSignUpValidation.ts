@@ -1,40 +1,38 @@
-import * as Yup from "yup";
 import { phoneRegExp } from "utils/helpers";
+import * as Yup from "yup";
 
-let emailValidate,
-    stringValidate,
-    phoneValidate,
-    stringReqOnly,
-    isCheckValidate,
-    passwordValidate,
-    genderValidate;
-
-emailValidate = Yup.string()
+const emailValidate = Yup.string()
     .email("Invalid email address")
     .required("Required field");
-stringValidate = Yup.string()
+const stringValidate = Yup.string()
     .min(3, "Must be 3 charactersor or more")
     .required("Required field");
-phoneValidate = Yup.string()
+const phoneValidate = Yup.string()
     .matches(phoneRegExp, "Invalid phone number")
     .required("Required field");
-stringReqOnly = Yup.string().required("Required field");
-isCheckValidate = Yup.bool().oneOf([true]).required();
-passwordValidate = Yup.string()
+const stringReqOnly = Yup.string().required("Required field");
+const isCheckValidate = Yup.bool().required();
+const passwordValidate = Yup.string()
     .required("Required field")
-    .min(8, "Password is too short - should be 8 chars minimum.")
-    .matches(/[a-zA-Z]/, "Password can only contain Latin letters.");
-genderValidate = Yup.string().required("Required Field");
+    .min(10, "Password is too short - should be 10 chars minimum.")
+    .matches(
+        /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
+        "Password must contain 1 numberic value, 1 uppercase and 1 special character."
+    );
+const genderValidate = Yup.string().required("Required Field");
 
 const clientSignUpSchema = Yup.object().shape({
-    firstName: stringReqOnly,
-    lastName: stringReqOnly,
+    // firstName: stringReqOnly,
+    // lastName: stringReqOnly,
     email: emailValidate,
-    phoneNumber: phoneValidate,
+    // phoneNumber: phoneValidate,
     password: passwordValidate,
-    confirmPassword: passwordValidate,
-    gender: genderValidate,
-    isAgree: isCheckValidate,
+    confirmPassword: Yup.string().oneOf(
+        [Yup.ref("password")],
+        "Passwords do not match"
+    ),
+    // gender: genderValidate,
+    // isAgree: isCheckValidate,
 });
 
 export default clientSignUpSchema;

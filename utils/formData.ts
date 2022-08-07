@@ -1,3 +1,4 @@
+import type { CreditCardContent } from "staticData/creditCardContent";
 import type { AccountValueProps } from "types/accountValueProps";
 import type { ApplyValueProps } from "types/applyValueProps";
 import type { BookNowFormProps } from "types/bookNow";
@@ -9,6 +10,7 @@ import type { AddPortfolio, AddSkills } from "types/editProfile";
 import type { EducationValueProps } from "types/educationValueProps";
 import type { EquipmentValueProps } from "types/equipmentValueProps";
 import type { ExperienceValueProps } from "types/experienceValueProps";
+import type { KYCFormProps } from "types/kycFormProps";
 import type { LoginValuesProps } from "types/login";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { SkillsValueProps } from "types/skillsValueProps";
@@ -21,15 +23,15 @@ export const loginFormData: LoginValuesProps = {
 };
 
 export const ClientSignUpFormData: ClientSignUpValueProps = {
-    firstName: "",
-    lastName: "",
+    // firstName: "",
+    // lastName: "",
     email: "",
-    phoneNumber: "",
+    // phoneNumber: "",
     password: "",
     confirmPassword: "",
-    gender: "male",
-    isAgree: true,
-    addToNewsletter: true,
+    // gender: "male",
+    // isAgree: true,
+    // addToNewsletter: true,
 };
 
 //apply form data
@@ -61,7 +63,7 @@ export const ExperienceFromData: ExperienceValueProps = {
 export const AddPortfolioFormData: AddPortfolio = {
     title: "",
     description: "",
-    url: null,
+    url: "",
     date: null,
 };
 
@@ -161,4 +163,32 @@ export const DeactivateFromData: deactivateValueProps = {
     reason: "",
     duration: "",
     explaination: "",
+};
+
+export const CreditCardFromData: CreditCardContent = {
+    id: "",
+    number: "",
+    name: "",
+    expDate: "",
+    cvv: "",
+    isDefault: false,
+};
+
+export const KYCFormData: KYCFormProps = {
+    fullName: "",
+    identityType: "",
+    identityNumber: "",
+    issuedFrom: null,
+    issuedDate: null,
+    expiryDate: null,
+    identityCard: [],
+    panNumber: "",
+    issuedLoaction: "",
+    panIssuedDate: "",
+    panPhoto: [],
+    passwordPhoto: [],
+    addressVerifiactionDocument: [],
+    bankName: "",
+    bankAccountName: "",
+    bankAccountNumber: "",
 };

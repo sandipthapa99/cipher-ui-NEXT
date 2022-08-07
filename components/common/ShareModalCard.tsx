@@ -18,6 +18,13 @@ import Modal from "react-bootstrap/Modal";
 import type { ShareButtonProps } from "types/shareButton";
 
 const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
+    const copyToClipBoard = async (copyMe: any) => {
+        try {
+            await navigator.clipboard.writeText(copyMe);
+        } catch (err) {
+            console.log(err);
+        }
+    };
     return (
         <div className="share-modal">
             {/* Modal component */}
@@ -81,6 +88,9 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                             <Link href="/">
                                 <FontAwesomeIcon
                                     icon={faCopy}
+                                    onClick={() =>
+                                        copyToClipBoard("https://cipher.com/")
+                                    }
                                     className="svg-icon copy"
                                 />
                             </Link>

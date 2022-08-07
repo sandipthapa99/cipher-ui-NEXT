@@ -16,7 +16,7 @@ const Resources: NextPage = () => {
         <Layout title="Resources | Cipher">
             <section className="resource-page">
                 <section className="resource-page__header">
-                    <Container fluid="xl">
+                    <Container fluid="xl" className="px-5">
                         <Breadcrum currentPage="Resources" />
                         <Row className="d-flex align-items-center">
                             <Col md={6}>

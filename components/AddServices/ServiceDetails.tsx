@@ -1,15 +1,17 @@
 import BigButton from "@components/common/Button";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
+import AddRequirements from "@components/PostTask/AddRequirements";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { SelectOptionProps } from "types/selectInputField";
+import { addServiceFormSchema } from "utils/formValidation/addServiceFormValidation";
 
 import { ServiceVideo } from "./ServiceVideo";
 
 interface ServiceDetailsProps {
-    handleNext: () => void;
+    handleNext: (data: unknown) => void;
 }
 
 export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
@@ -19,7 +21,9 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
         service_title: "",
         service_description: "",
         service_type: "",
-        category: "",
+        service_category: "",
+        starting_price: "",
+        revision_number: "",
         sub_category: "",
         requirements: "",
     };
@@ -39,11 +43,18 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                             <div className="service-form-body">
                                 <Formik
                                     initialValues={serviceDetailsData}
+                                    validationSchema={addServiceFormSchema}
                                     onSubmit={(values) => {
                                         console.log(values);
                                     }}
                                 >
-                                    {({ errors, touched }) => (
+                                    {({
+                                        setFieldValue,
+                                        isSubmitting,
+                                        errors,
+                                        touched,
+                                        values,
+                                    }) => (
                                         <>
                                             <Form>
                                                 <h3>Service Details</h3>
@@ -51,6 +62,10 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                                     labelName="Service Title"
                                                     placeHolder="service title"
                                                     name="service_title"
+                                                    error={errors.service_title}
+                                                    touch={
+                                                        touched.service_title
+                                                    }
                                                 />
 
                                                 <InputField
@@ -58,6 +73,12 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                                     placeholder="Service Description"
                                                     name="service_description"
                                                     as="textarea"
+                                                    error={
+                                                        errors.service_description
+                                                    }
+                                                    touch={
+                                                        touched.service_description
+                                                    }
                                                 />
 
                                                 <SelectInputField
@@ -65,38 +86,69 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                                     labelName="Service Type"
                                                     placeHolder="Choose Service Type"
                                                     options={options}
+                                                    error={errors.service_type}
+                                                    touch={touched.service_type}
                                                 />
-                                                <Row>
-                                                    <Col md={6} sm={12}>
-                                                        <SelectInputField
-                                                            name="category"
-                                                            labelName="Category"
-                                                            placeHolder="Choose Category"
-                                                            options={options}
-                                                        />
-                                                    </Col>
-                                                    <Col md={6} sm={12}>
-                                                        <SelectInputField
-                                                            name="sub_category"
-                                                            labelName="Sub-Category"
-                                                            placeHolder="Choose Sub-Category"
-                                                            options={options}
-                                                        />
-                                                    </Col>
-                                                </Row>
 
-                                                <h5>Requirement</h5>
-                                                <h6>
-                                                    Add services which you Offer
-                                                </h6>
+                                                <SelectInputField
+                                                    name="service_category"
+                                                    labelName="Category"
+                                                    placeHolder="Choose Category"
+                                                    options={options}
+                                                    error={
+                                                        errors.service_category
+                                                    }
+                                                    touch={
+                                                        touched.service_category
+                                                    }
+                                                />
+
+                                                <AddRequirements
+                                                    onSubmit={(requirements) =>
+                                                        setFieldValue(
+                                                            "reuqirement",
+                                                            requirements
+                                                        )
+                                                    }
+                                                    title="Requirement"
+                                                    description="Add services which you Offer"
+                                                />
+
+                                                <InputField
+                                                    labelName="Starting Price"
+                                                    placeholder="Starting Price"
+                                                    name="starting_price"
+                                                    error={
+                                                        errors.starting_price
+                                                    }
+                                                    touch={
+                                                        touched.starting_price
+                                                    }
+                                                />
+
+                                                <SelectInputField
+                                                    name="revision_number"
+                                                    labelName="Number of Revisions"
+                                                    placeHolder="No. of Revisions"
+                                                    options={options}
+                                                    error={
+                                                        errors.revision_number
+                                                    }
+                                                    touch={
+                                                        touched.revision_number
+                                                    }
+                                                />
+
                                                 <div className="d-flex justify-content-end next-button">
                                                     <BigButton
-                                                        btnTitle={"Next"}
+                                                        btnTitle={"Next Step"}
                                                         backgroundColor={
                                                             "#211D4F"
                                                         }
                                                         textColor="#fff"
-                                                        handleClick={handleNext}
+                                                        handleClick={() =>
+                                                            handleNext(values)
+                                                        }
                                                     />
                                                 </div>
                                             </Form>
