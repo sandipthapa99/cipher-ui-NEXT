@@ -1,4 +1,5 @@
 import { MainStep } from "@components/AddServices/MainStep";
+import Breadcrum from "@components/common/Breadcrum";
 import Layout from "@components/Layout";
 import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
@@ -6,9 +7,10 @@ import type { NextPage } from "next";
 const AddServices: NextPage = () => {
     return (
         <Layout title="Add Services &amp; Cipher">
+            <Breadcrum currentPage={"Add Service"} />
             <MainStep />
         </Layout>
     );
 };
 
-export default withAuth(AddServices);
+export default AddServices;

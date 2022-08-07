@@ -218,6 +218,7 @@ const SearchResultsDetail = ({
                                                 }
                                                 isPermium={offer.isPermium}
                                                 advantage={offer.advantage}
+                                                isFromAddService={false}
                                             />
                                         </Col>
                                     </Carousel.Item>

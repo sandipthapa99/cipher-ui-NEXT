@@ -171,6 +171,7 @@ const ServiceDetail: NextPage = () => {
                                             isRecommended={offer.isRecommended}
                                             isPermium={offer.isPermium}
                                             advantage={offer.advantage}
+                                            isFromAddService={false}
                                         />
                                     </Col>
                                 ))}

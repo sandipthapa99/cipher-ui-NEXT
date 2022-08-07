@@ -106,5 +106,13 @@
         align-items: center;
         justify-content: center;
         margin-top: 2rem;
+
+        span {
+            button {
+                @include border();
+                background-color: #fff;
+                color: $primary-color;
+            }
+        }
     }
 }
