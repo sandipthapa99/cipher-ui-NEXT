@@ -1,7 +1,7 @@
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { CategoryCardProps } from "types/categoryCard";
+import type { CategoryCardProps } from "types/categoryCard";
 
 const CategoryCardNew = ({
     categoryTitle,
@@ -23,7 +23,7 @@ const CategoryCardNew = ({
                 <div className="details d-flex flex-column justify-content-between">
                     <h1>{categoryTitle}</h1>
                     <a href="">
-                        Beauty related services
+                        {categoryTitle} related services
                         <FontAwesomeIcon icon={faArrowRight} className="icon" />
                     </a>
                 </div>
