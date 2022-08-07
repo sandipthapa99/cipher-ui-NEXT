@@ -26,7 +26,14 @@ const DragDrop = ({
             </figure>
             <p className="info">
                 Drag or
-                <label className="browse">&nbsp;Browse</label> <br />
+                <label
+                    htmlFor="choosefile"
+                    className="browse text-primary"
+                    role="button"
+                >
+                    &nbsp;Browse
+                </label>{" "}
+                <br />
                 {fileType}
             </p>
             {maxImageSize ? (
