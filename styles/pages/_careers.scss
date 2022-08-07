@@ -1,0 +1,54 @@
+.careers-section {
+    .careers-index {
+        max-width: 64rem;
+        h1 {
+            font-weight: 600;
+            font-size: 4.4rem;
+            text-transform: capitalize;
+            color: #211d4f;
+            @include respond(md) {
+                font-size: 6.4rem;
+            }
+        }
+        p {
+            font-weight: 500;
+            font-size: 2.4rem;
+            text-transform: capitalize;
+            color: $grayScale5;
+        }
+        &__popular {
+            font-weight: 600;
+            font-size: 2.4rem;
+            text-transform: capitalize;
+            color: $secondary-text-color;
+            display: flex;
+            ul {
+                list-style: none;
+                display: flex;
+                flex-direction: row;
+                li {
+                    font-weight: 500;
+                    font-size: 2.4rem;
+                    text-decoration-line: underline;
+                    margin: 0 0 0 1.6rem;
+                    text-transform: capitalize;
+                    color: $grayScale6;
+                }
+            }
+        }
+    }
+    figure {
+        position: relative;
+        width: 23.5rem;
+        height: 18.9rem;
+        @include respond(sm) {
+            width: 53.5rem;
+            height: 38.9rem;
+        }
+    }
+    .demand-img {
+        position: relative;
+        width: 30rem;
+        height: 44.8rem;
+    }
+}
