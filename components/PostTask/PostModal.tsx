@@ -4,6 +4,7 @@ import { useSuccessContext } from "context/successContext/successContext";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/post-task/usePostTask";
 import Image from "next/image";
+import type { ChangeEvent } from "react";
 import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import type { PostTaskData } from "types/postTaskData";
@@ -52,7 +53,6 @@ const PostModal = ({ onSubmit }: Props) => {
             maxBudget: 0,
             address: "",
             requirements: [],
-            image: File | null | undefined,
         },
         onSubmit(values) {
             console.log(values);
@@ -385,21 +385,25 @@ const PostModal = ({ onSubmit }: Props) => {
 };
 export default PostModal;
 
-export const DragAndDrop = ({ field }) => {
-    function handleChange(event) {
+export const DragAndDrop = ({ field }: { field: any }) => {
+    function handleChange(event: ChangeEvent<HTMLInputElement>) {
         const files = event.target.files;
-        const file = files[0];
-        getBase64(file);
+        if (files) {
+            const file = files[0];
+            getBase64(file);
+        }
     }
-    const onLoad = (fileString) => {
+    const onLoad = (fileString: string | ArrayBuffer) => {
         field?.("images", ["image", fileString]);
     };
 
-    const getBase64 = (file) => {
+    const getBase64 = (file: File) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
-            onLoad(reader.result);
+            if (reader.result) {
+                onLoad(reader.result);
+            }
         };
     };
     return (

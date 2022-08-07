@@ -45,6 +45,7 @@
         "react-datepicker": "^4.8.0",
         "react-dom": "18.2.0",
         "react-easy-crop": "^4.4.1",
+        "react-geolocated": "^4.0.3",
         "react-map-gl": "^7.0.18",
         "sass": "^1.52.3",
         "yup": "^0.32.11"

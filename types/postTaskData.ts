@@ -1,4 +1,4 @@
-import { Requirement } from "./requirement";
+import type { Requirement } from "./requirement";
 
 export interface PostTaskData {
     title: string;
@@ -13,5 +13,5 @@ export interface PostTaskData {
     maxBudget: number;
     address: string;
     requirements: Requirement[];
-    image?: File | null;
+    image?: File | null | undefined;
 }
