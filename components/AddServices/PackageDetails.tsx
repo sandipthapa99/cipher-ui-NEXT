@@ -5,7 +5,6 @@ import PackageOffersCard from "@components/common/packageCard";
 import SelectInputField from "@components/common/SelectInputField";
 import AddRequirements from "@components/PostTask/AddRequirements";
 import { Form, Formik } from "formik";
-import Link from "next/link";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { SelectOptionProps } from "types/selectInputField";

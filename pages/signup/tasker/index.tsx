@@ -1,21 +1,18 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
-import RadioField from "@components/common/RadioField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { useAuthContext } from "context/AuthContext/userContext";
-import { Field, Form, Formik } from "formik";
-import { withAuth } from "hoc/withAuth";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { Form, Formik } from "formik";
+import { useSignup } from "hooks/auth/useSignup";
+import type { GetServerSideProps } from "next";
+import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
 import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { restrictOnLogin } from "utils/restrictOnLogin";
 
 const SignUpAsTasker = () => {
-    const router = useRouter();
-
-    const { signUpUser } = useAuthContext();
+    const { mutate, isLoading } = useSignup();
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
@@ -30,7 +27,20 @@ const SignUpAsTasker = () => {
                     initialValues={ClientSignUpFormData}
                     validationSchema={clientSignUpSchema}
                     onSubmit={async (values) => {
-                        signUpUser(values);
+                        const { email, password, confirmPassword } = values;
+                        mutate(
+                            { email, password, confirmPassword },
+                            {
+                                onError: (error) => {
+                                    toast.error(error.message);
+                                },
+                                onSuccess: () => {
+                                    toast.success(
+                                        "Please check your email for verification link"
+                                    );
+                                },
+                            }
+                        );
                     }}
                 >
                     {({ isSubmitting, errors, touched }) => (
@@ -149,7 +159,7 @@ const SignUpAsTasker = () => {
                             <FormButton
                                 type="submit"
                                 variant="primary"
-                                name="Continue"
+                                name={isLoading ? "Loading..." : "Continue"}
                                 className="login-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(
@@ -163,4 +173,7 @@ const SignUpAsTasker = () => {
         </OnBoardingLayout>
     );
 };
-export default withAuth(SignUpAsTasker);
+export const getServerSideProps: GetServerSideProps = (context) =>
+    restrictOnLogin(context);
+
+export default SignUpAsTasker;

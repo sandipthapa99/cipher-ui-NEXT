@@ -6,7 +6,6 @@ import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import React from "react";
 import { Modal } from "react-bootstrap";
-import { ApplyFormData } from "utils/formData";
 import { collaborationRequestFormSchema } from "utils/formValidation/CollaborationRequestFormValidation";
 
 import { CollaborateWith } from "./CollaborateWith";

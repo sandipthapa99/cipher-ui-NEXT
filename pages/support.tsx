@@ -3,7 +3,6 @@ import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
-import { withAuth } from "hoc/withAuth";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { SupportFormData } from "utils/contactFormData";

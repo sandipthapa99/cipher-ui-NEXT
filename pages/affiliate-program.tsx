@@ -4,7 +4,6 @@ import CipherCard from "@components/common/CipherCard";
 import FaqContent from "@components/common/Faq";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import Layout from "@components/Layout";
-import { withAuth } from "hoc/withAuth";
 import Image from "next/image";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { Table } from "react-bootstrap";

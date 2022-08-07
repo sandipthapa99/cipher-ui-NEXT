@@ -11,13 +11,11 @@ import { useBookContext } from "context/BookNowContext/bookNowContext";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
 import { TaskList } from "staticData/taskListData";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-import picture from "../../public/aboutus/about.png";
 import { CheckoutModal } from "../Checkout/checkoutModal";
 
 const TaskList = ({ task }: { task: TaskList }) => {
