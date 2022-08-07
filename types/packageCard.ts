@@ -5,5 +5,5 @@ export interface PacakageCardProps {
     isPermium: boolean;
     advantage: string;
     isRecommended: boolean;
-    isFromAddService: boolean;
+    isFromAddService?: boolean;
 }
