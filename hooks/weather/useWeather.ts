@@ -14,11 +14,25 @@ export const useWeather = () => {
     let latitude: number;
     let longitude: number;
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            latitude = position.coords.latitude;
-            longitude = position.coords.longitude;
-        });
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                latitude = position.coords.latitude;
+                longitude = position.coords.longitude;
+            });
+        }else{
+            alert("Geolocation is not supported by this browser.");
+        }
+       
     }, []);
+    useEffect(() => {
+        navigator.geolocation.watchPosition(function(position) {
+            console.log("i'm tracking you!");
+          },
+          function(error) {
+            if (error.code == error.PERMISSION_DENIED)
+              console.log("you denied me :-(");
+          });
+    },[])
 
     // console.log(latitude, longitude);
     return useQuery(["weather"], () => fetchWeather(latitude, longitude));
