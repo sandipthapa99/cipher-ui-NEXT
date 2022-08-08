@@ -23,16 +23,30 @@ import { Dropdown } from "./common/Dropdown";
 import { NotificationDropdown } from "./notifications/NotificationDropdown";
 
 const Header = () => {
+    const date = new Date();
+    const month = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    const day = date.getDate();
+    const monthName = month[date.getMonth()];
     // const [allCountries, setAllCountries] = useState([]);
-    
 
+    // const {data} = useLocation()
+    const { data: weather } = useWeather();
 
-    const {data} = useLocation()
-    // const {data : weather} = useWeather()
-    
     // console.log(data);
-    // console.log(weather);
-    
+    console.log(weather);
 
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
@@ -137,14 +151,33 @@ const Header = () => {
                                 </li>
                             </Dropdown>
                         </nav>
-
                         <Link href="#!">
                             <a
                                 className="btn location-btn d-none d-md-inline-block"
                                 style={{ marginRight: "1.6rem" }}
                             >
-
-                               {data?.data.city}
+                                {Math.floor(weather?.data?.main?.temp - 273)}°C
+                                {/* <FontAwesomeIcon
+                                    icon={faLocationDot}
+                                    className="svg-icon"
+                                /> */}
+                            </a>
+                        </Link>
+                        <Link href="#!">
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ marginRight: "1.6rem" }}
+                            >
+                                {`${day} ${monthName}`}
+                            </a>
+                        </Link>
+                        <Link href="#!">
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ marginRight: "1.6rem" }}
+                            >
+                                {/* {data?.data.city} */}
+                                {weather?.data?.name}
                                 <FontAwesomeIcon
                                     icon={faLocationDot}
                                     className="svg-icon"
