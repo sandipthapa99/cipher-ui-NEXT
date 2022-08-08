@@ -1,7 +1,6 @@
 import { faBars } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useAuthContext } from "context/AuthContext/userContext";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,15 +21,13 @@ export function UpperHeader() {
     const [notopen, setNotopen] = useState(false);
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
-
-    const { token } = useAuthContext();
     const { data: user } = useUser();
 
     return (
         <>
             {/* Site Upper Header Start */}
             <header id="site-upper-header" className="site-upper-header">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl">
                     <Navbar expand="lg" className="upper-navigation">
                         <Link href="/">
                             <a>

@@ -15,7 +15,7 @@ import { BookServiceFormData } from "utils/formData";
 import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-const ModalCard = ({
+const BookNowModalCard = ({
     title,
     price,
     description,
@@ -169,4 +169,4 @@ const ModalCard = ({
         </>
     );
 };
-export default ModalCard;
+export default BookNowModalCard;

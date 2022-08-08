@@ -1,11 +1,9 @@
-import { log } from "console";
 import { useClientTasks } from "context/ClientTaskContext";
 import { useSuccessContext } from "context/successContext/successContext";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/post-task/usePostTask";
 import Image from "next/image";
 import type { ChangeEvent } from "react";
-import { useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import type { PostTaskData } from "types/postTaskData";
 

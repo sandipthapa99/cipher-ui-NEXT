@@ -13,7 +13,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
-import { axiosClient } from "utils/axiosClient";
 import { handleMenuActive } from "utils/helpers";
 
 // import { handleMenuActive } from "../../../../libs/util-formatter/src";
@@ -80,7 +79,7 @@ const Header = () => {
         <>
             {/* Site Upper Header Start */}
             <header id="site-header" className={`site-header ${stickyClass}`}>
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl">
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li

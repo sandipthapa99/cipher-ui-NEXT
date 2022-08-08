@@ -3,21 +3,13 @@ import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import { SearchInputField } from "@components/common/SearchInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import SquareImageCarousel from "@components/common/SquareImageCarousel";
-import { TeamMembersCard } from "@components/common/TeamMembersCard";
-import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import { getServices } from "services/commonServices";
 import { topSkillsInNepal } from "staticData/hireInNepal";
-import {
-    browseTalent,
-    hireTaskerContent,
-    howToHireCarousel,
-} from "staticData/howToHire";
-import { DUMMY_TASKS } from "types/tasks";
+import { howToHireCarousel } from "staticData/howToHire";
 import searchValidationSchema from "utils/formValidation/searchValidation";
 
 const FreelanceTasks: NextPage = () => {
