@@ -6,6 +6,7 @@ import type { CategoryCardProps } from "types/categoryCard";
 const CategoryCardNew = ({
     categoryTitle,
     categoryIcon,
+    index,
 }: CategoryCardProps) => {
     return (
         <div className="hero-category__card-block d-inline-block flex-row">
@@ -20,11 +21,16 @@ const CategoryCardNew = ({
                         />
                     </figure>
                 </div>
-                <div className="details d-flex flex-column justify-content-between">
+                <div className="details d-flex flex-column">
                     <h1>{categoryTitle}</h1>
                     <a href="">
                         {categoryTitle} related services
-                        <FontAwesomeIcon icon={faArrowRight} className="icon" />
+                        {index != 5 && (
+                            <FontAwesomeIcon
+                                icon={faArrowRight}
+                                className="icon"
+                            />
+                        )}
                     </a>
                 </div>
             </div>

@@ -125,12 +125,12 @@ const Home: NextPage = () => {
                     {/* Service category listing start */}
                     <Row className="gx-5">
                         {serviceCategory &&
-                            serviceCategory.map((category) => {
+                            serviceCategory.map((category, index) => {
                                 return (
                                     <Col
                                         md={3}
                                         sm={6}
-                                        key={category.id}
+                                        key={index}
                                         className="d-flex align-items-strecth"
                                     >
                                         <CategoryCardNew
@@ -138,6 +138,7 @@ const Home: NextPage = () => {
                                                 category.categoryTitle
                                             }
                                             categoryIcon={category.categoryIcon}
+                                            index={index}
                                         />
                                     </Col>
                                 );
