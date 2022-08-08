@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 const fetchWeather = async (lat: number, lon: number) => {
@@ -11,6 +11,7 @@ const fetchWeather = async (lat: number, lon: number) => {
 };
 
 export const useWeather = () => {
+    const [allowed, setAllowed] = useState(false);
     let latitude: number;
     let longitude: number;
     useEffect(() => {
@@ -27,13 +28,16 @@ export const useWeather = () => {
     useEffect(() => {
         navigator.geolocation.watchPosition(function(position) {
             console.log("i'm tracking you!");
+            setAllowed(true);
           },
           function(error) {
             if (error.code == error.PERMISSION_DENIED)
               console.log("you denied me :-(");
+              setAllowed(false);
           });
     },[])
 
     // console.log(latitude, longitude);
-    return useQuery(["weather"], () => fetchWeather(latitude, longitude));
+    return (useQuery(["weather"], () => fetchWeather(latitude, longitude)));
+
 };
