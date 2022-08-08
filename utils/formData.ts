@@ -16,6 +16,7 @@ import type { LoginValuesProps } from "types/login";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { SkillsValueProps } from "types/skillsValueProps";
 import type { TaxCalculatorValueProps } from "types/taxCalculatorValueProps";
+import type { UploadCVValueProps } from "types/uploadCVValueProps";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
@@ -204,5 +205,10 @@ export const CarrerApplyFormData: ApplyFormValueProps = {
     resume: [],
     addtional_info: "",
     g_recaptcha_response: "",
+    imagePreviewUrl: [],
+};
+
+export const UploadCVFormData: UploadCVValueProps = {
+    resume: [],
     imagePreviewUrl: [],
 };
