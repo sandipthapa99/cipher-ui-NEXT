@@ -163,6 +163,22 @@ const Home: NextPage = () => {
                 </div>
             )}
 
+            <section
+                id="cagtu-cipher-buzz-section"
+                className="cagtu-cipher-buzz-section"
+            >
+                <Container fluid="xl" className="px-5">
+                    <div className="d-flex justify-content-around list-bar">
+                        <li className="light">Cagtu</li>
+                        <li className="strong">Cipher</li>
+                        <li className="light">Code Sharav</li>
+                        <li className="strong">Buzz</li>
+                        <li className="light">Cipher</li>
+                        <li className="strong">Code Sharav</li>
+                    </div>
+                </Container>
+            </section>
+
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">

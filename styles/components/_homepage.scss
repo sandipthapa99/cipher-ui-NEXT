@@ -161,6 +161,7 @@
 // Services near you section start
 .services-near-you {
     margin-bottom: 2.4rem;
+    background: #fff;
     @include respond(md) {
         margin: 0 0 6rem;
     }
