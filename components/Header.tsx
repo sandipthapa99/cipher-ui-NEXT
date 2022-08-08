@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useLocation } from "hooks/location/useLocation";
+import { useWeather } from "hooks/weather/useWeather";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -20,30 +20,30 @@ import { Dropdown } from "./common/Dropdown";
 import { NotificationDropdown } from "./notifications/NotificationDropdown";
 
 const Header = () => {
-    // const [state, setState] = useState({
-    //     city: "",
-    // });
-    // const getGeoInfo = () => {
-    //     axiosClient
-    //         .get("https://ipapi.co/json/")
-    //         .then((response) => {
-    //             const data = response.data;
-    //             setState({
-    //                 ...state,
-    //                 city: data.city,
-    //             });
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // };
+    const date = new Date();
+    const month = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    const day = date.getDate();
+    const monthName = month[date.getMonth()];
+    // const [allCountries, setAllCountries] = useState([]);
 
-    // useEffect(() => {
-    //     getGeoInfo();
-    // }, []);
+    // const {data} = useLocation()
+    const { data: weather } = useWeather();
 
-    const { data } = useLocation();
-    console.log(data);
+    // console.log(data);
+    console.log(weather);
 
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
@@ -148,13 +148,33 @@ const Header = () => {
                                 </li>
                             </Dropdown>
                         </nav>
-
                         <Link href="#!">
                             <a
                                 className="btn location-btn d-none d-md-inline-block"
                                 style={{ marginRight: "1.6rem" }}
                             >
-                                {data?.data.city}
+                                {Math.floor(weather?.data?.main?.temp - 273)}°C
+                                {/* <FontAwesomeIcon
+                                    icon={faLocationDot}
+                                    className="svg-icon"
+                                /> */}
+                            </a>
+                        </Link>
+                        <Link href="#!">
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ marginRight: "1.6rem" }}
+                            >
+                                {`${day} ${monthName}`}
+                            </a>
+                        </Link>
+                        <Link href="#!">
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ marginRight: "1.6rem" }}
+                            >
+                                {/* {data?.data.city} */}
+                                {weather?.data?.name}
                                 <FontAwesomeIcon
                                     icon={faLocationDot}
                                     className="svg-icon"

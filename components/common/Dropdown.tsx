@@ -15,7 +15,7 @@ interface DropdownProps {
 
 export const Dropdown = ({ children }: DropdownProps) => {
     const { data, isLoading } = useCategories();
-    console.log(data);
+    // console.log(data);
 
     const [subMenu, setSubMenu] = useState<DropdownSubMenu>([]);
     const [prevIndex, setPrevIndex] = useState();
