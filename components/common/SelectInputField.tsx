@@ -26,12 +26,12 @@ const SelectInputField = ({
                 </label>
             )}
 
-            <div className="dropdown-with-icon">
+            <div className="d-flex position-relative">
                 <Field
                     {...restProps}
                     name={name}
                     id={name}
-                    className={checkFormControl(error, touch)}
+                    className={`${checkFormControl(error, touch)}`}
                     placeholder={placeHolder}
                     as="select"
                 >
@@ -44,10 +44,12 @@ const SelectInputField = ({
                         </option>
                     ))}
                 </Field>
-                <FontAwesomeIcon
-                    icon={faChevronDown}
-                    className="svg-icon me-4"
-                />
+                <span className="position-absolute top-50 end-0 translate-middle-y me-4">
+                    <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className="svg-icon"
+                    />
+                </span>
             </div>
             <ErrorMessage
                 name={name}

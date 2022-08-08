@@ -85,7 +85,7 @@ const AccountForm = () => {
                             <InputField
                                 type="email"
                                 name="email"
-                                labelName="email"
+                                labelName="Email"
                                 error={errors.email}
                                 touch={touched.email}
                                 placeHolder="Enter your Email"

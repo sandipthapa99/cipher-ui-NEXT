@@ -170,3 +170,24 @@
         }
     }
 }
+.career-apply-section {
+    .apply-form {
+        background: #fff;
+        margin: 2rem 2rem 0 2rem;
+        padding: 2rem 1rem;
+        border-radius: 2rem;
+        @include respond(md) {
+            padding: 7rem 8rem;
+            margin: 9.8rem 9rem 0 9rem;
+        }
+        @include respond(lg) {
+            padding: 10rem 15rem;
+        }
+        h3 {
+            font-weight: 500;
+            font-size: 2rem;
+            color: $primary-color;
+            margin: 0 0 3.2rem;
+        }
+    }
+}
