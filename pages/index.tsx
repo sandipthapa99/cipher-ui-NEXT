@@ -495,10 +495,9 @@ const Home: NextPage = () => {
             <section className="gradient-banner">
                 <Container fluid="xl" className="px-5">
                     <GradientBanner
-                        title="A client tasks are quickly finished 
-                            when searched through Cipher"
-                        subTitle="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500. "
-                        image="/discover/main.svg"
+                        title="Looking for work is not that difficult as it sounds any more"
+                        subTitle="Allow us to accompany you on your journey"
+                        image="/gradient-updated.png"
                         btnText="Join Us"
                     />
                 </Container>
