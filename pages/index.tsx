@@ -1,4 +1,5 @@
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
+import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
 import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
@@ -22,6 +23,7 @@ import { Formik } from "formik";
 import type { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { UserService } from "services/userService";
 import { blogCardContent } from "staticData/community";
@@ -35,6 +37,12 @@ import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
 
 const Home: NextPage = () => {
+    const [postTaskPopup, setPostTaskPopup] = useState(true);
+
+    const handleClosePosttaskPopup = () => {
+        setPostTaskPopup(false);
+    };
+
     return (
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
@@ -144,9 +152,16 @@ const Home: NextPage = () => {
                                 );
                             })}
                     </Row>
+
                     {/* Service category listing end */}
                 </Container>
             </section>
+
+            {postTaskPopup && (
+                <div className="popup-post-task">
+                    <PostTaskHomepage handleClose={handleClosePosttaskPopup} />
+                </div>
+            )}
 
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
