@@ -628,3 +628,9 @@ small.text-muted {
         color: #868e96;
     }
 }
+.check-group {
+    &__input {
+        font-weight: 400;
+        font-size: 12px;
+    }
+}

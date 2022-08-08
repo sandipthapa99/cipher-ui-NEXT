@@ -34,7 +34,10 @@ const RadioField = ({
                     {value.label}
                 </label>
             ))} */}
-            <Field name={name} className={checkFormGroup(error)}>
+            <Field
+                name={name}
+                className={`${checkFormGroup(error)} check-group`}
+            >
                 {({ field }: any) => {
                     return variables?.map((option) => {
                         return (
@@ -45,9 +48,13 @@ const RadioField = ({
                                     {...field}
                                     {...restProps}
                                     value={option.value}
+                                    className="check-group__input"
                                     checked={field.value === option.value}
                                 />
-                                <label htmlFor={option.value} className="mx-3">
+                                <label
+                                    htmlFor={option.value}
+                                    className="mx-3 check-group__input"
+                                >
                                     {option.label}
                                 </label>
                             </Fragment>
