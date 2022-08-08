@@ -8,11 +8,14 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAllLocations } from "hooks/location/useAllLocations";
 import { useLocation } from "hooks/location/useLocation";
+import { useWeather } from "hooks/weather/useWeather";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
+import { axiosClient } from "utils/axiosClient";
 import { handleMenuActive } from "utils/helpers";
 
 // import { handleMenuActive } from "../../../../libs/util-formatter/src";
@@ -20,32 +23,16 @@ import { Dropdown } from "./common/Dropdown";
 import { NotificationDropdown } from "./notifications/NotificationDropdown";
 
 const Header = () => {
-    // const [state, setState] = useState({
-    //     city: "",
-    // });
-    // const getGeoInfo = () => {
-    //     axiosClient
-    //         .get("https://ipapi.co/json/")
-    //         .then((response) => {
-    //             const data = response.data;
-    //             setState({
-    //                 ...state,
-    //                 city: data.city,
-    //             });
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // };
+    // const [allCountries, setAllCountries] = useState([]);
     
 
-    // useEffect(() => {
-    //     getGeoInfo();
-    // }, []);
-    
 
     const {data} = useLocation()
-    console.log(data);
+    // const {data : weather} = useWeather()
+    
+    // console.log(data);
+    // console.log(weather);
+    
 
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
@@ -156,6 +143,7 @@ const Header = () => {
                                 className="btn location-btn d-none d-md-inline-block"
                                 style={{ marginRight: "1.6rem" }}
                             >
+
                                {data?.data.city}
                                 <FontAwesomeIcon
                                     icon={faLocationDot}

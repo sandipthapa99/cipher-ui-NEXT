@@ -1,11 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-
-
-
-import { axiosClient } from "utils/axiosClient";
+import axios from "axios";
 
 const fetchLocation = async () => {
-    return axiosClient.get("https://ipapi.co/json/");
+    return axios.get("https://ipapi.co/json/");
 };
 
 export const useLocation = () => {
