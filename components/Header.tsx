@@ -38,12 +38,14 @@ const Header = () => {
     //             console.log(error);
     //         });
     // };
+    
 
     // useEffect(() => {
     //     getGeoInfo();
     // }, []);
+    
 
-    const { data } = useLocation();
+    const {data} = useLocation()
     console.log(data);
 
     const router = useRouter();
@@ -155,7 +157,7 @@ const Header = () => {
                                 className="btn location-btn d-none d-md-inline-block"
                                 style={{ marginRight: "1.6rem" }}
                             >
-                                {data?.data.city}
+                               {data?.data.city}
                                 <FontAwesomeIcon
                                     icon={faLocationDot}
                                     className="svg-icon"
