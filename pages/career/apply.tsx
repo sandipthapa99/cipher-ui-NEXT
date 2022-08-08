@@ -1,4 +1,5 @@
 import Breadcrum from "@components/common/Breadcrum";
+import FileInputField from "@components/common/FileInputField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import ReCaptchaField from "@components/common/ReCaptchaField";
@@ -40,6 +41,8 @@ const Apply = () => {
                                 errors,
                                 touched,
                                 setFieldValue,
+                                values,
+                                setFieldTouched,
                             }) => (
                                 <Form autoComplete="off">
                                     <InputField
@@ -48,7 +51,7 @@ const Apply = () => {
                                         labelName="Full Name"
                                         error={errors.full_name}
                                         touch={touched.full_name}
-                                        placeHolder="Enter your Name"
+                                        placeHolder="Enter your full name here"
                                     />
                                     <InputField
                                         type="email"
@@ -56,14 +59,14 @@ const Apply = () => {
                                         labelName="Email"
                                         error={errors.email}
                                         touch={touched.email}
-                                        placeHolder="Enter your Email"
+                                        placeHolder="Enter your email address here"
                                     />
                                     <InputField
                                         name="phone"
                                         labelName="Phone Number"
                                         touch={touched.phone}
                                         error={errors.phone}
-                                        placeHolder="Enter your Bio"
+                                        placeHolder="Enter your phone number here"
                                     />
                                     <InputField
                                         type="text"
@@ -71,7 +74,7 @@ const Apply = () => {
                                         labelName="Current Company"
                                         error={errors.company}
                                         touch={touched.company}
-                                        placeHolder="Enter your price"
+                                        placeHolder="Enter your current/previous company name"
                                     />
                                     <InputField
                                         type="text"
@@ -79,7 +82,7 @@ const Apply = () => {
                                         labelName="Work Experience"
                                         error={errors.work_exp}
                                         touch={touched.work_exp}
-                                        placeHolder="Enter your price"
+                                        placeHolder="Enter you work experience in years"
                                     />
                                     <InputField
                                         type="text"
@@ -87,23 +90,62 @@ const Apply = () => {
                                         labelName="Portfolio Link"
                                         error={errors.portfolio}
                                         touch={touched.portfolio}
-                                        placeHolder="Enter your price"
+                                        placeHolder="Enter you portfolio or website link here"
                                     />
-                                    <InputField
-                                        type="text"
+                                    <FileInputField
                                         name="resume"
-                                        labelName="Resume/CV"
-                                        error={errors.resume}
-                                        touch={touched.resume}
-                                        placeHolder="Enter your price"
+                                        error={errors.resume as string}
+                                        touch={touched.resume as boolean}
+                                        placeHolder="Attach Resume/CV"
+                                        labelName="Upload your Resume/CV"
+                                        textMuted="(e.g; .pdf, .docx), File Size: 1MB"
+                                        handleChange={(e) => {
+                                            setFieldValue(
+                                                "resume",
+                                                Array.from(e.target.files)
+                                            );
+
+                                            const arrFiles = Array.from(
+                                                e.target.files
+                                            );
+                                            const multipleFiles = arrFiles.map(
+                                                (file: any, index: number) => {
+                                                    const src =
+                                                        window.URL.createObjectURL(
+                                                            file
+                                                        );
+                                                    return {
+                                                        file,
+                                                        id: index,
+                                                        src,
+                                                    };
+                                                }
+                                            );
+
+                                            setFieldValue(
+                                                "imagePreviewUrl",
+                                                multipleFiles
+                                            );
+                                        }}
+                                        fileName={
+                                            values.imagePreviewUrl &&
+                                            values.imagePreviewUrl.map(
+                                                (value: any) =>
+                                                    value?.file?.name
+                                            )
+                                        }
+                                        onBlur={() => {
+                                            setFieldTouched("resume", true);
+                                        }}
                                     />
+
                                     <InputField
                                         type="text"
                                         name="addtional_info"
                                         labelName="Additional Information"
                                         error={errors.addtional_info}
                                         touch={touched.addtional_info}
-                                        placeHolder="Enter your price"
+                                        placeHolder="Add a cover letter or anything you want to share here."
                                         as="textarea"
                                     />
                                     <ReCaptchaField

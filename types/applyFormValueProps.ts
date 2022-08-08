@@ -5,7 +5,8 @@ export interface ApplyFormValueProps {
     company: string;
     work_exp: string;
     portfolio: string;
-    resume: string;
+    resume: any[];
     addtional_info: string;
     g_recaptcha_response: string;
+    imagePreviewUrl?: any[];
 }

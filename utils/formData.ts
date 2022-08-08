@@ -201,7 +201,8 @@ export const CarrerApplyFormData: ApplyFormValueProps = {
     company: "",
     work_exp: "",
     portfolio: "",
-    resume: "",
+    resume: [],
     addtional_info: "",
     g_recaptcha_response: "",
+    imagePreviewUrl: [],
 };
