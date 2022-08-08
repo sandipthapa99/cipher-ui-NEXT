@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import nookies from "nookies";
 import { axiosClient } from "utils/axiosClient";
 
 // export const useTask = () => {
@@ -15,7 +14,10 @@ const fetchTask = () => {
     
 }
 
+
+
 export const useApplyTask = () => {
   return  useQuery(["all-task"], fetchTask);
     
 }
+
