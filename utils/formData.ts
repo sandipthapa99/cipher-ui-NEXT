@@ -1,5 +1,6 @@
 import type { CreditCardContent } from "staticData/creditCardContent";
 import type { AccountValueProps } from "types/accountValueProps";
+import type { ApplyFormValueProps } from "types/applyFormValueProps";
 import type { ApplyValueProps } from "types/applyValueProps";
 import type { BookNowFormProps } from "types/bookNow";
 import type { CertificationValueProps } from "types/certificationValueProps";
@@ -191,4 +192,16 @@ export const KYCFormData: KYCFormProps = {
     bankName: "",
     bankAccountName: "",
     bankAccountNumber: "",
+};
+
+export const CarrerApplyFormData: ApplyFormValueProps = {
+    full_name: "",
+    email: "",
+    phone: "",
+    company: "",
+    work_exp: "",
+    portfolio: "",
+    resume: "",
+    addtional_info: "",
+    g_recaptcha_response: "",
 };
