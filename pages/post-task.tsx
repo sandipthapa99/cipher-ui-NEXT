@@ -1,9 +1,9 @@
 import CategoryCard from "@components/common/CategoryCard";
 import DiscountCard from "@components/common/discountCard";
 import ServiceCard from "@components/common/ServiceCard";
+import WelcomeUser from "@components/common/WelcomeUser";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
-import { SearchBody } from "@components/SearchTask/searchBody";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -30,29 +30,7 @@ const PostTask: NextPage = () => {
             <SearchHeader />
             <Header />
             <Container>
-                <Row className="user-stats">
-                    <Col md={7} className="user-details">
-                        <div className="user-name">
-                            <h1>Hi Harry!</h1>
-                            <h1>Welcome Back!</h1>
-                        </div>
-                    </Col>
-                    <Col md={5} className="user-stat-card">
-                        {SearchBodyData.map((data) => {
-                            return (
-                                <SearchBody
-                                    key={data.id}
-                                    number={data.number}
-                                    color={data.color}
-                                    textOne={data.textOne}
-                                    textColor={data.textColor}
-                                />
-                            );
-                        })}
-                    </Col>
-                </Row>
-            </Container>
-            <Container>
+                <WelcomeUser />
                 <ApplyPost />
                 <h4>Special Offers & Discount</h4>
                 <Row className="discount-card">
