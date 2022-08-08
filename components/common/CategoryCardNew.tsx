@@ -25,12 +25,7 @@ const CategoryCardNew = ({
                     <h1>{categoryTitle}</h1>
                     <a href="">
                         {categoryTitle} related services
-                        {index != 5 && (
-                            <FontAwesomeIcon
-                                icon={faArrowRight}
-                                className="icon"
-                            />
-                        )}
+                        <FontAwesomeIcon icon={faArrowRight} className="icon" />
                     </a>
                 </div>
             </div>
