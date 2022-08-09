@@ -1,10 +1,13 @@
-import { faHeart, faShare } from "@fortawesome/pro-regular-svg-icons";
+import { faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import { useState } from "react";
 import type { MerchantCardProps } from "types/merchantCard";
 
 import CardBtn from "./CardBtn";
+import ShareIcon from "./ShareIcon";
+import ShareModal from "./ShareModalCard";
 
 const MerchantCard = ({
     merchantImage,
@@ -17,6 +20,7 @@ const MerchantCard = ({
     happyClients,
     successRate,
 }: MerchantCardProps) => {
+    const [showModal, setShowModal] = useState(false);
     return (
         <div className="merchant-card-block">
             <div className="merchant-intro">
@@ -97,14 +101,20 @@ const MerchantCard = ({
                     <div className="d-flex">
                         <FontAwesomeIcon
                             icon={faHeart}
-                            className="svg-icon heart"
+                            className="svg-icon svg-icon-heart me-5"
                         />
-                        <FontAwesomeIcon
-                            icon={faShare}
-                            className="svg-icon share"
+                        <ShareIcon
+                            showModal={true}
+                            handleOnClick={() => setShowModal(!showModal)}
                         />
                     </div>
                     <CardBtn btnTitle="Hire Me" backgroundColor="#211D4F" />
+                </div>
+                <div className="share-modal">
+                    <ShareModal
+                        show={showModal}
+                        handleClose={() => setShowModal(false)}
+                    />
                 </div>
             </div>
         </div>
