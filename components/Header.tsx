@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
 import { useWeather } from "hooks/weather/useWeather";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -15,35 +16,12 @@ import { useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { handleMenuActive } from "utils/helpers";
 
-// import { handleMenuActive } from "../../../../libs/util-formatter/src";
 import { Dropdown } from "./common/Dropdown";
 import { NotificationDropdown } from "./notifications/NotificationDropdown";
 
 const Header = () => {
-    const date = new Date();
-    const month = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
-    const day = date.getDate();
-    const monthName = month[date.getMonth()];
-    // const [allCountries, setAllCountries] = useState([]);
-
-    // const {data} = useLocation()
-    const { data: weathers } = useWeather();
-
-    // console.log(weathers);
-    const weatherIcon = weathers?.data?.weather[0].icon;
+    const date = format(new Date(), "MMMM d");
+    const { data: weather } = useWeather();
 
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
@@ -148,34 +126,12 @@ const Header = () => {
                                 </li>
                             </Dropdown>
                         </nav>
-
-                        <Link href="#!">
-                            <div className="weather-part">
-                                <a className="btn location-btn d-none d-md-inline-block">
-                                    {Math.floor(
-                                        weathers?.data?.main?.temp - 273
-                                    )}
-                                    °C
-                                    {/* <FontAwesomeIcon
-                                    icon={faLocationDot}
-                                    className="svg-icon"
-                                /> */}
-                                </a>
-                                <div>
-                                    <img
-                                        className="weather-icon"
-                                        src={`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`}
-                                        alt="weather icon"
-                                    />
-                                </div>
-                            </div>
-                        </Link>
                         <Link href="#!">
                             <a
                                 className="btn location-btn d-none d-md-inline-block"
                                 style={{ marginRight: "1.6rem" }}
                             >
-                                {`${day} ${monthName}`}
+                                {weather?.main.temp}°C
                             </a>
                         </Link>
                         <Link href="#!">
@@ -183,8 +139,15 @@ const Header = () => {
                                 className="btn location-btn d-none d-md-inline-block"
                                 style={{ marginRight: "1.6rem" }}
                             >
-                                {/* {data?.data.city} */}
-                                {weathers?.data?.name}
+                                {date}
+                            </a>
+                        </Link>
+                        <Link href="#!">
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ marginRight: "1.6rem" }}
+                            >
+                                {weather?.name}
                                 <FontAwesomeIcon
                                     icon={faLocationDot}
                                     className="svg-icon"

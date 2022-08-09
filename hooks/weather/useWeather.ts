@@ -1,46 +1,57 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import axios, { AxiosError } from "axios";
+import { useEffect, useState } from "react";
+import type { Weather } from "types/weather";
 
-const fetchWeather = async (lat: number, lon: number) => {
-    const apiKey = "c9809d4018efd8b1a226080dc2e3d029";
-    return axios.get(
-        ` https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
-    );
-};
+export const useLocation = () => {
+    const [coords, setCoords] = useState<
+        GeolocationPosition["coords"] | undefined
+    >();
 
-export const useWeather = () => {
-    const [allowed, setAllowed] = useState(false);
-
-    const latitude = useRef<number | undefined>(undefined);
-    const longitude = useRef<number | undefined>(undefined);
     useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                latitude.current = position.coords.latitude;
-                longitude.current = position.coords.longitude;
-            });
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    }, [latitude, longitude]);
-    useEffect(() => {
-        navigator.geolocation.watchPosition(
-            function (position) {
-                const { latitude, longitude } = position.coords;
-                // console.log("i'm tracking you!");
-                setAllowed(true);
-            },
-            function (error) {
-                if (error.code == error.PERMISSION_DENIED)
-                    // console.log("you denied me :-(");
-                    setAllowed(false);
-            }
-        );
+        window.navigator.geolocation.getCurrentPosition((data) => {
+            setCoords(data.coords);
+        });
+        return () => {
+            setCoords(undefined);
+        };
     }, []);
+    return coords;
+};
+export const useWeather = () => {
+    const getOpenWeatherApiKey = () => {
+        const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
+        if (apiKey === undefined)
+            throw new Error(
+                "Please specify an API key in the environment variable NEXT_PUBLIC_OPEN_WEATHER_API_KEY"
+            );
+        return apiKey;
+    };
+    const coords = useLocation();
+    const openWeatherBaseUrl =
+        "https://api.openweathermap.org/data/2.5/weather";
+    const query = new URLSearchParams({
+        lat: coords?.latitude.toString() as string,
+        lon: coords?.longitude.toString() as string,
+        units: "metric",
+        appId: getOpenWeatherApiKey(),
+    });
 
-    // console.log(latitude, longitude);
-    return useQuery(["weather"], () =>
-        fetchWeather(latitude.current, longitude.current)
+    const url = `${openWeatherBaseUrl}?${query.toString()}`;
+
+    return useQuery(
+        ["weather-data"],
+        async () => {
+            try {
+                const { data } = await axios.get<Weather>(url);
+                return data;
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    throw new Error(error?.response?.data?.message);
+                }
+                throw new Error("Failed to fetch weather data");
+            }
+        },
+        { enabled: !!coords, retry: false }
     );
 };

@@ -1,40 +1,107 @@
+import { Tab } from "@components/common/Tab";
+import TaskCard from "@components/common/TaskCard";
+import Post from "@components/PostTask/Post";
+import { Recommended } from "@components/user/Recommended";
 import {
     faFilterList,
     faMagnifyingGlass,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { progressTask, taskHistory } from "staticData/task";
 
 const SearchBySort = () => {
+    const [activeTabIdx, setActiveTabIdx] = useState(0);
+
     return (
         <Row className="recommended-tab">
-            <Col md={11} className="recommended">
-                <span>Recommended</span>
-                <span>In Progess</span>
-                <span>History</span>
-            </Col>
-            <Col md={1} className="recommended-icon">
-                <FontAwesomeIcon
-                    icon={faMagnifyingGlass}
-                    style={{
-                        width: "1.5rem",
-                        height: "1.5rem",
-                        verticalAlign: "middle",
-                        display: "inline-block",
-                        fontSize: "18px",
-                        color: "#000",
-                    }}
-                />
-                <FontAwesomeIcon
-                    icon={faFilterList}
-                    style={{
-                        width: "1.5rem",
-                        height: "1.5rem",
-                        verticalAlign: "middle",
-                        display: "inline-block",
-                        fontSize: "18px",
-                        color: "#000",
-                    }}
+            {/* <div className="tabs"> */}
+            <Col md={12} className="recomended">
+                <Tab
+                    activeIndex={activeTabIdx}
+                    onTabClick={setActiveTabIdx}
+                    items={[
+                        {
+                            title: "Recommended",
+                            content: <Recommended />,
+                        },
+                        {
+                            title: "Recent",
+                            content: <Post />,
+                        },
+                        {
+                            title: "In Progress",
+                            content: progressTask.map((task) => (
+                                <Col sm="12" key={task.id}>
+                                    <TaskCard
+                                        title={task.title}
+                                        charge={task.charge}
+                                        description={task.description}
+                                        location={task.location}
+                                        date={task.date}
+                                        time={task.time}
+                                        isCompleted={task.isCompleted}
+                                        isRunning={task.isRunning}
+                                    />
+                                </Col>
+                            )),
+                        },
+                        {
+                            title: "History",
+                            content: taskHistory.map((task) => (
+                                <Col sm="12" key={task.id}>
+                                    <TaskCard
+                                        title={task.title}
+                                        charge={task.charge}
+                                        description={task.description}
+                                        location={task.location}
+                                        date={task.date}
+                                        time={task.time}
+                                        isCompleted={task.isCompleted}
+                                        isRunning={task.isRunning}
+                                    />
+                                </Col>
+                            )),
+                        },
+                        {
+                            title: "Draft",
+                            content: taskHistory.map((task) => (
+                                <Col sm="12" key={task.id}>
+                                    <TaskCard
+                                        title={task.title}
+                                        charge={task.charge}
+                                        description={task.description}
+                                        location={task.location}
+                                        date={task.date}
+                                        time={task.time}
+                                        isCompleted={task.isCompleted}
+                                        isRunning={task.isRunning}
+                                    />
+                                </Col>
+                            )),
+                        },
+                    ]}
+                    icons={[
+                        {
+                            index: 0,
+                            type: (
+                                <FontAwesomeIcon
+                                    icon={faMagnifyingGlass}
+                                    className="svg-icon"
+                                />
+                            ),
+                        },
+                        {
+                            index: 1,
+                            type: (
+                                <FontAwesomeIcon
+                                    icon={faFilterList}
+                                    className="svg-icon"
+                                />
+                            ),
+                        },
+                    ]}
                 />
             </Col>
         </Row>
