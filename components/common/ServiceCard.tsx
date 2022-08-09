@@ -20,8 +20,8 @@ const ServiceCard = ({
     servicePrice,
     hasOffer,
     discountRate,
-    discountOn,
-}: ServiceCardProps) => {
+}: // discountOn,
+ServiceCardProps) => {
     const [showModal, setShowModal] = useState(false);
 
     return (

@@ -8,11 +8,7 @@ import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import {
-    getSearchBody,
-    getServiceCategory,
-    getServices,
-} from "services/commonServices";
+import { getServiceCategory, getServices } from "services/commonServices";
 
 import SearchHeader from "../components/SearchTask/searchHeader";
 
@@ -22,7 +18,6 @@ const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
     ssr: false,
 });
 const PostTask: NextPage = () => {
-    const SearchBodyData = getSearchBody();
     const serviceCategory = getServiceCategory();
     const services = getServices();
     return (
