@@ -31,13 +31,13 @@ export const useWeather = () => {
         navigator.geolocation.watchPosition(
             function (position) {
                 const { latitude, longitude } = position.coords;
-                console.log("i'm tracking you!");
+                // console.log("i'm tracking you!");
                 setAllowed(true);
             },
             function (error) {
                 if (error.code == error.PERMISSION_DENIED)
-                    console.log("you denied me :-(");
-                setAllowed(false);
+                    // console.log("you denied me :-(");
+                    setAllowed(false);
             }
         );
     }, []);

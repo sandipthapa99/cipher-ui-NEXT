@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import type { FeedbackValuesProps } from "types/contact";
 import { axiosClient } from "utils/axiosClient";
 
-export const useSupport = () => {
+export const useFeedback = () => {
     return useMutation<void, Error, FeedbackValuesProps>(
         async (feedbackPayload) => {
             try {

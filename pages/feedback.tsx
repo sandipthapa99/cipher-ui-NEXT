@@ -2,7 +2,7 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
-import { useSupport } from "hooks/contact-and-support/support";
+import { useFeedback } from "hooks/contact-and-support/support";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -11,7 +11,7 @@ import { FeedbackFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Feedback = () => {
-    const { mutate, isLoading } = useSupport();
+    const { mutate, isLoading } = useFeedback();
     return (
         <>
             <Layout title="Feedback | Cipher">
@@ -41,7 +41,7 @@ const Feedback = () => {
                                         mutate(values, {
                                             onSuccess: async () => {
                                                 toast.success(
-                                                    "Feedback sent successfully"
+                                                    "Thank you for your feedback"
                                                 );
                                             },
                                             onError: async (error) => {

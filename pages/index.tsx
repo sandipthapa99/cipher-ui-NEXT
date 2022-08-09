@@ -14,7 +14,6 @@ import Layout from "@components/Layout";
 import {
     faAngleRight,
     faChevronCircleRight,
-    faChevronDown,
     faSearch,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
