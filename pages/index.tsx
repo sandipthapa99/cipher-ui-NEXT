@@ -9,6 +9,7 @@ import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
+import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import {
@@ -500,6 +501,17 @@ const Home: NextPage = () => {
                 </Container>
             </section>
             {/* Gradient Banner section End */}
+
+            {/* Win new client silder card section start */}
+            <section
+                id="win-new-clients-slider-section"
+                className="win-new-clients-slider-section"
+            >
+                <Container fluid="xl" className="px-5">
+                    <ExploreWithSlider />
+                </Container>
+            </section>
+            {/* Win new client slider card section ends */}
 
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
