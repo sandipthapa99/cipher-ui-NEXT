@@ -165,40 +165,26 @@ const Home: NextPage = () => {
                             services.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <Link href="/service-detail">
-                                            <a>
-                                                <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
-                                                />
-                                            </a>
-                                        </Link>
+                                        <ServiceCard
+                                            serviceImage={service.serviceImage}
+                                            serviceTitle={service.serviceTitle}
+                                            serviceProvider={
+                                                service.serviceProvider
+                                            }
+                                            serviceProviderLocation={
+                                                service.serviceProviderLocation
+                                            }
+                                            serviceDescription={
+                                                service.serviceDescription
+                                            }
+                                            serviceRating={
+                                                service.serviceRating
+                                            }
+                                            servicePrice={service.servicePrice}
+                                            hasOffer={service.hasOffer}
+                                            discountRate={service.discountRate}
+                                            discountOn={service.discountOn}
+                                        />
                                     </Col>
                                 );
                             })}

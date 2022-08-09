@@ -50,6 +50,24 @@
         height: 1.8rem;
         color: $grayScale6;
     }
+    &-heart {
+        width: 2rem;
+        height: 1.8rem;
+        color: #fe5050;
+        @include transition();
+        &:hover {
+            color: $secondary-color;
+        }
+    }
+    &-share {
+        width: 2rem;
+        height: 1.8rem;
+        color: #3eaeff;
+        @include transition();
+        &:hover {
+            color: $secondary-color;
+        }
+    }
 }
 .svg-180-transfrom {
     transform: rotate(180deg);
