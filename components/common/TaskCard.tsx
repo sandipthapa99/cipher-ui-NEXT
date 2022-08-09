@@ -17,6 +17,8 @@ const TaskCard = ({
     location,
     date,
     time,
+    isCompleted,
+    isRunning,
 }: TaskCardProps) => {
     return (
         <div className="task-card-block">
@@ -65,7 +67,16 @@ const TaskCard = ({
                     </p>
                 </div>
                 <div className="right">
-                    <CardBtn btnTitle="Apply" backgroundColor="#38C675" />
+                    {isCompleted || isRunning ? (
+                        <CardBtn
+                            btnTitle={isCompleted ? "Completed" : "Running"}
+                            backgroundColor={
+                                isCompleted ? "#FE5050" : "#0693E3"
+                            }
+                        />
+                    ) : (
+                        <CardBtn btnTitle={"Apply"} backgroundColor="#38C675" />
+                    )}
                 </div>
             </div>
         </div>

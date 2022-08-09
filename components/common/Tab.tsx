@@ -35,7 +35,7 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
 
     const renderTabItems = () => {
         return (
-            <>
+            <div className="tab-wrapper">
                 {items.map((item, index) => (
                     <button
                         data-is-active={JSON.stringify(
@@ -49,10 +49,15 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
                     </button>
                 ))}
 
-                {icons?.map((icon) => (
+                <div className="tab-icons">
+                    {icons?.map((icon) => (
+                        <div key={icon.index}>{icon.type}</div>
+                    ))}
+                </div>
+                {/* {icons?.map((icon) => (
                     <div key={icon.index}>{icon.type}</div>
-                ))}
-            </>
+                ))} */}
+            </div>
         );
     };
     return (

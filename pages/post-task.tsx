@@ -35,7 +35,7 @@ const PostTask: NextPage = () => {
             <section className="post-task__search-header">
                 <WelcomeUser />
             </section>
-            <Container>
+            <Container fluid="xl" className="px-5">
                 <ApplyPost />
 
                 <div className="post-task__discount-card">
@@ -110,7 +110,7 @@ const PostTask: NextPage = () => {
                 </div>
             </Container>
             <section id="browse-category" className="browse-category">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">
                         Our services by category
                     </h1>
@@ -147,7 +147,7 @@ const PostTask: NextPage = () => {
                     {/* Service category listing end */}
                 </Container>
             </section>
-            <Container>
+            <Container fluid="xl" className="px-5">
                 <div className="post-task__service-recommendation">
                     <div className="title-wrapper d-flex justify-content-between">
                         {/* <h2 className="heading-title">Community activity</h2> */}

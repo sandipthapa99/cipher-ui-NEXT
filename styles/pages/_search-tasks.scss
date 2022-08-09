@@ -1,5 +1,8 @@
 .user-stats {
     padding: 3rem 3rem;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 
     @include respond(md) {
         padding: 3rem 10rem;
@@ -20,11 +23,22 @@
     .user-stat-card {
         display: flex;
         justify-content: space-between;
-        // gap: 24px;
         gap: 2rem;
         padding-top: 2rem;
+        .task-card {
+            padding: 1rem 0rem 1rem 1rem;
+        }
+        p {
+            color: $sub-title-color;
+        }
         @include respond(md) {
             padding-top: 0rem;
+        }
+        @include respond(sm) {
+            padding-top: 2rem;
+        }
+        @include respond(xs) {
+            padding-top: 2rem;
         }
     }
 }

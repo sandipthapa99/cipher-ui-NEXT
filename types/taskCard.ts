@@ -7,4 +7,6 @@ export interface TaskCardProps extends HTMLAttributes<HTMLDivElement> {
     location: string;
     date: string;
     time: string;
+    isCompleted?: boolean,
+    isRunning?: boolean,
 }

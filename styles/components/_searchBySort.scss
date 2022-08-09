@@ -2,17 +2,25 @@
     @include respond(xs) {
         flex-direction: row-reverse;
     }
-    .custom-tab__headers {
-        gap: 0rem;
-        flex-wrap: wrap;
-        justify-content: space-between;
+    .custom-tab {
+        &__headers {
+            gap: 0rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
 
-        &--btn {
-            color: #9fa3b1;
-            font-weight: 500;
+            &--btn {
+                color: #9fa3b1;
+                font-weight: 500;
+            }
+            [data-is-active="true"] {
+                color: $default-text-color;
+            }
         }
-        [data-is-active="true"] {
-            color: $default-text-color;
+        &__content {
+            height: 80vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin-top: 2.8rem;
         }
     }
     .svg-icon {

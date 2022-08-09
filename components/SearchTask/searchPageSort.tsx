@@ -8,6 +8,8 @@ import { Tab } from "@components/common/Tab";
 import { useState } from "react";
 import Post from "@components/PostTask/Post";
 import { Recommended } from "@components/user/Recommended";
+import { progressTask, taskHistory } from "staticData/task";
+import TaskCard from "@components/common/TaskCard";
 
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -30,15 +32,54 @@ const SearchBySort = () => {
                         },
                         {
                             title: "In Progress",
-                            content: <Post />,
+                            content: progressTask.map((task) => (
+                                <Col sm="12" key={task.id}>
+                                    <TaskCard
+                                        title={task.title}
+                                        charge={task.charge}
+                                        description={task.description}
+                                        location={task.location}
+                                        date={task.date}
+                                        time={task.time}
+                                        isCompleted={task.isCompleted}
+                                        isRunning={task.isRunning}
+                                    />
+                                </Col>
+                            )),
                         },
                         {
                             title: "History",
-                            content: <Post />,
+                            content: taskHistory.map((task) => (
+                                <Col sm="12" key={task.id}>
+                                    <TaskCard
+                                        title={task.title}
+                                        charge={task.charge}
+                                        description={task.description}
+                                        location={task.location}
+                                        date={task.date}
+                                        time={task.time}
+                                        isCompleted={task.isCompleted}
+                                        isRunning={task.isRunning}
+                                    />
+                                </Col>
+                            )),
                         },
                         {
                             title: "Draft",
-                            content: <Post />,
+                            content: taskHistory.map((task) => (
+                                <Col sm="12" key={task.id}>
+                                    <TaskCard
+                                        title={task.title}
+                                        charge={task.charge}
+                                        description={task.description}
+                                        location={task.location}
+                                        date={task.date}
+                                        time={task.time}
+                                        isCompleted={task.isCompleted}
+                                        isRunning={task.isRunning}
+                                    />
+                                </Col>
+                            )),
                         },
                     ]}
                     icons={[

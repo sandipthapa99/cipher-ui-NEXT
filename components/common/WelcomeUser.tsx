@@ -6,19 +6,21 @@ const WelcomeUser = () => {
     return (
         <>
             <Row className="user-stats">
-                <Col md={7} className="user-details">
+                <Col lg={7} md={6} className="user-details">
                     <div className="user-name">
                         <h1>Hi Harry!</h1>
                         <h1>Welcome Back!</h1>
                     </div>
                 </Col>
-                <Col md={5}>
+                <Col lg={5} md={6} xs={12}>
                     <Row>
                         {SearchBodyData.map((data) => (
                             <Col
                                 className="user-stat-card"
                                 key={data.id}
-                                md={3}
+                                lg={3}
+                                md={6}
+                                sm={6}
                                 xs={6}
                             >
                                 <SearchBody
