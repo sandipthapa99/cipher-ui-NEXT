@@ -14,6 +14,7 @@ export const restrictOnLogin: GetServerSideProps = async (context) => {
             },
         };
     }
+
     return {
         props: {},
     };

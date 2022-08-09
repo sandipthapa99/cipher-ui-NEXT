@@ -1,4 +1,5 @@
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
+import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
 import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
@@ -17,13 +18,12 @@ import {
     faSearch,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { UserService } from "services/userService";
 import { blogCardContent } from "staticData/community";
 import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
@@ -35,6 +35,12 @@ import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
 
 const Home: NextPage = () => {
+    const [postTaskPopup, setPostTaskPopup] = useState(true);
+
+    const handleClosePosttaskPopup = () => {
+        setPostTaskPopup(false);
+    };
+
     return (
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
@@ -55,18 +61,14 @@ const Home: NextPage = () => {
                                     }}
                                 >
                                     <div className="search_box">
-                                        <div className="dropdown d-flex align-items-center">
-                                            <SelectInputField
-                                                name="experience"
-                                                placeHolder="All"
-                                                options={myOptions}
-                                                fieldRequired
-                                            />
-                                            <FontAwesomeIcon
-                                                icon={faChevronDown}
-                                                className="svg-icon"
-                                            />
-                                        </div>
+                                        {/* <div className="dropdown d-flex align-items-center"> */}
+                                        <SelectInputField
+                                            name="experience"
+                                            placeHolder="All"
+                                            options={myOptions}
+                                            fieldRequired
+                                        />
+
                                         <div className="search_field">
                                             <input
                                                 type="text"
@@ -125,12 +127,12 @@ const Home: NextPage = () => {
                     {/* Service category listing start */}
                     <Row className="gx-5">
                         {serviceCategory &&
-                            serviceCategory.map((category) => {
+                            serviceCategory.map((category, index) => {
                                 return (
                                     <Col
                                         md={3}
                                         sm={6}
-                                        key={category.id}
+                                        key={index}
                                         className="d-flex align-items-strecth"
                                     >
                                         <CategoryCardNew
@@ -143,7 +145,30 @@ const Home: NextPage = () => {
                                 );
                             })}
                     </Row>
+
                     {/* Service category listing end */}
+                </Container>
+            </section>
+
+            {postTaskPopup && (
+                <div className="popup-post-task">
+                    <PostTaskHomepage handleClose={handleClosePosttaskPopup} />
+                </div>
+            )}
+
+            <section
+                id="cagtu-cipher-buzz-section"
+                className="cagtu-cipher-buzz-section"
+            >
+                <Container fluid="xl" className="px-5">
+                    <div className="d-flex justify-content-around list-bar">
+                        <li className="light">Cagtu</li>
+                        <li className="strong">Cipher</li>
+                        <li className="light">Code Sharav</li>
+                        <li className="strong">Buzz</li>
+                        <li className="light">Cipher</li>
+                        <li className="strong">Code Sharav</li>
+                    </div>
                 </Container>
             </section>
 
@@ -268,6 +293,64 @@ const Home: NextPage = () => {
                 </Container>
             </section>
             {/* Services near you section end */}
+
+            <section id="services-near-you" className="services-near-you">
+                <Container fluid="xl" className="px-5">
+                    <div className="title-wrapper d-flex justify-content-between">
+                        <h2 className="heading-title">Professional Services</h2>
+                        <a href="" className="view-more">
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
+                        </a>
+                    </div>
+                    <Row className="gx-5">
+                        {services &&
+                            services.map((service) => {
+                                return (
+                                    <Col sm={6} md={4} lg={3} key={service.id}>
+                                        <Link href="/service-detail">
+                                            <a>
+                                                <ServiceCard
+                                                    serviceImage={
+                                                        service.serviceImage
+                                                    }
+                                                    serviceTitle={
+                                                        service.serviceTitle
+                                                    }
+                                                    serviceProvider={
+                                                        service.serviceProvider
+                                                    }
+                                                    serviceProviderLocation={
+                                                        service.serviceProviderLocation
+                                                    }
+                                                    serviceDescription={
+                                                        service.serviceDescription
+                                                    }
+                                                    serviceRating={
+                                                        service.serviceRating
+                                                    }
+                                                    servicePrice={
+                                                        service.servicePrice
+                                                    }
+                                                    hasOffer={service.hasOffer}
+                                                    discountRate={
+                                                        service.discountRate
+                                                    }
+                                                    discountOn={
+                                                        service.discountOn
+                                                    }
+                                                />
+                                            </a>
+                                        </Link>
+                                    </Col>
+                                );
+                            })}
+                    </Row>
+                </Container>
+            </section>
 
             {/* Get services section start */}
             <section className="get-services">
@@ -405,10 +488,9 @@ const Home: NextPage = () => {
             <section className="gradient-banner">
                 <Container fluid="xl" className="px-5">
                     <GradientBanner
-                        title="A client tasks are quickly finished 
-                            when searched through Cipher"
-                        subTitle="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500. "
-                        image="/discover/main.svg"
+                        title="Looking for work is not that difficult as it sounds any more"
+                        subTitle="Allow us to accompany you on your journey"
+                        image="/gradient-updated.png"
                         btnText="Join Us"
                     />
                 </Container>
@@ -580,16 +662,5 @@ const Home: NextPage = () => {
             </section>
         </Layout>
     );
-};
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const queryClient = new QueryClient();
-    await queryClient.prefetchQuery(["user"], () =>
-        UserService.fetchUser({ type: "server", context })
-    );
-    return {
-        props: {
-            dehydratedState: dehydrate(queryClient),
-        },
-    };
 };
 export default Home;

@@ -14,7 +14,7 @@ const TooltipMessage = ({
         <OverlayTrigger
             placement={place}
             delay={{ show: 250, hide: 400 }}
-            overlay={<Tooltip>{message}</Tooltip>}
+            overlay={<Tooltip className="my-tooltip">{message}</Tooltip>}
         >
             {children}
         </OverlayTrigger>
