@@ -4,37 +4,62 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Row } from "react-bootstrap";
+import { Tab } from "@components/common/Tab";
+import { useState } from "react";
+import Post from "@components/PostTask/Post";
 
 const SearchBySort = () => {
+    const [activeTabIdx, setActiveTabIdx] = useState(0);
+
     return (
         <Row className="recommended-tab">
-            <Col md={11} className="recommended">
-                <span>Recommended</span>
-                <span>In Progess</span>
-                <span>History</span>
-            </Col>
-            <Col md={1} className="recommended-icon">
-                <FontAwesomeIcon
-                    icon={faMagnifyingGlass}
-                    style={{
-                        width: "1.5rem",
-                        height: "1.5rem",
-                        verticalAlign: "middle",
-                        display: "inline-block",
-                        fontSize: "18px",
-                        color: "#000",
-                    }}
-                />
-                <FontAwesomeIcon
-                    icon={faFilterList}
-                    style={{
-                        width: "1.5rem",
-                        height: "1.5rem",
-                        verticalAlign: "middle",
-                        display: "inline-block",
-                        fontSize: "18px",
-                        color: "#000",
-                    }}
+            {/* <div className="tabs"> */}
+            <Col md={11} className="recomended">
+                <Tab
+                    activeIndex={activeTabIdx}
+                    onTabClick={setActiveTabIdx}
+                    items={[
+                        {
+                            title: "Recommended",
+                            content: <Post />,
+                        },
+                        {
+                            title: "Recent",
+                            content: <Post />,
+                        },
+                        {
+                            title: "In Progress",
+                            content: <Post />,
+                        },
+                        {
+                            title: "History",
+                            content: <Post />,
+                        },
+                        {
+                            title: "Draft",
+                            content: <Post />,
+                        },
+                    ]}
+                    icons={[
+                        {
+                            index: 0,
+                            type: (
+                                <FontAwesomeIcon
+                                    icon={faMagnifyingGlass}
+                                    className="svg-icon"
+                                />
+                            ),
+                        },
+                        {
+                            index: 1,
+                            type: (
+                                <FontAwesomeIcon
+                                    icon={faFilterList}
+                                    className="svg-icon"
+                                />
+                            ),
+                        },
+                    ]}
                 />
             </Col>
         </Row>
