@@ -4,11 +4,24 @@
 
     &__headers {
         position: relative;
-        display: flex;
-        gap: 62px;
+        // display: flex;
+        // gap: 62px;
         padding-block: 10px;
         margin-bottom: 24px;
+        .tab-wrapper {
+            display: flex;
+            justify-content: space-between;
+            .custom-tab__headers--btn {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
 
+            .tab-icons {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
         @include media("<=tablet") {
             overflow-x: scroll;
             flex-wrap: nowrap;

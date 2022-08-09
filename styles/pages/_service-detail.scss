@@ -22,7 +22,7 @@ section {
             font-weight: 500;
         }
         .gardener-col {
-            margin-top: 2rem;
+            // margin-top: 2rem;
             @include respond(md) {
                 margin-top: 0rem;
             }

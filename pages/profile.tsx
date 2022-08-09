@@ -8,11 +8,10 @@ import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage } from "next";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { userProfileCardInfo } from "staticData/userProfileCard";
-import { requiresAuth } from "utils/requiresLogin";
 
 const UserProfile: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -96,8 +95,5 @@ const UserProfile: NextPage = () => {
         </Layout>
     );
 };
-
-export const getServerSideProps: GetServerSideProps = (context) =>
-    requiresAuth({ context, redirectURL: "/login?next=/profile" });
 
 export default UserProfile;

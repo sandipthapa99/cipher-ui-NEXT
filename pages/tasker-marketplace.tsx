@@ -39,7 +39,7 @@ const TaskerMarketPlace: NextPage = () => {
                             image="/taskermarketplace/girl.svg"
                             description="Connect with talent that gets you, and hire them to take your business to the next level."
                             homeImage={true}
-                            buttonText="Browse To Learn"
+                            buttonText="Browse Talents"
                             imageOnRight={false}
                         />
                     </div>

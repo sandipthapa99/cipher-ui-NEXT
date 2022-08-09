@@ -50,6 +50,7 @@
         "react-map-gl": "^7.0.18",
         "react-toastify": "^9.0.8",
         "sass": "^1.52.3",
+        "sharp": "^0.30.7",
         "yup": "^0.32.11"
     },
     "devDependencies": {
