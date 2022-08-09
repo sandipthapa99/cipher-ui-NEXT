@@ -1,8 +1,7 @@
+import BigButton from "@components/common/Button";
+import { faListCheck, faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { faListCheck, faXmark } from "@fortawesome/pro-regular-svg-icons";
-import BigButton from "@components/common/Button";
-import CardBtn from "@components/common/CardBtn";
 
 interface PostTaskHomepageProps {
     handleClose: () => void;

@@ -146,7 +146,6 @@ const Home: NextPage = () => {
                                                 category.categoryTitle
                                             }
                                             categoryIcon={category.categoryIcon}
-                                            index={index}
                                         />
                                     </Col>
                                 );

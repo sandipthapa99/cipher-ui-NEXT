@@ -6,7 +6,6 @@ import type { CategoryCardProps } from "types/categoryCard";
 const CategoryCardNew = ({
     categoryTitle,
     categoryIcon,
-    index,
 }: CategoryCardProps) => {
     return (
         <div className="hero-category__card-block d-inline-block flex-row">
