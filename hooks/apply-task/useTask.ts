@@ -10,14 +10,9 @@ import { axiosClient } from "utils/axiosClient";
 // };
 
 const fetchTask = () => {
- return   axiosClient.get("/task/")
-    
-}
-
-
+    return axiosClient.get("/task/");
+};
 
 export const useApplyTask = () => {
-  return  useQuery(["all-task"], fetchTask);
-    
-}
-
+    return useQuery(["all-task"], fetchTask);
+};

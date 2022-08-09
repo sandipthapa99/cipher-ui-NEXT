@@ -14,7 +14,6 @@ import Layout from "@components/Layout";
 import {
     faAngleRight,
     faChevronCircleRight,
-    faChevronDown,
     faSearch,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -192,40 +191,26 @@ const Home: NextPage = () => {
                             services.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <Link href="/service-detail">
-                                            <a>
-                                                <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
-                                                />
-                                            </a>
-                                        </Link>
+                                        <ServiceCard
+                                            serviceImage={service.serviceImage}
+                                            serviceTitle={service.serviceTitle}
+                                            serviceProvider={
+                                                service.serviceProvider
+                                            }
+                                            serviceProviderLocation={
+                                                service.serviceProviderLocation
+                                            }
+                                            serviceDescription={
+                                                service.serviceDescription
+                                            }
+                                            serviceRating={
+                                                service.serviceRating
+                                            }
+                                            servicePrice={service.servicePrice}
+                                            hasOffer={service.hasOffer}
+                                            discountRate={service.discountRate}
+                                            discountOn={service.discountOn}
+                                        />
                                     </Col>
                                 );
                             })}
@@ -252,40 +237,26 @@ const Home: NextPage = () => {
                             services.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <Link href="/service-detail">
-                                            <a>
-                                                <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
-                                                />
-                                            </a>
-                                        </Link>
+                                        <ServiceCard
+                                            serviceImage={service.serviceImage}
+                                            serviceTitle={service.serviceTitle}
+                                            serviceProvider={
+                                                service.serviceProvider
+                                            }
+                                            serviceProviderLocation={
+                                                service.serviceProviderLocation
+                                            }
+                                            serviceDescription={
+                                                service.serviceDescription
+                                            }
+                                            serviceRating={
+                                                service.serviceRating
+                                            }
+                                            servicePrice={service.servicePrice}
+                                            hasOffer={service.hasOffer}
+                                            discountRate={service.discountRate}
+                                            discountOn={service.discountOn}
+                                        />
                                     </Col>
                                 );
                             })}
@@ -452,7 +423,13 @@ const Home: NextPage = () => {
                         {merchants &&
                             merchants.map((merchant) => {
                                 return (
-                                    <Col sm={6} lg={4} xl={3} key={merchant.id}>
+                                    <Col
+                                        sm={6}
+                                        lg={4}
+                                        xl={3}
+                                        key={merchant.id}
+                                        className="d-flex"
+                                    >
                                         <MerchantCard
                                             merchantImage={
                                                 merchant.merchantImage

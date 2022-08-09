@@ -11,8 +11,7 @@ const ShareIcon = ({ showModal, handleOnClick }: ShareIconProps) => {
         <FontAwesomeIcon
             icon={faShare}
             onClick={() => handleOnClick(showModal)}
-            className="svg-icon share"
-            style={{ height: "2rem", width: "2rem", color: "color: #3EAEFF" }}
+            className="svg-icon svg-icon-share"
         />
     );
 };

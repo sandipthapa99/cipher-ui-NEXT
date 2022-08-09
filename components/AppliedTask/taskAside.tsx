@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { AllTaskResult } from "types/applytask";
 
-import type { AppliedTask } from "../../staticData/taskApplied";
 import TaskAppliedCard from "./taskAppliedCard";
 
 interface TaskAsideProps {
