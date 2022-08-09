@@ -55,6 +55,7 @@
         height: 1.8rem;
         color: #fe5050;
         @include transition();
+        cursor: pointer;
         &:hover {
             color: $secondary-color;
         }
@@ -63,6 +64,7 @@
         width: 2rem;
         height: 1.8rem;
         color: #3eaeff;
+        cursor: pointer;
         @include transition();
         &:hover {
             color: $secondary-color;
