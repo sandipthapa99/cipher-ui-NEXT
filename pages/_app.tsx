@@ -13,11 +13,16 @@ import { ClientTaskContextProvider } from "context/ClientTaskContext";
 import SearchProvider from "context/searchProvider";
 import SuccessProvider from "context/successContext/successProvider";
 import type { AppProps } from "next/app";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
 import AuthProvider from "../context/AuthContext/userContextProvider";
 
+const UserLoadingOverlay = dynamic(
+    () => import("@components/user/UserLoadingOverlay"),
+    { ssr: false }
+);
 function MyApp({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(() => new QueryClient());
     return (
@@ -30,6 +35,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                                 <ReactQueryDevtools />
                                 <ToastContainer position="top-center" />
                                 <Hydrate state={pageProps.dehydratedState}>
+                                    <UserLoadingOverlay />
                                     <Component {...pageProps} />
                                 </Hydrate>
                             </QueryClientProvider>
