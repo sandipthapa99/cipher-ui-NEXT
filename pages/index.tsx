@@ -5,10 +5,12 @@ import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
 import MerchantCard from "@components/common/MerchantCard";
+import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
+import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import {
@@ -469,6 +471,17 @@ const Home: NextPage = () => {
             </section>
             {/* Gradient Banner section End */}
 
+            {/* Win new client silder card section start */}
+            <section
+                id="win-new-clients-slider-section"
+                className="win-new-clients-slider-section"
+            >
+                <Container fluid="xl" className="px-5">
+                    <ExploreWithSlider />
+                </Container>
+            </section>
+            {/* Win new client slider card section ends */}
+
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
                 <Container fluid="xl" className="px-5">
@@ -504,6 +517,24 @@ const Home: NextPage = () => {
                 </Container>
             </section>
             {/* Tasks you may like section end */}
+
+            {/* some success stories sectioin start */}
+            <section
+                id="some-success-stories-section"
+                className="some-success-stories-section"
+            >
+                <Container>
+                    <div className="success-sroties-header">
+                        <h1 className="text-center">
+                            3003,0330 Taskers have earned an income on Cipher
+                        </h1>
+                        <h3 className="text-center">Some Success Stories</h3>
+                    </div>
+                    <PersonalSuccessCard />
+                </Container>
+            </section>
+
+            {/* some success stories section end  */}
 
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
