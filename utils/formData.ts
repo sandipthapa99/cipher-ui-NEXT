@@ -1,5 +1,6 @@
 import type { CreditCardContent } from "staticData/creditCardContent";
 import type { AccountValueProps } from "types/accountValueProps";
+import type { ApplyFormValueProps } from "types/applyFormValueProps";
 import type { ApplyValueProps } from "types/applyValueProps";
 import type { BookNowFormProps } from "types/bookNow";
 import type { CertificationValueProps } from "types/certificationValueProps";
@@ -15,6 +16,7 @@ import type { LoginValuesProps } from "types/login";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { SkillsValueProps } from "types/skillsValueProps";
 import type { TaxCalculatorValueProps } from "types/taxCalculatorValueProps";
+import type { UploadCVValueProps } from "types/uploadCVValueProps";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
@@ -191,4 +193,22 @@ export const KYCFormData: KYCFormProps = {
     bankName: "",
     bankAccountName: "",
     bankAccountNumber: "",
+};
+
+export const CarrerApplyFormData: ApplyFormValueProps = {
+    full_name: "",
+    email: "",
+    phone: "",
+    company: "",
+    work_exp: "",
+    portfolio: "",
+    resume: [],
+    addtional_info: "",
+    g_recaptcha_response: "",
+    imagePreviewUrl: [],
+};
+
+export const UploadCVFormData: UploadCVValueProps = {
+    resume: [],
+    imagePreviewUrl: [],
 };

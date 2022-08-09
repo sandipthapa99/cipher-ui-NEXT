@@ -205,10 +205,8 @@
         display: inline-block;
         vertical-align: middle;
         margin-right: 0.9rem;
-        &:hover {
-            color: $primary-color;
-        }
-        @include respond(xs){
+
+        @include respond(xs) {
             display: none;
         }
     }

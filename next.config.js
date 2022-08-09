@@ -10,7 +10,6 @@ module.exports = {
             "blog.api.cagtu.io",
             "thispersondoesnotexist.com",
             "picsum.photos",
-            
         ],
     },
 };
