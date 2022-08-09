@@ -120,12 +120,12 @@ const Footer = () => {
                                     <ul>
                                         <li>For Merchants</li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="/how-to-find-tasks">
                                                 <a>How to find Tasks?</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="/freelance-tasks">
                                                 <a>Freelance jobs in Nepal</a>
                                             </Link>
                                         </li>

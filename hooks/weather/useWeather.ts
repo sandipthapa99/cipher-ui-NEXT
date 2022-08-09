@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const fetchWeather = async (lat: number, lon: number) => {
     const apiKey = "c9809d4018efd8b1a226080dc2e3d029";
@@ -10,30 +10,37 @@ const fetchWeather = async (lat: number, lon: number) => {
 };
 
 export const useWeather = () => {
-    let latitude: number;
-    let longitude: number;
+    const [allowed, setAllowed] = useState(false);
+
+    const latitude = useRef<number | undefined>(undefined);
+    const longitude = useRef<number | undefined>(undefined);
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
-                latitude = position.coords.latitude;
-                longitude = position.coords.longitude;
+                latitude.current = position.coords.latitude;
+                longitude.current = position.coords.longitude;
             });
         } else {
             alert("Geolocation is not supported by this browser.");
         }
-    }, []);
+    }, [latitude, longitude]);
     useEffect(() => {
         navigator.geolocation.watchPosition(
             function (position) {
-                console.log("i'm tracking you!");
+                const { latitude, longitude } = position.coords;
+                // console.log("i'm tracking you!");
+                setAllowed(true);
             },
             function (error) {
                 if (error.code == error.PERMISSION_DENIED)
-                    console.log("you denied me :-(");
+                    // console.log("you denied me :-(");
+                    setAllowed(false);
             }
         );
     }, []);
 
     // console.log(latitude, longitude);
-    return useQuery(["weather"], () => fetchWeather(latitude, longitude));
+    return useQuery(["weather"], () =>
+        fetchWeather(latitude.current, longitude.current)
+    );
 };
