@@ -87,15 +87,15 @@ const MerchantCard = ({
                         </div>
                     </div>
                 </div>
-                <div className="ratings-wrapper d-flex flex-column flex-sm-row justify-content-between">
-                    <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
+                <div className="ratings-wrapper d-flex justify-content-between">
+                    <p className="ratings d-flex align-items-center justify-content-sm-center">
                         <FontAwesomeIcon
                             icon={faStar}
                             className="svg-icon star"
                         />
                         {merchantRating}
                     </p>
-                    <p className="price mt-3 mt-sm-0">${merchantPrice}/hr</p>
+                    <p className="price">${merchantPrice}/hr</p>
                 </div>
                 <div className="d-flex justify-content-between align-items-md-center flex-column flex-sm-row">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
