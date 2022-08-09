@@ -12,14 +12,17 @@
     opacity: 1 !important;
 }
 
-// .tooltip > div.arrow::before {
-//     color: #fff !important;
-//     border-bottom-color: #495057 !important;
-//     margin-right: 12rem;
+// .tooltip::before {
+//     width: 15px;
+//     height: 15px;
+//     background: #333;
+//     display: none;
 // }
-.tooltip::before {
-    width: 15px;
-    height: 15px;
-    background: #333;
-    display: none;
+.my-tooltp [class$="inner"] {
+    background-color: background-color;
+    border: 1px solid background-color;
+}
+
+.my-tooltp [class$="arrow"] {
+    border-top: 5px solid background-color !important;
 }
