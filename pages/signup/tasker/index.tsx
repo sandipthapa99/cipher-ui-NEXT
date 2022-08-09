@@ -4,12 +4,10 @@ import PasswordField from "@components/common/PasswordField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
-import type { GetServerSideProps } from "next";
 import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
 import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { restrictOnLogin } from "utils/restrictOnLogin";
 
 const SignUpAsTasker = () => {
     const { mutate, isLoading } = useSignup();
@@ -173,7 +171,5 @@ const SignUpAsTasker = () => {
         </OnBoardingLayout>
     );
 };
-export const getServerSideProps: GetServerSideProps = (context) =>
-    restrictOnLogin(context);
 
 export default SignUpAsTasker;

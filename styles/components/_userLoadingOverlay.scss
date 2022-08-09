@@ -1,0 +1,25 @@
+.user-loading-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    z-index: 99999;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 300ms;
+
+    &[data-is-visible="true"] {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    @supports (backdrop-filter: blur(4px)) {
+        backdrop-filter: blur(4px);
+    }
+    @supports not (backdrop-filter: blur(4px)) {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}

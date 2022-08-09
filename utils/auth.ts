@@ -17,4 +17,5 @@ export const autoLogout = () => {
     axiosClient.defaults.headers.common["Authorization"] = "";
     delete axiosClient.defaults.headers.common["Authorization"];
     destroyCookie(undefined, "access");
+    destroyCookie(undefined, "refresh");
 };

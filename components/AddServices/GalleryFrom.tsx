@@ -31,9 +31,9 @@ export const GalleryFrom = ({ handlePrev, handleNext }: GalleryFormProps) => {
                                     }}
                                 >
                                     {({
-                                        setFieldValue,
-                                        errors,
-                                        touched,
+                                        // setFieldValue,
+                                        // errors,
+                                        // touched,
                                         values,
                                     }) => (
                                         <>

@@ -14,7 +14,9 @@ export const ClientMessagePage = ({
             <Container>
                 <Breadcrum currentPage="Messages" />
                 <h4 className="title">Messages</h4>
-                <ContactListSideBar contacts={contacts} />
+                <section className="message-page">
+                    <ContactListSideBar contacts={contacts} />
+                </section>
             </Container>
         </Layout>
     );

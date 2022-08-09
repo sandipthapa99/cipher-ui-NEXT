@@ -136,18 +136,22 @@ const AccountForm = () => {
                                     <DatePickerField
                                         name="activeHoursFrom"
                                         labelName="From"
-                                        placeHolder="dd/mm/yy"
+                                        placeHolder="h/mm"
+                                        dateFormat="h:mm aa"
                                         touch={touched.activeHoursFrom}
                                         error={errors.activeHoursFrom}
+                                        timeOnly
                                     />
                                 </Col>
                                 <Col md={3}>
                                     <DatePickerField
                                         name="activeHoursTo"
                                         labelName="To"
-                                        placeHolder="dd/mm/yy"
+                                        placeHolder="h/mm"
+                                        dateFormat="h:mm aa"
                                         touch={touched.activeHoursTo}
                                         error={errors.activeHoursTo}
+                                        timeOnly
                                     />
                                 </Col>
                             </Row>
