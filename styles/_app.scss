@@ -32,6 +32,10 @@ a {
     color: #fca500;
     font-size: 1.4rem;
     font-weight: 500;
+    margin: 0 0 1rem 0;
+    @include respond(sm) {
+        margin: 0;
+    }
     &:hover {
         color: $primary-color;
     }
