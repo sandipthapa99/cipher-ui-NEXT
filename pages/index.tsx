@@ -174,17 +174,19 @@ const Home: NextPage = () => {
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex justify-content-between">
+                    <div className="title-wrapper d-flex flex-column justify-content-between">
                         <h2 className="heading-title">
                             Popular Verified Services
                         </h2>
-                        <a href="" className="view-more">
-                            view more{" "}
-                            <FontAwesomeIcon
-                                icon={faAngleRight}
-                                className="svg-icon"
-                            />
-                        </a>
+                        <Link href="">
+                            <a className="view-more">
+                                view more{" "}
+                                <FontAwesomeIcon
+                                    icon={faAngleRight}
+                                    className="svg-icon"
+                                />
+                            </a>
+                        </Link>
                     </div>
                     <Row className="gx-5">
                         {services &&
@@ -222,15 +224,18 @@ const Home: NextPage = () => {
             {/* Services near you section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Services near you</h2>
-                        <a href="" className="view-more">
-                            view more{" "}
-                            <FontAwesomeIcon
-                                icon={faAngleRight}
-                                className="svg-icon"
-                            />
-                        </a>
+
+                        <Link href="">
+                            <a className="view-more">
+                                view more{" "}
+                                <FontAwesomeIcon
+                                    icon={faAngleRight}
+                                    className="svg-icon"
+                                />
+                            </a>
+                        </Link>
                     </div>
                     <Row className="gx-5">
                         {services &&
@@ -267,55 +272,43 @@ const Home: NextPage = () => {
 
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Professional Services</h2>
-                        <a href="" className="view-more">
-                            view more{" "}
-                            <FontAwesomeIcon
-                                icon={faAngleRight}
-                                className="svg-icon"
-                            />
-                        </a>
+                        <Link href="">
+                            <a className="view-more">
+                                view more{" "}
+                                <FontAwesomeIcon
+                                    icon={faAngleRight}
+                                    className="svg-icon"
+                                />
+                            </a>
+                        </Link>
                     </div>
                     <Row className="gx-5">
                         {services &&
                             services.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <Link href="/service-detail">
-                                            <a>
-                                                <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
-                                                />
-                                            </a>
-                                        </Link>
+                                        <ServiceCard
+                                            serviceImage={service.serviceImage}
+                                            serviceTitle={service.serviceTitle}
+                                            serviceProvider={
+                                                service.serviceProvider
+                                            }
+                                            serviceProviderLocation={
+                                                service.serviceProviderLocation
+                                            }
+                                            serviceDescription={
+                                                service.serviceDescription
+                                            }
+                                            serviceRating={
+                                                service.serviceRating
+                                            }
+                                            servicePrice={service.servicePrice}
+                                            hasOffer={service.hasOffer}
+                                            discountRate={service.discountRate}
+                                            discountOn={service.discountOn}
+                                        />
                                     </Col>
                                 );
                             })}
@@ -409,15 +402,17 @@ const Home: NextPage = () => {
             {/* Top Taksers Section Start */}
             <section id="top-merchants" className="top-merchants">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Top Taskers</h2>
-                        <a href="" className="view-more">
-                            view more{" "}
-                            <FontAwesomeIcon
-                                icon={faAngleRight}
-                                className="svg-icon"
-                            />
-                        </a>
+                        <Link href="">
+                            <a className="view-more">
+                                view more{" "}
+                                <FontAwesomeIcon
+                                    icon={faAngleRight}
+                                    className="svg-icon"
+                                />
+                            </a>
+                        </Link>
                     </div>
                     <Row className="gx-5">
                         {merchants &&
@@ -477,15 +472,17 @@ const Home: NextPage = () => {
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Tasks You May Like</h2>
-                        <a href="" className="view-more">
-                            view more{" "}
-                            <FontAwesomeIcon
-                                icon={faAngleRight}
-                                className="svg-icon"
-                            />
-                        </a>
+                        <Link href="">
+                            <a className="view-more">
+                                view more{" "}
+                                <FontAwesomeIcon
+                                    icon={faAngleRight}
+                                    className="svg-icon"
+                                />
+                            </a>
+                        </Link>
                     </div>
                     <Row className="gx-5">
                         {tasks &&
@@ -511,15 +508,17 @@ const Home: NextPage = () => {
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Our blogs</h2>
-                        <a href="" className="view-more">
-                            view more{" "}
-                            <FontAwesomeIcon
-                                icon={faAngleRight}
-                                className="svg-icon"
-                            />
-                        </a>
+                        <Link href="">
+                            <a className="view-more">
+                                view more{" "}
+                                <FontAwesomeIcon
+                                    icon={faAngleRight}
+                                    className="svg-icon"
+                                />
+                            </a>
+                        </Link>
                     </div>
                     <Row className="gx-5">
                         {blogCardContent &&

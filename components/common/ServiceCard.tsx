@@ -59,7 +59,7 @@ ServiceCardProps) => {
                         <p className="card-description">
                             {`${serviceDescription.substring(0, 80)}...`}
                         </p>
-                        <div className="ratings-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                        <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
                                 <FontAwesomeIcon
                                     icon={faStar}
@@ -67,13 +67,11 @@ ServiceCardProps) => {
                                 />
                                 {serviceRating}
                             </p>
-                            <p className="price mt-3 mt-sm-0">
-                                ${servicePrice}/hr
-                            </p>
+                            <p className="price">${servicePrice}/hr</p>
                         </div>
                     </a>
                 </Link>
-                <div className="d-flex justify-content-between align-items-md-center flex-column flex-sm-row">
+                <div className="d-flex justify-content-between align-items-md-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
                         <FontAwesomeIcon
                             icon={faHeart}
