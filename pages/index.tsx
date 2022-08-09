@@ -61,18 +61,14 @@ const Home: NextPage = () => {
                                     }}
                                 >
                                     <div className="search_box">
-                                        <div className="dropdown d-flex align-items-center">
-                                            <SelectInputField
-                                                name="experience"
-                                                placeHolder="All"
-                                                options={myOptions}
-                                                fieldRequired
-                                            />
-                                            <FontAwesomeIcon
-                                                icon={faChevronDown}
-                                                className="svg-icon"
-                                            />
-                                        </div>
+                                        {/* <div className="dropdown d-flex align-items-center"> */}
+                                        <SelectInputField
+                                            name="experience"
+                                            placeHolder="All"
+                                            options={myOptions}
+                                            fieldRequired
+                                        />
+
                                         <div className="search_field">
                                             <input
                                                 type="text"
