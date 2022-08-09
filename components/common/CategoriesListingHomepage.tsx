@@ -1,5 +1,4 @@
 import Link from "next/link";
-import categories from "pages/categories";
 import React from "react";
 import { ALL_CATEGORIES } from "staticData/allCategories";
 
