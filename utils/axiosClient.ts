@@ -16,28 +16,31 @@ const getApiEndpoint = () => {
     return url;
 };
 
-const requestRefreshToken = async (
+const handlerequestRefreshToken = async (
     axiosClient: AxiosInstance,
     refreshToken: string
 ) => {
-    const { data } = await axiosClient.post<{
-        access: string;
-        refresh: string;
-    }>("/user/token/refresh", {
-        refresh: refreshToken,
-    });
-    const { access, refresh } = data;
-    autoLogin(access, refresh);
+    const { exp } = jwtDecode<{ exp: number }>(refreshToken);
+    const tokenExpirationDate = new Date(exp * 1000);
+    const isTokenExpired = tokenExpirationDate < new Date();
+    if (isTokenExpired) {
+        const { data } = await axiosClient.post<{
+            access: string;
+            refresh: string;
+        }>("/user/token/refresh", {
+            refresh: refreshToken,
+        });
+        const { access, refresh } = data;
+        autoLogin(access, refresh);
+    }
 };
 
 const axiosInterceptor = (axiosClient: AxiosInstance) => {
     axiosClient.interceptors.request.use((config) => {
-        // const { refresh } = nookies.get(undefined, "refresh");
-        // const { exp } = jwtDecode<{ exp: number }>(refresh);
-        // const expirationDate = new Date(exp * 1000);
-        // if (expirationDate < new Date()) {
-        //     requestRefreshToken(axiosClient, refresh);
-        // }
+        const { refresh } = nookies.get(undefined, "refresh");
+        if (refresh !== undefined) {
+            handlerequestRefreshToken(axiosClient, refresh);
+        }
         return config;
     });
 };

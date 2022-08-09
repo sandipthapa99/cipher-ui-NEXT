@@ -13,13 +13,13 @@ import { ClientTaskContextProvider } from "context/ClientTaskContext";
 import SearchProvider from "context/searchProvider";
 import SuccessProvider from "context/successContext/successProvider";
 import type { AppProps } from "next/app";
+import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
 import AuthProvider from "../context/AuthContext/userContextProvider";
 
-const queryClient = new QueryClient();
-
 function MyApp({ Component, pageProps }: AppProps) {
+    const [queryClient] = useState(() => new QueryClient());
     return (
         <SearchProvider>
             <SuccessProvider>
