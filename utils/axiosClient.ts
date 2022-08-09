@@ -1,8 +1,8 @@
 import type { AxiosInstance } from "axios";
 import axios from "axios";
-import jwtDecode from "jwt-decode";
+// import jwtDecode from "jwt-decode";
 import type { GetServerSidePropsContext, PreviewData } from "next";
-import nookies from "nookies";
+// import nookies from "nookies";
 import { parseCookies } from "nookies";
 import type { ParsedUrlQuery } from "querystring";
 import { autoLogin } from "utils/auth";

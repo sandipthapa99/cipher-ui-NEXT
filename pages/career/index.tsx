@@ -4,13 +4,18 @@ import LeaveYourCV from "@components/Career/LeaveYourCV";
 import Breadcrum from "@components/common/Breadcrum";
 import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
+import type { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { careerCardValues } from "staticData/careerCardValues";
+import type { CareerValueProps } from "types/careerValuesProps";
+import { axiosClient } from "utils/axiosClient";
 
-const Career = () => {
+const Career = ({ careerData }: { careerData: CareerValueProps }) => {
+    const { result } = careerData ?? [];
+    console.log(result);
     const [tabIndex, setTabIndex] = useState(0);
     return (
         <Layout title="Cipher | Careers">
@@ -60,18 +65,20 @@ const Career = () => {
                                 </Link>
                             </div>
                             <Row className="gx-5">
-                                {careerCardValues
-                                    ?.slice(0, 6)
-                                    ?.map((values, key) => (
-                                        <Col
-                                            lg={4}
-                                            md={6}
-                                            className="d-flex"
-                                            key={key}
-                                        >
-                                            <CareerCard values={values} />
-                                        </Col>
-                                    ))}
+                                {result
+                                    ? result
+                                          ?.slice(0, 6)
+                                          ?.map((values, key) => (
+                                              <Col
+                                                  lg={4}
+                                                  md={6}
+                                                  className="d-flex"
+                                                  key={key}
+                                              >
+                                                  <CareerCard values={values} />
+                                              </Col>
+                                          ))
+                                    : "No current postions avilable"}
                             </Row>
                         </Col>
                     </Row>
@@ -96,20 +103,18 @@ const Career = () => {
                                     title: "All categories",
                                     content: (
                                         <Row className="gx-5">
-                                            {careerCardValues.map(
-                                                (values, key) => (
-                                                    <Col
-                                                        lg={3}
-                                                        md={4}
-                                                        className="d-flex"
-                                                        key={key}
-                                                    >
-                                                        <CareerCard
-                                                            values={values}
-                                                        />
-                                                    </Col>
-                                                )
-                                            )}
+                                            {result.map((values, key) => (
+                                                <Col
+                                                    lg={3}
+                                                    md={4}
+                                                    className="d-flex"
+                                                    key={key}
+                                                >
+                                                    <CareerCard
+                                                        values={values}
+                                                    />
+                                                </Col>
+                                            ))}
                                         </Row>
                                     ),
                                 },
@@ -146,3 +151,25 @@ const Career = () => {
 };
 
 export default Career;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: careerData } = await axiosClient.get(
+            "/career/vacancy/list/"
+        );
+        if (careerData.error) throw new Error(careerData.error.message);
+        return {
+            props: {
+                careerData,
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                blogsData: [],
+            },
+            revalidate: 10,
+        };
+    }
+};
