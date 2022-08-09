@@ -2,10 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 
-const fetchWeather = async (
-    lat: number | undefined,
-    lon: number | undefined
-) => {
+const fetchWeather = async (lat: number, lon: number) => {
     const apiKey = "c9809d4018efd8b1a226080dc2e3d029";
     return axios.get(
         ` https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`

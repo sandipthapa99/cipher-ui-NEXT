@@ -145,6 +145,7 @@ const AccountForm = () => {
                                         placeHolder="dd/mm/yy"
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
+                                        timeOnly
                                     />
                                 </Col>
                                 <Col md={3}>
@@ -154,6 +155,7 @@ const AccountForm = () => {
                                         placeHolder="dd/mm/yy"
                                         touch={touched.active_hour_end}
                                         error={errors.active_hour_end}
+                                        timeOnly
                                     />
                                 </Col>
                             </Row>

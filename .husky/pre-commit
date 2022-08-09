@@ -4,3 +4,5 @@
 # yarn prettier -w .
 # yarn lint --fix
 # yarn build
+
+# don't comment, use git commit -m "YOUR MESSAGE" --no-verify instead 
