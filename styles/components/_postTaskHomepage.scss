@@ -1,0 +1,61 @@
+.popup-post-task {
+    position: relative;
+}
+
+.post-task-homepage {
+    background: #fff;
+    padding: 2rem 5rem;
+    position: absolute;
+    right: 5rem;
+    top: -25rem;
+    max-width: 26.5rem;
+
+    .xmark {
+        position: absolute;
+        right: 1.6rem;
+        top: 1.6rem;
+        cursor: pointer;
+
+        svg {
+            color: black;
+        }
+    }
+
+    svg {
+        color: #ff9700;
+        height: 2rem;
+        width: 2rem;
+        margin: 0 0 1.6rem;
+    }
+
+    h4 {
+        font: 500 1.6rem $poppins-font;
+        margin: 0 0 1.6rem;
+        text-align: center;
+    }
+
+    button {
+        background-color: #ffca6a;
+        color: #fff;
+    }
+}
+
+.cagtu-cipher-buzz-section {
+    margin: 0;
+    background: #f8f9fa;
+    .list-bar {
+        li {
+            padding: 5rem 0;
+            font: 600 3.2rem $poppins-font;
+            cursor: pointer;
+        }
+
+        .light {
+            color: #adb5bd;
+        }
+
+        .strong {
+            color: #495057;
+        }
+    }
+}

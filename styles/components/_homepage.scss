@@ -160,10 +160,12 @@
 
 // Services near you section start
 .services-near-you {
-    margin-bottom: 2.4rem;
-    @include respond(md) {
-        margin: 0 0 6rem;
-    }
+    padding: 2.4rem 0;
+    background: #fff;
+    margin: 0;
+    // @include respond(sm) {
+    //     margin: 0 0 6rem;
+    // }
 }
 // Services near you section end
 
