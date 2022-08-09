@@ -339,7 +339,13 @@ const Home: NextPage = () => {
                         {merchants &&
                             merchants.map((merchant) => {
                                 return (
-                                    <Col sm={6} lg={4} xl={3} key={merchant.id}>
+                                    <Col
+                                        sm={6}
+                                        lg={4}
+                                        xl={3}
+                                        key={merchant.id}
+                                        className="d-flex"
+                                    >
                                         <MerchantCard
                                             merchantImage={
                                                 merchant.merchantImage
