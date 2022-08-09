@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { faListCheck, faXmark } from "@fortawesome/pro-regular-svg-icons";
 import BigButton from "@components/common/Button";
+import CardBtn from "@components/common/CardBtn";
 
 interface PostTaskHomepageProps {
     handleClose: () => void;
@@ -10,7 +11,7 @@ interface PostTaskHomepageProps {
 export const PostTaskHomepage = ({ handleClose }: PostTaskHomepageProps) => {
     return (
         <div className="d-flex flex-column justify-content-center align-items-center post-task-homepage">
-            <span onClick={handleClose}>
+            <span className="xmark" onClick={handleClose}>
                 <FontAwesomeIcon icon={faXmark} />
             </span>
             <FontAwesomeIcon icon={faListCheck} />
