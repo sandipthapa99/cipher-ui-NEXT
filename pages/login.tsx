@@ -4,16 +4,13 @@ import PasswordField from "@components/common/PasswordField";
 import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
-import { withAuth } from "hoc/withAuth";
 import { useLogin } from "hooks/auth/useLogin";
-import type { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
 import { toast } from "react-toastify";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { restrictOnLogin } from "utils/restrictOnLogin";
 
 const Login = () => {
     const router = useRouter();
@@ -102,7 +99,5 @@ const Login = () => {
         </section>
     );
 };
-export const getServerSideProps: GetServerSideProps = (context) =>
-    restrictOnLogin(context);
 
-export default withAuth(Login);
+export default Login;
