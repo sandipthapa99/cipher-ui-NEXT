@@ -20,7 +20,7 @@ const CategoryCardNew = ({
                         />
                     </figure>
                 </div>
-                <div className="details d-flex flex-column justify-content-between">
+                <div className="details d-flex flex-column">
                     <h1>{categoryTitle}</h1>
                     <a href="">
                         {categoryTitle} related services
