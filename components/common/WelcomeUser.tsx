@@ -12,18 +12,24 @@ const WelcomeUser = () => {
                         <h1>Welcome Back!</h1>
                     </div>
                 </Col>
-                <Col md={5} className="user-stat-card">
-                    {SearchBodyData.map((data) => {
-                        return (
-                            <SearchBody
+                <Col md={5}>
+                    <Row>
+                        {SearchBodyData.map((data) => (
+                            <Col
+                                className="user-stat-card"
                                 key={data.id}
-                                number={data.number}
-                                color={data.color}
-                                textOne={data.textOne}
-                                textColor={data.textColor}
-                            />
-                        );
-                    })}
+                                md={3}
+                                xs={6}
+                            >
+                                <SearchBody
+                                    number={data.number}
+                                    color={data.color}
+                                    textOne={data.textOne}
+                                    textColor={data.textColor}
+                                />
+                            </Col>
+                        ))}
+                    </Row>
                 </Col>
             </Row>
         </>

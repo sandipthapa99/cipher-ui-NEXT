@@ -8,7 +8,7 @@ const ApplyPost = () => {
     const { tasks } = useClientTasks();
 
     return (
-        <div>
+        <div className="post-task__apply-post">
             <Row>
                 <Col md={8}>
                     <SearchBySort />
