@@ -23,7 +23,7 @@ const MerchantCard = ({
     const [showModal, setShowModal] = useState(false);
     return (
         <div className="merchant-card-block">
-            <div className="merchant-intro">
+            <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
                 <figure className="thumbnail-img">
                     <Image
                         src={merchantImage}
@@ -87,18 +87,18 @@ const MerchantCard = ({
                         </div>
                     </div>
                 </div>
-                <div className="ratings-wrapper d-flex justify-content-between">
-                    <p className="ratings d-flex align-items-center justify-content-center">
+                <div className="ratings-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                    <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
                         <FontAwesomeIcon
                             icon={faStar}
                             className="svg-icon star"
                         />
                         {merchantRating}
                     </p>
-                    <p className="price">${merchantPrice}/hr</p>
+                    <p className="price mt-3 mt-sm-0">${merchantPrice}/hr</p>
                 </div>
-                <div className="booking-wrapper d-flex justify-content-between">
-                    <div className="d-flex">
+                <div className="d-flex justify-content-between align-items-md-center flex-column flex-sm-row">
+                    <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
                         <FontAwesomeIcon
                             icon={faHeart}
                             className="svg-icon svg-icon-heart me-5"
