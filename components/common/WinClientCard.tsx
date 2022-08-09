@@ -1,13 +1,14 @@
+import Image from "next/image";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import Image from "next/image";
+
 import BigButton from "./Button";
 
 interface winClientCardProps {
-    image?: string;
+    image: string;
     description?: string;
     title?: string;
-    buttonText?: string;
+    buttonText: string;
 }
 
 export const WinClientCard = ({

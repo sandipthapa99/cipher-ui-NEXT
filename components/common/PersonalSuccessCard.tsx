@@ -1,9 +1,9 @@
+import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
+import { faStar } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
 
 export const PersonalSuccessCard = () => {
     return (

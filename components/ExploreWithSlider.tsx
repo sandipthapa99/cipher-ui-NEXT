@@ -1,6 +1,7 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import { WinNewClientData } from "staticData/growBusiness";
+
 import { WinClientCard } from "./common/WinClientCard";
 
 export const ExploreWithSlider = () => {
@@ -9,7 +10,7 @@ export const ExploreWithSlider = () => {
             <Carousel>
                 {WinNewClientData &&
                     WinNewClientData.map((item) => (
-                        <Carousel.Item>
+                        <Carousel.Item key={item?.id}>
                             <WinClientCard
                                 image={item.image}
                                 title={item.title}
