@@ -1,3 +1,7 @@
+.message-page {
+    max-height: 70vh;
+    overflow-y: scroll;
+}
 /* ===================== ContactListSidebar.tsx ===================== */
 .contact-sidebar {
     background-color: $white;
