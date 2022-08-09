@@ -10,13 +10,16 @@ import {
 import { faLocationDot, faPhone } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
+import { useContact } from "hooks/contact-and-support/contact";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { ContactFormData } from "utils/contactFormData";
 import contactFormSchema from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Contact = () => {
+    const { mutate, isLoading } = useContact();
     return (
         <Layout title="Contact Us | Cipher">
             <section className="contact-page-header">
@@ -102,7 +105,16 @@ const Contact = () => {
                                 initialValues={ContactFormData}
                                 validationSchema={contactFormSchema}
                                 onSubmit={async (values) => {
-                                    console.log(values);
+                                    mutate(values, {
+                                        onSuccess: async () => {
+                                            toast.success(
+                                                "Message sent successfully"
+                                            );
+                                        },
+                                        onError: async (error) => {
+                                            toast.error(error.message);
+                                        },
+                                    });
                                 }}
                             >
                                 {({ isSubmitting, errors, touched }) => (

@@ -193,3 +193,21 @@
     left: 0;
     width: 100%;
 }
+.weather-part {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    .weather-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 0.9rem;
+
+        @include respond(xs) {
+            display: none;
+        }
+    }
+}
