@@ -8,6 +8,7 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useSuccessContext } from "context/successContext/successContext";
 import { Field, Form, Formik } from "formik";
+import { useCurrency } from "hooks/currency/currency";
 import { useProfile } from "hooks/profile/profile";
 import Image from "next/image";
 import React from "react";
@@ -47,6 +48,13 @@ const experience = [
 const AccountForm = () => {
     const { setShowSuccessModal } = useSuccessContext();
     const { mutate, isLoading } = useProfile();
+    const { data: currency } = useCurrency();
+    const currencyResults = currency?.results;
+
+    // to do 9th August 2022
+    // to integrate language and country Api
+    // to render currency dropdown
+    //to render language dropdown
 
     return (
         <>
