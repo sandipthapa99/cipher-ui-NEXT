@@ -8,10 +8,12 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useSuccessContext } from "context/successContext/successContext";
 import { Field, Form, Formik } from "formik";
+import { useProfile } from "hooks/profile/profile";
 import Image from "next/image";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { toast } from "react-toastify";
 import { AccountFromData } from "utils/formData";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -44,6 +46,8 @@ const experience = [
 
 const AccountForm = () => {
     const { setShowSuccessModal } = useSuccessContext();
+    const { mutate, isLoading } = useProfile();
+
     return (
         <>
             {/* Modal component */}
@@ -61,26 +65,28 @@ const AccountForm = () => {
                     initialValues={AccountFromData}
                     validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
-                        setShowSuccessModal(true);
-                        // To be used for API
-                        // try {
-                        //     axiosClient.post("/routes", values);
-                        // } catch (error: any) {
-                        //     error.response.data.message;
-                        // }
-                        console.log(values);
-                        action.resetForm();
+                        mutate(values, {
+                            onSuccess: () => {
+                                setShowSuccessModal(true);
+                                action.resetForm();
+                            },
+                            onError: (err) => {
+                                toast.error(err.message);
+                            },
+                        });
+
+                        // setShowSuccessModal(true);
                     }}
                 >
                     {({ isSubmitting, errors, touched, resetForm }) => (
                         <Form autoComplete="off">
                             <InputField
                                 type="text"
-                                name="fullName"
-                                labelName="Name"
-                                error={errors.fullName}
-                                touch={touched.fullName}
-                                placeHolder="Enter your Name"
+                                name="full_name"
+                                labelName="Full Name"
+                                error={errors.full_name}
+                                touch={touched.full_name}
+                                placeholder="Enter your full name"
                             />
                             <InputField
                                 type="email"
@@ -107,47 +113,49 @@ const AccountForm = () => {
                                 error={errors.gender}
                             />
                             <DatePickerField
-                                name="dateOfBirth"
+                                name="date_of_birth"
                                 labelName="Date of birth"
                                 placeHolder="dd/mm/yy"
-                                touch={touched.dateOfBirth}
-                                error={errors.dateOfBirth}
+                                touch={touched.date_of_birth}
+                                error={errors.date_of_birth}
                             />
                             <hr />
                             <h3>Profession Information</h3>
                             <TagInputField
-                                name="specialities"
-                                error={errors.specialities}
-                                touch={touched.specialities}
+                                name="skill"
+                                error={errors.skill}
+                                touch={touched.skill}
                                 labelName="Specialities"
                                 placeHolder="Enter your price"
                             />
                             <RadioField
                                 type="radio"
-                                name="experienceLevel"
+                                name="experience"
                                 variables={experience}
                                 labelName="Experience Level"
-                                touch={touched.experienceLevel}
-                                error={errors.experienceLevel}
+                                touch={touched.experience}
+                                error={errors.experience}
                             />
                             <h4>Active Hours</h4>
                             <Row className="g-5">
                                 <Col md={3}>
                                     <DatePickerField
-                                        name="activeHoursFrom"
+                                        name="active_hour_start"
                                         labelName="From"
                                         placeHolder="dd/mm/yy"
-                                        touch={touched.activeHoursFrom}
-                                        error={errors.activeHoursFrom}
+                                        touch={touched.active_hour_start}
+                                        error={errors.active_hour_start}
+                                        timeOnly
                                     />
                                 </Col>
                                 <Col md={3}>
                                     <DatePickerField
-                                        name="activeHoursTo"
+                                        name="active_hour_end"
                                         labelName="To"
                                         placeHolder="dd/mm/yy"
-                                        touch={touched.activeHoursTo}
-                                        error={errors.activeHoursTo}
+                                        touch={touched.active_hour_end}
+                                        error={errors.active_hour_end}
+                                        timeOnly
                                     />
                                 </Col>
                             </Row>
@@ -156,7 +164,7 @@ const AccountForm = () => {
                                 <label className="me-3">
                                     <Field
                                         type="checkbox"
-                                        name="userType"
+                                        name="user_type"
                                         value="Client"
                                         className="me-2"
                                     />
@@ -165,7 +173,7 @@ const AccountForm = () => {
                                 <label className="me-3">
                                     <Field
                                         type="checkbox"
-                                        name="userType"
+                                        name="user_type"
                                         className="me-2"
                                         value="Tasker"
                                     />
@@ -184,18 +192,18 @@ const AccountForm = () => {
                             />
                             <InputField
                                 type="text"
-                                name="addressLine1"
+                                name="address_line1"
                                 labelName="Address Line 1"
-                                error={errors.addressLine1}
-                                touch={touched.addressLine1}
+                                error={errors.address_line1}
+                                touch={touched.address_line1}
                                 placeHolder="Enter your price"
                             />
                             <InputField
                                 type="text"
-                                name="addressLine2"
+                                name="address_line2"
                                 labelName="Address Line 2"
-                                error={errors.addressLine2}
-                                touch={touched.addressLine2}
+                                error={errors.address_line2}
+                                touch={touched.address_line2}
                                 placeHolder="Enter your price"
                             />
                             <SelectInputField
@@ -207,28 +215,28 @@ const AccountForm = () => {
                                 options={dropdownlangugeOptions}
                             />
                             <SelectInputField
-                                name="currency"
+                                name="charge_currency"
                                 labelName="Currency"
-                                touch={touched.currency}
-                                error={errors.currency}
+                                touch={touched.charge_currency}
+                                error={errors.charge_currency}
                                 placeHolder="Select your currency"
                                 options={dropdownCurrencyOptions}
                             />
                             <hr />
                             <h3>Profile Configurations</h3>
                             <SelectInputField
-                                name="visibility"
+                                name="profile_visibility"
                                 labelName="Visibility"
-                                touch={touched.visibility}
-                                error={errors.visibility}
+                                touch={touched.profile_visibility}
+                                error={errors.profile_visibility}
                                 placeHolder="Select your visibility"
                                 options={dropdownCurrencyOptions}
                             />
                             <SelectInputField
-                                name="taskPreferences"
+                                name="task_preferences"
                                 labelName="Task Preferences"
-                                touch={touched.taskPreferences}
-                                error={errors.taskPreferences}
+                                touch={touched.task_preferences}
+                                error={errors.task_preferences}
                                 placeHolder="Select your preferences"
                                 options={dropdownCurrencyOptions}
                             />

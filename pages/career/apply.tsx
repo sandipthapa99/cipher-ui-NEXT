@@ -6,14 +6,18 @@ import ReCaptchaField from "@components/common/ReCaptchaField";
 import Layout from "@components/Layout";
 import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
+import { useForm } from "hooks/use-form";
+import router from "next/router";
 import React from "react";
 import { Container } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { CarrerApplyFormData } from "utils/formData";
 import { carrerApplyFormValidation } from "utils/formValidation/careerApplyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Apply = () => {
     const { setShowSuccessModal } = useSuccessContext();
+    const { mutate } = useForm("/career");
     return (
         <Layout title="Cipher | Apply">
             <Breadcrum currentPage="Apply" />
@@ -32,6 +36,17 @@ const Apply = () => {
                                 // } catch (error: any) {
                                 //     error.response.data.message;
                                 // }
+                                mutate(values, {
+                                    onSuccess: async () => {
+                                        await router.push("/");
+                                        toast.success(
+                                            "Please check your email for verification link"
+                                        );
+                                    },
+                                    onError: (error) => {
+                                        toast.error(error.message);
+                                    },
+                                });
                                 console.log(values);
                                 action.resetForm();
                             }}

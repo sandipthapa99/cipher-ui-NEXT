@@ -1,75 +1,44 @@
-// .completed-tasks {
-//     padding: 2rem 5rem;
-//     display: flex;
-//     align-items: center;
-//     justify-content: space-evenly;
-//     background-color: #fff;
-
-//     @include respond(xs) {
-//         flex-direction: column;
-//         // align-items: flex-start;
-//         justify-content: flex-start;
-//     }
-//     .user-name-detail {
-//         @include respond(xs) {
-//             margin-right: 7rem;
-//             width: 100%;
-//         }
-//     }
-//     .full-tasks {
-//         gap: 2rem;
-//         display: flex;
-//         flex-direction: row;
-//         @include respond(xs) {
-//             gap: 1rem;
-//             margin-right: 1rem;
-//         }
-//     }
-
-//     .user-name {
-//         margin-left: 7rem;
-//         @include respond(xs) {
-//             margin: 0;
-//         }
-//         h1 {
-//             @include respond(xs) {
-//                 text-align: left;
-//             }
-//         }
-//     }
-//     .task-cards {
-//         @media (max-width: 350px) {
-//             display: none;
-//         }
-//         .task-card {
-//             @include respond(xs) {
-//                 padding: 0 2px 0 0;
-//             }
-//         }
-//     }
-// }
-// .discount-card {
-//     display: flex;
-//     flex-direction: row;
-
-//     @include respond(xs) {
-//         flex-direction: column;
-//     }
-// }
 .user-stats {
-    padding: 40px 0;
+    padding: 3rem 3rem;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+
+    @include respond(md) {
+        padding: 3rem 10rem;
+    }
     .user-details {
         .user-name {
             h1 {
-                font-size: 40px;
+                font-size: 2.5rem;
                 font-weight: 600;
                 margin: 0;
+
+                @include respond(md) {
+                    font-size: 4rem;
+                }
             }
         }
     }
     .user-stat-card {
         display: flex;
-
-        gap: 24px;
+        justify-content: space-between;
+        gap: 2rem;
+        padding-top: 2rem;
+        .task-card {
+            padding: 1rem 0rem 1rem 1rem;
+        }
+        p {
+            color: $sub-title-color;
+        }
+        @include respond(md) {
+            padding-top: 0rem;
+        }
+        @include respond(sm) {
+            padding-top: 2rem;
+        }
+        @include respond(xs) {
+            padding-top: 2rem;
+        }
     }
 }
