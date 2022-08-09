@@ -17,13 +17,11 @@ import {
     faSearch,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { UserService } from "services/userService";
 import { blogCardContent } from "staticData/community";
 import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
@@ -580,16 +578,5 @@ const Home: NextPage = () => {
             </section>
         </Layout>
     );
-};
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const queryClient = new QueryClient();
-    await queryClient.prefetchQuery(["user"], () =>
-        UserService.fetchUser({ type: "server", context })
-    );
-    return {
-        props: {
-            dehydratedState: dehydrate(queryClient),
-        },
-    };
 };
 export default Home;
