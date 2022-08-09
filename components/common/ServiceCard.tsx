@@ -71,11 +71,11 @@ ServiceCardProps) => {
                         </div>
                     </a>
                 </Link>
-                <div className="d-flex justify-content-between align-items-md-center">
-                    <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
+                <div className="d-flex justify-content-between align-items-center">
+                    <div className="d-flex align-items-center justify-content-between mb-3 mb-sm-0">
                         <FontAwesomeIcon
                             icon={faHeart}
-                            className="svg-icon svg-icon-heart me-5"
+                            className="svg-icon svg-icon-heart me-2 me-sm-5 me-md-5"
                         />
 
                         {/* <FontAwesomeIcon icon={faShare}
