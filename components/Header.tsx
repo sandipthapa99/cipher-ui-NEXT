@@ -42,7 +42,7 @@ const Header = () => {
     // const {data} = useLocation()
     const { data: weathers } = useWeather();
 
-    console.log(weathers);
+    // console.log(weathers);
     const weatherIcon = weathers?.data?.weather[0].icon;
 
     const router = useRouter();
