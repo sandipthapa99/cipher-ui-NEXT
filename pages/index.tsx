@@ -2,6 +2,7 @@ import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
 import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
 import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
+import { CategoriesListingHomepage } from "@components/common/CategoriesListingHomepage";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
 import MerchantCard from "@components/common/MerchantCard";
@@ -665,6 +666,7 @@ const Home: NextPage = () => {
                     <h2 className="section-sub-title">
                         See some of our top categories in your area
                     </h2>
+                    <CategoriesListingHomepage />
                 </Container>
             </section>
         </Layout>
