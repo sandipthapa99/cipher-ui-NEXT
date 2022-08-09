@@ -11,6 +11,11 @@
         }
         .description {
             padding-top: 0rem;
+            .thumbnail-img {
+                width: 5rem;
+                height: 5rem;
+                border-radius: 0.4rem;
+            }
             h1 {
                 color: #211d4f;
                 font-size: 2rem;
