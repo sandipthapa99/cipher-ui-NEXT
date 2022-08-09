@@ -1,11 +1,6 @@
 import jwtDecode from "jwt-decode";
 
 const accessTokenKey = "access";
-
-interface LoginValuesProps {
-    username: string;
-    password: string;
-}
 interface JwtToken {
     exp: number;
 }
