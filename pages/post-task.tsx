@@ -30,7 +30,6 @@ const PostTask: NextPage = () => {
     return (
         <section className="post-task">
             <SearchHeader />
-
             <Header />
 
             <section className="post-task__search-header">
@@ -40,7 +39,7 @@ const PostTask: NextPage = () => {
                 <ApplyPost />
 
                 <div className="post-task__discount-card">
-                    <h4>Special Offers & Discount</h4>
+                    <h1>Special Offers & Discount</h1>
                     <Row>
                         <Col md={4}>
                             <DiscountCard />
@@ -53,17 +52,19 @@ const PostTask: NextPage = () => {
                         </Col>
                     </Row>
                 </div>
-                <div className="post-task__popular">
-                    <Row className="gx-5">
-                        <Row>
-                            <Col>
-                                <h4>Popular on Cipher</h4>
-                            </Col>
-                            <Col md={1}>
-                                <Link href="/">view more</Link>
-                            </Col>
-                        </Row>
-
+                <div className="post-task__popular-services">
+                    <div className="title-wrapper d-flex justify-content-between">
+                        {/* <h2 className="heading-title">Community activity</h2> */}
+                        <h1>Popular on Cipher</h1>
+                        <a href="/pages" className="view-more">
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
+                        </a>
+                    </div>
+                    <Row>
                         {services &&
                             services.map((service) => {
                                 return (
@@ -159,46 +160,49 @@ const PostTask: NextPage = () => {
                             />
                         </a>
                     </div>
-
-                    {services &&
-                        services.map((service) => {
-                            return (
-                                <Col sm={6} md={4} lg={3} key={service.id}>
-                                    <Link href="/service-detail">
-                                        <a>
-                                            <ServiceCard
-                                                serviceImage={
-                                                    service.serviceImage
-                                                }
-                                                serviceTitle={
-                                                    service.serviceTitle
-                                                }
-                                                serviceProvider={
-                                                    service.serviceProvider
-                                                }
-                                                serviceProviderLocation={
-                                                    service.serviceProviderLocation
-                                                }
-                                                serviceDescription={
-                                                    service.serviceDescription
-                                                }
-                                                serviceRating={
-                                                    service.serviceRating
-                                                }
-                                                servicePrice={
-                                                    service.servicePrice
-                                                }
-                                                hasOffer={service.hasOffer}
-                                                discountRate={
-                                                    service.discountRate
-                                                }
-                                                discountOn={service.discountOn}
-                                            />
-                                        </a>
-                                    </Link>
-                                </Col>
-                            );
-                        })}
+                    <Row>
+                        {services &&
+                            services.map((service) => {
+                                return (
+                                    <Col sm={6} md={4} lg={3} key={service.id}>
+                                        <Link href="/service-detail">
+                                            <a>
+                                                <ServiceCard
+                                                    serviceImage={
+                                                        service.serviceImage
+                                                    }
+                                                    serviceTitle={
+                                                        service.serviceTitle
+                                                    }
+                                                    serviceProvider={
+                                                        service.serviceProvider
+                                                    }
+                                                    serviceProviderLocation={
+                                                        service.serviceProviderLocation
+                                                    }
+                                                    serviceDescription={
+                                                        service.serviceDescription
+                                                    }
+                                                    serviceRating={
+                                                        service.serviceRating
+                                                    }
+                                                    servicePrice={
+                                                        service.servicePrice
+                                                    }
+                                                    hasOffer={service.hasOffer}
+                                                    discountRate={
+                                                        service.discountRate
+                                                    }
+                                                    discountOn={
+                                                        service.discountOn
+                                                    }
+                                                />
+                                            </a>
+                                        </Link>
+                                    </Col>
+                                );
+                            })}
+                    </Row>
                 </div>
             </Container>
 

@@ -7,6 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import { Tab } from "@components/common/Tab";
 import { useState } from "react";
 import Post from "@components/PostTask/Post";
+import { Recommended } from "@components/user/Recommended";
 
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -14,14 +15,14 @@ const SearchBySort = () => {
     return (
         <Row className="recommended-tab">
             {/* <div className="tabs"> */}
-            <Col md={11} className="recomended">
+            <Col md={12} className="recomended">
                 <Tab
                     activeIndex={activeTabIdx}
                     onTabClick={setActiveTabIdx}
                     items={[
                         {
                             title: "Recommended",
-                            content: <Post />,
+                            content: <Recommended />,
                         },
                         {
                             title: "Recent",

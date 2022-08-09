@@ -1,8 +1,4 @@
 .recommended-tab {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 0 2rem 0;
     @include respond(xs) {
         flex-direction: row-reverse;
     }
