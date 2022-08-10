@@ -43,8 +43,8 @@ const LongSquareImageCard = ({
                                     {subtitle && <h4>{subtitle}</h4>}
                                     {Array.isArray(description) ? (
                                         <ul>
-                                            {description.map((info: any) => (
-                                                <div className="d-flex">
+                                            {description.map((info: any, i) => (
+                                                <div className="d-flex" key={i}>
                                                     {info.icon ? (
                                                         <figure className="thumbnail-img">
                                                             <Image
