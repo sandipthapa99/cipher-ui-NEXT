@@ -102,7 +102,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                                     title: "All categories",
                                     content: (
                                         <Row className="gx-5">
-                                            {result.map((values, key) => (
+                                            {result?.map((values, key) => (
                                                 <Col
                                                     lg={3}
                                                     md={4}
@@ -121,7 +121,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                                     title: "Design",
                                     content: (
                                         <Row className="gx-5">
-                                            {careerCardValues.map(
+                                            {careerCardValues?.map(
                                                 (values, key) => (
                                                     <Col
                                                         lg={4}

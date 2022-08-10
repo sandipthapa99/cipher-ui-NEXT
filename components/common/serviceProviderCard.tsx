@@ -1,3 +1,11 @@
+import {
+    faAward,
+    faEye,
+    faFaceSmileBeam,
+    faLocation,
+    faLocationDot,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";
@@ -40,61 +48,41 @@ const ServiceProviderCard = ({
                 </div>
 
                 <div className="description">
-                    <div className="type d-flex flex-col">
-                        <figure className="thumbnail-img">
-                            <Image
-                                src="/icons/map.svg"
-                                layout="fill"
-                                objectFit="contain"
-                                alt="Happy Face"
-                            />
-                        </figure>
-                        <p>{address}</p>
+                    <div className="description__icon d-flex align-items-center">
+                        <FontAwesomeIcon
+                            icon={faLocationDot}
+                            className="svg-icon svg-icon-location"
+                        />
+                        <span>{address}</span>
                     </div>
-                    <div className="type d-flex flex-col">
-                        <figure className="thumbnail-img">
-                            <Image
-                                src="/icons/eye.svg"
-                                layout="fill"
-                                objectFit="contain"
-                                alt="Eye"
-                            />
-                        </figure>
-                        <p>{views}</p>
-                        <p>&nbsp;Views</p>
+                    <div className="description__icon d-flex align-items-center">
+                        <FontAwesomeIcon
+                            icon={faEye}
+                            className="svg-icon svg-icon-eye"
+                        />
+                        <span>{views}</span>
+                        <span>&nbsp;Views</span>
                     </div>
-                    <div className="type d-flex flex-col">
-                        <figure className="thumbnail-img">
-                            <Image
-                                src="/icons/happy-face.svg"
-                                layout="fill"
-                                objectFit="contain"
-                                alt="Happy Face"
-                            />
-                        </figure>
-                        <p>{happyClients}</p>
-                        <p>&nbsp;Happy Clients</p>
+                    <div className="description__icon d-flex align-items-center">
+                        <FontAwesomeIcon
+                            icon={faFaceSmileBeam}
+                            className="svg-icon svg-icon-smile"
+                        />
+                        <span>{happyClients}</span>
+                        <span>&nbsp;Happy Clients</span>
                     </div>
 
-                    <div className="success-rate type d-flex flex-col">
-                        <div className="count d-flex flex-row">
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src="/icons/badge.svg"
-                                    layout="fill"
-                                    objectFit="contain"
-                                    alt="success icon"
-                                />
-                            </figure>
-                            <p>{successRate}%</p>
-                        </div>
-                        <div className="analytics-title">
-                            <p>&nbsp;Success Rate</p>
-                        </div>
+                    <div className="description__icon d-flex align-items-center">
+                        <FontAwesomeIcon
+                            icon={faAward}
+                            className="svg-icon svg-icon-eye"
+                        />
+                        <span>{successRate}%</span>
+                        <span>&nbsp;Success Rate</span>
                     </div>
                 </div>
 
-                <div className="starting-price">
+                <div className="d-flex justify-content-around starting-price">
                     <p>Starting price</p>
                     <p className="price">Rs {startingPrice}</p>
                 </div>
