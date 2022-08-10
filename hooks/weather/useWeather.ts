@@ -9,11 +9,18 @@ export const useLocation = () => {
     >();
 
     useEffect(() => {
-        window.navigator.geolocation.getCurrentPosition((data) => {
-            setCoords(data.coords);
-        });
+        const watchId = navigator.geolocation.watchPosition(
+            (position) => {
+                setCoords(position.coords);
+            },
+            (error) => {
+                if (error.code === error.PERMISSION_DENIED) {
+                    setCoords(undefined);
+                }
+            }
+        );
         return () => {
-            setCoords(undefined);
+            navigator.geolocation.clearWatch(watchId);
         };
     }, []);
     return coords;
