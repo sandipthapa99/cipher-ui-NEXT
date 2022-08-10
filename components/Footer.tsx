@@ -54,10 +54,13 @@ const Footer = () => {
                                                     className="btn"
                                                     disabled={isSubmitting}
                                                 >
-                                                    <FontAwesomeIcon
-                                                        icon={faArrowRight}
-                                                        className="svg-icon"
-                                                    />
+                                                    {errors.email ===
+                                                        undefined && (
+                                                        <FontAwesomeIcon
+                                                            icon={faArrowRight}
+                                                            className="svg-icon"
+                                                        />
+                                                    )}
                                                 </button>
                                             </div>
                                         </Form>
