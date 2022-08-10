@@ -69,9 +69,9 @@ const AccountForm = () => {
         value: result.id,
         id: result.id,
     }));
-    // console.log(language);
-    // console.log(currency);
-    // console.log(country);
+    console.log(language);
+    console.log(currency);
+    console.log(country);
 
     return (
         <>
@@ -167,11 +167,11 @@ const AccountForm = () => {
                             />
                             <RadioField
                                 type="radio"
-                                name="experience"
+                                name="experience_level"
                                 variables={experience}
                                 labelName="Experience Level"
-                                touch={touched.experience}
-                                error={errors.experience}
+                                touch={touched.experience_level}
+                                error={errors.experience_level}
                             />
                             <h4>Active Hours</h4>
                             <Row className="g-5">

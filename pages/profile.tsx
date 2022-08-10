@@ -32,6 +32,8 @@ const remainingData = {
 const UserProfile: NextPage = () => {
     const { data: profileDetails } = useGetProfile();
     const { data: countryDetail } = useCountryById(profileDetails?.country);
+    console.log(profileDetails);
+    console.log(countryDetail);
 
     const [activeTabIdx, setActiveTabIdx] = useState(0);
 

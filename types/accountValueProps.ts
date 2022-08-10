@@ -6,7 +6,7 @@ export interface AccountValueProps {
     gender: string;
     date_of_birth: string | null;
     skill: string;
-    experience: string;
+    experience_level: string;
     active_hour_start: string | undefined;
     active_hour_end: string | undefined;
     hourly_rate: number;

@@ -5,7 +5,7 @@ export interface KYCFormProps {
     identity_issued_date: string;
     identity_issuer_organization: string | null;
     identity_valid_through: string;
-    identity_card_file: string | null;
+    // identity_card_file: string | null;
     pan_number: number | null;
     pan_issued_from: string;
     pan_issued_date: string;
