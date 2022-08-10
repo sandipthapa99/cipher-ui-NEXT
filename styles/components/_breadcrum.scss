@@ -1,19 +1,13 @@
-.breadcrum-text {
-    padding: 1.8rem 0;
-    p {
-        margin: 0;
-        font-size: 1.6rem;
-        font-weight: 500;
-        color: #343a40;
-    }
-
-    span {
-        color: #0693e3;
-    }
-
-    .svg-icon {
-        height: 1.6rem;
-        width: 0.6rem;
-        margin: 0 0.8rem;
+.breadcrumb-section {
+    padding: 1.4rem 0 1.4rem;
+    .breadcrumb {
+        display: inline-flex;
+        align-items: center;
+        gap: 1rem;
+        .breadcrumb-item {
+            &::before {
+                content: "";
+            }
+        }
     }
 }
