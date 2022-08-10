@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import CardBtn from "@components/common/CardBtn";
 import CipherCard from "@components/common/CipherCard";
 import FaqContent from "@components/common/Faq";
@@ -15,7 +15,7 @@ const AffiliateProgram = () => {
     return (
         <Layout title="Affiliate Program | Cipher">
             <section className="affiliate-hero-section">
-                <Breadcrum currentPage="Affiliate Program" />
+                <BreadCrumb currentPage="Affiliate Program" />
                 <Container className="px-5" fluid="xl">
                     <Row className="gx-5">
                         <Col

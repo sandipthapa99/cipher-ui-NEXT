@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import BigButton from "@components/common/Button";
 import Layout from "@components/Layout";
 import Image from "next/image";
@@ -7,7 +7,7 @@ import { Container } from "react-bootstrap";
 const HowToFindTasks = () => {
     return (
         <Layout title="How to find tasks | Cipher">
-            <Breadcrum currentPage="How to find tasks" />
+            <BreadCrumb currentPage="How to find tasks" />
             <Container fluid="xl">
                 <section className="find-tasks-hero"></section>
 

@@ -15,7 +15,7 @@ const Feedback = () => {
     return (
         <>
             <Layout title="Feedback | Cipher">
-                <Container>
+                <Container fluid="xl">
                     <section className="site-feedback">
                         <Row className="gx-5">
                             <Col md={6} className="d-none d-md-flex">

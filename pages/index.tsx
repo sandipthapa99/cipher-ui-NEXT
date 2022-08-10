@@ -22,6 +22,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -58,6 +59,10 @@ const quality = [
     },
 ];
 
+const CategoriesListingHomepage = dynamic(
+    () => import("components/common/CategoriesListingHomepage"),
+    { ssr: false }
+);
 const Home: NextPage = () => {
     const [postTaskPopup, setPostTaskPopup] = useState(true);
 
@@ -122,7 +127,7 @@ const Home: NextPage = () => {
 
                             <div className="come-with-us">
                                 <h1>Come with Us For</h1>
-                                <div className="d-flex">
+                                <div className="d-flex buttons">
                                     <Link href="/earn-money">
                                         <a href="" className="hero-cta">
                                             Earn Money as a Professional
@@ -366,11 +371,16 @@ const Home: NextPage = () => {
                         </li>
                     </ul>
 
-                    <Row className="gx-5">
+                    <Row className="gx-5 hero-category">
                         {serviceCategory &&
                             serviceCategory.map((category) => {
                                 return (
-                                    <Col md={3} sm={6} key={category.id}>
+                                    <Col
+                                        md={4}
+                                        sm={6}
+                                        key={category.id}
+                                        className="d-flex align-items-strecth card-col"
+                                    >
                                         <CategoryCardNew
                                             categoryTitle={
                                                 category.categoryTitle
@@ -444,8 +454,9 @@ const Home: NextPage = () => {
                             merchants.map((merchant) => {
                                 return (
                                     <Col
+                                        md={6}
+                                        lg={3}
                                         sm={6}
-                                        lg={4}
                                         xl={3}
                                         key={merchant.id}
                                         className="d-flex"
@@ -540,16 +551,6 @@ const Home: NextPage = () => {
                 </Container>
             </section>
             {/* Tasks you may like section end */}
-            <section id="notable-quality" className="notable-quality">
-                <Container fluid="xl" className="px-5">
-                    <LongSquareImageCard
-                        title="Cipher Notable quality"
-                        image="/groupB.png"
-                        imageOnRight={true}
-                        description={quality}
-                    />
-                </Container>
-            </section>
 
             {/* some success stories sectioin start */}
             <section
@@ -566,6 +567,19 @@ const Home: NextPage = () => {
                     <PersonalSuccessCard />
                 </Container>
             </section>
+
+            {/* Notable quality section starts  */}
+            <section id="notable-quality" className="notable-quality">
+                <Container fluid="xl" className="px-5">
+                    <LongSquareImageCard
+                        title="Cipher Notable quality"
+                        image="/groupB.png"
+                        imageOnRight={true}
+                        description={quality}
+                    />
+                </Container>
+            </section>
+            {/* Notable quality section ends  */}
 
             {/* some success stories section end  */}
 
@@ -698,6 +712,7 @@ const Home: NextPage = () => {
                     <h2 className="section-sub-title">
                         See some of our top categories in your area
                     </h2>
+                    <CategoriesListingHomepage />
                 </Container>
             </section>
         </Layout>

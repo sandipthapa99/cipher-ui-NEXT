@@ -94,3 +94,29 @@ export const ALL_CATEGORIES = Array.from(new Set(CATEGORY_TITLES)).map(
     })
 );
 export type AllCategory = typeof ALL_CATEGORIES[0];
+
+export const Homepage_category_titles = [
+    "Accounting",
+    "Fitness",
+    "Grocery Delivery",
+    "Landscaping",
+    "Bathroom Renovation",
+    "Cleaning",
+    "Carpentry",
+    "Concreting",
+];
+
+export const Homepage_categories = Array.from(
+    new Set(Homepage_category_titles)
+).map((title) => ({
+    title,
+    subItems: Array.from({ length: randNumber(4, 10) })
+        .map((_, index) => index)
+        .map((index) => ({
+            id: index,
+            title: `${title} ${index}`,
+            href: `/${title.toLowerCase().split(" ").join("-")}`,
+        })),
+}));
+
+export type HomepageCategory = typeof Homepage_categories[0];

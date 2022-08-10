@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
@@ -6,13 +6,13 @@ import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ServiceProviderCard from "@components/common/serviceProviderCard";
+import ShareIcon from "@components/common/ShareIcon";
 import Tags from "@components/common/Tags";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import {
     faEllipsisVertical,
     faHeart,
-    faShare,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
@@ -28,46 +28,36 @@ import { servicesDiscover } from "staticData/services";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { reviewType } from "utils/options";
-
 const ServiceDetail: NextPage = () => {
     return (
         <Layout title="Service Details | Cipher">
+            <BreadCrumb currentPage="Service Details" />
             <Container fluid="xl" className="px-5">
                 <section className="service-details">
-                    <Breadcrum
-                        currentPage="Service Details"
-                        subPage="Detail"
-                        hasSubPage={true}
-                    />
                     {/* Explore top container start */}
                     <section className="service-details__top-container">
                         <h1>Garden Cleaning</h1>
                         <Row className="gx-5">
                             <Col md={8}>
-                                <div className="information">
-                                    <p className="provider-name">
-                                        By Harry Smith, Gardener
-                                    </p>
-                                    <div className="reactions">
-                                        <div className="d-flex flex-col save">
+                                <div className="d-flex justify-content-between align-items-center information">
+                                    <span>By Harry Smith, Gardener</span>
+                                    <div className="d-flex justify-content-between align-items-center reactions">
+                                        <div className="d-flex align-items-center me-4">
                                             <FontAwesomeIcon
                                                 icon={faHeart}
-                                                className="svg-icon heart"
+                                                className="svg-icon-heart me-3"
                                             />
-                                            <p className="name">Save</p>
+                                            <span>Save</span>
                                         </div>
-                                        <div className="d-flex flex-col share">
-                                            <FontAwesomeIcon
-                                                icon={faShare}
-                                                className="svg-icon share-icon"
-                                            />
-                                            <p className="name">Share</p>
-                                        </div>
+                                        <span className="d-flex align-items-center">
+                                            <ShareIcon />
+                                            Share
+                                        </span>
 
                                         <EllipsisDropdown>
                                             <FontAwesomeIcon
                                                 icon={faEllipsisVertical}
-                                                className="svg-icon option"
+                                                className="svg-icon option me-0 "
                                             />
                                         </EllipsisDropdown>
                                     </div>

@@ -1,13 +1,13 @@
 .popup-post-task {
-    position: relative;
+    position: fixed;
+    right: 5rem;
+    bottom: 5rem;
+    z-index: 2;
 }
 
 .post-task-homepage {
     background: #fff;
     padding: 2rem 5rem;
-    position: absolute;
-    right: 5rem;
-    top: -25rem;
     max-width: 26.5rem;
 
     .xmark {
@@ -46,7 +46,7 @@
     .marquee {
         background: #f8f9fa;
         li {
-            padding: 5rem 5rem;
+            padding: 5rem 10rem;
             font: 600 3.2rem $poppins-font;
             cursor: pointer;
         }

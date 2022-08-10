@@ -31,7 +31,7 @@ export const serviceCategory = [
     },
     {
         id: "7",
-        categoryTitle: "Educational Classes",
+        categoryTitle: "Education",
         categoryIcon: "/illustrations/educational.svg",
     },
     {

@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
@@ -23,8 +23,8 @@ const Contact = () => {
     return (
         <Layout title="Contact Us | Cipher">
             <section className="contact-page-header">
-                <Breadcrum currentPage="Contact Us" />
-                <Container>
+                <BreadCrumb currentPage="Contact Us" />
+                <Container fluid="xl">
                     <div className="contact-page-header__description">
                         <h1>Contact Us</h1>
                         <h2>

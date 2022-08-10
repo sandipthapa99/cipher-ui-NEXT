@@ -1,7 +1,7 @@
 import CareerCard from "@components/Career/CareerCard";
 import HiringStage from "@components/Career/HiringStage";
 import LeaveYourCV from "@components/Career/LeaveYourCV";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
 import type { GetStaticProps } from "next";
@@ -19,7 +19,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
     return (
         <Layout title="Cipher | Careers">
             <section id="careers-section" className="careers-section">
-                <Breadcrum currentPage="Career" />
+                <BreadCrumb currentPage="Career" />
                 <Container fluid="xl">
                     <div className="d-flex justify-content-between align-items-center flex-column-reverse flex-md-row">
                         <div className="careers-index">
