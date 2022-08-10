@@ -5,8 +5,7 @@
         padding: 2rem;
         margin-bottom: 2rem;
         width: 100%;
-        @include respond(md){
-
+        @include respond(md) {
         }
         .image-block {
             height: 6rem;
