@@ -218,7 +218,7 @@
             }
         }
     }
-    .hero-category {
+    .hero-category{
         .card-col {
             &:nth-child(4n + 1) {
                 .hero-category__card-block {
@@ -248,16 +248,19 @@
                     }
                 }
             }
+            &:nth-child(4n + 4) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #0693E3;
+                    }
+                }
+            }
         }
     }
 }
 
 .get-services {
     margin: 4rem 0 9rem;
-    h1 {
-        margin-bottom: 4rem;
-    }
-
     ul {
         margin-bottom: 4rem;
 
@@ -277,6 +280,45 @@
                 margin-right: 0.8rem;
                 height: 2.8rem;
                 width: 2.8rem;
+            }
+        }
+    }
+    .hero-category{
+        .card-col {
+            &:nth-child(4n + 1) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #752de8;
+                    }
+                }
+            }
+            &:nth-child(4n + 2) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #ff9700;
+                    }
+                }
+            }
+            &:nth-child(4n + 3) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #fe5050;
+                    }
+                }
+            }
+            &:nth-child(4n + 4) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #38c675;
+                    }
+                }
+            }
+            &:nth-child(4n + 4) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #0693E3;
+                    }
+                }
             }
         }
     }
