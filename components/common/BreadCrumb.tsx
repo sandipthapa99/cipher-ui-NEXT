@@ -12,7 +12,7 @@ export const BreadCrumb = ({ currentPage }: breadCrumbProps) => {
 
     const breadCrumbRoutes = routes.slice(0, routes.length - 1);
     return (
-        <section id="breadcrumb-section" className="breadcrumb-section">
+        <div id="breadcrumb-section" className="breadcrumb-section">
             <Container fluid="xl">
                 <Breadcrumb>
                     <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
@@ -34,6 +34,6 @@ export const BreadCrumb = ({ currentPage }: breadCrumbProps) => {
                     <Breadcrumb.Item active>{currentPage}</Breadcrumb.Item>
                 </Breadcrumb>
             </Container>
-        </section>
+        </div>
     );
 };
