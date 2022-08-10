@@ -184,16 +184,16 @@ const Home: NextPage = () => {
                 id="cagtu-cipher-buzz-section"
                 className="cagtu-cipher-buzz-section"
             >
-                <Container fluid="xl" className="px-5">
-                    <Marquee gradient={false} className="marquee">
-                        <li className="light">Cagtu</li>
-                        <li className="strong">Cipher</li>
-                        <li className="light">Code Sharav</li>
-                        <li className="strong">Buzz</li>
-                        <li className="light">Cipher</li>
-                        <li className="strong">Code Sharav</li>
-                    </Marquee>
-                </Container>
+                {/* <Container fluid="xl" className="px-5"> */}
+                <Marquee gradient={true} className="marquee" speed={40}>
+                    <li className="light">Cagtu</li>
+                    <li className="strong">Cipher</li>
+                    <li className="light">Code Sharav</li>
+                    <li className="strong">Buzz</li>
+                    <li className="light">Cipher</li>
+                    <li className="strong">Code Sharav</li>
+                </Marquee>
+                {/* </Container> */}
             </section>
 
             {/* Popular verified services section start */}

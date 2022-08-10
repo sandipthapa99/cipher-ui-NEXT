@@ -43,30 +43,37 @@ const LongSquareImageCard = ({
                                     {subtitle && <h4>{subtitle}</h4>}
                                     {Array.isArray(description) ? (
                                         <ul>
-                                            {description.map((info: any) => (
-                                                <div className="d-flex">
-                                                    {info.icon ? (
-                                                        <figure className="thumbnail-img">
-                                                            <Image
-                                                                src={info.icon}
-                                                                layout="fill"
-                                                                objectFit="cover"
-                                                                alt="icon-image"
-                                                            />
-                                                        </figure>
-                                                    ) : (
-                                                        ""
-                                                    )}
-
+                                            {description.map(
+                                                (info: any, index) => (
                                                     <div
-                                                        className="list"
-                                                        key={info.id}
+                                                        className="d-flex"
+                                                        key={index}
                                                     >
-                                                        <p>{info.title}</p>
-                                                        <li>{info.desc}</li>
+                                                        {info.icon ? (
+                                                            <figure className="thumbnail-img">
+                                                                <Image
+                                                                    src={
+                                                                        info.icon
+                                                                    }
+                                                                    layout="fill"
+                                                                    objectFit="cover"
+                                                                    alt="icon-image"
+                                                                />
+                                                            </figure>
+                                                        ) : (
+                                                            ""
+                                                        )}
+
+                                                        <div
+                                                            className="list"
+                                                            key={info.id}
+                                                        >
+                                                            <p>{info.title}</p>
+                                                            <li>{info.desc}</li>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                )
+                                            )}
                                         </ul>
                                     ) : (
                                         <p>{description}</p>
@@ -90,29 +97,36 @@ const LongSquareImageCard = ({
                                     {subtitle && <h4>{subtitle}</h4>}
                                     {Array.isArray(description) ? (
                                         <ul>
-                                            {description.map((info: any, i) => (
-                                                <div className="d-flex" key={i}>
-                                                    {info.icon ? (
-                                                        <figure className="thumbnail-img">
-                                                            <Image
-                                                                src={info.icon}
-                                                                layout="fill"
-                                                                objectFit="cover"
-                                                                alt="icon-image"
-                                                            />
-                                                        </figure>
-                                                    ) : (
-                                                        ""
-                                                    )}
+                                            {description.map(
+                                                (info: any, index) => (
                                                     <div
-                                                        className="list"
-                                                        key={info.id}
+                                                        className="d-flex"
+                                                        key={index}
                                                     >
-                                                        <p>{info.title}</p>
-                                                        <li>{info.desc}</li>
+                                                        {info.icon ? (
+                                                            <figure className="thumbnail-img">
+                                                                <Image
+                                                                    src={
+                                                                        info.icon
+                                                                    }
+                                                                    layout="fill"
+                                                                    objectFit="cover"
+                                                                    alt="icon-image"
+                                                                />
+                                                            </figure>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                        <div
+                                                            className="list"
+                                                            key={info.id}
+                                                        >
+                                                            <p>{info.title}</p>
+                                                            <li>{info.desc}</li>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                )
+                                            )}
                                         </ul>
                                     ) : (
                                         <p>{description}</p>

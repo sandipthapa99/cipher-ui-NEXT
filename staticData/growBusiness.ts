@@ -48,7 +48,6 @@ export const growBusinessSteps = [
     },
 ];
 
-
 export const WinNewClientData = [
     {
         id: "1",
