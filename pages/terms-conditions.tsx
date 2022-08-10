@@ -1,11 +1,11 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
 import { Container } from "react-bootstrap";
 
 const TermsConditions = () => {
     return (
         <Layout title="Terms &amp; Conditions | Cipher">
-            <Breadcrum currentPage="Terms &amp; Conditions" />
+            <BreadCrumb currentPage="Terms &amp; Conditions" />
             <Container fluid="xl">
                 <section className="privacy-policy">
                     <section className="privacy-policy__intro inner-section">

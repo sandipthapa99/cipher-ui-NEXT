@@ -1,5 +1,5 @@
 import AboutCard from "@components/common/AboutCard";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
 import Image from "next/image";
@@ -10,7 +10,7 @@ const About: NextPage = () => {
     return (
         <Layout title="About Us | Cipher">
             <div className="about-page">
-                <Breadcrum currentPage="About Us" />
+                <BreadCrumb currentPage="About Us" />
                 <Container fluid="xl" className="px-5">
                     <div className="about-page__top-container">
                         <div className="main-image">

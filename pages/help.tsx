@@ -1,5 +1,5 @@
 import BlogCard from "@components/common/BlogCard";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import BigButton from "@components/common/Button";
 import CommonCard from "@components/common/CommonCard";
 import FaqContent from "@components/common/Faq";
@@ -20,7 +20,7 @@ const Help: NextPage = () => {
         <Layout title="Help &amp; Support | Cipher">
             <section className="help-page-header">
                 <Container fluid="xl" className="px-5">
-                    <Breadcrum currentPage="Help &amp; Support" />
+                    <BreadCrumb currentPage="Help &amp; Support" />
                     <div className="help-page-header__top-container">
                         <Row className="d-flex align-items-center gx-5">
                             <Col md={6}>

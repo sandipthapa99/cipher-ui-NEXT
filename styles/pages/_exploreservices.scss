@@ -218,7 +218,10 @@
             text-transform: capitalize;
         }
         background-color: $secondary-color;
-        padding: 4rem 8rem;
+        padding: 2rem 3rem;
+        @include respond(sm) {
+            padding: 4rem 8rem;
+        }
         margin-bottom: 0rem;
     }
 }

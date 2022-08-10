@@ -1,5 +1,5 @@
 import BlogCard from "@components/common/BlogCard";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import BusinessGoal from "@components/common/BusinessGoal";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
@@ -17,7 +17,7 @@ const Resources: NextPage = () => {
             <section className="resource-page">
                 <section className="resource-page__header">
                     <Container fluid="xl" className="px-5">
-                        <Breadcrum currentPage="Resources" />
+                        <BreadCrumb currentPage="Resources" />
                         <Row className="d-flex align-items-center">
                             <Col md={6}>
                                 <figure className="thumbnail-img">
