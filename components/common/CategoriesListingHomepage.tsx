@@ -1,12 +1,12 @@
 import Link from "next/link";
 import React from "react";
-import { ALL_CATEGORIES } from "staticData/allCategories";
+import { Homepage_categories } from "staticData/allCategories";
 
-export const CategoriesListingHomepage = () => {
+const CategoriesListingHomepage = () => {
     return (
         <>
-            <div className="all-categories">
-                {ALL_CATEGORIES.map((category, index) => (
+            <div className="d-flex justify-content-center all-categories">
+                {Homepage_categories.map((category, index) => (
                     <div key={index} className="category-item">
                         <h4 className="category-item__title title">
                             {category.title}
@@ -26,3 +26,5 @@ export const CategoriesListingHomepage = () => {
         </>
     );
 };
+
+export default CategoriesListingHomepage;
