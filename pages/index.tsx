@@ -545,16 +545,6 @@ const Home: NextPage = () => {
                 </Container>
             </section>
             {/* Tasks you may like section end */}
-            <section id="notable-quality" className="notable-quality">
-                <Container fluid="xl" className="px-5">
-                    <LongSquareImageCard
-                        title="Cipher Notable quality"
-                        image="/groupB.png"
-                        imageOnRight={true}
-                        description={quality}
-                    />
-                </Container>
-            </section>
 
             {/* some success stories sectioin start */}
             <section
@@ -571,6 +561,19 @@ const Home: NextPage = () => {
                     <PersonalSuccessCard />
                 </Container>
             </section>
+
+            {/* Notable quality section starts  */}
+            <section id="notable-quality" className="notable-quality">
+                <Container fluid="xl" className="px-5">
+                    <LongSquareImageCard
+                        title="Cipher Notable quality"
+                        image="/groupB.png"
+                        imageOnRight={true}
+                        description={quality}
+                    />
+                </Container>
+            </section>
+            {/* Notable quality section ends  */}
 
             {/* some success stories section end  */}
 
@@ -703,6 +706,7 @@ const Home: NextPage = () => {
                     <h2 className="section-sub-title">
                         See some of our top categories in your area
                     </h2>
+                    <CategoriesListingHomepage />
                 </Container>
             </section>
         </Layout>
