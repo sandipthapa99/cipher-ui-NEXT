@@ -3,7 +3,7 @@ import type { GetStaticProps } from "next";
 import Link from "next/link";
 import { Container } from "react-bootstrap";
 import type { AllCategory } from "staticData/allCategories";
-import { ALL_CATEGORIES } from "staticData/allCategories"
+import { ALL_CATEGORIES } from "staticData/allCategories";
 
 interface CategoriesPageProps {
     categories: AllCategory[];
