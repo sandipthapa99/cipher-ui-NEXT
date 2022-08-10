@@ -131,7 +131,7 @@ export const AccountFromData: AccountValueProps = {
     experience: "",
     active_hour_start: "",
     active_hour_end: null,
-    hour_rate: 15,
+    hourly_rate: 15,
     user_type: "",
     country: "",
     education: "abc",
@@ -141,7 +141,7 @@ export const AccountFromData: AccountValueProps = {
     charge_currency: "",
     profile_visibility: "",
     task_preferences: "",
-    profile_image: "abcffdd",
+    // profile_image: "abcffdd",
 };
 
 export const ChangePasswordFromData: changePasswordValueProps = {
