@@ -8,6 +8,7 @@
     align-items: center;
     flex-direction: column;
     box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    width: 100%;
     &__image-block {
         background-color: #fff;
         height: 9.4rem;
@@ -30,5 +31,6 @@
         font-weight: 500;
         color: #495057;
         margin: 2.4rem 0 0 0;
+        text-align: center;
     }
 }

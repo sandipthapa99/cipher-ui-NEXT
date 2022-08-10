@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import CommunityGuidelineCard from "@components/common/CommunityGuidelineCard";
 import FaqContent from "@components/common/Faq";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
@@ -34,7 +34,7 @@ const TaskerMarketPlace: NextPage = () => {
         <Layout title="Tasker Marketplace | Cipher">
             <Container fluid="xl" className="px-5">
                 <section className="tasker-marketplace">
-                    <Breadcrum currentPage="Tasker Marketplace" />
+                    <BreadCrumb currentPage="Tasker Marketplace" />
 
                     <div className="tasker-marketplace__top-container">
                         <LongSquareImageCard

@@ -1,5 +1,5 @@
 import AllCategoryCard from "@components/common/AllCategoryCard";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MessageCard from "@components/common/MessageCard";
 import Layout from "@components/Layout";
@@ -15,7 +15,7 @@ const HowItWorks: NextPage = () => {
         <Layout title="How it Works | Cipher">
             <Container fluid="xl" className="px-5">
                 <section className="how-it-works">
-                    <Breadcrum currentPage="How it Works" />
+                    <BreadCrumb currentPage="How it Works" />
 
                     <div className="how-it-works__top-container">
                         <h1>See how things work in Cipher</h1>

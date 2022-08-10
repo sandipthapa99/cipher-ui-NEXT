@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import CardBtn from "@components/common/CardBtn";
 import FaqContent from "@components/common/Faq";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
@@ -15,7 +15,7 @@ const PayrollServices: NextPage = () => {
             <section className="payroll-services">
                 <section className="payroll-services__header">
                     <Container fluid="xl" className="px-5">
-                        <Breadcrum currentPage="Payroll Services" />
+                        <BreadCrumb currentPage="Payroll Services" />
                         <Row className="d-flex gx-5 align-items-center">
                             <Col md={6}>
                                 <figure className="thumbnail-img">

@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
@@ -34,11 +34,7 @@ const ServiceDetail: NextPage = () => {
         <Layout title="Service Details | Cipher">
             <Container fluid="xl" className="px-5">
                 <section className="service-details">
-                    <Breadcrum
-                        currentPage="Service Details"
-                        subPage="Detail"
-                        hasSubPage={true}
-                    />
+                    <BreadCrumb currentPage="Service Details" />
                     {/* Explore top container start */}
                     <section className="service-details__top-container">
                         <h1>Garden Cleaning</h1>

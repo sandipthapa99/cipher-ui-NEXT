@@ -30,15 +30,15 @@ const TaskList = ({ task }: { task: TaskList }) => {
                 <h2>Task List</h2>
                 <div className="d-flex flex-column flex-sm-row my-4 py-4 task-list__detial">
                     <figure>
-                        <Image
-                            src={
-                                bookNowDetails
-                                    ? bookNowDetails.image
-                                    : "/services/s1.png"
-                            }
-                            alt="task-img"
-                            layout="fill"
-                        ></Image>
+                        {bookNowDetails.image ? (
+                            <Image
+                                src={bookNowDetails.image}
+                                alt="task-img"
+                                layout="fill"
+                            />
+                        ) : (
+                            ""
+                        )}
                     </figure>
                     <div className="d-flex flex-column justify-content-around ps-4 task-list__detial--desc">
                         <h4>{bookNowDetails.serviceTitle}</h4>

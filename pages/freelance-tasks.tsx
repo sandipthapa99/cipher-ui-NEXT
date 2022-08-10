@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import { SearchInputField } from "@components/common/SearchInputField";
 import ServiceCard from "@components/common/ServiceCard";
@@ -18,7 +18,7 @@ const FreelanceTasks: NextPage = () => {
         <Layout title="Freelance Tasks | Cipher">
             <Container fluid="xl">
                 <section className="how-to-hire">
-                    <Breadcrum currentPage="Freelance Tasks" />
+                    <BreadCrumb currentPage="Freelance Tasks" />
 
                     <div className="how-to-hire__top-container">
                         <Carousel>
