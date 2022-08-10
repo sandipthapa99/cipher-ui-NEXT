@@ -21,6 +21,7 @@ import TooltipMessage from "./Tooltip";
 
 const UserProfileCard = ({
     userImage,
+    countryCode,
     userJob,
     userName,
     userRating,
@@ -42,6 +43,19 @@ const UserProfileCard = ({
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showExpForm, setShowExpForm] = useState(false);
+    const services = JSON.parse(moreServices);
+    const renderServices = services.map((service, index) => (
+        <p key={index}>{service}</p>
+    ));
+    const userType = JSON.parse(userJob);
+    const renderType = userType.map((type, index) => {
+        return (
+            <p className="organization" key={index}>
+                Individual | {type}
+            </p>
+        );
+    });
+
     return (
         <div className="profile-card-block">
             <Row>
@@ -67,7 +81,7 @@ const UserProfileCard = ({
                         <h1 className="name">{userName}</h1>
                         <div className="active"></div>
                     </div>
-                    <p className="organization">Individual | {userJob}</p>
+                    {renderType}
                     <div className="rating">
                         {Array.from({ length: userRating }, (_, i) => (
                             <span key={i}>
@@ -119,7 +133,9 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
 
-                                    <p>{userPhone}</p>
+                                    <p>
+                                        {countryCode} {userPhone}
+                                    </p>
                                 </div>
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
@@ -144,8 +160,8 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
                                     <p>
-                                        &nbsp;Active Hours {activeFrom}:00 AM to{" "}
-                                        {activeTo}:00 PM
+                                        &nbsp;Active Hours {activeFrom} to{" "}
+                                        {activeTo}
                                     </p>
                                 </div>
 
@@ -155,7 +171,9 @@ const UserProfileCard = ({
                                             icon={faSparkles}
                                             className="thumbnail-img"
                                         />
-                                        <p>{moreServices}</p>
+                                        <p className="d-flex gap-2">
+                                            {renderServices}
+                                        </p>
                                     </div>
                                 </div>
                             </div>

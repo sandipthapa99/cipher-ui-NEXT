@@ -40,10 +40,11 @@ const experience = [
 ];
 const profileVisibility = [
     {
+        id: 1,
         label: "Public",
         value: "Public",
     },
-    { label: "Private", value: "Private" },
+    { id: 2, label: "Private", value: "Private" },
 ];
 
 const AccountForm = () => {
@@ -93,10 +94,12 @@ const AccountForm = () => {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
                             skill: JSON.stringify(values.skill),
-                            active_hour_start:
-                                values.active_hour_start?.toLocaleTimeString(),
-                            active_hour_end:
-                                values.active_hour_end?.toLocaleTimeString(),
+                            active_hour_start: new Date(
+                                values.active_hour_start ?? ""
+                            )?.toLocaleTimeString(),
+                            active_hour_end: new Date(
+                                values.active_hour_end ?? ""
+                            )?.toLocaleTimeString(),
                         };
                         mutate(newValidatedValues, {
                             onSuccess: () => {
@@ -178,7 +181,6 @@ const AccountForm = () => {
                                         labelName="From"
                                         dateFormat="HH:mm aa"
                                         placeHolder="dd/mm/yy"
-                                        dateFormat="HH:mm aa"
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
                                         timeOnly
