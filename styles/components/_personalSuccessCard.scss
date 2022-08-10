@@ -14,14 +14,14 @@
 .personal-success-card {
     background: #fff;
 
-    .sakshi-shrestha-content {
+    &__content {
         padding: 3rem;
 
         .description {
             .title {
                 svg {
                     color: #fab005;
-                    margin: 0 0 0 ;
+                    margin: 0 0 0;
                 }
             }
         }
