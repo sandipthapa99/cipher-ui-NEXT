@@ -3,17 +3,17 @@ import CardBtn from "@components/common/CardBtn";
 import { FilterReview } from "@components/common/FilterReview";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
+import SaveIcon from "@components/common/SaveIcon";
 import ServiceCard from "@components/common/ServiceCard";
 import ServiceHighlights from "@components/common/ServiceHighlights";
+import ShareIcon from "@components/common/ShareIcon";
 import {
     faCalendar,
     faChevronLeft,
     faClockEight,
     faEllipsisVertical,
     faEye,
-    faHeart,
     faLocationDot,
-    faShare,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -71,17 +71,11 @@ const SearchResultsDetail = ({
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faHeart}
-                                    className="svg-icon heart-icon"
-                                />
+                                <SaveIcon />
                                 <span className="name">Save</span>
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
-                                <FontAwesomeIcon
-                                    icon={faShare}
-                                    className="svg-icon share-icon"
-                                />
+                                <ShareIcon />
                                 <span className="name">Share</span>
                             </div>
                             <FontAwesomeIcon

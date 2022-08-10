@@ -162,9 +162,18 @@
 
             .come-with-us {
                 margin-bottom: 4rem;
-
+                a {
+                    text-align: center;
+                }
                 @include respond(md) {
+                    width: 200%;
                     margin-bottom: 8rem;
+                }
+                .buttons {
+                    text-align: center;
+                    @include respond(xs) {
+                        flex-direction: column;
+                    }
                 }
 
                 h1 {
@@ -184,13 +193,12 @@
                     color: #fff;
                     padding: 0.8rem 1.2rem;
                     border-radius: 2.4rem;
-                    font-size: 1.2rem;
+                    font-size: 1.4rem;
                     font-weight: 500;
                     margin-top: 2rem;
 
                     @include respond(md) {
-                        font-size: 2rem;
-                        padding: 1rem 4rem;
+                        padding: 1rem 3rem;
                         border-radius: 3rem;
                     }
 
@@ -204,9 +212,14 @@
                         background: none;
                         border: 1px solid #211d4f;
                         color: $primary-color;
-
+                        @include respond(lg) {
+                            margin-right: 3rem;
+                        }
                         @include respond(md) {
                             margin-right: 3rem;
+                        }
+                        @include respond(md) {
+                            margin-right: 1.5rem;
                         }
 
                         &:hover {

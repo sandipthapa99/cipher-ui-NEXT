@@ -17,9 +17,9 @@ export const UserTaskCardList = ({ tasks, onTaskClick }: Props) => {
         ));
     };
     return (
-        <div className="user-task-card-list">
+        <>
             <p>{tasks.length} Tasker in Kathmandu,Bagmati Nepal (1 new)</p>
-            {renderTaskList()}
-        </div>
+            <div className="user-task-card-list">{renderTaskList()}</div>
+        </>
     );
 };
