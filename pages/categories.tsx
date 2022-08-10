@@ -3,7 +3,7 @@ import type { GetStaticProps } from "next";
 import Link from "next/link";
 import { Container } from "react-bootstrap";
 import type { AllCategory } from "staticData/allCategories";
-import { ALL_CATEGORIES } from "staticData/allCategories";
+import { ALL_CATEGORIES } from "staticData/allCategories"
 
 interface CategoriesPageProps {
     categories: AllCategory[];
@@ -13,7 +13,7 @@ const CategoriesPage = ({ categories }: CategoriesPageProps) => {
         <Layout>
             <Container>
                 <h2 className="all-categories-title">Cipher Categories</h2>
-                <div className="all-categories">
+                <div className="d-flex justify-content-center all-categories">
                     {categories.map((category, index) => (
                         <div key={index} className="category-item">
                             <h4 className="category-item__title title">
