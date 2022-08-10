@@ -4,33 +4,38 @@ import Header from "@components/Header";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
 import { useApplyTask } from "hooks/apply-task/useTask";
-import type { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-// import { taskApplied } from "staticData/taskApplied";
+import { AllTaskResult } from "types/applytask";
 
 const AppliedLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
 
     const { data } = useApplyTask();
 
-    const taskApplied = data?.data?.results;
-    // const filteredTasks = useMemo(
-    //     () =>
-    //         query
-    //             ? taskApplied?.filter((item) =>
-    //                   item.title.toLowerCase().startsWith(query.toLowerCase())
-    //               )
-    //             : taskApplied,
-    //     [query]
-    // );
+    const taskApplied = data?.data?.result;
+
+    console.log("taskapplied", taskApplied);
+
+    const filteredTasks = useMemo(
+        () =>
+            query
+                ? taskApplied?.filter((item: AllTaskResult) =>
+                      item?.title.toLowerCase().startsWith(query.toLowerCase())
+                  )
+                : taskApplied,
+        [query]
+    );
+
+    console.log("filtered task", filteredTasks);
     return (
         <>
             <SearchHeader />
             <Header />
             <Container>
                 <SearchCategory onChange={setQuery} />
-                <TaskAside query={query} appliedTasks={taskApplied}>
+                <TaskAside query={query} appliedTasks={filteredTasks}>
                     {children}
                 </TaskAside>
             </Container>

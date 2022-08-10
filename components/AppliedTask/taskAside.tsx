@@ -18,7 +18,7 @@ const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
             <div key={task.uuid}>
-                <Link href="/task/task-detail">
+                <Link href={`/task/${task.uuid}`}>
                     <a>
                         <TaskAppliedCard
                             title={task.title}
