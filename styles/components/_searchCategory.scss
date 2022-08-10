@@ -37,7 +37,7 @@
         .categories {
             display: flex;
             align-items: center;
-
+            flex-wrap: wrap;
             @include respond(md) {
                 overflow: auto;
             }
@@ -45,6 +45,9 @@
             @include respond(xs) {
                 overflow: scroll;
                 margin: 1rem 0;
+            }
+            @include respond(sm) {
+                margin-top: 1rem;
             }
             .boxes {
                 display: flex;
@@ -57,6 +60,10 @@
                 border: 1px solid #ced4da;
                 padding: 0.3rem 0.7rem;
                 cursor: pointer;
+                margin-top: 1rem;
+                @include respond(xl) {
+                    margin-top: 0rem;
+                }
 
                 &:active {
                     background-color: #0693e3;

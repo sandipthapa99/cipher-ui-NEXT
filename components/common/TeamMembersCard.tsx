@@ -13,6 +13,8 @@ import React from "react";
 import type { Task } from "types/tasks";
 
 import BigButton from "./Button";
+import SaveIcon from "./SaveIcon";
+import ShareIcon from "./ShareIcon";
 
 interface Props {
     task: Task;
@@ -81,8 +83,8 @@ export const TeamMembersCard = ({
             </p>
             <div className="d-flex justify-content-between footer-section">
                 <span className="share-and-like">
-                    <FontAwesomeIcon className="heart" icon={faHeart} />
-                    <FontAwesomeIcon className="share" icon={faShare} />
+                    <SaveIcon />
+                    <ShareIcon />
                 </span>
 
                 {collabButton == true ? (
