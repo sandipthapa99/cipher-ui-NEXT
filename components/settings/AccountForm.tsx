@@ -143,6 +143,7 @@ const AccountForm = () => {
                                         name="active_hour_start"
                                         labelName="From"
                                         placeHolder="dd/mm/yy"
+                                        dateFormat="HH:mm aa"
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
                                         timeOnly
