@@ -1,11 +1,16 @@
 .tax-calculator {
     .card-block {
-        padding: 5rem;
-        padding-right: 2rem;
-        padding-left: 2rem;
+        // padding-right: 2rem;
+        // padding-left: 2rem;
         align-items: center;
+        @include respond(xxs) {
+            padding-left: 0rem;
+            padding: 0rem;
+            margin: 0rem;
+        }
         @include respond(md) {
             padding-left: 5rem;
+            padding: 5rem;
         }
         h1 {
             font-size: 2.8rem;
@@ -27,8 +32,24 @@
             line-height: 2rem;
             text-align: initial;
         }
+
+        @include respond(xs) {
+            margin-top: 1rem;
+            margin: 0rem 2.8rem;
+        }
+        @include respond(xxs) {
+            padding: 0rem 5rem;
+        }
     }
     &__form {
+        @include respond(xs) {
+            margin-top: 1rem;
+            margin: 0rem 2.8rem;
+        }
+        @include respond(xxs) {
+            padding: 0rem 5rem;
+        }
+
         .tooltip > div {
             display: none !important;
         }
@@ -106,6 +127,14 @@
         @include respond(md) {
             margin-top: 0rem;
         }
+        @include respond(xs) {
+            margin: 0rem 2.8rem;
+            margin-top: 1rem;
+        }
+        @include respond(xxs) {
+            padding: 0rem 5rem;
+            margin-top: 1rem;
+        }
         margin-top: 2rem;
         :not(:first-child) {
             margin-top: 1rem;
@@ -156,10 +185,26 @@
         border-radius: 0.4rem;
         background-color: #fff;
         margin-left: -0.8rem;
+        @include respond(xs) {
+            margin: 0rem 2.8rem;
+            margin-top: 1rem;
+        }
+        @include respond(xxs) {
+            margin: 0rem 7.8rem;
+            margin-top: 1rem;
+        }
     }
     .table-content {
+        @include respond(xs) {
+            margin: 0rem 0.8rem;
+            margin-top: 1rem;
+        }
         @include respond(xxs) {
             width: 22rem;
+            margin-left: 7rem;
+            margin-top: 1rem;
+            overflow-x: scroll;
+            padding: 0rem 0.8rem;
         }
     }
     .table {
