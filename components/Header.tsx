@@ -19,6 +19,8 @@ import { handleMenuActive } from "utils/helpers";
 import { Dropdown } from "./common/Dropdown";
 import { NotificationDropdown } from "./notifications/NotificationDropdown";
 
+const LOCATION_PERMISSION_DENIED = "Location permission denied";
+
 const Header = () => {
     const date = format(new Date(), "MMMM d");
     const { data: weather } = useWeather();
@@ -128,6 +130,11 @@ const Header = () => {
                         </nav>
                         <Link href="#!">
                             <a
+                                title={
+                                    !weather
+                                        ? LOCATION_PERMISSION_DENIED
+                                        : undefined
+                                }
                                 className="btn location-btn d-none d-md-inline-block"
                                 style={{ marginRight: "1.6rem" }}
                             >
@@ -144,6 +151,11 @@ const Header = () => {
                         </Link>
                         <Link href="#!">
                             <a
+                                title={
+                                    !weather
+                                        ? LOCATION_PERMISSION_DENIED
+                                        : undefined
+                                }
                                 className="btn location-btn d-none d-md-inline-block"
                                 style={{ marginRight: "1.6rem" }}
                             >
