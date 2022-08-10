@@ -285,23 +285,32 @@
         }
         padding: 0rem;
         padding-right: 2rem;
-        .description {
+        p {
             color: #fff;
-
+            font-weight: 500;
+        }
+        .description {
+            .thumbnail-img {
+                margin-left: 1rem;
+                object-fit: contain;
+            }
             padding-top: 5.1rem;
             padding-bottom: 3.4rem;
             padding-right: 2.2rem;
             padding-left: 2rem;
-
+            p {
+                color: #fff;
+            }
             @include respond(md) {
                 padding-left: 0rem;
             }
             h1 {
                 color: #fff;
                 font-weight: 500;
-                padding-bottom: 3rem;
+                margin-bottom: 3rem;
                 font-size: 2.6rem;
-                color: $sub-title-color;
+                padding-left: 1.6rem;
+                border-left: 0.5rem solid #00d084;
                 @include respond(md) {
                     padding-right: 16rem;
                 }
@@ -317,7 +326,6 @@
             font-weight: 500;
             color: #fff;
             margin-bottom: 0rem;
-            color: $sub-title-color;
         }
         li {
             font-size: 1.3rem;

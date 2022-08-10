@@ -39,12 +39,12 @@ const quality = [
         id: "0",
         title: "Meet with your recruiter",
         desc: "Give us a few details about your project and set up a time to talk with your recruiter.",
-        icon: "/notable/easy.svg",
+        icon: "/notable/reliable.svg",
     },
     {
         id: "1",
         title: "Receive a shortlist",
-        icon: "/notable/reliable.svg",
+        icon: "/notable/easy.svg",
         desc: "Posting a task or getting your work done requires only few easy clicks.",
     },
     {
