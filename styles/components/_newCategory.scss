@@ -9,8 +9,12 @@
             width: 5.6rem;
             border-radius: 0.4rem;
             padding: 0.6rem 1.2rem;
-            background: #752de820;
+            // background: #752de820;
             margin-right: 2.4rem;
+            .thumbnail-icon{
+                width: 100%;
+                height: 100%;
+            }
         }
         .details {
             h1 {

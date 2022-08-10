@@ -6,10 +6,12 @@ import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
+import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
+import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import {
@@ -24,6 +26,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import Marquee from "react-fast-marquee";
 import { blogCardContent } from "staticData/community";
 import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
@@ -66,7 +69,7 @@ const Home: NextPage = () => {
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-5">
-                    <Row className="gx-5">
+                    <Row className="gx-5 hero-content">
                         <Col md="6" className="left">
                             <div className="content">
                                 {/* Hero Text Start Here */}
@@ -146,7 +149,7 @@ const Home: NextPage = () => {
                         </Col>
                     </Row>
                     {/* Service category listing start */}
-                    <Row className="gx-5">
+                    <Row className="gx-5 hero-category">
                         {serviceCategory &&
                             serviceCategory.map((category, index) => {
                                 return (
@@ -154,7 +157,7 @@ const Home: NextPage = () => {
                                         md={3}
                                         sm={6}
                                         key={index}
-                                        className="d-flex align-items-strecth"
+                                        className="d-flex align-items-strecth card-col"
                                     >
                                         <CategoryCardNew
                                             categoryTitle={
@@ -181,22 +184,22 @@ const Home: NextPage = () => {
                 id="cagtu-cipher-buzz-section"
                 className="cagtu-cipher-buzz-section"
             >
-                <Container fluid="xl" className="px-5">
-                    <div className="d-flex justify-content-around list-bar">
-                        <li className="light">Cagtu</li>
-                        <li className="strong">Cipher</li>
-                        <li className="light">Code Sharav</li>
-                        <li className="strong">Buzz</li>
-                        <li className="light">Cipher</li>
-                        <li className="strong">Code Sharav</li>
-                    </div>
-                </Container>
+                {/* <Container fluid="xl" className="px-5"> */}
+                <Marquee gradient={true} className="marquee" speed={40}>
+                    <li className="light">Cagtu</li>
+                    <li className="strong">Cipher</li>
+                    <li className="light">Code Sharav</li>
+                    <li className="strong">Buzz</li>
+                    <li className="light">Cipher</li>
+                    <li className="strong">Code Sharav</li>
+                </Marquee>
+                {/* </Container> */}
             </section>
 
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">
                             Popular Verified Services
                         </h2>
@@ -491,6 +494,17 @@ const Home: NextPage = () => {
             </section>
             {/* Gradient Banner section End */}
 
+            {/* Win new client silder card section start */}
+            <section
+                id="win-new-clients-slider-section"
+                className="win-new-clients-slider-section"
+            >
+                <Container fluid="xl" className="px-5">
+                    <ExploreWithSlider />
+                </Container>
+            </section>
+            {/* Win new client slider card section ends */}
+
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
                 <Container fluid="xl" className="px-5">
@@ -536,6 +550,24 @@ const Home: NextPage = () => {
                     />
                 </Container>
             </section>
+
+            {/* some success stories sectioin start */}
+            <section
+                id="some-success-stories-section"
+                className="some-success-stories-section"
+            >
+                <Container>
+                    <div className="success-sroties-header">
+                        <h1 className="text-center">
+                            3003,0330 Taskers have earned an income on Cipher
+                        </h1>
+                        <h3 className="text-center">Some Success Stories</h3>
+                    </div>
+                    <PersonalSuccessCard />
+                </Container>
+            </section>
+
+            {/* some success stories section end  */}
 
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
