@@ -10,8 +10,8 @@ interface CategoriesPageProps {
 }
 const CategoriesPage = ({ categories }: CategoriesPageProps) => {
     return (
-        <Layout>
-            <Container>
+        <Layout title="Categories | Cipher">
+            <Container fluid="xl">
                 <h2 className="all-categories-title">Cipher Categories</h2>
                 <div className="d-flex justify-content-center all-categories">
                     {categories.map((category, index) => (

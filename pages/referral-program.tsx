@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import CommonCard from "@components/common/CommonCard";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
@@ -17,7 +17,7 @@ const About: NextPage = () => {
         <Layout title="Referral Programs | Cipher">
             <div className="referral-page">
                 <Container fluid="xl" className="px-5">
-                    <Breadcrum currentPage="Referral programs" />
+                    <BreadCrumb currentPage="Referral programs" />
                     <div className="referral-page__top-container">
                         <h1 className='"pt-1'>
                             Spread the word and earn rewards

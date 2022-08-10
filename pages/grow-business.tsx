@@ -1,6 +1,6 @@
 import AboutCard from "@components/common/AboutCard";
 import BlogCard from "@components/common/BlogCard";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import ServiceCard from "@components/common/ServiceCard";
 import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
@@ -21,7 +21,7 @@ const GrowYourBusiness: NextPage = () => {
         <Layout title="Grow Your Business | Cipher">
             <Container fluid="xl" className="px-5">
                 <section className="grow-business">
-                    <Breadcrum currentPage="Grow Your Business" />
+                    <BreadCrumb currentPage="Grow Your Business" />
 
                     {/* Discover top container start */}
                     <section className="grow-business__top-container">

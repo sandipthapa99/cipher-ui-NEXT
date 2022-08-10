@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
 import { ContactListSideBar } from "@components/Message/ContactListSidebar";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
@@ -12,7 +12,7 @@ export const ClientMessagePage = ({
     return (
         <Layout>
             <Container>
-                <Breadcrum currentPage="Messages" />
+                <BreadCrumb currentPage="Messages" />
                 <h4 className="title">Messages</h4>
                 <section className="message-page">
                     <ContactListSideBar contacts={contacts} />

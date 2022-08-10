@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import CategoryCard from "@components/common/CategoryCard";
 import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
@@ -18,7 +18,7 @@ const Gardening = () => {
     return (
         <Layout title={`${categories} | Cipher`}>
             <div className="gardening -page">
-                <Breadcrum currentPage={categories?.toString()} />
+                <BreadCrumb currentPage={categories?.toString()} />
                 <Container fluid="xl">
                     <h1 className="section-title">{categories?.toString()}</h1>
 

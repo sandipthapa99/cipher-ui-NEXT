@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import CategoryCard from "@components/common/CategoryCard";
 import DiscountCard from "@components/common/discountCard";
 import RecommendationChips from "@components/common/RecommendationChips";
@@ -16,9 +16,9 @@ import { services } from "staticData/services";
 const ExploreServices: NextPage = () => {
     return (
         <Layout title="Explore Services | Cipher">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-0 px-sm-5">
                 <section className="explore-services">
-                    <Breadcrum currentPage="Explore Services" />
+                    <BreadCrumb currentPage="Explore Services" />
 
                     {/* Explore top container start */}
                     <section className="explore-services__top-container">
@@ -295,7 +295,14 @@ const ExploreServices: NextPage = () => {
                         {serviceCategory &&
                             serviceCategory.map((category) => {
                                 return (
-                                    <Col xs={6} sm={4} lg={2} key={category.id}>
+                                    <Col
+                                        xs={12}
+                                        sm={6}
+                                        md={4}
+                                        lg={2}
+                                        key={category.id}
+                                        className="d-flex"
+                                    >
                                         <CategoryCard
                                             categoryTitle={
                                                 category.categoryTitle
@@ -310,7 +317,14 @@ const ExploreServices: NextPage = () => {
                         {serviceCategory &&
                             serviceCategory.map((category) => {
                                 return (
-                                    <Col xs={6} sm={4} lg={2} key={category.id}>
+                                    <Col
+                                        xs={12}
+                                        sm={6}
+                                        md={4}
+                                        lg={2}
+                                        key={category.id}
+                                        className="d-flex"
+                                    >
                                         <CategoryCard
                                             categoryTitle={
                                                 category.categoryTitle

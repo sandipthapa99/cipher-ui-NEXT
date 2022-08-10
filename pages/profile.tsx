@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import { Tab } from "@components/common/Tab";
 import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
@@ -20,11 +20,7 @@ const UserProfile: NextPage = () => {
         <Layout title="Profile | Cipher">
             <Container fluid="xl" className="px-5">
                 <section className="user-profile">
-                    <Breadcrum
-                        currentPage="Profile"
-                        subPage="Detail"
-                        hasSubPage={false}
-                    />
+                    <BreadCrumb currentPage="Profile" />
 
                     {/* Explore top container start */}
                     <section className="user-profile__top-container">

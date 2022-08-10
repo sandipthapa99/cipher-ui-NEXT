@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import GradientBanner from "@components/GradientBanner";
@@ -18,7 +18,7 @@ const HowToHire: NextPage = () => {
         <Layout title="How To Hire | Cipher">
             <Container fluid="xl" className="px-5">
                 <section className="how-to-hire">
-                    <Breadcrum currentPage="How To Hire" />
+                    <BreadCrumb currentPage="How To Hire" />
 
                     <div className="how-to-hire__top-container">
                         <Carousel>
