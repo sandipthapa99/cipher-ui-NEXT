@@ -131,7 +131,7 @@ const Header = () => {
                                 className="btn location-btn d-none d-md-inline-block"
                                 style={{ marginRight: "1.6rem" }}
                             >
-                                {weather?.main.temp}°C
+                                {weather ? `${weather.main.temp}°C` : "N/A"}
                             </a>
                         </Link>
                         <Link href="#!">
@@ -147,7 +147,7 @@ const Header = () => {
                                 className="btn location-btn d-none d-md-inline-block"
                                 style={{ marginRight: "1.6rem" }}
                             >
-                                {weather?.name}
+                                {weather?.name ?? "N/A"}
                                 <FontAwesomeIcon
                                     icon={faLocationDot}
                                     className="svg-icon"
