@@ -127,7 +127,7 @@ const Home: NextPage = () => {
 
                             <div className="come-with-us">
                                 <h1>Come with Us For</h1>
-                                <div className="d-flex">
+                                <div className="d-flex flex-column flex-sm-row">
                                     <Link href="/earn-money">
                                         <a href="" className="hero-cta">
                                             Earn Money as a Professional
