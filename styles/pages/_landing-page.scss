@@ -45,12 +45,14 @@
                     justify-content: center;
                     align-items: center;
                     box-shadow: 0 8px 6px -10px #b3c6ff;
+
                     .form-group {
                         margin: 0;
                         flex: 0.3;
                         z-index: 1;
                         font-weight: 500;
                         color: $secondary-text-color;
+
                         .form-control {
                             border: none;
                             height: 3.4rem;
@@ -59,6 +61,7 @@
                             color: $secondary-text-color;
                             cursor: pointer;
                             background: transparent;
+
                             &::placeholder {
                                 color: #868e96;
                                 font-family: $poppins-font;
@@ -72,6 +75,7 @@
                         width: 90%;
                         position: relative;
                         flex: 0.8;
+
                         &:focus,
                         &:active,
                         &:focus-visible {
@@ -158,6 +162,7 @@
 
             .come-with-us {
                 margin-bottom: 4rem;
+
                 @include respond(md) {
                     margin-bottom: 8rem;
                 }
@@ -167,6 +172,7 @@
                     font-weight: 400;
                     color: $primary-color;
                     margin: 3.2rem 0 1.4rem 0;
+
                     @include respond(md) {
                         font-size: 3.2rem;
                         margin: 6.4rem 0 2rem 0;
@@ -181,6 +187,7 @@
                     font-size: 1.2rem;
                     font-weight: 500;
                     margin-top: 2rem;
+
                     @include respond(md) {
                         font-size: 2rem;
                         padding: 1rem 4rem;
@@ -197,6 +204,7 @@
                         background: none;
                         border: 1px solid #211d4f;
                         color: $primary-color;
+
                         @include respond(md) {
                             margin-right: 3rem;
                         }
@@ -218,40 +226,47 @@
             }
         }
     }
-    .hero-category{
-        .card-col {
-            &:nth-child(4n + 1) {
-                .hero-category__card-block {
-                    .image-block {
-                        background: #752de8;
+
+    .hero-category {
+        .mantine-Carousel-root {
+            .mantine-Carousel-slide {
+                &:nth-child(4n + 1) {
+                    .hero-category__card-block {
+                        .image-block {
+                            background: #752de8;
+                        }
                     }
                 }
-            }
-            &:nth-child(4n + 2) {
-                .hero-category__card-block {
-                    .image-block {
-                        background: #ff9700;
+
+                &:nth-child(4n + 2) {
+                    .hero-category__card-block {
+                        .image-block {
+                            background: #ff9700;
+                        }
                     }
                 }
-            }
-            &:nth-child(4n + 3) {
-                .hero-category__card-block {
-                    .image-block {
-                        background: #fe5050;
+
+                &:nth-child(4n + 3) {
+                    .hero-category__card-block {
+                        .image-block {
+                            background: #fe5050;
+                        }
                     }
                 }
-            }
-            &:nth-child(4n + 4) {
-                .hero-category__card-block {
-                    .image-block {
-                        background: #38c675;
+
+                &:nth-child(4n + 4) {
+                    .hero-category__card-block {
+                        .image-block {
+                            background: #38c675;
+                        }
                     }
                 }
-            }
-            &:nth-child(4n + 4) {
-                .hero-category__card-block {
-                    .image-block {
-                        background: #0693E3;
+
+                &:nth-child(4n + 4) {
+                    .hero-category__card-block {
+                        .image-block {
+                            background: #0693e3;
+                        }
                     }
                 }
             }
@@ -261,12 +276,14 @@
 
 .get-services {
     margin: 4rem 0 9rem;
+
     ul {
         margin-bottom: 4rem;
 
         li {
             margin-right: 0;
             margin-bottom: 2rem;
+
             @include respond(md) {
                 margin-right: 8rem;
             }
@@ -283,7 +300,8 @@
             }
         }
     }
-    .hero-category{
+
+    .hero-category {
         .card-col {
             &:nth-child(4n + 1) {
                 .hero-category__card-block {
@@ -292,6 +310,7 @@
                     }
                 }
             }
+
             &:nth-child(4n + 2) {
                 .hero-category__card-block {
                     .image-block {
@@ -299,6 +318,7 @@
                     }
                 }
             }
+
             &:nth-child(4n + 3) {
                 .hero-category__card-block {
                     .image-block {
@@ -306,6 +326,7 @@
                     }
                 }
             }
+
             &:nth-child(4n + 4) {
                 .hero-category__card-block {
                     .image-block {
@@ -313,10 +334,11 @@
                     }
                 }
             }
+
             &:nth-child(4n + 4) {
                 .hero-category__card-block {
                     .image-block {
-                        background: #0693E3;
+                        background: #0693e3;
                     }
                 }
             }
@@ -346,38 +368,48 @@
         position: relative;
     }
 }
+
 .notable-quality {
     margin-top: 5rem;
     /* Container */
     margin: 5rem 0rem;
+
     .long-square-image-card {
         background: #0693e3;
     }
+
     .card-content {
         .thumbnail-img {
             border-radius: 0rem;
         }
+
         padding: 0rem;
         padding-right: 2rem;
+
         p {
             color: #fff;
             font-weight: 500;
         }
+
         .description {
             .thumbnail-img {
                 margin-left: 1rem;
                 object-fit: contain;
             }
+
             padding-top: 5.1rem;
             padding-bottom: 3.4rem;
             padding-right: 2.2rem;
             padding-left: 2rem;
+
             p {
                 color: #fff;
             }
+
             @include respond(md) {
                 padding-left: 0rem;
             }
+
             h1 {
                 color: #fff;
                 font-weight: 500;
@@ -385,6 +417,7 @@
                 font-size: 2.6rem;
                 padding-left: 1.6rem;
                 border-left: 0.5rem solid #00d084;
+
                 @include respond(md) {
                     padding-right: 16rem;
                 }
@@ -395,12 +428,14 @@
     .list {
         padding-bottom: 3rem;
         padding-left: 2rem;
+
         h6 {
             font-size: 1.6rem;
             font-weight: 500;
             color: #fff;
             margin-bottom: 0rem;
         }
+
         li {
             font-size: 1.3rem;
             line-height: 2rem;
@@ -409,6 +444,7 @@
         }
     }
 }
+
 .tax-calculator {
     .gradient-wrapper {
         position: relative;
@@ -418,11 +454,9 @@
             position: absolute;
             height: 36.8rem;
             width: 100%;
-            background: linear-gradient(
-                90.3deg,
-                #ecf7ff 37.14%,
-                rgba(255, 255, 255, 0) 75.06%
-            );
+            background: linear-gradient(90.3deg,
+                    #ecf7ff 37.14%,
+                    rgba(255, 255, 255, 0) 75.06%);
             opacity: 0.9;
         }
 
@@ -433,6 +467,7 @@
             border-radius: 0.4rem;
             width: 100%;
         }
+
         .overlay {
             position: absolute;
             opacity: 0.9;
@@ -472,6 +507,7 @@
                 font-size: 4rem;
                 font-weight: 400;
                 line-height: 6rem;
+
                 span {
                     font-weight: 600;
                 }
@@ -498,6 +534,7 @@
                     font-weight: 500;
                     margin-bottom: 3.7rem;
                     line-height: 2.5rem;
+
                     @include respond(xxs) {
                         font-size: 1.4rem;
                     }

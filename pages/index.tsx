@@ -20,6 +20,7 @@ import {
     faSearch,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Carousel } from "@mantine/carousel";
 import { Formik } from "formik";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
@@ -155,24 +156,37 @@ const Home: NextPage = () => {
                     </Row>
                     {/* Service category listing start */}
                     <Row className="gx-5 hero-category">
-                        {serviceCategory &&
-                            serviceCategory.map((category, index) => {
-                                return (
-                                    <Col
-                                        md={3}
-                                        sm={6}
-                                        key={index}
-                                        className="d-flex align-items-strecth card-col"
-                                    >
-                                        <CategoryCardNew
-                                            categoryTitle={
-                                                category.categoryTitle
-                                            }
-                                            categoryIcon={category.categoryIcon}
-                                        />
-                                    </Col>
-                                );
-                            })}
+                        <Carousel
+                            height={100}
+                            slideSize="25%"
+                            slideGap="md"
+                            breakpoints={[
+                                { maxWidth: "md", slideSize: "50%" },
+                                {
+                                    maxWidth: "sm",
+                                    slideSize: "100%",
+                                    slideGap: 3,
+                                },
+                            ]}
+                            loop
+                            align="start"
+                        >
+                            {serviceCategory &&
+                                serviceCategory.map((category) => {
+                                    return (
+                                        <Carousel.Slide key={category.id}>
+                                            <CategoryCardNew
+                                                categoryTitle={
+                                                    category.categoryTitle
+                                                }
+                                                categoryIcon={
+                                                    category.categoryIcon
+                                                }
+                                            />
+                                        </Carousel.Slide>
+                                    );
+                                })}
+                        </Carousel>
                     </Row>
 
                     {/* Service category listing end */}
@@ -376,6 +390,7 @@ const Home: NextPage = () => {
                             serviceCategory.map((category) => {
                                 return (
                                     <Col
+                                        lg={3}
                                         md={4}
                                         sm={6}
                                         key={category.id}
