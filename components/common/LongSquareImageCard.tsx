@@ -21,8 +21,6 @@ const LongSquareImageCard = ({
     buttonText,
     homeImage,
 }: CardProps) => {
-    console.log(description);
-
     return (
         <div className="long-square-image-card">
             <Row className="gx-5 card-content">
@@ -45,15 +43,37 @@ const LongSquareImageCard = ({
                                     {subtitle && <h4>{subtitle}</h4>}
                                     {Array.isArray(description) ? (
                                         <ul>
-                                            {description.map((info: any) => (
-                                                <div
-                                                    className="list"
-                                                    key={info.id}
-                                                >
-                                                    <h6>{info.title}</h6>
-                                                    <li>{info.desc}</li>
-                                                </div>
-                                            ))}
+                                            {description.map(
+                                                (info: any, index) => (
+                                                    <div
+                                                        className="d-flex"
+                                                        key={index}
+                                                    >
+                                                        {info.icon ? (
+                                                            <figure className="thumbnail-img">
+                                                                <Image
+                                                                    src={
+                                                                        info.icon
+                                                                    }
+                                                                    layout="fill"
+                                                                    objectFit="cover"
+                                                                    alt="icon-image"
+                                                                />
+                                                            </figure>
+                                                        ) : (
+                                                            ""
+                                                        )}
+
+                                                        <div
+                                                            className="list"
+                                                            key={info.id}
+                                                        >
+                                                            <p>{info.title}</p>
+                                                            <li>{info.desc}</li>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            )}
                                         </ul>
                                     ) : (
                                         <p>{description}</p>
@@ -77,15 +97,36 @@ const LongSquareImageCard = ({
                                     {subtitle && <h4>{subtitle}</h4>}
                                     {Array.isArray(description) ? (
                                         <ul>
-                                            {description.map((info: any) => (
-                                                <div
-                                                    className="list"
-                                                    key={info.id}
-                                                >
-                                                    <p>{info.title}</p>
-                                                    <li>{info.desc}</li>
-                                                </div>
-                                            ))}
+                                            {description.map(
+                                                (info: any, index) => (
+                                                    <div
+                                                        className="d-flex"
+                                                        key={index}
+                                                    >
+                                                        {info.icon ? (
+                                                            <figure className="thumbnail-img">
+                                                                <Image
+                                                                    src={
+                                                                        info.icon
+                                                                    }
+                                                                    layout="fill"
+                                                                    objectFit="cover"
+                                                                    alt="icon-image"
+                                                                />
+                                                            </figure>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                        <div
+                                                            className="list"
+                                                            key={info.id}
+                                                        >
+                                                            <p>{info.title}</p>
+                                                            <li>{info.desc}</li>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            )}
                                         </ul>
                                     ) : (
                                         <p>{description}</p>

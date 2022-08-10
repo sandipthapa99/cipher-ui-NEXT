@@ -12,16 +12,19 @@ const waysToHire = [
     {
         id: "0",
         title: "Meet with your recruiter",
+
         desc: "Give us a few details about your project and set up a time to talk with your recruiter.",
     },
     {
         id: "1",
+
         title: "Receive a shortlist",
         desc: "Posting a task or getting your work done requires only few easy clicks.",
     },
     {
         id: "2",
         title: "Select and hire",
+
         desc: "Choose the best fit for your team.",
     },
 ];

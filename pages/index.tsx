@@ -4,6 +4,7 @@ import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
+import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
 import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
 import RecommendationChips from "@components/common/RecommendationChips";
@@ -35,6 +36,27 @@ import { tasks } from "staticData/task";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
+
+const quality = [
+    {
+        id: "0",
+        title: "Meet with your recruiter",
+        desc: "Give us a few details about your project and set up a time to talk with your recruiter.",
+        icon: "/notable/reliable.svg",
+    },
+    {
+        id: "1",
+        title: "Receive a shortlist",
+        icon: "/notable/easy.svg",
+        desc: "Posting a task or getting your work done requires only few easy clicks.",
+    },
+    {
+        id: "2",
+        title: "Select and hire",
+        icon: "/notable/secure.svg",
+        desc: "Choose the best fit for your team.",
+    },
+];
 
 const Home: NextPage = () => {
     const [postTaskPopup, setPostTaskPopup] = useState(true);
@@ -162,16 +184,16 @@ const Home: NextPage = () => {
                 id="cagtu-cipher-buzz-section"
                 className="cagtu-cipher-buzz-section"
             >
-                <Container fluid="xl" className="px-5">
-                    <Marquee gradient={false} className="marquee">
-                        <li className="light">Cagtu</li>
-                        <li className="strong">Cipher</li>
-                        <li className="light">Code Sharav</li>
-                        <li className="strong">Buzz</li>
-                        <li className="light">Cipher</li>
-                        <li className="strong">Code Sharav</li>
-                    </Marquee>
-                </Container>
+                {/* <Container fluid="xl" className="px-5"> */}
+                <Marquee gradient={true} className="marquee" speed={40}>
+                    <li className="light">Cagtu</li>
+                    <li className="strong">Cipher</li>
+                    <li className="light">Code Sharav</li>
+                    <li className="strong">Buzz</li>
+                    <li className="light">Cipher</li>
+                    <li className="strong">Code Sharav</li>
+                </Marquee>
+                {/* </Container> */}
             </section>
 
             {/* Popular verified services section start */}
@@ -518,6 +540,16 @@ const Home: NextPage = () => {
                 </Container>
             </section>
             {/* Tasks you may like section end */}
+            <section id="notable-quality" className="notable-quality">
+                <Container fluid="xl" className="px-5">
+                    <LongSquareImageCard
+                        title="Cipher Notable quality"
+                        image="/groupB.png"
+                        imageOnRight={true}
+                        description={quality}
+                    />
+                </Container>
+            </section>
 
             {/* some success stories sectioin start */}
             <section
