@@ -2,6 +2,7 @@ import Breadcrum from "@components/common/Breadcrum";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
+import SaveIcon from "@components/common/SaveIcon";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import ServiceHighlights from "@components/common/ServiceHighlights";
@@ -49,10 +50,7 @@ const ServiceDetail: NextPage = () => {
                                     </p>
                                     <div className="reactions">
                                         <div className="d-flex flex-col save">
-                                            <FontAwesomeIcon
-                                                icon={faHeart}
-                                                className="svg-icon heart"
-                                            />
+                                            <SaveIcon />
                                             <p className="name">Save</p>
                                         </div>
                                         <div className="d-flex flex-col share">
