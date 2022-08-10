@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
@@ -83,7 +83,7 @@ const TaxCalculator: NextPage = () => {
         <Layout title="Tax-Calculator | Cipher">
             <section className="tax-calculator ">
                 <Container fluid="xl" className="px-5">
-                    <Breadcrum currentPage="Tax Calculator" />
+                    <BreadCrumb currentPage="Tax Calculator" />
                     <div className="card-block">
                         <div className="header">
                             <h1>Tax Calculator</h1>

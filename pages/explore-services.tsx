@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import CategoryCard from "@components/common/CategoryCard";
 import DiscountCard from "@components/common/discountCard";
 import RecommendationChips from "@components/common/RecommendationChips";
@@ -18,7 +18,7 @@ const ExploreServices: NextPage = () => {
         <Layout title="Explore Services | Cipher">
             <Container fluid="xl" className="px-5">
                 <section className="explore-services">
-                    <Breadcrum currentPage="Explore Services" />
+                    <BreadCrumb currentPage="Explore Services" />
 
                     {/* Explore top container start */}
                     <section className="explore-services__top-container">

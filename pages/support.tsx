@@ -1,3 +1,4 @@
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
@@ -14,7 +15,8 @@ const Support = () => {
     return (
         <>
             <Layout title="Feedback | Cipher">
-                <Container>
+                <BreadCrumb currentPage="Feedback" />
+                <Container fluid="xl">
                     <section className="site-feedback">
                         <Row className="gx-5">
                             <Col md={6} className="d-none d-md-flex">

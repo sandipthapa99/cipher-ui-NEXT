@@ -13,10 +13,13 @@ export const BreadCrumb = ({ currentPage }: breadCrumbProps) => {
     const breadCrumbRoutes = routes.slice(0, routes.length - 1);
     return (
         <section id="breadcrumb-section" className="breadcrumb-section">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl">
                 <Breadcrumb>
                     <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-                    <FontAwesomeIcon icon={faChevronRight} />
+                    <FontAwesomeIcon
+                        icon={faChevronRight}
+                        className="svg-icon me-0"
+                    />
                     {breadCrumbRoutes.map((route, key) => (
                         <span key={key}>
                             <Link href={`/${route.toLowerCase()}`}>
@@ -24,7 +27,7 @@ export const BreadCrumb = ({ currentPage }: breadCrumbProps) => {
                             </Link>
                             <FontAwesomeIcon
                                 icon={faChevronRight}
-                                className="ps-3"
+                                className="svg-icon me-0 ps-3"
                             />
                         </span>
                     ))}

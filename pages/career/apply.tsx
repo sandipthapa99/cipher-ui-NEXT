@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import FileInputField from "@components/common/FileInputField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
@@ -20,7 +20,7 @@ const Apply = () => {
     const { mutate } = useForm("/career");
     return (
         <Layout title="Cipher | Apply">
-            <Breadcrum currentPage="Apply" />
+            <BreadCrumb currentPage="Apply" />
             <section id="career-apply-section" className="career-apply-section">
                 <Container fluid="xl">
                     <div className="apply-form">
