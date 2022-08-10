@@ -13,6 +13,7 @@ import { useCurrency } from "hooks/currency/currency";
 import { useLanguage } from "hooks/language/useLanguage";
 import { useProfile } from "hooks/profile/profile";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -51,6 +52,7 @@ const AccountForm = () => {
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: country } = useCountry();
+    const router = useRouter();
     const currencyResults = currency?.result.map((result) => ({
         label: result.name,
         value: result.current_value,
@@ -58,12 +60,12 @@ const AccountForm = () => {
     }));
     const languageResults = language?.result.map((result) => ({
         label: result.name,
-        value: result.name,
+        value: result.id,
         id: result.id,
     }));
     const countryResults = country?.result.map((result) => ({
         label: result.name,
-        value: result.name,
+        value: result.id,
         id: result.id,
     }));
     // console.log(language);
@@ -91,10 +93,15 @@ const AccountForm = () => {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
                             skill: JSON.stringify(values.skill),
+                            active_hour_start:
+                                values.active_hour_start?.toLocaleTimeString(),
+                            active_hour_end:
+                                values.active_hour_end?.toLocaleTimeString(),
                         };
                         mutate(newValidatedValues, {
                             onSuccess: () => {
                                 setShowSuccessModal(true);
+                                router.push("/profile");
                                 action.resetForm();
                             },
                             onError: (err) => {
@@ -169,6 +176,7 @@ const AccountForm = () => {
                                     <DatePickerField
                                         name="active_hour_start"
                                         labelName="From"
+                                        dateFormat="HH:mm aa"
                                         placeHolder="dd/mm/yy"
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
@@ -179,6 +187,7 @@ const AccountForm = () => {
                                     <DatePickerField
                                         name="active_hour_end"
                                         labelName="To"
+                                        dateFormat="HH:mm aa"
                                         placeHolder="dd/mm/yy"
                                         touch={touched.active_hour_end}
                                         error={errors.active_hour_end}

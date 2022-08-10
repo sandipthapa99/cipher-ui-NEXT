@@ -122,14 +122,14 @@ export const SkillsFromData: SkillsValueProps = {
 
 export const AccountFromData: AccountValueProps = {
     full_name: "",
-    phone: 1234567890,
+    phone: Math.floor(Math.random() * 1000000000),
     email: "",
     bio: "",
     gender: "",
     date_of_birth: null,
     skill: "",
     experience: "",
-    active_hour_start: "",
+    active_hour_start: null,
     active_hour_end: null,
     hourly_rate: 15,
     user_type: "",

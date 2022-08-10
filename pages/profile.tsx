@@ -14,6 +14,7 @@ import { Container } from "react-bootstrap";
 import { userProfileCardInfo } from "staticData/userProfileCard";
 
 const UserProfile: NextPage = () => {
+    const { data } = useGetProfile();
     const [activeTabIdx, setActiveTabIdx] = useState(0);
 
     return (

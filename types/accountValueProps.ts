@@ -7,8 +7,8 @@ export interface AccountValueProps {
     date_of_birth: string | null;
     skill: string;
     experience: string;
-    active_hour_start: string;
-    active_hour_end: string | null;
+    active_hour_start: Date | null;
+    active_hour_end: Date | null;
     hourly_rate: number;
     user_type: string;
     country: string;
