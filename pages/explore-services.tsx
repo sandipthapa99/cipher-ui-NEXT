@@ -21,7 +21,7 @@ const ExploreServices: NextPage = () => {
                     <BreadCrumb currentPage="Explore Services" />
 
                     {/* Explore top container start */}
-                    <section className="explore-services__top-container">
+                    <div className="explore-services__top-container">
                         <div className="gradient"></div>
                         <figure className="thumbnail-img">
                             <Image
@@ -59,10 +59,10 @@ const ExploreServices: NextPage = () => {
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
                     {/* Explore top container end */}
                     {/* Explore special offer section start */}
-                    <section className="explore-services__offers">
+                    <div className="explore-services__offers">
                         <h1>Special Offers &amp; Discount</h1>
 
                         <Row className="gx-5">
@@ -76,11 +76,11 @@ const ExploreServices: NextPage = () => {
                                 <DiscountCard />
                             </Col>
                         </Row>
-                    </section>
+                    </div>
                     {/* explore special offer section end */}
 
                     {/* Services near you section start */}
-                    <section
+                    <div
                         id="services-near-you"
                         className="explore-services__services"
                     >
@@ -169,11 +169,11 @@ const ExploreServices: NextPage = () => {
                                     );
                                 })}
                         </Row>
-                    </section>
+                    </div>
                     {/* Services near you section end */}
 
                     {/* Advertisements section start */}
-                    <section
+                    <div
                         className="explore-services__advertisement"
                         id="advertisement"
                     >
@@ -185,11 +185,11 @@ const ExploreServices: NextPage = () => {
                                 alt="earth-image"
                             />
                         </figure>
-                    </section>
+                    </div>
                     {/* Advertisement section end */}
 
                     {/* Services near you section start */}
-                    <section
+                    <div
                         id="services-near-you"
                         className="explore-services__services"
                     >
@@ -278,7 +278,7 @@ const ExploreServices: NextPage = () => {
                                     );
                                 })}
                         </Row>
-                    </section>
+                    </div>
                     {/* Services near you section end */}
                 </section>
             </Container>

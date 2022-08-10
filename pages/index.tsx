@@ -127,7 +127,7 @@ const Home: NextPage = () => {
 
                             <div className="come-with-us">
                                 <h1>Come with Us For</h1>
-                                <div className="d-flex">
+                                <div className="d-flex buttons">
                                     <Link href="/earn-money">
                                         <a href="" className="hero-cta">
                                             Earn Money as a Professional
@@ -449,8 +449,9 @@ const Home: NextPage = () => {
                             merchants.map((merchant) => {
                                 return (
                                     <Col
+                                        md={6}
+                                        lg={3}
                                         sm={6}
-                                        lg={4}
                                         xl={3}
                                         key={merchant.id}
                                         className="d-flex"

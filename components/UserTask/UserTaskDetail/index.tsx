@@ -1,4 +1,7 @@
+import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { GoBack } from "@components/common/GoBack";
+import SaveIcon from "@components/common/SaveIcon";
+import ShareIcon from "@components/common/ShareIcon";
 import { OffererCard } from "@components/UserTask/UserTaskDetail/atoms/OffererCard";
 import { QnA } from "@components/UserTask/UserTaskDetail/atoms/QnA";
 import { ReadMore } from "@components/UserTask/UserTaskDetail/atoms/ReadMore";
@@ -9,9 +12,7 @@ import {
     faCalendar,
     faClock,
     faEllipsisVertical,
-    faHeart,
     faLocation,
-    faShare,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { UserTask } from "staticData/userTasks";
@@ -32,26 +33,20 @@ export const UserTaskDetail = ({ task, onExitTask }: UserTaskDetailProps) => {
                     </p>
                     <div className="user-task-detail__header--icons">
                         <div className="icon-text">
-                            <FontAwesomeIcon
-                                className="svg-icon"
-                                color="#FE5050"
-                                icon={faHeart}
-                            />
+                            <SaveIcon />
                             <span>Save</span>
                         </div>
                         <div className="icon-text">
-                            <FontAwesomeIcon
-                                className="svg-icon"
-                                color="#3EAEFF"
-                                icon={faShare}
-                            />
+                            <ShareIcon />
                             <span>Share</span>
                         </div>
-                        <FontAwesomeIcon
-                            className="svg-icon"
-                            color="#000000"
-                            icon={faEllipsisVertical}
-                        />
+                        <EllipsisDropdown>
+                            <FontAwesomeIcon
+                                className="svg-icon"
+                                color="#000000"
+                                icon={faEllipsisVertical}
+                            />
+                        </EllipsisDropdown>
                     </div>
                 </div>
                 <div className="user-task-detail__offerer">

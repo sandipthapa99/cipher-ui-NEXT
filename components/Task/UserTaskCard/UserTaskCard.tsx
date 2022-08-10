@@ -1,9 +1,9 @@
 import BigButton from "@components/common/Button";
+import SaveIcon from "@components/common/SaveIcon";
+import ShareIcon from "@components/common/ShareIcon";
 import {
     faEllipsisVertical,
-    faHeart,
     faRibbon,
-    faShare,
     faSmile,
     faStar,
 } from "@fortawesome/pro-regular-svg-icons";
@@ -81,16 +81,8 @@ export const UserTaskCard = ({
             <p className="td-text user-info__bio">{task.user.bio}</p>
             <div className="d-flex justify-content-between user-task-card__footer">
                 <div className="icons">
-                    <FontAwesomeIcon
-                        color="#FE5050"
-                        className="svg-icon"
-                        icon={faHeart}
-                    />
-                    <FontAwesomeIcon
-                        color="#3EAEFF"
-                        className="svg-icon"
-                        icon={faShare}
-                    />
+                    <SaveIcon />
+                    <ShareIcon />
                 </div>
                 {isButton === true && (
                     <BigButton
