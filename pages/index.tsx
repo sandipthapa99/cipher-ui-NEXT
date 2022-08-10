@@ -2,7 +2,7 @@ import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
 import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
 import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
-import { CategoriesListingHomepage } from "@components/common/CategoriesListingHomepage";
+
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
 import MerchantCard from "@components/common/MerchantCard";
@@ -22,6 +22,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -36,6 +37,10 @@ import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
 
+const CategoriesListingHomepage = dynamic(
+    () => import("components/common/CategoriesListingHomepage"),
+    { ssr: false }
+);
 const Home: NextPage = () => {
     const [postTaskPopup, setPostTaskPopup] = useState(true);
 
