@@ -21,8 +21,6 @@ const LongSquareImageCard = ({
     buttonText,
     homeImage,
 }: CardProps) => {
-    console.log(description);
-
     return (
         <div className="long-square-image-card">
             <Row className="gx-5 card-content">
