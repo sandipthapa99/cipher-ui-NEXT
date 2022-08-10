@@ -16,7 +16,7 @@ import { services } from "staticData/services";
 const ExploreServices: NextPage = () => {
     return (
         <Layout title="Explore Services | Cipher">
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-0 px-sm-5">
                 <section className="explore-services">
                     <BreadCrumb currentPage="Explore Services" />
 
@@ -295,7 +295,14 @@ const ExploreServices: NextPage = () => {
                         {serviceCategory &&
                             serviceCategory.map((category) => {
                                 return (
-                                    <Col xs={6} sm={4} lg={2} key={category.id}>
+                                    <Col
+                                        xs={12}
+                                        sm={6}
+                                        md={4}
+                                        lg={2}
+                                        key={category.id}
+                                        className="d-flex"
+                                    >
                                         <CategoryCard
                                             categoryTitle={
                                                 category.categoryTitle
@@ -310,7 +317,14 @@ const ExploreServices: NextPage = () => {
                         {serviceCategory &&
                             serviceCategory.map((category) => {
                                 return (
-                                    <Col xs={6} sm={4} lg={2} key={category.id}>
+                                    <Col
+                                        xs={12}
+                                        sm={6}
+                                        md={4}
+                                        lg={2}
+                                        key={category.id}
+                                        className="d-flex"
+                                    >
                                         <CategoryCard
                                             categoryTitle={
                                                 category.categoryTitle
