@@ -1,0 +1,67 @@
+.win-new-clients-slider-section {
+    .explore-with-slider {
+        .carousel {
+            .carousel-indicators [data-bs-target] {
+                border-radius: 50%;
+                height: 1rem !important;
+                background-color: #dee2e6;
+                width: 1rem !important;
+                right: 0;
+                margin-right: 1rem;
+
+                bottom: 2.5rem;
+            }
+
+            .carousel-indicators .active {
+                background-color: $secondary-color !important;
+            }
+
+            .carousel-control-prev-icon {
+                display: none;
+            }
+            .carousel-control-next-icon {
+                height: 3.4rem;
+                width: 3.4rem;
+                outline: none;
+                background-color: #211d4f;
+                background-size: 50%;
+                border-radius: 50%;
+                position: absolute;
+                right: 4rem;
+                bottom: 3.2rem;
+            }
+        }
+        .win-client-card {
+            box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 4px;
+
+            .win-client-card-content {
+                display: flex;
+                height: 100%;
+                width: 100%;
+                padding: 4rem 8rem;
+
+                h1 {
+                    font: 500 4rem $poppins-font;
+                    margin: 0 0 2.4rem;
+                }
+
+                p {
+                    font: 500 1.6rem $poppins-font;
+                    color: #495057;
+                }
+
+                button {
+                    width: 17rem;
+                    height: 4rem;
+                    background: #211d4f !important;
+
+                    span {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}

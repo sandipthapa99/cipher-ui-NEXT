@@ -16,6 +16,7 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useState } from "react";
@@ -23,6 +24,7 @@ import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
+import { axiosClient } from "utils/axiosClient";
 
 import { TaskersTab } from "./TaskersTab";
 import { TeamMembersSection } from "./TeamMembersSection";
@@ -31,6 +33,14 @@ import { TimelineTab } from "./TimelineTab";
 const AppliedTaskDetail: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
+
+    const slug = "knarkngir-nkanf";
+
+    const { data: taskDetail } = useQuery(["task-detail", slug], async () => {
+        await axiosClient.get(`/task/task/${slug}`);
+    });
+
+    console.log("taskDetail", taskDetail);
 
     const handleShowModal = () => {
         setShowModal(true);
