@@ -22,6 +22,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -58,6 +59,10 @@ const quality = [
     },
 ];
 
+const CategoriesListingHomepage = dynamic(
+    () => import("components/common/CategoriesListingHomepage"),
+    { ssr: false }
+);
 const Home: NextPage = () => {
     const [postTaskPopup, setPostTaskPopup] = useState(true);
 
