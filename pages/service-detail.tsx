@@ -35,7 +35,7 @@ const ServiceDetail: NextPage = () => {
             <Container fluid="xl" className="px-5">
                 <section className="service-details">
                     {/* Explore top container start */}
-                    <section className="service-details__top-container">
+                    <div className="service-details__top-container">
                         <h1>Garden Cleaning</h1>
                         <Row className="gx-5">
                             <Col md={8}>
@@ -94,9 +94,9 @@ const ServiceDetail: NextPage = () => {
                                     ))}
                             </Col>
                         </Row>
-                    </section>
+                    </div>
                     {/* Explore top container end */}
-                    <section className="service-details__description">
+                    <div className="service-details__description">
                         <Row className="gx-5">
                             <Col md={8}>
                                 <h1>Description</h1>
@@ -121,9 +121,9 @@ const ServiceDetail: NextPage = () => {
                                 </div>
                             </Col>
                         </Row>
-                    </section>
+                    </div>
                     {/* Service details highlights section start*/}
-                    <section className="service-details__highlights">
+                    <div className="service-details__highlights">
                         <h1>Highlights</h1>
 
                         <Row className="content gx-5 flex-column">
@@ -137,7 +137,7 @@ const ServiceDetail: NextPage = () => {
                                     // </div>
                                 ))}
                         </Row>
-                    </section>
+                    </div>
                     {/* Service details highlights section end*/}
                     {/* Service details package and offers start */}
                     <section className="service-details__offers">
