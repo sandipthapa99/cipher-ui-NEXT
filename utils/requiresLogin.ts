@@ -25,15 +25,15 @@ export const requiresAuth = async <T = void>({
     redirectURL,
     getProps,
 }: RequiresAuth<T>) => {
-    const { access } = nookies.get(context, "access");
-    if (access === undefined) return redirectTo(redirectURL);
-    const user = await UserService.fetchUser({ type: "server", context });
-    if (!user) return redirectTo(redirectURL);
-    if (getProps) {
-        return {
-            props: getProps(),
-        };
-    }
+    // const { access } = nookies.get(context, "access");
+    // if (access === undefined) return redirectTo(redirectURL);
+    // const user = await UserService.fetchUser({ type: "server", context });
+    // if (!user) return redirectTo(redirectURL);
+    // if (getProps) {
+    //     return {
+    //         props: getProps(),
+    //     };
+    // }
     return {
         props: {},
     };

@@ -3,8 +3,8 @@
     overflow: hidden scroll;
     position: sticky;
     @include media("<=tablet") {
-        max-height: auto;
-        overflow: auto;
+        max-height: unset;
+        overflow: unset;
     }
     margin-bottom: 5rem;
 }
