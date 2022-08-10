@@ -1,6 +1,7 @@
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import Link from "next/link";
 import type { CategoryCardProps } from "types/categoryCard";
 
 const CategoryCardNew = ({
@@ -9,7 +10,7 @@ const CategoryCardNew = ({
 }: CategoryCardProps) => {
     return (
         <div className="hero-category__card-block d-inline-block flex-row">
-            <div className="wrapper d-flex">
+            <div className="wrapper d-flex flex-row">
                 <div className="image-block">
                     <figure className="thumbnail-icon">
                         <Image
@@ -22,13 +23,19 @@ const CategoryCardNew = ({
                 </div>
                 <div className="details d-flex flex-column">
                     <h1>{categoryTitle}</h1>
-                    <a href="">
-                        {categoryTitle} related services
-                        <FontAwesomeIcon icon={faArrowRight} className="icon" />
-                    </a>
+                    <div className="d-flex justify-content-between">
+                        <Link href="">
+                            <a className="d-flex">
+                                <span>{categoryTitle} related services</span>
+                                <FontAwesomeIcon
+                                    icon={faArrowRight}
+                                    className="icon"
+                                />
+                            </a>
+                        </Link>
+                    </div>
                 </div>
             </div>
-            <p></p>
         </div>
     );
 };

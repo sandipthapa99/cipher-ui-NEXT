@@ -371,11 +371,16 @@ const Home: NextPage = () => {
                         </li>
                     </ul>
 
-                    <Row className="gx-5">
+                    <Row className="gx-5 hero-category">
                         {serviceCategory &&
                             serviceCategory.map((category) => {
                                 return (
-                                    <Col md={3} sm={6} key={category.id}>
+                                    <Col
+                                        md={4}
+                                        sm={6}
+                                        key={category.id}
+                                        className="d-flex align-items-strecth card-col"
+                                    >
                                         <CategoryCardNew
                                             categoryTitle={
                                                 category.categoryTitle
