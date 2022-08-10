@@ -2,6 +2,14 @@ section {
     margin-bottom: 5rem;
 }
 .service-details {
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 500;
+
+        @include respond(xs) {
+            font-size: 1.6rem;
+        }
+    }
     section {
         margin-bottom: 0rem;
     }
@@ -17,12 +25,12 @@ section {
         section {
             margin-bottom: 0rem;
         }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 500;
-        }
+        // h1 {
+        //     font-size: 2.5rem;
+        //     font-weight: 500;
+        // }
         .gardener-col {
-            // margin-top: 2rem;
+            margin-top: 2rem;
             @include respond(md) {
                 margin-top: 0rem;
             }
@@ -91,6 +99,9 @@ section {
         h1 {
             font-size: 2rem;
             font-weight: 500;
+            @include respond(xs) {
+                font-size: 1.6rem;
+            }
         }
         p {
             font-size: 1.3rem;
@@ -110,6 +121,9 @@ section {
         h1 {
             font-size: 2rem;
             font-weight: 500;
+            @include respond(xs) {
+                font-size: 1.6rem;
+            }
         }
         .label {
             font-size: 1.3rem;
@@ -126,6 +140,9 @@ section {
         h1 {
             font-size: 2rem;
             font-weight: 500;
+            @include respond(xs) {
+                font-size: 1.6rem;
+            }
         }
     }
     &__reviews {
@@ -138,10 +155,14 @@ section {
 
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
             border-top: 1px solid #dde2f1;
             border-bottom: 1px solid #dde2f1;
             padding: 1.8rem 0rem;
+
+            @include respond(md) {
+                flex-direction: row;
+            }
             h3 {
                 font-size: 1.9rem;
                 color: $primary-color;
@@ -156,7 +177,11 @@ section {
 
             .form-group {
                 margin: 0;
-                flex: 0.4;
+                flex: 0.6;
+
+                @include respond(md) {
+                    flex: 0.4;
+                }
                 z-index: 1;
                 background: rgba(255, 255, 255, 0.8);
                 border-radius: 0.4rem;
@@ -167,6 +192,7 @@ section {
                     font-size: 1.3rem;
                     cursor: pointer;
                     background: transparent;
+                    margin-top: 0.5rem;
                     &::placeholder {
                         color: #868e96;
                         font-family: $poppins-font;
@@ -180,6 +206,7 @@ section {
                 top: 1rem;
                 margin-right: 2rem;
                 z-index: 0;
+                margin-top: 0.5rem;
             }
         }
         .review-container {
@@ -192,6 +219,10 @@ section {
             font-size: 2rem;
             padding-bottom: 1rem;
             font-weight: 500;
+
+            @include respond(xs) {
+                font-size: 1.6rem;
+            }
         }
 
         .discover-col {

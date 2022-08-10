@@ -3,12 +3,10 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import type { ServiceCardProps } from "types/serviceCard";
 
 import CardBtn from "./CardBtn";
 import ShareIcon from "./ShareIcon";
-import ShareModal from "./ShareModalCard";
 
 const ServiceCard = ({
     serviceImage,
@@ -22,8 +20,6 @@ const ServiceCard = ({
     discountRate,
 }: // discountOn,
 ServiceCardProps) => {
-    const [showModal, setShowModal] = useState(false);
-
     return (
         <div className="service-card-block">
             <Link href="/service-detail">
@@ -78,20 +74,9 @@ ServiceCardProps) => {
                             className="svg-icon svg-icon-heart me-5"
                         />
 
-                        {/* <FontAwesomeIcon icon={faShare}
-                            className="svg-icon share" /> */}
-                        <ShareIcon
-                            showModal={true}
-                            handleOnClick={() => setShowModal(!showModal)}
-                        />
+                        <ShareIcon />
                     </div>
                     <CardBtn btnTitle="Book Now" backgroundColor="#211D4F" />
-                </div>
-                <div className="share-modal">
-                    <ShareModal
-                        show={showModal}
-                        handleClose={() => setShowModal(false)}
-                    />
                 </div>
             </div>
         </div>
