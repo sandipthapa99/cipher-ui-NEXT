@@ -31,38 +31,33 @@ import { reviewType } from "utils/options";
 const ServiceDetail: NextPage = () => {
     return (
         <Layout title="Service Details | Cipher">
+            <BreadCrumb currentPage="Service Details" />
             <Container fluid="xl" className="px-5">
                 <section className="service-details">
-                    <BreadCrumb currentPage="Service Details" />
                     {/* Explore top container start */}
                     <section className="service-details__top-container">
                         <h1>Garden Cleaning</h1>
                         <Row className="gx-5">
                             <Col md={8}>
-                                <div className="information">
-                                    <p className="provider-name">
-                                        By Harry Smith, Gardener
-                                    </p>
-                                    <div className="reactions">
-                                        <div className="d-flex flex-col save">
+                                <div className="d-flex justify-content-between align-items-center information">
+                                    <span>By Harry Smith, Gardener</span>
+                                    <div className="d-flex justify-content-between align-items-center reactions">
+                                        <div className="d-flex align-items-center me-4">
                                             <FontAwesomeIcon
                                                 icon={faHeart}
-                                                className="svg-icon heart"
+                                                className="svg-icon-heart me-3"
                                             />
-                                            <p className="name">Save</p>
+                                            <span>Save</span>
                                         </div>
-                                        <div className="d-flex flex-col share">
-                                            <div className="share-icon">
-                                                <ShareIcon />
-                                            </div>
-
-                                            <p className="name">Share</p>
-                                        </div>
+                                        <span className="d-flex align-items-center">
+                                            <ShareIcon />
+                                            Share
+                                        </span>
 
                                         <EllipsisDropdown>
                                             <FontAwesomeIcon
                                                 icon={faEllipsisVertical}
-                                                className="svg-icon option"
+                                                className="svg-icon option me-0 "
                                             />
                                         </EllipsisDropdown>
                                     </div>
