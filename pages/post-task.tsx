@@ -20,11 +20,11 @@ const PostTask: NextPage = () => {
     const serviceCategory = getServiceCategory();
     const services = getServices();
     return (
-        <section className="post-task">
-            <Layout title="Post task | Cipher">
-                <section className="post-task__search-header">
+        <Layout title="Post task | Cipher">
+            <section className="post-task">
+                <div className="post-task__search-header">
                     <WelcomeUser />
-                </section>
+                </div>
                 <Container fluid="xl" className="px-5">
                     <ApplyPost />
 
@@ -223,8 +223,8 @@ const PostTask: NextPage = () => {
                         </Row>
                     </div>
                 </Container>
-            </Layout>
-        </section>
+            </section>
+        </Layout>
     );
 };
 
