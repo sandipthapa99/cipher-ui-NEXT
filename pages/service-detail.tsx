@@ -6,13 +6,13 @@ import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ServiceProviderCard from "@components/common/serviceProviderCard";
+import ShareIcon from "@components/common/ShareIcon";
 import Tags from "@components/common/Tags";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import {
     faEllipsisVertical,
     faHeart,
-    faShare,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
@@ -28,7 +28,6 @@ import { servicesDiscover } from "staticData/services";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { reviewType } from "utils/options";
-
 const ServiceDetail: NextPage = () => {
     return (
         <Layout title="Service Details | Cipher">
@@ -53,10 +52,10 @@ const ServiceDetail: NextPage = () => {
                                             <p className="name">Save</p>
                                         </div>
                                         <div className="d-flex flex-col share">
-                                            <FontAwesomeIcon
-                                                icon={faShare}
-                                                className="svg-icon share-icon"
-                                            />
+                                            <div className="share-icon">
+                                                <ShareIcon />
+                                            </div>
+
                                             <p className="name">Share</p>
                                         </div>
 

@@ -86,13 +86,13 @@ const TaxCalculator: NextPage = () => {
                     <BreadCrumb currentPage="Tax Calculator" />
                     <div className="card-block">
                         <div className="header">
-                            <h1>Tax Calculator</h1>
+                            <h1 className="heading-title">Tax Calculator</h1>
                         </div>
                         <div className="content">
                             <Row className="gx-5">
                                 <Col md={6}>
                                     <div className="tax-calculator__header">
-                                        <h2>
+                                        <h2 className="heading-title">
                                             Calculate your Personal Income TAX
                                         </h2>
                                         <p>
@@ -343,13 +343,17 @@ const TaxCalculator: NextPage = () => {
                                                 md={12}
                                                 key={tax.id}
                                             >
-                                                <h1>{tax.name}</h1>
+                                                <h1 className="heading-title">
+                                                    {tax.name}
+                                                </h1>
                                                 <span>{tax.amount}</span>
                                             </Col>
                                         ))}
                                     </Row>
                                     <div className="tax-slab">
-                                        <h1>Your tax slab is</h1>
+                                        <h1 className="heading-title">
+                                            Your tax slab is
+                                        </h1>
                                         <span>Upto 1 %</span>
                                     </div>
                                     <div className="table-content">

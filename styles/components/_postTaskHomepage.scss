@@ -1,13 +1,13 @@
 .popup-post-task {
-    position: relative;
+    position: fixed;
+    right: 5rem;
+    bottom: 5rem;
+    z-index: 2;
 }
 
 .post-task-homepage {
     background: #fff;
     padding: 2rem 5rem;
-    position: absolute;
-    right: 5rem;
-    top: -25rem;
     max-width: 26.5rem;
 
     .xmark {

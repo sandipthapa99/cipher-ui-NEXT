@@ -1,32 +1,42 @@
 export const serviceCategory = [
     {
-        id: "0",
-        categoryTitle: "Health & Care",
-        categoryIcon: "/heroImages/img1.png",
-    },
-    {
         id: "1",
-        categoryTitle: "Household",
-        categoryIcon: "/heroImages/img2.png",
+        categoryTitle: "Beauty",
+        categoryIcon: "/illustrations/beauty.svg",
     },
     {
         id: "2",
-        categoryTitle: "Beauty",
-        categoryIcon: "/heroImages/img3.png",
+        categoryTitle: "Fitness",
+        categoryIcon: "/illustrations/fitness.svg",
     },
     {
         id: "3",
-        categoryTitle: "Courier Services",
-        categoryIcon: "/heroImages/img4.png",
+        categoryTitle: "Household",
+        categoryIcon: "/illustrations/household.svg",
     },
     {
         id: "4",
         categoryTitle: "Maintenance",
-        categoryIcon: "/heroImages/img5.png",
+        categoryIcon: "/illustrations/maintenance.svg",
     },
     {
         id: "5",
-        categoryTitle: "Fitness",
-        categoryIcon: "/heroImages/img6.png",
+        categoryTitle: "Health & Care",
+        categoryIcon: "/illustrations/healthcare.svg",
+    },
+    {
+        id: "6",
+        categoryTitle: "Courier Services",
+        categoryIcon: "/illustrations/courier.svg",
+    },
+    {
+        id: "7",
+        categoryTitle: "Educational Classes",
+        categoryIcon: "/illustrations/educational.svg",
+    },
+    {
+        id: "8",
+        categoryTitle: "Party Planner",
+        categoryIcon: "/illustrations/party.svg",
     },
 ];

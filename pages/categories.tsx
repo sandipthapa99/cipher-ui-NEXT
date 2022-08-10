@@ -13,7 +13,7 @@ const CategoriesPage = ({ categories }: CategoriesPageProps) => {
         <Layout title="Categories | Cipher">
             <Container fluid="xl">
                 <h2 className="all-categories-title">Cipher Categories</h2>
-                <div className="all-categories">
+                <div className="d-flex justify-content-center all-categories">
                     {categories.map((category, index) => (
                         <div key={index} className="category-item">
                             <h4 className="category-item__title title">

@@ -22,6 +22,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -58,6 +59,10 @@ const quality = [
     },
 ];
 
+const CategoriesListingHomepage = dynamic(
+    () => import("components/common/CategoriesListingHomepage"),
+    { ssr: false }
+);
 const Home: NextPage = () => {
     const [postTaskPopup, setPostTaskPopup] = useState(true);
 
@@ -69,7 +74,7 @@ const Home: NextPage = () => {
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-5">
-                    <Row className="gx-5">
+                    <Row className="gx-5 hero-content">
                         <Col md="6" className="left">
                             <div className="content">
                                 {/* Hero Text Start Here */}
@@ -149,7 +154,7 @@ const Home: NextPage = () => {
                         </Col>
                     </Row>
                     {/* Service category listing start */}
-                    <Row className="gx-5">
+                    <Row className="gx-5 hero-category">
                         {serviceCategory &&
                             serviceCategory.map((category, index) => {
                                 return (
@@ -157,7 +162,7 @@ const Home: NextPage = () => {
                                         md={3}
                                         sm={6}
                                         key={index}
-                                        className="d-flex align-items-strecth"
+                                        className="d-flex align-items-strecth card-col"
                                     >
                                         <CategoryCardNew
                                             categoryTitle={
@@ -199,7 +204,7 @@ const Home: NextPage = () => {
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">
                             Popular Verified Services
                         </h2>

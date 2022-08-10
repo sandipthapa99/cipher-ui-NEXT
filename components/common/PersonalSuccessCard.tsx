@@ -20,7 +20,7 @@ export const PersonalSuccessCard = () => {
                     </figure>
                 </Col>
                 <Col md={7} sm={12}>
-                    <div className="d-flex flex-column justify-content-center  sakshi-shrestha-content">
+                    <div className="d-flex flex-column justify-content-center  personal-success-card__content">
                         <h3>Sakshi Shrestha</h3>
                         <h6>Specialities: assembly, pet care, gardening</h6>
                         <p>
