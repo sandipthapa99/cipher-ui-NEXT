@@ -32,7 +32,7 @@ export const UserTaskCard = ({
                     height="80px"
                     objectFit="cover"
                     alt={`${task.user.username} profile picture`}
-                    className="rounded-circle"
+                    className="rounded-circle header-image"
                 />
 
                 <div className="user-info">

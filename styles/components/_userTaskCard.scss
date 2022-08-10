@@ -3,8 +3,8 @@
     overflow: hidden scroll;
 
     @include media("<=tablet") {
-        max-height: auto;
-        overflow: auto;
+        max-height: unset;
+        overflow: unset;
     }
 }
 .user-task-card {
