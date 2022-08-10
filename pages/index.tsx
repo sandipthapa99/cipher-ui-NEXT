@@ -25,6 +25,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import Marquee from "react-fast-marquee";
 import { blogCardContent } from "staticData/community";
 import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
@@ -162,14 +163,14 @@ const Home: NextPage = () => {
                 className="cagtu-cipher-buzz-section"
             >
                 <Container fluid="xl" className="px-5">
-                    <div className="d-flex justify-content-around list-bar">
+                    <Marquee gradient={false} className="marquee">
                         <li className="light">Cagtu</li>
                         <li className="strong">Cipher</li>
                         <li className="light">Code Sharav</li>
                         <li className="strong">Buzz</li>
                         <li className="light">Cipher</li>
                         <li className="strong">Code Sharav</li>
-                    </div>
+                    </Marquee>
                 </Container>
             </section>
 
