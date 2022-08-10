@@ -3,7 +3,6 @@ import {
     faCalendar,
     faClockEight,
     faLocationDot,
-    faShare,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -59,10 +58,10 @@ const TaskCard = ({
             </div>
             <div className="task-card-block__footer d-flex flex-column flex-sm-row justify-content-between">
                 <div className="left d-flex align-items-center">
-                    <p className="share d-flex align-items-center">
+                    <div className="share d-flex align-items-center">
                         <ShareIcon />
                         Share
-                    </p>
+                    </div>
                     <p className="applicants  d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faUserGroup}

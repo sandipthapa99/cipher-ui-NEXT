@@ -1,7 +1,5 @@
 .tax-calculator {
     .card-block {
-        // padding-right: 2rem;
-        // padding-left: 2rem;
         align-items: center;
         @include respond(xxs) {
             padding-left: 0rem;
@@ -17,6 +15,11 @@
             font-weight: 500;
             padding-bottom: 2.5rem;
             text-transform: capitalize;
+            margin-top: 2rem;
+
+            @include respond(sm) {
+                margin-top: 0rem;
+            }
         }
     }
 
