@@ -1,7 +1,9 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { GoBack } from "@components/common/GoBack";
+import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
+import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
 import PostModal from "@components/PostTask/PostModal";
@@ -68,17 +70,11 @@ const AppliedTaskDetail: NextPage = () => {
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faHeart}
-                                    className="svg-icon heart-icon"
-                                />
+                                <SaveIcon />
                                 <span className="name">Save</span>
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
-                                <FontAwesomeIcon
-                                    icon={faShare}
-                                    className="svg-icon share-icon"
-                                />
+                                <ShareIcon />
                                 <span className="name">Share</span>
                             </div>
                             <EllipsisDropdown

@@ -1,10 +1,10 @@
-import { faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import type { MerchantCardProps } from "types/merchantCard";
 
 import CardBtn from "./CardBtn";
+import SaveIcon from "./SaveIcon";
 import ShareIcon from "./ShareIcon";
 
 const MerchantCard = ({
@@ -96,10 +96,7 @@ const MerchantCard = ({
                 </div>
                 <div className="d-flex justify-content-between align-items-md-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
-                        <FontAwesomeIcon
-                            icon={faHeart}
-                            className="svg-icon svg-icon-heart me-2 me-sm-5"
-                        />
+                        <SaveIcon />
                         <ShareIcon />
                     </div>
                     <CardBtn btnTitle="Hire Me" backgroundColor="#211D4F" />
