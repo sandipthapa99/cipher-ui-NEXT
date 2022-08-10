@@ -162,7 +162,7 @@ const Home: NextPage = () => {
                 id="cagtu-cipher-buzz-section"
                 className="cagtu-cipher-buzz-section"
             >
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <Marquee gradient={false} className="marquee">
                         <li className="light">Cagtu</li>
                         <li className="strong">Cipher</li>
