@@ -69,7 +69,7 @@ const Home: NextPage = () => {
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-5">
-                    <Row className="gx-5">
+                    <Row className="gx-5 hero-content">
                         <Col md="6" className="left">
                             <div className="content">
                                 {/* Hero Text Start Here */}
@@ -149,7 +149,7 @@ const Home: NextPage = () => {
                         </Col>
                     </Row>
                     {/* Service category listing start */}
-                    <Row className="gx-5">
+                    <Row className="gx-5 hero-category">
                         {serviceCategory &&
                             serviceCategory.map((category, index) => {
                                 return (
@@ -157,7 +157,7 @@ const Home: NextPage = () => {
                                         md={3}
                                         sm={6}
                                         key={index}
-                                        className="d-flex align-items-strecth"
+                                        className="d-flex align-items-strecth card-col"
                                     >
                                         <CategoryCardNew
                                             categoryTitle={

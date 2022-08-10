@@ -6,7 +6,7 @@
         margin: 4rem 0 8rem 0;
     }
 
-    .row {
+    .hero-content {
         .left {
             // padding: 0;
 
@@ -215,6 +215,38 @@
             .hero-img {
                 height: 60.3rem;
                 width: 60rem;
+            }
+        }
+    }
+    .hero-category{
+        .card-col{
+            &:nth-child(4n+1){
+                .hero-category__card-block{
+                    .image-block{
+                        background: #752DE8;
+                    }
+                }
+            }
+            &:nth-child(4n+2){
+                .hero-category__card-block{
+                    .image-block{
+                        background: #FF9700;
+                    }
+                }
+            }
+            &:nth-child(4n+3){
+                .hero-category__card-block{
+                    .image-block{
+                        background: #FE5050;
+                    }
+                }
+            }
+            &:nth-child(4n+4){
+                .hero-category__card-block{
+                    .image-block{
+                        background: #38C675;
+                    }
+                }
             }
         }
     }
