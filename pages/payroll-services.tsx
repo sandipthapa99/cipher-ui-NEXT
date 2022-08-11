@@ -6,6 +6,7 @@ import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { faqContent } from "staticData/faq";
 
@@ -35,11 +36,15 @@ const PayrollServices: NextPage = () => {
                                     growing your business and leave the admin
                                     hassle to us.
                                 </p>
-                                <CardBtn
-                                    btnTitle="Contact Us"
-                                    color="#fff"
-                                    backgroundColor="primary-color"
-                                />
+                                <Link href={"/contact"}>
+                                    <a>
+                                        <CardBtn
+                                            btnTitle="Contact Us"
+                                            color="#fff"
+                                            backgroundColor="primary-color"
+                                        />
+                                    </a>
+                                </Link>
                             </Col>
                         </Row>
                     </Container>
@@ -60,7 +65,7 @@ const PayrollServices: NextPage = () => {
                             <Row className="gx-5">
                                 <Col md={7} sm={12}>
                                     <Row className="gx-5">
-                                        <div className="d-flex images">
+                                        <div className="d-flex flex-column flex-sm-row align-items-center images">
                                             <div className="text-center">
                                                 <figure className="thumbnail-img">
                                                     <Image
