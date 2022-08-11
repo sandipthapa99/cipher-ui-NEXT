@@ -25,7 +25,7 @@ const TaskCard = ({
             <div className="d-flex justify-content-between flex-column flex-sm-row task-applied-card-block__header">
                 <span className="title">{title}</span>
                 <span className="charge">
-                    {currency} {startPrice} - {endPrice}
+                    {currency} {startPrice} -{endPrice}
                 </span>
             </div>
             <div className="task-applied-card-block__body">
