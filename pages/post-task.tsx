@@ -7,9 +7,9 @@ import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { getServiceCategory, getServices } from "services/commonServices";
-
 // this gets rid of the hydration error
 // since the data required for this component comes from localstorage, there's no need for ssr
 const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
