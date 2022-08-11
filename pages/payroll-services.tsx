@@ -65,7 +65,7 @@ const PayrollServices: NextPage = () => {
                             <Row className="gx-5">
                                 <Col md={7} sm={12}>
                                     <Row className="gx-5">
-                                        <div className="d-flex images">
+                                        <div className="d-flex flex-column flex-sm-row align-items-center images">
                                             <div className="text-center">
                                                 <figure className="thumbnail-img">
                                                     <Image

@@ -81,11 +81,15 @@ const LongSquareImageCard = ({
                                     )}
                                 </div>
                                 {buttonText && (
-                                    <CardBtn
-                                        btnTitle={buttonText}
-                                        backgroundColor="#fff"
-                                        color="#000000"
-                                    />
+                                    <Link href={"/contact"}>
+                                        <a>
+                                            <CardBtn
+                                                btnTitle={buttonText}
+                                                backgroundColor="#fff"
+                                                color="#000000"
+                                            />
+                                        </a>
+                                    </Link>
                                 )}
                             </div>
                         </Col>
