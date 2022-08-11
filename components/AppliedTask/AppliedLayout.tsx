@@ -16,8 +16,6 @@ const AppliedLayout = ({ children }: { children: ReactNode }) => {
 
     const taskApplied = data?.data?.result;
 
-    console.log("taskapplied", taskApplied);
-
     const filteredTasks = useMemo(
         () =>
             query
@@ -25,10 +23,9 @@ const AppliedLayout = ({ children }: { children: ReactNode }) => {
                       item?.title.toLowerCase().startsWith(query.toLowerCase())
                   )
                 : taskApplied,
-        [query]
+        [query, taskApplied]
     );
 
-    console.log("filtered task", filteredTasks);
     return (
         <>
             <SearchHeader />
