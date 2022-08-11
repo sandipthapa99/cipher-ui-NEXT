@@ -19,7 +19,7 @@
                     margin-bottom: 4rem;
                     text-align: center;
                     word-wrap: break-word;
-                    @include respond(sm){
+                    @include respond(sm) {
                         font-size: 3.2rem;
                     }
 
@@ -515,39 +515,25 @@
             top: 1rem;
             flex: 0.3;
             z-index: 2;
-            width: 50%;
-            padding: 5.6rem 0 5.6rem 6.4rem;
-
-            // @include respond(xs) {
-            //     width: 100%;
-            //     padding-top: 4.6rem;
-            // }
-            // @include respond(xxs) {
-            //     width: 100%;
-            //     padding-top: 2rem;
-            // }
-
-            // @include respond(sm) {
-            //     width: 100%;
-            //     padding-left: 2rem;
-            // }
-            // @include respond(md) {
-            //     width: 78%;
-            //     padding-top: 5rem;
-            //     padding-left: 8rem;
-            // }
-            // @include respond(lg) {
-            //     width: 50%;
-            //     padding-top: 5rem;
-            //     padding-left: 8rem;
-            // }
-            // padding: 8rem;
+            width: 90%;
+            padding: 1rem;
+            @include respond(md){
+                padding: 5.6rem 0 5.6rem 6.4rem;
+                width: 60%;
+            }
 
             h1 {
                 color: $primary-color;
-                font-size: 4rem;
+                font-size: 1.8rem;
                 font-weight: 400;
-                line-height: 6rem;
+                line-height: 2.6rem;
+                @include respond(xs){
+                    font-size: 1.8rem;
+                }
+                @include respond(md){
+                    font-size: 4rem;
+                    line-height: 6rem;
+                }
 
                 span {
                     font-weight: 600;
@@ -555,20 +541,6 @@
             }
 
             .bottom-content {
-                // padding-top: 12rem;
-
-                // @include respond(xs) {
-                //     padding-top: 5rem;
-                //     margin-bottom: 3rem;
-                // }
-                // @include respond(xxs) {
-                //     padding-top: 1rem;
-                //     margin-bottom: 3rem;
-                // }
-                // @include respond(sm) {
-                //     padding-top: 9rem;
-                // }
-
                 p {
                     color: $sub-title-color;
                     font-size: 1.5rem;
