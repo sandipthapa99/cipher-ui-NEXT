@@ -49,7 +49,7 @@ const About: NextPage = () => {
                                         We are an on demand app that connects
                                         customers with about providers.{" "}
                                     </h4>
-                                    <p className="about-cipher">
+                                    <p>
                                         CIPHER is a platform incepted with the
                                         idea of bridging the gap between
                                         individuals who need a certain task
