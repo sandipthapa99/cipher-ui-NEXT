@@ -4,10 +4,11 @@ import Header from "@components/Header";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
 import { useApplyTask } from "hooks/apply-task/useTask";
-import { ReactNode, useMemo } from "react";
+import type { ReactNode } from "react";
+import { useMemo } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import { AllTaskResult } from "types/applytask";
+import type { AllTaskResult } from "types/applytask";
 
 const AppliedLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
