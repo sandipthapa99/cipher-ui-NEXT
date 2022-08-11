@@ -1,5 +1,7 @@
 import type { AxiosInstance } from "axios";
 import axios from "axios";
+import { differenceInDays, fromUnixTime } from "date-fns";
+import jwtDecode from "jwt-decode";
 import { parseCookies } from "nookies";
 import { autoLogin } from "utils/auth";
 
@@ -46,8 +48,18 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
     (response) => response,
     (error) => {
-        const config = error?.config;
-        console.log(error);
+        if (error?.response?.data?.code === "token_not_valid") {
+            const { refresh } = parseCookies(undefined, "refresh");
+            const { access } = parseCookies(undefined, "access");
+
+            const { exp } = jwtDecode<{ exp: number }>(access);
+            const tokenExpirationDate = fromUnixTime(exp);
+            const currentDate = new Date();
+            const diff = differenceInDays(tokenExpirationDate, currentDate);
+            if (diff <= 0) {
+                requestRefreshToken(axiosClient, refresh);
+            }
+        }
     }
 );
 
