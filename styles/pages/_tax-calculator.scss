@@ -172,11 +172,13 @@
             margin-bottom: 0rem;
         }
         span {
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             margin-left: 0rem !important;
             color: $primary-color;
             padding-top: 3rem;
             font-weight: 400;
+            padding-left: 2rem;
+            padding-right: 2rem;
         }
     }
     .tax-slab {
@@ -209,7 +211,6 @@
             width: 20rem;
             margin-left: 4rem;
             margin-top: 1rem;
-            overflow-x: scroll;
             padding: 0rem 0.8rem;
         }
     }

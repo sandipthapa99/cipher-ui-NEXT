@@ -4,7 +4,7 @@
     .header-navigation {
         padding: 0;
         .navbar-nav {
-            padding: 0.2rem 0;
+            // padding: 0.2rem 0;
             flex: auto;
             flex-direction: row;
             @include respond(lg) {
@@ -27,6 +27,8 @@
                     padding: 1.2rem 0.8rem;
                     font-size: 1.2rem;
                     margin-right: 1.4rem;
+                    display: flex;
+                    align-items: center;
                     position: relative;
                     @include respond(lg) {
                         padding: 1.3rem 2.6rem;
