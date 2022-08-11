@@ -44,8 +44,7 @@ const PostTask: NextPage = () => {
                     </div>
                     <div className="post-task__popular-services">
                         <div className="title-wrapper d-flex justify-content-between">
-                            {/* <h2 className="heading-title">Community activity</h2> */}
-                            <h1>Popular on Cipher</h1>
+                            <h1 className="heading-title">Popular on Cipher</h1>
                             <a href="/pages" className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -65,40 +64,36 @@ const PostTask: NextPage = () => {
                                             key={service.id}
                                         >
                                             <Link href="/service-detail">
-                                                <a>
-                                                    <ServiceCard
-                                                        serviceImage={
-                                                            service.serviceImage
-                                                        }
-                                                        serviceTitle={
-                                                            service.serviceTitle
-                                                        }
-                                                        serviceProvider={
-                                                            service.serviceProvider
-                                                        }
-                                                        serviceProviderLocation={
-                                                            service.serviceProviderLocation
-                                                        }
-                                                        serviceDescription={
-                                                            service.serviceDescription
-                                                        }
-                                                        serviceRating={
-                                                            service.serviceRating
-                                                        }
-                                                        servicePrice={
-                                                            service.servicePrice
-                                                        }
-                                                        hasOffer={
-                                                            service.hasOffer
-                                                        }
-                                                        discountRate={
-                                                            service.discountRate
-                                                        }
-                                                        discountOn={
-                                                            service.discountOn
-                                                        }
-                                                    />
-                                                </a>
+                                                <ServiceCard
+                                                    serviceImage={
+                                                        service.serviceImage
+                                                    }
+                                                    serviceTitle={
+                                                        service.serviceTitle
+                                                    }
+                                                    serviceProvider={
+                                                        service.serviceProvider
+                                                    }
+                                                    serviceProviderLocation={
+                                                        service.serviceProviderLocation
+                                                    }
+                                                    serviceDescription={
+                                                        service.serviceDescription
+                                                    }
+                                                    serviceRating={
+                                                        service.serviceRating
+                                                    }
+                                                    servicePrice={
+                                                        service.servicePrice
+                                                    }
+                                                    hasOffer={service.hasOffer}
+                                                    discountRate={
+                                                        service.discountRate
+                                                    }
+                                                    discountOn={
+                                                        service.discountOn
+                                                    }
+                                                />
                                             </Link>
                                         </Col>
                                     );
@@ -155,14 +150,14 @@ const PostTask: NextPage = () => {
                                     );
                                 })}
                         </Row>
-                        {/* Service category listing end */}
                     </Container>
                 </section>
                 <Container fluid="xl" className="px-5">
                     <div className="post-task__service-recommendation">
                         <div className="title-wrapper d-flex justify-content-between">
-                            {/* <h2 className="heading-title">Community activity</h2> */}
-                            <h1>Our Recommendation</h1>
+                            <h1 className="heading-title">
+                                Our Recommendation
+                            </h1>
                             <a href="/pages" className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -182,40 +177,36 @@ const PostTask: NextPage = () => {
                                             key={service.id}
                                         >
                                             <Link href="/service-detail">
-                                                <a>
-                                                    <ServiceCard
-                                                        serviceImage={
-                                                            service.serviceImage
-                                                        }
-                                                        serviceTitle={
-                                                            service.serviceTitle
-                                                        }
-                                                        serviceProvider={
-                                                            service.serviceProvider
-                                                        }
-                                                        serviceProviderLocation={
-                                                            service.serviceProviderLocation
-                                                        }
-                                                        serviceDescription={
-                                                            service.serviceDescription
-                                                        }
-                                                        serviceRating={
-                                                            service.serviceRating
-                                                        }
-                                                        servicePrice={
-                                                            service.servicePrice
-                                                        }
-                                                        hasOffer={
-                                                            service.hasOffer
-                                                        }
-                                                        discountRate={
-                                                            service.discountRate
-                                                        }
-                                                        discountOn={
-                                                            service.discountOn
-                                                        }
-                                                    />
-                                                </a>
+                                                <ServiceCard
+                                                    serviceImage={
+                                                        service.serviceImage
+                                                    }
+                                                    serviceTitle={
+                                                        service.serviceTitle
+                                                    }
+                                                    serviceProvider={
+                                                        service.serviceProvider
+                                                    }
+                                                    serviceProviderLocation={
+                                                        service.serviceProviderLocation
+                                                    }
+                                                    serviceDescription={
+                                                        service.serviceDescription
+                                                    }
+                                                    serviceRating={
+                                                        service.serviceRating
+                                                    }
+                                                    servicePrice={
+                                                        service.servicePrice
+                                                    }
+                                                    hasOffer={service.hasOffer}
+                                                    discountRate={
+                                                        service.discountRate
+                                                    }
+                                                    discountOn={
+                                                        service.discountOn
+                                                    }
+                                                />
                                             </Link>
                                         </Col>
                                     );
