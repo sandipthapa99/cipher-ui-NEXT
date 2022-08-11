@@ -1,6 +1,6 @@
 import FormButton from "@components/common/FormButton";
 import type { Dispatch, SetStateAction } from "react";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Cropper from "react-easy-crop";
@@ -14,21 +14,14 @@ interface ExperienceProps {
 
 const PhotoEdit = ({ show, handleClose, photo }: ExperienceProps) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
-    const [zoom, setZoom] = useState(3);
-
-    const onCropComplete = useCallback(
-        (croppedArea: any, croppedAreaPixels: any) => {
-            console.log(croppedArea, croppedAreaPixels);
-        },
-        []
-    );
+    const [zoom, setZoom] = useState(1);
     return (
         <>
             {/* Modal component */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
-                    <h3>Task Details</h3>
+                    <h3>Edit Photo</h3>
                     {/* <AvatarEditor
                         image="http://example.com/initialimage.jpg"
                         width={250}
@@ -38,18 +31,32 @@ const PhotoEdit = ({ show, handleClose, photo }: ExperienceProps) => {
                         scale={1.2}
                         rotate={0}
                     /> */}
-                    <Modal.Body>
+                    <Modal.Body className="crop-container">
                         <Cropper
-                            image={photo}
+                            image={"/groupB.png"}
                             crop={crop}
                             zoom={zoom}
-                            aspect={1}
                             cropShape="round"
+                            aspect={1}
                             onCropChange={setCrop}
-                            onCropComplete={onCropComplete}
+                            // onCropComplete={onCropComplete}
                             onZoomChange={setZoom}
                         />
                     </Modal.Body>
+                    <div className="controls">
+                        <input
+                            type="range"
+                            value={zoom}
+                            min={1}
+                            max={3}
+                            step={0.1}
+                            aria-labelledby="Zoom"
+                            onChange={(e) => {
+                                setZoom(parseFloat(e.currentTarget.value));
+                            }}
+                            className="zoom-range"
+                        />
+                    </div>
                     <Modal.Footer>
                         <Button
                             className="btn close-btn w-25"
@@ -57,7 +64,6 @@ const PhotoEdit = ({ show, handleClose, photo }: ExperienceProps) => {
                         >
                             Cancel
                         </Button>
-
                         <FormButton
                             type="submit"
                             variant="primary"

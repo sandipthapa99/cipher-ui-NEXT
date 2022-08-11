@@ -24,7 +24,7 @@ const CategoryCardNew = ({
                 <div className="details d-flex flex-column">
                     <h1>{categoryTitle}</h1>
                     <div className="d-flex justify-content-between">
-                        <Link href="">
+                        <Link href={`category/${categoryTitle}`}>
                             <a className="d-flex">
                                 <span>{categoryTitle} related services</span>
                                 <FontAwesomeIcon
