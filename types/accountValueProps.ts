@@ -6,10 +6,10 @@ export interface AccountValueProps {
     gender: string;
     date_of_birth: string | null;
     skill: string;
-    experience: string;
-    active_hour_start: string;
-    active_hour_end: string | null;
-    hour_rate: number | null;
+    experience_level: string;
+    active_hour_start: string | undefined;
+    active_hour_end: string | undefined;
+    hourly_rate: number;
     user_type: string;
     country: string;
     address_line1: string;
@@ -18,6 +18,6 @@ export interface AccountValueProps {
     charge_currency: string;
     profile_visibility: string;
     task_preferences: string;
-    profile_image: string;
+    // profile_image: string;
     education: string;
 }

@@ -8,8 +8,12 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useSuccessContext } from "context/successContext/successContext";
 import { Field, Form, Formik } from "formik";
+import { useCountry } from "hooks/country/useCountry";
+import { useCurrency } from "hooks/currency/currency";
+import { useLanguage } from "hooks/language/useLanguage";
 import { useProfile } from "hooks/profile/profile";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -23,19 +27,10 @@ const dropdownCountryOptions = [
     { id: 2, label: "USA", value: "usa" },
     { id: 3, label: "Canda", value: "canda" },
 ];
-const dropdownlangugeOptions = [
-    { id: 1, label: "Nepal", value: "nepal" },
-    { id: 2, label: "USA", value: "usa" },
-    { id: 3, label: "Canda", value: "canda" },
-];
-const dropdownCurrencyOptions = [
-    { id: 1, label: "Rupees", value: "rupees" },
-    { id: 2, label: "Dollar", value: "dollar" },
-    { id: 3, label: "CDollar", value: "cdollar" },
-];
+
 const genders = [
-    { label: "Male", value: "male" },
-    { label: "Female", value: "female" },
+    { label: "Male", value: "Male" },
+    { label: "Female", value: "Female" },
     { label: "Other", value: "other" },
 ];
 const experience = [
@@ -43,10 +38,40 @@ const experience = [
     { label: "I am Intermediate", value: "intermediate" },
     { label: "I am Expert", value: "expert" },
 ];
+const profileVisibility = [
+    {
+        id: 1,
+        label: "Public",
+        value: "Public",
+    },
+    { id: 2, label: "Private", value: "Private" },
+];
 
 const AccountForm = () => {
     const { setShowSuccessModal } = useSuccessContext();
     const { mutate, isLoading } = useProfile();
+    const { data: currency } = useCurrency();
+    const { data: language } = useLanguage();
+    const { data: country } = useCountry();
+    const router = useRouter();
+    const currencyResults = currency?.result.map((result) => ({
+        label: result.name,
+        value: result.current_value,
+        id: result.id,
+    }));
+    const languageResults = language?.result.map((result) => ({
+        label: result.name,
+        value: result.id,
+        id: result.id,
+    }));
+    const countryResults = country?.result.map((result) => ({
+        label: result.name,
+        value: result.id,
+        id: result.id,
+    }));
+    console.log(language);
+    console.log(currency);
+    console.log(country);
 
     return (
         <>
@@ -65,9 +90,21 @@ const AccountForm = () => {
                     initialValues={AccountFromData}
                     validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
-                        mutate(values, {
+                        const newValidatedValues = {
+                            ...values,
+                            user_type: JSON.stringify(values.user_type),
+                            skill: JSON.stringify(values.skill),
+                            active_hour_start: new Date(
+                                values.active_hour_start ?? ""
+                            )?.toLocaleTimeString(),
+                            active_hour_end: new Date(
+                                values.active_hour_end ?? ""
+                            )?.toLocaleTimeString(),
+                        };
+                        mutate(newValidatedValues, {
                             onSuccess: () => {
                                 setShowSuccessModal(true);
+                                router.push("/profile");
                                 action.resetForm();
                             },
                             onError: (err) => {
@@ -130,11 +167,11 @@ const AccountForm = () => {
                             />
                             <RadioField
                                 type="radio"
-                                name="experience"
+                                name="experience_level"
                                 variables={experience}
                                 labelName="Experience Level"
-                                touch={touched.experience}
-                                error={errors.experience}
+                                touch={touched.experience_level}
+                                error={errors.experience_level}
                             />
                             <h4>Active Hours</h4>
                             <Row className="g-5">
@@ -142,8 +179,8 @@ const AccountForm = () => {
                                     <DatePickerField
                                         name="active_hour_start"
                                         labelName="From"
-                                        placeHolder="dd/mm/yy"
                                         dateFormat="HH:mm aa"
+                                        placeHolder="dd/mm/yy"
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
                                         timeOnly
@@ -153,6 +190,7 @@ const AccountForm = () => {
                                     <DatePickerField
                                         name="active_hour_end"
                                         labelName="To"
+                                        dateFormat="HH:mm aa"
                                         placeHolder="dd/mm/yy"
                                         touch={touched.active_hour_end}
                                         error={errors.active_hour_end}
@@ -189,7 +227,7 @@ const AccountForm = () => {
                                 touch={touched.country}
                                 error={errors.country}
                                 placeHolder="Select your country"
-                                options={dropdownCountryOptions}
+                                options={countryResults}
                             />
                             <InputField
                                 type="text"
@@ -213,7 +251,7 @@ const AccountForm = () => {
                                 touch={touched.language}
                                 error={errors.language}
                                 placeHolder="Select your language"
-                                options={dropdownlangugeOptions}
+                                options={languageResults}
                             />
                             <SelectInputField
                                 name="charge_currency"
@@ -221,7 +259,7 @@ const AccountForm = () => {
                                 touch={touched.charge_currency}
                                 error={errors.charge_currency}
                                 placeHolder="Select your currency"
-                                options={dropdownCurrencyOptions}
+                                options={currencyResults}
                             />
                             <hr />
                             <h3>Profile Configurations</h3>
@@ -231,7 +269,7 @@ const AccountForm = () => {
                                 touch={touched.profile_visibility}
                                 error={errors.profile_visibility}
                                 placeHolder="Select your visibility"
-                                options={dropdownCurrencyOptions}
+                                options={profileVisibility}
                             />
                             <SelectInputField
                                 name="task_preferences"
@@ -239,7 +277,7 @@ const AccountForm = () => {
                                 touch={touched.task_preferences}
                                 error={errors.task_preferences}
                                 placeHolder="Select your preferences"
-                                options={dropdownCurrencyOptions}
+                                options={dropdownCountryOptions}
                             />
                             <div className="d-flex justify-content-end">
                                 <Button

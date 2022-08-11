@@ -122,16 +122,16 @@ export const SkillsFromData: SkillsValueProps = {
 
 export const AccountFromData: AccountValueProps = {
     full_name: "",
-    phone: 1234567890,
+    phone: Math.floor(Math.random() * 1000000000),
     email: "",
     bio: "",
     gender: "",
     date_of_birth: null,
     skill: "",
-    experience: "",
+    experience_level: "",
     active_hour_start: "",
-    active_hour_end: null,
-    hour_rate: 15,
+    active_hour_end: "",
+    hourly_rate: 15,
     user_type: "",
     country: "",
     education: "abc",
@@ -141,7 +141,7 @@ export const AccountFromData: AccountValueProps = {
     charge_currency: "",
     profile_visibility: "",
     task_preferences: "",
-    profile_image: "abcffdd",
+    // profile_image: "abcffdd",
 };
 
 export const ChangePasswordFromData: changePasswordValueProps = {
@@ -180,22 +180,22 @@ export const CreditCardFromData: CreditCardContent = {
 };
 
 export const KYCFormData: KYCFormProps = {
-    fullName: "",
-    identityType: "",
-    identityNumber: "",
-    issuedFrom: null,
-    issuedDate: null,
-    expiryDate: null,
-    identityCard: [],
-    panNumber: "",
-    issuedLoaction: "",
-    panIssuedDate: "",
-    panPhoto: [],
-    passwordPhoto: [],
-    addressVerifiactionDocument: [],
-    bankName: "",
-    bankAccountName: "",
-    bankAccountNumber: "",
+    full_name: "",
+    identity_type: "",
+    identity_id: "",
+    identity_issuer_organization: "",
+    identity_issued_date: "",
+    identity_valid_through: "",
+    // identity_card_file: "",
+    pan_number: null,
+    pan_issued_from: "",
+    pan_issued_date: "",
+    pan_card_file: null,
+    passport_size_photo: null,
+    personal_address_verification_document: null,
+    bank_name: "",
+    bank_account_name: "",
+    bank_account_number: "",
 };
 
 export const CarrerApplyFormData: ApplyFormValueProps = {
