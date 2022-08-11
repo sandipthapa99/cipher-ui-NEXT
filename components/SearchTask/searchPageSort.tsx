@@ -1,15 +1,15 @@
+import { Tab } from "@components/common/Tab";
+import TaskCard from "@components/common/TaskCard";
+import Post from "@components/PostTask/Post";
+import { Recommended } from "@components/user/Recommended";
 import {
     faFilterList,
     faMagnifyingGlass,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Col, Row } from "react-bootstrap";
-import { Tab } from "@components/common/Tab";
 import { useState } from "react";
-import Post from "@components/PostTask/Post";
-import { Recommended } from "@components/user/Recommended";
+import { Col, Row } from "react-bootstrap";
 import { progressTask, taskHistory } from "staticData/task";
-import TaskCard from "@components/common/TaskCard";
 
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);

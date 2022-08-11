@@ -1,14 +1,12 @@
-import { faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import type { ServiceCardProps } from "types/serviceCard";
 
 import CardBtn from "./CardBtn";
+import SaveIcon from "./SaveIcon";
 import ShareIcon from "./ShareIcon";
-import ShareModal from "./ShareModalCard";
 
 const ServiceCard = ({
     serviceImage,
@@ -22,8 +20,6 @@ const ServiceCard = ({
     discountRate,
 }: // discountOn,
 ServiceCardProps) => {
-    const [showModal, setShowModal] = useState(false);
-
     return (
         <div className="service-card-block">
             <Link href="/service-detail">
@@ -72,26 +68,12 @@ ServiceCardProps) => {
                     </a>
                 </Link>
                 <div className="d-flex justify-content-between align-items-center">
-                    <div className="d-flex align-items-center justify-content-between mb-3 mb-sm-0">
-                        <FontAwesomeIcon
-                            icon={faHeart}
-                            className="svg-icon svg-icon-heart me-2 me-sm-5 me-md-5"
-                        />
+                    <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
+                        <SaveIcon />
 
-                        {/* <FontAwesomeIcon icon={faShare}
-                            className="svg-icon share" /> */}
-                        <ShareIcon
-                            showModal={true}
-                            handleOnClick={() => setShowModal(!showModal)}
-                        />
+                        <ShareIcon />
                     </div>
                     <CardBtn btnTitle="Book Now" backgroundColor="#211D4F" />
-                </div>
-                <div className="share-modal">
-                    <ShareModal
-                        show={showModal}
-                        handleClose={() => setShowModal(false)}
-                    />
                 </div>
             </div>
         </div>

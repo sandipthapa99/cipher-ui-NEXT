@@ -13,7 +13,7 @@ const SearchTask: NextPage = () => {
             <SearchHeader />
             <Header />
 
-            <Container>
+            <Container fluid="xl">
                 <div>
                     <WelcomeUser />
                 </div>

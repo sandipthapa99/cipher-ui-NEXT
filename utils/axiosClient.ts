@@ -1,10 +1,6 @@
 import type { AxiosInstance } from "axios";
 import axios from "axios";
-import jwtDecode from "jwt-decode";
-import type { GetServerSidePropsContext, PreviewData } from "next";
-import nookies from "nookies";
 import { parseCookies } from "nookies";
-import type { ParsedUrlQuery } from "querystring";
 import { autoLogin } from "utils/auth";
 
 const getApiEndpoint = () => {
@@ -16,48 +12,43 @@ const getApiEndpoint = () => {
     return url;
 };
 
-const handlerequestRefreshToken = async (
+const requestRefreshToken = async (
     axiosClient: AxiosInstance,
     refreshToken: string
 ) => {
-    const { exp } = jwtDecode<{ exp: number }>(refreshToken);
-    const tokenExpirationDate = new Date(exp * 1000);
-    const isTokenExpired = tokenExpirationDate < new Date();
-    if (isTokenExpired) {
-        const { data } = await axiosClient.post<{
-            access: string;
-            refresh: string;
-        }>("/user/token/refresh", {
-            refresh: refreshToken,
-        });
-        const { access, refresh } = data;
-        autoLogin(access, refresh);
-    }
+    console.log("REFRESH TOKEN EXPIRED, REQUESTING A NEW ONE");
+    const { data } = await axiosClient.post<{
+        access: string;
+        refresh: string;
+    }>("/user/token/refresh", {
+        refresh: refreshToken,
+    });
+    const { access, refresh } = data;
+    autoLogin(access, refresh);
 };
 
-const axiosInterceptor = (axiosClient: AxiosInstance) => {
-    axiosClient.interceptors.request.use((config) => {
-        const { refresh } = nookies.get(undefined, "refresh");
-        if (refresh !== undefined) {
-            handlerequestRefreshToken(axiosClient, refresh);
+const axiosClient = axios.create({
+    baseURL: getApiEndpoint(),
+});
+axiosClient.interceptors.request.use(
+    (config) => {
+        const { access } = parseCookies(undefined, "access");
+        if (access) {
+            config.headers = {
+                ...config.headers,
+                Authorization: `Bearer ${access}`,
+            };
         }
         return config;
-    });
-};
-
-export const createAxiosClient = (
-    context?: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
-) => {
-    const axiosClient = axios.create({
-        baseURL: getApiEndpoint(),
-    });
-    const { access } = parseCookies(context, "access");
-    if (access) {
-        axiosClient.defaults.headers.common[
-            "Authorization"
-        ] = `Bearer ${access}`;
+    },
+    (error) => Promise.reject(error)
+);
+axiosClient.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        const config = error?.config;
+        console.log(error);
     }
-    axiosInterceptor(axiosClient);
-    return axiosClient;
-};
-export const axiosClient = createAxiosClient();
+);
+
+export { axiosClient };

@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import type { CommunityActivityCardProps } from "types/community";
 
+import SaveIcon from "./SaveIcon";
+
 const CommunityActivityCard = ({
     cardImage,
     cardDescription,
@@ -39,10 +41,7 @@ const CommunityActivityCard = ({
 
                     <div className="reacts-status">
                         <div className="heart-status">
-                            <FontAwesomeIcon
-                                icon={faHeart}
-                                className="svg-icon heart"
-                            />
+                            <SaveIcon />
                             <span>{react}</span>
                         </div>
                         <div>

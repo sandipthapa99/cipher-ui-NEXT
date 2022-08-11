@@ -4,11 +4,14 @@ import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
+import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
+import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
+import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import {
@@ -19,10 +22,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import type { NextPage } from "next";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import Marquee from "react-fast-marquee";
 import { blogCardContent } from "staticData/community";
 import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
@@ -33,6 +38,31 @@ import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
 
+const quality = [
+    {
+        id: "0",
+        title: "Meet with your recruiter",
+        desc: "Give us a few details about your project and set up a time to talk with your recruiter.",
+        icon: "/notable/reliable.svg",
+    },
+    {
+        id: "1",
+        title: "Receive a shortlist",
+        icon: "/notable/easy.svg",
+        desc: "Posting a task or getting your work done requires only few easy clicks.",
+    },
+    {
+        id: "2",
+        title: "Select and hire",
+        icon: "/notable/secure.svg",
+        desc: "Choose the best fit for your team.",
+    },
+];
+
+const CategoriesListingHomepage = dynamic(
+    () => import("components/common/CategoriesListingHomepage"),
+    { ssr: false }
+);
 const Home: NextPage = () => {
     const [postTaskPopup, setPostTaskPopup] = useState(true);
 
@@ -44,7 +74,7 @@ const Home: NextPage = () => {
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-5">
-                    <Row className="gx-5">
+                    <Row className="gx-5 hero-content">
                         <Col md="6" className="left">
                             <div className="content">
                                 {/* Hero Text Start Here */}
@@ -97,7 +127,7 @@ const Home: NextPage = () => {
 
                             <div className="come-with-us">
                                 <h1>Come with Us For</h1>
-                                <div className="d-flex">
+                                <div className="d-flex buttons">
                                     <Link href="/earn-money">
                                         <a href="" className="hero-cta">
                                             Earn Money as a Professional
@@ -124,7 +154,7 @@ const Home: NextPage = () => {
                         </Col>
                     </Row>
                     {/* Service category listing start */}
-                    <Row className="gx-5">
+                    <Row className="gx-5 hero-category">
                         {serviceCategory &&
                             serviceCategory.map((category, index) => {
                                 return (
@@ -132,7 +162,7 @@ const Home: NextPage = () => {
                                         md={3}
                                         sm={6}
                                         key={index}
-                                        className="d-flex align-items-strecth"
+                                        className="d-flex align-items-strecth card-col"
                                     >
                                         <CategoryCardNew
                                             categoryTitle={
@@ -159,22 +189,22 @@ const Home: NextPage = () => {
                 id="cagtu-cipher-buzz-section"
                 className="cagtu-cipher-buzz-section"
             >
-                <Container fluid="xl" className="px-5">
-                    <div className="d-flex justify-content-around list-bar">
-                        <li className="light">Cagtu</li>
-                        <li className="strong">Cipher</li>
-                        <li className="light">Code Sharav</li>
-                        <li className="strong">Buzz</li>
-                        <li className="light">Cipher</li>
-                        <li className="strong">Code Sharav</li>
-                    </div>
-                </Container>
+                {/* <Container fluid="xl" className="px-5"> */}
+                <Marquee gradient={true} className="marquee" speed={40}>
+                    <li className="light">Cagtu</li>
+                    <li className="strong">Cipher</li>
+                    <li className="light">Code Sharav</li>
+                    <li className="strong">Buzz</li>
+                    <li className="light">Cipher</li>
+                    <li className="strong">Code Sharav</li>
+                </Marquee>
+                {/* </Container> */}
             </section>
 
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">
                             Popular Verified Services
                         </h2>
@@ -341,11 +371,16 @@ const Home: NextPage = () => {
                         </li>
                     </ul>
 
-                    <Row className="gx-5">
+                    <Row className="gx-5 hero-category">
                         {serviceCategory &&
                             serviceCategory.map((category) => {
                                 return (
-                                    <Col md={3} sm={6} key={category.id}>
+                                    <Col
+                                        md={4}
+                                        sm={6}
+                                        key={category.id}
+                                        className="d-flex align-items-strecth card-col"
+                                    >
                                         <CategoryCardNew
                                             categoryTitle={
                                                 category.categoryTitle
@@ -419,8 +454,9 @@ const Home: NextPage = () => {
                             merchants.map((merchant) => {
                                 return (
                                     <Col
+                                        md={6}
+                                        lg={3}
                                         sm={6}
-                                        lg={4}
                                         xl={3}
                                         key={merchant.id}
                                         className="d-flex"
@@ -469,6 +505,17 @@ const Home: NextPage = () => {
             </section>
             {/* Gradient Banner section End */}
 
+            {/* Win new client silder card section start */}
+            <section
+                id="win-new-clients-slider-section"
+                className="win-new-clients-slider-section"
+            >
+                <Container fluid="xl" className="px-5">
+                    <ExploreWithSlider />
+                </Container>
+            </section>
+            {/* Win new client slider card section ends */}
+
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
                 <Container fluid="xl" className="px-5">
@@ -504,6 +551,37 @@ const Home: NextPage = () => {
                 </Container>
             </section>
             {/* Tasks you may like section end */}
+
+            {/* some success stories sectioin start */}
+            <section
+                id="some-success-stories-section"
+                className="some-success-stories-section"
+            >
+                <Container>
+                    <div className="success-sroties-header">
+                        <h1 className="text-center">
+                            3003,0330 Taskers have earned an income on Cipher
+                        </h1>
+                        <h3 className="text-center">Some Success Stories</h3>
+                    </div>
+                    <PersonalSuccessCard />
+                </Container>
+            </section>
+
+            {/* Notable quality section starts  */}
+            <section id="notable-quality" className="notable-quality">
+                <Container fluid="xl" className="px-5">
+                    <LongSquareImageCard
+                        title="Cipher Notable quality"
+                        image="/groupB.png"
+                        imageOnRight={true}
+                        description={quality}
+                    />
+                </Container>
+            </section>
+            {/* Notable quality section ends  */}
+
+            {/* some success stories section end  */}
 
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
@@ -634,6 +712,7 @@ const Home: NextPage = () => {
                     <h2 className="section-sub-title">
                         See some of our top categories in your area
                     </h2>
+                    <CategoriesListingHomepage />
                 </Container>
             </section>
         </Layout>

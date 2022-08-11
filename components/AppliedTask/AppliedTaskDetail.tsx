@@ -1,7 +1,9 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { GoBack } from "@components/common/GoBack";
+import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
+import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
 import PostModal from "@components/PostTask/PostModal";
@@ -16,6 +18,7 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useState } from "react";
@@ -23,6 +26,7 @@ import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
+import { axiosClient } from "utils/axiosClient";
 
 import { TaskersTab } from "./TaskersTab";
 import { TeamMembersSection } from "./TeamMembersSection";
@@ -31,6 +35,14 @@ import { TimelineTab } from "./TimelineTab";
 const AppliedTaskDetail: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
+
+    const slug = "knarkngir-nkanf";
+
+    const { data: taskDetail } = useQuery(["task-detail", slug], async () => {
+        await axiosClient.get(`/task/task/${slug}`);
+    });
+
+    console.log("taskDetail", taskDetail);
 
     const handleShowModal = () => {
         setShowModal(true);
@@ -58,17 +70,11 @@ const AppliedTaskDetail: NextPage = () => {
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faHeart}
-                                    className="svg-icon heart-icon"
-                                />
+                                <SaveIcon />
                                 <span className="name">Save</span>
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
-                                <FontAwesomeIcon
-                                    icon={faShare}
-                                    className="svg-icon share-icon"
-                                />
+                                <ShareIcon />
                                 <span className="name">Share</span>
                             </div>
                             <EllipsisDropdown

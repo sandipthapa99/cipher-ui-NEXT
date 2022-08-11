@@ -1,7 +1,7 @@
 import HiringStage from "@components/Career/HiringStage";
 import LeaveYourCV from "@components/Career/LeaveYourCV";
 import AnchorButton from "@components/common/AnchorButton";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -16,7 +16,7 @@ const CareerDeatils = () => {
     return (
         <Layout title="Cipher | Careers">
             <section id="careers-details-section" className="careers-section">
-                <Breadcrum currentPage="Career" />
+                <BreadCrumb currentPage={careerCard?.Title} />
                 <Container fluid="xl">
                     <div className="careers-detail bg-white">
                         <h1>{careerCard?.Title}</h1>

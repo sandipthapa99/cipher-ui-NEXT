@@ -1,11 +1,11 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
 import { PaymentHistory } from "@components/Payment/PaymentHistory";
 
 const Payment = () => {
     return (
         <Layout title="Payment History">
-            <Breadcrum currentPage="Payment History" />
+            <BreadCrumb currentPage="Payment History" />
             <PaymentHistory />
         </Layout>
     );

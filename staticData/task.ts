@@ -62,10 +62,9 @@ export const progressTask = [
         location: "Anamnagar, Baneshwor Kathamndu Nepal",
         date: "June 9, 2022",
         time: "08:11 PM",
-        isCompleted:true,
+        isCompleted: true,
     },
-    
-]
+];
 
 export const taskHistory = [
     {
@@ -98,7 +97,7 @@ export const taskHistory = [
         location: "Anamnagar, Baneshwor Kathamndu Nepal",
         date: "June 9, 2022",
         time: "08:11 PM",
-        isCompleted:true,
+        isCompleted: true,
     },
     {
         id: "2",
@@ -130,5 +129,5 @@ export const taskHistory = [
         date: "June 9, 2022",
         time: "08:11 PM",
     },
-]
+];
 export type Task = typeof tasks[0];

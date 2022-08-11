@@ -6,7 +6,7 @@
         margin: 4rem 0 8rem 0;
     }
 
-    .row {
+    .hero-content {
         .left {
             // padding: 0;
 
@@ -158,8 +158,18 @@
 
             .come-with-us {
                 margin-bottom: 4rem;
+                a {
+                    text-align: center;
+                }
                 @include respond(md) {
+                    width: 200%;
                     margin-bottom: 8rem;
+                }
+                .buttons {
+                    text-align: center;
+                    @include respond(xs) {
+                        flex-direction: column;
+                    }
                 }
 
                 h1 {
@@ -178,12 +188,12 @@
                     color: #fff;
                     padding: 0.8rem 1.2rem;
                     border-radius: 2.4rem;
-                    font-size: 1.2rem;
+                    font-size: 1.4rem;
                     font-weight: 500;
                     margin-top: 2rem;
+
                     @include respond(md) {
-                        font-size: 2rem;
-                        padding: 1rem 4rem;
+                        padding: 1rem 3rem;
                         border-radius: 3rem;
                     }
 
@@ -197,8 +207,11 @@
                         background: none;
                         border: 1px solid #211d4f;
                         color: $primary-color;
-                        @include respond(md) {
+                        @include respond(lg) {
                             margin-right: 3rem;
+                        }
+                        @include respond(md) {
+                            margin-right: 1.5rem;
                         }
 
                         &:hover {
@@ -218,14 +231,49 @@
             }
         }
     }
+    .hero-category {
+        .card-col {
+            &:nth-child(4n + 1) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #752de8;
+                    }
+                }
+            }
+            &:nth-child(4n + 2) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #ff9700;
+                    }
+                }
+            }
+            &:nth-child(4n + 3) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #fe5050;
+                    }
+                }
+            }
+            &:nth-child(4n + 4) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #38c675;
+                    }
+                }
+            }
+            &:nth-child(4n + 4) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #0693e3;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .get-services {
     margin: 4rem 0 9rem;
-    h1 {
-        margin-bottom: 4rem;
-    }
-
     ul {
         margin-bottom: 4rem;
 
@@ -245,6 +293,45 @@
                 margin-right: 0.8rem;
                 height: 2.8rem;
                 width: 2.8rem;
+            }
+        }
+    }
+    .hero-category {
+        .card-col {
+            &:nth-child(4n + 1) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #752de8;
+                    }
+                }
+            }
+            &:nth-child(4n + 2) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #ff9700;
+                    }
+                }
+            }
+            &:nth-child(4n + 3) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #fe5050;
+                    }
+                }
+            }
+            &:nth-child(4n + 4) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #38c675;
+                    }
+                }
+            }
+            &:nth-child(4n + 4) {
+                .hero-category__card-block {
+                    .image-block {
+                        background: #0693e3;
+                    }
+                }
             }
         }
     }
@@ -272,7 +359,69 @@
         position: relative;
     }
 }
+.notable-quality {
+    margin-top: 5rem;
+    /* Container */
+    margin: 5rem 0rem;
+    .long-square-image-card {
+        background: #0693e3;
+    }
+    .card-content {
+        .thumbnail-img {
+            border-radius: 0rem;
+        }
+        padding: 0rem;
+        padding-right: 2rem;
+        p {
+            color: #fff;
+            font-weight: 500;
+        }
+        .description {
+            .thumbnail-img {
+                margin-left: 1rem;
+                object-fit: contain;
+            }
+            padding-top: 5.1rem;
+            padding-bottom: 3.4rem;
+            padding-right: 2.2rem;
+            padding-left: 2rem;
+            p {
+                color: #fff;
+            }
+            @include respond(md) {
+                padding-left: 0rem;
+            }
+            h1 {
+                color: #fff;
+                font-weight: 500;
+                margin-bottom: 3rem;
+                font-size: 2.6rem;
+                padding-left: 1.6rem;
+                border-left: 0.5rem solid #00d084;
+                @include respond(md) {
+                    padding-right: 16rem;
+                }
+            }
+        }
+    }
 
+    .list {
+        padding-bottom: 3rem;
+        padding-left: 2rem;
+        h6 {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 0rem;
+        }
+        li {
+            font-size: 1.3rem;
+            line-height: 2rem;
+            padding-top: 0.5rem;
+            color: #fff;
+        }
+    }
+}
 .tax-calculator {
     .gradient-wrapper {
         position: relative;

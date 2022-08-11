@@ -47,3 +47,22 @@ export const growBusinessSteps = [
             "Our first and foremost priority is to ensure security in alll aspects of a task from start to the end.",
     },
 ];
+
+export const WinNewClientData = [
+    {
+        id: "1",
+        title: "Win new clients ",
+        image: "/utility-images/with-new-client.png",
+        description:
+            "With CIPHER, you can showcase your talents, and garner new clients at the ease of your home, and a few clicks. We want  a garden cleaner for our bunglow who can great take care of our plants, includes monitoring the health of all plants and greenscapes.",
+        buttonText: "Explore Tasks",
+    },
+    {
+        id: "2",
+        title: "Win new clients ",
+        image: "/utility-images/with-new-client.png",
+        description:
+            "With CIPHER, you can showcase your talents, and garner new clients at the ease of your home, and a few clicks. We want  a garden cleaner for our bunglow who can great take care of our plants, includes monitoring the health of all plants and greenscapes.",
+        buttonText: "Explore Tasks",
+    },
+];
