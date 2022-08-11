@@ -16,6 +16,7 @@ import { axiosClient } from "utils/axiosClient";
 const Career = ({ careerData }: { careerData: CareerValueProps }) => {
     const { result } = careerData ?? [];
     const [tabIndex, setTabIndex] = useState(0);
+    console.log(result);
     return (
         <Layout title="Cipher | Careers">
             <section id="careers-section" className="careers-section">
