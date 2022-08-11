@@ -3,6 +3,7 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
+import { useFaq } from "hooks/faq/useFaq";
 import { Fragment } from "react";
 import { Accordion, Container } from "react-bootstrap";
 import { FaqFormData } from "utils/contactFormData";
@@ -10,6 +11,10 @@ import { FaqFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const FAQ = () => {
+    const { data } = useFaq();
+
+    const faqAll = data;
+    console.log("faq", faqAll);
     return (
         <Fragment>
             <Layout title="FAQs | Cipher">
