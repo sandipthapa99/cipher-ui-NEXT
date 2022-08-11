@@ -7,7 +7,6 @@ import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { getServiceCategory, getServices } from "services/commonServices";
 

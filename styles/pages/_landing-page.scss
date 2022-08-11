@@ -45,6 +45,7 @@
                     justify-content: center;
                     align-items: center;
                     box-shadow: 0 8px 6px -10px #b3c6ff;
+
                     .form-group {
                         margin: 0;
                         flex: 0.3;
@@ -63,6 +64,7 @@
                             color: $secondary-text-color;
                             cursor: pointer;
                             background: transparent;
+
                             &::placeholder {
                                 color: #868e96;
                                 font-family: $poppins-font;
@@ -219,6 +221,7 @@
                     font-weight: 400;
                     color: $primary-color;
                     margin: 3.2rem 0 1.4rem 0;
+
                     @include respond(md) {
                         font-size: 3.2rem;
                         margin: 6.4rem 0 2rem 0;
@@ -253,6 +256,9 @@
                             margin-right: 3rem;
                         }
                         @include respond(md) {
+                            margin-right: 3rem;
+                        }
+                        @include respond(md) {
                             margin-right: 1.5rem;
                         }
 
@@ -273,40 +279,47 @@
             }
         }
     }
+
     .hero-category {
-        .card-col {
-            &:nth-child(4n + 1) {
-                .hero-category__card-block {
-                    .image-block {
-                        background: #752de8;
+        .mantine-Carousel-root {
+            .mantine-Carousel-slide {
+                &:nth-child(4n + 1) {
+                    .hero-category__card-block {
+                        .image-block {
+                            background: #752de8;
+                        }
                     }
                 }
-            }
-            &:nth-child(4n + 2) {
-                .hero-category__card-block {
-                    .image-block {
-                        background: #ff9700;
+
+                &:nth-child(4n + 2) {
+                    .hero-category__card-block {
+                        .image-block {
+                            background: #ff9700;
+                        }
                     }
                 }
-            }
-            &:nth-child(4n + 3) {
-                .hero-category__card-block {
-                    .image-block {
-                        background: #fe5050;
+
+                &:nth-child(4n + 3) {
+                    .hero-category__card-block {
+                        .image-block {
+                            background: #fe5050;
+                        }
                     }
                 }
-            }
-            &:nth-child(4n + 4) {
-                .hero-category__card-block {
-                    .image-block {
-                        background: #38c675;
+
+                &:nth-child(4n + 4) {
+                    .hero-category__card-block {
+                        .image-block {
+                            background: #38c675;
+                        }
                     }
                 }
-            }
-            &:nth-child(4n + 4) {
-                .hero-category__card-block {
-                    .image-block {
-                        background: #0693e3;
+
+                &:nth-child(4n + 4) {
+                    .hero-category__card-block {
+                        .image-block {
+                            background: #0693e3;
+                        }
                     }
                 }
             }
@@ -316,12 +329,14 @@
 
 .get-services {
     margin: 4rem 0 9rem;
+
     ul {
         margin-bottom: 4rem;
 
         li {
             margin-right: 0;
             margin-bottom: 2rem;
+
             @include respond(md) {
                 margin-right: 8rem;
             }
@@ -338,6 +353,7 @@
             }
         }
     }
+
     .hero-category {
         .card-col {
             &:nth-child(4n + 1) {
@@ -347,6 +363,7 @@
                     }
                 }
             }
+
             &:nth-child(4n + 2) {
                 .hero-category__card-block {
                     .image-block {
@@ -354,6 +371,7 @@
                     }
                 }
             }
+
             &:nth-child(4n + 3) {
                 .hero-category__card-block {
                     .image-block {
@@ -361,6 +379,7 @@
                     }
                 }
             }
+
             &:nth-child(4n + 4) {
                 .hero-category__card-block {
                     .image-block {
@@ -368,6 +387,7 @@
                     }
                 }
             }
+
             &:nth-child(4n + 4) {
                 .hero-category__card-block {
                     .image-block {
@@ -401,28 +421,35 @@
         position: relative;
     }
 }
+
 .notable-quality {
     margin-top: 5rem;
     /* Container */
     margin: 5rem 0rem;
+
     .long-square-image-card {
         background: #0693e3;
     }
+
     .card-content {
         .thumbnail-img {
             border-radius: 0rem;
         }
+
         padding: 0rem;
         padding-right: 2rem;
+
         p {
             color: #fff;
             font-weight: 500;
         }
+
         .description {
             .thumbnail-img {
                 margin-left: 1rem;
                 object-fit: contain;
             }
+
             padding-top: 5.1rem;
             padding-bottom: 3.4rem;
             padding-right: 2.2rem;
@@ -436,9 +463,11 @@
                     font-size: 1.5rem;
                 }
             }
+
             @include respond(md) {
                 padding-left: 0rem;
             }
+
             h1 {
                 color: #fff;
                 font-weight: 500;
@@ -446,6 +475,7 @@
                 font-size: 2.6rem;
                 padding-left: 1.6rem;
                 border-left: 0.5rem solid #00d084;
+
                 @include respond(md) {
                     padding-right: 16rem;
                 }
@@ -469,6 +499,7 @@
             color: #fff;
             margin-bottom: 0rem;
         }
+
         li {
             font-size: 1.3rem;
             line-height: 2rem;
@@ -486,6 +517,7 @@
         }
     }
 }
+
 .tax-calculator {
     .gradient-wrapper {
         position: relative;
@@ -510,6 +542,7 @@
             border-radius: 0.4rem;
             width: 100%;
         }
+
         .overlay {
             position: absolute;
             opacity: 0.9;
@@ -549,6 +582,7 @@
                 font-size: 4rem;
                 font-weight: 400;
                 line-height: 6rem;
+
                 span {
                     font-weight: 600;
                 }
@@ -575,6 +609,7 @@
                     font-weight: 500;
                     margin-bottom: 3.7rem;
                     line-height: 2.5rem;
+
                     @include respond(xxs) {
                         font-size: 1.4rem;
                     }

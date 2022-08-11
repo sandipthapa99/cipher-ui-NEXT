@@ -31,7 +31,7 @@ const ServiceDetail: NextPage = () => {
     return (
         <Layout title="Service Details | Cipher">
             <BreadCrumb currentPage="Service Details" />
-            <Container fluid="xl" className="px-5">
+            <Container fluid="xl" className="px-0 px-sm-5">
                 <section className="service-details">
                     {/* Explore top container start */}
                     <div className="service-details__top-container">
