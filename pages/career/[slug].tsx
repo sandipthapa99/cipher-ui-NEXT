@@ -50,7 +50,7 @@ const CareerDeatils = ({
                         <ul>{career?.title}</ul>
                         <AnchorButton
                             className={"big-btn"}
-                            href={"/career/apply"}
+                            href={`/career/apply?id=${career?.id}`}
                             varient={""}
                         >
                             Apply

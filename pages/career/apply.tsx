@@ -7,7 +7,7 @@ import Layout from "@components/Layout";
 import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
-import router from "next/router";
+import { useRouter } from "next/router";
 import React from "react";
 import { Container } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -17,7 +17,9 @@ import { isSubmittingClass } from "utils/helpers";
 
 const Apply = () => {
     const { setShowSuccessModal } = useSuccessContext();
-    const { mutate } = useForm("/career");
+    const router = useRouter();
+    const { id } = router.query;
+    const { mutate } = useForm(`/career/candidate/apply/${id}`);
     return (
         <Layout title="Cipher | Apply">
             <BreadCrumb currentPage="Apply" />
