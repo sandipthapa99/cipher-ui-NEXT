@@ -106,14 +106,7 @@ const Header = () => {
                                     )}
                                 >
                                     <Link href="">
-                                        <a
-                                            className="nav-link d-none d-md-inline-block"
-                                            //     style={{
-                                            //         paddingRight: "3rem !important",
-                                            //         paddingLeft: "4rem !important",
-                                            //         alignItems: "center",
-                                            //     }}
-                                        >
+                                        <a className="nav-link d-none d-md-inline-block">
                                             <FontAwesomeIcon
                                                 icon={faObjectsColumn}
                                                 className="svg-icon"
