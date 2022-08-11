@@ -10,6 +10,7 @@
             font-size: 1.3rem;
             font-weight: 500;
             color: $primary-color;
+            padding: 0 1rem 0 0;
             @include respond(lg) {
                 font-size: 1.6rem;
             }
@@ -21,6 +22,7 @@
         .charge {
             font-weight: 500;
             font-size: 1.3rem;
+            text-align: right;
             color: #343a40;
             @include respond(lg) {
                 font-size: 2rem;

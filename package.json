@@ -13,6 +13,7 @@
         "runjson": "json-server --watch db.json"
     },
     "dependencies": {
+        "@emotion/react": "^11.10.0",
         "@fortawesome/fontawesome-pro": "^6.1.1",
         "@fortawesome/fontawesome-svg-core": "^6.1.1",
         "@fortawesome/free-brands-svg-icons": "^6.1.1",

@@ -17,6 +17,11 @@
     }
 
     .upper-wrapper {
+        flex-wrap: wrap;
+
+        button {
+            margin: 0 0 1rem;
+        }
         .edit-delete-button {
             button {
                 width: 10rem;

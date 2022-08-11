@@ -8,12 +8,12 @@
     margin-bottom: 2rem;
     .info {
         .browse {
-            color: "#0693E3" !important;
-            cursor: "pointer" !important;
+            color: "#0693E3";
+            cursor: "pointer";
         }
     }
     .thumbnail-img {
-        height: 5rem;
+        height: 4rem;
         width: 5rem;
         margin-top: 2.4rem;
     }
@@ -24,9 +24,9 @@
             color: $twitter-logo-color;
         }
     }
-    .size {
+    span {
         font-size: 1.2rem;
-        margin-bottom: 0rem !important;
         color: #868e96;
+        margin-bottom: 1rem;
     }
 }

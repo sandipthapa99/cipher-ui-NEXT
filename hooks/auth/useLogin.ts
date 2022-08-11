@@ -20,7 +20,7 @@ export const useLogin = () => {
                     loginPayload
                 );
                 autoLogin(data.access, data.refresh);
-            } catch (error) {
+            } catch (error: any) {
                 throw new Error("Invalid email or password");
             }
         },

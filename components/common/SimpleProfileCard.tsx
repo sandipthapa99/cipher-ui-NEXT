@@ -16,8 +16,10 @@ const SimpleProfileCard = ({
     name,
     speciality,
     startingPrice,
+    endPrice,
     isApplied,
     isPermission,
+    currency,
 }: ServiceProviderCardProps) => {
     const [showModal, setShowModal] = useState(false);
     const [priceValue, setPriceValue] = useState(25);
@@ -32,15 +34,18 @@ const SimpleProfileCard = ({
             <div className="d-flex align-items-center simple-card__profile">
                 <figure className="thumbnail-img">
                     <Image
-                        src={image}
+                        src={image ? image : "/hireinnepal/footer.png"}
                         layout="fill"
                         objectFit="cover"
                         alt="serviceprovider-image"
                     />
                 </figure>
+
                 <div className="intro">
                     <p className="name">{name}</p>
-                    <p className="job">{speciality}</p>
+                    <p className="job">
+                        {speciality ? speciality : "Gardener"}
+                    </p>
                 </div>
             </div>
 
@@ -76,7 +81,9 @@ const SimpleProfileCard = ({
 
             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                 <span>Budget Range</span>
-                <span className="price">Rs {startingPrice}</span>
+                <span className="text-right price">
+                    {currency} {startingPrice} -{endPrice}
+                </span>
             </div>
 
             {isApplied &&

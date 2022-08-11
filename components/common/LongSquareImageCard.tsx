@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
 
 import CardBtn from "./CardBtn";
@@ -46,7 +47,7 @@ const LongSquareImageCard = ({
                                             {description.map(
                                                 (info: any, index) => (
                                                     <div
-                                                        className="d-flex"
+                                                        className="d-flex with-icon"
                                                         key={index}
                                                     >
                                                         {info.icon ? (
@@ -80,10 +81,15 @@ const LongSquareImageCard = ({
                                     )}
                                 </div>
                                 {buttonText && (
-                                    <CardBtn
-                                        btnTitle={buttonText}
-                                        backgroundColor="#fff"
-                                    />
+                                    <Link href={"/contact"}>
+                                        <a>
+                                            <CardBtn
+                                                btnTitle={buttonText}
+                                                backgroundColor="#fff"
+                                                color="#000000"
+                                            />
+                                        </a>
+                                    </Link>
                                 )}
                             </div>
                         </Col>
@@ -133,11 +139,15 @@ const LongSquareImageCard = ({
                                     )}
                                 </div>
                                 {buttonText && (
-                                    <CardBtn
-                                        btnTitle={buttonText}
-                                        color="#fff"
-                                        backgroundColor="primary-color"
-                                    />
+                                    <Link href={"/contact"}>
+                                        <a>
+                                            <CardBtn
+                                                btnTitle={buttonText}
+                                                color="#fff"
+                                                backgroundColor="primary-color"
+                                            />
+                                        </a>
+                                    </Link>
                                 )}
                             </div>
                         </Col>
