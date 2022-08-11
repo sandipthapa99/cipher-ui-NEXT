@@ -15,13 +15,18 @@ const TaskCard = ({
     location,
     date,
     time,
+    startPrice,
+    endPrice,
+    currency,
     ...rest
 }: TaskCardProps) => {
     return (
         <div className="task-applied-card-block" {...rest}>
             <div className="d-flex justify-content-between flex-column flex-sm-row task-applied-card-block__header">
-                <h4 className="title">{title}</h4>
-                <h4 className="charge">Rs {charge}</h4>
+                <span className="title">{title}</span>
+                <span className="charge">
+                    {currency} {startPrice} - {endPrice}
+                </span>
             </div>
             <div className="task-applied-card-block__body">
                 <p className="location mb-3">
