@@ -1,6 +1,7 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../styles/bundle.scss";
 import "react-toastify/dist/ReactToastify.css";
+import "@smastrom/react-rating/style.css";
 
 import { PrivateRoute } from "@components/common/PrivateRoute";
 import type { DehydratedState } from "@tanstack/react-query";
@@ -25,7 +26,7 @@ interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
         dehydratedState: DehydratedState;
     };
 }
-const PROTECTED_ROUTES = ["/profile"];
+const PROTECTED_ROUTES = ["/profile", "/tasker"];
 const RESTRICTED_ROUTES_ON_LOGGED_IN = ["/login"];
 
 const UserLoadingOverlay = dynamic(

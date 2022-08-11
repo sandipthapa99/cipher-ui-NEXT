@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 interface PrivateRouteProps {
     protectedRoutes: string[];
-    restrictedRoutesOnLoggedIn?: string[];
+    restrictedRoutesOnLoggedIn: string[];
     children: ReactNode;
 }
 export const PrivateRoute = ({
@@ -14,30 +14,27 @@ export const PrivateRoute = ({
     restrictedRoutesOnLoggedIn,
     children,
 }: PrivateRouteProps) => {
-    const { data, isLoading, isError } = useUser();
+    const { data: user, isLoading, isError } = useUser();
     const router = useRouter();
     const currentPath = router.pathname;
+
     const isPathProtected = protectedRoutes.indexOf(currentPath) !== -1;
-    const isRestrictednOnLoggedIn = restrictedRoutesOnLoggedIn
-        ? restrictedRoutesOnLoggedIn.indexOf(currentPath) !== -1
-        : false;
+
+    const isRestrictedOnLoggedIn =
+        restrictedRoutesOnLoggedIn.indexOf(currentPath) !== -1;
 
     useEffect(() => {
-        if (!isLoading && data && isRestrictednOnLoggedIn) {
+        if (!isLoading && user && isRestrictedOnLoggedIn) {
             router.push("/");
         }
-        if (!isLoading && !data && !isError && isPathProtected) {
+    }, [isLoading, isRestrictedOnLoggedIn, router, user]);
+
+    useEffect(() => {
+        if (!isLoading && !user && !isError && isPathProtected) {
             router.push(`/login?next=${currentPath}`);
         }
-    }, [
-        currentPath,
-        data,
-        isError,
-        isLoading,
-        isPathProtected,
-        isRestrictednOnLoggedIn,
-        router,
-    ]);
-    if ((isLoading || !data) && isPathProtected) return <UserLoadingOverlay />;
+    }, [currentPath, isError, isLoading, isPathProtected, router, user]);
+
+    if ((isLoading || !user) && isPathProtected) return <UserLoadingOverlay />;
     return <>{children}</>;
 };
