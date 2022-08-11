@@ -41,17 +41,17 @@
             margin: 0rem 2.8rem;
         }
         @include respond(xxs) {
-            padding: 0rem 5rem;
+            padding: 0rem 2rem;
         }
     }
     &__form {
         @include respond(xs) {
             margin-top: 1rem;
-            margin: 0rem 2.8rem;
+            margin: 0rem 3.8rem;
         }
-        @include respond(xxs) {
-            padding: 0rem 5rem;
-        }
+        // @include respond(xxs) {
+        //     padding: 0rem 5rem;
+        // }
 
         .tooltip > div {
             display: none !important;
@@ -135,7 +135,7 @@
             margin-top: 1rem;
         }
         @include respond(xxs) {
-            padding: 0rem 5rem;
+            padding: 0rem 1rem;
             margin-top: 1rem;
         }
         margin-top: 2rem;
@@ -193,18 +193,21 @@
             margin-top: 1rem;
         }
         @include respond(xxs) {
-            margin: 0rem 7.8rem;
+            margin: 0rem 4rem;
             margin-top: 1rem;
+            font-size: 1.8rem;
         }
     }
     .table-content {
         @include respond(xs) {
-            margin: 0rem 0.8rem;
+            margin: 0rem 1.5rem;
             margin-top: 1rem;
+            padding: 0rem 1.2rem;
+            margin-bottom: 2.5rem;
         }
         @include respond(xxs) {
-            width: 22rem;
-            margin-left: 7rem;
+            width: 20rem;
+            margin-left: 4rem;
             margin-top: 1rem;
             overflow-x: scroll;
             padding: 0rem 0.8rem;
