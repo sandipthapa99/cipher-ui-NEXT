@@ -67,21 +67,21 @@ const TaxCalculator: NextPage = () => {
                     salary: "First Slab",
                     amount: `${TableData?.data[0].taxable_amount}`,
                     rate: `${TableData?.data[0].tax_rate}`,
-                    liability: `${TableData?.data[0].tax_rate}`,
+                    liability: `${TableData?.data[0].tax_liability}`,
                 },
                 {
                     id: "1",
                     salary: "Net Tax Liability(yearly)",
                     amount: `${TableData?.data[0].taxable_amount}`,
                     rate: `${TableData?.data[0].tax_rate}`,
-                    liability: `${TableData?.data[0].tax_rate}`,
+                    liability: `${TableData?.data[0].tax_liability}`,
                 },
                 {
                     id: "2",
                     salary: "Net Tax Liability(monthly)",
                     amount: `${TableData?.data[0].taxable_amount}`,
                     rate: `${TableData?.data[0].tax_rate}`,
-                    iability: `${TableData?.data[0].tax_rate}`,
+                    iability: `${TableData?.data[0].tax_liability}`,
                 },
             ],
         },
@@ -311,7 +311,11 @@ const TaxCalculator: NextPage = () => {
                                                     </div>
                                                     <div className="buttons">
                                                         <Row>
-                                                            <Col md={6}>
+                                                            <Col
+                                                                lg={6}
+                                                                md={12}
+                                                                className="reset-btn"
+                                                            >
                                                                 <FormButton
                                                                     name="Reset"
                                                                     className="btn close-btn"
@@ -320,7 +324,7 @@ const TaxCalculator: NextPage = () => {
                                                                     }
                                                                 />
                                                             </Col>
-                                                            <Col md={6}>
+                                                            <Col lg={6} md={12}>
                                                                 <FormButton
                                                                     type="submit"
                                                                     variant="primary"

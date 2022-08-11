@@ -3,8 +3,13 @@
     background-color: #fff;
     &__profile {
         .thumbnail-img {
-            height: 15rem;
-            width: 15rem;
+            height: 10rem;
+            width: 10rem;
+
+            @include respond(lg) {
+                height: 15rem;
+                width: 15rem;
+            }
         }
 
         .button {
@@ -16,6 +21,10 @@
                 background-color: $primary-color;
                 color: #fff;
             }
+
+            @include respond(sm) {
+                padding: 1rem 3rem;
+            }
         }
         .star {
             color: #ced4da;
@@ -24,13 +33,12 @@
             margin-bottom: 1.4rem;
             margin-left: 0.5rem;
         }
-        .unrated {
-        }
     }
     &__general-info {
         padding-left: 1rem;
         padding-right: 1rem;
         padding-bottom: 0rem;
+        position: relative;
         @include respond(md) {
             padding: 3rem;
         }
@@ -38,22 +46,36 @@
             font-size: 1.6rem;
             padding-top: 1rem;
             font-weight: 500;
+
+            @include respond(xxs) {
+                font-size: 1.5rem;
+                padding-bottom: 2rem;
+            }
         }
         .content {
             padding-top: 1rem;
+
             .type {
                 padding-bottom: 1.3rem;
-                .thumbnail-img {
+
+                .svg-img {
                     height: 2rem;
                     width: 2rem;
                     margin-right: 1rem;
                     color: $default-text-color !important;
+                    @include respond(xxs) {
+                        height: 1.5rem;
+                        width: 1.5rem;
+                    }
                 }
                 p {
                     font-size: 1.3rem;
                     margin-bottom: 0rem;
                     margin-bottom: 0rem;
-                    text-align: justify;
+
+                    @include respond(xxs) {
+                        font-size: 1.1rem;
+                    }
                 }
             }
         }
@@ -61,6 +83,26 @@
             justify-content: end;
             align-items: flex-end;
 
+            @include respond(xs) {
+                position: absolute;
+                top: 2rem;
+                right: 1rem;
+            }
+            @include respond(xxs) {
+                position: absolute;
+                top: 4.2rem;
+                right: 14rem;
+            }
+            @include respond(sm) {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+            @include respond(md) {
+                bottom: 0rem;
+                right: 0rem;
+                position: relative;
+            }
             .heart {
                 color: #fe5050;
                 margin-right: 2.4rem;
@@ -148,6 +190,15 @@
             }
             .type {
                 padding-bottom: 0.7rem;
+                @include respond(xs) {
+                    padding-left: 2rem;
+                }
+                p {
+                    @include respond(xs) {
+                        font-size: 1.2rem;
+                        padding-left: 1rem;
+                    }
+                }
             }
         }
     }

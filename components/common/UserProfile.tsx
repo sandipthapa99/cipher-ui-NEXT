@@ -17,6 +17,7 @@ import { Col, Row } from "react-bootstrap";
 import type { UserProfileInfoProps } from "types/userProfile";
 
 import ProfileEditForm from "./ProfileEditForm";
+import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 
 const UserProfileCard = ({
@@ -116,7 +117,7 @@ const UserProfileCard = ({
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faPhone}
-                                        className="thumbnail-img"
+                                        className="svg-img"
                                     />
 
                                     <p>{userPhone}</p>
@@ -124,7 +125,7 @@ const UserProfileCard = ({
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faAt}
-                                        className="thumbnail-img"
+                                        className="svg-img"
                                     />
 
                                     <p>{userEmail}</p>
@@ -132,7 +133,7 @@ const UserProfileCard = ({
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faLocationDot}
-                                        className="thumbnail-img"
+                                        className="svg-img"
                                     />
 
                                     <p>{userLocation}</p>
@@ -141,7 +142,7 @@ const UserProfileCard = ({
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faTimer}
-                                        className="thumbnail-img"
+                                        className="svg-img"
                                     />
                                     <p>
                                         &nbsp;Active Hours {activeFrom}:00 AM to{" "}
@@ -153,7 +154,7 @@ const UserProfileCard = ({
                                     <div className="count d-flex flex-row">
                                         <FontAwesomeIcon
                                             icon={faSparkles}
-                                            className="thumbnail-img"
+                                            className="svg-img"
                                         />
                                         <p>{moreServices}</p>
                                     </div>
@@ -162,12 +163,7 @@ const UserProfileCard = ({
                         </Col>
                         <Col md={6}>
                             <div className="reactions d-flex">
-                                <div className="d-flex flex-col share">
-                                    <FontAwesomeIcon
-                                        icon={faShare}
-                                        className="svg-icon share"
-                                    />
-                                </div>
+                                <ShareIcon />
                                 <FontAwesomeIcon
                                     icon={faEllipsisVertical}
                                     className="svg-icon option"

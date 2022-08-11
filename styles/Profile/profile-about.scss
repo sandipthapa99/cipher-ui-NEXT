@@ -29,6 +29,21 @@
         a {
             font-size: 1.4rem;
         }
+        .title-wrapper {
+            h1 {
+                @include respond(xxs) {
+                    font-size: 1.4rem;
+                }
+            }
+        }
+        h3 {
+            @include respond(xxs) {
+                font-size: 1.2rem;
+            }
+        }
+        @include respond(xxs) {
+            font-size: 1.5rem;
+        }
     }
     .portfolio {
         padding-bottom: 1.2rem;
@@ -116,6 +131,10 @@
         .institution {
             margin-bottom: 1rem;
             font-size: 1.4rem;
+
+            @include respond(xxs) {
+                font-size: 1.27rem;
+            }
         }
     }
     .certification {

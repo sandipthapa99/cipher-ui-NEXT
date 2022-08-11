@@ -91,6 +91,12 @@
             outline: none;
             margin-bottom: 1.6rem;
         }
+        .reset-btn {
+            margin-bottom: 0rem;
+            @include respond(sm) {
+                margin-bottom: 1rem;
+            }
+        }
         .close-btn {
             width: 100%;
             font-size: 1.6rem;
@@ -229,6 +235,7 @@
             }
             td {
                 padding: 1.3rem 0rem;
+                padding-left: 1rem;
             }
         }
         @include respond(xs) {

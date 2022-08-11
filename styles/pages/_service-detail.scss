@@ -49,11 +49,6 @@ section {
             @include respond(sm) {
                 flex-direction: row;
             }
-            .reactions {
-                .svg-icon-heart {
-                    margin-right: 1rem !important;
-                }
-            }
         }
         .thumbnail-img {
             height: 42rem;
