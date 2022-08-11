@@ -19,6 +19,6 @@ export const personType = [
     { id: 2, value: "latest", label: "Latest" },
     { id: 3, value: "top", label: "Top" },
 ];
-export const maritalStatus = [{ id: 1, value: "married", label: "Married" }];
+export const maritalStatus = [{ id: 1, value: "Married", label: "Married" }];
 
-export const salaryType = [{ id: 1, value: "monthly", label: "Monthly" }];
+export const salaryType = [{ id: 1, value: "Monthly", label: "Monthly" }];

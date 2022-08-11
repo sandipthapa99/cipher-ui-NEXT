@@ -14,6 +14,7 @@ import AddRequirements from "./AddRequirements";
 interface Props {
     onSubmit: () => void;
 }
+
 const PostModal = ({ onSubmit }: Props) => {
     const { addTask } = useClientTasks();
     const { setShowSuccessModal } = useSuccessContext();
