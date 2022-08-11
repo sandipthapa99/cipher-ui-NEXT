@@ -2,6 +2,7 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
+import SaveIcon from "@components/common/SaveIcon";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import ServiceHighlights from "@components/common/ServiceHighlights";
@@ -10,10 +11,7 @@ import ShareIcon from "@components/common/ShareIcon";
 import Tags from "@components/common/Tags";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import {
-    faEllipsisVertical,
-    faHeart,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faEllipsisVertical } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import type { NextPage } from "next";
@@ -28,6 +26,7 @@ import { servicesDiscover } from "staticData/services";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { reviewType } from "utils/options";
+
 const ServiceDetail: NextPage = () => {
     return (
         <Layout title="Service Details | Cipher">
@@ -35,7 +34,7 @@ const ServiceDetail: NextPage = () => {
             <Container fluid="xl" className="px-0 px-sm-5">
                 <section className="service-details">
                     {/* Explore top container start */}
-                    <section className="service-details__top-container">
+                    <div className="service-details__top-container">
                         <h1>Garden Cleaning</h1>
                         <Row className="gx-5">
                             <Col md={8}>
@@ -43,10 +42,7 @@ const ServiceDetail: NextPage = () => {
                                     <span>By Harry Smith, Gardener</span>
                                     <div className="d-flex justify-content-between align-items-center reactions">
                                         <div className="d-flex align-items-center me-4">
-                                            <FontAwesomeIcon
-                                                icon={faHeart}
-                                                className="svg-icon-heart me-3"
-                                            />
+                                            <SaveIcon />
                                             <span>Save</span>
                                         </div>
                                         <span className="d-flex align-items-center">
@@ -94,9 +90,9 @@ const ServiceDetail: NextPage = () => {
                                     ))}
                             </Col>
                         </Row>
-                    </section>
+                    </div>
                     {/* Explore top container end */}
-                    <section className="service-details__description">
+                    <div className="service-details__description">
                         <Row className="gx-5">
                             <Col md={8}>
                                 <h1>Description</h1>
@@ -121,9 +117,9 @@ const ServiceDetail: NextPage = () => {
                                 </div>
                             </Col>
                         </Row>
-                    </section>
-                    {/* Service details highlights section start*/}
-                    <section className="service-details__highlights">
+                    </div>
+                    {/* Service details highlights div start*/}
+                    <div className="service-details__highlights">
                         <h1>Highlights</h1>
 
                         <Row className="content gx-5 flex-column">
@@ -137,10 +133,10 @@ const ServiceDetail: NextPage = () => {
                                     // </div>
                                 ))}
                         </Row>
-                    </section>
-                    {/* Service details highlights section end*/}
+                    </div>
+                    {/* Service details highlights div end*/}
                     {/* Service details package and offers start */}
-                    <section className="service-details__offers">
+                    <div className="service-details__offers">
                         <h1>Packages &amp; Offers</h1>
                         <Row className="gx-5 d-flex align-items-stretch">
                             {PackageCard &&
@@ -164,10 +160,10 @@ const ServiceDetail: NextPage = () => {
                                     </Col>
                                 ))}
                         </Row>
-                    </section>
+                    </div>
 
-                    {/* Service detail reviews section start */}
-                    <section className="service-details__reviews">
+                    {/* Service detail reviews div start */}
+                    <div className="service-details__reviews">
                         <div className="head-container">
                             <h3>
                                 My Reviews <span>(3,0003)</span>{" "}
@@ -204,11 +200,11 @@ const ServiceDetail: NextPage = () => {
                             </Row>
                             <Link href="#!">See all reviews</Link>
                         </div>
-                    </section>
+                    </div>
                     {/* Service detail reviews setion end */}
 
-                    {/* Services near you section start */}
-                    <section
+                    {/* Services near you div start */}
+                    <div
                         id="services-near-you"
                         className="service-details__services"
                     >
@@ -266,8 +262,8 @@ const ServiceDetail: NextPage = () => {
                                     );
                                 })}
                         </Row>
-                    </section>
-                    {/* Services near you section end */}
+                    </div>
+                    {/* Services near you div end */}
                 </section>
             </Container>
         </Layout>

@@ -1,6 +1,8 @@
 .about-page {
     margin-bottom: 4.375rem;
-
+    p {
+        color: $secondary-text-color;
+    }
     &__top-container {
         display: flex;
         flex-direction: column;
@@ -128,7 +130,6 @@
             font-weight: 400;
             font-size: 1.2rem;
             line-height: 2rem;
-            color: $default-text-color;
         }
     }
 

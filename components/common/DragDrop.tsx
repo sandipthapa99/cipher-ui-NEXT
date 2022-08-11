@@ -37,20 +37,16 @@ const DragDrop = ({
                 {fileType}
             </p>
             {maxImageSize ? (
-                <p className="size">Maximum Image size {maxImageSize} MB</p>
+                <span>Maximum Image size {maxImageSize} MB</span>
             ) : (
                 ""
             )}
             {maxVideoSize ? (
-                <p className="size">Maximum Video size {maxVideoSize} MB</p>
+                <span>Maximum Video size {maxVideoSize} MB</span>
             ) : (
                 ""
             )}
-            {maxPdfSize ? (
-                <p className="size">Maximum Pdf size {maxPdfSize} MB</p>
-            ) : (
-                ""
-            )}
+            {maxPdfSize ? <span>Maximum Pdf size {maxPdfSize} MB</span> : ""}
 
             <input
                 type={"file"}
