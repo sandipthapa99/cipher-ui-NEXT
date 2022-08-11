@@ -1,5 +1,6 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
+import UserLoadingOverlay from "@components/common/FullPageLoader";
 import { GoBack } from "@components/common/GoBack";
 import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
@@ -19,13 +20,17 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
 import type { NextPage } from "next";
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { parse } from "path";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
+import { taskApplied } from "staticData/taskApplied";
 import { axiosClient } from "utils/axiosClient";
 
 import { TaskersTab } from "./TaskersTab";
@@ -36,17 +41,26 @@ const AppliedTaskDetail: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
 
-    const slug = "knarkngir-nkanf";
+    const router = useRouter();
 
-    const { data: taskDetail } = useQuery(["task-detail", slug], async () => {
-        await axiosClient.get(`/task/task/${slug}`);
+    const uuid = router?.query?.slug;
+
+    const { data: taskDetail } = useQuery(["task-detail", uuid], async () => {
+        const response = await axiosClient.get(`/task/task/${uuid}`);
+        return response?.data;
     });
 
-    console.log("taskDetail", taskDetail);
+    console.log("taskdetail in applied-task-detail", taskDetail);
 
     const handleShowModal = () => {
         setShowModal(true);
     };
+
+    const requirements = taskDetail?.requirements?.split("\r");
+
+    if (!taskDetail) {
+        return <UserLoadingOverlay />;
+    }
 
     return (
         <div className="aside-detail-wrapper">
@@ -62,11 +76,14 @@ const AppliedTaskDetail: NextPage = () => {
                     </a>
                 </Link> */}
 
-                <h3>Need a garden cleaner</h3>
+                <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
                         <span className="pb-3 pb-sm-0 provider-name">
-                            25 May, 2022 - 02:30 PM
+                            {format(
+                                new Date(taskDetail?.created_at),
+                                "dd MMM, yyyy - hh:mm a"
+                            )}
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
@@ -117,22 +134,16 @@ const AppliedTaskDetail: NextPage = () => {
                         </figure>
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
-                        {serviceProvider &&
-                            serviceProvider.map((provider) => (
-                                <SimpleProfileCard
-                                    image={provider.image}
-                                    key={provider.id}
-                                    name={provider.name}
-                                    views={provider.views}
-                                    address={provider.address}
-                                    happyClients={provider.happyClients}
-                                    successRate={provider.successRate}
-                                    speciality={provider.speciality}
-                                    startingPrice={provider.startingPrice}
-                                    isApplied={true}
-                                    isPermission={false}
-                                />
-                            ))}
+                        <SimpleProfileCard
+                            image={taskDetail?.image}
+                            speciality={taskDetail?.speciality}
+                            startingPrice={taskDetail?.budget_from}
+                            endPrice={taskDetail?.budget_to}
+                            isApplied={true}
+                            isPermission={false}
+                            currency={taskDetail?.currency}
+                            name={taskDetail?.assigner}
+                        />
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
@@ -141,21 +152,26 @@ const AppliedTaskDetail: NextPage = () => {
                             icon={faLocationDot}
                             className="svg-icon svg-icon-location"
                         />
-                        Buddhanagar, Kathmandu
+                        {taskDetail?.location
+                            ? taskDetail?.location
+                            : "Buddhanagar, Kathmandu"}
                     </p>
                     <p>
                         <FontAwesomeIcon
                             icon={faCalendar}
                             className="svg-icon svg-icon-calender"
                         />
-                        June 9, 2022
+                        {format(
+                            new Date(taskDetail?.start_date),
+                            "dd MMM, yyyy"
+                        )}
                     </p>
                     <p>
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon svg-icon-clock"
                         />
-                        08:11 PM
+                        {taskDetail?.start_time}
                     </p>
                     <p>
                         <FontAwesomeIcon
@@ -169,28 +185,21 @@ const AppliedTaskDetail: NextPage = () => {
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                        100 Applied
+                        {taskDetail?.applicants_count} Applied
                     </p>
                 </div>
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    <p>
-                        Hiring a reputable professional landscape gardener
-                        entail paying for their knowledge, experience, time,
-                        equipment, and materials. They will be able to discuss
-                        your vision and tailor your garden design to your exact
-                        needs, taking into account your taste, lifestyle,
-                        budget.
-                    </p>
+                    <p>{taskDetail?.description}</p>
                 </div>
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {serviceHighlights &&
-                        serviceHighlights.map((name) => (
-                            <div key={name.id}>
-                                <ServiceHighlights title={name.title} />
+                    {requirements &&
+                        requirements.map((name: string, index: number) => (
+                            <div key={index}>
+                                <ServiceHighlights title={name} />
                             </div>
                         ))}
                 </div>

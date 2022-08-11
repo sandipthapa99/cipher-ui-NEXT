@@ -54,7 +54,7 @@ const Login = () => {
                                     labelName="Email or phone number"
                                     touch={touched.email}
                                     error={errors.email}
-                                    placeHolder="example@example.com"
+                                    placeHolder="Enter your email"
                                 />
                                 <PasswordField
                                     type="password"
@@ -62,7 +62,7 @@ const Login = () => {
                                     labelName="Password"
                                     touch={touched.password}
                                     error={errors.password}
-                                    placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
+                                    placeHolder="Password"
                                     forgotPassword="Forgot Password?"
                                 />
                                 <FormButton

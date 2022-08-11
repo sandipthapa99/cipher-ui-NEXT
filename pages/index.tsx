@@ -573,7 +573,7 @@ const Home: NextPage = () => {
                 id="some-success-stories-section"
                 className="some-success-stories-section"
             >
-                <Container>
+                <Container fluid="xl" className="px-5">
                     <div className="success-sroties-header">
                         <h1 className="text-center">
                             3003,0330 Taskers have earned an income on Cipher

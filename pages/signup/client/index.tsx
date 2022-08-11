@@ -49,10 +49,10 @@ const SignUpAsClient = () => {
                             <InputField
                                 type="email"
                                 name="email"
-                                labelName="Email or phone number"
+                                labelName="Email"
                                 touch={touched.email}
                                 error={errors.email}
-                                placeHolder="example@example.com"
+                                placeHolder="Enter your email"
                             />
                             <PasswordField
                                 type="password"
@@ -60,7 +60,7 @@ const SignUpAsClient = () => {
                                 labelName="Password"
                                 touch={touched.password}
                                 error={errors.password}
-                                placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
+                                placeHolder="Password"
                             />
                             <PasswordField
                                 type="password"
@@ -68,7 +68,7 @@ const SignUpAsClient = () => {
                                 labelName="Confirm Password"
                                 touch={touched.confirmPassword}
                                 error={errors.confirmPassword}
-                                placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
+                                placeHolder="Confirm Password"
                             />
                             {/* <RadioField
                                 type="radio"

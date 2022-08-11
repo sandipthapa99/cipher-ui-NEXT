@@ -13,22 +13,24 @@ interface TaskAsideProps {
 }
 const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
-    console.log(appliedTasks, "appliedTakssssss");
 
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
             <div key={task.uuid}>
-                <Link href="/task/task-detail">
+                <Link href={`/task/${task.uuid}`}>
                     <a>
                         <TaskAppliedCard
                             title={task.title}
-                            charge={task.charge?.toString()}
+                            startPrice={task.budget_from}
+                            endPrice={task?.budget_to}
                             location={task.location}
                             date={format(
                                 new Date(task.created_at),
                                 "dd MMM, yyyy"
                             )}
                             time={format(new Date(task.created_at), "HH : mm")}
+                            currency={task?.currency}
+                            charge={task.charge}
                         />
                     </a>
                 </Link>
