@@ -108,11 +108,11 @@ const Header = () => {
                                     <Link href="">
                                         <a
                                             className="nav-link d-none d-md-inline-block"
-                                            style={{
-                                                paddingRight: "3rem !important",
-                                                paddingLeft: "4rem !important",
-                                                alignItems: "center",
-                                            }}
+                                            //     style={{
+                                            //         paddingRight: "3rem !important",
+                                            //         paddingLeft: "4rem !important",
+                                            //         alignItems: "center",
+                                            //     }}
                                         >
                                             <FontAwesomeIcon
                                                 icon={faObjectsColumn}

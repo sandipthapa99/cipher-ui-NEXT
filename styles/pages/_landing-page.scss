@@ -12,13 +12,16 @@
 
             .content {
                 h1 {
-                    font-size: 3.2rem;
+                    font-size: 2.4rem;
                     font-weight: 700;
                     color: $primary-color;
                     line-height: 4.4rem;
                     margin-bottom: 4rem;
                     text-align: center;
                     word-wrap: break-word;
+                    @include respond(sm){
+                        font-size: 3.2rem;
+                    }
 
                     @include respond(md) {
                         text-align: left;
@@ -42,7 +45,7 @@
                     border-right: none;
                     border-radius: 0.4rem;
                     display: flex;
-                    justify-content: center;
+                    justify-content: space-between;
                     align-items: center;
                     box-shadow: 0 8px 6px -10px #b3c6ff;
 
@@ -490,9 +493,11 @@
             position: absolute;
             height: 36.8rem;
             width: 100%;
-            background: linear-gradient(90.3deg,
-                    #ecf7ff 37.14%,
-                    rgba(255, 255, 255, 0) 75.06%);
+            background: linear-gradient(
+                90.3deg,
+                #ecf7ff 37.14%,
+                rgba(255, 255, 255, 0) 75.06%
+            );
             opacity: 0.9;
         }
 
