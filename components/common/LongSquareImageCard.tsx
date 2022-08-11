@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
 
 import CardBtn from "./CardBtn";
@@ -83,6 +84,7 @@ const LongSquareImageCard = ({
                                     <CardBtn
                                         btnTitle={buttonText}
                                         backgroundColor="#fff"
+                                        color="#000000"
                                     />
                                 )}
                             </div>
@@ -133,11 +135,15 @@ const LongSquareImageCard = ({
                                     )}
                                 </div>
                                 {buttonText && (
-                                    <CardBtn
-                                        btnTitle={buttonText}
-                                        color="#fff"
-                                        backgroundColor="primary-color"
-                                    />
+                                    <Link href={"/contact"}>
+                                        <a>
+                                            <CardBtn
+                                                btnTitle={buttonText}
+                                                color="#fff"
+                                                backgroundColor="primary-color"
+                                            />
+                                        </a>
+                                    </Link>
                                 )}
                             </div>
                         </Col>
