@@ -1,9 +1,11 @@
+import { QueryClient } from "@tanstack/react-query";
 import type { AxiosInstance } from "axios";
 import axios from "axios";
 import { differenceInDays, fromUnixTime } from "date-fns";
 import jwtDecode from "jwt-decode";
 import { parseCookies } from "nookies";
 import { autoLogin } from "utils/auth";
+const queryClient = new QueryClient();
 
 const getApiEndpoint = () => {
     const url = process.env.NEXT_PUBLIC_API_URL;
@@ -22,11 +24,12 @@ const requestRefreshToken = async (
     const { data } = await axiosClient.post<{
         access: string;
         refresh: string;
-    }>("/user/token/refresh", {
+    }>("/user/token/refresh/", {
         refresh: refreshToken,
     });
     const { access, refresh } = data;
     autoLogin(access, refresh);
+    queryClient.invalidateQueries(["user"]);
 };
 
 const axiosClient = axios.create({
