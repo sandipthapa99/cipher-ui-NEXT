@@ -11,5 +11,5 @@ export interface ServiceProviderCardProps {
     isApplied?: boolean;
     isPermission?: boolean;
     isAddServiceForm?: boolean;
-    currency?:string;
+    currency?: string;
 }
