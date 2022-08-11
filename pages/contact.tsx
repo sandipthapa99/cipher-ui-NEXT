@@ -108,7 +108,7 @@ const Contact = () => {
                                     mutate(values, {
                                         onSuccess: async () => {
                                             toast.success(
-                                                "Message sent successfully"
+                                                " Conatct message sent successfully"
                                             );
                                         },
                                         onError: async (error) => {
@@ -119,12 +119,15 @@ const Contact = () => {
                             >
                                 {({ isSubmitting, errors, touched }) => (
                                     <Form>
+                                        <pre>
+                                            {JSON.stringify(errors, null, 4)}
+                                        </pre>
                                         <InputField
                                             type="text"
-                                            name="fullName"
+                                            name="full_name"
                                             labelName="Full Name"
-                                            error={errors.fullName}
-                                            touch={touched.fullName}
+                                            error={errors.full_name}
+                                            touch={touched.full_name}
                                             placeHolder="Enter your full name"
                                         />
                                         <InputField

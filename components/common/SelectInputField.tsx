@@ -38,7 +38,7 @@ const SelectInputField = ({
                     <option value="" defaultValue="">
                         {placeHolder}
                     </option>
-                    {options.map((option: SelectOptionProps) => (
+                    {options?.map((option: SelectOptionProps) => (
                         <option key={option?.id} value={option?.value}>
                             {option?.label}
                         </option>

@@ -11,13 +11,13 @@ import {
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { UserProfileInfoProps } from "types/userProfile";
 
 import ProfileEditForm from "./ProfileEditForm";
-import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 
 const UserProfileCard = ({
@@ -40,9 +40,25 @@ const UserProfileCard = ({
     successRate,
     taskCompleted,
     tooltipMessage,
+    countryCode,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showExpForm, setShowExpForm] = useState(false);
+    const { data: country } = useGetCountryBYId(countryCode);
+    // const services = JSON.parse(moreServices);
+
+    // const renderServices = moreServices?.map((service, index) => (
+    //     <p key={index}>{service}</p>
+    // ));
+    // const userType = JSON.parse(userJob);
+    // const renderType = userType.map((type, index) => {
+    //     return (
+    //         <p className="organization" key={index}>
+    //             Individual | {type}
+    //         </p>
+    //     );
+    // });
+
     return (
         <div className="profile-card-block">
             <Row>
@@ -68,7 +84,7 @@ const UserProfileCard = ({
                         <h1 className="name">{userName}</h1>
                         <div className="active"></div>
                     </div>
-                    <p className="organization">Individual | {userJob}</p>
+                    {/* {renderType} */}
                     <div className="rating">
                         {Array.from({ length: userRating }, (_, i) => (
                             <span key={i}>
@@ -117,15 +133,17 @@ const UserProfileCard = ({
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faPhone}
-                                        className="svg-img"
+                                        className="thumbnail-img"
                                     />
 
-                                    <p>{userPhone}</p>
+                                    <p>
+                                        +{country?.phone_code} {userPhone}
+                                    </p>
                                 </div>
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faAt}
-                                        className="svg-img"
+                                        className="thumbnail-img"
                                     />
 
                                     <p>{userEmail}</p>
@@ -133,7 +151,7 @@ const UserProfileCard = ({
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faLocationDot}
-                                        className="svg-img"
+                                        className="thumbnail-img"
                                     />
 
                                     <p>{userLocation}</p>
@@ -142,11 +160,11 @@ const UserProfileCard = ({
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faTimer}
-                                        className="svg-img"
+                                        className="thumbnail-img"
                                     />
                                     <p>
-                                        &nbsp;Active Hours {activeFrom}:00 AM to{" "}
-                                        {activeTo}:00 PM
+                                        &nbsp;Active Hours {activeFrom} to{" "}
+                                        {activeTo}:
                                     </p>
                                 </div>
 
@@ -154,7 +172,7 @@ const UserProfileCard = ({
                                     <div className="count d-flex flex-row">
                                         <FontAwesomeIcon
                                             icon={faSparkles}
-                                            className="svg-img"
+                                            className="thumbnail-img"
                                         />
                                         <p>{moreServices}</p>
                                     </div>
@@ -163,7 +181,12 @@ const UserProfileCard = ({
                         </Col>
                         <Col md={6}>
                             <div className="reactions d-flex">
-                                <ShareIcon />
+                                <div className="d-flex flex-col share">
+                                    <FontAwesomeIcon
+                                        icon={faShare}
+                                        className="svg-icon share"
+                                    />
+                                </div>
                                 <FontAwesomeIcon
                                     icon={faEllipsisVertical}
                                     className="svg-icon option"
