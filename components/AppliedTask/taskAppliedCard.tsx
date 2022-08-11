@@ -11,7 +11,7 @@ import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
 const TaskCard = ({
     title,
-    charge,
+    charge = "0",
     location,
     date,
     time,

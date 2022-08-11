@@ -1,36 +1,27 @@
 import TaskAside from "@components/AppliedTask/taskAside";
+import FullPageLoader from "@components/common/FullPageLoader";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
-import { useApplyTask } from "hooks/apply-task/useTask";
+import { useTasks } from "hooks/apply-task/useTask";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-// import { taskApplied } from "staticData/taskApplied";
 
 const AppliedLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
 
-    const { data } = useApplyTask();
+    const { data, isLoading } = useTasks();
 
-    const taskApplied = data?.data?.results;
-    // const filteredTasks = useMemo(
-    //     () =>
-    //         query
-    //             ? taskApplied?.filter((item) =>
-    //                   item.title.toLowerCase().startsWith(query.toLowerCase())
-    //               )
-    //             : taskApplied,
-    //     [query]
-    // );
+    if (isLoading || !data) return <FullPageLoader />;
     return (
         <>
             <SearchHeader />
             <Header />
             <Container>
                 <SearchCategory onChange={setQuery} />
-                <TaskAside query={query} appliedTasks={taskApplied}>
+                <TaskAside query={query} appliedTasks={data.result}>
                     {children}
                 </TaskAside>
             </Container>

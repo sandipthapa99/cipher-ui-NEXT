@@ -2,7 +2,7 @@ import { useUser } from "hooks/auth/useUser";
 import { useMemo } from "react";
 import { Spinner } from "react-bootstrap";
 
-const UserLoadingOverlay = () => {
+const FullPageLoader = () => {
     const { data, isLoading, isError } = useUser();
 
     const isUserLoaded = useMemo(
@@ -20,4 +20,4 @@ const UserLoadingOverlay = () => {
         </div>
     );
 };
-export default UserLoadingOverlay;
+export default FullPageLoader;

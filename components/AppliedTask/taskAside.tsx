@@ -2,13 +2,13 @@ import { format } from "date-fns";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { AllTaskResult } from "types/applytask";
+import type { ITask } from "types/task";
 
 import TaskAppliedCard from "./taskAppliedCard";
 
 interface TaskAsideProps {
     children: ReactNode;
-    appliedTasks: AllTaskResult[];
+    appliedTasks: ITask[];
     query: string;
 }
 const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
@@ -22,7 +22,7 @@ const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
                     <a>
                         <TaskAppliedCard
                             title={task.title}
-                            charge={task.charge}
+                            charge={task.charge?.toString()}
                             location={task.location}
                             date={format(
                                 new Date(task.created_at),

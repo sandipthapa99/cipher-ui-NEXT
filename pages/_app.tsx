@@ -29,7 +29,7 @@ const PROTECTED_ROUTES = ["/profile"];
 const RESTRICTED_ROUTES_ON_LOGGED_IN = ["/login"];
 
 const UserLoadingOverlay = dynamic(
-    () => import("@components/user/UserLoadingOverlay"),
+    () => import("@components/common/FullPageLoader"),
     { ssr: false }
 );
 function MyApp({ Component, pageProps }: CustomAppProps) {

@@ -1,4 +1,4 @@
-import UserLoadingOverlay from "@components/user/UserLoadingOverlay";
+import UserLoadingOverlay from "@components/common/FullPageLoader";
 import { useUser } from "hooks/auth/useUser";
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";

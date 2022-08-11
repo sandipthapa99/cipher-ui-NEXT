@@ -517,7 +517,7 @@
             z-index: 2;
             width: 90%;
             padding: 1rem;
-            @include respond(md){
+            @include respond(md) {
                 padding: 5.6rem 0 5.6rem 6.4rem;
                 width: 60%;
             }
@@ -527,10 +527,10 @@
                 font-size: 1.8rem;
                 font-weight: 400;
                 line-height: 2.6rem;
-                @include respond(xs){
+                @include respond(xs) {
                     font-size: 1.8rem;
                 }
-                @include respond(md){
+                @include respond(md) {
                     font-size: 4rem;
                     line-height: 6rem;
                 }
