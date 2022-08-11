@@ -338,6 +338,7 @@ const Home: NextPage = () => {
                                             hasOffer={service.hasOffer}
                                             discountRate={service.discountRate}
                                             discountOn={service.discountOn}
+                                            proService={true}
                                         />
                                     </Col>
                                 );
