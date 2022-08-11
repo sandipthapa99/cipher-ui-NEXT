@@ -26,7 +26,7 @@ interface ProfileEditProps {
     show?: boolean;
     handleClose?: () => void;
     setShowEdit: Dispatch<SetStateAction<boolean>>;
-    userName: string | undefined;
+    userName: string;
 }
 
 const ProfileEditForm = ({

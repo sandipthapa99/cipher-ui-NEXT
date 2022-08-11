@@ -6,16 +6,14 @@ import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useSuccessContext } from "context/successContext/successContext";
-import { format } from "date-fns";
 import { Form, Formik } from "formik";
-import { useKYC } from "hooks/profile/kyc/useKKYC";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { toast } from "react-toastify";
 import { KYCFormData } from "utils/formData";
 import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
 import { isSubmittingClass } from "utils/helpers";
+
 const dropdownCountryOptions = [
     { id: 1, label: "Nepal", value: "nepal" },
     { id: 2, label: "USA", value: "usa" },
@@ -24,7 +22,6 @@ const dropdownCountryOptions = [
 
 const KYCForm = () => {
     const { setShowSuccessModal } = useSuccessContext();
-    const { mutate } = useKYC();
     return (
         <>
             {/* Modal component */}
@@ -34,55 +31,34 @@ const KYCForm = () => {
                     initialValues={KYCFormData}
                     validationSchema={KYCFormSchema}
                     onSubmit={async (values, action) => {
-                        const newValidatedKYCForm = {
-                            ...values,
-                            identity_issued_date: format(
-                                new Date(values.identity_issued_date),
-                                "yyyy-MM-dd"
-                            ),
-
-                            pan_issued_date: format(
-                                new Date(values.pan_issued_date),
-                                "yyyy-MM-dd"
-                            ),
-
-                            identity_valid_through: format(
-                                new Date(values.identity_valid_through),
-                                "yyyy-MM-dd"
-                            ),
-                        };
+                        setShowSuccessModal(true);
+                        // To be used for API
+                        // try {
+                        //     axiosClient.post("/routes", values);
+                        // } catch (error: any) {
+                        //     error.response.data.message;
+                        // }
                         console.log(values);
-                        mutate(newValidatedKYCForm, {
-                            onSuccess: () => {
-                                setShowSuccessModal(true);
-                                action.resetForm();
-                            },
-                            onError: (error) => {
-                                toast.error(error.message);
-                            },
-                        });
-
                         action.resetForm();
                     }}
                 >
                     {({ isSubmitting, errors, touched, resetForm }) => (
                         <Form autoComplete="off">
-                            <pre>{JSON.stringify(errors, null, 4)}</pre>
                             <InputField
                                 type="text"
-                                name="full_name"
+                                name="fullName"
                                 labelName="Name"
-                                error={errors.full_name}
-                                touch={touched.full_name}
+                                error={errors.fullName}
+                                touch={touched.fullName}
                                 placeHolder="Enter your Full Name"
                             />
                             <h5>Identity Information</h5>
                             <Col md={5}>
                                 <SelectInputField
-                                    name="identity_type"
+                                    name="identityType"
                                     labelName="Identity Type"
-                                    touch={touched.identity_type}
-                                    error={errors.identity_type}
+                                    touch={touched.identityType}
+                                    error={errors.identityType}
                                     placeHolder="Select Identity Type"
                                     options={dropdownCountryOptions}
                                 />
@@ -90,39 +66,34 @@ const KYCForm = () => {
                             <Row>
                                 <Col lg={5} md={6}>
                                     <InputField
-                                        name="identity_id"
+                                        name="identityNumber"
                                         labelName="Identity Number"
-                                        error={errors.identity_id}
-                                        touch={touched.identity_id}
+                                        error={errors.identityNumber}
+                                        touch={touched.identityNumber}
                                         placeHolder="Enter your identity Number"
                                     />
                                     <DatePickerField
-                                        name="identity_issued_date"
+                                        name="issuedDate"
                                         labelName="Issued date"
                                         placeHolder="dd/mm/yy"
-                                        touch={touched.identity_issued_date}
-                                        error={errors.identity_issued_date}
+                                        touch={touched.issuedDate}
+                                        error={errors.issuedDate}
                                     />
                                 </Col>
                                 <Col lg={{ span: 5, offset: 2 }} md={6}>
-                                    <InputField
-                                        name="identity_issuer_organization"
+                                    <DatePickerField
+                                        name="issuedFrom"
                                         labelName="Issued From"
-                                        placeHolder="Issued From"
-                                        touch={
-                                            touched.identity_issuer_organization
-                                        }
-                                        error={
-                                            errors.identity_issuer_organization
-                                        }
+                                        placeHolder="dd/mm/yy"
+                                        touch={touched.issuedFrom}
+                                        error={errors.issuedFrom}
                                     />
                                     <DatePickerField
-                                        dateFormat="yyyy-MM-dd"
-                                        name="identity_valid_through"
+                                        name="expiryDate"
                                         labelName="Expiry Date"
                                         placeHolder="dd/mm/yy"
-                                        touch={touched.identity_valid_through}
-                                        error={errors.identity_valid_through}
+                                        touch={touched.expiryDate}
+                                        error={errors.expiryDate}
                                     />
                                 </Col>
                             </Row>
@@ -145,28 +116,27 @@ const KYCForm = () => {
                                 <Col lg={5} md={6}>
                                     <InputField
                                         type="text"
-                                        name="pan_number"
+                                        name="panNumber"
                                         labelName="PAN Number"
-                                        error={errors.pan_number}
-                                        touch={touched.pan_number}
+                                        error={errors.panNumber}
+                                        touch={touched.panNumber}
                                         placeHolder="Enter your Pan Number"
                                     />
                                     <DatePickerField
-                                        dateFormat="yyyy-MM-dd"
-                                        name="pan_issued_date"
+                                        name="panIssuedDate"
                                         labelName="Issued Date"
                                         placeHolder="dd/mm/yy"
-                                        touch={touched.pan_issued_date}
-                                        error={errors.pan_issued_date}
+                                        touch={touched.panIssuedDate}
+                                        error={errors.panIssuedDate}
                                     />
                                 </Col>
                                 <Col lg={{ span: 5, offset: 2 }} md={6}>
                                     <InputField
                                         type="text"
-                                        name="pan_issued_from"
+                                        name="issuedLoaction"
                                         labelName="Issued Loaction"
-                                        error={errors.pan_issued_from}
-                                        touch={touched.pan_issued_from}
+                                        error={errors.issuedLoaction}
+                                        touch={touched.issuedLoaction}
                                         placeHolder="Enter your Issued Loaction"
                                     />
                                 </Col>
@@ -214,30 +184,30 @@ const KYCForm = () => {
                             <h5>Bank Details (Optional)</h5>
                             <Col md={5}>
                                 <InputField
-                                    name="bank_name"
+                                    name="bankName"
                                     labelName="Bank Name"
-                                    error={errors.bank_name}
-                                    touch={touched.bank_name}
+                                    error={errors.bankName}
+                                    touch={touched.bankName}
                                     placeHolder="Enter your Account Name"
                                 />
                             </Col>
                             <Row>
                                 <Col lg={5} md={6}>
                                     <InputField
-                                        name="bank_account_name"
+                                        name="bankAccountName"
                                         labelName="Bank Account Name"
-                                        error={errors.bank_account_name}
-                                        touch={touched.bank_account_name}
+                                        error={errors.bankAccountName}
+                                        touch={touched.bankAccountName}
                                         placeHolder="Enter bank Account Name"
                                     />
                                 </Col>
                                 <Col lg={{ span: 5, offset: 2 }} md={6}>
                                     <InputField
                                         type="text"
-                                        name="bank_account_number"
+                                        name="bankAccountNumber"
                                         labelName="Bank Account Number"
-                                        error={errors.bank_account_number}
-                                        touch={touched.bank_account_number}
+                                        error={errors.bankAccountNumber}
+                                        touch={touched.bankAccountNumber}
                                         placeHolder="Enter your Account Number"
                                     />
                                 </Col>
