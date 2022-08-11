@@ -104,14 +104,16 @@
         }
         .social-sites {
             margin-bottom: 4rem;
+            display: flex;
             @include respond(md) {
                 margin: 0;
             }
             .wrapper {
                 color: #fff;
-                padding: 1rem;
+                padding: 0.5rem;
                 margin-right: 1.6rem;
                 border-radius: 0.2rem;
+                display: flex;
             }
             .facebook {
                 background-color: #4267b2;

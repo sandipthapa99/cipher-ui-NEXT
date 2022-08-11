@@ -22,7 +22,9 @@ const PostTask: NextPage = () => {
         <Layout title="Post task | Cipher">
             <section className="post-task">
                 <div className="post-task__search-header">
-                    <WelcomeUser />
+                    <Container fluid="xl">
+                        <WelcomeUser />
+                    </Container>
                 </div>
                 <Container fluid="xl" className="px-5">
                     <ApplyPost />
