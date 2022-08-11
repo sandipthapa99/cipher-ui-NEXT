@@ -18,7 +18,7 @@ export const accountFormSchema = Yup.object().shape({
     skill: tagValidate,
     active_hour_start: dateValidation,
     active_hour_end: dateValidation,
-    // hourly_rate: Yup.number().nullable().required("Required field"),
+    // hour_rate: Yup.number().nullable().required("Required field"),
     // user_type: stringReqOnly,
     userType: Yup.mixed().oneOf(["client", "tasker"]),
     country: stringReqOnly,

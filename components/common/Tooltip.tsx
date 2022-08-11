@@ -6,7 +6,7 @@ const TooltipMessage = ({
     place,
     children,
 }: {
-    message: string | undefined;
+    message: string;
     place: any;
     children: React.ReactElement;
 }) => {
