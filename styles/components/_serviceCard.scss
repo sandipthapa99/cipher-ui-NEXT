@@ -56,10 +56,29 @@
         .card-title {
             font-size: 1.4rem;
             font-weight: 500;
-            color: #101113;
+            color: $primary-color;
             margin-bottom: 1.4rem;
+            h2 {
+                margin-bottom: 0rem;
+            }
         }
-
+        .pro-title-wrapper {
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+        .pro-service {
+            border: 0.14rem solid #3eaeff;
+            border-radius: 0.4rem;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+            p {
+                color: #3eaeff;
+                margin-bottom: 0rem;
+                padding: 0rem 1rem;
+                font-size: 1.2rem;
+                font-weight: 500;
+            }
+        }
         .card-subtitle {
             font-size: 1.2rem;
             font-family: $inter-font;

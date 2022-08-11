@@ -53,6 +53,9 @@
                         font-weight: 500;
                         color: $secondary-text-color;
 
+                        @include respond(xxs) {
+                            display: none;
+                        }
                         .form-control {
                             border: none;
                             height: 3.4rem;
@@ -414,9 +417,14 @@
             padding-bottom: 3.4rem;
             padding-right: 2.2rem;
             padding-left: 2rem;
-
+            @include respond(xxs) {
+                padding: 0rem;
+            }
             p {
                 color: #fff;
+                @include respond(xxs) {
+                    font-size: 1.5rem;
+                }
             }
 
             @include respond(md) {
@@ -433,6 +441,12 @@
 
                 @include respond(md) {
                     padding-right: 16rem;
+                }
+                @include respond(xxs) {
+                    margin-left: 1rem;
+                    line-height: 2.4rem;
+                    margin-top: 2rem;
+                    font-size: 1.9rem;
                 }
             }
         }
@@ -454,6 +468,15 @@
             line-height: 2rem;
             padding-top: 0.5rem;
             color: #fff;
+            @include respond(xxs) {
+                font-size: 1.2rem;
+                text-align: left;
+                align-items: flex-start;
+            }
+            @include respond(xs) {
+                text-align: left;
+                align-items: flex-start;
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ const ServiceCard = ({
     servicePrice,
     hasOffer,
     discountRate,
+    proService,
 }: // discountOn,
 ServiceCardProps) => {
     return (
@@ -47,7 +48,16 @@ ServiceCardProps) => {
             <div className="card-content">
                 <Link href="/service-detail">
                     <a>
-                        <h2 className="card-title">{serviceTitle}</h2>
+                        <div className="d-flex pro-title-wrapper justify-content-between">
+                            <h2 className="card-title">{serviceTitle}</h2>
+                            {proService ? (
+                                <div className="pro-service">
+                                    <p>PRO</p>
+                                </div>
+                            ) : (
+                                ""
+                            )}
+                        </div>
                         <h3 className="card-subtitle">
                             <span>{serviceProvider}</span> |{" "}
                             {serviceProviderLocation}
@@ -70,7 +80,6 @@ ServiceCardProps) => {
                 <div className="d-flex justify-content-between align-items-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
                         <SaveIcon />
-
                         <ShareIcon />
                     </div>
                     <CardBtn btnTitle="Book Now" backgroundColor="#211D4F" />
