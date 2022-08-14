@@ -1109,6 +1109,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@smastrom/react-rating@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@smastrom/react-rating/-/react-rating-1.0.4.tgz#6adef48fdc7844f9ec18055ddb87422085b992b2"
+  integrity sha512-SnCQkS30ZFumzxb9353YQGan6d4xC3Vvqezn/yo9Hrmzh/4lasrEYoZCGLqtWFkKVKudArQcdBGYA9gndL8LIg==
+
 "@szmarczak/http-timer@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-1.1.2.tgz#b1665e2c461a2cd92f4c1bbf50d5454de0d4b421"
