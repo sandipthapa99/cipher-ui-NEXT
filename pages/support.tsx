@@ -3,21 +3,39 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
+import { useQuery } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { useSupport } from "hooks/support/useSupport";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { axiosClient } from "utils/axiosClient";
 import { SupportFormData } from "utils/contactFormData";
 import { SupportFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { issueTypes } from "utils/options";
 
 const Support = () => {
+    const { data } = useQuery(["support-tickets"], async () => {
+        return axiosClient.get("/support/support-ticket-type/options/");
+    });
+
+    const renderIssueTypes = data?.data?.map((item: any) => {
+        return {
+            label: item?.name,
+            value: item?.id,
+            id: item?.id,
+        };
+    });
+
+    const { mutate } = useSupport();
+
     return (
         <>
             <Layout title="Feedback | Cipher">
                 <BreadCrumb currentPage="Feedback" />
-                <Container fluid="xl">
-                    <section className="site-feedback">
+
+                <section className="site-feedback">
+                    <Container fluid="xl">
                         <Row className="gx-5">
                             <Col md={6} className="d-none d-md-flex">
                                 <figure className="thumbnail-img">
@@ -38,18 +56,33 @@ const Support = () => {
                                 <Formik
                                     initialValues={SupportFormData}
                                     validationSchema={SupportFormSchema}
-                                    onSubmit={async (values) => {
-                                        console.log(values);
+                                    onSubmit={async (values, action) => {
+                                        mutate(values, {
+                                            onSuccess: () => {
+                                                toast.success(
+                                                    "Successfully submitted"
+                                                );
+                                                action.resetForm();
+                                            },
+                                            onError: (error) => {
+                                                toast.error(error?.message);
+                                            },
+                                        });
                                     }}
                                 >
-                                    {({ isSubmitting, errors, touched }) => (
+                                    {({
+                                        isSubmitting,
+                                        errors,
+                                        touched,
+                                        resetForm,
+                                    }) => (
                                         <Form>
                                             <InputField
                                                 type="text"
-                                                name="fullName"
+                                                name="full_name"
                                                 labelName="Your Name"
-                                                error={errors.fullName}
-                                                touch={touched.fullName}
+                                                error={errors.full_name}
+                                                touch={touched.full_name}
                                                 placeHolder="Enter your full name"
                                             />
                                             <InputField
@@ -62,24 +95,24 @@ const Support = () => {
                                             />
                                             <InputField
                                                 type="text"
-                                                name="phone_number"
+                                                name="phone"
                                                 labelName="Phone Number"
-                                                touch={touched.phoneNumber}
-                                                error={errors.phoneNumber}
+                                                touch={touched.phone}
+                                                error={errors.phone}
                                                 placeHolder="+00 420 420 4200"
                                             />
                                             <SelectInputField
-                                                name="experience"
+                                                name="type"
                                                 placeHolder="Technical"
                                                 labelName="Issue Type"
-                                                options={issueTypes}
+                                                options={renderIssueTypes}
                                                 // fieldRequired
                                             />
                                             <InputField
-                                                name="message"
+                                                name="reason"
                                                 labelName="Message"
-                                                touch={touched.message}
-                                                error={errors.message}
+                                                touch={touched.reason}
+                                                error={errors.reason}
                                                 placeHolder="Write your message here..."
                                                 as="textarea"
                                             />
@@ -99,8 +132,8 @@ const Support = () => {
                                 </Formik>
                             </Col>
                         </Row>
-                    </section>
-                </Container>
+                    </Container>
+                </section>
             </Layout>
         </>
     );
