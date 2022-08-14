@@ -638,3 +638,10 @@ small.text-muted {
         font-size: 12px;
     }
 }
+.sticky-wrapper {
+    position: relative;
+    @include respond(md) {
+        position: sticky;
+        top: 1rem;
+    }
+}
