@@ -2,6 +2,12 @@ import { faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { faHeart as FilledHeart } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import type { StringLocale } from "yup/lib/locale";
+
+interface saveIconProps {
+    id: string;
+    type: string;
+}
 
 const SaveIcon = () => {
     const [isSaveClicked, setIsSaveClicked] = useState(false);

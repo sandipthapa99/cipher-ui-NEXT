@@ -25,7 +25,10 @@ export interface TaxTableResultData {
 }
 
 export interface Details {
-    "total tax liability": number;
-    "total income": number;
-    "total taxable income": number;
+    "annual gross salary": number;
+    "net taxable income": number;
+    "net payable tax": number;
+    "tax rate": string;
+    "net tax liability yearly": number;
+    "net tax liability monthly": number;
 }
