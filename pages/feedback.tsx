@@ -2,7 +2,6 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
-import { useFeedback } from "hooks/contact-and-support/support";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -11,7 +10,6 @@ import { FeedbackFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Feedback = () => {
-    const { mutate, isLoading } = useFeedback();
     return (
         <>
             <Layout title="Feedback | Cipher">
@@ -38,16 +36,7 @@ const Feedback = () => {
                                     initialValues={FeedbackFormData}
                                     validationSchema={FeedbackFormSchema}
                                     onSubmit={async (values) => {
-                                        mutate(values, {
-                                            onSuccess: async () => {
-                                                toast.success(
-                                                    "Thank you for your feedback"
-                                                );
-                                            },
-                                            onError: async (error) => {
-                                                toast.error(error.message);
-                                            },
-                                        });
+                                        console.log(values);
                                     }}
                                 >
                                     {({ isSubmitting, errors, touched }) => (
@@ -106,3 +95,6 @@ const Feedback = () => {
     );
 };
 export default Feedback;
+function useFeedback(): { mutate: any; isLoading: any } {
+    throw new Error("Function not implemented.");
+}
