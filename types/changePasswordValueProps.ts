@@ -1,6 +1,5 @@
 export interface changePasswordValueProps {
-    currentPassword: string;
-    newPassword: string;
-    confirmPassword: string;
-    toggle: boolean;
+    old_password: string;
+    new_password: string;
+    confirm_password: string;
 }
