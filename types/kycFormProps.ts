@@ -1,18 +1,18 @@
 export interface KYCFormProps {
-    fullName: string;
-    identityType: string;
-    identityNumber: string;
-    issuedFrom: string | null;
-    issuedDate: string | null;
-    expiryDate: string | null;
-    identityCard: any[];
-    panNumber: string;
-    issuedLoaction: string;
-    panIssuedDate: string;
-    panPhoto: any[];
-    passwordPhoto: any[];
-    addressVerifiactionDocument: any[];
-    bankName: string;
-    bankAccountName: string;
-    bankAccountNumber: string;
+    full_name: string;
+    identity_type: string;
+    identity_id: string;
+    identity_issued_date: string | null;
+    identity_valid_through: string | null;
+    identity_issuer_organization: string;
+    // identityCard: any[];
+    pan_number: number | null;
+    pan_issued_from: string;
+    pan_issued_date: string;
+    pan_card_file: string | null;
+    passport_size_photo: string | null;
+    personal_address_verification_document: string | null;
+    bank_name: string;
+    bank_account_name: string;
+    bank_account_number: string;
 }
