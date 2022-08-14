@@ -1,25 +1,23 @@
-.row-create-profile{
+.row-create-profile {
     margin: 5rem 0;
-    .create-profile{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+    .create-profile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
 
-      .btn-create-profile{
-        padding: 1rem 2.5rem;
-      
-        outline: none;
-        border-radius: 6px;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        &:hover{
-            background-color: $primary-color;
+        .btn-create-profile {
+            padding: 1rem 2.5rem;
+
+            outline: none;
+            border-radius: 6px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            &:hover {
+                background-color: $primary-color;
+            }
+            .text-profile {
+                color: #fff;
+            }
         }
-        .text-profile{
-            color: #fff;
-        }
-      }
-      
     }
-
 }
