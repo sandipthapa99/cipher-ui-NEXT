@@ -11,7 +11,7 @@ export const accountFormSchema = Yup.object().shape({
     // full_name: stringReqOnly,
     phone: Yup.number().nullable().required("Required field"),
     full_name: stringReqOnly,
-    email: emailValidate,
+
     bio: stringReqOnly,
     gender: stringReqOnly,
     date_of_birth: stringReqOnly,

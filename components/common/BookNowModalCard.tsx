@@ -25,7 +25,7 @@ const BookNowModalCard = ({
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
                     <Modal.Title>Booking Details</Modal.Title>
                 </Modal.Header>

@@ -141,6 +141,7 @@ const AccountForm = () => {
                 >
                     {({ isSubmitting, errors, touched, resetForm }) => (
                         <Form autoComplete="off">
+                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                             <InputField
                                 type="text"
                                 name="full_name"
@@ -214,6 +215,7 @@ const AccountForm = () => {
                                     <DatePickerField
                                         name="active_hour_end"
                                         labelName="To"
+                                        dateFormat="HH:mm aa"
                                         placeHolder="dd/mm/yy"
                                         touch={touched.active_hour_end}
                                         error={errors.active_hour_end}

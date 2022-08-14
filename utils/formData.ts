@@ -145,10 +145,9 @@ export const AccountFromData: AccountValueProps = {
 };
 
 export const ChangePasswordFromData: changePasswordValueProps = {
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-    toggle: false,
+    new_password: "",
+    old_password: "",
+    confirm_password: "",
 };
 
 export const TaxCalculatorFormData: TaxCalculatorValueProps = {
@@ -201,11 +200,11 @@ export const CarrerApplyFormData: ApplyFormValueProps = {
     full_name: "",
     email: "",
     phone: "",
-    company: "",
-    work_exp: "",
-    portfolio: "",
-    resume: [],
-    addtional_info: "",
+    current_company: "",
+    experience: "",
+    portfolio_link: "",
+    cover_letter: "",
+    cv: [],
     g_recaptcha_response: "",
     imagePreviewUrl: [],
 };

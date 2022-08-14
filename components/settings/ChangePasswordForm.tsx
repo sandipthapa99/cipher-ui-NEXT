@@ -5,8 +5,10 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faPencil, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
+import { useChangePassword } from "hooks/profile/changePassword/useChangePassword";
 import React from "react";
 import Button from "react-bootstrap/Button";
+import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { ChangePasswordFromData } from "utils/formData";
 import changePasswordFormSchema from "utils/formValidation/changePasswordFormValidation";
@@ -14,6 +16,7 @@ import { isSubmittingClass } from "utils/helpers";
 
 const ChangePasswordForm = () => {
     const toggleSuccessModal = useToggleSuccessModal();
+    const { mutate } = useChangePassword();
 
     return (
         <>
@@ -25,7 +28,21 @@ const ChangePasswordForm = () => {
                     initialValues={ChangePasswordFromData}
                     validationSchema={changePasswordFormSchema}
                     onSubmit={async (values, action) => {
-                        toggleSuccessModal();
+                        const { old_password, new_password } = values;
+                        mutate(
+                            { old_password, new_password },
+                            {
+                                onSuccess: () => {
+                                    toast.success(
+                                        "Password changed successfully"
+                                    );
+                                },
+                                onError: (err) => {
+                                    toast.error(err.message);
+                                },
+                            }
+                        );
+                        // toggleSuccessModal();
                         // To be used for API
                         // try {
                         //     axiosClient.post("/routes", values);
@@ -38,28 +55,29 @@ const ChangePasswordForm = () => {
                 >
                     {({ isSubmitting, errors, touched, resetForm }) => (
                         <Form autoComplete="off">
+                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                             <PasswordField
-                                name="currentPassword"
+                                name="old_password"
                                 typeOf="password"
                                 labelName="Current Password"
-                                error={errors.currentPassword}
-                                touch={touched.currentPassword}
+                                error={errors.old_password}
+                                touch={touched.old_password}
                                 placeHolder="Current Password"
                             />
                             <PasswordField
                                 typeOf="password"
-                                name="newPassword"
+                                name="new_password"
                                 labelName="New Password"
-                                error={errors.newPassword}
-                                touch={touched.newPassword}
+                                error={errors.new_password}
+                                touch={touched.new_password}
                                 placeHolder="New Password"
                             />
                             <PasswordField
+                                name="confirm_password"
                                 typeOf="password"
-                                name="confirmPassword"
                                 labelName="Confirm Password"
-                                touch={touched.confirmPassword}
-                                error={errors.confirmPassword}
+                                error={errors.confirm_password}
+                                touch={touched.confirm_password}
                                 placeHolder="Confirm Password"
                             />
                             <h2 className="mt-5">2 Factor Authentication</h2>

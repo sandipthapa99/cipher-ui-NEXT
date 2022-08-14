@@ -136,6 +136,44 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                                         </Row>
                                     ),
                                 },
+                                {
+                                    title: "Design",
+                                    content: (
+                                        <Row className="gx-5">
+                                            {careerCardValues?.map(
+                                                (values, key) => (
+                                                    <Col
+                                                        lg={4}
+                                                        md={6}
+                                                        className="d-flex"
+                                                        key={key}
+                                                    >
+                                                        test
+                                                    </Col>
+                                                )
+                                            )}
+                                        </Row>
+                                    ),
+                                },
+                                {
+                                    title: "Design",
+                                    content: (
+                                        <Row className="gx-5">
+                                            {careerCardValues?.map(
+                                                (values, key) => (
+                                                    <Col
+                                                        lg={4}
+                                                        md={6}
+                                                        className="d-flex"
+                                                        key={key}
+                                                    >
+                                                        test
+                                                    </Col>
+                                                )
+                                            )}
+                                        </Row>
+                                    ),
+                                },
                             ]}
                             activeIndex={tabIndex}
                             onTabClick={setTabIndex}

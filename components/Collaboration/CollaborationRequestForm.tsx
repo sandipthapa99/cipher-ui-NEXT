@@ -32,6 +32,7 @@ export const CollaborationRequestForm = ({
                 show={show}
                 onHide={handleClose}
                 className="collaboration-request-modal"
+                backdrop="static"
             >
                 <Modal.Header closeButton></Modal.Header>
                 <Modal.Body>

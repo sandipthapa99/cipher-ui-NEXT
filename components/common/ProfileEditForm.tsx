@@ -38,7 +38,7 @@ const ProfileEditForm = ({
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal edit-form">
                     <h3>Edit Profile</h3>

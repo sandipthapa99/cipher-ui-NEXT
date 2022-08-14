@@ -23,6 +23,7 @@ export const CheckoutModal = ({ show, onHide }: props) => {
                 size="lg"
                 onHide={onHide}
                 className="modal-checkout"
+                backdrop="static"
             >
                 <Modal.Header closeButton></Modal.Header>
                 <h4>Booking Details</h4>

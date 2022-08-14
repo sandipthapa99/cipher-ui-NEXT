@@ -94,6 +94,7 @@ const KYCForm = () => {
                 >
                     {({ isSubmitting, errors, touched, resetForm }) => (
                         <Form autoComplete="off">
+                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                             <InputField
                                 type="text"
                                 name="full_name"

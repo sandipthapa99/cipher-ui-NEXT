@@ -9,8 +9,34 @@ export interface CareerValueProps {
         id: number;
         title: string;
         slug: string;
+        description: string;
+        experience: string;
+        designation: string;
         no_of_opening: number;
+        category: string;
         location: string;
-        country: string;
+        job_type: string;
+        skills: string;
+        salary_range: string;
+        deadline: string;
     }[];
+}
+
+export interface CareerDetailsData {
+    status: string;
+    data: {
+        id: number;
+        title: string;
+        slug: string;
+        description: string;
+        experience: string;
+        designation: string;
+        no_of_opening: number;
+        category: string;
+        location: string;
+        job_type: string;
+        skills: string;
+        salary_range: string;
+        deadline: string;
+    };
 }

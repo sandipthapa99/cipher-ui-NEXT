@@ -6,7 +6,7 @@ import ReCaptchaField from "@components/common/ReCaptchaField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
-import router from "next/router";
+import { useRouter } from "next/router";
 import React from "react";
 import { Container } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -17,7 +17,9 @@ import { isSubmittingClass } from "utils/helpers";
 
 const Apply = () => {
     const toggleSuccessModal = useToggleSuccessModal();
-    const { mutate } = useForm("/career");
+    const router = useRouter();
+    const { id } = router.query;
+    const { mutate } = useForm(`/career/candidate/apply/${id}/`);
     return (
         <Layout title="Cipher | Apply">
             <BreadCrumb currentPage="Apply" />
@@ -29,25 +31,26 @@ const Apply = () => {
                             initialValues={CarrerApplyFormData}
                             validationSchema={carrerApplyFormValidation}
                             onSubmit={async (values, action) => {
-                                toggleSuccessModal();
-                                // To be used for API
-                                // try {
-                                //     axiosClient.post("/routes", values);
-                                // } catch (error: any) {
-                                //     error.response.data.message;
-                                // }
-                                mutate(values, {
+                                const formData = new FormData();
+                                Object.entries(values).forEach((entry) => {
+                                    const [key, value] = entry;
+                                    formData.append(key, value);
+                                });
+                                values.cv.forEach((file) =>
+                                    formData.append("cv", file)
+                                );
+
+                                delete values.imagePreviewUrl;
+
+                                mutate(formData, {
                                     onSuccess: async () => {
-                                        await router.push("/");
-                                        toast.success(
-                                            "Please check your email for verification link"
-                                        );
+                                        await router.push("/career");
+                                        toggleSuccessModal();
                                     },
                                     onError: (error) => {
                                         toast.error(error.message);
                                     },
                                 });
-                                console.log(values);
                                 action.resetForm();
                             }}
                         >
@@ -59,7 +62,10 @@ const Apply = () => {
                                 values,
                                 setFieldTouched,
                             }) => (
-                                <Form autoComplete="off">
+                                <Form
+                                    autoComplete="off"
+                                    encType="multipart/form-data"
+                                >
                                     <InputField
                                         type="text"
                                         name="full_name"
@@ -85,38 +91,38 @@ const Apply = () => {
                                     />
                                     <InputField
                                         type="text"
-                                        name="company"
+                                        name="current_company"
                                         labelName="Current Company"
-                                        error={errors.company}
-                                        touch={touched.company}
+                                        error={errors.current_company}
+                                        touch={touched.current_company}
                                         placeHolder="Enter your current/previous company name"
                                     />
                                     <InputField
                                         type="text"
-                                        name="work_exp"
+                                        name="experience"
                                         labelName="Work Experience"
-                                        error={errors.work_exp}
-                                        touch={touched.work_exp}
+                                        error={errors.experience}
+                                        touch={touched.experience}
                                         placeHolder="Enter you work experience in years"
                                     />
                                     <InputField
                                         type="text"
-                                        name="portfolio"
+                                        name="portfolio_link"
                                         labelName="Portfolio Link"
-                                        error={errors.portfolio}
-                                        touch={touched.portfolio}
+                                        error={errors.portfolio_link}
+                                        touch={touched.portfolio_link}
                                         placeHolder="Enter you portfolio or website link here"
                                     />
                                     <FileInputField
-                                        name="resume"
-                                        error={errors.resume as string}
-                                        touch={touched.resume as boolean}
+                                        name="cv"
+                                        error={errors.cv as string}
+                                        touch={touched.cv as boolean}
                                         placeHolder="Attach Resume/CV"
                                         labelName="Upload your Resume/CV"
                                         textMuted="(e.g; .pdf, .docx), File Size: 1MB"
                                         handleChange={(e) => {
                                             setFieldValue(
-                                                "resume",
+                                                "cv",
                                                 Array.from(e.target.files)
                                             );
 
@@ -150,16 +156,16 @@ const Apply = () => {
                                             )
                                         }
                                         onBlur={() => {
-                                            setFieldTouched("resume", true);
+                                            setFieldTouched("cv", true);
                                         }}
                                     />
 
                                     <InputField
                                         type="text"
-                                        name="addtional_info"
+                                        name="cover_letter"
                                         labelName="Additional Information"
-                                        error={errors.addtional_info}
-                                        touch={touched.addtional_info}
+                                        error={errors.cover_letter}
+                                        touch={touched.cover_letter}
                                         placeHolder="Add a cover letter or anything you want to share here."
                                         as="textarea"
                                     />
