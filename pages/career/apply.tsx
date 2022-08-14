@@ -4,19 +4,19 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import ReCaptchaField from "@components/common/ReCaptchaField";
 import Layout from "@components/Layout";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import router from "next/router";
 import React from "react";
 import { Container } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { CarrerApplyFormData } from "utils/formData";
 import { carrerApplyFormValidation } from "utils/formValidation/careerApplyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Apply = () => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useForm("/career");
     return (
         <Layout title="Cipher | Apply">
@@ -29,7 +29,7 @@ const Apply = () => {
                             initialValues={CarrerApplyFormData}
                             validationSchema={carrerApplyFormValidation}
                             onSubmit={async (values, action) => {
-                                setShowSuccessModal(true);
+                                toggleSuccessModal();
                                 // To be used for API
                                 // try {
                                 //     axiosClient.post("/routes", values);

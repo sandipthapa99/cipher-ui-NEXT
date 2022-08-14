@@ -3,12 +3,12 @@ import TagInputField from "@components/common/TagInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import Tags from "@yaireo/tagify/dist/react.tagify";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { SkillsFromData } from "utils/formData";
 import { skillsFormSchema } from "utils/formValidation/skillsFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -24,7 +24,7 @@ const AddSkills = ({
     handleClose,
     setShowAddSkillsForm,
 }: SkillsProps) => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     return (
         <>
             {/* Modal component */}
@@ -43,7 +43,7 @@ const AddSkills = ({
                             // } catch (error: any) {
                             //     error.response.data.message;
                             // }
-                            setShowSuccessModal(true);
+                            toggleSuccessModal();
                             console.log(values);
                         }}
                     >

@@ -2,12 +2,12 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import type { BookNowModalCardProps } from "types/bookNow";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
@@ -20,7 +20,7 @@ const AppliedForm = ({
     show,
     handleClose,
 }: BookNowModalCardProps) => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     const router = useRouter();
     return (
         <>
@@ -45,7 +45,7 @@ const AppliedForm = ({
                         initialValues={ApplyFormData}
                         validationSchema={applyFormSchema}
                         onSubmit={async (values) => {
-                            setShowSuccessModal(true);
+                            toggleSuccessModal();
                             console.log(values);
                         }}
                     >

@@ -3,13 +3,13 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Field, Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { CertificationFromData } from "utils/formData";
 import { certificateFormSchema } from "utils/formValidation/certificateFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -25,7 +25,7 @@ const CertificationForm = ({
     handleClose,
     setShowCertificationModal,
 }: CertificationProps) => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     return (
         <>
             {/* Modal component */}
@@ -38,7 +38,7 @@ const CertificationForm = ({
                         validationSchema={certificateFormSchema}
                         onSubmit={async (values) => {
                             setShowCertificationModal(false);
-                            setShowSuccessModal(true);
+                            toggleSuccessModal();
                             // To be used for API
                             // try {
                             //     axiosClient.post("/routes", values);

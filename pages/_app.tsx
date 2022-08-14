@@ -14,7 +14,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import BookNowProvider from "context/BookNowContext/bookNowProvider";
 import { ClientTaskContextProvider } from "context/ClientTaskContext";
 import SearchProvider from "context/searchProvider";
-import SuccessProvider from "context/successContext/successProvider";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { useState } from "react";
@@ -34,21 +33,19 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     const [queryClient] = useState(() => new QueryClient());
     return (
         <SearchProvider>
-            <SuccessProvider>
-                <ClientTaskContextProvider>
-                    <BookNowProvider>
-                        <QueryClientProvider client={queryClient}>
-                            <ReactQueryDevtools />
-                            <ToastContainer position="top-center" />
-                            <Hydrate state={pageProps.dehydratedState}>
-                                <UserLoadingOverlay />
-                                <LoginPrompt />
-                                <Component {...pageProps} />
-                            </Hydrate>
-                        </QueryClientProvider>
-                    </BookNowProvider>
-                </ClientTaskContextProvider>
-            </SuccessProvider>
+            <ClientTaskContextProvider>
+                <BookNowProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <ReactQueryDevtools />
+                        <ToastContainer position="top-center" />
+                        <Hydrate state={pageProps.dehydratedState}>
+                            <UserLoadingOverlay />
+                            <LoginPrompt />
+                            <Component {...pageProps} />
+                        </Hydrate>
+                    </QueryClientProvider>
+                </BookNowProvider>
+            </ClientTaskContextProvider>
         </SearchProvider>
     );
 }

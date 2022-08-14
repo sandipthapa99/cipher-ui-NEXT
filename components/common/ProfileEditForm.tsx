@@ -9,13 +9,13 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faPlus, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { ProfileEditFromData } from "utils/formData";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -34,7 +34,7 @@ const ProfileEditForm = ({
     handleClose,
     setShowEdit,
 }: ProfileEditProps) => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     return (
         <>
             {/* Modal component */}
@@ -47,7 +47,7 @@ const ProfileEditForm = ({
                         validationSchema={profileEditFormSchema}
                         onSubmit={async (values) => {
                             setShowEdit(false);
-                            setShowSuccessModal(true);
+                            toggleSuccessModal();
                             // To be used for API
                             // try {
                             //     axiosClient.post("/routes", values);
