@@ -65,6 +65,7 @@ axiosClient.interceptors.response.use(
                 requestRefreshToken(axiosClient, refresh);
             }
         }
+        return Promise.reject(error);
     }
 );
 
