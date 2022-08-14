@@ -347,6 +347,7 @@ const PostModal = ({ onSubmit }: Props) => {
                 </Row>
                 <Row>
                     <DragDrop
+                        name="images"
                         image="/service-details/file-upload.svg"
                         fileType="Image/Video"
                         maxImageSize={20}

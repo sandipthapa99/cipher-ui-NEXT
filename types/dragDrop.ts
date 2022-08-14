@@ -1,4 +1,5 @@
 export interface DragAndDropProps {
+    name: string;
     image: string;
     fileType: string;
     maxImageSize?: number;

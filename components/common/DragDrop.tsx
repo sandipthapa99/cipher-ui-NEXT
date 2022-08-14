@@ -3,6 +3,7 @@ import { useRef } from "react";
 import type { DragAndDropProps } from "types/dragDrop";
 
 const DragDrop = ({
+    name,
     image,
     fileType,
     maxImageSize,
@@ -50,6 +51,7 @@ const DragDrop = ({
             {maxPdfSize ? <span>Maximum Pdf size {maxPdfSize} MB</span> : ""}
 
             <input
+                name={name}
                 type={"file"}
                 id="choosefile"
                 ref={inputRef}
@@ -64,7 +66,7 @@ const DragDrop = ({
                             src,
                         };
                     });
-                    field?.("file", multipleFiles);
+                    field?.(name, multipleFiles);
                 }}
             />
         </div>

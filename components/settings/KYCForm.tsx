@@ -44,12 +44,12 @@ const KYCForm = () => {
                         identity_valid_through: "",
                         identity_issuer_organization:
                             KYCData?.identity_issuer_organization ?? "",
-                        // identity_card_file: "",
+                        identity_card_file: "",
                         pan_number: KYCData?.pan_number ?? null,
                         pan_issued_from: KYCData?.pan_issued_from ?? "",
                         pan_issued_date: "",
-                        pan_card_file: null,
-                        passport_size_photo: null,
+                        pan_card_file: "",
+                        passport_size_photo: "",
                         personal_address_verification_document: null,
                         bank_name: KYCData?.bank_name ?? "",
                         bank_account_name: KYCData?.bank_account_name ?? "",
@@ -165,6 +165,7 @@ const KYCForm = () => {
                             </p>
                             <Col md={5}>
                                 <DragDrop
+                                    name="identity_card_file"
                                     image="/service-details/file-upload.svg"
                                     fileType="Image/Video"
                                     maxImageSize={20}
@@ -207,6 +208,7 @@ const KYCForm = () => {
                             <p>Document can be PAN or VAT Card </p>
                             <Col md={5}>
                                 <DragDrop
+                                    name="pan_card_file"
                                     image="/service-details/file-upload.svg"
                                     fileType="Image/Video"
                                     maxImageSize={20}
@@ -223,6 +225,7 @@ const KYCForm = () => {
                                         picture
                                     </p>
                                     <DragDrop
+                                        name="passport_size_photo"
                                         image="/service-details/file-upload.svg"
                                         fileType="Image/Video"
                                         maxImageSize={20}
@@ -237,6 +240,7 @@ const KYCForm = () => {
                                         Bill, Rental Aggrement.
                                     </p>
                                     <DragDrop
+                                        name="personal_address_verification_document"
                                         image="/service-details/file-upload.svg"
                                         fileType="Image/Video"
                                         maxImageSize={20}

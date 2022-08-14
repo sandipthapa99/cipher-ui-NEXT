@@ -123,6 +123,7 @@ const BookNowModalCard = ({
                                         </Col>
                                         <Col md={3}>
                                             <DragDrop
+                                                name="gallery"
                                                 image="/service-details/file-upload.svg"
                                                 fileType="Image/Video"
                                                 maxImageSize={20}
