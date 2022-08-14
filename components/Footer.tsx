@@ -8,14 +8,17 @@ import {
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
+import { useNewsLetter } from "hooks/newsletter/useNewsLetter";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 import emailValidationSchema from "utils/formValidation/emailValidation";
 
 import InputField from "./common/InputField";
 
 const Footer = () => {
+    const { mutate } = useNewsLetter();
     return (
         <>
             <footer id="site-footer" className="site-footer">
@@ -37,6 +40,17 @@ const Footer = () => {
                                     validationSchema={emailValidationSchema}
                                     onSubmit={async (values) => {
                                         console.log(values);
+                                        mutate(values, {
+                                            onSuccess: () => {
+                                                toast.success(
+                                                    "Successfully Subscribed " +
+                                                        values?.email
+                                                );
+                                            },
+                                            onError: (error) => {
+                                                toast.error(error?.message);
+                                            },
+                                        });
                                     }}
                                 >
                                     {({ isSubmitting, errors, touched }) => (
