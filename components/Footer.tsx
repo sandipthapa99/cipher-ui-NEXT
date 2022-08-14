@@ -7,18 +7,46 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useNewsLetter } from "hooks/newsletter/useNewsLetter";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { NewsletterDataTypes } from "types/newsletter";
+import { axiosClient } from "utils/axiosClient";
 import emailValidationSchema from "utils/formValidation/emailValidation";
 
 import InputField from "./common/InputField";
 
 const Footer = () => {
-    const { mutate } = useNewsLetter();
+    const emailSubsMutation = useMutation((data: NewsletterDataTypes) =>
+        axiosClient.post("/support/newsletter/subscribe", data)
+    );
+    const onSubscribeEmail = (data: any, actions: any) => {
+        emailSubsMutation.mutate(data, {
+            onSuccess: (data) => {
+                console.log("From onSuccess", data);
+                if (data?.data?.status === "failure") {
+                    console.log("Error", data);
+                } else {
+                    console.log("success", data);
+                }
+            },
+            onError: (error: any) => {
+                console.log("From onError", error.response);
+
+                // const {
+                //     data: { email },
+                // } = error.response;
+
+                // actions.setFieldError("email", email && email[0]);
+                console.log("Something Wen wrong");
+            },
+        });
+    };
+
     return (
         <>
             <footer id="site-footer" className="site-footer">
@@ -38,19 +66,9 @@ const Footer = () => {
                                 <Formik
                                     initialValues={{ email: "" }}
                                     validationSchema={emailValidationSchema}
-                                    onSubmit={async (values) => {
-                                        console.log(values);
-                                        mutate(values, {
-                                            onSuccess: () => {
-                                                toast.success(
-                                                    "Successfully Subscribed " +
-                                                        values?.email
-                                                );
-                                            },
-                                            onError: (error) => {
-                                                toast.error(error?.message);
-                                            },
-                                        });
+                                    onSubmit={async (values, actions) => {
+                                        // console.log(values);
+                                        onSubscribeEmail(values, actions);
                                     }}
                                 >
                                     {({ isSubmitting, errors, touched }) => (
