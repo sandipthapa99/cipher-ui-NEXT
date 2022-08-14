@@ -145,10 +145,9 @@ export const AccountFromData: AccountValueProps = {
 };
 
 export const ChangePasswordFromData: changePasswordValueProps = {
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
-    toggle: false,
+    new_password: "",
+    old_password: "",
+    confirm_password: "",
 };
 
 export const TaxCalculatorFormData: TaxCalculatorValueProps = {
