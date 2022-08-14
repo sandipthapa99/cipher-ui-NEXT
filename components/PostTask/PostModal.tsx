@@ -1,10 +1,8 @@
-import { useClientTasks } from "context/ClientTaskContext";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/post-task/usePostTask";
 import Image from "next/image";
 import type { ChangeEvent } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import type { PostTaskData } from "types/postTaskData";
 
 import { categoryData } from "../../types/categoryData";
@@ -16,7 +14,6 @@ interface Props {
 }
 
 const PostModal = ({ onSubmit }: Props) => {
-    const { addTask } = useClientTasks();
     const { mutate, isLoading } = usePostTask();
 
     const renderCategory = categoryData.map((category) => {

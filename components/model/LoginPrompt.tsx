@@ -7,6 +7,9 @@ import {
     useShowLoginPrompt,
 } from "store/use-login-prompt-store";
 
+/**
+ * @description Displays a login prompt on unauthenticated actions
+ */
 export const LoginPrompt = () => {
     const showLoginPrompt = useShowLoginPrompt();
     const hideLoginPrompt = useHideLoginPrompt();
