@@ -26,8 +26,6 @@ interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
         dehydratedState: DehydratedState;
     };
 }
-const PROTECTED_ROUTES = ["/profile", "/tasker"];
-const RESTRICTED_ROUTES_ON_LOGGED_IN = ["/login"];
 
 const UserLoadingOverlay = dynamic(
     () => import("@components/common/FullPageLoader"),
@@ -46,14 +44,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                                 <ToastContainer position="top-center" />
                                 <Hydrate state={pageProps.dehydratedState}>
                                     <UserLoadingOverlay />
-                                    <PrivateRoute
-                                        protectedRoutes={PROTECTED_ROUTES}
-                                        restrictedRoutesOnLoggedIn={
-                                            RESTRICTED_ROUTES_ON_LOGGED_IN
-                                        }
-                                    >
-                                        <Component {...pageProps} />
-                                    </PrivateRoute>
+                                    <Component {...pageProps} />
                                 </Hydrate>
                             </QueryClientProvider>
                         </BookNowProvider>
