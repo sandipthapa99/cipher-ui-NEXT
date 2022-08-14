@@ -1,0 +1,32 @@
+.row-create-profile {
+    margin: 5rem 0;
+    .create-profile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        h1{
+            font-weight: 500;
+        }
+
+        .btn-create-profile {
+            margin-top: 2.4rem;
+            padding: 1rem 2.5rem;
+            background: $secondary-color;
+            color: #FFF;
+            outline: none;
+            border-radius: 0.6rem;
+            border: none;
+            &:hover {
+                background-color: $primary-color;
+                a{
+                    color: #FFF;
+                }
+            }
+            a{
+                color: #212529;
+                font-weight: 500;
+            }
+        }
+    }
+}
