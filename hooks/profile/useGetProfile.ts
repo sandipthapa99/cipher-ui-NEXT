@@ -30,6 +30,7 @@ export type ProfileResponse = {
     country: number;
     language: number;
     subscription: Array<any>;
+    message?: string;
 };
 
 export const useGetProfile = () => {

@@ -4,13 +4,13 @@ import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Field, Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { ExperienceFromData } from "utils/formData";
 import { experienceFormSchema } from "utils/formValidation/experienceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -32,11 +32,11 @@ const ExperienceForm = ({
     handleClose,
     setShowExpForm,
 }: ExperienceProps) => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
                     <h3>Task Details</h3>
@@ -52,7 +52,7 @@ const ExperienceForm = ({
                             // } catch (error: any) {
                             //     error.response.data.message;
                             // }
-                            setShowSuccessModal(true);
+                            toggleSuccessModal();
                             console.log(values);
                         }}
                     >

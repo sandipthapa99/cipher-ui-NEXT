@@ -5,7 +5,6 @@ import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useSuccessContext } from "context/successContext/successContext";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
@@ -14,6 +13,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -24,7 +24,7 @@ const dropdownCountryOptions = [
 ];
 
 const KYCForm = () => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     const { data: KYCData } = useGetKYC();
     console.log(KYCData);
     const { mutate } = useKYC();
@@ -76,7 +76,7 @@ const KYCForm = () => {
 
                         mutate(newvalidatedValue, {
                             onSuccess: () => {
-                                setShowSuccessModal(true);
+                                toggleSuccessModal();
                             },
                             onError: (error) => {
                                 toast.error(error.message);
@@ -94,6 +94,7 @@ const KYCForm = () => {
                 >
                     {({ isSubmitting, errors, touched, resetForm }) => (
                         <Form autoComplete="off">
+                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                             <InputField
                                 type="text"
                                 name="full_name"

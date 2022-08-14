@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
 import { useContact } from "hooks/contact-and-support/contact";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { ContactFormData } from "utils/contactFormData";
@@ -20,6 +21,7 @@ import { isSubmittingClass } from "utils/helpers";
 
 const Contact = () => {
     const { mutate, isLoading } = useContact();
+    const router = useRouter();
     return (
         <Layout title="Contact Us | Cipher">
             <section className="contact-page-header">
@@ -110,6 +112,7 @@ const Contact = () => {
                                             toast.success(
                                                 " Conatct message sent successfully"
                                             );
+                                            router.push("/");
                                         },
                                         onError: async (error) => {
                                             toast.error(error.message);
@@ -119,9 +122,9 @@ const Contact = () => {
                             >
                                 {({ isSubmitting, errors, touched }) => (
                                     <Form>
-                                        <pre>
+                                        {/* <pre>
                                             {JSON.stringify(errors, null, 4)}
-                                        </pre>
+                                        </pre> */}
                                         <InputField
                                             type="text"
                                             name="full_name"

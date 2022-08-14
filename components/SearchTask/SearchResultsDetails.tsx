@@ -17,7 +17,6 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useBookContext } from "context/BookNowContext/bookNowContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -28,6 +27,7 @@ import {
     getServiceHighlights,
     getServices,
 } from "services/commonServices";
+import { useSetBookNowDetails } from "store/use-book-now";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 
 const SearchResultsDetail = ({
@@ -44,7 +44,7 @@ const SearchResultsDetail = ({
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const { setBookNowDetails } = useBookContext();
+    const setBookNowDetails = useSetBookNowDetails();
     const services = getServices();
     const PackageCard = getAllPackageCard();
     const reviewsContent = getReviews();

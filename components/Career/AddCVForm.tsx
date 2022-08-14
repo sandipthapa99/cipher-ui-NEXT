@@ -2,12 +2,12 @@ import FileInputField from "@components/common/FileInputField";
 import FormButton from "@components/common/FormButton";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { UploadCVFormData } from "utils/formData";
 import { uploadCVFormValidation } from "utils/formValidation/uploadCVFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -19,11 +19,11 @@ interface AddCVProps {
 }
 
 const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
                     <h3>Upload your CV</h3>
@@ -38,7 +38,7 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                             // } catch (error: any) {
                             //     error.response.data.message;
                             // }
-                            setShowSuccessModal(true);
+                            toggleSuccessModal();
                             console.log(values);
                         }}
                     >

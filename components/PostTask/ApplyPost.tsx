@@ -1,12 +1,9 @@
 import SearchBySort from "@components/SearchTask/searchPageSort";
-import { useClientTasks } from "context/ClientTaskContext";
 import { Col, Row } from "react-bootstrap";
 
 import GettingStartedTask from "../Task/GettingStartedCard";
 
 const ApplyPost = () => {
-    const { tasks } = useClientTasks();
-
     return (
         <div className="post-task__apply-post">
             <Row>
