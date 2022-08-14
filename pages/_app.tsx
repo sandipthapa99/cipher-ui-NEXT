@@ -20,7 +20,6 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
-import AuthProvider from "../context/AuthContext/userContextProvider";
 interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
     pageProps: {
         dehydratedState: DehydratedState;
@@ -36,21 +35,19 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     return (
         <SearchProvider>
             <SuccessProvider>
-                <AuthProvider>
-                    <ClientTaskContextProvider>
-                        <BookNowProvider>
-                            <QueryClientProvider client={queryClient}>
-                                <ReactQueryDevtools />
-                                <ToastContainer position="top-center" />
-                                <Hydrate state={pageProps.dehydratedState}>
-                                    <UserLoadingOverlay />
-                                    <LoginPrompt />
-                                    <Component {...pageProps} />
-                                </Hydrate>
-                            </QueryClientProvider>
-                        </BookNowProvider>
-                    </ClientTaskContextProvider>
-                </AuthProvider>
+                <ClientTaskContextProvider>
+                    <BookNowProvider>
+                        <QueryClientProvider client={queryClient}>
+                            <ReactQueryDevtools />
+                            <ToastContainer position="top-center" />
+                            <Hydrate state={pageProps.dehydratedState}>
+                                <UserLoadingOverlay />
+                                <LoginPrompt />
+                                <Component {...pageProps} />
+                            </Hydrate>
+                        </QueryClientProvider>
+                    </BookNowProvider>
+                </ClientTaskContextProvider>
             </SuccessProvider>
         </SearchProvider>
     );

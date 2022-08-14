@@ -1,4 +1,4 @@
-import nookies from "nookies";
+import Cookies from "js-cookie";
 import { createStore, useStore } from "zustand";
 
 type CustomFunction = () => void;
@@ -18,7 +18,7 @@ export const loginPromptStore = createStore<LoginPromptStore>((set) => {
         hidePrompt: () => set((state) => ({ ...state, showPrompt: false })),
         withLogin: (_function) => {
             //! temporary workground untill zustand@4 releases proper docs
-            const { access: user } = nookies.get(undefined, "access");
+            const user = Cookies.get("access");
             return user ? _function : showLoginPrompt;
         },
     };
