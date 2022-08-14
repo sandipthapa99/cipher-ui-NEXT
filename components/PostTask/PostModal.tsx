@@ -1,3 +1,4 @@
+import DragDrop from "@components/common/DragDrop";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/post-task/usePostTask";
 import Image from "next/image";
@@ -345,7 +346,13 @@ const PostModal = ({ onSubmit }: Props) => {
                     </Col>
                 </Row>
                 <Row>
-                    <DragAndDrop field={setFieldValue} />
+                    <DragDrop
+                        name="images"
+                        image="/service-details/file-upload.svg"
+                        fileType="Image/Video"
+                        maxImageSize={20}
+                        field={setFieldValue}
+                    />
                 </Row>
                 <div className="submit-buttons">
                     <div
@@ -380,48 +387,45 @@ const PostModal = ({ onSubmit }: Props) => {
 };
 export default PostModal;
 
-export const DragAndDrop = ({ field }: { field: any }) => {
-    function handleChange(event: ChangeEvent<HTMLInputElement>) {
-        const files = event.target.files;
-        if (files) {
-            const file = files[0];
-            getBase64(file);
-        }
-    }
-    const onLoad = (fileString: string | ArrayBuffer) => {
-        field?.("images", ["image", fileString]);
-    };
+// export const DragAndDrop = ({ field }: { field: any }) => {
+//     return (
+//         <Col md={4} className="drag-down">
+//             <figure className="thumbnail-img">
+//                 <Image
+//                     src="/service-details/file-upload.svg"
+//                     width="70px"
+//                     height={"70px"}
+//                     objectFit="cover"
+//                     alt="serviceprovider-image"
+//                 />
+//             </figure>
 
-    const getBase64 = (file: File) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            if (reader.result) {
-                onLoad(reader.result);
-            }
-        };
-    };
-    return (
-        <Col md={4} className="drag-down">
-            <figure className="thumbnail-img">
-                <Image
-                    src="/service-details/file-upload.svg"
-                    width="70px"
-                    height={"70px"}
-                    objectFit="cover"
-                    alt="serviceprovider-image"
-                />
-            </figure>
-
-            <h5>
-                Drag or {""}
-                <label htmlFor="choosefile">Browse</label> Image/Video
-            </h5>
-            <p>Maximum Image Size 20 MB</p>
-            <p>Maximum Video Size 200 MB</p>
-            <div style={{ visibility: "hidden" }}>
-                <input type={"file"} id="choosefile" onChange={handleChange} />
-            </div>
-        </Col>
-    );
-};
+//             <h5>
+//                 Drag or {""}
+//                 <label htmlFor="choosefile">Browse</label> Image/Video
+//             </h5>
+//             <p>Maximum Image Size 20 MB</p>
+//             <p>Maximum Video Size 200 MB</p>
+//             <div style={{ visibility: "hidden" }}>
+//                 <input
+//                     type={"file"}
+//                     id="choosefile"
+//                     onChange={(event) => {
+//                         const arrFiles = Array.from(event.target.files);
+//                         const multipleFiles = arrFiles.map(
+//                             (file: any, index: number) => {
+//                                 const src = window.URL.createObjectURL(file);
+//                                 return {
+//                                     file,
+//                                     id: index,
+//                                     src,
+//                                 };
+//                             }
+//                         );
+//                         field?.("multipleFiles", multipleFiles);
+//                     }}
+//                 />
+//             </div>
+//         </Col>
+//     );
+// };

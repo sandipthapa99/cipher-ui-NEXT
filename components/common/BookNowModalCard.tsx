@@ -56,7 +56,7 @@ const BookNowModalCard = ({
                             // }));
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, errors, touched, setFieldValue }) => (
                             <Form>
                                 <div className="problem">
                                     <h4>Problem Description</h4>
@@ -123,9 +123,11 @@ const BookNowModalCard = ({
                                         </Col>
                                         <Col md={3}>
                                             <DragDrop
+                                                name="gallery"
                                                 image="/service-details/file-upload.svg"
                                                 fileType="Image/Video"
                                                 maxImageSize={20}
+                                                field={setFieldValue}
                                             />
                                         </Col>
                                     </Row>
