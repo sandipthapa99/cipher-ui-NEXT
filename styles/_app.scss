@@ -638,3 +638,18 @@ small.text-muted {
         font-size: 12px;
     }
 }
+.sticky-wrapper-header {
+    position: relative;
+    z-index: 4;
+    @include respond(md) {
+        position: sticky;
+        top: 0rem;
+    }
+}
+.sticky-wrapper {
+    position: relative;
+    @include respond(md) {
+        position: sticky;
+        top: 15rem;
+    }
+}

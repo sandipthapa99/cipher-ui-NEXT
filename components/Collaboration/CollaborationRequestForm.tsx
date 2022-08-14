@@ -2,10 +2,10 @@ import BigButton from "@components/common/Button";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import AddRequirements from "@components/PostTask/AddRequirements";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import React from "react";
 import { Modal } from "react-bootstrap";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { collaborationRequestFormSchema } from "utils/formValidation/CollaborationRequestFormValidation";
 
 import { CollaborateWith } from "./CollaborateWith";
@@ -19,7 +19,7 @@ export const CollaborationRequestForm = ({
     show,
     handleClose,
 }: CollaborationRequestFormProps) => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
 
     const initialValues = {
         hourly_rate: "",
@@ -60,7 +60,7 @@ export const CollaborationRequestForm = ({
                             validationSchema={collaborationRequestFormSchema}
                             onSubmit={async (values) => {
                                 console.log(values);
-                                setShowSuccessModal(true);
+                                toggleSuccessModal();
                             }}
                         >
                             {({ setFieldValue, errors, touched }) => {

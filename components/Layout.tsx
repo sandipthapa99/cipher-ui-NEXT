@@ -63,8 +63,11 @@ const Layout: FC<MetaDataProps> = ({
                 />
                 <meta name="robots" content="index, follow" />
             </Head>
-            <UpperHeader />
-            <Header />
+            <section id="header-section" className="sticky-wrapper-header">
+                <UpperHeader />
+                <Header />
+            </section>
+
             {children}
             <Footer />
         </>
