@@ -34,15 +34,15 @@ export const HireMerchantModal = ({
                 <div className="hmm-client-project__body">
                     <p className="hmm-value-text">{project.description}</p>
                     <div className="hmm-time-and-charge-icons">
-                        <div className="hmm-icon-text">
+                        <span className="hmm-icon-text align-items-center">
                             <FontAwesomeIcon
                                 className="svg-icon"
                                 color="#F06700"
                                 icon={faCalendar}
                             />
                             <p className="hmm-value-text">{project.date}</p>
-                        </div>
-                        <div className="hmm-icon-text">
+                        </span>
+                        <div className="hmm-icon-text align-items-center">
                             <FontAwesomeIcon
                                 className="svg-icon"
                                 color="#3EAEFF"
@@ -50,7 +50,7 @@ export const HireMerchantModal = ({
                             />
                             <p className="hmm-value-text">{project.time}</p>
                         </div>
-                        <div className="hmm-icon-text">
+                        <div className="hmm-icon-text align-items-center">
                             <FontAwesomeIcon
                                 color="#3D3F7D"
                                 className="svg-icon"
