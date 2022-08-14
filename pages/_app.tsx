@@ -3,7 +3,6 @@ import "../styles/bundle.scss";
 import "react-toastify/dist/ReactToastify.css";
 import "@smastrom/react-rating/style.css";
 
-import { PrivateRoute } from "@components/common/PrivateRoute";
 import type { DehydratedState } from "@tanstack/react-query";
 import {
     Hydrate,
