@@ -5,18 +5,27 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        h1 {
+            font-weight: 500;
+        }
 
         .btn-create-profile {
+            margin-top: 2.4rem;
             padding: 1rem 2.5rem;
-
+            background: $secondary-color;
+            color: #fff;
             outline: none;
-            border-radius: 6px;
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border-radius: 0.6rem;
+            border: none;
             &:hover {
                 background-color: $primary-color;
+                a {
+                    color: #fff;
+                }
             }
-            .text-profile {
-                color: #fff;
+            a {
+                color: #212529;
+                font-weight: 500;
             }
         }
     }

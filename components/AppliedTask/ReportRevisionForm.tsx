@@ -2,12 +2,12 @@ import BigButton from "@components/common/Button";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import { Modal } from "react-bootstrap";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import type { SelectOptionProps } from "types/selectInputField";
 import { reportRevisionFormSchema } from "utils/formValidation/ReportRevisionFormValidation";
 
@@ -24,7 +24,7 @@ export const ReportRevisionForm = ({
     handleButtonClick,
     setRevisionText,
 }: ReportRevisionFormProps) => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     const initialValues = {
         report_type: "",
         revision_reason: "",
@@ -75,7 +75,7 @@ export const ReportRevisionForm = ({
                             onSubmit={async (values) => {
                                 console.log(values);
                                 setRevisionText?.(values?.revision_reason);
-                                setShowSuccessModal(true);
+                                toggleSuccessModal();
                             }}
                         >
                             {({ setFieldValue, errors, touched }) => {

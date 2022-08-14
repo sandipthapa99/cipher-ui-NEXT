@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";
+import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServiceProviderCardProps } from "types/serviceDetail";
 
 import BookNowButton from "./BookNowButton";
@@ -21,6 +22,7 @@ const SimpleProfileCard = ({
     isPermission,
     currency,
 }: ServiceProviderCardProps) => {
+    const withLogin = useWithLogin();
     const [showModal, setShowModal] = useState(false);
     const [priceValue, setPriceValue] = useState(25);
     const [priceChanged, setPriceChanged] = useState(false);
@@ -108,7 +110,9 @@ const SimpleProfileCard = ({
                             btnTitle={"Apply Now"}
                             backgroundColor={"#38C675"}
                             showModal={true}
-                            handleOnClick={() => setShowModal(!showModal)}
+                            handleOnClick={withLogin(() =>
+                                setShowModal(!showModal)
+                            )}
                         />
                     ) : (
                         <BookNowButton

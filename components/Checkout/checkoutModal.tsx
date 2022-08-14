@@ -1,7 +1,7 @@
-import { useBookContext } from "context/BookNowContext/bookNowContext";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Button, Modal } from "react-bootstrap";
 import { creditCardContent } from "staticData/creditCardContent";
+import { useBookNowDetails } from "store/use-book-now";
+import { useToggleSuccessModal } from "store/use-success-modal";
 
 import CreditCard from "./CreditCard";
 
@@ -11,10 +11,11 @@ interface props {
 }
 
 export const CheckoutModal = ({ show, onHide }: props) => {
-    const { setShowSuccessModal } = useSuccessContext();
-    const { bookNowDetails } = useBookContext();
+    const toggleSuccessModal = useToggleSuccessModal();
+    const bookNowDetails = useBookNowDetails();
     const serviceCharge = 200;
     const GST = 100;
+    if (!bookNowDetails) return null;
     return (
         <div className="checkout-modal-div">
             <Modal
@@ -22,6 +23,7 @@ export const CheckoutModal = ({ show, onHide }: props) => {
                 size="lg"
                 onHide={onHide}
                 className="modal-checkout"
+                backdrop="static"
             >
                 <Modal.Header closeButton></Modal.Header>
                 <h4>Booking Details</h4>
@@ -104,7 +106,7 @@ export const CheckoutModal = ({ show, onHide }: props) => {
                             type="button"
                             onClick={() => {
                                 onHide();
-                                setShowSuccessModal(true);
+                                toggleSuccessModal();
                             }}
                             className="post-btn"
                         >

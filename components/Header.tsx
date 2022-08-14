@@ -12,7 +12,7 @@ import { format } from "date-fns";
 import { useWeather } from "hooks/weather/useWeather";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { handleMenuActive } from "utils/helpers";
 
@@ -27,36 +27,14 @@ const Header = () => {
 
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
-    const [stickyClass, setStickyClass] = useState("relative");
-    useEffect(() => {
-        window.addEventListener("scroll", stickNavbar);
-
-        return () => {
-            window.removeEventListener("scroll", stickNavbar);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (notopen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "unset";
-        }
-    }, [notopen]);
-
-    const stickNavbar = () => {
-        if (window !== undefined) {
-            const windowHeight = window.scrollY;
-            windowHeight > 85
-                ? setStickyClass("sticky")
-                : setStickyClass("normal");
-        }
-    };
 
     return (
         <>
             {/* Site Upper Header Start */}
-            <header id="site-header" className={`site-header ${stickyClass}`}>
+            <header
+                id="site-header"
+                className="site-header sticky-wrapper-header"
+            >
                 <Container fluid="xl">
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">

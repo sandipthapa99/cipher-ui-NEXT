@@ -1,17 +1,17 @@
-import { destroyCookie, setCookie } from "nookies";
+import Cookies from "js-cookie";
 
 /**
  * @description Stores token received after login into axiosclient and browser cookie
  */
 export const autoLogin = (access: string, refresh: string) => {
-    setCookie(undefined, "access", access);
-    setCookie(undefined, "refresh", refresh);
+    Cookies.set("access", access);
+    Cookies.set("refresh", refresh);
 };
 
 /**
  * @description Removes token from axiosclient and browser cookie
  */
 export const autoLogout = () => {
-    destroyCookie(undefined, "access");
-    destroyCookie(undefined, "refresh");
+    Cookies.remove("access");
+    Cookies.remove("refresh");
 };

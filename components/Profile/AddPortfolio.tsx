@@ -14,7 +14,7 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
     return (
         <div>
             {/* Modal component */}
-            <Modal show={showModal} onHide={handleClose}>
+            <Modal show={showModal} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
                     <Modal.Title>Add Portfolio</Modal.Title>
                 </Modal.Header>

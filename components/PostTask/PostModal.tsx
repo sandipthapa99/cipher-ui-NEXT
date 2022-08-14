@@ -1,6 +1,4 @@
 import DragDrop from "@components/common/DragDrop";
-import { useClientTasks } from "context/ClientTaskContext";
-import { useSuccessContext } from "context/successContext/successContext";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/post-task/usePostTask";
 import Image from "next/image";
@@ -17,8 +15,6 @@ interface Props {
 }
 
 const PostModal = ({ onSubmit }: Props) => {
-    const { addTask } = useClientTasks();
-    const { setShowSuccessModal } = useSuccessContext();
     const { mutate, isLoading } = usePostTask();
 
     const renderCategory = categoryData.map((category) => {

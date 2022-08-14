@@ -7,11 +7,11 @@ import {
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useBookContext } from "context/BookNowContext/bookNowContext";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import React, { useState } from "react";
 import { TaskList } from "staticData/taskListData";
+import { useBookNowDetails } from "store/use-book-now";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -19,11 +19,12 @@ import { isSubmittingClass } from "utils/helpers";
 import { CheckoutModal } from "../Checkout/checkoutModal";
 
 const TaskList = ({ task }: { task: TaskList }) => {
-    const { bookNowDetails } = useBookContext();
+    const bookNowDetails = useBookNowDetails();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    if (!bookNowDetails) return null;
     return (
         <>
             <div className="task-list">

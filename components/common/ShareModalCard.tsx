@@ -28,7 +28,7 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
     return (
         <div className="share-modal">
             {/* Modal component */}
-            <Modal centered show={show} onHide={handleClose}>
+            <Modal centered show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton></Modal.Header>
                 <div className="share-modal__modal-body-content">
                     <h1>Share With</h1>
