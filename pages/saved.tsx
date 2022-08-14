@@ -1,14 +1,25 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import { faFilterList } from "@fortawesome/pro-regular-svg-icons";
+import { faAngleRight, faFilterList } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    useFetchServicesBookmarks,
+    useFetchUserBookmarks,
+} from "hooks/bookmark/useFetchBookmark";
 import type { NextPage } from "next";
-import Image from "next/image";
-import { Carousel, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import searchValidationSchema from "utils/formValidation/searchValidation";
 
 const Saved: NextPage = () => {
+    const { data: serviceData } = useFetchServicesBookmarks();
+
+    console.log("Saved services bookmarks=", serviceData);
+
+    const { data: userData } = useFetchUserBookmarks();
+
+    console.log("Saved users bookmarks=", userData);
+
     return (
         <Layout title="Saved | Cipher">
             <section className="saved-page">
@@ -21,7 +32,7 @@ const Saved: NextPage = () => {
                             </Col>
                             <Col md={6}>
                                 <Row>
-                                    <Col md={10}>
+                                    <Col md={10} sm={10}>
                                         <SearchInputField
                                             validationSchema={
                                                 searchValidationSchema
@@ -29,7 +40,7 @@ const Saved: NextPage = () => {
                                             placeholder="Search here"
                                         />
                                     </Col>
-                                    <Col md={2}>
+                                    <Col md={2} sm={2}>
                                         <div className="filter-icon">
                                             <FontAwesomeIcon
                                                 icon={faFilterList}
@@ -38,22 +49,39 @@ const Saved: NextPage = () => {
                                         </div>
                                     </Col>
                                 </Row>
-
-                                {/* <div className="select-type">
-                                   
-                                </div> */}
                             </Col>
                         </Row>
 
                         <div className="saved-page__saved-services">
-                            <h2>
-                                Services <span>(20)</span>
-                            </h2>
+                            <div className="title-wrapper d-flex justify-content-between">
+                                {/* <h2 className="heading-title">Community activity</h2> */}
+                                <h2>
+                                    Services <span>(20)</span>
+                                </h2>{" "}
+                                <a href="#!" className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                                <div className="content"></div>
+                            </div>
                         </div>
                         <div className="saved-page__saved-taskers">
-                            <h2>
-                                Taskers <span>(30)</span>
-                            </h2>
+                            <div className="title-wrapper d-flex justify-content-between">
+                                {/* <h2 className="heading-title">Community activity</h2> */}
+                                <h2>
+                                    Taskers <span>(30)</span>
+                                </h2>
+                                <a href="#!" className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </div>
                         </div>
                     </Container>
                 </section>

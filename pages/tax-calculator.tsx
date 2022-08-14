@@ -123,6 +123,8 @@ const TaxCalculator: NextPage = () => {
                                                 values,
                                                 actions
                                             ) => {
+                                                actions.resetForm();
+
                                                 mutate(values, {
                                                     onSuccess: async () => {
                                                         setIsFormSubmitted(
@@ -327,7 +329,7 @@ const TaxCalculator: NextPage = () => {
                                                                     name="Reset"
                                                                     className="btn close-btn"
                                                                     onClick={() =>
-                                                                        resetForm
+                                                                        resetForm()
                                                                     }
                                                                 />
                                                             </Col>
