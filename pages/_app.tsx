@@ -3,6 +3,7 @@ import "../styles/bundle.scss";
 import "react-toastify/dist/ReactToastify.css";
 import "@smastrom/react-rating/style.css";
 
+import { LoginPrompt } from "@components/model/LoginPrompt";
 import type { DehydratedState } from "@tanstack/react-query";
 import {
     Hydrate,
@@ -43,6 +44,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                                 <ToastContainer position="top-center" />
                                 <Hydrate state={pageProps.dehydratedState}>
                                     <UserLoadingOverlay />
+                                    <LoginPrompt />
                                     <Component {...pageProps} />
                                 </Hydrate>
                             </QueryClientProvider>
@@ -53,5 +55,4 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
         </SearchProvider>
     );
 }
-
 export default MyApp;
