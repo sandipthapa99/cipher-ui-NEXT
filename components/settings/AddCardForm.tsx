@@ -28,7 +28,7 @@ const AddCardForm = ({
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose} size="sm">
+            <Modal show={show} onHide={handleClose} size="sm" backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
                     <h3>Add New card</h3>

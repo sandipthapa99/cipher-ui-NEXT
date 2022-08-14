@@ -66,7 +66,7 @@ export const HireMerchantModal = ({
     };
 
     return (
-        <Modal show={show} onHide={onHide}>
+        <Modal show={show} onHide={onHide} backdrop="static">
             <Modal.Header closeButton>
                 <Modal.Title>Hire Merchant</Modal.Title>
             </Modal.Header>
