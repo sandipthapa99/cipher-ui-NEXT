@@ -16,7 +16,6 @@ import { axiosClient } from "utils/axiosClient";
 const Career = ({ careerData }: { careerData: CareerValueProps }) => {
     const { result } = careerData ?? [];
     const [tabIndex, setTabIndex] = useState(0);
-    console.log(result);
     return (
         <Layout title="Cipher | Careers">
             <section id="careers-section" className="careers-section">
@@ -115,6 +114,44 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                                                     />
                                                 </Col>
                                             ))}
+                                        </Row>
+                                    ),
+                                },
+                                {
+                                    title: "Design",
+                                    content: (
+                                        <Row className="gx-5">
+                                            {careerCardValues?.map(
+                                                (values, key) => (
+                                                    <Col
+                                                        lg={4}
+                                                        md={6}
+                                                        className="d-flex"
+                                                        key={key}
+                                                    >
+                                                        test
+                                                    </Col>
+                                                )
+                                            )}
+                                        </Row>
+                                    ),
+                                },
+                                {
+                                    title: "Design",
+                                    content: (
+                                        <Row className="gx-5">
+                                            {careerCardValues?.map(
+                                                (values, key) => (
+                                                    <Col
+                                                        lg={4}
+                                                        md={6}
+                                                        className="d-flex"
+                                                        key={key}
+                                                    >
+                                                        test
+                                                    </Col>
+                                                )
+                                            )}
                                         </Row>
                                     ),
                                 },

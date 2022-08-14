@@ -31,25 +31,26 @@ const Apply = () => {
                             initialValues={CarrerApplyFormData}
                             validationSchema={carrerApplyFormValidation}
                             onSubmit={async (values, action) => {
-                                setShowSuccessModal(true);
-                                // To be used for API
-                                // try {
-                                //     axiosClient.post("/routes", values);
-                                // } catch (error: any) {
-                                //     error.response.data.message;
-                                // }
-                                mutate(values, {
+                                const formData = new FormData();
+                                Object.entries(values).forEach((entry) => {
+                                    const [key, value] = entry;
+                                    formData.append(key, value);
+                                });
+                                values.cv.forEach((file) =>
+                                    formData.append("cv", file)
+                                );
+
+                                delete values.imagePreviewUrl;
+
+                                mutate(formData, {
                                     onSuccess: async () => {
-                                        await router.push("/");
-                                        toast.success(
-                                            "Please check your email for verification link"
-                                        );
+                                        await router.push("/career");
+                                        setShowSuccessModal(true);
                                     },
                                     onError: (error) => {
                                         toast.error(error.message);
                                     },
                                 });
-                                console.log(values);
                                 action.resetForm();
                             }}
                         >
@@ -61,7 +62,10 @@ const Apply = () => {
                                 values,
                                 setFieldTouched,
                             }) => (
-                                <Form autoComplete="off">
+                                <Form
+                                    autoComplete="off"
+                                    encType="multipart/form-data"
+                                >
                                     <InputField
                                         type="text"
                                         name="full_name"
