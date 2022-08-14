@@ -11,7 +11,6 @@ import {
     QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import BookNowProvider from "context/BookNowContext/bookNowProvider";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { useState } from "react";
@@ -30,17 +29,15 @@ const UserLoadingOverlay = dynamic(
 function MyApp({ Component, pageProps }: CustomAppProps) {
     const [queryClient] = useState(() => new QueryClient());
     return (
-        <BookNowProvider>
-            <QueryClientProvider client={queryClient}>
-                <ReactQueryDevtools />
-                <ToastContainer position="top-center" />
-                <Hydrate state={pageProps.dehydratedState}>
-                    <UserLoadingOverlay />
-                    <LoginPrompt />
-                    <Component {...pageProps} />
-                </Hydrate>
-            </QueryClientProvider>
-        </BookNowProvider>
+        <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools />
+            <ToastContainer position="top-center" />
+            <Hydrate state={pageProps.dehydratedState}>
+                <UserLoadingOverlay />
+                <LoginPrompt />
+                <Component {...pageProps} />
+            </Hydrate>
+        </QueryClientProvider>
     );
 }
 export default MyApp;
