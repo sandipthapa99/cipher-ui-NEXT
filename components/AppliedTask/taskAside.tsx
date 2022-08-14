@@ -30,7 +30,7 @@ const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
                             )}
                             time={format(new Date(task.created_at), "HH : mm")}
                             currency={task?.currency}
-                            charge={task.charge}
+                            charge={task.charge?.toString() ?? "0"}
                         />
                     </a>
                 </Link>
