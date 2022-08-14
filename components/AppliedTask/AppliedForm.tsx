@@ -25,7 +25,7 @@ const AppliedForm = ({
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
                     <h3>Task Details</h3>
