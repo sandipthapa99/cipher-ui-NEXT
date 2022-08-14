@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 interface saveIconProps {
     object_id?: any;
-    model: string;
+    model?: string;
 }
 
 const SaveIcon = ({ object_id, model }: saveIconProps) => {
@@ -17,21 +17,21 @@ const SaveIcon = ({ object_id, model }: saveIconProps) => {
     const [isSaveClicked, setIsSaveClicked] = useState(false);
     const message = bookmarkData?.message;
 
-    const handleSaveClick = () => {
-        setIsSaveClicked(!isSaveClicked);
-        mutate(
-            { object_id, model },
-            {
-                onSuccess: async () => {
-                    toast.success(message);
-                },
-            }
-        );
-    };
+    // const handleSaveClick = () => {
+    //     setIsSaveClicked(!isSaveClicked);
+    //     mutate(
+    //         { object_id, model },
+    //         {
+    //             onSuccess: async () => {
+    //                 toast.success(message);
+    //             },
+    //         }
+    //     );
+    // };
     return (
         <FontAwesomeIcon
             icon={isSaveClicked ? FilledHeart : faHeart}
-            onClick={handleSaveClick}
+            // onClick={handleSaveClick}
             className="svg-icon svg-icon-heart me-2 me-sm-5"
         />
     );

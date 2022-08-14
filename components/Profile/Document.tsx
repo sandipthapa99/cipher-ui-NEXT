@@ -7,7 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { userDocument } from "staticData/userDocument";
 interface props {
-    file: string;
+    file?: string;
 }
 const UserDocument = ({ file }: props) => {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -26,16 +26,16 @@ const UserDocument = ({ file }: props) => {
             file = i;
         }
         const fileUploaded = new FormData();
-        fileUploaded.append("file=", file);
-        console.log("file uploaded=", file);
-        mutate(
-            { file },
-            {
-                onSuccess: async () => {
-                    toast.success("hhhhhh");
-                },
-            }
-        );
+        // fileUploaded.append("file=", file);
+        // console.log("file uploaded=", file);
+        // mutate(
+        //     { file },
+        //     {
+        //         onSuccess: async () => {
+        //             toast.success("hhhhhh");
+        //         },
+        //     }
+        // );
     };
     return (
         <div className="user-document">
