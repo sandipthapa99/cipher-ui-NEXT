@@ -5,11 +5,11 @@ import { axiosClient } from "utils/axiosClient";
 
 export const useBookmark = () => {
     return useMutation<BookmarkResult, Error, BookmarkValueProps>(
-        async (bookmarkDetails) => {
+        async ({ object_id, model }) => {
             try {
                 const { data } = await axiosClient.post<BookmarkResult>(
                     "/task/bookmark/",
-                    bookmarkDetails
+                    { object_id, model }
                 );
                 return data;
             } catch (error) {

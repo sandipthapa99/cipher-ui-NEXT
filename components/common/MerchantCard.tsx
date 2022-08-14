@@ -96,11 +96,11 @@ const MerchantCard = ({
                 </div>
                 <div className="d-flex justify-content-between align-items-md-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
-                        <SaveIcon />
-                        {/* <SaveIcon
-                            id="3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                            type="user"
-                        /> */}
+                        {/* <SaveIcon /> */}
+                        <SaveIcon
+                            object_id="3fa85f64-5717-4562-b3fc-2c963f66afa6"
+                            model="user"
+                        />
                         <ShareIcon />
                     </div>
                     <CardBtn btnTitle="Hire Me" backgroundColor="#211D4F" />

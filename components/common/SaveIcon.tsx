@@ -1,19 +1,32 @@
 import { faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { faHeart as FilledHeart } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useBookmark } from "hooks/bookmark/useBookmark";
 import { useState } from "react";
-import type { StringLocale } from "yup/lib/locale";
+import { toast } from "react-toastify";
 
 interface saveIconProps {
-    id: string;
-    type: string;
+    object_id?: any;
+    model: string;
 }
 
-const SaveIcon = () => {
-    const [isSaveClicked, setIsSaveClicked] = useState(false);
+const SaveIcon = ({ object_id, model }: saveIconProps) => {
+    const { mutate, isLoading, data: bookmarkData } = useBookmark();
+    //console.log("book mark result=", bookmarkData);
 
+    const [isSaveClicked, setIsSaveClicked] = useState(false);
+    const message = bookmarkData?.message;
+    console.log("message=", message);
     const handleSaveClick = () => {
         setIsSaveClicked(!isSaveClicked);
+        mutate(
+            { object_id, model },
+            {
+                onSuccess: async () => {
+                    toast.success(message);
+                },
+            }
+        );
     };
     return (
         <FontAwesomeIcon

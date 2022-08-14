@@ -1,6 +1,6 @@
 export interface BookmarkValueProps {
-    id: string;
-    type: string;
+    object_id: string;
+    model: string;
 }
 
 export interface BookmarkResult {
@@ -9,4 +9,6 @@ export interface BookmarkResult {
     created_at: string;
     updated_at: string;
     object_id: string;
+    message: string;
+    status: string;
 }

@@ -121,14 +121,19 @@ const TaxCalculator: NextPage = () => {
                                             // }}
                                             onSubmit={async (
                                                 values,
-                                                action
+                                                actions
                                             ) => {
                                                 mutate(values, {
                                                     onSuccess: async () => {
                                                         setIsFormSubmitted(
                                                             true
                                                         );
-                                                        action.resetForm();
+                                                        console.log(
+                                                            "actiobn",
+                                                            actions
+                                                        );
+
+                                                        actions.resetForm();
                                                         console.log(
                                                             "submitted values",
                                                             values
