@@ -1,5 +1,8 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import { MapboxMap } from "@components/common/MapboxMap";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import type { GetStaticProps } from "next";
+
 const AppliedTask = () => {
     return (
         <>
@@ -12,4 +15,14 @@ const AppliedTask = () => {
         </>
     );
 };
+export const getStaticProps: GetStaticProps = async () => {
+    const queryClient = new QueryClient();
+    await queryClient.prefetchQuery(["all-tasks"]);
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+        },
+    };
+};
+
 export default AppliedTask;

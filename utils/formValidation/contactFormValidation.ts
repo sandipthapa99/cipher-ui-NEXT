@@ -1,5 +1,5 @@
-import * as Yup from "yup";
 import { phoneRegExp } from "utils/helpers";
+import * as Yup from "yup";
 
 let emailValidate, stringValidate, phoneValidate, stringReqOnly;
 
@@ -16,7 +16,7 @@ phoneValidate = Yup.string()
     .required("Required field");
 
 export const contactFormSchema = Yup.object().shape({
-    fullName: stringValidate,
+    full_name: stringValidate,
     email: emailValidate,
     message: stringReqOnly,
     // isAgree: isCheckValidate,

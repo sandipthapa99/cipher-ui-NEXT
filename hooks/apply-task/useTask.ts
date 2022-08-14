@@ -1,18 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { useUser } from "hooks/auth/useUser";
+import type { ITaskApiResponse } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 
-// export const useTask = () => {
-//     return useQuery<string | undefined>(["apply-task"], async () => {
-//         const { access } = nookies.get(undefined, "access");
-//         if (access === undefined) return undefined;
-//         return Promise.resolve(access);
-//     });
-// };
-
-const fetchTask = () => {
-    return axiosClient.get("/task/");
-};
-
-export const useApplyTask = () => {
-    return useQuery(["all-task"], fetchTask);
+export const useTasks = () => {
+    const { data } = useUser();
+    return useQuery(
+        ["all-tasks"],
+        async () => {
+            try {
+                const { data } = await axiosClient.get<ITaskApiResponse>(
+                    "/task"
+                );
+                return data;
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    throw new Error(error?.response?.data?.message);
+                }
+                throw new Error("Failed to fetch tasks");
+            }
+        },
+        { enabled: !!data }
+    );
 };

@@ -1,5 +1,6 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
+import UserLoadingOverlay from "@components/common/FullPageLoader";
 import { GoBack } from "@components/common/GoBack";
 import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
@@ -7,7 +8,6 @@ import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
 import PostModal from "@components/PostTask/PostModal";
-import UserLoadingOverlay from "@components/user/UserLoadingOverlay";
 import {
     faCalendar,
     faClockEight,
