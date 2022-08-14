@@ -6,13 +6,10 @@ import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useSuccessContext } from "context/successContext/successContext";
-import { format } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
-import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
@@ -20,6 +17,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -52,7 +50,7 @@ const profile_visibility = [
 ];
 
 const AccountForm = () => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
@@ -130,7 +128,7 @@ const AccountForm = () => {
                         };
                         mutate(newValidatedValues, {
                             onSuccess: () => {
-                                setShowSuccessModal(true);
+                                toggleSuccessModal();
                                 action.resetForm();
                             },
                             onError: (err) => {

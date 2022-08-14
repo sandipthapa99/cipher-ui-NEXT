@@ -23,6 +23,7 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
     const handleLogout = async () => {
         queryClient.setQueryData(["user"], null);
         autoLogout();
+        await router.push(router.pathname);
         toast.success("Logged out successfully");
     };
     return (

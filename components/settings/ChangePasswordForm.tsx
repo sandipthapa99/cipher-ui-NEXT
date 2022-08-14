@@ -4,18 +4,18 @@ import SwitchValue from "@components/common/SwitchValue";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faPencil, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Field, Form, Formik } from "formik";
 import { useChangePassword } from "hooks/profile/changePassword/useChangePassword";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { ChangePasswordFromData } from "utils/formData";
 import changePasswordFormSchema from "utils/formValidation/changePasswordFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const ChangePasswordForm = () => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useChangePassword();
 
     return (
@@ -42,7 +42,7 @@ const ChangePasswordForm = () => {
                                 },
                             }
                         );
-                        // setShowSuccessModal(true);
+                        // toggleSuccessModal();
                         // To be used for API
                         // try {
                         //     axiosClient.post("/routes", values);
