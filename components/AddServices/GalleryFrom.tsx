@@ -45,6 +45,7 @@ export const GalleryFrom = ({ handlePrev, handleNext }: GalleryFormProps) => {
                                                 </p>
 
                                                 <DragDrop
+                                                    name="gallery"
                                                     image={
                                                         "/heroImages/image-upload.png"
                                                     }
@@ -60,6 +61,7 @@ export const GalleryFrom = ({ handlePrev, handleNext }: GalleryFormProps) => {
                                                 </p>
 
                                                 <DragDrop
+                                                    name="gallery1"
                                                     image={
                                                         "/heroImages/pdf-upload.png"
                                                     }
