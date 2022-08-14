@@ -8,6 +8,7 @@ const DragDrop = ({
     maxImageSize,
     maxPdfSize,
     maxVideoSize,
+    field,
 }: DragAndDropProps) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const onButtonClick = () => {
@@ -15,7 +16,7 @@ const DragDrop = ({
         inputRef?.current?.click();
     };
     return (
-        <div className="drag-drop" onClick={onButtonClick}>
+        <div className="drag-drop" onClick={() => onButtonClick}>
             <figure className="thumbnail-img">
                 <Image
                     src={image}
@@ -53,6 +54,18 @@ const DragDrop = ({
                 id="choosefile"
                 ref={inputRef}
                 style={{ display: "none" }}
+                onChange={(event) => {
+                    const arrFiles = Array.from(event.target.files || []);
+                    const multipleFiles = arrFiles.map((file, index) => {
+                        const src = window.URL.createObjectURL(file);
+                        return {
+                            file,
+                            id: index,
+                            src,
+                        };
+                    });
+                    field?.("file", multipleFiles);
+                }}
             />
         </div>
     );

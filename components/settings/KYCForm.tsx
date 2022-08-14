@@ -92,7 +92,13 @@ const KYCForm = () => {
                         action.resetForm();
                     }}
                 >
-                    {({ isSubmitting, errors, touched, resetForm }) => (
+                    {({
+                        isSubmitting,
+                        errors,
+                        touched,
+                        resetForm,
+                        setFieldValue,
+                    }) => (
                         <Form autoComplete="off">
                             {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                             <InputField
@@ -163,6 +169,7 @@ const KYCForm = () => {
                                     fileType="Image/Video"
                                     maxImageSize={20}
                                     maxVideoSize={200}
+                                    field={setFieldValue}
                                 />
                             </Col>
                             <hr />
@@ -204,6 +211,7 @@ const KYCForm = () => {
                                     fileType="Image/Video"
                                     maxImageSize={20}
                                     maxVideoSize={200}
+                                    field={setFieldValue}
                                 />
                             </Col>
                             <hr />
@@ -219,6 +227,7 @@ const KYCForm = () => {
                                         fileType="Image/Video"
                                         maxImageSize={20}
                                         maxVideoSize={200}
+                                        field={setFieldValue}
                                     />
                                 </Col>
                                 <Col lg={{ span: 5, offset: 2 }} md={6}>
@@ -232,6 +241,7 @@ const KYCForm = () => {
                                         fileType="Image/Video"
                                         maxImageSize={20}
                                         maxVideoSize={200}
+                                        field={setFieldValue}
                                     />
                                 </Col>
                             </Row>
