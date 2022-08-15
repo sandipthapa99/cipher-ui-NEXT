@@ -8,34 +8,34 @@ import { toast } from "react-toastify";
 import { userDocument } from "staticData/userDocument";
 
 const UserDocument = () => {
-    const [fileName, setFileName] = useState("");
+    // const [fileName, setFileName] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);
     const onButtonClick = () => {
         inputRef?.current?.click();
     };
     const { data } = useGetDocument();
     const documents = data?.data?.result;
-    const { mutate, isLoading, data: Document } = usePostDocument();
+    // const { mutate, isLoading, data: Document } = usePostDocument();
 
     //upload file
-    const uploadFile = async (e: any) => {
-        if (e.target.files && e.target.files[0]) {
-            const i = e.target.files[0].name;
-            console.log("i=", i);
-            setFileName(i);
-        }
-        const file = new FormData();
-        file.append("file", fileName);
-        console.log("file uploaded=", file);
-        mutate(
-            { file },
-            {
-                onSuccess: async () => {
-                    toast.success("hhhhhh");
-                },
-            }
-        );
-    };
+    // const uploadFile = async (e: any) => {
+    //     if (e.target.files && e.target.files[0]) {
+    //         const i = e.target.files[0].name;
+    //         console.log("i=", i);
+    //         setFileName()
+    //     }
+    //     const fileUploaded = new FormData();
+    //     // fileUploaded.append("file=", file);
+    //     // console.log("file uploaded=", file);
+    //     // mutate(
+    //     //     { file },
+    //     //     {
+    //     //         onSuccess: async () => {
+    //     //             toast.success("hhhhhh");
+    //     //         },
+    //     //     }
+    //     // );
+    // };
     return (
         <div className="user-document">
             <div className="title-wrapper d-flex justify-content-between">
@@ -93,7 +93,7 @@ const UserDocument = () => {
                 id="choosefile"
                 ref={inputRef}
                 style={{ display: "none" }}
-                onChange={uploadFile}
+                //onChange={uploadFile}
             />
         </div>
     );

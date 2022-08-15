@@ -1,5 +1,5 @@
 export interface PostDocumentValueProps {
-    file: string;
+    file: any;
 }
 
 export interface PostDocumentResult {
