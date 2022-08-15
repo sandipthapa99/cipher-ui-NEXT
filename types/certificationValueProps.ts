@@ -1,10 +1,10 @@
 export interface CertificationValueProps {
     name: string;
-    organization: string;
+    issuing_organization: string;
     description: string;
-    toggle: boolean;
-    credentialId: string;
-    certificateURL: string;
-    issuedDate: string | null;
-    expirationDate: string | null;
+    does_expire: boolean;
+    credential_id: string;
+    certificate_url: string;
+    issued_date: string | null;
+    expire_date: string | null;
 }

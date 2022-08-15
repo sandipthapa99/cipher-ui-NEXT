@@ -3,12 +3,16 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { format } from "date-fns";
 import { Field, Form, Formik } from "formik";
+import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
+import { Fragment } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { CertificationFromData } from "utils/formData";
 import { certificateFormSchema } from "utils/formValidation/certificateFormValidation";
@@ -26,8 +30,9 @@ const CertificationForm = ({
     setShowCertificationModal,
 }: CertificationProps) => {
     const toggleSuccessModal = useToggleSuccessModal();
+    const { mutate } = useForm(`/tasker/certification/`);
     return (
-        <>
+        <Fragment>
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
@@ -36,16 +41,28 @@ const CertificationForm = ({
                     <Formik
                         initialValues={CertificationFromData}
                         validationSchema={certificateFormSchema}
-                        onSubmit={async (values) => {
-                            setShowCertificationModal(false);
-                            toggleSuccessModal();
-                            // To be used for API
-                            // try {
-                            //     axiosClient.post("/routes", values);
-                            // } catch (error: any) {
-                            //     error.response.data.message;
-                            // }
-                            console.log(values);
+                        onSubmit={async (values, action) => {
+                            const newvalidatedValue = {
+                                ...values,
+                                issued_date: format(
+                                    new Date(values.issued_date ?? new Date()),
+                                    "yyyy-MM-dd"
+                                ),
+                                expire_date: format(
+                                    new Date(values.expire_date ?? new Date()),
+                                    "yyyy-MM-dd"
+                                ),
+                            };
+                            mutate(newvalidatedValue, {
+                                onSuccess: async () => {
+                                    setShowCertificationModal(false);
+                                    toggleSuccessModal();
+                                },
+                                onError: (error) => {
+                                    toast.error(error.message);
+                                },
+                            });
+                            action.resetForm();
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
@@ -59,10 +76,10 @@ const CertificationForm = ({
                                     placeHolder="Eg: Certified Gardener"
                                 />
                                 <InputField
-                                    name="organization"
+                                    name="issuing_organization"
                                     labelName="Organization"
-                                    touch={touched.organization}
-                                    error={errors.organization}
+                                    touch={touched.issuing_organization}
+                                    error={errors.issuing_organization}
                                     placeHolder="Eg: Cagtu"
                                     as="textarea"
                                 />
@@ -76,42 +93,42 @@ const CertificationForm = ({
                                 <p className="mb-3 d-flex checkbox">
                                     <Field
                                         type="checkbox"
-                                        name="toggle"
+                                        name="does_expire"
                                         className="checkbox-toggle me-2"
                                     />{" "}
                                     This certifate does not expire
                                 </p>
                                 <InputField
-                                    name="credentialId"
+                                    name="credential_id"
                                     labelName="Credential Id"
-                                    touch={touched.credentialId}
-                                    error={errors.credentialId}
+                                    touch={touched.credential_id}
+                                    error={errors.credential_id}
                                     placeHolder="Eg: Cagtu"
                                 />
                                 <InputField
-                                    name="certificateURL"
+                                    name="certificate_url"
                                     labelName="Certificate URL"
-                                    touch={touched.certificateURL}
-                                    error={errors.certificateURL}
+                                    touch={touched.certificate_url}
+                                    error={errors.certificate_url}
                                     placeHolder="Eg: Cagtu"
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
                                         <DatePickerField
-                                            name="issuedDate"
-                                            labelName="issuedDate"
+                                            name="issued_date"
+                                            labelName="Issued Date"
                                             placeHolder="day/month/year"
-                                            touch={touched.issuedDate}
-                                            error={errors.issuedDate}
+                                            touch={touched.issued_date}
+                                            error={errors.issued_date}
                                         />
                                     </Col>
                                     <Col md={6}>
                                         <DatePickerField
-                                            name="expirationDate"
+                                            name="expire_date"
                                             labelName="Expiration Date"
                                             placeHolder="day/month/year"
-                                            touch={touched.expirationDate}
-                                            error={errors.expirationDate}
+                                            touch={touched.expire_date}
+                                            error={errors.expire_date}
                                         />
                                     </Col>
                                 </Row>
@@ -146,7 +163,7 @@ const CertificationForm = ({
                 type="Success"
                 iconName={faSquareCheck}
             />
-        </>
+        </Fragment>
     );
 };
 export default CertificationForm;
