@@ -11,10 +11,10 @@ export const ContactFormData: ContactValuesProps = {
     message: "",
 };
 export const FeedbackFormData: FeedbackValuesProps = {
-    fullName: "",
+    
     subject: "",
-    email: "",
-    message: "",
+    feedback_category: 1,
+    description: "",
 };
 export const SupportFormData: SupportValuesProps = {
     full_name: "",

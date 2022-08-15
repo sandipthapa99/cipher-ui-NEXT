@@ -4,10 +4,10 @@ export interface ContactValuesProps {
     message: string;
 }
 export interface FeedbackValuesProps {
-    fullName: string;
+    
     subject: string;
-    email: string;
-    message: string;
+    feedback_category: number;
+    description: string;
 }
 export interface SupportValuesProps {
     full_name: string;
