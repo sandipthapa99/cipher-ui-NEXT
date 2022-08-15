@@ -1,7 +1,14 @@
 import { faXmarkLarge } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const RecommendationChips = ({ title }: { title: string }) => {
+interface RecommendationChipsProps {
+    title: string;
+    onChipRemove?: (chip: string) => void;
+}
+const RecommendationChips = ({
+    title,
+    onChipRemove,
+}: RecommendationChipsProps) => {
     return (
         <div className="chips-wrapper">
             <div className="chips-content d-flex justify-content-between">
@@ -9,7 +16,7 @@ const RecommendationChips = ({ title }: { title: string }) => {
                 <FontAwesomeIcon
                     icon={faXmarkLarge}
                     className="svg-icon"
-                    onClick={() => alert("This will remove chip")}
+                    onClick={() => onChipRemove?.(title)}
                 />
             </div>
         </div>
