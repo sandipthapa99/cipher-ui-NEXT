@@ -30,12 +30,14 @@ const Footer = () => {
                     console.log("Error", data);
                 } else {
                     toast.success(data?.data?.message);
+                    actions.resetForm();
                 }
             },
             onError: (error: any) => {
                 const errmessage = error?.response?.data?.email[0];
                 toast.error(errmessage);
-                actions.setFieldError("email", errmessage);
+                actions.resetForm();
+                // actions.setFieldError("email", errmessage);
             },
         });
     };
@@ -60,7 +62,6 @@ const Footer = () => {
                                     initialValues={{ email: "" }}
                                     validationSchema={emailValidationSchema}
                                     onSubmit={async (values, actions) => {
-                                        // console.log(values);
                                         onSubscribeEmail(values, actions);
                                     }}
                                 >
