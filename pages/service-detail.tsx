@@ -179,7 +179,6 @@ const ServiceDetail: NextPage = () => {
                                     name="review"
                                     options={reviewType}
                                     placeHolder="Most Relevant"
-                                    fieldRequired
                                 />
                             </Formik>
                         </div>
