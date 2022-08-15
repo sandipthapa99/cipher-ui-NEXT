@@ -3,7 +3,6 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useBookContext } from "context/BookNowContext/bookNowContext";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -22,12 +21,11 @@ const BookNowModalCard = ({
     show,
     handleClose,
 }: BookNowModalCardProps) => {
-    const { setBookNowDetails, bookNowDetails } = useBookContext();
     const router = useRouter();
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
                     <Modal.Title>Booking Details</Modal.Title>
                 </Modal.Header>
@@ -58,7 +56,7 @@ const BookNowModalCard = ({
                             // }));
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, errors, touched, setFieldValue }) => (
                             <Form>
                                 <div className="problem">
                                     <h4>Problem Description</h4>
@@ -125,9 +123,11 @@ const BookNowModalCard = ({
                                         </Col>
                                         <Col md={3}>
                                             <DragDrop
+                                                name="gallery"
                                                 image="/service-details/file-upload.svg"
                                                 fileType="Image/Video"
                                                 maxImageSize={20}
+                                                field={setFieldValue}
                                             />
                                         </Col>
                                     </Row>

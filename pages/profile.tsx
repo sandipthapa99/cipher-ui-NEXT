@@ -8,13 +8,55 @@ import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
+import { useGetCountryBYId } from "hooks/profile/getCountryById";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { NextPage } from "next";
+import Link from "next/link";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
-import { userProfileCardInfo } from "staticData/userProfileCard";
+import { Button, Col, Container, Row } from "react-bootstrap";
 
 const UserProfile: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
+    const { data: profileDetails } = useGetProfile();
+    console.log(profileDetails);
+
+    const remaining = {
+        userImage: "/service-details/provider1.svg",
+        userRating: 4,
+        userBadge: "Gold",
+        userPoints: 58,
+        pointGoal: 42,
+        happyClients: 24,
+        successRate: 30,
+        userReviews: 14,
+        tooltipMessage: "Tooltip Message will show up here",
+        taskCompleted: 30,
+        userActiveStatus: true,
+    };
+    if (profileDetails?.message) {
+        return (
+            <>
+                <Layout title="Profile | Cipher">
+                    <Container fluid="xl" className="px-5">
+                        <BreadCrumb currentPage="Profile" />
+                        <Row className="row-create-profile">
+                            <Col className="create-profile">
+                                <h1>{profileDetails?.message}</h1>
+                                <button className="btn-create-profile">
+                                    <Link
+                                        href={"settings/account/individual"}
+                                        className="text-profile"
+                                    >
+                                        Create Profile
+                                    </Link>
+                                </button>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Layout>
+            </>
+        );
+    }
 
     return (
         <Layout title="Profile | Cipher">
@@ -23,35 +65,35 @@ const UserProfile: NextPage = () => {
                     <BreadCrumb currentPage="Profile" />
 
                     {/* Explore top container start */}
+
                     <section className="user-profile__top-container">
-                        {userProfileCardInfo &&
-                            userProfileCardInfo.map((info) => (
-                                <UserProfileCard
-                                    key={info.id}
-                                    userImage={info.userImage}
-                                    userName={info.userName}
-                                    userJob={info.userJob}
-                                    userRating={info.userRating}
-                                    userPrice={info.userPrice}
-                                    userLocation={info.userLocation}
-                                    userPhone={info.userPhone}
-                                    userEmail={info.userEmail}
-                                    moreServices={info.moreServices}
-                                    activeFrom={info.activeFrom}
-                                    activeTo={info.activeTo}
-                                    userBio={info.userBio}
-                                    userBadge={info.userBadge}
-                                    userPoints={info.userPoints}
-                                    pointGoal={info.pointGoal}
-                                    happyClients={info.happyClients}
-                                    successRate={info.successRate}
-                                    userReviews={info.userReviews}
-                                    taskCompleted={info.taskCompleted}
-                                    userActiveStatus={info.userActiveStatus}
-                                    tooltipMessage={info.tooltipMessage}
-                                />
-                            ))}
+                        <UserProfileCard
+                            countryCode={profileDetails?.country}
+                            key={profileDetails?.id}
+                            userImage={remaining.userImage}
+                            userName={profileDetails?.full_name}
+                            userJob={profileDetails?.user_type}
+                            userRating={remaining.userRating}
+                            userPrice={profileDetails?.hourly_rate}
+                            userLocation={profileDetails?.address_line1}
+                            userPhone={profileDetails?.phone}
+                            userEmail={profileDetails?.user?.email}
+                            moreServices={profileDetails?.skill}
+                            activeFrom={profileDetails?.active_hour_start}
+                            activeTo={profileDetails?.active_hour_end}
+                            userBio={profileDetails?.bio}
+                            userBadge={remaining.userBadge}
+                            userPoints={remaining.userPoints}
+                            pointGoal={remaining.pointGoal}
+                            happyClients={remaining.happyClients}
+                            successRate={remaining.successRate}
+                            userReviews={remaining.userReviews}
+                            taskCompleted={remaining.taskCompleted}
+                            userActiveStatus={remaining.userActiveStatus}
+                            tooltipMessage={remaining.tooltipMessage}
+                        />
                     </section>
+
                     <section className="user-profile__bottom-container">
                         <div className="tabs">
                             <Tab

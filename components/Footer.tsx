@@ -8,14 +8,17 @@ import {
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
+import { useSubscribeNewsletter } from "hooks/newsletter/use-subscribe-newsletter";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 import emailValidationSchema from "utils/formValidation/emailValidation";
 
 import InputField from "./common/InputField";
 
 const Footer = () => {
+    const { mutate } = useSubscribeNewsletter();
     return (
         <>
             <footer id="site-footer" className="site-footer">
@@ -36,7 +39,14 @@ const Footer = () => {
                                     initialValues={{ email: "" }}
                                     validationSchema={emailValidationSchema}
                                     onSubmit={async (values) => {
-                                        console.log(values);
+                                        mutate(values.email, {
+                                            onError: (error) => {
+                                                toast.error(error.message);
+                                            },
+                                            onSuccess: (message) => {
+                                                toast.success(message);
+                                            },
+                                        });
                                     }}
                                 >
                                     {({ isSubmitting, errors, touched }) => (
@@ -198,6 +208,11 @@ const Footer = () => {
                                                 as="contact-us"
                                             >
                                                 <a>Contact Us</a>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/career" as="career">
+                                                <a>Career</a>
                                             </Link>
                                         </li>
                                         <li>

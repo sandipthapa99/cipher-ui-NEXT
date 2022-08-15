@@ -6,9 +6,11 @@ const passwordValidate = Yup.string()
     .matches(/[a-zA-Z]/, "Password can only contain Latin letters.");
 
 const changePasswordFormSchema = Yup.object().shape({
-    currentPassword: passwordValidate,
-    newPassword: passwordValidate,
-    confirmPassword: passwordValidate,
+    old_password: passwordValidate,
+    new_password: passwordValidate,
+    confirm_password: Yup.string()
+        .oneOf([Yup.ref("new_password")], "Passwords do not match")
+        .required("Required field"),
 });
 
 export default changePasswordFormSchema;

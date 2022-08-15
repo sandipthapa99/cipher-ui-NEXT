@@ -2,8 +2,8 @@ import { QueryClient } from "@tanstack/react-query";
 import type { AxiosInstance } from "axios";
 import axios from "axios";
 import { differenceInDays, fromUnixTime } from "date-fns";
+import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
-import { parseCookies } from "nookies";
 import { autoLogin } from "utils/auth";
 const queryClient = new QueryClient();
 
@@ -37,7 +37,7 @@ const axiosClient = axios.create({
 });
 axiosClient.interceptors.request.use(
     (config) => {
-        const { access } = parseCookies(undefined, "access");
+        const access = Cookies.get("access");
         if (access) {
             config.headers = {
                 ...config.headers,
@@ -52,8 +52,10 @@ axiosClient.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error?.response?.data?.code === "token_not_valid") {
-            const { refresh } = parseCookies(undefined, "refresh");
-            const { access } = parseCookies(undefined, "access");
+            const access = Cookies.get("access");
+            const refresh = Cookies.get("refresh");
+
+            if (!access || !refresh) return Promise.reject(error);
 
             const { exp } = jwtDecode<{ exp: number }>(access);
             const tokenExpirationDate = fromUnixTime(exp);
@@ -63,6 +65,7 @@ axiosClient.interceptors.response.use(
                 requestRefreshToken(axiosClient, refresh);
             }
         }
+        return Promise.reject(error);
     }
 );
 

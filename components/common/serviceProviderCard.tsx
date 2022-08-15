@@ -2,7 +2,6 @@ import {
     faAward,
     faEye,
     faFaceSmileBeam,
-    faLocation,
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

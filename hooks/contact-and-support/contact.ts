@@ -7,7 +7,7 @@ export const useContact = () => {
         async (contactPayload) => {
             try {
                 const { data } = await axiosClient.post(
-                    "/support/cms/support/contactus",
+                    "/support/contactus",
                     contactPayload
                 );
                 console.log("Contact data", data);

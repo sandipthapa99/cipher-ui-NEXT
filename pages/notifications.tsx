@@ -1,7 +1,6 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
 import GetNotifications from "@components/notifications/GetNotifications";
-import { withAuth } from "hoc/withAuth";
 import React from "react";
 
 function Notifications() {
@@ -13,4 +12,4 @@ function Notifications() {
     );
 }
 
-export default withAuth(Notifications);
+export default Notifications;

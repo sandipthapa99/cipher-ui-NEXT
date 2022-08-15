@@ -23,14 +23,21 @@ const fileUploadValidate = Yup.array()
     )
     .required("Required field");
 
+const urlValidation = Yup.string()
+    .matches(
+        /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+        "Enter correct url!"
+    )
+    .required("Required field");
+
 export const carrerApplyFormValidation = Yup.object().shape({
     full_name: stringReqOnly,
     email: emailValidate,
     phone: stringReqOnly,
-    company: stringReqOnly,
-    work_exp: stringReqOnly,
-    portfolio: stringReqOnly,
-    resume: fileUploadValidate,
-    addtional_info: stringReqOnly,
+    current_company: stringReqOnly,
+    experience: stringReqOnly,
+    portfolio_link: urlValidation,
+    cv: fileUploadValidate,
+    cover_letter: stringReqOnly,
     g_recaptcha_response: stringReqOnly,
 });

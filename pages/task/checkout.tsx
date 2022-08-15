@@ -8,15 +8,14 @@ import MembershipCard from "@components/MembershipCard";
 import Popular from "@components/Popular";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useBookContext } from "context/BookNowContext/bookNowContext";
 import React, { Fragment } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { MembershipCardContent } from "staticData/membershipCard";
 import { taskListContent } from "staticData/taskListData";
+import { useBookNowDetails } from "store/use-book-now";
 
 const Checkout = () => {
-    const { bookNowDetails } = useBookContext();
-    console.log(bookNowDetails);
+    const bookNowDetails = useBookNowDetails();
 
     return (
         <>

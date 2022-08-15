@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
 import { useContact } from "hooks/contact-and-support/contact";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { ContactFormData } from "utils/contactFormData";
@@ -20,6 +21,7 @@ import { isSubmittingClass } from "utils/helpers";
 
 const Contact = () => {
     const { mutate, isLoading } = useContact();
+    const router = useRouter();
     return (
         <Layout title="Contact Us | Cipher">
             <section className="contact-page-header">
@@ -108,8 +110,9 @@ const Contact = () => {
                                     mutate(values, {
                                         onSuccess: async () => {
                                             toast.success(
-                                                "Message sent successfully"
+                                                " Conatct message sent successfully"
                                             );
+                                            router.push("/");
                                         },
                                         onError: async (error) => {
                                             toast.error(error.message);
@@ -119,12 +122,15 @@ const Contact = () => {
                             >
                                 {({ isSubmitting, errors, touched }) => (
                                     <Form>
+                                        {/* <pre>
+                                            {JSON.stringify(errors, null, 4)}
+                                        </pre> */}
                                         <InputField
                                             type="text"
-                                            name="fullName"
+                                            name="full_name"
                                             labelName="Full Name"
-                                            error={errors.fullName}
-                                            touch={touched.fullName}
+                                            error={errors.full_name}
+                                            touch={touched.full_name}
                                             placeHolder="Enter your full name"
                                         />
                                         <InputField

@@ -1,4 +1,4 @@
-import {
+import type {
     ContactValuesProps,
     FaqValuesProps,
     FeedbackValuesProps,
@@ -6,7 +6,7 @@ import {
 } from "types/contact";
 
 export const ContactFormData: ContactValuesProps = {
-    fullName: "",
+    full_name: "",
     email: "",
     message: "",
 };
@@ -15,13 +15,13 @@ export const FeedbackFormData: FeedbackValuesProps = {
     subject: "",
     email: "",
     message: "",
-};
-export const SupportFormData: SupportValuesProps = {
-    fullName: "",
+}; 
+export const SupportFormData: SupportValuesProps = {    
+    full_name: "",
     email: "",
-    phoneNumber: "",
-    issueType: "",
-    message: "",
+    phone: "",
+    type: "",
+    reason: "",
 };
 export const FaqFormData: FaqValuesProps = {
     fullName: "",
