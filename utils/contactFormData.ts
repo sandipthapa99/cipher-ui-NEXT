@@ -17,11 +17,11 @@ export const FeedbackFormData: FeedbackValuesProps = {
     message: "",
 };
 export const SupportFormData: SupportValuesProps = {
-    fullName: "",
+    full_name: "",
     email: "",
-    phoneNumber: "",
-    issueType: "",
-    message: "",
+    phone: "",
+    type: "",
+    reason: "",
 };
 export const FaqFormData: FaqValuesProps = {
     fullName: "",

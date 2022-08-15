@@ -1,22 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import type { AccountValueProps } from "types/accountValueProps";
+import { SupportValuesProps } from "types/contact";
 import { axiosClient } from "utils/axiosClient";
 
-export const useProfile = () => {
-    return useMutation<void, Error, AccountValueProps>(
-        async (accountPayload) => {
+export const useSupport = () => {
+    return useMutation<void, Error, SupportValuesProps>(
+        async (supportDetails) => {
             try {
                 const { data } = await axiosClient.post(
-                    "/tasker/my-profile/",
-                    accountPayload
+                    "/support/support-ticket/",
+                    supportDetails
                 );
-                console.log("Profile data", data);
             } catch (error) {
                 if (error instanceof AxiosError) {
                     throw new Error(error?.response?.data?.message);
                 }
-                throw new Error("Profile failed");
+                throw new Error("Something went wrong");
             }
         }
     );

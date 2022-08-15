@@ -7,18 +7,39 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import { useSubscribeNewsletter } from "hooks/newsletter/use-subscribe-newsletter";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
+import type { NewsletterDataTypes } from "types/newsletter";
+import { axiosClient } from "utils/axiosClient";
 import emailValidationSchema from "utils/formValidation/emailValidation";
 
 import InputField from "./common/InputField";
 
 const Footer = () => {
-    const { mutate } = useSubscribeNewsletter();
+    const emailSubsMutation = useMutation((data: NewsletterDataTypes) =>
+        axiosClient.post("/support/newsletter/subscribe", data)
+    );
+    const onSubscribeEmail = (data: any, actions: any) => {
+        emailSubsMutation.mutate(data, {
+            onSuccess: (data) => {
+                if (data?.data?.status === "failure") {
+                    console.log("Error", data);
+                } else {
+                    toast.success(data?.data?.message);
+                }
+            },
+            onError: (error: any) => {
+                const errmessage = error?.response?.data?.email[0];
+                toast.error(errmessage);
+                actions.setFieldError("email", errmessage);
+            },
+        });
+    };
+
     return (
         <>
             <footer id="site-footer" className="site-footer">
@@ -38,15 +59,9 @@ const Footer = () => {
                                 <Formik
                                     initialValues={{ email: "" }}
                                     validationSchema={emailValidationSchema}
-                                    onSubmit={async (values) => {
-                                        mutate(values.email, {
-                                            onError: (error) => {
-                                                toast.error(error.message);
-                                            },
-                                            onSuccess: (message) => {
-                                                toast.success(message);
-                                            },
-                                        });
+                                    onSubmit={async (values, actions) => {
+                                        // console.log(values);
+                                        onSubscribeEmail(values, actions);
                                     }}
                                 >
                                     {({ isSubmitting, errors, touched }) => (

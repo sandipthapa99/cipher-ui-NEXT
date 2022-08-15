@@ -41,7 +41,7 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                         />
                                         <h4>Description</h4>
                                         <InputField
-                                            type="textarea"
+                                            as="textarea"
                                             name="description"
                                             min="1"
                                             error={errors.description}
@@ -75,6 +75,7 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                                 </p>
 
                                                 <DragDrop
+                                                    name="gallery"
                                                     image="/service-details/file-upload.svg"
                                                     fileType="Image/Video"
                                                     maxImageSize={20}
@@ -87,6 +88,7 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                                 <h4>Pdf</h4>
                                                 <p>Add relevant pdf</p>
                                                 <DragDrop
+                                                    name="pdf"
                                                     image="/userprofile/pdf.svg"
                                                     fileType="Pdf"
                                                     maxPdfSize={20}
