@@ -13,6 +13,7 @@ import type { EquipmentValueProps } from "types/equipmentValueProps";
 import type { ExperienceValueProps } from "types/experienceValueProps";
 import type { KYCFormProps } from "types/kycFormProps";
 import type { LoginValuesProps } from "types/login";
+import type { PostTaskProps } from "types/postTaskData";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { SkillsValueProps } from "types/skillsValueProps";
 import type { TaxCalculatorValueProps } from "types/taxCalculatorValueProps";
@@ -110,10 +111,10 @@ export const EducationFormData: EducationValueProps = {
     school: "",
     description: "",
     degree: "",
-    fieldOfStudy: "",
+    field_of_study: "",
     location: "",
-    startDate: null,
-    endDate: null,
+    start_date: "",
+    end_date: "",
 };
 
 export const SkillsFromData: SkillsValueProps = {
@@ -210,6 +211,28 @@ export const CarrerApplyFormData: ApplyFormValueProps = {
 };
 
 export const UploadCVFormData: UploadCVValueProps = {
-    resume: [],
+    full_name: "",
+    email: "",
+    phone: "",
+    cv: [],
     imagePreviewUrl: [],
+    applied_position: "",
+    g_recaptcha_response: "",
+};
+
+export const PostTaskFormData: PostTaskProps = {
+    title: "",
+    taskDescription: "",
+    requirements: [],
+    category: "",
+    task_type: "remote",
+    address: "",
+    budget: "",
+    minBudget: 0,
+    maxBudget: 0,
+    image: undefined,
+    video: undefined,
+    date: null,
+    date_from: null,
+    date_to: null,
 };
