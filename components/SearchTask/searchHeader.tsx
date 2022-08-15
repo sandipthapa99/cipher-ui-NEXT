@@ -133,7 +133,7 @@ const SearchHeader = () => {
             >
                 <Modal.Header className="mt-4" closeButton></Modal.Header>
                 <Modal.Body>
-                    <PostModal onSubmit={handleClose} />
+                    <PostModal setshowPostModel={handleClose} />
                 </Modal.Body>
             </Modal>
             <PostCard
