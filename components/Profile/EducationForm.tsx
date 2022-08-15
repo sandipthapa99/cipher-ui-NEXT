@@ -3,12 +3,16 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { useQueryClient } from "@tanstack/react-query";
+import { format } from "date-fns";
 import { Form, Formik } from "formik";
+import { useEducation } from "hooks/user-education/useEducation";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { EducationFormData } from "utils/formData";
 import { educationFormSchema } from "utils/formValidation/educationFormValidation";
@@ -26,6 +30,9 @@ const EducationForm = ({
     setShowEducationForm,
 }: EducationProps) => {
     const toggleSuccessModal = useToggleSuccessModal();
+    const { mutate, isLoading } = useEducation();
+    const queryClient = useQueryClient();
+
     return (
         <>
             {/* Modal component */}
@@ -37,15 +44,31 @@ const EducationForm = ({
                         initialValues={EducationFormData}
                         validationSchema={educationFormSchema}
                         onSubmit={async (values) => {
-                            setShowEducationForm(false);
-                            toggleSuccessModal();
-                            // To be used for API
-                            // try {
-                            //     axiosClient.post("/routes", values);
-                            // } catch (error: any) {
-                            //     error.response.data.message;
-                            // }
-                            console.log(values);
+                            const newvalidatedValue = {
+                                ...values,
+                                start_date: format(
+                                    new Date(values.start_date),
+                                    "yyyy-MM-dd"
+                                ),
+                                end_date: format(
+                                    new Date(values.end_date),
+                                    "yyyy-MM-dd"
+                                ),
+                            };
+
+                            mutate(newvalidatedValue, {
+                                onSuccess: async () => {
+                                    console.log("submitted values", values);
+                                    setShowEducationForm(false);
+                                    queryClient.invalidateQueries([
+                                        "tasker-education",
+                                    ]);
+                                    // toggleSuccessModal();
+                                },
+                                onError: async (error) => {
+                                    toast.error(error.message);
+                                },
+                            });
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
@@ -53,57 +76,59 @@ const EducationForm = ({
                                 <InputField
                                     type="text"
                                     name="school"
-                                    labelName="school"
+                                    labelName="School"
                                     error={errors.school}
                                     touch={touched.school}
-                                    placeHolder="Enter your price"
+                                    placeHolder="Eg: Tribhuvan University"
                                 />
                                 <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
-                                    placeHolder="Applying (Remark)"
+                                    placeHolder="Experience Description"
                                     as="textarea"
                                 />
                                 <InputField
                                     name="degree"
-                                    labelName="degree"
+                                    labelName="Degree"
                                     touch={touched.degree}
                                     error={errors.degree}
-                                    placeHolder="Applying (Remark)"
+                                    placeHolder="Eg: Bachelor's"
                                 />
                                 <InputField
-                                    name="fieldOfStudy"
-                                    labelName="fieldOfStudy"
-                                    touch={touched.fieldOfStudy}
-                                    error={errors.fieldOfStudy}
-                                    placeHolder="Applying (Remark)"
+                                    name="field_of_study"
+                                    labelName="Field of study"
+                                    touch={touched.field_of_study}
+                                    error={errors.field_of_study}
+                                    placeHolder="Eg: Business"
                                 />
                                 <InputField
                                     name="location"
-                                    labelName="location"
+                                    labelName="Location"
                                     touch={touched.location}
                                     error={errors.location}
-                                    placeHolder="Applying (Remark)"
+                                    placeHolder="Eg: New Baneshwor, Kathmandu"
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
                                         <DatePickerField
-                                            name="startDate"
-                                            labelName="startDate"
-                                            placeHolder="01/01/2001"
-                                            touch={touched.startDate}
-                                            error={errors.startDate}
+                                            name="start_date"
+                                            labelName="Start Date"
+                                            placeHolder="1999-06-03"
+                                            touch={touched.start_date}
+                                            error={errors.start_date}
+                                            dateFormat="yyyy-MM-dd"
                                         />
                                     </Col>
                                     <Col md={6}>
                                         <DatePickerField
-                                            name="endDate"
-                                            labelName="endDate"
-                                            placeHolder="01/01/2001"
-                                            touch={touched.endDate}
-                                            error={errors.endDate}
+                                            name="end_date"
+                                            labelName="End Date"
+                                            placeHolder="2022-03-06"
+                                            touch={touched.end_date}
+                                            error={errors.end_date}
+                                            dateFormat="yyyy-MM-dd"
                                         />
                                     </Col>
                                 </Row>
