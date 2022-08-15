@@ -211,8 +211,13 @@ export const CarrerApplyFormData: ApplyFormValueProps = {
 };
 
 export const UploadCVFormData: UploadCVValueProps = {
-    resume: [],
+    full_name: "",
+    email: "",
+    phone: "",
+    cv: [],
     imagePreviewUrl: [],
+    applied_position: "",
+    g_recaptcha_response: "",
 };
 
 export const PostTaskFormData: PostTaskProps = {
