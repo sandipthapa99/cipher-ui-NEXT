@@ -54,12 +54,13 @@ const FileInputField = ({
                     onChange={handleChange}
                 />
             </div>
-            <ErrorMessage
-                name={name}
-                component="span"
-                className="invalid-feedback"
-            />
-
+            {name && (
+                <ErrorMessage
+                    name={name}
+                    component="span"
+                    className="invalid-feedback"
+                />
+            )}
             {textMuted && <small className="text-muted">{textMuted}</small>}
         </div>
     );
