@@ -61,6 +61,7 @@ const FileInputField = ({
                     className="invalid-feedback"
                 />
             )}
+
             {textMuted && <small className="text-muted">{textMuted}</small>}
         </div>
     );
