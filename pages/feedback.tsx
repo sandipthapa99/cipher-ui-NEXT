@@ -1,15 +1,52 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { FeedbackValuesProps } from "types/contact";
+import { axiosClient } from "utils/axiosClient";
 import { FeedbackFormData } from "utils/contactFormData";
 import { FeedbackFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Feedback = () => {
+    const { data } = useQuery(["feedback-category"], () => {
+        return axiosClient.get("/support/feedback/category/options/");
+    });
+
+    const renderCategoryTypes = data?.data?.map((item: any) => {
+        return {
+            label: item?.name,
+            value: item?.id,
+            id: item?.id,
+        };
+    });
+
+    const feedbackMutation = useMutation((data: FeedbackValuesProps) =>
+        axiosClient.post("/support/feedback/", data)
+    );
+
+    const onSubmitFeedback = (data: any, actions: any) => {
+        feedbackMutation.mutate(data, {
+            onSuccess: (data) => {
+                if (data?.data?.status === "failure") {
+                    console.log("Error", data);
+                } else {
+                    toast.success(data?.data?.message);
+                    actions.resetForm();
+                }
+            },
+            onError: (error: any) => {
+                const errmessage = error?.response?.data;
+                toast.error("Something went wrong");
+                actions.resetForm();
+            },
+        });
+    };
     return (
         <>
             <Layout title="Feedback | Cipher">
@@ -35,20 +72,12 @@ const Feedback = () => {
                                 <Formik
                                     initialValues={FeedbackFormData}
                                     validationSchema={FeedbackFormSchema}
-                                    onSubmit={async (values) => {
-                                        console.log(values);
+                                    onSubmit={async (values, actions) => {
+                                        onSubmitFeedback(values, actions);
                                     }}
                                 >
                                     {({ isSubmitting, errors, touched }) => (
                                         <Form>
-                                            <InputField
-                                                type="text"
-                                                name="fullName"
-                                                labelName="Full Name"
-                                                error={errors.fullName}
-                                                touch={touched.fullName}
-                                                placeHolder="Enter your full name"
-                                            />
                                             <InputField
                                                 type="text"
                                                 name="subject"
@@ -57,19 +86,22 @@ const Feedback = () => {
                                                 touch={touched.subject}
                                                 placeHolder="Enter subject"
                                             />
-                                            <InputField
-                                                type="email"
-                                                name="email"
-                                                labelName="Email"
-                                                error={errors.email}
-                                                touch={touched.email}
-                                                placeHolder="Enter your email"
+
+                                            <SelectInputField
+                                                name="feedback_category"
+                                                fieldRequired={true}
+                                                error={errors.feedback_category}
+                                                touch={
+                                                    touched.feedback_category
+                                                }
+                                                options={renderCategoryTypes}
                                             />
+
                                             <InputField
-                                                name="message"
-                                                labelName="Message"
-                                                touch={touched.message}
-                                                error={errors.message}
+                                                name="description"
+                                                labelName="Feedback"
+                                                touch={touched.description}
+                                                error={errors.description}
                                                 placeHolder="Write your message here..."
                                                 as="textarea"
                                             />
