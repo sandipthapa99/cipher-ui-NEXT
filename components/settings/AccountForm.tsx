@@ -11,6 +11,7 @@ import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { Field, Form, Formik } from "formik";
+import { read } from "fs";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
@@ -61,10 +62,13 @@ const AccountForm = () => {
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
     const inputRef = useRef<HTMLInputElement>(null);
-    const [src, setSrc] = useState("/userprofile/unknownPerson.jpg");
-    const formDataRef = useRef(
-        typeof window !== "undefined" ? new FormData() : null
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [src, setSrc] = useState<File | string>(
+        "/userprofile/unknownPerson.jpg"
     );
+    // const formDataRef = useRef(
+    //     typeof window !== "undefined" ? new FormData() : null
+    // );
     const onButtonClick = () => {
         // `current` points to the mounted file input element
         inputRef?.current?.click();
@@ -118,12 +122,11 @@ const AccountForm = () => {
                         task_preferences: profile?.task_preferences ?? "",
                         profile_image: "",
                     }}
-                    validationSchema={accountFormSchema}
+                    // validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
                         if (!formDataa) return;
                         console.log(values);
 
-                        const formData = new FormData();
                         const newValidatedValues = {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
@@ -182,48 +185,59 @@ const AccountForm = () => {
                                         className="camera-icon"
                                     />
                                     <input
-                                        name="profile_image"
-                                        type={"file"}
+                                        hidden
+                                        type="file"
                                         ref={inputRef}
-                                        style={{ display: "none" }}
-                                        onChange={(event) => {
-                                            const arrFiles = Array.from(
-                                                event.target.files || []
-                                            );
-                                            const multipleFiles = arrFiles.map(
-                                                (file, index) => {
-                                                    const src =
-                                                        window.URL.createObjectURL(
-                                                            file
-                                                        );
-                                                    console.log(
-                                                        "before onchange",
-                                                        file
-                                                    );
-
-                                                    return {
-                                                        file,
-                                                        id: index,
-                                                        src,
-                                                    };
-                                                }
-                                            );
-                                            setFieldValue(
-                                                "profile_image",
-                                                multipleFiles[0].file
-                                            );
-                                            console.log(arrFiles[0]);
-
-                                            setSrc(
-                                                multipleFiles
-                                                    ? multipleFiles[0].src
-                                                    : "/userprofile/unknownPerson.jpg"
-                                            );
+                                        onChange={(e: any) => {
+                                            const files = e.target.files;
+                                            const reader = new FileReader();
+                                            reader.readAsDataURL(files[0]);
+                                            reader.onload = (e) => {
+                                                setFieldValue(
+                                                    "profile_image",
+                                                    e.target?.result
+                                                );
+                                            };
                                         }}
+                                        // style={{ display: "none" }}
+                                        // onChange={(event) => {
+                                        //     const arrFiles = Array.from(
+                                        //         event.target.files || []
+                                        //     );
+                                        //     const multipleFiles = arrFiles.map(
+                                        //         (file, index) => {
+                                        //             const src =
+                                        //                 window.URL.createObjectURL(
+                                        //                     file
+                                        //                 );
+                                        //             console.log(
+                                        //                 "before onchange",
+                                        //                 file
+                                        //             );
+
+                                        //             return {
+                                        //                 file,
+                                        //                 id: index,
+                                        //                 src,
+                                        //             };
+                                        //         }
+                                        //     );
+                                        //     setFieldValue(
+                                        //         "profile_image",
+                                        //         multipleFiles[0].file
+                                        //     );
+                                        //     console.log(arrFiles[0]);
+
+                                        //     setSrc(
+                                        //         multipleFiles
+                                        //             ? multipleFiles[0].src
+                                        //             : "/userprofile/unknownPerson.jpg"
+                                        //     );
+                                        // }}
                                     />
                                 </div>
                                 <Image
-                                    src={src}
+                                    src={"/userprofile/unknownPerson.jpg"}
                                     layout="fill"
                                     alt="profile-pic"
                                     className="rounded-circle"
