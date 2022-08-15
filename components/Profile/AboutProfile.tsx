@@ -1,6 +1,8 @@
 import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
 import { useGetTaskerEducation } from "hooks/user-education/useGetEducation";
+import { useGetTaskerExperience } from "hooks/user-experience/useGetExperience";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -20,8 +22,12 @@ const AboutProfile = () => {
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
 
-    const { data } = useGetTaskerEducation();
-    const userEducation = data?.data?.result;
+    const { data: EducationData } = useGetTaskerEducation();
+    const userEducation = EducationData?.data?.result;
+
+    const { data: ExperienceData } = useGetTaskerExperience();
+    const userExperience = ExperienceData?.data?.result;
+    console.log(userExperience);
 
     return (
         <>
@@ -80,13 +86,13 @@ const AboutProfile = () => {
                             <Row>
                                 <Col md={9}>
                                     <div className="content">
-                                        {about.experience.map((info) => (
+                                        {userExperience?.map((info: any) => (
                                             <div
                                                 className="experience__type"
                                                 key={info.id}
                                             >
                                                 <div className="name d-flex">
-                                                    <h3>{info.name}</h3>
+                                                    <h3>{info.title}</h3>
                                                     <FontAwesomeIcon
                                                         icon={faPencil}
                                                         className="svg-icon"
@@ -94,21 +100,31 @@ const AboutProfile = () => {
                                                 </div>
                                                 <div className="company d-flex">
                                                     <p className="name">
-                                                        {info.company}
-                                                    </p>
-                                                    <p className="job-type">
-                                                        {info.jobType}
+                                                        {info.company_name}
+                                                        &nbsp;. &nbsp;
+                                                        {info.employment_type}
                                                     </p>
                                                 </div>
                                                 <p className="description">
-                                                    {info.description}
+                                                    {info?.description}
                                                 </p>
                                                 <p className="date">
-                                                    {info.dateFrom}-
-                                                    {info.dateTo}
+                                                    {format(
+                                                        new Date(
+                                                            info?.start_date
+                                                        ),
+                                                        "MMMM yyyy"
+                                                    )}
+                                                    {info?.end_date &&
+                                                        format(
+                                                            new Date(
+                                                                info.end_date
+                                                            ),
+                                                            "MMMM yyyy"
+                                                        )}
                                                 </p>
                                                 <p className="address">
-                                                    {info.address}
+                                                    {info.location}
                                                 </p>
                                             </div>
                                         ))}
@@ -197,8 +213,17 @@ const AboutProfile = () => {
                                                 </h3>
 
                                                 <p className="date">
-                                                    {info.start_date}-
-                                                    {info.end_date}
+                                                    {format(
+                                                        new Date(
+                                                            info.start_date
+                                                        ),
+                                                        "MMMM yyyy"
+                                                    )}
+                                                    -
+                                                    {format(
+                                                        new Date(info.end_date),
+                                                        "MMMM yyyy"
+                                                    )}
                                                 </p>
                                                 <p className="address">
                                                     {info.location}

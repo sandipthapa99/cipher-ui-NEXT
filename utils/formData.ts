@@ -55,12 +55,13 @@ export const EquipmentFormData: EquipmentValueProps = {
 export const ExperienceFromData: ExperienceValueProps = {
     title: "",
     description: "",
-    typeOfEmployment: "",
-    companyName: "",
+    employment_type: "Full Time",
+    company_name: "",
     location: "",
-    startDate: null,
-    endDate: null,
-    toggle: false,
+    start_date: "",
+    end_date: "",
+    currently_working: false,
+    empty_date: null,
 };
 
 export const AddPortfolioFormData: AddPortfolio = {

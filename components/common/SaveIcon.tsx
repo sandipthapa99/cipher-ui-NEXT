@@ -12,11 +12,9 @@ interface saveIconProps {
 
 const SaveIcon = ({ object_id, model }: saveIconProps) => {
     const { mutate, isLoading, data: bookmarkData } = useBookmark();
-    console.log("book mark result=", bookmarkData);
 
     const [isSaveClicked, setIsSaveClicked] = useState(false);
     const message = bookmarkData?.message;
-    console.log("message=", message);
     const handleSaveClick = () => {
         setIsSaveClicked(!isSaveClicked);
         mutate(
