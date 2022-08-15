@@ -81,7 +81,7 @@ const AppliedTaskDetail: NextPage = () => {
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
-                                <SaveIcon />
+                                <SaveIcon object_id={uuid} model="task" />
                                 <span className="name">Save</span>
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
