@@ -1,12 +1,18 @@
 import FileInputField from "@components/common/FileInputField";
 import FormButton from "@components/common/FormButton";
+import InputField from "@components/common/InputField";
+import ReCaptchaField from "@components/common/ReCaptchaField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
+import { useForm } from "hooks/use-form";
+import router from "next/router";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
+import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { UploadCVFormData } from "utils/formData";
 import { uploadCVFormValidation } from "utils/formValidation/uploadCVFormValidation";
@@ -20,6 +26,7 @@ interface AddCVProps {
 
 const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
     const toggleSuccessModal = useToggleSuccessModal();
+    const { mutate } = useForm(`/career/inquiry/add/`);
     return (
         <>
             {/* Modal component */}
@@ -30,7 +37,17 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                     <Formik
                         initialValues={UploadCVFormData}
                         validationSchema={uploadCVFormValidation}
-                        onSubmit={async (values) => {
+                        onSubmit={async (values, action) => {
+                            const formData = new FormData();
+                            Object.entries(values).forEach((entry) => {
+                                const [key, value] = entry;
+                                formData.append(key, value);
+                            });
+                            values.cv.forEach((file) =>
+                                formData.append("cv", file)
+                            );
+
+                            delete values.imagePreviewUrl;
                             setShowCvForm(false);
                             // To be used for API
                             // try {
@@ -38,8 +55,16 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                             // } catch (error: any) {
                             //     error.response.data.message;
                             // }
-                            toggleSuccessModal();
-                            console.log(values);
+                            mutate(formData, {
+                                onSuccess: async () => {
+                                    await router.push("/career");
+                                    toggleSuccessModal();
+                                },
+                                onError: (error) => {
+                                    toast.error(error.message);
+                                },
+                            });
+                            action.resetForm();
                         }}
                     >
                         {({
@@ -50,17 +75,63 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                             values,
                             setFieldTouched,
                         }) => (
-                            <Form>
+                            <Form encType="multipart/form-data">
+                                <Row className="gx-5">
+                                    <Col md={6}>
+                                        <InputField
+                                            type="text"
+                                            name="full_name"
+                                            labelName="Full Name"
+                                            error={errors.full_name}
+                                            touch={touched.full_name}
+                                            placeHolder="Enter your Full Name"
+                                            fieldRequired
+                                        />
+                                    </Col>
+                                    <Col md={6}>
+                                        <InputField
+                                            type="text"
+                                            name="email"
+                                            labelName="Email"
+                                            error={errors.email}
+                                            touch={touched.email}
+                                            placeHolder="Enter your email"
+                                            fieldRequired
+                                        />
+                                    </Col>
+                                    <Col md={6}>
+                                        <InputField
+                                            type="text"
+                                            name="phone"
+                                            labelName="Phone"
+                                            error={errors.phone}
+                                            touch={touched.phone}
+                                            placeHolder="Enter your phone"
+                                            fieldRequired
+                                        />
+                                    </Col>
+                                    <Col md={6}>
+                                        <InputField
+                                            type="text"
+                                            name="applied_position"
+                                            labelName="Apply position"
+                                            error={errors.applied_position}
+                                            touch={touched.applied_position}
+                                            placeHolder="Enter your position"
+                                            fieldRequired
+                                        />
+                                    </Col>
+                                </Row>
                                 <FileInputField
-                                    name="resume"
-                                    error={errors.resume as string}
-                                    touch={touched.resume as boolean}
+                                    name="cv"
+                                    error={errors.cv as string}
+                                    touch={touched.cv as boolean}
                                     placeHolder="Attach Resume/CV"
                                     labelName="Upload your Resume/CV"
                                     textMuted="(e.g; .pdf, .docx), File Size: 1MB"
                                     handleChange={(e) => {
                                         setFieldValue(
-                                            "resume",
+                                            "cv",
                                             Array.from(e.target.files)
                                         );
 
@@ -93,8 +164,19 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                                         )
                                     }
                                     onBlur={() => {
-                                        setFieldTouched("resume", true);
+                                        setFieldTouched("cv", true);
                                     }}
+                                    fieldRequired
+                                />
+                                <ReCaptchaField
+                                    name="g_recaptcha_response"
+                                    error={errors.g_recaptcha_response}
+                                    handleChange={(key) =>
+                                        setFieldValue(
+                                            "g_recaptcha_response",
+                                            key
+                                        )
+                                    }
                                 />
 
                                 <Modal.Footer>
