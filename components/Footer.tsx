@@ -9,7 +9,6 @@ import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import { useNewsLetter } from "hooks/newsletter/useNewsLetter";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
