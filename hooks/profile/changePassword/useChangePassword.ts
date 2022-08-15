@@ -16,7 +16,7 @@ export const useChangePassword = () => {
             );
         } catch (error) {
             if (error instanceof AxiosError) {
-                throw new Error(error?.response?.data?.message);
+                throw new Error(error?.response?.data?.old_password[0]);
             }
             throw new Error("Change Pasword Failed ");
         }
