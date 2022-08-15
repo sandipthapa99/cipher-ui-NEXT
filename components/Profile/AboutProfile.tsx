@@ -1,5 +1,6 @@
 import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useGetTaskerEducation } from "hooks/user-education/useGetEducation";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -18,6 +19,9 @@ const AboutProfile = () => {
     const [showAddSkillsForm, setShowAddSkillsForm] = useState(false);
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
+
+    const { data } = useGetTaskerEducation();
+    const userEducation = data?.data?.result;
 
     return (
         <>
@@ -169,30 +173,35 @@ const AboutProfile = () => {
                             <Row>
                                 <Col md={9}>
                                     <div className="content">
-                                        {about.education.map((info) => (
+                                        {userEducation?.map((info: any) => (
                                             <div
                                                 className="education__type"
                                                 key={info.id}
                                             >
                                                 <div className="name d-flex">
                                                     <h3 className="institution">
-                                                        {info.institution}
+                                                        {info.school}
                                                     </h3>
                                                     <FontAwesomeIcon
                                                         icon={faPencil}
                                                         className="svg-icon"
+                                                        onClick={() =>
+                                                            setShowEducationForm(
+                                                                !showEducationForm
+                                                            )
+                                                        }
                                                     />
                                                 </div>
                                                 <h3 className="program">
-                                                    {info.program}
+                                                    {info.degree}
                                                 </h3>
 
                                                 <p className="date">
-                                                    {info.dateFrom}-
-                                                    {info.dateTo}
+                                                    {info.start_date}-
+                                                    {info.end_date}
                                                 </p>
                                                 <p className="address">
-                                                    {info.address}
+                                                    {info.location}
                                                 </p>
                                             </div>
                                         ))}

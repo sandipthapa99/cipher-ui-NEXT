@@ -110,10 +110,10 @@ export const EducationFormData: EducationValueProps = {
     school: "",
     description: "",
     degree: "",
-    fieldOfStudy: "",
+    field_of_study: "",
     location: "",
-    startDate: null,
-    endDate: null,
+    start_date: "",
+    end_date: "",
 };
 
 export const SkillsFromData: SkillsValueProps = {
