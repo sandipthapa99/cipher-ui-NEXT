@@ -9,7 +9,7 @@ import { useTaxCalculator } from "hooks/tax-calculator/useTaxCalculator";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { toast } from "react-toastify";
 import { TaxCalculatorFormData } from "utils/formData";
@@ -325,13 +325,21 @@ const TaxCalculator: NextPage = () => {
                                                                 md={12}
                                                                 className="reset-btn"
                                                             >
-                                                                <FormButton
+                                                                {/* <FormButton
                                                                     name="Reset"
                                                                     className="btn close-btn"
                                                                     onClick={() =>
                                                                         resetForm()
                                                                     }
-                                                                />
+                                                                /> */}
+                                                                <Button
+                                                                    className="btn close-btn"
+                                                                    onClick={() =>
+                                                                        resetForm
+                                                                    }
+                                                                >
+                                                                    Cancel
+                                                                </Button>
                                                             </Col>
                                                             <Col lg={6} md={12}>
                                                                 <FormButton

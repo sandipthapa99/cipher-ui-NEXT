@@ -1,11 +1,8 @@
 import { useGetDocument } from "hooks/document/useGetDocument";
-import { usePostDocument } from "hooks/document/usePostDocument";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
-import { userDocument } from "staticData/userDocument";
 
 const UserDocument = () => {
     // const [fileName, setFileName] = useState("");
