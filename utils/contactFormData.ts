@@ -15,8 +15,8 @@ export const FeedbackFormData: FeedbackValuesProps = {
     subject: "",
     email: "",
     message: "",
-}; 
-export const SupportFormData: SupportValuesProps = {    
+};
+export const SupportFormData: SupportValuesProps = {
     full_name: "",
     email: "",
     phone: "",

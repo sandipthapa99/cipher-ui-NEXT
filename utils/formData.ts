@@ -178,23 +178,23 @@ export const CreditCardFromData: CreditCardContent = {
     isDefault: false,
 };
 
-export const KYCFormData: KYCFormProps = {
-    full_name: "",
-    identity_type: "",
-    identity_id: "",
-    identity_issued_date: null,
-    identity_valid_through: null,
-    identity_issuer_organization: "",
-    pan_number: null,
-    pan_issued_from: "",
-    pan_issued_date: "",
-    pan_card_file: null,
-    passport_size_photo: null,
-    personal_address_verification_document: null,
-    bank_name: "",
-    bank_account_name: "",
-    bank_account_number: "",
-};
+// export const KYCFormData: KYCFormProps = {
+//     full_name: "",
+//     identity_type: "",
+//     identity_id: "",
+//     identity_issued_date: null,
+//     identity_valid_through: null,
+//     identity_issuer_organization: "",
+//     pan_number: null,
+//     pan_issued_from: "",
+//     pan_issued_date: "",
+//     pan_card_file: null,
+//     passport_size_photo: null,
+//     personal_address_verification_document: null,
+//     bank_name: "",
+//     bank_account_name: "",
+//     bank_account_number: "",
+// };
 
 export const CarrerApplyFormData: ApplyFormValueProps = {
     full_name: "",
