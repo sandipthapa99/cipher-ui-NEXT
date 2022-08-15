@@ -22,7 +22,7 @@ const AppliedLayout = ({ children }: { children: ReactNode }) => {
                     ? data.result?.filter((item) =>
                           item?.title
                               .toLowerCase()
-                              .startsWith(query.toLowerCase())
+                              .includes(query.toLowerCase())
                       )
                     : data?.result,
             [data, query]

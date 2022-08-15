@@ -11,7 +11,6 @@ export const ContactFormData: ContactValuesProps = {
     message: "",
 };
 export const FeedbackFormData: FeedbackValuesProps = {
-    
     subject: "",
     feedback_category: 1,
     description: "",
