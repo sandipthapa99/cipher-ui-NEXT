@@ -15,13 +15,13 @@ export const FeedbackFormData: FeedbackValuesProps = {
     subject: "",
     email: "",
     message: "",
-};
-export const SupportFormData: SupportValuesProps = {
-    fullName: "",
+}; 
+export const SupportFormData: SupportValuesProps = {    
+    full_name: "",
     email: "",
-    phoneNumber: "",
-    issueType: "",
-    message: "",
+    phone: "",
+    type: "",
+    reason: "",
 };
 export const FaqFormData: FaqValuesProps = {
     fullName: "",
