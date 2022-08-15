@@ -10,7 +10,7 @@ import { Fragment } from "react";
 import { useState } from "react";
 import { Button, Col, FormCheck, Row } from "react-bootstrap";
 import { useToggleSuccessModal } from "store/use-success-modal";
-import { ProfileEditFromData } from "utils/formData";
+import { PostTaskFormData } from "utils/formData";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -33,7 +33,7 @@ const PostModal = ({
                 <h2>Post a Task</h2>
                 <div className="equipment-form">
                     <Formik
-                        initialValues={ProfileEditFromData}
+                        initialValues={PostTaskFormData}
                         validationSchema={profileEditFormSchema}
                         onSubmit={async (values) => {
                             setshowPostModel(false);
@@ -47,23 +47,23 @@ const PostModal = ({
                             console.log(values);
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, errors, touched, setFieldValue }) => (
                             <Form>
                                 <InputField
                                     type="text"
-                                    name="name"
+                                    name="title"
                                     labelName="Title"
-                                    error={errors.name}
-                                    touch={touched.name}
+                                    error={errors.title}
+                                    touch={touched.title}
                                     fieldRequired
-                                    placeHolder="Enter your price"
+                                    placeHolder="Enter your Title"
                                 />
                                 <InputField
-                                    name="bio"
+                                    name="taskDescription"
                                     labelName="Task Description"
-                                    touch={touched.bio}
-                                    error={errors.bio}
-                                    placeHolder="Applying (Remark)"
+                                    touch={touched.taskDescription}
+                                    error={errors.taskDescription}
+                                    placeHolder="Task Description"
                                     fieldRequired
                                     as="textarea"
                                 />
@@ -72,15 +72,19 @@ const PostModal = ({
                                     This helps tasker to find about your
                                     requirements better.
                                 </p>
-                                <AddRequirements />
+                                <AddRequirements
+                                    onSubmit={(value) =>
+                                        setFieldValue("req", value)
+                                    }
+                                />
                                 <InputField
                                     type="text"
-                                    name="addressLine1"
-                                    labelName="Category"
-                                    error={errors.addressLine1}
-                                    touch={touched.addressLine1}
+                                    name="address"
+                                    labelName="address"
+                                    error={errors.address}
+                                    touch={touched.address}
                                     fieldRequired
-                                    placeHolder="Enter your price"
+                                    placeHolder="Default Address (Home)"
                                 />
                                 <h4>Select Task Type</h4>
                                 <span className="d-flex mb-4">
@@ -89,14 +93,25 @@ const PostModal = ({
                                         name="task_type"
                                         label="Remote"
                                         className="me-3"
+                                        value="remote"
                                     />
                                     <FormCheck
                                         type="radio"
                                         name="task_type"
                                         label="On premise"
                                         className="mb-8"
+                                        value="onPremise"
                                     />
                                 </span>
+                                <InputField
+                                    type="text"
+                                    name="category"
+                                    labelName="Category"
+                                    error={errors.category}
+                                    touch={touched.category}
+                                    fieldRequired
+                                    placeHolder="Enter your price"
+                                />
                                 <h4>Budget</h4>
                                 <span className="d-flex mb-4">
                                     <FormCheck
@@ -130,34 +145,44 @@ const PostModal = ({
                                     />
                                 </span>
                                 <Row className="gx-5">
-                                    <Col md={4}>
-                                        <InputField
-                                            type="text"
-                                            name="addressLine1"
-                                            error={errors.addressLine1}
-                                            touch={touched.addressLine1}
-                                            fieldRequired
-                                            className="mb-0"
-                                            placeHolder="Enter your price"
-                                        />
-                                    </Col>
                                     {showVariable.showBudget ? (
-                                        <Fragment>
-                                            To
+                                        <>
                                             <Col md={4}>
                                                 <InputField
                                                     type="text"
-                                                    name="addressLine1"
-                                                    error={errors.addressLine1}
-                                                    touch={touched.addressLine1}
+                                                    name="minBudget"
+                                                    error={errors.minBudget}
+                                                    touch={touched.minBudget}
                                                     fieldRequired
                                                     className="mb-0"
                                                     placeHolder="Enter your price"
                                                 />
                                             </Col>
-                                        </Fragment>
+                                            To
+                                            <Col md={4}>
+                                                <InputField
+                                                    type="text"
+                                                    name="addressLine1"
+                                                    error={errors.maxBudget}
+                                                    touch={touched.maxBudget}
+                                                    fieldRequired
+                                                    className="mb-0"
+                                                    placeHolder="Enter your price"
+                                                />
+                                            </Col>
+                                        </>
                                     ) : (
-                                        ""
+                                        <Col md={4}>
+                                            <InputField
+                                                type="text"
+                                                name="budget"
+                                                error={errors.budget}
+                                                touch={touched.budget}
+                                                fieldRequired
+                                                className="mb-0"
+                                                placeHolder="Enter your price"
+                                            />
+                                        </Col>
                                     )}
                                 </Row>
                                 <h4>When do you need this done?</h4>
@@ -170,6 +195,7 @@ const PostModal = ({
                                         image="/service-details/file-upload.svg"
                                         fileType="Image/Video"
                                         maxImageSize={20}
+                                        name={"image_upload"}
                                     />
                                 </Col>
                                 <h4>When do you need this done?</h4>
@@ -182,6 +208,7 @@ const PostModal = ({
                                         image="/service-details/file-upload.svg"
                                         fileType="Image/Video"
                                         maxImageSize={20}
+                                        name={"video_upload"}
                                     />
                                 </Col>
                                 <h4>When do you need this done?</h4>
@@ -220,31 +247,31 @@ const PostModal = ({
                                     <Row>
                                         <Col md={5}>
                                             <DatePickerField
-                                                name="pan_issued_date"
+                                                name="date_from"
                                                 labelName="Start date"
                                                 placeHolder="dd/mm/yy"
-                                                touch={touched.pan_issued_date}
-                                                error={errors.pan_issued_date}
+                                                touch={touched.date_from}
+                                                error={errors.date_from}
                                             />
                                         </Col>
                                         <Col md={{ span: 5, offset: 2 }}>
                                             <DatePickerField
-                                                name="pan_issued_date"
+                                                name="date_to"
                                                 labelName="End date"
                                                 placeHolder="dd/mm/yy"
-                                                touch={touched.pan_issued_date}
-                                                error={errors.pan_issued_date}
+                                                touch={touched.date_to}
+                                                error={errors.date_to}
                                             />
                                         </Col>
                                     </Row>
                                 ) : (
                                     <Col md={5}>
                                         <DatePickerField
-                                            name="pan_issued_date"
+                                            name="date"
                                             labelName="Date"
                                             placeHolder="dd/mm/yy"
-                                            touch={touched.pan_issued_date}
-                                            error={errors.pan_issued_date}
+                                            touch={touched.date}
+                                            error={errors.date}
                                         />
                                     </Col>
                                 )}
