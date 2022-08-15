@@ -6,10 +6,9 @@ import { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { userDocument } from "staticData/userDocument";
-interface props {
-    file?: string;
-}
-const UserDocument = ({ file }: props) => {
+
+const UserDocument = () => {
+    const [fileName, setFileName] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);
     const onButtonClick = () => {
         inputRef?.current?.click();
@@ -23,19 +22,19 @@ const UserDocument = ({ file }: props) => {
         if (e.target.files && e.target.files[0]) {
             const i = e.target.files[0].name;
             console.log("i=", i);
-            file = i;
+            setFileName(i);
         }
-        const fileUploaded = new FormData();
-        // fileUploaded.append("file=", file);
-        // console.log("file uploaded=", file);
-        // mutate(
-        //     { file },
-        //     {
-        //         onSuccess: async () => {
-        //             toast.success("hhhhhh");
-        //         },
-        //     }
-        // );
+        const file = new FormData();
+        file.append("file", fileName);
+        console.log("file uploaded=", file);
+        mutate(
+            { file },
+            {
+                onSuccess: async () => {
+                    toast.success("hhhhhh");
+                },
+            }
+        );
     };
     return (
         <div className="user-document">
