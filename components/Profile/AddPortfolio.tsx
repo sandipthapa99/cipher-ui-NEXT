@@ -41,7 +41,7 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                         />
                                         <h4>Description</h4>
                                         <InputField
-                                            type="textarea"
+                                            as="textarea"
                                             name="description"
                                             min="1"
                                             error={errors.description}
