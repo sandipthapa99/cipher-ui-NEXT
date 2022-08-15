@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools />
-            <ToastContainer position="top-center" />
+            <ToastContainer position="top-center" hideProgressBar={true} />
             <Hydrate state={pageProps.dehydratedState}>
                 <UserLoadingOverlay />
                 <LoginPrompt />

@@ -14,7 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { NewsletterDataTypes } from "types/newsletter";
+import type { NewsletterDataTypes } from "types/newsletter";
 import { axiosClient } from "utils/axiosClient";
 import emailValidationSchema from "utils/formValidation/emailValidation";
 
@@ -27,22 +27,16 @@ const Footer = () => {
     const onSubscribeEmail = (data: any, actions: any) => {
         emailSubsMutation.mutate(data, {
             onSuccess: (data) => {
-                console.log("From onSuccess", data);
                 if (data?.data?.status === "failure") {
                     console.log("Error", data);
                 } else {
-                    console.log("success", data);
+                    toast.success(data?.data?.message);
                 }
             },
             onError: (error: any) => {
-                console.log("From onError", error.response);
-
-                // const {
-                //     data: { email },
-                // } = error.response;
-
-                // actions.setFieldError("email", email && email[0]);
-                console.log("Something Wen wrong");
+                const errmessage = error?.response?.data?.email[0];
+                toast.error(errmessage);
+                actions.setFieldError("email", errmessage);
             },
         });
     };

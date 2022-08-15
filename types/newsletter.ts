@@ -1,3 +1,3 @@
-export interface NewsletterDataTypes{    
+export interface NewsletterDataTypes {
     email: string;
 }
