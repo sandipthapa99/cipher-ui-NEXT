@@ -29,9 +29,9 @@ const PostModal = ({
     return (
         <>
             {/* Modal component */}
-            <div className="equipment-modal">
+            <div className="post-task-modal">
                 <h2>Post a Task</h2>
-                <div className="equipment-form">
+                <div className="post-task-form">
                     <Formik
                         initialValues={PostTaskFormData}
                         validationSchema={profileEditFormSchema}
@@ -110,7 +110,7 @@ const PostModal = ({
                                     error={errors.category}
                                     touch={touched.category}
                                     fieldRequired
-                                    placeHolder="Enter your price"
+                                    placeHolder="Enter your category"
                                 />
                                 <h4>Budget</h4>
                                 <span className="d-flex mb-4">
