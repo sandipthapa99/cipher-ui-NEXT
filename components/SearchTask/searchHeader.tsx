@@ -4,6 +4,7 @@ import PostModal from "@components/PostTask/PostModal";
 import { faBars, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -20,6 +21,7 @@ import {
 import { profileCardContent } from "staticData/profileCardContent";
 
 const SearchHeader = () => {
+    const { data, isLoading } = useUser();
     const [notopen, setNotopen] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
@@ -63,38 +65,54 @@ const SearchHeader = () => {
                                     </Button>
                                 </InputGroup>
                             </Col>
-                            <Col md={3} className="profile-post">
-                                <div className="user-profile">
-                                    <span
-                                        onClick={() => setNotopen(!notopen)}
-                                        className="btn location-btn d-none d-md-inline-block"
-                                    >
-                                        <figure className="thumbnail-img">
-                                            <Image
-                                                src="/userprofile/profile.svg"
-                                                layout="fill"
-                                                alt="profile-pic"
-                                                className="rounded-circle"
-                                                objectFit="cover"
-                                            />
-                                        </figure>
-                                    </span>
+                            {!isLoading && data ? (
+                                <Col md={3} className="profile-post">
+                                    <div className="user-profile">
+                                        <span
+                                            onClick={() => setNotopen(!notopen)}
+                                            className="btn location-btn d-none d-md-inline-block"
+                                        >
+                                            <figure className="thumbnail-img">
+                                                <Image
+                                                    src="/userprofile/profile.svg"
+                                                    layout="fill"
+                                                    alt="profile-pic"
+                                                    className="rounded-circle"
+                                                    objectFit="cover"
+                                                />
+                                            </figure>
+                                        </span>
 
-                                    {notopen && (
-                                        <ProfileModel
-                                            profile={profileCardContent}
-                                        />
-                                    )}
-                                </div>
-                                <button
-                                    className="post-btn"
-                                    onClick={handleShow}
+                                        {notopen && (
+                                            <ProfileModel
+                                                profile={profileCardContent}
+                                            />
+                                        )}
+                                    </div>
+                                    <button
+                                        className="post-btn"
+                                        onClick={handleShow}
+                                    >
+                                        <a className="btn nav-cta-btn d-none d-md-inline-block">
+                                            Post Task
+                                        </a>
+                                    </button>
+                                </Col>
+                            ) : (
+                                <Col
+                                    md={3}
+                                    className="d-flex justify-content-end"
                                 >
-                                    <a className="btn nav-cta-btn d-none d-md-inline-block">
-                                        Post Task
-                                    </a>
-                                </button>
-                            </Col>
+                                    <Link href="/login">
+                                        <a className="btn login-btn">Login</a>
+                                    </Link>
+                                    <Link href="/signup">
+                                        <a className="btn login-btn d-md-inline-block">
+                                            Signup
+                                        </a>
+                                    </Link>
+                                </Col>
+                            )}
                             <Col md={4}>
                                 <Navbar.Toggle aria-controls="site-navigation">
                                     <FontAwesomeIcon
