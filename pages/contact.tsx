@@ -21,7 +21,7 @@ import { isSubmittingClass } from "utils/helpers";
 
 const Contact = () => {
     const { mutate, isLoading } = useContact();
-    const router = useRouter();
+
     return (
         <Layout title="Contact Us | Cipher">
             <section className="contact-page-header">
@@ -106,13 +106,13 @@ const Contact = () => {
                             <Formik
                                 initialValues={ContactFormData}
                                 validationSchema={contactFormSchema}
-                                onSubmit={async (values) => {
+                                onSubmit={async (values, action) => {
                                     mutate(values, {
                                         onSuccess: async () => {
                                             toast.success(
                                                 " Conatct message sent successfully"
                                             );
-                                            router.push("/");
+                                            action.resetForm();
                                         },
                                         onError: async (error) => {
                                             toast.error(error.message);
@@ -120,7 +120,12 @@ const Contact = () => {
                                     });
                                 }}
                             >
-                                {({ isSubmitting, errors, touched }) => (
+                                {({
+                                    isSubmitting,
+                                    errors,
+                                    touched,
+                                    resetForm,
+                                }) => (
                                     <Form>
                                         {/* <pre>
                                             {JSON.stringify(errors, null, 4)}

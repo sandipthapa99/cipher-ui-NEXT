@@ -2,6 +2,7 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import type { ServiceCardProps } from "types/serviceCard";
 
 import CardBtn from "./CardBtn";
@@ -21,6 +22,11 @@ const ServiceCard = ({
     proService,
 }: // discountOn,
 ServiceCardProps) => {
+    const [isSaveClicked, setIsSaveClicked] = useState(false);
+
+    const handleSaveClick = () => {
+        setIsSaveClicked(!isSaveClicked);
+    };
     return (
         <div className="service-card-block">
             <Link href="/service-detail">
@@ -79,7 +85,10 @@ ServiceCardProps) => {
                 </Link>
                 <div className="d-flex justify-content-between align-items-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
-                        <SaveIcon />
+                        <SaveIcon
+                            onSubmit={handleSaveClick}
+                            isSaveClicked={isSaveClicked}
+                        />
                         <ShareIcon />
                     </div>
                     <CardBtn btnTitle="Book Now" backgroundColor="#211D4F" />

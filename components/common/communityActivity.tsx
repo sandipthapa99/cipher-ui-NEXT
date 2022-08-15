@@ -14,6 +14,11 @@ const CommunityActivityCard = ({
     name,
     position,
 }: CommunityActivityCardProps) => {
+    const [isSaveClicked, setIsSaveClicked] = useState(false);
+
+    const handleSaveClick = () => {
+        setIsSaveClicked(!isSaveClicked);
+    };
     return (
         <div className="activitycard-block">
             <div className="activitycard-block__card-content">
@@ -41,7 +46,10 @@ const CommunityActivityCard = ({
 
                     <div className="reacts-status">
                         <div className="heart-status">
-                            <SaveIcon />
+                            <SaveIcon
+                                onSubmit={handleSaveClick}
+                                isSaveClicked={isSaveClicked}
+                            />
                             <span>{react}</span>
                         </div>
                         <div>

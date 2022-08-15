@@ -18,7 +18,6 @@ export interface AccountValueProps {
     charge_currency: string | number | undefined;
     profile_visibility: string;
     task_preferences: string;
-
     // profile_image: string;
     education: string;
 }

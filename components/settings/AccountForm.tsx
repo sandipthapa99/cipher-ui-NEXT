@@ -5,7 +5,10 @@ import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
 import { PostCard } from "@components/PostTask/PostCard";
+import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
@@ -13,7 +16,7 @@ import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
@@ -56,6 +59,15 @@ const AccountForm = () => {
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [src, setSrc] = useState("/userprofile/unknownPerson.jpg");
+    const formDataRef = useRef(
+        typeof window !== "undefined" ? new FormData() : null
+    );
+    const onButtonClick = () => {
+        // `current` points to the mounted file input element
+        inputRef?.current?.click();
+    };
 
     const currencyResults = currency?.result.map((result) => ({
         label: result.name,
@@ -77,13 +89,62 @@ const AccountForm = () => {
         <>
             {/* Modal component */}
             <div className="account-form">
-                <figure className="mx-auto">
+                <figure className="profile-img mx-auto">
+                    <FontAwesomeIcon
+                        icon={faBadgeCheck}
+                        className="badge-icon"
+                    />
+                    <div
+                        className="img-dragdrop d-flex align-items-center justify-content-center"
+                        onClick={onButtonClick}
+                    >
+                        <FontAwesomeIcon
+                            icon={faCamera}
+                            className="camera-icon"
+                        />
+                        <input
+                            type={"file"}
+                            ref={inputRef}
+                            style={{ display: "none" }}
+                            onChange={(event) => {
+                                const arrFiles = Array.from(
+                                    event.target.files || []
+                                );
+                                const multipleFiles = arrFiles.map(
+                                    (file, index) => {
+                                        const src =
+                                            window.URL.createObjectURL(file);
+                                        console.log("before onchange", file);
+
+                                        return {
+                                            file,
+                                            id: index,
+                                            src,
+                                        };
+                                    }
+                                );
+                                if (formDataRef.current) {
+                                    formDataRef.current.append(
+                                        "profile_image",
+                                        multipleFiles[0].file
+                                    );
+                                }
+
+                                setSrc(
+                                    multipleFiles
+                                        ? multipleFiles[0].src
+                                        : "/userprofile/unknownPerson.jpg"
+                                );
+                            }}
+                        />
+                    </div>
                     <Image
-                        src="/userprofile/profile.svg"
+                        src={src}
                         layout="fill"
                         alt="profile-pic"
                         className="rounded-circle"
                         objectFit="cover"
+                        priority={true}
                     />
                 </figure>
                 <Formik
@@ -111,10 +172,12 @@ const AccountForm = () => {
                         charge_currency: profile?.charge_currency,
                         profile_visibility: profile?.profile_visibility ?? "",
                         task_preferences: profile?.task_preferences ?? "",
-                        // profile_image: "abcffdd",
                     }}
                     validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
+                        if (!formDataRef.current) {
+                            return;
+                        }
                         const newValidatedValues = {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
@@ -125,7 +188,11 @@ const AccountForm = () => {
                             active_hour_end: new Date(
                                 values.active_hour_end ?? ""
                             )?.toLocaleTimeString(),
+                            profile_image:
+                                formDataRef.current.get("profile_image"),
                         };
+                        console.log(newValidatedValues.profile_image);
+
                         mutate(newValidatedValues, {
                             onSuccess: () => {
                                 toggleSuccessModal();
@@ -142,6 +209,7 @@ const AccountForm = () => {
                     {({ isSubmitting, errors, touched, resetForm }) => (
                         <Form autoComplete="off">
                             {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+
                             <InputField
                                 type="text"
                                 name="full_name"
