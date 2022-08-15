@@ -9,6 +9,7 @@ import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
@@ -68,6 +69,7 @@ const AccountForm = () => {
         // `current` points to the mounted file input element
         inputRef?.current?.click();
     };
+    const formDataa = typeof window !== "undefined" ? new FormData() : null;
 
     const currencyResults = currency?.result.map((result) => ({
         label: result.name,
@@ -89,64 +91,6 @@ const AccountForm = () => {
         <>
             {/* Modal component */}
             <div className="account-form">
-                <figure className="profile-img mx-auto">
-                    <FontAwesomeIcon
-                        icon={faBadgeCheck}
-                        className="badge-icon"
-                    />
-                    <div
-                        className="img-dragdrop d-flex align-items-center justify-content-center"
-                        onClick={onButtonClick}
-                    >
-                        <FontAwesomeIcon
-                            icon={faCamera}
-                            className="camera-icon"
-                        />
-                        <input
-                            type={"file"}
-                            ref={inputRef}
-                            style={{ display: "none" }}
-                            onChange={(event) => {
-                                const arrFiles = Array.from(
-                                    event.target.files || []
-                                );
-                                const multipleFiles = arrFiles.map(
-                                    (file, index) => {
-                                        const src =
-                                            window.URL.createObjectURL(file);
-                                        console.log("before onchange", file);
-
-                                        return {
-                                            file,
-                                            id: index,
-                                            src,
-                                        };
-                                    }
-                                );
-                                if (formDataRef.current) {
-                                    formDataRef.current.append(
-                                        "profile_image",
-                                        multipleFiles[0].file
-                                    );
-                                }
-
-                                setSrc(
-                                    multipleFiles
-                                        ? multipleFiles[0].src
-                                        : "/userprofile/unknownPerson.jpg"
-                                );
-                            }}
-                        />
-                    </div>
-                    <Image
-                        src={src}
-                        layout="fill"
-                        alt="profile-pic"
-                        className="rounded-circle"
-                        objectFit="cover"
-                        priority={true}
-                    />
-                </figure>
                 <Formik
                     enableReinitialize={true}
                     initialValues={{
@@ -157,7 +101,7 @@ const AccountForm = () => {
                         email: "",
                         bio: profile?.bio ?? "",
                         gender: profile?.gender ?? "",
-                        date_of_birth: null,
+                        date_of_birth: "",
                         skill: "",
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start: "",
@@ -172,12 +116,14 @@ const AccountForm = () => {
                         charge_currency: profile?.charge_currency,
                         profile_visibility: profile?.profile_visibility ?? "",
                         task_preferences: profile?.task_preferences ?? "",
+                        profile_image: "",
                     }}
                     validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
-                        if (!formDataRef.current) {
-                            return;
-                        }
+                        if (!formDataa) return;
+                        console.log(values);
+
+                        const formData = new FormData();
                         const newValidatedValues = {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
@@ -188,15 +134,22 @@ const AccountForm = () => {
                             active_hour_end: new Date(
                                 values.active_hour_end ?? ""
                             )?.toLocaleTimeString(),
-                            profile_image:
-                                formDataRef.current.get("profile_image"),
+                            date_of_birth: format(
+                                new Date(values.date_of_birth),
+                                "yyyy-MM-dd"
+                            ),
                         };
-                        console.log(newValidatedValues.profile_image);
+
+                        // Object.entries(newValidatedValues).forEach((entry) => {
+                        //     const [key, value] = entry;
+                        //     // if (value) {
+                        //     //     formData.append(key, value.toString());
+                        //     // }
+                        // });
 
                         mutate(newValidatedValues, {
                             onSuccess: () => {
                                 toggleSuccessModal();
-                                action.resetForm();
                             },
                             onError: (err) => {
                                 toast.error(err.message);
@@ -206,9 +159,78 @@ const AccountForm = () => {
                         // setShowSuccessModal(true);
                     }}
                 >
-                    {({ isSubmitting, errors, touched, resetForm }) => (
+                    {({
+                        isSubmitting,
+                        errors,
+                        touched,
+                        resetForm,
+                        setFieldValue,
+                    }) => (
                         <Form autoComplete="off">
                             {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                            <figure className="profile-img mx-auto">
+                                <FontAwesomeIcon
+                                    icon={faBadgeCheck}
+                                    className="badge-icon"
+                                />
+                                <div
+                                    className="img-dragdrop d-flex align-items-center justify-content-center"
+                                    onClick={onButtonClick}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faCamera}
+                                        className="camera-icon"
+                                    />
+                                    <input
+                                        name="profile_image"
+                                        type={"file"}
+                                        ref={inputRef}
+                                        style={{ display: "none" }}
+                                        onChange={(event) => {
+                                            const arrFiles = Array.from(
+                                                event.target.files || []
+                                            );
+                                            const multipleFiles = arrFiles.map(
+                                                (file, index) => {
+                                                    const src =
+                                                        window.URL.createObjectURL(
+                                                            file
+                                                        );
+                                                    console.log(
+                                                        "before onchange",
+                                                        file
+                                                    );
+
+                                                    return {
+                                                        file,
+                                                        id: index,
+                                                        src,
+                                                    };
+                                                }
+                                            );
+                                            setFieldValue(
+                                                "profile_image",
+                                                multipleFiles[0].file
+                                            );
+                                            console.log(arrFiles[0]);
+
+                                            setSrc(
+                                                multipleFiles
+                                                    ? multipleFiles[0].src
+                                                    : "/userprofile/unknownPerson.jpg"
+                                            );
+                                        }}
+                                    />
+                                </div>
+                                <Image
+                                    src={src}
+                                    layout="fill"
+                                    alt="profile-pic"
+                                    className="rounded-circle"
+                                    objectFit="cover"
+                                    priority={true}
+                                />
+                            </figure>
 
                             <InputField
                                 type="text"
@@ -245,6 +267,7 @@ const AccountForm = () => {
                             <DatePickerField
                                 name="date_of_birth"
                                 labelName="Date of birth"
+                                dateFormat="yyyy-MM-dd"
                                 placeHolder="dd/mm/yy"
                                 touch={touched.date_of_birth}
                                 error={errors.date_of_birth}
