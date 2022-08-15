@@ -78,7 +78,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
         );
         return { paths, fallback: true };
     } catch (error: any) {
-        error.response.data;
         return {
             paths: [],
             fallback: true,
@@ -99,7 +98,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             revalidate: 10,
         };
     } catch (error: any) {
-        error.response.data;
         return {
             props: {
                 career: {},

@@ -67,7 +67,6 @@ const Footer = () => {
                                 >
                                     {({ isSubmitting, errors, touched }) => (
                                         <Form>
-                                           
                                             <InputField
                                                 type="email"
                                                 name="email"

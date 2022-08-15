@@ -7,7 +7,7 @@ import { Form, Formik } from "formik";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { FeedbackValuesProps } from "types/contact";
+import type { FeedbackValuesProps } from "types/contact";
 import { axiosClient } from "utils/axiosClient";
 import { FeedbackFormData } from "utils/contactFormData";
 import { FeedbackFormSchema } from "utils/formValidation/contactFormValidation";
