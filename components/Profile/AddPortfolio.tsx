@@ -28,7 +28,6 @@ const AddPortfolio = ({
 }: AddPortfolioModalProps) => {
     const { mutate, isLoading, data } = usePostPortfolio();
     const queryClient = useQueryClient();
-    console.log("data=", data);
 
     return (
         <div>

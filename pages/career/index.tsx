@@ -6,7 +6,6 @@ import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { careerCardValues } from "staticData/careerCardValues";
