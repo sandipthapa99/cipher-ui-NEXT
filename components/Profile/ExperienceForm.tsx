@@ -42,7 +42,6 @@ const ExperienceForm = ({
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
                     <h3>Add Experience</h3>
-                    <hr />
                     <Formik
                         initialValues={ExperienceFromData}
                         validationSchema={experienceFormSchema}
