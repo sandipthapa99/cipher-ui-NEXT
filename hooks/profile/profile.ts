@@ -13,9 +13,9 @@ export const useProfile = () => {
                 );
                 console.log("Profile data", data);
             } catch (error) {
-                if (error instanceof AxiosError) {
-                    throw new Error(error?.response?.data?.message);
-                }
+                // if (error instanceof AxiosError) {
+                //     throw new Error(error?.response?.data?.message);
+                // }
                 throw new Error("Profile failed");
             }
         }
