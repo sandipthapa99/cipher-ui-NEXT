@@ -17,6 +17,7 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -29,6 +30,9 @@ import {
 } from "services/commonServices";
 import { useSetBookNowDetails } from "store/use-book-now";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
+import { axiosClient } from "utils/axiosClient";
+import { ServiceProvider } from "./searchAside";
+import parse from "html-react-parser";
 
 const SearchResultsDetail = ({
     image,
@@ -41,6 +45,7 @@ const SearchResultsDetail = ({
     haveDiscount,
     discountOn,
     discount,
+    highlights,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -48,7 +53,18 @@ const SearchResultsDetail = ({
     const services = getServices();
     const PackageCard = getAllPackageCard();
     const reviewsContent = getReviews();
-    const serviceHighlights = getServiceHighlights();
+
+    const { data } = useQuery(
+        ["service-provider-detail-user", serviceProvider],
+        async () => {
+            const { data } = await axiosClient.get<ServiceProvider>(
+                `/user/${serviceProvider}`
+            );
+            return data;
+        }
+    );
+
+    const providerName = data?.groups[0]?.name;
 
     return (
         <>
@@ -67,7 +83,7 @@ const SearchResultsDetail = ({
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
                         <span className="pb-3 pb-sm-0 provider-name">
-                            By {serviceProvider}
+                            By {providerName}
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
@@ -87,32 +103,37 @@ const SearchResultsDetail = ({
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        {image && (
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src={image}
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt="garden-image"
-                                />
-                            </figure>
-                        )}
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={
+                                    image
+                                        ? image
+                                        : "/service-details/garden-cleaning.png"
+                                }
+                                layout="fill"
+                                objectFit="cover"
+                                alt="garden-image"
+                            />
+                        </figure>
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         <div className="simple-card my-5 my-lg-0 ">
                             <div className="d-flex align-items-center simple-card__profile">
-                                {image && (
-                                    <figure className="thumbnail-img">
-                                        <Image
-                                            src={image}
-                                            layout="fill"
-                                            objectFit="cover"
-                                            alt="serviceprovider-image"
-                                        />
-                                    </figure>
-                                )}
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src={
+                                            image
+                                                ? image
+                                                : "/service-details/garden-cleaning.png"
+                                        }
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="serviceprovider-image"
+                                    />
+                                </figure>
+
                                 <div className="intro">
-                                    <p className="name">{serviceProvider}</p>
+                                    <p className="name">{providerName}</p>
                                     <p className="job">{serviceTitle}</p>
                                 </div>
                             </div>
@@ -183,15 +204,15 @@ const SearchResultsDetail = ({
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    <p>{serviceDescription}</p>
+                    <p>{parse(serviceDescription ?? "")}</p>
                 </div>
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {serviceHighlights &&
-                        serviceHighlights.map((name) => (
-                            <div key={name.id}>
-                                <ServiceHighlights title={name.title} />
+                    {highlights &&
+                        highlights?.map((name: any, index: number) => (
+                            <div key={index}>
+                                <ServiceHighlights title={name} />
                             </div>
                         ))}
                 </div>
