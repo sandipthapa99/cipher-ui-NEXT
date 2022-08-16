@@ -15,4 +15,35 @@ export interface UserProfileProps {
             expire_date: string;
         }[];
     };
+    educationData: {
+        count: number;
+        next: string;
+        previous: string;
+        results: {
+            id: number;
+            school: string;
+            description: string;
+            degree: string;
+            field_of_study: string;
+            location: string;
+            start_date: string;
+            end_date: string;
+        }[];
+    };
+    experienceData: {
+        count: number;
+        next: string;
+        previous: string;
+        results: {
+            id: number;
+            title: string;
+            description: string;
+            employment_type: string;
+            company_name: string;
+            location: string;
+            currently_working: boolean;
+            start_date: string;
+            end_date: string;
+        }[];
+    };
 }

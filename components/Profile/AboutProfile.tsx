@@ -31,6 +31,11 @@ const AboutProfile = () => {
         UserProfileProps["certificationData"]
     >(["tasker-certification"], "/tasker/certification/");
 
+    const { data: educationData } = useData<UserProfileProps["educationData"]>(
+        ["tasker-education"],
+        "/tasker/education/"
+    );
+
     return (
         <>
             {ProfileAboutContent &&
