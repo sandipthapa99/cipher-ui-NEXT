@@ -43,7 +43,8 @@ const Checkout = () => {
                                     <Col lg={8}>
                                         <BillingLocation
                                             location={
-                                                bookNowDetails.serviceProviderLocation
+                                                bookNowDetails.serviceProviderLocation ??
+                                                ""
                                             }
                                         />
                                         <ExtraSection />
