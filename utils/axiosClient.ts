@@ -1,7 +1,7 @@
 import { QueryClient } from "@tanstack/react-query";
 import type { AxiosInstance } from "axios";
 import axios from "axios";
-import { differenceInDays, fromUnixTime } from "date-fns";
+import { compareAsc, fromUnixTime } from "date-fns";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { autoLogin } from "utils/auth";
@@ -14,6 +14,13 @@ const getApiEndpoint = () => {
             "Please specify an API endpoint in the environment variable NEXT_PUBLIC_API_URL"
         );
     return url;
+};
+
+const isTokenExpired = (token: string) => {
+    const { exp } = jwtDecode<{ exp: number }>(token);
+    const tokenExpirationDate = fromUnixTime(exp);
+    const currentTime = new Date();
+    return compareAsc(tokenExpirationDate, currentTime) === -1;
 };
 
 const requestRefreshToken = async (
@@ -38,7 +45,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
     (config) => {
         const access = Cookies.get("access");
-        if (access) {
+        if (access && !isTokenExpired(access)) {
             config.headers = {
                 ...config.headers,
                 Authorization: `Bearer ${access}`,
@@ -57,11 +64,7 @@ axiosClient.interceptors.response.use(
 
             if (!access || !refresh) return Promise.reject(error);
 
-            const { exp } = jwtDecode<{ exp: number }>(access);
-            const tokenExpirationDate = fromUnixTime(exp);
-            const currentDate = new Date();
-            const diff = differenceInDays(tokenExpirationDate, currentDate);
-            if (diff <= 0) {
+            if (isTokenExpired(access)) {
                 requestRefreshToken(axiosClient, refresh);
             }
         }
