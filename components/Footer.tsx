@@ -21,7 +21,7 @@ import InputField from "./common/InputField";
 
 const Footer = () => {
     const emailSubsMutation = useMutation((data: NewsletterDataTypes) =>
-        axiosClient.post("/support/newsletter/subscribe", data)
+        axiosClient.post("/support/newsletter/subscribe/", data)
     );
     const onSubscribeEmail = (data: any, actions: any) => {
         emailSubsMutation.mutate(data, {
