@@ -191,7 +191,8 @@ const AccountForm = () => {
                                         ref={inputRef}
                                         onChange={(e: any) => {
                                             const files = e.target.files;
-                                            console.log(files);
+
+                                            console.log({ files, src });
 
                                             setFieldValue(
                                                 "profile_image",
@@ -201,11 +202,12 @@ const AccountForm = () => {
                                     />
                                 </div>
                                 <Image
-                                    src={
-                                        profile
-                                            ? profile.profile_image
-                                            : "/userprofile/unknownPerson.jpg"
-                                    }
+                                    // src={
+                                    //     profile
+                                    //         ? profile.profile_image
+                                    //         : "/userprofile/unknownPerson.jpg"
+                                    // }
+                                    src={"/userprofile/unknownPerson.jpg"}
                                     layout="fill"
                                     alt="profile-pic"
                                     className="rounded-circle"

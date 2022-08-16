@@ -51,22 +51,13 @@ const DragDrop = ({
             {maxPdfSize ? <span>Maximum Pdf size {maxPdfSize} MB</span> : ""}
 
             <input
-                name={name}
                 type={"file"}
                 id="choosefile"
                 ref={inputRef}
                 style={{ display: "none" }}
                 onChange={(event) => {
-                    const arrFiles = Array.from(event.target.files || []);
-                    const multipleFiles = arrFiles.map((file, index) => {
-                        const src = window.URL.createObjectURL(file);
-                        return {
-                            file,
-                            id: index,
-                            src,
-                        };
-                    });
-                    field?.(name, multipleFiles);
+                    const files = event.target.files;
+                    field?.(name, (files ?? [])[0]);
                 }}
             />
         </div>

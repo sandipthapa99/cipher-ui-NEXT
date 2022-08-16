@@ -79,6 +79,7 @@ export const BookServiceFormData: BookNowFormProps = {
     enddate: null,
     time: 1,
     image: "/services/s1.png",
+    book_image: "",
 };
 
 export const CertificationFromData: CertificationValueProps = {
