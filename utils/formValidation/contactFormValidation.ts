@@ -14,9 +14,7 @@ stringReqOnly = Yup.string().required("Required field");
 phoneValidate = Yup.string()
     .matches(phoneRegExp, "Invalid phone number")
     .required("Required field");
-selectValidate = Yup.number()
-    .required("Required field");
-
+selectValidate = Yup.number().required("Required field");
 
 export const contactFormSchema = Yup.object().shape({
     full_name: stringValidate,

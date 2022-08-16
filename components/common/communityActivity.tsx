@@ -1,6 +1,7 @@
 import { faComment, faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import { useState } from "react";
 import type { CommunityActivityCardProps } from "types/community";
 
 import SaveIcon from "./SaveIcon";
