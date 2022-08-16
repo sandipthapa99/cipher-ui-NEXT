@@ -2,7 +2,6 @@ import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
-import { useGetTaskerPortfolio } from "hooks/user-portfolio/useGetPortfolio";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
