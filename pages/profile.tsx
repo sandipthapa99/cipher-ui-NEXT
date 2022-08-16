@@ -8,17 +8,17 @@ import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
-import { useGetCountryBYId } from "hooks/profile/getCountryById";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
+import type { UserProfileProps } from "types/userProfileProps";
 
-const UserProfile: NextPage = () => {
+const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails } = useGetProfile();
-    console.log(profileDetails);
 
     const remaining = {
         userImage: "/service-details/provider1.svg",
@@ -135,3 +135,28 @@ const UserProfile: NextPage = () => {
 };
 
 export default UserProfile;
+
+export const getStaticProps: GetStaticProps = async () => {
+    const queryClient = new QueryClient();
+    try {
+        await Promise.all([
+            queryClient.prefetchQuery(["tasker-certification"]),
+            queryClient.prefetchQuery(["tasker-education"]),
+            queryClient.prefetchQuery(["tasker-experience"]),
+            queryClient.prefetchQuery(["tasker-portfolio"]),
+        ]);
+        return {
+            props: {
+                dehydratedState: dehydrate(queryClient),
+            },
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                certificationData: [],
+                educationData: [],
+                experienceData: [],
+            },
+        };
+    }
+};

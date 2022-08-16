@@ -3,23 +3,11 @@ import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
 import { faAngleRight, faFilterList } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    useFetchServicesBookmarks,
-    useFetchUserBookmarks,
-} from "hooks/bookmark/useFetchBookmark";
 import type { NextPage } from "next";
 import { Col, Container, Row } from "react-bootstrap";
 import searchValidationSchema from "utils/formValidation/searchValidation";
 
 const Saved: NextPage = () => {
-    const { data: serviceData } = useFetchServicesBookmarks();
-
-    console.log("Saved services bookmarks=", serviceData);
-
-    const { data: userData } = useFetchUserBookmarks();
-
-    console.log("Saved users bookmarks=", userData);
-
     return (
         <Layout title="Saved | Cipher">
             <section className="saved-page">

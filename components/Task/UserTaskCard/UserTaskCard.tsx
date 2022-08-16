@@ -9,7 +9,6 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { useState } from "react";
 import type { Task } from "types/tasks";
 
 interface Props {
@@ -24,11 +23,6 @@ export const UserTaskCard = ({
     onTaskClick,
     handleButtonClick,
 }: Props) => {
-    const [isSaveClicked, setIsSaveClicked] = useState(false);
-
-    const handleSaveClick = () => {
-        setIsSaveClicked(!isSaveClicked);
-    };
     return (
         <div className="user-task-card" onClick={() => onTaskClick(task)}>
             <div className="user-task-card__header">
@@ -87,10 +81,7 @@ export const UserTaskCard = ({
             <p className="td-text user-info__bio">{task.user.bio}</p>
             <div className="d-flex justify-content-between user-task-card__footer">
                 <div className="icons">
-                    <SaveIcon
-                        onSubmit={handleSaveClick}
-                        isSaveClicked={isSaveClicked}
-                    />
+                    <SaveIcon />
                     <ShareIcon />
                 </div>
                 {isButton === true && (

@@ -4,13 +4,17 @@ import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { Field, Form, Formik } from "formik";
+import { useQueryClient } from "@tanstack/react-query";
+import { format } from "date-fns";
+import { Form, Formik } from "formik";
+import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useToggleSuccessModal } from "store/use-success-modal";
+import { toast } from "react-toastify";
 import { ExperienceFromData } from "utils/formData";
 import { experienceFormSchema } from "utils/formValidation/experienceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -21,39 +25,71 @@ interface ExperienceProps {
     setShowExpForm: Dispatch<SetStateAction<boolean>>;
 }
 
-const dropdownOptions = [
-    { id: 1, label: "React", value: "react" },
-    { id: 2, label: "Angular", value: "angular" },
-    { id: 3, label: "Vue", value: "vue" },
-];
+const dropdownOptions = [{ id: 1, label: "Part Time", value: "Part Time" }];
 
 const ExperienceForm = ({
     show,
     handleClose,
     setShowExpForm,
 }: ExperienceProps) => {
-    const toggleSuccessModal = useToggleSuccessModal();
+    const [toggle, setToggled] = useState(false);
+    const { mutate } = useForm(`/tasker/experience/`);
+
+    const queryClient = useQueryClient();
     return (
         <>
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
-                    <h3>Task Details</h3>
-                    <hr />
+                    <h3>Add Experience</h3>
                     <Formik
                         initialValues={ExperienceFromData}
                         validationSchema={experienceFormSchema}
                         onSubmit={async (values) => {
-                            setShowExpForm(false);
-                            // To be used for API
-                            // try {
-                            //     axiosClient.post("/routes", values);
-                            // } catch (error: any) {
-                            //     error.response.data.message;
-                            // }
-                            toggleSuccessModal();
-                            console.log(values);
+                            let newValue;
+                            if (!values.end_date) {
+                                const withoutEndDate = {
+                                    ...values,
+                                    start_date: format(
+                                        new Date(values.start_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                    end_date: null,
+                                };
+                                newValue = withoutEndDate;
+                            } else {
+                                const newvalidatedValue = {
+                                    ...values,
+                                    start_date: format(
+                                        new Date(values.start_date),
+                                        "yyyy-MM-dd"
+                                    ),
+
+                                    end_date: format(
+                                        new Date(values.end_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                };
+                                newValue = newvalidatedValue;
+                            }
+
+                            mutate(newValue, {
+                                onSuccess: async () => {
+                                    console.log("submitted values", values);
+                                    setShowExpForm(false);
+                                    queryClient.invalidateQueries([
+                                        "tasker-experience",
+                                    ]);
+                                    toast.success(
+                                        "Experience detail added successfully"
+                                    );
+                                },
+                                onError: async (error) => {
+                                    toast.error(error.message);
+                                    console.log("error=", error);
+                                },
+                            });
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
@@ -64,59 +100,71 @@ const ExperienceForm = ({
                                     labelName="Title"
                                     error={errors.title}
                                     touch={touched.title}
-                                    placeHolder="Enter your price"
+                                    placeHolder="Experience Title"
                                 />
                                 <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
-                                    placeHolder="Applying (Remark)"
+                                    placeHolder="Experience Description"
                                     as="textarea"
                                 />
                                 <SelectInputField
-                                    name="typeOfEmployment"
+                                    name="employment_type"
                                     labelName="Employment"
-                                    touch={touched.typeOfEmployment}
-                                    error={errors.typeOfEmployment}
-                                    placeHolder="Select a type"
+                                    touch={touched.employment_type}
+                                    error={errors.employment_type}
+                                    placeHolder="Full Time"
                                     options={dropdownOptions}
                                 />
                                 <InputField
-                                    name="companyName"
-                                    labelName="companyName"
-                                    touch={touched.companyName}
-                                    error={errors.companyName}
-                                    placeHolder="Applying (Remark)"
+                                    name="company_name"
+                                    labelName="Company Name"
+                                    touch={touched.company_name}
+                                    error={errors.company_name}
+                                    placeHolder="Company Name"
                                 />
                                 <InputField
                                     name="location"
-                                    labelName="location"
+                                    labelName="Location"
                                     touch={touched.location}
                                     error={errors.location}
-                                    placeHolder="Applying (Remark)"
+                                    placeHolder="Eg: New Baneshwor, Kathmandu"
                                 />
                                 <p className="mb-3">
-                                    <Field type="checkbox" name="toggle" /> I am
-                                    currently working here
+                                    {/* <Field
+                                        type="checkbox"
+                                        name="currently_working"
+                                    /> */}
+                                    <input
+                                        type="checkbox"
+                                        name="currently_working"
+                                        checked={toggle ? true : false}
+                                        onChange={() => setToggled(!toggle)}
+                                    />
+                                    &nbsp;I am currently working here
                                 </p>
                                 <Row className="g-5">
                                     <Col md={6}>
                                         <DatePickerField
-                                            name="startDate"
-                                            labelName="startDate"
-                                            placeHolder="01/01/2001"
-                                            touch={touched.startDate}
-                                            error={errors.startDate}
+                                            name="start_date"
+                                            labelName="Start Date"
+                                            placeHolder="1999-06-03"
+                                            touch={touched.start_date}
+                                            error={errors.start_date}
+                                            dateFormat="yyyy-MM-dd"
                                         />
                                     </Col>
                                     <Col md={6}>
                                         <DatePickerField
-                                            name="endDate"
-                                            labelName="endDate"
-                                            placeHolder="01/01/2001"
-                                            touch={touched.endDate}
-                                            error={errors.endDate}
+                                            name="end_date"
+                                            labelName="End Date"
+                                            placeHolder="2022-03-06"
+                                            touch={touched.end_date}
+                                            error={errors.end_date}
+                                            dateFormat="yyyy-MM-dd"
+                                            disabled={toggle ? true : false}
                                         />
                                     </Col>
                                 </Row>

@@ -7,7 +7,7 @@ import type { CertificationValueProps } from "types/certificationValueProps";
 import type { changePasswordValueProps } from "types/changePasswordValueProps";
 import type { ClientSignUpValueProps } from "types/clientSignUp";
 import type { deactivateValueProps } from "types/deactivateValueProps";
-import type { AddPortfolio, AddSkills } from "types/editProfile";
+import type { AddPortfolioProps, AddSkills } from "types/editProfile";
 import type { EducationValueProps } from "types/educationValueProps";
 import type { EquipmentValueProps } from "types/equipmentValueProps";
 import type { ExperienceValueProps } from "types/experienceValueProps";
@@ -55,19 +55,21 @@ export const EquipmentFormData: EquipmentValueProps = {
 export const ExperienceFromData: ExperienceValueProps = {
     title: "",
     description: "",
-    typeOfEmployment: "",
-    companyName: "",
+    employment_type: "Full Time",
+    company_name: "",
     location: "",
-    startDate: null,
-    endDate: null,
-    toggle: false,
+    start_date: "",
+    end_date: "",
+    currently_working: false,
 };
 
-export const AddPortfolioFormData: AddPortfolio = {
+export const AddPortfolioFormData: AddPortfolioProps = {
     title: "",
     description: "",
-    url: "",
-    date: null,
+    credential_url: "",
+    issued_date: "",
+    image: "",
+    file: "",
 };
 
 export const AddSkillFormData: AddSkills = {
@@ -85,13 +87,13 @@ export const BookServiceFormData: BookNowFormProps = {
 
 export const CertificationFromData: CertificationValueProps = {
     name: "",
-    organization: "",
+    issuing_organization: "",
     description: "",
-    toggle: false,
-    credentialId: "",
-    certificateURL: "",
-    issuedDate: null,
-    expirationDate: null,
+    does_expire: false,
+    credential_id: "",
+    certificate_url: "",
+    issued_date: null,
+    expire_date: null,
 };
 
 export const ProfileEditFromData: ProfileEditValueProps = {
