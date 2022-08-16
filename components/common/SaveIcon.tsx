@@ -5,31 +5,16 @@ import { useBookmark } from "hooks/bookmark/useBookmark";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-interface saveIconProps {
-    object_id?: any;
-    model?: any;
+interface SaveIconProps {
+    isSaveClicked: boolean;
+    onSubmit: () => void;
 }
 
-const SaveIcon = ({ object_id, model }: saveIconProps) => {
-    const { mutate, isLoading, data: bookmarkData } = useBookmark();
-
-    const [isSaveClicked, setIsSaveClicked] = useState(false);
-    const message = bookmarkData?.message;
-    const handleSaveClick = () => {
-        setIsSaveClicked(!isSaveClicked);
-        mutate(
-            { object_id, model },
-            {
-                onSuccess: async () => {
-                    toast.success(message);
-                },
-            }
-        );
-    };
+const SaveIcon = ({ isSaveClicked, onSubmit }: SaveIconProps) => {
     return (
         <FontAwesomeIcon
             icon={isSaveClicked ? FilledHeart : faHeart}
-            onClick={handleSaveClick}
+            onClick={onSubmit}
             className="svg-icon svg-icon-heart me-2 me-sm-5"
         />
     );

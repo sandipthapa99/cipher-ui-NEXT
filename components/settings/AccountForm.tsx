@@ -5,15 +5,20 @@ import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
 import { PostCard } from "@components/PostTask/PostCard";
+import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
 import { Field, Form, Formik } from "formik";
+import { read } from "fs";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
@@ -56,6 +61,18 @@ const AccountForm = () => {
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [src, setSrc] = useState<File | string>(
+        "/userprofile/unknownPerson.jpg"
+    );
+    // const formDataRef = useRef(
+    //     typeof window !== "undefined" ? new FormData() : null
+    // );
+    const onButtonClick = () => {
+        // `current` points to the mounted file input element
+        inputRef?.current?.click();
+    };
 
     const currencyResults = currency?.result.map((result) => ({
         label: result.name,
@@ -77,15 +94,6 @@ const AccountForm = () => {
         <>
             {/* Modal component */}
             <div className="account-form">
-                <figure className="mx-auto">
-                    <Image
-                        src="/userprofile/profile.svg"
-                        layout="fill"
-                        alt="profile-pic"
-                        className="rounded-circle"
-                        objectFit="cover"
-                    />
-                </figure>
                 <Formik
                     enableReinitialize={true}
                     initialValues={{
@@ -96,7 +104,7 @@ const AccountForm = () => {
                         email: "",
                         bio: profile?.bio ?? "",
                         gender: profile?.gender ?? "",
-                        date_of_birth: null,
+                        date_of_birth: "",
                         skill: "",
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start: "",
@@ -111,10 +119,14 @@ const AccountForm = () => {
                         charge_currency: profile?.charge_currency,
                         profile_visibility: profile?.profile_visibility ?? "",
                         task_preferences: profile?.task_preferences ?? "",
-                        // profile_image: "abcffdd",
+                        profile_image: "",
                     }}
-                    validationSchema={accountFormSchema}
+                    // validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
+                        const formData = new FormData();
+
+                        console.log(values);
+
                         const newValidatedValues = {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
@@ -125,11 +137,23 @@ const AccountForm = () => {
                             active_hour_end: new Date(
                                 values.active_hour_end ?? ""
                             )?.toLocaleTimeString(),
+                            date_of_birth: format(
+                                new Date(values.date_of_birth),
+                                "yyyy-MM-dd"
+                            ),
                         };
-                        mutate(newValidatedValues, {
+
+                        Object.entries(newValidatedValues).forEach((entry) => {
+                            const [key, value] = entry;
+                            if (value && key !== "profile_image") {
+                                formData.append(key, value.toString());
+                            }
+                        });
+                        formData.append("profile_image", values.profile_image);
+
+                        mutate(formData, {
                             onSuccess: () => {
                                 toggleSuccessModal();
-                                action.resetForm();
                             },
                             onError: (err) => {
                                 toast.error(err.message);
@@ -139,9 +163,59 @@ const AccountForm = () => {
                         // setShowSuccessModal(true);
                     }}
                 >
-                    {({ isSubmitting, errors, touched, resetForm }) => (
+                    {({
+                        isSubmitting,
+                        errors,
+                        touched,
+                        resetForm,
+                        setFieldValue,
+                    }) => (
                         <Form autoComplete="off">
                             {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                            <figure className="profile-img mx-auto">
+                                <FontAwesomeIcon
+                                    icon={faBadgeCheck}
+                                    className="badge-icon"
+                                />
+                                <div
+                                    className="img-dragdrop d-flex align-items-center justify-content-center"
+                                    onClick={onButtonClick}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faCamera}
+                                        className="camera-icon"
+                                    />
+                                    <input
+                                        hidden
+                                        type="file"
+                                        ref={inputRef}
+                                        onChange={(e: any) => {
+                                            const files = e.target.files;
+
+                                            console.log({ files, src });
+
+                                            setFieldValue(
+                                                "profile_image",
+                                                files[0]
+                                            );
+                                        }}
+                                    />
+                                </div>
+                                <Image
+                                    // src={
+                                    //     profile
+                                    //         ? profile.profile_image
+                                    //         : "/userprofile/unknownPerson.jpg"
+                                    // }
+                                    src={"/userprofile/unknownPerson.jpg"}
+                                    layout="fill"
+                                    alt="profile-pic"
+                                    className="rounded-circle"
+                                    objectFit="cover"
+                                    priority={true}
+                                />
+                            </figure>
+
                             <InputField
                                 type="text"
                                 name="full_name"
@@ -177,6 +251,7 @@ const AccountForm = () => {
                             <DatePickerField
                                 name="date_of_birth"
                                 labelName="Date of birth"
+                                dateFormat="yyyy-MM-dd"
                                 placeHolder="dd/mm/yy"
                                 touch={touched.date_of_birth}
                                 error={errors.date_of_birth}
