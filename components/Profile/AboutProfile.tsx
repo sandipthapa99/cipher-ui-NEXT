@@ -5,6 +5,7 @@ import { useGetTaskerEducation } from "hooks/user-education/useGetEducation";
 import { useGetTaskerExperience } from "hooks/user-experience/useGetExperience";
 import { useGetTaskerPortfolio } from "hooks/user-portfolio/useGetPortfolio";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ProfileAboutContent } from "staticData/profileAboutContent";
@@ -56,27 +57,52 @@ const AboutProfile = () => {
                             </div>
 
                             <div className="content">
-                                {/* {userPortfolio?.map((info: any) => (
+                                {userPortfolio?.map((info: any) => (
                                     <div className="image" key={info?.id}>
-                                        <figure className="thumbnail-img">
-                                            <Image
-                                                src={info?.image}
-                                                layout="fill"
-                                                objectFit="cover"
-                                                alt="portfolio-image"
-                                            />
-                                        </figure>
-                                        <figure className="thumbnail-img">
-                                            <Image
-                                                src={info?.file}
-                                                layout="fill"
-                                                objectFit="cover"
-                                                alt="portfolio-file"
-                                            />
-                                        </figure>
-                                        <p>{info.title}</p>
+                                        <Row>
+                                            <Col md={6}>
+                                                <Link href={`${info?.image}`}>
+                                                    <a target="_blank">
+                                                        {info?.image ? (
+                                                            <figure className="thumbnail-img">
+                                                                <Image
+                                                                    src={`${info?.image}`}
+                                                                    layout="fill"
+                                                                    objectFit="cover"
+                                                                    alt="portfolio-image"
+                                                                />
+                                                            </figure>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    </a>
+                                                </Link>
+                                            </Col>
+                                            <Col md={6}>
+                                                <Link href={`${info?.file}`}>
+                                                    <a target="_blank">
+                                                        {info?.file ? (
+                                                            <figure className="thumbnail-img">
+                                                                <Image
+                                                                    src="/userprofile/documents/pdf.svg"
+                                                                    layout="fill"
+                                                                    objectFit="cover"
+                                                                    alt="portfolio-file"
+                                                                />
+                                                            </figure>
+                                                        ) : (
+                                                            ""
+                                                        )}
+                                                    </a>
+                                                </Link>
+                                            </Col>
+                                        </Row>
+
+                                        <p className="text-center">
+                                            {info.title}
+                                        </p>
                                     </div>
-                                ))} */}
+                                ))}
                             </div>
                         </div>
                         <div className="type experience">

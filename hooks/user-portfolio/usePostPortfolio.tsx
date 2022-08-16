@@ -4,7 +4,7 @@ import type { AddPortfolioProps } from "types/editProfile";
 import { axiosClient } from "utils/axiosClient";
 
 export const usePostPortfolio = () => {
-    return useMutation<void, Error, AddPortfolioProps>(async (formDetails) => {
+    return useMutation<void, Error, FormData>(async (formDetails) => {
         try {
             const { data } = await axiosClient.post(
                 "/tasker/portfolio/",

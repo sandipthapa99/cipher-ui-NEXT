@@ -11,6 +11,8 @@ module.exports = {
             "thispersondoesnotexist.com",
             "picsum.photos",
             "172.16.16.70",
+            "54.252.73.240", 
         ],
+        
     },
 };
