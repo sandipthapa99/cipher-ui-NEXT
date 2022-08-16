@@ -2,7 +2,8 @@ import Image from "next/image";
 import { useRef } from "react";
 import type { DragAndDropProps } from "types/dragDrop";
 
-const DragDrop = ({
+import FileInputField from "./FileInputField";
+const FileDragDrop = ({
     name,
     image,
     fileType,
@@ -30,7 +31,7 @@ const DragDrop = ({
             <p className="info">
                 Drag or
                 <label
-                    htmlFor="choosefile"
+                    htmlFor="pdfFile"
                     className="browse text-primary"
                     role="button"
                 >
@@ -50,18 +51,13 @@ const DragDrop = ({
                 ""
             )}
             {maxPdfSize ? <span>Maximum Pdf size {maxPdfSize} MB</span> : ""}
-
             <input
                 type="file"
-                id="choosefile"
+                id="pdfFile"
                 ref={inputRef}
                 style={{ display: "none" }}
                 onChange={(event: any) => {
-                    const files = event.target.files;
-                    field?.(name, (files ?? [])[0]);
-                    console.log("files=", files);
-                    console.log("field name", field?.name);
-                    // console.log("field", field?.files);
+                    field?.("file", event.target.files[0]);
                 }}
                 name={name}
             />
@@ -69,4 +65,4 @@ const DragDrop = ({
     );
 };
 
-export default DragDrop;
+export default FileDragDrop;

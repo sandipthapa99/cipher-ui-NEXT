@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ProfileAboutContent } from "staticData/profileAboutContent";
@@ -76,25 +77,57 @@ const AboutProfile = () => {
                             <div className="content">
                                 {portfolioData
                                     ? portfolioData?.data?.result?.map(
-                                          (value, key) => (
-                                              <div className="image" key={key}>
-                                                  <figure className="thumbnail-img">
-                                                      <Image
-                                                          src={value?.image}
-                                                          layout="fill"
-                                                          objectFit="cover"
-                                                          alt="portfolio-image"
-                                                      />
-                                                  </figure>
-                                                  <figure className="thumbnail-img">
-                                                      <Image
-                                                          src={value?.file}
-                                                          layout="fill"
-                                                          objectFit="cover"
-                                                          alt="portfolio-file"
-                                                      />
-                                                  </figure>
-                                                  <p>{value.title}</p>
+                                          (info: any) => (
+                                              <div
+                                                  className="image"
+                                                  key={info?.id}
+                                              >
+                                                  <Row>
+                                                      <Col md={6}>
+                                                          <Link
+                                                              href={`${info?.image}`}
+                                                          >
+                                                              <a target="_blank">
+                                                                  {info?.image ? (
+                                                                      <figure className="thumbnail-img">
+                                                                          <Image
+                                                                              src={`${info?.image}`}
+                                                                              layout="fill"
+                                                                              objectFit="cover"
+                                                                              alt="portfolio-image"
+                                                                          />
+                                                                      </figure>
+                                                                  ) : (
+                                                                      ""
+                                                                  )}
+                                                              </a>
+                                                          </Link>
+                                                      </Col>
+                                                      <Col md={6}>
+                                                          <Link
+                                                              href={`${info?.file}`}
+                                                          >
+                                                              <a target="_blank">
+                                                                  {info?.file ? (
+                                                                      <figure className="thumbnail-img">
+                                                                          <Image
+                                                                              src="/userprofile/documents/pdf.svg"
+                                                                              layout="fill"
+                                                                              objectFit="cover"
+                                                                              alt="portfolio-file"
+                                                                          />
+                                                                      </figure>
+                                                                  ) : (
+                                                                      ""
+                                                                  )}
+                                                              </a>
+                                                          </Link>
+                                                      </Col>
+                                                  </Row>
+
+                                                  <p className="text-center">
+                                                      {info.title}
+                                                  </p>
                                               </div>
                                           )
                                       )
