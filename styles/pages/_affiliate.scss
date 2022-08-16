@@ -1,0 +1,199 @@
+.affiliate-hero-section {
+    background-color: #ffffff40;
+    margin-bottom: 4rem;
+
+    .row {
+        padding: 4rem 0 9.2rem 0;
+    }
+
+    .thumbnail-img {
+        height: 39.7rem;
+        width: 43.2rem;
+    }
+
+    &__text-wrapper {
+        h1 {
+            font-size: 2.4rem;
+            color: $primary-color;
+            font-weight: 500;
+            padding-bottom: 1.5rem;
+            @include respond(md) {
+                font-size: 3rem;
+            }
+        }
+
+        p {
+            font-size: 1.4rem;
+            font-weight: 500;
+            line-height: 2.2rem;
+            color: #343a40;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 4rem;
+
+            li {
+                font-size: 1.2rem;
+                font-weight: 400;
+                line-height: 1.8rem;
+                margin-bottom: 1.6rem;
+                color: #000;
+                display: flex;
+                &::before {
+                    content: "\2022";
+                    color: #0693e3;
+                    font-weight: 700;
+                    display: inline-block;
+                    width: 1em;
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+}
+.affiliate-partners-section {
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0rem 1rem;
+        align-items: center;
+
+        h1 {
+            padding-top: 1.8rem;
+            font-weight: 600;
+        }
+    }
+}
+.affiliate-get-started-section {
+    .heading-title {
+        margin-bottom: 0.8rem;
+    }
+
+    h2 {
+        color: #343a40;
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+}
+
+.affiliate-how-it-works {
+    h2 {
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #343a40;
+        margin-bottom: 4rem;
+    }
+
+    .table-card {
+        background-color: #ffffff40;
+        box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+        border-radius: 0.4rem;
+        border: none;
+        table {
+            width: 100%;
+            padding-bottom: 0rem;
+            thead {
+                border-bottom: 0.2rem solid #ced4da;
+            }
+            th {
+                color: #0693e3;
+                font-size: 1.5rem;
+                border: none;
+                @include respond(sm) {
+                    font-size: 2rem;
+                }
+                font-weight: 500;
+                text-align: left;
+                padding: 3.2rem 2rem 3.2rem 3rem;
+
+                @include respond(md) {
+                    padding-left: 5rem;
+                }
+
+                &:first-child {
+                    border-right: 1px solid #ced4da;
+                }
+            }
+
+            td {
+                border: none;
+                padding-left: 3rem;
+                @include respond(md) {
+                    padding-left: 5rem;
+                }
+                &:first-child {
+                    border-right: 1px solid #ced4da;
+                }
+
+                ul {
+                    list-style-type: none;
+
+                    li {
+                        &:first-child {
+                            margin-top: 2.4rem;
+                        }
+
+                        margin-bottom: 2.4rem;
+                        font-size: 1.4rem;
+                        font-weight: 500;
+                        color: #343a40;
+                    }
+                }
+            }
+        }
+    }
+
+    .right-text {
+        padding-left: 0rem;
+        @include respond(md) {
+            padding-left: 8rem;
+        }
+        padding-top: 2.5rem;
+        @include respond(md) {
+            padding-top: 0rem;
+        }
+
+        p {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #343a40;
+            line-height: 2.2rem;
+        }
+    }
+}
+
+.why-cipher {
+    padding: 4rem;
+    background-color: #ffffff40;
+    box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+    border-radius: 0.4rem;
+    padding-bottom: 5rem;
+    .content {
+        .description {
+            h4 {
+                font-size: 1.5rem;
+                padding-top: 1rem;
+            }
+        }
+    }
+
+    .card-btn {
+        margin-top: 2.5rem;
+    }
+}
+
+.affiliate-faqs {
+    h1 {
+        font-size: 2rem;
+        font-weight: 500;
+        color: #343a40;
+    }
+
+    .accordion {
+        .accordion-item {
+            background-color: transparent;
+        }
+    }
+}

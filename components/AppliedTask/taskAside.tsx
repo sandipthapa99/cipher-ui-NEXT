@@ -1,33 +1,36 @@
-import { useSearchContext } from "context/searchContext";
+import { format } from "date-fns";
 import Link from "next/link";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
+import type { ITask } from "types/task";
 
-import { taskApplied } from "../../staticData/taskApplied";
 import TaskAppliedCard from "./taskAppliedCard";
 
-const TaskAside = ({ children }: { children: ReactNode }) => {
-    const { state } = useSearchContext();
+interface TaskAsideProps {
+    children: ReactNode;
+    appliedTasks: ITask[];
+    query: string;
+}
+const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
+    const totalAppliedTasks = appliedTasks?.length;
 
-    const filteredServices = taskApplied.filter((task) =>
-        task.title
-            .split(" ")
-            .join("")
-            .toLowerCase()
-            .includes(state.toLowerCase())
-    );
-
-    const renderTaskCards = filteredServices.map((task) => {
+    const renderTaskCards = appliedTasks?.map((task) => {
         return (
-            <div key={task.id}>
-                <Link href="/task/task-detail">
+            <div key={task.uuid}>
+                <Link href={`/task/${task.uuid}`}>
                     <a>
                         <TaskAppliedCard
                             title={task.title}
-                            charge={task.charge}
+                            startPrice={task.budget_from}
+                            endPrice={task?.budget_to}
                             location={task.location}
-                            date={task.date}
-                            time={task.time}
+                            date={format(
+                                new Date(task.created_at),
+                                "dd MMM, yyyy"
+                            )}
+                            time={format(new Date(task.created_at), "HH : mm")}
+                            currency={task?.currency}
+                            charge={task.charge?.toString() ?? "0"}
                         />
                     </a>
                 </Link>
@@ -37,17 +40,17 @@ const TaskAside = ({ children }: { children: ReactNode }) => {
     return (
         <div className="search-results">
             <Row>
-                <Col md={4} style={{ overflowY: "scroll", maxHeight: "175vh" }}>
-                    <p
-                        style={{
-                            fontSize: "12px",
-                            color: "#495057",
-                            lineHeight: "18px",
-                        }}
-                    >
-                        {filteredServices.length} {state} Services in Kathmandu,
-                        Nepal (1 new)
-                    </p>
+                <Col md={4} style={{ overflowY: "scroll", maxHeight: "90vh" }}>
+                    {query && totalAppliedTasks > 0 ? (
+                        <p className="search-results-text">
+                            {`${totalAppliedTasks} service matching ${query} found`}
+                        </p>
+                    ) : null}
+                    {query && totalAppliedTasks === 0 ? (
+                        <p className="search-results-text">
+                            No services matching {query} found
+                        </p>
+                    ) : null}
                     {renderTaskCards}
                 </Col>
 

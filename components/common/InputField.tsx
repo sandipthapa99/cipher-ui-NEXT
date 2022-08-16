@@ -1,17 +1,20 @@
+import TooltipMessage from "@components/common/Tooltip";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
-import { InputFieldProps } from "types/inputField";
+import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 
 const InputField = ({
     name,
     error,
     touch,
-
+    inputIcon,
     placeHolder,
+    haveIcon,
     labelName,
     textMuted,
     as,
-    fieldRequired = false,
+    fieldRequired,
     ...restProps
 }: InputFieldProps & Partial<HTMLInputElement>) => {
     return (
@@ -22,14 +25,39 @@ const InputField = ({
                     {fieldRequired && <span className="asterisk">*</span>}
                 </label>
             )}
-            <Field
-                {...restProps}
-                name={name}
-                id={name}
-                className={checkFormControl(error, touch)}
-                placeholder={placeHolder}
-                as={as}
-            />
+            {haveIcon ? (
+                <div className="input-with-icon">
+                    <Field
+                        {...restProps}
+                        name={name}
+                        id={name}
+                        className={checkFormControl(error, touch)}
+                        placeholder={placeHolder}
+                        as={as}
+                    />
+                    <TooltipMessage
+                        message="Medical TAX(15% of Medical Expenses)"
+                        place="right"
+                    >
+                        <div>
+                            <FontAwesomeIcon
+                                icon={inputIcon}
+                                className="svg-icon"
+                            />
+                        </div>
+                    </TooltipMessage>
+                </div>
+            ) : (
+                <Field
+                    {...restProps}
+                    name={name}
+                    id={name}
+                    className={checkFormControl(error, touch)}
+                    placeholder={placeHolder}
+                    as={as}
+                />
+            )}
+
             <ErrorMessage
                 name={name}
                 component="span"

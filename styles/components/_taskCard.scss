@@ -1,9 +1,12 @@
 .task-card-block {
     background: #ffffff66;
-    padding: 2.4rem 4rem;
+    padding: 2.4rem 1rem;
     border-radius: 0.4rem;
     box-shadow: 0px 4px 14px #211d4f1a;
     margin-bottom: 2.4rem;
+    @include respond(sm) {
+        padding: 2.4rem 4rem;
+    }
 
     &__header {
         margin-bottom: 2.2rem;
@@ -76,6 +79,14 @@
                 .svg-icon {
                     color: #2d2d66;
                 }
+            }
+        }
+
+        @include respond(xs) {
+            .right {
+                display: flex;
+                justify-content: center;
+                margin: 1rem 0 0;
             }
         }
     }

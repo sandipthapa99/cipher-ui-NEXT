@@ -1,0 +1,167 @@
+.account-form {
+    background: #fff;
+    padding: 3rem;
+    @include respond(md) {
+        padding: 5rem;
+    }
+    @include respond(lg) {
+        padding: 8rem;
+    }
+    .profile-img {
+        // background-color: red;
+
+        .badge-icon {
+            color: #3eaeff;
+            width: 20px;
+            height: 18px;
+            position: absolute;
+            bottom: -1.1rem;
+            right: 43%;
+            z-index: 1;
+        }
+        .img-dragdrop {
+            background-color: rgba(47, 47, 47, 0.7);
+            padding: 6px;
+            width: 30px;
+            height: 30px;
+            z-index: 1;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 1.4rem;
+            right: 0.4rem;
+            cursor: pointer;
+            .camera-icon {
+                color: #fff;
+                width: 1.8rem;
+                height: 1.8rem;
+                font-size: 1.8rem;
+                font-weight: 400;
+            }
+        }
+    }
+    h2 {
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: $sub-title-color;
+    }
+    p {
+        font-weight: 400;
+        font-size: 1.4rem;
+        color: $sub-title-color;
+    }
+    figure {
+        width: 14.8rem;
+        height: 14.8rem;
+        position: relative;
+    }
+    h3 {
+        font-weight: 500;
+        font-size: 2rem;
+        color: $sub-title-color;
+        margin: 0 0 4rem;
+    }
+    h4 {
+        font-weight: 500;
+        font-size: 1.6rem;
+        color: $default-text-color;
+        margin: 0 0 1.6rem 0;
+    }
+    form {
+        h3 {
+            margin: 4rem 0 2.4rem 0;
+            font-weight: 500;
+            font-size: 2rem;
+            color: $sub-title-color;
+        }
+        h4 {
+            font-weight: 500;
+            font-size: 1.4rem;
+            color: $sub-title-color;
+        }
+        h5 {
+            margin: 4rem 0 2rem 0;
+            font-weight: 500;
+            font-size: 1.6rem;
+            color: $sub-title-color;
+        }
+        .radio-block {
+            margin: 0 2rem 0 0;
+            &__input {
+                margin: 0 1rem 0 0;
+            }
+        }
+        .security-toggle {
+            font-weight: 400;
+            font-size: 1.4rem;
+            color: $sub-title-color;
+            margin: 0 0 2.4rem 0;
+            input {
+                width: 2.5rem;
+                border-color: $grayScale6;
+            }
+        }
+    }
+    .membership {
+        .card {
+            &-body {
+                ul {
+                    margin: 1.6rem 0 0;
+                    font-weight: 400;
+                    font-size: 1.4rem;
+                    color: $secondary-text-color;
+                    li {
+                        margin: 0 0 1.8rem;
+                    }
+                }
+            }
+        }
+    }
+    .accordion {
+        .accordion-item {
+            border-color: #e2e2e2;
+            .accordion-header {
+                .accordion-button {
+                    font-size: 1.4rem;
+                    font-weight: 400;
+                    color: #212529;
+                    padding: 1rem 0;
+                    border: none;
+                    @include respond(md) {
+                        font-size: 1.4rem;
+                        // padding: 0.8rem 0;
+                    }
+                    &::after {
+                        background-size: 100%;
+                        width: 1.4rem;
+                        height: 1.4rem;
+                        @include respond(md) {
+                            width: 1.8rem;
+                            height: 1.8rem;
+                        }
+                    }
+                    &:focus {
+                        background: none;
+                        box-shadow: none;
+                    }
+                }
+            }
+            .accordion-body {
+                padding: 0 0 3rem;
+                p {
+                    &:last-child {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+    .help-wrapper {
+        margin: 0 0 2.4rem;
+        h2 {
+            margin: 0 0 0.8rem 0;
+        }
+        p {
+            margin: 0;
+        }
+    }
+}

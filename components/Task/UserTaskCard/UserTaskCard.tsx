@@ -1,20 +1,28 @@
+import BigButton from "@components/common/Button";
+import SaveIcon from "@components/common/SaveIcon";
+import ShareIcon from "@components/common/ShareIcon";
 import {
     faEllipsisVertical,
-    faHeart,
     faRibbon,
-    faShare,
     faSmile,
     faStar,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { Task } from "types/tasks";
+import type { Task } from "types/tasks";
 
 interface Props {
+    isButton?: boolean;
     task: Task;
     onTaskClick: (task: Task) => void;
+    handleButtonClick?: () => void;
 }
-export const UserTaskCard = ({ task, onTaskClick }: Props) => {
+export const UserTaskCard = ({
+    isButton,
+    task,
+    onTaskClick,
+    handleButtonClick,
+}: Props) => {
     return (
         <div className="user-task-card" onClick={() => onTaskClick(task)}>
             <div className="user-task-card__header">
@@ -24,8 +32,9 @@ export const UserTaskCard = ({ task, onTaskClick }: Props) => {
                     height="80px"
                     objectFit="cover"
                     alt={`${task.user.username} profile picture`}
-                    className="rounded-circle"
+                    className="rounded-circle header-image"
                 />
+
                 <div className="user-info">
                     <p className="user-info__username">{task.user.username}</p>
                     <span>
@@ -70,18 +79,22 @@ export const UserTaskCard = ({ task, onTaskClick }: Props) => {
                 />
             </div>
             <p className="td-text user-info__bio">{task.user.bio}</p>
-            <div className="user-task-card__footer">
-                <FontAwesomeIcon
-                    color="#FE5050"
-                    className="svg-icon"
-                    icon={faHeart}
-                />
-                <FontAwesomeIcon
-                    color="#3EAEFF"
-                    className="svg-icon"
-                    icon={faShare}
-                />
-                <p className="task-price">{task.price}</p>
+            <div className="d-flex justify-content-between user-task-card__footer">
+                <div className="icons">
+                    <SaveIcon />
+                    <ShareIcon />
+                </div>
+                {isButton === true && (
+                    <BigButton
+                        btnTitle={"Collab"}
+                        backgroundColor={"#211D4F"}
+                        textColor={"white"}
+                        handleClick={handleButtonClick}
+                    />
+                )}
+                {isButton === false && (
+                    <p className="task-price">{task.price}</p>
+                )}
             </div>
         </div>
     );

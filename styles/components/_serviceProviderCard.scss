@@ -4,6 +4,16 @@
     padding-bottom: 1.7rem;
     padding-top: 1.7rem;
     // align-items: stretch !important;
+
+    .edit-add-service-button {
+        button {
+            background-color: #fff;
+            @include border();
+            span {
+                color: $primary-color;
+            }
+        }
+    }
     .profile {
         display: flex;
         .thumbnail-img {
@@ -33,26 +43,22 @@
     }
 
     .description {
-        display: flex;
-        flex-direction: column;
         padding-top: 2.9rem;
         padding-bottom: 2.2rem;
-        .type {
-            margin-bottom: -1.8rem;
-        }
-        p {
-            font-size: 1.3rem;
-        }
-        .thumbnail-img {
-            height: 2rem;
-            width: 2rem;
-            margin-right: 1rem;
+        &__icon {
+            margin: 0 0 1.5rem 0;
+            svg {
+                width: 2rem;
+                height: 2rem;
+            }
+            span {
+                font-size: 1.3rem;
+            }
         }
     }
     .starting-price {
         border-top: 2px solid #ced4da;
         border-bottom: 2px solid #ced4da;
-        display: flex;
         margin-bottom: 2.2rem;
         p {
             margin-bottom: 0rem;
@@ -60,7 +66,6 @@
             font-size: 1.3rem;
         }
         .price {
-            margin-left: 12rem;
             font-weight: 500;
             font-size: 1.5rem;
             color: $primary-color;

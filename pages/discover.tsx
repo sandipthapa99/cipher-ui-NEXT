@@ -1,13 +1,12 @@
 import AboutCard from "@components/common/AboutCard";
 import AllCategoryCard from "@components/common/AllCategoryCard";
-import Breadcrum from "@components/common/Breadcrum";
-import BigButton from "@components/common/Button";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import MerchantAdviceCard from "@components/common/MerchantAdviceCard";
 import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
+import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
-import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { AllCategoryCardContent } from "staticData/categoryCardContent";
 import { merchantAdvice } from "staticData/merchantAdvice";
@@ -18,37 +17,18 @@ import { servicesDiscover } from "staticData/services";
 const Discover: NextPage = () => {
     return (
         <Layout title="Discover | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="discover-page">
-                    <Breadcrum currentPage="Discover" />
+                    <BreadCrumb currentPage="Discover" />
 
                     {/* Discover top container start */}
                     <section className="discover-page__top-container">
-                        <div className="gradient"></div>
-                        <figure className="thumbnail-img">
-                            <Image
-                                src="/discover/main.svg"
-                                layout="fill"
-                                objectFit="cover"
-                                alt="oppurtunities-page-main-image"
-                            />
-                        </figure>
-                        <div className="overlay">
-                            <h1>
-                                Looking to earn money <br /> quickly?
-                            </h1>
-                            <div className="bottom-content">
-                                <p>
-                                    It doesn&apos;t even take a minute to sign
-                                    up
-                                </p>
-                                <BigButton
-                                    btnTitle="Join Us"
-                                    backgroundColor="#fff"
-                                />
-                                {/* <Button className="btn">Join Us</Button> */}
-                            </div>
-                        </div>
+                        <GradientBanner
+                            title="Looking to earn money quickly?"
+                            subTitle="It doesn't even take a minute to sign up"
+                            image="/gradient-updated.png"
+                            btnText="Join Us"
+                        />
                     </section>
                     {/* Discover top container end */}
                     {/* Services near you section start */}
@@ -56,6 +36,7 @@ const Discover: NextPage = () => {
                         id="services-near-you"
                         className="discover-page__services-section"
                     >
+                        <h1>Popular On Cipher</h1>
                         <Row className="gx-5 d-flex align-items-stretch">
                             {servicesDiscover &&
                                 servicesDiscover.map((service) => {
@@ -106,7 +87,7 @@ const Discover: NextPage = () => {
                     <section className="discover-page__categories">
                         <h1>Our categories</h1>
                         <p>Choose category according to your needs.</p>
-                        <Row className="gy-4 align-tems-stretch">
+                        <Row className="gy-4 gx-5 align-tems-stretch">
                             {AllCategoryCardContent &&
                                 AllCategoryCardContent.map((category) => {
                                     return (

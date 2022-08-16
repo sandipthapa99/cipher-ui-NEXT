@@ -4,65 +4,93 @@ import {
     faLinkedin,
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { faCopy } from "@fortawesome/pro-regular-svg-icons";
 import { faLink } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
+import {
+    FacebookShareButton,
+    InstapaperShareButton,
+    LinkedinShareButton,
+    TwitterShareButton,
+} from "next-share";
 import Modal from "react-bootstrap/Modal";
-import { ShareButtonProps } from "types/shareButton";
+import type { ShareButtonProps } from "types/shareButton";
+
 const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
+    const copyToClipBoard = async (copyMe: any) => {
+        try {
+            await navigator.clipboard.writeText(copyMe);
+        } catch (err) {
+            console.log(err);
+        }
+    };
     return (
         <div className="share-modal">
             {/* Modal component */}
-            <Modal centered show={show} onHide={handleClose}>
+            <Modal centered show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton></Modal.Header>
                 <div className="share-modal__modal-body-content">
                     <h1>Share With</h1>
                     <div className="media-wrapper">
                         <div className="social-media">
-                            <Link href="#!">
+                            <FacebookShareButton
+                                url={"https://github.com/next-share"}
+                                quote={
+                                    "next-share is a social share buttons for your next React apps."
+                                }
+                                hashtag={"#nextshare"}
+                            >
                                 <FontAwesomeIcon
                                     icon={faFacebookF}
                                     className="svg-icon facebook"
                                 />
-                            </Link>
+                            </FacebookShareButton>
                         </div>
                         <div
                             className="social-media"
                             style={{ background: "#0072B1" }}
                         >
-                            <Link href="#!">
+                            <TwitterShareButton
+                                url={"https://github.com/next-share"}
+                                hashtags={["#nextshare"]}
+                            >
                                 <FontAwesomeIcon
                                     icon={faTwitter}
                                     className="svg-icon twitter"
                                 />
-                            </Link>
+                            </TwitterShareButton>
                         </div>
                         <div className="social-media">
-                            <Link href="#!">
+                            <InstapaperShareButton
+                                url={"https://github.com/next-share"}
+                                description={
+                                    "next-share is a social share buttons for your next React apps."
+                                }
+                            >
                                 <FontAwesomeIcon
                                     icon={faInstagram}
                                     className="svg-icon instagram"
                                 />
-                            </Link>
+                            </InstapaperShareButton>
                         </div>
                         <div className="social-media">
-                            <Link href="#!">
+                            <LinkedinShareButton
+                                url={"https://github.com/next-share"}
+                            >
                                 <FontAwesomeIcon
                                     icon={faLinkedin}
                                     className="svg-icon linkedin"
                                 />
-                            </Link>
+                            </LinkedinShareButton>
                         </div>
                         <div className="social-media">
-                            <Link href="#!">
+                            <Link href="/">
                                 <FontAwesomeIcon
                                     icon={faCopy}
+                                    onClick={() =>
+                                        copyToClipBoard("https://cipher.com/")
+                                    }
                                     className="svg-icon copy"
                                 />
                             </Link>

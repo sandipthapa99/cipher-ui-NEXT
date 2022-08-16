@@ -18,14 +18,7 @@ const Post = () => {
                 <div className="folder">
                     <FontAwesomeIcon
                         icon={faFolderOpen}
-                        style={{
-                            width: "120px",
-                            height: "120px",
-                            verticalAlign: "middle",
-                            display: "inline-block",
-                            fontSize: "12px",
-                            color: "#FFCA6A",
-                        }}
+                        className="folder-icon"
                     />
                 </div>
                 <div className="text-post">
@@ -54,7 +47,7 @@ const Post = () => {
             >
                 <Modal.Header className="mt-4" closeButton></Modal.Header>
                 <Modal.Body>
-                    <PostModal onSubmit={handleClose} />
+                    <PostModal setshowPostModel={handleClose} />
                 </Modal.Body>
             </Modal>
             <PostCard

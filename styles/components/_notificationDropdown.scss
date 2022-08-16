@@ -11,6 +11,11 @@
     max-height: 90vh;
     overflow-y: auto;
     margin: 0 0 1rem;
+    z-index: 3;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
 
     @include respond(md) {
         width: 53.5rem;

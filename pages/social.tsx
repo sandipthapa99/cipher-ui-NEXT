@@ -1,5 +1,5 @@
 import BlogCard from "@components/common/BlogCard";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import BusinessGoal from "@components/common/BusinessGoal";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
@@ -10,12 +10,13 @@ import React from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import { businessGoal } from "staticData/businessGoal";
 import { blogCardContent } from "staticData/community";
+
 const SocialResponsibilities: NextPage = () => {
     return (
         <Layout title="Social Responsibilities | Cipher">
             <section className="social-page">
-                <Container fluid="xl">
-                    <Breadcrum currentPage="Social responsibilities" />
+                <Container fluid="xl" className="px-5">
+                    <BreadCrumb currentPage="Social responsibilities" />
                     <div className="social-page__top-container">
                         <h1>Social Responsibilites</h1>
                         <h4>Towards Community</h4>
@@ -93,7 +94,7 @@ const SocialResponsibilities: NextPage = () => {
                                 />
                             </a>
                         </div>
-                        <Row>
+                        <Row className="gx-5">
                             {blogCardContent &&
                                 blogCardContent.map((blog) => {
                                     return (

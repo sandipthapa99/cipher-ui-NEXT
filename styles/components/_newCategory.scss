@@ -1,0 +1,43 @@
+.hero-category {
+    &__card-block {
+        background: #fff;
+        border-radius: 0.4rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        width: 100%;
+        @include respond(md) {
+        }
+        .image-block {
+            height: 6rem;
+            width: 5.6rem;
+            border-radius: 0.4rem;
+            padding: 0.6rem 1.2rem;
+            // background: #752de820;
+            margin-right: 2.4rem;
+            .thumbnail-icon {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .details {
+            h1 {
+                font-size: 2rem;
+                font-weight: 500;
+                color: $primary-color;
+            }
+            a {
+                color: #868e96;
+                font-size: 1.2rem;
+                .icon {
+                    margin-left: 0.6rem;
+                    color: #3eaeff;
+                    height: 1.8rem;
+                    width: 1.8rem;
+                }
+                &:hover {
+                    color: $secondary-color;
+                }
+            }
+        }
+    }
+}

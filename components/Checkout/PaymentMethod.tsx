@@ -1,8 +1,11 @@
+import EditProfileButton from "@components/Profile/EditProfileButton";
+import AddCardForm from "@components/settings/AddCardForm";
 import { faCircleDot } from "@fortawesome/pro-regular-svg-icons";
 import { faCircleDot as circleDot } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
-import React, { ReactNode, useContext } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
+import React, { useContext } from "react";
 import {
     Accordion,
     AccordionContext,
@@ -52,6 +55,7 @@ function ContextAwareToggle({
 }
 
 const PaymentMethod = () => {
+    const [showAddCardForm, setShowAddCardForm] = useState(false);
     return (
         <div className="payment-method mt-5">
             <h2>Payment Methods</h2>
@@ -64,9 +68,18 @@ const PaymentMethod = () => {
                                     Debit/Credit Card (2)
                                 </span>
                             </ContextAwareToggle>
-                            <Link href={"/"}>
-                                <a>+ Add New</a>
-                            </Link>
+                            <EditProfileButton
+                                text="Add New"
+                                showModal={true}
+                                handleOnClick={() =>
+                                    setShowAddCardForm(!showAddCardForm)
+                                }
+                            />
+                            <AddCardForm
+                                show={showAddCardForm}
+                                setShowAddCardForm={setShowAddCardForm}
+                                handleClose={() => setShowAddCardForm(false)}
+                            />
                         </Card.Header>
                         <Accordion.Collapse eventKey="0">
                             <Card.Body>

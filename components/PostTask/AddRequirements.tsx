@@ -1,18 +1,21 @@
 import { faCirclePlus, faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { KeyboardEvent } from "react";
+import type { ChangeEvent } from "react";
 import { useState } from "react";
-import { ChangeEvent } from "react";
 import { Form, InputGroup, Row } from "react-bootstrap";
-import { Requirement } from "types/requirement";
+import type { Requirement } from "types/requirement";
 
 interface Props {
-    field: (label: string, value: unknown) => void;
+    field?: (label: string, value: unknown) => void;
+    onSubmit?: (requirement: Requirement[]) => void;
+    title?: string;
+    description?: string;
 }
 
 const requirements: Requirement[] = [];
 
-const AddRequirements = ({ field }: Props) => {
+const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
     const [requirementState, setRequirementState] = useState(requirements);
     const [require, setRequire] = useState("");
 
@@ -25,7 +28,9 @@ const AddRequirements = ({ field }: Props) => {
                     ...prev,
                     { id: prev.length === 0 ? 0 : prev.length, name: require },
                 ];
-                field("requirements", updatedValue);
+
+                onSubmit?.(updatedValue);
+                field?.("requirements", updatedValue);
                 return updatedValue;
             });
         }
@@ -46,26 +51,18 @@ const AddRequirements = ({ field }: Props) => {
                 (prevItem) => prevItem.id !== requirementId
             );
 
-            field("requirements", filtered);
+            field?.("requirements", filtered);
 
             return filtered;
         });
-        console.log(requirementId);
-        console.log(requirementState);
     };
 
     const renderTasks = requirementState.map((requirement, index) => {
         return (
-            <div
-                key={index}
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginTop: "1rem",
-                }}
-            >
-                <li>{requirement.name}</li>
+            <div className="list-item-requirements" key={index}>
+                <li>
+                    {index + 1}. {requirement.name}
+                </li>
 
                 <FontAwesomeIcon
                     icon={faXmark}
@@ -77,32 +74,22 @@ const AddRequirements = ({ field }: Props) => {
         );
     });
     return (
-        <>
-            <p
-                className="price-text"
-                style={{ fontSize: "14px", fontWeight: "bold" }}
-            >
-                Next, provide detail requirements
-            </p>
-            <p className="price-text" style={{ fontSize: "12px" }}>
-                This helps merchants to find about your requirements better.
-            </p>
+        <div className="add-requirements">
+            <p className="requirements-title">{title}</p>
+            <p className="requirement-desc">{description}</p>
             <Row>
                 <Row>
-                    <ol style={{ marginLeft: "1.5rem" }}>{renderTasks}</ol>
+                    <ol className="list-requirements">{renderTasks}</ol>
                 </Row>
                 <Row>
                     <div className="mt-4">
-                        <InputGroup
-                            className="mb-3"
-                            style={{ border: "1px solid #dee2e6" }}
-                        >
+                        <InputGroup className="add-requirements--input-group">
                             <Form.Control
+                                className="add-requirements--input"
                                 placeholder="Add requirements"
                                 aria-label="Recipient's username"
                                 aria-describedby="basic-addon2"
                                 value={require}
-                                style={{ border: "none", outline: "none" }}
                                 onKeyPress={handleEnterAdd}
                                 onChange={(
                                     event: ChangeEvent<HTMLInputElement>
@@ -110,26 +97,20 @@ const AddRequirements = ({ field }: Props) => {
                                     setRequire(event.target.value);
                                 }}
                             />
-                            <button
-                                id="button-addon2"
-                                onClick={addRequirements}
-                                style={{
-                                    margin: "0.7rem 0.5rem 0.5rem 0.5rem",
-                                    border: "none",
-                                    outline: "none",
-                                }}
-                            >
+
+                            <div className="add-requirements--button">
                                 <FontAwesomeIcon
+                                    onClick={addRequirements}
                                     icon={faCirclePlus}
-                                    className="svg-icon"
+                                    className="svg-icon "
                                     style={{ color: "#3EAEFF" }}
                                 />
-                            </button>
+                            </div>
                         </InputGroup>
                     </div>
                 </Row>
             </Row>
-        </>
+        </div>
     );
 };
 export default AddRequirements;

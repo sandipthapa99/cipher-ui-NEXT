@@ -3,16 +3,18 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { useAuthContext } from "context/AuthContext/userContext";
 import { Form, Formik } from "formik";
-import { withAuth } from "hoc/withAuth";
+import { useLogin } from "hooks/auth/useLogin";
+import { useRouter } from "next/router";
 import React from "react";
+import { toast } from "react-toastify";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
-    const { loginUser } = useAuthContext();
+    const router = useRouter();
+    const { mutate, isLoading } = useLogin();
 
     return (
         <section>
@@ -29,35 +31,22 @@ const Login = () => {
                     <Formik
                         initialValues={loginFormData}
                         validationSchema={loginFormSchema}
-                        onSubmit={async (values) => {
-                            loginUser(values);
-
-                            // actions.setSubmitting(true);
-                            // setTimeout(() => {
-                            // 	if (typeof window !== 'undefined') {
-                            // 		localStorage.setItem('user', JSON.stringify(values));
-                            // 		localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9');
-                            // 	}
-                            // 	// localStorage.setItem('user', JSON.stringify(values));
-                            // 	// localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9');
-                            // 	actions.setSubmitting(false);
-                            // 	router.push('/');
-                            // }, 2000);
-                            // const userValidation = users.find(
-                            // 	user =>
-                            // 		user.email === values.email &&
-                            // 		user.password === values.password
-                            // );
-                            // 	if (!userValidation) {
-                            // 		alert('Wrong Credentials');
-                            // 	} else {
-                            // 		alert('You are logged in');
-                            // 		router.push('/');
-                            // 		setToken('eyJhbGciOiJIUzI1NiJ9');
-                            // 	}
+                        onSubmit={(values) => {
+                            mutate(values, {
+                                onError: (error) => {
+                                    toast.error(error.message);
+                                },
+                                onSuccess: async () => {
+                                    const { next } = router.query;
+                                    await router.push(
+                                        typeof next === "string" ? next : "/"
+                                    );
+                                    toast.success("Login Successful!");
+                                },
+                            });
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ errors, touched }) => (
                             <Form className="login-form">
                                 <InputField
                                     type="email"
@@ -65,7 +54,7 @@ const Login = () => {
                                     labelName="Email or phone number"
                                     touch={touched.email}
                                     error={errors.email}
-                                    placeHolder="example@example.com"
+                                    placeHolder="Enter your email"
                                 />
                                 <PasswordField
                                     type="password"
@@ -73,17 +62,17 @@ const Login = () => {
                                     labelName="Password"
                                     touch={touched.password}
                                     error={errors.password}
-                                    placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
+                                    placeHolder="Password"
                                     forgotPassword="Forgot Password?"
                                 />
                                 <FormButton
                                     type="submit"
                                     variant="primary"
-                                    name={isSubmitting ? "Loading" : "Login"}
+                                    name={isLoading ? "Loading" : "Login"}
                                     className="login-btn"
-                                    isSubmitting={isSubmitting}
+                                    isSubmitting={isLoading}
                                     isSubmittingClass={isSubmittingClass(
-                                        isSubmitting
+                                        isLoading
                                     )}
                                 />
 
@@ -110,4 +99,5 @@ const Login = () => {
         </section>
     );
 };
-export default withAuth(Login);
+
+export default Login;

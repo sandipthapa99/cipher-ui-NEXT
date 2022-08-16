@@ -2,11 +2,15 @@
     width: 1.5rem;
     height: 1.5rem;
     margin: 0 1rem 0 0;
+
     &-location {
         color: #fe5050;
     }
     &-calender {
         color: #f06700;
+        &-grey {
+            color: #868e96;
+        }
     }
     &-clock {
         color: #3eaeff;
@@ -26,6 +30,9 @@
     &-cross {
         width: 2rem;
     }
+    &-smile {
+        color: #f98900;
+    }
     &-circle-check {
         width: 2rem;
         color: #3eaeff;
@@ -38,7 +45,38 @@
         width: 2rem;
         color: #adb5bd;
     }
+    &-eye-slash {
+        width: 2rem;
+    }
+    &-paper-clip {
+        width: 2rem;
+        height: 1.8rem;
+        color: $grayScale6;
+    }
+    &-heart {
+        width: 2rem;
+        height: 1.8rem;
+        color: #fe5050;
+        @include transition();
+        cursor: pointer;
+        &:hover {
+            color: $secondary-color;
+        }
+    }
+    &-share {
+        width: 2rem;
+        height: 1.8rem;
+        color: #3eaeff;
+        cursor: pointer;
+        @include transition();
+        &:hover {
+            color: $secondary-color;
+        }
+    }
 }
 .svg-180-transfrom {
     transform: rotate(180deg);
+}
+.svg-color-grey {
+    color: $grayScale6;
 }

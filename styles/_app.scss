@@ -9,12 +9,14 @@ body {
     line-height: 1.5;
     color: $default-text-color;
     overflow-x: hidden;
-    background: #fff;
+    background: #edf4ff;
     @include respond(md) {
         font-size: 1.6rem;
     }
 }
-
+li {
+    list-style-type: none;
+}
 a {
     color: #0693e3;
     text-decoration: none;
@@ -30,6 +32,10 @@ a {
     color: #fca500;
     font-size: 1.4rem;
     font-weight: 500;
+    margin: 0 0 1rem 0;
+    @include respond(sm) {
+        margin: 0;
+    }
     &:hover {
         color: $primary-color;
     }
@@ -126,6 +132,12 @@ img {
     max-width: 100%;
     max-height: 100%;
 }
+section {
+    margin-bottom: 4rem;
+    @include respond(md) {
+        margin-bottom: 8rem;
+    }
+}
 
 .thumbnail-img {
     overflow: hidden;
@@ -133,7 +145,7 @@ img {
     img {
         width: 100%;
         object-fit: cover;
-        @transform();
+        @include transform();
         @include transition();
     }
 }
@@ -190,6 +202,7 @@ textarea.form-control {
 .invalid-feedback {
     font-size: 1.2rem;
     font-weight: 400;
+    display: block;
     &::first-letter {
         text-transform: capitalize;
     }
@@ -305,9 +318,9 @@ textarea.form-control {
 .file-attachment {
     position: relative;
     overflow: hidden;
-    text-align: center;
-    border: 0.1rem dashed #d3d3d3;
+    border: 0.1rem solid $gray-text-color;
     border-radius: 0.5rem;
+    padding: 0.6rem 1.8rem;
     background: #fff;
     color: $default-text-color;
     padding: 1rem;
@@ -315,15 +328,12 @@ textarea.form-control {
     cursor: pointer;
     font-weight: 500;
     height: 5rem;
-    align-items: center;
     display: flex;
-    justify-content: center;
-    .svg-icon {
-        width: 2.4rem;
-        height: 2.4rem;
-        color: $primary-color;
-        margin: 0 1rem 0 0;
-        vertical-align: bottom;
+    align-items: center;
+    span {
+        font-family: $inter-font;
+        color: #807f7f;
+        padding: 0 0 0 1rem;
     }
     .fileUpload {
         position: absolute;
@@ -380,7 +390,7 @@ small.text-muted {
     font-weight: 500;
     margin: 0 0 2rem;
     font-weight: 500;
-    color: #343a40;
+    color: $primary-color;
     @include respond(md) {
         font-size: 2rem;
         margin: 0 0 2.4rem;
@@ -551,5 +561,96 @@ small.text-muted {
             font-size: 2rem;
             color: $primary-color;
         }
+    }
+}
+.react-datepicker {
+    font-size: 1.3rem !important;
+    &__triangle {
+        font-size: 1.5rem !important;
+        left: -1rem !important;
+    }
+    &__current-month {
+        font-size: 1.5rem !important;
+    }
+    &__header {
+        padding-top: 6px !important;
+    }
+    &__navigation {
+        top: 13px !important;
+    }
+    &__day-name,
+    &__day {
+        margin: 0.5rem !important;
+    }
+}
+
+.checkbox {
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #212529;
+    &-toggle {
+        accent-color: rgb(12, 84, 106);
+    }
+}
+.close-btn {
+    &:hover {
+        background: $primary-color !important;
+        color: #fff !important;
+    }
+}
+.dropdown-with-icon,
+.input-with-icon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .form-group {
+        margin: 0;
+        z-index: 1;
+
+        .form-control {
+            border: none;
+            height: 3.4rem;
+            font-size: 1.3rem;
+            cursor: pointer;
+            background: transparent;
+            padding-right: 0rem;
+
+            &::placeholder {
+                color: #868e96;
+                font-family: $poppins-font;
+                font-size: 1.6rem;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .svg-icon {
+        position: absolute;
+        right: 1rem;
+        top: 1.7rem;
+        color: #868e96;
+    }
+}
+.check-group {
+    &__input {
+        font-weight: 400;
+        font-size: 12px;
+    }
+}
+.sticky-wrapper-header {
+    position: relative;
+    z-index: 4;
+    margin: 0;
+    @include respond(md) {
+        position: sticky;
+        top: 0rem;
+    }
+}
+.sticky-wrapper {
+    position: relative;
+    @include respond(md) {
+        position: sticky;
+        top: 15rem;
     }
 }

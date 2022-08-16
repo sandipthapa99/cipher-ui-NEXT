@@ -7,14 +7,25 @@ import {
     faRightFromBracket,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { ProfileCardContent } from "staticData/profileCardContent";
+import { toast } from "react-toastify";
+import type { ProfileCardContent } from "staticData/profileCardContent";
+import { autoLogout } from "utils/auth";
 
 export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
+    const queryClient = useQueryClient();
     const router = useRouter();
+
+    const handleLogout = async () => {
+        queryClient.setQueryData(["user"], null);
+        autoLogout();
+        await router.push(router.pathname);
+        toast.success("Logged out successfully");
+    };
     return (
         <div className="profile-dropdown p-4">
             <div
@@ -93,28 +104,31 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link href="">
+                    <Link href="/settings/account/individual">
                         <a>
                             <FontAwesomeIcon
                                 icon={faGear}
                                 className="svg-icon"
                             />
-                            payment history
+                            Settings
                         </a>
                     </Link>
                 </li>
             </ul>
-            <ul className="border-0">
+            <ul className="border-1">
                 <li>
-                    <Link href="">
-                        <a>
-                            <FontAwesomeIcon
-                                icon={faRightFromBracket}
-                                className="svg-icon svg-180-transfrom"
-                            />
-                            Logout
-                        </a>
-                    </Link>
+                    <button
+                        className="logout-btn"
+                        style={{ color: "#495057" }}
+                        onClick={handleLogout}
+                    >
+                        <FontAwesomeIcon
+                            icon={faRightFromBracket}
+                            className="svg-icon svg-180-transfrom"
+                            style={{ color: "#868E96" }}
+                        />
+                        Logout
+                    </button>
                 </li>
             </ul>
         </div>

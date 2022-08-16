@@ -1,0 +1,51 @@
+.site-upper-header {
+    .upper-navigation {
+        .row-logo-search {
+            width: 100%;
+            .logo-search-cont {
+                display: flex;
+                padding: 18px 0;
+
+                @include respond(xs) {
+                    padding: 5px 5px;
+                }
+
+                .search-input {
+                    width: 535px;
+                    height: 48px;
+                }
+
+                .search-btn {
+                    background-color: $secondary-color;
+                    padding: 3px 1.3rem;
+                    border: none;
+
+                    .search-icon {
+                        width: 1.5rem;
+                        height: 1.5rem;
+                        vertical-align: middle;
+                        display: inline-block;
+                        font-size: 12px;
+                        color: #000;
+                    }
+                }
+            }
+
+            .profile-post {
+                display: flex;
+                padding: 18px 0;
+                align-items: center;
+                margin-left: 9rem;
+
+                @include respond(xs) {
+                    display: none;
+                }
+
+                .post-btn {
+                    border: none;
+                    outline: none;
+                }
+            }
+        }
+    }
+}

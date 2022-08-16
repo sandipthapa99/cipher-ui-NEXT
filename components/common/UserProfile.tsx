@@ -1,3 +1,4 @@
+import PhotoEdit from "@components/Profile/PhotoEdit";
 import {
     faAt,
     faCircleQuestion,
@@ -10,11 +11,14 @@ import {
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { Overlay, Tooltip } from "react-bootstrap";
-import { UserProfileInfoProps } from "types/userProfile";
+import type { UserProfileInfoProps } from "types/userProfile";
+
+import ProfileEditForm from "./ProfileEditForm";
+import TooltipMessage from "./Tooltip";
 
 const UserProfileCard = ({
     userImage,
@@ -34,31 +38,53 @@ const UserProfileCard = ({
     pointGoal,
     happyClients,
     successRate,
-    userReviews,
     taskCompleted,
-    userActiveStatus,
     tooltipMessage,
+    countryCode,
 }: UserProfileInfoProps) => {
-    const [show, setShow] = useState(false);
-    const target = useRef(null);
+    const [showEdit, setShowEdit] = useState(false);
+    const [showExpForm, setShowExpForm] = useState(false);
+    const { data: country } = useGetCountryBYId(countryCode);
+    // const services = JSON.parse(moreServices);
+
+    // const renderServices = moreServices?.map((service, index) => (
+    //     <p key={index}>{service}</p>
+    // ));
+    // const userType = JSON.parse(userJob);
+    // const renderType = userType.map((type, index) => {
+    //     return (
+    //         <p className="organization" key={index}>
+    //             Individual | {type}
+    //         </p>
+    //     );
+    // });
+
     return (
         <div className="profile-card-block">
             <Row>
                 <Col md={3} className="profile-card-block__profile">
-                    <figure className="thumbnail-img">
+                    <figure
+                        className="thumbnail-img"
+                        onClick={() => setShowExpForm(!showExpForm)}
+                    >
                         <Image
                             src={userImage}
                             layout="fill"
-                            // height={300}
                             objectFit="cover"
                             alt="user-profile-image"
                         />
                     </figure>
+                    <PhotoEdit
+                        photo={userImage}
+                        show={showExpForm}
+                        setShowExpForm={setShowExpForm}
+                        handleClose={() => setShowExpForm(false)}
+                    />
                     <div className="profile-intro d-flex">
                         <h1 className="name">{userName}</h1>
                         <div className="active"></div>
                     </div>
-                    <p className="organization">Individual | {userJob}</p>
+                    {/* {renderType} */}
                     <div className="rating">
                         {Array.from({ length: userRating }, (_, i) => (
                             <span key={i}>
@@ -78,13 +104,24 @@ const UserProfileCard = ({
                                 {" "}
                                 <FontAwesomeIcon
                                     icon={faStar}
-                                    className="svg-icon"
+                                    className="svg-icon star"
                                 />
                             </span>
                         ))}
                     </div>
                     <div className="price">${userPrice}/hr</div>
-                    <button className="button">Edit Profile</button>
+                    <button
+                        className="button"
+                        onClick={() => setShowEdit(!showEdit)}
+                    >
+                        Edit Profile
+                    </button>
+                    <ProfileEditForm
+                        show={showEdit}
+                        setShowEdit={setShowEdit}
+                        handleClose={() => setShowEdit(false)}
+                        userName={userName}
+                    />
                 </Col>
 
                 <Col md={9} className="profile-card-block__general-info">
@@ -99,7 +136,9 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
 
-                                    <p>{userPhone}</p>
+                                    <p>
+                                        +{country?.phone_code} {userPhone}
+                                    </p>
                                 </div>
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
@@ -124,8 +163,8 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
                                     <p>
-                                        &nbsp;Active Hours {activeFrom}:00 AM to{" "}
-                                        {activeTo}:00 PM
+                                        &nbsp;Active Hours {activeFrom} to{" "}
+                                        {activeTo}:
                                     </p>
                                 </div>
 
@@ -167,28 +206,19 @@ const UserProfileCard = ({
                                     />
                                 </figure>
                                 <div className="left">
-                                    <Overlay
-                                        target={target.current}
-                                        show={show}
-                                        placement="top"
-                                    >
-                                        {(props: any) => (
-                                            <Tooltip {...props}>
-                                                {tooltipMessage}
-                                            </Tooltip>
-                                        )}
-                                    </Overlay>
-                                    <div
-                                        ref={target}
-                                        onClick={() => setShow(!show)}
-                                        className="user-type d-flex"
-                                    >
-                                        <h1>{userBadge}</h1>
+                                    <div className="user-type d-flex">
+                                        <TooltipMessage
+                                            message={tooltipMessage}
+                                            place="top"
+                                        >
+                                            <h1>{userBadge}</h1>
+                                        </TooltipMessage>
                                         <FontAwesomeIcon
                                             icon={faCircleQuestion}
                                             className="svg-icon"
                                         />
                                     </div>
+
                                     <p className="user-point">
                                         {userPoints} points
                                     </p>

@@ -1,8 +1,8 @@
 import AboutCard from "@components/common/AboutCard";
 import BlogCard from "@components/common/BlogCard";
-import Breadcrum from "@components/common/Breadcrum";
-import GrowBusinessCarousel from "@components/common/GrowBusinessCarousel";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import ServiceCard from "@components/common/ServiceCard";
+import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
 import Link from "next/link";
@@ -19,9 +19,9 @@ import { services } from "staticData/services";
 const GrowYourBusiness: NextPage = () => {
     return (
         <Layout title="Grow Your Business | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="grow-business">
-                    <Breadcrum currentPage="Grow Your Business" />
+                    <BreadCrumb currentPage="Grow Your Business" />
 
                     {/* Discover top container start */}
                     <section className="grow-business__top-container">
@@ -35,7 +35,7 @@ const GrowYourBusiness: NextPage = () => {
                                             key={item.id}
                                             //interval={1000}
                                         >
-                                            <GrowBusinessCarousel
+                                            <SquareImageCarousel
                                                 image={item.image}
                                                 title={item.title}
                                                 description={item.description}
@@ -168,7 +168,7 @@ const GrowYourBusiness: NextPage = () => {
                     {/* blog section start */}
                     <section className="grow-business__blogs">
                         <h1>Blogs</h1>
-                        <Row>
+                        <Row className="gx-5">
                             {blogCardContent &&
                                 blogCardContent.map((blog) => {
                                     return (

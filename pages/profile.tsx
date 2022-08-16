@@ -1,4 +1,5 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
+import { Tab } from "@components/common/Tab";
 import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
 import AboutProfile from "@components/Profile/AboutProfile";
@@ -7,216 +8,124 @@ import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
-import type { NextPage } from "next";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import type { GetStaticProps, NextPage } from "next";
+import Link from "next/link";
 import { useState } from "react";
-import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
-import { rewardCardContent } from "staticData/rewardCard";
-import { userActivitiesTimeline } from "staticData/userActivitiesTimeline";
-import { userDocument } from "staticData/userDocument";
-import { userProfileCardInfo } from "staticData/userProfileCard";
+import { Col, Container, Row } from "react-bootstrap";
+import type { UserProfileProps } from "types/userProfileProps";
 
-const UserProfile: NextPage = () => {
-    const [key, setKey] = useState("about");
+const UserProfile: NextPage<UserProfileProps> = () => {
+    const [activeTabIdx, setActiveTabIdx] = useState(0);
+    const { data: profileDetails } = useGetProfile();
+
+    const remaining = {
+        userImage: "/service-details/provider1.svg",
+        userRating: 4,
+        userBadge: "Gold",
+        userPoints: 58,
+        pointGoal: 42,
+        happyClients: 24,
+        successRate: 30,
+        userReviews: 14,
+        tooltipMessage: "Tooltip Message will show up here",
+        taskCompleted: 30,
+        userActiveStatus: true,
+    };
+    if (!profileDetails) {
+        return (
+            <>
+                <Layout title="Profile | Cipher">
+                    <Container fluid="xl" className="px-5">
+                        <BreadCrumb currentPage="Profile" />
+                        <Row className="row-create-profile">
+                            <Col className="create-profile">
+                                <h1>Create your profile</h1>
+                                <button className="btn-create-profile">
+                                    <Link
+                                        href={"settings/account/individual"}
+                                        className="text-profile"
+                                    >
+                                        Create Profile
+                                    </Link>
+                                </button>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Layout>
+            </>
+        );
+    }
+
     return (
         <Layout title="Profile | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="user-profile">
-                    <Breadcrum
-                        currentPage="Profile"
-                        subPage="Detail"
-                        hasSubPage={false}
-                    />
+                    <BreadCrumb currentPage="Profile" />
 
                     {/* Explore top container start */}
+
                     <section className="user-profile__top-container">
-                        {userProfileCardInfo &&
-                            userProfileCardInfo.map((info) => (
-                                <UserProfileCard
-                                    key={info.id}
-                                    userImage={info.userImage}
-                                    userName={info.userName}
-                                    userJob={info.userJob}
-                                    userRating={info.userRating}
-                                    userPrice={info.userPrice}
-                                    userLocation={info.userLocation}
-                                    userPhone={info.userPhone}
-                                    userEmail={info.userEmail}
-                                    moreServices={info.moreServices}
-                                    activeFrom={info.activeFrom}
-                                    activeTo={info.activeTo}
-                                    userBio={info.userBio}
-                                    userBadge={info.userBadge}
-                                    userPoints={info.userPoints}
-                                    pointGoal={info.pointGoal}
-                                    happyClients={info.happyClients}
-                                    successRate={info.successRate}
-                                    userReviews={info.userReviews}
-                                    taskCompleted={info.taskCompleted}
-                                    userActiveStatus={info.userActiveStatus}
-                                    tooltipMessage={info.tooltipMessage}
-                                />
-                            ))}
+                        <UserProfileCard
+                            countryCode={profileDetails?.country}
+                            key={profileDetails?.id}
+                            userImage={remaining.userImage}
+                            userName={profileDetails?.full_name}
+                            userJob={profileDetails?.user_type}
+                            userRating={remaining.userRating}
+                            userPrice={profileDetails?.hourly_rate}
+                            userLocation={profileDetails?.address_line1}
+                            userPhone={profileDetails?.phone}
+                            userEmail={profileDetails?.user?.email}
+                            moreServices={profileDetails?.skill}
+                            activeFrom={profileDetails?.active_hour_start}
+                            activeTo={profileDetails?.active_hour_end}
+                            userBio={profileDetails?.bio}
+                            userBadge={remaining.userBadge}
+                            userPoints={remaining.userPoints}
+                            pointGoal={remaining.pointGoal}
+                            happyClients={remaining.happyClients}
+                            successRate={remaining.successRate}
+                            userReviews={remaining.userReviews}
+                            taskCompleted={remaining.taskCompleted}
+                            userActiveStatus={remaining.userActiveStatus}
+                            tooltipMessage={remaining.tooltipMessage}
+                        />
                     </section>
+
                     <section className="user-profile__bottom-container">
                         <div className="tabs">
-                            <Tabs
-                                id="controlled-tab-example"
-                                activeKey={key}
-                                onSelect={(k) => setKey((prev) => k ?? prev)}
-                                className="mb-3"
-                            >
-                                {/* {tabContent &&
-                  tabContent.map((tabName) => (
-                    <Tab
-                      key={tabName.id}
-                      eventKey={tabName.title.toLowerCase()}
-                      title={tabName.title}
-                    >
-
-
-
-                      <OrganizationProfile />
-                    </Tab>
-                  ))} */}
-                                <Tab key="0" eventKey="about" title="About">
-                                    <AboutProfile />
-                                </Tab>
-                                {/* <Tab
-                                    key="1"
-                                    eventKey="organization"
-                                    title="Organization"
-                                >
-                                    <OrganizationProfile />
-                                </Tab> */}
-                                <Tab key="2" eventKey="tasks" title="Tasks">
-                                    <TasksProfileCard />
-                                </Tab>
-                                <Tab key="3" eventKey="saved" title="Saved">
-                                    <SavedBookings />
-                                </Tab>
-                                <Tab
-                                    key="4"
-                                    eventKey="activities"
-                                    title="Activities"
-                                >
-                                    <div className="activities">
-                                        {userActivitiesTimeline &&
-                                            userActivitiesTimeline.map(
-                                                (activity) => (
-                                                    <UserActivities
-                                                        key={activity.id}
-                                                        title={activity.title}
-                                                        date={activity.date}
-                                                        image={activity.image}
-                                                        editService={
-                                                            activity.editService
-                                                        }
-                                                        loggedInDate={
-                                                            activity.loggedInDate
-                                                        }
-                                                        ipAddress={
-                                                            activity.ipAddress
-                                                        }
-                                                    />
-                                                )
-                                            )}
-                                    </div>
-                                </Tab>
-                                <Tab
-                                    key="5"
-                                    eventKey="documents"
-                                    title="Documents"
-                                >
-                                    <div className="user-document">
-                                        <div className="title-wrapper d-flex justify-content-between">
-                                            <h1>My Documents</h1>
-                                            <a href="#!">Add New</a>
-                                        </div>
-                                        <div className="content">
-                                            <Row>
-                                                {userDocument &&
-                                                    userDocument.map(
-                                                        (document) => (
-                                                            <Col
-                                                                key={
-                                                                    document.id
-                                                                }
-                                                                md={3}
-                                                                lg={2}
-                                                                sm={4}
-                                                                xs={6}
-                                                                className="gx-5"
-                                                            >
-                                                                <UserDocument
-                                                                    name={
-                                                                        document.name
-                                                                    }
-                                                                    type={
-                                                                        document.type
-                                                                    }
-                                                                />
-                                                            </Col>
-                                                        )
-                                                    )}
-                                            </Row>
-                                        </div>
-                                    </div>
-                                </Tab>
-                                <Tab key="6" eventKey="rewards" title="Rewards">
-                                    <div className="rewards">
-                                        <Row className="d-flex align-items-stretch">
-                                            {rewardCardContent &&
-                                                rewardCardContent.map(
-                                                    (info) => (
-                                                        <Col
-                                                            key={info.id}
-                                                            className="d-flex gx-4 align-items-stretch"
-                                                            lg={3}
-                                                            md={4}
-                                                            sm={6}
-                                                        >
-                                                            <RewardCard
-                                                                rewardImage={
-                                                                    info.rewardImage
-                                                                }
-                                                                title={
-                                                                    info.title
-                                                                }
-                                                                haveDiscount={
-                                                                    info.haveDiscount
-                                                                }
-                                                                btnText={
-                                                                    info.btnText
-                                                                }
-                                                                description={
-                                                                    info.description
-                                                                }
-                                                                isAvailable={
-                                                                    info.isAvailable
-                                                                }
-                                                                discount={
-                                                                    info.discount
-                                                                }
-                                                                daysLeft={
-                                                                    info.daysLeft
-                                                                }
-                                                                couponCode={
-                                                                    info.couponCode
-                                                                }
-                                                                haveCouponCode={
-                                                                    info.haveCouponCode
-                                                                }
-                                                                isCouponCodeAvailable={
-                                                                    info.isCouponCodeAvailable
-                                                                }
-                                                            />
-                                                        </Col>
-                                                    )
-                                                )}
-                                        </Row>
-                                    </div>
-                                </Tab>
-                            </Tabs>
+                            <Tab
+                                activeIndex={activeTabIdx}
+                                onTabClick={setActiveTabIdx}
+                                items={[
+                                    {
+                                        title: "About",
+                                        content: <AboutProfile />,
+                                    },
+                                    {
+                                        title: "Tasks",
+                                        content: <TasksProfileCard />,
+                                    },
+                                    {
+                                        title: "Saved",
+                                        content: <SavedBookings />,
+                                    },
+                                    {
+                                        title: "Documents",
+                                        content: <UserDocument />,
+                                    },
+                                    {
+                                        title: "Activities",
+                                        content: <UserActivities />,
+                                    },
+                                    {
+                                        title: "Rewards",
+                                        content: <RewardCard />,
+                                    },
+                                ]}
+                            />
                         </div>
                     </section>
                 </section>
@@ -226,3 +135,28 @@ const UserProfile: NextPage = () => {
 };
 
 export default UserProfile;
+
+export const getStaticProps: GetStaticProps = async () => {
+    const queryClient = new QueryClient();
+    try {
+        await Promise.all([
+            queryClient.prefetchQuery(["tasker-certification"]),
+            queryClient.prefetchQuery(["tasker-education"]),
+            queryClient.prefetchQuery(["tasker-experience"]),
+            queryClient.prefetchQuery(["tasker-portfolio"]),
+        ]);
+        return {
+            props: {
+                dehydratedState: dehydrate(queryClient),
+            },
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                certificationData: [],
+                educationData: [],
+                experienceData: [],
+            },
+        };
+    }
+};

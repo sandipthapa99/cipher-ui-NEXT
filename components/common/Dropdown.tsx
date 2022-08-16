@@ -1,15 +1,21 @@
 import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import { useCallback, useEffect, useRef } from "react";
-import { DropdownSubMenu, DUMMY_MENU_ITEMS } from "staticData/dropdownData";
+import type { DropdownSubMenu } from "staticData/dropdownData";
+import { DUMMY_MENU_ITEMS } from "staticData/dropdownData";
 import { randNumber } from "utils/randNumber";
 
 interface DropdownProps {
     children?: ReactNode;
 }
+
 export const Dropdown = ({ children }: DropdownProps) => {
+    // const { data, isLoading } = useCategories();
+    // console.log(data);
+
     const [subMenu, setSubMenu] = useState<DropdownSubMenu>([]);
     const [prevIndex, setPrevIndex] = useState();
     const dropdownContainer = useRef<HTMLDivElement | null>(null);
@@ -44,9 +50,10 @@ export const Dropdown = ({ children }: DropdownProps) => {
     }, [handleBodyClick]);
 
     const renderSubMenus = subMenu.map((sub, index) => {
+        const menu = sub.replaceAll(" ", "-").toLowerCase();
         return (
             <li className="dropdown-menu-items" key={index}>
-                <Link href={sub.replaceAll(" ", "-").toLowerCase()}>
+                <Link href={`/category/${menu}`} passHref>
                     <a className="dropdown-menu-item-link">{`${sub} (${randNumber()})`}</a>
                 </Link>
             </li>

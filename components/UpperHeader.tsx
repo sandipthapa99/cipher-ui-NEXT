@@ -1,24 +1,33 @@
 import { faBars } from "@fortawesome/pro-regular-svg-icons";
+import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { profileCardContent } from "staticData/profileCardContent";
 import { handleMenuActive } from "utils/helpers";
 
 import { ProfileModel } from "./model/ProfileModel";
+import { PostCard } from "./PostTask/PostCard";
+import PostModal from "./PostTask/PostModal";
 
 export function UpperHeader() {
     const router = useRouter();
+    const [showModal, setShowModal] = useState(false);
     const [notopen, setNotopen] = useState(false);
+    const handleShow = () => setShowModal(true);
+    const handleClose = () => setShowModal(false);
+    const { data: user } = useUser();
 
     return (
         <>
             {/* Site Upper Header Start */}
             <header id="site-upper-header" className="site-upper-header">
-                <Container className="">
+                <Container fluid="xl">
                     <Navbar expand="lg" className="upper-navigation">
                         <Link href="/">
                             <a>
@@ -44,13 +53,13 @@ export function UpperHeader() {
                                         router
                                     )}
                                 >
-                                    <Link href="/discover">
+                                    <Link href="/how-it-works">
                                         <a className="nav-link">How It Works</a>
                                     </Link>
                                 </li>
                                 <li
                                     className={handleMenuActive(
-                                        "/features",
+                                        "/resources",
                                         router
                                     )}
                                 >
@@ -58,73 +67,86 @@ export function UpperHeader() {
                                         <a className="nav-link">Resources</a>
                                     </Link>
                                 </li>
-                                <li
-                                    className={handleMenuActive(
-                                        "/login",
-                                        router
-                                    )}
-                                >
-                                    <Link href="/login">
-                                        <a className="nav-link d-md-none d-inline-block">
-                                            Log In
-                                        </a>
-                                    </Link>
-                                </li>
-                                <li
-                                    className={handleMenuActive(
-                                        "/signup",
-                                        router
-                                    )}
-                                >
-                                    <Link href="/signup">
-                                        <a className="nav-link d-md-none d-inline-block">
-                                            Sign Up
-                                        </a>
-                                    </Link>
-                                </li>
+                                {!user && (
+                                    <>
+                                        <li
+                                            className={handleMenuActive(
+                                                "/login",
+                                                router
+                                            )}
+                                        >
+                                            <Link href="/login">
+                                                <a className="nav-link d-md-none d-inline-block">
+                                                    Log In
+                                                </a>
+                                            </Link>
+                                        </li>
+                                        <li
+                                            className={handleMenuActive(
+                                                "/signup",
+                                                router
+                                            )}
+                                        >
+                                            <Link href="/signup">
+                                                <a className="nav-link d-md-none d-inline-block">
+                                                    Sign Up
+                                                </a>
+                                            </Link>
+                                        </li>
+                                    </>
+                                )}
                             </nav>
                         </Navbar.Collapse>
 
-                        {
-                            <Link href="/login">
-                                <a className="btn login-btn d-none d-md-inline-block">
-                                    Login
-                                </a>
-                            </Link>
-                        }
-
-                        {
-                            <Link href="/signup">
-                                <a className="btn login-btn d-none d-md-inline-block">
-                                    Sign Up
-                                </a>
-                            </Link>
-                        }
-                        <div className="user-profile">
-                            <span
-                                className="btn location-btn d-none d-md-inline-block"
-                                onClick={() => setNotopen(!notopen)}
-                            >
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/userprofile/profile.svg"
-                                        layout="fill"
-                                        alt="profile-pic"
-                                        className="rounded-circle"
-                                        objectFit="cover"
+                        {!user && (
+                            <>
+                                <Link href="/login">
+                                    <a className="btn login-btn d-none d-md-inline-block">
+                                        Login
+                                    </a>
+                                </Link>
+                                <Link href="/signup">
+                                    <a className="btn login-btn d-none d-md-inline-block">
+                                        Sign Up
+                                    </a>
+                                </Link>
+                            </>
+                        )}
+                        {user && (
+                            <div className="user-profile">
+                                <span
+                                    className="btn location-btn d-none d-md-inline-block"
+                                    onClick={() => setNotopen(!notopen)}
+                                >
+                                    <figure className="thumbnail-img">
+                                        <Image
+                                            src="/userprofile/profile.svg"
+                                            layout="fill"
+                                            alt="profile-pic"
+                                            className="rounded-circle"
+                                            objectFit="cover"
+                                        />
+                                    </figure>
+                                </span>
+                                {notopen && (
+                                    <ProfileModel
+                                        profile={profileCardContent}
                                     />
-                                </figure>
-                            </span>
-                            {notopen && (
-                                <ProfileModel profile={profileCardContent} />
-                            )}
-                        </div>
+                                )}
+                            </div>
+                        )}
 
-                        <Link href="#!">
-                            <a className="btn nav-cta-btn d-none d-md-inline-block">
-                                Post Task
-                            </a>
-                        </Link>
+                        {user && (
+                            <button
+                                style={{ outline: "none", border: "none" }}
+                                onClick={handleShow}
+                            >
+                                <a className="btn nav-cta-btn d-none d-md-inline-block">
+                                    Post Task
+                                </a>
+                            </button>
+                        )}
+
                         <Navbar.Toggle aria-controls="site-navigation">
                             <FontAwesomeIcon
                                 icon={faBars}
@@ -137,6 +159,24 @@ export function UpperHeader() {
                     </Navbar>
                 </Container>
             </header>
+            <Modal
+                show={showModal}
+                onHide={handleClose}
+                backdrop="static"
+                className="post-modal"
+            >
+                <Modal.Header className="mt-4" closeButton></Modal.Header>
+                <Modal.Body>
+                    <PostModal setshowPostModel={handleClose} />
+                </Modal.Body>
+            </Modal>
+            <PostCard
+                text="You are good to continue."
+                buttonName="Continue"
+                type="Success"
+                iconName={faSquareCheck}
+            />
+
             {/* Site Upper Header End */}
         </>
     );

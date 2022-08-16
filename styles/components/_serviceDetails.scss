@@ -1,0 +1,78 @@
+.service-details {
+    .service-details-body {
+        background-color: #ffff;
+        margin: 4rem 0;
+        padding: 4rem;
+        box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+        border-radius: 4px;
+
+        h3 {
+            font: 500 2rem $poppins-font;
+        }
+
+        h5 {
+            font: 500 1.4rem $poppins-font;
+        }
+        .checkbox,
+        h6,
+        a {
+            font: 400 1.4rem $poppins-font;
+        }
+
+        .checkbox {
+            margin: 0 0 1.5rem;
+            input {
+                margin: 0 0.8rem 0 0;
+            }
+        }
+
+        .add-more-button {
+            button {
+                background: none;
+                border: none;
+                color: blue;
+            }
+        }
+
+        .next-button {
+            margin: 5rem 0 0;
+            @include respond(sm) {
+                margin: 5rem 0;
+            }
+            button {
+                margin: 0 0 0 1.6rem;
+                @include border();
+            }
+            span {
+                button {
+                    background-color: #ffff;
+                    color: $secondary-text-color;
+                }
+            }
+        }
+
+        .added-packages {
+            margin: 0 0 2.4rem;
+        }
+    }
+}
+
+//right video section
+
+.service-right-video-section {
+    padding: 3.2rem 4.8rem;
+    @include border();
+    margin: 0 0 0 2rem;
+
+    h3 {
+        font: 500 2rem $poppins-font;
+    }
+
+    p {
+        font: 500 1.4rem $poppins-font;
+        color: $secondary-text-color;
+    }
+    iframe {
+        margin: 0 0 1.6rem;
+    }
+}

@@ -1,5 +1,5 @@
 import AboutCard from "@components/common/AboutCard";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
 import Image from "next/image";
@@ -10,8 +10,8 @@ const About: NextPage = () => {
     return (
         <Layout title="About Us | Cipher">
             <div className="about-page">
-                <Breadcrum currentPage="About Us" />
-                <Container fluid="xl">
+                <BreadCrumb currentPage="About Us" />
+                <Container fluid="xl" className="px-5">
                     <div className="about-page__top-container">
                         <div className="main-image">
                             <figure className="thumbnail-img">
@@ -49,7 +49,7 @@ const About: NextPage = () => {
                                         We are an on demand app that connects
                                         customers with about providers.{" "}
                                     </h4>
-                                    <p className="about-cipher">
+                                    <p>
                                         CIPHER is a platform incepted with the
                                         idea of bridging the gap between
                                         individuals who need a certain task
@@ -74,7 +74,7 @@ const About: NextPage = () => {
                                 </div>
                             </Col>
                         </Row>
-                        <Row className="purpose-container">
+                        <Row className="purpose-container gx-5">
                             <Col md={6}>
                                 <div className="about-information purpose">
                                     <h1>Our Purpose</h1>

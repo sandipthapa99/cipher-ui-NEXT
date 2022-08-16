@@ -3,7 +3,8 @@ import InputField from "@components/common/InputField";
 import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
-import React, { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { EquipmentFormData } from "utils/formData";
 import { equipmentFormSchema } from "utils/formValidation/equipmentFormValidation";
@@ -21,7 +22,7 @@ const EquipmentForm = ({
                 <div className="d-flex justify-content-between equipment-model__header">
                     <h3>Add Equipment Charge</h3>
                     <button
-                        className="btn"
+                        className="btn cross-btn"
                         onClick={() => setshowEqpForm(false)}
                     >
                         <FontAwesomeIcon
@@ -35,8 +36,14 @@ const EquipmentForm = ({
                         initialValues={EquipmentFormData}
                         validationSchema={equipmentFormSchema}
                         onSubmit={async (values) => {
-                            console.log(values);
                             setshowEqpForm(false);
+                            // To be used for API
+                            // try {
+                            //     axiosClient.post("/routes", values);
+                            // } catch (error: any) {
+                            //     error.response.data.message;
+                            // }
+                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

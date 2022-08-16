@@ -4,12 +4,16 @@ export const creditCardContent = [
         number: "xxxx xxxx xxxx8845",
         name: "Harry Smith",
         expDate: "10/24",
+        cvv: "486",
+        isDefault: true,
     },
     {
         id: "1",
-        number: "xxxx xxxx xxxx8805",
-        name: "Harry Smith",
+        number: "xxxx xxxx xxxx8855",
+        name: "Harry Potter",
         expDate: "10/24",
+        cvv: "486",
+        isDefault: false,
     },
 ];
-export type CreditCardContent = typeof creditCardContent;
+export type CreditCardContent = typeof creditCardContent[0];

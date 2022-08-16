@@ -1,20 +1,26 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
+import { useFaq } from "hooks/faq/useFaq";
+import { Fragment } from "react";
 import { Accordion, Container } from "react-bootstrap";
 import { FaqFormData } from "utils/contactFormData";
 import { FaqFormSchema } from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const FAQ = () => {
+    const { data } = useFaq();
+
+    const faqAll = data;
+    console.log("faq", faqAll);
     return (
-        <>
+        <Fragment>
             <Layout title="FAQs | Cipher">
                 <section className="faq-page-header">
-                    <Breadcrum currentPage="FAQs" />
-                    <Container>
+                    <BreadCrumb currentPage="FAQs" />
+                    <Container fluid="xl">
                         <div className="faq-page-header__description">
                             <h1>We&apos;re here to help you</h1>
                             <h2>
@@ -458,7 +464,7 @@ const FAQ = () => {
                     </Container>
                 </section>
             </Layout>
-        </>
+        </Fragment>
     );
 };
 export default FAQ;

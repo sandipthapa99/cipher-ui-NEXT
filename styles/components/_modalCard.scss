@@ -1,5 +1,5 @@
 .modal-dialog {
-    max-width: 84.25rem !important;
+    max-width: 94.25rem !important;
 
     @include respond(lg) {
         margin: 1.75rem auto;
@@ -19,6 +19,11 @@
         }
     }
     .modal-body-content {
+        h3 {
+            margin: 0 0 3.2rem 0;
+            font-size: 2rem;
+            font-weight: 500;
+        }
         .details {
             display: flex;
             flex-direction: column;
@@ -56,9 +61,18 @@
         .completion {
             padding-top: 1.5rem;
         }
+        .estimated-time {
+            h4 {
+                font-family: "Poppins";
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                color: #343a40;
+            }
+        }
 
         .problem,
-        .gallery,
+        .book-now-gallery,
         .completion,
         .size-warning {
             h4 {
@@ -70,47 +84,17 @@
                 font-size: 1.3rem;
             }
         }
-        .gallery {
+        .book-now-gallery {
             h4 {
                 padding-top: 2.5rem;
             }
-            .thumbnail-img {
-                height: 20rem;
-                width: 20rem;
+            .girl-thumbnail-img {
                 border-radius: 0.4rem;
             }
             p {
                 font-size: 1.4rem;
                 font-weight: 400;
                 color: $sub-title-color;
-            }
-
-            .drag-drop {
-                border: 0.15rem dashed $border-color;
-                box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                border-radius: 0.9rem;
-                margin-left: 2rem;
-
-                .thumbnail-img {
-                    height: 4rem;
-                    width: 4rem;
-                    margin-top: 2.4rem;
-                }
-                .info {
-                    font-size: 1.3rem;
-                    padding-top: 2rem;
-                    span {
-                        color: $twitter-logo-color;
-                    }
-                }
-                .size {
-                    font-size: 1.2rem;
-                    margin-bottom: 0rem !important;
-                    color: #868e96;
-                }
             }
         }
         .size-warning {

@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";
-import { ServiceNearYouProviderCardProps } from "types/serviceNearYouCards";
+import type { ServiceNearYouProviderCardProps } from "types/serviceNearYouCards";
 
 import BookNowButton from "./BookNowButton";
-import ModalCard from "./ModalCard";
+import ModalCard from "./BookNowModalCard";
 const ServiceNearYouProviderCard = ({
     image,
     name,
@@ -43,7 +43,6 @@ const ServiceNearYouProviderCard = ({
                             price={detail.price}
                             image={detail.image}
                             description={detail.description}
-                            problemDescription={detail.problemDescription}
                             show={showModal}
                             handleClose={() => setShowModal(false)}
                         />

@@ -1,4 +1,4 @@
-export interface GrowYourBusinessProps {
+export interface squareImageCarousel {
     image: string;
     title: string;
     description: string;

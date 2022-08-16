@@ -8,47 +8,41 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
+import { useWeather } from "hooks/weather/useWeather";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { handleMenuActive } from "utils/helpers";
 
-// import { handleMenuActive } from "../../../../libs/util-formatter/src";
 import { Dropdown } from "./common/Dropdown";
 import { NotificationDropdown } from "./notifications/NotificationDropdown";
+
 const Header = () => {
+    const date = format(new Date(), "MMMM d");
+    const { data: weather } = useWeather();
+
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
-    const [stickyClass, setStickyClass] = useState("relative");
-    useEffect(() => {
-        window.addEventListener("scroll", stickNavbar);
-
-        return () => {
-            window.removeEventListener("scroll", stickNavbar);
-        };
-    }, []);
-
-    const stickNavbar = () => {
-        if (window !== undefined) {
-            const windowHeight = window.scrollY;
-            windowHeight > 85
-                ? setStickyClass("sticky")
-                : setStickyClass("normal");
-        }
-    };
 
     return (
         <>
             {/* Site Upper Header Start */}
-            <header id="site-header" className={`site-header ${stickyClass}`}>
-                <Container className="">
+            <header
+                id="site-header"
+                className="site-header sticky-wrapper-header"
+            >
+                <Container fluid="xl">
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li
-                                className={handleMenuActive("/explore", router)}
+                                className={handleMenuActive(
+                                    "/explore-services",
+                                    router
+                                )}
                             >
-                                <Link href="/explore">
+                                <Link href="/explore-services">
                                     <a className="nav-link">
                                         <FontAwesomeIcon
                                             icon={faTelescope}
@@ -58,13 +52,8 @@ const Header = () => {
                                     </a>
                                 </Link>
                             </li>
-                            <li
-                                className={handleMenuActive(
-                                    "/features",
-                                    router
-                                )}
-                            >
-                                <Link href="/resources">
+                            <li className={handleMenuActive("/task", router)}>
+                                <Link href="/task">
                                     <a className="nav-link">
                                         <FontAwesomeIcon
                                             icon={faListCheck}
@@ -74,13 +63,8 @@ const Header = () => {
                                     </a>
                                 </Link>
                             </li>
-                            <li
-                                className={handleMenuActive(
-                                    "/features",
-                                    router
-                                )}
-                            >
-                                <Link href="/resources">
+                            <li className={handleMenuActive("/tasker", router)}>
+                                <Link href="/tasker">
                                     <a className="nav-link">
                                         <FontAwesomeIcon
                                             icon={faUserHelmetSafety}
@@ -98,14 +82,7 @@ const Header = () => {
                                     )}
                                 >
                                     <Link href="">
-                                        <a
-                                            className="nav-link d-none d-md-inline-block"
-                                            style={{
-                                                paddingRight: "3rem !important",
-                                                paddingLeft: "4rem !important",
-                                                alignItems: "center",
-                                            }}
-                                        >
+                                        <a className="nav-link d-none d-md-inline-block">
                                             <FontAwesomeIcon
                                                 icon={faObjectsColumn}
                                                 className="svg-icon"
@@ -120,16 +97,38 @@ const Header = () => {
                                 </li>
                             </Dropdown>
                         </nav>
-
+                        {weather && (
+                            <Link href="#!">
+                                <a
+                                    className="btn location-btn d-none d-md-inline-block"
+                                    style={{ marginRight: "1.6rem" }}
+                                >
+                                    {weather ? `${weather.main.temp}°C` : "N/A"}
+                                </a>
+                            </Link>
+                        )}
                         <Link href="#!">
-                            <a className="btn location-btn d-none d-md-inline-block">
-                                Nepal
-                                <FontAwesomeIcon
-                                    icon={faLocationDot}
-                                    className="svg-icon"
-                                />
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ marginRight: "1.6rem" }}
+                            >
+                                {date}
                             </a>
                         </Link>
+                        {weather && (
+                            <Link href="#!">
+                                <a
+                                    className="btn location-btn d-none d-md-inline-block"
+                                    style={{ marginRight: "1.6rem" }}
+                                >
+                                    {weather.name}
+                                    <FontAwesomeIcon
+                                        icon={faLocationDot}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
+                        )}
 
                         <div>
                             <a

@@ -1,0 +1,245 @@
+.tax-calculator {
+    .card-block {
+        align-items: center;
+        @include respond(xxs) {
+            padding-left: 0rem;
+            padding: 0rem;
+            margin: 0rem;
+        }
+        @include respond(md) {
+            padding-left: 5rem;
+            padding: 5rem;
+        }
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 500;
+            padding-bottom: 2.5rem;
+            text-transform: capitalize;
+            margin-top: 2rem;
+
+            @include respond(sm) {
+                margin-top: 0rem;
+            }
+        }
+    }
+
+    &__header {
+        h2 {
+            font-size: 2rem;
+            color: $primary-color;
+            font-weight: 500;
+        }
+        p {
+            font-size: 1.3rem;
+            font-weight: 400;
+            line-height: 2rem;
+            text-align: initial;
+        }
+
+        @include respond(xs) {
+            margin-top: 1rem;
+            margin: 0rem 2.8rem;
+        }
+        @include respond(xxs) {
+            padding: 0rem 2rem;
+        }
+    }
+    &__form {
+        @include respond(xs) {
+            margin-top: 1rem;
+            margin: 0rem 3.8rem;
+        }
+        // @include respond(xxs) {
+        //     padding: 0rem 5rem;
+        // }
+
+        .tooltip > div {
+            display: none !important;
+        }
+        .tooltip > div.tooltip-inner {
+            padding: 10rem !important;
+            margin-left: 10rem !important;
+        }
+        .marital-status {
+            border-bottom: 0.1rem solid $border-color;
+        }
+        .income,
+        .deduction {
+            padding-top: 1.6rem;
+        }
+        .form-control::placeholder {
+            color: #212529;
+        }
+
+        .label {
+            p {
+                font-size: 1.4rem;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: $default-text-color;
+            }
+        }
+        .buttons,
+        .deduction {
+            border-top: 0.1rem solid #ced4da;
+            padding-top: 2.6rem;
+        }
+        .add-new {
+            color: #0693e3;
+            border: none;
+            background: transparent;
+            outline: none;
+            margin-bottom: 1.6rem;
+        }
+        .reset-btn {
+            margin-bottom: 0rem;
+            @include respond(sm) {
+                margin-bottom: 1rem;
+            }
+        }
+        .close-btn {
+            width: 100%;
+            font-size: 1.6rem;
+            padding: 0.7rem 8rem;
+            background: #ffffff;
+            border: 0.1rem solid $primary-color;
+            border-radius: 0.4rem;
+            box-shadow: none;
+            color: $primary-color;
+        }
+        .submit-btn {
+            font-weight: 400;
+            width: 100%;
+            margin-top: 2rem;
+            padding-top: 0.6rem;
+            padding-bottom: 0.6rem;
+            @include respond(md) {
+                margin-top: 0rem;
+            }
+        }
+        .note {
+            padding-top: 2.6rem;
+            font-size: 1.4rem;
+            font-weight: 500;
+            span {
+                color: $gray-text-color;
+            }
+            .link {
+                color: #0693e3;
+
+                text-decoration: none;
+            }
+        }
+    }
+    .tax-blocks {
+        //flex-wrap: wrap;
+        @include respond(md) {
+            margin-top: 0rem;
+        }
+        @include respond(xs) {
+            margin: 0rem 2.8rem;
+            margin-top: 1rem;
+        }
+        @include respond(xxs) {
+            padding: 0rem 1rem;
+            margin-top: 1rem;
+        }
+        margin-top: 2rem;
+        :not(:first-child) {
+            margin-top: 1rem;
+            @include respond(lg) {
+                margin-left: 2.5rem;
+                margin-top: 0rem;
+            }
+        }
+    }
+    .tax-block {
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0rem;
+        box-shadow: none;
+        border: 0.1rem solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.4rem;
+        padding: 4.2rem 1rem;
+        padding-bottom: 1.8rem;
+        @include respond(lg) {
+            width: 12.5rem;
+        }
+        @include respond(xl) {
+            width: 14.6rem;
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 0rem;
+        }
+        span {
+            font-size: 2.8rem;
+            margin-left: 0rem !important;
+            color: $primary-color;
+            padding-top: 3rem;
+            font-weight: 400;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+    }
+    .tax-slab {
+        margin-top: 2.3rem;
+        margin-bottom: 5rem;
+        text-align: center;
+        padding: 2.8rem 1rem;
+        border: 0.1rem solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.4rem;
+        background-color: #fff;
+        margin-left: -0.8rem;
+        @include respond(xs) {
+            margin: 0rem 2.8rem;
+            margin-top: 1rem;
+        }
+        @include respond(xxs) {
+            margin: 0rem 4rem;
+            margin-top: 1rem;
+            font-size: 1.8rem;
+        }
+    }
+    .table-content {
+        @include respond(xs) {
+            margin: 0rem 1.5rem;
+            margin-top: 1rem;
+            padding: 0rem 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+        @include respond(xxs) {
+            width: 20rem;
+            margin-left: 4rem;
+            margin-top: 1rem;
+            padding: 0rem 0.8rem;
+        }
+    }
+    .table {
+        thead > tr > th,
+        tbody > tr > td {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: $default-text-color;
+        }
+        tbody > tr {
+            &:first-child {
+                td {
+                    color: $secondary-text-color;
+                }
+            }
+            td {
+                padding: 1.3rem 0rem;
+                padding-left: 1rem;
+            }
+        }
+        @include respond(xs) {
+            overflow: scroll;
+        }
+    }
+}

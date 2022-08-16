@@ -1,0 +1,97 @@
+.tax-deduction {
+    h1 {
+        font-weight: 500;
+        margin-bottom: 0rem;
+    }
+    li {
+        list-style: decimal;
+    }
+    table {
+        background-color: #fff;
+        border: 0.1rem solid #000000;
+    }
+
+    th {
+        border: 0.13rem solid #000000;
+    }
+    td {
+        padding: 0.8rem 0rem;
+        padding-left: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: #000000;
+    }
+    p,
+    li {
+        font-size: 1.4rem;
+        line-height: 2.5rem;
+        font-weight: 500;
+    }
+    &__header {
+        h1 {
+            padding-top: 5rem;
+            font-size: 2.8rem;
+            padding-bottom: 2.5rem;
+            text-transform: capitalize;
+        }
+    }
+    &__calculation {
+        table {
+            background-color: #fff;
+            border: 0.2rem solid #111;
+        }
+        .intro {
+            h1 {
+                padding-bottom: 0.6rem;
+                font-size: 2rem;
+            }
+        }
+        .steps-container {
+            .intro {
+                padding-bottom: 2.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                color: $secondary-text-color;
+                padding-bottom: 0.6rem;
+            }
+
+            .steps {
+                color: $secondary-text-color;
+                margin-left: 1.6rem;
+            }
+        }
+        .example-container {
+            padding-top: 2rem;
+            .description {
+                line-height: 5rem;
+                font-weight: 500;
+                font-size: 1.4rem;
+                p {
+                    line-height: 2.3rem;
+                }
+            }
+        }
+    }
+
+    &__tax-regime {
+        padding-top: 3rem;
+        h1 {
+            font-size: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        p {
+            margin-bottom: 0rem;
+        }
+        .table-content {
+            p {
+                padding: 2.5rem 0rem;
+            }
+        }
+        table {
+            padding-top: 1rem;
+        }
+    }
+}

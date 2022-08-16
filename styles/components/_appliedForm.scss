@@ -30,3 +30,25 @@
         }
     }
 }
+.edit-form {
+    h4 {
+        font-weight: 500;
+        font-size: 1.4rem;
+        color: $sub-title-color;
+    }
+    .social-links {
+        font-weight: 400;
+        font-size: 1.4rem;
+        color: $secondary-text-color;
+    }
+}
+.crop-container {
+    height: 30rem;
+    width: 100%;
+    display: flex;
+    margin: 0;
+    @include respond(sm) {
+        width: 50%;
+        margin: 0 auto;
+    }
+}

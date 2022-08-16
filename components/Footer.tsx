@@ -7,19 +7,45 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
+import type { NewsletterDataTypes } from "types/newsletter";
+import { axiosClient } from "utils/axiosClient";
 import emailValidationSchema from "utils/formValidation/emailValidation";
 
 import InputField from "./common/InputField";
 
 const Footer = () => {
+    const emailSubsMutation = useMutation((data: NewsletterDataTypes) =>
+        axiosClient.post("/support/newsletter/subscribe", data)
+    );
+    const onSubscribeEmail = (data: any, actions: any) => {
+        emailSubsMutation.mutate(data, {
+            onSuccess: (data) => {
+                if (data?.data?.status === "failure") {
+                    console.log("Error", data);
+                } else {
+                    toast.success(data?.data?.message);
+                    actions.resetForm();
+                }
+            },
+            onError: (error: any) => {
+                const errmessage = error?.response?.data?.email[0];
+                toast.error(errmessage);
+                actions.resetForm();
+                // actions.setFieldError("email", errmessage);
+            },
+        });
+    };
+
     return (
         <>
             <footer id="site-footer" className="site-footer">
-                <Container>
+                <Container fluid="xl" className="px-5">
                     {/* Cipher Newsletter section start */}
                     <div className="site-footer__newsletter">
                         <Row>
@@ -35,8 +61,8 @@ const Footer = () => {
                                 <Formik
                                     initialValues={{ email: "" }}
                                     validationSchema={emailValidationSchema}
-                                    onSubmit={async (values) => {
-                                        console.log(values);
+                                    onSubmit={async (values, actions) => {
+                                        onSubscribeEmail(values, actions);
                                     }}
                                 >
                                     {({ isSubmitting, errors, touched }) => (
@@ -54,10 +80,13 @@ const Footer = () => {
                                                     className="btn"
                                                     disabled={isSubmitting}
                                                 >
-                                                    <FontAwesomeIcon
-                                                        icon={faArrowRight}
-                                                        className="svg-icon"
-                                                    />
+                                                    {errors.email ===
+                                                        undefined && (
+                                                        <FontAwesomeIcon
+                                                            icon={faArrowRight}
+                                                            className="svg-icon"
+                                                        />
+                                                    )}
                                                 </button>
                                             </div>
                                         </Form>
@@ -98,23 +127,18 @@ const Footer = () => {
                                     <ul>
                                         <li>For Clients</li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="how-to-hire">
                                                 <a>How to Hire?</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
-                                                <a>Merchant Marketplace</a>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/">
+                                            <Link href="payroll-services">
                                                 <a>Payroll Services</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
-                                                <a>Hire in the Nepal</a>
+                                            <Link href="hire-in-nepal">
+                                                <a>Hire in Nepal</a>
                                             </Link>
                                         </li>
                                     </ul>
@@ -125,12 +149,12 @@ const Footer = () => {
                                     <ul>
                                         <li>For Merchants</li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="/how-to-find-tasks">
                                                 <a>How to find Tasks?</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
+                                            <Link href="/freelance-tasks">
                                                 <a>Freelance jobs in Nepal</a>
                                             </Link>
                                         </li>
@@ -176,7 +200,7 @@ const Footer = () => {
                                         </li>
                                         <li>
                                             <Link
-                                                href="socialResponsibilities"
+                                                href="/social"
                                                 as="social-responsibilities"
                                             >
                                                 <a>Social Responsibilities</a>
@@ -203,18 +227,18 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
+                                            <Link href="/career" as="career">
+                                                <a>Career</a>
+                                            </Link>
+                                        </li>
+                                        <li>
                                             <Link href="/privacy-policy">
                                                 <a>Privacy Policy</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="">
-                                                <a>Sitemap</a>
-                                            </Link>
-                                        </li>
-                                        <li>
                                             <Link href="/faq">
-                                                <a>Faqs</a>
+                                                <a>FAQs</a>
                                             </Link>
                                         </li>
                                         <li>

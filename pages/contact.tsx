@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
@@ -10,18 +10,23 @@ import {
 import { faLocationDot, faPhone } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
+import { useContact } from "hooks/contact-and-support/contact";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { ContactFormData } from "utils/contactFormData";
 import contactFormSchema from "utils/formValidation/contactFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Contact = () => {
+    const { mutate, isLoading } = useContact();
+
     return (
         <Layout title="Contact Us | Cipher">
             <section className="contact-page-header">
-                <Breadcrum currentPage="Contact Us" />
-                <Container>
+                <BreadCrumb currentPage="Contact Us" />
+                <Container fluid="xl">
                     <div className="contact-page-header__description">
                         <h1>Contact Us</h1>
                         <h2>
@@ -101,18 +106,36 @@ const Contact = () => {
                             <Formik
                                 initialValues={ContactFormData}
                                 validationSchema={contactFormSchema}
-                                onSubmit={async (values) => {
-                                    console.log(values);
+                                onSubmit={async (values, action) => {
+                                    mutate(values, {
+                                        onSuccess: async () => {
+                                            toast.success(
+                                                " Conatct message sent successfully"
+                                            );
+                                            action.resetForm();
+                                        },
+                                        onError: async (error) => {
+                                            toast.error(error.message);
+                                        },
+                                    });
                                 }}
                             >
-                                {({ isSubmitting, errors, touched }) => (
+                                {({
+                                    isSubmitting,
+                                    errors,
+                                    touched,
+                                    resetForm,
+                                }) => (
                                     <Form>
+                                        {/* <pre>
+                                            {JSON.stringify(errors, null, 4)}
+                                        </pre> */}
                                         <InputField
                                             type="text"
-                                            name="fullName"
+                                            name="full_name"
                                             labelName="Full Name"
-                                            error={errors.fullName}
-                                            touch={touched.fullName}
+                                            error={errors.full_name}
+                                            touch={touched.full_name}
                                             placeHolder="Enter your full name"
                                         />
                                         <InputField

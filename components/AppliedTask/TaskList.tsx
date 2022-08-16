@@ -9,103 +9,130 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { TaskList } from "staticData/taskListData";
+import { useBookNowDetails } from "store/use-book-now";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-import picture from "../../public/aboutus/about.png";
+import { CheckoutModal } from "../Checkout/checkoutModal";
 
 const TaskList = ({ task }: { task: TaskList }) => {
+    const bookNowDetails = useBookNowDetails();
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    if (!bookNowDetails) return null;
     return (
-        <div className="task-list">
-            <h2>Task List</h2>
-            <div className="d-flex flex-column flex-sm-row my-4 py-4 task-list__detial">
-                <figure>
-                    <Image src={picture} alt="task-img" layout="fill"></Image>
-                </figure>
-                <div className="d-flex flex-column justify-content-around ps-4 task-list__detial--desc">
-                    <h4>{task.cardTitle}</h4>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="svg-icon svg-icon-location"
-                        />
-                        {task.cardlocation}
-                    </p>
-                    <div className="d-flex justify-content-between">
+        <>
+            <div className="task-list">
+                <h2>Task List</h2>
+                <div className="d-flex flex-column flex-sm-row my-4 py-4 task-list__detial">
+                    <figure>
+                        {bookNowDetails.image ? (
+                            <Image
+                                src={bookNowDetails.image}
+                                alt="task-img"
+                                layout="fill"
+                            />
+                        ) : (
+                            ""
+                        )}
+                    </figure>
+                    <div className="d-flex flex-column justify-content-around ps-4 task-list__detial--desc">
+                        <h4>{bookNowDetails.serviceTitle}</h4>
                         <p>
                             <FontAwesomeIcon
-                                icon={faCalendar}
-                                className="svg-icon svg-icon-calender"
+                                icon={faLocationDot}
+                                className="svg-icon svg-icon-location"
                             />
-                            {task.cardDate}
+                            {bookNowDetails.serviceProviderLocation}
                         </p>
-                        <p>
-                            <FontAwesomeIcon
-                                icon={faClockEight}
-                                className="svg-icon svg-icon-clock"
-                            />
-                            {task.cardTime}
-                        </p>
+                        <div className="d-flex justify-content-between">
+                            <p>
+                                <FontAwesomeIcon
+                                    icon={faCalendar}
+                                    className="svg-icon svg-icon-calender"
+                                />
+                                {bookNowDetails.startdate}
+                            </p>
+                            <p>
+                                <FontAwesomeIcon
+                                    icon={faClockEight}
+                                    className="svg-icon svg-icon-clock"
+                                />
+                                {task.cardTime}
+                            </p>
+                        </div>
+                        <span>Rs. {bookNowDetails.servicePrice}</span>
                     </div>
-                    <span>{task.cardPrice}</span>
                 </div>
-            </div>
-            <div className="task-list__promo">
-                <Formik
-                    initialValues={ApplyFormData}
-                    validationSchema={applyFormSchema}
-                    onSubmit={async (values) => {
-                        console.log(values);
+                <div className="task-list__promo">
+                    <Formik
+                        initialValues={ApplyFormData}
+                        validationSchema={applyFormSchema}
+                        onSubmit={async (values) => {
+                            console.log(values);
+                        }}
+                    >
+                        {({ isSubmitting, errors, touched }) => (
+                            <Form className="d-flex flex-column flex-sm-row justify-content-between g-5">
+                                <span className="w-100 me-5">
+                                    <InputField
+                                        type="string"
+                                        name="price"
+                                        error={errors.price}
+                                        touch={touched.price}
+                                        placeHolder="Enter Promo Code"
+                                    />
+                                </span>
+                                <FormButton
+                                    type="submit"
+                                    variant="primary"
+                                    name="Apply"
+                                    className="submit-btn h-25"
+                                    isSubmitting={isSubmitting}
+                                    isSubmittingClass={isSubmittingClass(
+                                        isSubmitting
+                                    )}
+                                />
+                            </Form>
+                        )}
+                    </Formik>
+                </div>
+                <div className="task-list__price">
+                    <p className="d-flex justify-content-between mb-2">
+                        Service Charge <span>Rs 200 </span>
+                    </p>
+                    <p className="d-flex justify-content-between mt-1 mb-0">
+                        Discount <span> - Rs 200 </span>
+                    </p>
+                </div>
+                <div className="d-flex justify-content-between mt-4 task-list__totalprice">
+                    Total
+                    <span>Rs. {bookNowDetails.servicePrice}</span>
+                </div>
+                <AnchorButton
+                    className={"w-100 task-list__button"}
+                    href={""}
+                    varient={"secondary"}
+                    onClick={handleShow}
+                >
+                    Proceed to Confirm
+                </AnchorButton>
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                     }}
                 >
-                    {({ isSubmitting, errors, touched }) => (
-                        <Form className="d-flex flex-column flex-sm-row justify-content-between g-5">
-                            <span className="w-100 me-5">
-                                <InputField
-                                    type="string"
-                                    name="price"
-                                    error={errors.price}
-                                    touch={touched.price}
-                                    placeHolder="Enter Promo Code"
-                                />
-                            </span>
-                            <FormButton
-                                type="submit"
-                                variant="primary"
-                                name="Apply"
-                                className="submit-btn h-25"
-                                isSubmitting={isSubmitting}
-                                isSubmittingClass={isSubmittingClass(
-                                    isSubmitting
-                                )}
-                            />
-                        </Form>
-                    )}
-                </Formik>
+                    <CheckoutModal show={show} onHide={handleClose} />
+                </div>
             </div>
-            <div className="task-list__price">
-                <p className="d-flex justify-content-between mb-2">
-                    Service Charge <span>Rs 200 </span>
-                </p>
-                <p className="d-flex justify-content-between mt-1 mb-0">
-                    Discount <span> - Rs 200 </span>
-                </p>
-            </div>
-            <div className="d-flex justify-content-between mt-4 task-list__totalprice">
-                Total
-                <span>{task.cardPrice}</span>
-            </div>
-            <AnchorButton
-                className={"w-100 task-list__button"}
-                href={""}
-                varient={"secondary"}
-            >
-                Proceed to Confirm
-            </AnchorButton>
-        </div>
+        </>
     );
 };
 

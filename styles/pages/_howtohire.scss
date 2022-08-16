@@ -1,0 +1,54 @@
+.how-to-hire {
+    margin-bottom: 0rem !important;
+
+    h1 {
+        color: $primary-color;
+        font-size: 2rem;
+        line-height: 4.4rem;
+        font-weight: 500;
+        margin-bottom: 0rem;
+    }
+    p {
+        color: $sub-title-color;
+        font-size: 1.3rem;
+        font-weight: 400;
+        line-height: 2.1rem;
+        margin-bottom: 0rem;
+    }
+    .carousel {
+        .carousel-indicators [data-bs-target] {
+            border-radius: 50%;
+            height: 1rem !important;
+            background-color: #f1f3f5;
+            width: 1rem !important;
+        }
+
+        .carousel-indicators .active {
+            background-color: $secondary-color !important;
+        }
+    }
+    &__content {
+        margin: 5rem 0rem;
+    }
+    &__browse-talent {
+        margin-bottom: 5rem;
+    }
+    &__gradient-container {
+        position: relative;
+    }
+    &__bottom-container {
+        padding: 5rem 0rem;
+        .thumbnail-img {
+            height: 45rem;
+            width: 100%;
+        }
+        p {
+            padding: 1.5rem 0rem;
+        }
+    }
+}
+.task-header {
+    color: $primary-color;
+    font-size: 20px;
+    font-weight: 500;
+}

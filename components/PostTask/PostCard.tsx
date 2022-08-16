@@ -1,7 +1,10 @@
-import { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
+import type { IconDefinition } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Button, Modal } from "react-bootstrap";
+import {
+    useShowSuccessModal,
+    useToggleSuccessModal,
+} from "store/use-success-modal";
 
 interface Props {
     text: string;
@@ -10,35 +13,19 @@ interface Props {
     iconName: IconDefinition;
 }
 export const PostCard = ({ text, buttonName, iconName, type }: Props) => {
-    const { showSuccessModal, setShowSuccessModal } = useSuccessContext();
-    const handleClose = () => setShowSuccessModal(false);
+    const showSuccessModal = useShowSuccessModal();
+    const toggleSuccessModal = useToggleSuccessModal();
+
     return (
         <Modal
             show={showSuccessModal}
             size="sm"
-            onHide={handleClose}
+            onHide={toggleSuccessModal}
             className="success-modal"
-            style={{ display: "flex" }}
         >
             <div className="success-content">
-                <FontAwesomeIcon
-                    icon={iconName}
-                    className="svg-icon"
-                    style={{
-                        color: "#38C675",
-                        width: "100px",
-                        height: "100px",
-                    }}
-                />
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexDirection: "column",
-                        marginTop: "1rem",
-                    }}
-                >
+                <FontAwesomeIcon icon={iconName} className="svg-icon" />
+                <div className="success-text">
                     <h4>{type}</h4>
                     <p>{text}</p>
                 </div>
@@ -47,7 +34,7 @@ export const PostCard = ({ text, buttonName, iconName, type }: Props) => {
                     <Button
                         variant="light"
                         className="cont-btn"
-                        onClick={handleClose}
+                        onClick={toggleSuccessModal}
                     >
                         {buttonName}
                     </Button>

@@ -1,9 +1,15 @@
 .user-task-card-list {
-    max-height: 90vh;
+    max-height: 80vh;
     overflow: hidden scroll;
+    position: sticky;
+    @include media("<=tablet") {
+        max-height: unset;
+        overflow: unset;
+    }
+    margin-bottom: 5rem;
 }
 .user-task-card {
-    // min-width: 422px;
+    width: 100%;
     border: 1px solid $border-color;
     background-color: $white;
     padding: 24px;
@@ -44,6 +50,24 @@
     justify-content: space-between;
     margin-block: 16px;
     gap: 24px;
+}
+.icons {
+    svg {
+        margin: 0 2rem 0 0;
+    }
+}
+
+.big-btn {
+    color: white;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: 400 1.4rem $poppins-font;
+
+    &:hover {
+        color: white;
+    }
 }
 .task-price {
     flex: 1;

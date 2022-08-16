@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface AnchorButtonProps {
     children: ReactNode;
     className: string;
     href: string;
     varient: "secondary" | "";
+    onClick?: () => void;
 }
 
 const AnchorButton = ({
@@ -13,11 +14,15 @@ const AnchorButton = ({
     href,
     className,
     varient,
+    onClick,
 }: AnchorButtonProps) => {
     return (
         <>
             <Link href={href}>
-                <a className={`btn anchor-button ${className} ${varient}`}>
+                <a
+                    onClick={onClick}
+                    className={`btn anchor-button ${className} ${varient}`}
+                >
                     <span>{children}</span>
                 </a>
             </Link>

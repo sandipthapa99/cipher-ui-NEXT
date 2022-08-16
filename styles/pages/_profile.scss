@@ -1,4 +1,8 @@
 .user-profile {
+    z-index: 101;
+    section {
+        padding-bottom: 0rem;
+    }
     &__top-container {
         padding-bottom: 5rem;
     }
@@ -7,33 +11,24 @@
         padding-top: 5rem;
         background: #ffffff;
         margin-bottom: 5rem;
-
-        .nav-tabs {
-            border-bottom: 0.1rem solid $border-color;
-            padding: 0rem 4rem;
-            display: flex;
+        .custom-tab__headers {
+            padding-left: 2rem;
             flex-wrap: wrap;
-            justify-content: space-between;
-        }
+            gap: 7rem;
 
-        .nav-item {
-            color: $default-text-color;
-            font-weight: 500;
-            ///padding-right: 6rem;
-        }
-
-        .nav-link {
-            color: #868e96;
-
-            &:active {
-                border-bottom: 0.4rem solid #fca500 !important;
-                border-radius: 0.7rem !important;
+            &--btn {
+                color: #9fa3b1;
+                font-weight: 500;
+                @include respond(xs) {
+                    margin-right: 1rem;
+                }
+                @include respond(xxs) {
+                    margin-right: 1rem;
+                }
             }
-        }
-
-        .nav-link.active {
-            border: none;
-            border-bottom: 0.4rem solid #fca500;
+            [data-is-active="true"] {
+                color: $default-text-color;
+            }
         }
 
         .reviews {

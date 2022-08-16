@@ -1,20 +1,28 @@
-import { faHeart, faShare } from "@fortawesome/pro-regular-svg-icons";
+import { faShare } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "react-bootstrap";
+import { useState } from "react";
 
-interface ShareIconProps {
-    showModal: boolean;
-    handleOnClick: (show: any) => void;
-}
+import ShareModal from "./ShareModalCard";
 
-const ShareIcon = ({ showModal, handleOnClick }: ShareIconProps) => {
+const ShareIcon = () => {
+    const [showModal, setShowModal] = useState(false);
+    const handleOnClick = () => {
+        setShowModal(!showModal);
+    };
     return (
-        <FontAwesomeIcon
-            icon={faShare}
-            onClick={() => handleOnClick(showModal)}
-            className="svg-icon share"
-            style={{ height: "2rem", width: "2rem", color: "color: #3EAEFF" }}
-        />
+        <>
+            <FontAwesomeIcon
+                icon={faShare}
+                onClick={() => handleOnClick()}
+                className="svg-icon svg-icon-share"
+            />
+            <div className="share-modal">
+                <ShareModal
+                    show={showModal}
+                    handleClose={() => setShowModal(false)}
+                />
+            </div>
+        </>
     );
 };
 export default ShareIcon;

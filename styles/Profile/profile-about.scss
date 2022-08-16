@@ -4,6 +4,9 @@
         font-weight: 500;
         color: $default-text-color;
     }
+    .file-attachment {
+        display: none;
+    }
     h3 {
         font-size: 1.4rem;
         font-weight: 500;
@@ -28,6 +31,21 @@
         padding-right: 3rem;
         a {
             font-size: 1.4rem;
+        }
+        .title-wrapper {
+            h1 {
+                @include respond(xxs) {
+                    font-size: 1.4rem;
+                }
+            }
+        }
+        h3 {
+            @include respond(xxs) {
+                font-size: 1.2rem;
+            }
+        }
+        @include respond(xxs) {
+            font-size: 1.5rem;
         }
     }
     .portfolio {
@@ -70,18 +88,24 @@
             }
             .name {
                 margin-bottom: 0.2rem;
+                .svg-icon {
+                    cursor: pointer;
+                }
             }
             .company {
                 .job-type {
                     margin-left: 1.7rem;
                 }
-                // margin-top: 1.3rem;
             }
             .description {
                 margin-top: 1rem;
-            }
-            .description {
                 margin-bottom: 1.3rem;
+            }
+
+            .dropdown-with-icon {
+                .svg-icon {
+                    top: 4.2rem;
+                }
             }
         }
     }
@@ -113,6 +137,10 @@
         .institution {
             margin-bottom: 1rem;
             font-size: 1.4rem;
+
+            @include respond(xxs) {
+                font-size: 1.27rem;
+            }
         }
     }
     .certification {

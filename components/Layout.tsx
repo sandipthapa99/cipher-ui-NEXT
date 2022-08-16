@@ -1,14 +1,16 @@
+import dynamic from "next/dynamic";
 import Head from "next/head";
-import { FC } from "react";
-import { MetaDataProps } from "types/metaData";
+import type { FC } from "react";
+import type { MetaDataProps } from "types/metaData";
 
 import meta from "../staticData/siteMetaData.json";
 import Footer from "./Footer";
 import Header from "./Header";
-import UpperHeader from "./UpperHeader";
 // import HeaderForPolicy from "./HeaderForPolicy";
 // import Footer from "./Footer";
 // import FooterForPolicy from "./FooterForPolicy";
+
+const UpperHeader = dynamic(() => import("./UpperHeader"), { ssr: false });
 
 const Layout: FC<MetaDataProps> = ({
     title,
@@ -61,8 +63,11 @@ const Layout: FC<MetaDataProps> = ({
                 />
                 <meta name="robots" content="index, follow" />
             </Head>
-            <UpperHeader />
-            <Header />
+            <section id="header-section" className="sticky-wrapper-header">
+                <UpperHeader />
+                <Header />
+            </section>
+
             {children}
             <Footer />
         </>

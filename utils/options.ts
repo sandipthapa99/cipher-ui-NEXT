@@ -10,7 +10,6 @@ export const issueTypes = [
 ];
 
 export const reviewType = [
-    { id: 1, value: "mostrelevant", label: "Most Relevant" },
     { id: 2, value: "latest", label: "Latest" },
     { id: 3, value: "top", label: "Top" },
 ];
@@ -20,3 +19,6 @@ export const personType = [
     { id: 2, value: "latest", label: "Latest" },
     { id: 3, value: "top", label: "Top" },
 ];
+export const maritalStatus = [{ id: 1, value: "Married", label: "Married" }];
+
+export const salaryType = [{ id: 1, value: "Monthly", label: "Monthly" }];
