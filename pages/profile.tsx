@@ -20,43 +20,43 @@ const UserProfile: NextPage = () => {
     const { data: profileDetails } = useGetProfile();
     console.log(profileDetails);
 
-    // const remaining = {
-    //     userImage: "/service-details/provider1.svg",
-    //     userRating: 4,
-    //     userBadge: "Gold",
-    //     userPoints: 58,
-    //     pointGoal: 42,
-    //     happyClients: 24,
-    //     successRate: 30,
-    //     userReviews: 14,
-    //     tooltipMessage: "Tooltip Message will show up here",
-    //     taskCompleted: 30,
-    //     userActiveStatus: true,
-    // };
-    // if (profileDetails?.message) {
-    //     return (
-    //         <>
-    //             <Layout title="Profile | Cipher">
-    //                 <Container fluid="xl" className="px-5">
-    //                     <BreadCrumb currentPage="Profile" />
-    //                     <Row className="row-create-profile">
-    //                         <Col className="create-profile">
-    //                             <h1>{profileDetails?.message}</h1>
-    //                             <button className="btn-create-profile">
-    //                                 <Link
-    //                                     href={"settings/account/individual"}
-    //                                     className="text-profile"
-    //                                 >
-    //                                     Create Profile
-    //                                 </Link>
-    //                             </button>
-    //                         </Col>
-    //                     </Row>
-    //                 </Container>
-    //             </Layout>
-    //         </>
-    //     );
-    // }
+    const remaining = {
+        userImage: "/service-details/provider1.svg",
+        userRating: 4,
+        userBadge: "Gold",
+        userPoints: 58,
+        pointGoal: 42,
+        happyClients: 24,
+        successRate: 30,
+        userReviews: 14,
+        tooltipMessage: "Tooltip Message will show up here",
+        taskCompleted: 30,
+        userActiveStatus: true,
+    };
+    if (profileDetails?.message) {
+        return (
+            <>
+                <Layout title="Profile | Cipher">
+                    <Container fluid="xl" className="px-5">
+                        <BreadCrumb currentPage="Profile" />
+                        <Row className="row-create-profile">
+                            <Col className="create-profile">
+                                <h1>{profileDetails?.message}</h1>
+                                <button className="btn-create-profile">
+                                    <Link
+                                        href={"settings/account/individual"}
+                                        className="text-profile"
+                                    >
+                                        Create Profile
+                                    </Link>
+                                </button>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Layout>
+            </>
+        );
+    }
 
     return (
         <Layout title="Profile | Cipher">
@@ -65,7 +65,7 @@ const UserProfile: NextPage = () => {
                     <BreadCrumb currentPage="Profile" />
 
                     {/* Explore top container start */}
-                    {/* 
+
                     <section className="user-profile__top-container">
                         <UserProfileCard
                             countryCode={profileDetails?.country}
@@ -92,7 +92,7 @@ const UserProfile: NextPage = () => {
                             userActiveStatus={remaining.userActiveStatus}
                             tooltipMessage={remaining.tooltipMessage}
                         />
-                    </section> */}
+                    </section>
 
                     <section className="user-profile__bottom-container">
                         <div className="tabs">
