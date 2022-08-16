@@ -88,9 +88,6 @@ ServiceCardProps) => {
                         <SaveIcon
                             onSubmit={handleSaveClick}
                             isSaveClicked={isSaveClicked}
-                       
-                            object_id="6fa85f64-5717-4562-b3fc-2c963f66afa6"
-                            model="task"
                         />
                         <ShareIcon />
                     </div>
