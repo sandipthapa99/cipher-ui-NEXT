@@ -44,19 +44,21 @@ const KYCForm = () => {
                         identity_valid_through: "",
                         identity_issuer_organization:
                             KYCData?.identity_issuer_organization ?? "",
-                        identity_card_file: [],
+                        identity_card_file: "",
                         pan_number: KYCData?.pan_number ?? null,
                         pan_issued_from: KYCData?.pan_issued_from ?? "",
                         pan_issued_date: "",
-                        pan_card_file: [],
-                        passport_size_photo: [],
-                        personal_address_verification_document: [],
+                        pan_card_file: "",
+                        passport_size_photo: "",
+                        personal_address_verification_document: "",
                         bank_name: KYCData?.bank_name ?? "",
                         bank_account_name: KYCData?.bank_account_name ?? "",
                         bank_account_number: KYCData?.bank_account_number ?? "",
                     }}
                     validationSchema={KYCFormSchema}
                     onSubmit={async (values, action) => {
+                        const formData = new FormData();
+
                         console.log(values);
                         const newvalidatedValue = {
                             ...values,
@@ -73,8 +75,33 @@ const KYCForm = () => {
                                 "yyyy-MM-dd"
                             ),
                         };
+                        Object.entries(newvalidatedValue).forEach((entry) => {
+                            const restrictedkey = [
+                                "identity_card_file",
+                                "pan_card_file",
+                                "passport_size_photo",
+                                "personal_address_verification_document",
+                            ];
+                            const [key, value] = entry;
+                            if (value && !restrictedkey.includes(key)) {
+                                formData.append(key, value.toString());
+                            }
+                        });
+                        formData.append(
+                            "identity_card_file",
+                            values.identity_card_file
+                        );
+                        formData.append("pan_card_file", values.pan_card_file);
+                        formData.append(
+                            "passport_size_photo",
+                            values.passport_size_photo
+                        );
+                        formData.append(
+                            "personal_address_verification_document",
+                            values.personal_address_verification_document
+                        );
 
-                        mutate(newvalidatedValue, {
+                        mutate(formData, {
                             onSuccess: () => {
                                 toggleSuccessModal();
                             },

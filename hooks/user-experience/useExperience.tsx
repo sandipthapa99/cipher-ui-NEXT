@@ -1,15 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import type { BookmarkResult, BookmarkValueProps } from "types/bookmark";
+import type { ExperienceValueProps } from "types/experienceValueProps";
 import { axiosClient } from "utils/axiosClient";
 
-export const useBookmark = () => {
-    return useMutation<BookmarkResult, Error, BookmarkValueProps>(
-        async ({ object_id, model }) => {
+export const useExperience = () => {
+    return useMutation<void, Error, ExperienceValueProps>(
+        async (formDetails) => {
             try {
-                const { data } = await axiosClient.post<BookmarkResult>(
-                    "/task/bookmark/",
-                    { object_id, model }
+                const { data } = await axiosClient.post(
+                    "/tasker/experience/",
+                    formDetails
                 );
                 return data;
             } catch (error) {

@@ -1,4 +1,4 @@
-import { faComment, faHeart } from "@fortawesome/pro-regular-svg-icons";
+import { faComment } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import type { CommunityActivityCardProps } from "types/community";

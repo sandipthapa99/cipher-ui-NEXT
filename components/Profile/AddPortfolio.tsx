@@ -1,20 +1,38 @@
+import DatePickerField from "@components/common/DateTimeField";
 import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import { useQueryClient } from "@tanstack/react-query";
+import { format } from "date-fns";
 import { Form, Formik } from "formik";
+import { usePostPortfolio } from "hooks/user-portfolio/usePostPortfolio";
+import type { Dispatch, SetStateAction } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { AddPortfolio } from "types/editProfile";
+import { toast } from "react-toastify";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
+interface AddPortfolioModalProps {
+    show?: boolean;
+    handleClose?: () => void;
+    setShowAddPortfolioModal: Dispatch<SetStateAction<boolean>>;
+}
+
+const AddPortfolio = ({
+    show,
+    handleClose,
+    setShowAddPortfolioModal,
+}: AddPortfolioModalProps) => {
+    const { mutate, isLoading, data } = usePostPortfolio();
+    const queryClient = useQueryClient();
+
     return (
         <div>
             {/* Modal component */}
-            <Modal show={showModal} onHide={handleClose} backdrop="static">
+            <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
                     <Modal.Title>Add Portfolio</Modal.Title>
                 </Modal.Header>
@@ -23,7 +41,27 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                         initialValues={AddPortfolioFormData}
                         validationSchema={addPortfolioSchema}
                         onSubmit={async (values) => {
-                            console.log(values);
+                            const newvalidatedValue = {
+                                ...values,
+                                issued_date: format(
+                                    new Date(values.issued_date),
+                                    "yyyy-MM-dd"
+                                ),
+                            };
+                            console.log(newvalidatedValue);
+                            mutate(newvalidatedValue, {
+                                onSuccess: async () => {
+                                    console.log("submitted values", values);
+                                    setShowAddPortfolioModal(false);
+                                    queryClient.invalidateQueries([
+                                        "tasker-portfolio",
+                                    ]);
+                                },
+                                onError: async (error) => {
+                                    toast.error(error.message);
+                                    console.log(error);
+                                },
+                            });
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
@@ -49,21 +87,21 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                             placeHolder="Portfolio Description"
                                         />
                                         <h4>Issued Date</h4>
-                                        <InputField
-                                            type="date"
-                                            name="date"
+                                        <DatePickerField
+                                            name="issued_date"
                                             min="1"
-                                            error={errors.date}
-                                            touch={touched.date}
-                                            placeHolder="03/06/1999"
+                                            error={errors.issued_date}
+                                            touch={touched.issued_date}
+                                            dateFormat="yyyy-MM-dd"
+                                            placeHolder="2022-03-06"
                                         />
                                         <h4>Credential URL</h4>
                                         <InputField
                                             type="url"
-                                            name="url"
+                                            name="credential_url"
                                             min="1"
-                                            error={errors.url}
-                                            touch={touched.url}
+                                            error={errors.credential_url}
+                                            touch={touched.credential_url}
                                             placeHolder="URL"
                                         />
 
@@ -75,7 +113,7 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                                 </p>
 
                                                 <DragDrop
-                                                    name="gallery"
+                                                    name="image"
                                                     image="/service-details/file-upload.svg"
                                                     fileType="Image/Video"
                                                     maxImageSize={20}
@@ -88,7 +126,7 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                                 <h4>Pdf</h4>
                                                 <p>Add relevant pdf</p>
                                                 <DragDrop
-                                                    name="pdf"
+                                                    name="file"
                                                     image="/userprofile/pdf.svg"
                                                     fileType="Pdf"
                                                     maxPdfSize={20}

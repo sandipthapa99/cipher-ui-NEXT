@@ -79,10 +79,7 @@ ServiceCardProps) => {
                 </Link>
                 <div className="d-flex justify-content-between align-items-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
-                        <SaveIcon
-                            object_id="6fa85f64-5717-4562-b3fc-2c963f66afa6"
-                            model="task"
-                        />
+                        <SaveIcon />
                         <ShareIcon />
                     </div>
                     <CardBtn btnTitle="Book Now" backgroundColor="#211D4F" />

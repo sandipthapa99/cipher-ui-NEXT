@@ -1,6 +1,6 @@
 import { useUser } from "hooks/auth/useUser";
+import Image from "next/image";
 import { useMemo } from "react";
-import { Spinner } from "react-bootstrap";
 
 const FullPageLoader = () => {
     const { data, isLoading, isError } = useUser();
@@ -15,7 +15,14 @@ const FullPageLoader = () => {
             className="user-loading-overlay"
         >
             <div className="user-loading-overlay__content">
-                <Spinner animation="border" />
+                <Image
+                    src="/logo/logo.svg"
+                    width="150px"
+                    height="150px"
+                    alt="Product logo"
+                    objectFit="cover"
+                    className="mb-4 loading-image"
+                />
             </div>
         </div>
     );

@@ -1,23 +1,23 @@
 import { faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { faHeart as FilledHeart } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useBookmark } from "hooks/bookmark/useBookmark";
+import { useToggleBookmarkTask } from "hooks/task/use-toggle-bookmark-task";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 interface saveIconProps {
-    object_id?: any;
-    model?: any;
+    object_id?: string;
+    model?: string;
 }
 
 const SaveIcon = ({ object_id, model }: saveIconProps) => {
-    const { mutate, isLoading, data: bookmarkData } = useBookmark();
-    console.log("book mark result=", bookmarkData);
+    const { mutate, data: bookmarkData } = useToggleBookmarkTask();
 
     const [isSaveClicked, setIsSaveClicked] = useState(false);
     const message = bookmarkData?.message;
-    console.log("message=", message);
+
     const handleSaveClick = () => {
+        if (!object_id || !model) return;
         setIsSaveClicked(!isSaveClicked);
         mutate(
             { object_id, model },
@@ -29,11 +29,13 @@ const SaveIcon = ({ object_id, model }: saveIconProps) => {
         );
     };
     return (
-        <FontAwesomeIcon
-            icon={isSaveClicked ? FilledHeart : faHeart}
-            onClick={handleSaveClick}
-            className="svg-icon svg-icon-heart me-2 me-sm-5"
-        />
+        <button className="btn">
+            <FontAwesomeIcon
+                icon={isSaveClicked ? FilledHeart : faHeart}
+                onClick={handleSaveClick}
+                className="svg-icon svg-icon-heart me-2 me-sm-5"
+            />
+        </button>
     );
 };
 export default SaveIcon;
