@@ -5,7 +5,6 @@ export interface ExperienceValueProps {
     company_name: string;
     location: string;
     start_date: string;
-    end_date: string;
+    end_date: string | null | number;
     currently_working: boolean;
-    empty_date: null;
 }

@@ -115,6 +115,11 @@ const AboutProfile = () => {
                                                         ),
                                                         "MMMM yyyy"
                                                     )}
+                                                    {`${
+                                                        info?.end_date
+                                                            ? `-`
+                                                            : "- Present"
+                                                    }`}
                                                     {info?.end_date &&
                                                         format(
                                                             new Date(

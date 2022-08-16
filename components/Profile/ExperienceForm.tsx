@@ -6,7 +6,7 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { useExperience } from "hooks/user-experience/useExperience";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
@@ -15,7 +15,6 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import { ExperienceFromData } from "utils/formData";
 import { experienceFormSchema } from "utils/formValidation/experienceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -34,10 +33,9 @@ const ExperienceForm = ({
     setShowExpForm,
 }: ExperienceProps) => {
     const [toggle, setToggled] = useState(false);
-    const { mutate, isLoading } = useExperience();
+    const { mutate, isLoading, data } = useExperience();
     const queryClient = useQueryClient();
-
-    const toggleSuccessModal = useToggleSuccessModal();
+    console.log("data=", data);
     return (
         <>
             {/* Modal component */}
@@ -50,30 +48,48 @@ const ExperienceForm = ({
                         initialValues={ExperienceFromData}
                         validationSchema={experienceFormSchema}
                         onSubmit={async (values) => {
-                            const newvalidatedValue = {
-                                ...values,
-                                start_date: format(
-                                    new Date(values.start_date),
-                                    "yyyy-MM-dd"
-                                ),
-                                end_date: format(
-                                    new Date(values?.end_date),
-                                    "yyyy-MM-dd"
-                                ),
-                            };
-                            console.log(values);
+                            let newValue;
+                            if (!values.end_date) {
+                                const withoutEndDate = {
+                                    ...values,
+                                    start_date: format(
+                                        new Date(values.start_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                    end_date: null,
+                                };
+                                newValue = withoutEndDate;
+                            } else {
+                                const newvalidatedValue = {
+                                    ...values,
+                                    start_date: format(
+                                        new Date(values.start_date),
+                                        "yyyy-MM-dd"
+                                    ),
 
-                            mutate(newvalidatedValue, {
+                                    end_date: format(
+                                        new Date(values.end_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                };
+                                newValue = newvalidatedValue;
+                            }
+                            console.log(newValue);
+
+                            mutate(newValue, {
                                 onSuccess: async () => {
                                     console.log("submitted values", values);
                                     setShowExpForm(false);
                                     queryClient.invalidateQueries([
                                         "tasker-experience",
                                     ]);
-                                    // toggleSuccessModal();
+                                    toast.success(
+                                        "Experience detail added successfully"
+                                    );
                                 },
                                 onError: async (error) => {
                                     toast.error(error.message);
+                                    console.log("error=", error);
                                 },
                             });
                         }}
@@ -144,11 +160,7 @@ const ExperienceForm = ({
                                     </Col>
                                     <Col md={6}>
                                         <DatePickerField
-                                            name={
-                                                toggle
-                                                    ? "empty_date"
-                                                    : "end_date"
-                                            }
+                                            name="end_date"
                                             labelName="End Date"
                                             placeHolder="2022-03-06"
                                             touch={touched.end_date}

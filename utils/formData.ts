@@ -61,7 +61,6 @@ export const ExperienceFromData: ExperienceValueProps = {
     start_date: "",
     end_date: "",
     currently_working: false,
-    empty_date: null,
 };
 
 export const AddPortfolioFormData: AddPortfolio = {
