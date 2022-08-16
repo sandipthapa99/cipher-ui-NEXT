@@ -94,7 +94,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
         return {
             props: {
-                career: data?.data,
+                career: data.data,
             },
             revalidate: 10,
         };
