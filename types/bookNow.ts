@@ -13,4 +13,5 @@ export interface BookNowFormProps {
     time: number;
     startdate: string | null;
     enddate: string | null;
+    book_image: string;
 }

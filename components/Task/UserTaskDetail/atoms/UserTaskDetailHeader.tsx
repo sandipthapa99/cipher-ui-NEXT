@@ -27,8 +27,6 @@ export const UserTaskDetailHeader = ({
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
-    const slug = "knarkngir-nkanf";
-
     const handleShowModal = () => {
         setShowModal(true);
     };

@@ -1,10 +1,10 @@
 export interface ExperienceValueProps {
     title: string;
     description: string;
-    typeOfEmployment: string;
-    companyName: string;
+    employment_type: string;
+    company_name: string;
     location: string;
-    startDate: string | null;
-    endDate: string | null;
-    toggle: boolean;
+    start_date: string;
+    end_date: string | null | number;
+    currently_working: boolean;
 }

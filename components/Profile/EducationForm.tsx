@@ -63,7 +63,7 @@ const EducationForm = ({
                                     queryClient.invalidateQueries([
                                         "tasker-education",
                                     ]);
-                                    // toggleSuccessModal();
+                                    toggleSuccessModal();
                                 },
                                 onError: async (error) => {
                                     toast.error(error.message);
