@@ -1,11 +1,12 @@
 import DatePickerField from "@components/common/DateTimeField";
 import DragDrop from "@components/common/DragDrop";
+import FileDragDrop from "@components/common/FileDragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
-import { usePostPortfolio } from "hooks/user-portfolio/usePostPortfolio";
+import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -26,21 +27,22 @@ const AddPortfolio = ({
     handleClose,
     setShowAddPortfolioModal,
 }: AddPortfolioModalProps) => {
-    const { mutate, isLoading, data } = usePostPortfolio();
+    const { mutate } = useForm(`/tasker/portfolio/`);
     const queryClient = useQueryClient();
 
     return (
         <div>
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
-                <Modal.Header closeButton>
-                    <Modal.Title>Add Portfolio</Modal.Title>
-                </Modal.Header>
+                <Modal.Header closeButton></Modal.Header>
                 <div className="modal-body-content">
+                    <h3>Add Portfolio</h3>
                     <Formik
                         initialValues={AddPortfolioFormData}
                         validationSchema={addPortfolioSchema}
                         onSubmit={async (values) => {
+                            const formData = new FormData();
+
                             const newvalidatedValue = {
                                 ...values,
                                 issued_date: format(
@@ -48,23 +50,34 @@ const AddPortfolio = ({
                                     "yyyy-MM-dd"
                                 ),
                             };
-                            console.log(newvalidatedValue);
-                            mutate(newvalidatedValue, {
+
+                            Object.entries(newvalidatedValue).forEach(
+                                (entry) => {
+                                    const [key, value] = entry;
+                                    formData.append(key, value);
+                                }
+                            );
+                            formData.append("file", values.file);
+                            formData.append("image", values.image);
+
+                            mutate(formData, {
                                 onSuccess: async () => {
                                     console.log("submitted values", values);
                                     setShowAddPortfolioModal(false);
                                     queryClient.invalidateQueries([
                                         "tasker-portfolio",
                                     ]);
+                                    toast.success(
+                                        "Portfolio added successfully."
+                                    );
                                 },
                                 onError: async (error) => {
                                     toast.error(error.message);
-                                    console.log(error);
                                 },
                             });
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, errors, touched, setFieldValue }) => (
                             <Form>
                                 <div className="d-flex add-portfolio justify-content-between align-items-end flex-column flex-md-row">
                                     <Row>
@@ -118,6 +131,7 @@ const AddPortfolio = ({
                                                     fileType="Image/Video"
                                                     maxImageSize={20}
                                                     maxVideoSize={200}
+                                                    field={setFieldValue}
                                                 />
                                             </Col>
                                         </Row>
@@ -125,11 +139,12 @@ const AddPortfolio = ({
                                             <Col md={5}>
                                                 <h4>Pdf</h4>
                                                 <p>Add relevant pdf</p>
-                                                <DragDrop
+                                                <FileDragDrop
                                                     name="file"
                                                     image="/userprofile/pdf.svg"
                                                     fileType="Pdf"
                                                     maxPdfSize={20}
+                                                    field={setFieldValue}
                                                 />
                                             </Col>
                                         </Row>

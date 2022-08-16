@@ -7,7 +7,7 @@ import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
-import { useExperience } from "hooks/user-experience/useExperience";
+import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import React from "react";
@@ -33,7 +33,8 @@ const ExperienceForm = ({
     setShowExpForm,
 }: ExperienceProps) => {
     const [toggle, setToggled] = useState(false);
-    const { mutate, isLoading } = useExperience();
+    const { mutate } = useForm(`/tasker/experience/`);
+
     const queryClient = useQueryClient();
     return (
         <>
@@ -42,7 +43,6 @@ const ExperienceForm = ({
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal">
                     <h3>Add Experience</h3>
-                    <hr />
                     <Formik
                         initialValues={ExperienceFromData}
                         validationSchema={experienceFormSchema}

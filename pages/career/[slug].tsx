@@ -3,6 +3,7 @@ import LeaveYourCV from "@components/Career/LeaveYourCV";
 import AnchorButton from "@components/common/AnchorButton";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
+import parse from "html-react-parser";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import React from "react";
@@ -35,7 +36,7 @@ const CareerDeatils = ({
                         </p>
                         <h2>What’s the job?</h2>
                         <div className="d-flex justify-content-between align-items-center careers-detail__job">
-                            <span>{career?.description}</span>
+                            <div>{parse(career?.description)}</div>
                             <figure>
                                 <Image
                                     src={"/joinTeam.png"}

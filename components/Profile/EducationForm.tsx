@@ -6,7 +6,7 @@ import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
-import { useEducation } from "hooks/user-education/useEducation";
+import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
@@ -30,8 +30,8 @@ const EducationForm = ({
     setShowEducationForm,
 }: EducationProps) => {
     const toggleSuccessModal = useToggleSuccessModal();
-    const { mutate, isLoading } = useEducation();
     const queryClient = useQueryClient();
+    const { mutate } = useForm(`/tasker/education/`);
 
     return (
         <>
