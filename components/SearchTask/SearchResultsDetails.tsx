@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
+import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -31,8 +32,8 @@ import {
 import { useSetBookNowDetails } from "store/use-book-now";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 import { axiosClient } from "utils/axiosClient";
-import { ServiceProvider } from "./searchAside";
-import parse from "html-react-parser";
+
+import type { ServiceProvider } from "./searchAside";
 
 const SearchResultsDetail = ({
     image,

@@ -43,8 +43,6 @@ const ServiceNearYouCard = ({
         }
     );
 
- 
-
     const providerName = data?.groups[0]?.name;
 
     return (
