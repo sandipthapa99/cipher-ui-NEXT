@@ -1,10 +1,13 @@
 import ServiceCard from "@components/common/ServiceCard";
+import { useBookmarkTasks } from "hooks/task/use-bookmark-tasks";
 import { Col, Row } from "react-bootstrap";
 import { userSavedBookings } from "staticData/userSavedBookings";
 
 const SavedBookings = () => {
+    const { data } = useBookmarkTasks();
     return (
         <div className="saved-bookings">
+            <pre>{JSON.stringify(data, null, 4)}</pre>
             <Row className="gx-5">
                 {userSavedBookings &&
                     userSavedBookings.map((service) => (

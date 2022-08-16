@@ -8,17 +8,15 @@ import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
-import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 const UserProfile: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails } = useGetProfile();
-    console.log(profileDetails);
 
     const remaining = {
         userImage: "/service-details/provider1.svg",
