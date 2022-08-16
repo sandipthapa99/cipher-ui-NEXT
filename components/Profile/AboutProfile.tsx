@@ -1,10 +1,13 @@
 import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
+import { useData } from "hooks/use-data";
 import { useGetTaskerEducation } from "hooks/user-education/useGetEducation";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ProfileAboutContent } from "staticData/profileAboutContent";
+import type { UserProfileProps } from "types/userProfileProps";
 
 import AddPortfolio from "./AddPortfolio";
 import CertificationForm from "./CertificationForm";
@@ -22,6 +25,11 @@ const AboutProfile = () => {
 
     const { data } = useGetTaskerEducation();
     const userEducation = data?.data?.result;
+
+    // const { data: certificationData } = useCertificationData();
+    const { data: certificationData } = useData<
+        UserProfileProps["certificationData"]
+    >(["tasker-certification"], "/tasker/certification/");
 
     return (
         <>
@@ -235,29 +243,48 @@ const AboutProfile = () => {
                             <Row>
                                 <Col md={9}>
                                     <div className="content">
-                                        {about.certifications.map((info) => (
-                                            <div
-                                                className="certification__type"
-                                                key={info.id}
-                                            >
-                                                <div className="name d-flex">
-                                                    <h3 className="institution">
-                                                        {info.name}
-                                                    </h3>
-                                                    <FontAwesomeIcon
-                                                        icon={faPencil}
-                                                        className="svg-icon"
-                                                    />
-                                                </div>
-                                                <h3 className="program">
-                                                    {info.program}
-                                                </h3>
-                                                <p className="date">
-                                                    {info.dateFrom}-
-                                                    {info.dateTo}
-                                                </p>
-                                            </div>
-                                        ))}
+                                        {certificationData
+                                            ? certificationData?.data.result?.map(
+                                                  (value, key) => (
+                                                      <div
+                                                          className="certification__type"
+                                                          key={key}
+                                                      >
+                                                          <div className="name d-flex">
+                                                              <h3 className="institution">
+                                                                  {value?.name}
+                                                              </h3>
+                                                              <FontAwesomeIcon
+                                                                  icon={
+                                                                      faPencil
+                                                                  }
+                                                                  className="svg-icon"
+                                                              />
+                                                          </div>
+                                                          <h3 className="program">
+                                                              {
+                                                                  value?.description
+                                                              }
+                                                          </h3>
+                                                          <p className="date">
+                                                              {format(
+                                                                  new Date(
+                                                                      value?.issued_date
+                                                                  ),
+                                                                  "MMMM yyyy"
+                                                              )}{" "}
+                                                              -{" "}
+                                                              {format(
+                                                                  new Date(
+                                                                      value?.expire_date
+                                                                  ),
+                                                                  "MMMM yyyy"
+                                                              )}
+                                                          </p>
+                                                      </div>
+                                                  )
+                                              )
+                                            : "Looks like you have no certificates"}
                                     </div>
                                 </Col>
                             </Row>
