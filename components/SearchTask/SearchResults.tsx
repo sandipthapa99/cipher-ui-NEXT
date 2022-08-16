@@ -13,15 +13,25 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
     const [activeService, setActiveService] = useState<
         ServiceNearYou | undefined
     >();
+
+    
     const renderServiceCards = () =>
-        servicesNearYou.map((service) => {
+        servicesNearYou?.map((service: any) => {
             return (
                 <div
-                    key={service.id}
+                    key={service?.id}
                     onClick={() => setActiveService(service)}
                     style={{ cursor: "pointer" }}
                 >
-                    <ServiceNearYouCard {...service} />
+                    <ServiceNearYouCard
+                        servicePrice={service?.budget}
+                        serviceTitle={service?.title}
+                        serviceRating={service?.success_rate}
+                        serviceProviderLocation={service?.location}
+                        discount={service?.discount}
+                        image={service?.image}
+                        serviceProvider={service?.created_by}
+                    />
                 </div>
             );
         });
@@ -31,7 +41,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                 <Row>
                     <Col className="search-results--col" md={4}>
                         <p>
-                            {servicesNearYou.length} Services in Kathmandu,
+                            {servicesNearYou?.length} Services in Kathmandu,
                             Nepal (1 new)
                         </p>
                         {renderServiceCards()}
