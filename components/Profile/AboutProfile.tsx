@@ -1,6 +1,9 @@
 import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
 import { useGetTaskerEducation } from "hooks/user-education/useGetEducation";
+import { useGetTaskerExperience } from "hooks/user-experience/useGetExperience";
+import { useGetTaskerPortfolio } from "hooks/user-portfolio/useGetPortfolio";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -20,9 +23,18 @@ const AboutProfile = () => {
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
 
-    const { data } = useGetTaskerEducation();
-    const userEducation = data?.data?.result;
+    //user profile education data
+    const { data: EducationData } = useGetTaskerEducation();
+    const userEducation = EducationData?.data?.result;
 
+    //user profile experience data
+    const { data: ExperienceData } = useGetTaskerExperience();
+    const userExperience = ExperienceData?.data?.result;
+
+    //user profile experience data
+    const { data: PortfolioData } = useGetTaskerPortfolio();
+    const userPortfolio = PortfolioData?.data?.result;
+    //console.log()
     return (
         <>
             {ProfileAboutContent &&
@@ -44,19 +56,27 @@ const AboutProfile = () => {
                             </div>
 
                             <div className="content">
-                                {about.portfolio.map((info) => (
-                                    <div className="image" key={info.id}>
+                                {/* {userPortfolio?.map((info: any) => (
+                                    <div className="image" key={info?.id}>
                                         <figure className="thumbnail-img">
                                             <Image
-                                                src={info.image}
+                                                src={info?.image}
                                                 layout="fill"
                                                 objectFit="cover"
                                                 alt="portfolio-image"
                                             />
                                         </figure>
-                                        <p>{info.label}</p>
+                                        <figure className="thumbnail-img">
+                                            <Image
+                                                src={info?.file}
+                                                layout="fill"
+                                                objectFit="cover"
+                                                alt="portfolio-file"
+                                            />
+                                        </figure>
+                                        <p>{info.title}</p>
                                     </div>
-                                ))}
+                                ))} */}
                             </div>
                         </div>
                         <div className="type experience">
@@ -80,35 +100,55 @@ const AboutProfile = () => {
                             <Row>
                                 <Col md={9}>
                                     <div className="content">
-                                        {about.experience.map((info) => (
+                                        {userExperience?.map((info: any) => (
                                             <div
                                                 className="experience__type"
-                                                key={info.id}
+                                                key={info?.id}
                                             >
                                                 <div className="name d-flex">
-                                                    <h3>{info.name}</h3>
+                                                    <h3>{info?.title}</h3>
                                                     <FontAwesomeIcon
                                                         icon={faPencil}
                                                         className="svg-icon"
+                                                        onClick={() =>
+                                                            setShowExpForm(
+                                                                !showExpForm
+                                                            )
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="company d-flex">
                                                     <p className="name">
-                                                        {info.company}
-                                                    </p>
-                                                    <p className="job-type">
-                                                        {info.jobType}
+                                                        {info?.company_name}
+                                                        &nbsp;. &nbsp;
+                                                        {info?.employment_type}
                                                     </p>
                                                 </div>
                                                 <p className="description">
-                                                    {info.description}
+                                                    {info?.description}
                                                 </p>
                                                 <p className="date">
-                                                    {info.dateFrom}-
-                                                    {info.dateTo}
+                                                    {format(
+                                                        new Date(
+                                                            info?.start_date
+                                                        ),
+                                                        "MMMM yyyy"
+                                                    )}
+                                                    {`${
+                                                        info?.end_date
+                                                            ? `-`
+                                                            : "- Present"
+                                                    }`}
+                                                    {info?.end_date &&
+                                                        format(
+                                                            new Date(
+                                                                info.end_date
+                                                            ),
+                                                            "MMMM yyyy"
+                                                        )}
                                                 </p>
                                                 <p className="address">
-                                                    {info.address}
+                                                    {info.location}
                                                 </p>
                                             </div>
                                         ))}
@@ -197,8 +237,17 @@ const AboutProfile = () => {
                                                 </h3>
 
                                                 <p className="date">
-                                                    {info.start_date}-
-                                                    {info.end_date}
+                                                    {format(
+                                                        new Date(
+                                                            info.start_date
+                                                        ),
+                                                        "MMMM yyyy"
+                                                    )}
+                                                    -
+                                                    {format(
+                                                        new Date(info.end_date),
+                                                        "MMMM yyyy"
+                                                    )}
                                                 </p>
                                                 <p className="address">
                                                     {info.location}
@@ -263,7 +312,8 @@ const AboutProfile = () => {
                             </Row>
                         </div>
                         <AddPortfolio
-                            showModal={showAddPortfolioModal}
+                            show={showAddPortfolioModal}
+                            setShowAddPortfolioModal={setShowAddPortfolioModal}
                             handleClose={() => setShowAddPortfolioModal(false)}
                         />
                     </div>

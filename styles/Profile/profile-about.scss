@@ -85,6 +85,9 @@
             }
             .name {
                 margin-bottom: 0.2rem;
+                .svg-icon {
+                    cursor: pointer;
+                }
             }
             .company {
                 .job-type {

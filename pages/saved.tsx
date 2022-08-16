@@ -14,11 +14,7 @@ import searchValidationSchema from "utils/formValidation/searchValidation";
 const Saved: NextPage = () => {
     const { data: serviceData } = useFetchServicesBookmarks();
 
-    console.log("Saved services bookmarks=", serviceData);
-
     const { data: userData } = useFetchUserBookmarks();
-
-    console.log("Saved users bookmarks=", userData);
 
     return (
         <Layout title="Saved | Cipher">
