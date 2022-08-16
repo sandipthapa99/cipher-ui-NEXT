@@ -14,7 +14,7 @@ export const accountFormSchema = Yup.object().shape({
 
     bio: stringReqOnly,
     gender: stringReqOnly,
-    date_of_birth: stringReqOnly,
+    // date_of_birth: stringReqOnly,
     skill: tagValidate,
     active_hour_start: dateValidation,
     active_hour_end: dateValidation,

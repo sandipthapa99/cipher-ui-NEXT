@@ -15,6 +15,7 @@ import {
     faLocation,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import type { UserTask } from "staticData/userTasks";
 
 interface UserTaskDetailProps {
@@ -22,6 +23,11 @@ interface UserTaskDetailProps {
     onExitTask: () => void;
 }
 export const UserTaskDetail = ({ task, onExitTask }: UserTaskDetailProps) => {
+    const [isSaveClicked, setIsSaveClicked] = useState(false);
+
+    const handleSaveClick = () => {
+        setIsSaveClicked(!isSaveClicked);
+    };
     return (
         <div className="aside-detail-wrapper">
             <div className="user-task-detail">
@@ -33,7 +39,10 @@ export const UserTaskDetail = ({ task, onExitTask }: UserTaskDetailProps) => {
                     </p>
                     <div className="user-task-detail__header--icons">
                         <div className="icon-text">
-                            <SaveIcon />
+                            <SaveIcon
+                                onSubmit={handleSaveClick}
+                                isSaveClicked={isSaveClicked}
+                            />
                             <span>Save</span>
                         </div>
                         <div className="icon-text">

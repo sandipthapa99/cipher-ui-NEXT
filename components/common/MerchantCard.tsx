@@ -1,6 +1,7 @@
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import { useState } from "react";
 import type { MerchantCardProps } from "types/merchantCard";
 
 import CardBtn from "./CardBtn";
@@ -18,6 +19,11 @@ const MerchantCard = ({
     happyClients,
     successRate,
 }: MerchantCardProps) => {
+    const [isSaveClicked, setIsSaveClicked] = useState(false);
+
+    const handleSaveClick = () => {
+        setIsSaveClicked(!isSaveClicked);
+    };
     return (
         <div className="merchant-card-block">
             <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
@@ -96,10 +102,9 @@ const MerchantCard = ({
                 </div>
                 <div className="d-flex justify-content-between align-items-md-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
-                        {/* <SaveIcon /> */}
                         <SaveIcon
-                            object_id="3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                            model="user"
+                            onSubmit={handleSaveClick}
+                            isSaveClicked={isSaveClicked}
                         />
                         <ShareIcon />
                     </div>
