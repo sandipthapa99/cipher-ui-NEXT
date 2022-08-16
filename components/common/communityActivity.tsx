@@ -1,6 +1,7 @@
 import { faComment, faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import { useState } from "react";
 import type { CommunityActivityCardProps } from "types/community";
 
 import SaveIcon from "./SaveIcon";
@@ -14,6 +15,11 @@ const CommunityActivityCard = ({
     name,
     position,
 }: CommunityActivityCardProps) => {
+    const [isSaveClicked, setIsSaveClicked] = useState(false);
+
+    const handleSaveClick = () => {
+        setIsSaveClicked(!isSaveClicked);
+    };
     return (
         <div className="activitycard-block">
             <div className="activitycard-block__card-content">
@@ -41,7 +47,10 @@ const CommunityActivityCard = ({
 
                     <div className="reacts-status">
                         <div className="heart-status">
-                            <SaveIcon />
+                            <SaveIcon
+                                onSubmit={handleSaveClick}
+                                isSaveClicked={isSaveClicked}
+                            />
                             <span>{react}</span>
                         </div>
                         <div>
