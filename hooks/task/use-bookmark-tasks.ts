@@ -5,7 +5,7 @@ export interface BookMarkTasksResponse {
     count: number;
     next: string;
     previous: string;
-    results: BookmarkTask[];
+    result: BookmarkTask[];
 }
 
 export interface BookmarkTask {

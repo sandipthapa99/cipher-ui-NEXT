@@ -19,6 +19,11 @@
         }
     }
     .modal-body-content {
+        h3 {
+            margin: 0 0 3.2rem 0;
+            font-size: 2rem;
+            font-weight: 500;
+        }
         .details {
             display: flex;
             flex-direction: column;
