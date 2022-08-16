@@ -65,6 +65,17 @@ const CategoriesListingHomepage = dynamic(
     { ssr: false }
 );
 const Home: NextPage = () => {
+    const [chips, setChips] = useState([
+        "Garden Cleaner",
+        "Plumber",
+        "Electrician",
+        "Washing Machine",
+    ]);
+    const removeChip = (chip: string) => {
+        setChips((prevChips) =>
+            prevChips.filter((currentChip) => chip !== currentChip)
+        );
+    };
     const [postTaskPopup, setPostTaskPopup] = useState(true);
 
     const handleClosePosttaskPopup = () => {
@@ -119,13 +130,17 @@ const Home: NextPage = () => {
                                     </div>
                                 </Formik>
                             </div>
-                            <div className="chips-section d-md-flex d-none">
-                                <RecommendationChips title="Garden Cleaner" />
-                                <RecommendationChips title="Plumber" />
-                                <RecommendationChips title="Electrician" />
-                                <RecommendationChips title="Washing Machine" />
-                            </div>
-
+                            {chips.length > 0 && (
+                                <div className="chips-section d-md-flex d-none">
+                                    {chips.map((chip, key) => (
+                                        <RecommendationChips
+                                            title={chip}
+                                            onChipRemove={removeChip}
+                                            key={key}
+                                        />
+                                    ))}
+                                </div>
+                            )}
                             <div className="come-with-us">
                                 <h1>Come with Us For</h1>
                                 <div className="d-flex buttons">

@@ -6,7 +6,7 @@ import InputField from "@components/common/InputField";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
-import { usePostPortfolio } from "hooks/user-portfolio/usePostPortfolio";
+import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -27,17 +27,16 @@ const AddPortfolio = ({
     handleClose,
     setShowAddPortfolioModal,
 }: AddPortfolioModalProps) => {
-    const { mutate, isLoading, data } = usePostPortfolio();
+    const { mutate } = useForm(`/tasker/portfolio/`);
     const queryClient = useQueryClient();
 
     return (
         <div>
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
-                <Modal.Header closeButton>
-                    <Modal.Title>Add Portfolio</Modal.Title>
-                </Modal.Header>
+                <Modal.Header closeButton></Modal.Header>
                 <div className="modal-body-content">
+                    <h3>Add Portfolio</h3>
                     <Formik
                         initialValues={AddPortfolioFormData}
                         validationSchema={addPortfolioSchema}

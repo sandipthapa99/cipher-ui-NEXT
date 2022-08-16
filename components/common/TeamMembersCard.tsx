@@ -2,9 +2,7 @@ import {
     faAward,
     faEllipsisVertical,
     faFaceGrinBeam,
-    faHeart,
     faLocationArrow,
-    faShare,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,11 +25,6 @@ export const TeamMembersCard = ({
     collabButton,
     handleButtonClick,
 }: Props) => {
-    const [isSaveClicked, setIsSaveClicked] = useState(false);
-
-    const handleSaveClick = () => {
-        setIsSaveClicked(!isSaveClicked);
-    };
     return (
         <div className="team-members-card">
             <div className="d-flex w-100 image-and-title">
@@ -88,10 +81,7 @@ export const TeamMembersCard = ({
             </p>
             <div className="d-flex justify-content-between footer-section">
                 <span className="share-and-like">
-                    <SaveIcon
-                        onSubmit={handleSaveClick}
-                        isSaveClicked={isSaveClicked}
-                    />
+                    <SaveIcon />
                     <ShareIcon />
                 </span>
 

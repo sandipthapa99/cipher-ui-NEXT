@@ -49,11 +49,6 @@ const SearchResultsDetail = ({
     const PackageCard = getAllPackageCard();
     const reviewsContent = getReviews();
     const serviceHighlights = getServiceHighlights();
-    const [isSaveClicked, setIsSaveClicked] = useState(false);
-
-    const handleSaveClick = () => {
-        setIsSaveClicked(!isSaveClicked);
-    };
 
     return (
         <>
@@ -76,10 +71,7 @@ const SearchResultsDetail = ({
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
-                                <SaveIcon
-                                    onSubmit={handleSaveClick}
-                                    isSaveClicked={isSaveClicked}
-                                />
+                                <SaveIcon />
                                 <span className="name">Save</span>
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
@@ -95,26 +87,30 @@ const SearchResultsDetail = ({
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        <figure className="thumbnail-img">
-                            <Image
-                                src={image}
-                                layout="fill"
-                                objectFit="cover"
-                                alt="garden-image"
-                            />
-                        </figure>
+                        {image && (
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src={image}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="garden-image"
+                                />
+                            </figure>
+                        )}
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         <div className="simple-card my-5 my-lg-0 ">
                             <div className="d-flex align-items-center simple-card__profile">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src={image}
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="serviceprovider-image"
-                                    />
-                                </figure>
+                                {image && (
+                                    <figure className="thumbnail-img">
+                                        <Image
+                                            src={image}
+                                            layout="fill"
+                                            objectFit="cover"
+                                            alt="serviceprovider-image"
+                                        />
+                                    </figure>
+                                )}
                                 <div className="intro">
                                     <p className="name">{serviceProvider}</p>
                                     <p className="job">{serviceTitle}</p>
@@ -247,7 +243,7 @@ const SearchResultsDetail = ({
                     </Row>
                     <Carousel style={{ padding: "2rem 0" }}>
                         {services &&
-                            services.map((service) => {
+                            services.map((service: any) => {
                                 return (
                                     <Carousel.Item key={service.id}>
                                         <Col>
@@ -295,10 +291,10 @@ const SearchResultsDetail = ({
                 </Row>
             </div>
             <BookNowModalCard
-                description={serviceDescription}
+                description={serviceDescription ?? ""}
                 image={image}
-                price={servicePrice}
-                title={serviceTitle}
+                price={servicePrice ?? 0}
+                title={serviceTitle ?? ""}
                 key={serviceTitle}
                 show={show}
                 handleClose={handleClose}

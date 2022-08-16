@@ -7,19 +7,16 @@ export interface BookmarkTaskPayload {
     object_id: string;
 }
 export interface BookmarkTaskResponse {
-    id: string;
-    model: string;
-    created_at: string;
-    updated_at: string;
-    object_id: string;
+    status: string;
+    message: string;
 }
 
-export const useBookmarkTask = () => {
+export const useToggleBookmarkTask = () => {
     return useMutation<BookmarkTaskResponse, Error, BookmarkTaskPayload>(
         async (payload) => {
             try {
                 const { data } = await axiosClient.post<BookmarkTaskResponse>(
-                    "/task/bookmark",
+                    "/task/bookmark/",
                     payload
                 );
                 return data;

@@ -1,10 +1,26 @@
 import { faLocationDot, faUser } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "@tanstack/react-query";
+import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { axiosClient } from "utils/axiosClient";
 
 import type { ServiceNearYouCardProps } from "../../types/serviceNearYouCard";
+
+export type ServiceProvider = {
+    id: string;
+    is_active: boolean;
+    is_verified: boolean;
+    groups: Array<{
+        id: number;
+        name: string;
+        permissions: Array<any>;
+    }>;
+    permissions: Array<any>;
+};
 
 const ServiceNearYouCard = ({
     image,
@@ -16,20 +32,35 @@ const ServiceNearYouCard = ({
     haveDiscount,
     discountOn,
     discount,
-    serviceDescription,
 }: ServiceNearYouCardProps) => {
+    const { data } = useQuery(
+        ["service-provider-user", serviceProvider],
+        async () => {
+            const { data } = await axiosClient.get<ServiceProvider>(
+                `/user/${serviceProvider}`
+            );
+            return data;
+        }
+    );
+
+    console.log("user.....data", data);
+
+    const providerName = data?.groups[0]?.name;
+
     return (
         <div className="service-card-block service-near-you-card-block">
             <Row>
                 <Col md="5">
-                    <figure className="thumbnail-img">
-                        <Image
-                            src={image}
-                            layout="fill"
-                            objectFit="cover"
-                            alt="servicecard-image"
-                        />
-                    </figure>
+                    {image && (
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={image}
+                                layout="fill"
+                                objectFit="cover"
+                                alt="servicecard-image"
+                            />
+                        </figure>
+                    )}
                 </Col>
                 <Col md="7">
                     <div className="content">
@@ -41,7 +72,7 @@ const ServiceNearYouCard = ({
                                     className="user svg-icon"
                                 />
 
-                                <p>{serviceProvider}</p>
+                                <p>{providerName}</p>
                             </div>
                             <div className="type d-flex flex-col">
                                 <FontAwesomeIcon

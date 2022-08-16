@@ -19,8 +19,6 @@ import { handleMenuActive } from "utils/helpers";
 import { Dropdown } from "./common/Dropdown";
 import { NotificationDropdown } from "./notifications/NotificationDropdown";
 
-const LOCATION_PERMISSION_DENIED = "Location permission denied";
-
 const Header = () => {
     const date = format(new Date(), "MMMM d");
     const { data: weather } = useWeather();
@@ -99,19 +97,16 @@ const Header = () => {
                                 </li>
                             </Dropdown>
                         </nav>
-                        <Link href="#!">
-                            <a
-                                title={
-                                    !weather
-                                        ? LOCATION_PERMISSION_DENIED
-                                        : undefined
-                                }
-                                className="btn location-btn d-none d-md-inline-block"
-                                style={{ marginRight: "1.6rem" }}
-                            >
-                                {weather ? `${weather.main.temp}°C` : "N/A"}
-                            </a>
-                        </Link>
+                        {weather && (
+                            <Link href="#!">
+                                <a
+                                    className="btn location-btn d-none d-md-inline-block"
+                                    style={{ marginRight: "1.6rem" }}
+                                >
+                                    {weather ? `${weather.main.temp}°C` : "N/A"}
+                                </a>
+                            </Link>
+                        )}
                         <Link href="#!">
                             <a
                                 className="btn location-btn d-none d-md-inline-block"
@@ -120,23 +115,20 @@ const Header = () => {
                                 {date}
                             </a>
                         </Link>
-                        <Link href="#!">
-                            <a
-                                title={
-                                    !weather
-                                        ? LOCATION_PERMISSION_DENIED
-                                        : undefined
-                                }
-                                className="btn location-btn d-none d-md-inline-block"
-                                style={{ marginRight: "1.6rem" }}
-                            >
-                                {weather?.name ?? "N/A"}
-                                <FontAwesomeIcon
-                                    icon={faLocationDot}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
+                        {weather && (
+                            <Link href="#!">
+                                <a
+                                    className="btn location-btn d-none d-md-inline-block"
+                                    style={{ marginRight: "1.6rem" }}
+                                >
+                                    {weather.name}
+                                    <FontAwesomeIcon
+                                        icon={faLocationDot}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
+                        )}
 
                         <div>
                             <a

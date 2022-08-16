@@ -87,13 +87,13 @@ export const BookServiceFormData: BookNowFormProps = {
 
 export const CertificationFromData: CertificationValueProps = {
     name: "",
-    organization: "",
+    issuing_organization: "",
     description: "",
-    toggle: false,
-    credentialId: "",
-    certificateURL: "",
-    issuedDate: null,
-    expirationDate: null,
+    does_expire: false,
+    credential_id: "",
+    certificate_url: "",
+    issued_date: null,
+    expire_date: null,
 };
 
 export const ProfileEditFromData: ProfileEditValueProps = {
