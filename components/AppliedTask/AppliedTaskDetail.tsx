@@ -19,14 +19,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { useBookmarkTask } from "hooks/task/use-bookmark-task";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
 
 import { TaskersTab } from "./TaskersTab";
@@ -38,28 +36,12 @@ const AppliedTaskDetail: NextPage = () => {
     const [showModal, setShowModal] = useState(false);
     const router = useRouter();
 
-    const uuid = router?.query?.slug;
+    const uuid = router?.query?.slug as string;
 
     const { data: taskDetail } = useQuery(["task-detail", uuid], async () => {
         const response = await axiosClient.get(`/task/task/${uuid}`);
         return response?.data;
     });
-    const { mutate } = useBookmarkTask();
-
-    const handleBookmarkTask = () => {
-        if (!uuid || typeof uuid !== "string") return;
-        mutate(
-            { model: "task", object_id: uuid },
-            {
-                onError: (error) => {
-                    toast.error(error.message);
-                },
-                onSuccess: (data) => {
-                    toast.success(data.message);
-                },
-            }
-        );
-    };
 
     const requirements = taskDetail?.requirements?.split(",");
 
@@ -80,13 +62,7 @@ const AppliedTaskDetail: NextPage = () => {
                             )}
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
-                            <button
-                                onClick={handleBookmarkTask}
-                                className="btn d-flex flex-col align-items-center"
-                            >
-                                <SaveIcon object_id={uuid} model="task" />
-                                <span className="name">Save</span>
-                            </button>
+                            <SaveIcon object_id={uuid} model="task" />
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon />
                                 <span className="name">Share</span>

@@ -11,7 +11,7 @@ export interface BookmarkTaskResponse {
     message: string;
 }
 
-export const useBookmarkTask = () => {
+export const useToggleBookmarkTask = () => {
     return useMutation<BookmarkTaskResponse, Error, BookmarkTaskPayload>(
         async (payload) => {
             try {
