@@ -19,12 +19,14 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { useBookmarkTask } from "hooks/task/use-bookmark-task";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
 
 import { TaskersTab } from "./TaskersTab";
@@ -34,7 +36,6 @@ import { TimelineTab } from "./TimelineTab";
 const AppliedTaskDetail: NextPage = () => {
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
-
     const router = useRouter();
 
     const uuid = router?.query?.slug;
@@ -43,33 +44,32 @@ const AppliedTaskDetail: NextPage = () => {
         const response = await axiosClient.get(`/task/task/${uuid}`);
         return response?.data;
     });
+    const { mutate } = useBookmarkTask();
 
-    console.log("taskdetail in applied-task-detail", taskDetail);
-
-    const handleShowModal = () => {
-        setShowModal(true);
+    const handleBookmarkTask = () => {
+        if (!uuid || typeof uuid !== "string") return;
+        mutate(
+            { model: "task", object_id: uuid },
+            {
+                onError: (error) => {
+                    toast.error(error.message);
+                },
+                onSuccess: (data) => {
+                    toast.success(data.message);
+                },
+            }
+        );
     };
 
-    const requirements = taskDetail?.requirements?.split("\r");
+    const requirements = taskDetail?.requirements?.split(",");
 
     if (!taskDetail) {
         return <UserLoadingOverlay />;
     }
-
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
                 <GoBack href="/task" />
-                {/* <Link href="/task">
-                    <a>
-                        <FontAwesomeIcon
-                            icon={faChevronLeft}
-                            className="svg-icon"
-                        />
-                        Go Back
-                    </a>
-                </Link> */}
-
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
@@ -80,17 +80,20 @@ const AppliedTaskDetail: NextPage = () => {
                             )}
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
-                            <div className="d-flex flex-col align-items-center">
+                            <button
+                                onClick={handleBookmarkTask}
+                                className="btn d-flex flex-col align-items-center"
+                            >
                                 <SaveIcon object_id={uuid} model="task" />
                                 <span className="name">Save</span>
-                            </div>
-                            <div className="d-flex flex-col align-items-center mx-5">
+                            </button>
+                            <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon />
                                 <span className="name">Share</span>
-                            </div>
+                            </button>
                             <EllipsisDropdown
                                 showModal={true}
-                                handleOnClick={handleShowModal}
+                                handleOnClick={() => setShowModal(true)}
                             >
                                 <FontAwesomeIcon
                                     icon={faEllipsisVertical}
