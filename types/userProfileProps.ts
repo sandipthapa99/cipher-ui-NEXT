@@ -19,7 +19,7 @@ export interface UserProfileProps {
         count: number;
         next: string;
         previous: string;
-        results: {
+        result: {
             id: number;
             school: string;
             description: string;
@@ -34,7 +34,7 @@ export interface UserProfileProps {
         count: number;
         next: string;
         previous: string;
-        results: {
+        result: {
             id: number;
             title: string;
             description: string;
