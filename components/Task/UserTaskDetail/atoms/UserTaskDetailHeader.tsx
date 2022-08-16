@@ -26,13 +26,6 @@ export const UserTaskDetailHeader = ({
 }: UserTaskDetailHeaderProps) => {
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [isSaveClicked, setIsSaveClicked] = useState(false);
-
-    const handleSaveClick = () => {
-        setIsSaveClicked(!isSaveClicked);
-    };
-
-    const slug = "knarkngir-nkanf";
 
     const handleShowModal = () => {
         setShowModal(true);
@@ -80,10 +73,7 @@ export const UserTaskDetailHeader = ({
                 </Col>
                 <Col>
                     <div className="td-task-detail-header-icons">
-                        <SaveIcon
-                            onSubmit={handleSaveClick}
-                            isSaveClicked={isSaveClicked}
-                        />
+                        <SaveIcon />
                         <ShareIcon />
                         <EllipsisDropdown
                             showModal={true}
