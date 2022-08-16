@@ -49,11 +49,6 @@ const SearchResultsDetail = ({
     const PackageCard = getAllPackageCard();
     const reviewsContent = getReviews();
     const serviceHighlights = getServiceHighlights();
-    const [isSaveClicked, setIsSaveClicked] = useState(false);
-
-    const handleSaveClick = () => {
-        setIsSaveClicked(!isSaveClicked);
-    };
 
     return (
         <>
@@ -76,10 +71,7 @@ const SearchResultsDetail = ({
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
-                                <SaveIcon
-                                    onSubmit={handleSaveClick}
-                                    isSaveClicked={isSaveClicked}
-                                />
+                                <SaveIcon />
                                 <span className="name">Save</span>
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
