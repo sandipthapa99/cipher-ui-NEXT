@@ -7,7 +7,7 @@ import type { CertificationValueProps } from "types/certificationValueProps";
 import type { changePasswordValueProps } from "types/changePasswordValueProps";
 import type { ClientSignUpValueProps } from "types/clientSignUp";
 import type { deactivateValueProps } from "types/deactivateValueProps";
-import type { AddPortfolio, AddSkills } from "types/editProfile";
+import type { AddPortfolioProps, AddSkills } from "types/editProfile";
 import type { EducationValueProps } from "types/educationValueProps";
 import type { EquipmentValueProps } from "types/equipmentValueProps";
 import type { ExperienceValueProps } from "types/experienceValueProps";
@@ -63,11 +63,13 @@ export const ExperienceFromData: ExperienceValueProps = {
     currently_working: false,
 };
 
-export const AddPortfolioFormData: AddPortfolio = {
+export const AddPortfolioFormData: AddPortfolioProps = {
     title: "",
     description: "",
-    url: "",
-    date: null,
+    credential_url: "",
+    issued_date: "",
+    image: "",
+    file: "",
 };
 
 export const AddSkillFormData: AddSkills = {

@@ -33,9 +33,8 @@ const ExperienceForm = ({
     setShowExpForm,
 }: ExperienceProps) => {
     const [toggle, setToggled] = useState(false);
-    const { mutate, isLoading, data } = useExperience();
+    const { mutate, isLoading } = useExperience();
     const queryClient = useQueryClient();
-    console.log("data=", data);
     return (
         <>
             {/* Modal component */}
@@ -74,7 +73,6 @@ const ExperienceForm = ({
                                 };
                                 newValue = newvalidatedValue;
                             }
-                            console.log(newValue);
 
                             mutate(newValue, {
                                 onSuccess: async () => {

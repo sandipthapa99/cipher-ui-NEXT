@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { useGetTaskerEducation } from "hooks/user-education/useGetEducation";
 import { useGetTaskerExperience } from "hooks/user-experience/useGetExperience";
+import { useGetTaskerPortfolio } from "hooks/user-portfolio/useGetPortfolio";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -22,13 +23,18 @@ const AboutProfile = () => {
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
 
+    //user profile education data
     const { data: EducationData } = useGetTaskerEducation();
     const userEducation = EducationData?.data?.result;
 
+    //user profile experience data
     const { data: ExperienceData } = useGetTaskerExperience();
     const userExperience = ExperienceData?.data?.result;
-    console.log(userExperience);
 
+    //user profile experience data
+    const { data: PortfolioData } = useGetTaskerPortfolio();
+    const userPortfolio = PortfolioData?.data?.result;
+    //console.log()
     return (
         <>
             {ProfileAboutContent &&
@@ -50,17 +56,25 @@ const AboutProfile = () => {
                             </div>
 
                             <div className="content">
-                                {about.portfolio.map((info) => (
-                                    <div className="image" key={info.id}>
+                                {userPortfolio.map((info: any) => (
+                                    <div className="image" key={info?.id}>
                                         <figure className="thumbnail-img">
                                             <Image
-                                                src={info.image}
+                                                src={info?.image}
                                                 layout="fill"
                                                 objectFit="cover"
                                                 alt="portfolio-image"
                                             />
                                         </figure>
-                                        <p>{info.label}</p>
+                                        <figure className="thumbnail-img">
+                                            <Image
+                                                src={info?.file}
+                                                layout="fill"
+                                                objectFit="cover"
+                                                alt="portfolio-file"
+                                            />
+                                        </figure>
+                                        <p>{info.title}</p>
                                     </div>
                                 ))}
                             </div>
@@ -89,20 +103,25 @@ const AboutProfile = () => {
                                         {userExperience?.map((info: any) => (
                                             <div
                                                 className="experience__type"
-                                                key={info.id}
+                                                key={info?.id}
                                             >
                                                 <div className="name d-flex">
-                                                    <h3>{info.title}</h3>
+                                                    <h3>{info?.title}</h3>
                                                     <FontAwesomeIcon
                                                         icon={faPencil}
                                                         className="svg-icon"
+                                                        onClick={() =>
+                                                            setShowExpForm(
+                                                                !showExpForm
+                                                            )
+                                                        }
                                                     />
                                                 </div>
                                                 <div className="company d-flex">
                                                     <p className="name">
-                                                        {info.company_name}
+                                                        {info?.company_name}
                                                         &nbsp;. &nbsp;
-                                                        {info.employment_type}
+                                                        {info?.employment_type}
                                                     </p>
                                                 </div>
                                                 <p className="description">
@@ -293,7 +312,8 @@ const AboutProfile = () => {
                             </Row>
                         </div>
                         <AddPortfolio
-                            showModal={showAddPortfolioModal}
+                            show={showAddPortfolioModal}
+                            setShowAddPortfolioModal={setShowAddPortfolioModal}
                             handleClose={() => setShowAddPortfolioModal(false)}
                         />
                     </div>

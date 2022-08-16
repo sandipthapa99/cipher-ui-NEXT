@@ -16,6 +16,7 @@ const DragDrop = ({
         // `current` points to the mounted file input element
         inputRef?.current?.click();
     };
+
     return (
         <div className="drag-drop" onClick={() => onButtonClick}>
             <figure className="thumbnail-img">
