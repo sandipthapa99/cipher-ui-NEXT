@@ -57,12 +57,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                             </figure>
                         </Col>
                         <Col md={12} lg={9}>
-                            <div className="d-flex justify-content-between align-items-sm-center flex-column flex-sm-row">
-                                <h2>Demanded Positions</h2>
-                                <Link href={""}>
-                                    <a>View all</a>
-                                </Link>
-                            </div>
+                            <h2>Demanded Positions</h2>
                             <Row className="gx-5">
                                 {result
                                     ? result

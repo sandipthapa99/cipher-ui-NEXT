@@ -641,6 +641,7 @@ small.text-muted {
 .sticky-wrapper-header {
     position: relative;
     z-index: 4;
+    margin: 0;
     @include respond(md) {
         position: sticky;
         top: 0rem;

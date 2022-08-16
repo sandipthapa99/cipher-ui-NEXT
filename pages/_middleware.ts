@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import type { User } from "types/user";
 
-const PROTECTED_ROUTES = ["/profile"];
+const PROTECTED_ROUTES = ["/profile", "/settings/*"];
 const RESTRICTED_ROUTES_ON_LOGGED_IN = ["/login"];
 
 const fetchUser = async (access?: string) => {
@@ -29,7 +29,15 @@ const fetchUser = async (access?: string) => {
 export default async function middleware(request: NextRequest) {
     const currentPath = request.nextUrl.pathname;
 
-    const isPathProtected = PROTECTED_ROUTES.indexOf(currentPath) !== -1;
+    const isPathProtected = () => {
+        return PROTECTED_ROUTES.some((path) => {
+            if (path.endsWith("*")) {
+                const pathPrefix = path.slice(0, -1);
+                return currentPath.startsWith(pathPrefix);
+            }
+            return PROTECTED_ROUTES.indexOf(currentPath) !== -1;
+        });
+    };
     const isRestrictedOnLoggedIn =
         RESTRICTED_ROUTES_ON_LOGGED_IN.indexOf(currentPath) !== -1;
 
@@ -37,7 +45,7 @@ export default async function middleware(request: NextRequest) {
 
     const user = await fetchUser(access);
 
-    if (!user && isPathProtected) {
+    if (!user && isPathProtected()) {
         return NextResponse.redirect(
             new URL(`/login?next=${currentPath}`, request.nextUrl)
         );

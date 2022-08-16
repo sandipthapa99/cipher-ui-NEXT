@@ -1,7 +1,9 @@
 import { faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { faHeart as FilledHeart } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useBookmark } from "hooks/bookmark/useBookmark";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 interface SaveIconProps {
     isSaveClicked: boolean;

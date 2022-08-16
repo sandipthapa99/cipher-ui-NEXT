@@ -8,4 +8,5 @@ export interface MerchantCardProps {
     merchantPrice: number;
     happyClients: number;
     successRate: number;
+    liked?: boolean;
 }

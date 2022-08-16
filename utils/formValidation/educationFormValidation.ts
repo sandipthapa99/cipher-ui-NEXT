@@ -7,8 +7,8 @@ export const educationFormSchema = Yup.object().shape({
     school: stringReqOnly,
     description: stringReqOnly,
     degree: stringReqOnly,
-    fieldOfStudy: stringReqOnly,
+    field_of_study: stringReqOnly,
     location: stringReqOnly,
-    startDate: dateValidation,
-    endDate: dateValidation,
+    start_date: dateValidation,
+    end_date: dateValidation,
 });

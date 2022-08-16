@@ -13,9 +13,7 @@ import {
     faClockEight,
     faEllipsisVertical,
     faEye,
-    faHeart,
     faLocationDot,
-    faShare,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,13 +22,9 @@ import { format } from "date-fns";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { parse } from "path";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import { serviceHighlights } from "staticData/serviceHighlights";
-import { serviceProvider } from "staticData/serviceProvider";
-import { taskApplied } from "staticData/taskApplied";
 import { axiosClient } from "utils/axiosClient";
 
 import { TaskersTab } from "./TaskersTab";
@@ -123,7 +117,9 @@ const AppliedTaskDetail: NextPage = () => {
                                 ></Modal.Header>
                                 <Modal.Body>
                                     <PostModal
-                                        onSubmit={() => setShowModal(false)}
+                                        setshowPostModel={() =>
+                                            setShowModal(false)
+                                        }
                                     />
                                 </Modal.Body>
                             </Modal>
