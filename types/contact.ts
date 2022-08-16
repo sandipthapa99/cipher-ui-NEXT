@@ -4,7 +4,6 @@ export interface ContactValuesProps {
     message: string;
 }
 export interface FeedbackValuesProps {
-    
     subject: string;
     feedback_category: number;
     description: string;

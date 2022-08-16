@@ -17,6 +17,7 @@ import { Formik } from "formik";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { PackageCard } from "staticData/packageCard";
 import { reviewsContent } from "staticData/reviews";
@@ -28,6 +29,11 @@ import { HomeSearchdata } from "utils/homeSearchData";
 import { reviewType } from "utils/options";
 
 const ServiceDetail: NextPage = () => {
+    const [isSaveClicked, setIsSaveClicked] = useState(false);
+
+    const handleSaveClick = () => {
+        setIsSaveClicked(!isSaveClicked);
+    };
     return (
         <Layout title="Service Details | Cipher">
             <BreadCrumb currentPage="Service Details" />
@@ -42,7 +48,10 @@ const ServiceDetail: NextPage = () => {
                                     <span>By Harry Smith, Gardener</span>
                                     <div className="d-flex justify-content-between align-items-center reactions">
                                         <div className="d-flex align-items-center me-4">
-                                            <SaveIcon />
+                                            <SaveIcon
+                                                onSubmit={handleSaveClick}
+                                                isSaveClicked={isSaveClicked}
+                                            />
                                             <span>Save</span>
                                         </div>
                                         <span className="d-flex align-items-center">
@@ -179,7 +188,6 @@ const ServiceDetail: NextPage = () => {
                                     name="review"
                                     options={reviewType}
                                     placeHolder="Most Relevant"
-                                    fieldRequired
                                 />
                             </Formik>
                         </div>
