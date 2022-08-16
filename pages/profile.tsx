@@ -143,6 +143,7 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["tasker-certification"]),
             queryClient.prefetchQuery(["tasker-education"]),
             queryClient.prefetchQuery(["tasker-experience"]),
+            queryClient.prefetchQuery(["tasker-portfolio"]),
         ]);
         return {
             props: {

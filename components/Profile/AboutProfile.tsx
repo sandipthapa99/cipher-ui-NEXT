@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import { useGetTaskerPortfolio } from "hooks/user-portfolio/useGetPortfolio";
+import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ProfileAboutContent } from "staticData/profileAboutContent";
@@ -38,8 +39,11 @@ const AboutProfile = () => {
         UserProfileProps["experienceData"]
     >(["tasker-experience"], "/tasker/experience/");
 
-    const { data: PortfolioData } = useGetTaskerPortfolio();
-    const userPortfolio = PortfolioData?.data?.result;
+    //user profile experience data
+    const { data: portfolioData } = useData<UserProfileProps["portfolioData"]>(
+        ["tasker-portfolio"],
+        "/tasker/portfolio/"
+    );
     //console.log()
     return (
         <>
@@ -62,27 +66,31 @@ const AboutProfile = () => {
                             </div>
 
                             <div className="content">
-                                {/* {userPortfolio?.map((info: any) => (
-                                    <div className="image" key={info?.id}>
-                                        <figure className="thumbnail-img">
-                                            <Image
-                                                src={info?.image}
-                                                layout="fill"
-                                                objectFit="cover"
-                                                alt="portfolio-image"
-                                            />
-                                        </figure>
-                                        <figure className="thumbnail-img">
-                                            <Image
-                                                src={info?.file}
-                                                layout="fill"
-                                                objectFit="cover"
-                                                alt="portfolio-file"
-                                            />
-                                        </figure>
-                                        <p>{info.title}</p>
-                                    </div>
-                                ))} */}
+                                {portfolioData
+                                    ? portfolioData?.data?.result?.map(
+                                          (value, key) => (
+                                              <div className="image" key={key}>
+                                                  <figure className="thumbnail-img">
+                                                      <Image
+                                                          src={value?.image}
+                                                          layout="fill"
+                                                          objectFit="cover"
+                                                          alt="portfolio-image"
+                                                      />
+                                                  </figure>
+                                                  <figure className="thumbnail-img">
+                                                      <Image
+                                                          src={value?.file}
+                                                          layout="fill"
+                                                          objectFit="cover"
+                                                          alt="portfolio-file"
+                                                      />
+                                                  </figure>
+                                                  <p>{value.title}</p>
+                                              </div>
+                                          )
+                                      )
+                                    : "Looks like you have no Portfolio data"}
                             </div>
                         </div>
                         <div className="type experience">
@@ -106,62 +114,72 @@ const AboutProfile = () => {
                             <Row>
                                 <Col md={9}>
                                     <div className="content">
-                                        {experienceData?.data?.result?.map(
-                                            (info: any) => (
-                                                <div
-                                                    className="experience__type"
-                                                    key={info?.id}
-                                                >
-                                                    <div className="name d-flex">
-                                                        <h3>{info?.title}</h3>
-                                                        <FontAwesomeIcon
-                                                            icon={faPencil}
-                                                            className="svg-icon"
-                                                            onClick={() =>
-                                                                setShowExpForm(
-                                                                    !showExpForm
-                                                                )
-                                                            }
-                                                        />
-                                                    </div>
-                                                    <div className="company d-flex">
-                                                        <p className="name">
-                                                            {info?.company_name}
-                                                            &nbsp;. &nbsp;
-                                                            {
-                                                                info?.employment_type
-                                                            }
-                                                        </p>
-                                                    </div>
-                                                    <p className="description">
-                                                        {info?.description}
-                                                    </p>
-                                                    <p className="date">
-                                                        {format(
-                                                            new Date(
-                                                                info?.start_date
-                                                            ),
-                                                            "MMMM yyyy"
-                                                        )}
-                                                        {`${
-                                                            info?.end_date
-                                                                ? `-`
-                                                                : "- Present"
-                                                        }`}
-                                                        {info?.end_date &&
-                                                            format(
-                                                                new Date(
-                                                                    info.end_date
-                                                                ),
-                                                                "MMMM yyyy"
-                                                            )}
-                                                    </p>
-                                                    <p className="address">
-                                                        {info.location}
-                                                    </p>
-                                                </div>
-                                            )
-                                        )}
+                                        {experienceData
+                                            ? experienceData?.data?.result?.map(
+                                                  (value, key) => (
+                                                      <div
+                                                          className="experience__type"
+                                                          key={key}
+                                                      >
+                                                          <div className="name d-flex">
+                                                              <h3>
+                                                                  {value?.title}
+                                                              </h3>
+                                                              <FontAwesomeIcon
+                                                                  icon={
+                                                                      faPencil
+                                                                  }
+                                                                  className="svg-icon"
+                                                                  onClick={() =>
+                                                                      setShowExpForm(
+                                                                          !showExpForm
+                                                                      )
+                                                                  }
+                                                              />
+                                                          </div>
+                                                          <div className="company d-flex">
+                                                              <p className="name">
+                                                                  {
+                                                                      value?.company_name
+                                                                  }
+                                                                  &nbsp;. &nbsp;
+                                                                  {
+                                                                      value?.employment_type
+                                                                  }
+                                                              </p>
+                                                          </div>
+                                                          <p className="description">
+                                                              {
+                                                                  value?.description
+                                                              }
+                                                          </p>
+                                                          <p className="date">
+                                                              {format(
+                                                                  new Date(
+                                                                      value?.start_date
+                                                                  ),
+                                                                  "MMMM yyyy"
+                                                              )}
+                                                              {`${
+                                                                  value?.end_date
+                                                                      ? `-`
+                                                                      : "- Present"
+                                                              }`}
+                                                              {value?.end_date &&
+                                                                  format(
+                                                                      new Date(
+                                                                          value.end_date
+                                                                      ),
+                                                                      "MMMM yyyy"
+                                                                  )}
+                                                          </p>
+                                                          <p className="address">
+                                                              {value.location}
+                                                          </p>
+                                                      </div>
+                                                  )
+                                              )
+                                            : "Looks like you have no Experience Data"}
                                     </div>
                                 </Col>
                             </Row>
@@ -223,51 +241,55 @@ const AboutProfile = () => {
                             <Row>
                                 <Col md={9}>
                                     <div className="content">
-                                        {educationData?.data.result.map(
-                                            (info: any) => (
-                                                <div
-                                                    className="education__type"
-                                                    key={info.id}
-                                                >
-                                                    <div className="name d-flex">
-                                                        <h3 className="institution">
-                                                            {info.school}
-                                                        </h3>
-                                                        <FontAwesomeIcon
-                                                            icon={faPencil}
-                                                            className="svg-icon"
-                                                            onClick={() =>
-                                                                setShowEducationForm(
-                                                                    !showEducationForm
-                                                                )
-                                                            }
-                                                        />
-                                                    </div>
-                                                    <h3 className="program">
-                                                        {info.degree}
-                                                    </h3>
+                                        {educationData
+                                            ? educationData?.data.result.map(
+                                                  (value, key) => (
+                                                      <div
+                                                          className="education__type"
+                                                          key={key}
+                                                      >
+                                                          <div className="name d-flex">
+                                                              <h3 className="institution">
+                                                                  {value.school}
+                                                              </h3>
+                                                              <FontAwesomeIcon
+                                                                  icon={
+                                                                      faPencil
+                                                                  }
+                                                                  className="svg-icon"
+                                                                  onClick={() =>
+                                                                      setShowEducationForm(
+                                                                          !showEducationForm
+                                                                      )
+                                                                  }
+                                                              />
+                                                          </div>
+                                                          <h3 className="program">
+                                                              {value.degree}
+                                                          </h3>
 
-                                                    <p className="date">
-                                                        {format(
-                                                            new Date(
-                                                                info.start_date
-                                                            ),
-                                                            "MMMM yyyy"
-                                                        )}
-                                                        -
-                                                        {format(
-                                                            new Date(
-                                                                info.end_date
-                                                            ),
-                                                            "MMMM yyyy"
-                                                        )}
-                                                    </p>
-                                                    <p className="address">
-                                                        {info.location}
-                                                    </p>
-                                                </div>
-                                            )
-                                        )}
+                                                          <p className="date">
+                                                              {format(
+                                                                  new Date(
+                                                                      value.start_date
+                                                                  ),
+                                                                  "MMMM yyyy"
+                                                              )}
+                                                              -
+                                                              {format(
+                                                                  new Date(
+                                                                      value.end_date
+                                                                  ),
+                                                                  "MMMM yyyy"
+                                                              )}
+                                                          </p>
+                                                          <p className="address">
+                                                              {value.location}
+                                                          </p>
+                                                      </div>
+                                                  )
+                                              )
+                                            : "Looks like you have no Education Data"}
                                     </div>
                                 </Col>
                             </Row>

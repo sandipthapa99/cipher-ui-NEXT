@@ -46,4 +46,18 @@ export interface UserProfileProps {
             end_date: string;
         }[];
     };
+    portfolioData: {
+        count: number;
+        next: string;
+        previous: string;
+        result: {
+            id: number;
+            title: string;
+            description: string;
+            issued_date: string;
+            credential_url: string;
+            image: string;
+            file: string;
+        }[];
+    };
 }
