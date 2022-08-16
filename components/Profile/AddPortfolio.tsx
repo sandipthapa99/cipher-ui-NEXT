@@ -33,10 +33,9 @@ const AddPortfolio = ({
         <div>
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
-                <Modal.Header closeButton>
-                    <Modal.Title>Add Portfolio</Modal.Title>
-                </Modal.Header>
+                <Modal.Header closeButton></Modal.Header>
                 <div className="modal-body-content">
+                    <h3>Add Portfolio</h3>
                     <Formik
                         initialValues={AddPortfolioFormData}
                         validationSchema={addPortfolioSchema}
