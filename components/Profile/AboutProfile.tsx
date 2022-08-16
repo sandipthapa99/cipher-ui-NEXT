@@ -56,7 +56,7 @@ const AboutProfile = () => {
                             </div>
 
                             <div className="content">
-                                {userPortfolio.map((info: any) => (
+                                {/* {userPortfolio?.map((info: any) => (
                                     <div className="image" key={info?.id}>
                                         <figure className="thumbnail-img">
                                             <Image
@@ -76,7 +76,7 @@ const AboutProfile = () => {
                                         </figure>
                                         <p>{info.title}</p>
                                     </div>
-                                ))}
+                                ))} */}
                             </div>
                         </div>
                         <div className="type experience">
