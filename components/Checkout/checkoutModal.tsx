@@ -77,10 +77,14 @@ export const CheckoutModal = ({ show, onHide }: props) => {
                     </div>
                     <div className="grand-total">
                         <p>Grand Total:</p>
-                        <p>
-                            Rs.{" "}
-                            {bookNowDetails.servicePrice + serviceCharge + GST}
-                        </p>
+                        {bookNowDetails?.servicePrice && (
+                            <p>
+                                Rs.{" "}
+                                {bookNowDetails?.servicePrice +
+                                    serviceCharge +
+                                    GST}
+                            </p>
+                        )}
                     </div>
                 </div>
                 <div className="submit-buttons">

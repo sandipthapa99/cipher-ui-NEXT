@@ -14,7 +14,6 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
         ServiceNearYou | undefined
     >();
 
-    
     const renderServiceCards = () =>
         servicesNearYou?.map((service: any) => {
             return (
