@@ -22,7 +22,7 @@ const AboutProfile = () => {
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
 
-    // const { data: certificationData } = useCertificationData();
+    //user profile certification data
     const { data: certificationData } = useData<
         UserProfileProps["certificationData"]
     >(["tasker-certification"], "/tasker/certification/");
@@ -63,6 +63,15 @@ const AboutProfile = () => {
                                     }
                                 />
                             </div>
+                            <AddPortfolio
+                                show={showAddPortfolioModal}
+                                setShowAddPortfolioModal={
+                                    setShowAddPortfolioModal
+                                }
+                                handleClose={() =>
+                                    setShowAddPortfolioModal(false)
+                                }
+                            />
 
                             <div className="content">
                                 {portfolioData
@@ -365,11 +374,6 @@ const AboutProfile = () => {
                                 </Col>
                             </Row>
                         </div>
-                        <AddPortfolio
-                            show={showAddPortfolioModal}
-                            setShowAddPortfolioModal={setShowAddPortfolioModal}
-                            handleClose={() => setShowAddPortfolioModal(false)}
-                        />
                     </div>
                 ))}
         </>
