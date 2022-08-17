@@ -17,7 +17,13 @@ import {
 import Modal from "react-bootstrap/Modal";
 import type { ShareButtonProps } from "types/shareButton";
 
-const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
+const ShareModal = ({
+    show,
+    handleClose,
+    url,
+    quote,
+    hashtag,
+}: ShareButtonProps) => {
     const copyToClipBoard = async (copyMe: any) => {
         try {
             await navigator.clipboard.writeText(copyMe);
@@ -25,6 +31,11 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
             console.log(err);
         }
     };
+
+    console.log("url......", url);
+    console.log("quote......", quote);
+    console.log("hashtag.......", hashtag);
+
     return (
         <div className="share-modal">
             {/* Modal component */}
@@ -35,11 +46,9 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                     <div className="media-wrapper">
                         <div className="social-media">
                             <FacebookShareButton
-                                url={"https://github.com/next-share"}
-                                quote={
-                                    "next-share is a social share buttons for your next React apps."
-                                }
-                                hashtag={"#nextshare"}
+                                url={url}
+                                quote={quote}
+                                hashtag={hashtag}
                             >
                                 <FontAwesomeIcon
                                     icon={faFacebookF}
@@ -51,10 +60,7 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                             className="social-media"
                             style={{ background: "#0072B1" }}
                         >
-                            <TwitterShareButton
-                                url={"https://github.com/next-share"}
-                                hashtags={["#nextshare"]}
-                            >
+                            <TwitterShareButton url={url} hashtags={[hashtag]}>
                                 <FontAwesomeIcon
                                     icon={faTwitter}
                                     className="svg-icon twitter"
@@ -63,10 +69,8 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                         </div>
                         <div className="social-media">
                             <InstapaperShareButton
-                                url={"https://github.com/next-share"}
-                                description={
-                                    "next-share is a social share buttons for your next React apps."
-                                }
+                                url={url}
+                                description={quote}
                             >
                                 <FontAwesomeIcon
                                     icon={faInstagram}
@@ -75,9 +79,7 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                             </InstapaperShareButton>
                         </div>
                         <div className="social-media">
-                            <LinkedinShareButton
-                                url={"https://github.com/next-share"}
-                            >
+                            <LinkedinShareButton url={url}>
                                 <FontAwesomeIcon
                                     icon={faLinkedin}
                                     className="svg-icon linkedin"
