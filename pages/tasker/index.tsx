@@ -62,6 +62,7 @@ const Tasker = () => {
                                     <UserTaskDetail
                                         onExitTaskDetail={removeActiveTaskIdx}
                                         taskDetail={taskDetails[activeTaskIdx]}
+                                        activeTaskId={activeTaskIdx}
                                     />
                                 </div>
                             </div>

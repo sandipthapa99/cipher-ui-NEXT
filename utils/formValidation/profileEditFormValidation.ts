@@ -12,14 +12,13 @@ const phoneValidate = Yup.string()
 const tagValidate = Yup.array(Yup.string()).required("Required field");
 
 export const profileEditFormSchema = Yup.object().shape({
-    name: stringReqOnly,
+    full_name: stringReqOnly,
     bio: stringReqOnly,
-    email: emailValidate,
     phone: phoneValidate,
-    addressLine1: stringReqOnly,
-    addressLine2: stringReqOnly,
-    activeHoursFrom: dateValidation,
-    activeHoursTo: dateValidation,
-    specialities: tagValidate,
-    baseRatePerHour: stringReqOnly,
+    address_line1: stringReqOnly,
+    address_line2: stringReqOnly,
+    active_hour_start: dateValidation,
+    active_hour_end: dateValidation,
+    skill: tagValidate,
+    hourly_rate: stringReqOnly,
 });

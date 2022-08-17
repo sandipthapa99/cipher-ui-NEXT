@@ -10,11 +10,13 @@ const TagInputField = ({
     error,
     touch,
     placeHolder,
-    variables,
+    data,
     labelName,
     textMuted,
     fieldRequired = false,
 }: InputFieldProps & Partial<HTMLInputElement>) => {
+    console.log("data", data);
+
     return (
         <div className={checkFormGroup(error)}>
             {labelName && (
@@ -32,7 +34,8 @@ const TagInputField = ({
                     const { setFieldValue } = form;
                     return (
                         <MultiSelect
-                            data={variables ?? []}
+                            defaultValue={Array.isArray(data) ? data : []}
+                            data={Array.isArray(data) ? data : []}
                             placeholder={placeHolder}
                             className={checkFormControl(error, touch)}
                             variant="unstyled"
