@@ -4,13 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import http from "pages/api/httpService";
 import { Alert, Col, Container, Row } from "react-bootstrap";
-import type { BlogsProps } from "types/blogs";
+import type { BlogValueProps } from "types/blogs";
 import { axiosClient } from "utils/axiosClient";
-import { blogListAPI, formatMonthDate } from "utils/helpers";
+import { formatMonthDate } from "utils/helpers";
 
-const Blog = ({ blogsData }: BlogsProps) => {
+const Blog = ({ blogsData }: { blogsData: BlogValueProps }) => {
     const { result } = blogsData ?? [];
 
     return (
