@@ -41,7 +41,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
                             <Col className="create-profile">
-                                <h1>Create your profile</h1>
+                                <h1>Create Profile. Start Your Journey</h1>
                                 <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
@@ -70,7 +70,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <UserProfileCard
                             countryCode={profileDetails?.country}
                             key={profileDetails?.id}
-                            userImage={remaining.userImage}
+                            userImage={profileDetails?.profile_image}
                             userName={profileDetails?.full_name}
                             userJob={profileDetails?.user_type}
                             userRating={remaining.userRating}
