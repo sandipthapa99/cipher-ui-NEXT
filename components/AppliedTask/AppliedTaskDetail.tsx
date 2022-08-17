@@ -47,8 +47,8 @@ const AppliedTaskDetail: NextPage = () => {
 
     const requirements = taskDetail?.requirements?.split(",");
 
-    const isTaskBookmarked =
-        data && data.result?.some((item) => item.object_id === uuid);
+    const isTaskBookmarked = () =>
+        data ? data.result?.some((item) => item.object_id === uuid) : false;
 
     if (!taskDetail) {
         return <UserLoadingOverlay />;
@@ -70,7 +70,7 @@ const AppliedTaskDetail: NextPage = () => {
                             <SaveIcon
                                 object_id={uuid}
                                 model="task"
-                                variant={isTaskBookmarked ? "solid" : "regular"}
+                                filled={isTaskBookmarked}
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon />
