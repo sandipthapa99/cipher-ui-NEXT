@@ -194,13 +194,18 @@ const KYCForm = () => {
                                 License or Passport{" "}
                             </p>
                             <Col md={5}>
-                                <DragDrop
+                                {/* <DragDrop
                                     name="identity_card_file"
                                     image="/service-details/file-upload.svg"
                                     fileType="Image/Video"
                                     maxImageSize={20}
                                     maxVideoSize={200}
                                     field={setFieldValue}
+                                /> */}
+                                <CustomDropZone
+                                    maxSize={200}
+                                    minSize={20}
+                                    onDrop={(files) => console.log(files)}
                                 />
                             </Col>
                             <hr />
@@ -237,13 +242,18 @@ const KYCForm = () => {
                             <h4>PAN/ VAT Card</h4>
                             <p>Document can be PAN or VAT Card </p>
                             <Col md={5}>
-                                <DragDrop
+                                {/* <DragDrop
                                     name="pan_card_file"
                                     image="/service-details/file-upload.svg"
                                     fileType="Image/Video"
                                     maxImageSize={20}
                                     maxVideoSize={200}
                                     field={setFieldValue}
+                                /> */}
+                                <CustomDropZone
+                                    maxSize={200}
+                                    minSize={20}
+                                    onDrop={(files) => console.log(files)}
                                 />
                             </Col>
                             <hr />
