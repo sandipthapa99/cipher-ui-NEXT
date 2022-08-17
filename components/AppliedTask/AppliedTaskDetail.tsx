@@ -73,7 +73,11 @@ const AppliedTaskDetail: NextPage = () => {
                                 filled={isTaskBookmarked}
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
-                                <ShareIcon />
+                                <ShareIcon
+                                    url={`http://localhost:3005/task/${uuid}`}
+                                    quote={"This is the task from cipher"}
+                                    hashtag={"cipher-task"}
+                                />
                                 <span className="name">Share</span>
                             </button>
                             <EllipsisDropdown
