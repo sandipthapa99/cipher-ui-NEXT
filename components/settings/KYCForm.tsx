@@ -6,7 +6,7 @@ import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useKYC } from "hooks/profile/kyc/useKYC";
@@ -41,14 +41,23 @@ const KYCForm = () => {
                         full_name: KYCData?.full_name ?? "",
                         identity_type: KYCData?.identity_type ?? "",
                         identity_id: KYCData?.identity_id ?? "",
-                        identity_issued_date: "",
-                        identity_valid_through: "",
+                        identity_issued_date:
+                            KYCData && KYCData.identity_issued_date
+                                ? parseISO(KYCData.identity_issued_date)
+                                : "",
+                        identity_valid_through:
+                            KYCData && KYCData.identity_valid_through
+                                ? parseISO(KYCData.identity_valid_through)
+                                : "",
                         identity_issuer_organization:
                             KYCData?.identity_issuer_organization ?? "",
                         identity_card_file: "",
                         pan_number: KYCData?.pan_number ?? null,
                         pan_issued_from: KYCData?.pan_issued_from ?? "",
-                        pan_issued_date: "",
+                        pan_issued_date:
+                            KYCData && KYCData.pan_issued_date
+                                ? parseISO(KYCData.pan_issued_date)
+                                : "",
                         pan_card_file: "",
                         passport_size_photo: "",
                         personal_address_verification_document: "",
@@ -185,13 +194,19 @@ const KYCForm = () => {
                                 License or Passport{" "}
                             </p>
                             <Col md={5}>
-                                <DragDrop
+                                {/* <DragDrop
                                     name="identity_card_file"
                                     image="/service-details/file-upload.svg"
                                     fileType="Image/Video"
                                     maxImageSize={20}
                                     maxVideoSize={200}
                                     field={setFieldValue}
+                                /> */}
+                                <CustomDropZone
+                                    name="identity_card_file"
+                                    maxSize={200}
+                                    minSize={20}
+                                    onDrop={(files) => console.log(files)}
                                 />
                             </Col>
                             <hr />
@@ -228,13 +243,19 @@ const KYCForm = () => {
                             <h4>PAN/ VAT Card</h4>
                             <p>Document can be PAN or VAT Card </p>
                             <Col md={5}>
-                                <DragDrop
+                                {/* <DragDrop
                                     name="pan_card_file"
                                     image="/service-details/file-upload.svg"
                                     fileType="Image/Video"
                                     maxImageSize={20}
                                     maxVideoSize={200}
                                     field={setFieldValue}
+                                /> */}
+                                <CustomDropZone
+                                    name="pan_card_file"
+                                    maxSize={200}
+                                    minSize={20}
+                                    onDrop={(files) => console.log(files)}
                                 />
                             </Col>
                             <hr />
@@ -245,13 +266,19 @@ const KYCForm = () => {
                                         Upload your recent passport sized
                                         picture
                                     </p>
-                                    <DragDrop
+                                    {/* <DragDrop
                                         name="passport_size_photo"
                                         image="/service-details/file-upload.svg"
                                         fileType="Image/Video"
                                         maxImageSize={20}
                                         maxVideoSize={200}
                                         field={setFieldValue}
+                                    /> */}
+                                    <CustomDropZone
+                                        name="passport_size_photo"
+                                        maxSize={200}
+                                        minSize={20}
+                                        onDrop={(files) => console.log(files)}
                                     />
                                 </Col>
                                 <Col lg={{ span: 5, offset: 2 }} md={6}>
@@ -269,14 +296,14 @@ const KYCForm = () => {
                                             )
                                         }
                                     />
-                                    <DragDrop
+                                    {/* <DragDrop
                                         name="personal_address_verification_document"
                                         image="/service-details/file-upload.svg"
                                         fileType="Image/Video"
                                         maxImageSize={20}
                                         maxVideoSize={200}
                                         field={setFieldValue}
-                                    />
+                                    /> */}
                                 </Col>
                             </Row>
                             <hr />

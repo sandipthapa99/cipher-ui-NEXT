@@ -9,6 +9,7 @@ import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { log } from "console";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
@@ -19,6 +20,7 @@ import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails } = useGetProfile();
+    console.log(profileDetails);
 
     const remaining = {
         userImage: "/service-details/provider1.svg",
@@ -33,7 +35,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         taskCompleted: 30,
         userActiveStatus: true,
     };
-    if (!profileDetails) {
+    if (profileDetails?.message) {
         return (
             <>
                 <Layout title="Profile | Cipher">
@@ -41,7 +43,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
                             <Col className="create-profile">
-                                <h1>Create Profile. Start Your Journey</h1>
+                                <h1>{profileDetails?.message}</h1>
                                 <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
@@ -70,7 +72,10 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <UserProfileCard
                             countryCode={profileDetails?.country}
                             key={profileDetails?.id}
-                            userImage={profileDetails?.profile_image}
+                            userImage={
+                                profileDetails?.profile_image ??
+                                "/userprofile/unknownPerson.jpg"
+                            }
                             userName={profileDetails?.full_name}
                             userJob={profileDetails?.user_type}
                             userRating={remaining.userRating}
