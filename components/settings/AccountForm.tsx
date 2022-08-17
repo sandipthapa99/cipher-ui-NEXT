@@ -200,12 +200,11 @@ const AccountForm = () => {
                                     />
                                 </div>
                                 <Image
-                                    // src={
-                                    //     profile
-                                    //         ? profile.profile_image
-                                    //         : "/userprofile/unknownPerson.jpg"
-                                    // }
-                                    src={src}
+                                    src={
+                                        profile
+                                            ? profile.profile_image
+                                            : "/userprofile/unknownPerson.jpg"
+                                    }
                                     layout="fill"
                                     alt="profile-pic"
                                     className="rounded-circle"
