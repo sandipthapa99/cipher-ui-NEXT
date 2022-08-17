@@ -7,7 +7,7 @@ import { Formik } from "formik";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { reviewsContent } from "staticData/reviews";
 import type { UserProfileProps } from "types/userProfileProps";
@@ -42,6 +42,8 @@ const AboutProfile = () => {
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
 
+    const [id, setId] = useState<number | undefined>();
+
     //user profile certification data
     const { data: certificationData } = useData<
         UserProfileProps["certificationData"]
@@ -63,7 +65,12 @@ const AboutProfile = () => {
         ["tasker-portfolio"],
         "/tasker/portfolio/"
     );
-    //console.log()
+
+    const handleEdit = useCallback((id: any) => {
+        setShowExpForm(!showExpForm);
+        setId(id);
+    }, []);
+
     return (
         <>
             <div className="about-profile">
@@ -149,6 +156,7 @@ const AboutProfile = () => {
                             show={showExpForm}
                             setShowExpForm={setShowExpForm}
                             handleClose={() => setShowExpForm(false)}
+                            id={id}
                         />
                     </div>
 
@@ -168,8 +176,8 @@ const AboutProfile = () => {
                                                           icon={faPencil}
                                                           className="svg-icon"
                                                           onClick={() =>
-                                                              setShowExpForm(
-                                                                  !showExpForm
+                                                              handleEdit(
+                                                                  value?.id
                                                               )
                                                           }
                                                       />
@@ -262,6 +270,7 @@ const AboutProfile = () => {
                             show={showEducationForm}
                             setShowEducationForm={setShowEducationForm}
                             handleClose={() => setShowEducationForm(false)}
+                            id={id}
                         />
                     </div>
                     <Row>
@@ -269,7 +278,7 @@ const AboutProfile = () => {
                             <div className="content">
                                 {educationData
                                     ? educationData?.data.result.map(
-                                          (value, key) => (
+                                          (value: any, key) => (
                                               <div
                                                   className="education__type"
                                                   key={key}
@@ -281,11 +290,12 @@ const AboutProfile = () => {
                                                       <FontAwesomeIcon
                                                           icon={faPencil}
                                                           className="svg-icon"
-                                                          onClick={() =>
+                                                          onClick={() => {
                                                               setShowEducationForm(
                                                                   !showEducationForm
-                                                              )
-                                                          }
+                                                              );
+                                                              setId(value?.id);
+                                                          }}
                                                       />
                                                   </div>
                                                   <h3 className="program">
@@ -337,6 +347,7 @@ const AboutProfile = () => {
                                 setShowCertificationModal
                             }
                             handleClose={() => setShowCertificationModal(false)}
+                            id={id}
                         />
                     </div>
                     <Row>
@@ -350,12 +361,33 @@ const AboutProfile = () => {
                                                   key={key}
                                               >
                                                   <div className="name d-flex">
-                                                      <h3 className="institution">
-                                                          {value?.name}
-                                                      </h3>
+                                                      {/* <Link
+                                                          href={
+                                                              value?.certificate_url
+                                                          }
+                                                      > */}
+                                                      <a
+                                                          href={
+                                                              value?.certificate_url
+                                                          }
+                                                          target="_blank"
+                                                          rel="noreferrer"
+                                                      >
+                                                          <h3 className="institution">
+                                                              {value?.name}
+                                                          </h3>
+                                                      </a>
+                                                      {/* </Link> */}
+
                                                       <FontAwesomeIcon
                                                           icon={faPencil}
                                                           className="svg-icon"
+                                                          onClick={() => {
+                                                              setShowCertificationModal(
+                                                                  !showCertificationModal
+                                                              );
+                                                              setId(value?.id);
+                                                          }}
                                                       />
                                                   </div>
                                                   <h3 className="program">

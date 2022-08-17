@@ -1,5 +1,6 @@
 .about-profile {
     padding-bottom: 2.5rem;
+
     h1 {
         font-size: 1.7rem;
         font-weight: 500;
@@ -60,6 +61,7 @@
             display: flex;
             flex-wrap: wrap;
             padding-top: 1.5rem;
+
             .image {
                 padding-right: 2rem;
             }
@@ -162,5 +164,10 @@
     }
     .certification {
         padding-bottom: 2.5rem;
+        .name {
+            a {
+                color: $sub-title-color;
+            }
+        }
     }
 }
