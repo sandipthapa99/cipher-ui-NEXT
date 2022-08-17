@@ -16,8 +16,6 @@ const Tasker = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTaskIdx, setActiveTaskIdx] = useState<number | undefined>();
 
-
-
     const toggleActiveTask = (task: Task) => {
         router.push({
             pathname: router.pathname,

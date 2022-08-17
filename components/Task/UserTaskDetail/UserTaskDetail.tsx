@@ -24,7 +24,10 @@ const UserTaskDetail = ({
                 onClick={onExitTaskDetail}
                 className="mb-24"
             />
-            <UserTaskDetailHeader taskDetail={taskDetail} activeTaskId={activeTaskId} />
+            <UserTaskDetailHeader
+                taskDetail={taskDetail}
+                activeTaskId={activeTaskId}
+            />
             <UserShortIntro user={taskDetail.user} />
             <UserTaskDetailTabs user={taskDetail.user} />
             <UserTaskReviews />
