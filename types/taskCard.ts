@@ -12,4 +12,5 @@ export interface TaskCardProps extends HTMLAttributes<HTMLDivElement> {
     startPrice?: number | string;
     endPrice?: number | string;
     currency?: string;
+    taskId?: string;
 }
