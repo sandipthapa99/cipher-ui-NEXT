@@ -70,7 +70,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <UserProfileCard
                             countryCode={profileDetails?.country}
                             key={profileDetails?.id}
-                            userImage={remaining.userImage}
+                            userImage={profileDetails?.profile_image}
                             userName={profileDetails?.full_name}
                             userJob={profileDetails?.user_type}
                             userRating={remaining.userRating}

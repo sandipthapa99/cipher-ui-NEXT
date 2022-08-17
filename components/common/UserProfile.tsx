@@ -72,6 +72,7 @@ const UserProfileCard = ({
                             layout="fill"
                             objectFit="cover"
                             alt="user-profile-image"
+                            className="rounded-circle"
                         />
                     </figure>
                     <PhotoEdit
