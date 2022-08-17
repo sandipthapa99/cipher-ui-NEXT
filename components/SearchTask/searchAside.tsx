@@ -20,6 +20,7 @@ export type ServiceProvider = {
         permissions: Array<any>;
     }>;
     permissions: Array<any>;
+    onServiceClick?: () => void;
 };
 
 const ServiceNearYouCard = ({
@@ -32,6 +33,7 @@ const ServiceNearYouCard = ({
     haveDiscount,
     discountOn,
     discount,
+    onServiceClick,
 }: ServiceNearYouCardProps) => {
     const { data } = useQuery(
         ["service-provider-user", serviceProvider],

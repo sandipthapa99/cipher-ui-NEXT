@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
@@ -14,7 +15,15 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
         ServiceNearYou | undefined
     >();
 
-    console.log("activeService", activeService);
+    const router = useRouter();
+
+    const toggleActiveService = (service: ServiceNearYou) => {
+        router.push({
+            pathname: router.pathname,
+            query: { ...router.query, serviceId: service?.id },
+        });
+        setActiveService(service);
+    };
 
     const renderServiceCards = () =>
         servicesNearYou?.map((service: any) => {
@@ -32,6 +41,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                         discount={service?.discount}
                         image={service?.image}
                         serviceProvider={service?.created_by}
+                        onServiceClick={toggleActiveService}
                     />
                 </div>
             );
