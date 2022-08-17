@@ -16,7 +16,10 @@ import { toast } from "react-toastify";
 import type { ProfileCardContent } from "staticData/profileCardContent";
 import { autoLogout } from "utils/auth";
 
-export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
+interface ProfileModelProps {
+    profile: ProfileCardContent;
+}
+export const ProfileModel = ({ profile }: ProfileModelProps) => {
     const queryClient = useQueryClient();
     const router = useRouter();
 

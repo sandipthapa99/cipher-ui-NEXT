@@ -4,6 +4,7 @@ import PostModal from "@components/PostTask/PostModal";
 import { faBars, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useClickOutside, useToggle } from "@mantine/hooks";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,11 +23,14 @@ import { profileCardContent } from "staticData/profileCardContent";
 
 const SearchHeader = () => {
     const { data, isLoading } = useUser();
-    const [notopen, setNotopen] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
+
+    const [showProfileModal, toggleShowProfileModal] = useToggle([false, true]);
+    const profileModalRef = useClickOutside(toggleShowProfileModal);
+
     return (
         <>
             <header id="site-upper-header" className="site-upper-header">
@@ -67,9 +71,14 @@ const SearchHeader = () => {
                             </Col>
                             {!isLoading && data ? (
                                 <Col md={3} className="profile-post">
-                                    <div className="user-profile">
+                                    <div
+                                        ref={profileModalRef}
+                                        className="user-profile"
+                                    >
                                         <span
-                                            onClick={() => setNotopen(!notopen)}
+                                            onClick={() =>
+                                                toggleShowProfileModal()
+                                            }
                                             className="btn location-btn d-none d-md-inline-block"
                                         >
                                             <figure className="thumbnail-img">
@@ -83,7 +92,7 @@ const SearchHeader = () => {
                                             </figure>
                                         </span>
 
-                                        {notopen && (
+                                        {showProfileModal && (
                                             <ProfileModel
                                                 profile={profileCardContent}
                                             />
