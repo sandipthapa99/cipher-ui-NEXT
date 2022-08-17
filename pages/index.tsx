@@ -142,9 +142,9 @@ const Home: NextPage = () => {
                                 </div>
                             )}
                             <div className="come-with-us">
-                                <h1>Come with Us For</h1>
+                                <h1>Join CIPHER for</h1>
                                 <div className="d-flex buttons">
-                                    <Link href="/earn-money">
+                                    <Link href="/task">
                                         <a href="" className="hero-cta">
                                             Earn Money as a Professional
                                         </a>
@@ -380,7 +380,7 @@ const Home: NextPage = () => {
             <section className="get-services">
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">
-                        Get Services In An Instant
+                        Book Your Services in an Instant
                     </h1>
                     <ul className="d-block d-md-flex align-items-center justify-content-center">
                         <li className="d-flex align-items-center">
@@ -393,11 +393,12 @@ const Home: NextPage = () => {
                         </li>
                         <li className="d-flex align-items-center">
                             <span>3</span>
-                            Get offers &amp; select most suited to you
+                            Get offers and choose your most suited service
+                            provider
                         </li>
                         <li className="d-flex align-items-center">
                             <span>4</span>
-                            Pay &amp; Done
+                            Pay and Book
                         </li>
                     </ul>
 
@@ -423,7 +424,7 @@ const Home: NextPage = () => {
                             })}
                     </Row>
                     <div className="how-it-works d-flex justify-content-center">
-                        <Link href="">
+                        <Link href="/how-it-works">
                             <a>
                                 See How It Works
                                 <FontAwesomeIcon
