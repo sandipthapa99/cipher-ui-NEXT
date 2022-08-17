@@ -10,6 +10,7 @@ export interface ServiceNearYouCardProps {
     serviceDescription?: string;
     discountOn?: string;
     highlights?: string[];
+    serviceId?: number;
 }
 export interface BookNowDetails extends ServiceNearYouCardProps {
     problemDescription?: string;

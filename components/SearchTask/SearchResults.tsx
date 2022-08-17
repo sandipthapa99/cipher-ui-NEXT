@@ -14,6 +14,8 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
         ServiceNearYou | undefined
     >();
 
+    console.log("activeService", activeService);
+
     const renderServiceCards = () =>
         servicesNearYou?.map((service: any) => {
             return (
@@ -74,6 +76,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                                 highlights={JSON.parse(
                                     activeService?.highlights
                                 )}
+                                serviceId={activeService?.id}
                             />
                         ) : (
                             <iframe
