@@ -15,7 +15,7 @@ export const PostTaskHomepage = ({ handleClose }: PostTaskHomepageProps) => {
             </span>
             <FontAwesomeIcon icon={faListCheck} />
 
-            <h4 className="justify-text-center">Earning is what we do</h4>
+            <h4 className="justify-text-center">Ease your workload</h4>
             <BigButton btnTitle={"Post-Task"} backgroundColor={"#FFCA6A"} />
         </div>
     );
