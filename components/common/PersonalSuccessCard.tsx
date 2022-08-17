@@ -8,14 +8,14 @@ import { Col, Row } from "react-bootstrap";
 export const PersonalSuccessCard = () => {
     return (
         <div className="personal-success-card">
-            <Row>
+            <Row className="d-flex">
                 <Col md={5} sm={12}>
-                    <figure className="success-image">
+                    <figure className="d-flex justify-content-center success-image">
                         <Image
                             src={"/utility-images/sakshi-shrestha.png"}
-                            height={553}
-                            width={502}
                             alt="growyourbusiness-image"
+                            height={550}
+                            width={500}
                         />
                     </figure>
                 </Col>
