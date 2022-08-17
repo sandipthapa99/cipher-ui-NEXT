@@ -2,17 +2,110 @@ import { createStyles, Highlight, Text } from "@mantine/core";
 import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
-interface CustomDropZoneProps extends Omit<DropzoneProps, "children"> {
+const FILE_PLACEHOLDER_IMAGES = {
+    pdf: "/userprofile/pdf.svg",
+    image: "/userprofile/documents/image.svg",
+    video: "/payrollservices/video.svg",
+};
+export type FileType = keyof typeof FILE_PLACEHOLDER_IMAGES;
+export interface CustomDropZoneProps
+    extends Omit<DropzoneProps, "children" | "onDrop"> {
+    name: string;
     label?: string;
-    image?: string;
     maxSize?: number;
     minSize?: number;
     previewImageWidth?: number;
     previewImageHeight?: number;
+    fileType?: FileType;
+    onDroppedImageConvert?: (image: FormData) => void;
 }
 
+export const CustomDropZone = ({
+    name,
+    label,
+    maxSize,
+    minSize,
+    previewImageWidth,
+    previewImageHeight,
+    fileType,
+    onDroppedImageConvert,
+    ...rest
+}: CustomDropZoneProps) => {
+    const [files, setFiles] = useState<File[]>([]);
+    const file = useMemo(
+        () => (files.length > 0 ? files[0] : undefined),
+        [files]
+    );
+    const previewImages = files.map((file) => URL.createObjectURL(file));
+
+    const dropzoneRef = useRef<HTMLDivElement | null>(null);
+    const { classes } = useStyles();
+
+    const focusDropzone = () => dropzoneRef.current?.focus();
+
+    const handleOnDrop = (files: File[]) => {
+        const formData = new FormData();
+        formData.append(name, files[0]);
+        onDroppedImageConvert?.(formData);
+        setFiles(files);
+    };
+    const getPlaceHolderImage = () => {
+        if (previewImages.length > 0) return previewImages[0];
+        if (fileType) return FILE_PLACEHOLDER_IMAGES[fileType];
+        return "/service-details/file-upload.svg";
+    };
+    return (
+        <>
+            <div onClick={focusDropzone} className={classes.dropzoneContainer}>
+                <Image
+                    src={getPlaceHolderImage()}
+                    width={previewImageWidth ?? 80}
+                    height={previewImageHeight ?? 80}
+                    alt="file-upload"
+                    objectFit="cover"
+                />
+                <Dropzone
+                    onDrop={handleOnDrop}
+                    ref={dropzoneRef}
+                    className={classes.dropzone}
+                    {...rest}
+                >
+                    <Highlight
+                        highlightColor="blue"
+                        highlight="Browse"
+                        highlightStyles={() => ({
+                            backgroundImage: "#276EFD",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                        })}
+                    >
+                        {file ? file.name : "Drag or Browse"}
+                    </Highlight>
+                    <Text mt="xs" className={classes.text}>
+                        {file ? file.type : label ?? "Image/Video/PDF"}
+                    </Text>
+                </Dropzone>
+                {file && (
+                    <Text className={classes.text}>
+                        Current size : {`${file.size / 1000} kb`}
+                    </Text>
+                )}
+                {minSize && (
+                    <Text mt="xl" className={classes.text}>
+                        Minimum image size is {maxSize} MB
+                    </Text>
+                )}
+                {maxSize && (
+                    <Text mt="xs" className={classes.text}>
+                        Maximum image size is {minSize} MB
+                    </Text>
+                )}
+            </div>
+        </>
+    );
+};
 const useStyles = createStyles({
     dropzoneContainer: {
         background: "#fff",
@@ -37,70 +130,3 @@ const useStyles = createStyles({
         },
     },
 });
-export const CustomDropZone = ({
-    label,
-    image,
-    maxSize,
-    minSize,
-    previewImageWidth,
-    previewImageHeight,
-    onDrop,
-    ...rest
-}: CustomDropZoneProps) => {
-    const [files, setFiles] = useState<File[]>([]);
-    const previewImages = files.map((file) => URL.createObjectURL(file));
-
-    const dropzoneRef = useRef<HTMLDivElement | null>(null);
-    const { classes } = useStyles();
-
-    const focusDropzone = () => dropzoneRef.current?.focus();
-
-    const handleOnDrop = (files: File[]) => {
-        setFiles(files);
-        onDrop(files);
-    };
-    return (
-        <>
-            <div onClick={focusDropzone} className={classes.dropzoneContainer}>
-                <Image
-                    src={previewImages[0] ?? "/service-details/file-upload.svg"}
-                    width={previewImageWidth ?? 80}
-                    height={previewImageHeight ?? 80}
-                    alt="file-upload"
-                    objectFit="cover"
-                />
-                <Dropzone
-                    onDrop={handleOnDrop}
-                    ref={dropzoneRef}
-                    className={classes.dropzone}
-                    {...rest}
-                >
-                    <Highlight
-                        highlightColor="blue"
-                        highlight="Browse"
-                        highlightStyles={() => ({
-                            backgroundImage: "#276EFD",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                        })}
-                    >
-                        Drag or Browse
-                    </Highlight>
-                    <Text mt="xs" className={classes.text}>
-                        {label ?? "Image/Video"}
-                    </Text>
-                </Dropzone>
-                {minSize && (
-                    <Text mt="xl" className={classes.text}>
-                        Minimum image size is {maxSize} MB
-                    </Text>
-                )}
-                {maxSize && (
-                    <Text mt="xs" className={classes.text}>
-                        Maximum image size is {minSize} MB
-                    </Text>
-                )}
-            </div>
-        </>
-    );
-};
