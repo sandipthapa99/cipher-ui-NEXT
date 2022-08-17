@@ -40,8 +40,8 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                 <Row>
                     <Col className="search-results--col" md={4}>
                         <p>
-                            {servicesNearYou?.length} Services in Kathmandu,
-                            Nepal (1 new)
+                            {servicesNearYou?.length} Services in Kathmandu ,
+                            Nepal ({servicesNearYou?.length} new)
                         </p>
                         {renderServiceCards()}
                     </Col>
