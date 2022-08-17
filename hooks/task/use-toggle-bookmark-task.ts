@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
@@ -12,6 +12,7 @@ export interface BookmarkTaskResponse {
 }
 
 export const useToggleBookmarkTask = () => {
+    const queryClient = useQueryClient();
     return useMutation<BookmarkTaskResponse, Error, BookmarkTaskPayload>(
         async (payload) => {
             try {
@@ -19,6 +20,7 @@ export const useToggleBookmarkTask = () => {
                     "/task/bookmark/",
                     payload
                 );
+                await queryClient.invalidateQueries(["bookmarked-tasks"]);
                 return data;
             } catch (error) {
                 if (error instanceof AxiosError) {
