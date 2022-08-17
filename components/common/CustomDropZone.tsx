@@ -19,7 +19,7 @@ export interface CustomDropZoneProps
     previewImageWidth?: number;
     previewImageHeight?: number;
     fileType?: FileType;
-    onDroppedImageConvert?: (image: FormData) => void;
+    onDrop?: (image: FormData) => void;
 }
 
 export const CustomDropZone = ({
@@ -30,7 +30,7 @@ export const CustomDropZone = ({
     previewImageWidth,
     previewImageHeight,
     fileType,
-    onDroppedImageConvert,
+    onDrop,
     ...rest
 }: CustomDropZoneProps) => {
     const [files, setFiles] = useState<File[]>([]);
@@ -48,7 +48,7 @@ export const CustomDropZone = ({
     const handleOnDrop = (files: File[]) => {
         const formData = new FormData();
         formData.append(name, files[0]);
-        onDroppedImageConvert?.(formData);
+        onDrop?.(formData);
         setFiles(files);
     };
     const getPlaceHolderImage = () => {

@@ -262,7 +262,7 @@ const KYCForm = () => {
                                     </p>
                                     <CustomDropZone
                                         name="personal_address"
-                                        onDroppedImageConvert={(formData) =>
+                                        onDrop={(formData) =>
                                             console.log(
                                                 "onDroppedImageConvert",
                                                 formData.get("personal_address")
