@@ -64,14 +64,8 @@ const AccountForm = () => {
     console.log(profile);
 
     const inputRef = useRef<HTMLInputElement>(null);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [src, setSrc] = useState<File | string>(
-        "/userprofile/unknownPerson.jpg"
-    );
-    // const formDataRef = useRef(
-    //     typeof window !== "undefined" ? new FormData() : null
-    // );
-    const skills = JSON.parse(profile?.skill ?? "[]");
+
+    const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
     const onButtonClick = () => {
         // `current` points to the mounted file input element
         inputRef?.current?.click();
@@ -198,8 +192,6 @@ const AccountForm = () => {
                                         onChange={(e: any) => {
                                             const files = e.target.files;
 
-                                            console.log({ files, src });
-
                                             setFieldValue(
                                                 "profile_image",
                                                 files[0]
@@ -265,6 +257,7 @@ const AccountForm = () => {
                             <hr />
                             <h3>Profession Information</h3>
                             <TagInputField
+                                defaultValue={skills}
                                 data={skills}
                                 name="skill"
                                 error={errors.skill}
