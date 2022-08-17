@@ -10,7 +10,9 @@ import {
 import { faPlus, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -34,7 +36,12 @@ const ProfileEditForm = ({
     handleClose,
     setShowEdit,
 }: ProfileEditProps) => {
+    const { data: profile } = useGetProfile();
     const toggleSuccessModal = useToggleSuccessModal();
+    const [hourStart, setHourStart] = useState("");
+    const skills = JSON.parse(profile?.skill);
+    console.log(skills, typeof skills);
+
     return (
         <>
             {/* Modal component */}
@@ -43,9 +50,32 @@ const ProfileEditForm = ({
                 <div className="applied-modal edit-form">
                     <h3>Edit Profile</h3>
                     <Formik
-                        initialValues={ProfileEditFromData}
+                        initialValues={{
+                            full_name: profile?.full_name ?? "",
+                            bio: profile?.bio ?? "",
+                            phone:
+                                profile?.phone ??
+                                Math.floor(Math.random() * 1000000000),
+                            address_line1: profile?.address_line1 ?? "",
+                            address_line2: profile?.address_line2 ?? "",
+                            active_hour_start: "",
+                            active_hour_end: "",
+                            skill: "",
+                            hourly_rate: profile?.hourly_rate ?? "",
+                            linkedAccounts: "",
+                        }}
                         validationSchema={profileEditFormSchema}
                         onSubmit={async (values) => {
+                            const newValidatedValues = {
+                                ...values,
+                                active_hour_start: new Date(
+                                    values.active_hour_start ?? ""
+                                )?.toLocaleTimeString(),
+                                active_hour_end: new Date(
+                                    values.active_hour_end ?? ""
+                                )?.toLocaleTimeString(),
+                                skill: JSON.stringify(values.skill),
+                            };
                             setShowEdit(false);
                             toggleSuccessModal();
                             // To be used for API
@@ -54,17 +84,17 @@ const ProfileEditForm = ({
                             // } catch (error: any) {
                             //     error.response.data.message;
                             // }
-                            console.log(values);
+                            console.log(newValidatedValues);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
                                 <InputField
                                     type="text"
-                                    name="name"
+                                    name="full_name"
                                     labelName="Name"
-                                    error={errors.name}
-                                    touch={touched.name}
+                                    error={errors.full_name}
+                                    touch={touched.full_name}
                                     placeHolder="Enter your price"
                                 />
                                 <InputField
@@ -78,15 +108,6 @@ const ProfileEditForm = ({
                                 <Row className="g-5">
                                     <Col md={6}>
                                         <InputField
-                                            name="email"
-                                            labelName="Email Address"
-                                            touch={touched.email}
-                                            error={errors.email}
-                                            placeHolder="Applying (Remark)"
-                                        />
-                                    </Col>
-                                    <Col md={6}>
-                                        <InputField
                                             name="phone"
                                             labelName="Phone Number"
                                             touch={touched.phone}
@@ -97,61 +118,62 @@ const ProfileEditForm = ({
                                 </Row>
                                 <InputField
                                     type="text"
-                                    name="addressLine1"
+                                    name="address_line1"
                                     labelName="Address Line 1"
-                                    error={errors.addressLine1}
-                                    touch={touched.addressLine1}
+                                    error={errors.address_line1}
+                                    touch={touched.address_line1}
                                     placeHolder="Enter your price"
                                 />
                                 <InputField
                                     type="text"
-                                    name="addressLine2"
+                                    name="address_line2"
                                     labelName="Address Line 2"
-                                    error={errors.addressLine2}
-                                    touch={touched.addressLine2}
+                                    error={errors.address_line2}
+                                    touch={touched.address_line2}
                                     placeHolder="Enter your price"
                                 />
                                 <h4>Active Hours</h4>
                                 <Row className="g-5">
                                     <Col md={3}>
                                         <DatePickerField
-                                            name="activeHoursFrom"
+                                            name="active_hour_start"
                                             labelName="From"
                                             dateFormat="h:mm aa"
                                             autocomplete="off"
                                             placeHolder="00:00"
                                             timeOnly={true}
-                                            touch={touched.activeHoursFrom}
-                                            error={errors.activeHoursFrom}
+                                            touch={touched.active_hour_start}
+                                            error={errors.active_hour_start}
                                         />
                                     </Col>
                                     <Col md={3}>
                                         <DatePickerField
-                                            name="activeHoursTo"
+                                            name="active_hour_end"
                                             labelName="To"
                                             placeHolder="00:00"
                                             dateFormat="h:mm aa"
                                             timeOnly={true}
                                             autocomplete="off"
-                                            touch={touched.activeHoursTo}
-                                            error={errors.activeHoursTo}
+                                            touch={touched.active_hour_end}
+                                            error={errors.active_hour_end}
                                         />
                                     </Col>
                                 </Row>
                                 <TagInputField
-                                    name="specialities"
-                                    error={errors.specialities}
-                                    touch={touched.specialities}
+                                    data={skills}
+                                    name="skill"
+                                    error={errors.skill}
+                                    touch={touched.skill}
                                     labelName="Specialities"
                                     placeHolder="Enter your price"
                                 />
                                 <Col md={3}>
                                     <InputField
                                         type="number"
-                                        name="baseRatePerHour"
+                                        name="hourly_rate"
                                         labelName="Base Rate Per Hour"
-                                        error={errors.baseRatePerHour}
-                                        touch={touched.baseRatePerHour}
+                                        error={errors.hourly_rate}
+                                        touch={touched.hourly_rate}
                                         placeHolder="Enter your price"
                                     />
                                 </Col>

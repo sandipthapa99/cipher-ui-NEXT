@@ -1,13 +1,13 @@
 export interface ProfileEditValueProps {
-    name: string;
+    full_name: string;
     bio: string;
-    email: string;
+
     phone: string;
-    addressLine1: string;
-    addressLine2: string;
-    activeHoursFrom: string;
-    activeHoursTo: string;
-    specialities: string;
-    baseRatePerHour: string;
+    address_line1: string;
+    address_line2: string;
+    active_hour_start: string;
+    active_hour_end: string;
+    skill: string;
+    hourly_rate: string;
     linkedAccounts: string;
 }
