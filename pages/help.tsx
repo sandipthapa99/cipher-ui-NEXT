@@ -34,11 +34,11 @@ const Help: NextPage = () => {
                                 </figure>
                             </Col>
                             <Col md={6}>
-                                <h1>What help do you need?</h1>
+                                <h1>How can we help you?</h1>
 
                                 <SearchInputField
                                     validationSchema={searchValidationSchema}
-                                    placeholder="Search Categories"
+                                    placeholder="Search for anything"
                                 />
                                 <div className="recommendation">
                                     <RecommendationChips title="Connects" />
@@ -109,8 +109,9 @@ const Help: NextPage = () => {
                                 <div className="card-block">
                                     <h1>Ask In Community</h1>
                                     <p>
-                                        The Cipher community is here to help you
-                                        as well. Please feel free to get help.
+                                        The community is basically a group of
+                                        CIPHER members who can anonymously reply
+                                        to the queries asked.
                                     </p>
 
                                     <div className="contact-device">
