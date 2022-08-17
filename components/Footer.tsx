@@ -129,11 +129,6 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/hire-in-nepal">
-                                                <a>Hire in Nepal</a>
-                                            </Link>
-                                        </li>
-                                        <li>
                                             <Link href="/feedback">
                                                 <a>Feedback</a>
                                             </Link>
