@@ -63,7 +63,7 @@ const ExploreServices: NextPage = () => {
                     {/* Explore top container end */}
                     {/* Explore special offer section start */}
                     <div className="explore-services__offers">
-                        <h1>Special Offers &amp; Discount</h1>
+                        <h1>Special Offers</h1>
 
                         <Row className="gx-5">
                             <Col md={4}>
@@ -80,6 +80,7 @@ const ExploreServices: NextPage = () => {
                     {/* explore special offer section end */}
 
                     {/* Services near you section start */}
+                    <h2>Trending Services</h2>
                     <div
                         id="services-near-you"
                         className="explore-services__services"
@@ -127,6 +128,7 @@ const ExploreServices: NextPage = () => {
                                     );
                                 })}
                         </Row>
+                        <h2 className="mt-4">Services Near You</h2>
                         <Row className="gx-5 more-services">
                             {services &&
                                 services.map((service) => {
@@ -173,6 +175,7 @@ const ExploreServices: NextPage = () => {
                     {/* Services near you section end */}
 
                     {/* Advertisements section start */}
+                    <h2>Advertisement of Merchants</h2>
                     <div
                         className="explore-services__advertisement"
                         id="advertisement"
@@ -189,6 +192,7 @@ const ExploreServices: NextPage = () => {
                     {/* Advertisement section end */}
 
                     {/* Services near you section start */}
+                    <h2>All Services</h2>
                     <div
                         id="services-near-you"
                         className="explore-services__services"

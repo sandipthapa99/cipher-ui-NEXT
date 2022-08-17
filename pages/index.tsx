@@ -29,6 +29,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
+import { quality } from "staticData/cipherNotableQuality";
 import { blogCardContent } from "staticData/community";
 import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
@@ -38,27 +39,6 @@ import { tasks } from "staticData/task";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
-
-const quality = [
-    {
-        id: "0",
-        title: "Meet with your recruiter",
-        desc: "Give us a few details about your project and set up a time to talk with your recruiter.",
-        icon: "/notable/reliable.svg",
-    },
-    {
-        id: "1",
-        title: "Receive a shortlist",
-        icon: "/notable/easy.svg",
-        desc: "Posting a task or getting your work done requires only few easy clicks.",
-    },
-    {
-        id: "2",
-        title: "Select and hire",
-        icon: "/notable/secure.svg",
-        desc: "Choose the best fit for your team.",
-    },
-];
 
 const CategoriesListingHomepage = dynamic(
     () => import("components/common/CategoriesListingHomepage"),
@@ -142,9 +122,9 @@ const Home: NextPage = () => {
                                 </div>
                             )}
                             <div className="come-with-us">
-                                <h1>Come with Us For</h1>
+                                <h1>Join CIPHER for</h1>
                                 <div className="d-flex buttons">
-                                    <Link href="/earn-money">
+                                    <Link href="/task">
                                         <a href="" className="hero-cta">
                                             Earn Money as a Professional
                                         </a>
@@ -380,7 +360,7 @@ const Home: NextPage = () => {
             <section className="get-services">
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">
-                        Get Services In An Instant
+                        Book Your Services in an Instant
                     </h1>
                     <ul className="d-block d-md-flex align-items-center justify-content-center">
                         <li className="d-flex align-items-center">
@@ -393,11 +373,12 @@ const Home: NextPage = () => {
                         </li>
                         <li className="d-flex align-items-center">
                             <span>3</span>
-                            Get offers &amp; select most suited to you
+                            Get offers and choose your most suited service
+                            provider
                         </li>
                         <li className="d-flex align-items-center">
                             <span>4</span>
-                            Pay &amp; Done
+                            Pay and Book
                         </li>
                     </ul>
 
@@ -423,7 +404,7 @@ const Home: NextPage = () => {
                             })}
                     </Row>
                     <div className="how-it-works d-flex justify-content-center">
-                        <Link href="">
+                        <Link href="/how-it-works">
                             <a>
                                 See How It Works
                                 <FontAwesomeIcon
@@ -676,8 +657,8 @@ const Home: NextPage = () => {
                                 </h1>
                                 <div className="bottom-content">
                                     <p>
-                                        Designing a calendar isn&apos;t always
-                                        as simple as filling.
+                                        Designed for easy and approximate
+                                        calculation of your tax
                                     </p>
                                 </div>
                                 <Link href="/tax-calculator">
@@ -707,9 +688,9 @@ const Home: NextPage = () => {
                             <MarketPlaceCard
                                 icon="/icons/globe-location.svg"
                                 title="Location"
-                                description="It is always convenient to to be connected to clients, and
-                                tasks closer to you, and with us, you can see who or which
-                                tasks are closer to you, or at your preferred location."
+                                description="It is always convenient to be connected to the clients and the tasks 
+                                closer to you. With us, you can view who or which tasks are closer to you or your 
+                                    preferred location."
                                 redirectionTo=""
                                 iconBackground="#CDE9F9"
                             />
@@ -718,7 +699,7 @@ const Home: NextPage = () => {
                             <MarketPlaceCard
                                 icon="/icons/category.svg"
                                 title="Category"
-                                description="Looking for a particular service, or multitude of them ? Or do you provide multitude of services, or jus want to stick to a particular one ? We have made it easier for you to filter, and sort out categories as per your convenience."
+                                description="Looking for a particular service or variety of them? Or do you provide services and are looking for clients? We have made it easier for you to filter and sort out categories as per your preference."
                                 redirectionTo=""
                                 iconBackground="#E3D5FA"
                             />
@@ -727,7 +708,7 @@ const Home: NextPage = () => {
                             <MarketPlaceCard
                                 icon="/icons/recommendation-badge.svg"
                                 title="Recommended by us"
-                                description="We know each of our users, and we do know their preferences, and their choices, so you can always rely on our recommendations for a customized search feed just for you."
+                                description="We know the preferences and choices of each of our users. Therefore, you can always rely on our recommendations for a customised search feed."
                                 redirectionTo=""
                                 iconBackground="#CCF6E6"
                             />
@@ -741,7 +722,7 @@ const Home: NextPage = () => {
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">Top Categories</h1>
                     <h2 className="section-sub-title">
-                        See some of our top categories in your area
+                        See some of our top categories
                     </h2>
                     <CategoriesListingHomepage />
                 </Container>

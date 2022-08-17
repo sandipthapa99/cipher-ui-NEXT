@@ -1,18 +1,18 @@
 export const resourceCarouselContent = [
     {
         id: "0",
-        cardTitle: "How to scale your business with cipher?",
+        cardTitle: "How to scale your business with CIPHER?",
         cardAuthor: "Roshani Panday, Makeup Artist",
         cardImage: "/resources/carousel-image.svg",
         cardDescription:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque maiores, iure voluptatem sit quia error fuga eveniet veritatis quoddolorum nostrum nemo cum! Inventore eos ut voluptatem officiis placeatsit quibusdam maxime tenetur quo recusandae vol uptas obcaecati qui,accusantium aspernatur ipsam! Minus molestiae accusamus incidunt corrupti, totam magnam veritatis delectus?",
+            "We would be honoured to put our expertise and tools to help you reach out to your customers through us. Taking a step further, CIPHER is trying to help the businesses to find a platform to showcase their skills and experience in order to find the right and maximum number of customers. As a service provider, you can post your service and its rates or you can also apply for the tasks posted by the customers and negotiate the price.",
     },
     {
         id: "1",
-        cardTitle: "How to scale your business with cipher?",
+        cardTitle: "How to scale your business with CIPHER?",
         cardAuthor: "Roshani Panday, Makeup Artist",
         cardImage: "/resources/carousel-image.svg",
         cardDescription:
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque maiores, iure voluptatem sit quia error fuga eveniet veritatis quoddolorum nostrum nemo cum! Inventore eos ut voluptatem officiis placeatsit quibusdam maxime tenetur quo recusandae vol uptas obcaecati qui,accusantium aspernatur ipsam! Minus molestiae accusamus incidunt corrupti, totam magnam veritatis delectus?",
+            "We would be honoured to put our expertise and tools to help you reach out to your customers through us. Taking a step further, CIPHER is trying to help the businesses to find a platform to showcase their skills and experience in order to find the right and maximum number of customers. As a service provider, you can post your service and its rates or you can also apply for the tasks posted by the customers and negotiate the price.",
     },
 ];
