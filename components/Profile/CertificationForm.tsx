@@ -5,17 +5,17 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import { Fragment } from "react";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
-import { CertificationFromData } from "utils/formData";
+import { CertificationFormData } from "utils/formData";
 import { certificateFormSchema } from "utils/formValidation/certificateFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -33,6 +33,8 @@ const CertificationForm = ({
     const queryClient = useQueryClient();
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useForm(`/tasker/certification/`);
+    const [toggle, setToggled] = useState(false);
+
     return (
         <Fragment>
             {/* Modal component */}
@@ -41,21 +43,36 @@ const CertificationForm = ({
                 <div className="applied-modal">
                     <h3>Add Certifications</h3>
                     <Formik
-                        initialValues={CertificationFromData}
+                        initialValues={CertificationFormData}
                         validationSchema={certificateFormSchema}
                         onSubmit={async (values, action) => {
-                            const newvalidatedValue = {
-                                ...values,
-                                issued_date: format(
-                                    new Date(values.issued_date ?? new Date()),
-                                    "yyyy-MM-dd"
-                                ),
-                                expire_date: format(
-                                    new Date(values.expire_date ?? new Date()),
-                                    "yyyy-MM-dd"
-                                ),
-                            };
-                            mutate(newvalidatedValue, {
+                            let newValue;
+                            if (!values.expire_date) {
+                                const withoutEndDate = {
+                                    ...values,
+                                    issued_date: format(
+                                        new Date(values.issued_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                    expire_date: null,
+                                };
+                                newValue = withoutEndDate;
+                            } else {
+                                const newvalidatedValue = {
+                                    ...values,
+                                    issued_date: format(
+                                        new Date(values.issued_date),
+                                        "yyyy-MM-dd"
+                                    ),
+
+                                    expire_date: format(
+                                        new Date(values.expire_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                };
+                                newValue = newvalidatedValue;
+                            }
+                            mutate(newValue, {
                                 onSuccess: async () => {
                                     setShowCertificationModal(false);
                                     toggleSuccessModal();
@@ -96,12 +113,13 @@ const CertificationForm = ({
                                     placeHolder="Experience Description"
                                 />
                                 <p className="mb-3 d-flex checkbox">
-                                    <Field
+                                    <input
                                         type="checkbox"
                                         name="does_expire"
-                                        className="checkbox-toggle me-2"
-                                    />{" "}
-                                    This certifate does not expire
+                                        checked={toggle ? true : false}
+                                        onChange={() => setToggled(!toggle)}
+                                    />
+                                    &nbsp; This certifate does not expire
                                 </p>
                                 <InputField
                                     name="credential_id"
@@ -122,18 +140,25 @@ const CertificationForm = ({
                                         <DatePickerField
                                             name="issued_date"
                                             labelName="Issued Date"
-                                            placeHolder="day/month/year"
+                                            placeHolder="2022-03-06"
                                             touch={touched.issued_date}
                                             error={errors.issued_date}
+                                            dateFormat="yyyy-MM-dd"
                                         />
                                     </Col>
                                     <Col md={6}>
                                         <DatePickerField
                                             name="expire_date"
                                             labelName="Expiration Date"
-                                            placeHolder="day/month/year"
+                                            placeHolder={
+                                                toggle
+                                                    ? "No Expiration Date"
+                                                    : "2022-03-06"
+                                            }
+                                            dateFormat="yyyy-MM-dd"
                                             touch={touched.expire_date}
                                             error={errors.expire_date}
+                                            disabled={toggle ? true : false}
                                         />
                                     </Col>
                                 </Row>

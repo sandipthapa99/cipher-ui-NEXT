@@ -15,7 +15,7 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { ExperienceFromData } from "utils/formData";
+import { ExperienceFormData } from "utils/formData";
 import { experienceFormSchema } from "utils/formValidation/experienceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -44,7 +44,7 @@ const ExperienceForm = ({
                 <div className="applied-modal">
                     <h3>Add Experience</h3>
                     <Formik
-                        initialValues={ExperienceFromData}
+                        initialValues={ExperienceFormData}
                         validationSchema={experienceFormSchema}
                         onSubmit={async (values) => {
                             let newValue;
@@ -133,10 +133,6 @@ const ExperienceForm = ({
                                     placeHolder="Eg: New Baneshwor, Kathmandu"
                                 />
                                 <p className="mb-3">
-                                    {/* <Field
-                                        type="checkbox"
-                                        name="currently_working"
-                                    /> */}
                                     <input
                                         type="checkbox"
                                         name="currently_working"
@@ -144,7 +140,14 @@ const ExperienceForm = ({
                                         onChange={() => setToggled(!toggle)}
                                     />
                                     &nbsp;I am currently working here
-                                </p>
+                                </p>{" "}
+                                <input
+                                    type="checkbox"
+                                    name="currently_working"
+                                    checked={toggle ? true : false}
+                                    onChange={() => setToggled(!toggle)}
+                                />
+                                &nbsp;
                                 <Row className="g-5">
                                     <Col md={6}>
                                         <DatePickerField
@@ -168,7 +171,6 @@ const ExperienceForm = ({
                                         />
                                     </Col>
                                 </Row>
-
                                 <Modal.Footer>
                                     <Button
                                         className="btn close-btn w-25"

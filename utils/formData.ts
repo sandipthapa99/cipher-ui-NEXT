@@ -52,7 +52,7 @@ export const EquipmentFormData: EquipmentValueProps = {
 };
 
 //Experience form data
-export const ExperienceFromData: ExperienceValueProps = {
+export const ExperienceFormData: ExperienceValueProps = {
     title: "",
     description: "",
     employment_type: "Full Time",
@@ -85,15 +85,15 @@ export const BookServiceFormData: BookNowFormProps = {
     book_image: "",
 };
 
-export const CertificationFromData: CertificationValueProps = {
+export const CertificationFormData: CertificationValueProps = {
     name: "",
     issuing_organization: "",
     description: "",
     does_expire: false,
     credential_id: "",
     certificate_url: "",
-    issued_date: null,
-    expire_date: null,
+    issued_date: "",
+    expire_date: "",
 };
 
 export const ProfileEditFromData: ProfileEditValueProps = {
