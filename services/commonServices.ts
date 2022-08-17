@@ -5,16 +5,15 @@ import { SearchBodyData } from "staticData/searchBody";
 import { serviceCategory } from "staticData/serviceCategory";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { services } from "staticData/services";
-import { servicesNearYou } from "staticData/servicesNearYouCard";
 import { axiosClient } from "utils/axiosClient";
 
 //Get-------------------
-export const getAllServicesNearYou = () => {
-    // const response = await axiosClient.get("/services");
-    // return response.data;
+// export const getAllServicesNearYou = () => {
+//     // const response = await axiosClient.get("/services");
+//     // return response.data;
 
-    return servicesNearYou;
-};
+//     return servicesNearYou;
+// };
 export const getAllPackageCard = () => {
     // const response = await axiosClient.get("/packages");
     // return response.data;

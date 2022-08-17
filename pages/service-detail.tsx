@@ -47,7 +47,11 @@ const ServiceDetail: NextPage = () => {
                                             <span>Save</span>
                                         </div>
                                         <span className="d-flex align-items-center">
-                                            <ShareIcon />
+                                            <ShareIcon
+                                                url={""}
+                                                quote={""}
+                                                hashtag={""}
+                                            />
                                             Share
                                         </span>
 

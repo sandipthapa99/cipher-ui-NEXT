@@ -47,8 +47,8 @@ const AppliedTaskDetail: NextPage = () => {
 
     const requirements = taskDetail?.requirements?.split(",");
 
-    const isTaskBookmarked =
-        data && data.result?.some((item) => item.object_id === uuid);
+    const isTaskBookmarked = () =>
+        data ? data.result?.some((item) => item.object_id === uuid) : false;
 
     if (!taskDetail) {
         return <UserLoadingOverlay />;
@@ -70,10 +70,15 @@ const AppliedTaskDetail: NextPage = () => {
                             <SaveIcon
                                 object_id={uuid}
                                 model="task"
-                                variant={isTaskBookmarked ? "solid" : "regular"}
+                                filled={isTaskBookmarked}
+                                showText
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
-                                <ShareIcon />
+                                <ShareIcon
+                                    url={`http://localhost:3005/task/${uuid}`}
+                                    quote={"This is the task from cipher"}
+                                    hashtag={"cipher-task"}
+                                />
                                 <span className="name">Share</span>
                             </button>
                             <EllipsisDropdown

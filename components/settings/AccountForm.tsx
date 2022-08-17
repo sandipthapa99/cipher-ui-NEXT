@@ -9,6 +9,7 @@ import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { log } from "console";
 import { format } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { read } from "fs";
@@ -62,10 +63,7 @@ const AccountForm = () => {
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
     const inputRef = useRef<HTMLInputElement>(null);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [src, setSrc] = useState<File | string>(
-        "/userprofile/unknownPerson.jpg"
-    );
+    const [src, setSrc] = useState<string>("/userprofile/unknownPerson.jpg");
     // const formDataRef = useRef(
     //     typeof window !== "undefined" ? new FormData() : null
     // );
@@ -192,7 +190,7 @@ const AccountForm = () => {
                                         onChange={(e: any) => {
                                             const files = e.target.files;
 
-                                            console.log({ files, src });
+                                            // setSrc(imageSrc);
 
                                             setFieldValue(
                                                 "profile_image",
@@ -202,12 +200,11 @@ const AccountForm = () => {
                                     />
                                 </div>
                                 <Image
-                                    // src={
-                                    //     profile
-                                    //         ? profile.profile_image
-                                    //         : "/userprofile/unknownPerson.jpg"
-                                    // }
-                                    src={"/userprofile/unknownPerson.jpg"}
+                                    src={
+                                        profile
+                                            ? profile.profile_image
+                                            : "/userprofile/unknownPerson.jpg"
+                                    }
                                     layout="fill"
                                     alt="profile-pic"
                                     className="rounded-circle"

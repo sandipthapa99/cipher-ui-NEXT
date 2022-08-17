@@ -40,15 +40,41 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                 <Row>
                     <Col className="search-results--col" md={4}>
                         <p>
-                            {servicesNearYou?.length} Services in Kathmandu,
-                            Nepal (1 new)
+                            {servicesNearYou?.length} Services in Kathmandu ,
+                            Nepal ({servicesNearYou?.length} new)
                         </p>
                         {renderServiceCards()}
                     </Col>
 
                     <Col md={8} className="map-cont">
-                        {activeService !== undefined ? (
-                            <SearchResultsDetail {...activeService} />
+                        {activeService ? (
+                            <SearchResultsDetail
+                                image={activeService?.image}
+                                servicePrice={activeService?.budget ?? ""}
+                                serviceProvider={
+                                    activeService?.created_by ?? ""
+                                }
+                                serviceProviderLocation={
+                                    activeService?.location ?? ""
+                                }
+                                serviceDescription={
+                                    activeService?.description ?? ""
+                                }
+                                serviceRating={activeService?.success_rate ?? 0}
+                                serviceTitle={activeService?.title ?? ""}
+                                haveDiscount={
+                                    activeService.discount ? true : false
+                                }
+                                discountOn={""}
+                                discount={
+                                    activeService?.discount
+                                        ? activeService?.discount
+                                        : 0
+                                }
+                                highlights={JSON.parse(
+                                    activeService?.highlights
+                                )}
+                            />
                         ) : (
                             <iframe
                                 className="map"

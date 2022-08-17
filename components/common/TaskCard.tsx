@@ -59,7 +59,7 @@ const TaskCard = ({
             <div className="task-card-block__footer d-flex flex-column flex-sm-row justify-content-between">
                 <div className="left d-flex align-items-center">
                     <div className="share d-flex align-items-center">
-                        <ShareIcon />
+                        <ShareIcon url={""} quote={""} hashtag={""} />
                         Share
                     </div>
                     <p className="applicants  d-flex align-items-center">
