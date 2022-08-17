@@ -30,7 +30,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                 <Container fluid="xl">
                     <Row>
                         <Col md={3}>
-                            <Nav>
+                            <Nav className="sticky-wrapper">
                                 <ul>
                                     <li>
                                         <Link

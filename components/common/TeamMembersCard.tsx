@@ -2,17 +2,16 @@ import {
     faAward,
     faEllipsisVertical,
     faFaceGrinBeam,
-    faHeart,
     faLocationArrow,
-    faShare,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import React from "react";
 import type { Task } from "types/tasks";
 
 import BigButton from "./Button";
+import SaveIcon from "./SaveIcon";
+import ShareIcon from "./ShareIcon";
 
 interface Props {
     task: Task;
@@ -81,8 +80,8 @@ export const TeamMembersCard = ({
             </p>
             <div className="d-flex justify-content-between footer-section">
                 <span className="share-and-like">
-                    <FontAwesomeIcon className="heart" icon={faHeart} />
-                    <FontAwesomeIcon className="share" icon={faShare} />
+                    <SaveIcon />
+                    <ShareIcon url={""} quote={""} hashtag={""} />
                 </span>
 
                 {collabButton == true ? (

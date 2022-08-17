@@ -1,6 +1,6 @@
 import AboutCard from "@components/common/AboutCard";
 import AllCategoryCard from "@components/common/AllCategoryCard";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import MerchantAdviceCard from "@components/common/MerchantAdviceCard";
 import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
@@ -19,14 +19,14 @@ const Discover: NextPage = () => {
         <Layout title="Discover | Cipher">
             <Container fluid="xl" className="px-5">
                 <section className="discover-page">
-                    <Breadcrum currentPage="Discover" />
+                    <BreadCrumb currentPage="Discover" />
 
                     {/* Discover top container start */}
                     <section className="discover-page__top-container">
                         <GradientBanner
                             title="Looking to earn money quickly?"
                             subTitle="It doesn't even take a minute to sign up"
-                            image="/discover/main.svg"
+                            image="/gradient-updated.png"
                             btnText="Join Us"
                         />
                     </section>

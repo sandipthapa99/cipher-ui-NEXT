@@ -11,10 +11,10 @@ import {
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import Cropper from "react-easy-crop";
 import type { UserProfileInfoProps } from "types/userProfile";
 
 import ProfileEditForm from "./ProfileEditForm";
@@ -40,9 +40,25 @@ const UserProfileCard = ({
     successRate,
     taskCompleted,
     tooltipMessage,
+    countryCode,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showExpForm, setShowExpForm] = useState(false);
+    const { data: country } = useGetCountryBYId(countryCode);
+    // const services = JSON.parse(moreServices);
+
+    // const renderServices = moreServices?.map((service, index) => (
+    //     <p key={index}>{service}</p>
+    // ));
+    // const userType = JSON.parse(userJob);
+    // const renderType = userType.map((type, index) => {
+    //     return (
+    //         <p className="organization" key={index}>
+    //             Individual | {type}
+    //         </p>
+    //     );
+    // });
+
     return (
         <div className="profile-card-block">
             <Row>
@@ -56,6 +72,7 @@ const UserProfileCard = ({
                             layout="fill"
                             objectFit="cover"
                             alt="user-profile-image"
+                            className="rounded-circle"
                         />
                     </figure>
                     <PhotoEdit
@@ -68,7 +85,7 @@ const UserProfileCard = ({
                         <h1 className="name">{userName}</h1>
                         <div className="active"></div>
                     </div>
-                    <p className="organization">Individual | {userJob}</p>
+                    {/* {renderType} */}
                     <div className="rating">
                         {Array.from({ length: userRating }, (_, i) => (
                             <span key={i}>
@@ -120,7 +137,9 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
 
-                                    <p>{userPhone}</p>
+                                    <p>
+                                        +{country?.phone_code} {userPhone}
+                                    </p>
                                 </div>
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
@@ -145,8 +164,8 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
                                     <p>
-                                        &nbsp;Active Hours {activeFrom}:00 AM to{" "}
-                                        {activeTo}:00 PM
+                                        &nbsp;Active Hours {activeFrom} to{" "}
+                                        {activeTo}:
                                     </p>
                                 </div>
 

@@ -1,10 +1,11 @@
-import { faHeart, faShare } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import type { MerchantCardProps } from "types/merchantCard";
 
 import CardBtn from "./CardBtn";
+import SaveIcon from "./SaveIcon";
+import ShareIcon from "./ShareIcon";
 
 const MerchantCard = ({
     merchantImage,
@@ -19,7 +20,7 @@ const MerchantCard = ({
 }: MerchantCardProps) => {
     return (
         <div className="merchant-card-block">
-            <div className="merchant-intro">
+            <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
                 <figure className="thumbnail-img">
                     <Image
                         src={merchantImage}
@@ -84,7 +85,7 @@ const MerchantCard = ({
                     </div>
                 </div>
                 <div className="ratings-wrapper d-flex justify-content-between">
-                    <p className="ratings d-flex align-items-center justify-content-center">
+                    <p className="ratings d-flex align-items-center justify-content-sm-center">
                         <FontAwesomeIcon
                             icon={faStar}
                             className="svg-icon star"
@@ -93,16 +94,10 @@ const MerchantCard = ({
                     </p>
                     <p className="price">${merchantPrice}/hr</p>
                 </div>
-                <div className="booking-wrapper d-flex justify-content-between">
-                    <div className="d-flex">
-                        <FontAwesomeIcon
-                            icon={faHeart}
-                            className="svg-icon heart"
-                        />
-                        <FontAwesomeIcon
-                            icon={faShare}
-                            className="svg-icon share"
-                        />
+                <div className="d-flex justify-content-between align-items-md-center">
+                    <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
+                        <SaveIcon />
+                        <ShareIcon url={""} quote={""} hashtag={""} />
                     </div>
                     <CardBtn btnTitle="Hire Me" backgroundColor="#211D4F" />
                 </div>

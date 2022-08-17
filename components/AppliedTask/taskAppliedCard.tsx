@@ -1,3 +1,4 @@
+import ShareIcon from "@components/common/ShareIcon";
 import {
     faCalendar,
     faClockEight,
@@ -11,17 +12,23 @@ import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
 const TaskCard = ({
     title,
-    charge,
+    charge = "0",
     location,
     date,
     time,
+    startPrice,
+    endPrice,
+    currency,
+    taskId,
     ...rest
 }: TaskCardProps) => {
     return (
         <div className="task-applied-card-block" {...rest}>
             <div className="d-flex justify-content-between flex-column flex-sm-row task-applied-card-block__header">
-                <h4 className="title">{title}</h4>
-                <h4 className="charge">Rs {charge}</h4>
+                <span className="title">{title}</span>
+                <span className="charge">
+                    {currency} {startPrice} -{endPrice}
+                </span>
             </div>
             <div className="task-applied-card-block__body">
                 <p className="location mb-3">
@@ -57,10 +64,13 @@ const TaskCard = ({
                 <hr className="mb-0" />
             </div>
             <div className="task-applied-card-block__footer d-flex mt-4">
-                <span className="share d-flex align-items-center me-5">
-                    <FontAwesomeIcon icon={faShare} className="svg-icon" />
-                    Share
-                </span>
+                <ShareIcon
+                    url={`http://localhost:3005/task/${taskId}`}
+                    quote="Please Share this task for all"
+                    hashtag="cipher-task"
+                />
+                <span className="share-label">Share</span>
+
                 <span className="applicants d-flex align-items-center">
                     <FontAwesomeIcon icon={faUserGroup} className="svg-icon" />
                     100 Applied

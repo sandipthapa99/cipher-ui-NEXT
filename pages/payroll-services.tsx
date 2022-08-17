@@ -1,13 +1,12 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import CardBtn from "@components/common/CardBtn";
-import FaqContent from "@components/common/Faq";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
 import Image from "next/image";
-import { Accordion, Col, Container, Row } from "react-bootstrap";
-import { faqContent } from "staticData/faq";
+import Link from "next/link";
+import { Col, Container, Row } from "react-bootstrap";
 
 const PayrollServices: NextPage = () => {
     return (
@@ -15,7 +14,7 @@ const PayrollServices: NextPage = () => {
             <section className="payroll-services">
                 <section className="payroll-services__header">
                     <Container fluid="xl" className="px-5">
-                        <Breadcrum currentPage="Payroll Services" />
+                        <BreadCrumb currentPage="Payroll Services" />
                         <Row className="d-flex gx-5 align-items-center">
                             <Col md={6}>
                                 <figure className="thumbnail-img">
@@ -30,16 +29,21 @@ const PayrollServices: NextPage = () => {
                             <Col md={6}>
                                 <h1>Cipher Payroll</h1>
                                 <p>
-                                    Cipher Payroll makes it easy to classify and
-                                    pay your freelance team. So you can focus on
-                                    growing your business and leave the admin
-                                    hassle to us.
+                                    We designed CIPHER Payroll to make the
+                                    organisational transitioning easy for you.
+                                    While providing your services to customers,
+                                    you can easily track your employee costs
+                                    with us.
                                 </p>
-                                <CardBtn
-                                    btnTitle="Contact Us"
-                                    color="#fff"
-                                    backgroundColor="primary-color"
-                                />
+                                <Link href={"/contact"}>
+                                    <a>
+                                        <CardBtn
+                                            btnTitle="Contact Us"
+                                            color="#fff"
+                                            backgroundColor="primary-color"
+                                        />
+                                    </a>
+                                </Link>
                             </Col>
                         </Row>
                     </Container>
@@ -48,7 +52,7 @@ const PayrollServices: NextPage = () => {
                     <Container fluid="xl" className="px-5">
                         <div className="clients">
                             <LongSquareImageCard
-                                title="A Existing Clients in Cipher"
+                                title="Service Providers in CIPHER"
                                 image="/payrollservices/girlsmiling.svg"
                                 subtitle="Get more value for same cost"
                                 imageOnRight={true}
@@ -60,7 +64,7 @@ const PayrollServices: NextPage = () => {
                             <Row className="gx-5">
                                 <Col md={7} sm={12}>
                                     <Row className="gx-5">
-                                        <div className="d-flex images">
+                                        <div className="d-flex flex-column flex-sm-row align-items-center images">
                                             <div className="text-center">
                                                 <figure className="thumbnail-img">
                                                     <Image
@@ -117,27 +121,13 @@ const PayrollServices: NextPage = () => {
                                 width="100%"
                             />
                         </div>
-                        <div className="gradient-container">
+                        <div className="gradient-container p-3">
                             <GradientBanner
-                                title=" An employee takes home 10% more with Cipher Payroll "
+                                title="CIPHER provides a hassle free payroll service for all your employees who is working through CIPHER "
                                 subTitle="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500. "
                                 image="/discover/main.svg"
                                 btnText="Join Us"
                             />
-                        </div>
-                        <div className="help-page-content__faq-container faq">
-                            <h1>Frequently Asked Questions</h1>
-                            <Accordion flush>
-                                {faqContent &&
-                                    faqContent.map((faq) => (
-                                        <FaqContent
-                                            answer={faq.answer}
-                                            key={faq.id}
-                                            id={faq.id}
-                                            question={faq.question}
-                                        />
-                                    ))}
-                            </Accordion>
                         </div>
                     </Container>
                 </div>

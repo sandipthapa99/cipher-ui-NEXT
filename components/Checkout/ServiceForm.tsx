@@ -22,7 +22,7 @@ const EquipmentForm = ({
                 <div className="d-flex justify-content-between equipment-model__header">
                     <h3>Add Service Charge</h3>
                     <button
-                        className="btn"
+                        className="btn cross-btn"
                         onClick={() => setshowServForm(false)}
                     >
                         <FontAwesomeIcon

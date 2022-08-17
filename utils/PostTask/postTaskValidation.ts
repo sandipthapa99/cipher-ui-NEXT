@@ -1,5 +1,32 @@
 import * as Yup from "yup";
 
+export function checkIfFilesAreTooBig(files?: [File]): boolean {
+    let valid = true;
+    if (files) {
+        files.map((file) => {
+            const size = file.size / 1024 / 1024;
+            if (size > 10) {
+                valid = false;
+            }
+        });
+    }
+    return valid;
+}
+export function checkIfFilesAreCorrectType(files?: [File]): boolean {
+    let valid = true;
+    if (files) {
+        files.map((file) => {
+            if (
+                !["application/pdf", "image/jpeg", "image/png"].includes(
+                    file.type
+                )
+            ) {
+                valid = false;
+            }
+        });
+    }
+    return valid;
+}
 export const postTaskValidationSchema = Yup.object().shape(
     {
         title: Yup.string().required("Required Title Field"),
@@ -27,6 +54,19 @@ export const postTaskValidationSchema = Yup.object().shape(
         requirements: Yup.array().of(
             Yup.object().shape({ id: Yup.number(), name: Yup.string() })
         ),
+        // image: Yup.array()
+        //     .nullable()
+        //     .required("VALIDATION_FIELD_REQUIRED")
+        //     .test(
+        //         "is-correct-file",
+        //         "VALIDATION_FIELD_FILE_BIG",
+        //         checkIfFilesAreTooBig
+        //     )
+        //     .test(
+        //         "is-big-file",
+        //         "VALIDATION_FIELD_FILE_WRONG_TYPE",
+        //         checkIfFilesAreCorrectType
+        //     ),
     },
     [
         ["budgetType", "fixedValue"],

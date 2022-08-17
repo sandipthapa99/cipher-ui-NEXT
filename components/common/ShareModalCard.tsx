@@ -17,22 +17,34 @@ import {
 import Modal from "react-bootstrap/Modal";
 import type { ShareButtonProps } from "types/shareButton";
 
-const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
+const ShareModal = ({
+    show,
+    handleClose,
+    url,
+    quote,
+    hashtag,
+}: ShareButtonProps) => {
+    const copyToClipBoard = async (copyMe: any) => {
+        try {
+            await navigator.clipboard.writeText(copyMe);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
         <div className="share-modal">
             {/* Modal component */}
-            <Modal centered show={show} onHide={handleClose}>
+            <Modal centered show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton></Modal.Header>
                 <div className="share-modal__modal-body-content">
                     <h1>Share With</h1>
                     <div className="media-wrapper">
                         <div className="social-media">
                             <FacebookShareButton
-                                url={"https://github.com/next-share"}
-                                quote={
-                                    "next-share is a social share buttons for your next React apps."
-                                }
-                                hashtag={"#nextshare"}
+                                url={url}
+                                quote={quote}
+                                hashtag={hashtag}
                             >
                                 <FontAwesomeIcon
                                     icon={faFacebookF}
@@ -44,10 +56,7 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                             className="social-media"
                             style={{ background: "#0072B1" }}
                         >
-                            <TwitterShareButton
-                                url={"https://github.com/next-share"}
-                                hashtags={["#nextshare"]}
-                            >
+                            <TwitterShareButton url={url} hashtags={[hashtag]}>
                                 <FontAwesomeIcon
                                     icon={faTwitter}
                                     className="svg-icon twitter"
@@ -56,10 +65,8 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                         </div>
                         <div className="social-media">
                             <InstapaperShareButton
-                                url={"https://github.com/next-share"}
-                                description={
-                                    "next-share is a social share buttons for your next React apps."
-                                }
+                                url={url}
+                                description={quote}
                             >
                                 <FontAwesomeIcon
                                     icon={faInstagram}
@@ -68,9 +75,7 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                             </InstapaperShareButton>
                         </div>
                         <div className="social-media">
-                            <LinkedinShareButton
-                                url={"https://github.com/next-share"}
-                            >
+                            <LinkedinShareButton url={url}>
                                 <FontAwesomeIcon
                                     icon={faLinkedin}
                                     className="svg-icon linkedin"
@@ -81,6 +86,9 @@ const ShareModal = ({ show, handleClose }: ShareButtonProps) => {
                             <Link href="/">
                                 <FontAwesomeIcon
                                     icon={faCopy}
+                                    onClick={() =>
+                                        copyToClipBoard("https://cipher.com/")
+                                    }
                                     className="svg-icon copy"
                                 />
                             </Link>

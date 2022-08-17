@@ -1,42 +1,39 @@
-import AppliedForm from "@components/AppliedTask/AppliedForm";
-import TaskCard from "@components/AppliedTask/taskAppliedCard";
-import { Collaboration } from "@components/Collaboration/Collaboration";
-import BookNowButton from "@components/common/BookNowButton";
+import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
-import CategoryCard from "@components/common/CategoryCard";
 import { FilterReview } from "@components/common/FilterReview";
-import ModalCard from "@components/common/ModalCard";
 import PackageOffersCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
+import SaveIcon from "@components/common/SaveIcon";
 import ServiceCard from "@components/common/ServiceCard";
 import ServiceHighlights from "@components/common/ServiceHighlights";
-import SimpleProfileCard from "@components/common/SimpleProfileCard";
-import { Tab } from "@components/common/Tab";
-import MembershipCard from "@components/MembershipCard";
-import { UserTaskReviews } from "@components/Task/UserTaskDetail/atoms/UserTaskReviews";
+import ShareIcon from "@components/common/ShareIcon";
 import {
     faCalendar,
     faChevronLeft,
     faClockEight,
     faEllipsisVertical,
     faEye,
-    faHeart,
     faLocationDot,
-    faShare,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
-import { faArrowLeft, faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useBookContext } from "context/BookNowContext/bookNowContext";
+import { useQuery } from "@tanstack/react-query";
+import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Carousel, Col, Row } from "react-bootstrap";
-import { PackageCard } from "staticData/packageCard";
-import { reviewsContent } from "staticData/reviews";
-import { serviceHighlights } from "staticData/serviceHighlights";
-import { services } from "staticData/services";
+import {
+    getAllPackageCard,
+    getReviews,
+    getServiceHighlights,
+    getServices,
+} from "services/commonServices";
+import { useSetBookNowDetails } from "store/use-book-now";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
+import { axiosClient } from "utils/axiosClient";
+
+import type { ServiceProvider } from "./searchAside";
 
 const SearchResultsDetail = ({
     image,
@@ -49,10 +46,27 @@ const SearchResultsDetail = ({
     haveDiscount,
     discountOn,
     discount,
+    highlights,
+    serviceId,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const { setBookNowDetails } = useBookContext();
+    const setBookNowDetails = useSetBookNowDetails();
+    const services = getServices();
+    const PackageCard = getAllPackageCard();
+    const reviewsContent = getReviews();
+
+    const { data } = useQuery(
+        ["service-provider-detail-user", serviceProvider],
+        async () => {
+            const { data } = await axiosClient.get<ServiceProvider>(
+                `/user/${serviceProvider}`
+            );
+            return data;
+        }
+    );
+
+    const providerName = data?.groups[0]?.name;
 
     return (
         <>
@@ -71,20 +85,18 @@ const SearchResultsDetail = ({
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
                         <span className="pb-3 pb-sm-0 provider-name">
-                            By {serviceProvider}
+                            By {providerName}
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faHeart}
-                                    className="svg-icon heart-icon"
-                                />
+                                <SaveIcon />
                                 <span className="name">Save</span>
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
-                                <FontAwesomeIcon
-                                    icon={faShare}
-                                    className="svg-icon share-icon"
+                                <ShareIcon
+                                    url={`http://localhost:3005/search/${serviceId}`}
+                                    quote={"Service from Cipher Project"}
+                                    hashtag={"cipher-services"}
                                 />
                                 <span className="name">Share</span>
                             </div>
@@ -99,7 +111,11 @@ const SearchResultsDetail = ({
                     <Col md={12} lg={7}>
                         <figure className="thumbnail-img">
                             <Image
-                                src={image}
+                                src={
+                                    image
+                                        ? image
+                                        : "/service-details/garden-cleaning.png"
+                                }
                                 layout="fill"
                                 objectFit="cover"
                                 alt="garden-image"
@@ -111,14 +127,19 @@ const SearchResultsDetail = ({
                             <div className="d-flex align-items-center simple-card__profile">
                                 <figure className="thumbnail-img">
                                     <Image
-                                        src={image}
+                                        src={
+                                            image
+                                                ? image
+                                                : "/service-details/garden-cleaning.png"
+                                        }
                                         layout="fill"
                                         objectFit="cover"
                                         alt="serviceprovider-image"
                                     />
                                 </figure>
+
                                 <div className="intro">
-                                    <p className="name">{serviceProvider}</p>
+                                    <p className="name">{providerName}</p>
                                     <p className="job">{serviceTitle}</p>
                                 </div>
                             </div>
@@ -189,15 +210,15 @@ const SearchResultsDetail = ({
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    <p>{serviceDescription}</p>
+                    <p>{parse(serviceDescription ?? "")}</p>
                 </div>
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {serviceHighlights &&
-                        serviceHighlights.map((name) => (
-                            <div key={name.id}>
-                                <ServiceHighlights title={name.title} />
+                    {highlights &&
+                        highlights?.map((name: any, index: number) => (
+                            <div key={index}>
+                                <ServiceHighlights title={name} />
                             </div>
                         ))}
                 </div>
@@ -221,6 +242,7 @@ const SearchResultsDetail = ({
                                                 }
                                                 isPermium={offer.isPermium}
                                                 advantage={offer.advantage}
+                                                isFromAddService={false}
                                             />
                                         </Col>
                                     </Carousel.Item>
@@ -248,7 +270,7 @@ const SearchResultsDetail = ({
                     </Row>
                     <Carousel style={{ padding: "2rem 0" }}>
                         {services &&
-                            services.map((service) => {
+                            services.map((service: any) => {
                                 return (
                                     <Carousel.Item key={service.id}>
                                         <Col>
@@ -295,11 +317,11 @@ const SearchResultsDetail = ({
                     </Carousel>
                 </Row>
             </div>
-            <ModalCard
-                description={serviceDescription}
+            <BookNowModalCard
+                description={serviceDescription ?? ""}
                 image={image}
-                price={servicePrice}
-                title={serviceTitle}
+                price={servicePrice ?? 0}
+                title={serviceTitle ?? ""}
                 key={serviceTitle}
                 show={show}
                 handleClose={handleClose}

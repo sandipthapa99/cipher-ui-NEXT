@@ -1,32 +1,83 @@
+import DatePickerField from "@components/common/DateTimeField";
 import DragDrop from "@components/common/DragDrop";
+import FileDragDrop from "@components/common/FileDragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import { useQueryClient } from "@tanstack/react-query";
+import { format } from "date-fns";
 import { Form, Formik } from "formik";
+import { useForm } from "hooks/use-form";
+import type { Dispatch, SetStateAction } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { AddPortfolio } from "types/editProfile";
+import { toast } from "react-toastify";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
+interface AddPortfolioModalProps {
+    show?: boolean;
+    handleClose?: () => void;
+    setShowAddPortfolioModal: Dispatch<SetStateAction<boolean>>;
+}
+
+const AddPortfolio = ({
+    show,
+    handleClose,
+    setShowAddPortfolioModal,
+}: AddPortfolioModalProps) => {
+    const { mutate } = useForm(`/tasker/portfolio/`);
+    const queryClient = useQueryClient();
+
     return (
         <div>
             {/* Modal component */}
-            <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add Portfolio</Modal.Title>
-                </Modal.Header>
+            <Modal show={show} onHide={handleClose} backdrop="static">
+                <Modal.Header closeButton></Modal.Header>
                 <div className="modal-body-content">
+                    <h3>Add Portfolio</h3>
                     <Formik
                         initialValues={AddPortfolioFormData}
                         validationSchema={addPortfolioSchema}
                         onSubmit={async (values) => {
-                            console.log(values);
+                            const formData = new FormData();
+
+                            const newvalidatedValue = {
+                                ...values,
+                                issued_date: format(
+                                    new Date(values.issued_date),
+                                    "yyyy-MM-dd"
+                                ),
+                            };
+
+                            Object.entries(newvalidatedValue).forEach(
+                                (entry) => {
+                                    const [key, value] = entry;
+                                    formData.append(key, value);
+                                }
+                            );
+                            formData.append("file", values.file);
+                            formData.append("image", values.image);
+
+                            mutate(formData, {
+                                onSuccess: async () => {
+                                    console.log("submitted values", values);
+                                    setShowAddPortfolioModal(false);
+                                    queryClient.invalidateQueries([
+                                        "tasker-portfolio",
+                                    ]);
+                                    toast.success(
+                                        "Portfolio added successfully."
+                                    );
+                                },
+                                onError: async (error) => {
+                                    toast.error(error.message);
+                                },
+                            });
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, errors, touched, setFieldValue }) => (
                             <Form>
                                 <div className="d-flex add-portfolio justify-content-between align-items-end flex-column flex-md-row">
                                     <Row>
@@ -41,7 +92,7 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                         />
                                         <h4>Description</h4>
                                         <InputField
-                                            type="textarea"
+                                            as="textarea"
                                             name="description"
                                             min="1"
                                             error={errors.description}
@@ -49,21 +100,21 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                             placeHolder="Portfolio Description"
                                         />
                                         <h4>Issued Date</h4>
-                                        <InputField
-                                            type="date"
-                                            name="date"
+                                        <DatePickerField
+                                            name="issued_date"
                                             min="1"
-                                            error={errors.date}
-                                            touch={touched.date}
-                                            placeHolder="03/06/1999"
+                                            error={errors.issued_date}
+                                            touch={touched.issued_date}
+                                            dateFormat="yyyy-MM-dd"
+                                            placeHolder="2022-03-06"
                                         />
                                         <h4>Credential URL</h4>
                                         <InputField
                                             type="url"
-                                            name="url"
+                                            name="credential_url"
                                             min="1"
-                                            error={errors.url}
-                                            touch={touched.url}
+                                            error={errors.credential_url}
+                                            touch={touched.credential_url}
                                             placeHolder="URL"
                                         />
 
@@ -75,10 +126,12 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                                 </p>
 
                                                 <DragDrop
+                                                    name="image"
                                                     image="/service-details/file-upload.svg"
                                                     fileType="Image/Video"
                                                     maxImageSize={20}
                                                     maxVideoSize={200}
+                                                    field={setFieldValue}
                                                 />
                                             </Col>
                                         </Row>
@@ -86,10 +139,12 @@ const AddPortfolio = ({ handleClose, showModal }: AddPortfolio) => {
                                             <Col md={5}>
                                                 <h4>Pdf</h4>
                                                 <p>Add relevant pdf</p>
-                                                <DragDrop
+                                                <FileDragDrop
+                                                    name="file"
                                                     image="/userprofile/pdf.svg"
                                                     fileType="Pdf"
                                                     maxPdfSize={20}
+                                                    field={setFieldValue}
                                                 />
                                             </Col>
                                         </Row>

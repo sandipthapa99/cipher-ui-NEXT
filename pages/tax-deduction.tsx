@@ -1,8 +1,7 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
-import Link from "next/link";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import {
     exampleSteps,
@@ -16,7 +15,7 @@ const TaxDeduction: NextPage = () => {
         <Layout title="Tax-Deduction | Cipher">
             <section className="tax-deduction">
                 <Container fluid="xl" className="px-5">
-                    <Breadcrum currentPage="Tax Deduction" />
+                    <BreadCrumb currentPage="Tax Deduction" />
                     <div className="tax-deduction__header">
                         <h1 className="text-center">Tax Deduction</h1>
                     </div>

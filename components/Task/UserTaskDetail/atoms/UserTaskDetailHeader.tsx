@@ -1,10 +1,9 @@
+import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { RatingStars } from "@components/common/RatingStars";
+import SaveIcon from "@components/common/SaveIcon";
+import ShareIcon from "@components/common/ShareIcon";
 import { HireMerchantModal } from "@components/Task/UserTaskDetail/atoms/HireMerchantModal";
-import {
-    faEllipsisVertical,
-    faHeart,
-    faShare,
-} from "@fortawesome/pro-regular-svg-icons";
+import { faEllipsisVertical } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -22,6 +21,11 @@ export const UserTaskDetailHeader = ({
     taskDetail,
 }: UserTaskDetailHeaderProps) => {
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
     return (
         <>
             <HireMerchantModal
@@ -65,20 +69,17 @@ export const UserTaskDetailHeader = ({
                 </Col>
                 <Col>
                     <div className="td-task-detail-header-icons">
-                        <FontAwesomeIcon
-                            color="#FE5050"
-                            className="svg-icon"
-                            icon={faHeart}
-                        />
-                        <FontAwesomeIcon
-                            color="#3EAEFF"
-                            className="svg-icon"
-                            icon={faShare}
-                        />
-                        <FontAwesomeIcon
-                            className="svg-icon"
-                            icon={faEllipsisVertical}
-                        />
+                        <SaveIcon />
+                        <ShareIcon url={""} quote={""} hashtag={""} />
+                        <EllipsisDropdown
+                            showModal={true}
+                            handleOnClick={handleShowModal}
+                        >
+                            <FontAwesomeIcon
+                                icon={faEllipsisVertical}
+                                className="svg-icon option"
+                            />
+                        </EllipsisDropdown>
                     </div>
                     <p className="td-task-charge my-4">{taskDetail.charge}</p>
                     <button

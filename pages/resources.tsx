@@ -1,5 +1,5 @@
 import BlogCard from "@components/common/BlogCard";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import BusinessGoal from "@components/common/BusinessGoal";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
@@ -16,8 +16,8 @@ const Resources: NextPage = () => {
         <Layout title="Resources | Cipher">
             <section className="resource-page">
                 <section className="resource-page__header">
-                    <Container fluid="xl">
-                        <Breadcrum currentPage="Resources" />
+                    <Container fluid="xl" className="px-5">
+                        <BreadCrumb currentPage="Resources" />
                         <Row className="d-flex align-items-center">
                             <Col md={6}>
                                 <figure className="thumbnail-img">
@@ -95,7 +95,7 @@ const Resources: NextPage = () => {
                             </Row>
                         </div>
                         <div className="latest-article">
-                            <h1>Latest Article</h1>
+                            <h1>Latest BLOGS</h1>
                             <Row>
                                 {latestArticle &&
                                     latestArticle.map((blog) => {

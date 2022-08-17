@@ -1,8 +1,11 @@
+import { QueryClient } from "@tanstack/react-query";
 import type { AxiosInstance } from "axios";
 import axios from "axios";
-import type { GetServerSidePropsContext, PreviewData } from "next";
-import { parseCookies } from "nookies";
-import type { ParsedUrlQuery } from "querystring";
+import { compareAsc, fromUnixTime } from "date-fns";
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
+import { autoLogin } from "utils/auth";
+const queryClient = new QueryClient();
 
 const getApiEndpoint = () => {
     const url = process.env.NEXT_PUBLIC_API_URL;
@@ -13,26 +16,60 @@ const getApiEndpoint = () => {
     return url;
 };
 
-const axiosInterceptor = (axiosClient: AxiosInstance) => {
-    axiosClient.interceptors.request.use((config) => {
-        console.log("AXIOS INTERCEPTOR");
-        return config;
-    });
+const isTokenExpired = (token: string) => {
+    const { exp } = jwtDecode<{ exp: number }>(token);
+    const tokenExpirationDate = fromUnixTime(exp);
+    const currentTime = new Date();
+    return compareAsc(tokenExpirationDate, currentTime) === -1;
 };
 
-export const createAxiosClient = (
-    context?: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+const requestRefreshToken = async (
+    axiosClient: AxiosInstance,
+    refreshToken: string
 ) => {
-    const axiosClient = axios.create({
-        baseURL: getApiEndpoint(),
+    console.log("REFRESH TOKEN EXPIRED, REQUESTING A NEW ONE");
+    const { data } = await axiosClient.post<{
+        access: string;
+        refresh: string;
+    }>("/user/token/refresh/", {
+        refresh: refreshToken,
     });
-    const { token } = parseCookies(context, "token");
-    if (token) {
-        axiosClient.defaults.headers.common[
-            "Authorization"
-        ] = `Bearer ${token}`;
-    }
-    axiosInterceptor(axiosClient);
-    return axiosClient;
+    const { access, refresh } = data;
+    autoLogin(access, refresh);
+    queryClient.invalidateQueries(["user"]);
 };
-export const axiosClient = createAxiosClient();
+
+const axiosClient = axios.create({
+    baseURL: getApiEndpoint(),
+});
+axiosClient.interceptors.request.use(
+    (config) => {
+        const access = Cookies.get("access");
+        if (access && !isTokenExpired(access)) {
+            config.headers = {
+                ...config.headers,
+                Authorization: `Bearer ${access}`,
+            };
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
+axiosClient.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error?.response?.data?.code === "token_not_valid") {
+            const access = Cookies.get("access");
+            const refresh = Cookies.get("refresh");
+
+            if (!access || !refresh) return Promise.reject(error);
+
+            if (isTokenExpired(access)) {
+                requestRefreshToken(axiosClient, refresh);
+            }
+        }
+        return Promise.reject(error);
+    }
+);
+
+export { axiosClient };

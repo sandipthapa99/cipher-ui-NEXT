@@ -4,11 +4,10 @@ import PasswordField from "@components/common/PasswordField";
 import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
-import { withAuth } from "hoc/withAuth";
 import { useLogin } from "hooks/auth/useLogin";
 import { useRouter } from "next/router";
 import React from "react";
-import { autoLogin } from "utils/auth";
+import { toast } from "react-toastify";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -34,10 +33,15 @@ const Login = () => {
                         validationSchema={loginFormSchema}
                         onSubmit={(values) => {
                             mutate(values, {
-                                onError: (error) => console.log(error),
-                                onSuccess: (accessToken) => {
-                                    autoLogin(accessToken);
-                                    router.push("/");
+                                onError: (error) => {
+                                    toast.error(error.message);
+                                },
+                                onSuccess: async () => {
+                                    const { next } = router.query;
+                                    await router.push(
+                                        typeof next === "string" ? next : "/"
+                                    );
+                                    toast.success("Login Successful!");
                                 },
                             });
                         }}
@@ -50,7 +54,7 @@ const Login = () => {
                                     labelName="Email or phone number"
                                     touch={touched.email}
                                     error={errors.email}
-                                    placeHolder="example@example.com"
+                                    placeHolder="Enter your email"
                                 />
                                 <PasswordField
                                     type="password"
@@ -58,7 +62,7 @@ const Login = () => {
                                     labelName="Password"
                                     touch={touched.password}
                                     error={errors.password}
-                                    placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
+                                    placeHolder="Password"
                                     forgotPassword="Forgot Password?"
                                 />
                                 <FormButton
@@ -95,4 +99,5 @@ const Login = () => {
         </section>
     );
 };
-export default withAuth(Login);
+
+export default Login;

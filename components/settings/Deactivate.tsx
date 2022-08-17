@@ -1,9 +1,9 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
-import { useSuccessContext } from "context/successContext/successContext";
 import { Form, Formik } from "formik";
 import React from "react";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { DeactivateFromData } from "utils/formData";
 import { deactivateFormSchema } from "utils/formValidation/deactivateFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -15,7 +15,7 @@ const dropdownCountryOptions = [
 ];
 
 const DeactivateAccount = () => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
     return (
         <div className="account-form">
             <h2>Deactivate</h2>
@@ -24,7 +24,7 @@ const DeactivateAccount = () => {
                 initialValues={DeactivateFromData}
                 validationSchema={deactivateFormSchema}
                 onSubmit={async (values, action) => {
-                    setShowSuccessModal(true);
+                    toggleSuccessModal();
                     // To be used for API
                     // try {
                     //     axiosClient.post("/routes", values);

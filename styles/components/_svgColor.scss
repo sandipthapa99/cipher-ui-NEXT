@@ -30,6 +30,9 @@
     &-cross {
         width: 2rem;
     }
+    &-smile {
+        color: #f98900;
+    }
     &-circle-check {
         width: 2rem;
         color: #3eaeff;
@@ -44,6 +47,31 @@
     }
     &-eye-slash {
         width: 2rem;
+    }
+    &-paper-clip {
+        width: 2rem;
+        height: 1.8rem;
+        color: $grayScale6;
+    }
+    &-heart {
+        width: 2rem;
+        height: 1.8rem;
+        color: #fe5050;
+        @include transition();
+        cursor: pointer;
+        &:hover {
+            color: $secondary-color;
+        }
+    }
+    &-share {
+        width: 2rem;
+        height: 1.8rem;
+        color: #3eaeff;
+        cursor: pointer;
+        @include transition();
+        &:hover {
+            color: $secondary-color;
+        }
     }
 }
 .svg-180-transfrom {

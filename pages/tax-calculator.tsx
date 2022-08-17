@@ -1,38 +1,43 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
+import { useTaxCalculator } from "hooks/tax-calculator/useTaxCalculator";
 import type { NextPage } from "next";
 import Link from "next/link";
-import { Col, Container, Row } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
+import { toast } from "react-toastify";
 import { TaxCalculatorFormData } from "utils/formData";
 import taxCalculatorSchema from "utils/formValidation/taxCalculatorFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 import { maritalStatus, salaryType } from "utils/options";
 
 const TaxCalculator: NextPage = () => {
+    const { mutate, isLoading, data: TableData } = useTaxCalculator();
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
     const taxContent = [
         {
             id: "0",
             name: "Annual Gross Salary",
-            amount: "0.00",
+            amount: `${TableData?.details["annual gross salary"]}`,
         },
         {
             id: "1",
             name: "Taxable Income",
-            amount: "0.00",
+            amount: `${TableData?.details["net taxable income"]}`,
         },
         {
             id: "2",
             name: "Net Payable Tax",
-            amount: "0.00",
+            amount: `${TableData?.details["net payable tax"]}`,
         },
     ];
-
+    const tax_rate = TableData?.details["tax rate"];
     const table = [
         {
             id: "0",
@@ -58,23 +63,23 @@ const TaxCalculator: NextPage = () => {
                 {
                     id: "0",
                     salary: "First Slab",
-                    amount: "3003,0330",
-                    rate: "1%",
-                    liability: "3003,0330",
+                    amount: `${TableData?.data[0].taxable_amount}`,
+                    rate: `${TableData?.data[0].tax_rate}`,
+                    liability: `${TableData?.data[0].tax_liability}`,
                 },
                 {
                     id: "1",
                     salary: "Net Tax Liability(yearly)",
-                    amount: "",
-                    rate: "",
-                    liability: "3003,0330",
+                    amount: ``,
+                    rate: ``,
+                    liability: `${TableData?.details["net tax liability yearly"]}`,
                 },
                 {
                     id: "2",
                     salary: "Net Tax Liability(monthly)",
-                    amount: "",
-                    rate: "",
-                    liability: "30030",
+                    amount: ``,
+                    rate: ``,
+                    liability: `${TableData?.details["net tax liability monthly"]}`,
                 },
             ],
         },
@@ -83,16 +88,16 @@ const TaxCalculator: NextPage = () => {
         <Layout title="Tax-Calculator | Cipher">
             <section className="tax-calculator ">
                 <Container fluid="xl" className="px-5">
-                    <Breadcrum currentPage="Tax Calculator" />
+                    <BreadCrumb currentPage="Tax Calculator" />
                     <div className="card-block">
                         <div className="header">
-                            <h1>Tax Calculator</h1>
+                            <h1 className="heading-title">Tax Calculator</h1>
                         </div>
                         <div className="content">
                             <Row className="gx-5">
                                 <Col md={6}>
                                     <div className="tax-calculator__header">
-                                        <h2>
+                                        <h2 className="heading-title">
                                             Calculate your Personal Income TAX
                                         </h2>
                                         <p>
@@ -110,13 +115,42 @@ const TaxCalculator: NextPage = () => {
                                             validationSchema={
                                                 taxCalculatorSchema
                                             }
-                                            onSubmit={async (values) => {
-                                                console.log("values", values);
+                                            // onSubmit={async (values) => {
+                                            //     console.log("values", values);
+                                            // }}
+                                            onSubmit={async (
+                                                values,
+                                                actions
+                                            ) => {
+                                                actions.resetForm();
+
+                                                mutate(values, {
+                                                    onSuccess: async () => {
+                                                        setIsFormSubmitted(
+                                                            true
+                                                        );
+                                                        console.log(
+                                                            "actiobn",
+                                                            actions
+                                                        );
+
+                                                        actions.resetForm();
+                                                        console.log(
+                                                            "submitted values",
+                                                            values
+                                                        );
+                                                    },
+                                                    onError: async (error) => {
+                                                        toast.error(
+                                                            error.message
+                                                        );
+                                                    },
+                                                });
                                             }}
                                         >
                                             {({
                                                 isSubmitting,
-                                                errors,
+                                                // errors,
                                                 resetForm,
                                                 touched,
                                             }) => (
@@ -130,7 +164,7 @@ const TaxCalculator: NextPage = () => {
                                                         <Row>
                                                             <Col md={7}>
                                                                 <SelectInputField
-                                                                    name="maritalStatus"
+                                                                    name="marital_status"
                                                                     options={
                                                                         maritalStatus
                                                                     }
@@ -149,9 +183,9 @@ const TaxCalculator: NextPage = () => {
                                                                 <InputField
                                                                     name="salary"
                                                                     type="text"
-                                                                    error={
-                                                                        errors.salary
-                                                                    }
+                                                                    //   error={
+                                                                    //     errors.salary
+                                                                    //}
                                                                     touch={
                                                                         touched.salary
                                                                     }
@@ -160,7 +194,7 @@ const TaxCalculator: NextPage = () => {
                                                             </Col>
                                                             <Col md={5}>
                                                                 <SelectInputField
-                                                                    name="salaryType"
+                                                                    name="income_time"
                                                                     type="text"
                                                                     options={
                                                                         salaryType
@@ -171,13 +205,13 @@ const TaxCalculator: NextPage = () => {
                                                             </Col>
                                                         </Row>
                                                         <InputField
-                                                            name="festivalBonus"
+                                                            name="festival_bonus"
                                                             type="text"
-                                                            error={
-                                                                errors.festivalBonus
-                                                            }
+                                                            //   error={
+                                                            //     errors.festival_bonus
+                                                            //}
                                                             touch={
-                                                                touched.festivalBonus
+                                                                touched.festival_bonus
                                                             }
                                                             haveIcon={true}
                                                             inputIcon={
@@ -188,13 +222,13 @@ const TaxCalculator: NextPage = () => {
 
                                                         <InputField
                                                             type="text"
-                                                            name="allowances"
+                                                            name="allowance"
                                                             placeHolder="Allowances"
-                                                            error={
-                                                                errors.allowances
-                                                            }
+                                                            //   error={
+                                                            //     errors.allowance
+                                                            //}
                                                             touch={
-                                                                touched.allowances
+                                                                touched.allowance
                                                             }
                                                             haveIcon={true}
                                                             inputIcon={
@@ -206,9 +240,9 @@ const TaxCalculator: NextPage = () => {
                                                             type="text"
                                                             name="others"
                                                             placeHolder="Others"
-                                                            error={
-                                                                errors.others
-                                                            }
+                                                            //   error={
+                                                            //     errors.others
+                                                            //}
                                                             touch={
                                                                 touched.others
                                                             }
@@ -225,14 +259,12 @@ const TaxCalculator: NextPage = () => {
                                                         </div>
                                                         <InputField
                                                             type="text"
-                                                            name="providentFund"
-                                                            error={
-                                                                errors.providentFund
-                                                            }
+                                                            name="pf"
+                                                            //   error={
+                                                            //     errors.providentFund
+                                                            //}
                                                             placeHolder="Provident Fund"
-                                                            touch={
-                                                                touched.providentFund
-                                                            }
+                                                            touch={touched.pf}
                                                             haveIcon={true}
                                                             inputIcon={
                                                                 faCircleQuestion
@@ -241,14 +273,12 @@ const TaxCalculator: NextPage = () => {
 
                                                         <InputField
                                                             type="text"
-                                                            name="investmentTrust"
+                                                            name="cit"
                                                             placeHolder="Investment Trust"
-                                                            error={
-                                                                errors.investmentTrust
-                                                            }
-                                                            touch={
-                                                                touched.investmentTrust
-                                                            }
+                                                            //   error={
+                                                            //     errors.cit
+                                                            //}
+                                                            touch={touched.cit}
                                                             haveIcon={true}
                                                             inputIcon={
                                                                 faCircleQuestion
@@ -258,12 +288,12 @@ const TaxCalculator: NextPage = () => {
                                                         <InputField
                                                             type="text"
                                                             placeHolder="Insurance"
-                                                            name="insurance"
-                                                            error={
-                                                                errors.insurance
-                                                            }
+                                                            name="life_insurance"
+                                                            //   error={
+                                                            //     errors.life_insurance
+                                                            //}
                                                             touch={
-                                                                touched.insurance
+                                                                touched.life_insurance
                                                             }
                                                             haveIcon={true}
                                                             inputIcon={
@@ -273,13 +303,13 @@ const TaxCalculator: NextPage = () => {
 
                                                         <InputField
                                                             type="text"
-                                                            name="medicalInsurance"
+                                                            name="medical_insurance"
                                                             placeHolder="Medical Insurance"
-                                                            error={
-                                                                errors.medicalInsurance
-                                                            }
+                                                            //   error={
+                                                            //     errors.medical_insurance
+                                                            //}
                                                             touch={
-                                                                touched.medicalInsurance
+                                                                touched.medical_insurance
                                                             }
                                                             haveIcon={true}
                                                             inputIcon={
@@ -289,24 +319,28 @@ const TaxCalculator: NextPage = () => {
                                                     </div>
                                                     <div className="buttons">
                                                         <Row>
-                                                            <Col md={6}>
-                                                                <FormButton
-                                                                    type="submit"
-                                                                    variant="primary"
+                                                            <Col
+                                                                lg={6}
+                                                                md={12}
+                                                                className="reset-btn"
+                                                            >
+                                                                {/* <FormButton
                                                                     name="Reset"
                                                                     className="btn close-btn"
-                                                                    isSubmitting={
-                                                                        isSubmitting
-                                                                    }
-                                                                    isSubmittingClass={isSubmittingClass(
-                                                                        isSubmitting
-                                                                    )}
                                                                     onClick={() =>
                                                                         resetForm()
                                                                     }
-                                                                />
+                                                                /> */}
+                                                                <Button
+                                                                    className="btn close-btn"
+                                                                    onClick={() =>
+                                                                        resetForm
+                                                                    }
+                                                                >
+                                                                    Cancel
+                                                                </Button>
                                                             </Col>
-                                                            <Col md={6}>
+                                                            <Col lg={6} md={12}>
                                                                 <FormButton
                                                                     type="submit"
                                                                     variant="primary"
@@ -351,14 +385,25 @@ const TaxCalculator: NextPage = () => {
                                                 md={12}
                                                 key={tax.id}
                                             >
-                                                <h1>{tax.name}</h1>
-                                                <span>{tax.amount}</span>
+                                                <h1 className="heading-title">
+                                                    {tax.name}
+                                                </h1>
+                                                <span>
+                                                    {isFormSubmitted
+                                                        ? tax.amount
+                                                        : `0.00`}{" "}
+                                                </span>
                                             </Col>
                                         ))}
                                     </Row>
                                     <div className="tax-slab">
-                                        <h1>Your tax slab is</h1>
-                                        <span>Upto 1 %</span>
+                                        <h1 className="heading-title">
+                                            Your tax slab is
+                                        </h1>
+                                        <span>
+                                            Upto &nbsp;
+                                            {isFormSubmitted ? tax_rate : `0%`}
+                                        </span>
                                     </div>
                                     <div className="table-content">
                                         {table.map((info) => (
@@ -378,10 +423,20 @@ const TaxCalculator: NextPage = () => {
                                                     {info.data.map((td) => (
                                                         <tr key={td.id}>
                                                             <td>{td.salary}</td>
-                                                            <td>{td.amount}</td>
-                                                            <td>{td.rate}</td>
                                                             <td>
-                                                                {td.liability}
+                                                                {isFormSubmitted
+                                                                    ? td.amount
+                                                                    : ``}
+                                                            </td>
+                                                            <td>
+                                                                {isFormSubmitted
+                                                                    ? td.rate
+                                                                    : ``}
+                                                            </td>
+                                                            <td>
+                                                                {isFormSubmitted
+                                                                    ? td.liability
+                                                                    : ``}
                                                             </td>
                                                         </tr>
                                                     ))}

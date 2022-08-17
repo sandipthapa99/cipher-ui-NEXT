@@ -4,7 +4,7 @@
     .header-navigation {
         padding: 0;
         .navbar-nav {
-            padding: 0.2rem 0;
+            // padding: 0.2rem 0;
             flex: auto;
             flex-direction: row;
             @include respond(lg) {
@@ -27,6 +27,8 @@
                     padding: 1.2rem 0.8rem;
                     font-size: 1.2rem;
                     margin-right: 1.4rem;
+                    display: flex;
+                    align-items: center;
                     position: relative;
                     @include respond(lg) {
                         padding: 1.3rem 2.6rem;
@@ -36,7 +38,7 @@
                         color: #fff;
                     }
                     @include respond(tablet-lanscape) {
-                        padding: 2.8rem 3.5rem;
+                        padding: 1.2rem 0.5rem;
                     }
                     .categories {
                         display: flex;
@@ -192,4 +194,22 @@
     top: 0;
     left: 0;
     width: 100%;
+}
+.weather-part {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    .weather-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 0.9rem;
+
+        @include respond(xs) {
+            display: none;
+        }
+    }
 }

@@ -10,6 +10,7 @@ const PackageOffersCard = ({
     isPermium,
     advantage,
     isRecommended,
+    isFromAddService,
 }: PacakageCardProps) => {
     return (
         <div
@@ -44,17 +45,26 @@ const PackageOffersCard = ({
                 </div>
             </div>
             <div className="offers">
-                {offers.map((offer: any, i: number) => (
+                {offers?.map((offer: any, i: number) => (
                     <PackageServiceHighlights
                         key={i}
-                        title={offer.label}
+                        title={offer.name}
                         isChecked={offer.isChecked}
                     />
                 ))}
             </div>
 
             <div className="btn-wrapper">
-                <CardBtn btnTitle="Buy Now" backgroundColor="primary-color" />
+                {isFromAddService ? (
+                    <span className="edit-button">
+                        <CardBtn btnTitle="Edit" backgroundColor="#fff" />
+                    </span>
+                ) : (
+                    <CardBtn
+                        btnTitle="Buy Now"
+                        backgroundColor="primary-color"
+                    />
+                )}
             </div>
         </div>
     );

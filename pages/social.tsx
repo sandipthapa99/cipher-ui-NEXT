@@ -1,10 +1,9 @@
 import BlogCard from "@components/common/BlogCard";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import BusinessGoal from "@components/common/BusinessGoal";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import React from "react";
@@ -17,7 +16,7 @@ const SocialResponsibilities: NextPage = () => {
         <Layout title="Social Responsibilities | Cipher">
             <section className="social-page">
                 <Container fluid="xl" className="px-5">
-                    <Breadcrum currentPage="Social responsibilities" />
+                    <BreadCrumb currentPage="Social responsibilities" />
                     <div className="social-page__top-container">
                         <h1>Social Responsibilites</h1>
                         <h4>Towards Community</h4>

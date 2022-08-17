@@ -1,17 +1,18 @@
-import { Requirement } from "./requirement";
+import type { Requirement } from "./requirement";
 
-export interface PostTaskData {
+export interface PostTaskProps {
     title: string;
-    titleDescription: string;
-    category: string;
-    subcategory: string;
-    dateTime: string;
-    estimatedHour: number;
-    budgetType: "range" | "fixed";
-    fixedValue?: number;
-    minBudget: number;
-    maxBudget: number;
-    address: string;
+    taskDescription: string;
     requirements: Requirement[];
-    image?: File | null;
+    address: string;
+    category: string;
+    task_type: "remote" | "onPremise";
+    budget?: string;
+    minBudget?: number;
+    maxBudget?: number;
+    image: File | null | undefined;
+    video: File | null | undefined;
+    date: string | null;
+    date_from: string | null;
+    date_to: string | null;
 }

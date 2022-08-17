@@ -7,10 +7,10 @@ import {
 import { faCalendar } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import type { PostTaskData } from "types/postTaskData";
+import type { PostTaskProps } from "types/postTaskData";
 
 interface Props {
-    task: PostTaskData;
+    task: PostTaskProps;
 }
 export const ClientTaskCard = ({ task }: Props) => {
     return (
@@ -18,10 +18,10 @@ export const ClientTaskCard = ({ task }: Props) => {
             <h4 className="client-task__header">
                 <span className="client-task__header--title">{task.title}</span>
                 <span className="client-task__header--charge">
-                    {`$${task.maxBudget ?? task.fixedValue}/hr`}
+                    {`$${task.maxBudget ?? task.budget}/hr`}
                 </span>
             </h4>
-            <p className="client-task__description">{task.titleDescription}</p>
+            <p className="client-task__description">{task.taskDescription}</p>
             <div className="client-task__info">
                 <div className="icon-text">
                     <FontAwesomeIcon
@@ -37,7 +37,9 @@ export const ClientTaskCard = ({ task }: Props) => {
                         className="svg-icon"
                         icon={faCalendar}
                     />
-                    <span>{new Date(task.dateTime).toLocaleDateString()}</span>
+                    {task.date && (
+                        <span>{new Date(task.date).toLocaleDateString()}</span>
+                    )}
                 </div>
                 <div className="icon-text">
                     <FontAwesomeIcon

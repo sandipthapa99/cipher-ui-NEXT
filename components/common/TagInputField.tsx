@@ -1,6 +1,6 @@
 import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS
 
-import Tags from "@yaireo/tagify/dist/react.tagify"; // React-wrapper file
+import { MultiSelect } from "@mantine/core";
 import { ErrorMessage, Field } from "formik";
 import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
@@ -10,6 +10,7 @@ const TagInputField = ({
     error,
     touch,
     placeHolder,
+    variables,
     labelName,
     textMuted,
     fieldRequired = false,
@@ -27,23 +28,20 @@ const TagInputField = ({
                 id={name}
                 className={checkFormControl(error, touch)}
             >
-                {({ form, field }: any) => {
+                {({ form }: any) => {
                     const { setFieldValue } = form;
                     return (
-                        <Tags
-                            name={name}
-                            id={name}
-                            {...field}
-                            placeholderText={placeHolder}
-                            className="w-100"
-                            onChange={(val) =>
-                                setFieldValue(
-                                    name,
-                                    val.detail.tagify.value.map(
-                                        (value) => value.value
-                                    )
-                                )
-                            }
+                        <MultiSelect
+                            data={variables ?? []}
+                            placeholder={placeHolder}
+                            className={checkFormControl(error, touch)}
+                            variant="unstyled"
+                            searchable
+                            creatable
+                            getCreateLabel={(query) => `+ Create ${query}`}
+                            onChange={(val) => setFieldValue(name, val)}
+                            clearButtonLabel="Clear selection"
+                            clearable
                         />
                     );
                 }}

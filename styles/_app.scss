@@ -32,6 +32,10 @@ a {
     color: #fca500;
     font-size: 1.4rem;
     font-weight: 500;
+    margin: 0 0 1rem 0;
+    @include respond(sm) {
+        margin: 0;
+    }
     &:hover {
         color: $primary-color;
     }
@@ -314,9 +318,9 @@ textarea.form-control {
 .file-attachment {
     position: relative;
     overflow: hidden;
-    text-align: center;
-    border: 0.1rem dashed #d3d3d3;
+    border: 0.1rem solid $gray-text-color;
     border-radius: 0.5rem;
+    padding: 0.6rem 1.8rem;
     background: #fff;
     color: $default-text-color;
     padding: 1rem;
@@ -324,15 +328,12 @@ textarea.form-control {
     cursor: pointer;
     font-weight: 500;
     height: 5rem;
-    align-items: center;
     display: flex;
-    justify-content: center;
-    .svg-icon {
-        width: 2.4rem;
-        height: 2.4rem;
-        color: $primary-color;
-        margin: 0 1rem 0 0;
-        vertical-align: bottom;
+    align-items: center;
+    span {
+        font-family: $inter-font;
+        color: #807f7f;
+        padding: 0 0 0 1rem;
     }
     .fileUpload {
         position: absolute;
@@ -627,6 +628,29 @@ small.text-muted {
     .svg-icon {
         position: absolute;
         right: 1rem;
+        top: 1.7rem;
         color: #868e96;
+    }
+}
+.check-group {
+    &__input {
+        font-weight: 400;
+        font-size: 12px;
+    }
+}
+.sticky-wrapper-header {
+    position: relative;
+    z-index: 4;
+    margin: 0;
+    @include respond(md) {
+        position: sticky;
+        top: 0rem;
+    }
+}
+.sticky-wrapper {
+    position: relative;
+    @include respond(md) {
+        position: sticky;
+        top: 15rem;
     }
 }

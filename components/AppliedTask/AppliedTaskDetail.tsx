@@ -1,81 +1,89 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
+import UserLoadingOverlay from "@components/common/FullPageLoader";
 import { GoBack } from "@components/common/GoBack";
+import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
+import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
 import PostModal from "@components/PostTask/PostModal";
 import {
     faCalendar,
-    faChevronLeft,
     faClockEight,
     faEllipsisVertical,
     faEye,
-    faHeart,
     faLocationDot,
-    faShare,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
+import { useBookmarkTasks } from "hooks/task/use-bookmark-tasks";
 import type { NextPage } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import { serviceHighlights } from "staticData/serviceHighlights";
-import { serviceProvider } from "staticData/serviceProvider";
+import { axiosClient } from "utils/axiosClient";
 
 import { TaskersTab } from "./TaskersTab";
 import { TeamMembersSection } from "./TeamMembersSection";
 import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail: NextPage = () => {
+    const { data } = useBookmarkTasks();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
+    const router = useRouter();
 
-    const handleShowModal = () => {
-        setShowModal(true);
-    };
+    const uuid = router?.query?.slug as string;
 
+    const { data: taskDetail } = useQuery(["task-detail", uuid], async () => {
+        const response = await axiosClient.get(`/task/task/${uuid}`);
+        return response?.data;
+    });
+
+    const requirements = taskDetail?.requirements?.split(",");
+
+    const isTaskBookmarked = () =>
+        data ? data.result?.some((item) => item.object_id === uuid) : false;
+
+    if (!taskDetail) {
+        return <UserLoadingOverlay />;
+    }
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
                 <GoBack href="/task" />
-                {/* <Link href="/task">
-                    <a>
-                        <FontAwesomeIcon
-                            icon={faChevronLeft}
-                            className="svg-icon"
-                        />
-                        Go Back
-                    </a>
-                </Link> */}
-
-                <h3>Need a garden cleaner</h3>
+                <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
                         <span className="pb-3 pb-sm-0 provider-name">
-                            25 May, 2022 - 02:30 PM
+                            {format(
+                                new Date(taskDetail?.created_at),
+                                "dd MMM, yyyy - hh:mm a"
+                            )}
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
-                            <div className="d-flex flex-col align-items-center">
-                                <FontAwesomeIcon
-                                    icon={faHeart}
-                                    className="svg-icon heart-icon"
-                                />
-                                <span className="name">Save</span>
-                            </div>
-                            <div className="d-flex flex-col align-items-center mx-5">
-                                <FontAwesomeIcon
-                                    icon={faShare}
-                                    className="svg-icon share-icon"
+                            <SaveIcon
+                                object_id={uuid}
+                                model="task"
+                                filled={isTaskBookmarked}
+                                showText
+                            />
+                            <button className="btn d-flex flex-col align-items-center mx-5">
+                                <ShareIcon
+                                    url={`http://localhost:3005/task/${uuid}`}
+                                    quote={"This is the task from cipher"}
+                                    hashtag={"cipher-task"}
                                 />
                                 <span className="name">Share</span>
-                            </div>
+                            </button>
                             <EllipsisDropdown
                                 showModal={true}
-                                handleOnClick={handleShowModal}
+                                handleOnClick={() => setShowModal(true)}
                             >
                                 <FontAwesomeIcon
                                     icon={faEllipsisVertical}
@@ -94,7 +102,9 @@ const AppliedTaskDetail: NextPage = () => {
                                 ></Modal.Header>
                                 <Modal.Body>
                                     <PostModal
-                                        onSubmit={() => setShowModal(false)}
+                                        setshowPostModel={() =>
+                                            setShowModal(false)
+                                        }
                                     />
                                 </Modal.Body>
                             </Modal>
@@ -113,22 +123,16 @@ const AppliedTaskDetail: NextPage = () => {
                         </figure>
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
-                        {serviceProvider &&
-                            serviceProvider.map((provider) => (
-                                <SimpleProfileCard
-                                    image={provider.image}
-                                    key={provider.id}
-                                    name={provider.name}
-                                    views={provider.views}
-                                    address={provider.address}
-                                    happyClients={provider.happyClients}
-                                    successRate={provider.successRate}
-                                    speciality={provider.speciality}
-                                    startingPrice={provider.startingPrice}
-                                    isApplied={true}
-                                    isPermission={false}
-                                />
-                            ))}
+                        <SimpleProfileCard
+                            image={taskDetail?.image}
+                            speciality={taskDetail?.speciality}
+                            startingPrice={taskDetail?.budget_from}
+                            endPrice={taskDetail?.budget_to}
+                            isApplied={true}
+                            isPermission={false}
+                            currency={taskDetail?.currency}
+                            name={taskDetail?.assigner}
+                        />
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
@@ -137,21 +141,26 @@ const AppliedTaskDetail: NextPage = () => {
                             icon={faLocationDot}
                             className="svg-icon svg-icon-location"
                         />
-                        Buddhanagar, Kathmandu
+                        {taskDetail?.location
+                            ? taskDetail?.location
+                            : "Buddhanagar, Kathmandu"}
                     </p>
                     <p>
                         <FontAwesomeIcon
                             icon={faCalendar}
                             className="svg-icon svg-icon-calender"
                         />
-                        June 9, 2022
+                        {format(
+                            new Date(taskDetail?.start_date),
+                            "dd MMM, yyyy"
+                        )}
                     </p>
                     <p>
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon svg-icon-clock"
                         />
-                        08:11 PM
+                        {taskDetail?.start_time}
                     </p>
                     <p>
                         <FontAwesomeIcon
@@ -165,28 +174,21 @@ const AppliedTaskDetail: NextPage = () => {
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                        100 Applied
+                        {taskDetail?.applicants_count} Applied
                     </p>
                 </div>
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    <p>
-                        Hiring a reputable professional landscape gardener
-                        entail paying for their knowledge, experience, time,
-                        equipment, and materials. They will be able to discuss
-                        your vision and tailor your garden design to your exact
-                        needs, taking into account your taste, lifestyle,
-                        budget.
-                    </p>
+                    <p>{taskDetail?.description}</p>
                 </div>
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {serviceHighlights &&
-                        serviceHighlights.map((name) => (
-                            <div key={name.id}>
-                                <ServiceHighlights title={name.title} />
+                    {requirements &&
+                        requirements.map((name: string, index: number) => (
+                            <div key={index}>
+                                <ServiceHighlights title={name} />
                             </div>
                         ))}
                 </div>

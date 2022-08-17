@@ -4,8 +4,6 @@ import DiscountCard from "@components/common/discountCard";
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
 import { WelcomeComponent } from "@components/common/WelcomeComponent";
-import ApplyPost from "@components/PostTask/ApplyPost";
-import { SearchBody } from "@components/SearchTask/searchBody";
 import GettingStartedTask from "@components/Task/GettingStartedCard";
 import Link from "next/link";
 import React, { useState } from "react";

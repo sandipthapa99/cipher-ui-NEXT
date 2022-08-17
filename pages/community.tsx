@@ -1,5 +1,5 @@
 import BlogCard from "@components/common/BlogCard";
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import BusinessGoal from "@components/common/BusinessGoal";
 import BigButton from "@components/common/Button";
 import CommunityActivityCard from "@components/common/communityActivity";
@@ -7,7 +7,6 @@ import CommunityGuidelineCard from "@components/common/CommunityGuidelineCard";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { withAuth } from "hoc/withAuth";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
@@ -22,7 +21,7 @@ const Community: NextPage = () => {
     return (
         <Layout title="Community | Cipher">
             <section className="community-page">
-                <Breadcrum currentPage="Community" />
+                <BreadCrumb currentPage="Community" />
                 <Container fluid="xl" className="px-5">
                     <div className="community-page__top-container">
                         <Row className="top-row gx-5">

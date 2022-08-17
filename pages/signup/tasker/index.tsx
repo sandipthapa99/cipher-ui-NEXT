@@ -1,21 +1,16 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
-import RadioField from "@components/common/RadioField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import { useAuthContext } from "context/AuthContext/userContext";
-import { Field, Form, Formik } from "formik";
-import { withAuth } from "hoc/withAuth";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { Form, Formik } from "formik";
+import { useSignup } from "hooks/auth/useSignup";
+import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
 import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const SignUpAsTasker = () => {
-    const router = useRouter();
-
-    const { signUpUser } = useAuthContext();
+    const { mutate, isLoading } = useSignup();
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
@@ -30,13 +25,26 @@ const SignUpAsTasker = () => {
                     initialValues={ClientSignUpFormData}
                     validationSchema={clientSignUpSchema}
                     onSubmit={async (values) => {
-                        signUpUser(values);
+                        const { email, password, confirmPassword } = values;
+                        mutate(
+                            { email, password, confirmPassword },
+                            {
+                                onError: (error) => {
+                                    toast.error(error.message);
+                                },
+                                onSuccess: () => {
+                                    toast.success(
+                                        "Please check your email for verification link"
+                                    );
+                                },
+                            }
+                        );
                     }}
                 >
                     {({ isSubmitting, errors, touched }) => (
                         <Form className="login-form">
                             <div className="form-group"></div>
-                            <RadioField
+                            {/* <RadioField
                                 type="radio"
                                 name="gender"
                                 labelName="Signing up as?"
@@ -58,7 +66,7 @@ const SignUpAsTasker = () => {
                                 touch={touched.lastName}
                                 error={errors.lastName}
                                 placeHolder="Lisa"
-                            />
+                            /> */}
                             <InputField
                                 type="email"
                                 name="email"
@@ -67,14 +75,14 @@ const SignUpAsTasker = () => {
                                 error={errors.email}
                                 placeHolder="example@example.com"
                             />
-                            <InputField
+                            {/* <InputField
                                 type="text"
                                 name="phoneNumber"
                                 labelName="Phone Number"
                                 touch={touched.phoneNumber}
                                 error={errors.phoneNumber}
                                 placeHolder="+00 420 420 4200"
-                            />
+                            /> */}
                             <PasswordField
                                 type="password"
                                 name="password"
@@ -91,14 +99,14 @@ const SignUpAsTasker = () => {
                                 error={errors.confirmPassword}
                                 placeHolder="&#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;"
                             />
-                            <RadioField
+                            {/* <RadioField
                                 type="radio"
                                 name="gender"
                                 labelName="Are You?"
                                 touch={touched.gender}
                                 error={errors.gender}
-                            />
-                            <div className="form-group">
+                            /> */}
+                            {/* <div className="form-group">
                                 <div className="form-check">
                                     <Field
                                         type="checkbox"
@@ -118,8 +126,8 @@ const SignUpAsTasker = () => {
                                         Send me emails relevant to me.
                                     </label>
                                 </div>
-                            </div>
-                            <div className="form-group">
+                            </div> */}
+                            {/* <div className="form-group">
                                 <div className="form-check">
                                     <Field
                                         type="checkbox"
@@ -145,11 +153,11 @@ const SignUpAsTasker = () => {
                                         of Cipher.
                                     </label>
                                 </div>
-                            </div>
+                            </div> */}
                             <FormButton
                                 type="submit"
                                 variant="primary"
-                                name="Continue"
+                                name={isLoading ? "Loading..." : "Continue"}
                                 className="login-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(
@@ -163,4 +171,5 @@ const SignUpAsTasker = () => {
         </OnBoardingLayout>
     );
 };
-export default withAuth(SignUpAsTasker);
+
+export default SignUpAsTasker;

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";
+import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServiceProviderCardProps } from "types/serviceDetail";
 
 import BookNowButton from "./BookNowButton";
@@ -16,9 +17,12 @@ const SimpleProfileCard = ({
     name,
     speciality,
     startingPrice,
+    endPrice,
     isApplied,
     isPermission,
+    currency,
 }: ServiceProviderCardProps) => {
+    const withLogin = useWithLogin();
     const [showModal, setShowModal] = useState(false);
     const [priceValue, setPriceValue] = useState(25);
     const [priceChanged, setPriceChanged] = useState(false);
@@ -32,15 +36,18 @@ const SimpleProfileCard = ({
             <div className="d-flex align-items-center simple-card__profile">
                 <figure className="thumbnail-img">
                     <Image
-                        src={image}
+                        src={image ? image : "/hireinnepal/footer.png"}
                         layout="fill"
                         objectFit="cover"
                         alt="serviceprovider-image"
                     />
                 </figure>
+
                 <div className="intro">
                     <p className="name">{name}</p>
-                    <p className="job">{speciality}</p>
+                    <p className="job">
+                        {speciality ? speciality : "Gardener"}
+                    </p>
                 </div>
             </div>
 
@@ -76,7 +83,9 @@ const SimpleProfileCard = ({
 
             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                 <span>Budget Range</span>
-                <span className="price">Rs {startingPrice}</span>
+                <span className="text-right price">
+                    {currency} {startingPrice} -{endPrice}
+                </span>
             </div>
 
             {isApplied &&
@@ -101,7 +110,9 @@ const SimpleProfileCard = ({
                             btnTitle={"Apply Now"}
                             backgroundColor={"#38C675"}
                             showModal={true}
-                            handleOnClick={() => setShowModal(!showModal)}
+                            handleOnClick={withLogin(() =>
+                                setShowModal(!showModal)
+                            )}
                         />
                     ) : (
                         <BookNowButton

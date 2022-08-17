@@ -2,8 +2,9 @@ export interface EducationValueProps {
     school: string;
     description: string;
     degree: string;
-    fieldOfStudy: string;
+    field_of_study: string;
     location: string;
-    startDate: string | null;
-    endDate: string | null;
+    start_date: string;
+    end_date: string;
+    id: number;
 }

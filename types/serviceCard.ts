@@ -9,4 +9,5 @@ export interface ServiceCardProps {
     hasOffer?: boolean;
     discountRate?: number;
     discountOn?: string;
+    proService?: boolean;
 }

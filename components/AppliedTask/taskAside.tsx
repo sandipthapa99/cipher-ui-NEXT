@@ -1,29 +1,37 @@
+import { format } from "date-fns";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
+import type { ITask } from "types/task";
 
-import type { AppliedTask } from "../../staticData/taskApplied";
 import TaskAppliedCard from "./taskAppliedCard";
 
 interface TaskAsideProps {
     children: ReactNode;
-    appliedTasks: AppliedTask[];
+    appliedTasks: ITask[];
     query: string;
 }
 const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
-    const totalAppliedTasks = appliedTasks.length;
+    const totalAppliedTasks = appliedTasks?.length;
 
-    const renderTaskCards = appliedTasks.map((task) => {
+    const renderTaskCards = appliedTasks?.map((task) => {
         return (
-            <div key={task.id}>
-                <Link href="/task/task-detail">
+            <div key={task.uuid}>
+                <Link href={`/task/${task.uuid}`}>
                     <a>
                         <TaskAppliedCard
                             title={task.title}
-                            charge={task.charge}
+                            startPrice={task.budget_from}
+                            endPrice={task?.budget_to}
                             location={task.location}
-                            date={task.date}
-                            time={task.time}
+                            date={format(
+                                new Date(task.created_at),
+                                "dd MMM, yyyy"
+                            )}
+                            time={format(new Date(task.created_at), "HH : mm")}
+                            currency={task?.currency}
+                            charge={task.charge?.toString() ?? "0"}
+                            taskId={task?.uuid}
                         />
                     </a>
                 </Link>

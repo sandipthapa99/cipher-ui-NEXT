@@ -4,14 +4,15 @@ import { useMemo } from "react";
 
 export interface TabProps {
     items: {
-        title: string;
-        content: ReactNode;
+        title: string | ReactNode;
+        content?: ReactNode;
     }[];
     activeIndex?: number;
     onTabClick: (index: number) => void;
+    icons?: { index: number; type: ReactNode }[];
 }
 
-export const Tab = ({ items, activeIndex, onTabClick }: TabProps) => {
+export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
     const router = useRouter();
 
     const handleTabClick = (index: number) => {
@@ -33,16 +34,31 @@ export const Tab = ({ items, activeIndex, onTabClick }: TabProps) => {
     }, [activeIndex, router.query]);
 
     const renderTabItems = () => {
-        return items.map((item, index) => (
-            <button
-                data-is-active={JSON.stringify(index === currentActiveIndex)}
-                className="custom-tab__headers--btn"
-                onClick={() => handleTabClick(index)}
-                key={index}
-            >
-                {item.title}
-            </button>
-        ));
+        return (
+            <div className="tab-wrapper">
+                {items.map((item, index) => (
+                    <button
+                        data-is-active={JSON.stringify(
+                            index === currentActiveIndex
+                        )}
+                        className="custom-tab__headers--btn"
+                        onClick={() => handleTabClick(index)}
+                        key={index}
+                    >
+                        {item.title}
+                    </button>
+                ))}
+
+                <div className="tab-icons">
+                    {icons?.map((icon) => (
+                        <div key={icon.index}>{icon.type}</div>
+                    ))}
+                </div>
+                {/* {icons?.map((icon) => (
+                    <div key={icon.index}>{icon.type}</div>
+                ))} */}
+            </div>
+        );
     };
     return (
         <div className="custom-tab">

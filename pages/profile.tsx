@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import { Tab } from "@components/common/Tab";
 import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
@@ -8,55 +8,92 @@ import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
-import { withAuth } from "hoc/withAuth";
-import type { NextPage } from "next";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import type { GetStaticProps, NextPage } from "next";
+import Link from "next/link";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
-import { userProfileCardInfo } from "staticData/userProfileCard";
+import { Col, Container, Row } from "react-bootstrap";
+import type { UserProfileProps } from "types/userProfileProps";
 
-const UserProfile: NextPage = () => {
+const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
+    const { data: profileDetails } = useGetProfile();
+
+    const remaining = {
+        userImage: "/service-details/provider1.svg",
+        userRating: 4,
+        userBadge: "Gold",
+        userPoints: 58,
+        pointGoal: 42,
+        happyClients: 24,
+        successRate: 30,
+        userReviews: 14,
+        tooltipMessage: "Tooltip Message will show up here",
+        taskCompleted: 30,
+        userActiveStatus: true,
+    };
+    if (!profileDetails) {
+        return (
+            <>
+                <Layout title="Profile | Cipher">
+                    <Container fluid="xl" className="px-5">
+                        <BreadCrumb currentPage="Profile" />
+                        <Row className="row-create-profile">
+                            <Col className="create-profile">
+                                <h1>Create Profile. Start Your Journey</h1>
+                                <button className="btn-create-profile">
+                                    <Link
+                                        href={"settings/account/individual"}
+                                        className="text-profile"
+                                    >
+                                        Create Profile
+                                    </Link>
+                                </button>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Layout>
+            </>
+        );
+    }
 
     return (
         <Layout title="Profile | Cipher">
             <Container fluid="xl" className="px-5">
                 <section className="user-profile">
-                    <Breadcrum
-                        currentPage="Profile"
-                        subPage="Detail"
-                        hasSubPage={false}
-                    />
+                    <BreadCrumb currentPage="Profile" />
 
                     {/* Explore top container start */}
+
                     <section className="user-profile__top-container">
-                        {userProfileCardInfo &&
-                            userProfileCardInfo.map((info) => (
-                                <UserProfileCard
-                                    key={info.id}
-                                    userImage={info.userImage}
-                                    userName={info.userName}
-                                    userJob={info.userJob}
-                                    userRating={info.userRating}
-                                    userPrice={info.userPrice}
-                                    userLocation={info.userLocation}
-                                    userPhone={info.userPhone}
-                                    userEmail={info.userEmail}
-                                    moreServices={info.moreServices}
-                                    activeFrom={info.activeFrom}
-                                    activeTo={info.activeTo}
-                                    userBio={info.userBio}
-                                    userBadge={info.userBadge}
-                                    userPoints={info.userPoints}
-                                    pointGoal={info.pointGoal}
-                                    happyClients={info.happyClients}
-                                    successRate={info.successRate}
-                                    userReviews={info.userReviews}
-                                    taskCompleted={info.taskCompleted}
-                                    userActiveStatus={info.userActiveStatus}
-                                    tooltipMessage={info.tooltipMessage}
-                                />
-                            ))}
+                        <UserProfileCard
+                            countryCode={profileDetails?.country}
+                            key={profileDetails?.id}
+                            userImage={profileDetails?.profile_image}
+                            userName={profileDetails?.full_name}
+                            userJob={profileDetails?.user_type}
+                            userRating={remaining.userRating}
+                            userPrice={profileDetails?.hourly_rate}
+                            userLocation={profileDetails?.address_line1}
+                            userPhone={profileDetails?.phone}
+                            userEmail={profileDetails?.user?.email}
+                            moreServices={profileDetails?.skill}
+                            activeFrom={profileDetails?.active_hour_start}
+                            activeTo={profileDetails?.active_hour_end}
+                            userBio={profileDetails?.bio}
+                            userBadge={remaining.userBadge}
+                            userPoints={remaining.userPoints}
+                            pointGoal={remaining.pointGoal}
+                            happyClients={remaining.happyClients}
+                            successRate={remaining.successRate}
+                            userReviews={remaining.userReviews}
+                            taskCompleted={remaining.taskCompleted}
+                            userActiveStatus={remaining.userActiveStatus}
+                            tooltipMessage={remaining.tooltipMessage}
+                        />
                     </section>
+
                     <section className="user-profile__bottom-container">
                         <div className="tabs">
                             <Tab
@@ -98,3 +135,28 @@ const UserProfile: NextPage = () => {
 };
 
 export default UserProfile;
+
+export const getStaticProps: GetStaticProps = async () => {
+    const queryClient = new QueryClient();
+    try {
+        await Promise.all([
+            queryClient.prefetchQuery(["tasker-certification"]),
+            queryClient.prefetchQuery(["tasker-education"]),
+            queryClient.prefetchQuery(["tasker-experience"]),
+            queryClient.prefetchQuery(["tasker-portfolio"]),
+        ]);
+        return {
+            props: {
+                dehydratedState: dehydrate(queryClient),
+            },
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                certificationData: [],
+                educationData: [],
+                experienceData: [],
+            },
+        };
+    }
+};

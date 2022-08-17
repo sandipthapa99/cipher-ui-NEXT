@@ -1,0 +1,61 @@
+.careers-section {
+    .careers-detail {
+        padding: 4rem;
+        h1 {
+            font-weight: 400;
+            font-size: 4.8rem;
+            margin: 0 0 4.6rem;
+            color: $primary-color;
+        }
+        p {
+            font-weight: 400;
+            font-size: 14px;
+            color: $secondary-text-color;
+            margin: 0 0 3.2rem;
+            span {
+                margin: 0 1.6rem 0 0;
+                font-weight: 500;
+                font-size: 2rem;
+            }
+        }
+        &__job {
+            margin: 0 0 3.2rem;
+            span {
+                max-width: 77.7rem;
+            }
+            figure {
+                position: relative;
+                width: 23.5rem;
+                height: 18.9rem;
+                display: none;
+                @include respond(sm) {
+                    width: 35rem;
+                    height: 32rem;
+                }
+                @include respond(lg) {
+                    display: block;
+                }
+            }
+        }
+        h2 {
+            font-weight: 500;
+            font-size: 2rem;
+            color: $primary-color;
+        }
+        ul {
+            margin: 2.4rem 0 3.2rem;
+            color: $secondary-text-color;
+            li {
+                list-style-type: initial;
+                margin: 0 0 1.6rem;
+                &:empty {
+                    display: none;
+                }
+            }
+        }
+        .big-btn {
+            background: $primary-color;
+            width: 11rem;
+        }
+    }
+}

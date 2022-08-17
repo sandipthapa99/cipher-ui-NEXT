@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 const TooltipMessage = ({
@@ -6,7 +6,7 @@ const TooltipMessage = ({
     place,
     children,
 }: {
-    message: string;
+    message: string | undefined;
     place: any;
     children: React.ReactElement;
 }) => {
@@ -14,7 +14,7 @@ const TooltipMessage = ({
         <OverlayTrigger
             placement={place}
             delay={{ show: 250, hide: 400 }}
-            overlay={<Tooltip>{message}</Tooltip>}
+            overlay={<Tooltip className="my-tooltip">{message}</Tooltip>}
         >
             {children}
         </OverlayTrigger>

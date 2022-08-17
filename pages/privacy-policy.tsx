@@ -1,12 +1,11 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
-import { withAuth } from "hoc/withAuth";
 import { Container } from "react-bootstrap";
 
 const PrivacyPolicy = () => {
     return (
         <Layout title="Privacy Policy | Cipher">
-            <Breadcrum currentPage="Privacy Policy" />
+            <BreadCrumb currentPage="Privacy Policy" />
             <Container fluid="xl">
                 <section className="privacy-policy">
                     <section className="privacy-policy__intro inner-section">

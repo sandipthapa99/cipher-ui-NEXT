@@ -1,4 +1,4 @@
-import Breadcrum from "@components/common/Breadcrum";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import { SearchInputField } from "@components/common/SearchInputField";
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
@@ -16,7 +16,7 @@ const HireInNepal: NextPage = () => {
         <Layout title="Hire in Nepal | Cipher">
             <Container fluid="xl" className="px-5">
                 <section className="hire-in-nepal">
-                    <Breadcrum currentPage="Hire in Nepal" />
+                    <BreadCrumb currentPage="Hire in Nepal" />
 
                     <div className="hire-in-nepal__top-container">
                         {hireInNepalBrowseTalent &&

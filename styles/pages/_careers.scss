@@ -1,0 +1,193 @@
+.careers-section {
+    .careers-index {
+        max-width: 64rem;
+        h1 {
+            font-weight: 600;
+            font-size: 4.4rem;
+            text-transform: capitalize;
+            color: #211d4f;
+            @include respond(md) {
+                font-size: 6.4rem;
+            }
+        }
+        p {
+            font-weight: 500;
+            font-size: 2.4rem;
+            text-transform: capitalize;
+            color: $grayScale5;
+        }
+        &__popular {
+            font-weight: 600;
+            font-size: 2.4rem;
+            text-transform: capitalize;
+            color: $secondary-text-color;
+            display: flex;
+            ul {
+                list-style: none;
+                display: flex;
+                flex-direction: row;
+                li {
+                    font-weight: 500;
+                    font-size: 2.4rem;
+                    text-decoration-line: underline;
+                    margin: 0 0 0 1.6rem;
+                    text-transform: capitalize;
+                    color: $grayScale6;
+                }
+            }
+        }
+    }
+    figure {
+        position: relative;
+        width: 23.5rem;
+        height: 18.9rem;
+        @include respond(sm) {
+            width: 53.5rem;
+            height: 38.9rem;
+        }
+    }
+    .demand-img {
+        position: relative;
+        width: 25rem;
+        height: 34.8rem;
+        display: none;
+        @include respond(lg) {
+            display: block;
+        }
+        @include respond(xxl) {
+            display: block;
+            width: 30rem;
+            height: 44.8rem;
+        }
+    }
+    h2 {
+        font-weight: 600;
+        font-size: 3.2rem;
+        color: $primary-color;
+    }
+    h3 {
+        font-weight: 500;
+        font-size: 2.4rem;
+        color: $primary-color;
+    }
+    h4 {
+        font-weight: 500;
+        font-size: 2rem;
+    }
+    .hiring-stage {
+        h1 {
+            font-weight: 400;
+            font-size: 4.8rem;
+        }
+        ol {
+            font-weight: 600;
+            font-size: 2.4rem;
+            margin: 2rem 0 0 2rem;
+            li {
+                list-style: decimal;
+                list-style-position: inside;
+                margin: 0 0 2rem;
+            }
+        }
+        &__application {
+            background: rgba(113, 199, 137, 0.1);
+            h3 {
+                font-weight: 400;
+                font-size: 2.4rem;
+                margin: 0 0 2.6rem;
+            }
+            p {
+                font-weight: 500;
+                font-size: 1.6rem;
+                color: $grayScale6;
+            }
+        }
+    }
+    .banner-wrapper {
+        background: $primary-color;
+        padding: 3.3rem 5.2rem;
+        margin: 4rem 0;
+        @include respond(md) {
+            padding: 3.3rem 12.2rem;
+        }
+        @include respond(lg) {
+            padding: 3.3rem 19.2rem;
+        }
+        &__detail {
+            h2 {
+                font-weight: 400;
+                font-size: 4rem;
+                color: #fff;
+                @include respond(md) {
+                    font-size: 6rem;
+                }
+            }
+            p {
+                font-weight: 400;
+                font-size: 2.4rem;
+                color: #fff;
+            }
+        }
+        button {
+            background: $secondary-color;
+            color: $primary-color;
+        }
+    }
+    .part-wrapper {
+        margin: 4rem 0;
+        padding: 6.3rem 0 6.3rem 4.3rem;
+        @include respond(xxl) {
+            padding: 6.3rem 0 6.3rem 9.3rem;
+        }
+        background: $primary-color;
+        color: #fff;
+        position: relative;
+        &__details {
+            font-weight: 400;
+            font-size: 2rem;
+            @include respond(xxl) {
+                font-size: 4rem;
+            }
+            span {
+                font-weight: 500;
+                font-size: 6rem;
+            }
+            p {
+                font-weight: 400;
+                font-size: 2rem;
+                color: $grayScale5;
+            }
+        }
+        figure {
+            position: absolute;
+            right: 0;
+            width: 45rem;
+            height: 30rem;
+            display: none;
+            @include respond(lg) {
+                display: block;
+            }
+        }
+    }
+}
+.career-apply-section {
+    .apply-form {
+        background: #fff;
+        margin: 2rem 2rem 0 2rem;
+        padding: 2rem 1rem;
+        border-radius: 2rem;
+        @include respond(md) {
+            padding: 7rem 8rem;
+            margin: 9.8rem 9rem 0 9rem;
+        }
+        @include respond(lg) {
+            padding: 10rem 15rem;
+        }
+        h3 {
+            font-weight: 500;
+            font-size: 2rem;
+            color: $primary-color;
+            margin: 0 0 3.2rem;
+        }
+    }
+}

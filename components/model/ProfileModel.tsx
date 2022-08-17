@@ -12,12 +12,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { toast } from "react-toastify";
 import type { ProfileCardContent } from "staticData/profileCardContent";
 import { autoLogout } from "utils/auth";
 
 export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
     const queryClient = useQueryClient();
     const router = useRouter();
+
+    const handleLogout = async () => {
+        queryClient.setQueryData(["user"], null);
+        autoLogout();
+        await router.push(router.pathname);
+        toast.success("Logged out successfully");
+    };
     return (
         <div className="profile-dropdown p-4">
             <div
@@ -108,22 +116,20 @@ export const ProfileModel = ({ profile }: { profile: ProfileCardContent }) => {
                 </li>
             </ul>
             <ul className="border-1">
-                <button
-                    className="login-btn"
-                    style={{ color: "#495057" }}
-                    onClick={() => {
-                        queryClient.removeQueries(["user"]);
-                        autoLogout();
-                        router.push("/login");
-                    }}
-                >
-                    <FontAwesomeIcon
-                        icon={faRightFromBracket}
-                        className="svg-icon svg-180-transfrom"
-                        style={{ color: "#868E96" }}
-                    />
-                    Logout
-                </button>
+                <li>
+                    <button
+                        className="logout-btn"
+                        style={{ color: "#495057" }}
+                        onClick={handleLogout}
+                    >
+                        <FontAwesomeIcon
+                            icon={faRightFromBracket}
+                            className="svg-icon svg-180-transfrom"
+                            style={{ color: "#868E96" }}
+                        />
+                        Logout
+                    </button>
+                </li>
             </ul>
         </div>
     );

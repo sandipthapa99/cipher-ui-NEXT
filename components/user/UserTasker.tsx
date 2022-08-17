@@ -1,10 +1,8 @@
 import { Tab } from "@components/common/Tab";
 import { WelcomeComponent } from "@components/common/WelcomeComponent";
-import { SearchBody } from "@components/SearchTask/searchBody";
 import GettingStartedTask from "@components/Task/GettingStartedCard";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { SearchBodyData } from "staticData/searchBody";
 
 import { Recommended } from "./Recommended";
 

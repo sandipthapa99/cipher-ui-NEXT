@@ -1,23 +1,23 @@
 export interface AccountValueProps {
-    fullName: string;
+    full_name: string;
+    phone: number | string;
     email: string;
     bio: string;
     gender: string;
-    dateOfBirth: string | null;
-    //Profession Information
-    specialities: string;
-    experienceLevel: string;
-    activeHoursFrom: string;
-    activeHoursTo: string | null;
-    baseRatePerHour: string | null;
-    userType: string;
-    //Address Information
-    country: string;
-    addressLine1: string;
-    addressLine2: string;
-    language: string;
-    currency: string;
-    //Profile Configurations
-    visibility: string;
-    taskPreferences: string;
+    date_of_birth: string | null;
+    skill: string;
+    experience_level: string;
+    active_hour_start: string;
+    active_hour_end: string | null;
+    hourly_rate: number | null;
+    user_type: string;
+    country: string | number;
+    address_line1: string;
+    address_line2: string;
+    language: string | number;
+    charge_currency: string | number | undefined;
+    profile_visibility: string;
+    task_preferences: string;
+    profile_image?: string;
+    education: string;
 }

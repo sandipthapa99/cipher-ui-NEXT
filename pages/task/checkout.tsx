@@ -2,90 +2,104 @@ import TaskList from "@components/AppliedTask/TaskList";
 import BillingLocation from "@components/Checkout/BillingLocation";
 import ExtraSection from "@components/Checkout/ExtraSection";
 import PaymentMethod from "@components/Checkout/PaymentMethod";
-import Breadcrum from "@components/common/Breadcrum";
-import Footer from "@components/Footer";
-import Header from "@components/Header";
+import { BreadCrumb } from "@components/common/BreadCrumb";
+import Layout from "@components/Layout";
 import MembershipCard from "@components/MembershipCard";
 import Popular from "@components/Popular";
 import { PostCard } from "@components/PostTask/PostCard";
-import SearchHeader from "@components/SearchTask/searchHeader";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useBookContext } from "context/BookNowContext/bookNowContext";
 import React, { Fragment } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { billingLocationContent } from "staticData/billingLocationData";
 import { MembershipCardContent } from "staticData/membershipCard";
 import { taskListContent } from "staticData/taskListData";
+import { useBookNowDetails } from "store/use-book-now";
 
 const Checkout = () => {
-    const { bookNowDetails } = useBookContext();
-    return (
-        <Fragment>
-            <SearchHeader />
-            <Header />
-            <section
-                id="task-checkout-section"
-                className="task-checkout-section"
-            >
-                <Container fluid="xl">
-                    <Breadcrum currentPage={"Checkout"} />
-                    <h1>Checkout</h1>
-                    <Row className="g-5">
-                        <Col lg={8}>
-                            <BillingLocation
-                                location={
-                                    bookNowDetails.serviceProviderLocation
-                                }
-                            />
-                            <ExtraSection />
-                            <PaymentMethod />
-                        </Col>
-                        <Col lg={4}>
-                            <TaskList task={taskListContent} />
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
-            <section
-                id="membership-section"
-                className="membership-section mt-5"
-            >
-                <Container>
-                    <h1>Get membership</h1>
-                    <Row className="gx-5 d-flex align-items-stretch">
-                        {MembershipCardContent &&
-                            MembershipCardContent.map((offer) => (
-                                <Col
-                                    className="align-items-stretch"
-                                    lg={3}
-                                    md={4}
-                                    sm={6}
-                                    key={offer.id}
-                                >
-                                    <MembershipCard
-                                        title={offer.title}
-                                        price={offer.price}
-                                        offers={offer.offers}
-                                        isRecommended={offer.isRecommended}
-                                        isPermium={offer.isPermium}
-                                        advantage={offer.advantage}
-                                    />
-                                </Col>
-                            ))}
-                    </Row>
-                </Container>
-            </section>
+    const bookNowDetails = useBookNowDetails();
 
-            <Popular />
-            <Popular />
-            <Footer />
-            <PostCard
-                text="You are good to continue."
-                buttonName="Continue"
-                type="Success"
-                iconName={faSquareCheck}
-            />
-        </Fragment>
+    return (
+        <>
+            {!bookNowDetails ? (
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                >
+                    <h1>No Tasks Are To Be Checked Out!!!</h1>
+                </div>
+            ) : (
+                <Fragment>
+                    <Layout title="Cipher | checkout">
+                        <section
+                            id="task-checkout-section"
+                            className="task-checkout-section"
+                        >
+                            <BreadCrumb currentPage="Checkout" />
+                            <Container fluid="xl">
+                                <h1>Checkout</h1>
+                                <Row className="g-5">
+                                    <Col lg={8}>
+                                        <BillingLocation
+                                            location={
+                                                bookNowDetails.serviceProviderLocation ??
+                                                ""
+                                            }
+                                        />
+                                        <ExtraSection />
+                                        <PaymentMethod />
+                                    </Col>
+                                    <Col lg={4}>
+                                        <TaskList task={taskListContent} />
+                                    </Col>
+                                </Row>
+                            </Container>
+                        </section>
+                        <section
+                            id="membership-section"
+                            className="membership-section mt-5"
+                        >
+                            <Container fluid="xl">
+                                <h1>Get membership</h1>
+                                <Row className="gx-5 d-flex align-items-stretch">
+                                    {MembershipCardContent &&
+                                        MembershipCardContent.map((offer) => (
+                                            <Col
+                                                className="align-items-stretch"
+                                                lg={3}
+                                                md={4}
+                                                sm={6}
+                                                key={offer.id}
+                                            >
+                                                <MembershipCard
+                                                    title={offer.title}
+                                                    price={offer.price}
+                                                    offers={offer.offers}
+                                                    isRecommended={
+                                                        offer.isRecommended
+                                                    }
+                                                    isPermium={offer.isPermium}
+                                                    advantage={offer.advantage}
+                                                />
+                                            </Col>
+                                        ))}
+                                </Row>
+                            </Container>
+                        </section>
+
+                        <Popular />
+                        <Popular />
+                    </Layout>
+                    <PostCard
+                        text="You are good to continue."
+                        buttonName="Continue"
+                        type="Success"
+                        iconName={faSquareCheck}
+                    />
+                </Fragment>
+            )}
+        </>
     );
 };
 

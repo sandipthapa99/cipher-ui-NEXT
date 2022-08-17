@@ -1,0 +1,45 @@
+.post-task {
+    overflow-x: hidden;
+    section {
+        margin-bottom: 5rem;
+    }
+    h1 {
+        font-weight: 500;
+        font-size: 2rem;
+        padding-bottom: 1.6rem;
+        margin-bottom: 0rem;
+    }
+    &__search-header {
+        background-color: #fff;
+    }
+    &__apply-task {
+        .getting-started {
+            margin-top: 4rem;
+        }
+    }
+    &__discount-card {
+        padding: 2.5rem 0rem;
+    }
+    &__popular-services {
+        padding-bottom: 2.5rem;
+    }
+    &__service-recommendation {
+        padding-bottom: 4.5rem;
+    }
+    .browse-category {
+        h1 {
+            font-size: 2.7rem;
+        }
+    }
+    .getting-started {
+        margin-top: 2rem;
+
+        @include respond(md) {
+            margin-top: 6.2rem;
+        }
+        padding-bottom: 2.5rem;
+        .task-blocks {
+            margin: 0 0 2.7rem;
+        }
+    }
+}

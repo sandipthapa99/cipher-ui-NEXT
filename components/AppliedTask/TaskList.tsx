@@ -7,40 +7,39 @@ import {
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useBookContext } from "context/BookNowContext/bookNowContext";
 import { Form, Formik } from "formik";
 import Image from "next/image";
 import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
 import { TaskList } from "staticData/taskListData";
+import { useBookNowDetails } from "store/use-book-now";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-import picture from "../../public/aboutus/about.png";
 import { CheckoutModal } from "../Checkout/checkoutModal";
 
 const TaskList = ({ task }: { task: TaskList }) => {
-    const { bookNowDetails } = useBookContext();
+    const bookNowDetails = useBookNowDetails();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    if (!bookNowDetails) return null;
     return (
         <>
             <div className="task-list">
                 <h2>Task List</h2>
                 <div className="d-flex flex-column flex-sm-row my-4 py-4 task-list__detial">
                     <figure>
-                        <Image
-                            src={
-                                bookNowDetails
-                                    ? bookNowDetails.image
-                                    : "/services/s1.png"
-                            }
-                            alt="task-img"
-                            layout="fill"
-                        ></Image>
+                        {bookNowDetails.image ? (
+                            <Image
+                                src={bookNowDetails.image}
+                                alt="task-img"
+                                layout="fill"
+                            />
+                        ) : (
+                            ""
+                        )}
                     </figure>
                     <div className="d-flex flex-column justify-content-around ps-4 task-list__detial--desc">
                         <h4>{bookNowDetails.serviceTitle}</h4>
@@ -57,7 +56,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
                                     icon={faCalendar}
                                     className="svg-icon svg-icon-calender"
                                 />
-                                {task.cardDate}
+                                {bookNowDetails.startdate}
                             </p>
                             <p>
                                 <FontAwesomeIcon
@@ -67,7 +66,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
                                 {task.cardTime}
                             </p>
                         </div>
-                        <span>{bookNowDetails.servicePrice}</span>
+                        <span>Rs. {bookNowDetails.servicePrice}</span>
                     </div>
                 </div>
                 <div className="task-list__promo">
@@ -113,7 +112,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
                 </div>
                 <div className="d-flex justify-content-between mt-4 task-list__totalprice">
                     Total
-                    <span>{bookNowDetails.servicePrice}</span>
+                    <span>Rs. {bookNowDetails.servicePrice}</span>
                 </div>
                 <AnchorButton
                     className={"w-100 task-list__button"}

@@ -26,11 +26,33 @@
             }
         }
 
+        .add-more-button {
+            button {
+                background: none;
+                border: none;
+                color: blue;
+            }
+        }
+
         .next-button {
+            margin: 5rem 0 0;
+            @include respond(sm) {
+                margin: 5rem 0;
+            }
             button {
                 margin: 0 0 0 1.6rem;
                 @include border();
             }
+            span {
+                button {
+                    background-color: #ffff;
+                    color: $secondary-text-color;
+                }
+            }
+        }
+
+        .added-packages {
+            margin: 0 0 2.4rem;
         }
     }
 }

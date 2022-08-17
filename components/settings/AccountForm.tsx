@@ -5,91 +5,230 @@ import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
 import { PostCard } from "@components/PostTask/PostCard";
+import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useSuccessContext } from "context/successContext/successContext";
+import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { log } from "console";
+import { format } from "date-fns";
 import { Field, Form, Formik } from "formik";
+import { read } from "fs";
+import { useCountry } from "hooks/dropdown/useCountry";
+import { useCurrency } from "hooks/dropdown/useCurrency";
+import { useLanguage } from "hooks/dropdown/useLanguage";
+import { useProfile } from "hooks/profile/profile";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { AccountFromData } from "utils/formData";
+import { toast } from "react-toastify";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-const dropdownCountryOptions = [
-    { id: 1, label: "Nepal", value: "nepal" },
-    { id: 2, label: "USA", value: "usa" },
-    { id: 3, label: "Canda", value: "canda" },
-];
-const dropdownlangugeOptions = [
-    { id: 1, label: "Nepal", value: "nepal" },
-    { id: 2, label: "USA", value: "usa" },
-    { id: 3, label: "Canda", value: "canda" },
-];
 const dropdownCurrencyOptions = [
     { id: 1, label: "Rupees", value: "rupees" },
     { id: 2, label: "Dollar", value: "dollar" },
     { id: 3, label: "CDollar", value: "cdollar" },
 ];
 const genders = [
-    { label: "Male", value: "male" },
-    { label: "Female", value: "female" },
-    { label: "Other", value: "other" },
+    { label: "Male", value: "Male" },
+    { label: "Female", value: "Female" },
+    { label: "Other", value: "Other" },
 ];
 const experience = [
     { label: "I am Beginner", value: "beginner" },
     { label: "I am Intermediate", value: "intermediate" },
     { label: "I am Expert", value: "expert" },
 ];
+const profile_visibility = [
+    {
+        label: "Public",
+        id: 1,
+        value: "Public",
+    },
+    {
+        id: 2,
+        label: "Private",
+        value: "Private",
+    },
+];
 
 const AccountForm = () => {
-    const { setShowSuccessModal } = useSuccessContext();
+    const toggleSuccessModal = useToggleSuccessModal();
+    const { mutate } = useProfile();
+    const { data: currency } = useCurrency();
+    const { data: language } = useLanguage();
+    const { data: countryName } = useCountry();
+    const { data: profile } = useGetProfile();
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [src, setSrc] = useState<string>("/userprofile/unknownPerson.jpg");
+    // const formDataRef = useRef(
+    //     typeof window !== "undefined" ? new FormData() : null
+    // );
+    const onButtonClick = () => {
+        // `current` points to the mounted file input element
+        inputRef?.current?.click();
+    };
+
+    const currencyResults = currency?.result.map((result) => ({
+        label: result.name,
+        value: result.current_value,
+        id: result.id,
+    }));
+    const languageResults = language?.result.map((result) => ({
+        label: result.name,
+        value: result.id,
+        id: result.id,
+    }));
+    const countryResults = countryName?.result.map((result) => ({
+        label: result.name,
+        value: result.id,
+        id: result.id,
+    }));
+
     return (
         <>
             {/* Modal component */}
             <div className="account-form">
-                <figure className="mx-auto">
-                    <Image
-                        src="/userprofile/profile.svg"
-                        layout="fill"
-                        alt="profile-pic"
-                        className="rounded-circle"
-                        objectFit="cover"
-                    />
-                </figure>
                 <Formik
-                    initialValues={AccountFromData}
-                    validationSchema={accountFormSchema}
+                    enableReinitialize={true}
+                    initialValues={{
+                        full_name: profile?.full_name ?? "",
+                        phone:
+                            profile?.phone ??
+                            Math.floor(Math.random() * 1000000000),
+                        email: "",
+                        bio: profile?.bio ?? "",
+                        gender: profile?.gender ?? "",
+                        date_of_birth: "",
+                        skill: "",
+                        experience_level: profile?.experience_level ?? "",
+                        active_hour_start: "",
+                        active_hour_end: "",
+                        hourly_rate: 20,
+                        user_type: profile?.user_type ?? "",
+                        country: profile?.country ?? "",
+                        education: "abc",
+                        address_line1: profile?.address_line1 ?? "",
+                        address_line2: profile?.address_line2 ?? "",
+                        language: profile?.language ?? "",
+                        charge_currency: profile?.charge_currency,
+                        profile_visibility: profile?.profile_visibility ?? "",
+                        task_preferences: profile?.task_preferences ?? "",
+                        profile_image: "",
+                    }}
+                    // validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
-                        setShowSuccessModal(true);
-                        // To be used for API
-                        // try {
-                        //     axiosClient.post("/routes", values);
-                        // } catch (error: any) {
-                        //     error.response.data.message;
-                        // }
+                        const formData = new FormData();
+
                         console.log(values);
-                        action.resetForm();
+
+                        const newValidatedValues = {
+                            ...values,
+                            user_type: JSON.stringify(values.user_type),
+                            skill: JSON.stringify(values.skill),
+                            active_hour_start: new Date(
+                                values.active_hour_start ?? ""
+                            )?.toLocaleTimeString(),
+                            active_hour_end: new Date(
+                                values.active_hour_end ?? ""
+                            )?.toLocaleTimeString(),
+                            date_of_birth: format(
+                                new Date(values.date_of_birth),
+                                "yyyy-MM-dd"
+                            ),
+                        };
+
+                        Object.entries(newValidatedValues).forEach((entry) => {
+                            const [key, value] = entry;
+                            if (value && key !== "profile_image") {
+                                formData.append(key, value.toString());
+                            }
+                        });
+                        formData.append("profile_image", values.profile_image);
+
+                        mutate(formData, {
+                            onSuccess: () => {
+                                toggleSuccessModal();
+                            },
+                            onError: (err) => {
+                                toast.error(err.message);
+                            },
+                        });
+
+                        // setShowSuccessModal(true);
                     }}
                 >
-                    {({ isSubmitting, errors, touched, resetForm }) => (
+                    {({
+                        isSubmitting,
+                        errors,
+                        touched,
+                        resetForm,
+                        setFieldValue,
+                    }) => (
                         <Form autoComplete="off">
+                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                            <figure className="profile-img mx-auto">
+                                <FontAwesomeIcon
+                                    icon={faBadgeCheck}
+                                    className="badge-icon"
+                                />
+                                <div
+                                    className="img-dragdrop d-flex align-items-center justify-content-center"
+                                    onClick={onButtonClick}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faCamera}
+                                        className="camera-icon"
+                                    />
+                                    <input
+                                        hidden
+                                        type="file"
+                                        ref={inputRef}
+                                        onChange={(e: any) => {
+                                            const files = e.target.files;
+
+                                            // setSrc(imageSrc);
+
+                                            setFieldValue(
+                                                "profile_image",
+                                                files[0]
+                                            );
+                                        }}
+                                    />
+                                </div>
+                                <Image
+                                    src={
+                                        profile
+                                            ? profile.profile_image
+                                            : "/userprofile/unknownPerson.jpg"
+                                    }
+                                    layout="fill"
+                                    alt="profile-pic"
+                                    className="rounded-circle"
+                                    objectFit="cover"
+                                    priority={true}
+                                />
+                            </figure>
+
                             <InputField
                                 type="text"
-                                name="fullName"
-                                labelName="Name"
-                                error={errors.fullName}
-                                touch={touched.fullName}
-                                placeHolder="Enter your Name"
+                                name="full_name"
+                                labelName="Full Name"
+                                error={errors.full_name}
+                                touch={touched.full_name}
+                                placeholder="Enter your full name"
                             />
-                            <InputField
+                            {/* <InputField
                                 type="email"
                                 name="email"
-                                labelName="email"
+                                labelName="Email"
                                 error={errors.email}
                                 touch={touched.email}
                                 placeHolder="Enter your Email"
-                            />
+                            /> */}
                             <InputField
                                 name="bio"
                                 labelName="Bio"
@@ -107,47 +246,52 @@ const AccountForm = () => {
                                 error={errors.gender}
                             />
                             <DatePickerField
-                                name="dateOfBirth"
+                                name="date_of_birth"
                                 labelName="Date of birth"
+                                dateFormat="yyyy-MM-dd"
                                 placeHolder="dd/mm/yy"
-                                touch={touched.dateOfBirth}
-                                error={errors.dateOfBirth}
+                                touch={touched.date_of_birth}
+                                error={errors.date_of_birth}
                             />
                             <hr />
                             <h3>Profession Information</h3>
                             <TagInputField
-                                name="specialities"
-                                error={errors.specialities}
-                                touch={touched.specialities}
+                                name="skill"
+                                error={errors.skill}
+                                touch={touched.skill}
                                 labelName="Specialities"
                                 placeHolder="Enter your price"
                             />
                             <RadioField
                                 type="radio"
-                                name="experienceLevel"
+                                name="experience_level"
                                 variables={experience}
                                 labelName="Experience Level"
-                                touch={touched.experienceLevel}
-                                error={errors.experienceLevel}
+                                touch={touched.experience_level}
+                                error={errors.experience_level}
                             />
                             <h4>Active Hours</h4>
                             <Row className="g-5">
                                 <Col md={3}>
                                     <DatePickerField
-                                        name="activeHoursFrom"
+                                        name="active_hour_start"
                                         labelName="From"
                                         placeHolder="dd/mm/yy"
-                                        touch={touched.activeHoursFrom}
-                                        error={errors.activeHoursFrom}
+                                        dateFormat="HH:mm aa"
+                                        touch={touched.active_hour_start}
+                                        error={errors.active_hour_start}
+                                        timeOnly
                                     />
                                 </Col>
                                 <Col md={3}>
                                     <DatePickerField
-                                        name="activeHoursTo"
+                                        name="active_hour_end"
                                         labelName="To"
+                                        dateFormat="HH:mm aa"
                                         placeHolder="dd/mm/yy"
-                                        touch={touched.activeHoursTo}
-                                        error={errors.activeHoursTo}
+                                        touch={touched.active_hour_end}
+                                        error={errors.active_hour_end}
+                                        timeOnly
                                     />
                                 </Col>
                             </Row>
@@ -156,7 +300,7 @@ const AccountForm = () => {
                                 <label className="me-3">
                                     <Field
                                         type="checkbox"
-                                        name="userType"
+                                        name="user_type"
                                         value="Client"
                                         className="me-2"
                                     />
@@ -165,7 +309,7 @@ const AccountForm = () => {
                                 <label className="me-3">
                                     <Field
                                         type="checkbox"
-                                        name="userType"
+                                        name="user_type"
                                         className="me-2"
                                         value="Tasker"
                                     />
@@ -180,22 +324,22 @@ const AccountForm = () => {
                                 touch={touched.country}
                                 error={errors.country}
                                 placeHolder="Select your country"
-                                options={dropdownCountryOptions}
+                                options={countryResults}
                             />
                             <InputField
                                 type="text"
-                                name="addressLine1"
+                                name="address_line1"
                                 labelName="Address Line 1"
-                                error={errors.addressLine1}
-                                touch={touched.addressLine1}
+                                error={errors.address_line1}
+                                touch={touched.address_line1}
                                 placeHolder="Enter your price"
                             />
                             <InputField
                                 type="text"
-                                name="addressLine2"
+                                name="address_line2"
                                 labelName="Address Line 2"
-                                error={errors.addressLine2}
-                                touch={touched.addressLine2}
+                                error={errors.address_line2}
+                                touch={touched.address_line2}
                                 placeHolder="Enter your price"
                             />
                             <SelectInputField
@@ -204,31 +348,31 @@ const AccountForm = () => {
                                 touch={touched.language}
                                 error={errors.language}
                                 placeHolder="Select your language"
-                                options={dropdownlangugeOptions}
+                                options={languageResults}
                             />
                             <SelectInputField
-                                name="currency"
+                                name="charge_currency"
                                 labelName="Currency"
-                                touch={touched.currency}
-                                error={errors.currency}
+                                touch={touched.charge_currency}
+                                error={errors.charge_currency}
                                 placeHolder="Select your currency"
-                                options={dropdownCurrencyOptions}
+                                options={currencyResults}
                             />
                             <hr />
                             <h3>Profile Configurations</h3>
                             <SelectInputField
-                                name="visibility"
+                                name="profile_visibility"
                                 labelName="Visibility"
-                                touch={touched.visibility}
-                                error={errors.visibility}
+                                touch={touched.profile_visibility}
+                                error={errors.profile_visibility}
                                 placeHolder="Select your visibility"
-                                options={dropdownCurrencyOptions}
+                                options={profile_visibility}
                             />
                             <SelectInputField
-                                name="taskPreferences"
+                                name="task_preferences"
                                 labelName="Task Preferences"
-                                touch={touched.taskPreferences}
-                                error={errors.taskPreferences}
+                                touch={touched.task_preferences}
+                                error={errors.task_preferences}
                                 placeHolder="Select your preferences"
                                 options={dropdownCurrencyOptions}
                             />
