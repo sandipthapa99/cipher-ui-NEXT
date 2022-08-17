@@ -32,10 +32,6 @@ const ShareModal = ({
         }
     };
 
-    console.log("url......", url);
-    console.log("quote......", quote);
-    console.log("hashtag.......", hashtag);
-
     return (
         <div className="share-modal">
             {/* Modal component */}

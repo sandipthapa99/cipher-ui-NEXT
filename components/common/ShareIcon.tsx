@@ -1,7 +1,7 @@
 import { faShare } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { ShareButtonProps } from "types/shareButton";
+import type { ShareButtonProps } from "types/shareButton";
 
 import ShareModal from "./ShareModalCard";
 
