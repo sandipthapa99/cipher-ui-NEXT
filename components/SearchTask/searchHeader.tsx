@@ -29,7 +29,9 @@ const SearchHeader = () => {
     const handleClose = () => setShowModal(false);
 
     const [showProfileModal, toggleShowProfileModal] = useToggle([false, true]);
-    const profileModalRef = useClickOutside(toggleShowProfileModal);
+    const profileModalRef = useClickOutside(() =>
+        toggleShowProfileModal(false)
+    );
 
     return (
         <>

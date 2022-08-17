@@ -24,7 +24,9 @@ export function UpperHeader() {
     const { data: user } = useUser();
 
     const [showProfileModal, toggleShowProfileModal] = useToggle([false, true]);
-    const profileModalRef = useClickOutside(toggleShowProfileModal);
+    const profileModalRef = useClickOutside(() =>
+        toggleShowProfileModal(false)
+    );
 
     return (
         <>
