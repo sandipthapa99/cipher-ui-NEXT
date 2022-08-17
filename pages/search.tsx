@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";
 import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
-import { getAllServicesNearYou } from "services/commonServices";
 import { axiosClient } from "utils/axiosClient";
 
 import SearchHeader from "../components/SearchTask/searchHeader";
