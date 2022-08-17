@@ -6,7 +6,6 @@ import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
