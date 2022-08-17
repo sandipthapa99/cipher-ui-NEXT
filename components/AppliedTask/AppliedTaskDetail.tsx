@@ -19,6 +19,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { useBookmarkTasks } from "hooks/task/use-bookmark-tasks";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -32,6 +33,7 @@ import { TeamMembersSection } from "./TeamMembersSection";
 import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail: NextPage = () => {
+    const { data } = useBookmarkTasks();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
     const router = useRouter();
@@ -44,6 +46,9 @@ const AppliedTaskDetail: NextPage = () => {
     });
 
     const requirements = taskDetail?.requirements?.split(",");
+
+    const isTaskBookmarked =
+        data && data.result?.some((item) => item.object_id === uuid);
 
     if (!taskDetail) {
         return <UserLoadingOverlay />;
@@ -62,7 +67,11 @@ const AppliedTaskDetail: NextPage = () => {
                             )}
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
-                            <SaveIcon object_id={uuid} model="task" />
+                            <SaveIcon
+                                object_id={uuid}
+                                model="task"
+                                variant={isTaskBookmarked ? "solid" : "regular"}
+                            />
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon />
                                 <span className="name">Share</span>

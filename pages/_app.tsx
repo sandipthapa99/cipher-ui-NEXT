@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "@smastrom/react-rating/style.css";
 
 import { LoginPrompt } from "@components/model/LoginPrompt";
+import { MantineProvider } from "@mantine/core";
 import type { DehydratedState } from "@tanstack/react-query";
 import {
     Hydrate,
@@ -46,9 +47,11 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 autoClose={1000}
             />
             <Hydrate state={pageProps.dehydratedState}>
-                <UserLoadingOverlay />
-                <LoginPrompt />
-                <Component {...pageProps} />
+                <MantineProvider>
+                    <UserLoadingOverlay />
+                    <LoginPrompt />
+                    <Component {...pageProps} />
+                </MantineProvider>
             </Hydrate>
         </QueryClientProvider>
     );
