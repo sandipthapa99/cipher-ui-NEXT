@@ -7,6 +7,7 @@ import Link from "next/link";
 import http from "pages/api/httpService";
 import { Alert, Col, Container, Row } from "react-bootstrap";
 import type { BlogsProps } from "types/blogs";
+import { axiosClient } from "utils/axiosClient";
 import { blogListAPI, formatMonthDate } from "utils/helpers";
 
 const Blog = ({ blogsData }: BlogsProps) => {
@@ -84,11 +85,25 @@ const Blog = ({ blogsData }: BlogsProps) => {
                                                                 objectFit="cover"
                                                             />
                                                         </figure>
-                                                        <p className="category">
-                                                            {category[0]}
-                                                        </p>
+                                                        {category &&
+                                                            category.map(
+                                                                (
+                                                                    item: any,
+                                                                    index: number
+                                                                ) => (
+                                                                    <span
+                                                                        className="category"
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                    >
+                                                                        {item}
+                                                                    </span>
+                                                                )
+                                                            )}
+
                                                         <div className="author-date">
-                                                            <p className="author">{`${blog?.author?.first_name}`}</p>
+                                                            <p className="author">{`${blog?.author}`}</p>
                                                             <p className="published-date">
                                                                 <FontAwesomeIcon
                                                                     icon={
@@ -129,7 +144,7 @@ export default Blog;
 
 export const getStaticProps: GetStaticProps = async () => {
     try {
-        const { data: blogsData } = await http.get(blogListAPI);
+        const { data: blogsData } = await axiosClient.get("/blog/");
         if (blogsData.error) throw new Error(blogsData.error.message);
         return {
             props: {
