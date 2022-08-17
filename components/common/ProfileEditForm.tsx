@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import { axiosClient } from "utils/axiosClient";
+import { formatTime } from "utils/FormatTime/formatTime";
 import { ProfileEditFromData } from "utils/formData";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -43,7 +44,6 @@ const ProfileEditForm = ({
 }: ProfileEditProps) => {
     const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
-    console.log(profile?.active_hour_end);
 
     // const toggleSuccessModal = useToggleSuccessModal();
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];

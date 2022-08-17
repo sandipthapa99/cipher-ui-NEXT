@@ -203,6 +203,7 @@ const KYCForm = () => {
                                     field={setFieldValue}
                                 /> */}
                                 <CustomDropZone
+                                    name="identity_card_file"
                                     maxSize={200}
                                     minSize={20}
                                     onDrop={(files) => console.log(files)}
@@ -251,6 +252,7 @@ const KYCForm = () => {
                                     field={setFieldValue}
                                 /> */}
                                 <CustomDropZone
+                                    name="pan_card_file"
                                     maxSize={200}
                                     minSize={20}
                                     onDrop={(files) => console.log(files)}
@@ -273,6 +275,7 @@ const KYCForm = () => {
                                         field={setFieldValue}
                                     /> */}
                                     <CustomDropZone
+                                        name="passport_size_photo"
                                         maxSize={200}
                                         minSize={20}
                                         onDrop={(files) => console.log(files)}
