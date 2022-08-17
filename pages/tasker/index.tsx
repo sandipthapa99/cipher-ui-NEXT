@@ -16,6 +16,8 @@ const Tasker = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTaskIdx, setActiveTaskIdx] = useState<number | undefined>();
 
+
+
     const toggleActiveTask = (task: Task) => {
         router.push({
             pathname: router.pathname,
@@ -62,6 +64,7 @@ const Tasker = () => {
                                     <UserTaskDetail
                                         onExitTaskDetail={removeActiveTaskIdx}
                                         taskDetail={taskDetails[activeTaskIdx]}
+                                        activeTaskId={activeTaskIdx}
                                     />
                                 </div>
                             </div>
