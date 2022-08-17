@@ -52,9 +52,8 @@ const Footer = () => {
                             <Col sm={6} className="newsletter-text">
                                 <h5>Subscribe to CIPHER</h5>
                                 <p>
-                                    A newsletter for customers covering
-                                    techniques, technical guides, and hiring
-                                    process coming from CIPHER.
+                                    Get the newsletters and technical guides
+                                    directly on your email from CIPHER.
                                 </p>
                             </Col>
                             <Col sm={6} className="newsletter-form">
@@ -104,21 +103,14 @@ const Footer = () => {
                                 <div className="footer-block">
                                     <h2>CIPHER</h2>
                                     <p>
-                                        As a digital and social entrepreneur,
-                                        MICK invests and it is a consults with a
-                                        wide array of start ups and early stage
-                                        is an companies. and social
-                                        entrepreneur, MICK invests and op
-                                        consults with a wide array of start ups
-                                        and early stage on the companies. and
-                                        social entrepreneur, MICK invests and
-                                        consults with a wide array of start ups
-                                        and early stage der it companies.
-                                        <br />
-                                        <br />
-                                        And social entrepreneur, MICK invests
-                                        and consults with a wide array of start
-                                        ups and early stage companies.
+                                        Cipher is a platform designed to provide
+                                        service booking solutions to the service
+                                        seekers and business opportunities to
+                                        various service providing companies by
+                                        bridging a gap between them. It covers a
+                                        wide range of services from various
+                                        industries like Accounting, Gardening,
+                                        Health, Beauty, and many more.
                                     </p>
                                 </div>
                             </Col>
@@ -127,18 +119,18 @@ const Footer = () => {
                                     <ul>
                                         <li>For Clients</li>
                                         <li>
-                                            <Link href="how-to-hire">
+                                            <Link href="/how-to-hire">
                                                 <a>How to Hire?</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="payroll-services">
+                                            <Link href="/payroll-services">
                                                 <a>Payroll Services</a>
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="hire-in-nepal">
-                                                <a>Hire in Nepal</a>
+                                            <Link href="/feedback">
+                                                <a>Feedback</a>
                                             </Link>
                                         </li>
                                     </ul>
@@ -176,8 +168,8 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/resources">
-                                                <a>Resources</a>
+                                            <Link href="/account/individual">
+                                                <a>CIPHER KYC</a>
                                             </Link>
                                         </li>
                                         <li>
