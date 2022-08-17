@@ -58,6 +58,9 @@ const DragDrop = ({
                 style={{ display: "none" }}
                 onChange={(event: any) => {
                     const files = event.target.files;
+
+                    console.log(files);
+
                     field?.(name, (files ?? [])[0]);
                     console.log("files=", files);
                     console.log("field name", field?.name);
