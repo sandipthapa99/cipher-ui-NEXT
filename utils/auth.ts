@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
  * @description Stores token received after login into axiosclient and browser cookie
  */
 export const autoLogin = (access: string, refresh: string) => {
+    autoLogout();
     Cookies.set("access", access);
     Cookies.set("refresh", refresh);
 };

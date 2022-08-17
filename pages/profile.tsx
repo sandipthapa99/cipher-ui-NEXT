@@ -33,7 +33,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         taskCompleted: 30,
         userActiveStatus: true,
     };
-    if (profileDetails?.message) {
+    if (!profileDetails) {
         return (
             <>
                 <Layout title="Profile | Cipher">
@@ -41,7 +41,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
                             <Col className="create-profile">
-                                <h1>{profileDetails?.message}</h1>
+                                <h1>Create your profile</h1>
                                 <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
