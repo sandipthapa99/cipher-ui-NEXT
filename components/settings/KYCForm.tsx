@@ -1,3 +1,4 @@
+import { CustomDropZone } from "@components/common/CustomDropZone";
 import DatePickerField from "@components/common/DateTimeField";
 import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
@@ -109,13 +110,6 @@ const KYCForm = () => {
                                 toast.error(error.message);
                             },
                         });
-                        // To be used for API
-                        // try {
-                        //     axiosClient.post("/routes", values);
-                        // } catch (error: any) {
-                        //     error.response.data.message;
-                        // }
-                        console.log(values);
                         action.resetForm();
                     }}
                 >
@@ -266,6 +260,9 @@ const KYCForm = () => {
                                         Document can be Electricity Bill, Water
                                         Bill, Rental Aggrement.
                                     </p>
+                                    <CustomDropZone
+                                        onDrop={(files) => console.log(files)}
+                                    />
                                     <DragDrop
                                         name="personal_address_verification_document"
                                         image="/service-details/file-upload.svg"

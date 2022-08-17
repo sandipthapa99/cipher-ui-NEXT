@@ -36,7 +36,7 @@ const CareerDeatils = ({
                         </p>
                         <h2>What’s the job?</h2>
                         <div className="d-flex justify-content-between align-items-center careers-detail__job">
-                            <div>{parse(career?.description)}</div>
+                            {career && <div>{parse(career?.description)}</div>}
                             <figure>
                                 <Image
                                     src={"/joinTeam.png"}
@@ -94,7 +94,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
         return {
             props: {
-                career: data?.data,
+                career: data.data,
             },
             revalidate: 10,
         };

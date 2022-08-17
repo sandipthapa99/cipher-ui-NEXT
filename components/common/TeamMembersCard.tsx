@@ -7,7 +7,6 @@ import {
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import React, { useState } from "react";
 import type { Task } from "types/tasks";
 
 import BigButton from "./Button";
