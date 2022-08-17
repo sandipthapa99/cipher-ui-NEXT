@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faPlus, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { Dispatch, SetStateAction } from "react";
@@ -17,7 +18,10 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
+import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
+import { axiosClient } from "utils/axiosClient";
 import { ProfileEditFromData } from "utils/formData";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -36,11 +40,35 @@ const ProfileEditForm = ({
     handleClose,
     setShowEdit,
 }: ProfileEditProps) => {
+    const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
-    const toggleSuccessModal = useToggleSuccessModal();
-    const [hourStart, setHourStart] = useState("");
-    const skills = JSON.parse(profile?.skill);
-    console.log(skills, typeof skills);
+    console.log(profile?.active_hour_end);
+
+    // const toggleSuccessModal = useToggleSuccessModal();
+    const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
+    const editProfile = useMutation((data: ProfileEditValueProps) =>
+        axiosClient.patch("/tasker/profile/", data)
+    );
+
+    const onEditProfile = (data: any) => {
+        editProfile.mutate(data, {
+            onSuccess: (data) => {
+                if (data?.data?.status === "failure") {
+                    console.log("Error", data);
+                } else {
+                    toast.success(data?.data?.message);
+                    queryClient.invalidateQueries(["profile"]);
+                    // actions.resetForm();
+                }
+            },
+            onError: (error: any) => {
+                const errmessage = error?.response?.data?.email[0];
+                toast.error(errmessage);
+                // actions.resetForm();
+                // actions.setFieldError("email", errmessage);
+            },
+        });
+    };
 
     return (
         <>
@@ -50,6 +78,7 @@ const ProfileEditForm = ({
                 <div className="applied-modal edit-form">
                     <h3>Edit Profile</h3>
                     <Formik
+                        enableReinitialize={true}
                         initialValues={{
                             full_name: profile?.full_name ?? "",
                             bio: profile?.bio ?? "",
@@ -65,7 +94,7 @@ const ProfileEditForm = ({
                             linkedAccounts: "",
                         }}
                         validationSchema={profileEditFormSchema}
-                        onSubmit={async (values) => {
+                        onSubmit={async (values, actions) => {
                             const newValidatedValues = {
                                 ...values,
                                 active_hour_start: new Date(
@@ -77,13 +106,8 @@ const ProfileEditForm = ({
                                 skill: JSON.stringify(values.skill),
                             };
                             setShowEdit(false);
-                            toggleSuccessModal();
-                            // To be used for API
-                            // try {
-                            //     axiosClient.post("/routes", values);
-                            // } catch (error: any) {
-                            //     error.response.data.message;
-                            // }
+                            onEditProfile(newValidatedValues);
+                            // toggleSuccessModal();
                             console.log(newValidatedValues);
                         }}
                     >

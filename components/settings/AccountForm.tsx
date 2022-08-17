@@ -9,7 +9,7 @@ import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { read } from "fs";
 import { useCountry } from "hooks/dropdown/useCountry";
@@ -61,6 +61,8 @@ const AccountForm = () => {
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
+    console.log(profile);
+
     const inputRef = useRef<HTMLInputElement>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [src, setSrc] = useState<File | string>(
@@ -69,6 +71,7 @@ const AccountForm = () => {
     // const formDataRef = useRef(
     //     typeof window !== "undefined" ? new FormData() : null
     // );
+    const skills = JSON.parse(profile?.skill ?? "[]");
     const onButtonClick = () => {
         // `current` points to the mounted file input element
         inputRef?.current?.click();
@@ -104,7 +107,10 @@ const AccountForm = () => {
                         email: "",
                         bio: profile?.bio ?? "",
                         gender: profile?.gender ?? "",
-                        date_of_birth: "",
+                        date_of_birth:
+                            profile && profile.date_of_birth
+                                ? parseISO(profile.date_of_birth)
+                                : "",
                         skill: "",
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start: "",
@@ -202,12 +208,12 @@ const AccountForm = () => {
                                     />
                                 </div>
                                 <Image
-                                    // src={
-                                    //     profile
-                                    //         ? profile.profile_image
-                                    //         : "/userprofile/unknownPerson.jpg"
-                                    // }
-                                    src={"/userprofile/unknownPerson.jpg"}
+                                    // src={"/userprofile/unknownPerson.jpg"}
+                                    src={
+                                        profile && profile.profile_image
+                                            ? profile.profile_image
+                                            : "/userprofile/unknownPerson.jpg"
+                                    }
                                     layout="fill"
                                     alt="profile-pic"
                                     className="rounded-circle"
@@ -259,6 +265,7 @@ const AccountForm = () => {
                             <hr />
                             <h3>Profession Information</h3>
                             <TagInputField
+                                data={skills}
                                 name="skill"
                                 error={errors.skill}
                                 touch={touched.skill}
