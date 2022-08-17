@@ -82,7 +82,7 @@ export const UserTaskCard = ({
             <div className="d-flex justify-content-between user-task-card__footer">
                 <div className="icons">
                     <SaveIcon />
-                    <ShareIcon />
+                    <ShareIcon url={""} quote={""} hashtag={""} />
                 </div>
                 {isButton === true && (
                     <BigButton
