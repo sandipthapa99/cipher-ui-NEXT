@@ -14,6 +14,7 @@ const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
     // const blogData = blog?.data ?? {};
     const socialShareURL = `https://cipher.com/blogs/${blog?.slug}`;
     // const category = JSON.parse(blog?.category);
+    if (!blog) return null;
     return (
         <Layout>
             <section className="single-blog">
@@ -66,24 +67,20 @@ const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
                         </Row>
                     </div>
                     <div className="single-blog__img">
-                        {blog.image && (
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src={blog?.image}
-                                    alt="image"
-                                    layout="fill"
-                                    objectFit="cover"
-                                />
-                            </figure>
-                        )}
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={blog?.image}
+                                alt="image"
+                                layout="fill"
+                                objectFit="cover"
+                            />
+                        </figure>
                     </div>
 
-                    {blog?.content && (
-                        <div
-                            className="single-blog__content"
-                            dangerouslySetInnerHTML={{ __html: blog?.content }}
-                        ></div>
-                    )}
+                    <div
+                        className="single-blog__content"
+                        dangerouslySetInnerHTML={{ __html: blog?.content }}
+                    ></div>
                 </Container>
             </section>
             {/* <ToastContainer
