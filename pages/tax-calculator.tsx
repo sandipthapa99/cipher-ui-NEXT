@@ -19,7 +19,6 @@ import { maritalStatus, salaryType } from "utils/options";
 
 const TaxCalculator: NextPage = () => {
     const { mutate, isLoading, data: TableData } = useTaxCalculator();
-    console.log("result tax calculator=", TableData);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
     const taxContent = [
         {

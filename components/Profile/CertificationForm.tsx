@@ -4,8 +4,9 @@ import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
+import { useEditForm } from "hooks/edit-form/use-experience";
 import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import { Fragment } from "react";
@@ -15,6 +16,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
+import type { CertificationValueProps } from "types/certificationValueProps";
 import { CertificationFormData } from "utils/formData";
 import { certificateFormSchema } from "utils/formValidation/certificateFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -23,18 +25,33 @@ interface CertificationProps {
     show?: boolean;
     handleClose?: () => void;
     setShowCertificationModal: Dispatch<SetStateAction<boolean>>;
+    id?: number;
+}
+interface EditDetailProps {
+    data: { result: CertificationValueProps[] };
 }
 
 const CertificationForm = ({
     show,
     handleClose,
+    id,
     setShowCertificationModal,
 }: CertificationProps) => {
     const queryClient = useQueryClient();
-    const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useForm(`/tasker/certification/`);
-    const [toggle, setToggled] = useState(false);
 
+    const { mutate: editMutation } = useEditForm(
+        `/tasker/certification/${id}/`
+    );
+
+    const data = queryClient.getQueryData<EditDetailProps>([
+        "tasker-certification",
+    ]);
+
+    const editDetails = data?.data?.result.find((item) => item.id === id);
+    const [toggle, setToggled] = useState(editDetails?.does_expire ?? false);
+    console.log("certififcate edit=", editDetails);
+    console.log("edit id", id);
     return (
         <Fragment>
             {/* Modal component */}
@@ -43,7 +60,20 @@ const CertificationForm = ({
                 <div className="applied-modal">
                     <h3>Add Certifications</h3>
                     <Formik
-                        initialValues={CertificationFormData}
+                        initialValues={
+                            editDetails
+                                ? {
+                                      ...editDetails,
+                                      issued_date: parseISO(
+                                          editDetails.issued_date
+                                      ),
+
+                                      expire_date: editDetails.expire_date
+                                          ? parseISO(editDetails.expire_date)
+                                          : "",
+                                  }
+                                : CertificationFormData
+                        }
                         validationSchema={certificateFormSchema}
                         onSubmit={async (values, action) => {
                             let newValue;
@@ -72,18 +102,43 @@ const CertificationForm = ({
                                 };
                                 newValue = newvalidatedValue;
                             }
-                            mutate(newValue, {
-                                onSuccess: async () => {
-                                    setShowCertificationModal(false);
-                                    toggleSuccessModal();
-                                    queryClient.invalidateQueries([
-                                        "tasker-certification",
-                                    ]);
-                                },
-                                onError: (error) => {
-                                    toast.error(error.message);
-                                },
-                            });
+                            {
+                                editDetails
+                                    ? editMutation(newValue, {
+                                          onSuccess: async () => {
+                                              console.log(
+                                                  "submitted values",
+                                                  values
+                                              );
+                                              setShowCertificationModal(false);
+                                              queryClient.invalidateQueries([
+                                                  "tasker-certification",
+                                              ]);
+                                              toast.success(
+                                                  "Certificate detail updated successfully"
+                                              );
+                                          },
+                                          onError: async (error: any) => {
+                                              toast.error(error.message);
+                                              console.log("error=", error);
+                                          },
+                                      })
+                                    : mutate(newValue, {
+                                          onSuccess: async () => {
+                                              setShowCertificationModal(false);
+                                              toast.success(
+                                                  "Certificate detail added successfully"
+                                              );
+                                              queryClient.invalidateQueries([
+                                                  "tasker-certification",
+                                              ]);
+                                          },
+                                          onError: (error) => {
+                                              toast.error(error.message);
+                                          },
+                                      });
+                            }
+
                             action.resetForm();
                         }}
                     >

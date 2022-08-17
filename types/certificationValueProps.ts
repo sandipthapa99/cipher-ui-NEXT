@@ -5,6 +5,7 @@ export interface CertificationValueProps {
     does_expire: boolean;
     credential_id: string;
     certificate_url: string;
-    issued_date: string | number;
-    expire_date: string | null | number;
+    issued_date: string;
+    expire_date: string;
+    id: number;
 }

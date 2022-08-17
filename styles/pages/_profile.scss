@@ -6,9 +6,6 @@
     &__top-container {
         padding-bottom: 5rem;
     }
-    .select-field {
-        //padding-top: 2rem;
-    }
 
     &__bottom-container {
         padding-top: 5rem;
@@ -59,12 +56,10 @@
                     }
                 }
                 .select-field {
-                    padding-top: 0rem;
-                    @include respond(xs) {
-                        padding-top: 1rem;
-                    }
-                    @include respond(xxs) {
-                        padding-top: 1rem;
+                    padding-top: 1rem;
+
+                    @include respond(md) {
+                        padding-top: 0rem;
                     }
                 }
                 .review-type {

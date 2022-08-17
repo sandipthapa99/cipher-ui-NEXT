@@ -6,4 +6,5 @@ export interface EducationValueProps {
     location: string;
     start_date: string;
     end_date: string;
+    id: number;
 }
