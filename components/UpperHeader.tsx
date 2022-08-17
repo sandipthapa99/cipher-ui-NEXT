@@ -1,3 +1,4 @@
+import { ExperimentalProfileModel } from "@components/model/ProfileModel/ProfileModel";
 import { faBars } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -117,7 +118,7 @@ export function UpperHeader() {
                                 </Link>
                             </>
                         )}
-                        {user && (
+                        {!user && (
                             <div ref={profileModalRef} className="user-profile">
                                 <span
                                     className="btn location-btn d-none d-md-inline-block"
@@ -134,9 +135,10 @@ export function UpperHeader() {
                                     </figure>
                                 </span>
                                 {showProfileModal && (
-                                    <ProfileModel
-                                        profile={profileCardContent}
-                                    />
+                                    <ExperimentalProfileModel />
+                                    // <ProfileModel
+                                    //     profile={profileCardContent}
+                                    // />
                                 )}
                             </div>
                         )}
