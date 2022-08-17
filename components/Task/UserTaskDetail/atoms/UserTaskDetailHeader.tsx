@@ -70,7 +70,7 @@ export const UserTaskDetailHeader = ({
                 <Col>
                     <div className="td-task-detail-header-icons">
                         <SaveIcon />
-                        <ShareIcon />
+                        <ShareIcon url={""} quote={""} hashtag={""} />
                         <EllipsisDropdown
                             showModal={true}
                             handleOnClick={handleShowModal}
