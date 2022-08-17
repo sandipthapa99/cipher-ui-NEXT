@@ -13,6 +13,7 @@ export const UserTaskCardList = ({ tasks, onTaskClick }: Props) => {
                 task={task}
                 key={task.id}
                 isButton={false}
+                taskId={task?.id}
             />
         ));
     };

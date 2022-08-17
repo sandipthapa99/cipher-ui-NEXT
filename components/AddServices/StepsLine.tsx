@@ -9,11 +9,6 @@ export const StepsLine = ({ step }: { step: number }) => {
     const [threeActive, setThreeActive] = useState(false);
     const [fourActive, setFourActive] = useState(false);
 
-    console.log("oneactive", oneActive);
-    console.log("twoactive", twoActive);
-    console.log("threeactive", threeActive);
-    console.log("fouractive", fourActive);
-
     useEffect(() => {
         if (step === 1) {
             setOneActive(true);

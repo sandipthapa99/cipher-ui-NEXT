@@ -4,18 +4,20 @@ import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
-import { format } from "date-fns";
-import { Field, Form, Formik } from "formik";
+import { format, parseISO } from "date-fns";
+import { Form, Formik } from "formik";
+import { useEditForm } from "hooks/edit-form/use-experience";
 import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import { Fragment } from "react";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
-import { CertificationFromData } from "utils/formData";
+import type { CertificationValueProps } from "types/certificationValueProps";
+import { CertificationFormData } from "utils/formData";
 import { certificateFormSchema } from "utils/formValidation/certificateFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -23,16 +25,33 @@ interface CertificationProps {
     show?: boolean;
     handleClose?: () => void;
     setShowCertificationModal: Dispatch<SetStateAction<boolean>>;
+    id?: number;
+}
+interface EditDetailProps {
+    data: { result: CertificationValueProps[] };
 }
 
 const CertificationForm = ({
     show,
     handleClose,
+    id,
     setShowCertificationModal,
 }: CertificationProps) => {
     const queryClient = useQueryClient();
-    const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useForm(`/tasker/certification/`);
+
+    const { mutate: editMutation } = useEditForm(
+        `/tasker/certification/${id}/`
+    );
+
+    const data = queryClient.getQueryData<EditDetailProps>([
+        "tasker-certification",
+    ]);
+
+    const editDetails = data?.data?.result.find((item) => item.id === id);
+    const [toggle, setToggled] = useState(editDetails?.does_expire ?? false);
+    console.log("certififcate edit=", editDetails);
+    console.log("edit id", id);
     return (
         <Fragment>
             {/* Modal component */}
@@ -41,32 +60,85 @@ const CertificationForm = ({
                 <div className="applied-modal">
                     <h3>Add Certifications</h3>
                     <Formik
-                        initialValues={CertificationFromData}
+                        initialValues={
+                            editDetails
+                                ? {
+                                      ...editDetails,
+                                      issued_date: parseISO(
+                                          editDetails.issued_date
+                                      ),
+
+                                      expire_date: editDetails.expire_date
+                                          ? parseISO(editDetails.expire_date)
+                                          : "",
+                                  }
+                                : CertificationFormData
+                        }
                         validationSchema={certificateFormSchema}
                         onSubmit={async (values, action) => {
-                            const newvalidatedValue = {
-                                ...values,
-                                issued_date: format(
-                                    new Date(values.issued_date ?? new Date()),
-                                    "yyyy-MM-dd"
-                                ),
-                                expire_date: format(
-                                    new Date(values.expire_date ?? new Date()),
-                                    "yyyy-MM-dd"
-                                ),
-                            };
-                            mutate(newvalidatedValue, {
-                                onSuccess: async () => {
-                                    setShowCertificationModal(false);
-                                    toggleSuccessModal();
-                                    queryClient.invalidateQueries([
-                                        "tasker-certification",
-                                    ]);
-                                },
-                                onError: (error) => {
-                                    toast.error(error.message);
-                                },
-                            });
+                            let newValue;
+                            if (!values.expire_date) {
+                                const withoutEndDate = {
+                                    ...values,
+                                    issued_date: format(
+                                        new Date(values.issued_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                    expire_date: null,
+                                };
+                                newValue = withoutEndDate;
+                            } else {
+                                const newvalidatedValue = {
+                                    ...values,
+                                    issued_date: format(
+                                        new Date(values.issued_date),
+                                        "yyyy-MM-dd"
+                                    ),
+
+                                    expire_date: format(
+                                        new Date(values.expire_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                };
+                                newValue = newvalidatedValue;
+                            }
+                            {
+                                editDetails
+                                    ? editMutation(newValue, {
+                                          onSuccess: async () => {
+                                              console.log(
+                                                  "submitted values",
+                                                  values
+                                              );
+                                              setShowCertificationModal(false);
+                                              queryClient.invalidateQueries([
+                                                  "tasker-certification",
+                                              ]);
+                                              toast.success(
+                                                  "Certificate detail updated successfully"
+                                              );
+                                          },
+                                          onError: async (error: any) => {
+                                              toast.error(error.message);
+                                              console.log("error=", error);
+                                          },
+                                      })
+                                    : mutate(newValue, {
+                                          onSuccess: async () => {
+                                              setShowCertificationModal(false);
+                                              toast.success(
+                                                  "Certificate detail added successfully"
+                                              );
+                                              queryClient.invalidateQueries([
+                                                  "tasker-certification",
+                                              ]);
+                                          },
+                                          onError: (error) => {
+                                              toast.error(error.message);
+                                          },
+                                      });
+                            }
+
                             action.resetForm();
                         }}
                     >
@@ -96,12 +168,13 @@ const CertificationForm = ({
                                     placeHolder="Experience Description"
                                 />
                                 <p className="mb-3 d-flex checkbox">
-                                    <Field
+                                    <input
                                         type="checkbox"
                                         name="does_expire"
-                                        className="checkbox-toggle me-2"
-                                    />{" "}
-                                    This certifate does not expire
+                                        checked={toggle ? true : false}
+                                        onChange={() => setToggled(!toggle)}
+                                    />
+                                    &nbsp; This certifate does not expire
                                 </p>
                                 <InputField
                                     name="credential_id"
@@ -122,18 +195,25 @@ const CertificationForm = ({
                                         <DatePickerField
                                             name="issued_date"
                                             labelName="Issued Date"
-                                            placeHolder="day/month/year"
+                                            placeHolder="2022-03-06"
                                             touch={touched.issued_date}
                                             error={errors.issued_date}
+                                            dateFormat="yyyy-MM-dd"
                                         />
                                     </Col>
                                     <Col md={6}>
                                         <DatePickerField
                                             name="expire_date"
                                             labelName="Expiration Date"
-                                            placeHolder="day/month/year"
+                                            placeHolder={
+                                                toggle
+                                                    ? "No Expiration Date"
+                                                    : "2022-03-06"
+                                            }
+                                            dateFormat="yyyy-MM-dd"
                                             touch={touched.expire_date}
                                             error={errors.expire_date}
+                                            disabled={toggle ? true : false}
                                         />
                                     </Col>
                                 </Row>

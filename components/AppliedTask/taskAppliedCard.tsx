@@ -1,3 +1,4 @@
+import ShareIcon from "@components/common/ShareIcon";
 import {
     faCalendar,
     faClockEight,
@@ -18,6 +19,7 @@ const TaskCard = ({
     startPrice,
     endPrice,
     currency,
+    taskId,
     ...rest
 }: TaskCardProps) => {
     return (
@@ -62,10 +64,13 @@ const TaskCard = ({
                 <hr className="mb-0" />
             </div>
             <div className="task-applied-card-block__footer d-flex mt-4">
-                <span className="share d-flex align-items-center me-5">
-                    <FontAwesomeIcon icon={faShare} className="svg-icon" />
-                    Share
-                </span>
+                <ShareIcon
+                    url={`http://localhost:3005/task/${taskId}`}
+                    quote="Please Share this task for all"
+                    hashtag="cipher-task"
+                />
+                <span className="share-label">Share</span>
+
                 <span className="applicants d-flex align-items-center">
                     <FontAwesomeIcon icon={faUserGroup} className="svg-icon" />
                     100 Applied

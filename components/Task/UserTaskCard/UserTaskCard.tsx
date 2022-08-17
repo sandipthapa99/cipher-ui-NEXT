@@ -16,12 +16,14 @@ interface Props {
     task: Task;
     onTaskClick: (task: Task) => void;
     handleButtonClick?: () => void;
+    taskId?: number;
 }
 export const UserTaskCard = ({
     isButton,
     task,
     onTaskClick,
     handleButtonClick,
+    taskId,
 }: Props) => {
     return (
         <div className="user-task-card" onClick={() => onTaskClick(task)}>
@@ -82,7 +84,11 @@ export const UserTaskCard = ({
             <div className="d-flex justify-content-between user-task-card__footer">
                 <div className="icons">
                     <SaveIcon />
-                    <ShareIcon />
+                    <ShareIcon
+                        url={`http://localhost:3005/tasker?taskId=${taskId}`}
+                        quote={"Tasker from cipher project"}
+                        hashtag={"cipher-tasker"}
+                    />
                 </div>
                 {isButton === true && (
                     <BigButton

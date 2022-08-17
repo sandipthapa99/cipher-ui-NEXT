@@ -5,6 +5,7 @@ interface BigButtonProps {
     backgroundColor: string;
     textColor?: string;
     handleClick?: () => void;
+    className?: string;
 }
 
 const BigButton = ({
@@ -12,11 +13,12 @@ const BigButton = ({
     backgroundColor,
     textColor,
     handleClick,
+    className,
 }: BigButtonProps) => {
     return (
         <>
             <Button
-                className="big-btn"
+                className={`big-btn ${className}`}
                 style={{
                     backgroundColor: `${backgroundColor}`,
                     color: `${textColor}!important`,

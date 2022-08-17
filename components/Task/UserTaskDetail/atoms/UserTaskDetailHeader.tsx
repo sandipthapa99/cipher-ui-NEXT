@@ -15,10 +15,12 @@ import { UserStats } from "./UserStats";
 
 interface UserTaskDetailHeaderProps {
     taskDetail: TaskDetail;
+    activeTaskId: number;
 }
 
 export const UserTaskDetailHeader = ({
     taskDetail,
+    activeTaskId,
 }: UserTaskDetailHeaderProps) => {
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -70,7 +72,11 @@ export const UserTaskDetailHeader = ({
                 <Col>
                     <div className="td-task-detail-header-icons">
                         <SaveIcon />
-                        <ShareIcon />
+                        <ShareIcon
+                            url={`http://localhost:3005/tasker?taskId=${activeTaskId}`}
+                            quote={"Tasker from cipher project"}
+                            hashtag={"cipher-tasker"}
+                        />
                         <EllipsisDropdown
                             showModal={true}
                             handleOnClick={handleShowModal}
