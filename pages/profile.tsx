@@ -9,7 +9,7 @@ import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
@@ -18,7 +18,13 @@ import type { UserProfileProps } from "types/userProfileProps";
 
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const { data: profileDetails } = useGetProfile();
+    // const { data: data } = useGetProfile();
+
+    const { data: userData } = useData<UserProfileProps["profileData"]>(
+        ["profile"],
+        "/tasker/profile/"
+    );
+    const profileData = userData?.data;
 
     const remaining = {
         userImage: "/service-details/provider1.svg",
@@ -33,7 +39,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         taskCompleted: 30,
         userActiveStatus: true,
     };
-    if (!profileDetails) {
+    if (!profileData) {
         return (
             <>
                 <Layout title="Profile | Cipher">
@@ -66,22 +72,22 @@ const UserProfile: NextPage<UserProfileProps> = () => {
 
                     {/* Explore top container start */}
 
-                    <section className="user-profile__top-container">
+                    {/* <section className="user-profile__top-container">
                         <UserProfileCard
-                            countryCode={profileDetails?.country}
-                            key={profileDetails?.id}
-                            userImage={profileDetails?.profile_image}
-                            userName={profileDetails?.full_name}
-                            userJob={profileDetails?.user_type}
+                            countryCode={profileData?.country}
+                            key={profileData?.id}
+                            userImage={profileData?.profile_image}
+                            userName={profileData?.full_name}
+                            userJob={profileData?.user_type}
                             userRating={remaining.userRating}
-                            userPrice={profileDetails?.hourly_rate}
-                            userLocation={profileDetails?.address_line1}
-                            userPhone={profileDetails?.phone}
-                            userEmail={profileDetails?.user?.email}
-                            moreServices={profileDetails?.skill}
-                            activeFrom={profileDetails?.active_hour_start}
-                            activeTo={profileDetails?.active_hour_end}
-                            userBio={profileDetails?.bio}
+                            userPrice={profileData?.hourly_rate}
+                            userLocation={profileData?.address_line1}
+                            userPhone={profileData?.phone}
+                            userEmail={profileData?.user?.email}
+                            moreServices={profileData?.skill}
+                            activeFrom={profileData?.active_hour_start}
+                            activeTo={profileData?.active_hour_end}
+                            userBio={profileData?.bio}
                             userBadge={remaining.userBadge}
                             userPoints={remaining.userPoints}
                             pointGoal={remaining.pointGoal}
@@ -92,7 +98,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             userActiveStatus={remaining.userActiveStatus}
                             tooltipMessage={remaining.tooltipMessage}
                         />
-                    </section>
+                    </section> */}
 
                     <section className="user-profile__bottom-container">
                         <div className="tabs">
@@ -144,6 +150,7 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["tasker-education"]),
             queryClient.prefetchQuery(["tasker-experience"]),
             queryClient.prefetchQuery(["tasker-portfolio"]),
+            queryClient.prefetchQuery(["profile"]),
         ]);
         return {
             props: {
@@ -156,6 +163,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 certificationData: [],
                 educationData: [],
                 experienceData: [],
+                profileData: [],
             },
         };
     }
