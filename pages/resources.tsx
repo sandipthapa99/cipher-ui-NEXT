@@ -95,7 +95,7 @@ const Resources: NextPage = () => {
                             </Row>
                         </div>
                         <div className="latest-article">
-                            <h1>Latest Article</h1>
+                            <h1>Latest BLOGS</h1>
                             <Row>
                                 {latestArticle &&
                                     latestArticle.map((blog) => {

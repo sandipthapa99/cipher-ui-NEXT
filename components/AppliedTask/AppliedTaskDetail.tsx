@@ -71,6 +71,7 @@ const AppliedTaskDetail: NextPage = () => {
                                 object_id={uuid}
                                 model="task"
                                 filled={isTaskBookmarked}
+                                showText
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon />

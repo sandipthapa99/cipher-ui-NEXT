@@ -261,7 +261,13 @@ const KYCForm = () => {
                                         Bill, Rental Aggrement.
                                     </p>
                                     <CustomDropZone
-                                        onDrop={(files) => console.log(files)}
+                                        name="personal_address"
+                                        onDrop={(formData) =>
+                                            console.log(
+                                                "onDroppedImageConvert",
+                                                formData.get("personal_address")
+                                            )
+                                        }
                                     />
                                     <DragDrop
                                         name="personal_address_verification_document"

@@ -9,9 +9,10 @@ interface saveIconProps {
     object_id?: string;
     model?: string;
     filled?: () => boolean;
+    showText?: boolean;
 }
 
-const SaveIcon = ({ object_id, model, filled }: saveIconProps) => {
+const SaveIcon = ({ object_id, model, filled, showText }: saveIconProps) => {
     const { classes } = useStyles();
     const withLogin = useWithLogin();
     const { mutate, isLoading } = useToggleBookmarkTask();
@@ -29,11 +30,13 @@ const SaveIcon = ({ object_id, model, filled }: saveIconProps) => {
                 icon={filled?.() ? FilledHeart : faHeart}
                 className="svg-icon svg-icon-heart me-2 me-sm-5"
             />
-            {isLoading ? (
-                <span>Loading</span>
-            ) : (
-                <span>{filled?.() ? "Remove" : "Save"}</span>
-            )}
+            {showText ? (
+                isLoading ? (
+                    <span>Loading</span>
+                ) : (
+                    <span>{filled?.() ? "Remove" : "Save"}</span>
+                )
+            ) : null}
         </button>
     );
 };

@@ -54,7 +54,7 @@ export const WinNewClientData = [
         title: "Win new clients ",
         image: "/utility-images/with-new-client.png",
         description:
-            "With CIPHER, you can showcase your talents, and garner new clients at the ease of your home, and a few clicks. We want  a garden cleaner for our bunglow who can great take care of our plants, includes monitoring the health of all plants and greenscapes.",
+            "With our diverse service categories, get a chance to win new clients and opportunities through us. Post your skills or apply for tasks, the choice is yours.",
         buttonText: "Explore Tasks",
     },
     {
