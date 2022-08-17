@@ -12,7 +12,7 @@ export const findHire = [
         thumbnailImg: "/services/hire2.png",
         title: "Browse Talents",
         description:
-            "Looking for some place to showcase your talent, and earn while you do it ? Well, look no more, login to CIPHER, and access all the tasks on the portal for you to choose from.",
+            "Looking for some place to showcase your talent, and earn while you do it ? Well, login to CIPHER, and access all the tasks on the portal for you to choose from.",
         redirectTo: "browse-talents",
     },
     {

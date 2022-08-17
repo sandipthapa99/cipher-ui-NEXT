@@ -1,10 +1,11 @@
 import { faShare } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import type { ShareButtonProps } from "types/shareButton";
 
 import ShareModal from "./ShareModalCard";
 
-const ShareIcon = () => {
+const ShareIcon = ({ url, quote, hashtag }: ShareButtonProps) => {
     const [showModal, setShowModal] = useState(false);
     const handleOnClick = () => {
         setShowModal(!showModal);
@@ -20,6 +21,9 @@ const ShareIcon = () => {
                 <ShareModal
                     show={showModal}
                     handleClose={() => setShowModal(false)}
+                    url={url}
+                    quote={quote}
+                    hashtag={hashtag}
                 />
             </div>
         </>

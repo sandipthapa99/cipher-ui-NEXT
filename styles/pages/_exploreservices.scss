@@ -10,6 +10,14 @@
     @include respond(xs) {
         padding: 0rem 1.25rem;
     }
+    h2 {
+        color: $primary-color;
+        padding: 0;
+        margin: 0;
+        font-size: 1.8rem;
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
     &__top-container {
         padding-bottom: 5rem;
         position: relative;

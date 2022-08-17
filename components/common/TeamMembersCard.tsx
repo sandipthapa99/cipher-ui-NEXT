@@ -81,7 +81,7 @@ export const TeamMembersCard = ({
             <div className="d-flex justify-content-between footer-section">
                 <span className="share-and-like">
                     <SaveIcon />
-                    <ShareIcon />
+                    <ShareIcon url={""} quote={""} hashtag={""} />
                 </span>
 
                 {collabButton == true ? (

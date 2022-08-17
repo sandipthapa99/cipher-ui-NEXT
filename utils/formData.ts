@@ -61,6 +61,7 @@ export const ExperienceFormData: ExperienceValueProps = {
     start_date: "",
     end_date: "",
     currently_working: false,
+    id: 0,
 };
 
 export const AddPortfolioFormData: AddPortfolioProps = {
@@ -94,6 +95,7 @@ export const CertificationFormData: CertificationValueProps = {
     certificate_url: "",
     issued_date: "",
     expire_date: "",
+    id: 0,
 };
 
 export const ProfileEditFromData: ProfileEditValueProps = {
@@ -117,6 +119,7 @@ export const EducationFormData: EducationValueProps = {
     location: "",
     start_date: "",
     end_date: "",
+    id: 0,
 };
 
 export const SkillsFromData: SkillsValueProps = {

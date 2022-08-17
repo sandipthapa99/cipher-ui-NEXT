@@ -47,6 +47,7 @@ const SearchResultsDetail = ({
     discountOn,
     discount,
     highlights,
+    serviceId,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -92,7 +93,11 @@ const SearchResultsDetail = ({
                                 <span className="name">Save</span>
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
-                                <ShareIcon />
+                                <ShareIcon
+                                    url={`http://localhost:3005/search/${serviceId}`}
+                                    quote={"Service from Cipher Project"}
+                                    hashtag={"cipher-services"}
+                                />
                                 <span className="name">Share</span>
                             </div>
                             <FontAwesomeIcon
