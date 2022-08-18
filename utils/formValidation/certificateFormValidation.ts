@@ -8,6 +8,7 @@ const urlValidation = Yup.string()
         "Enter correct url!"
     )
     .required("Required field");
+const endDateValidation = Yup.string().nullable();
 
 export const certificateFormSchema = Yup.object().shape({
     name: stringReqOnly,
@@ -16,5 +17,5 @@ export const certificateFormSchema = Yup.object().shape({
     credential_id: stringReqOnly,
     certificate_url: urlValidation,
     issued_date: dateValidation,
-    expire_date: dateValidation,
+    expire_date: endDateValidation,
 });

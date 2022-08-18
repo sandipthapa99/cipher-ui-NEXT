@@ -4,9 +4,10 @@ import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
-import { useEducation } from "hooks/user-education/useEducation";
+import { useEditForm } from "hooks/edit-form/use-experience";
+import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
@@ -14,6 +15,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
+import type { EducationValueProps } from "types/educationValueProps";
 import { EducationFormData } from "utils/formData";
 import { educationFormSchema } from "utils/formValidation/educationFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -22,16 +24,29 @@ interface EducationProps {
     show?: boolean;
     handleClose?: () => void;
     setShowEducationForm: Dispatch<SetStateAction<boolean>>;
+    id?: number;
+}
+interface EditDetailProps {
+    data: { result: EducationValueProps[] };
 }
 
 const EducationForm = ({
     show,
     handleClose,
     setShowEducationForm,
+    id,
 }: EducationProps) => {
     const toggleSuccessModal = useToggleSuccessModal();
-    const { mutate, isLoading } = useEducation();
     const queryClient = useQueryClient();
+    const { mutate } = useForm(`/tasker/education/`);
+    const { mutate: editMutation } = useEditForm(`/tasker/education/${id}/`);
+
+    const data = queryClient.getQueryData<EditDetailProps>([
+        "tasker-education",
+    ]);
+
+    const editDetails = data?.data?.result.find((item) => item.id === id);
+    console.log("edit details=", editDetails);
 
     return (
         <>
@@ -41,7 +56,20 @@ const EducationForm = ({
                 <div className="applied-modal">
                     <h3>Add Education</h3>
                     <Formik
-                        initialValues={EducationFormData}
+                        initialValues={
+                            editDetails
+                                ? {
+                                      ...editDetails,
+                                      start_date: parseISO(
+                                          editDetails.start_date
+                                      ),
+
+                                      end_date: editDetails.end_date
+                                          ? parseISO(editDetails.end_date)
+                                          : "",
+                                  }
+                                : EducationFormData
+                        }
                         validationSchema={educationFormSchema}
                         onSubmit={async (values) => {
                             const newvalidatedValue = {
@@ -55,20 +83,44 @@ const EducationForm = ({
                                     "yyyy-MM-dd"
                                 ),
                             };
-
-                            mutate(newvalidatedValue, {
-                                onSuccess: async () => {
-                                    console.log("submitted values", values);
-                                    setShowEducationForm(false);
-                                    queryClient.invalidateQueries([
-                                        "tasker-education",
-                                    ]);
-                                    toggleSuccessModal();
-                                },
-                                onError: async (error) => {
-                                    toast.error(error.message);
-                                },
-                            });
+                            {
+                                editDetails
+                                    ? editMutation(newvalidatedValue, {
+                                          onSuccess: async () => {
+                                              console.log(
+                                                  "submitted values",
+                                                  values
+                                              );
+                                              setShowEducationForm(false);
+                                              queryClient.invalidateQueries([
+                                                  "tasker-education",
+                                              ]);
+                                              toast.success(
+                                                  "Education detail updated successfully"
+                                              );
+                                          },
+                                          onError: async (error) => {
+                                              toast.error(error.message);
+                                              console.log("error=", error);
+                                          },
+                                      })
+                                    : mutate(newvalidatedValue, {
+                                          onSuccess: async () => {
+                                              console.log(
+                                                  "submitted values",
+                                                  values
+                                              );
+                                              setShowEducationForm(false);
+                                              queryClient.invalidateQueries([
+                                                  "tasker-education",
+                                              ]);
+                                              toggleSuccessModal();
+                                          },
+                                          onError: async (error) => {
+                                              toast.error(error.message);
+                                          },
+                                      });
+                            }
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

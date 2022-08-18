@@ -20,6 +20,7 @@ export type ServiceProvider = {
         permissions: Array<any>;
     }>;
     permissions: Array<any>;
+    onServiceClick?: () => void;
 };
 
 const ServiceNearYouCard = ({
@@ -32,6 +33,7 @@ const ServiceNearYouCard = ({
     haveDiscount,
     discountOn,
     discount,
+    onServiceClick,
 }: ServiceNearYouCardProps) => {
     const { data } = useQuery(
         ["service-provider-user", serviceProvider],
@@ -43,24 +45,27 @@ const ServiceNearYouCard = ({
         }
     );
 
-    console.log("user.....data", data);
-
     const providerName = data?.groups[0]?.name;
 
     return (
-        <div className="service-card-block service-near-you-card-block">
+        <div
+            className="service-card-block service-near-you-card-block"
+            onClick={() => onServiceClick}
+        >
             <Row>
                 <Col md="5">
-                    {image && (
-                        <figure className="thumbnail-img">
-                            <Image
-                                src={image}
-                                layout="fill"
-                                objectFit="cover"
-                                alt="servicecard-image"
-                            />
-                        </figure>
-                    )}
+                    <figure className="thumbnail-img">
+                        <Image
+                            src={
+                                image
+                                    ? image
+                                    : "/service-details/garden-cleaning.png"
+                            }
+                            layout="fill"
+                            objectFit="cover"
+                            alt="servicecard-image"
+                        />
+                    </figure>
                 </Col>
                 <Col md="7">
                     <div className="content">

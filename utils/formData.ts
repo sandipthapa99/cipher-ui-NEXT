@@ -52,7 +52,7 @@ export const EquipmentFormData: EquipmentValueProps = {
 };
 
 //Experience form data
-export const ExperienceFromData: ExperienceValueProps = {
+export const ExperienceFormData: ExperienceValueProps = {
     title: "",
     description: "",
     employment_type: "Full Time",
@@ -61,6 +61,7 @@ export const ExperienceFromData: ExperienceValueProps = {
     start_date: "",
     end_date: "",
     currently_working: false,
+    id: 0,
 };
 
 export const AddPortfolioFormData: AddPortfolioProps = {
@@ -85,28 +86,28 @@ export const BookServiceFormData: BookNowFormProps = {
     book_image: "",
 };
 
-export const CertificationFromData: CertificationValueProps = {
+export const CertificationFormData: CertificationValueProps = {
     name: "",
     issuing_organization: "",
     description: "",
     does_expire: false,
     credential_id: "",
     certificate_url: "",
-    issued_date: null,
-    expire_date: null,
+    issued_date: "",
+    expire_date: "",
+    id: 0,
 };
 
 export const ProfileEditFromData: ProfileEditValueProps = {
-    name: "",
+    full_name: "",
     bio: "",
-    email: "",
     phone: "",
-    addressLine1: "",
-    addressLine2: "",
-    activeHoursFrom: "",
-    activeHoursTo: "",
-    specialities: "",
-    baseRatePerHour: "",
+    address_line1: "",
+    address_line2: "",
+    active_hour_start: "",
+    active_hour_end: "",
+    skill: "",
+    hourly_rate: "",
     linkedAccounts: "",
 };
 
@@ -118,6 +119,7 @@ export const EducationFormData: EducationValueProps = {
     location: "",
     start_date: "",
     end_date: "",
+    id: 0,
 };
 
 export const SkillsFromData: SkillsValueProps = {

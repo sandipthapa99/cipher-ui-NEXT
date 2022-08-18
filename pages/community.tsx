@@ -41,16 +41,19 @@ const Community: NextPage = () => {
                             </Col>
                             <Col md={6} sm={6}>
                                 <h3>
-                                    Let&apos; root for each other &amp;{" "}
-                                    <br></br> watch each other grow
+                                    Let&apos;s root for each other &amp;{" "}
+                                    <br></br> help each other grow
                                 </h3>
                                 <p>
-                                    Communicate with others for your own benefit
+                                    We are committed to bring the service
+                                    providers and service seekers together in
+                                    the same platform.
                                 </p>
                                 <BigButton
                                     btnTitle="Join Us"
                                     backgroundColor="#fff"
                                     textColor="#111"
+                                    className="text-dark mb-5"
                                 />
                                 {/* <Button className="button">Join Us</Button> */}
                             </Col>
@@ -125,9 +128,9 @@ const Community: NextPage = () => {
                     <div className="community-page-main__guidelines">
                         <h1>Community guidelines</h1>
                         <p>
-                            {" "}
-                            To assist clients and merchants in their personal
-                            and professional pursuits
+                            Creating a community to establish formal
+                            expectations and standards for the clients and
+                            merchants.
                         </p>
                         <Row className="gx-5">
                             {communityGuidelineCardContent &&
@@ -198,7 +201,7 @@ const Community: NextPage = () => {
                                 })}
                         </Row>
                     </div>
-                    <Carousel>
+                    {/* <Carousel>
                         {businessGoal &&
                             businessGoal.map((goal) => {
                                 return (
@@ -217,9 +220,9 @@ const Community: NextPage = () => {
                                     </Carousel.Item>
                                 );
                             })}
-                    </Carousel>
+                    </Carousel> */}
 
-                    <div className="community-page-main__blogs">
+                    {/* <div className="community-page-main__blogs">
                         <h1>Blogs</h1>
                         <Row>
                             {blogCardContent &&
@@ -243,7 +246,7 @@ const Community: NextPage = () => {
                                     );
                                 })}
                         </Row>
-                    </div>
+                    </div> */}
                 </Container>
             </section>
         </Layout>

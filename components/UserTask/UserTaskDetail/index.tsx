@@ -37,7 +37,7 @@ export const UserTaskDetail = ({ task, onExitTask }: UserTaskDetailProps) => {
                             <span>Save</span>
                         </div>
                         <div className="icon-text">
-                            <ShareIcon />
+                            <ShareIcon url={""} quote={""} hashtag={""} />
                             <span>Share</span>
                         </div>
                         <EllipsisDropdown>

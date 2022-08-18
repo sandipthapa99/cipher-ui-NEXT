@@ -98,7 +98,7 @@ const MerchantCard = ({
                 <div className="d-flex justify-content-between align-items-md-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
                         <SaveIcon />
-                        <ShareIcon />
+                        <ShareIcon url={""} quote={""} hashtag={""} />
                     </div>
                     <CardBtn btnTitle="Hire Me" backgroundColor="#211D4F" />
                 </div>

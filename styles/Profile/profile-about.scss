@@ -1,8 +1,13 @@
 .about-profile {
+    padding-bottom: 2.5rem;
+
     h1 {
         font-size: 1.7rem;
         font-weight: 500;
         color: $default-text-color;
+    }
+    .file-attachment {
+        display: none;
     }
     h3 {
         font-size: 1.4rem;
@@ -16,6 +21,7 @@
         font-size: 1.3rem;
         font-weight: 400;
     }
+
     .date {
         margin-bottom: 1.3rem;
         font-size: 1.3rem;
@@ -26,6 +32,10 @@
         border-bottom: 0.1rem solid $border-color;
         padding-left: 2.5rem;
         padding-right: 3rem;
+
+        &:last-child {
+            border-bottom: none;
+        }
         a {
             font-size: 1.4rem;
         }
@@ -51,6 +61,7 @@
             display: flex;
             flex-wrap: wrap;
             padding-top: 1.5rem;
+
             .image {
                 padding-right: 2rem;
             }
@@ -58,6 +69,13 @@
                 height: 18rem;
                 width: 19rem;
                 border-radius: 0.6rem;
+
+                @include respond(xxs) {
+                    height: 10rem;
+                    width: 11rem;
+
+                    margin-top: 2rem;
+                }
             }
             p {
                 font-size: 1.4rem;
@@ -65,6 +83,10 @@
                 margin-bottom: 1rem;
                 padding-top: 1rem;
             }
+        }
+        justify-content: start;
+        @include respond(xs) {
+            justify-content: center;
         }
     }
 
@@ -142,5 +164,10 @@
     }
     .certification {
         padding-bottom: 2.5rem;
+        .name {
+            a {
+                color: $sub-title-color;
+            }
+        }
     }
 }

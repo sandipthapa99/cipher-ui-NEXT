@@ -2,7 +2,7 @@ import FormButton from "@components/common/FormButton";
 import TagInputField from "@components/common/TagInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import Tags from "@yaireo/tagify/dist/react.tagify";
+import { MultiSelect } from "@mantine/core";
 import { Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
 import React from "react";
@@ -25,6 +25,11 @@ const AddSkills = ({
     setShowAddSkillsForm,
 }: SkillsProps) => {
     const toggleSuccessModal = useToggleSuccessModal();
+    const data = [
+        { label: "React", value: "react" },
+        { label: "Angular", value: "anglur" },
+        { label: "PHP", value: "php" },
+    ];
     return (
         <>
             {/* Modal component */}
@@ -54,13 +59,17 @@ const AddSkills = ({
                                     error={errors.skills}
                                     touch={touched.skills}
                                     labelName="Specialities"
-                                    placeHolder="Enter your price"
+                                    placeHolder="Enter your prefered skill"
+                                    variables={[]}
                                 />
                                 <h4>Suggested Skills</h4>
-                                <Tags
-                                    defaultValue="Singing, Writing, Programming, Dancing"
+                                <MultiSelect
+                                    data={["react", "anglur", "php"]}
+                                    placeholder="View sugessted fields"
+                                    defaultValue={["react", "anglur", "php"]}
+                                    variant="unstyled"
+                                    size="md"
                                     readOnly
-                                    className="border-0"
                                 />
                                 <Modal.Footer>
                                     <Button
