@@ -11,6 +11,7 @@ import TasksProfileCard from "@components/Profile/TasksProfile";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import { log } from "console";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
@@ -24,6 +25,12 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData(["profile"]);
 
+    // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
+    //     ["profile"],
+    //     "/tasker/profile/"
+    // );
+    // const profileDetails = userData?.data;
+    console.log("profile=", profileDetails);
     const remaining = {
         userRating: 4,
         userBadge: "Gold",

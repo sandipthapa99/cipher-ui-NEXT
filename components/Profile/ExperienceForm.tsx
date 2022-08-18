@@ -7,7 +7,7 @@ import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
-import { useEditForm } from "hooks/edit-form/use-experience";
+import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
