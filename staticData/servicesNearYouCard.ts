@@ -18,5 +18,4 @@ export interface ServiceNearYou {
     category: number;
     views: Array<any>;
     discount?: number;
-    
 }
