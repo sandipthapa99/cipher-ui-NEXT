@@ -13,7 +13,7 @@ export const findHire = [
         title: "Browse Talents",
         description:
             "Looking for some place to showcase your talent, and earn while you do it ? Well, login to CIPHER, and access all the tasks on the portal for you to choose from.",
-        redirectTo: "browse-talents",
+        redirectTo: "tasker",
     },
     {
         id: "2",
