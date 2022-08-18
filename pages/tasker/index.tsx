@@ -25,7 +25,7 @@ const Tasker = () => {
         setActiveTaskIdx(task.id);
     };
     const removeActiveTaskIdx = () => {
-        if (redirectedFrom)
+        if (redirectedFrom && typeof redirectedFrom === "string")
             return router.push({
                 pathname: redirectedFrom,
                 hash: "top-merchants",

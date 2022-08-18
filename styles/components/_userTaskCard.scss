@@ -52,6 +52,8 @@
     gap: 24px;
 }
 .icons {
+    display: flex;
+    gap: 0.5rem;
     svg {
         margin: 0 2rem 0 0;
     }
