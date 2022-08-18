@@ -8,7 +8,8 @@ import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
+import { log } from "console";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
@@ -19,7 +20,10 @@ import type { UserProfileProps } from "types/userProfileProps";
 
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const { data: profileDetails } = useGetProfile();
+    const { data: profileDetails, error } = useGetProfile();
+    console.log("user", profileDetails?.user_type);
+    const queryClient = useQueryClient();
+    const data = queryClient.getQueryData(["profile"]);
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],
@@ -28,7 +32,6 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     // const profileDetails = userData?.data;
     console.log("profile=", profileDetails);
     const remaining = {
-        userImage: "/service-details/provider1.svg",
         userRating: 4,
         userBadge: "Gold",
         userPoints: 58,
@@ -40,7 +43,8 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         taskCompleted: 30,
         userActiveStatus: true,
     };
-    if (!profileDetails) {
+
+    if (!data || error) {
         return (
             <>
                 <Layout title="Profile | Cipher">
@@ -48,7 +52,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
                             <Col className="create-profile">
-                                <h1>Create Profile. Start Your Journey</h1>
+                                <h1>Create Your Profile. Start your Journey</h1>
                                 <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
@@ -167,7 +171,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 certificationData: [],
                 educationData: [],
                 experienceData: [],
-                profileDetails: [],
+                profile: [],
             },
         };
     }

@@ -99,16 +99,15 @@ export const CertificationFormData: CertificationValueProps = {
 };
 
 export const ProfileEditFromData: ProfileEditValueProps = {
-    name: "",
+    full_name: "",
     bio: "",
-    email: "",
     phone: "",
-    addressLine1: "",
-    addressLine2: "",
-    activeHoursFrom: "",
-    activeHoursTo: "",
-    specialities: "",
-    baseRatePerHour: "",
+    address_line1: "",
+    address_line2: "",
+    active_hour_start: "",
+    active_hour_end: "",
+    skill: "",
+    hourly_rate: "",
     linkedAccounts: "",
 };
 

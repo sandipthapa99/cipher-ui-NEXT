@@ -6,6 +6,7 @@ import { HireMerchantModal } from "@components/Task/UserTaskDetail/atoms/HireMer
 import { faEllipsisVertical } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useToggle } from "@mantine/hooks";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -15,17 +16,16 @@ import { UserStats } from "./UserStats";
 
 interface UserTaskDetailHeaderProps {
     taskDetail: TaskDetail;
+    activeTaskId: number;
 }
 
 export const UserTaskDetailHeader = ({
     taskDetail,
+    activeTaskId,
 }: UserTaskDetailHeaderProps) => {
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+    const [showMenu, toggleShowMenu] = useToggle([false, true]);
 
-    const handleShowModal = () => {
-        setShowModal(true);
-    };
     return (
         <>
             <HireMerchantModal
@@ -70,10 +70,14 @@ export const UserTaskDetailHeader = ({
                 <Col>
                     <div className="td-task-detail-header-icons">
                         <SaveIcon />
-                        <ShareIcon url={""} quote={""} hashtag={""} />
+                        <ShareIcon
+                            url={`http://localhost:3005/tasker?taskId=${activeTaskId}`}
+                            quote={"Tasker from cipher project"}
+                            hashtag={"cipher-tasker"}
+                        />
                         <EllipsisDropdown
-                            showModal={true}
-                            handleOnClick={handleShowModal}
+                            showModal={showMenu}
+                            handleOnClick={() => toggleShowMenu()}
                         >
                             <FontAwesomeIcon
                                 icon={faEllipsisVertical}

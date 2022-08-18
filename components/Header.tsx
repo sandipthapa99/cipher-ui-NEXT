@@ -70,7 +70,7 @@ const Header = () => {
                                             icon={faUserHelmetSafety}
                                             className="svg-icon d-none d-sm-inline-block"
                                         />
-                                        Find Merchants
+                                        Find Taskers
                                     </a>
                                 </Link>
                             </li>

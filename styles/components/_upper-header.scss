@@ -80,6 +80,7 @@
             }
         }
         .user-profile {
+            position: relative;
             margin-right: 2rem;
         }
         @include respond(xl) {

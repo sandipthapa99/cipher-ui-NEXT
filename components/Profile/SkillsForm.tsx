@@ -40,7 +40,7 @@ const AddSkills = ({
     const { data: profileDetails } = useGetProfile();
 
     console.log("profile=", profileDetails);
-    const userSkills = profileDetails?.skill;
+    const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
     console.log("userskills=", userSkills);
 
     return (
@@ -54,49 +54,29 @@ const AddSkills = ({
                         initialValues={SkillsFromData}
                         validationSchema={skillsFormSchema}
                         onSubmit={async (values) => {
-                            // To be used for API
-                            // try {
-                            //     axiosClient.post("/routes", values);
-                            // } catch (error: any) {
-                            //     error.response.data.message;
-                            // }
-
-                            //  let newValue: any;
-                            // newValue.push(values);
-                            // console.log("values=", newValue);
-
-                            // newValue = [
-                            //     ...userSkills,
-                            //     values.skills.toString(),
-                            // ];
-
                             const skill = values.skill;
                             const newValue = userSkills?.concat(skill);
 
                             const newSkills = JSON.stringify(newValue);
-                            console.log(
-                                "new skills=",
-                                JSON.stringify(newSkills)
-                            );
                             const finalSKills = { ...values, skill: newSkills };
-                            console.log("fila=", finalSKills);
-                            // mutate(finalSKills, {
-                            //     onSuccess: async () => {
-                            //         console.log(
-                            //             "submitted values",
-                            //             finalSKills
-                            //         );
-                            //         setShowAddSkillsForm(false);
-                            //         queryClient.invalidateQueries(["profile"]);
-                            //         toast.success(
-                            //             "Skills detail added successfully"
-                            //         );
-                            //     },
-                            //     onError: async (error) => {
-                            //         toast.error(error.message);
-                            //         console.log("error=", error);
-                            //     },
-                            // });
+
+                            mutate(finalSKills, {
+                                onSuccess: async () => {
+                                    console.log(
+                                        "submitted values",
+                                        finalSKills
+                                    );
+                                    setShowAddSkillsForm(false);
+                                    queryClient.invalidateQueries(["profile"]);
+                                    toast.success(
+                                        "Skills detail added successfully"
+                                    );
+                                },
+                                onError: async (error) => {
+                                    toast.error(error.message);
+                                    console.log("error=", error);
+                                },
+                            });
 
                             // console.log(values);
                         }}
@@ -154,3 +134,31 @@ const AddSkills = ({
     );
 };
 export default AddSkills;
+
+// onSubmit={async (values) => {
+//     const skills = profileDetails
+//         ? JSON.parse(profileDetails?.skill)
+//         : [];
+//     /// const newSkills = [...skills, ...values?.skill];
+//     const newSkills = { ...values, skill: skills };
+//     const finalSkill = JSON.stringify(newSkills);
+
+//     // const finalSKills = { ...values, skill: newSkills };
+//     // console.log("fila=", finalSKills);
+//     mutate(finalSkill, {
+//         onSuccess: async () => {
+//             console.log("submitted values", finalSkill);
+//             setShowAddSkillsForm(false);
+//             queryClient.invalidateQueries(["profile"]);
+//             toast.success(
+//                 "Skills detail added successfully"
+//             );
+//         },
+//         onError: async (error) => {
+//             toast.error(error.message);
+//             console.log("error=", error);
+//         },
+//     });
+
+//     console.log(values);
+// }}

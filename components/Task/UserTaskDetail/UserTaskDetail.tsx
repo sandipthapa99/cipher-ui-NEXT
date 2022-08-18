@@ -9,11 +9,13 @@ import type { TaskDetail } from "staticData/taskDetail";
 interface UserTaskDetailProps {
     taskDetail: TaskDetail;
     onExitTaskDetail: () => void;
+    activeTaskId: number;
 }
 
 const UserTaskDetail = ({
     taskDetail,
     onExitTaskDetail,
+    activeTaskId,
 }: UserTaskDetailProps) => {
     return (
         <div className="user-task-detail-container">
@@ -22,7 +24,10 @@ const UserTaskDetail = ({
                 onClick={onExitTaskDetail}
                 className="mb-24"
             />
-            <UserTaskDetailHeader taskDetail={taskDetail} />
+            <UserTaskDetailHeader
+                taskDetail={taskDetail}
+                activeTaskId={activeTaskId}
+            />
             <UserShortIntro user={taskDetail.user} />
             <UserTaskDetailTabs user={taskDetail.user} />
             <UserTaskReviews />
