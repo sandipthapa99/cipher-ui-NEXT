@@ -8,7 +8,7 @@ export const helpCardContent = [
     },
     {
         id: "1",
-        cardTitle: "Payment Issue",
+        cardTitle: "Payment Help",
         cardImage: "/help/browse2.svg",
         cardDescription:
             "Easy way to find what you want to do. If a client doesn’t have the time or exact skills to help you with your project, they can refer another freelancer.",

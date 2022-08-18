@@ -19,11 +19,10 @@ import type { UserProfileProps } from "types/userProfileProps";
 
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const { data: profileDetails } = useGetProfile();
-    console.log(profileDetails);
+    const { data: profileDetails, error } = useGetProfile();
+    console.log("user", profileDetails?.user_type);
 
     const remaining = {
-        userImage: "/service-details/provider1.svg",
         userRating: 4,
         userBadge: "Gold",
         userPoints: 58,
@@ -35,7 +34,9 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         taskCompleted: 30,
         userActiveStatus: true,
     };
-    if (profileDetails?.message) {
+    console.log(error);
+
+    if (error) {
         return (
             <>
                 <Layout title="Profile | Cipher">
@@ -43,7 +44,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
                             <Col className="create-profile">
-                                <h1>{profileDetails?.message}</h1>
+                                <h1>Create Your Profile. Start your Journey</h1>
                                 <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}

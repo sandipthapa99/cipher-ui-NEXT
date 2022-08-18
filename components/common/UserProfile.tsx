@@ -45,19 +45,21 @@ const UserProfileCard = ({
     const [showEdit, setShowEdit] = useState(false);
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
-    // const services = JSON.parse(moreServices);
+    console.log("skills", moreServices, typeof moreServices);
 
-    // const renderServices = moreServices?.map((service, index) => (
-    //     <p key={index}>{service}</p>
-    // ));
-    // const userType = JSON.parse(userJob);
-    // const renderType = userType.map((type, index) => {
-    //     return (
-    //         <p className="organization" key={index}>
-    //             Individual | {type}
-    //         </p>
-    //     );
-    // });
+    const services = moreServices ? JSON.parse(moreServices) : [];
+
+    const renderServices = services?.map((service, index) => (
+        <p key={index}>{service}</p>
+    ));
+    const userType = userJob ? JSON.parse(userJob) : [];
+    const renderType = userType.map((type, index) => {
+        return (
+            <p className="organization" key={index}>
+                Individual | {type}
+            </p>
+        );
+    });
 
     return (
         <div className="profile-card-block">
@@ -85,7 +87,7 @@ const UserProfileCard = ({
                         <h1 className="name">{userName}</h1>
                         <div className="active"></div>
                     </div>
-                    {/* {renderType} */}
+                    {renderType}
                     <div className="rating">
                         {Array.from({ length: userRating }, (_, i) => (
                             <span key={i}>
@@ -175,7 +177,14 @@ const UserProfileCard = ({
                                             icon={faSparkles}
                                             className="thumbnail-img"
                                         />
-                                        <p>{moreServices}</p>
+                                        <p
+                                            style={{
+                                                display: "flex",
+                                                gap: "0.5rem",
+                                            }}
+                                        >
+                                            {renderServices}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
