@@ -1,6 +1,8 @@
+import { ProfileModel } from "@components/model/ProfileModel";
 import { faBars } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useClickOutside, useToggle } from "@mantine/hooks";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,20 +10,22 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
-import { profileCardContent } from "staticData/profileCardContent";
 import { handleMenuActive } from "utils/helpers";
 
-import { ProfileModel } from "./model/ProfileModel";
 import { PostCard } from "./PostTask/PostCard";
 import PostModal from "./PostTask/PostModal";
 
 export function UpperHeader() {
     const router = useRouter();
     const [showModal, setShowModal] = useState(false);
-    const [notopen, setNotopen] = useState(false);
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
     const { data: user } = useUser();
+
+    const [showProfileModal, toggleShowProfileModal] = useToggle([false, true]);
+    const profileModalRef = useClickOutside(() =>
+        toggleShowProfileModal(false)
+    );
 
     return (
         <>
@@ -113,10 +117,10 @@ export function UpperHeader() {
                             </>
                         )}
                         {user && (
-                            <div className="user-profile">
+                            <div ref={profileModalRef} className="user-profile">
                                 <span
                                     className="btn location-btn d-none d-md-inline-block"
-                                    onClick={() => setNotopen(!notopen)}
+                                    onClick={() => toggleShowProfileModal()}
                                 >
                                     <figure className="thumbnail-img">
                                         <Image
@@ -128,11 +132,7 @@ export function UpperHeader() {
                                         />
                                     </figure>
                                 </span>
-                                {notopen && (
-                                    <ProfileModel
-                                        profile={profileCardContent}
-                                    />
-                                )}
+                                {showProfileModal && <ProfileModel />}
                             </div>
                         )}
 

@@ -1,5 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
-import type { AxiosInstance } from "axios";
+import type { AxiosError, AxiosInstance } from "axios";
 import axios from "axios";
 import { compareAsc, fromUnixTime } from "date-fns";
 import Cookies from "js-cookie";
@@ -20,6 +20,7 @@ const isTokenExpired = (token: string) => {
     const { exp } = jwtDecode<{ exp: number }>(token);
     const tokenExpirationDate = fromUnixTime(exp);
     const currentTime = new Date();
+    console.log("TOKEN EXPIRED?", compareAsc(tokenExpirationDate, currentTime));
     return compareAsc(tokenExpirationDate, currentTime) === -1;
 };
 
@@ -58,7 +59,8 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error?.response?.data?.code === "token_not_valid") {
+        const axiosError = error as AxiosError;
+        if (axiosError.response?.status === 401) {
             const access = Cookies.get("access");
             const refresh = Cookies.get("refresh");
 

@@ -26,6 +26,7 @@ import type { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
@@ -467,7 +468,7 @@ const Home: NextPage<{ successStoryData: SuccessStoryProps }> = ({
                     </div>
                     <Row className="gx-5">
                         {merchants &&
-                            merchants.map((merchant) => {
+                            merchants.map((merchant, index) => {
                                 return (
                                     <Col
                                         md={6}
@@ -478,6 +479,16 @@ const Home: NextPage<{ successStoryData: SuccessStoryProps }> = ({
                                         className="d-flex"
                                     >
                                         <MerchantCard
+                                            onClick={() =>
+                                                router.push({
+                                                    pathname: "/tasker",
+                                                    query: {
+                                                        taskId: index,
+                                                        redirectedFrom:
+                                                            router.pathname,
+                                                    },
+                                                })
+                                            }
                                             merchantImage={
                                                 merchant.merchantImage
                                             }
