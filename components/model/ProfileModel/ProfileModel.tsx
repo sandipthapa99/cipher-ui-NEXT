@@ -40,7 +40,10 @@ export const ProfileModel = () => {
                 <ul className={classes.bodyItem} key={key}>
                     <Divider my="1rem" />
                     {value.map((item, key) => (
-                        <li key={key}>
+                        <li
+                            data-is-active={router.pathname === item.href}
+                            key={key}
+                        >
                             {/* <FontAwesomeIcon icon={faCar} color={item.color} /> */}
                             {item.icon}
                             <NextLink
