@@ -1,5 +1,4 @@
 import { ErrorMessage, Field } from "formik";
-import { Fragment } from "react";
 import type { InputFieldProps } from "types/inputField";
 import { checkFormGroup } from "utils/helpers";
 
@@ -41,7 +40,7 @@ const RadioField = ({
                 {({ field }: any) => {
                     return variables?.map((option) => {
                         return (
-                            <Fragment key={option.value}>
+                            <span key={option.value} className="d-inline-flex">
                                 <input
                                     type="radio"
                                     id={option.value}
@@ -57,7 +56,7 @@ const RadioField = ({
                                 >
                                     {option.label}
                                 </label>
-                            </Fragment>
+                            </span>
                         );
                     });
                 }}

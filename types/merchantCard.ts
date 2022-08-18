@@ -9,4 +9,5 @@ export interface MerchantCardProps {
     happyClients: number;
     successRate: number;
     liked?: boolean;
+    onClick?: () => void;
 }

@@ -11,14 +11,13 @@ import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
-import { read } from "fs";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
@@ -27,10 +26,12 @@ import { formatTime } from "utils/FormatTime/formatTime";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-const dropdownCurrencyOptions = [
-    { id: 1, label: "Rupees", value: "rupees" },
-    { id: 2, label: "Dollar", value: "dollar" },
-    { id: 3, label: "CDollar", value: "cdollar" },
+const task_preferences = [
+    { id: 1, label: "Part time", value: "partTime" },
+    { id: 2, label: "Full Time", value: "fullTime" },
+    { id: 3, label: "Freelance", value: "freelance" },
+    { id: 4, label: "Remote", value: "remote" },
+    { id: 5, label: "On Site", value: "onSite" },
 ];
 const genders = [
     { label: "Male", value: "Male" },
@@ -38,19 +39,22 @@ const genders = [
     { label: "Other", value: "Other" },
 ];
 const experience = [
-    { label: "I am Beginner", value: "beginner" },
-    { label: "I am Intermediate", value: "intermediate" },
-    { label: "I am Expert", value: "expert" },
+    { label: "Beginner (0 to 1 years experience)", value: "beginner" },
+    {
+        label: "Intermediate (2 to 4 years experience)",
+        value: "intermediate",
+    },
+    { label: "Expert (5 or more years experience)", value: "expert" },
 ];
 const profile_visibility = [
     {
-        label: "Public",
+        label: "To everyone",
         id: 1,
         value: "Public",
     },
     {
         id: 2,
-        label: "Private",
+        label: "To you only",
         value: "Private",
     },
 ];
@@ -256,7 +260,7 @@ const AccountForm = () => {
                                 type="radio"
                                 name="gender"
                                 variables={genders}
-                                labelName="Are You?"
+                                labelName="Please specify your gender"
                                 touch={touched.gender}
                                 error={errors.gender}
                                 disabled={profile ? true : false}
@@ -272,6 +276,31 @@ const AccountForm = () => {
                             />
                             <hr />
                             <h3>Profession Information</h3>
+                            <h4>Select User Type</h4>
+                            <div
+                                role="group"
+                                aria-labelledby="checkbox-group"
+                                className="mb-3"
+                            >
+                                <label className="me-3">
+                                    <Field
+                                        type="checkbox"
+                                        name="user_type"
+                                        value="Client"
+                                        className="me-2"
+                                    />
+                                    Client
+                                </label>
+                                <label className="me-3">
+                                    <Field
+                                        type="checkbox"
+                                        name="user_type"
+                                        className="me-2"
+                                        value="Tasker"
+                                    />
+                                    Tasker
+                                </label>
+                            </div>
                             <TagInputField
                                 defaultValue={skills}
                                 data={skills}
@@ -296,7 +325,7 @@ const AccountForm = () => {
                                     <DatePickerField
                                         name="active_hour_start"
                                         labelName="From"
-                                        placeHolder="dd/mm/yy"
+                                        placeHolder="hh/mm"
                                         dateFormat="HH:mm aa"
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
@@ -309,7 +338,7 @@ const AccountForm = () => {
                                         name="active_hour_end"
                                         labelName="To"
                                         dateFormat="HH:mm aa"
-                                        placeHolder="dd/mm/yy"
+                                        placeHolder="hh/mm"
                                         touch={touched.active_hour_end}
                                         error={errors.active_hour_end}
                                         timeOnly
@@ -355,7 +384,7 @@ const AccountForm = () => {
                                 </label>
                             </div>
                             <hr />
-                            <h3>Active Hours</h3>
+                            <h3>Address</h3>
                             <SelectInputField
                                 name="country"
                                 labelName="Country"
@@ -418,7 +447,7 @@ const AccountForm = () => {
                                 touch={touched.task_preferences}
                                 error={errors.task_preferences}
                                 placeHolder="Select your preferences"
-                                options={dropdownCurrencyOptions}
+                                options={task_preferences}
                                 disabled={profile ? true : false}
                             />
                             <div className="d-flex justify-content-end">
