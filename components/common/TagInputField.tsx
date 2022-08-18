@@ -2,6 +2,7 @@ import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS
 
 import { MultiSelect } from "@mantine/core";
 import { ErrorMessage, Field } from "formik";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 
@@ -15,7 +16,7 @@ const TagInputField = ({
     textMuted,
     fieldRequired = false,
 }: InputFieldProps & Partial<HTMLInputElement>) => {
-    console.log("data", data);
+    const { data: profile } = useGetProfile();
 
     return (
         <div className={checkFormGroup(error)}>
@@ -34,6 +35,7 @@ const TagInputField = ({
                     const { setFieldValue } = form;
                     return (
                         <MultiSelect
+                            disabled={profile ? true : false}
                             defaultValue={Array.isArray(data) ? data : []}
                             data={Array.isArray(data) ? data : []}
                             placeholder={placeHolder}
