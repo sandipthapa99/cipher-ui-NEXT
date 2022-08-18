@@ -17,9 +17,10 @@ const MerchantCard = ({
     merchantPrice,
     happyClients,
     successRate,
+    onClick,
 }: MerchantCardProps) => {
     return (
-        <div className="merchant-card-block">
+        <div onClick={onClick} className="merchant-card-block">
             <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
                 <figure className="thumbnail-img">
                     <Image

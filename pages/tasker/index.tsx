@@ -13,6 +13,7 @@ import { DUMMY_TASKS } from "types/tasks";
 
 const Tasker = () => {
     const router = useRouter();
+    const { redirectedFrom } = router.query;
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTaskIdx, setActiveTaskIdx] = useState<number | undefined>();
 
@@ -23,7 +24,14 @@ const Tasker = () => {
         });
         setActiveTaskIdx(task.id);
     };
-    const removeActiveTaskIdx = () => setActiveTaskIdx(undefined);
+    const removeActiveTaskIdx = () => {
+        if (redirectedFrom)
+            return router.push({
+                pathname: redirectedFrom,
+                hash: "top-merchants",
+            });
+        setActiveTaskIdx(undefined);
+    };
 
     const filteredTasks = useMemo(
         () =>
