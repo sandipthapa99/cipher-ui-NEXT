@@ -46,7 +46,6 @@ const EducationForm = ({
     ]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
-    console.log("edit details=", editDetails);
 
     return (
         <>

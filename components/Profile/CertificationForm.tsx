@@ -50,8 +50,7 @@ const CertificationForm = ({
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
     const [toggle, setToggled] = useState(editDetails?.does_expire ?? false);
-    console.log("certififcate edit=", editDetails);
-    console.log("edit id", id);
+
     return (
         <Fragment>
             {/* Modal component */}

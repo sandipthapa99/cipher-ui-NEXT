@@ -77,8 +77,8 @@ const AboutProfile = () => {
         "/tasker/profile/"
     );
     console.log("Data=", userData);
-    const userSkills = userData?.data?.skill;
-    console.log("user profile skills=", userSkills);
+    // const userSkills = JSON.parse(userData?.data?.skill);
+    // console.log("user profile skills=", skills);
 
     return (
         <>
@@ -260,7 +260,6 @@ const AboutProfile = () => {
                                         {info}
                                     </div>
                                 ))} */}
-                                <div className="skills__type">{userSkills}</div>
                             </div>
                         </Col>
                     </Row>

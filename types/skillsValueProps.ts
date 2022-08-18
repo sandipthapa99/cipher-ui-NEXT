@@ -1,3 +1,3 @@
 export interface SkillsValueProps {
-    skills: string;
+    skill: string;
 }
