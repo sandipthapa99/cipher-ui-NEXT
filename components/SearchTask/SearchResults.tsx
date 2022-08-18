@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 import type { ServiceNearYou } from "../../staticData/servicesNearYouCard";
@@ -11,15 +11,27 @@ interface SearchResultsProps {
 }
 
 const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
+    const router = useRouter();
+
     const [activeService, setActiveService] = useState<
         ServiceNearYou | undefined
     >();
 
-    const router = useRouter();
+    useEffect(() => {
+        const serviceId = router?.query?.serviceId;
+
+        if (serviceId) {
+            const service = servicesNearYou?.find(
+                (item) => item?.id === parseInt(serviceId as string)
+            );
+            console.log("serviceId ......", service);
+            setActiveService(service);
+        }
+    }, [router?.query, router?.query?.serviceId, servicesNearYou]);
 
     const toggleActiveService = (service: ServiceNearYou) => {
         router.push({
-            pathname: router.pathname,
+            pathname: router?.pathname,
             query: { ...router.query, serviceId: service?.id },
         });
         setActiveService(service);
@@ -30,7 +42,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
             return (
                 <div
                     key={service?.id}
-                    onClick={() => setActiveService(service)}
+                    onClick={() => toggleActiveService(service)}
                     style={{ cursor: "pointer" }}
                 >
                     <ServiceNearYouCard

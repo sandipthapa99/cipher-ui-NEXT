@@ -48,7 +48,10 @@ const ServiceNearYouCard = ({
     const providerName = data?.groups[0]?.name;
 
     return (
-        <div className="service-card-block service-near-you-card-block">
+        <div
+            className="service-card-block service-near-you-card-block"
+            onClick={() => onServiceClick}
+        >
             <Row>
                 <Col md="5">
                     <figure className="thumbnail-img">
