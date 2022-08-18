@@ -1,4 +1,4 @@
-import { ExperimentalProfileModel } from "@components/model/ProfileModel/ProfileModel";
+import { ProfileModel } from "@components/model/ProfileModel";
 import { faBars } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,10 +10,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
-import { profileCardContent } from "staticData/profileCardContent";
 import { handleMenuActive } from "utils/helpers";
 
-import { ProfileModel } from "./model/ProfileModel";
 import { PostCard } from "./PostTask/PostCard";
 import PostModal from "./PostTask/PostModal";
 
@@ -118,7 +116,7 @@ export function UpperHeader() {
                                 </Link>
                             </>
                         )}
-                        {!user && (
+                        {user && (
                             <div ref={profileModalRef} className="user-profile">
                                 <span
                                     className="btn location-btn d-none d-md-inline-block"
@@ -134,12 +132,7 @@ export function UpperHeader() {
                                         />
                                     </figure>
                                 </span>
-                                {showProfileModal && (
-                                    <ExperimentalProfileModel />
-                                    // <ProfileModel
-                                    //     profile={profileCardContent}
-                                    // />
-                                )}
+                                {showProfileModal && <ProfileModel />}
                             </div>
                         )}
 

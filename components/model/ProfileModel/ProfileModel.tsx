@@ -86,7 +86,7 @@ const PROFILE_LINKS = {
         },
     ],
 };
-export const ExperimentalProfileModel = () => {
+export const ProfileModel = () => {
     const queryClient = useQueryClient();
     const router = useRouter();
     const { classes } = useProfileModelStyles();

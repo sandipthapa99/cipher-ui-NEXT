@@ -19,7 +19,6 @@ import {
     Navbar,
     Row,
 } from "react-bootstrap";
-import { profileCardContent } from "staticData/profileCardContent";
 
 const SearchHeader = () => {
     const { data, isLoading } = useUser();
@@ -94,11 +93,7 @@ const SearchHeader = () => {
                                             </figure>
                                         </span>
 
-                                        {showProfileModal && (
-                                            <ProfileModel
-                                                profile={profileCardContent}
-                                            />
-                                        )}
+                                        {showProfileModal && <ProfileModel />}
                                     </div>
                                     <button
                                         className="post-btn"
