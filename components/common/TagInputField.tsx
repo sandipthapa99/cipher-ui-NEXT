@@ -35,7 +35,7 @@ const TagInputField = ({
                     const { setFieldValue } = form;
                     return (
                         <MultiSelect
-                            disabled={profile ? true : false}
+                            // disabled={profile ? true : false}
                             defaultValue={Array.isArray(data) ? data : []}
                             data={Array.isArray(data) ? data : []}
                             placeholder={placeHolder}

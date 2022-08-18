@@ -23,6 +23,7 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
+import { formatTime } from "utils/FormatTime/formatTime";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -61,7 +62,6 @@ const AccountForm = () => {
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
-    console.log(profile);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -95,9 +95,7 @@ const AccountForm = () => {
                     enableReinitialize={true}
                     initialValues={{
                         full_name: profile?.full_name ?? "",
-                        phone:
-                            profile?.phone ??
-                            Math.floor(Math.random() * 1000000000),
+                        phone: profile?.phone ?? "",
                         email: "",
                         bio: profile?.bio ?? "",
                         gender: profile?.gender ?? "",
@@ -109,7 +107,7 @@ const AccountForm = () => {
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start: "",
                         active_hour_end: "",
-                        hourly_rate: 20,
+                        hourly_rate: profile?.hourly_rate ?? "",
                         user_type: profile?.user_type ?? "",
                         country: profile?.country ?? "",
                         education: "abc",
@@ -121,7 +119,7 @@ const AccountForm = () => {
                         task_preferences: profile?.task_preferences ?? "",
                         profile_image: "",
                     }}
-                    // validationSchema={accountFormSchema}
+                    validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
                         const formData = new FormData();
 
@@ -222,7 +220,7 @@ const AccountForm = () => {
                                 labelName="Full Name"
                                 error={errors.full_name}
                                 touch={touched.full_name}
-                                placeholder="Enter your full name"
+                                placeholder="Full Name"
                                 disabled={profile ? true : false}
                             />
                             {/* <InputField
@@ -242,6 +240,18 @@ const AccountForm = () => {
                                 as="textarea"
                                 disabled={profile ? true : false}
                             />
+                            <Row className="g-5">
+                                <Col md={6}>
+                                    <InputField
+                                        name="phone"
+                                        labelName="Phone Number"
+                                        touch={touched.phone}
+                                        error={errors.phone}
+                                        placeHolder="Enter your Phone Number"
+                                        disabled={profile ? true : false}
+                                    />
+                                </Col>
+                            </Row>
                             <RadioField
                                 type="radio"
                                 name="gender"
@@ -307,6 +317,20 @@ const AccountForm = () => {
                                     />
                                 </Col>
                             </Row>
+                            <Row>
+                                <Col md={3}>
+                                    <InputField
+                                        type="number"
+                                        name="hourly_rate"
+                                        labelName="Base Rate Per Hour"
+                                        error={errors.hourly_rate}
+                                        touch={touched.hourly_rate}
+                                        placeHolder="Base Rate Per Hour"
+                                        disabled={profile ? true : false}
+                                    />
+                                </Col>
+                            </Row>
+
                             <h4>Select User Type</h4>
                             <div role="group" aria-labelledby="checkbox-group">
                                 <label className="me-3">
