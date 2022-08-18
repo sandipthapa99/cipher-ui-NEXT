@@ -72,13 +72,11 @@ const AboutProfile = () => {
         setId(id);
     }, []);
 
-    const { data: userData } = useData<UserProfileProps["profileData"]>(
-        ["profile"],
-        "/tasker/profile/"
-    );
-    console.log("Data=", userData);
-    // const userSkills = JSON.parse(userData?.data?.skill);
-    // console.log("user profile skills=", skills);
+    const { data: profileDetails } = useGetProfile();
+
+    console.log("profile=", profileDetails);
+    const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
+    console.log("user profile skills=", userSkills);
 
     return (
         <>
@@ -255,11 +253,11 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {/* {userSkills?.map((info: any, i: any) => (
+                                {userSkills.map((info: any, i: any) => (
                                     <div className="skills__type" key={i}>
                                         {info}
                                     </div>
-                                ))} */}
+                                ))}
                             </div>
                         </Col>
                     </Row>

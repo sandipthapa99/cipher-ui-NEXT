@@ -5,6 +5,7 @@ import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { MultiSelect } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import { useEditForm } from "hooks/use-edit-form";
 import type { Dispatch, SetStateAction } from "react";
@@ -12,7 +13,6 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import type { UserProfileProps } from "types/userProfileProps";
 import { SkillsFromData } from "utils/formData";
 import { skillsFormSchema } from "utils/formValidation/skillsFormValidation";
@@ -36,14 +36,12 @@ const AddSkills = ({
     ];
     const { mutate } = useEditForm(`/tasker/profile/`);
     const queryClient = useQueryClient();
-    const { data: userData } = useData<UserProfileProps["profileData"]>(
-        ["profile"],
-        "/tasker/profile/"
-    );
-    const userSkills = JSON.parse(userData?.data?.skill);
-    //const userSkills = userData?.data?.skill;
 
-    console.log("user profile skills=", userSkills);
+    const { data: profileDetails } = useGetProfile();
+
+    console.log("profile=", profileDetails);
+    const userSkills = profileDetails?.skill;
+    console.log("userskills=", userSkills);
 
     return (
         <>
@@ -73,31 +71,32 @@ const AddSkills = ({
                             // ];
 
                             const skill = values.skill;
-                            const newValue = userSkills.concat(skill);
+                            const newValue = userSkills?.concat(skill);
 
                             const newSkills = JSON.stringify(newValue);
                             console.log(
                                 "new skills=",
                                 JSON.stringify(newSkills)
                             );
-                            const finalSKills = { ...values, skill: newValue };
-                            mutate(finalSKills, {
-                                onSuccess: async () => {
-                                    console.log(
-                                        "submitted values",
-                                        finalSKills
-                                    );
-                                    setShowAddSkillsForm(false);
-                                    queryClient.invalidateQueries(["profile"]);
-                                    toast.success(
-                                        "Skills detail added successfully"
-                                    );
-                                },
-                                onError: async (error) => {
-                                    toast.error(error.message);
-                                    console.log("error=", error);
-                                },
-                            });
+                            const finalSKills = { ...values, skill: newSkills };
+                            console.log("fila=", finalSKills);
+                            // mutate(finalSKills, {
+                            //     onSuccess: async () => {
+                            //         console.log(
+                            //             "submitted values",
+                            //             finalSKills
+                            //         );
+                            //         setShowAddSkillsForm(false);
+                            //         queryClient.invalidateQueries(["profile"]);
+                            //         toast.success(
+                            //             "Skills detail added successfully"
+                            //         );
+                            //     },
+                            //     onError: async (error) => {
+                            //         toast.error(error.message);
+                            //         console.log("error=", error);
+                            //     },
+                            // });
 
                             // console.log(values);
                         }}
