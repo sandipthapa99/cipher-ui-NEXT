@@ -23,7 +23,7 @@ const ChangePasswordForm = () => {
             {/* Modal component */}
             <div className="account-form">
                 <h2>Password</h2>
-                <p>Password Configurations</p>
+                <p>Configurations</p>
                 <Formik
                     initialValues={ChangePasswordFromData}
                     validationSchema={changePasswordFormSchema}
@@ -36,6 +36,7 @@ const ChangePasswordForm = () => {
                                     toast.success(
                                         "Password changed successfully"
                                     );
+                                    toggleSuccessModal();
                                 },
                                 onError: (err) => {
                                     toast.error(err.message);

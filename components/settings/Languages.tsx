@@ -8,7 +8,7 @@ const LanguagesSettings = () => {
     return (
         <div className="account-form">
             <h2>Languages</h2>
-            <p>Order languages based on your preference </p>
+            <p>Choose language as per your preference</p>
             {languageActiveData.map((value, key) => (
                 <div
                     className="d-flex justify-content-between align-items-center border-bottom py-4"
