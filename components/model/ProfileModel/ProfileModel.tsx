@@ -1,39 +1,62 @@
 import {
+    faArrowRightFromBracket,
     faBoxOpen,
-    faCar,
     faChartSimpleHorizontal,
+    faFileInvoiceDollar,
+    faGauge,
+    faGear,
+    faGift,
+    faRepeat,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Divider, Text } from "@mantine/core";
+import { Button, Divider, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
+import { autoLogout } from "utils/auth";
 
 import { useProfileModelStyles } from "./profileModelStyles";
+
+const REGULAR_ICON_COLOR = "#495057";
+const SPECIAL_ICON_COLOR = "#F98900";
 
 const PROFILE_LINKS = {
     sectionOne: [
         {
             title: "Overview",
-            icon: <FontAwesomeIcon icon={faChartSimpleHorizontal} />,
-            href: "/overview",
+            icon: (
+                <FontAwesomeIcon
+                    color={REGULAR_ICON_COLOR}
+                    icon={faChartSimpleHorizontal}
+                />
+            ),
+            href: "/profile",
             color: "#495057",
         },
         {
             title: "My Orders",
-            icon: <FontAwesomeIcon icon={faBoxOpen} />,
+            icon: (
+                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faBoxOpen} />
+            ),
             href: "/myorders",
             color: "#495057",
         },
         {
             title: "Payment History",
-            icon: "/userprofile/paymenthistory.svg",
+            icon: (
+                <FontAwesomeIcon
+                    color={REGULAR_ICON_COLOR}
+                    icon={faFileInvoiceDollar}
+                />
+            ),
             href: "/payment-history",
             color: "#495057",
         },
         {
             title: "Redeem",
-            icon: "/userprofile/redeem.svg",
+            icon: <FontAwesomeIcon color={SPECIAL_ICON_COLOR} icon={faGift} />,
             href: "/redeem",
             color: "#F98900",
         },
@@ -41,7 +64,9 @@ const PROFILE_LINKS = {
     sectionTwo: [
         {
             title: "Switch to i am the...",
-            icon: "/userprofile/switch.svg",
+            icon: (
+                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faRepeat} />
+            ),
             href: "/switch",
             color: "#495057",
         },
@@ -49,28 +74,29 @@ const PROFILE_LINKS = {
     sectionThree: [
         {
             title: "My Dashboard",
-            icon: "/userprofile/mydashboard.svg",
+            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
             href: "/my-dashboard",
             color: "#495057",
         },
         {
             title: "Settings",
-            icon: "/userprofile/settings.svg",
+            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGear} />,
             href: "/settings/account/individual",
-            color: "#495057",
-        },
-    ],
-    sectionFour: [
-        {
-            title: "Logout",
-            icon: "/userprofile/logout.svg",
-            href: "/logout",
             color: "#495057",
         },
     ],
 };
 export const ExperimentalProfileModel = () => {
+    const queryClient = useQueryClient();
+    const router = useRouter();
     const { classes } = useProfileModelStyles();
+
+    const handleLogout = () => {
+        queryClient.setQueryData(["user"], null);
+        autoLogout();
+        router.push(router.pathname);
+    };
+
     const renderProfileSections = () => {
         return Object.entries(PROFILE_LINKS).map((entry) => {
             const [key, value] = entry;
@@ -79,7 +105,8 @@ export const ExperimentalProfileModel = () => {
                     <Divider my="1rem" />
                     {value.map((item, key) => (
                         <li key={key}>
-                            <FontAwesomeIcon icon={faCar} color={item.color} />
+                            {/* <FontAwesomeIcon icon={faCar} color={item.color} /> */}
+                            {item.icon}
                             <NextLink
                                 style={{ color: item.color }}
                                 href={item.href}
@@ -112,7 +139,27 @@ export const ExperimentalProfileModel = () => {
                     alt="Badge"
                 />
             </div>
-            <div className={classes.body}>{renderProfileSections()}</div>
+            <div className={classes.body}>
+                {renderProfileSections()}
+                <ul>
+                    <Divider my="1rem" />
+                    <li>
+                        <Button
+                            sx={{ fontWeight: 500 }}
+                            color={"red"}
+                            variant="white"
+                            leftIcon={
+                                <FontAwesomeIcon
+                                    icon={faArrowRightFromBracket}
+                                />
+                            }
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </Button>
+                    </li>
+                </ul>
+            </div>
         </div>
     );
 };
