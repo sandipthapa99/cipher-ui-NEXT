@@ -22,70 +22,6 @@ import { useProfileModelStyles } from "./profileModelStyles";
 const REGULAR_ICON_COLOR = "#495057";
 const SPECIAL_ICON_COLOR = "#F98900";
 
-const PROFILE_LINKS = {
-    sectionOne: [
-        {
-            title: "Overview",
-            icon: (
-                <FontAwesomeIcon
-                    color={REGULAR_ICON_COLOR}
-                    icon={faChartSimpleHorizontal}
-                />
-            ),
-            href: "/profile",
-            color: "#495057",
-        },
-        {
-            title: "My Orders",
-            icon: (
-                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faBoxOpen} />
-            ),
-            href: "/myorders",
-            color: "#495057",
-        },
-        {
-            title: "Payment History",
-            icon: (
-                <FontAwesomeIcon
-                    color={REGULAR_ICON_COLOR}
-                    icon={faFileInvoiceDollar}
-                />
-            ),
-            href: "/payment-history",
-            color: "#495057",
-        },
-        {
-            title: "Redeem",
-            icon: <FontAwesomeIcon color={SPECIAL_ICON_COLOR} icon={faGift} />,
-            href: "/redeem",
-            color: "#F98900",
-        },
-    ],
-    sectionTwo: [
-        {
-            title: "Switch to i am the...",
-            icon: (
-                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faRepeat} />
-            ),
-            href: "/switch",
-            color: "#495057",
-        },
-    ],
-    sectionThree: [
-        {
-            title: "My Dashboard",
-            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
-            href: "/my-dashboard",
-            color: "#495057",
-        },
-        {
-            title: "Settings",
-            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGear} />,
-            href: "/settings/account/individual",
-            color: "#495057",
-        },
-    ],
-};
 export const ProfileModel = () => {
     const queryClient = useQueryClient();
     const router = useRouter();
@@ -162,4 +98,68 @@ export const ProfileModel = () => {
             </div>
         </div>
     );
+};
+const PROFILE_LINKS = {
+    sectionOne: [
+        {
+            title: "Overview",
+            icon: (
+                <FontAwesomeIcon
+                    color={REGULAR_ICON_COLOR}
+                    icon={faChartSimpleHorizontal}
+                />
+            ),
+            href: "/profile",
+            color: "#495057",
+        },
+        {
+            title: "My Orders",
+            icon: (
+                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faBoxOpen} />
+            ),
+            href: "/myorders",
+            color: "#495057",
+        },
+        {
+            title: "Payment History",
+            icon: (
+                <FontAwesomeIcon
+                    color={REGULAR_ICON_COLOR}
+                    icon={faFileInvoiceDollar}
+                />
+            ),
+            href: "/payment-history",
+            color: "#495057",
+        },
+        {
+            title: "Redeem",
+            icon: <FontAwesomeIcon color={SPECIAL_ICON_COLOR} icon={faGift} />,
+            href: "/redeem",
+            color: "#F98900",
+        },
+    ],
+    sectionTwo: [
+        {
+            title: "Switch to i am the...",
+            icon: (
+                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faRepeat} />
+            ),
+            href: "/switch",
+            color: "#495057",
+        },
+    ],
+    sectionThree: [
+        {
+            title: "My Dashboard",
+            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
+            href: "/my-dashboard",
+            color: "#495057",
+        },
+        {
+            title: "Settings",
+            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGear} />,
+            href: "/settings/account/individual",
+            color: "#495057",
+        },
+    ],
 };
