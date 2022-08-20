@@ -31,6 +31,7 @@ export type ProfileResponse = {
     language: number;
     subscription: Array<any>;
     message?: string;
+    detail?: string;
 };
 
 export const useGetProfile = () => {

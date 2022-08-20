@@ -4,15 +4,17 @@ import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
 import { UserTaskCardList } from "@components/Task/UserTaskCard/UserTaskCardList";
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
+import { useTaskers } from "hooks/tasker/use-tasker";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { taskDetails } from "staticData/taskDetail";
 import type { Task } from "types/tasks";
-import { DUMMY_TASKS } from "types/tasks";
 
 const Tasker = () => {
     const router = useRouter();
+    const { data: taskers = [] } = useTaskers();
+    const { redirectedFrom } = router.query;
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTaskIdx, setActiveTaskIdx] = useState<number | undefined>();
 
@@ -23,18 +25,25 @@ const Tasker = () => {
         });
         setActiveTaskIdx(task.id);
     };
-    const removeActiveTaskIdx = () => setActiveTaskIdx(undefined);
+    const removeActiveTaskIdx = () => {
+        if (redirectedFrom && typeof redirectedFrom === "string")
+            return router.push({
+                pathname: redirectedFrom,
+                hash: "top-merchants",
+            });
+        setActiveTaskIdx(undefined);
+    };
 
     const filteredTasks = useMemo(
         () =>
             searchQuery
-                ? DUMMY_TASKS.filter((dummyTask) =>
-                      dummyTask.user.username
+                ? taskers.filter((task) =>
+                      task.user.username
                           .toLowerCase()
                           .includes(searchQuery.toLowerCase())
                   )
-                : DUMMY_TASKS,
-        [searchQuery]
+                : taskers,
+        [searchQuery, taskers]
     );
     useEffect(() => {
         const { taskId } = router.query;

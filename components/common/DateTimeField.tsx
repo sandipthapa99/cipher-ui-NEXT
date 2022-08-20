@@ -32,8 +32,10 @@ const DatePickerField = ({
                     {({ form, field }: any) => {
                         const { setFieldValue } = form;
                         const { value } = field;
+
                         return (
                             <DateView
+                                autoComplete="off"
                                 id={name}
                                 {...field}
                                 {...restProps}

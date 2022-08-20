@@ -4,27 +4,9 @@ import { Formik } from "formik";
 import React from "react";
 import { AccountFromData } from "utils/formData";
 
-const dropdownCountryOptions = [
-    { id: 1, label: "All activity", value: "All activity" },
-    { id: 2, label: "USA", value: "usa" },
-    { id: 3, label: "Canda", value: "canda" },
-];
-const dropdownCurrencyOptions = [
-    {
-        id: 1,
-        label: "Important activity Only",
-        value: "Important activity Only",
-    },
-    { id: 2, label: "Dollar", value: "dollar" },
-    { id: 3, label: "CDollar", value: "cdollar" },
-];
-const serviceBackendOptions = [
-    {
-        id: 1,
-        label: "Yes",
-        value: "yes",
-    },
-    { id: 2, label: "No", value: "no" },
+const notificationOptions = [
+    { id: 1, label: "Your task Activities", value: "taskActivities" },
+    { id: 2, label: "New taks/ services", value: "newTask" },
 ];
 
 const NotificationSettings = () => {
@@ -44,14 +26,14 @@ const NotificationSettings = () => {
                         name="notification"
                         labelName="Show Notification for:"
                         placeHolder="All activity"
-                        options={dropdownCountryOptions}
+                        options={notificationOptions}
                     />
-                    <SelectInputField
+                    {/* <SelectInputField
                         name="message"
                         labelName="Important Message Counter for"
                         placeHolder="Important activity Only"
-                        options={dropdownCurrencyOptions}
-                    />
+                        options={notificationOptions}
+                    /> */}
                     <hr />
                     <h2>Email</h2>
                     <p>Your Email Notification Setting</p>
@@ -59,14 +41,14 @@ const NotificationSettings = () => {
                         name="activity"
                         labelName="Send an Email with unread activity for"
                         placeHolder="All activity"
-                        options={dropdownCurrencyOptions}
+                        options={notificationOptions}
                     />
-                    <SelectInputField
+                    {/* <SelectInputField
                         name="country"
                         labelName="Receive Emails for Service Backend"
                         placeHolder="select"
                         options={serviceBackendOptions}
-                    />
+                    /> */}
                 </Form>
             </Formik>
         </div>

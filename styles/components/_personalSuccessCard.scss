@@ -56,6 +56,11 @@
 
         .badge-section {
             margin: 0 0 4rem;
+            .badge-section__img {
+                width: 9.4rem;
+                min-height: 8.4rem;
+                position: relative;
+            }
             h5 {
                 font: 400 1.4rem $poppins-font;
                 margin: 0 0 0.8rem;

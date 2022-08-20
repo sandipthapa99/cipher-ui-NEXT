@@ -6,7 +6,7 @@ import {
     faLifeRing,
     faLinkSimple,
     faUser,
-    faUserTag,
+    // faUserTag,
     faXmark,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -47,7 +47,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                                     icon={faUser}
                                                     className="svg-icon"
                                                 />
-                                                Account
+                                                Account Settings
                                             </a>
                                         </Link>
                                     </li>
@@ -68,7 +68,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                             </a>
                                         </Link>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         <Link
                                             href={
                                                 "/settings/account/membership"
@@ -86,7 +86,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                                 Membership
                                             </a>
                                         </Link>
-                                    </li>
+                                    </li> */}
                                     <li>
                                         <Link
                                             href={

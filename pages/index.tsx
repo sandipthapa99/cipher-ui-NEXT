@@ -22,10 +22,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Formik } from "formik";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import router from "next/router";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
@@ -36,6 +37,8 @@ import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 import { tasks } from "staticData/task";
+import type { SuccessStoryProps } from "types/successStory";
+import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
@@ -44,7 +47,9 @@ const CategoriesListingHomepage = dynamic(
     () => import("components/common/CategoriesListingHomepage"),
     { ssr: false }
 );
-const Home: NextPage = () => {
+const Home: NextPage<{ successStoryData: SuccessStoryProps }> = ({
+    successStoryData,
+}) => {
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -463,7 +468,7 @@ const Home: NextPage = () => {
                     </div>
                     <Row className="gx-5">
                         {merchants &&
-                            merchants.map((merchant) => {
+                            merchants.map((merchant, index) => {
                                 return (
                                     <Col
                                         md={6}
@@ -474,6 +479,16 @@ const Home: NextPage = () => {
                                         className="d-flex"
                                     >
                                         <MerchantCard
+                                            onClick={() =>
+                                                router.push({
+                                                    pathname: "/tasker",
+                                                    query: {
+                                                        taskId: index,
+                                                        redirectedFrom:
+                                                            router.pathname,
+                                                    },
+                                                })
+                                            }
                                             merchantImage={
                                                 merchant.merchantImage
                                             }
@@ -576,7 +591,7 @@ const Home: NextPage = () => {
                         </h1>
                         <h3 className="text-center">Some Success Stories</h3>
                     </div>
-                    <PersonalSuccessCard />
+                    <PersonalSuccessCard successStoryData={successStoryData} />
                 </Container>
             </section>
 
@@ -731,3 +746,24 @@ const Home: NextPage = () => {
     );
 };
 export default Home;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: successStoryData } = await axiosClient.get(
+            "/tasker/success-story/"
+        );
+        return {
+            props: {
+                successStoryData: successStoryData,
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                successStoryData: [],
+            },
+            revalidate: 10,
+        };
+    }
+};

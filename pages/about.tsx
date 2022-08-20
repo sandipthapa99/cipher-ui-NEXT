@@ -50,26 +50,17 @@ const About: NextPage = () => {
                                         customers with about providers.{" "}
                                     </h4>
                                     <p>
-                                        CIPHER is a platform incepted with the
-                                        idea of bridging the gap between
-                                        individuals who need a certain task
-                                        completed, and those who have the skills
-                                        to get the very task completed within a
-                                        given timeframe. The tasks one might
-                                        need may range from anything between
-                                        getting your room painted, or getting an
-                                        entire software developed. In
-                                        today&apos;s fast paced environment, one
-                                        might not have the time to manage their
-                                        household errands as they might want to,
-                                        or you might be an entrepreneur wanting
-                                        to finish your project on a deadline,
-                                        and this is exactly where CIPHER is
-                                        going to be your trusted partner for
-                                        everything. Go through the app, search
-                                        for the abouts you want to avail, and in
-                                        a few clicks, your task will be
-                                        completed within your desired timeframe.
+                                        Living in a competitive world and busy
+                                        life, most of us are always seeking help
+                                        to complete most of our daily works.
+                                        Finding services at an instant has been
+                                        quite a hassle, therefore, Mr. Suman
+                                        Parajuli and Mrs. Sikha Parajuli,
+                                        respectively CEO and Founder of CIPHER,
+                                        created a team with a vision to provide
+                                        a digital platform where you can easily
+                                        post your tasks and services and get it
+                                        done.
                                     </p>
                                 </div>
                             </Col>
@@ -77,7 +68,7 @@ const About: NextPage = () => {
                         <Row className="purpose-container gx-5">
                             <Col md={6}>
                                 <div className="about-information purpose">
-                                    <h1>Our Purpose</h1>
+                                    <h1>Story Behind CIPHER</h1>
                                     <p>
                                         Serve the community by providing
                                         everyone the platform to showcase their

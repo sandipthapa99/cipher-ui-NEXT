@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 import type { ServiceNearYou } from "../../staticData/servicesNearYouCard";
@@ -10,18 +11,38 @@ interface SearchResultsProps {
 }
 
 const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
+    const router = useRouter();
+
     const [activeService, setActiveService] = useState<
         ServiceNearYou | undefined
     >();
 
-    console.log("activeService", activeService);
+    useEffect(() => {
+        const serviceId = router?.query?.serviceId;
+
+        if (serviceId) {
+            const service = servicesNearYou?.find(
+                (item) => item?.id === parseInt(serviceId as string)
+            );
+            console.log("serviceId ......", service);
+            setActiveService(service);
+        }
+    }, [router?.query, router?.query?.serviceId, servicesNearYou]);
+
+    const toggleActiveService = (service: ServiceNearYou) => {
+        router.push({
+            pathname: router?.pathname,
+            query: { ...router.query, serviceId: service?.id },
+        });
+        setActiveService(service);
+    };
 
     const renderServiceCards = () =>
         servicesNearYou?.map((service: any) => {
             return (
                 <div
                     key={service?.id}
-                    onClick={() => setActiveService(service)}
+                    onClick={() => toggleActiveService(service)}
                     style={{ cursor: "pointer" }}
                 >
                     <ServiceNearYouCard
@@ -32,6 +53,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                         discount={service?.discount}
                         image={service?.image}
                         serviceProvider={service?.created_by}
+                        onServiceClick={toggleActiveService}
                     />
                 </div>
             );
