@@ -19,6 +19,7 @@ import { Col, Row } from "react-bootstrap";
 import type { UserProfileInfoProps } from "types/userProfile";
 
 import ProfileEditForm from "./ProfileEditForm";
+import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 
 const UserProfileCard = ({
@@ -194,9 +195,12 @@ const UserProfileCard = ({
                         <Col md={6}>
                             <div className="reactions d-flex">
                                 <div className="d-flex flex-col share">
-                                    <FontAwesomeIcon
-                                        icon={faShare}
-                                        className="svg-icon share"
+                                    <ShareIcon
+                                        url={`http://localhost:3005/profile/`}
+                                        quote={
+                                            "Hi guys checkout my Cipher Profile"
+                                        }
+                                        hashtag={"cipher-profile"}
                                     />
                                 </div>
                                 <FontAwesomeIcon
