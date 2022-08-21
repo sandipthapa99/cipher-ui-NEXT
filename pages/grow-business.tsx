@@ -4,7 +4,8 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import ServiceCard from "@components/common/ServiceCard";
 import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
-import type { GetStaticProps, NextPage } from "next";
+import { useData } from "hooks/use-data";
+import type { NextPage } from "next";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { Carousel } from "react-bootstrap";
@@ -15,11 +16,9 @@ import {
 import { servicesDiscover } from "staticData/services";
 import { services } from "staticData/services";
 import type { BlogValueProps } from "types/blogs";
-import { axiosClient } from "utils/axiosClient";
 
-const GrowYourBusiness: NextPage<{
-    blogData: BlogValueProps;
-}> = ({ blogData }) => {
+const GrowYourBusiness: NextPage = () => {
+    const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     return (
         <Layout title="Grow Your Business | Cipher">
             <Container fluid="xl" className="px-5">
@@ -173,7 +172,7 @@ const GrowYourBusiness: NextPage<{
                         <h1>Blogs</h1>
                         <Row className="gx-5">
                             {blogData &&
-                                blogData?.result
+                                blogData?.data?.result
                                     ?.slice(0, 3)
                                     .map((blog, key) => {
                                         return (
@@ -205,22 +204,3 @@ const GrowYourBusiness: NextPage<{
 };
 
 export default GrowYourBusiness;
-
-export const getStaticProps: GetStaticProps = async () => {
-    try {
-        const { data: blogData } = await axiosClient.get("/blog/");
-        return {
-            props: {
-                blogData: blogData,
-            },
-            revalidate: 10,
-        };
-    } catch (err: any) {
-        return {
-            props: {
-                blogData: [],
-            },
-            revalidate: 10,
-        };
-    }
-};

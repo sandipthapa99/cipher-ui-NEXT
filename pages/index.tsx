@@ -21,6 +21,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
 import type { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
@@ -771,12 +772,13 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: trustedPartnerData } = await axiosClient.get(
             "/landingpage/trusted-partner/"
         );
-        const { data: blogData } = await axiosClient.get("/blog/");
+        const queryClient = new QueryClient();
+        await queryClient.prefetchQuery(["all-blogs"]);
         return {
             props: {
                 successStoryData: successStoryData,
                 trustedPartnerData: trustedPartnerData,
-                blogData: blogData,
+                dehydratedState: dehydrate(queryClient),
             },
             revalidate: 10,
         };

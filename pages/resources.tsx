@@ -4,16 +4,15 @@ import BusinessGoal from "@components/common/BusinessGoal";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import type { GetStaticProps, NextPage } from "next";
+import { useData } from "hooks/use-data";
+import type { NextPage } from "next";
 import Image from "next/image";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import { resourceCarouselContent } from "staticData/resourceCarouselContent";
 import type { BlogValueProps } from "types/blogs";
-import { axiosClient } from "utils/axiosClient";
 import searchValidationSchema from "utils/formValidation/searchValidation";
-const Resources: NextPage<{
-    blogData: BlogValueProps;
-}> = ({ blogData }) => {
+const Resources: NextPage = () => {
+    const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     return (
         <Layout title="Resources | Cipher">
             <section className="resource-page">
@@ -75,7 +74,7 @@ const Resources: NextPage<{
                             <h3>Featured Resources</h3>
                             <Row>
                                 {blogData &&
-                                    blogData?.result
+                                    blogData?.data?.result
                                         ?.slice(0, 3)
                                         .map((blog, key) => {
                                             return (
@@ -96,7 +95,7 @@ const Resources: NextPage<{
                             <h1>Latest BLOGS</h1>
                             <Row>
                                 {blogData &&
-                                    blogData?.result
+                                    blogData?.data?.result
                                         ?.slice(0, 2)
                                         .map((blog, key) => {
                                             return (
@@ -117,7 +116,7 @@ const Resources: NextPage<{
                             <h1>Popular content</h1>
                             <Row>
                                 {blogData &&
-                                    blogData?.result
+                                    blogData?.data?.result
                                         ?.slice(0, 3)
                                         .map((blog, key) => {
                                             return (
@@ -142,22 +141,3 @@ const Resources: NextPage<{
 };
 
 export default Resources;
-
-export const getStaticProps: GetStaticProps = async () => {
-    try {
-        const { data: blogData } = await axiosClient.get("/blog/");
-        return {
-            props: {
-                blogData: blogData,
-            },
-            revalidate: 10,
-        };
-    } catch (err: any) {
-        return {
-            props: {
-                blogData: [],
-            },
-            revalidate: 10,
-        };
-    }
-};

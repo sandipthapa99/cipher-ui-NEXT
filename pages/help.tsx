@@ -6,19 +6,18 @@ import FaqContent from "@components/common/Faq";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import type { GetStaticProps, NextPage } from "next";
+import { useData } from "hooks/use-data";
+import type { NextPage } from "next";
 import Image from "next/image";
 import React from "react";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { faqContent } from "staticData/faq";
 import { helpCardContent } from "staticData/helpCardContent";
 import type { BlogValueProps } from "types/blogs";
-import { axiosClient } from "utils/axiosClient";
 import searchValidationSchema from "utils/formValidation/searchValidation";
 
-const Help: NextPage<{
-    blogData: BlogValueProps;
-}> = ({ blogData }) => {
+const Help: NextPage = () => {
+    const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     return (
         <Layout title="Help &amp; Support | Cipher">
             <section className="help-page-header">
@@ -140,7 +139,7 @@ const Help: NextPage<{
                         <h1>Promoted Blogs</h1>
                         <Row className="gx-5">
                             {blogData &&
-                                blogData?.result
+                                blogData?.data?.result
                                     ?.slice(0, 3)
                                     .map((blog, key) => {
                                         return (
@@ -178,22 +177,3 @@ const Help: NextPage<{
 };
 
 export default Help;
-
-export const getStaticProps: GetStaticProps = async () => {
-    try {
-        const { data: blogData } = await axiosClient.get("/blog/");
-        return {
-            props: {
-                blogData: blogData,
-            },
-            revalidate: 10,
-        };
-    } catch (err: any) {
-        return {
-            props: {
-                blogData: [],
-            },
-            revalidate: 10,
-        };
-    }
-};
