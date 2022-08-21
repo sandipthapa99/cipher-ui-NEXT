@@ -23,8 +23,8 @@ export const SupportFormData: SupportValuesProps = {
     reason: "",
 };
 export const FaqFormData: FaqValuesProps = {
-    fullName: "",
+    full_name: "",
     email: "",
-    phoneNumber: "",
+    phone: "",
     message: "",
 };

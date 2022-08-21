@@ -5,9 +5,12 @@ import Layout from "@components/Layout";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useData } from "hooks/use-data";
+import { useForm } from "hooks/use-form";
 import type { GetStaticProps } from "next";
 import { Fragment } from "react";
 import { Accordion, Container } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import type { FAQTopicValueProps, FAQValueProps } from "types/faqValueProps";
 import { axiosClient } from "utils/axiosClient";
 import { FaqFormData } from "utils/contactFormData";
@@ -24,7 +27,8 @@ const FAQ = ({ faqTopicData }: FAQData) => {
         ["all-faq"],
         "/support/faq/"
     );
-    console.log(faqData?.data);
+    const { mutate } = useForm("/support/contactus/");
+    const toggleSuccessModal = useToggleSuccessModal();
     return (
         <Fragment>
             <Layout title="FAQs | Cipher">
@@ -132,18 +136,26 @@ const FAQ = ({ faqTopicData }: FAQData) => {
                             <Formik
                                 initialValues={FaqFormData}
                                 validationSchema={FaqFormSchema}
-                                onSubmit={async (values) => {
-                                    console.log(values);
+                                onSubmit={async (values, action) => {
+                                    mutate(values, {
+                                        onSuccess: async () => {
+                                            toggleSuccessModal();
+                                            action.resetForm();
+                                        },
+                                        onError: (error) => {
+                                            toast.error(error.message);
+                                        },
+                                    });
                                 }}
                             >
                                 {({ isSubmitting, errors, touched }) => (
                                     <Form>
                                         <InputField
                                             type="text"
-                                            name="fullName"
+                                            name="full_name"
                                             labelName="Full Name"
-                                            error={errors.fullName}
-                                            touch={touched.fullName}
+                                            error={errors.full_name}
+                                            touch={touched.full_name}
                                             placeHolder="Full Name"
                                         />
                                         <InputField
@@ -156,10 +168,10 @@ const FAQ = ({ faqTopicData }: FAQData) => {
                                         />
                                         <InputField
                                             type="text"
-                                            name="phoneNumber"
+                                            name="phone"
                                             labelName="Phone Number"
-                                            error={errors.phoneNumber}
-                                            touch={touched.phoneNumber}
+                                            error={errors.phone}
+                                            touch={touched.phone}
                                             placeHolder="Phone Number"
                                         />
                                         <InputField
