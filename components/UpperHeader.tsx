@@ -32,8 +32,11 @@ export function UpperHeader() {
             {/* Site Upper Header Start */}
             <header id="site-upper-header" className="site-upper-header">
                 <Container fluid="xl">
-                    <Navbar expand="lg" className="upper-navigation ms-lg-auto">
-                        <div className="upper-navigation__left">
+                    <Navbar
+                        expand="lg"
+                        className="upper-navigation ms-lg-auto d-flex align-items-center justify-content-between"
+                    >
+                        <div className="upper-navigation__left d-flex align-items-center">
                             <Link href="/">
                                 <a>
                                     <Navbar.Brand>
@@ -48,36 +51,36 @@ export function UpperHeader() {
                                 </a>
                             </Link>
                             <li
-                                className={handleMenuActive(
+                                className={`d-none d-md-inline-block ${handleMenuActive(
                                     "/how-it-works",
                                     router
-                                )}
+                                )}`}
                             >
                                 <Link href="/how-it-works">
                                     <a className="nav-link">How It Works</a>
                                 </Link>
                             </li>
                             <li
-                                className={handleMenuActive(
+                                className={`d-none d-md-block ${handleMenuActive(
                                     "/resources",
                                     router
-                                )}
+                                )}`}
                             >
                                 <Link href="/resources">
                                     <a className="nav-link">Resources</a>
                                 </Link>
                             </li>
                         </div>
-                        <div className="upper-navigation__right">
+                        <div className="upper-navigation__right d-flex">
                             {!user && (
                                 <>
                                     <Link href="/login">
-                                        <a className="btn login-btn d-none d-md-inline-block">
+                                        <a className="auth-btn login-btn">
                                             Login
                                         </a>
                                     </Link>
                                     <Link href="/signup">
-                                        <a className="btn signup-btn d-none d-md-inline-block">
+                                        <a className="auth-btn signup-btn">
                                             Sign Up
                                         </a>
                                     </Link>
@@ -89,7 +92,7 @@ export function UpperHeader() {
                                     className="user-profile"
                                 >
                                     <span
-                                        className="btn location-btn d-none d-md-inline-block"
+                                        className="profile-btn"
                                         onClick={() => toggleShowProfileModal()}
                                     >
                                         <figure className="thumbnail-img">
@@ -108,12 +111,10 @@ export function UpperHeader() {
 
                             {user && (
                                 <button
-                                    style={{ outline: "none", border: "none" }}
                                     onClick={handleShow}
+                                    className="nav-cta-btn"
                                 >
-                                    <a className="btn nav-cta-btn d-none d-md-inline-block">
-                                        Post Task
-                                    </a>
+                                    Post Task
                                 </button>
                             )}
                         </div>
