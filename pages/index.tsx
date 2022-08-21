@@ -503,12 +503,7 @@ const Home: NextPage<{
                                         <MerchantCard
                                             onClick={() =>
                                                 router.push({
-                                                    pathname: "/tasker",
-                                                    query: {
-                                                        taskId: index,
-                                                        redirectedFrom:
-                                                            router.pathname,
-                                                    },
+                                                    pathname: `/tasker/${index}`,
                                                 })
                                             }
                                             merchantImage={
