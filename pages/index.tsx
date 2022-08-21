@@ -26,7 +26,7 @@ import type { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
@@ -40,6 +40,7 @@ import { tasks } from "staticData/task";
 import type { SuccessStoryProps } from "types/successStory";
 import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
+import { handleMenuActive } from "utils/helpers";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
 
@@ -67,6 +68,7 @@ const Home: NextPage<{ successStoryData: SuccessStoryProps }> = ({
         setPostTaskPopup(false);
     };
 
+    const router = useRouter();
     return (
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
