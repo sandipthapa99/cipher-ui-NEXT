@@ -15,7 +15,7 @@ const FreelanceTasks: NextPage = () => {
     const services = getServices();
     return (
         <Layout title="Freelance Tasks | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="freelance-tasks">
                     <BreadCrumb currentPage="Freelance Tasks" />
 
@@ -51,94 +51,135 @@ const FreelanceTasks: NextPage = () => {
                             </Col>
                         </Row>
                     </div>
-                    <Row className="gx-5">
-                        <h4 className="task-header">Freelancing Tasks</h4>
-                        {services &&
-                            services.map((service) => {
-                                return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                        />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
-                    <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
-                                return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                        />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
-                    <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
-                                return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                        />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
+                    <div className="freelance-tasks__services">
+                        <Row className="gx-5">
+                            <h1>Freelancing Tasks</h1>
+                            {services &&
+                                services.map((service) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={service.id}
+                                        >
+                                            <ServiceCard
+                                                serviceImage={
+                                                    service.serviceImage
+                                                }
+                                                serviceTitle={
+                                                    service.serviceTitle
+                                                }
+                                                serviceProvider={
+                                                    service.serviceProvider
+                                                }
+                                                serviceProviderLocation={
+                                                    service.serviceProviderLocation
+                                                }
+                                                serviceDescription={
+                                                    service.serviceDescription
+                                                }
+                                                serviceRating={
+                                                    service.serviceRating
+                                                }
+                                                servicePrice={
+                                                    service.servicePrice
+                                                }
+                                                hasOffer={service.hasOffer}
+                                                discountRate={
+                                                    service.discountRate
+                                                }
+                                                discountOn={service.discountOn}
+                                            />
+                                        </Col>
+                                    );
+                                })}
+                        </Row>
+                        <Row className="gx-5">
+                            {services &&
+                                services.map((service) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={service.id}
+                                        >
+                                            <ServiceCard
+                                                serviceImage={
+                                                    service.serviceImage
+                                                }
+                                                serviceTitle={
+                                                    service.serviceTitle
+                                                }
+                                                serviceProvider={
+                                                    service.serviceProvider
+                                                }
+                                                serviceProviderLocation={
+                                                    service.serviceProviderLocation
+                                                }
+                                                serviceDescription={
+                                                    service.serviceDescription
+                                                }
+                                                serviceRating={
+                                                    service.serviceRating
+                                                }
+                                                servicePrice={
+                                                    service.servicePrice
+                                                }
+                                                hasOffer={service.hasOffer}
+                                                discountRate={
+                                                    service.discountRate
+                                                }
+                                                discountOn={service.discountOn}
+                                            />
+                                        </Col>
+                                    );
+                                })}
+                        </Row>
+                        <Row className="gx-5">
+                            {services &&
+                                services.map((service) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={service.id}
+                                        >
+                                            <ServiceCard
+                                                serviceImage={
+                                                    service.serviceImage
+                                                }
+                                                serviceTitle={
+                                                    service.serviceTitle
+                                                }
+                                                serviceProvider={
+                                                    service.serviceProvider
+                                                }
+                                                serviceProviderLocation={
+                                                    service.serviceProviderLocation
+                                                }
+                                                serviceDescription={
+                                                    service.serviceDescription
+                                                }
+                                                serviceRating={
+                                                    service.serviceRating
+                                                }
+                                                servicePrice={
+                                                    service.servicePrice
+                                                }
+                                                hasOffer={service.hasOffer}
+                                                discountRate={
+                                                    service.discountRate
+                                                }
+                                                discountOn={service.discountOn}
+                                            />
+                                        </Col>
+                                    );
+                                })}
+                        </Row>
+                    </div>
 
                     <div className="freelance-tasks__top-skills">
                         <h1>Top skills in Nepal</h1>
@@ -156,7 +197,7 @@ const FreelanceTasks: NextPage = () => {
                             title="An employee takes home 10% more with Cipher Payroll"
                             image="/hireinnepal/footer.png"
                             imageOnRight={true}
-                            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500."
+                            description="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500."
                         />
                     </div>
                 </section>
