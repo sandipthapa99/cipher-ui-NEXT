@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { axiosClient } from "utils/axiosClient";
 
 export const useTaskers = () => {
     return useQuery<Tasker[], Error>(["taskers"], async () => {
         try {
-            const { data } = await axios.get<Tasker[]>("/data/taskers.json");
+            const { data } = await axiosClient.get<Tasker[]>("/tasker/");
             return data;
         } catch (error: any) {
             throw new Error(
@@ -15,18 +15,45 @@ export const useTaskers = () => {
 };
 export type Tasker = {
     id: number;
-    user: {
-        category: string;
-        profileImage: string;
-        username: string;
-        location: string;
-        bio: string;
-    };
-    likes: number;
-    rewardPercentage: string;
-    price: string;
-    rating: {
-        average: number;
-        totalRatings: number;
-    };
+    charge_currency: string;
+    user: User;
+    portfolio: any[];
+    stats: Stats;
+    status: string;
+    bio: string;
+    full_name: string;
+    phone: string;
+    gender: string;
+    profile_image: any;
+    date_of_birth: string;
+    skill: string;
+    active_hour_start: string;
+    active_hour_end: string;
+    experience_level: string;
+    user_type: string;
+    hourly_rate: number;
+    profile_visibility: string;
+    task_preferences: string;
+    address_line1: string;
+    address_line2: any;
+    is_profile_verified: boolean;
+    country: any;
+    language: any;
+    subscription: any[];
 };
+
+export interface User {
+    id: string;
+    email: string;
+    full_name: string;
+}
+
+export interface Stats {
+    success_rate: number;
+    happy_clients: number;
+    task_completed: number;
+    user_reviews: number;
+    task_assigned: number;
+    task_in_progress: number;
+    task_cancelled: number;
+}
