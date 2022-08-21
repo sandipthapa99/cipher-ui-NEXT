@@ -16,8 +16,9 @@ export interface SupportValuesProps {
     reason: string;
 }
 export interface FaqValuesProps {
-    fullName: string;
+    full_name: string;
     email: string;
-    phoneNumber: string;
+    phone: string;
     message: string;
+    contact_us_category?: number;
 }
