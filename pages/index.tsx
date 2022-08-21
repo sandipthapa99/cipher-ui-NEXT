@@ -23,6 +23,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
+import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -49,7 +50,6 @@ import { myOptions } from "utils/options";
 interface LandingPageProps {
     successStoryData: SuccessStoryProps;
     trustedPartnerData: BrandValueProps;
-    blogData: BlogValueProps;
 }
 
 const CategoriesListingHomepage = dynamic(
@@ -59,8 +59,8 @@ const CategoriesListingHomepage = dynamic(
 const Home: NextPage<{
     successStoryData: LandingPageProps["successStoryData"];
     trustedPartnerData: LandingPageProps["trustedPartnerData"];
-    blogData: LandingPageProps["blogData"];
-}> = ({ successStoryData, trustedPartnerData, blogData }) => {
+}> = ({ successStoryData, trustedPartnerData }) => {
+    const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -646,19 +646,23 @@ const Home: NextPage<{
                     </div>
                     <Row className="gx-5">
                         {blogData
-                            ? blogData?.result?.slice(0, 3).map((blog, key) => {
-                                  return (
-                                      <Col
-                                          className="d-flex align-items-stretch"
-                                          // sm={6}
-                                          md={4}
-                                          // lg={4}
-                                          key={key}
-                                      >
-                                          <CommunityBlogCard blogData={blog} />
-                                      </Col>
-                                  );
-                              })
+                            ? blogData?.data?.result
+                                  ?.slice(0, 3)
+                                  .map((blog, key) => {
+                                      return (
+                                          <Col
+                                              className="d-flex align-items-stretch"
+                                              // sm={6}
+                                              md={4}
+                                              // lg={4}
+                                              key={key}
+                                          >
+                                              <CommunityBlogCard
+                                                  blogData={blog}
+                                              />
+                                          </Col>
+                                      );
+                                  })
                             : "No blogs recorded"}
                     </Row>
                 </Container>
