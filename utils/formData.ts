@@ -123,7 +123,7 @@ export const EducationFormData: EducationValueProps = {
 };
 
 export const SkillsFromData: SkillsValueProps = {
-    skills: "",
+    skill: "",
 };
 
 export const AccountFromData: AccountValueProps = {

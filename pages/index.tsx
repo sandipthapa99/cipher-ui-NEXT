@@ -21,32 +21,46 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
-import { blogCardContent } from "staticData/community";
 import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 import { tasks } from "staticData/task";
+import type { BlogValueProps } from "types/blogs";
+import type { BrandValueProps } from "types/brandValueProps";
+import type { SuccessStoryProps } from "types/successStory";
+import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
+import { handleMenuActive } from "utils/helpers";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
+
+interface LandingPageProps {
+    successStoryData: SuccessStoryProps;
+    trustedPartnerData: BrandValueProps;
+    blogData: BlogValueProps;
+}
 
 const CategoriesListingHomepage = dynamic(
     () => import("components/common/CategoriesListingHomepage"),
     { ssr: false }
 );
-const Home: NextPage = () => {
-    const router = useRouter();
+const Home: NextPage<{
+    successStoryData: LandingPageProps["successStoryData"];
+    trustedPartnerData: LandingPageProps["trustedPartnerData"];
+    blogData: LandingPageProps["blogData"];
+}> = ({ successStoryData, trustedPartnerData, blogData }) => {
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -64,6 +78,7 @@ const Home: NextPage = () => {
         setPostTaskPopup(false);
     };
 
+    const router = useRouter();
     return (
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
@@ -197,17 +212,29 @@ const Home: NextPage = () => {
             )}
 
             <section
-                id="cagtu-cipher-buzz-section"
-                className="cagtu-cipher-buzz-section"
+                id="trusted-brand-section"
+                className="trusted-brand-section"
             >
                 {/* <Container fluid="xl" className="px-5"> */}
                 <Marquee gradient={true} className="marquee" speed={40}>
-                    <li className="light">Helix</li>
-                    <li className="strong">Orion</li>
-                    <li className="strong">Carina</li>
-                    <li className="light">Trifid</li>
-                    <li className="light">NGC</li>
-                    <li className="strong">Messier</li>
+                    {trustedPartnerData.map((value, key) => (
+                        <Link href={value.redirect_url} key={key}>
+                            <a>
+                                <li className="light">
+                                    {value.logo && (
+                                        <figure>
+                                            <Image
+                                                src={value.logo}
+                                                alt={value.alt_text}
+                                                layout="fill"
+                                                objectFit="cover"
+                                            ></Image>
+                                        </figure>
+                                    )}
+                                </li>
+                            </a>
+                        </Link>
+                    ))}
                 </Marquee>
                 {/* </Container> */}
             </section>
@@ -583,7 +610,7 @@ const Home: NextPage = () => {
                         </h1>
                         <h3 className="text-center">Some Success Stories</h3>
                     </div>
-                    <PersonalSuccessCard />
+                    <PersonalSuccessCard successStoryData={successStoryData} />
                 </Container>
             </section>
 
@@ -607,7 +634,7 @@ const Home: NextPage = () => {
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Our blogs</h2>
-                        <Link href="">
+                        <Link href="/blogs/">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -618,26 +645,21 @@ const Home: NextPage = () => {
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {blogCardContent &&
-                            blogCardContent.map((blog) => {
-                                return (
-                                    <Col
-                                        className="d-flex align-items-stretch"
-                                        // sm={6}
-                                        md={4}
-                                        // lg={4}
-                                        key={blog.id}
-                                    >
-                                        <CommunityBlogCard
-                                            cardImage={blog.cardImage}
-                                            cardDescription={
-                                                blog.cardDescription
-                                            }
-                                            cardTitle={blog.cardTitle}
-                                        />
-                                    </Col>
-                                );
-                            })}
+                        {blogData
+                            ? blogData?.result?.slice(0, 3).map((blog, key) => {
+                                  return (
+                                      <Col
+                                          className="d-flex align-items-stretch"
+                                          // sm={6}
+                                          md={4}
+                                          // lg={4}
+                                          key={key}
+                                      >
+                                          <CommunityBlogCard blogData={blog} />
+                                      </Col>
+                                  );
+                              })
+                            : "No blogs recorded"}
                     </Row>
                 </Container>
             </section>
@@ -738,3 +760,33 @@ const Home: NextPage = () => {
     );
 };
 export default Home;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: successStoryData } = await axiosClient.get(
+            "/tasker/success-story/"
+        );
+        const { data: trustedPartnerData } = await axiosClient.get(
+            "/landingpage/trusted-partner/"
+        );
+        const queryClient = new QueryClient();
+        await queryClient.prefetchQuery(["all-blogs"]);
+        return {
+            props: {
+                successStoryData: successStoryData,
+                trustedPartnerData: trustedPartnerData,
+                dehydratedState: dehydrate(queryClient),
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                successStoryData: [],
+                trustedPartnerData: [],
+                blogData: [],
+            },
+            revalidate: 10,
+        };
+    }
+};

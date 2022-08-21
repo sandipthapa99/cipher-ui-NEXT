@@ -9,9 +9,23 @@ import { deactivateFormSchema } from "utils/formValidation/deactivateFormValidat
 import { isSubmittingClass } from "utils/helpers";
 
 const dropdownCountryOptions = [
-    { id: 1, label: "Nepal", value: "nepal" },
-    { id: 2, label: "USA", value: "usa" },
-    { id: 3, label: "Canda", value: "canda" },
+    {
+        id: 1,
+        label: "I am deactivating the account temporarily.",
+        value: "deactivatingTemporarily",
+    },
+    {
+        id: 2,
+        label: "I did not find CIPHER helpful for me.",
+        value: "notHelpful",
+    },
+    { id: 3, label: "I have another CIPHER account.", value: "anotherAccount" },
+    {
+        id: 4,
+        label: "I am not satisfied with the services of CIPHER.",
+        value: "I am not satisfied with the services of CIPHER.",
+    },
+    { id: 5, label: "Other", value: "Other" },
 ];
 
 const DeactivateAccount = () => {
@@ -43,7 +57,7 @@ const DeactivateAccount = () => {
                             touch={touched.reason}
                             error={errors.reason}
                             fieldRequired
-                            placeHolder="Select your country"
+                            placeHolder="I am leaving because"
                             options={dropdownCountryOptions}
                         />
                         <SelectInputField
@@ -52,13 +66,13 @@ const DeactivateAccount = () => {
                             touch={touched.duration}
                             error={errors.duration}
                             fieldRequired
-                            placeHolder="Select your country"
+                            placeHolder="How Long"
                             options={dropdownCountryOptions}
                         />
                         <InputField
                             name="explaination"
                             labelName="Please explain further"
-                            placeHolder="Enter your Bio"
+                            placeHolder="Please explain further"
                             as="textarea"
                         />
 

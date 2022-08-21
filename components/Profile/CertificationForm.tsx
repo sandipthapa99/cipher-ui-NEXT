@@ -6,7 +6,7 @@ import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
-import { useEditForm } from "hooks/edit-form/use-experience";
+import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import { Fragment } from "react";
@@ -50,8 +50,7 @@ const CertificationForm = ({
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
     const [toggle, setToggled] = useState(editDetails?.does_expire ?? false);
-    console.log("certififcate edit=", editDetails);
-    console.log("edit id", id);
+
     return (
         <Fragment>
             {/* Modal component */}
