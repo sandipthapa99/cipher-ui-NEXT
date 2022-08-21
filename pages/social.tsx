@@ -6,11 +6,11 @@ import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { NextPage } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import { businessGoal } from "staticData/businessGoal";
 import { blogCardContent } from "staticData/community";
-
 const SocialResponsibilities: NextPage = () => {
     return (
         <Layout title="Social Responsibilities | Cipher">
@@ -86,13 +86,15 @@ const SocialResponsibilities: NextPage = () => {
                         <div className="title-wrapper d-flex justify-content-between">
                             {/* <h2 className="heading-title">Community activity</h2> */}
                             <h1>Our Blogs</h1>
-                            <a href="" className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
+                            <Link href="/blogs">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
                         </div>
                         <Row className="gx-5">
                             {blogCardContent &&

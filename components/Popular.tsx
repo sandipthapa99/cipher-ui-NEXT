@@ -1,5 +1,6 @@
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { servicesDiscover } from "staticData/services";
@@ -13,13 +14,15 @@ const Popular = () => {
                 <div className="title-wrapper d-flex justify-content-between">
                     {/* <h2 className="heading-title">Community activity</h2> */}
                     <h2>Popular on Cipher</h2>
-                    <a href="#!" className="view-more">
-                        view more{" "}
-                        <FontAwesomeIcon
-                            icon={faAngleRight}
-                            className="svg-icon"
-                        />
-                    </a>
+                    <Link href="/search">
+                        <a className="view-more">
+                            view more{" "}
+                            <FontAwesomeIcon
+                                icon={faAngleRight}
+                                className="svg-icon"
+                            />
+                        </a>
+                    </Link>
                 </div>
                 <Row className="gx-5">
                     {servicesDiscover &&

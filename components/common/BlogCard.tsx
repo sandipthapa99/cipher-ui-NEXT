@@ -21,7 +21,7 @@ const CommunityBlogCard = ({
                     {/* {`${aboutDescription.substring(0, 80)}...`} */}
                     {cardDescription}
                 </p>
-                <Link href="">
+                <Link href={`/blogs/}`}>
                     <a>
                         See More
                         <FontAwesomeIcon

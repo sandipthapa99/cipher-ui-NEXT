@@ -8,22 +8,21 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import { getServices } from "services/commonServices";
+import { freelanceTasksCarousel } from "staticData/freelanceTasks";
 import { topSkillsInNepal } from "staticData/hireInNepal";
-import { howToHireCarousel } from "staticData/howToHire";
 import searchValidationSchema from "utils/formValidation/searchValidation";
-
 const FreelanceTasks: NextPage = () => {
     const services = getServices();
     return (
         <Layout title="Freelance Tasks | Cipher">
             <Container fluid="xl">
-                <section className="how-to-hire">
+                <section className="freelance-tasks">
                     <BreadCrumb currentPage="Freelance Tasks" />
 
-                    <div className="how-to-hire__top-container">
+                    <div className="freelance-tasks__top-container">
                         <Carousel>
-                            {howToHireCarousel &&
-                                howToHireCarousel.map((item) => {
+                            {freelanceTasksCarousel &&
+                                freelanceTasksCarousel.map((item) => {
                                     return (
                                         <Carousel.Item
                                             key={item.id}
@@ -40,7 +39,7 @@ const FreelanceTasks: NextPage = () => {
                                 })}
                         </Carousel>
                     </div>
-                    <div className="hire-in-nepal__hire-tasker">
+                    <div className="freelance-tasks__hire-tasker">
                         <h1>Select task of your choice</h1>
                         <p>Connect with a freelancer from Nepal</p>
                         <Row>
@@ -58,40 +57,26 @@ const FreelanceTasks: NextPage = () => {
                             services.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <Link href="/service-detail">
-                                            <a>
-                                                <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
-                                                />
-                                            </a>
-                                        </Link>
+                                        <ServiceCard
+                                            serviceImage={service.serviceImage}
+                                            serviceTitle={service.serviceTitle}
+                                            serviceProvider={
+                                                service.serviceProvider
+                                            }
+                                            serviceProviderLocation={
+                                                service.serviceProviderLocation
+                                            }
+                                            serviceDescription={
+                                                service.serviceDescription
+                                            }
+                                            serviceRating={
+                                                service.serviceRating
+                                            }
+                                            servicePrice={service.servicePrice}
+                                            hasOffer={service.hasOffer}
+                                            discountRate={service.discountRate}
+                                            discountOn={service.discountOn}
+                                        />
                                     </Col>
                                 );
                             })}
@@ -101,40 +86,26 @@ const FreelanceTasks: NextPage = () => {
                             services.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <Link href="/service-detail">
-                                            <a>
-                                                <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
-                                                />
-                                            </a>
-                                        </Link>
+                                        <ServiceCard
+                                            serviceImage={service.serviceImage}
+                                            serviceTitle={service.serviceTitle}
+                                            serviceProvider={
+                                                service.serviceProvider
+                                            }
+                                            serviceProviderLocation={
+                                                service.serviceProviderLocation
+                                            }
+                                            serviceDescription={
+                                                service.serviceDescription
+                                            }
+                                            serviceRating={
+                                                service.serviceRating
+                                            }
+                                            servicePrice={service.servicePrice}
+                                            hasOffer={service.hasOffer}
+                                            discountRate={service.discountRate}
+                                            discountOn={service.discountOn}
+                                        />
                                     </Col>
                                 );
                             })}
@@ -144,46 +115,32 @@ const FreelanceTasks: NextPage = () => {
                             services.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <Link href="/service-detail">
-                                            <a>
-                                                <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
-                                                />
-                                            </a>
-                                        </Link>
+                                        <ServiceCard
+                                            serviceImage={service.serviceImage}
+                                            serviceTitle={service.serviceTitle}
+                                            serviceProvider={
+                                                service.serviceProvider
+                                            }
+                                            serviceProviderLocation={
+                                                service.serviceProviderLocation
+                                            }
+                                            serviceDescription={
+                                                service.serviceDescription
+                                            }
+                                            serviceRating={
+                                                service.serviceRating
+                                            }
+                                            servicePrice={service.servicePrice}
+                                            hasOffer={service.hasOffer}
+                                            discountRate={service.discountRate}
+                                            discountOn={service.discountOn}
+                                        />
                                     </Col>
                                 );
                             })}
                     </Row>
 
-                    <div className="hire-in-nepal__top-skills">
+                    <div className="freelance-tasks__top-skills">
                         <h1>Top skills in Nepal</h1>
                         <Row>
                             {topSkillsInNepal &&
@@ -194,7 +151,7 @@ const FreelanceTasks: NextPage = () => {
                                 ))}
                         </Row>
                     </div>
-                    <div className="hire-in-nepal__bottom-container">
+                    <div className="freelance-tasks__bottom-container">
                         <LongSquareImageCard
                             title="An employee takes home 10% more with Cipher Payroll"
                             image="/hireinnepal/footer.png"
