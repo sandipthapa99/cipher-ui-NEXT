@@ -1,4 +1,7 @@
+import { createStyles } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import { useUser } from "hooks/auth/useUser";
+import Link from "next/link";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
 
@@ -8,13 +11,40 @@ interface TopCategory {
     slug: string;
 }
 export const useTopCategories = () => {
-    return useQuery(["top-categories"], () =>
-        axiosClient
-            .get<TopCategory[]>("/task/top-categories/")
-            .then((res) => res.data)
+    const { data: user } = useUser();
+    return useQuery(
+        ["top-categories"],
+        () =>
+            axiosClient
+                .get<TopCategory[]>("/task/top-categories/")
+                .then((res) => res.data),
+        { enabled: !!user }
     );
 };
 export const TopCategories = () => {
     const { data: topCategories = [] } = useTopCategories();
-    return <ul></ul>;
+    const { classes } = useStyles();
+    return (
+        <ul className={classes.root}>
+            {topCategories.map((category) => (
+                <li key={category.id}>
+                    <Link href={category.slug}>
+                        <a className={classes.link}>{category.category}</a>
+                    </Link>
+                </li>
+            ))}
+        </ul>
+    );
 };
+const useStyles = createStyles((theme) => ({
+    root: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "1.6rem",
+    },
+    link: {
+        color: theme.colors.gray[7],
+    },
+}));
