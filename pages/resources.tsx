@@ -4,14 +4,16 @@ import BusinessGoal from "@components/common/BusinessGoal";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
-import { blogCardContent } from "staticData/community";
 import { resourceCarouselContent } from "staticData/resourceCarouselContent";
-import { latestArticle, popularContent } from "staticData/resources";
+import type { BlogValueProps } from "types/blogs";
+import { axiosClient } from "utils/axiosClient";
 import searchValidationSchema from "utils/formValidation/searchValidation";
-const Resources: NextPage = () => {
+const Resources: NextPage<{
+    blogData: BlogValueProps;
+}> = ({ blogData }) => {
     return (
         <Layout title="Resources | Cipher">
             <section className="resource-page">
@@ -72,75 +74,64 @@ const Resources: NextPage = () => {
                         <div className="featured-resources">
                             <h3>Featured Resources</h3>
                             <Row>
-                                {blogCardContent &&
-                                    blogCardContent.map((blog) => {
-                                        return (
-                                            <Col
-                                                className="d-flex align-items-stretch"
-                                                // sm={6}
-                                                md={4}
-                                                // lg={4}
-                                                key={blog.id}
-                                            >
-                                                <BlogCard
-                                                    cardImage={blog.cardImage}
-                                                    cardDescription={
-                                                        blog.cardDescription
-                                                    }
-                                                    cardTitle={blog.cardTitle}
-                                                />
-                                            </Col>
-                                        );
-                                    })}
+                                {blogData &&
+                                    blogData?.result
+                                        ?.slice(0, 3)
+                                        .map((blog, key) => {
+                                            return (
+                                                <Col
+                                                    className="d-flex align-items-stretch"
+                                                    // sm={6}
+                                                    md={4}
+                                                    // lg={4}
+                                                    key={key}
+                                                >
+                                                    <BlogCard blogData={blog} />
+                                                </Col>
+                                            );
+                                        })}
                             </Row>
                         </div>
                         <div className="latest-article">
                             <h1>Latest BLOGS</h1>
                             <Row>
-                                {latestArticle &&
-                                    latestArticle.map((blog) => {
-                                        return (
-                                            <Col
-                                                className="d-flex align-items-stretch"
-                                                // sm={6}
-                                                md={6}
-                                                // lg={4}
-                                                key={blog.id}
-                                            >
-                                                <BlogCard
-                                                    cardImage={blog.cardImage}
-                                                    cardDescription={
-                                                        blog.cardDescription
-                                                    }
-                                                    cardTitle={blog.cardTitle}
-                                                />
-                                            </Col>
-                                        );
-                                    })}
+                                {blogData &&
+                                    blogData?.result
+                                        ?.slice(0, 2)
+                                        .map((blog, key) => {
+                                            return (
+                                                <Col
+                                                    className="d-flex align-items-stretch"
+                                                    // sm={6}
+                                                    md={6}
+                                                    // lg={4}
+                                                    key={key}
+                                                >
+                                                    <BlogCard blogData={blog} />
+                                                </Col>
+                                            );
+                                        })}
                             </Row>
                         </div>
                         <div className="bottom-container">
+                            <h1>Popular content</h1>
                             <Row>
-                                {popularContent &&
-                                    popularContent.map((blog) => {
-                                        return (
-                                            <Col
-                                                className="d-flex align-items-stretch"
-                                                // sm={6}
-                                                md={4}
-                                                // lg={4}
-                                                key={blog.id}
-                                            >
-                                                <BlogCard
-                                                    cardImage={blog.cardImage}
-                                                    cardDescription={
-                                                        blog.cardDescription
-                                                    }
-                                                    cardTitle={blog.cardTitle}
-                                                />
-                                            </Col>
-                                        );
-                                    })}
+                                {blogData &&
+                                    blogData?.result
+                                        ?.slice(0, 3)
+                                        .map((blog, key) => {
+                                            return (
+                                                <Col
+                                                    className="d-flex align-items-stretch"
+                                                    // sm={6}
+                                                    md={4}
+                                                    // lg={4}
+                                                    key={key}
+                                                >
+                                                    <BlogCard blogData={blog} />
+                                                </Col>
+                                            );
+                                        })}
                             </Row>
                         </div>
                     </Container>
@@ -151,3 +142,22 @@ const Resources: NextPage = () => {
 };
 
 export default Resources;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: blogData } = await axiosClient.get("/blog/");
+        return {
+            props: {
+                blogData: blogData,
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                blogData: [],
+            },
+            revalidate: 10,
+        };
+    }
+};

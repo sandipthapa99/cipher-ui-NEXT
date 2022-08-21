@@ -4,19 +4,22 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import ServiceCard from "@components/common/ServiceCard";
 import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { Carousel } from "react-bootstrap";
-import { blogCardContent } from "staticData/community";
 import {
     growBusinessCarousel,
     growBusinessSteps,
 } from "staticData/growBusiness";
 import { servicesDiscover } from "staticData/services";
 import { services } from "staticData/services";
+import type { BlogValueProps } from "types/blogs";
+import { axiosClient } from "utils/axiosClient";
 
-const GrowYourBusiness: NextPage = () => {
+const GrowYourBusiness: NextPage<{
+    blogData: BlogValueProps;
+}> = ({ blogData }) => {
     return (
         <Layout title="Grow Your Business | Cipher">
             <Container fluid="xl" className="px-5">
@@ -169,26 +172,22 @@ const GrowYourBusiness: NextPage = () => {
                     <section className="grow-business__blogs">
                         <h1>Blogs</h1>
                         <Row className="gx-5">
-                            {blogCardContent &&
-                                blogCardContent.map((blog) => {
-                                    return (
-                                        <Col
-                                            className="d-flex align-items-stretch"
-                                            sm={6}
-                                            md={4}
-                                            // lg={4}
-                                            key={blog.id}
-                                        >
-                                            <BlogCard
-                                                cardImage={blog.cardImage}
-                                                cardDescription={
-                                                    blog.cardDescription
-                                                }
-                                                cardTitle={blog.cardTitle}
-                                            />
-                                        </Col>
-                                    );
-                                })}
+                            {blogData &&
+                                blogData?.result
+                                    ?.slice(0, 3)
+                                    .map((blog, key) => {
+                                        return (
+                                            <Col
+                                                className="d-flex align-items-stretch"
+                                                sm={6}
+                                                md={4}
+                                                // lg={4}
+                                                key={key}
+                                            >
+                                                <BlogCard blogData={blog} />
+                                            </Col>
+                                        );
+                                    })}
                         </Row>
                     </section>
                     {/* blog section end */}
@@ -206,3 +205,22 @@ const GrowYourBusiness: NextPage = () => {
 };
 
 export default GrowYourBusiness;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: blogData } = await axiosClient.get("/blog/");
+        return {
+            props: {
+                blogData: blogData,
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                blogData: [],
+            },
+            revalidate: 10,
+        };
+    }
+};
