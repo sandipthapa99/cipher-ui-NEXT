@@ -11,13 +11,17 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import React from "react";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
-import { faqContent } from "staticData/faq";
 import { helpCardContent } from "staticData/helpCardContent";
 import type { BlogValueProps } from "types/blogs";
+import type { FAQValueProps } from "types/faqValueProps";
 import searchValidationSchema from "utils/formValidation/searchValidation";
 
 const Help: NextPage = () => {
     const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
+    const { data: faqData } = useData<FAQValueProps>(
+        ["all-faq"],
+        "/support/faq/"
+    );
     return (
         <Layout title="Help &amp; Support | Cipher">
             <section className="help-page-header">
@@ -159,13 +163,13 @@ const Help: NextPage = () => {
                     <div className="help-page-content__faq-container">
                         <h1>Frequently Asked Questions</h1>
                         <Accordion flush>
-                            {faqContent &&
-                                faqContent.map((faq) => (
+                            {faqData &&
+                                faqData?.data?.result?.map((faq, key) => (
                                     <FaqContent
-                                        answer={faq.answer}
-                                        key={faq.id}
-                                        id={faq.id}
-                                        question={faq.question}
+                                        answer={faq.content}
+                                        key={key}
+                                        id={String(faq.id)}
+                                        question={faq.title}
                                     />
                                 ))}
                         </Accordion>
