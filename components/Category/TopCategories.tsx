@@ -1,6 +1,5 @@
 import { createStyles } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "hooks/auth/useUser";
 import Link from "next/link";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
@@ -11,14 +10,10 @@ interface TopCategory {
     slug: string;
 }
 export const useTopCategories = () => {
-    const { data: user } = useUser();
-    return useQuery(
-        ["top-categories"],
-        () =>
-            axiosClient
-                .get<TopCategory[]>("/task/top-categories/")
-                .then((res) => res.data),
-        { enabled: !!user }
+    return useQuery(["top-categories"], () =>
+        axiosClient
+            .get<TopCategory[]>("/task/top-categories/")
+            .then((res) => res.data)
     );
 };
 export const TopCategories = () => {
