@@ -5,6 +5,7 @@ import "@smastrom/react-rating/style.css";
 
 import { LoginPrompt } from "@components/model/LoginPrompt";
 import { MantineProvider } from "@mantine/core";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import type { DehydratedState } from "@tanstack/react-query";
 import {
     Hydrate,
@@ -14,6 +15,7 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
+import { SessionProvider } from "next-auth/react";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
@@ -40,21 +42,29 @@ function MyApp({ Component, pageProps, session }: CustomAppProps) {
             })
     );
     return (
-        <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools />
-            <ToastContainer
-                position="top-center"
-                hideProgressBar={true}
-                autoClose={1000}
-            />
-            <Hydrate state={pageProps.dehydratedState}>
-                <MantineProvider>
-                    <UserLoadingOverlay />
-                    <LoginPrompt />
-                    <Component {...pageProps} />
-                </MantineProvider>
-            </Hydrate>
-        </QueryClientProvider>
+        <GoogleOAuthProvider
+            clientId={
+                "245846975950-vucoc2e1cmeielq5f5neoca7880n0u2i.apps.googleusercontent.com"
+            }
+        >
+            <QueryClientProvider client={queryClient}>
+                <SessionProvider session={session}>
+                    <ReactQueryDevtools />
+                    <ToastContainer
+                        position="top-center"
+                        hideProgressBar={true}
+                        autoClose={1000}
+                    />
+                    <Hydrate state={pageProps.dehydratedState}>
+                        <MantineProvider>
+                            <UserLoadingOverlay />
+                            <LoginPrompt />
+                            <Component {...pageProps} />
+                        </MantineProvider>
+                    </Hydrate>
+                </SessionProvider>
+            </QueryClientProvider>
+        </GoogleOAuthProvider>
     );
 }
 export default MyApp;

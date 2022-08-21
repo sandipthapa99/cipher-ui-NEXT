@@ -13,5 +13,5 @@ export interface SelectInputFieldProps {
     textMuted?: string;
     fieldRequired?: boolean;
     options?: SelectOptionProps[];
-    getData: any;
+    getData?: any;
 }
