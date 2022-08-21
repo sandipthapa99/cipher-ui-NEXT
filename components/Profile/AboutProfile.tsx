@@ -1,6 +1,6 @@
 import Reviews from "@components/common/Reviews";
 import SelectInputField from "@components/common/SelectInputField";
-import { faPencil } from "@fortawesome/pro-regular-svg-icons";
+import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { Formik } from "formik";
@@ -9,6 +9,7 @@ import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
+import { useRef } from "react";
 import { Col, Row } from "react-bootstrap";
 import { reviewsContent } from "staticData/reviews";
 import type { UserProfileProps } from "types/userProfileProps";
@@ -22,20 +23,7 @@ import EditProfileButton from "./EditProfileButton";
 import EducationForm from "./EducationForm";
 import ExperienceForm from "./ExperienceForm";
 import AddSkills from "./SkillsForm";
-const skills = [
-    {
-        id: "0",
-        name: "Planting",
-    },
-    {
-        id: "1",
-        name: "Washing",
-    },
-    {
-        id: "2",
-        name: "Cleaning",
-    },
-];
+
 const AboutProfile = () => {
     const [showExpForm, setShowExpForm] = useState(false);
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
@@ -77,6 +65,13 @@ const AboutProfile = () => {
     console.log("profile=", profileDetails);
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
     console.log("user profile skills=", userSkills);
+    const options = useRef<HTMLDivElement>();
+
+    const handleHover = (e: any) => {
+        console.log("taste", e);
+    };
+    const [style, setStyle] = useState({ display: "none" });
+    const [showIcons, setShowIcons] = useState(false);
 
     return (
         <>
@@ -103,8 +98,12 @@ const AboutProfile = () => {
                         {portfolioData
                             ? portfolioData?.data?.result?.map((info: any) => (
                                   <div className="image" key={info?.id}>
-                                      <Row>
-                                          <Col md={6}>
+                                      <Row className="gx-5">
+                                          <Col
+                                              md={info?.image ? 6 : 12}
+                                              sm={info?.image ? 6 : 12}
+                                              xs={info?.image ? 6 : 12}
+                                          >
                                               <Link href={`${info?.image}`}>
                                                   <a target="_blank">
                                                       {info?.image ? (
@@ -122,7 +121,11 @@ const AboutProfile = () => {
                                                   </a>
                                               </Link>
                                           </Col>
-                                          <Col md={6}>
+                                          <Col
+                                              md={info?.file ? 6 : 12}
+                                              sm={info?.image ? 6 : 12}
+                                              xs={info?.image ? 6 : 12}
+                                          >
                                               <Link href={`${info?.file}`}>
                                                   <a target="_blank">
                                                       {info?.file ? (
@@ -175,19 +178,48 @@ const AboutProfile = () => {
                                           (value, key) => (
                                               <div
                                                   className="experience__type"
-                                                  key={key}
+                                                  key={value.id}
                                               >
                                                   <div className="name d-flex">
-                                                      <h3>{value?.title}</h3>
-                                                      <FontAwesomeIcon
-                                                          icon={faPencil}
-                                                          className="svg-icon"
-                                                          onClick={() =>
-                                                              handleEdit(
-                                                                  value?.id
-                                                              )
-                                                          }
-                                                      />
+                                                      <h3
+                                                          onMouseEnter={(e) => {
+                                                              setStyle({
+                                                                  display:
+                                                                      "block",
+                                                              });
+                                                          }}
+                                                          onMouseLeave={(e) => {
+                                                              setStyle({
+                                                                  display:
+                                                                      "none",
+                                                              });
+                                                          }}
+                                                      >
+                                                          {value?.title}
+                                                      </h3>
+                                                      <div
+                                                          className="icons"
+                                                          style={style}
+                                                      >
+                                                          <FontAwesomeIcon
+                                                              icon={faPencil}
+                                                              className="svg-icon"
+                                                              onClick={() =>
+                                                                  handleEdit(
+                                                                      value?.id
+                                                                  )
+                                                              }
+                                                          />
+                                                          <FontAwesomeIcon
+                                                              icon={faTrashCan}
+                                                              className="trash svg-icon"
+                                                              onClick={() =>
+                                                                  handleEdit(
+                                                                      value?.id
+                                                                  )
+                                                              }
+                                                          />
+                                                      </div>
                                                   </div>
                                                   <div className="company d-flex">
                                                       <p className="name">
