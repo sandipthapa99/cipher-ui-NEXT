@@ -1,20 +1,18 @@
 import { phoneRegExp } from "utils/helpers";
 import * as Yup from "yup";
 
-let emailValidate, stringValidate, phoneValidate, stringReqOnly, selectValidate;
-
-emailValidate = Yup.string()
+const emailValidate = Yup.string()
     .email("Invalid email address")
     .required("Required field");
-stringValidate = Yup.string()
+const stringValidate = Yup.string()
     .min(3, "Must be 3 charactersor or more")
     .required("Required field");
-stringReqOnly = Yup.string().required("Required field");
+const stringReqOnly = Yup.string().required("Required field");
 // isCheckValidate = Yup.bool().oneOf([true]).required();
-phoneValidate = Yup.string()
+const phoneValidate = Yup.string()
     .matches(phoneRegExp, "Invalid phone number")
     .required("Required field");
-selectValidate = Yup.number().required("Required field");
+const selectValidate = Yup.number().required("Required field");
 
 export const contactFormSchema = Yup.object().shape({
     full_name: stringValidate,
@@ -40,9 +38,9 @@ export const SupportFormSchema = Yup.object().shape({
     // g_recaptcha_response: stringReqOnly,
 });
 export const FaqFormSchema = Yup.object().shape({
-    fullName: stringValidate,
+    full_name: stringValidate,
     email: emailValidate,
-    phoneNumber: phoneValidate,
+    phone: phoneValidate,
     message: stringReqOnly,
 });
 
