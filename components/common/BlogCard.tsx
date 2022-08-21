@@ -23,13 +23,13 @@ const CommunityBlogCard = ({
             )}
 
             <div className="card-content">
-                <h2>{cardTitle}</h2>
-
-                <p className="card-description">
-                    {/* {`${aboutDescription.substring(0, 80)}...`} */}
-                    {cardDescription}
-                </p>
-                <Link href={`/blogs/}`}>
+                <h2>{blogData?.title}</h2>
+                {blogData && (
+                    <div className="card-description">
+                        {parse(`${blogData?.content.substring(0, 130)}...`)}
+                    </div>
+                )}
+                <Link href={`/blogs/${blogData?.slug}`}>
                     <a>
                         See More
                         <FontAwesomeIcon
