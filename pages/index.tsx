@@ -206,7 +206,7 @@ const Home: NextPage<{
             </section>
 
             {postTaskPopup && (
-                <div className="popup-post-task">
+                <div className="popup-post-task d-md-block d-none">
                     <PostTaskHomepage handleClose={handleClosePosttaskPopup} />
                 </div>
             )}
