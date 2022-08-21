@@ -1,11 +1,11 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Col, Row } from "react-bootstrap";
-import { UserProfileProps } from "types/userProfileProps";
+import { format } from "date-fns";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
-import { format } from "date-fns";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { Col, Row } from "react-bootstrap";
+import type { UserProfileProps } from "types/userProfileProps";
 
 export const AboutTasker = () => {
     //user profile certification data
