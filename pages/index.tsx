@@ -1,5 +1,6 @@
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
 import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
+import { TopCategories } from "@components/Category/TopCategories";
 import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
@@ -757,7 +758,7 @@ const Home: NextPage<{
                     <h2 className="section-sub-title">
                         See some of our top categories
                     </h2>
-                    <CategoriesListingHomepage />
+                    <TopCategories />
                 </Container>
             </section>
         </Layout>
