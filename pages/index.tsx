@@ -222,6 +222,7 @@ const Home: NextPage<{
                                                 src={value.logo}
                                                 alt={value.alt_text}
                                                 layout="fill"
+                                                objectFit="cover"
                                             ></Image>
                                         </figure>
                                     )}
