@@ -207,7 +207,7 @@ const Home: NextPage<{
             </section>
 
             {postTaskPopup && (
-                <div className="popup-post-task">
+                <div className="popup-post-task d-md-block d-none">
                     <PostTaskHomepage handleClose={handleClosePosttaskPopup} />
                 </div>
             )}
@@ -247,7 +247,7 @@ const Home: NextPage<{
                         <h2 className="heading-title">
                             Popular Verified Services
                         </h2>
-                        <Link href="">
+                        <Link href="/search">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -296,7 +296,7 @@ const Home: NextPage<{
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Services near you</h2>
 
-                        <Link href="">
+                        <Link href="/search">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -343,7 +343,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Professional Services</h2>
-                        <Link href="">
+                        <Link href="/search">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -481,7 +481,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Top Taskers</h2>
-                        <Link href="">
+                        <Link href="/tasker">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -635,7 +635,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Our blogs</h2>
-                        <Link href="/blogs/">
+                        <Link href="/blogs">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon

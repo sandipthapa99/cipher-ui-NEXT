@@ -17,7 +17,6 @@ import { Formik } from "formik";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { PackageCard } from "staticData/packageCard";
 import { reviewsContent } from "staticData/reviews";
@@ -215,13 +214,15 @@ const ServiceDetail: NextPage = () => {
                         <div className="title-wrapper d-flex justify-content-between">
                             {/* <h2 className="heading-title">Community activity</h2> */}
                             <h1>Popular on Cipher</h1>
-                            <a href="#!" className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
+                            <Link href="/search">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
                         </div>
                         <Row className="gx-5">
                             {servicesDiscover &&

@@ -1,4 +1,4 @@
-import { faComment } from "@fortawesome/pro-regular-svg-icons";
+import { faMessages } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import type { CommunityActivityCardProps } from "types/community";
@@ -46,8 +46,8 @@ const CommunityActivityCard = ({
                         </div>
                         <div>
                             <FontAwesomeIcon
-                                icon={faComment}
-                                className="svg-icon share"
+                                icon={faMessages}
+                                className="svg-icon comment"
                             />
                             <span>{comments}</span>
                         </div>

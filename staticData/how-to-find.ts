@@ -15,3 +15,17 @@ export const browseTasks = [
         desc: "Choose how you get paid. Our fixed-price protection releases client payments at project milestones.",
     },
 ];
+export const rules = [
+    {
+        id: "0",
+        desc: "20% for the first $500 you bill your client",
+    },
+    {
+        id: "1",
+        desc: "10% for total billings between $500.01 and $10,000",
+    },
+    {
+        id: "2",
+        desc: "5% for total billings over $10,000",
+    },
+];
