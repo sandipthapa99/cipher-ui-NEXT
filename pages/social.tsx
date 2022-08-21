@@ -4,14 +4,17 @@ import BusinessGoal from "@components/common/BusinessGoal";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import { businessGoal } from "staticData/businessGoal";
-import { blogCardContent } from "staticData/community";
+import type { BlogValueProps } from "types/blogs";
+
 const SocialResponsibilities: NextPage = () => {
+    const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     return (
         <Layout title="Social Responsibilities | Cipher">
             <section className="social-page">
@@ -86,9 +89,9 @@ const SocialResponsibilities: NextPage = () => {
                         <div className="title-wrapper d-flex justify-content-between">
                             {/* <h2 className="heading-title">Community activity</h2> */}
                             <h1>Our Blogs</h1>
-                            <Link href="/blogs">
+                            <Link href={"/blogs/"}>
                                 <a className="view-more">
-                                    view more{" "}
+                                    view more
                                     <FontAwesomeIcon
                                         icon={faAngleRight}
                                         className="svg-icon"
@@ -97,23 +100,17 @@ const SocialResponsibilities: NextPage = () => {
                             </Link>
                         </div>
                         <Row className="gx-5">
-                            {blogCardContent &&
-                                blogCardContent.map((blog) => {
+                            {blogData &&
+                                blogData?.data?.result?.map((blog, key) => {
                                     return (
                                         <Col
                                             className="d-flex align-items-stretch"
                                             // sm={6}
                                             md={4}
                                             // lg={4}
-                                            key={blog.id}
+                                            key={key}
                                         >
-                                            <BlogCard
-                                                cardImage={blog.cardImage}
-                                                cardDescription={
-                                                    blog.cardDescription
-                                                }
-                                                cardTitle={blog.cardTitle}
-                                            />
+                                            <BlogCard blogData={blog} />
                                         </Col>
                                     );
                                 })}
