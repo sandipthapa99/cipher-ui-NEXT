@@ -103,8 +103,12 @@ const AboutProfile = () => {
                         {portfolioData
                             ? portfolioData?.data?.result?.map((info: any) => (
                                   <div className="image" key={info?.id}>
-                                      <Row>
-                                          <Col md={6}>
+                                      <Row className="gx-5">
+                                          <Col
+                                              md={info?.image ? 6 : 12}
+                                              sm={info?.image ? 6 : 12}
+                                              xs={info?.image ? 6 : 12}
+                                          >
                                               <Link href={`${info?.image}`}>
                                                   <a target="_blank">
                                                       {info?.image ? (
@@ -122,7 +126,11 @@ const AboutProfile = () => {
                                                   </a>
                                               </Link>
                                           </Col>
-                                          <Col md={6}>
+                                          <Col
+                                              md={info?.file ? 6 : 12}
+                                              sm={info?.image ? 6 : 12}
+                                              xs={info?.image ? 6 : 12}
+                                          >
                                               <Link href={`${info?.file}`}>
                                                   <a target="_blank">
                                                       {info?.file ? (
