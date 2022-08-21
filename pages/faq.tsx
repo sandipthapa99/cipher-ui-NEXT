@@ -2,7 +2,9 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import Layout from "@components/Layout";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
 import { Fragment } from "react";
 import { Accordion, Container } from "react-bootstrap";
@@ -17,7 +19,12 @@ interface FAQData {
     faqTopicData: FAQTopicValueProps;
 }
 
-const FAQ = ({ faqData, faqTopicData }: FAQData) => {
+const FAQ = ({ faqTopicData }: FAQData) => {
+    const { data: faqData } = useData<FAQValueProps>(
+        ["all-faq"],
+        "/support/faq/"
+    );
+    console.log(faqData?.data);
     return (
         <Fragment>
             <Layout title="FAQs | Cipher">
@@ -38,20 +45,22 @@ const FAQ = ({ faqData, faqTopicData }: FAQData) => {
                         <section className="popular-faqs">
                             <h1>Popular FAQs</h1>
                             <Accordion flush>
-                                {faqData?.result?.length > 0
-                                    ? faqData?.result?.map((value, key) => (
-                                          <Accordion.Item
-                                              eventKey={key.toString()}
-                                              key={key}
-                                          >
-                                              <Accordion.Header>
-                                                  {value.title}
-                                              </Accordion.Header>
-                                              <Accordion.Body>
-                                                  <p>{value.content}</p>
-                                              </Accordion.Body>
-                                          </Accordion.Item>
-                                      ))
+                                {(faqData?.data?.result ?? []).length > 0
+                                    ? faqData?.data?.result?.map(
+                                          (value, key) => (
+                                              <Accordion.Item
+                                                  eventKey={key.toString()}
+                                                  key={key}
+                                              >
+                                                  <Accordion.Header>
+                                                      {value.title}
+                                                  </Accordion.Header>
+                                                  <Accordion.Body>
+                                                      <p>{value.content}</p>
+                                                  </Accordion.Body>
+                                              </Accordion.Item>
+                                          )
+                                      )
                                     : "No FAQ datas found"}
                             </Accordion>
                         </section>
@@ -72,7 +81,7 @@ const FAQ = ({ faqData, faqTopicData }: FAQData) => {
                                                   <Accordion.Body>
                                                       <div className="inner-accordion">
                                                           <Accordion flush>
-                                                              {faqData?.result
+                                                              {faqData?.data?.result
                                                                   ?.filter(
                                                                       (item) =>
                                                                           item.topic ===
@@ -188,6 +197,8 @@ export default FAQ;
 export const getStaticProps: GetStaticProps = async () => {
     try {
         const { data: faqData } = await axiosClient.get("/support/faq/");
+        const queryClient = new QueryClient();
+        await queryClient.prefetchQuery(["all-faq"]);
         const { data: faqTopicData } = await axiosClient.get(
             "/support/faq-topic/"
         );
@@ -195,6 +206,7 @@ export const getStaticProps: GetStaticProps = async () => {
             props: {
                 faqData,
                 faqTopicData,
+                dehydratedState: dehydrate(queryClient),
             },
             revalidate: 10,
         };
