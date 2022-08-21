@@ -10,7 +10,7 @@ import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useKYC } from "hooks/profile/kyc/useKYC";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
@@ -19,9 +19,9 @@ import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
 import { isSubmittingClass } from "utils/helpers";
 
 const dropdownCountryOptions = [
-    { id: 1, label: "Nepal", value: "nepal" },
-    { id: 2, label: "USA", value: "usa" },
-    { id: 3, label: "Canda", value: "canda" },
+    { id: 1, label: "Citizenship ", value: "citizenship" },
+    { id: 2, label: "Passport", value: "passport" },
+    { id: 3, label: "Pan Card", value: "pancard" },
 ];
 
 const KYCForm = () => {
@@ -29,6 +29,12 @@ const KYCForm = () => {
     const { data: KYCData } = useGetKYC();
     console.log(KYCData);
     const { mutate } = useKYC();
+    const [kycData, setKycData] = useState("");
+
+    const getKYCData = (data: string) => {
+        setKycData(data);
+    };
+    console.log(kycData);
 
     return (
         <>
@@ -148,53 +154,65 @@ const KYCForm = () => {
                                     error={errors.identity_type}
                                     placeHolder="Select Identity Type"
                                     options={dropdownCountryOptions}
+                                    getData={getKYCData}
                                 />
                             </Col>
-                            <Row>
-                                <Col lg={5} md={6}>
-                                    <InputField
-                                        name="identity_id"
-                                        labelName="Identity Number"
-                                        error={errors.identity_id}
-                                        touch={touched.identity_id}
-                                        placeHolder="Enter your identity Number"
-                                    />
-                                    <DatePickerField
-                                        name="identity_issued_date"
-                                        labelName="Issued date"
-                                        placeHolder="dd/mm/yy"
-                                        touch={touched.identity_issued_date}
-                                        error={errors.identity_issued_date}
-                                    />
-                                </Col>
-                                <Col lg={{ span: 5, offset: 2 }} md={6}>
-                                    <InputField
-                                        name="identity_issuer_organization"
-                                        labelName="Issued From"
-                                        placeHolder="dd/mm/yy"
-                                        touch={
-                                            touched.identity_issuer_organization
-                                        }
-                                        error={
-                                            errors.identity_issuer_organization
-                                        }
-                                    />
-                                    <DatePickerField
-                                        name="identity_valid_through"
-                                        labelName="Expiry Date"
-                                        placeHolder="dd/mm/yy"
-                                        touch={touched.identity_valid_through}
-                                        error={errors.identity_valid_through}
-                                    />
-                                </Col>
-                            </Row>
-                            <h4>Identity Card</h4>
-                            <p>
-                                Document can be Citizenship Card or Driving
-                                License or Passport{" "}
-                            </p>
-                            <Col md={5}>
-                                {/* <DragDrop
+                            {kycData === "citizenship" && (
+                                <>
+                                    <Row>
+                                        <Col lg={5} md={6}>
+                                            <InputField
+                                                name="identity_id"
+                                                labelName="Identity Number"
+                                                error={errors.identity_id}
+                                                touch={touched.identity_id}
+                                                placeHolder="Enter your identity Number"
+                                            />
+                                            <DatePickerField
+                                                name="identity_issued_date"
+                                                labelName="Issued date"
+                                                placeHolder="dd/mm/yy"
+                                                touch={
+                                                    touched.identity_issued_date
+                                                }
+                                                error={
+                                                    errors.identity_issued_date
+                                                }
+                                            />
+                                        </Col>
+                                        <Col lg={{ span: 5, offset: 2 }} md={6}>
+                                            <InputField
+                                                name="identity_issuer_organization"
+                                                labelName="Issued From"
+                                                placeHolder="dd/mm/yy"
+                                                touch={
+                                                    touched.identity_issuer_organization
+                                                }
+                                                error={
+                                                    errors.identity_issuer_organization
+                                                }
+                                            />
+                                            <DatePickerField
+                                                name="identity_valid_through"
+                                                labelName="Expiry Date"
+                                                placeHolder="dd/mm/yy"
+                                                touch={
+                                                    touched.identity_valid_through
+                                                }
+                                                error={
+                                                    errors.identity_valid_through
+                                                }
+                                            />
+                                        </Col>
+                                    </Row>
+
+                                    <h4>Identity Card</h4>
+                                    <p>
+                                        Document can be Citizenship Card or
+                                        Driving License or Passport{" "}
+                                    </p>
+                                    <Col md={5}>
+                                        {/* <DragDrop
                                     name="identity_card_file"
                                     image="/service-details/file-upload.svg"
                                     fileType="Image/Video"
@@ -202,48 +220,55 @@ const KYCForm = () => {
                                     maxVideoSize={200}
                                     field={setFieldValue}
                                 /> */}
-                                <CustomDropZone
-                                    name="identity_card_file"
-                                    maxSize={200}
-                                    minSize={20}
-                                    onDrop={(files) => console.log(files)}
-                                />
-                            </Col>
-                            <hr />
-                            <h5>PAN/VAT Information </h5>
-                            <Row>
-                                <Col lg={5} md={6}>
-                                    <InputField
-                                        type="text"
-                                        name="pan_number"
-                                        labelName="PAN Number"
-                                        error={errors.pan_number}
-                                        touch={touched.pan_number}
-                                        placeHolder="Enter your Pan Number"
-                                    />
-                                    <DatePickerField
-                                        name="pan_issued_date"
-                                        labelName="Issued Date"
-                                        placeHolder="dd/mm/yy"
-                                        touch={touched.pan_issued_date}
-                                        error={errors.pan_issued_date}
-                                    />
-                                </Col>
-                                <Col lg={{ span: 5, offset: 2 }} md={6}>
-                                    <InputField
-                                        type="text"
-                                        name="pan_issued_from"
-                                        labelName="Issued Loaction"
-                                        error={errors.pan_issued_from}
-                                        touch={touched.pan_issued_from}
-                                        placeHolder="Enter your Issued Loaction"
-                                    />
-                                </Col>
-                            </Row>
-                            <h4>PAN/ VAT Card</h4>
-                            <p>Document can be PAN or VAT Card </p>
-                            <Col md={5}>
-                                {/* <DragDrop
+                                        <CustomDropZone
+                                            name="identity_card_file"
+                                            maxSize={200}
+                                            minSize={20}
+                                            onDrop={(files) =>
+                                                console.log(files)
+                                            }
+                                        />
+                                    </Col>
+                                    <hr />
+                                </>
+                            )}
+                            {kycData === "pancard" && (
+                                <>
+                                    <h5>PAN/VAT Information </h5>
+                                    <Row>
+                                        <Col lg={5} md={6}>
+                                            <InputField
+                                                type="text"
+                                                name="pan_number"
+                                                labelName="PAN Number"
+                                                error={errors.pan_number}
+                                                touch={touched.pan_number}
+                                                placeHolder="Enter your Pan Number"
+                                            />
+                                            <DatePickerField
+                                                name="pan_issued_date"
+                                                labelName="Issued Date"
+                                                placeHolder="dd/mm/yy"
+                                                touch={touched.pan_issued_date}
+                                                error={errors.pan_issued_date}
+                                            />
+                                        </Col>
+                                        <Col lg={{ span: 5, offset: 2 }} md={6}>
+                                            <InputField
+                                                type="text"
+                                                name="pan_issued_from"
+                                                labelName="Issued Loaction"
+                                                error={errors.pan_issued_from}
+                                                touch={touched.pan_issued_from}
+                                                placeHolder="Enter your Issued Loaction"
+                                            />
+                                        </Col>
+                                    </Row>
+
+                                    <h4>PAN/ VAT Card</h4>
+                                    <p>Document can be PAN or VAT Card </p>
+                                    <Col md={5}>
+                                        {/* <DragDrop
                                     name="pan_card_file"
                                     image="/service-details/file-upload.svg"
                                     fileType="Image/Video"
@@ -251,14 +276,19 @@ const KYCForm = () => {
                                     maxVideoSize={200}
                                     field={setFieldValue}
                                 /> */}
-                                <CustomDropZone
-                                    name="pan_card_file"
-                                    maxSize={200}
-                                    minSize={20}
-                                    onDrop={(files) => console.log(files)}
-                                />
-                            </Col>
-                            <hr />
+                                        <CustomDropZone
+                                            name="pan_card_file"
+                                            maxSize={200}
+                                            minSize={20}
+                                            onDrop={(files) =>
+                                                console.log(files)
+                                            }
+                                        />
+                                    </Col>
+
+                                    <hr />
+                                </>
+                            )}
                             <Row>
                                 <Col lg={5} md={6}>
                                     <h5>Passport Size Photo</h5>

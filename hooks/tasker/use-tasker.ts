@@ -13,6 +13,12 @@ export const useTaskers = () => {
         }
     });
 };
+export const useTaskerCoordinates = () => {
+    const { data } = useTaskers();
+    if (!data) return [];
+    return data.map((tasker) => tasker.user.coordinates);
+};
+
 export type Tasker = {
     id: number;
     user: {
@@ -21,6 +27,10 @@ export type Tasker = {
         username: string;
         location: string;
         bio: string;
+        coordinates: {
+            latitude: number;
+            longitude: number;
+        };
     };
     likes: number;
     rewardPercentage: string;
@@ -30,3 +40,4 @@ export type Tasker = {
         totalRatings: number;
     };
 };
+export type TaskerCoordinate = Tasker["user"]["coordinates"];
