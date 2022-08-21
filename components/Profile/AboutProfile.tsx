@@ -10,7 +10,6 @@ import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
-import { useRef } from "react";
 import { Col, Row } from "react-bootstrap";
 import { reviewsContent } from "staticData/reviews";
 import type { UserProfileProps } from "types/userProfileProps";
@@ -157,7 +156,6 @@ const AboutProfile = () => {
                 </div>
                 <div className="type experience">
                     <div className="title-wrapper d-flex justify-content-between">
-                        {/* <h2 className="heading-title">Community activity</h2> */}
                         <h1>Experience</h1>
                         <EditProfileButton
                             text="Add New"

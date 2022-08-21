@@ -58,10 +58,9 @@
     }
     .name {
         cursor: pointer;
-
-        // &:hover {
-        //     text-decoration: underline;
-        // }
+    }
+    .trash {
+        margin-left: 0.5rem;
     }
     .portfolio {
         padding-bottom: 1.2rem;
@@ -121,9 +120,6 @@
                 .svg-icon {
                     cursor: pointer;
                     color: $sub-title-color;
-                }
-                .trash {
-                    margin-left: 0.5rem;
                 }
             }
             .company {
