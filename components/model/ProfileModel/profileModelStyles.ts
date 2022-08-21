@@ -8,8 +8,8 @@ export const useProfileModelStyles = createStyles((_theme) => ({
         padding: "2.4rem 2.4rem 1.2rem 2.4rem",
         backgroundColor: "#fff",
         minWidth: "28rem",
-        boxShadow: "0px 4px 14px rgba(33, 29, 79, 0.1);",
-        zIndex: 100,
+        boxShadow: "0px 4px 14px rgba(33, 29, 79, 0.1)",
+        zIndex: 999,
     },
     header: {
         display: "flex",
@@ -18,12 +18,12 @@ export const useProfileModelStyles = createStyles((_theme) => ({
         gap: "1rem",
     },
     username: {
-        fontSize: "1rem",
+        fontSize: "1.6rem",
         color: "#211D4F",
         fontWeight: 700,
     },
     profileType: {
-        fontSize: "0.875rem",
+        fontSize: "1.2rem",
     },
     body: {
         display: "flex",
@@ -58,6 +58,10 @@ export const useProfileModelStyles = createStyles((_theme) => ({
             },
             "&:hover": {
                 transform: "translateX(1rem)",
+            },
+            "&[data-is-active='true']::before": {
+                opacity: 1,
+                visibility: "visible",
             },
         },
     },

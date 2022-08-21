@@ -1,45 +1,31 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import BigButton from "@components/common/Button";
+import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import Layout from "@components/Layout";
 import Image from "next/image";
 import { Container } from "react-bootstrap";
+import { browseTasks } from "staticData/how-to-find";
 
 const HowToFindTasks = () => {
     return (
         <Layout title="How to find tasks | Cipher">
             <BreadCrumb currentPage="How to find tasks" />
             <Container fluid="xl">
-                <section className="find-tasks-hero"></section>
-
-                <section className="discover-page__top-container">
-                    <div className="gradient"></div>
-                    <figure className="thumbnail-img">
-                        <Image
-                            src="/discover/main.svg"
-                            layout="fill"
-                            objectFit="cover"
-                            alt="oppurtunities-page-main-image"
-                        />
-                    </figure>
-                    <div className="overlay">
-                        <h1>
-                            A client tasks are quickly finished when searched
-                            through Cipher
-                        </h1>
-                        <div className="bottom-content">
-                            <p>
-                                “Lorem Ipsum is simply dummy text of the
-                                printing and typesetting industry. Lorem Ipsum
-                                has been the industry standard dummy text ever
-                                since the 1500.
-                            </p>
-                            <BigButton
-                                btnTitle="Join Us"
-                                backgroundColor="#fff"
+                <section className="find-tasks">
+                    {/* Notable quality section starts  */}
+                    <section
+                        id="browse-tasks"
+                        className="find-tasks__browse-task"
+                    >
+                        <Container fluid="xl" className="px-5">
+                            <LongSquareImageCard
+                                title="Browse tasks"
+                                image="/groupB.png"
+                                imageOnRight={true}
+                                description={browseTasks}
                             />
-                            {/* <Button className="btn">Join Us</Button> */}
-                        </div>
-                    </div>
+                        </Container>
+                    </section>
+                    {/* Notable quality section ends  */}
                 </section>
             </Container>
         </Layout>

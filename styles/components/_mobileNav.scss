@@ -1,4 +1,4 @@
-.mobile-nav{
+.mobile-nav {
     .nav {
         position: fixed;
         bottom: 0;
@@ -11,7 +11,7 @@
         border-radius: 1rem 1rem 0 0;
         z-index: 10;
     }
-    
+
     .nav__link {
         display: flex;
         flex-direction: column;
@@ -28,20 +28,19 @@
         -webkit-tap-highlight-color: transparent;
         transition: background-color 0.1s ease-in-out;
     }
-    .nav-item--active{
+    .nav-item--active {
         color: $secondary-color;
     }
-    
+
     .nav__link:hover {
         background-color: #eeeeee;
     }
-    
+
     .nav__link--active {
         color: $secondary-color;
     }
-    
+
     .nav__icon {
         font-size: 2.4rem;
     }
-    
 }

@@ -37,6 +37,7 @@ import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 import { tasks } from "staticData/task";
+import type { BrandValueProps } from "types/brandValueProps";
 import type { SuccessStoryProps } from "types/successStory";
 import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
@@ -44,13 +45,19 @@ import { handleMenuActive } from "utils/helpers";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
 
+interface LandingPageProps {
+    successStoryData: SuccessStoryProps;
+    trustedPartnerData: BrandValueProps;
+}
+
 const CategoriesListingHomepage = dynamic(
     () => import("components/common/CategoriesListingHomepage"),
     { ssr: false }
 );
-const Home: NextPage<{ successStoryData: SuccessStoryProps }> = ({
-    successStoryData,
-}) => {
+const Home: NextPage<{
+    successStoryData: LandingPageProps["successStoryData"];
+    trustedPartnerData: LandingPageProps["trustedPartnerData"];
+}> = ({ successStoryData, trustedPartnerData }) => {
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -202,17 +209,29 @@ const Home: NextPage<{ successStoryData: SuccessStoryProps }> = ({
             )}
 
             <section
-                id="cagtu-cipher-buzz-section"
-                className="cagtu-cipher-buzz-section"
+                id="trusted-brand-section"
+                className="trusted-brand-section"
             >
                 {/* <Container fluid="xl" className="px-5"> */}
                 <Marquee gradient={true} className="marquee" speed={40}>
-                    <li className="light">Helix</li>
-                    <li className="strong">Orion</li>
-                    <li className="strong">Carina</li>
-                    <li className="light">Trifid</li>
-                    <li className="light">NGC</li>
-                    <li className="strong">Messier</li>
+                    {trustedPartnerData.map((value, key) => (
+                        <Link href={value.redirect_url} key={key}>
+                            <a>
+                                <li className="light">
+                                    {value.logo && (
+                                        <figure>
+                                            <Image
+                                                src={value.logo}
+                                                alt={value.alt_text}
+                                                layout="fill"
+                                                objectFit="cover"
+                                            ></Image>
+                                        </figure>
+                                    )}
+                                </li>
+                            </a>
+                        </Link>
+                    ))}
                 </Marquee>
                 {/* </Container> */}
             </section>
@@ -483,12 +502,7 @@ const Home: NextPage<{ successStoryData: SuccessStoryProps }> = ({
                                         <MerchantCard
                                             onClick={() =>
                                                 router.push({
-                                                    pathname: "/tasker",
-                                                    query: {
-                                                        taskId: index,
-                                                        redirectedFrom:
-                                                            router.pathname,
-                                                    },
+                                                    pathname: `/tasker/${index}`,
                                                 })
                                             }
                                             merchantImage={
@@ -754,9 +768,13 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: successStoryData } = await axiosClient.get(
             "/tasker/success-story/"
         );
+        const { data: trustedPartnerData } = await axiosClient.get(
+            "/landingpage/trusted-partner/"
+        );
         return {
             props: {
                 successStoryData: successStoryData,
+                trustedPartnerData: trustedPartnerData,
             },
             revalidate: 10,
         };
@@ -764,6 +782,7 @@ export const getStaticProps: GetStaticProps = async () => {
         return {
             props: {
                 successStoryData: [],
+                trustedPartnerData: [],
             },
             revalidate: 10,
         };
