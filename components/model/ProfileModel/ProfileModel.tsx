@@ -11,11 +11,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Divider, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
-import { useQueryClient } from "@tanstack/react-query";
+import { useLogout } from "hooks/auth/useLogout";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
-import { autoLogout } from "utils/auth";
 
 import { useProfileModelStyles } from "./profileModelStyles";
 
@@ -23,15 +22,10 @@ const REGULAR_ICON_COLOR = "#495057";
 const SPECIAL_ICON_COLOR = "#F98900";
 
 export const ProfileModel = () => {
-    const queryClient = useQueryClient();
     const router = useRouter();
     const { classes } = useProfileModelStyles();
 
-    const handleLogout = () => {
-        queryClient.setQueryData(["user"], null);
-        autoLogout();
-        router.push(router.pathname);
-    };
+    const logout = useLogout({ onLogout: () => router.push(router.pathname) });
 
     const renderProfileSections = () => {
         return Object.entries(PROFILE_LINKS).map((entry) => {
@@ -92,7 +86,7 @@ export const ProfileModel = () => {
                                     icon={faArrowRightFromBracket}
                                 />
                             }
-                            onClick={handleLogout}
+                            onClick={logout}
                         >
                             Logout
                         </Button>
