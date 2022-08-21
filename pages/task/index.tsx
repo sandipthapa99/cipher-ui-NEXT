@@ -17,12 +17,16 @@ const AppliedTask = () => {
 };
 export const getStaticProps: GetStaticProps = async () => {
     const queryClient = new QueryClient();
-    await queryClient.prefetchQuery(["all-tasks"]);
-    return {
-        props: {
-            dehydratedState: dehydrate(queryClient),
-        },
-    };
+    try {
+        await queryClient.prefetchQuery(["all-tasks"]);
+        return {
+            props: {
+                dehydratedState: dehydrate(queryClient),
+            },
+        };
+    } catch (error) {
+        return { props: {} };
+    }
 };
 
 export default AppliedTask;

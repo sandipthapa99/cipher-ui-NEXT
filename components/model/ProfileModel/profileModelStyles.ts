@@ -18,12 +18,12 @@ export const useProfileModelStyles = createStyles((_theme) => ({
         gap: "1rem",
     },
     username: {
-        fontSize: "1rem",
+        fontSize: "1.6rem",
         color: "#211D4F",
         fontWeight: 700,
     },
     profileType: {
-        fontSize: "0.875rem",
+        fontSize: "1.2rem",
     },
     body: {
         display: "flex",
