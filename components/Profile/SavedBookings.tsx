@@ -1,34 +1,29 @@
 import ServiceCard from "@components/common/ServiceCard";
 import { useBookmarkTasks } from "hooks/task/use-bookmark-tasks";
+import { useData } from "hooks/use-data";
 import { Col, Row } from "react-bootstrap";
-import { userSavedBookings } from "staticData/userSavedBookings";
+import type { ServicesValueProps } from "types/serviceCard";
 
 const SavedBookings = () => {
     const { data } = useBookmarkTasks();
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     return (
         <div className="saved-bookings">
             <pre>{JSON.stringify(data, null, 4)}</pre>
             <Row className="gx-5">
-                {userSavedBookings &&
-                    userSavedBookings.map((service) => (
+                {servicesData &&
+                    servicesData?.data?.result?.map((service, key) => (
                         <Col
                             className="discover-col"
                             sm={6}
                             md={6}
                             lg={3}
-                            key={service.id}
+                            key={key}
                         >
-                            <ServiceCard
-                                serviceImage={service.serviceImage}
-                                serviceTitle={service.serviceTitle}
-                                serviceProvider={service.serviceProvider}
-                                serviceProviderLocation={
-                                    service.serviceProviderLocation
-                                }
-                                serviceDescription={service.serviceDescription}
-                                serviceRating={service.serviceRating}
-                                servicePrice={service.servicePrice}
-                            />
+                            <ServiceCard serviceCard={service} />
                         </Col>
                     ))}
             </Row>

@@ -26,7 +26,6 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -50,19 +49,18 @@ import { myOptions } from "utils/options";
 interface LandingPageProps {
     successStoryData: SuccessStoryProps;
     trustedPartnerData: BrandValueProps;
-    servicesData: ServicesValueProps;
 }
 
-const CategoriesListingHomepage = dynamic(
-    () => import("components/common/CategoriesListingHomepage"),
-    { ssr: false }
-);
 const Home: NextPage<{
     successStoryData: LandingPageProps["successStoryData"];
     trustedPartnerData: LandingPageProps["trustedPartnerData"];
-    servicesData: LandingPageProps["servicesData"];
-}> = ({ successStoryData, trustedPartnerData, servicesData }) => {
+}> = ({ successStoryData, trustedPartnerData }) => {
     const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
+
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -260,31 +258,10 @@ const Home: NextPage<{
                     </div>
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.result?.map((service) => {
+                            servicesData?.data?.result?.map((service, key) => {
                                 return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.images}
-                                            serviceTitle={service.title}
-                                            serviceProvider={
-                                                service.created_by.full_name
-                                            }
-                                            serviceProviderLocation={
-                                                service.location
-                                            }
-                                            serviceDescription={
-                                                service.description
-                                            }
-                                            serviceRating={String(
-                                                service.views_count
-                                            )}
-                                            servicePrice={String(
-                                                service.budget
-                                            )}
-                                            hasOffer={true}
-                                            discountRate={10}
-                                            discountOn={"text"}
-                                        />
+                                    <Col sm={6} md={4} lg={3} key={key}>
+                                        <ServiceCard serviceCard={service} />
                                     </Col>
                                 );
                             })}
@@ -311,31 +288,10 @@ const Home: NextPage<{
                     </div>
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.result?.map((service) => {
+                            servicesData?.data?.result?.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.images}
-                                            serviceTitle={service.title}
-                                            serviceProvider={
-                                                service.created_by.full_name
-                                            }
-                                            serviceProviderLocation={
-                                                service.location
-                                            }
-                                            serviceDescription={
-                                                service.description
-                                            }
-                                            serviceRating={String(
-                                                service.views_count
-                                            )}
-                                            servicePrice={String(
-                                                service.budget
-                                            )}
-                                            hasOffer={true}
-                                            discountRate={10}
-                                            discountOn={"text"}
-                                        />
+                                        <ServiceCard serviceCard={service} />
                                     </Col>
                                 );
                             })}
@@ -360,7 +316,7 @@ const Home: NextPage<{
                     </div>
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.result
+                            servicesData?.data?.result
                                 ?.filter((p) => p.is_professional)
                                 .map((service) => {
                                     return (
@@ -371,26 +327,7 @@ const Home: NextPage<{
                                             key={service.id}
                                         >
                                             <ServiceCard
-                                                serviceImage={service.images}
-                                                serviceTitle={service.title}
-                                                serviceProvider={
-                                                    service.created_by.full_name
-                                                }
-                                                serviceProviderLocation={
-                                                    service.location
-                                                }
-                                                serviceDescription={
-                                                    service.description
-                                                }
-                                                serviceRating={String(
-                                                    service.views_count
-                                                )}
-                                                servicePrice={String(
-                                                    service.budget
-                                                )}
-                                                hasOffer={true}
-                                                discountRate={10}
-                                                discountOn={"text"}
+                                                serviceCard={service}
                                             />
                                         </Col>
                                     );
@@ -787,14 +724,13 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: trustedPartnerData } = await axiosClient.get(
             "/landingpage/trusted-partner/"
         );
-        const { data: servicesData } = await axiosClient.get("/task/service/");
         const queryClient = new QueryClient();
         await queryClient.prefetchQuery(["all-blogs"]);
+        await queryClient.prefetchQuery(["all-services"]);
         return {
             props: {
                 successStoryData: successStoryData,
                 trustedPartnerData: trustedPartnerData,
-                servicesData: servicesData,
                 dehydratedState: dehydrate(queryClient),
             },
             revalidate: 10,
