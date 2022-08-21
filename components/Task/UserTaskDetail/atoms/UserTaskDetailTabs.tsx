@@ -1,5 +1,7 @@
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
+import AboutProfile from "@components/Profile/AboutProfile";
+import { AboutTasker } from "@components/Tasker/AboutTasker";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { serviceCards } from "staticData/serviceCards";
@@ -16,7 +18,7 @@ export const UserTaskDetailTabs = ({ user }: UserTaskDetailTabsProps) => {
             activeIndex={activeTabIdx}
             onTabClick={setActiveTabIdx}
             items={[
-                { title: "About", content: <div>About</div> },
+                { title: "About", content: <AboutTasker /> },
                 { title: "Service", content: <ServiceList /> },
                 { title: "Documents", content: <div>Photos</div> },
             ]}
