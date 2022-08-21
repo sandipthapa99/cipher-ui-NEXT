@@ -21,26 +21,29 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
+import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
-import { blogCardContent } from "staticData/community";
 import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 import { tasks } from "staticData/task";
+import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
 import type { SuccessStoryProps } from "types/successStory";
 import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
+import { handleMenuActive } from "utils/helpers";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
 
@@ -57,6 +60,7 @@ const Home: NextPage<{
     successStoryData: LandingPageProps["successStoryData"];
     trustedPartnerData: LandingPageProps["trustedPartnerData"];
 }> = ({ successStoryData, trustedPartnerData }) => {
+    const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -74,6 +78,7 @@ const Home: NextPage<{
         setPostTaskPopup(false);
     };
 
+    const router = useRouter();
     return (
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
@@ -629,7 +634,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Our blogs</h2>
-                        <Link href="">
+                        <Link href="/blogs/">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -640,26 +645,25 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {blogCardContent &&
-                            blogCardContent.map((blog) => {
-                                return (
-                                    <Col
-                                        className="d-flex align-items-stretch"
-                                        // sm={6}
-                                        md={4}
-                                        // lg={4}
-                                        key={blog.id}
-                                    >
-                                        <CommunityBlogCard
-                                            cardImage={blog.cardImage}
-                                            cardDescription={
-                                                blog.cardDescription
-                                            }
-                                            cardTitle={blog.cardTitle}
-                                        />
-                                    </Col>
-                                );
-                            })}
+                        {blogData
+                            ? blogData?.data?.result
+                                  ?.slice(0, 3)
+                                  .map((blog, key) => {
+                                      return (
+                                          <Col
+                                              className="d-flex align-items-stretch"
+                                              // sm={6}
+                                              md={4}
+                                              // lg={4}
+                                              key={key}
+                                          >
+                                              <CommunityBlogCard
+                                                  blogData={blog}
+                                              />
+                                          </Col>
+                                      );
+                                  })
+                            : "No blogs recorded"}
                     </Row>
                 </Container>
             </section>
@@ -769,10 +773,13 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: trustedPartnerData } = await axiosClient.get(
             "/landingpage/trusted-partner/"
         );
+        const queryClient = new QueryClient();
+        await queryClient.prefetchQuery(["all-blogs"]);
         return {
             props: {
                 successStoryData: successStoryData,
                 trustedPartnerData: trustedPartnerData,
+                dehydratedState: dehydrate(queryClient),
             },
             revalidate: 10,
         };
@@ -781,6 +788,7 @@ export const getStaticProps: GetStaticProps = async () => {
             props: {
                 successStoryData: [],
                 trustedPartnerData: [],
+                blogData: [],
             },
             revalidate: 10,
         };
