@@ -21,13 +21,14 @@ interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
     pageProps: {
         dehydratedState: DehydratedState;
     };
+    session: any;
 }
 
 const UserLoadingOverlay = dynamic(
     () => import("@components/common/FullPageLoader"),
     { ssr: false }
 );
-function MyApp({ Component, pageProps }: CustomAppProps) {
+function MyApp({ Component, pageProps, session }: CustomAppProps) {
     const [queryClient] = useState(
         () =>
             new QueryClient({
