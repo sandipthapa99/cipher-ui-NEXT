@@ -21,17 +21,20 @@
         align-items: center;
         justify-content: space-between;
         padding: 0;
-        .navbar-brand {
-            display: inline-block;
-            padding: 0.8rem 0 0 0;
-            margin: 0;
-            width: 10rem;
-
-            @include respond(md) {
-                width: auto;
-                padding: 0;
-                margin-right: 2rem;
+        &__left{
+            .navbar-brand {
+                display: inline-block;
+                padding: 0.8rem 0 0 0;
+                margin: 0;
+                width: 10rem;
+    
+                @include respond(md) {
+                    width: auto;
+                    padding: 0;
+                    margin-right: 2rem;
+                }
             }
+
         }
         &--site-navigation {
             .navbar-nav {
@@ -128,33 +131,33 @@
             }
         }
     }
-    .login-btn {
-        color: $default-text-color;
-        font-size: 1.6rem;
-        font-weight: 500;
-        line-height: 2.4rem;
-        position: absolute;
-        top: 0;
-        right: 18rem;
-        padding: 3rem 0;
-        border: none;
-        margin-right: 5.2rem;
-        @include respond(lg) {
-            position: static;
-        }
-        @include respond(tablet-lanscape) {
-            padding: 1.05rem 2.2rem;
-        }
-        &:hover {
-            color: $primary-color;
-        }
-        &:focus,
-        &:active,
-        &:focus-visible {
-            border: none;
-            box-shadow: none;
-        }
-    }
+    // .login-btn {
+    //     color: $default-text-color;
+    //     font-size: 1.6rem;
+    //     font-weight: 500;
+    //     line-height: 2.4rem;
+    //     position: absolute;
+    //     top: 0;
+    //     right: 18rem;
+    //     padding: 3rem 0;
+    //     border: none;
+    //     margin-right: 5.2rem;
+    //     @include respond(lg) {
+    //         position: static;
+    //     }
+    //     @include respond(tablet-lanscape) {
+    //         padding: 1.05rem 2.2rem;
+    //     }
+    //     &:hover {
+    //         color: $primary-color;
+    //     }
+    //     &:focus,
+    //     &:active,
+    //     &:focus-visible {
+    //         border: none;
+    //         box-shadow: none;
+    //     }
+    // }
     .nav-cta-btn {
         background: $secondary-color;
         color: $default-text-color;

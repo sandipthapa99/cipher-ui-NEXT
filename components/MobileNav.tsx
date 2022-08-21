@@ -36,7 +36,6 @@ const MobileNav = () => {
         if (typeof window !== "undefined") {
             window.addEventListener("scroll", controlNavbar);
 
-            // cleanup function
             return () => {
                 window.removeEventListener("scroll", controlNavbar);
             };
@@ -44,49 +43,46 @@ const MobileNav = () => {
     }, [lastScrollY]);
     return (
         <div className="mobile-nav d-block d-md-none">
-            <nav className={`nav--active ${show && "nav--hidden"}`}>
+            <nav className={`nav-active ${show && "nav-hidden"}`}>
                 <Link href="/">
-                    <a className={`nav__link ${handleMenuActive("/", router)}`}>
-                        <FontAwesomeIcon icon={faHome} className="nav__icon" />
+                    <a className={`nav-link ${handleMenuActive("/", router)}`}>
+                        <FontAwesomeIcon icon={faHome} className="nav-icon" />
                         {/* <span className="nav__text">Dashboard</span> */}
                     </a>
                 </Link>
                 <Link href="/search">
                     <a
-                        className={`nav__link ${handleMenuActive(
+                        className={`nav-link ${handleMenuActive(
                             "/search",
                             router
                         )}`}
                     >
-                        <FontAwesomeIcon
-                            icon={faSearch}
-                            className="nav__icon"
-                        />
+                        <FontAwesomeIcon icon={faSearch} className="nav-icon" />
                     </a>
                 </Link>
                 <Link href="/profile">
                     <a
-                        className={`nav__link ${handleMenuActive(
+                        className={`nav-link ${handleMenuActive(
                             "/profile",
                             router
                         )}`}
                     >
-                        <FontAwesomeIcon icon={faUser} className="nav__icon" />
+                        <FontAwesomeIcon icon={faUser} className="nav-icon" />
                     </a>
                 </Link>
                 <Link href="/notifications">
                     <a
-                        className={`nav__link ${handleMenuActive(
+                        className={`nav-link ${handleMenuActive(
                             "/notifications",
                             router
                         )}`}
                     >
-                        <FontAwesomeIcon icon={faBell} className="nav__icon" />
+                        <FontAwesomeIcon icon={faBell} className="nav-icon" />
                     </a>
                 </Link>
                 <Link href="">
-                    <a className={`nav__link ${handleMenuActive("", router)}`}>
-                        <FontAwesomeIcon icon={faBars} className="nav__icon" />
+                    <a className={`nav-link ${handleMenuActive("", router)}`}>
+                        <FontAwesomeIcon icon={faBars} className="nav-icon" />
                     </a>
                 </Link>
             </nav>
