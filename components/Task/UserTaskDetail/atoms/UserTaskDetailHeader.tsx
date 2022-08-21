@@ -17,11 +17,13 @@ import { UserStats } from "./UserStats";
 interface UserTaskDetailHeaderProps {
     taskDetail: TaskDetail;
     activeTaskId: number;
+    maxHeaderWidth?: string;
 }
 
 export const UserTaskDetailHeader = ({
     taskDetail,
     activeTaskId,
+    maxHeaderWidth,
 }: UserTaskDetailHeaderProps) => {
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
     const [showMenu, toggleShowMenu] = useToggle([false, true]);
@@ -33,7 +35,7 @@ export const UserTaskDetailHeader = ({
                 show={showHireMerchantModal}
                 onHide={() => setShowHireMerchantModal(false)}
             />
-            <Row>
+            <Row style={{ maxWidth: maxHeaderWidth ?? undefined }}>
                 <Col>
                     <div className="td-user-image-container">
                         <Image
