@@ -4,6 +4,7 @@ import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { Formik } from "formik";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
@@ -70,6 +71,12 @@ const AboutProfile = () => {
         setShowExpForm(!showExpForm);
         setId(id);
     }, []);
+
+    const { data: profileDetails } = useGetProfile();
+
+    console.log("profile=", profileDetails);
+    const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
+    console.log("user profile skills=", userSkills);
 
     return (
         <>
@@ -246,9 +253,9 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {skills.map((info: any) => (
-                                    <div className="skills__type" key={info.id}>
-                                        {info.name}
+                                {userSkills.map((info: any, i: any) => (
+                                    <div className="skills__type" key={i}>
+                                        {info}
                                     </div>
                                 ))}
                             </div>

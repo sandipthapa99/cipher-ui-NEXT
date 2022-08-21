@@ -20,7 +20,6 @@ const isTokenExpired = (token: string) => {
     const { exp } = jwtDecode<{ exp: number }>(token);
     const tokenExpirationDate = fromUnixTime(exp);
     const currentTime = new Date();
-    console.log("TOKEN EXPIRED?", compareAsc(tokenExpirationDate, currentTime));
     return compareAsc(tokenExpirationDate, currentTime) === -1;
 };
 

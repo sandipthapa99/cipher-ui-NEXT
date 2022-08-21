@@ -79,7 +79,6 @@ const ProfileEditForm = ({
                 <div className="applied-modal edit-form">
                     <h3>Edit Profile</h3>
                     <Formik
-                        enableReinitialize={true}
                         initialValues={{
                             full_name: profile?.full_name ?? "",
                             bio: profile?.bio ?? "",
