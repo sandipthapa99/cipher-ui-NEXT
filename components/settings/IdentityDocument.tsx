@@ -24,7 +24,8 @@ export type KYCDocuments = {
 };
 
 export const IdentityDocument = () => {
-    const { data: KYCData, refetch } = useGetKYC();
+    const { data: KYCData, refetch, isLoading } = useGetKYC();
+
     console.log(KYCData);
 
     useEffect(() => {
