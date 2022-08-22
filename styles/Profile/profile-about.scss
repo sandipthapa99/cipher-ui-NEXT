@@ -36,6 +36,8 @@
 
         &:last-child {
             border-bottom: none;
+            padding-left: 1.5rem;
+            padding-right: 3rem;
         }
         a {
             font-size: 1.4rem;
@@ -175,9 +177,28 @@
     }
     .certification {
         padding-bottom: 2.5rem;
+        border-bottom: none;
         .name {
             a {
                 color: $sub-title-color;
+            }
+        }
+    }
+    .reviews {
+        .review-container {
+            padding-top: 0.1rem solid $border-color;
+            .reviewer {
+                @include respond(xs) {
+                    flex-direction: row;
+                    align-items: flex-start;
+                }
+                @include respond(xxs) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    .ratings {
+                        padding: 1rem 0rem;
+                    }
+                }
             }
         }
     }

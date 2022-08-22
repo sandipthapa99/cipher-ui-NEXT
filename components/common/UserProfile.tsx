@@ -5,14 +5,12 @@ import {
     faEllipsisVertical,
     faLocationDot,
     faPhone,
-    faShare,
     faSparkles,
     faStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -47,7 +45,6 @@ const UserProfileCard = ({
     const [showEdit, setShowEdit] = useState(false);
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
-    console.log("skills", moreServices, typeof moreServices);
 
     const services = moreServices ? JSON.parse(moreServices) : [];
     const renderServices: string[] | undefined = services?.map(
@@ -63,6 +60,7 @@ const UserProfileCard = ({
         )
     );
     const userType: string[] = userJob ? JSON.parse(userJob) : [];
+
     const renderType = userType.map((type: string, index: number) => {
         return (
             <p className="organization" key={index}>

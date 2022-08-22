@@ -33,7 +33,12 @@ export interface ServicesValueProps {
             icon: string;
         };
         city: any;
-        images: string;
+        images: {
+            id: number;
+            name: string;
+            size: number;
+            image: string;
+        }[];
         created_at: string;
         updated_at: string;
         title: string;

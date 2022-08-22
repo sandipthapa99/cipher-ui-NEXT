@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Divider, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import { useLogout } from "hooks/auth/useLogout";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
@@ -24,6 +25,7 @@ const SPECIAL_ICON_COLOR = "#F98900";
 export const ProfileModel = () => {
     const router = useRouter();
     const { classes } = useProfileModelStyles();
+    const { data: profileDetails } = useGetProfile();
 
     const logout = useLogout({ onLogout: () => router.push(router.pathname) });
 
@@ -56,14 +58,23 @@ export const ProfileModel = () => {
         <div className={classes.root}>
             <div className={classes.header}>
                 <Image
-                    src="/userprofile/profile.svg"
+                    src={
+                        profileDetails?.profile_image ??
+                        "/userprofile/unknownPerson.jpg"
+                    }
                     width={40}
                     height={40}
                     alt="Profile Image"
                 />
                 <div>
-                    <Text className={classes.username}>Harry Smith</Text>
-                    <Text className={classes.profileType}>Individual</Text>
+                    <Text className={classes.username}>
+                        {profileDetails
+                            ? `${profileDetails.full_name}`
+                            : "Howdy User"}
+                    </Text>
+                    <Text className={classes.profileType}>
+                        {profileDetails && profileDetails?.profile_visibility}
+                    </Text>
                 </div>
                 <Image
                     src="/userprofile/badge.png"

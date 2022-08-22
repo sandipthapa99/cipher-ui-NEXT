@@ -1,25 +1,40 @@
-import { UserTaskCard } from "@components/Task/UserTaskCard/UserTaskCard";
-import type { Task } from "types/tasks";
+import { TeamMembersCard } from "@components/common/TeamMembersCard";
+import type { Tasker } from "types/tasks";
 
 export interface Props {
-    tasks: Task[];
-    onTaskClick: (task: Task) => void;
+    taskers: Tasker[];
+    onTaskClick: (taskerId: string) => void;
 }
-export const UserTaskCardList = ({ tasks, onTaskClick }: Props) => {
+export const UserTaskCardList = ({ taskers, onTaskClick }: Props) => {
     const renderTaskList = () => {
-        return tasks.map((task) => (
-            <UserTaskCard
-                onTaskClick={() => onTaskClick(task)}
-                task={task}
-                key={task.id}
-                isButton={false}
-                taskId={task?.id}
-            />
+        return taskers?.map((item, index) => (
+            <div
+                className="team-member-card-user-card"
+                key={index}
+                onClick={() => onTaskClick?.(item?.user?.id)}
+            >
+                <TeamMembersCard
+                    taskers={item}
+                    image={item?.profile_image}
+                    name={item?.full_name}
+                    speciality={"Teacher"} //doesnt come from api
+                    rating={item?.stats?.user_reviews}
+                    happyClients={item?.stats?.happy_clients}
+                    awardPercentage={item?.stats?.success_rate}
+                    location={item?.address_line1 + " " + item?.address_line2}
+                    distance={"2 km"}
+                    bio={item?.bio}
+                    charge={item?.charge_currency + " " + item?.hourly_rate}
+                />
+            </div>
         ));
     };
     return (
         <>
-            <p>{tasks.length} Tasker in Kathmandu,Bagmati Nepal (1 new)</p>
+            <p>
+                {taskers?.length} Tasker in Kathmandu,Bagmati Nepal (
+                {taskers?.length} new)
+            </p>
             <div className="user-task-card-list">{renderTaskList()}</div>
         </>
     );

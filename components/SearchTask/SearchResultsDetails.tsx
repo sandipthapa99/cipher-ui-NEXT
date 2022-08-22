@@ -18,18 +18,15 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
+import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Carousel, Col, Row } from "react-bootstrap";
-import {
-    getAllPackageCard,
-    getReviews,
-    getServiceHighlights,
-    getServices,
-} from "services/commonServices";
+import { getAllPackageCard, getReviews } from "services/commonServices";
 import { useSetBookNowDetails } from "store/use-book-now";
+import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 import { axiosClient } from "utils/axiosClient";
 
@@ -52,7 +49,6 @@ const SearchResultsDetail = ({
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const setBookNowDetails = useSetBookNowDetails();
-    const services = getServices();
     const PackageCard = getAllPackageCard();
     const reviewsContent = getReviews();
 
@@ -67,6 +63,10 @@ const SearchResultsDetail = ({
     );
 
     const providerName = data?.groups[0]?.name;
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
 
     return (
         <>
@@ -269,44 +269,15 @@ const SearchResultsDetail = ({
                         </Col>
                     </Row>
                     <Carousel style={{ padding: "2rem 0" }}>
-                        {services &&
-                            services.map((service: any) => {
+                        {servicesData &&
+                            servicesData?.data?.result?.map((service, key) => {
                                 return (
-                                    <Carousel.Item key={service.id}>
+                                    <Carousel.Item key={key}>
                                         <Col>
                                             <Link href="/service-detail">
                                                 <a>
                                                     <ServiceCard
-                                                        serviceImage={
-                                                            service.serviceImage
-                                                        }
-                                                        serviceTitle={
-                                                            service.serviceTitle
-                                                        }
-                                                        serviceProvider={
-                                                            service.serviceProvider
-                                                        }
-                                                        serviceProviderLocation={
-                                                            service.serviceProviderLocation
-                                                        }
-                                                        serviceDescription={
-                                                            service.serviceDescription
-                                                        }
-                                                        serviceRating={
-                                                            service.serviceRating
-                                                        }
-                                                        servicePrice={
-                                                            service.servicePrice
-                                                        }
-                                                        hasOffer={
-                                                            service.hasOffer
-                                                        }
-                                                        discountRate={
-                                                            service.discountRate
-                                                        }
-                                                        discountOn={
-                                                            service.discountOn
-                                                        }
+                                                        serviceCard={service}
                                                     />
                                                 </a>
                                             </Link>

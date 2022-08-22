@@ -21,8 +21,7 @@ const TaskerDetailPage = () => {
                 <UserTaskDetail
                     maxHeaderWidth="80rem"
                     className={classes.userTaskDetailContainer}
-                    taskDetail={taskDetail}
-                    activeTaskId={1}
+                    activeTaskId={""}
                     onExitTaskDetail={() =>
                         router.push({ pathname: "/", hash: "top-taskers" })
                     }

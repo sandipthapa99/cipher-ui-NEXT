@@ -5,29 +5,28 @@ import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
 import { UserTaskCardList } from "@components/Task/UserTaskCard/UserTaskCardList";
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
-import { useTaskerCoordinates, useTaskers } from "hooks/tasker/use-tasker";
+import { Tasker, useTaskers } from "hooks/tasker/use-tasker";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { taskDetails } from "staticData/taskDetail";
 import type { Task } from "types/tasks";
 
-const Tasker = () => {
+const TaskerPage = () => {
     const router = useRouter();
-    const { data: taskers = [] } = useTaskers();
+    const { data: taskers } = useTaskers();
     const { redirectedFrom } = router.query;
     const [searchQuery, setSearchQuery] = useState("");
-    const [activeTaskIdx, setActiveTaskIdx] = useState<number | undefined>();
+    const [activeTaskIdx, setActiveTaskIdx] = useState<string | undefined>();
 
-    const taskerCoordinates = useTaskerCoordinates();
-
-    const toggleActiveTask = (task: Task) => {
+    const toggleActiveTask = (taskerId: string) => {
         router.push({
             pathname: router.pathname,
-            query: { ...router.query, taskId: task.id },
+            query: { ...router.query, taskerId },
         });
-        setActiveTaskIdx(task.id);
+        setActiveTaskIdx(taskerId);
     };
+
     const removeActiveTaskIdx = () => {
         if (redirectedFrom && typeof redirectedFrom === "string")
             return router.push({
@@ -37,23 +36,23 @@ const Tasker = () => {
         setActiveTaskIdx(undefined);
     };
 
-    const filteredTasks = useMemo(
-        () =>
-            searchQuery
-                ? taskers.filter((task) =>
-                      task.user.username
-                          .toLowerCase()
-                          .includes(searchQuery.toLowerCase())
-                  )
-                : taskers,
-        [searchQuery, taskers]
-    );
+    // const filteredTasks = useMemo(
+    //     () =>
+    //         searchQuery
+    //             ? taskers?.result?.filter((task) =>
+    //                   tasker?.user.username
+    //                       .toLowerCase()
+    //                       .includes(searchQuery.toLowerCase())
+    //               )
+    //             : taskers,
+    //     [searchQuery, taskers]
+    // );
     useEffect(() => {
-        const { taskId } = router.query;
-        if (taskId !== undefined && !isNaN(Number(taskId))) {
-            setActiveTaskIdx(Number(taskId));
+        const { taskerId } = router.query;
+        if (taskerId !== undefined && typeof taskerId === "string") {
+            setActiveTaskIdx(taskerId);
         }
-    }, [router.query, router.query.taskId]);
+    }, [router.query.taskerId, router.query]);
     return (
         <>
             <SearchHeader />
@@ -64,7 +63,7 @@ const Tasker = () => {
                     <Col md={4}>
                         <UserTaskCardList
                             onTaskClick={toggleActiveTask}
-                            tasks={filteredTasks}
+                            taskers={taskers ?? []}
                         />
                     </Col>
                     <Col md={8}>
@@ -73,13 +72,12 @@ const Tasker = () => {
                                 <div className="task-detail-container">
                                     <UserTaskDetail
                                         onExitTaskDetail={removeActiveTaskIdx}
-                                        taskDetail={taskDetails[activeTaskIdx]}
                                         activeTaskId={activeTaskIdx}
                                     />
                                 </div>
                             </div>
                         ) : (
-                            <MapboxMap markerCoordinates={taskerCoordinates} />
+                            <MapboxMap />
                         )}
                     </Col>
                 </Row>
@@ -89,4 +87,4 @@ const Tasker = () => {
     );
 };
 
-export default Tasker;
+export default TaskerPage;
