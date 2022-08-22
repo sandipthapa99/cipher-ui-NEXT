@@ -11,7 +11,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { taskDetails } from "staticData/taskDetail";
 import type { Task } from "types/tasks";
 
-const Tasker = () => {
+const TaskerPage = () => {
     const router = useRouter();
     const { data: taskers } = useTaskers();
     const { redirectedFrom } = router.query;
@@ -47,8 +47,12 @@ const Tasker = () => {
     // );
     useEffect(() => {
         const { taskerId } = router.query;
-        if (taskerId !== undefined && !isNaN(Number(taskerId))) {
-            setActiveTaskIdx(taskerId);
+        if (
+            taskerId !== undefined &&
+            typeof taskerId === "string" &&
+            !isNaN(Number(taskerId))
+        ) {
+            setActiveTaskIdx(parseInt(taskerId));
         }
     }, [router.query, router.query.taskId]);
     return (
@@ -94,4 +98,4 @@ const Tasker = () => {
     );
 };
 
-export default Tasker;
+export default TaskerPage;

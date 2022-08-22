@@ -2,8 +2,8 @@ import {
     faAward,
     faEllipsisVertical,
     faFaceGrinBeam,
-    faLocationArrow,
     faHeart,
+    faLocationArrow,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,7 +30,7 @@ interface Props {
     charge?: string;
 }
 
-export const TeamMembersCard = ({a
+export const TeamMembersCard = ({
     taskers,
     collabButton,
     onTaskClick,
@@ -46,8 +46,12 @@ export const TeamMembersCard = ({a
     bio,
     charge,
 }: Props) => {
+    if (!taskers) return null;
     return (
-        <div className="team-members-card" onClick={() => onTaskClick(taskerId: tasker?.id)}>
+        <div
+            className="team-members-card"
+            onClick={() => onTaskClick?.(taskers.id)}
+        >
             <div className="d-flex w-100 image-and-title">
                 <figure className="team-member-card-image">
                     <Image

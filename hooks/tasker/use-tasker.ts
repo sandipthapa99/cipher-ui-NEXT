@@ -4,8 +4,10 @@ import { axiosClient } from "utils/axiosClient";
 export const useTaskers = () => {
     return useQuery<Tasker[], Error>(["taskers"], async () => {
         try {
-            const { data } = await axiosClient.get<Tasker[]>("/tasker/");
-            return data;
+            const { data } = await axiosClient.get<{ result: Tasker[] }>(
+                "/tasker/"
+            );
+            return data.result;
         } catch (error: any) {
             throw new Error(
                 error?.response?.data?.message ?? "Failed to fetch taskers"

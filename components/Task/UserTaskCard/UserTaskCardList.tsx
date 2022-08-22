@@ -7,8 +7,9 @@ export interface Props {
 }
 export const UserTaskCardList = ({ taskers, onTaskClick }: Props) => {
     const renderTaskList = () => {
-        return taskers?.map((item: any) => (
+        return taskers?.map((item, index) => (
             <TeamMembersCard
+                key={index}
                 taskers={item}
                 onTaskClick={onTaskClick}
                 image={item?.profile_image}

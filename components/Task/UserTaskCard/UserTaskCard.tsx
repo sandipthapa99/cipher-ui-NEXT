@@ -25,30 +25,22 @@ export const UserTaskCard = ({
     handleButtonClick,
     taskId,
 }: Props) => {
-    console.log("task inside userTaskCard", task);
     return (
-        <div className="user-task-card" onClick={() => onTaskClick(task)}>
+        <div className="user-task-card">
             <div className="user-task-card__header">
                 <Image
-                    src={
-                        task?.profile?.profile_image ??
-                        "/community/gallery2.png"
-                    }
+                    src={"/community/gallery2.png"}
                     width="80px"
                     height="80px"
                     objectFit="cover"
-                    alt={`${task?.profile?.full_name} profile picture`}
+                    alt={"profile picture"}
                     className="rounded-circle header-image"
                 />
 
                 <div className="user-info">
-                    <p className="user-info__username">
-                        {task?.profile?.full_name}
-                    </p>
+                    <p className="user-info__username">full name</p>
                     <span>
-                        <span className="user-info__category">
-                            {task?.profile?.full_name}
-                        </span>
+                        <span className="user-info__category">Full name</span>
                         <span> | </span>
                         <span className="td-text">{"location here"}</span>
                     </span>
@@ -86,7 +78,7 @@ export const UserTaskCard = ({
                     icon={faEllipsisVertical}
                 />
             </div>
-            <p className="td-text user-info__bio">{task?.profile?.bio}</p>
+            <p className="td-text user-info__bio">bio</p>
             <div className="d-flex justify-content-between user-task-card__footer">
                 <div className="icons">
                     <SaveIcon />
