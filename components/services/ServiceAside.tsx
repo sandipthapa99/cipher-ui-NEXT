@@ -17,7 +17,7 @@ const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
                 <Link href={"/"}>
                     <a>
                         <ServiceNearYouCard
-                            servicePrice={task?.budget}
+                            servicePrice={task?.budget_from}
                             serviceTitle={task?.title}
                             serviceRating={task?.success_rate}
                             serviceProviderLocation={task?.location}

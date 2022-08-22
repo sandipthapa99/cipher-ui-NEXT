@@ -17,7 +17,7 @@ const ServiceCard = ({
 }) => {
     return (
         <div className="service-card-block">
-            <Link href="/service-detail">
+            <Link href={`/service/${serviceCard.slug}`}>
                 <a>
                     <div className="card-img">
                         {serviceCard && serviceCard?.images && (
@@ -86,7 +86,9 @@ const ServiceCard = ({
                                 />
                                 {serviceCard?.happy_clients}
                             </p>
-                            <p className="price">${serviceCard?.budget}/hr</p>
+                            <p className="price">
+                                ${serviceCard?.budget_from}/hr
+                            </p>
                         </div>
                     </a>
                 </Link>
