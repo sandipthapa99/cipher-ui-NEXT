@@ -15,6 +15,7 @@
     }
     .svg-icon {
         margin-left: 1.8rem;
+        @include transition();
     }
     .address {
         color: $gray-text-color;
@@ -54,6 +55,12 @@
         @include respond(xxs) {
             font-size: 1.5rem;
         }
+    }
+    .name {
+        cursor: pointer;
+    }
+    .trash {
+        margin-left: 0.5rem;
     }
     .portfolio {
         padding-bottom: 1.2rem;
@@ -113,12 +120,6 @@
                 .svg-icon {
                     cursor: pointer;
                     color: $sub-title-color;
-                }
-                .trash {
-                    margin-left: 0.5rem;
-                }
-                .icons {
-                    display: none;
                 }
             }
             .company {

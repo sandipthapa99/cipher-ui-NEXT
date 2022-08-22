@@ -15,7 +15,6 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
-import { SessionProvider } from "next-auth/react";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
@@ -23,14 +22,13 @@ interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
     pageProps: {
         dehydratedState: DehydratedState;
     };
-    session: any;
 }
 
 const UserLoadingOverlay = dynamic(
     () => import("@components/common/FullPageLoader"),
     { ssr: false }
 );
-function MyApp({ Component, pageProps, session }: CustomAppProps) {
+function MyApp({ Component, pageProps }: CustomAppProps) {
     const [queryClient] = useState(
         () =>
             new QueryClient({
@@ -48,21 +46,19 @@ function MyApp({ Component, pageProps, session }: CustomAppProps) {
             }
         >
             <QueryClientProvider client={queryClient}>
-                <SessionProvider session={session}>
-                    <ReactQueryDevtools />
-                    <ToastContainer
-                        position="top-center"
-                        hideProgressBar={true}
-                        autoClose={1000}
-                    />
-                    <Hydrate state={pageProps.dehydratedState}>
-                        <MantineProvider>
-                            <UserLoadingOverlay />
-                            <LoginPrompt />
-                            <Component {...pageProps} />
-                        </MantineProvider>
-                    </Hydrate>
-                </SessionProvider>
+                <ReactQueryDevtools />
+                <ToastContainer
+                    position="top-center"
+                    hideProgressBar={true}
+                    autoClose={1000}
+                />
+                <Hydrate state={pageProps.dehydratedState}>
+                    <MantineProvider>
+                        <UserLoadingOverlay />
+                        <LoginPrompt />
+                        <Component {...pageProps} />
+                    </MantineProvider>
+                </Hydrate>
             </QueryClientProvider>
         </GoogleOAuthProvider>
     );

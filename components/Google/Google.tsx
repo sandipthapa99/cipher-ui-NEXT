@@ -1,36 +1,22 @@
 import { GoogleLogin } from "@react-oauth/google";
-import Image from "next/image";
-import Link from "next/link";
 
 const Google = () => {
     return (
-        <div>
-            <Link href={"/"}>
-                <a>
-                    <button className={`social-btn`}>
-                        <Image
-                            src={"/illustrations/google.svg"}
-                            height={24}
-                            width={24}
-                            className=""
-                            alt="icon"
-                        />
-                        <GoogleLogin
-                            type="standard"
-                            width="600px"
-                            logo_alignment="center"
-                            onSuccess={(credentialResponse) => {
-                                console.log(credentialResponse);
-                            }}
-                            onError={() => {
-                                console.log("Login Failed");
-                            }}
-                            useOneTap
-                        />
-                    </button>
-                </a>
-            </Link>
-        </div>
+        <GoogleLogin
+            type="standard"
+            width="600px"
+            auto_select={true}
+            cancel_on_tap_outside={true}
+            logo_alignment="center"
+            useOneTap={false}
+            context="signin"
+            onSuccess={(credentialResponse) => {
+                console.log(credentialResponse);
+            }}
+            onError={() => {
+                console.log("Login Failed");
+            }}
+        />
     );
 };
 export default Google;

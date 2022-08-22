@@ -1,46 +1,70 @@
 .mobile-nav {
-    .nav {
+    .nav-active {
         position: fixed;
         bottom: 0;
         width: 100%;
         height: 6.4rem;
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.2);
         background-color: #ffffff;
         display: flex;
         overflow-x: auto;
         border-radius: 1rem 1rem 0 0;
         z-index: 10;
+        animation: slideUp 0.5s ease-in-out 0s forwards;
     }
 
-    .nav__link {
+    .nav-hidden {
+        position: fixed;
+        animation: slideDown 0.5s ease-in-out 0s forwards;
+    }
+
+    .nav-link {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         flex-grow: 1;
-        min-width: 50px;
+        min-width: 5rem;
         overflow: hidden;
         white-space: nowrap;
         font-family: sans-serif;
-        font-size: 13px;
+        font-size: 1.3rem;
         color: #444444;
         text-decoration: none;
         -webkit-tap-highlight-color: transparent;
         transition: background-color 0.1s ease-in-out;
     }
+
     .nav-item--active {
         color: $secondary-color;
     }
 
-    .nav__link:hover {
+    .nav-link:hover {
         background-color: #eeeeee;
     }
 
-    .nav__link--active {
+    .nav-link--active {
         color: $secondary-color;
     }
 
-    .nav__icon {
+    .nav-icon {
         font-size: 2.4rem;
+    }
+}
+
+@keyframes slideDown {
+    0% {
+        bottom: 0;
+    }
+    100% {
+        bottom: -8rem;
+    }
+}
+@keyframes slideUp {
+    0% {
+        bottom: -8rem;
+    }
+    100% {
+        bottom: 0rem;
     }
 }

@@ -26,10 +26,9 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
@@ -37,14 +36,13 @@ import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
-import { services } from "staticData/services";
 import { tasks } from "staticData/task";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
+import type { ServicesValueProps } from "types/serviceCard";
 import type { SuccessStoryProps } from "types/successStory";
 import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
-import { handleMenuActive } from "utils/helpers";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
 
@@ -53,15 +51,16 @@ interface LandingPageProps {
     trustedPartnerData: BrandValueProps;
 }
 
-const CategoriesListingHomepage = dynamic(
-    () => import("components/common/CategoriesListingHomepage"),
-    { ssr: false }
-);
 const Home: NextPage<{
     successStoryData: LandingPageProps["successStoryData"];
     trustedPartnerData: LandingPageProps["trustedPartnerData"];
 }> = ({ successStoryData, trustedPartnerData }) => {
     const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
+
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -258,30 +257,11 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
+                        {servicesData &&
+                            servicesData?.data?.result?.map((service, key) => {
                                 return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                        />
+                                    <Col sm={6} md={4} lg={3} key={key}>
+                                        <ServiceCard serviceCard={service} />
                                     </Col>
                                 );
                             })}
@@ -307,30 +287,11 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
+                        {servicesData &&
+                            servicesData?.data?.result?.map((service, key) => {
                                 return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                        />
+                                    <Col sm={6} md={4} lg={3} key={key}>
+                                        <ServiceCard serviceCard={service} />
                                     </Col>
                                 );
                             })}
@@ -353,35 +314,26 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+
                     <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
-                                return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                            proService={true}
-                                        />
-                                    </Col>
-                                );
-                            })}
+                        {servicesData &&
+                            servicesData?.data?.result
+                                ?.slice(0, 4)
+                                .filter((p) => p.is_professional)
+                                .map((service) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={service.id}
+                                        >
+                                            <ServiceCard
+                                                serviceCard={service}
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                 </Container>
             </section>
@@ -776,6 +728,7 @@ export const getStaticProps: GetStaticProps = async () => {
         );
         const queryClient = new QueryClient();
         await queryClient.prefetchQuery(["all-blogs"]);
+        await queryClient.prefetchQuery(["all-services"]);
         return {
             props: {
                 successStoryData: successStoryData,
@@ -790,6 +743,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 successStoryData: [],
                 trustedPartnerData: [],
                 blogData: [],
+                servicesData: [],
             },
             revalidate: 10,
         };

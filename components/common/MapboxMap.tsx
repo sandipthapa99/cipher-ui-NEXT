@@ -1,6 +1,5 @@
 import { faLocationDot } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { TaskerCoordinate } from "hooks/tasker/use-tasker";
 import { useLocation } from "hooks/weather/useWeather";
 import type { HTMLAttributes } from "react";
 import Map, {
@@ -16,7 +15,7 @@ interface MapboxMapProps extends HTMLAttributes<HTMLDivElement> {
     latitude?: number;
     width?: string;
     height?: string;
-    markerCoordinates?: TaskerCoordinate[];
+    markerCoordinates?: unknown[];
 }
 const getMapBoxToken = () => {
     const mapBoxToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
@@ -35,12 +34,12 @@ export const MapboxMap = ({
     ...rest
 }: MapboxMapProps) => {
     const coords = useLocation();
-    const renderMultipleMarkers = (coordinates: TaskerCoordinate[]) => {
+    const renderMultipleMarkers = (coordinates: any[]) => {
         return coordinates.map((coordinate, key) => (
             <Marker
                 key={key}
-                longitude={coordinate.longitude}
-                latitude={coordinate.latitude}
+                longitude={coordinate?.longitude}
+                latitude={coordinate?.latitude}
             >
                 <FontAwesomeIcon
                     icon={faLocationDot}

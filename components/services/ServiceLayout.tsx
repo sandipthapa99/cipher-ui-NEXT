@@ -1,44 +1,47 @@
-import TaskAside from "@components/AppliedTask/taskAside";
 import FullPageLoader from "@components/common/FullPageLoader";
 import Footer from "@components/Footer";
-import Header from "@components/Header";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
-import SearchHeader from "@components/SearchTask/searchHeader";
-import { useTasks } from "hooks/apply-task/useTask";
+import { useData } from "hooks/use-data";
 import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+import type { ServicesValueProps } from "types/serviceCard";
 
-const AppliedLayout = ({ children }: { children: ReactNode }) => {
+import ServiceAside from "./ServiceAside";
+
+const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
 
-    const { data, isLoading } = useTasks();
+    const { data, isLoading } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
 
     const filteredTasks =
         useMemo(
             () =>
                 query && data
-                    ? data.result?.filter((item) =>
+                    ? data.data.result?.filter((item) =>
                           item?.title
                               .toLowerCase()
                               .includes(query.toLowerCase())
                       )
-                    : data?.result,
+                    : data?.data.result,
             [data, query]
         ) ?? [];
     if (isLoading || !data) return <FullPageLoader />;
     return (
-        <Layout title="Find Tasks | Cipher">
+        <Layout title="Find Services | Cipher">
             <Container>
                 <SearchCategory onChange={setQuery} />
-                <TaskAside query={query} appliedTasks={filteredTasks}>
+                <ServiceAside query={query} appliedTasks={filteredTasks}>
                     {children}
-                </TaskAside>
+                </ServiceAside>
             </Container>
             <Footer />
         </Layout>
     );
 };
-export default AppliedLayout;
+export default ServiceLayout;

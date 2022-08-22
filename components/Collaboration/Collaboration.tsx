@@ -50,7 +50,16 @@ export const Collaboration = () => {
                             /> */}
 
                             <TeamMembersCard
-                                task={item}
+                                image={item?.user?.profileImage}
+                                name={item?.user?.username}
+                                speciality={item?.user?.category}
+                                rating={item?.rating?.average}
+                                happyClients={item?.likes}
+                                awardPercentage={item?.rewardPercentage}
+                                location={item?.user?.location}
+                                distance={"2 km"}
+                                bio={item?.user?.bio}
+                                charge={item?.price}
                                 collabButton={true}
                                 handleButtonClick={handleOpen}
                             />

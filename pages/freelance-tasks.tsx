@@ -4,18 +4,21 @@ import { SearchInputField } from "@components/common/SearchInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
+import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
-import Link from "next/link";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
-import { getServices } from "services/commonServices";
 import { freelanceTasksCarousel } from "staticData/freelanceTasks";
 import { topSkillsInNepal } from "staticData/hireInNepal";
+import type { ServicesValueProps } from "types/serviceCard";
 import searchValidationSchema from "utils/formValidation/searchValidation";
 const FreelanceTasks: NextPage = () => {
-    const services = getServices();
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     return (
         <Layout title="Freelance Tasks | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="freelance-tasks">
                     <BreadCrumb currentPage="Freelance Tasks" />
 
@@ -53,88 +56,31 @@ const FreelanceTasks: NextPage = () => {
                     </div>
                     <Row className="gx-5">
                         <h4 className="task-header">Freelancing Tasks</h4>
-                        {services &&
-                            services.map((service) => {
+                        {servicesData &&
+                            servicesData?.data?.result?.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                        />
+                                        <ServiceCard serviceCard={service} />
                                     </Col>
                                 );
                             })}
                     </Row>
                     <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
+                        {servicesData &&
+                            servicesData?.data?.result?.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                        />
+                                        <ServiceCard serviceCard={service} />
                                     </Col>
                                 );
                             })}
                     </Row>
                     <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
+                        {servicesData &&
+                            servicesData?.data?.result?.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                        />
+                                        <ServiceCard serviceCard={service} />
                                     </Col>
                                 );
                             })}
@@ -156,7 +102,7 @@ const FreelanceTasks: NextPage = () => {
                             title="An employee takes home 10% more with Cipher Payroll"
                             image="/hireinnepal/footer.png"
                             imageOnRight={true}
-                            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500."
+                            description="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500."
                         />
                     </div>
                 </section>

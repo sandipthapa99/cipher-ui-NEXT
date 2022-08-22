@@ -3,7 +3,6 @@ import CipherCard from "@components/common/CipherCard";
 import MerchantCard from "@components/common/MerchantCard";
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
-import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import Layout from "@components/Layout";
 import { faAngleRight, faSearch } from "@fortawesome/pro-regular-svg-icons";
@@ -137,7 +136,7 @@ const LandingPage: NextPage = () => {
                                     <Col sm={6} md={4} lg={3} key={service.id}>
                                         <Link href="/service-detail">
                                             <a>
-                                                <ServiceCard
+                                                {/* <ServiceCard
                                                     serviceImage={
                                                         service.serviceImage
                                                     }
@@ -166,7 +165,7 @@ const LandingPage: NextPage = () => {
                                                     discountOn={
                                                         service.discountOn
                                                     }
-                                                />
+                                                /> */}
                                             </a>
                                         </Link>
                                     </Col>
@@ -197,7 +196,7 @@ const LandingPage: NextPage = () => {
                                     <Col sm={6} md={4} lg={3} key={service.id}>
                                         <Link href="/service-detail">
                                             <a>
-                                                <ServiceCard
+                                                {/* <ServiceCard
                                                     serviceImage={
                                                         service.serviceImage
                                                     }
@@ -226,7 +225,7 @@ const LandingPage: NextPage = () => {
                                                     discountOn={
                                                         service.discountOn
                                                     }
-                                                />
+                                                /> */}
                                             </a>
                                         </Link>
                                     </Col>
