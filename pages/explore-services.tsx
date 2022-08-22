@@ -6,14 +6,31 @@ import ServiceCard from "@components/common/ServiceCard";
 import Layout from "@components/Layout";
 import { faSearch } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { serviceCategory } from "staticData/serviceCategory";
 import type { ServicesValueProps } from "types/serviceCard";
+import { axiosClient } from "utils/axiosClient";
 
+export interface TaskCategory {
+    id: number;
+    name: string;
+    slug: string;
+    icon: string;
+}
+export const useTaskCategories = () => {
+    return useQuery(["all-task-categories"], () =>
+        axiosClient
+            .get<TaskCategory[]>("/task/cms/task-category/list/")
+            .then((response) => response.data)
+    );
+};
 const ExploreServices: NextPage = () => {
+    const { data: taskCategories = [] } = useTaskCategories();
+
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
