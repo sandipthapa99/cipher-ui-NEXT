@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
+
 export interface RatingResponse {
     count: number;
     next: string;

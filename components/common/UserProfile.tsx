@@ -175,11 +175,19 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
                                     <p>
-                                        &nbsp;Active Hours {activeFrom} to{" "}
-                                        {activeTo}:
+                                        &nbsp;Active Hours &nbsp;
+                                        {activeFrom
+                                            ?.replaceAll("00:00", "")
+                                            .slice(1)}
+                                        00 AM to&nbsp;
+                                        {activeTo
+                                            ?.replaceAll("00:00", "")
+                                            .slice(1)}
+                                        00 PM
                                     </p>
                                 </div>
-
+                                {/* document.file
+                                                                .split(".") */}
                                 <div className="success-rate type d-flex flex-col">
                                     <div className="count d-flex flex-row">
                                         <FontAwesomeIcon

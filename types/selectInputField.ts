@@ -14,4 +14,5 @@ export interface SelectInputFieldProps {
     fieldRequired?: boolean;
     options?: SelectOptionProps[];
     getData?: any;
+    onChange?: any;
 }
