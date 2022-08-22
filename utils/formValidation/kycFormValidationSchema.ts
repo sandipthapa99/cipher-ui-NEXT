@@ -5,6 +5,8 @@ const dateValidation = Yup.date().nullable().required("Required field");
 
 export const KYCFormSchema = Yup.object().shape({
     full_name: stringReqOnly,
+    country: stringReqOnly,
+    address: stringReqOnly,
     identity_type: stringReqOnly,
     identity_id: stringReqOnly,
     identity_issuer_organization: stringReqOnly,
