@@ -9,11 +9,11 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import type { Task } from "types/tasks";
+import type { Task, Tasker } from "types/tasks";
 
 interface Props {
     isButton?: boolean;
-    task: Task;
+    task: Tasker;
     onTaskClick: (task: Task) => void;
     handleButtonClick?: () => void;
     taskId?: number;
@@ -26,25 +26,23 @@ export const UserTaskCard = ({
     taskId,
 }: Props) => {
     return (
-        <div className="user-task-card" onClick={() => onTaskClick(task)}>
+        <div className="user-task-card">
             <div className="user-task-card__header">
                 <Image
-                    src={task.user.profileImage}
+                    src={"/community/gallery2.png"}
                     width="80px"
                     height="80px"
                     objectFit="cover"
-                    alt={`${task.user.username} profile picture`}
+                    alt={"profile picture"}
                     className="rounded-circle header-image"
                 />
 
                 <div className="user-info">
-                    <p className="user-info__username">{task.user.username}</p>
+                    <p className="user-info__username">full name</p>
                     <span>
-                        <span className="user-info__category">
-                            {task.user.category}
-                        </span>
+                        <span className="user-info__category">Full name</span>
                         <span> | </span>
-                        <span className="td-text">{task.user.location}</span>
+                        <span className="td-text">{"location here"}</span>
                     </span>
                     <div className="user-ratings">
                         <div className="d-flex align-items-center">
@@ -53,8 +51,8 @@ export const UserTaskCard = ({
                                 className="svg-icon"
                                 icon={faStar}
                             />
-                            <span>{task.rating.average}</span>
-                            <span>{`(${task.rating.totalRatings})`}</span>
+                            <span>{"4"}</span>
+                            <span>{`(${"5"})`}</span>
                         </div>
                         <div className="d-flex align-items-center">
                             <FontAwesomeIcon
@@ -62,7 +60,7 @@ export const UserTaskCard = ({
                                 className="svg-icon"
                                 icon={faSmile}
                             />
-                            <span>{task.likes}</span>
+                            <span>{5}</span>
                         </div>
                         <div className="d-flex align-items-center">
                             <FontAwesomeIcon
@@ -70,7 +68,7 @@ export const UserTaskCard = ({
                                 className="svg-icon"
                                 icon={faRibbon}
                             />
-                            <span>{task.rewardPercentage}</span>
+                            <span>{"90%"}</span>
                         </div>
                     </div>
                 </div>
@@ -80,12 +78,12 @@ export const UserTaskCard = ({
                     icon={faEllipsisVertical}
                 />
             </div>
-            <p className="td-text user-info__bio">{task.user.bio}</p>
+            <p className="td-text user-info__bio">bio</p>
             <div className="d-flex justify-content-between user-task-card__footer">
                 <div className="icons">
                     <SaveIcon />
                     <ShareIcon
-                        url={`http://localhost:3005/tasker?taskId=${taskId}`}
+                        url={`http://localhost:3005/tasker?taskerId=${taskId}`}
                         quote={"Tasker from cipher project"}
                         hashtag={"cipher-tasker"}
                     />
@@ -99,7 +97,7 @@ export const UserTaskCard = ({
                     />
                 )}
                 {isButton === false && (
-                    <p className="task-price">{task.price}</p>
+                    <p className="task-price">{"currency"}</p>
                 )}
             </div>
         </div>
