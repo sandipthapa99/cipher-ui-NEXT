@@ -4,9 +4,9 @@ import Layout from "@components/Layout";
 import { faAngleRight, faFilterList } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { NextPage } from "next";
+import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import searchValidationSchema from "utils/formValidation/searchValidation";
-
 const Saved: NextPage = () => {
     return (
         <Layout title="Saved | Cipher">
@@ -46,13 +46,15 @@ const Saved: NextPage = () => {
                                 <h2>
                                     Services <span>(20)</span>
                                 </h2>{" "}
-                                <a href="#!" className="view-more">
-                                    view more{" "}
-                                    <FontAwesomeIcon
-                                        icon={faAngleRight}
-                                        className="svg-icon"
-                                    />
-                                </a>
+                                <Link href="/search">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
+                                        />
+                                    </a>
+                                </Link>
                                 <div className="content"></div>
                             </div>
                         </div>

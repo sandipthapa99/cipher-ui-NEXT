@@ -26,14 +26,17 @@ ServiceCardProps) => {
             <Link href="/service-detail">
                 <a>
                     <div className="card-img">
-                        <figure className="thumbnail-img">
-                            <Image
-                                src={serviceImage}
-                                layout="fill"
-                                objectFit="cover"
-                                alt="servicecard-image"
-                            />
-                        </figure>
+                        {serviceImage && (
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src={serviceImage}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="servicecard-image"
+                                />
+                            </figure>
+                        )}
+
                         {hasOffer && (
                             <div className="offer">
                                 <p className="discount-rate">

@@ -40,13 +40,18 @@
     }
 }
 
-.cagtu-cipher-buzz-section {
+.trusted-brand-section {
     margin: 0;
     background: #f8f9fa;
     .marquee {
+        figure {
+            position: relative;
+            min-width: 8rem;
+            min-height: 6rem;
+        }
         background: #f8f9fa;
         li {
-            padding: 5rem 10rem;
+            padding: 3rem 20rem;
             font: 600 3.2rem $poppins-font;
             cursor: pointer;
         }

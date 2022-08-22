@@ -9,9 +9,7 @@ import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
-import { log } from "console";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
@@ -21,7 +19,6 @@ import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails, error } = useGetProfile();
-    console.log("user", profileDetails?.user_type);
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData(["profile"]);
 
@@ -30,7 +27,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     //     "/tasker/profile/"
     // );
     // const profileDetails = userData?.data;
-    console.log("profile=", profileDetails);
+
     const remaining = {
         userRating: 4,
         userBadge: "Gold",

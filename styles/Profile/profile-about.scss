@@ -15,6 +15,7 @@
     }
     .svg-icon {
         margin-left: 1.8rem;
+        @include transition();
     }
     .address {
         color: $gray-text-color;
@@ -55,6 +56,12 @@
             font-size: 1.5rem;
         }
     }
+    .name {
+        cursor: pointer;
+    }
+    .trash {
+        margin-left: 0.5rem;
+    }
     .portfolio {
         padding-bottom: 1.2rem;
         .content {
@@ -66,14 +73,17 @@
                 padding-right: 2rem;
             }
             .thumbnail-img {
-                height: 18rem;
+                height: 19rem;
                 width: 19rem;
                 border-radius: 0.6rem;
-
+                @include respond(xs) {
+                    height: 11rem;
+                    width: 12rem;
+                    margin-top: 2rem;
+                }
                 @include respond(xxs) {
-                    height: 10rem;
-                    width: 11rem;
-
+                    height: 9rem;
+                    width: 8rem;
                     margin-top: 2rem;
                 }
             }
@@ -109,6 +119,7 @@
                 margin-bottom: 0.2rem;
                 .svg-icon {
                     cursor: pointer;
+                    color: $sub-title-color;
                 }
             }
             .company {

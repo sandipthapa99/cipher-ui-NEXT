@@ -12,6 +12,7 @@ export interface CardProps {
     imageOnRight?: boolean;
     buttonText?: string;
     homeImage?: boolean;
+    descTitle?: string;
 }
 const LongSquareImageCard = ({
     title,
@@ -21,6 +22,7 @@ const LongSquareImageCard = ({
     imageOnRight,
     buttonText,
     homeImage,
+    descTitle,
 }: CardProps) => {
     return (
         <div className="long-square-image-card">
@@ -42,6 +44,7 @@ const LongSquareImageCard = ({
                                 <div className="description">
                                     <h1>{title}</h1>
                                     {subtitle && <h4>{subtitle}</h4>}
+                                    {descTitle && <p>{descTitle}</p>}
                                     {Array.isArray(description) ? (
                                         <ul>
                                             {description.map(
@@ -101,6 +104,7 @@ const LongSquareImageCard = ({
                                 <div className="description">
                                     <h1>{title}</h1>
                                     {subtitle && <h4>{subtitle}</h4>}
+                                    {descTitle && <p>{descTitle}</p>}
                                     {Array.isArray(description) ? (
                                         <ul>
                                             {description.map(

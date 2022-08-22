@@ -1,27 +1,35 @@
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
-import type { CommunityGuidelineCardProps } from "types/community";
+import type { BlogValueProps } from "types/blogs";
 const CommunityBlogCard = ({
-    cardImage,
-    cardDescription,
-    cardTitle,
-}: CommunityGuidelineCardProps) => {
+    blogData,
+}: {
+    blogData: BlogValueProps["result"][0];
+}) => {
     return (
         <div className="find-hire-card-block">
-            <figure className="thumbnail-img">
-                <Image src={cardImage} layout="fill" objectFit="cover" alt="" />
-            </figure>
+            {blogData.image && (
+                <figure className="thumbnail-img">
+                    <Image
+                        src={blogData?.image}
+                        layout="fill"
+                        objectFit="cover"
+                        alt=""
+                    />
+                </figure>
+            )}
 
             <div className="card-content">
-                <h2>{cardTitle}</h2>
-
-                <p className="card-description">
-                    {/* {`${aboutDescription.substring(0, 80)}...`} */}
-                    {cardDescription}
-                </p>
-                <Link href="">
+                <h2>{blogData?.title}</h2>
+                {blogData && (
+                    <div className="card-description">
+                        {parse(`${blogData?.content.substring(0, 130)}...`)}
+                    </div>
+                )}
+                <Link href={`/blogs/${blogData?.slug}`}>
                     <a>
                         See More
                         <FontAwesomeIcon
