@@ -63,7 +63,7 @@ const TasksProfileCard = () => {
                 </Row>
             </div>
 
-            <div className="profile-task__bottom-container">
+            {/* <div className="profile-task__bottom-container">
                 <div className="reviews">
                     <Row className="head-container">
                         <Col md={6}>
@@ -126,6 +126,72 @@ const TasksProfileCard = () => {
                             <Link href="#!">See all reviews</Link>
                         </Row>
                     </div>
+                </div>
+            </div> */}
+            <div className="profile-task__bottom-container reviews">
+                <div className="head-container">
+                    <Row className="align-items-center">
+                        <Col md={6}>
+                            <h3>
+                                My Reviews <span>(3,0003)</span>{" "}
+                            </h3>
+                        </Col>
+                        <Col md={6}>
+                            <Row className="select-field">
+                                <Col md={6}>
+                                    <Formik
+                                        initialValues={HomeSearchdata}
+                                        validationSchema={HomeSearchSchema}
+                                        onSubmit={async (values) =>
+                                            console.log(values)
+                                        }
+                                    >
+                                        <SelectInputField
+                                            name="review"
+                                            options={personType}
+                                            fieldRequired
+                                            placeHolder="Tasker"
+                                        />
+                                    </Formik>
+                                </Col>
+                                <Col md={6}>
+                                    <Formik
+                                        initialValues={HomeSearchdata}
+                                        validationSchema={HomeSearchSchema}
+                                        onSubmit={async (values) => {
+                                            console.log(values);
+                                        }}
+                                    >
+                                        <SelectInputField
+                                            name="review"
+                                            options={reviewType}
+                                            placeholder="Most Relevant"
+                                            fieldRequired
+                                            placeHolder="Most Relevant"
+                                        />
+                                    </Formik>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                </div>
+
+                <div className="review-container">
+                    <Row className="gx-5 type">
+                        {reviewsContent &&
+                            reviewsContent.map((review) => (
+                                <Col md={8} key={review.id}>
+                                    <Reviews
+                                        name={review.name}
+                                        ratings={review.ratings}
+                                        description={review.description}
+                                        time={review.time}
+                                        image={review.image}
+                                    />
+                                </Col>
+                            ))}
+                        <Link href="#!">See all reviews</Link>
+                    </Row>
                 </div>
             </div>
         </section>
