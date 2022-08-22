@@ -20,7 +20,7 @@
     }
 
     .upper-navigation {
-        padding: 0;
+        padding: 1.2rem 0;
 
         &__left {
             .navbar-brand {
@@ -35,20 +35,12 @@
                     margin-right: 2rem;
                 }
             }
+
             .search-input {
                 width: 48rem;
+
                 input {
                     height: auto;
-                }
-            }
-            .search-btn {
-                background: $secondary-color;
-                border: none;
-                padding: 1.2rem 1.6rem;
-                .search-icon {
-                    color: $primary-color;
-                    height: 2.4rem;
-                    width: 2.4rem;
                 }
             }
 
@@ -58,17 +50,17 @@
                 .nav-link {
                     color: $default-text-color;
                     font-weight: 500;
-                    padding: 0.8rem 1.5rem;
+                    // padding: 0.8rem 1.5rem;
                     font-size: 1.2rem;
 
                     @include respond(lg) {
-                        padding: 3rem 3.2rem 3rem 0;
+                        // padding: 3rem 3.2rem 3rem 0;
                         font-size: 1.6rem;
                         color: $default-text-color;
                     }
 
                     @include respond(tablet-lanscape) {
-                        padding: 2.8rem 3.5rem;
+                        // padding: 2.8rem 3.5rem;
                     }
                 }
 
@@ -85,10 +77,45 @@
                 }
             }
         }
+
+        &__center {
+            width: 35%;
+            position: relative;
+            .search-input {
+                input {
+                    padding-left: 5.4rem;
+                    border-radius: 0.4rem;
+                    border: 1px solid #dee2e6;
+
+                    &::placeholder {
+                        font-size: 1.6rem;
+                        font-weight: 500;
+                        color: #868e96;
+                    }
+                }
+
+                .search-btn {
+                    position: absolute;
+                    left: 0.8rem;
+                    top: 1rem;
+                    background: none;
+                    border: none;
+                    z-index: 10;
+
+                    .search-icon {
+                        color: $primary-color;
+                        height: 2rem;
+                        width: 2rem;
+                    }
+                }
+            }
+        }
+
         &__right {
             .login-btn {
                 margin-right: 5.2rem;
             }
+
             .auth-btn {
                 color: $default-text-color;
                 font-size: 1.2rem;
@@ -100,12 +127,15 @@
                     font-size: 1.6rem;
                     position: static;
                 }
+
                 @include respond(tablet-lanscape) {
                     padding: 1.05rem 2.2rem;
                 }
+
                 &:hover {
                     color: $secondary-color;
                 }
+
                 &:focus,
                 &:active,
                 &:focus-visible {
@@ -113,12 +143,15 @@
                     box-shadow: none;
                 }
             }
+
             .user-profile {
                 position: relative;
                 margin-right: 1.6rem;
+
                 @include respond(md) {
                     margin-right: 2rem;
                 }
+
                 .profile-btn {
                     figure {
                         min-width: 4rem;
@@ -126,6 +159,7 @@
                     }
                 }
             }
+
             .nav-cta-btn {
                 background: $secondary-color;
                 color: $default-text-color;
