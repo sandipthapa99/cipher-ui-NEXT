@@ -5,20 +5,19 @@ import {
     faEllipsisVertical,
     faLocationDot,
     faPhone,
-    faShare,
     faSparkles,
     faStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { UserProfileInfoProps } from "types/userProfile";
 
 import ProfileEditForm from "./ProfileEditForm";
+import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 
 const UserProfileCard = ({
@@ -46,14 +45,22 @@ const UserProfileCard = ({
     const [showEdit, setShowEdit] = useState(false);
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
-    console.log("skills", moreServices, typeof moreServices);
 
     const services = moreServices ? JSON.parse(moreServices) : [];
-
     const renderServices: string[] | undefined = services?.map(
-        (service: string, index: number) => <p key={index}>{service}</p>
+        (service: string, index: number) => (
+            <p key={index}>
+                {service}
+                {index < services.length - 2
+                    ? ", "
+                    : index < services.length - 1
+                    ? " and"
+                    : ""}
+            </p>
+        )
     );
     const userType: string[] = userJob ? JSON.parse(userJob) : [];
+
     const renderType = userType.map((type: string, index: number) => {
         return (
             <p className="organization" key={index}>
@@ -66,18 +73,44 @@ const UserProfileCard = ({
         <div className="profile-card-block">
             <Row>
                 <Col md={3} className="profile-card-block__profile">
-                    <figure
-                        className="thumbnail-img"
-                        onClick={() => setShowExpForm(!showExpForm)}
+                    <div>
+                        <figure
+                            className="thumbnail-img"
+                            onClick={() => setShowExpForm(!showExpForm)}
+                        >
+                            <Image
+                                src={userImage}
+                                layout="fill"
+                                objectFit="cover"
+                                alt="user-profile-image"
+                                className="rounded-circle"
+                            />
+                        </figure>
+                    </div>
+
+                    {/* <figure
+                        className="thumbnail-img camera-img"
+                        //  onClick={() => setShowExpForm(!showExpForm)}
                     >
                         <Image
-                            src={userImage}
-                            layout="fill"
+                            src="/userprofile/edit.svg"
                             objectFit="cover"
                             alt="user-profile-image"
                             className="rounded-circle"
+                            height={100}
+                            width={100}
                         />
                     </figure>
+                    <figure className="thumbnail-img alert-img">
+                        <Image
+                            src="/userprofile/alert.svg"
+                            objectFit="cover"
+                            alt="user-profile-image"
+                            className="rounded-circle"
+                            height={200}
+                            width={200}
+                        />
+                    </figure> */}
                     <PhotoEdit
                         photo={userImage}
                         show={showExpForm}
@@ -167,11 +200,19 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
                                     <p>
-                                        &nbsp;Active Hours {activeFrom} to{" "}
-                                        {activeTo}:
+                                        &nbsp;Active Hours &nbsp;
+                                        {activeFrom
+                                            ?.replaceAll("00:00", "")
+                                            .slice(1)}
+                                        00 AM to&nbsp;
+                                        {activeTo
+                                            ?.replaceAll("00:00", "")
+                                            .slice(1)}
+                                        00 PM
                                     </p>
                                 </div>
-
+                                {/* document.file
+                                                                .split(".") */}
                                 <div className="success-rate type d-flex flex-col">
                                     <div className="count d-flex flex-row">
                                         <FontAwesomeIcon
@@ -194,9 +235,12 @@ const UserProfileCard = ({
                         <Col md={6}>
                             <div className="reactions d-flex">
                                 <div className="d-flex flex-col share">
-                                    <FontAwesomeIcon
-                                        icon={faShare}
-                                        className="svg-icon share"
+                                    <ShareIcon
+                                        url={`http://localhost:3005/profile/`}
+                                        quote={
+                                            "Hi guys checkout my Cipher Profile"
+                                        }
+                                        hashtag={"cipher-profile"}
                                     />
                                 </div>
                                 <FontAwesomeIcon

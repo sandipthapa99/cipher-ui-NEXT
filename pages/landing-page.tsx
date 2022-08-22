@@ -1,11 +1,10 @@
-import CategoryCard from "@components/common/CategoryCard";
 import CipherCard from "@components/common/CipherCard";
 import MerchantCard from "@components/common/MerchantCard";
 import RecommendationChips from "@components/common/RecommendationChips";
 import SelectInputField from "@components/common/SelectInputField";
-import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import Layout from "@components/Layout";
+import { ServiceCategories } from "@components/services/ServiceCategories";
 import { faAngleRight, faSearch } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
@@ -15,7 +14,6 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { findHire } from "staticData/findHire";
 import { findOpportuities } from "staticData/findOpportunities";
 import { merchants } from "staticData/merchants";
-import { serviceCategory } from "staticData/serviceCategory";
 import { services } from "staticData/services";
 import { tasks } from "staticData/task";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
@@ -91,27 +89,7 @@ const LandingPage: NextPage = () => {
                     </div>
 
                     {/* Service category listing start */}
-                    <Row className="gx-5">
-                        {serviceCategory &&
-                            serviceCategory.map((category) => {
-                                return (
-                                    <Col xs={6} sm={4} lg={2} key={category.id}>
-                                        <Link href="/category/gardening">
-                                            <a>
-                                                <CategoryCard
-                                                    categoryTitle={
-                                                        category.categoryTitle
-                                                    }
-                                                    categoryIcon={
-                                                        category.categoryIcon
-                                                    }
-                                                />
-                                            </a>
-                                        </Link>
-                                    </Col>
-                                );
-                            })}
-                    </Row>
+                    <ServiceCategories />
                     {/* Service category listing end */}
                 </Container>
             </section>
@@ -137,7 +115,7 @@ const LandingPage: NextPage = () => {
                                     <Col sm={6} md={4} lg={3} key={service.id}>
                                         <Link href="/service-detail">
                                             <a>
-                                                <ServiceCard
+                                                {/* <ServiceCard
                                                     serviceImage={
                                                         service.serviceImage
                                                     }
@@ -166,7 +144,7 @@ const LandingPage: NextPage = () => {
                                                     discountOn={
                                                         service.discountOn
                                                     }
-                                                />
+                                                /> */}
                                             </a>
                                         </Link>
                                     </Col>
@@ -197,7 +175,7 @@ const LandingPage: NextPage = () => {
                                     <Col sm={6} md={4} lg={3} key={service.id}>
                                         <Link href="/service-detail">
                                             <a>
-                                                <ServiceCard
+                                                {/* <ServiceCard
                                                     serviceImage={
                                                         service.serviceImage
                                                     }
@@ -226,7 +204,7 @@ const LandingPage: NextPage = () => {
                                                     discountOn={
                                                         service.discountOn
                                                     }
-                                                />
+                                                /> */}
                                             </a>
                                         </Link>
                                     </Col>
@@ -243,36 +221,8 @@ const LandingPage: NextPage = () => {
                     <h1 className="section-main-title">
                         Browse services by category
                     </h1>
-                    <Row className="gx-5">
-                        {serviceCategory &&
-                            serviceCategory.map((category) => {
-                                return (
-                                    <Col xs={6} sm={4} lg={2} key={category.id}>
-                                        <CategoryCard
-                                            categoryTitle={
-                                                category.categoryTitle
-                                            }
-                                            categoryIcon={category.categoryIcon}
-                                        />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
-                    <Row className="gx-5">
-                        {serviceCategory &&
-                            serviceCategory.map((category) => {
-                                return (
-                                    <Col xs={6} sm={4} lg={2} key={category.id}>
-                                        <CategoryCard
-                                            categoryTitle={
-                                                category.categoryTitle
-                                            }
-                                            categoryIcon={category.categoryIcon}
-                                        />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
+                    <ServiceCategories />
+                    <ServiceCategories />
                     {/* Service category listing end */}
                 </Container>
             </section>

@@ -9,9 +9,7 @@ import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
-import { log } from "console";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
@@ -21,7 +19,6 @@ import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails, error } = useGetProfile();
-    console.log("user", profileDetails?.user_type);
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData(["profile"]);
 
@@ -30,7 +27,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     //     "/tasker/profile/"
     // );
     // const profileDetails = userData?.data;
-    console.log("profile=", profileDetails);
+
     const remaining = {
         userRating: 4,
         userBadge: "Gold",
@@ -52,13 +49,17 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
                             <Col className="create-profile">
-                                <h1>Create Your Profile. Start your Journey</h1>
+                                <h1>Your profile is incomplete!</h1>
+                                <p>
+                                    Fill in the details to Complete your profile
+                                    and get started with tasks.
+                                </p>
                                 <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
                                         className="text-profile"
                                     >
-                                        Create Profile
+                                        Complete Profile Now
                                     </Link>
                                 </button>
                             </Col>
@@ -159,6 +160,7 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["tasker-experience"]),
             queryClient.prefetchQuery(["tasker-portfolio"]),
             queryClient.prefetchQuery(["profile"]),
+            queryClient.prefetchQuery(["tasker-rating"]),
         ]);
         return {
             props: {
@@ -172,6 +174,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 educationData: [],
                 experienceData: [],
                 profile: [],
+                ratingData: [],
             },
         };
     }

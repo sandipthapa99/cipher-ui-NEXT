@@ -6,6 +6,7 @@ import type { MetaDataProps } from "types/metaData";
 import meta from "../staticData/siteMetaData.json";
 import Footer from "./Footer";
 import Header from "./Header";
+import MobileNav from "./MobileNav";
 // import HeaderForPolicy from "./HeaderForPolicy";
 // import Footer from "./Footer";
 // import FooterForPolicy from "./FooterForPolicy";
@@ -70,6 +71,7 @@ const Layout: FC<MetaDataProps> = ({
 
             {children}
             <Footer />
+            <MobileNav />
         </>
     );
 };

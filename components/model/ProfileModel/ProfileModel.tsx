@@ -11,17 +11,102 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Divider, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
-import { useQueryClient } from "@tanstack/react-query";
+import { useLogout } from "hooks/auth/useLogout";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
-import { autoLogout } from "utils/auth";
 
 import { useProfileModelStyles } from "./profileModelStyles";
 
 const REGULAR_ICON_COLOR = "#495057";
 const SPECIAL_ICON_COLOR = "#F98900";
 
+export const ProfileModel = () => {
+    const router = useRouter();
+    const { classes } = useProfileModelStyles();
+    const { data: profileDetails } = useGetProfile();
+
+    const logout = useLogout({ onLogout: () => router.push(router.pathname) });
+
+    const renderProfileSections = () => {
+        return Object.entries(PROFILE_LINKS).map((entry) => {
+            const [key, value] = entry;
+            return (
+                <ul className={classes.bodyItem} key={key}>
+                    <Divider my="1rem" />
+                    {value.map((item, key) => (
+                        <li
+                            data-is-active={router.pathname === item.href}
+                            key={key}
+                        >
+                            {/* <FontAwesomeIcon icon={faCar} color={item.color} /> */}
+                            {item.icon}
+                            <NextLink
+                                style={{ color: item.color }}
+                                href={item.href}
+                            >
+                                {item.title}
+                            </NextLink>
+                        </li>
+                    ))}
+                </ul>
+            );
+        });
+    };
+    return (
+        <div className={classes.root}>
+            <div className={classes.header}>
+                <Image
+                    src={
+                        profileDetails?.profile_image ??
+                        "/userprofile/unknownPerson.jpg"
+                    }
+                    width={40}
+                    height={40}
+                    alt="Profile Image"
+                />
+                <div>
+                    <Text className={classes.username}>
+                        {profileDetails
+                            ? `${profileDetails.full_name}`
+                            : "Howdy User"}
+                    </Text>
+                    <Text className={classes.profileType}>
+                        {profileDetails && profileDetails?.profile_visibility}
+                    </Text>
+                </div>
+                <Image
+                    src="/userprofile/badge.png"
+                    width={60}
+                    height={60}
+                    alt="Badge"
+                />
+            </div>
+            <div className={classes.body}>
+                {renderProfileSections()}
+                <ul>
+                    <Divider my="1rem" />
+                    <li>
+                        <Button
+                            sx={{ fontWeight: 500 }}
+                            color={"red"}
+                            variant="white"
+                            leftIcon={
+                                <FontAwesomeIcon
+                                    icon={faArrowRightFromBracket}
+                                />
+                            }
+                            onClick={logout}
+                        >
+                            Logout
+                        </Button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    );
+};
 const PROFILE_LINKS = {
     sectionOne: [
         {
@@ -85,81 +170,4 @@ const PROFILE_LINKS = {
             color: "#495057",
         },
     ],
-};
-export const ProfileModel = () => {
-    const queryClient = useQueryClient();
-    const router = useRouter();
-    const { classes } = useProfileModelStyles();
-
-    const handleLogout = () => {
-        queryClient.setQueryData(["user"], null);
-        autoLogout();
-        router.push(router.pathname);
-    };
-
-    const renderProfileSections = () => {
-        return Object.entries(PROFILE_LINKS).map((entry) => {
-            const [key, value] = entry;
-            return (
-                <ul className={classes.bodyItem} key={key}>
-                    <Divider my="1rem" />
-                    {value.map((item, key) => (
-                        <li key={key}>
-                            {/* <FontAwesomeIcon icon={faCar} color={item.color} /> */}
-                            {item.icon}
-                            <NextLink
-                                style={{ color: item.color }}
-                                href={item.href}
-                            >
-                                {item.title}
-                            </NextLink>
-                        </li>
-                    ))}
-                </ul>
-            );
-        });
-    };
-    return (
-        <div className={classes.root}>
-            <div className={classes.header}>
-                <Image
-                    src="/userprofile/profile.svg"
-                    width={40}
-                    height={40}
-                    alt="Profile Image"
-                />
-                <div>
-                    <Text className={classes.username}>Harry Smith</Text>
-                    <Text className={classes.profileType}>Individual</Text>
-                </div>
-                <Image
-                    src="/userprofile/badge.png"
-                    width={60}
-                    height={60}
-                    alt="Badge"
-                />
-            </div>
-            <div className={classes.body}>
-                {renderProfileSections()}
-                <ul>
-                    <Divider my="1rem" />
-                    <li>
-                        <Button
-                            sx={{ fontWeight: 500 }}
-                            color={"red"}
-                            variant="white"
-                            leftIcon={
-                                <FontAwesomeIcon
-                                    icon={faArrowRightFromBracket}
-                                />
-                            }
-                            onClick={handleLogout}
-                        >
-                            Logout
-                        </Button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    );
 };

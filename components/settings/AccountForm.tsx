@@ -9,6 +9,7 @@ import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
@@ -77,7 +78,7 @@ const AccountForm = () => {
 
     const currencyResults = currency?.result.map((result) => ({
         label: result.name,
-        value: result.current_value,
+        value: result.id,
         id: result.id,
     }));
     const languageResults = language?.result.map((result) => ({
@@ -360,30 +361,6 @@ const AccountForm = () => {
                                 </Col>
                             </Row>
 
-                            <h4>Select User Type</h4>
-                            <div role="group" aria-labelledby="checkbox-group">
-                                <label className="me-3">
-                                    <Field
-                                        type="checkbox"
-                                        name="user_type"
-                                        value="Client"
-                                        className="me-2"
-                                        disabled={profile ? true : false}
-                                    />
-                                    Client
-                                </label>
-                                <label className="me-3">
-                                    <Field
-                                        type="checkbox"
-                                        name="user_type"
-                                        className="me-2"
-                                        value="Tasker"
-                                        disabled={profile ? true : false}
-                                    />
-                                    Tasker
-                                </label>
-                            </div>
-                            <hr />
                             <h3>Address</h3>
                             <SelectInputField
                                 name="country"

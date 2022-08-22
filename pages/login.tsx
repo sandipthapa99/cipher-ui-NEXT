@@ -1,12 +1,12 @@
+import { FacebookLogin } from "@components/auth/FacebookLogin";
+import GoogleLogin from "@components/auth/GoogleLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
-import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
 import { useRouter } from "next/router";
-import React from "react";
 import { toast } from "react-toastify";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
@@ -75,22 +75,12 @@ const Login = () => {
                                         isLoading
                                     )}
                                 />
-
                                 <div className="horizontal-line">
                                     <span className="or">OR</span>
                                 </div>
-
-                                <SocialLoginBtn
-                                    name={"Sign in with Facebook"}
-                                    icon="/illustrations/fb.svg"
-                                    className="facebook"
-                                ></SocialLoginBtn>
-
-                                <SocialLoginBtn
-                                    name={"Sign in with Google"}
-                                    icon="/illustrations/google.svg"
-                                    className="google"
-                                ></SocialLoginBtn>
+                                <FacebookLogin />
+                                <GoogleLogin />
+                                {/* <Google /> */}
                             </Form>
                         )}
                     </Formik>

@@ -3,33 +3,50 @@ import { UserShortIntro } from "@components/Task/UserTaskDetail/atoms/UserShortI
 import { UserTaskDetailHeader } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailHeader";
 import { UserTaskDetailTabs } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailTabs";
 import { UserTaskReviews } from "@components/Task/UserTaskDetail/atoms/UserTaskReviews";
+import { useQuery } from "@tanstack/react-query";
+import type { HTMLAttributes } from "react";
 import React from "react";
-import type { TaskDetail } from "staticData/taskDetail";
+import { axiosClient } from "utils/axiosClient";
 
-interface UserTaskDetailProps {
-    taskDetail: TaskDetail;
+interface UserTaskDetailProps extends HTMLAttributes<HTMLDivElement> {
+    // taskDetail: TaskDetail;
     onExitTaskDetail: () => void;
-    activeTaskId: number;
+    activeTaskId: string;
+    maxHeaderWidth?: string;
 }
 
 const UserTaskDetail = ({
-    taskDetail,
     onExitTaskDetail,
     activeTaskId,
+    maxHeaderWidth,
+    className,
+    ...rest
 }: UserTaskDetailProps) => {
+    const { data: taskerDetail } = useQuery(
+        ["tasker-detail", activeTaskId],
+        async () => {
+            const response = await axiosClient.get(
+                `/tasker/profile/${activeTaskId}`
+            );
+            return response?.data;
+        }
+    );
+
+    const containerClass = `user-task-detail-container ${className}`;
     return (
-        <div className="user-task-detail-container">
+        <div {...rest} className={containerClass}>
             <GoBack
                 type="button"
                 onClick={onExitTaskDetail}
                 className="mb-24"
             />
             <UserTaskDetailHeader
-                taskDetail={taskDetail}
+                taskerDetail={taskerDetail}
+                maxHeaderWidth={maxHeaderWidth}
                 activeTaskId={activeTaskId}
             />
-            <UserShortIntro user={taskDetail.user} />
-            <UserTaskDetailTabs user={taskDetail.user} />
+            <UserShortIntro user={taskerDetail} />
+            <UserTaskDetailTabs />
             <UserTaskReviews />
         </div>
     );

@@ -171,7 +171,7 @@ export const TaxCalculatorFormData: TaxCalculatorValueProps = {
 
 export const DeactivateFromData: deactivateValueProps = {
     reason: "",
-    duration: "",
+    // duration: "",
     explaination: "",
 };
 

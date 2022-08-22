@@ -14,21 +14,25 @@ import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { faEllipsisVertical } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
+import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { PackageCard } from "staticData/packageCard";
 import { reviewsContent } from "staticData/reviews";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
-import { servicesDiscover } from "staticData/services";
+import type { ServicesValueProps } from "types/serviceCard";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { reviewType } from "utils/options";
 
 const ServiceDetail: NextPage = () => {
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     return (
         <Layout title="Service Details | Cipher">
             <BreadCrumb currentPage="Service Details" />
@@ -215,17 +219,19 @@ const ServiceDetail: NextPage = () => {
                         <div className="title-wrapper d-flex justify-content-between">
                             {/* <h2 className="heading-title">Community activity</h2> */}
                             <h1>Popular on Cipher</h1>
-                            <a href="#!" className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
+                            <Link href="/search">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
                         </div>
                         <Row className="gx-5">
-                            {servicesDiscover &&
-                                servicesDiscover.map((service) => {
+                            {servicesData &&
+                                servicesData?.data?.result?.map((service) => {
                                     return (
                                         <Col
                                             className="discover-col"
@@ -235,32 +241,7 @@ const ServiceDetail: NextPage = () => {
                                             key={service.id}
                                         >
                                             <ServiceCard
-                                                serviceImage={
-                                                    service.serviceImage
-                                                }
-                                                serviceTitle={
-                                                    service.serviceTitle
-                                                }
-                                                serviceProvider={
-                                                    service.serviceProvider
-                                                }
-                                                serviceProviderLocation={
-                                                    service.serviceProviderLocation
-                                                }
-                                                serviceDescription={
-                                                    service.serviceDescription
-                                                }
-                                                serviceRating={
-                                                    service.serviceRating
-                                                }
-                                                servicePrice={
-                                                    service.servicePrice
-                                                }
-                                                hasOffer={service.hasOffer}
-                                                discountRate={
-                                                    service.discountRate
-                                                }
-                                                discountOn={service.discountOn}
+                                                serviceCard={service}
                                             />
                                         </Col>
                                     );

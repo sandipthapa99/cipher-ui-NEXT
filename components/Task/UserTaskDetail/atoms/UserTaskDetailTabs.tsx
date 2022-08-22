@@ -1,22 +1,19 @@
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
+import { AboutTasker } from "@components/Tasker/AboutTasker";
+import { useData } from "hooks/use-data";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { serviceCards } from "staticData/serviceCards";
-import type { TaskDetail } from "staticData/taskDetail";
+import { ServicesValueProps } from "types/serviceCard";
 
-export interface UserTaskDetailTabsProps {
-    user: TaskDetail["user"];
-}
-
-export const UserTaskDetailTabs = ({ user }: UserTaskDetailTabsProps) => {
+export const UserTaskDetailTabs = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     return (
         <Tab
             activeIndex={activeTabIdx}
             onTabClick={setActiveTabIdx}
             items={[
-                { title: "About", content: <div>About</div> },
+                { title: "About", content: <AboutTasker /> },
                 { title: "Service", content: <ServiceList /> },
                 { title: "Documents", content: <div>Photos</div> },
             ]}
@@ -24,11 +21,15 @@ export const UserTaskDetailTabs = ({ user }: UserTaskDetailTabsProps) => {
     );
 };
 const ServiceList = () => {
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     return (
         <Row className="td-user-services">
-            {serviceCards.map((serviceCard, index) => (
-                <Col key={index}>
-                    <ServiceCard {...serviceCard} />
+            {servicesData?.data?.result?.map((service, key) => (
+                <Col key={key}>
+                    <ServiceCard serviceCard={service} />
                 </Col>
             ))}
         </Row>

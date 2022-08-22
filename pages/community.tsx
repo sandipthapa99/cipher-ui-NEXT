@@ -162,10 +162,8 @@ const Community: NextPage = () => {
                         </Row>
                     </div>
 
-                    <div className="community-page-main__activity">
-                        {/* <h1>Community activity</h1> */}
+                    {/* <div className="community-page-main__activity">
                         <div className="title-wrapper d-flex justify-content-between">
-                            {/* <h2 className="heading-title">Community activity</h2> */}
                             <h1>Community activity</h1>
                             <a href="/pages" className="view-more">
                                 view more{" "}
@@ -180,9 +178,7 @@ const Community: NextPage = () => {
                                 communityActivityContent.map((activity) => {
                                     return (
                                         <Col
-                                            // sm={6}
                                             md={6}
-                                            // lg={4}
                                             key={activity.id}
                                         >
                                             <CommunityActivityCard
@@ -200,7 +196,7 @@ const Community: NextPage = () => {
                                     );
                                 })}
                         </Row>
-                    </div>
+                    </div> */}
                     {/* <Carousel>
                         {businessGoal &&
                             businessGoal.map((goal) => {

@@ -15,6 +15,8 @@ const SelectInputField = ({
     textMuted,
     fieldRequired = false,
     options,
+    getData,
+    onChange,
     ...restProps
 }: SelectInputFieldProps & Partial<HTMLInputElement>) => {
     return (
@@ -34,6 +36,7 @@ const SelectInputField = ({
                     className={`${checkFormControl(error, touch)}`}
                     placeholder={placeHolder}
                     as="select"
+                    onChange={onChange}
                 >
                     <option value="" defaultValue="">
                         {placeHolder}

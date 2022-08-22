@@ -175,7 +175,7 @@ const EducationForm = ({
                                     <Col md={6}>
                                         <DatePickerField
                                             name="end_date"
-                                            labelName="End Date"
+                                            labelName="End Date (Expected)"
                                             placeHolder="2022-03-06"
                                             touch={touched.end_date}
                                             error={errors.end_date}

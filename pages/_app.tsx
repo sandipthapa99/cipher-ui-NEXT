@@ -5,6 +5,7 @@ import "@smastrom/react-rating/style.css";
 
 import { LoginPrompt } from "@components/model/LoginPrompt";
 import { MantineProvider } from "@mantine/core";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import type { DehydratedState } from "@tanstack/react-query";
 import {
     Hydrate,
@@ -39,21 +40,27 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             })
     );
     return (
-        <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools />
-            <ToastContainer
-                position="top-center"
-                hideProgressBar={true}
-                autoClose={1000}
-            />
-            <Hydrate state={pageProps.dehydratedState}>
-                <MantineProvider>
-                    <UserLoadingOverlay />
-                    <LoginPrompt />
-                    <Component {...pageProps} />
-                </MantineProvider>
-            </Hydrate>
-        </QueryClientProvider>
+        <GoogleOAuthProvider
+            clientId={
+                "245846975950-vucoc2e1cmeielq5f5neoca7880n0u2i.apps.googleusercontent.com"
+            }
+        >
+            <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools />
+                <ToastContainer
+                    position="top-center"
+                    hideProgressBar={true}
+                    autoClose={1000}
+                />
+                <Hydrate state={pageProps.dehydratedState}>
+                    <MantineProvider>
+                        <UserLoadingOverlay />
+                        <LoginPrompt />
+                        <Component {...pageProps} />
+                    </MantineProvider>
+                </Hydrate>
+            </QueryClientProvider>
+        </GoogleOAuthProvider>
     );
 }
 export default MyApp;
