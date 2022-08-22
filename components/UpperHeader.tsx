@@ -86,8 +86,8 @@ export function UpperHeader() {
                             </div>
                         </div>
                         {checkPageForHeader && (
-                            <div className="upper-navigation__center">
-                                <div className="search-input d-none d-md-flex">
+                            <div className="upper-navigation__center d-none d-md-block">
+                                <div className="search-input d-md-flex">
                                     <Form.Control
                                         placeholder="Find your Services"
                                         aria-label="Find your Services &amp; Taskers"
