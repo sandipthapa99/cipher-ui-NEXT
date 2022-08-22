@@ -79,7 +79,7 @@ export const UserTaskDetailHeader = ({
                     <div className="td-task-detail-header-icons">
                         <SaveIcon />
                         <ShareIcon
-                            url={`http://localhost:3005/tasker?taskId=${activeTaskId}`}
+                            url={`http://localhost:3005/tasker?taskerId=${activeTaskId}`}
                             quote={"Tasker from cipher project"}
                             hashtag={"cipher-tasker"}
                         />
