@@ -7,7 +7,7 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
 
-export const AboutTasker = () => {
+export const AboutTasker = ({ activeTaskerId }: string) => {
     //user profile certification data
     const { data: certificationData } = useData<
         UserProfileProps["certificationData"]
@@ -29,6 +29,8 @@ export const AboutTasker = () => {
         ["tasker-portfolio"],
         "/tasker/portfolio/"
     );
+
+    console.log("education data .......about tasker", educationData);
 
     const { data: profileDetails } = useGetProfile();
 

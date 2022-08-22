@@ -6,14 +6,21 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { ServicesValueProps } from "types/serviceCard";
 
-export const UserTaskDetailTabs = () => {
+interface UserTaskDetailTabs {
+    activeTaskerId: string;
+}
+
+export const UserTaskDetailTabs = ({ activeTaskerId }: UserTaskDetailTabs) => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     return (
         <Tab
             activeIndex={activeTabIdx}
             onTabClick={setActiveTabIdx}
             items={[
-                { title: "About", content: <AboutTasker /> },
+                {
+                    title: "About",
+                    content: <AboutTasker activeTaskerId={activeTaskerId} />,
+                },
                 { title: "Service", content: <ServiceList /> },
                 { title: "Documents", content: <div>Photos</div> },
             ]}
