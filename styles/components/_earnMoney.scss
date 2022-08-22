@@ -1,0 +1,15 @@
+.get-started-card {
+    min-height: 40rem;
+    background: linear-gradient(
+        100.12deg,
+        rgba(255, 255, 255, 0.48) 0%,
+        rgba(255, 255, 255, 0) 58.4%
+    );
+    box-shadow: rgba(33, 29, 79, 0.1);
+
+    .description-section {
+        h2 {
+            font: 400 2.4rem $poppins-font;
+        }
+    }
+}
