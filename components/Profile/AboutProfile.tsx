@@ -3,15 +3,16 @@ import Reviews from "@components/common/Reviews";
 import SelectInputField from "@components/common/SelectInputField";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useGetTaskerRating } from "hooks/rating/getRating";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { reviewsContent } from "staticData/reviews";
 import type { UserProfileProps } from "types/userProfileProps";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
@@ -33,7 +34,12 @@ const AboutProfile = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [modalName, setModalName] = useState("");
     const [id, setId] = useState<number | undefined>();
-
+    // const [uuid, setUUID] = useState<number | undefined>();
+    //tasker rating data
+    const { data: taskerRating, error } = useGetTaskerRating();
+    const queryClient = useQueryClient();
+    const data = queryClient.getQueryData(["tasker-rating"]);
+    console.log("user rating=", taskerRating);
     //user profile certification data
     const { data: certificationData } = useData<
         UserProfileProps["certificationData"]
@@ -517,75 +523,81 @@ const AboutProfile = () => {
                     </Row>
                 </div>
                 <div className="reviews">
-                    <Row className="type head-container">
-                        <Col md={6}>
-                            <h3>
-                                My Reviews <span>(3,0003)</span>{" "}
-                            </h3>
-                        </Col>
-                        <Col md={6}>
-                            <Row className="select-field">
-                                <Col md={6}>
-                                    <Formik
-                                        initialValues={HomeSearchdata}
-                                        validationSchema={HomeSearchSchema}
-                                        onSubmit={async (values) =>
-                                            console.log(values)
-                                        }
-                                    >
-                                        <SelectInputField
-                                            name="review"
-                                            options={personType}
-                                            fieldRequired
-                                            placeHolder="Tasker"
-                                        />
-                                    </Formik>
-                                </Col>
-                                <Col md={6}>
-                                    <Formik
-                                        initialValues={HomeSearchdata}
-                                        validationSchema={HomeSearchSchema}
-                                        onSubmit={async (values) => {
-                                            console.log(values);
-                                        }}
-                                    >
-                                        <SelectInputField
-                                            name="review"
-                                            options={reviewType}
-                                            placeholder="Most Relevant"
-                                            fieldRequired
-                                            placeHolder="Most Relevant"
-                                        />
-                                    </Formik>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
+                    <div className="head-container">
+                        <Row className="align-items-center">
+                            <Col md={6}>
+                                <h3>
+                                    My Reviews <span>(3,0003)</span>{" "}
+                                </h3>
+                            </Col>
+                            <Col md={6}>
+                                <Row className="select-field">
+                                    <Col md={6}>
+                                        <Formik
+                                            initialValues={HomeSearchdata}
+                                            validationSchema={HomeSearchSchema}
+                                            onSubmit={async (values) =>
+                                                console.log(values)
+                                            }
+                                        >
+                                            <SelectInputField
+                                                name="review"
+                                                options={personType}
+                                                fieldRequired
+                                                placeHolder="Tasker"
+                                            />
+                                        </Formik>
+                                    </Col>
+                                    <Col md={6}>
+                                        <Formik
+                                            initialValues={HomeSearchdata}
+                                            validationSchema={HomeSearchSchema}
+                                            onSubmit={async (values) => {
+                                                console.log(values);
+                                            }}
+                                        >
+                                            <SelectInputField
+                                                name="review"
+                                                options={reviewType}
+                                                placeholder="Most Relevant"
+                                                fieldRequired
+                                                placeHolder="Most Relevant"
+                                            />
+                                        </Formik>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    </div>
+
                     <div className="review-container">
                         <Row className="gx-5 type">
-                            {reviewsContent &&
-                                reviewsContent.map((review) => (
+                            {taskerRating &&
+                                taskerRating?.result?.map((review) => (
                                     <Col md={8} key={review.id}>
                                         <Reviews
-                                            name={review.name}
-                                            ratings={review.ratings}
-                                            description={review.description}
-                                            time={review.time}
-                                            image={review.image}
+                                            name={review.rated_by.full_name}
+                                            raterEmail={review.rated_by.email}
+                                            ratings={review.rating}
+                                            description={review.review}
+                                            time={review.updated_at}
+                                            raterId={review.rated_by.id}
+
+                                            // image={review.image}
                                         />
                                     </Col>
                                 ))}
                             <Link href="#!">See all reviews</Link>
                         </Row>
                     </div>
-                    <DeleteModal
-                        show={showDeleteModal}
-                        setShowDeleteModal={setShowDeleteModal}
-                        handleClose={() => setShowDeleteModal(false)}
-                        id={id}
-                        modalName={modalName}
-                    />
                 </div>
+                <DeleteModal
+                    show={showDeleteModal}
+                    setShowDeleteModal={setShowDeleteModal}
+                    handleClose={() => setShowDeleteModal(false)}
+                    id={id}
+                    modalName={modalName}
+                />
             </div>
         </>
     );
