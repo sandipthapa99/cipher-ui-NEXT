@@ -17,4 +17,5 @@ export interface KYCFormProps {
     bank_name: string;
     bank_account_name: string;
     bank_account_number: string;
+    bank_address: string;
 }
