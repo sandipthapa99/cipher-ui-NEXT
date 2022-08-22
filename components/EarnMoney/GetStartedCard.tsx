@@ -9,12 +9,24 @@ export const GetStartedCard = () => {
                 <Col md={6} sm={12}>
                     <div className="d-flex justify-content-center flex-column description-section">
                         <h2>1. Complete your Profile</h2>
+                        <ul>
+                            <li>
+                                Select your skills and expertise Upload a
+                                professional profile photo. Go through the
+                                Verification Center checklist
+                            </li>
+                            <li>
+                                Select your skills and expertise Upload a
+                                professional profile photo. Go through the
+                                Verification Center checklist
+                            </li>
+                        </ul>
                     </div>
                 </Col>
                 <Col md={6} sm={12}>
-                    <figure className="get-started-card__image">
+                    <figure className="d-flex align-items-center get-started-card__image">
                         <Image
-                            src={"/community/gallery2.png"}
+                            src={"/earn-money/earnmoney1.png"}
                             alt="get-started-image"
                             height={400}
                             width={648}
