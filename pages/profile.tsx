@@ -49,13 +49,17 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
                             <Col className="create-profile">
-                                <h1>Create Your Profile. Start your Journey</h1>
+                                <h1>Your profile is incomplete!</h1>
+                                <p>
+                                    Fill in the details to Complete your profile
+                                    and get started with tasks.
+                                </p>
                                 <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
                                         className="text-profile"
                                     >
-                                        Create Profile
+                                        Complete Profile Now
                                     </Link>
                                 </button>
                             </Col>
