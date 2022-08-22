@@ -288,9 +288,9 @@ const Home: NextPage<{
                     </div>
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.data?.result?.map((service) => {
+                            servicesData?.data?.result?.map((service, key) => {
                                 return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
+                                    <Col sm={6} md={4} lg={3} key={key}>
                                         <ServiceCard serviceCard={service} />
                                     </Col>
                                 );
@@ -314,10 +314,12 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.data?.result
-                                ?.filter((p) => p.is_professional)
+                                ?.slice(0, 4)
+                                .filter((p) => p.is_professional)
                                 .map((service) => {
                                     return (
                                         <Col

@@ -1,5 +1,6 @@
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
 import type { ServicesValueProps } from "types/serviceCard";
@@ -18,10 +19,14 @@ const ServiceCard = ({
             <Link href="/service-detail">
                 <a>
                     <div className="card-img">
-                        {serviceCard?.images && (
+                        {serviceCard && serviceCard?.images && (
                             <figure className="thumbnail-img">
                                 <Image
-                                    src={serviceCard?.images}
+                                    src={
+                                        Array.isArray(serviceCard.images)
+                                            ? serviceCard.images[0].image
+                                            : serviceCard.images
+                                    }
                                     layout="fill"
                                     objectFit="cover"
                                     alt="servicecard-image"
@@ -56,7 +61,12 @@ const ServiceCard = ({
                             {serviceCard?.location}
                         </h3>
                         <p className="card-description">
-                            {`${serviceCard?.description.substring(0, 80)}...`}
+                            {parse(
+                                `${serviceCard?.description.substring(
+                                    0,
+                                    80
+                                )}...`
+                            )}
                         </p>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
