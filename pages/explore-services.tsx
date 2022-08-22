@@ -6,14 +6,18 @@ import ServiceCard from "@components/common/ServiceCard";
 import Layout from "@components/Layout";
 import { faSearch } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { serviceCategory } from "staticData/serviceCategory";
-import { servicesDiscover } from "staticData/services";
-import { services } from "staticData/services";
+import type { ServicesValueProps } from "types/serviceCard";
 
 const ExploreServices: NextPage = () => {
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     return (
         <Layout title="Explore Services | Cipher">
             <Container fluid="xl" className="px-0 px-sm-5">
@@ -86,52 +90,29 @@ const ExploreServices: NextPage = () => {
                         className="explore-services__services"
                     >
                         <Row className="gx-5">
-                            {servicesDiscover &&
-                                servicesDiscover.map((service) => {
-                                    return (
-                                        <Col
-                                            className="discover-col"
-                                            sm={6}
-                                            md={6}
-                                            lg={3}
-                                            key={service.id}
-                                        >
-                                            <ServiceCard
-                                                serviceImage={
-                                                    service.serviceImage
-                                                }
-                                                serviceTitle={
-                                                    service.serviceTitle
-                                                }
-                                                serviceProvider={
-                                                    service.serviceProvider
-                                                }
-                                                serviceProviderLocation={
-                                                    service.serviceProviderLocation
-                                                }
-                                                serviceDescription={
-                                                    service.serviceDescription
-                                                }
-                                                serviceRating={
-                                                    service.serviceRating
-                                                }
-                                                servicePrice={
-                                                    service.servicePrice
-                                                }
-                                                hasOffer={service.hasOffer}
-                                                discountRate={
-                                                    service.discountRate
-                                                }
-                                                discountOn={service.discountOn}
-                                            />
-                                        </Col>
-                                    );
-                                })}
+                            {servicesData &&
+                                servicesData?.data?.result?.map(
+                                    (service, key) => {
+                                        return (
+                                            <Col
+                                                className="discover-col"
+                                                sm={6}
+                                                md={6}
+                                                lg={3}
+                                                key={key}
+                                            >
+                                                <ServiceCard
+                                                    serviceCard={service}
+                                                />
+                                            </Col>
+                                        );
+                                    }
+                                )}
                         </Row>
                         <h2 className="mt-4">Services Near You</h2>
                         <Row className="gx-5 more-services">
-                            {services &&
-                                services.map((service) => {
+                            {servicesData &&
+                                servicesData?.data?.result?.map((service) => {
                                     return (
                                         <Col
                                             sm={6}
@@ -140,32 +121,7 @@ const ExploreServices: NextPage = () => {
                                             key={service.id}
                                         >
                                             <ServiceCard
-                                                serviceImage={
-                                                    service.serviceImage
-                                                }
-                                                serviceTitle={
-                                                    service.serviceTitle
-                                                }
-                                                serviceProvider={
-                                                    service.serviceProvider
-                                                }
-                                                serviceProviderLocation={
-                                                    service.serviceProviderLocation
-                                                }
-                                                serviceDescription={
-                                                    service.serviceDescription
-                                                }
-                                                serviceRating={
-                                                    service.serviceRating
-                                                }
-                                                servicePrice={
-                                                    service.servicePrice
-                                                }
-                                                hasOffer={service.hasOffer}
-                                                discountRate={
-                                                    service.discountRate
-                                                }
-                                                discountOn={service.discountOn}
+                                                serviceCard={service}
                                             />
                                         </Col>
                                     );
@@ -198,51 +154,28 @@ const ExploreServices: NextPage = () => {
                         className="explore-services__services"
                     >
                         <Row className="gx-5">
-                            {servicesDiscover &&
-                                servicesDiscover.map((service) => {
-                                    return (
-                                        <Col
-                                            className="discover-col"
-                                            sm={6}
-                                            md={6}
-                                            lg={3}
-                                            key={service.id}
-                                        >
-                                            <ServiceCard
-                                                serviceImage={
-                                                    service.serviceImage
-                                                }
-                                                serviceTitle={
-                                                    service.serviceTitle
-                                                }
-                                                serviceProvider={
-                                                    service.serviceProvider
-                                                }
-                                                serviceProviderLocation={
-                                                    service.serviceProviderLocation
-                                                }
-                                                serviceDescription={
-                                                    service.serviceDescription
-                                                }
-                                                serviceRating={
-                                                    service.serviceRating
-                                                }
-                                                servicePrice={
-                                                    service.servicePrice
-                                                }
-                                                hasOffer={service.hasOffer}
-                                                discountRate={
-                                                    service.discountRate
-                                                }
-                                                discountOn={service.discountOn}
-                                            />
-                                        </Col>
-                                    );
-                                })}
+                            {servicesData &&
+                                servicesData?.data?.result?.map(
+                                    (service, key) => {
+                                        return (
+                                            <Col
+                                                className="discover-col"
+                                                sm={6}
+                                                md={6}
+                                                lg={3}
+                                                key={key}
+                                            >
+                                                <ServiceCard
+                                                    serviceCard={service}
+                                                />
+                                            </Col>
+                                        );
+                                    }
+                                )}
                         </Row>
                         <Row className="gx-5 more-services">
-                            {services &&
-                                services.map((service) => {
+                            {servicesData &&
+                                servicesData?.data?.result?.map((service) => {
                                     return (
                                         <Col
                                             sm={6}
@@ -251,32 +184,7 @@ const ExploreServices: NextPage = () => {
                                             key={service.id}
                                         >
                                             <ServiceCard
-                                                serviceImage={
-                                                    service.serviceImage
-                                                }
-                                                serviceTitle={
-                                                    service.serviceTitle
-                                                }
-                                                serviceProvider={
-                                                    service.serviceProvider
-                                                }
-                                                serviceProviderLocation={
-                                                    service.serviceProviderLocation
-                                                }
-                                                serviceDescription={
-                                                    service.serviceDescription
-                                                }
-                                                serviceRating={
-                                                    service.serviceRating
-                                                }
-                                                servicePrice={
-                                                    service.servicePrice
-                                                }
-                                                hasOffer={service.hasOffer}
-                                                discountRate={
-                                                    service.discountRate
-                                                }
-                                                discountOn={service.discountOn}
+                                                serviceCard={service}
                                             />
                                         </Col>
                                     );

@@ -1,13 +1,19 @@
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useData } from "hooks/use-data";
 import Link from "next/link";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { servicesDiscover } from "staticData/services";
+import type { ServicesValueProps } from "types/serviceCard";
 
 import ServiceCard from "./common/ServiceCard";
 
 const Popular = () => {
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
+    console.log(servicesData);
     return (
         <section id="card-wrapper" className="card-wrapper mt-5">
             <Container fluid="xl">
@@ -25,34 +31,17 @@ const Popular = () => {
                     </Link>
                 </div>
                 <Row className="gx-5">
-                    {servicesDiscover &&
-                        servicesDiscover.map((service) => {
+                    {servicesData &&
+                        servicesData?.data?.result?.map((service, key) => {
                             return (
                                 <Col
                                     className="discover-col"
                                     sm={6}
                                     md={6}
                                     lg={3}
-                                    key={service.id}
+                                    key={key}
                                 >
-                                    <ServiceCard
-                                        serviceImage={service.serviceImage}
-                                        serviceTitle={service.serviceTitle}
-                                        serviceProvider={
-                                            service.serviceProvider
-                                        }
-                                        serviceProviderLocation={
-                                            service.serviceProviderLocation
-                                        }
-                                        serviceDescription={
-                                            service.serviceDescription
-                                        }
-                                        serviceRating={service.serviceRating}
-                                        servicePrice={service.servicePrice}
-                                        hasOffer={service.hasOffer}
-                                        discountRate={service.discountRate}
-                                        discountOn={service.discountOn}
-                                    />
+                                    <ServiceCard serviceCard={service} />
                                 </Col>
                             );
                         })}

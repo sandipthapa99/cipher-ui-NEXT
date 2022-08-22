@@ -5,11 +5,13 @@ import WelcomeUser from "@components/common/WelcomeUser";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import { getServiceCategory, getServices } from "services/commonServices";
+import { getServiceCategory } from "services/commonServices";
+import type { ServicesValueProps } from "types/serviceCard";
 // this gets rid of the hydration error
 // since the data required for this component comes from localstorage, there's no need for ssr
 const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
@@ -17,7 +19,10 @@ const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
 });
 const PostTask: NextPage = () => {
     const serviceCategory = getServiceCategory();
-    const services = getServices();
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     return (
         <Layout title="Post task | Cipher">
             <section className="post-task">
@@ -55,50 +60,24 @@ const PostTask: NextPage = () => {
                             </a>
                         </div>
                         <Row>
-                            {services &&
-                                services.map((service) => {
-                                    return (
-                                        <Col
-                                            sm={6}
-                                            md={4}
-                                            lg={3}
-                                            key={service.id}
-                                        >
-                                            <Link href="/service-detail">
-                                                <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
-                                                />
-                                            </Link>
-                                        </Col>
-                                    );
-                                })}
+                            {servicesData &&
+                                servicesData?.data?.result?.map(
+                                    (service, key) => {
+                                        return (
+                                            <Col sm={6} md={4} lg={3} key={key}>
+                                                <Link href="/service-detail">
+                                                    <a>
+                                                        <ServiceCard
+                                                            serviceCard={
+                                                                service
+                                                            }
+                                                        />
+                                                    </a>
+                                                </Link>
+                                            </Col>
+                                        );
+                                    }
+                                )}
                         </Row>
                     </div>
                 </Container>
@@ -168,8 +147,8 @@ const PostTask: NextPage = () => {
                             </a>
                         </div>
                         <Row>
-                            {services &&
-                                services.map((service) => {
+                            {servicesData &&
+                                servicesData?.data?.result?.map((service) => {
                                     return (
                                         <Col
                                             sm={6}
@@ -179,34 +158,7 @@ const PostTask: NextPage = () => {
                                         >
                                             <Link href="/service-detail">
                                                 <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
+                                                    serviceCard={service}
                                                 />
                                             </Link>
                                         </Col>
