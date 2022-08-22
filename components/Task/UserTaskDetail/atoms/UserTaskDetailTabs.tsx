@@ -4,12 +4,7 @@ import { AboutTasker } from "@components/Tasker/AboutTasker";
 import { useData } from "hooks/use-data";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { TaskDetail } from "staticData/taskDetail";
-import type { ServicesValueProps } from "types/serviceCard";
-
-export interface UserTaskDetailTabsProps {
-    user: TaskDetail["user"];
-}
+import { ServicesValueProps } from "types/serviceCard";
 
 export const UserTaskDetailTabs = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
