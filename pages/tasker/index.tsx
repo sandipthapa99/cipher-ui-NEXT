@@ -17,15 +17,16 @@ const TaskerPage = () => {
     const { data: taskers } = useTaskers();
     const { redirectedFrom } = router.query;
     const [searchQuery, setSearchQuery] = useState("");
-    const [activeTaskIdx, setActiveTaskIdx] = useState<number | undefined>();
+    const [activeTaskIdx, setActiveTaskIdx] = useState<string | undefined>();
 
-    const toggleActiveTask = (taskerId: number) => {
+    const toggleActiveTask = (taskerId: string) => {
         router.push({
             pathname: router.pathname,
             query: { ...router.query, taskerId },
         });
         setActiveTaskIdx(taskerId);
     };
+
     const removeActiveTaskIdx = () => {
         if (redirectedFrom && typeof redirectedFrom === "string")
             return router.push({
@@ -48,14 +49,10 @@ const TaskerPage = () => {
     // );
     useEffect(() => {
         const { taskerId } = router.query;
-        if (
-            taskerId !== undefined &&
-            typeof taskerId === "string" &&
-            !isNaN(Number(taskerId))
-        ) {
-            setActiveTaskIdx(parseInt(taskerId));
+        if (taskerId !== undefined && typeof taskerId === "string") {
+            setActiveTaskIdx(taskerId);
         }
-    }, [router.query, router.query.taskId]);
+    }, [router.query.taskerId, router.query]);
     return (
         <>
             <SearchHeader />
@@ -75,7 +72,6 @@ const TaskerPage = () => {
                                 <div className="task-detail-container">
                                     <UserTaskDetail
                                         onExitTaskDetail={removeActiveTaskIdx}
-                                        taskDetail={taskDetails[activeTaskIdx]}
                                         activeTaskId={activeTaskIdx}
                                     />
                                 </div>

@@ -6,10 +6,10 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Row } from "react-bootstrap";
-import type { TaskDetail } from "staticData/taskDetail";
+import type { TaskerDetails } from "staticData/taskDetail";
 
 interface UserShortIntroProps {
-    user: TaskDetail["user"];
+    user: TaskerDetails;
 }
 export const UserShortIntro = ({ user }: UserShortIntroProps) => {
     return (
@@ -17,23 +17,29 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
             <Col md={6}>
                 <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faLocation} />
-                    <span>{user.location}</span>
+                    <span>
+                        {user?.address_line1 + " " + user?.address_line2}
+                    </span>
                 </p>
                 <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faClock} />
-                    <span>{user.activeHours}</span>
+                    <span>
+                        Active hours {user?.active_hour_start} to{" "}
+                        {user?.active_hour_end}
+                    </span>
                 </p>
                 <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faUser} />
-                    <span>Member Since {user.memberSince}</span>
+                    <span>Member Since {"member since"}</span>
                 </p>
                 <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faStar} />
-                    <span>{user.offeredServices.join(", ")}</span>
+                    {/* <span>{user?.skill?.join(", ")}</span> */}
+                    <span>{user?.skill}</span>
                 </p>
             </Col>
             <Col md={6}>
-                <p className="td-user-short-intro-text">{user.bio}</p>
+                <p className="td-user-short-intro-text">{user?.bio}</p>
             </Col>
         </Row>
     );

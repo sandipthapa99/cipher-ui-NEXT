@@ -10,7 +10,7 @@ import { Col, Row } from "react-bootstrap";
 
 interface UserStatsProps {
     happyCustomers: number;
-    rewardPercentage: string;
+    rewardPercentage: number;
     taskCompleted: number;
     rank: string;
 }

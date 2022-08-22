@@ -16,7 +16,7 @@ import ShareIcon from "./ShareIcon";
 interface Props {
     taskers?: Tasker;
     collabButton?: boolean;
-    onTaskClick?: (taskerId: number) => void;
+    onTaskClick?: (taskerId: string) => void;
     handleButtonClick?: () => void;
     image?: string;
     name?: string;
@@ -31,9 +31,7 @@ interface Props {
 }
 
 export const TeamMembersCard = ({
-    taskers,
     collabButton,
-    onTaskClick,
     handleButtonClick,
     image,
     name,
@@ -46,12 +44,8 @@ export const TeamMembersCard = ({
     bio,
     charge,
 }: Props) => {
-    if (!taskers) return null;
     return (
-        <div
-            className="team-members-card"
-            onClick={() => onTaskClick?.(taskers.id)}
-        >
+        <div className="team-members-card">
             <div className="d-flex w-100 image-and-title">
                 <figure className="team-member-card-image">
                     <Image
