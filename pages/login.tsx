@@ -1,47 +1,20 @@
+import { FacebookLogin } from "@components/auth/FacebookLogin";
+import GoogleLogin from "@components/auth/GoogleLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
-import SocialLoginBtn from "@components/common/SocialLoginBtn";
-import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
-import {
-    GoogleLogin,
-    googleLogout,
-    useGoogleLogin,
-    useGoogleOneTapLogin,
-} from "@react-oauth/google";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
 import { useRouter } from "next/router";
-import type { Provider } from "next-auth/providers";
-import { getProviders, signIn, signOut, useSession } from "next-auth/react";
-import React, { useRef } from "react";
 import { toast } from "react-toastify";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-interface LoginProps {
-    providers: Provider[];
-}
 
-const Login = ({ providers }: LoginProps) => {
-    const login = useGoogleOneTapLogin({
-        onSuccess: (credentialResponse) => {
-            console.log(credentialResponse);
-        },
-        onError: () => {
-            console.log("Login Failed");
-        },
-    });
-
+const Login = () => {
     const router = useRouter();
     const { mutate, isLoading } = useLogin();
-    // const { data: session } = useSession();
-    // console.log(session);
-    // const login = useGoogleLogin({
-    //     onSuccess: (codeResponse) => console.log(codeResponse),
-    //     flow: "auth-code",
-    // });
 
     return (
         <section>
@@ -105,36 +78,9 @@ const Login = ({ providers }: LoginProps) => {
                                 <div className="horizontal-line">
                                     <span className="or">OR</span>
                                 </div>
-                                <SocialLoginBtn
-                                    name={"Sign in with Facebook"}
-                                    icon="/illustrations/fb.svg"
-                                    className="facebook"
-                                ></SocialLoginBtn>
-
-                                {/* <SocialLoginBtn
-                                    name={"Sign in with Google"}
-                                    icon="/illustrations/google.svg"
-                                    className="google"
-                                ></SocialLoginBtn> */}
-                                <Google />
-
-                                {/* <div>
-                                    {Object.values(providers).map(
-                                        (provider) => (
-                                            <div key={provider.name}>
-                                                <button
-                                                    onClick={() => {
-                                                        console.log(
-                                                            provider.id
-                                                        );
-                                                    }}
-                                                >
-                                                    Sign in with {provider.name}
-                                                </button>
-                                            </div>
-                                        )
-                                    )}
-                                </div> */}
+                                <FacebookLogin />
+                                <GoogleLogin />
+                                {/* <Google /> */}
                             </Form>
                         )}
                     </Formik>
@@ -145,11 +91,3 @@ const Login = ({ providers }: LoginProps) => {
 };
 
 export default Login;
-// export async function getServerSideProps(context: any) {
-//     const providers = await getProviders();
-//     console.log(providers);
-
-//     return {
-//         props: { providers },
-//     };
-// }
