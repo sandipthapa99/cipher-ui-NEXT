@@ -15,11 +15,6 @@ export const useTaskers = () => {
         }
     });
 };
-export const useTaskerCoordinates = () => {
-    const { data } = useTaskers();
-    if (!data) return [];
-    return data.map((tasker) => tasker.user.coordinates);
-};
 
 export type Tasker = {
     id: number;
@@ -49,7 +44,6 @@ export type Tasker = {
     language: any;
     subscription: any[];
 };
-export type TaskerCoordinate = Tasker["user"]["coordinates"];
 
 export interface User {
     id: string;

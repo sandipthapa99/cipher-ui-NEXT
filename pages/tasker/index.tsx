@@ -5,7 +5,7 @@ import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
 import { UserTaskCardList } from "@components/Task/UserTaskCard/UserTaskCardList";
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
-import { useTaskerCoordinates, useTaskers } from "hooks/tasker/use-tasker";
+import { Tasker, useTaskers } from "hooks/tasker/use-tasker";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -19,9 +19,7 @@ const TaskerPage = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTaskIdx, setActiveTaskIdx] = useState<number | undefined>();
 
-    const taskerCoordinates = useTaskerCoordinates();
-
-    const toggleActiveTask = (task: Task) => {
+    const toggleActiveTask = (taskerId: number) => {
         router.push({
             pathname: router.pathname,
             query: { ...router.query, taskerId },
@@ -83,7 +81,7 @@ const TaskerPage = () => {
                                 </div>
                             </div>
                         ) : (
-                            <MapboxMap markerCoordinates={taskerCoordinates} />
+                            <MapboxMap />
                         )}
                     </Col>
                 </Row>
