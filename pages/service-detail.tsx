@@ -14,6 +14,7 @@ import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { faEllipsisVertical } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
+import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,12 +23,16 @@ import { PackageCard } from "staticData/packageCard";
 import { reviewsContent } from "staticData/reviews";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
-import { servicesDiscover } from "staticData/services";
+import type { ServicesValueProps } from "types/serviceCard";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { reviewType } from "utils/options";
 
 const ServiceDetail: NextPage = () => {
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     return (
         <Layout title="Service Details | Cipher">
             <BreadCrumb currentPage="Service Details" />
@@ -225,8 +230,8 @@ const ServiceDetail: NextPage = () => {
                             </Link>
                         </div>
                         <Row className="gx-5">
-                            {servicesDiscover &&
-                                servicesDiscover.map((service) => {
+                            {servicesData &&
+                                servicesData?.data?.result?.map((service) => {
                                     return (
                                         <Col
                                             className="discover-col"
@@ -236,32 +241,7 @@ const ServiceDetail: NextPage = () => {
                                             key={service.id}
                                         >
                                             <ServiceCard
-                                                serviceImage={
-                                                    service.serviceImage
-                                                }
-                                                serviceTitle={
-                                                    service.serviceTitle
-                                                }
-                                                serviceProvider={
-                                                    service.serviceProvider
-                                                }
-                                                serviceProviderLocation={
-                                                    service.serviceProviderLocation
-                                                }
-                                                serviceDescription={
-                                                    service.serviceDescription
-                                                }
-                                                serviceRating={
-                                                    service.serviceRating
-                                                }
-                                                servicePrice={
-                                                    service.servicePrice
-                                                }
-                                                hasOffer={service.hasOffer}
-                                                discountRate={
-                                                    service.discountRate
-                                                }
-                                                discountOn={service.discountOn}
+                                                serviceCard={service}
                                             />
                                         </Col>
                                     );
