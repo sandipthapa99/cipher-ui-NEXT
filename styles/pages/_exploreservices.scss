@@ -227,3 +227,16 @@
         margin-bottom: 0rem;
     }
 }
+.es-task-category-list {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.8rem;
+
+    @include respond(md) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include respond(lg) {
+        grid-template-columns: repeat(7, 1fr);
+    }
+}
