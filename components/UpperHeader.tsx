@@ -1,5 +1,5 @@
 import { ProfileModel } from "@components/model/ProfileModel";
-import { faBars } from "@fortawesome/pro-regular-svg-icons";
+import { faBars, faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useClickOutside, useToggle } from "@mantine/hooks";
@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Container, Navbar } from "react-bootstrap";
+import { Button, Container, Form, InputGroup, Navbar } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { handleMenuActive } from "utils/helpers";
 
@@ -26,6 +26,11 @@ export function UpperHeader() {
     const profileModalRef = useClickOutside(() =>
         toggleShowProfileModal(false)
     );
+
+    const checkPageForHeader =
+        router.pathname !== "/" &&
+        router.pathname !== "/about-us" &&
+        router.pathname !== "/contact-us";
 
     return (
         <>
@@ -50,26 +55,51 @@ export function UpperHeader() {
                                     </Navbar.Brand>
                                 </a>
                             </Link>
-                            <li
-                                className={`d-none d-md-inline-block ${handleMenuActive(
-                                    "/how-it-works",
-                                    router
-                                )}`}
-                            >
-                                <Link href="/how-it-works">
-                                    <a className="nav-link">How It Works</a>
-                                </Link>
-                            </li>
-                            <li
-                                className={`d-none d-md-block ${handleMenuActive(
-                                    "/resources",
-                                    router
-                                )}`}
-                            >
-                                <Link href="/resources">
-                                    <a className="nav-link">Resources</a>
-                                </Link>
-                            </li>
+                            {checkPageForHeader ? (
+                                <InputGroup className="search-input d-none d-md-flex">
+                                    <Form.Control
+                                        placeholder="Find your Services &amp; Taskers"
+                                        aria-label="Find your Services &amp; Taskers"
+                                        aria-describedby="basic-addon2"
+                                    />
+                                    <Button
+                                        className="search-btn"
+                                        id="button-addon2"
+                                    >
+                                        <FontAwesomeIcon
+                                            className="search-icon"
+                                            icon={faMagnifyingGlass}
+                                        />
+                                    </Button>
+                                </InputGroup>
+                            ) : (
+                                <div className="d-flex">
+                                    <li
+                                        className={`d-none d-md-inline-block ${handleMenuActive(
+                                            "/how-it-works",
+                                            router
+                                        )}`}
+                                    >
+                                        <Link href="/how-it-works">
+                                            <a className="nav-link">
+                                                How It Works
+                                            </a>
+                                        </Link>
+                                    </li>
+                                    <li
+                                        className={`d-none d-md-block ${handleMenuActive(
+                                            "/resources",
+                                            router
+                                        )}`}
+                                    >
+                                        <Link href="/resources">
+                                            <a className="nav-link">
+                                                Resources
+                                            </a>
+                                        </Link>
+                                    </li>
+                                </div>
+                            )}
                         </div>
                         <div className="upper-navigation__right d-flex">
                             {!user && (

@@ -2,6 +2,7 @@ import TaskAside from "@components/AppliedTask/taskAside";
 import FullPageLoader from "@components/common/FullPageLoader";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
+import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
 import { useTasks } from "hooks/apply-task/useTask";
@@ -29,9 +30,7 @@ const AppliedLayout = ({ children }: { children: ReactNode }) => {
         ) ?? [];
     if (isLoading || !data) return <FullPageLoader />;
     return (
-        <>
-            <SearchHeader />
-            <Header />
+        <Layout title="Find Tasks | Cipher">
             <Container>
                 <SearchCategory onChange={setQuery} />
                 <TaskAside query={query} appliedTasks={filteredTasks}>
@@ -39,7 +38,7 @@ const AppliedLayout = ({ children }: { children: ReactNode }) => {
                 </TaskAside>
             </Container>
             <Footer />
-        </>
+        </Layout>
     );
 };
 export default AppliedLayout;

@@ -35,6 +35,22 @@
                     margin-right: 2rem;
                 }
             }
+            .search-input {
+                width: 48rem;
+                input {
+                    height: auto;
+                }
+            }
+            .search-btn {
+                background: $secondary-color;
+                border: none;
+                padding: 1.2rem 1.6rem;
+                .search-icon {
+                    color: $primary-color;
+                    height: 2.4rem;
+                    width: 2.4rem;
+                }
+            }
 
             .nav-item {
                 position: relative;

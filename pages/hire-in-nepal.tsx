@@ -47,14 +47,36 @@ const HireInNepal: NextPage = () => {
                         <Row className="g-5">
                             {DUMMY_TASKS.map((item, index) => (
                                 <Col lg={4} md={6} sm={12} key={index}>
-                                    <TeamMembersCard task={item} />
+                                    <TeamMembersCard
+                                        image={item?.user?.profileImage}
+                                        name={item?.user?.username}
+                                        speciality={item?.user?.category}
+                                        rating={item?.rating?.average}
+                                        happyClients={item?.likes}
+                                        awardPercentage={item?.rewardPercentage}
+                                        location={item?.user?.location}
+                                        distance={"2 km"}
+                                        bio={item?.user?.bio}
+                                        charge={item?.price}
+                                    />
                                 </Col>
                             ))}
                         </Row>
                         <Row className="g-5 pt-5">
                             {DUMMY_TASKS.map((item, index) => (
                                 <Col lg={4} md={6} sm={12} key={index}>
-                                    <TeamMembersCard task={item} />
+                                    <TeamMembersCard
+                                        image={item?.user?.profileImage}
+                                        name={item?.user?.username}
+                                        speciality={item?.user?.category}
+                                        rating={item?.rating?.average}
+                                        happyClients={item?.likes}
+                                        awardPercentage={item?.rewardPercentage}
+                                        location={item?.user?.location}
+                                        distance={"2 km"}
+                                        bio={item?.user?.bio}
+                                        charge={item?.price}
+                                    />
                                 </Col>
                             ))}
                         </Row>
