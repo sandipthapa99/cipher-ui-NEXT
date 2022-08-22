@@ -55,10 +55,34 @@ export function UpperHeader() {
                                     </Navbar.Brand>
                                 </a>
                             </Link>
-                            {checkPageForHeader ? (
-                                <InputGroup className="search-input d-none d-md-flex">
+                            <div className="d-flex">
+                                <li
+                                    className={`d-none d-md-inline-block ${handleMenuActive(
+                                        "/how-it-works",
+                                        router
+                                    )}`}
+                                >
+                                    <Link href="/how-it-works">
+                                        <a className="nav-link">How It Works</a>
+                                    </Link>
+                                </li>
+                                <li
+                                    className={`d-none d-md-block ${handleMenuActive(
+                                        "/resources",
+                                        router
+                                    )}`}
+                                >
+                                    <Link href="/resources">
+                                        <a className="nav-link">Resources</a>
+                                    </Link>
+                                </li>
+                            </div>
+                        </div>
+                        {checkPageForHeader && (
+                            <div className="upper-navigation__center">
+                                <div className="search-input d-none d-md-flex">
                                     <Form.Control
-                                        placeholder="Find your Services &amp; Taskers"
+                                        placeholder="Find your Services"
                                         aria-label="Find your Services &amp; Taskers"
                                         aria-describedby="basic-addon2"
                                     />
@@ -71,36 +95,9 @@ export function UpperHeader() {
                                             icon={faMagnifyingGlass}
                                         />
                                     </Button>
-                                </InputGroup>
-                            ) : (
-                                <div className="d-flex">
-                                    <li
-                                        className={`d-none d-md-inline-block ${handleMenuActive(
-                                            "/how-it-works",
-                                            router
-                                        )}`}
-                                    >
-                                        <Link href="/how-it-works">
-                                            <a className="nav-link">
-                                                How It Works
-                                            </a>
-                                        </Link>
-                                    </li>
-                                    <li
-                                        className={`d-none d-md-block ${handleMenuActive(
-                                            "/resources",
-                                            router
-                                        )}`}
-                                    >
-                                        <Link href="/resources">
-                                            <a className="nav-link">
-                                                Resources
-                                            </a>
-                                        </Link>
-                                    </li>
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
                         <div className="upper-navigation__right d-flex">
                             {!user && (
                                 <>
