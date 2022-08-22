@@ -10,18 +10,19 @@ import { useToggle } from "@mantine/hooks";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { TaskDetail } from "staticData/taskDetail";
+import type { TaskerDetails } from "staticData/taskDetail";
+import { taskDetails } from "staticData/taskDetail";
 
 import { UserStats } from "./UserStats";
 
 interface UserTaskDetailHeaderProps {
-    taskDetail: TaskDetail;
-    activeTaskId: number;
+    taskerDetail: TaskerDetails;
+    activeTaskId: string;
     maxHeaderWidth?: string;
 }
 
 export const UserTaskDetailHeader = ({
-    taskDetail,
+    taskerDetail,
     activeTaskId,
     maxHeaderWidth,
 }: UserTaskDetailHeaderProps) => {
@@ -31,7 +32,6 @@ export const UserTaskDetailHeader = ({
     return (
         <>
             <HireMerchantModal
-                task={taskDetail}
                 show={showHireMerchantModal}
                 onHide={() => setShowHireMerchantModal(false)}
             />
@@ -39,14 +39,17 @@ export const UserTaskDetailHeader = ({
                 <Col>
                     <div className="td-user-image-container">
                         <Image
-                            src={taskDetail.user.profileImage}
-                            width="148px"
-                            height="148px"
+                            src={
+                                taskerDetail?.profile_image ??
+                                "/community/gallery2.png"
+                            }
+                            width={148}
+                            height={148}
                             objectFit="cover"
-                            alt={`${taskDetail.title}'s profile`}
+                            alt={"profile"}
                             className="rounded-circle"
                         />
-                        {taskDetail.user.isVerified && (
+                        {taskerDetail?.is_profile_verified && (
                             <FontAwesomeIcon
                                 size="6x"
                                 color="#3EAEFF"
@@ -59,15 +62,18 @@ export const UserTaskDetailHeader = ({
                 <Col md={6}>
                     <h4
                         className="td-user-name"
-                        data-is-online={JSON.stringify(
-                            taskDetail.user.isOnline
-                        )}
+                        data-is-online={JSON.stringify(true)}
                     >
-                        {taskDetail.title}
+                        {taskerDetail?.full_name}
                     </h4>
-                    <p className="td-text mb-4">{taskDetail.category}</p>
-                    <RatingStars value={taskDetail.totalRatings} />
-                    <UserStats {...taskDetail.user} />
+                    <p className="td-text mb-4">{taskerDetail?.user_type}</p>
+                    <RatingStars value={taskerDetail?.stats?.user_reviews} />
+                    <UserStats
+                        happyCustomers={taskerDetail?.stats?.happy_clients}
+                        rewardPercentage={taskerDetail?.stats?.success_rate}
+                        taskCompleted={taskerDetail?.stats?.task_completed}
+                        rank={"12"}
+                    />
                 </Col>
                 <Col>
                     <div className="td-task-detail-header-icons">
@@ -87,7 +93,10 @@ export const UserTaskDetailHeader = ({
                             />
                         </EllipsisDropdown>
                     </div>
-                    <p className="td-task-charge my-4">{taskDetail.charge}</p>
+                    <p className="td-task-charge my-4">
+                        {taskerDetail?.charge_currency}{" "}
+                        {taskerDetail?.hourly_rate}/hr
+                    </p>
                     <button
                         onClick={() => setShowHireMerchantModal(true)}
                         className="td-hire-me-btn"

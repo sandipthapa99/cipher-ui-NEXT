@@ -5,10 +5,10 @@ import { AboutTasker } from "@components/Tasker/AboutTasker";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { serviceCards } from "staticData/serviceCards";
-import type { TaskDetail } from "staticData/taskDetail";
+import type { TaskerDetails } from "staticData/taskDetail";
 
 export interface UserTaskDetailTabsProps {
-    user: TaskDetail["user"];
+    user: TaskerDetails;
 }
 
 export const UserTaskDetailTabs = ({ user }: UserTaskDetailTabsProps) => {
