@@ -360,30 +360,6 @@ const AccountForm = () => {
                                 </Col>
                             </Row>
 
-                            <h4>Select User Type</h4>
-                            <div role="group" aria-labelledby="checkbox-group">
-                                <label className="me-3">
-                                    <Field
-                                        type="checkbox"
-                                        name="user_type"
-                                        value="Client"
-                                        className="me-2"
-                                        disabled={profile ? true : false}
-                                    />
-                                    Client
-                                </label>
-                                <label className="me-3">
-                                    <Field
-                                        type="checkbox"
-                                        name="user_type"
-                                        className="me-2"
-                                        value="Tasker"
-                                        disabled={profile ? true : false}
-                                    />
-                                    Tasker
-                                </label>
-                            </div>
-                            <hr />
                             <h3>Address</h3>
                             <SelectInputField
                                 name="country"

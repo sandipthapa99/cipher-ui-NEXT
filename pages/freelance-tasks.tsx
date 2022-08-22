@@ -18,7 +18,7 @@ const FreelanceTasks: NextPage = () => {
     );
     return (
         <Layout title="Freelance Tasks | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <section className="freelance-tasks">
                     <BreadCrumb currentPage="Freelance Tasks" />
 
@@ -102,7 +102,7 @@ const FreelanceTasks: NextPage = () => {
                             title="An employee takes home 10% more with Cipher Payroll"
                             image="/hireinnepal/footer.png"
                             imageOnRight={true}
-                            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500."
+                            description="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500."
                         />
                     </div>
                 </section>

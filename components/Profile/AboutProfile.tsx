@@ -72,7 +72,6 @@ const AboutProfile = () => {
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
 
     const [hovered, setHovered] = useState<null | number>(null);
-    console.log("is hovere", hovered);
 
     return (
         <>
