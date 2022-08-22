@@ -30,6 +30,7 @@
         "@mantine/hooks": "^5.0.2",
         "@mantine/next": "^5.1.6",
         "@ngneat/falso": "^6.1.0",
+        "@react-oauth/google": "^0.2.6",
         "@smastrom/react-rating": "^1.0.4",
         "@tanstack/react-query": "^4.0.10",
         "@tanstack/react-query-devtools": "^4.0.10",

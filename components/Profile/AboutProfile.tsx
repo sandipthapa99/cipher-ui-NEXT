@@ -1,6 +1,7 @@
+import DeleteModal from "@components/common/DeleteModal";
 import Reviews from "@components/common/Reviews";
 import SelectInputField from "@components/common/SelectInputField";
-import { faPencil } from "@fortawesome/pro-regular-svg-icons";
+import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { Formik } from "formik";
@@ -22,27 +23,15 @@ import EditProfileButton from "./EditProfileButton";
 import EducationForm from "./EducationForm";
 import ExperienceForm from "./ExperienceForm";
 import AddSkills from "./SkillsForm";
-const skills = [
-    {
-        id: "0",
-        name: "Planting",
-    },
-    {
-        id: "1",
-        name: "Washing",
-    },
-    {
-        id: "2",
-        name: "Cleaning",
-    },
-];
+
 const AboutProfile = () => {
     const [showExpForm, setShowExpForm] = useState(false);
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
     const [showAddSkillsForm, setShowAddSkillsForm] = useState(false);
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
-
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [modalName, setModalName] = useState("");
     const [id, setId] = useState<number | undefined>();
 
     //user profile certification data
@@ -72,11 +61,17 @@ const AboutProfile = () => {
         setId(id);
     }, []);
 
+    const handleDelete = useCallback((id: any, name: string) => {
+        setShowDeleteModal(!showDeleteModal);
+        setId(id);
+        setModalName(name);
+    }, []);
+
     const { data: profileDetails } = useGetProfile();
 
-    console.log("profile=", profileDetails);
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
-    console.log("user profile skills=", userSkills);
+
+    const [hovered, setHovered] = useState<null | number>(null);
 
     return (
         <>
@@ -103,8 +98,12 @@ const AboutProfile = () => {
                         {portfolioData
                             ? portfolioData?.data?.result?.map((info: any) => (
                                   <div className="image" key={info?.id}>
-                                      <Row>
-                                          <Col md={6}>
+                                      <Row className="gx-5">
+                                          <Col
+                                              md={info?.image ? 6 : 12}
+                                              sm={info?.image ? 6 : 12}
+                                              xs={info?.image ? 6 : 12}
+                                          >
                                               <Link href={`${info?.image}`}>
                                                   <a target="_blank">
                                                       {info?.image ? (
@@ -122,7 +121,11 @@ const AboutProfile = () => {
                                                   </a>
                                               </Link>
                                           </Col>
-                                          <Col md={6}>
+                                          <Col
+                                              md={info?.file ? 6 : 12}
+                                              sm={info?.image ? 6 : 12}
+                                              xs={info?.image ? 6 : 12}
+                                          >
                                               <Link href={`${info?.file}`}>
                                                   <a target="_blank">
                                                       {info?.file ? (
@@ -152,7 +155,6 @@ const AboutProfile = () => {
                 </div>
                 <div className="type experience">
                     <div className="title-wrapper d-flex justify-content-between">
-                        {/* <h2 className="heading-title">Community activity</h2> */}
                         <h1>Experience</h1>
                         <EditProfileButton
                             text="Add New"
@@ -172,60 +174,94 @@ const AboutProfile = () => {
                             <div className="content">
                                 {experienceData
                                     ? experienceData?.data?.result?.map(
-                                          (value, key) => (
-                                              <div
-                                                  className="experience__type"
-                                                  key={key}
-                                              >
-                                                  <div className="name d-flex">
-                                                      <h3>{value?.title}</h3>
-                                                      <FontAwesomeIcon
-                                                          icon={faPencil}
-                                                          className="svg-icon"
-                                                          onClick={() =>
-                                                              handleEdit(
-                                                                  value?.id
-                                                              )
-                                                          }
-                                                      />
-                                                  </div>
-                                                  <div className="company d-flex">
-                                                      <p className="name">
-                                                          {value?.company_name}
-                                                          &nbsp;. &nbsp;
-                                                          {
-                                                              value?.employment_type
-                                                          }
+                                          (value) => {
+                                              return (
+                                                  <div
+                                                      className="experience__type"
+                                                      key={value.id}
+                                                      onMouseLeave={() =>
+                                                          setHovered(null)
+                                                      }
+                                                      onMouseEnter={() =>
+                                                          setHovered(value?.id)
+                                                      }
+                                                  >
+                                                      <div className="name d-flex">
+                                                          <h3>
+                                                              {value?.title}
+                                                          </h3>
+
+                                                          {hovered ===
+                                                          value.id ? (
+                                                              <div className="icons">
+                                                                  <FontAwesomeIcon
+                                                                      icon={
+                                                                          faPencil
+                                                                      }
+                                                                      className="svg-icon"
+                                                                      onClick={() =>
+                                                                          handleEdit(
+                                                                              value?.id
+                                                                          )
+                                                                      }
+                                                                  />
+                                                                  <FontAwesomeIcon
+                                                                      icon={
+                                                                          faTrashCan
+                                                                      }
+                                                                      className="trash svg-icon"
+                                                                      onClick={() =>
+                                                                          handleDelete(
+                                                                              value?.id,
+                                                                              "experience"
+                                                                          )
+                                                                      }
+                                                                  />
+                                                              </div>
+                                                          ) : (
+                                                              ""
+                                                          )}
+                                                      </div>
+                                                      <div className="company d-flex">
+                                                          <p className="name">
+                                                              {
+                                                                  value?.company_name
+                                                              }
+                                                              &nbsp;. &nbsp;
+                                                              {
+                                                                  value?.employment_type
+                                                              }
+                                                          </p>
+                                                      </div>
+                                                      <p className="description">
+                                                          {value?.description}
                                                       </p>
-                                                  </div>
-                                                  <p className="description">
-                                                      {value?.description}
-                                                  </p>
-                                                  <p className="date">
-                                                      {format(
-                                                          new Date(
-                                                              value?.start_date
-                                                          ),
-                                                          "MMMM yyyy"
-                                                      )}
-                                                      {`${
-                                                          value?.end_date
-                                                              ? `-`
-                                                              : "- Present"
-                                                      }`}
-                                                      {value?.end_date &&
-                                                          format(
+                                                      <p className="date">
+                                                          {format(
                                                               new Date(
-                                                                  value.end_date
+                                                                  value?.start_date
                                                               ),
                                                               "MMMM yyyy"
                                                           )}
-                                                  </p>
-                                                  <p className="address">
-                                                      {value.location}
-                                                  </p>
-                                              </div>
-                                          )
+                                                          {`${
+                                                              value?.end_date
+                                                                  ? `-`
+                                                                  : "- Present"
+                                                          }`}
+                                                          {value?.end_date &&
+                                                              format(
+                                                                  new Date(
+                                                                      value.end_date
+                                                                  ),
+                                                                  "MMMM yyyy"
+                                                              )}
+                                                      </p>
+                                                      <p className="address">
+                                                          {value.location}
+                                                      </p>
+                                                  </div>
+                                              );
+                                          }
                                       )
                                     : "Looks like you have no Experience Data"}
                             </div>
@@ -285,25 +321,54 @@ const AboutProfile = () => {
                             <div className="content">
                                 {educationData
                                     ? educationData?.data.result.map(
-                                          (value: any, key) => (
+                                          (value: any) => (
                                               <div
                                                   className="education__type"
-                                                  key={key}
+                                                  key={value?.id}
+                                                  onMouseLeave={() =>
+                                                      setHovered(null)
+                                                  }
+                                                  onMouseEnter={() =>
+                                                      setHovered(value?.id)
+                                                  }
                                               >
                                                   <div className="name d-flex">
                                                       <h3 className="institution">
                                                           {value.school}
                                                       </h3>
-                                                      <FontAwesomeIcon
-                                                          icon={faPencil}
-                                                          className="svg-icon"
-                                                          onClick={() => {
-                                                              setShowEducationForm(
-                                                                  !showEducationForm
-                                                              );
-                                                              setId(value?.id);
-                                                          }}
-                                                      />
+
+                                                      {hovered === value.id ? (
+                                                          <div className="icons">
+                                                              <FontAwesomeIcon
+                                                                  icon={
+                                                                      faPencil
+                                                                  }
+                                                                  className="svg-icon"
+                                                                  onClick={() => {
+                                                                      setShowEducationForm(
+                                                                          !showEducationForm
+                                                                      );
+                                                                      setId(
+                                                                          value?.id
+                                                                      );
+                                                                  }}
+                                                              />
+                                                              <FontAwesomeIcon
+                                                                  icon={
+                                                                      faTrashCan
+                                                                  }
+                                                                  className="trash svg-icon"
+                                                                  onClick={() =>
+                                                                      handleDelete(
+                                                                          value?.id,
+                                                                          "education"
+                                                                      )
+                                                                  }
+                                                              />
+                                                          </div>
+                                                      ) : (
+                                                          ""
+                                                      )}
                                                   </div>
                                                   <h3 className="program">
                                                       {value.degree}
@@ -362,17 +427,20 @@ const AboutProfile = () => {
                             <div className="content">
                                 {certificationData
                                     ? certificationData?.data.result?.map(
-                                          (value, key) => (
+                                          (value) => (
                                               <div
                                                   className="certification__type"
-                                                  key={key}
+                                                  key={value?.id}
                                               >
-                                                  <div className="name d-flex">
-                                                      {/* <Link
-                                                          href={
-                                                              value?.certificate_url
-                                                          }
-                                                      > */}
+                                                  <div
+                                                      className="name d-flex"
+                                                      onMouseLeave={() =>
+                                                          setHovered(null)
+                                                      }
+                                                      onMouseEnter={() =>
+                                                          setHovered(value?.id)
+                                                      }
+                                                  >
                                                       <a
                                                           href={
                                                               value?.certificate_url
@@ -384,18 +452,38 @@ const AboutProfile = () => {
                                                               {value?.name}
                                                           </h3>
                                                       </a>
-                                                      {/* </Link> */}
-
-                                                      <FontAwesomeIcon
-                                                          icon={faPencil}
-                                                          className="svg-icon"
-                                                          onClick={() => {
-                                                              setShowCertificationModal(
-                                                                  !showCertificationModal
-                                                              );
-                                                              setId(value?.id);
-                                                          }}
-                                                      />
+                                                      {hovered === value?.id ? (
+                                                          <div className="icons">
+                                                              <FontAwesomeIcon
+                                                                  icon={
+                                                                      faPencil
+                                                                  }
+                                                                  className="svg-icon"
+                                                                  onClick={() => {
+                                                                      setShowCertificationModal(
+                                                                          !showCertificationModal
+                                                                      );
+                                                                      setId(
+                                                                          value?.id
+                                                                      );
+                                                                  }}
+                                                              />
+                                                              <FontAwesomeIcon
+                                                                  icon={
+                                                                      faTrashCan
+                                                                  }
+                                                                  className="trash svg-icon"
+                                                                  onClick={() =>
+                                                                      handleDelete(
+                                                                          value?.id,
+                                                                          "certification"
+                                                                      )
+                                                                  }
+                                                              />
+                                                          </div>
+                                                      ) : (
+                                                          ""
+                                                      )}
                                                   </div>
                                                   <h3 className="program">
                                                       {value?.description}
@@ -490,6 +578,13 @@ const AboutProfile = () => {
                             <Link href="#!">See all reviews</Link>
                         </Row>
                     </div>
+                    <DeleteModal
+                        show={showDeleteModal}
+                        setShowDeleteModal={setShowDeleteModal}
+                        handleClose={() => setShowDeleteModal(false)}
+                        id={id}
+                        modalName={modalName}
+                    />
                 </div>
             </div>
         </>

@@ -1,5 +1,6 @@
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
 import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
+import { TopCategories } from "@components/Category/TopCategories";
 import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
@@ -28,7 +29,7 @@ import type { GetStaticProps, NextPage } from "next";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
@@ -36,20 +37,20 @@ import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
 import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
-import { services } from "staticData/services";
 import { tasks } from "staticData/task";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
+import type { ServicesValueProps } from "types/serviceCard";
 import type { SuccessStoryProps } from "types/successStory";
 import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
-import { handleMenuActive } from "utils/helpers";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
 
 interface LandingPageProps {
     successStoryData: SuccessStoryProps;
     trustedPartnerData: BrandValueProps;
+    servicesData: ServicesValueProps;
 }
 
 const CategoriesListingHomepage = dynamic(
@@ -59,7 +60,8 @@ const CategoriesListingHomepage = dynamic(
 const Home: NextPage<{
     successStoryData: LandingPageProps["successStoryData"];
     trustedPartnerData: LandingPageProps["trustedPartnerData"];
-}> = ({ successStoryData, trustedPartnerData }) => {
+    servicesData: LandingPageProps["servicesData"];
+}> = ({ successStoryData, trustedPartnerData, servicesData }) => {
     const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     const [chips, setChips] = useState([
         "Garden Cleaner",
@@ -246,7 +248,7 @@ const Home: NextPage<{
                         <h2 className="heading-title">
                             Popular Verified Services
                         </h2>
-                        <Link href="">
+                        <Link href="/search">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -257,29 +259,31 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
+                        {servicesData &&
+                            servicesData?.result?.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
                                         <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
+                                            serviceImage={service.images}
+                                            serviceTitle={service.title}
                                             serviceProvider={
-                                                service.serviceProvider
+                                                service.created_by.full_name
                                             }
                                             serviceProviderLocation={
-                                                service.serviceProviderLocation
+                                                service.location
                                             }
                                             serviceDescription={
-                                                service.serviceDescription
+                                                service.description
                                             }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
+                                            serviceRating={String(
+                                                service.views_count
+                                            )}
+                                            servicePrice={String(
+                                                service.budget
+                                            )}
+                                            hasOffer={true}
+                                            discountRate={10}
+                                            discountOn={"text"}
                                         />
                                     </Col>
                                 );
@@ -295,7 +299,7 @@ const Home: NextPage<{
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Services near you</h2>
 
-                        <Link href="">
+                        <Link href="/search">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -306,29 +310,31 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
+                        {servicesData &&
+                            servicesData?.result?.map((service) => {
                                 return (
                                     <Col sm={6} md={4} lg={3} key={service.id}>
                                         <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
+                                            serviceImage={service.images}
+                                            serviceTitle={service.title}
                                             serviceProvider={
-                                                service.serviceProvider
+                                                service.created_by.full_name
                                             }
                                             serviceProviderLocation={
-                                                service.serviceProviderLocation
+                                                service.location
                                             }
                                             serviceDescription={
-                                                service.serviceDescription
+                                                service.description
                                             }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
+                                            serviceRating={String(
+                                                service.views_count
+                                            )}
+                                            servicePrice={String(
+                                                service.budget
+                                            )}
+                                            hasOffer={true}
+                                            discountRate={10}
+                                            discountOn={"text"}
                                         />
                                     </Col>
                                 );
@@ -342,7 +348,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Professional Services</h2>
-                        <Link href="">
+                        <Link href="/search">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -353,34 +359,42 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {services &&
-                            services.map((service) => {
-                                return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
-                                        <ServiceCard
-                                            serviceImage={service.serviceImage}
-                                            serviceTitle={service.serviceTitle}
-                                            serviceProvider={
-                                                service.serviceProvider
-                                            }
-                                            serviceProviderLocation={
-                                                service.serviceProviderLocation
-                                            }
-                                            serviceDescription={
-                                                service.serviceDescription
-                                            }
-                                            serviceRating={
-                                                service.serviceRating
-                                            }
-                                            servicePrice={service.servicePrice}
-                                            hasOffer={service.hasOffer}
-                                            discountRate={service.discountRate}
-                                            discountOn={service.discountOn}
-                                            proService={true}
-                                        />
-                                    </Col>
-                                );
-                            })}
+                        {servicesData &&
+                            servicesData?.result
+                                ?.filter((p) => p.is_professional)
+                                .map((service) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={service.id}
+                                        >
+                                            <ServiceCard
+                                                serviceImage={service.images}
+                                                serviceTitle={service.title}
+                                                serviceProvider={
+                                                    service.created_by.full_name
+                                                }
+                                                serviceProviderLocation={
+                                                    service.location
+                                                }
+                                                serviceDescription={
+                                                    service.description
+                                                }
+                                                serviceRating={String(
+                                                    service.views_count
+                                                )}
+                                                servicePrice={String(
+                                                    service.budget
+                                                )}
+                                                hasOffer={true}
+                                                discountRate={10}
+                                                discountOn={"text"}
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                 </Container>
             </section>
@@ -480,7 +494,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Top Taskers</h2>
-                        <Link href="">
+                        <Link href="/tasker">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -634,7 +648,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Our blogs</h2>
-                        <Link href="/blogs/">
+                        <Link href="/blogs">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -757,7 +771,7 @@ const Home: NextPage<{
                     <h2 className="section-sub-title">
                         See some of our top categories
                     </h2>
-                    <CategoriesListingHomepage />
+                    <TopCategories />
                 </Container>
             </section>
         </Layout>
@@ -773,12 +787,14 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: trustedPartnerData } = await axiosClient.get(
             "/landingpage/trusted-partner/"
         );
+        const { data: servicesData } = await axiosClient.get("/task/service/");
         const queryClient = new QueryClient();
         await queryClient.prefetchQuery(["all-blogs"]);
         return {
             props: {
                 successStoryData: successStoryData,
                 trustedPartnerData: trustedPartnerData,
+                servicesData: servicesData,
                 dehydratedState: dehydrate(queryClient),
             },
             revalidate: 10,
@@ -789,6 +805,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 successStoryData: [],
                 trustedPartnerData: [],
                 blogData: [],
+                servicesData: [],
             },
             revalidate: 10,
         };

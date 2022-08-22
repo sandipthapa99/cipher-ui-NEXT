@@ -8,9 +8,10 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
+import { useCountry } from "hooks/dropdown/useCountry";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useKYC } from "hooks/profile/kyc/useKYC";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
@@ -19,9 +20,9 @@ import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
 import { isSubmittingClass } from "utils/helpers";
 
 const dropdownCountryOptions = [
-    { id: 1, label: "Nepal", value: "nepal" },
-    { id: 2, label: "USA", value: "usa" },
-    { id: 3, label: "Canda", value: "canda" },
+    { id: 1, label: "Citizenship ", value: "citizenship" },
+    { id: 2, label: "Passport", value: "passport" },
+    { id: 3, label: "Pan Card", value: "pancard" },
 ];
 
 const KYCForm = () => {
@@ -29,7 +30,18 @@ const KYCForm = () => {
     const { data: KYCData } = useGetKYC();
     console.log(KYCData);
     const { mutate } = useKYC();
+    const { data: countryName } = useCountry();
+    const [kycData, setKycData] = useState("");
 
+    const getKYCData = (data: string) => {
+        setKycData(data);
+    };
+    console.log(kycData);
+    const countryResults = countryName?.result.map((result) => ({
+        label: result.name,
+        value: result.id,
+        id: result.id,
+    }));
     return (
         <>
             {/* Modal component */}
@@ -39,6 +51,8 @@ const KYCForm = () => {
                     enableReinitialize={true}
                     initialValues={{
                         full_name: KYCData?.full_name ?? "",
+                        address: "",
+                        country: "",
                         identity_type: KYCData?.identity_type ?? "",
                         identity_id: KYCData?.identity_id ?? "",
                         identity_issued_date:
@@ -139,6 +153,60 @@ const KYCForm = () => {
                                 touch={touched.full_name}
                                 placeHolder="Enter your Full Name"
                             />
+                            <InputField
+                                type="text"
+                                name="address"
+                                labelName="Address"
+                                error={errors.address}
+                                touch={touched.address}
+                                placeHolder="Enter your Address"
+                            />
+                            <SelectInputField
+                                name="country"
+                                labelName="Country"
+                                touch={touched.country}
+                                error={errors.country}
+                                placeHolder="Select Identity Type"
+                                options={countryResults}
+                            />
+                            <h5>Bank Details (Optional)</h5>
+                            <InputField
+                                name="bank_name"
+                                labelName="Bank Name"
+                                error={errors.bank_name}
+                                touch={touched.bank_name}
+                                placeHolder="Enter your Account Name"
+                            />
+                            <InputField
+                                name="bank_name"
+                                labelName="Bank Address"
+                                error={errors.bank_name}
+                                touch={touched.bank_name}
+                                placeHolder="Enter your Account Name"
+                            />
+                            <Col md={5}></Col>
+                            <Row className="gap-5">
+                                <Col lg={5} md={6}>
+                                    <InputField
+                                        name="bank_account_name"
+                                        labelName="Bank Account Name"
+                                        error={errors.bank_account_name}
+                                        touch={touched.bank_account_name}
+                                        placeHolder="Enter bank Account Name"
+                                    />
+                                </Col>
+                                <Col lg={5} md={8}>
+                                    <InputField
+                                        type="text"
+                                        name="bank_account_number"
+                                        labelName="Bank Account Number"
+                                        error={errors.bank_account_number}
+                                        touch={touched.bank_account_number}
+                                        placeHolder="Enter your Account Number"
+                                    />
+                                </Col>
+                            </Row>
+
                             <h5>Identity Information</h5>
                             <Col md={5}>
                                 <SelectInputField
@@ -148,53 +216,65 @@ const KYCForm = () => {
                                     error={errors.identity_type}
                                     placeHolder="Select Identity Type"
                                     options={dropdownCountryOptions}
+                                    getData={getKYCData}
                                 />
                             </Col>
-                            <Row>
-                                <Col lg={5} md={6}>
-                                    <InputField
-                                        name="identity_id"
-                                        labelName="Identity Number"
-                                        error={errors.identity_id}
-                                        touch={touched.identity_id}
-                                        placeHolder="Enter your identity Number"
-                                    />
-                                    <DatePickerField
-                                        name="identity_issued_date"
-                                        labelName="Issued date"
-                                        placeHolder="dd/mm/yy"
-                                        touch={touched.identity_issued_date}
-                                        error={errors.identity_issued_date}
-                                    />
-                                </Col>
-                                <Col lg={{ span: 5, offset: 2 }} md={6}>
-                                    <InputField
-                                        name="identity_issuer_organization"
-                                        labelName="Issued From"
-                                        placeHolder="dd/mm/yy"
-                                        touch={
-                                            touched.identity_issuer_organization
-                                        }
-                                        error={
-                                            errors.identity_issuer_organization
-                                        }
-                                    />
-                                    <DatePickerField
-                                        name="identity_valid_through"
-                                        labelName="Expiry Date"
-                                        placeHolder="dd/mm/yy"
-                                        touch={touched.identity_valid_through}
-                                        error={errors.identity_valid_through}
-                                    />
-                                </Col>
-                            </Row>
-                            <h4>Identity Card</h4>
-                            <p>
-                                Document can be Citizenship Card or Driving
-                                License or Passport{" "}
-                            </p>
-                            <Col md={5}>
-                                {/* <DragDrop
+                            {kycData === ("citizenship" || "") && (
+                                <>
+                                    <Row>
+                                        <Col lg={5} md={6}>
+                                            <InputField
+                                                name="identity_id"
+                                                labelName="Identity Number"
+                                                error={errors.identity_id}
+                                                touch={touched.identity_id}
+                                                placeHolder="Enter your identity Number"
+                                            />
+                                            <DatePickerField
+                                                name="identity_issued_date"
+                                                labelName="Issued date"
+                                                placeHolder="dd/mm/yy"
+                                                touch={
+                                                    touched.identity_issued_date
+                                                }
+                                                error={
+                                                    errors.identity_issued_date
+                                                }
+                                            />
+                                        </Col>
+                                        <Col lg={{ span: 5, offset: 2 }} md={6}>
+                                            <InputField
+                                                name="identity_issuer_organization"
+                                                labelName="Issued From"
+                                                placeHolder="dd/mm/yy"
+                                                touch={
+                                                    touched.identity_issuer_organization
+                                                }
+                                                error={
+                                                    errors.identity_issuer_organization
+                                                }
+                                            />
+                                            <DatePickerField
+                                                name="identity_valid_through"
+                                                labelName="Expiry Date"
+                                                placeHolder="dd/mm/yy"
+                                                touch={
+                                                    touched.identity_valid_through
+                                                }
+                                                error={
+                                                    errors.identity_valid_through
+                                                }
+                                            />
+                                        </Col>
+                                    </Row>
+
+                                    <h4>Identity Card</h4>
+                                    <p>
+                                        Document can be Citizenship Card or
+                                        Driving License or Passport{" "}
+                                    </p>
+                                    <Col md={5}>
+                                        {/* <DragDrop
                                     name="identity_card_file"
                                     image="/service-details/file-upload.svg"
                                     fileType="Image/Video"
@@ -202,48 +282,55 @@ const KYCForm = () => {
                                     maxVideoSize={200}
                                     field={setFieldValue}
                                 /> */}
-                                <CustomDropZone
-                                    name="identity_card_file"
-                                    maxSize={200}
-                                    minSize={20}
-                                    onDrop={(files) => console.log(files)}
-                                />
-                            </Col>
-                            <hr />
-                            <h5>PAN/VAT Information </h5>
-                            <Row>
-                                <Col lg={5} md={6}>
-                                    <InputField
-                                        type="text"
-                                        name="pan_number"
-                                        labelName="PAN Number"
-                                        error={errors.pan_number}
-                                        touch={touched.pan_number}
-                                        placeHolder="Enter your Pan Number"
-                                    />
-                                    <DatePickerField
-                                        name="pan_issued_date"
-                                        labelName="Issued Date"
-                                        placeHolder="dd/mm/yy"
-                                        touch={touched.pan_issued_date}
-                                        error={errors.pan_issued_date}
-                                    />
-                                </Col>
-                                <Col lg={{ span: 5, offset: 2 }} md={6}>
-                                    <InputField
-                                        type="text"
-                                        name="pan_issued_from"
-                                        labelName="Issued Loaction"
-                                        error={errors.pan_issued_from}
-                                        touch={touched.pan_issued_from}
-                                        placeHolder="Enter your Issued Loaction"
-                                    />
-                                </Col>
-                            </Row>
-                            <h4>PAN/ VAT Card</h4>
-                            <p>Document can be PAN or VAT Card </p>
-                            <Col md={5}>
-                                {/* <DragDrop
+                                        <CustomDropZone
+                                            name="identity_card_file"
+                                            maxSize={200}
+                                            minSize={20}
+                                            onDrop={(files) =>
+                                                console.log(files)
+                                            }
+                                        />
+                                    </Col>
+                                    <hr />
+                                </>
+                            )}
+                            {kycData === "pancard" && (
+                                <>
+                                    <h5>PAN/VAT Information </h5>
+                                    <Row>
+                                        <Col lg={5} md={6}>
+                                            <InputField
+                                                type="text"
+                                                name="pan_number"
+                                                labelName="PAN Number"
+                                                error={errors.pan_number}
+                                                touch={touched.pan_number}
+                                                placeHolder="Enter your Pan Number"
+                                            />
+                                            <DatePickerField
+                                                name="pan_issued_date"
+                                                labelName="Issued Date"
+                                                placeHolder="dd/mm/yy"
+                                                touch={touched.pan_issued_date}
+                                                error={errors.pan_issued_date}
+                                            />
+                                        </Col>
+                                        <Col lg={{ span: 5, offset: 2 }} md={6}>
+                                            <InputField
+                                                type="text"
+                                                name="pan_issued_from"
+                                                labelName="Issued Loaction"
+                                                error={errors.pan_issued_from}
+                                                touch={touched.pan_issued_from}
+                                                placeHolder="Enter your Issued Loaction"
+                                            />
+                                        </Col>
+                                    </Row>
+
+                                    <h4>PAN/ VAT Card</h4>
+                                    <p>Document can be PAN or VAT Card </p>
+                                    <Col md={5}>
+                                        {/* <DragDrop
                                     name="pan_card_file"
                                     image="/service-details/file-upload.svg"
                                     fileType="Image/Video"
@@ -251,14 +338,19 @@ const KYCForm = () => {
                                     maxVideoSize={200}
                                     field={setFieldValue}
                                 /> */}
-                                <CustomDropZone
-                                    name="pan_card_file"
-                                    maxSize={200}
-                                    minSize={20}
-                                    onDrop={(files) => console.log(files)}
-                                />
-                            </Col>
-                            <hr />
+                                        <CustomDropZone
+                                            name="pan_card_file"
+                                            maxSize={200}
+                                            minSize={20}
+                                            onDrop={(files) =>
+                                                console.log(files)
+                                            }
+                                        />
+                                    </Col>
+
+                                    <hr />
+                                </>
+                            )}
                             <Row>
                                 <Col lg={5} md={6}>
                                     <h5>Passport Size Photo</h5>
@@ -307,37 +399,7 @@ const KYCForm = () => {
                                 </Col>
                             </Row>
                             <hr />
-                            <h5>Bank Details (Optional)</h5>
-                            <Col md={5}>
-                                <InputField
-                                    name="bank_name"
-                                    labelName="Bank Name"
-                                    error={errors.bank_name}
-                                    touch={touched.bank_name}
-                                    placeHolder="Enter your Account Name"
-                                />
-                            </Col>
-                            <Row>
-                                <Col lg={5} md={6}>
-                                    <InputField
-                                        name="bank_account_name"
-                                        labelName="Bank Account Name"
-                                        error={errors.bank_account_name}
-                                        touch={touched.bank_account_name}
-                                        placeHolder="Enter bank Account Name"
-                                    />
-                                </Col>
-                                <Col lg={{ span: 5, offset: 2 }} md={6}>
-                                    <InputField
-                                        type="text"
-                                        name="bank_account_number"
-                                        labelName="Bank Account Number"
-                                        error={errors.bank_account_number}
-                                        touch={touched.bank_account_number}
-                                        placeHolder="Enter your Account Number"
-                                    />
-                                </Col>
-                            </Row>
+
                             <div className="d-flex justify-content-end">
                                 <Button
                                     className="me-3 mb-0 cancel-btn"

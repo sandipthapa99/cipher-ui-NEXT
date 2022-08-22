@@ -152,6 +152,13 @@
 
     &__activity {
         padding-bottom: 5rem;
+        .comment {
+            height: 1.9rem;
+            width: 1.9rem;
+            font-weight: 400;
+            cursor: pointer;
+            color: #3eaeff;
+        }
     }
     &__goal {
         padding: 2.5rem 5.4rem;

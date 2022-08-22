@@ -19,6 +19,7 @@ import { Col, Row } from "react-bootstrap";
 import type { UserProfileInfoProps } from "types/userProfile";
 
 import ProfileEditForm from "./ProfileEditForm";
+import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 
 const UserProfileCard = ({
@@ -49,9 +50,17 @@ const UserProfileCard = ({
     console.log("skills", moreServices, typeof moreServices);
 
     const services = moreServices ? JSON.parse(moreServices) : [];
-
     const renderServices: string[] | undefined = services?.map(
-        (service: string, index: number) => <p key={index}>{service}</p>
+        (service: string, index: number) => (
+            <p key={index}>
+                {service}
+                {index < services.length - 2
+                    ? ", "
+                    : index < services.length - 1
+                    ? " and"
+                    : ""}
+            </p>
+        )
     );
     const userType: string[] = userJob ? JSON.parse(userJob) : [];
     const renderType = userType.map((type: string, index: number) => {
@@ -194,9 +203,12 @@ const UserProfileCard = ({
                         <Col md={6}>
                             <div className="reactions d-flex">
                                 <div className="d-flex flex-col share">
-                                    <FontAwesomeIcon
-                                        icon={faShare}
-                                        className="svg-icon share"
+                                    <ShareIcon
+                                        url={`http://localhost:3005/profile/`}
+                                        quote={
+                                            "Hi guys checkout my Cipher Profile"
+                                        }
+                                        hashtag={"cipher-profile"}
                                     />
                                 </div>
                                 <FontAwesomeIcon

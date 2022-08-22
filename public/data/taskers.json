@@ -6,7 +6,11 @@
             "profileImage": "https://thispersondoesnotexist.com/image",
             "username": "Dr Michael Morbius",
             "location": "Nepalgunda",
-            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            "coordinates": {
+                "longitude": -98.1927,
+                "latitude": 7.69668
+            }
         },
         "likes": 714,
         "rewardPercentage": "98%",
@@ -23,7 +27,11 @@
             "profileImage": "https://thispersondoesnotexist.com/image",
             "username": "Milo Morbius",
             "location": "Gorkha",
-            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            "coordinates": {
+                "latitude": -12.89318,
+                "longitude": -120.71442
+            }
         },
         "likes": 965,
         "rewardPercentage": "94%",
@@ -40,7 +48,11 @@
             "profileImage": "https://thispersondoesnotexist.com/image",
             "username": "Walter White",
             "location": "Gorkha",
-            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            "coordinates": {
+                "longitude": 124.29371,
+                "latitude": -37.92894
+            }
         },
         "likes": 717,
         "rewardPercentage": "6%",
@@ -57,7 +69,11 @@
             "profileImage": "https://thispersondoesnotexist.com/image",
             "username": "Jesse Pinkman",
             "location": "Gorkha",
-            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            "coordinates": {
+                "longitude": 160.85141,
+                "latitude": 48.92606
+            }
         },
         "likes": 637,
         "rewardPercentage": "47%",
@@ -74,7 +90,11 @@
             "profileImage": "https://thispersondoesnotexist.com/image",
             "username": "Despacito Lover",
             "location": "Kathmandu",
-            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            "coordinates": {
+                "latitude": -3.12363,
+                "longitude": -155.65371
+            }
         },
         "likes": 812,
         "rewardPercentage": "88%",
@@ -91,7 +111,11 @@
             "profileImage": "https://thispersondoesnotexist.com/image",
             "username": "Better Call Saul",
             "location": "Jhapa",
-            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+            "bio": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+            "coordinates": {
+                "longitude": -144.76636,
+                "latitude": -10.74713
+            }
         },
         "likes": 899,
         "rewardPercentage": "7%",
