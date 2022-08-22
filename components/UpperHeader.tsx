@@ -29,8 +29,15 @@ export function UpperHeader() {
 
     const checkPageForHeader =
         router.pathname !== "/" &&
-        router.pathname !== "/about-us" &&
-        router.pathname !== "/contact-us";
+        router.pathname !== "/about" &&
+        router.pathname !== "/contact-us" &&
+        router.pathname !== "/career" &&
+        router.pathname !== "/discover" &&
+        router.pathname !== "/help" &&
+        router.pathname !== "/privacy-policy" &&
+        router.pathname !== "/terms-conditions" &&
+        router.pathname !== "/faq" &&
+        router.pathname !== "/blogs";
 
     return (
         <>
