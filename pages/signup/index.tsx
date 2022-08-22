@@ -1,8 +1,15 @@
 import SocialLoginBtn from "@components/common/SocialLoginBtn";
+import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import { useGoogleLogin } from "@react-oauth/google";
 import Link from "next/link";
 
 const Signup = () => {
+    const login = useGoogleLogin({
+        onSuccess: (codeResponse) => console.log(codeResponse),
+        flow: "auth-code",
+    });
+p
     return (
         <OnBoardingLayout
             topLeftText="Already have an account?"
@@ -18,10 +25,12 @@ const Signup = () => {
                 icon="/illustrations/fb.svg"
                 className="facebook"
             />
+            {/* <Google /> */}
             <SocialLoginBtn
                 name={"Continue with Google"}
                 icon="/illustrations/google.svg"
                 className="google"
+                onClick={() => login()}
             />
             <SocialLoginBtn
                 name={"Sign Up with Email"}
