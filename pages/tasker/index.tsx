@@ -19,8 +19,6 @@ const TaskerPage = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTaskIdx, setActiveTaskIdx] = useState<string | undefined>();
 
-    console.log("active task Id", activeTaskIdx);
-
     const toggleActiveTask = (taskerId: string) => {
         router.push({
             pathname: router.pathname,
@@ -28,6 +26,7 @@ const TaskerPage = () => {
         });
         setActiveTaskIdx(taskerId);
     };
+
     const removeActiveTaskIdx = () => {
         if (redirectedFrom && typeof redirectedFrom === "string")
             return router.push({
