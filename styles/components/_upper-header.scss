@@ -35,6 +35,22 @@
                     margin-right: 2rem;
                 }
             }
+            .search-input {
+                width: 48rem;
+                input {
+                    height: auto;
+                }
+            }
+            .search-btn {
+                background: $secondary-color;
+                border: none;
+                padding: 1.2rem 1.6rem;
+                .search-icon {
+                    color: $primary-color;
+                    height: 2.4rem;
+                    width: 2.4rem;
+                }
+            }
 
             .nav-item {
                 position: relative;
@@ -63,17 +79,14 @@
                 }
 
                 &:hover {
-
                     .nav-link {
                         color: $secondary-color;
                     }
                 }
             }
-
-
         }
-        &__right{
-            .login-btn{
+        &__right {
+            .login-btn {
                 margin-right: 5.2rem;
             }
             .auth-btn {
@@ -82,7 +95,7 @@
                 font-weight: 500;
                 padding: 3rem 0;
                 border: none;
-                
+
                 @include respond(lg) {
                     font-size: 1.6rem;
                     position: static;
@@ -103,15 +116,14 @@
             .user-profile {
                 position: relative;
                 margin-right: 1.6rem;
-                @include respond(md){
+                @include respond(md) {
                     margin-right: 2rem;
                 }
-                .profile-btn{
+                .profile-btn {
                     figure {
                         min-width: 4rem;
                         min-height: 4rem;
                     }
-
                 }
             }
             .nav-cta-btn {
@@ -123,32 +135,29 @@
                 font-weight: 500;
                 padding: 1rem 1.8rem;
                 @include transition();
-                
+
                 @include respond(lg) {
                     position: static;
                     font-size: 1.6rem;
                     padding: 1rem 6rem;
                 }
-        
+
                 @include respond(tablet-lanscape) {
                     padding: 1.05rem 2.2rem;
                 }
-        
+
                 &:hover {
                     background: $primary-color;
                     border-color: $primary-color;
                     color: #fff;
                 }
-        
+
                 &:focus {
                     box-shadow: none;
                 }
             }
         }
     }
-
-    
-    
 
     @keyframes fadeInDown {
         0% {

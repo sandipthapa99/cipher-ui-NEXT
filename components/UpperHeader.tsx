@@ -56,10 +56,10 @@ export function UpperHeader() {
                                 </a>
                             </Link>
                             {checkPageForHeader ? (
-                                <InputGroup className="search-input">
+                                <InputGroup className="search-input d-none d-md-flex">
                                     <Form.Control
-                                        placeholder="Find your Services &amp; Merchants"
-                                        aria-label="Find your Services &amp; Merchants"
+                                        placeholder="Find your Services &amp; Taskers"
+                                        aria-label="Find your Services &amp; Taskers"
                                         aria-describedby="basic-addon2"
                                     />
                                     <Button
