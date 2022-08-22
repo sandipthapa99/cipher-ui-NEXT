@@ -8,6 +8,7 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
+import { useCountry } from "hooks/dropdown/useCountry";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useKYC } from "hooks/profile/kyc/useKYC";
 import React, { useState } from "react";
@@ -29,13 +30,18 @@ const KYCForm = () => {
     const { data: KYCData } = useGetKYC();
     console.log(KYCData);
     const { mutate } = useKYC();
+    const { data: countryName } = useCountry();
     const [kycData, setKycData] = useState("");
 
     const getKYCData = (data: string) => {
         setKycData(data);
     };
     console.log(kycData);
-
+    const countryResults = countryName?.result.map((result) => ({
+        label: result.name,
+        value: result.id,
+        id: result.id,
+    }));
     return (
         <>
             {/* Modal component */}
@@ -45,6 +51,8 @@ const KYCForm = () => {
                     enableReinitialize={true}
                     initialValues={{
                         full_name: KYCData?.full_name ?? "",
+                        address: "",
+                        country: "",
                         identity_type: KYCData?.identity_type ?? "",
                         identity_id: KYCData?.identity_id ?? "",
                         identity_issued_date:
@@ -145,6 +153,60 @@ const KYCForm = () => {
                                 touch={touched.full_name}
                                 placeHolder="Enter your Full Name"
                             />
+                            <InputField
+                                type="text"
+                                name="address"
+                                labelName="Address"
+                                error={errors.address}
+                                touch={touched.address}
+                                placeHolder="Enter your Address"
+                            />
+                            <SelectInputField
+                                name="country"
+                                labelName="Country"
+                                touch={touched.country}
+                                error={errors.country}
+                                placeHolder="Select Identity Type"
+                                options={countryResults}
+                            />
+                            <h5>Bank Details (Optional)</h5>
+                            <InputField
+                                name="bank_name"
+                                labelName="Bank Name"
+                                error={errors.bank_name}
+                                touch={touched.bank_name}
+                                placeHolder="Enter your Account Name"
+                            />
+                            <InputField
+                                name="bank_name"
+                                labelName="Bank Address"
+                                error={errors.bank_name}
+                                touch={touched.bank_name}
+                                placeHolder="Enter your Account Name"
+                            />
+                            <Col md={5}></Col>
+                            <Row className="gap-5">
+                                <Col lg={5} md={6}>
+                                    <InputField
+                                        name="bank_account_name"
+                                        labelName="Bank Account Name"
+                                        error={errors.bank_account_name}
+                                        touch={touched.bank_account_name}
+                                        placeHolder="Enter bank Account Name"
+                                    />
+                                </Col>
+                                <Col lg={5} md={8}>
+                                    <InputField
+                                        type="text"
+                                        name="bank_account_number"
+                                        labelName="Bank Account Number"
+                                        error={errors.bank_account_number}
+                                        touch={touched.bank_account_number}
+                                        placeHolder="Enter your Account Number"
+                                    />
+                                </Col>
+                            </Row>
+
                             <h5>Identity Information</h5>
                             <Col md={5}>
                                 <SelectInputField
@@ -157,7 +219,7 @@ const KYCForm = () => {
                                     getData={getKYCData}
                                 />
                             </Col>
-                            {kycData === "citizenship" && (
+                            {kycData === ("citizenship" || "") && (
                                 <>
                                     <Row>
                                         <Col lg={5} md={6}>
@@ -337,37 +399,7 @@ const KYCForm = () => {
                                 </Col>
                             </Row>
                             <hr />
-                            <h5>Bank Details (Optional)</h5>
-                            <Col md={5}>
-                                <InputField
-                                    name="bank_name"
-                                    labelName="Bank Name"
-                                    error={errors.bank_name}
-                                    touch={touched.bank_name}
-                                    placeHolder="Enter your Account Name"
-                                />
-                            </Col>
-                            <Row>
-                                <Col lg={5} md={6}>
-                                    <InputField
-                                        name="bank_account_name"
-                                        labelName="Bank Account Name"
-                                        error={errors.bank_account_name}
-                                        touch={touched.bank_account_name}
-                                        placeHolder="Enter bank Account Name"
-                                    />
-                                </Col>
-                                <Col lg={{ span: 5, offset: 2 }} md={6}>
-                                    <InputField
-                                        type="text"
-                                        name="bank_account_number"
-                                        labelName="Bank Account Number"
-                                        error={errors.bank_account_number}
-                                        touch={touched.bank_account_number}
-                                        placeHolder="Enter your Account Number"
-                                    />
-                                </Col>
-                            </Row>
+
                             <div className="d-flex justify-content-end">
                                 <Button
                                     className="me-3 mb-0 cancel-btn"
