@@ -2,34 +2,60 @@ import {
     faAward,
     faEllipsisVertical,
     faFaceGrinBeam,
+    faHeart,
     faLocationArrow,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import type { Task } from "types/tasks";
+import type { Task, Tasker } from "types/tasks";
 
 import BigButton from "./Button";
-import SaveIcon from "./SaveIcon";
 import ShareIcon from "./ShareIcon";
 
 interface Props {
-    task: Task;
+    taskers?: Tasker;
     collabButton?: boolean;
+    onTaskClick?: (taskerId: number) => void;
     handleButtonClick?: () => void;
+    image?: string;
+    name?: string;
+    speciality?: string;
+    rating?: number;
+    happyClients?: number;
+    awardPercentage?: string | number;
+    location?: string;
+    distance?: string;
+    bio?: string;
+    charge?: string;
 }
 
 export const TeamMembersCard = ({
-    task,
+    taskers,
     collabButton,
+    onTaskClick,
     handleButtonClick,
+    image,
+    name,
+    speciality,
+    rating,
+    happyClients,
+    awardPercentage,
+    location,
+    distance,
+    bio,
+    charge,
 }: Props) => {
+    if (!taskers) return null;
     return (
-        <div className="team-members-card">
+        <div
+            className="team-members-card"
+            onClick={() => onTaskClick?.(taskers.id)}
+        >
             <div className="d-flex w-100 image-and-title">
                 <figure className="team-member-card-image">
                     <Image
-                        src={task?.user?.profileImage}
+                        src={image ?? "/community/gallery2.png"}
                         alt="team-member-card-image"
                         height={80}
                         width={80}
@@ -37,50 +63,46 @@ export const TeamMembersCard = ({
                 </figure>
                 <div className="w-100 name-post-count">
                     <div className="d-flex justify-content-between title-and-dots">
-                        <h5>{task?.user?.username}</h5>
+                        <h5>{name}</h5>
                         <FontAwesomeIcon
                             className="ellipsis-vertical"
                             icon={faEllipsisVertical}
                         />
                     </div>
                     <h6>
-                        <span>{task?.user?.category} </span>|{" "}
-                        {task?.user?.location}
+                        <span>{speciality} </span>| {location}
                     </h6>
                     <div className="d-flex justify-content-between align-items-center emoji-section">
                         <span className="star">
                             <FontAwesomeIcon className="star" icon={faStar} />
-                            {task?.rating?.average}
+                            {rating}
                         </span>
                         <span className="emoji">
                             <FontAwesomeIcon
                                 className="emoji"
                                 icon={faFaceGrinBeam}
                             />
-                            {task?.likes}
+                            {happyClients}
                         </span>
                         <span className="award">
                             <FontAwesomeIcon className="award" icon={faAward} />
-                            {task?.rewardPercentage}
+                            {awardPercentage}
                         </span>
                         <span className="location">
                             <FontAwesomeIcon
                                 className="location"
                                 icon={faLocationArrow}
                             />
-                            2 km
+                            {distance}
                         </span>
                     </div>
                 </div>
             </div>
 
-            <p>
-                I&apos;m punctual and hardworking person. I love teaching what
-                I. We want a garden cleaner for our bunglow.
-            </p>
+            <p>{bio}</p>
             <div className="d-flex justify-content-between footer-section">
                 <span className="share-and-like">
-                    <SaveIcon />
+                    <FontAwesomeIcon className="heart" icon={faHeart} />
                     <ShareIcon url={""} quote={""} hashtag={""} />
                 </span>
 
@@ -91,7 +113,7 @@ export const TeamMembersCard = ({
                         handleClick={handleButtonClick}
                     />
                 ) : (
-                    <span className="task-price"> {task?.price}</span>
+                    <span className="task-price"> {charge}</span>
                 )}
             </div>
         </div>

@@ -4,16 +4,22 @@ import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import Layout from "@components/Layout";
+import { useData } from "hooks/use-data";
 import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
-import { services } from "staticData/services";
 import { tasks } from "staticData/task";
+import type { ServicesValueProps } from "types/serviceCard";
 
 const Gardening = () => {
     const router = useRouter();
     const { categories } = router.query;
+
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
 
     return (
         <Layout title={`${categories} | Cipher`}>
@@ -27,46 +33,18 @@ const Gardening = () => {
                             {`${categories} Services Near You`}
                         </h1>
                         <Row className="gx-5">
-                            {services &&
-                                services.map((service) => {
-                                    return (
-                                        <Col
-                                            sm={6}
-                                            md={4}
-                                            lg={3}
-                                            key={service.id}
-                                        >
-                                            <ServiceCard
-                                                serviceImage={
-                                                    service.serviceImage
-                                                }
-                                                serviceTitle={
-                                                    service.serviceTitle
-                                                }
-                                                serviceProvider={
-                                                    service.serviceProvider
-                                                }
-                                                serviceProviderLocation={
-                                                    service.serviceProviderLocation
-                                                }
-                                                serviceDescription={
-                                                    service.serviceDescription
-                                                }
-                                                serviceRating={
-                                                    service.serviceRating
-                                                }
-                                                servicePrice={
-                                                    service.servicePrice
-                                                }
-                                                hasOffer={service.hasOffer}
-                                                discountRate={
-                                                    service.discountRate
-                                                }
-                                                discountOn={service.discountOn}
-                                            />
-                                        </Col>
-                                    );
-                                })}
+                            {servicesData &&
+                                servicesData?.data?.result?.map(
+                                    (service, key) => {
+                                        return (
+                                            <Col sm={6} md={4} lg={3} key={key}>
+                                                <ServiceCard
+                                                    serviceCard={service}
+                                                />
+                                            </Col>
+                                        );
+                                    }
+                                )}
                         </Row>
                     </section>
 

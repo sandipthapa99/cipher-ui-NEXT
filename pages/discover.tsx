@@ -6,15 +6,20 @@ import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
+import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import { Col, Container, Row } from "react-bootstrap";
 import { AllCategoryCardContent } from "staticData/categoryCardContent";
 import { merchantAdvice } from "staticData/merchantAdvice";
 import { merchants } from "staticData/merchants";
 import { oppurtunitiesCardContent } from "staticData/oppurtunities";
-import { servicesDiscover } from "staticData/services";
+import type { ServicesValueProps } from "types/serviceCard";
 
 const Discover: NextPage = () => {
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     return (
         <Layout title="Discover | Cipher">
             <Container fluid="xl" className="px-5">
@@ -38,47 +43,24 @@ const Discover: NextPage = () => {
                     >
                         <h1>Popular On Cipher</h1>
                         <Row className="gx-5 d-flex align-items-stretch">
-                            {servicesDiscover &&
-                                servicesDiscover.map((service) => {
-                                    return (
-                                        <Col
-                                            className="discover-col d-fle align-items-stretch"
-                                            sm={6}
-                                            md={6}
-                                            lg={3}
-                                            key={service.id}
-                                        >
-                                            <ServiceCard
-                                                serviceImage={
-                                                    service.serviceImage
-                                                }
-                                                serviceTitle={
-                                                    service.serviceTitle
-                                                }
-                                                serviceProvider={
-                                                    service.serviceProvider
-                                                }
-                                                serviceProviderLocation={
-                                                    service.serviceProviderLocation
-                                                }
-                                                serviceDescription={
-                                                    service.serviceDescription
-                                                }
-                                                serviceRating={
-                                                    service.serviceRating
-                                                }
-                                                servicePrice={
-                                                    service.servicePrice
-                                                }
-                                                hasOffer={service.hasOffer}
-                                                discountRate={
-                                                    service.discountRate
-                                                }
-                                                discountOn={service.discountOn}
-                                            />
-                                        </Col>
-                                    );
-                                })}
+                            {servicesData &&
+                                servicesData?.data?.result?.map(
+                                    (service, key) => {
+                                        return (
+                                            <Col
+                                                className="discover-col d-fle align-items-stretch"
+                                                sm={6}
+                                                md={6}
+                                                lg={3}
+                                                key={key}
+                                            >
+                                                <ServiceCard
+                                                    serviceCard={service}
+                                                />
+                                            </Col>
+                                        );
+                                    }
+                                )}
                         </Row>
                     </section>
                     {/* Services near you section end */}

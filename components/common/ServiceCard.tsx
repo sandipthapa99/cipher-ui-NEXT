@@ -1,35 +1,32 @@
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
-import type { ServiceCardProps } from "types/serviceCard";
+import type { ServicesValueProps } from "types/serviceCard";
 
 import CardBtn from "./CardBtn";
 import SaveIcon from "./SaveIcon";
 import ShareIcon from "./ShareIcon";
 
 const ServiceCard = ({
-    serviceImage,
-    serviceTitle,
-    serviceProvider,
-    serviceProviderLocation,
-    serviceDescription,
-    serviceRating,
-    servicePrice,
-    hasOffer,
-    discountRate,
-    proService,
-}: // discountOn,
-ServiceCardProps) => {
+    serviceCard,
+}: {
+    serviceCard: ServicesValueProps["result"][0];
+}) => {
     return (
         <div className="service-card-block">
             <Link href="/service-detail">
                 <a>
                     <div className="card-img">
-                        {serviceImage && (
+                        {serviceCard && serviceCard?.images && (
                             <figure className="thumbnail-img">
                                 <Image
-                                    src={serviceImage}
+                                    src={
+                                        Array.isArray(serviceCard.images)
+                                            ? serviceCard.images[0].image
+                                            : serviceCard.images
+                                    }
                                     layout="fill"
                                     objectFit="cover"
                                     alt="servicecard-image"
@@ -37,11 +34,9 @@ ServiceCardProps) => {
                             </figure>
                         )}
 
-                        {hasOffer && (
+                        {serviceCard?.is_online && (
                             <div className="offer">
-                                <p className="discount-rate">
-                                    {discountRate}% OFF
-                                </p>
+                                <p className="discount-rate">{20}% OFF</p>
                                 {/* <p className="discount-on">{discountOn}</p> */}
                             </div>
                         )}
@@ -52,8 +47,8 @@ ServiceCardProps) => {
                 <Link href="/service-detail">
                     <a>
                         <div className="d-flex pro-title-wrapper justify-content-between">
-                            <h2 className="card-title">{serviceTitle}</h2>
-                            {proService ? (
+                            <h2 className="card-title">{serviceCard?.title}</h2>
+                            {serviceCard?.is_professional ? (
                                 <div className="pro-service">
                                     <p>PRO</p>
                                 </div>
@@ -62,11 +57,16 @@ ServiceCardProps) => {
                             )}
                         </div>
                         <h3 className="card-subtitle">
-                            <span>{serviceProvider}</span> |{" "}
-                            {serviceProviderLocation}
+                            <span>{serviceCard?.created_by?.full_name}</span> |
+                            {serviceCard?.location}
                         </h3>
                         <p className="card-description">
-                            {`${serviceDescription.substring(0, 80)}...`}
+                            {parse(
+                                `${serviceCard?.description.substring(
+                                    0,
+                                    80
+                                )}...`
+                            )}
                         </p>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
@@ -74,9 +74,9 @@ ServiceCardProps) => {
                                     icon={faStar}
                                     className="svg-icon star"
                                 />
-                                {serviceRating}
+                                {serviceCard?.happy_clients}
                             </p>
-                            <p className="price">${servicePrice}/hr</p>
+                            <p className="price">${serviceCard?.budget}/hr</p>
                         </div>
                     </a>
                 </Link>
