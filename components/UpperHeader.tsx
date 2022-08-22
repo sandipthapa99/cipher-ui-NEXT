@@ -4,6 +4,7 @@ import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useClickOutside, useToggle } from "@mantine/hooks";
 import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -38,6 +39,8 @@ export function UpperHeader() {
         router.pathname !== "/terms-conditions" &&
         router.pathname !== "/faq" &&
         router.pathname !== "/blogs";
+
+    const { data: profileDetails } = useGetProfile();
 
     return (
         <>
@@ -86,8 +89,8 @@ export function UpperHeader() {
                             </div>
                         </div>
                         {checkPageForHeader && (
-                            <div className="upper-navigation__center">
-                                <div className="search-input d-none d-md-flex">
+                            <div className="upper-navigation__center d-none d-md-block">
+                                <div className="search-input d-md-flex">
                                     <Form.Control
                                         placeholder="Find your Services"
                                         aria-label="Find your Services &amp; Taskers"
@@ -131,7 +134,10 @@ export function UpperHeader() {
                                     >
                                         <figure className="thumbnail-img">
                                             <Image
-                                                src="/userprofile/profile.svg"
+                                                src={
+                                                    profileDetails?.profile_image ??
+                                                    "/userprofile/unknownPerson.jpg"
+                                                }
                                                 layout="fill"
                                                 alt="profile-pic"
                                                 className="rounded-circle"

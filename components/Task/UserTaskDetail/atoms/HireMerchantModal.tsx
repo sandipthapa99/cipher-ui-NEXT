@@ -6,19 +6,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormCheck, Modal } from "react-bootstrap";
 import { DUMMY_CLIENT_PROJECTS } from "staticData/clientProjects";
-import type { TaskDetail } from "staticData/taskDetail";
 
 interface HireMerchantModalProps {
-    task: TaskDetail;
     show: boolean;
     onHide: () => void;
 }
-export const HireMerchantModal = ({
-    task,
-    show,
-    onHide,
-}: HireMerchantModalProps) => {
-    const { user: merchant } = task;
+export const HireMerchantModal = ({ show, onHide }: HireMerchantModalProps) => {
     const renderClientProjects = () => {
         return DUMMY_CLIENT_PROJECTS.map((project, index) => (
             <div className="hmm-client-project" key={index}>
@@ -74,14 +67,14 @@ export const HireMerchantModal = ({
                 <p className="mb-16">
                     <span className="hmm-label-text">Merchant : </span>
                     <span className="hmm-value-text">
-                        {merchant.offeredServices.join(",")}
+                        {"offered services here"}
                     </span>
                 </p>
                 <p className="mb-16">
                     <span className="hmm-label-text">Address: </span>
-                    <span className="hmm-value-text">{merchant.location}</span>
+                    <span className="hmm-value-text">{"location here"}</span>
                 </p>
-                <p className="hmm-value-text">{merchant.bio}</p>
+                <p className="hmm-value-text">{"merchant bio here"}</p>
                 <span className="divider hmm-divider" />
                 <p className="hmm-label-text mb-8">Select Task</p>
                 <p className="hmm-label-text">
