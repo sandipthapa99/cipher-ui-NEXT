@@ -9,7 +9,7 @@ const Signup = () => {
         onSuccess: (codeResponse) => console.log(codeResponse),
         flow: "auth-code",
     });
-p
+
     return (
         <OnBoardingLayout
             topLeftText="Already have an account?"
