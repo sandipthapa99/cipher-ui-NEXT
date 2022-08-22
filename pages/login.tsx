@@ -13,26 +13,21 @@ import {
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
 import { useRouter } from "next/router";
-import type { Provider } from "next-auth/providers";
-import { getProviders, signIn, signOut, useSession } from "next-auth/react";
 import React, { useRef } from "react";
 import { toast } from "react-toastify";
 import { loginFormData } from "utils/formData";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-interface LoginProps {
-    providers: Provider[];
-}
 
-const Login = ({ providers }: LoginProps) => {
-    const login = useGoogleOneTapLogin({
-        onSuccess: (credentialResponse) => {
-            console.log(credentialResponse);
-        },
-        onError: () => {
-            console.log("Login Failed");
-        },
-    });
+const Login = () => {
+    // const login = useGoogleOneTapLogin({
+    //     onSuccess: (credentialResponse) => {
+    //         console.log(credentialResponse);
+    //     },
+    //     onError: () => {
+    //         console.log("Login Failed");
+    //     },
+    // });
 
     const router = useRouter();
     const { mutate, isLoading } = useLogin();
@@ -145,11 +140,3 @@ const Login = ({ providers }: LoginProps) => {
 };
 
 export default Login;
-// export async function getServerSideProps(context: any) {
-//     const providers = await getProviders();
-//     console.log(providers);
-
-//     return {
-//         props: { providers },
-//     };
-// }

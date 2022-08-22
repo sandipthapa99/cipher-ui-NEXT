@@ -5,16 +5,21 @@ import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
 import { WelcomeComponent } from "@components/common/WelcomeComponent";
 import GettingStartedTask from "@components/Task/GettingStartedCard";
+import { useData } from "hooks/use-data";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { serviceCategory } from "staticData/serviceCategory";
-import { services } from "staticData/services";
+import type { ServicesValueProps } from "types/serviceCard";
 
 import { Recommended } from "./Recommended";
 
 export const UserClient = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     return (
         <>
             <section
@@ -86,41 +91,14 @@ export const UserClient = () => {
                             </Col>
                         </Row>
 
-                        {services &&
-                            services.map((service) => {
+                        {servicesData &&
+                            servicesData?.data?.result?.map((service, key) => {
                                 return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
+                                    <Col sm={6} md={4} lg={3} key={key}>
                                         <Link href="/service-detail">
                                             <a>
                                                 <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
+                                                    serviceCard={service}
                                                 />
                                             </a>
                                         </Link>
@@ -183,41 +161,14 @@ export const UserClient = () => {
                             </Col>
                         </Row>
 
-                        {services &&
-                            services.map((service) => {
+                        {servicesData &&
+                            servicesData?.data?.result?.map((service, key) => {
                                 return (
-                                    <Col sm={6} md={4} lg={3} key={service.id}>
+                                    <Col sm={6} md={4} lg={3} key={key}>
                                         <Link href="/service-detail">
                                             <a>
                                                 <ServiceCard
-                                                    serviceImage={
-                                                        service.serviceImage
-                                                    }
-                                                    serviceTitle={
-                                                        service.serviceTitle
-                                                    }
-                                                    serviceProvider={
-                                                        service.serviceProvider
-                                                    }
-                                                    serviceProviderLocation={
-                                                        service.serviceProviderLocation
-                                                    }
-                                                    serviceDescription={
-                                                        service.serviceDescription
-                                                    }
-                                                    serviceRating={
-                                                        service.serviceRating
-                                                    }
-                                                    servicePrice={
-                                                        service.servicePrice
-                                                    }
-                                                    hasOffer={service.hasOffer}
-                                                    discountRate={
-                                                        service.discountRate
-                                                    }
-                                                    discountOn={
-                                                        service.discountOn
-                                                    }
+                                                    serviceCard={service}
                                                 />
                                             </a>
                                         </Link>

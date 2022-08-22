@@ -35,9 +35,9 @@ const SelectInputField = ({
                     className={`${checkFormControl(error, touch)}`}
                     placeholder={placeHolder}
                     as="select"
-                    onChange={(e: any) => {
-                        getData(e.target.value);
-                    }}
+                    // onChange={(e: any) => {
+                    //     getData(e.target.value);
+                    // }}
                 >
                     <option value="" defaultValue="">
                         {placeHolder}

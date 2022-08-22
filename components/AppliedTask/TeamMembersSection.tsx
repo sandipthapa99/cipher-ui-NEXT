@@ -10,7 +10,17 @@ export const TeamMembersSection = () => {
             <Row className="g-5 d-flex">
                 {DUMMY_TASKS?.map((item, index) => (
                     <Col sm={12} md={6} lg={6} key={index}>
-                        <TeamMembersCard task={item} />
+                        <TeamMembersCard
+                            image={item?.user?.profileImage}
+                            name={item?.user?.username}
+                            speciality={item?.user?.category}
+                            rating={item?.rating?.average}
+                            happyClients={item?.likes}
+                            awardPercentage={item?.rewardPercentage}
+                            distance={"2 km"}
+                            bio={"description(bio)"}
+                            location={"kathmandu"}
+                        />
                     </Col>
                 ))}
             </Row>
