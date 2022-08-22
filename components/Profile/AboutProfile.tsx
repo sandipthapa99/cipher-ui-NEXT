@@ -7,7 +7,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import type { RatingResponse } from "hooks/rating/getRating";
 import { useGetTaskerRating } from "hooks/rating/getRating";
+import { useSearchRating } from "hooks/rating/getSearchedRating";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,12 +36,23 @@ const AboutProfile = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [modalName, setModalName] = useState("");
     const [id, setId] = useState<number | undefined>();
+    const [order, setOrder] = useState<string | undefined>("most relevant");
+    const [search, setSearch] = useState<string | undefined>("tasker");
+    console.log("value search=", search, order);
     // const [uuid, setUUID] = useState<number | undefined>();
     //tasker rating data
-    const { data: taskerRating, error } = useGetTaskerRating();
+    //   const { data: taskerRating, error } = useGetTaskerRating();
     const queryClient = useQueryClient();
-    const data = queryClient.getQueryData(["tasker-rating"]);
-    console.log("user rating=", taskerRating);
+    //user profile certification data
+    const { data: taskerRating } = useData<RatingResponse>(
+        ["tasker-rating"],
+        "/task/rating/"
+    );
+    const { mutate: searchMutation, data: filteredData } = useSearchRating(
+        `/task/rating/?ordering=${order}&search=${search}`
+    );
+    console.log("user filtered rating=", filteredData);
+
     //user profile certification data
     const { data: certificationData } = useData<
         UserProfileProps["certificationData"]
@@ -544,7 +557,38 @@ const AboutProfile = () => {
                                                 name="review"
                                                 options={personType}
                                                 fieldRequired
+                                                type="submit"
                                                 placeHolder="Tasker"
+                                                onChange={(e: any) => {
+                                                    {
+                                                        setOrder(
+                                                            e?.target?.value
+                                                        );
+                                                        searchMutation(order, {
+                                                            onSuccess:
+                                                                async () => {
+                                                                    console.log(
+                                                                        "submitted values",
+                                                                        order
+                                                                    );
+
+                                                                    queryClient.invalidateQueries(
+                                                                        [
+                                                                            "tasker-rating",
+                                                                        ]
+                                                                    );
+                                                                },
+                                                            onError: async (
+                                                                error
+                                                            ) => {
+                                                                console.log(
+                                                                    "error=",
+                                                                    error
+                                                                );
+                                                            },
+                                                        });
+                                                    }
+                                                }}
                                             />
                                         </Formik>
                                     </Col>
@@ -562,6 +606,31 @@ const AboutProfile = () => {
                                                 placeholder="Most Relevant"
                                                 fieldRequired
                                                 placeHolder="Most Relevant"
+                                                onChange={(e: any) => {
+                                                    setSearch(e?.target?.value);
+                                                    searchMutation(search, {
+                                                        onSuccess: async () => {
+                                                            console.log(
+                                                                "submitted values",
+                                                                search
+                                                            );
+
+                                                            queryClient.invalidateQueries(
+                                                                [
+                                                                    "tasker-rating",
+                                                                ]
+                                                            );
+                                                        },
+                                                        onError: async (
+                                                            error
+                                                        ) => {
+                                                            console.log(
+                                                                "error=",
+                                                                error
+                                                            );
+                                                        },
+                                                    });
+                                                }}
                                             />
                                         </Formik>
                                     </Col>
@@ -573,7 +642,7 @@ const AboutProfile = () => {
                     <div className="review-container">
                         <Row className="gx-5 type">
                             {taskerRating &&
-                                taskerRating?.result?.map((review) => (
+                                taskerRating?.data?.result?.map((review) => (
                                     <Col md={8} key={review.id}>
                                         <Reviews
                                             name={review.rated_by.full_name}

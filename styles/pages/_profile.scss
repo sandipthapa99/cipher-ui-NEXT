@@ -38,7 +38,11 @@
             border-top: 0.1rem solid $border-color;
             .head-container {
                 border-bottom: 0.1rem solid $border-color;
-                padding: 0rem 2.5rem;
+                padding: 1.5rem 2.5rem;
+
+                @include respond(md) {
+                    padding: 0rem 2.5rem;
+                }
                 .select-field {
                     padding-top: 2rem;
                     // padding-left: 1.7rem;
