@@ -3,7 +3,7 @@ import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
@@ -24,12 +24,7 @@ export type KYCDocuments = {
 };
 
 export const IdentityDocument = () => {
-    const { data: KYCData, refetch } = useGetKYC();
-    console.log(KYCData);
-
-    useEffect(() => {
-        refetch();
-    }, [KYCData, refetch]);
+    const { data: KYCData } = useGetKYC();
 
     // console.log(KYCData);
 
@@ -57,32 +52,33 @@ export const IdentityDocument = () => {
     return (
         <Formik
             initialValues={{
-                kyc: "",
                 document_type: "",
                 document_id: "",
                 file: "",
                 issuer_organization: "",
                 issued_date: "",
                 valid_through: "",
+                kyc: KYCData ? KYCData.id : "",
             }}
             validationSchema={KYCDocumentSchema}
-            onSubmit={(val) => {
-                const formData: FormData = new FormData();
-                const queryClient = new QueryClient();
+            onSubmit={(val, actions) => {
+                console.log(val.kyc);
 
+                actions.setFieldValue("kyc", KYCData?.id);
+                const formData: FormData = new FormData();
+                console.log(val);
                 const newValues = {
                     ...val,
                     issued_date: format(
                         new Date(val.issued_date),
                         "yyyy-MM-dd"
                     ),
-                    valid_through: format(
-                        new Date(val.valid_through),
-                        "yyyy-MM-dd"
-                    ),
-                    kyc: KYCData?.id,
+                    valid_through: val.valid_through
+                        ? format(new Date(val.valid_through), "yyyy-MM-dd")
+                        : "",
+                    kyc: val.kyc,
                 };
-                console.log(newValues);
+
                 Object.entries(newValues).forEach((entry) => {
                     const [key, value] = entry;
                     if (value && key !== "file") {
@@ -92,10 +88,9 @@ export const IdentityDocument = () => {
                 formData.append("file", val.file);
                 identityDocument.mutate(formData, {
                     onSuccess: () => {
-                        queryClient.invalidateQueries([
-                            "/tasker/kyc-document/",
-                        ]);
                         toast.success("KYC Document Added Successfully");
+                        actions.resetForm();
+                        actions.setFieldValue("file", "");
                     },
                     onError: (error: any) => {
                         toast.error(error.message);
@@ -115,6 +110,7 @@ export const IdentityDocument = () => {
                     {/* {<pre>{JSON.stringify(values.document_type, null, 4)}</pre>} */}
                     {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                     <h5>Identity Information</h5>
+
                     <Row>
                         <Col md={6}>
                             <SelectInputField
@@ -163,8 +159,6 @@ export const IdentityDocument = () => {
                                     name="valid_through"
                                     labelName="Valid through"
                                     placeHolder="dd/mm/yy"
-                                    touch={touched.valid_through}
-                                    error={errors.valid_through}
                                 />
                             </Col>
                         ) : (
