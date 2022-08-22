@@ -48,17 +48,11 @@ const AboutProfile = () => {
         ["tasker-rating"],
         "/task/rating/"
     );
-    const { mutate: searchMutation } = useSearchRating(
-        `/task/rating/?ordering=${order}&search=${search}/`
+    const { mutate: searchMutation, data: filteredData } = useSearchRating(
+        `/task/rating/?ordering=${order}&search=${search}`
     );
+    console.log("user filtered rating=", filteredData);
 
-    //with query
-    const { data: taskerReviewRating } = useData<RatingResponse>(
-        ["tasker-rating"],
-        `/task/rating/?ordering=top&search=tasker/`
-    );
-
-    console.log("user rating=", taskerRating);
     //user profile certification data
     const { data: certificationData } = useData<
         UserProfileProps["certificationData"]
