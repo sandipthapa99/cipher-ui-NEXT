@@ -46,9 +46,22 @@
             }
         }
     }
-    &__bottom-container {
-        border-top: 0.1rem solid $border-color;
-        margin: 5rem 2.5rem;
-        margin-right: 6rem;
+
+    .reviews {
+        padding-bottom: 2.5rem;
+        border-bottom: none;
+
+        .head-container {
+            border-bottom: 0.1rem solid $border-color;
+            padding: 0rem 2.5rem;
+            .select-field {
+                padding-top: 2rem;
+            }
+            h3 {
+                color: #212529;
+                font-size: 1.7rem;
+                margin-bottom: 0rem;
+            }
+        }
     }
 }
