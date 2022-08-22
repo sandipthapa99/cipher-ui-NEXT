@@ -39,9 +39,7 @@ const AddSkills = ({
 
     const { data: profileDetails } = useGetProfile();
 
-    console.log("profile=", profileDetails);
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
-    console.log("userskills=", userSkills);
 
     return (
         <>

@@ -19,7 +19,6 @@ import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails, error } = useGetProfile();
-    console.log("user", profileDetails?.user_type);
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData(["profile"]);
 
@@ -28,7 +27,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     //     "/tasker/profile/"
     // );
     // const profileDetails = userData?.data;
-    console.log("profile=", profileDetails);
+
     const remaining = {
         userRating: 4,
         userBadge: "Gold",
