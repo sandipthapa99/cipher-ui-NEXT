@@ -1,16 +1,15 @@
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
+import FullPageLoader from "@components/common/FullPageLoader";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
+import { useDocumentKYC } from "hooks/profile/kyc/use-Kyc-Document";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
-import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { axiosClient } from "utils/axiosClient";
 import { KYCDocumentSchema } from "utils/formValidation/kycDocument";
 import { isSubmittingClass } from "utils/helpers";
 export type KYCDocuments = {
@@ -25,17 +24,13 @@ export type KYCDocuments = {
 
 export const IdentityDocument = () => {
     const { data: KYCData, refetch } = useGetKYC();
-    console.log(KYCData);
+    const { mutate, isLoading } = useDocumentKYC();
+    // if (isLoading) return <FullPageLoader />;
 
-    useEffect(() => {
-        refetch();
-    }, [KYCData, refetch]);
-
-    // console.log(KYCData);
-
-    const identityDocument = useMutation<void, void, FormData>((data) =>
-        axiosClient.post("/tasker/kyc-document/", data)
-    );
+    // if (!KYCData || isLoading) {
+    //     refetch();
+    //     return <FullPageLoader />;
+    // }
 
     const dropdownDocument = [
         {
@@ -57,18 +52,17 @@ export const IdentityDocument = () => {
     return (
         <Formik
             initialValues={{
-                kyc: "",
                 document_type: "",
                 document_id: "",
                 file: "",
                 issuer_organization: "",
                 issued_date: "",
                 valid_through: "",
+                kyc: KYCData ? KYCData.id : "",
             }}
             validationSchema={KYCDocumentSchema}
-            onSubmit={(val) => {
+            onSubmit={(val, action) => {
                 const formData: FormData = new FormData();
-                const queryClient = new QueryClient();
 
                 const newValues = {
                     ...val,
@@ -76,13 +70,13 @@ export const IdentityDocument = () => {
                         new Date(val.issued_date),
                         "yyyy-MM-dd"
                     ),
-                    valid_through: format(
-                        new Date(val.valid_through),
-                        "yyyy-MM-dd"
-                    ),
-                    kyc: KYCData?.id,
+                    valid_through:
+                        val.valid_through !== ""
+                            ? format(new Date(val.valid_through), "yyyy-MM-dd")
+                            : "",
+                    kyc: KYCData ? KYCData.id : "",
                 };
-                console.log(newValues);
+
                 Object.entries(newValues).forEach((entry) => {
                     const [key, value] = entry;
                     if (value && key !== "file") {
@@ -90,14 +84,12 @@ export const IdentityDocument = () => {
                     }
                 });
                 formData.append("file", val.file);
-                identityDocument.mutate(formData, {
+                mutate(formData, {
                     onSuccess: () => {
-                        queryClient.invalidateQueries([
-                            "/tasker/kyc-document/",
-                        ]);
-                        toast.success("KYC Document Added Successfully");
+                        action.resetForm();
+                        toast.success("Document added successfully");
                     },
-                    onError: (error: any) => {
+                    onError: (error) => {
                         toast.error(error.message);
                     },
                 });
@@ -112,9 +104,10 @@ export const IdentityDocument = () => {
                 values,
             }) => (
                 <Form>
-                    {/* {<pre>{JSON.stringify(values.document_type, null, 4)}</pre>} */}
-                    {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                    {/* {<pre>{JSON.stringify(values, null, 4)}</pre>}
+                    <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                     <h5>Identity Information</h5>
+
                     <Row>
                         <Col md={6}>
                             <SelectInputField
@@ -124,6 +117,7 @@ export const IdentityDocument = () => {
                                 error={errors.document_type}
                                 placeHolder="Select Identity Type"
                                 options={dropdownDocument}
+                                // onchange={() => refetch()}
                             />
                         </Col>
                     </Row>
@@ -161,10 +155,9 @@ export const IdentityDocument = () => {
                             <Col md={6}>
                                 <DatePickerField
                                     name="valid_through"
+                                    dateFormat="yyyy-MM-dd"
                                     labelName="Valid through"
                                     placeHolder="dd/mm/yy"
-                                    touch={touched.valid_through}
-                                    error={errors.valid_through}
                                 />
                             </Col>
                         ) : (

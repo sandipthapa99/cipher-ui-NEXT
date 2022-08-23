@@ -1,6 +1,6 @@
 import { faLocationDot } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useLocation } from "hooks/weather/useWeather";
+import { useLocation } from "hooks/location/useLocation";
 import type { HTMLAttributes } from "react";
 import Map, {
     FullscreenControl,
@@ -15,6 +15,7 @@ interface MapboxMapProps extends HTMLAttributes<HTMLDivElement> {
     latitude?: number;
     width?: string;
     height?: string;
+    zoom?: number;
     markerCoordinates?: unknown[];
 }
 const getMapBoxToken = () => {
@@ -31,9 +32,10 @@ export const MapboxMap = ({
     width,
     height,
     markerCoordinates,
+    zoom = 14,
     ...rest
 }: MapboxMapProps) => {
-    const coords = useLocation();
+    const { data: coords } = useLocation();
     const renderMultipleMarkers = (coordinates: any[]) => {
         return coordinates.map((coordinate, key) => (
             <Marker
@@ -63,8 +65,13 @@ export const MapboxMap = ({
                 initialViewState={{
                     longitude: longitude ?? coords?.longitude,
                     latitude: latitude ?? coords?.latitude,
+                    zoom,
                 }}
-                style={{ width: width ?? "100%", height: height ?? "600px" }}
+                style={{
+                    width: width ?? "100%",
+                    height: height ?? "600px",
+                    paddingBottom: "1rem",
+                }}
                 mapStyle="mapbox://styles/mapbox/streets-v11"
             >
                 <NavigationControl />

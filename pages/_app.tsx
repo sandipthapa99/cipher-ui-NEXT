@@ -3,6 +3,7 @@ import "../styles/bundle.scss";
 import "react-toastify/dist/ReactToastify.css";
 import "@smastrom/react-rating/style.css";
 
+import { RouterTransition } from "@components/common/RouterTransition";
 import { LoginPrompt } from "@components/model/LoginPrompt";
 import { MantineProvider } from "@mantine/core";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -54,6 +55,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 />
                 <Hydrate state={pageProps.dehydratedState}>
                     <MantineProvider>
+                        <RouterTransition />
                         <UserLoadingOverlay />
                         <LoginPrompt />
                         <Component {...pageProps} />

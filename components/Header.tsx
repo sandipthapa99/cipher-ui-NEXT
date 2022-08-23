@@ -9,7 +9,9 @@ import {
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
+import { useLocation } from "hooks/location/useLocation";
 import { useWeather } from "hooks/weather/useWeather";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -22,6 +24,8 @@ import { NotificationDropdown } from "./notifications/NotificationDropdown";
 const Header = () => {
     const date = format(new Date(), "MMMM d");
     const { data: weather } = useWeather();
+    const { data: location } = useLocation();
+    const getIcon = weather?.weather[0].icon;
 
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
@@ -37,12 +41,9 @@ const Header = () => {
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li
-                                className={handleMenuActive(
-                                    "/explore-services",
-                                    router
-                                )}
+                                className={handleMenuActive("/service", router)}
                             >
-                                <Link href="/explore-services">
+                                <Link href="/service">
                                     <a className="nav-link">
                                         <FontAwesomeIcon
                                             icon={faTelescope}
@@ -97,31 +98,42 @@ const Header = () => {
                                 </li>
                             </Dropdown>
                         </nav>
-                        {weather && (
-                            <Link href="#!">
-                                <a
-                                    className="btn location-btn d-none d-md-inline-block"
-                                    style={{ marginRight: "1.6rem" }}
-                                >
-                                    {weather ? `${weather.main.temp}°C` : "N/A"}
-                                </a>
-                            </Link>
-                        )}
+                        <div className="d-flex align-items-center gap-3">
+                            {weather && (
+                                <Link href="#!">
+                                    <a className="btn location-btn d-none d-md-inline-block">
+                                        {weather
+                                            ? `${Math.floor(
+                                                  weather.main.temp
+                                              )}°C`
+                                            : "N/A"}
+                                    </a>
+                                </Link>
+                            )}
+                            {weather && (
+                                <Image
+                                    src={`https://openweathermap.org/img/wn/${getIcon}@2x.png`}
+                                    alt="weather"
+                                    width={30}
+                                    height={30}
+                                />
+                            )}
+                        </div>
                         <Link href="#!">
                             <a
                                 className="btn location-btn d-none d-md-inline-block"
-                                style={{ marginRight: "1.6rem" }}
+                                style={{ margin: "0 1.6rem 0 1.6rem" }}
                             >
                                 {date}
                             </a>
                         </Link>
-                        {weather && (
+                        {location && (
                             <Link href="#!">
                                 <a
                                     className="btn location-btn d-none d-md-inline-block"
                                     style={{ marginRight: "1.6rem" }}
                                 >
-                                    {weather.name}
+                                    {location?.city}
                                     <FontAwesomeIcon
                                         icon={faLocationDot}
                                         className="svg-icon"

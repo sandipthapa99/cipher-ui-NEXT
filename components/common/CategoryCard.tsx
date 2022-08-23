@@ -1,21 +1,26 @@
-import Image from "next/image";
-import type { CategoryCardProps } from "types/categoryCard";
+import parse from "html-react-parser";
+import Link from "next/link";
 
-const CategoryCard = ({ categoryTitle, categoryIcon }: CategoryCardProps) => {
+interface CategoryCardProps {
+    name: string;
+    icon: string;
+    slug: string;
+}
+
+const CategoryCard = ({ name, icon, slug }: CategoryCardProps) => {
     return (
-        <div className="category-card-block">
-            <div className="category-card-block__image-block">
-                <figure className="thumbnail-icon">
-                    <Image
-                        src={categoryIcon}
-                        alt="category-icon"
-                        height={48}
-                        width={48}
-                    />
-                </figure>
-            </div>
-            <p>{categoryTitle}</p>
-        </div>
+        <Link href={`/service/category/${slug}?category=${name}`}>
+            <a>
+                <div className="category-card-block">
+                    <div className="category-card-block__image-block">
+                        <figure className="thumbnail-icon">
+                            {icon && parse(icon)}
+                        </figure>
+                    </div>
+                    <p>{name}</p>
+                </div>
+            </a>
+        </Link>
     );
 };
 export default CategoryCard;

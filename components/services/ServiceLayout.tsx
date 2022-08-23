@@ -36,7 +36,7 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
         <Layout title="Find Services | Cipher">
             <Container>
                 <SearchCategory onChange={setQuery} />
-                <ServiceAside query={query} appliedTasks={filteredTasks}>
+                <ServiceAside query={query} service={filteredTasks}>
                     {children}
                 </ServiceAside>
             </Container>

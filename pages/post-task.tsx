@@ -1,8 +1,8 @@
-import CategoryCard from "@components/common/CategoryCard";
 import DiscountCard from "@components/common/discountCard";
 import ServiceCard from "@components/common/ServiceCard";
 import WelcomeUser from "@components/common/WelcomeUser";
 import Layout from "@components/Layout";
+import { ServiceCategories } from "@components/services/ServiceCategories";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useData } from "hooks/use-data";
@@ -10,7 +10,6 @@ import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import { getServiceCategory } from "services/commonServices";
 import type { ServicesValueProps } from "types/serviceCard";
 // this gets rid of the hydration error
 // since the data required for this component comes from localstorage, there's no need for ssr
@@ -18,7 +17,6 @@ const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
     ssr: false,
 });
 const PostTask: NextPage = () => {
-    const serviceCategory = getServiceCategory();
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
@@ -86,50 +84,7 @@ const PostTask: NextPage = () => {
                         <h1 className="section-main-title">
                             Our services by category
                         </h1>
-                        <Row className="gx-5">
-                            {serviceCategory &&
-                                serviceCategory.map((category) => {
-                                    return (
-                                        <Col
-                                            xs={6}
-                                            sm={4}
-                                            lg={2}
-                                            key={category.id}
-                                        >
-                                            <CategoryCard
-                                                categoryTitle={
-                                                    category.categoryTitle
-                                                }
-                                                categoryIcon={
-                                                    category.categoryIcon
-                                                }
-                                            />
-                                        </Col>
-                                    );
-                                })}
-                        </Row>
-                        <Row className="gx-5">
-                            {serviceCategory &&
-                                serviceCategory.map((category) => {
-                                    return (
-                                        <Col
-                                            xs={6}
-                                            sm={4}
-                                            lg={2}
-                                            key={category.id}
-                                        >
-                                            <CategoryCard
-                                                categoryTitle={
-                                                    category.categoryTitle
-                                                }
-                                                categoryIcon={
-                                                    category.categoryIcon
-                                                }
-                                            />
-                                        </Col>
-                                    );
-                                })}
-                        </Row>
+                        <ServiceCategories />
                     </Container>
                 </section>
                 <Container fluid="xl" className="px-5">

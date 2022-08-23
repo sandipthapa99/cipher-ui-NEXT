@@ -120,7 +120,7 @@
                 color: $default-text-color;
                 font-size: 1.2rem;
                 font-weight: 500;
-                padding: 3rem 0;
+                // padding: 3rem 0;
                 border: none;
 
                 @include respond(lg) {
