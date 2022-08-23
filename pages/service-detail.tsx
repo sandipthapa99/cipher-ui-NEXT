@@ -33,6 +33,7 @@ const ServiceDetail: NextPage = () => {
         ["all-services"],
         "/task/service/"
     );
+
     return (
         <Layout title="Service Details | Cipher">
             <BreadCrumb currentPage="Service Details" />

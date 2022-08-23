@@ -53,6 +53,7 @@ const SearchResultsDetail = ({
         ["all-services"],
         "/task/service/"
     );
+    console.log(servicesData);
 
     return (
         <>

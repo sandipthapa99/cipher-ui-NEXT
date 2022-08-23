@@ -1,3 +1,4 @@
+import Advertisement from "@components/Advertisement/Advertisement";
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
 import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
 import { TopCategories } from "@components/Category/TopCategories";
@@ -60,6 +61,7 @@ const Home: NextPage<{
         ["all-services"],
         "/task/service/"
     );
+    console.log(servicesData);
 
     const [chips, setChips] = useState([
         "Garden Cleaner",
@@ -138,6 +140,7 @@ const Home: NextPage<{
                                     ))}
                                 </div>
                             )}
+
                             <div className="come-with-us">
                                 <h1>Join CIPHER for</h1>
                                 <div className="d-flex buttons">
@@ -167,6 +170,7 @@ const Home: NextPage<{
                         </Col>
                     </Row>
                     {/* Service category listing start */}
+
                     <Row className="gx-5 hero-category">
                         <Carousel
                             height={100}
@@ -204,6 +208,10 @@ const Home: NextPage<{
                     {/* Service category listing end */}
                 </Container>
             </section>
+
+            <Row>
+                <Advertisement />
+            </Row>
 
             {postTaskPopup && (
                 <div className="popup-post-task d-md-block d-none">
