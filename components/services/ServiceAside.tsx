@@ -4,12 +4,12 @@ import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
 
-interface TaskAsideProps {
+interface ServiceAside {
     children: ReactNode;
     service: ServicesValueProps["result"];
     query: string;
 }
-const TaskAside = ({ service, query, children }: TaskAsideProps) => {
+const ServiceAside = ({ service, query, children }: ServiceAside) => {
     const totalAppliedTasks = service?.length;
     const renderTaskCards = service?.map((task, key) => {
         return (
@@ -21,6 +21,7 @@ const TaskAside = ({ service, query, children }: TaskAsideProps) => {
                             serviceTitle={task?.title}
                             serviceRating={task?.success_rate}
                             serviceProviderLocation={task?.location}
+                            serviceSlug={task?.slug}
                             discount={20} // To do form api
                             image={
                                 Array.isArray(task.images)
@@ -56,4 +57,4 @@ const TaskAside = ({ service, query, children }: TaskAsideProps) => {
         </div>
     );
 };
-export default TaskAside;
+export default ServiceAside;
