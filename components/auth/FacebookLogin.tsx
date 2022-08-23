@@ -9,6 +9,7 @@ const getFacebookAppId = () => {
 export const FacebookLogin = () => {
     return (
         <ReactFacebookLogin
+            autoLoad={false}
             appId={getFacebookAppId()}
             render={(renderProps) => (
                 <SocialLoginBtn
