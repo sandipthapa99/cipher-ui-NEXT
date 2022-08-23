@@ -21,6 +21,7 @@ const ServiceAside = ({ service, query, children }: ServiceAside) => {
                             serviceTitle={task?.title}
                             serviceRating={task?.success_rate}
                             serviceProviderLocation={task?.location}
+                            serviceSlug={task?.slug}
                             discount={20} // To do form api
                             image={
                                 Array.isArray(task.images)

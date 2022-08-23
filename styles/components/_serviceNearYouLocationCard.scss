@@ -2,8 +2,12 @@
     padding-bottom: 0rem;
     position: relative;
     border-radius: 0.4rem;
-    background-color: rgba(255, 255, 255, 0.4) !important;
+    background-color: rgba(255, 255, 255, 0.4);
     border: 0.1rem solid $border-color;
+
+    &[data-active="true"] {
+        background-color: #fff;
+    }
 
     .thumbnail-img {
         height: 100% !important;

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
@@ -31,6 +32,7 @@ const ServiceNearYouCard = ({
     serviceRating,
     serviceTitle,
     haveDiscount,
+    serviceSlug,
     discountOn,
     discount,
     onServiceClick,
@@ -47,9 +49,13 @@ const ServiceNearYouCard = ({
 
     // const providerName = data?.groups[0]?.name;
 
+    const router = useRouter();
+    const path = router.query.slug;
+
     return (
         <div
-            className="service-card-block service-near-you-card-block"
+            data-active={JSON.stringify(path === serviceSlug)}
+            className="service-card-block service-near-you-card-block active"
             onClick={() => onServiceClick}
         >
             <Row>
