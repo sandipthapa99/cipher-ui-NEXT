@@ -17,12 +17,13 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Carousel } from "@mantine/carousel";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Carousel, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { getAllPackageCard, getReviews } from "services/commonServices";
 import { useSetBookNowDetails } from "store/use-book-now";
 import type { ServicesValueProps } from "types/serviceCard";
@@ -41,6 +42,7 @@ const SearchResultsDetail = ({
     discount,
     highlights,
     slug,
+    serviceId,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -73,7 +75,10 @@ const SearchResultsDetail = ({
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
-                                <SaveIcon />
+                                <SaveIcon
+                                    object_id={String(serviceId)}
+                                    model={"task"}
+                                />
                                 <span className="name">Save</span>
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
@@ -93,25 +98,43 @@ const SearchResultsDetail = ({
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        {image && (
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src={
-                                        image
-                                            ? image
-                                            : "/service-details/garden-cleaning.png"
-                                    }
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt="garden-image"
-                                />
-                            </figure>
+                        {image && Array.isArray(image) && (
+                            <Carousel
+                                styles={{
+                                    control: {
+                                        "&[data-inactive]": {
+                                            opacity: 0,
+                                            cursor: "default",
+                                        },
+                                    },
+                                }}
+                                className="rounded"
+                            >
+                                {image.map((value) => (
+                                    <Carousel.Slide
+                                        key={value.id}
+                                        className="thumbnail-img "
+                                    >
+                                        <Image
+                                            src={
+                                                value.image
+                                                    ? value.image
+                                                    : "/service-details/garden-cleaning.png"
+                                            }
+                                            layout="fill"
+                                            objectFit="cover"
+                                            alt="garden-image"
+                                        />
+                                    </Carousel.Slide>
+                                ))}
+                            </Carousel>
                         )}
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         <div className="simple-card my-5 my-lg-0 ">
                             <div className="d-flex align-items-center simple-card__profile">
-                                {image && (
+                                {/* TO BE IMPLEMENTED */}
+                                {/* {image && (
                                     <figure className="thumbnail-img">
                                         <Image
                                             src={
@@ -124,8 +147,8 @@ const SearchResultsDetail = ({
                                             alt="serviceprovider-image"
                                         />
                                     </figure>
-                                )}
-
+                                )} */}
+                                To do API
                                 <div className="intro">
                                     <p className="name">{serviceProvider}</p>
                                     <p className="job">{serviceTitle}</p>
@@ -158,7 +181,7 @@ const SearchResultsDetail = ({
                         </div>
                     </Col>
                 </Row>
-                <div className="d-flex mt-4 task-detail__loc-time">
+                <div className="d-flex flex-column flex-sm-row mt-4 task-detail__loc-time">
                     <p>
                         <FontAwesomeIcon
                             icon={faLocationDot}
@@ -218,28 +241,43 @@ const SearchResultsDetail = ({
                     style={{ margin: "41px 0 0 0" }}
                 >
                     <h1>Packages &amp; Offers</h1>
-                    <Row className="gx-4 d-flex align-items-stretch">
-                        <Carousel slide={false} style={{ padding: "2rem 0" }}>
-                            {PackageCard &&
-                                PackageCard.map((offer) => (
-                                    <Carousel.Item key={offer.id}>
-                                        <Col className="align-items-stretch">
-                                            <PackageOffersCard
-                                                title={offer.title}
-                                                price={offer.price.toString()}
-                                                offers={offer.offers}
-                                                isRecommended={
-                                                    offer.isRecommended
-                                                }
-                                                isPermium={offer.isPermium}
-                                                advantage={offer.advantage}
-                                                isFromAddService={false}
-                                            />
-                                        </Col>
-                                    </Carousel.Item>
-                                ))}
-                        </Carousel>
-                    </Row>
+                    <Carousel
+                        slideSize="32%"
+                        slideGap="sm"
+                        align="start"
+                        breakpoints={[
+                            { maxWidth: "md", slideSize: "50%" },
+                            {
+                                maxWidth: "sm",
+                                slideSize: "90%",
+                                slideGap: 10,
+                            },
+                        ]}
+                        styles={{
+                            control: {
+                                "&[data-inactive]": {
+                                    opacity: 0,
+                                    cursor: "default",
+                                },
+                            },
+                        }}
+                        className="pt-4"
+                    >
+                        {PackageCard &&
+                            PackageCard.map((offer) => (
+                                <Carousel.Slide key={offer.id}>
+                                    <PackageOffersCard
+                                        title={offer.title}
+                                        price={offer.price.toString()}
+                                        offers={offer.offers}
+                                        isRecommended={offer.isRecommended}
+                                        isPermium={offer.isPermium}
+                                        advantage={offer.advantage}
+                                        isFromAddService={false}
+                                    />
+                                </Carousel.Slide>
+                            ))}
+                    </Carousel>
                 </section>
                 <FilterReview totalReviews={reviewsContent.length} />
                 <div>
@@ -252,28 +290,34 @@ const SearchResultsDetail = ({
                 </Link>
                 <span className="td-divider"></span>
                 <Row className="gx-5">
-                    <Row>
-                        <Col>
-                            <h4 style={{ marginLeft: "1rem" }}>
-                                Similar Services
-                            </h4>
-                        </Col>
-                    </Row>
-                    <Carousel style={{ padding: "2rem 0" }}>
+                    <h4>Similar Services</h4>
+                    <Carousel
+                        slideSize="40%"
+                        slideGap="sm"
+                        align="start"
+                        breakpoints={[
+                            { maxWidth: "md", slideSize: "50%" },
+                            {
+                                maxWidth: "sm",
+                                slideSize: "70%",
+                                slideGap: 10,
+                            },
+                        ]}
+                        styles={{
+                            control: {
+                                "&[data-inactive]": {
+                                    opacity: 0,
+                                    cursor: "default",
+                                },
+                            },
+                        }}
+                    >
                         {servicesData &&
-                            servicesData?.data?.result?.map((service, key) => {
+                            servicesData?.data?.result?.map((service) => {
                                 return (
-                                    <Carousel.Item key={key}>
-                                        <Col>
-                                            <Link href="/service-detail">
-                                                <a>
-                                                    <ServiceCard
-                                                        serviceCard={service}
-                                                    />
-                                                </a>
-                                            </Link>
-                                        </Col>
-                                    </Carousel.Item>
+                                    <Carousel.Slide key={service.id}>
+                                        <ServiceCard serviceCard={service} />
+                                    </Carousel.Slide>
                                 );
                             })}
                     </Carousel>
@@ -281,7 +325,6 @@ const SearchResultsDetail = ({
             </div>
             <BookNowModalCard
                 description={serviceDescription ?? ""}
-                image={image}
                 price={servicePrice ?? 0}
                 title={serviceTitle ?? ""}
                 key={serviceTitle}

@@ -2,8 +2,12 @@
     padding-bottom: 0rem;
     position: relative;
     border-radius: 0.4rem;
-    background-color: rgba(255, 255, 255, 0.4) !important;
+    background-color: rgba(255, 255, 255, 0.4);
     border: 0.1rem solid $border-color;
+
+    &[data-active="true"] {
+        background-color: #fff;
+    }
 
     .thumbnail-img {
         height: 100% !important;
@@ -19,6 +23,7 @@
             color: $primary-color;
             font-weight: 500;
             padding-top: 1rem;
+            margin: 0;
         }
 
         .information {
@@ -36,6 +41,9 @@
                 }
                 .user {
                     color: #3eaeff;
+                }
+                p {
+                    margin: 0;
                 }
             }
             p {
@@ -60,7 +68,7 @@
                 font-size: 2rem;
                 font-weight: 500;
                 color: $sub-title-color;
-                padding-top: 4rem;
+                padding-top: 1rem;
                 margin-bottom: 0rem;
             }
         }
