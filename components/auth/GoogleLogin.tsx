@@ -15,6 +15,7 @@ const GoogleLogin = () => {
             clientId={getGoogleClientId()}
             onFailure={(err) => console.log(err)}
             onSuccess={(response) => console.log(response)}
+            cookiePolicy={"single_host_origin"}
             render={(renderProps) => (
                 <SocialLoginBtn
                     className="google"
