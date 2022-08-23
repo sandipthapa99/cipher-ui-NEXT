@@ -4,10 +4,12 @@ import { AboutTasker } from "@components/Tasker/AboutTasker";
 import { useData } from "hooks/use-data";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { ServicesValueProps } from "types/serviceCard";
+import type { ServicesValueProps } from "types/serviceCard";
+import type { TaskerDetail } from "types/tasks";
 
 interface UserTaskDetailTabs {
     activeTaskerId: string;
+    taskerDetail: TaskerDetail;
 }
 
 export const UserTaskDetailTabs = ({ activeTaskerId }: UserTaskDetailTabs) => {
@@ -19,7 +21,12 @@ export const UserTaskDetailTabs = ({ activeTaskerId }: UserTaskDetailTabs) => {
             items={[
                 {
                     title: "About",
-                    content: <AboutTasker activeTaskerId={activeTaskerId} />,
+                    content: (
+                        <AboutTasker
+                            activeTaskerId={activeTaskerId}
+                            taskerDetail={taskerDetail}
+                        />
+                    ),
                 },
                 { title: "Service", content: <ServiceList /> },
                 { title: "Documents", content: <div>Photos</div> },

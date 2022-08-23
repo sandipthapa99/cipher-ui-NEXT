@@ -5,9 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import type { TaskerDetail } from "types/tasks";
 import type { UserProfileProps } from "types/userProfileProps";
 
-export const AboutTasker = ({ activeTaskerId }: string) => {
+export const AboutTasker = ({ taskerDetail }: TaskerDetail) => {
     //user profile certification data
     const { data: certificationData } = useData<
         UserProfileProps["certificationData"]
@@ -47,12 +48,12 @@ export const AboutTasker = ({ activeTaskerId }: string) => {
                     </div>
 
                     <div className="content">
-                        {portfolioData
-                            ? portfolioData?.data?.result?.map((info: any) => (
+                        {taskerDetail?.portfolio
+                            ? taskerDetail?.portfolio?.map((info: any) => (
                                   <div className="image" key={info?.id}>
                                       <Row>
                                           <Col md={6}>
-                                              <Link href={`${info?.image}`}>
+                                              <Link href={info?.credential_url}>
                                                   <a target="_blank">
                                                       {info?.image ? (
                                                           <figure className="thumbnail-img">
@@ -69,7 +70,7 @@ export const AboutTasker = ({ activeTaskerId }: string) => {
                                                   </a>
                                               </Link>
                                           </Col>
-                                          <Col md={6}>
+                                          {/* <Col md={6}>
                                               <Link href={`${info?.file}`}>
                                                   <a target="_blank">
                                                       {info?.file ? (
@@ -86,7 +87,7 @@ export const AboutTasker = ({ activeTaskerId }: string) => {
                                                       )}
                                                   </a>
                                               </Link>
-                                          </Col>
+                                          </Col> */}
                                       </Row>
 
                                       <p className="text-center">
@@ -106,9 +107,9 @@ export const AboutTasker = ({ activeTaskerId }: string) => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {experienceData
-                                    ? experienceData?.data?.result?.map(
-                                          (value, key) => (
+                                {taskerDetail?.experience
+                                    ? taskerDetail?.experience?.map(
+                                          (value: any, key: any) => (
                                               <div
                                                   className="experience__type"
                                                   key={key}
