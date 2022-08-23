@@ -4,7 +4,6 @@ import FormButton from "@components/common/FormButton";
 import FullPageLoader from "@components/common/FullPageLoader";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useDocumentKYC } from "hooks/profile/kyc/use-Kyc-Document";
@@ -26,15 +25,12 @@ export type KYCDocuments = {
 export const IdentityDocument = () => {
     const { data: KYCData, refetch } = useGetKYC();
     const { mutate, isLoading } = useDocumentKYC();
-    if (isLoading) return <FullPageLoader />;
+    // if (isLoading) return <FullPageLoader />;
 
-    // console.log(KYCData);
-
-    // console.log(KYCData);
-    if (!KYCData) {
-        refetch();
-        console.log("abc");
-    }
+    // if (!KYCData || isLoading) {
+    //     refetch();
+    //     return <FullPageLoader />;
+    // }
 
     const dropdownDocument = [
         {
@@ -65,7 +61,7 @@ export const IdentityDocument = () => {
                 valid_through: "",
             }}
             validationSchema={KYCDocumentSchema}
-            onSubmit={(val) => {
+            onSubmit={(val, action) => {
                 const formData: FormData = new FormData();
 
                 const newValues = {
@@ -74,6 +70,10 @@ export const IdentityDocument = () => {
                         new Date(val.issued_date),
                         "yyyy-MM-dd"
                     ),
+                    valid_through:
+                        val.valid_through !== ""
+                            ? format(new Date(val.valid_through), "yyyy-MM-dd")
+                            : "",
                     kyc: KYCData ? KYCData.id : "",
                 };
                 console.log(newValues);
@@ -87,6 +87,7 @@ export const IdentityDocument = () => {
                 mutate(formData, {
                     onSuccess: () => {
                         toast.success("Document added successfully");
+                        action.resetForm();
                     },
                     onError: (error) => {
                         toast.error(error.message);
@@ -115,6 +116,7 @@ export const IdentityDocument = () => {
                                 error={errors.document_type}
                                 placeHolder="Select Identity Type"
                                 options={dropdownDocument}
+                                // onchange={() => refetch()}
                             />
                         </Col>
                     </Row>
