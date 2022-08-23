@@ -18,12 +18,12 @@ const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
 
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
-            <div key={task.id}>
+            <div key={task?.slug}>
                 <Link
                     href={
                         user
-                            ? `/task/${task.id}`
-                            : `/login?next=/task/${task.id}`
+                            ? `/task/${task?.slug}`
+                            : `/login?next=/task/${task?.slug}`
                     }
                 >
                     <a>
@@ -39,7 +39,7 @@ const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
                             time={format(new Date(task.created_at), "HH : mm")}
                             currency={task?.currency}
                             charge={task.charge?.toString() ?? "0"}
-                            taskId={task.id}
+                            taskId={task?.slug}
                         />
                     </a>
                 </Link>
