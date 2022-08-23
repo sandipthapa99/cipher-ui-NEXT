@@ -60,7 +60,20 @@ const ServiceNearYouCard = ({
         >
             <Row>
                 <Col md="5">
-                    {image && (
+                    {image && Array.isArray(image) ? (
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={
+                                    image
+                                        ? image[0].image
+                                        : "/service-details/garden-cleaning.png"
+                                }
+                                layout="fill"
+                                objectFit="cover"
+                                alt="servicecard-image"
+                            />
+                        </figure>
+                    ) : (
                         <figure className="thumbnail-img">
                             <Image
                                 src={

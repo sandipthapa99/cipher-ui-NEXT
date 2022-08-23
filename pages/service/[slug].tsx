@@ -13,11 +13,7 @@ const ServicesDetail = ({
         <>
             <ServiceLayout>
                 <SearchResultsDetail
-                    image={
-                        Array.isArray(service?.images)
-                            ? service?.images[0]?.image
-                            : service?.images
-                    }
+                    image={service?.images}
                     servicePrice={service?.budget_from ?? ""}
                     serviceProvider={service?.created_by?.full_name ?? ""}
                     serviceProviderLocation={service?.location ?? ""}

@@ -1,5 +1,7 @@
 export interface ServiceNearYouCardProps {
-    image?: string;
+    image?:
+        | string
+        | { id: number; name: string; size: number; image: string }[];
     serviceTitle?: string;
     serviceProvider?: string;
     serviceProviderLocation?: string;
