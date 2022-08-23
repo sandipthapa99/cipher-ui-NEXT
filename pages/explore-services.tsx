@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
 
@@ -17,6 +18,17 @@ const ExploreServices: NextPage = () => {
         ["all-services"],
         "/task/service/"
     );
+    const [chips, setChips] = useState([
+        "Garden Cleaner",
+        "Plumber",
+        "Electrician",
+        "Washing Machine",
+    ]);
+    const removeChip = (chip: string) => {
+        setChips((prevChips) =>
+            prevChips.filter((currentChip) => chip !== currentChip)
+        );
+    };
     return (
         <Layout title="Explore Services | Cipher">
             <Container fluid="xl" className="px-0 px-sm-5">
@@ -55,11 +67,17 @@ const ExploreServices: NextPage = () => {
                                         />
                                     </button>
                                 </div>
-                                <div className="recommendation">
-                                    <RecommendationChips title="Garden Cleaner" />
-                                    <RecommendationChips title="Plumber" />
-                                    <RecommendationChips title="Electrician" />
-                                </div>
+                                {chips.length > 0 && (
+                                    <div className="recommendation d-md-flex d-none">
+                                        {chips.map((chip, key) => (
+                                            <RecommendationChips
+                                                title={chip}
+                                                onChipRemove={removeChip}
+                                                key={key}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

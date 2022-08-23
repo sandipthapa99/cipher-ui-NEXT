@@ -45,7 +45,7 @@ const ServiceCard = ({
                 </a>
             </Link>
             <div className="card-content">
-                <Link href="/service-detail">
+                <Link href={`/service/${serviceCard.slug}`}>
                     <a>
                         <div className="d-flex pro-title-wrapper justify-content-between">
                             <h2 className="card-title">{serviceCard?.title}</h2>
@@ -57,18 +57,22 @@ const ServiceCard = ({
                                 ""
                             )}
                         </div>
-                        <h3 className="card-subtitle">
-                            <Spoiler
-                                maxHeight={15}
-                                hideLabel={""}
-                                showLabel={""}
-                            >
+                    </a>
+                </Link>
+                <h3 className="card-subtitle">
+                    <Spoiler maxHeight={15} hideLabel={""} showLabel={""}>
+                        <Link href={`/tasker/${serviceCard?.created_by?.id}`}>
+                            <a>
                                 <span>
                                     {serviceCard?.created_by?.full_name}
                                 </span>{" "}
-                                |{serviceCard?.location}
-                            </Spoiler>
-                        </h3>
+                            </a>
+                        </Link>
+                        | {serviceCard?.location}
+                    </Spoiler>
+                </h3>
+                <Link href={`/service/${serviceCard.slug}`}>
+                    <a>
                         <p className="card-description d-inline">
                             <Spoiler
                                 maxHeight={50}
@@ -90,15 +94,19 @@ const ServiceCard = ({
                                 ${serviceCard?.budget_from}/hr
                             </p>
                         </div>
+
+                        <div className="d-flex justify-content-between align-items-center">
+                            <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
+                                <SaveIcon />
+                                <ShareIcon url={""} quote={""} hashtag={""} />
+                            </div>
+                            <CardBtn
+                                btnTitle="Book Now"
+                                backgroundColor="#211D4F"
+                            />
+                        </div>
                     </a>
                 </Link>
-                <div className="d-flex justify-content-between align-items-center">
-                    <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
-                        <SaveIcon />
-                        <ShareIcon url={""} quote={""} hashtag={""} />
-                    </div>
-                    <CardBtn btnTitle="Book Now" backgroundColor="#211D4F" />
-                </div>
             </div>
         </div>
     );
