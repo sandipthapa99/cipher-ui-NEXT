@@ -4,10 +4,10 @@ import React from "react";
 
 const EarnMoney = () => {
     return (
-        <>
+        <div className="earn-money-page">
             <BreadCrumb currentPage={"Earn money as professional"} />
             <EarnMoneyProfessional />
-        </>
+        </div>
     );
 };
 
