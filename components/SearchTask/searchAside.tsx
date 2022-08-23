@@ -79,7 +79,7 @@ const ServiceNearYouCard = ({
                                     className="user svg-icon"
                                 />
 
-                                <p>{providerName}</p>
+                                <p>{serviceProvider}</p>
                             </div>
                             <div className="type d-flex flex-col">
                                 <FontAwesomeIcon

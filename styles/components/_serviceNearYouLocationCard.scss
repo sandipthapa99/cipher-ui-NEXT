@@ -19,6 +19,7 @@
             color: $primary-color;
             font-weight: 500;
             padding-top: 1rem;
+            margin: 0;
         }
 
         .information {
@@ -36,6 +37,9 @@
                 }
                 .user {
                     color: #3eaeff;
+                }
+                p {
+                    margin: 0;
                 }
             }
             p {
@@ -60,7 +64,7 @@
                 font-size: 2rem;
                 font-weight: 500;
                 color: $sub-title-color;
-                padding-top: 4rem;
+                padding-top: 1rem;
                 margin-bottom: 0rem;
             }
         }
