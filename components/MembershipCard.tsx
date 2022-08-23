@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { PacakageCardProps } from "types/packageCard";
+import type { MembershipCardProps } from "types/packageCard";
 
 import AnchorButton from "./common/AnchorButton";
 
@@ -9,7 +9,7 @@ const MembershipCard = ({
     offers,
     isPermium,
     isRecommended,
-}: PacakageCardProps) => {
+}: MembershipCardProps) => {
     return (
         <div
             className={`member-card-block ${

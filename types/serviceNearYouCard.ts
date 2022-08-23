@@ -1,3 +1,5 @@
+import type { ServicesPackageProps } from "./serviceCard";
+
 export interface ServiceNearYouCardProps {
     image?:
         | string
@@ -16,6 +18,9 @@ export interface ServiceNearYouCardProps {
     serviceSlug?: string;
     onServiceClick?: (service: any) => void;
     slug?: string;
+    servicePackage?: ServicesPackageProps["result"];
+    serviceCreated?: string;
+    serviceViews?: number;
 }
 export interface BookNowDetails extends ServiceNearYouCardProps {
     problemDescription?: string;
