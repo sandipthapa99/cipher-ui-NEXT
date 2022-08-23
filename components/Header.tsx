@@ -37,12 +37,9 @@ const Header = () => {
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li
-                                className={handleMenuActive(
-                                    "/explore-services",
-                                    router
-                                )}
+                                className={handleMenuActive("/service", router)}
                             >
-                                <Link href="/explore-services">
+                                <Link href="/service">
                                     <a className="nav-link">
                                         <FontAwesomeIcon
                                             icon={faTelescope}

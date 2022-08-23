@@ -1,6 +1,7 @@
 import { MapboxMap } from "@components/common/MapboxMap";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
+import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import SearchHeader from "@components/SearchTask/searchHeader";
 import { UserTaskCardList } from "@components/Task/UserTaskCard/UserTaskCardList";
@@ -54,9 +55,7 @@ const TaskerPage = () => {
         }
     }, [router.query.taskerId, router.query]);
     return (
-        <>
-            <SearchHeader />
-            <Header />
+        <Layout>
             <Container fluid="xl" className="px-5">
                 <SearchCategory onChange={setSearchQuery} />
                 <Row className="gx-5">
@@ -83,7 +82,7 @@ const TaskerPage = () => {
                 </Row>
             </Container>
             <Footer />
-        </>
+        </Layout>
     );
 };
 
