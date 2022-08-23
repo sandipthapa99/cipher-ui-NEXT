@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { useUser } from "hooks/auth/useUser";
 import { axiosClient } from "utils/axiosClient";
 
 export type ProfileResponse = {
@@ -35,17 +36,22 @@ export type ProfileResponse = {
 };
 
 export const useGetProfile = () => {
-    return useQuery<ProfileResponse>(["profile"], async () => {
-        try {
-            const { data } = await axiosClient.get<ProfileResponse>(
-                "/tasker/profile/"
-            );
-            return data;
-        } catch (error) {
-            if (error instanceof AxiosError) {
-                throw new Error(error?.response?.data?.message);
+    const { data: user } = useUser();
+    return useQuery<ProfileResponse>(
+        ["profile"],
+        async () => {
+            try {
+                const { data } = await axiosClient.get<ProfileResponse>(
+                    "/tasker/profile/"
+                );
+                return data;
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    throw new Error(error?.response?.data?.message);
+                }
+                throw new Error("Something went wrong");
             }
-            throw new Error("Something went wrong");
-        }
-    });
+        },
+        { enabled: !!user }
+    );
 };
