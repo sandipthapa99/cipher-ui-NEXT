@@ -3,7 +3,7 @@ export interface ServiceNearYouCardProps {
     serviceTitle?: string;
     serviceProvider?: string;
     serviceProviderLocation?: string;
-    serviceRating?: string;
+    serviceRating?: string | number;
     servicePrice?: number;
     haveDiscount?: boolean;
     discount?: number;
@@ -12,6 +12,7 @@ export interface ServiceNearYouCardProps {
     highlights?: string[];
     serviceId?: number;
     onServiceClick?: (service: any) => void;
+    slug?: string;
 }
 export interface BookNowDetails extends ServiceNearYouCardProps {
     problemDescription?: string;

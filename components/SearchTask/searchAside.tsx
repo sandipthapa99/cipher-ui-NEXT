@@ -54,18 +54,20 @@ const ServiceNearYouCard = ({
         >
             <Row>
                 <Col md="5">
-                    <figure className="thumbnail-img">
-                        <Image
-                            src={
-                                image
-                                    ? image
-                                    : "/service-details/garden-cleaning.png"
-                            }
-                            layout="fill"
-                            objectFit="cover"
-                            alt="servicecard-image"
-                        />
-                    </figure>
+                    {image && (
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={
+                                    image
+                                        ? image
+                                        : "/service-details/garden-cleaning.png"
+                                }
+                                layout="fill"
+                                objectFit="cover"
+                                alt="servicecard-image"
+                            />
+                        </figure>
+                    )}
                 </Col>
                 <Col md="7">
                     <div className="content">
