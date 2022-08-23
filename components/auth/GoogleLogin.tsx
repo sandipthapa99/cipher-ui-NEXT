@@ -11,7 +11,7 @@ const GoogleLogin = () => {
         <ReactGoogleLogin
             scope="profile email"
             isSignedIn={true}
-            autoLoad={true}
+            autoLoad={false}
             clientId={getGoogleClientId()}
             onFailure={(err) => console.log(err)}
             onSuccess={(response) => console.log(response)}
