@@ -559,36 +559,36 @@ const AboutProfile = () => {
                                                 fieldRequired
                                                 type="submit"
                                                 placeHolder="Tasker"
-                                                onChange={(e: any) => {
-                                                    {
-                                                        setOrder(
-                                                            e?.target?.value
-                                                        );
-                                                        searchMutation(order, {
-                                                            onSuccess:
-                                                                async () => {
-                                                                    console.log(
-                                                                        "submitted values",
-                                                                        order
-                                                                    );
+                                                // onChange={(e: any) => {
+                                                //     {
+                                                //         setOrder(
+                                                //             e?.target?.value
+                                                //         );
+                                                //         searchMutation(order, {
+                                                //             onSuccess:
+                                                //                 async () => {
+                                                //                     console.log(
+                                                //                         "submitted values",
+                                                //                         order
+                                                //                     );
 
-                                                                    queryClient.invalidateQueries(
-                                                                        [
-                                                                            "tasker-rating",
-                                                                        ]
-                                                                    );
-                                                                },
-                                                            onError: async (
-                                                                error
-                                                            ) => {
-                                                                console.log(
-                                                                    "error=",
-                                                                    error
-                                                                );
-                                                            },
-                                                        });
-                                                    }
-                                                }}
+                                                //                     queryClient.invalidateQueries(
+                                                //                         [
+                                                //                             "tasker-rating",
+                                                //                         ]
+                                                //                     );
+                                                //                 },
+                                                //             onError: async (
+                                                //                 error
+                                                //             ) => {
+                                                //                 console.log(
+                                                //                     "error=",
+                                                //                     error
+                                                //                 );
+                                                //             },
+                                                //         });
+                                                //     }
+                                                // }}
                                             />
                                         </Formik>
                                     </Col>
@@ -606,31 +606,31 @@ const AboutProfile = () => {
                                                 placeholder="Most Relevant"
                                                 fieldRequired
                                                 placeHolder="Most Relevant"
-                                                onChange={(e: any) => {
-                                                    setSearch(e?.target?.value);
-                                                    searchMutation(search, {
-                                                        onSuccess: async () => {
-                                                            console.log(
-                                                                "submitted values",
-                                                                search
-                                                            );
+                                                // onChange={(e: any) => {
+                                                //     setSearch(e?.target?.value);
+                                                //     searchMutation(search, {
+                                                //         onSuccess: async () => {
+                                                //             console.log(
+                                                //                 "submitted values",
+                                                //                 search
+                                                //             );
 
-                                                            queryClient.invalidateQueries(
-                                                                [
-                                                                    "tasker-rating",
-                                                                ]
-                                                            );
-                                                        },
-                                                        onError: async (
-                                                            error
-                                                        ) => {
-                                                            console.log(
-                                                                "error=",
-                                                                error
-                                                            );
-                                                        },
-                                                    });
-                                                }}
+                                                //             queryClient.invalidateQueries(
+                                                //                 [
+                                                //                     "tasker-rating",
+                                                //                 ]
+                                                //             );
+                                                //         },
+                                                //         onError: async (
+                                                //             error
+                                                //         ) => {
+                                                //             console.log(
+                                                //                 "error=",
+                                                //                 error
+                                                //             );
+                                                //         },
+                                                //     });
+                                                // }}
                                             />
                                         </Formik>
                                     </Col>

@@ -6,29 +6,46 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
+import { parseISO } from "date-fns/esm";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";
-import type { TaskCardProps } from "types/taskCard";
+import type { RecommendedTaskCardProps } from "types/taskCard";
 
 import CardBtn from "./CardBtn";
 import ShareIcon from "./ShareIcon";
 // css for this file is done in _gettingStartedTask.scss page
+
 const TaskCard = ({
     title,
     charge,
     description,
     location,
-    date,
-    time,
-    isCompleted,
-    isRunning,
-}: TaskCardProps) => {
+    start_date,
+    start_time,
+    status,
+    currency,
+}: RecommendedTaskCardProps) => {
     const [showModal, setShowModal] = useState(false);
+    function getDateFromHours(time: any) {
+        time = time.split(":");
+        const now = new Date();
+        return new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            ...time
+        );
+    }
+    const formattedtime = getDateFromHours(start_time);
+
     return (
         <div className="task-card-block">
             <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                 <h1 className="title">{title}</h1>
-                <h1 className="charge">Rs {charge}</h1>
+                <h1 className="charge">
+                    {currency ? currency : "Rs"} {charge}
+                </h1>
             </div>
             <div className="task-card-block__body">
                 <p className="task-description">{description}</p>
@@ -45,14 +62,14 @@ const TaskCard = ({
                             icon={faCalendar}
                             className="svg-icon"
                         />
-                        {date}
+                        {format(new Date(start_date), "MMMM dd, yyyy")}
                     </p>
                     <p className="d-flex align-items-center time">
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon"
                         />
-                        {time}
+                        {format(new Date(formattedtime), "hh:mm")} AM
                     </p>
                 </div>
             </div>
@@ -71,20 +88,16 @@ const TaskCard = ({
                     </p>
                 </div>
                 <div className="right">
-                    {isCompleted || isRunning ? (
-                        <CardBtn
-                            btnTitle={isCompleted ? "Completed" : "Running"}
-                            backgroundColor={
-                                isCompleted ? "#FE5050" : "#0693E3"
-                            }
-                        />
-                    ) : (
-                        <CardBtn
-                            btnTitle={"Apply"}
-                            backgroundColor="#38C675"
-                            handleClick={() => setShowModal(true)}
-                        />
-                    )}
+                    <CardBtn
+                        btnTitle={status}
+                        backgroundColor={
+                            status == "Completed"
+                                ? "#FE5050"
+                                : status == "Ongoing"
+                                ? "#0693E3"
+                                : "#38C675"
+                        }
+                    />
                 </div>
             </div>
 
