@@ -84,7 +84,7 @@ const SimpleProfileCard = ({
             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                 <span>Budget Range</span>
                 <span className="text-right price">
-                    {currency} {startingPrice} -{endPrice}
+                    {currency} {startingPrice} {endPrice && "-" + endPrice}/hr
                 </span>
             </div>
 
