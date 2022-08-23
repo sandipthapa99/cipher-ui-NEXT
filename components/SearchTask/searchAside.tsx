@@ -35,17 +35,17 @@ const ServiceNearYouCard = ({
     discount,
     onServiceClick,
 }: ServiceNearYouCardProps) => {
-    const { data } = useQuery(
-        ["service-provider-user", serviceProvider],
-        async () => {
-            const { data } = await axiosClient.get<ServiceProvider>(
-                `/user/${serviceProvider}`
-            );
-            return data;
-        }
-    );
+    // const { data } = useQuery(
+    //     ["service-provider-user", serviceProvider],
+    //     async () => {
+    //         const { data } = await axiosClient.get<ServiceProvider>(
+    //             `/user/${serviceProvider}`
+    //         );
+    //         return data;
+    //     }
+    // );
 
-    const providerName = data?.groups[0]?.name;
+    // const providerName = data?.groups[0]?.name;
 
     return (
         <div
