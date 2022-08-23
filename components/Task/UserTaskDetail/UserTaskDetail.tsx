@@ -4,7 +4,6 @@ import { UserTaskDetailHeader } from "@components/Task/UserTaskDetail/atoms/User
 import { UserTaskDetailTabs } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailTabs";
 import { UserTaskReviews } from "@components/Task/UserTaskDetail/atoms/UserTaskReviews";
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "hooks/auth/useUser";
 import type { HTMLAttributes } from "react";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
