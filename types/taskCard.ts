@@ -12,3 +12,18 @@ export interface RecommendedTaskCardProps
     id: string;
     status: string;
 }
+
+export interface TaskCardProps extends HTMLAttributes<HTMLDivElement> {
+    title: string;
+    charge?: string;
+    description?: string;
+    location: string;
+    date: string;
+    time: string;
+    isCompleted?: boolean;
+    isRunning?: boolean;
+    startPrice?: number | string;
+    endPrice?: number | string;
+    currency?: string;
+    taskId?: string;
+}

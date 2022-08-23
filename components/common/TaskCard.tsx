@@ -7,7 +7,6 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
-import { parseISO } from "date-fns/esm";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";
 import type { RecommendedTaskCardProps } from "types/taskCard";
@@ -28,7 +27,7 @@ const TaskCard = ({
 }: RecommendedTaskCardProps) => {
     const [showModal, setShowModal] = useState(false);
     function getDateFromHours(time: any) {
-        time = time.split(":");
+        time = time?.split(":");
         const now = new Date();
         return new Date(
             now.getFullYear(),
@@ -69,7 +68,7 @@ const TaskCard = ({
                             icon={faClockEight}
                             className="svg-icon"
                         />
-                        {format(new Date(formattedtime), "hh:mm")} AM
+                        {format(new Date(formattedtime), "hh:mm")} PM
                     </p>
                 </div>
             </div>

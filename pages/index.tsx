@@ -5,6 +5,7 @@ import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
+import FullPageLoader from "@components/common/FullPageLoader";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
 import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
@@ -24,6 +25,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
+import { useTasks } from "hooks/apply-task/useTask";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
@@ -45,7 +47,6 @@ import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
-
 interface LandingPageProps {
     successStoryData: SuccessStoryProps;
     trustedPartnerData: BrandValueProps;
@@ -77,8 +78,11 @@ const Home: NextPage<{
     const handleClosePosttaskPopup = () => {
         setPostTaskPopup(false);
     };
-
     const router = useRouter();
+    //for tasks
+    const { data: recommendedTasks, isLoading } = useTasks();
+    if (isLoading || !recommendedTasks) return <FullPageLoader />;
+
     return (
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
@@ -546,21 +550,23 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {tasks &&
-                            tasks.map((task) => {
-                                return (
-                                    <Col md={6} key={task.id}>
-                                        <TaskCard
-                                            title={task.title}
-                                            charge={task.charge}
-                                            description={task.description}
-                                            location={task.location}
-                                            date={task.date}
-                                            time={task.time}
-                                        />
-                                    </Col>
-                                );
-                            })}
+                        {recommendedTasks?.result?.map(
+                            (task: any, key: any) => (
+                                <Col sm="12" key={key}>
+                                    <TaskCard
+                                        title={task?.title}
+                                        id={task?.id}
+                                        charge={task?.charge}
+                                        description={task?.description}
+                                        location={task?.location}
+                                        start_date={task?.start_date}
+                                        start_time={task?.start_time}
+                                        status={task?.status}
+                                        currency={task?.currency}
+                                    />
+                                </Col>
+                            )
+                        )}
                     </Row>
                 </Container>
             </section>

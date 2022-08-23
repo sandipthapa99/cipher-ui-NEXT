@@ -545,7 +545,7 @@ const AboutProfile = () => {
                             </Col>
                             <Col md={6}>
                                 <Row className="select-field">
-                                    <Col md={6}>
+                                    {/* <Col md={6}>
                                         <Formik
                                             initialValues={HomeSearchdata}
                                             validationSchema={HomeSearchSchema}
@@ -591,7 +591,7 @@ const AboutProfile = () => {
                                                 // }}
                                             />
                                         </Formik>
-                                    </Col>
+                                    </Col> */}
                                     <Col md={6}>
                                         <Formik
                                             initialValues={HomeSearchdata}

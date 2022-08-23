@@ -1,19 +1,16 @@
 import FullPageLoader from "@components/common/FullPageLoader";
 import TaskCard from "@components/common/TaskCard";
-import { faKey } from "@fortawesome/pro-solid-svg-icons";
 import { useTasks } from "hooks/apply-task/useTask";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { tasks } from "staticData/task";
 
 export const Recommended = () => {
     const { data: recommendedTasks, isLoading } = useTasks();
-    console.log("tasks data=", recommendedTasks);
     if (isLoading || !recommendedTasks) return <FullPageLoader />;
     return (
         <div className="recommended-tab">
             <Row>
-                {recommendedTasks?.result?.map((task, key) => (
+                {recommendedTasks?.result?.map((task: any, key: any) => (
                     <Col sm="12" key={key}>
                         <TaskCard
                             title={task?.title}

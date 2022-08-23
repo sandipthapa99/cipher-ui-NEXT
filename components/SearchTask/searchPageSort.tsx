@@ -34,7 +34,7 @@ const SearchBySort = () => {
                             title: "In Progress",
                             content: progressTask.map((task) => (
                                 <Col sm="12" key={task.id}>
-                                    <TaskCard
+                                    {/* <TaskCard
                                         title={task.title}
                                         charge={task.charge}
                                         description={task.description}
@@ -43,7 +43,7 @@ const SearchBySort = () => {
                                         time={task.time}
                                         isCompleted={task.isCompleted}
                                         isRunning={task.isRunning}
-                                    />
+                                    /> */}
                                 </Col>
                             )),
                         },
@@ -51,7 +51,7 @@ const SearchBySort = () => {
                             title: "History",
                             content: taskHistory.map((task) => (
                                 <Col sm="12" key={task.id}>
-                                    <TaskCard
+                                    {/* <TaskCard
                                         title={task.title}
                                         charge={task.charge}
                                         description={task.description}
@@ -60,7 +60,7 @@ const SearchBySort = () => {
                                         time={task.time}
                                         isCompleted={task.isCompleted}
                                         isRunning={task.isRunning}
-                                    />
+                                    /> */}
                                 </Col>
                             )),
                         },
@@ -68,7 +68,7 @@ const SearchBySort = () => {
                             title: "Draft",
                             content: taskHistory.map((task) => (
                                 <Col sm="12" key={task.id}>
-                                    <TaskCard
+                                    {/* <TaskCard
                                         title={task.title}
                                         charge={task.charge}
                                         description={task.description}
@@ -77,7 +77,7 @@ const SearchBySort = () => {
                                         time={task.time}
                                         isCompleted={task.isCompleted}
                                         isRunning={task.isRunning}
-                                    />
+                                    /> */}
                                 </Col>
                             )),
                         },
