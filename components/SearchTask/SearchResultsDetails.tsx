@@ -93,34 +93,38 @@ const SearchResultsDetail = ({
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        <figure className="thumbnail-img">
-                            <Image
-                                src={
-                                    image
-                                        ? image
-                                        : "/service-details/garden-cleaning.png"
-                                }
-                                layout="fill"
-                                objectFit="cover"
-                                alt="garden-image"
-                            />
-                        </figure>
+                        {image && (
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src={
+                                        image
+                                            ? image
+                                            : "/service-details/garden-cleaning.png"
+                                    }
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="garden-image"
+                                />
+                            </figure>
+                        )}
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         <div className="simple-card my-5 my-lg-0 ">
                             <div className="d-flex align-items-center simple-card__profile">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src={
-                                            image
-                                                ? image
-                                                : "/service-details/garden-cleaning.png"
-                                        }
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="serviceprovider-image"
-                                    />
-                                </figure>
+                                {image && (
+                                    <figure className="thumbnail-img">
+                                        <Image
+                                            src={
+                                                image
+                                                    ? image
+                                                    : "/service-details/garden-cleaning.png"
+                                            }
+                                            layout="fill"
+                                            objectFit="cover"
+                                            alt="serviceprovider-image"
+                                        />
+                                    </figure>
+                                )}
 
                                 <div className="intro">
                                     <p className="name">{serviceProvider}</p>
@@ -194,18 +198,21 @@ const SearchResultsDetail = ({
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    <p>{parse(serviceDescription ?? "")}</p>
+                    {serviceDescription && (
+                        <div>{parse(serviceDescription ?? "")}</div>
+                    )}
                 </div>
 
                 <h3>Requirements</h3>
-                <div className="mt-5">
-                    {highlights &&
-                        highlights?.map((name: any, index: number) => (
+                {highlights && (
+                    <div className="mt-5">
+                        {highlights?.map((name, index) => (
                             <div key={index}>
                                 <ServiceHighlights title={name} />
                             </div>
                         ))}
-                </div>
+                    </div>
+                )}
                 <section
                     className="service-details__offers"
                     style={{ margin: "41px 0 0 0" }}

@@ -14,13 +14,13 @@ const ServicesDetail = ({
             <ServiceLayout>
                 <SearchResultsDetail
                     image={
-                        Array.isArray(service.images)
-                            ? service.images[0].image
-                            : service.images
+                        Array.isArray(service?.images)
+                            ? service?.images[0]?.image
+                            : service?.images
                     }
-                    servicePrice={service?.budget_from}
-                    serviceProvider={service?.created_by.full_name}
-                    serviceProviderLocation={service?.location}
+                    servicePrice={service?.budget_from ?? ""}
+                    serviceProvider={service?.created_by?.full_name ?? ""}
+                    serviceProviderLocation={service?.location ?? ""}
                     serviceDescription={service?.description ?? ""}
                     serviceRating={service?.success_rate ?? 0}
                     serviceTitle={service?.title ?? ""}
@@ -29,7 +29,11 @@ const ServicesDetail = ({
                     discount={
                         service?.discount_value ? service?.discount_value : 0
                     }
-                    highlights={JSON.parse(service?.highlights)}
+                    highlights={
+                        service?.highlights
+                            ? JSON.parse(service?.highlights)
+                            : []
+                    }
                     slug={service?.slug}
                 />
             </ServiceLayout>
