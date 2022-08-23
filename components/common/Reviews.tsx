@@ -1,4 +1,4 @@
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow, parseISO } from "date-fns";
 import { useGetProfileById } from "hooks/profile/getProfileById";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
@@ -6,17 +6,18 @@ import type { ReviewsProps } from "types/reviews";
 const Reviews = ({
     name,
     ratings,
-
     description,
     raterEmail,
     time,
     raterId,
 }: ReviewsProps) => {
-    // const timeago = formatDistanceToNow(
-    //     time instanceof Date ? time : new Date(time),
-    //     { addSuffix: true }
-    // );
-    const timeago = time;
+    const timeago = () => {
+        try {
+            return formatDistanceToNow(parseISO(time), { addSuffix: true });
+        } catch (error) {
+            return "a while ago";
+        }
+    };
     const { data: profileDetails } = useGetProfileById(raterId);
 
     console.log("user data=", profileDetails);
@@ -80,7 +81,7 @@ const Reviews = ({
                             </div>
 
                             <p className="description">{description}</p>
-                            <p className="time">{timeago}</p>
+                            <p className="time">{timeago()}</p>
                         </div>
                     </Col>
                 </Row>
