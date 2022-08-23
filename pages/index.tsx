@@ -282,7 +282,7 @@ const Home: NextPage<{
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Services near you</h2>
 
-                        <Link href="/search">
+                        <Link href="/service">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -316,7 +316,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Professional Services</h2>
-                        <Link href="/search">
+                        <Link href="/service">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
