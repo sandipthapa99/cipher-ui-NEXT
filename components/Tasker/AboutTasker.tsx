@@ -34,7 +34,6 @@ export const AboutTasker = () => {
 
     console.log("profile=", profileDetails);
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
-    console.log("user profile skills=", userSkills);
 
     return (
         <>

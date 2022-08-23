@@ -73,18 +73,44 @@ const UserProfileCard = ({
         <div className="profile-card-block">
             <Row>
                 <Col md={3} className="profile-card-block__profile">
-                    <figure
-                        className="thumbnail-img"
-                        onClick={() => setShowExpForm(!showExpForm)}
+                    <div>
+                        <figure
+                            className="thumbnail-img"
+                            onClick={() => setShowExpForm(!showExpForm)}
+                        >
+                            <Image
+                                src={userImage}
+                                layout="fill"
+                                objectFit="cover"
+                                alt="user-profile-image"
+                                className="rounded-circle"
+                            />
+                        </figure>
+                    </div>
+
+                    {/* <figure
+                        className="thumbnail-img camera-img"
+                        //  onClick={() => setShowExpForm(!showExpForm)}
                     >
                         <Image
-                            src={userImage}
-                            layout="fill"
+                            src="/userprofile/edit.svg"
                             objectFit="cover"
                             alt="user-profile-image"
                             className="rounded-circle"
+                            height={100}
+                            width={100}
                         />
                     </figure>
+                    <figure className="thumbnail-img alert-img">
+                        <Image
+                            src="/userprofile/alert.svg"
+                            objectFit="cover"
+                            alt="user-profile-image"
+                            className="rounded-circle"
+                            height={200}
+                            width={200}
+                        />
+                    </figure> */}
                     <PhotoEdit
                         photo={userImage}
                         show={showExpForm}
@@ -174,11 +200,19 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
                                     <p>
-                                        &nbsp;Active Hours {activeFrom} to{" "}
-                                        {activeTo}:
+                                        &nbsp;Active Hours &nbsp;
+                                        {activeFrom
+                                            ?.replaceAll("00:00", "")
+                                            .slice(1)}
+                                        00 AM to&nbsp;
+                                        {activeTo
+                                            ?.replaceAll("00:00", "")
+                                            .slice(1)}
+                                        00 PM
                                     </p>
                                 </div>
-
+                                {/* document.file
+                                                                .split(".") */}
                                 <div className="success-rate type d-flex flex-col">
                                     <div className="count d-flex flex-row">
                                         <FontAwesomeIcon

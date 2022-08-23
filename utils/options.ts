@@ -15,8 +15,8 @@ export const reviewType = [
 ];
 
 export const personType = [
-    { id: 2, value: "latest", label: "Latest" },
-    { id: 3, value: "top", label: "Top" },
+    { id: 2, value: "client", label: "Client" },
+    { id: 3, value: "admin", label: "Admin" },
 ];
 export const maritalStatus = [{ id: 1, value: "Married", label: "Married" }];
 
