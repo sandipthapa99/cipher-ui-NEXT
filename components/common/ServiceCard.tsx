@@ -1,5 +1,6 @@
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Spoiler } from "@mantine/core";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +17,7 @@ const ServiceCard = ({
 }) => {
     return (
         <div className="service-card-block">
-            <Link href="/service-detail">
+            <Link href={`/service/${serviceCard.slug}`}>
                 <a>
                     <div className="card-img">
                         {serviceCard && serviceCard?.images && (
@@ -44,7 +45,7 @@ const ServiceCard = ({
                 </a>
             </Link>
             <div className="card-content">
-                <Link href="/service-detail">
+                <Link href={`/service/${serviceCard.slug}`}>
                     <a>
                         <div className="d-flex pro-title-wrapper justify-content-between">
                             <h2 className="card-title">{serviceCard?.title}</h2>
@@ -56,17 +57,30 @@ const ServiceCard = ({
                                 ""
                             )}
                         </div>
-                        <h3 className="card-subtitle">
-                            <span>{serviceCard?.created_by?.full_name}</span> |
-                            {serviceCard?.location}
-                        </h3>
-                        <p className="card-description">
-                            {parse(
-                                `${serviceCard?.description.substring(
-                                    0,
-                                    80
-                                )}...`
-                            )}
+                    </a>
+                </Link>
+                <h3 className="card-subtitle">
+                    <Spoiler maxHeight={15} hideLabel={""} showLabel={""}>
+                        <Link href={`/tasker/${serviceCard?.created_by?.id}`}>
+                            <a>
+                                <span>
+                                    {serviceCard?.created_by?.full_name}
+                                </span>{" "}
+                            </a>
+                        </Link>
+                        | {serviceCard?.location}
+                    </Spoiler>
+                </h3>
+                <Link href={`/service/${serviceCard.slug}`}>
+                    <a>
+                        <p className="card-description d-inline">
+                            <Spoiler
+                                maxHeight={50}
+                                hideLabel={"..."}
+                                showLabel={"..."}
+                            >
+                                {parse(serviceCard?.description)}
+                            </Spoiler>
                         </p>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
@@ -76,17 +90,23 @@ const ServiceCard = ({
                                 />
                                 {serviceCard?.happy_clients}
                             </p>
-                            <p className="price">${serviceCard?.budget}/hr</p>
+                            <p className="price">
+                                ${serviceCard?.budget_from}/hr
+                            </p>
+                        </div>
+
+                        <div className="d-flex justify-content-between align-items-center">
+                            <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
+                                <SaveIcon />
+                                <ShareIcon url={""} quote={""} hashtag={""} />
+                            </div>
+                            <CardBtn
+                                btnTitle="Book Now"
+                                backgroundColor="#211D4F"
+                            />
                         </div>
                     </a>
                 </Link>
-                <div className="d-flex justify-content-between align-items-center">
-                    <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
-                        <SaveIcon />
-                        <ShareIcon url={""} quote={""} hashtag={""} />
-                    </div>
-                    <CardBtn btnTitle="Book Now" backgroundColor="#211D4F" />
-                </div>
             </div>
         </div>
     );
