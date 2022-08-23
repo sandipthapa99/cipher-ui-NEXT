@@ -52,13 +52,13 @@ export const IdentityDocument = () => {
     return (
         <Formik
             initialValues={{
-                kyc: "",
                 document_type: "",
                 document_id: "",
                 file: "",
                 issuer_organization: "",
                 issued_date: "",
                 valid_through: "",
+                kyc: KYCData ? KYCData.id : "",
             }}
             validationSchema={KYCDocumentSchema}
             onSubmit={(val, action) => {
@@ -76,7 +76,7 @@ export const IdentityDocument = () => {
                             : "",
                     kyc: KYCData ? KYCData.id : "",
                 };
-                console.log(newValues);
+
                 Object.entries(newValues).forEach((entry) => {
                     const [key, value] = entry;
                     if (value && key !== "file") {
@@ -86,8 +86,8 @@ export const IdentityDocument = () => {
                 formData.append("file", val.file);
                 mutate(formData, {
                     onSuccess: () => {
-                        toast.success("Document added successfully");
                         action.resetForm();
+                        toast.success("Document added successfully");
                     },
                     onError: (error) => {
                         toast.error(error.message);
@@ -107,6 +107,7 @@ export const IdentityDocument = () => {
                     {/* {<pre>{JSON.stringify(values, null, 4)}</pre>}
                     <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                     <h5>Identity Information</h5>
+
                     <Row>
                         <Col md={6}>
                             <SelectInputField
@@ -157,8 +158,6 @@ export const IdentityDocument = () => {
                                     dateFormat="yyyy-MM-dd"
                                     labelName="Valid through"
                                     placeHolder="dd/mm/yy"
-                                    touch={touched.valid_through}
-                                    error={errors.valid_through}
                                 />
                             </Col>
                         ) : (

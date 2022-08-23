@@ -17,7 +17,6 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Image from "next/image";
@@ -28,9 +27,6 @@ import { getAllPackageCard, getReviews } from "services/commonServices";
 import { useSetBookNowDetails } from "store/use-book-now";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
-import { axiosClient } from "utils/axiosClient";
-
-import type { ServiceProvider } from "./searchAside";
 
 const SearchResultsDetail = ({
     image,
@@ -44,25 +40,13 @@ const SearchResultsDetail = ({
     discountOn,
     discount,
     highlights,
-    serviceId,
+    slug,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const setBookNowDetails = useSetBookNowDetails();
     const PackageCard = getAllPackageCard();
     const reviewsContent = getReviews();
-
-    const { data } = useQuery(
-        ["service-provider-detail-user", serviceProvider],
-        async () => {
-            const { data } = await axiosClient.get<ServiceProvider>(
-                `/user/${serviceProvider}`
-            );
-            return data;
-        }
-    );
-
-    const providerName = data?.groups[0]?.name;
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
@@ -85,7 +69,7 @@ const SearchResultsDetail = ({
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
                         <span className="pb-3 pb-sm-0 provider-name">
-                            By {providerName}
+                            By {serviceProvider}
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
@@ -94,7 +78,7 @@ const SearchResultsDetail = ({
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
-                                    url={`http://localhost:3005/search/${serviceId}`}
+                                    url={`http://localhost:3005/search/${slug}`}
                                     quote={"Service from Cipher Project"}
                                     hashtag={"cipher-services"}
                                 />
@@ -109,37 +93,41 @@ const SearchResultsDetail = ({
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        <figure className="thumbnail-img">
-                            <Image
-                                src={
-                                    image
-                                        ? image
-                                        : "/service-details/garden-cleaning.png"
-                                }
-                                layout="fill"
-                                objectFit="cover"
-                                alt="garden-image"
-                            />
-                        </figure>
+                        {image && (
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src={
+                                        image
+                                            ? image
+                                            : "/service-details/garden-cleaning.png"
+                                    }
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="garden-image"
+                                />
+                            </figure>
+                        )}
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         <div className="simple-card my-5 my-lg-0 ">
                             <div className="d-flex align-items-center simple-card__profile">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src={
-                                            image
-                                                ? image
-                                                : "/service-details/garden-cleaning.png"
-                                        }
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="serviceprovider-image"
-                                    />
-                                </figure>
+                                {image && (
+                                    <figure className="thumbnail-img">
+                                        <Image
+                                            src={
+                                                image
+                                                    ? image
+                                                    : "/service-details/garden-cleaning.png"
+                                            }
+                                            layout="fill"
+                                            objectFit="cover"
+                                            alt="serviceprovider-image"
+                                        />
+                                    </figure>
+                                )}
 
                                 <div className="intro">
-                                    <p className="name">{providerName}</p>
+                                    <p className="name">{serviceProvider}</p>
                                     <p className="job">{serviceTitle}</p>
                                 </div>
                             </div>
@@ -210,18 +198,21 @@ const SearchResultsDetail = ({
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    <p>{parse(serviceDescription ?? "")}</p>
+                    {serviceDescription && (
+                        <div>{parse(serviceDescription ?? "")}</div>
+                    )}
                 </div>
 
                 <h3>Requirements</h3>
-                <div className="mt-5">
-                    {highlights &&
-                        highlights?.map((name: any, index: number) => (
+                {highlights && (
+                    <div className="mt-5">
+                        {highlights?.map((name, index) => (
                             <div key={index}>
                                 <ServiceHighlights title={name} />
                             </div>
                         ))}
-                </div>
+                    </div>
+                )}
                 <section
                     className="service-details__offers"
                     style={{ margin: "41px 0 0 0" }}
