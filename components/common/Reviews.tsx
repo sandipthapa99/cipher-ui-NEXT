@@ -1,6 +1,5 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { formatDistanceToNow } from "date-fns";
 import { useGetProfileById } from "hooks/profile/getProfileById";
-import moment from "moment";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
 import type { ReviewsProps } from "types/reviews";
@@ -13,8 +12,12 @@ const Reviews = ({
     time,
     raterId,
 }: ReviewsProps) => {
-    const timeago = moment(time).fromNow();
-    const { data: profileDetails, error } = useGetProfileById(raterId);
+    // const timeago = formatDistanceToNow(
+    //     time instanceof Date ? time : new Date(time),
+    //     { addSuffix: true }
+    // );
+    const timeago = time;
+    const { data: profileDetails } = useGetProfileById(raterId);
 
     console.log("user data=", profileDetails);
     const userImage = profileDetails?.profile_image;
