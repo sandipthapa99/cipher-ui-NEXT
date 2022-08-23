@@ -20,7 +20,6 @@ const Reviews = ({
     };
     const { data: profileDetails } = useGetProfileById(raterId);
 
-    console.log("user data=", profileDetails);
     const userImage = profileDetails?.profile_image;
     return (
         <>

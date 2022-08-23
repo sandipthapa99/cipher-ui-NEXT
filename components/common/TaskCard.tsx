@@ -26,6 +26,9 @@ const TaskCard = ({
     currency,
 }: RecommendedTaskCardProps) => {
     const [showModal, setShowModal] = useState(false);
+
+    const starttime = start_time.split(":");
+
     function getDateFromHours(time: any) {
         time = time?.split(":");
         const now = new Date();
@@ -63,13 +66,14 @@ const TaskCard = ({
                         />
                         {format(new Date(start_date), "MMMM dd, yyyy")}
                     </p>
-                    <p className="d-flex align-items-center time">
+                    <div className="d-flex align-items-center time">
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon"
                         />
-                        {format(new Date(formattedtime), "hh:mm")} PM
-                    </p>
+                        {format(new Date(formattedtime), "hh:mm")}&nbsp;
+                        {parseInt(starttime[1]) > 12 ? "PM" : "AM"}
+                    </div>
                 </div>
             </div>
             <div className="task-card-block__footer d-flex flex-column flex-sm-row justify-content-between">

@@ -41,6 +41,10 @@
             font-size: 1.2rem;
             font-weight: 400;
             color: #343a40;
+            padding-right: 0rem;
+            @include respond(lg) {
+                padding-right: 20rem;
+            }
             p {
                 margin: 0;
             }
