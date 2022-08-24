@@ -162,7 +162,6 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["profile"]),
             queryClient.prefetchQuery(["tasker-rating"]),
             queryClient.prefetchQuery(["tasker-document"]),
-            queryClient.prefetchQuery(["tasker-tasks"]),
         ]);
         return {
             props: {
@@ -178,7 +177,6 @@ export const getStaticProps: GetStaticProps = async () => {
                 profile: [],
                 ratingData: [],
                 documentData: [],
-                taskData: [],
             },
         };
     }
