@@ -47,13 +47,13 @@ const PackageOffersCard = ({
                 </div>
             </div>
             <div className="offers">
-                {offers?.map((offer, key) => (
+                {/* {offers?.map((offer, key) => (
                     <PackageServiceHighlights
                         key={key}
                         title={offer.text}
                         isChecked={offer.strike}
                     />
-                ))}
+                ))} */}
             </div>
 
             <div className="btn-wrapper">
