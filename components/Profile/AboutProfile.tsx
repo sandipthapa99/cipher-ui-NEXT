@@ -182,7 +182,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {experienceData?.data?.result
+                                {!experienceData?.data?.result
                                     ? experienceData?.data?.result?.map(
                                           (value) => {
                                               return (
@@ -331,7 +331,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {educationData?.data?.result
+                                {!educationData?.data?.result
                                     ? educationData?.data.result.map(
                                           (value: any) => (
                                               <div
@@ -437,7 +437,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {certificationData?.data?.result
+                                {!certificationData?.data?.result
                                     ? certificationData?.data.result?.map(
                                           (value) => (
                                               <div

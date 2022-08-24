@@ -6,20 +6,13 @@
             height: 10rem;
             width: 10rem;
             object-fit: contain;
-            position: relative;
             @include respond(md) {
                 height: 15rem;
                 width: 15rem;
             }
         }
-        .badge-icon {
-            color: #3eaeff;
-            width: 1.9rem;
-            height: 1.7rem;
-            position: absolute;
-            left: 8rem;
-            top: 29rem;
-            z-index: 12;
+        .profile-intro {
+            position: relative;
         }
         .camera-img {
             height: 4rem;
