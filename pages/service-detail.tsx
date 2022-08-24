@@ -220,7 +220,7 @@ const ServiceDetail: NextPage = () => {
                         <div className="title-wrapper d-flex justify-content-between">
                             {/* <h2 className="heading-title">Community activity</h2> */}
                             <h1>Popular on Cipher</h1>
-                            <Link href="/search">
+                            <Link href="/service">
                                 <a className="view-more">
                                     view more{" "}
                                     <FontAwesomeIcon

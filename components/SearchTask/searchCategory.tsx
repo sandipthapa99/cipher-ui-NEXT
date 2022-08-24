@@ -1,5 +1,7 @@
 import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { debounce } from "debounce";
+import type { ChangeEvent } from "react";
 import { useCallback, useState } from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 
@@ -20,9 +22,9 @@ const DUMMY_DATA = [
         value: "",
         nested: ["Low to High", "High to Low"],
     },
-    // { category: "Any price", nested: ["Low to High", "High to Low"] },
-    // { category: "Any price", nested: ["Low to High", "High to Low"] },
-    // { category: "Any price", nested: ["Low to High", "High to Low"] },
+    { category: "Any price", nested: ["Low to High", "High to Low"] },
+    { category: "Any price", nested: ["Low to High", "High to Low"] },
+    { category: "Any price", nested: ["Low to High", "High to Low"] },
 ];
 
 export const SearchCategory = ({
@@ -65,7 +67,6 @@ export const SearchCategory = ({
         return (
             <select
                 onChange={(e: any) => {
-                    getOption(e.target.value ? e.target.value : "");
                     setActiveIndex(index);
                 }}
                 key={index}
@@ -87,9 +88,11 @@ export const SearchCategory = ({
                             placeholder="Find your Services &amp; Merchants"
                             aria-label="Find your Services &amp; Merchants"
                             aria-describedby="basic-addon2"
-                            onChange={(event: any) =>
-                                onChange?.(event.currentTarget.value)
-                            }
+                            onChange={debounce(
+                                (e: ChangeEvent<HTMLInputElement>) =>
+                                    onChange?.(e.target.value),
+                                400
+                            )}
                         />
                         <Button
                             className="search-category--button"

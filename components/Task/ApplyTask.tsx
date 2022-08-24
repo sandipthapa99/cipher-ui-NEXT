@@ -1,17 +1,19 @@
-import FullPageLoader from "@components/common/FullPageLoader";
 import TaskCard from "@components/common/TaskCard";
 import SearchBySort from "@components/SearchTask/searchPageSort";
-import { useTasks } from "hooks/apply-task/useTask";
+import { useData } from "hooks/use-data";
 import { Col, Row } from "react-bootstrap";
+import type { ITaskApiResponse } from "types/task";
 
-import { tasks } from "../../staticData/task";
 import GettingStartedTask from "./GettingStartedCard";
 const ApplyTask = () => {
-    const { data: recommendedTasks, isLoading } = useTasks();
-    console.log("tasks data=", recommendedTasks);
-    if (isLoading || !recommendedTasks) return <FullPageLoader />;
+    //for tasks
+
+    const { data: recommendedTasks } = useData<ITaskApiResponse>(
+        ["all-tasks"],
+        "/task/"
+    );
     const renderTasks = () =>
-        recommendedTasks?.result?.map((task: any) => {
+        recommendedTasks?.data?.result?.map((task: any) => {
             // return <TaskCard key={index} {...task} />;
             return (
                 <TaskCard

@@ -2,6 +2,7 @@ import { ProfileModel } from "@components/model/ProfileModel";
 import { faBars, faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Avatar } from "@mantine/core";
 import { useClickOutside, useToggle } from "@mantine/hooks";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -132,7 +133,13 @@ export function UpperHeader() {
                                         className="profile-btn"
                                         onClick={() => toggleShowProfileModal()}
                                     >
-                                        <figure className="thumbnail-img">
+                                        <Avatar
+                                            src={profileDetails?.profile_image}
+                                            radius="xl"
+                                            size={44}
+                                            alt="it's me"
+                                        />
+                                        {/* <figure className="thumbnail-img">
                                             <Image
                                                 src={
                                                     profileDetails?.profile_image ??
@@ -143,7 +150,7 @@ export function UpperHeader() {
                                                 className="rounded-circle"
                                                 objectFit="cover"
                                             />
-                                        </figure>
+                                        </figure> */}
                                     </span>
                                     {showProfileModal && <ProfileModel />}
                                 </div>

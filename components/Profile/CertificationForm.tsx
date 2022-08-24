@@ -15,7 +15,6 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import type { CertificationValueProps } from "types/certificationValueProps";
 import { CertificationFormData } from "utils/formData";
 import { certificateFormSchema } from "utils/formValidation/certificateFormValidation";

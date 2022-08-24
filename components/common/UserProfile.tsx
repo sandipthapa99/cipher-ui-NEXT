@@ -46,19 +46,19 @@ const UserProfileCard = ({
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
 
-    // const services = moreServices ? JSON.parse(moreServices) : [];
-    // const renderServices: string[] | undefined = services?.map(
-    //     (service: string, index: number) => (
-    //         <p key={index}>
-    //             {service}
-    //             {index < services.length - 2
-    //                 ? ", "
-    //                 : index < services.length - 1
-    //                 ? " and"
-    //                 : ""}
-    //         </p>
-    //     )
-    // );
+    const services = moreServices ? JSON.parse(moreServices) : [];
+    const renderServices = (Array.isArray(services) ? services : [])?.map(
+        (service, index) => (
+            <p key={index}>
+                {service}
+                {index < services.length - 2
+                    ? ", "
+                    : index < services.length - 1
+                    ? " and"
+                    : ""}
+            </p>
+        )
+    );
     const userType: string[] = userJob ? JSON.parse(userJob) : [];
 
     const renderType = userType.map((type: string, index: number) => {

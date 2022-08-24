@@ -45,12 +45,10 @@ const AppliedTaskDetail: NextPage = () => {
         return response?.data;
     });
 
-    console.log("task detail data from applied task detail", taskDetail);
-
     const requirements = taskDetail?.requirements?.split(",");
 
-    const isTaskBookmarked = () =>
-        data ? data.result?.some((item) => item.object_id === slug) : false;
+    const isTaskBookmarked = (taskId: string) =>
+        data ? data.result?.some((item) => item.object_id === taskId) : false;
 
     if (!taskDetail) {
         return <UserLoadingOverlay />;
@@ -70,9 +68,9 @@ const AppliedTaskDetail: NextPage = () => {
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <SaveIcon
-                                object_id={slug}
+                                object_id={taskDetail?.id}
                                 model="task"
-                                filled={isTaskBookmarked}
+                                filled={() => isTaskBookmarked(taskDetail?.id)}
                                 showText
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
@@ -126,14 +124,14 @@ const AppliedTaskDetail: NextPage = () => {
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         <SimpleProfileCard
-                            image={taskDetail?.image}
-                            speciality={taskDetail?.category}
+                            image={taskDetail?.assigner?.profile_image}
+                            speciality={taskDetail?.category?.name}
                             startingPrice={taskDetail?.budget_from}
                             endPrice={taskDetail?.budget_to}
-                            isApplied={true}
+                            isApplied={false}
                             isPermission={false}
                             currency={taskDetail?.currency}
-                            name={taskDetail?.assigner}
+                            name={taskDetail?.assigner?.full_name}
                         />
                     </Col>
                 </Row>

@@ -2,47 +2,40 @@ import FullPageLoader from "@components/common/FullPageLoader";
 import Footer from "@components/Footer";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
-import { log } from "console";
+import { useQuery } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { ReactNode } from "react";
-import { useMemo } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
+import { axiosClient } from "utils/axiosClient";
 
 import ServiceAside from "./ServiceAside";
 
+export const useSearchService = (query: string) => {
+    return useQuery(["all-service", query], () =>
+        axiosClient
+            .get<ServicesValueProps>(`/task/service/?search=${query}`)
+            .then((response) => response.data.result)
+    );
+};
+
 const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
-    const [getOptionValue, setOptionValue] = useState("");
 
     const { data, isLoading } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
-    const getValue = (value: string) => {
-        setOptionValue(value);
-    };
-    console.log(getOptionValue);
 
-    const filteredTasks =
-        useMemo(
-            () =>
-                query && data
-                    ? data.data.result?.filter((item) =>
-                          item?.title
-                              .toLowerCase()
-                              .includes(query.toLowerCase())
-                      )
-                    : data?.data.result,
-            [data, query]
-        ) ?? [];
+    const { data: searchData = [] } = useSearchService(query);
+
     if (isLoading || !data) return <FullPageLoader />;
     return (
         <Layout title="Find Services | Cipher">
             <Container fluid="xl">
-                <SearchCategory onChange={setQuery} getOption={getValue} />
-                <ServiceAside query={query} service={filteredTasks}>
+                <SearchCategory onChange={setQuery} />
+                <ServiceAside query={query} service={searchData}>
                     {children}
                 </ServiceAside>
             </Container>
