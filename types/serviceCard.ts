@@ -71,7 +71,7 @@ export interface ServicesPackageProps {
     page_size: number;
     result: {
         id: number;
-        service: ServicesValueProps;
+        service: ServicesValueProps["result"][0];
         title: string;
         description: string;
         budget: number;
