@@ -5,15 +5,23 @@ import { useData } from "hooks/use-data";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
+import type { TaskerDetail } from "types/tasks";
 
-export const UserTaskDetailTabs = () => {
+interface UserTaskDetailTabs {
+    taskerDetail: TaskerDetail;
+}
+
+export const UserTaskDetailTabs = ({ taskerDetail }: UserTaskDetailTabs) => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     return (
         <Tab
             activeIndex={activeTabIdx}
             onTabClick={setActiveTabIdx}
             items={[
-                { title: "About", content: <AboutTasker /> },
+                {
+                    title: "About",
+                    content: <AboutTasker taskerDetail={taskerDetail} />,
+                },
                 { title: "Service", content: <ServiceList /> },
                 { title: "Documents", content: <div>Photos</div> },
             ]}
