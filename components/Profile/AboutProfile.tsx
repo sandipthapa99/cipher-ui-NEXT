@@ -3,7 +3,6 @@ import Reviews from "@components/common/Reviews";
 import SelectInputField from "@components/common/SelectInputField";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
