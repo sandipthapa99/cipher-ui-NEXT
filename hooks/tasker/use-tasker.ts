@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { StringOptions } from "sass";
 import { axiosClient } from "utils/axiosClient";
 
 export const useTaskers = () => {

@@ -93,7 +93,7 @@ const MerchantCard = ({
                         />
                         {merchantRating}
                     </p>
-                    <p className="price">${merchantPrice}/hr</p>
+                    <p className="price">{merchantPrice}/hr</p>
                 </div>
                 <div className="d-flex justify-content-between align-items-md-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
