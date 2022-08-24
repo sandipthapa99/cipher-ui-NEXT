@@ -95,4 +95,17 @@ export interface UserProfileProps {
             message?: string;
         }[];
     };
+    documentData: {
+        id: number;
+        created_at: string;
+        updated_at: string;
+        document_type: string;
+        document_id: string;
+        file: string;
+        issuer_organization: string;
+        issued_date: string;
+        valid_through: string;
+        is_verified: boolean;
+        kyc: number;
+    }[];
 }
