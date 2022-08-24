@@ -1,39 +1,18 @@
 import { format } from "date-fns";
-import { useGetProfile } from "hooks/profile/useGetProfile";
-import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import type { UserProfileProps } from "types/userProfileProps";
+import type { TaskerDetail } from "types/tasks";
 
-export const AboutTasker = () => {
-    //user profile certification data
-    const { data: certificationData } = useData<
-        UserProfileProps["certificationData"]
-    >(["tasker-certification"], "/tasker/certification/");
+interface AboutTasker {
+    taskerDetail: TaskerDetail;
+}
 
-    //user profile education data
-    const { data: educationData } = useData<UserProfileProps["educationData"]>(
-        ["tasker-education"],
-        "/tasker/education/"
-    );
-
-    //user profile experience data
-    const { data: experienceData } = useData<
-        UserProfileProps["experienceData"]
-    >(["tasker-experience"], "/tasker/experience/");
-
-    //user profile experience data
-    const { data: portfolioData } = useData<UserProfileProps["portfolioData"]>(
-        ["tasker-portfolio"],
-        "/tasker/portfolio/"
-    );
-
-    const { data: profileDetails } = useGetProfile();
-
-    console.log("profile=", profileDetails);
-    const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
+export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
+    const userSkills = taskerDetail?.skill
+        ? JSON.parse(taskerDetail?.skill)
+        : [];
 
     return (
         <>
@@ -45,12 +24,12 @@ export const AboutTasker = () => {
                     </div>
 
                     <div className="content">
-                        {portfolioData
-                            ? portfolioData?.data?.result?.map((info: any) => (
+                        {taskerDetail?.portfolio
+                            ? taskerDetail?.portfolio?.map((info: any) => (
                                   <div className="image" key={info?.id}>
                                       <Row>
                                           <Col md={6}>
-                                              <Link href={`${info?.image}`}>
+                                              <Link href={info?.credential_url}>
                                                   <a target="_blank">
                                                       {info?.image ? (
                                                           <figure className="thumbnail-img">
@@ -67,7 +46,7 @@ export const AboutTasker = () => {
                                                   </a>
                                               </Link>
                                           </Col>
-                                          <Col md={6}>
+                                          {/* <Col md={6}>
                                               <Link href={`${info?.file}`}>
                                                   <a target="_blank">
                                                       {info?.file ? (
@@ -84,7 +63,7 @@ export const AboutTasker = () => {
                                                       )}
                                                   </a>
                                               </Link>
-                                          </Col>
+                                          </Col> */}
                                       </Row>
 
                                       <p className="text-center">
@@ -104,9 +83,9 @@ export const AboutTasker = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {experienceData
-                                    ? experienceData?.data?.result?.map(
-                                          (value, key) => (
+                                {taskerDetail?.experience
+                                    ? taskerDetail?.experience?.map(
+                                          (value: any, key: any) => (
                                               <div
                                                   className="experience__type"
                                                   key={key}
@@ -183,8 +162,8 @@ export const AboutTasker = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {educationData
-                                    ? educationData?.data.result.map(
+                                {taskerDetail?.education
+                                    ? taskerDetail?.education?.map(
                                           (value: any, key: number) => (
                                               <div
                                                   className="education__type"
@@ -233,9 +212,9 @@ export const AboutTasker = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {certificationData
-                                    ? certificationData?.data.result?.map(
-                                          (value, key) => (
+                                {taskerDetail?.certificates
+                                    ? taskerDetail?.certificates?.map(
+                                          (value: any, key: any) => (
                                               <div
                                                   className="certification__type"
                                                   key={key}
