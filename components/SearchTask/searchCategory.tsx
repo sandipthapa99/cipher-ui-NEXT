@@ -1,6 +1,8 @@
 import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { faAngleDown } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { debounce } from "debounce";
+import type { ChangeEvent } from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 
 interface SearchCategoryProps {
@@ -18,9 +20,11 @@ export const SearchCategory = ({ onChange }: SearchCategoryProps) => {
                             placeholder="Find your Services &amp; Merchants"
                             aria-label="Find your Services &amp; Merchants"
                             aria-describedby="basic-addon2"
-                            onChange={(event) =>
-                                onChange?.(event.currentTarget.value)
-                            }
+                            onChange={debounce(
+                                (e: ChangeEvent<HTMLInputElement>) =>
+                                    onChange?.(e.target.value),
+                                400
+                            )}
                         />
                         <Button
                             className="search-category--button"
