@@ -59,7 +59,11 @@ const AddPortfolio = ({
                             );
                             formData.append("file", values.file);
                             formData.append("image", values.image);
-
+                            console.log(
+                                "file image",
+                                values.file,
+                                values.image
+                            );
                             mutate(formData, {
                                 onSuccess: async () => {
                                     console.log("submitted values", values);

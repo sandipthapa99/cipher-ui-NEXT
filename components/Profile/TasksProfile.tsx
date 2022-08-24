@@ -80,7 +80,7 @@ export interface Assigner {
 const TasksProfileCard = () => {
     const { data: taskData } = useData<TaskerTasksProps>(
         ["tasker-tasks"],
-        "/task/my-task/"
+        "/task/my-task"
     );
     console.log("taksers tasks=", taskData);
 
