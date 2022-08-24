@@ -4,8 +4,7 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
-import Image from "next/image";
-import type { ChangeEvent, Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { Fragment } from "react";
 import { useState } from "react";
 import { Button, Col, FormCheck, Row } from "react-bootstrap";
@@ -276,23 +275,24 @@ const PostModal = ({
                                     </Col>
                                 )}
 
-                                <Button
-                                    className="btn close-btn w-25"
-                                    onClick={() => setshowPostModel(false)}
-                                >
-                                    Cancel
-                                </Button>
-
-                                <FormButton
-                                    type="submit"
-                                    variant="primary"
-                                    name="Apply"
-                                    className="submit-btn w-25"
-                                    isSubmitting={isSubmitting}
-                                    isSubmittingClass={isSubmittingClass(
-                                        isSubmitting
-                                    )}
-                                />
+                                <div className="d-flex justify-content-center">
+                                    <Button
+                                        className="btn close-btn p-3 h-25 w-25"
+                                        onClick={() => setshowPostModel(false)}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <FormButton
+                                        type="submit"
+                                        variant="primary"
+                                        name="Apply"
+                                        className="submit-btn w-25 ms-3"
+                                        isSubmitting={isSubmitting}
+                                        isSubmittingClass={isSubmittingClass(
+                                            isSubmitting
+                                        )}
+                                    />
+                                </div>
                             </Form>
                         )}
                     </Formik>
@@ -308,49 +308,3 @@ const PostModal = ({
     );
 };
 export default PostModal;
-
-export const DragAndDrop = ({ field }: { field: any }) => {
-    function handleChange(event: ChangeEvent<HTMLInputElement>) {
-        const files = event.target.files;
-        if (files) {
-            const file = files[0];
-            getBase64(file);
-        }
-    }
-    const onLoad = (fileString: string | ArrayBuffer) => {
-        field?.("images", ["image", fileString]);
-    };
-
-    const getBase64 = (file: File) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            if (reader.result) {
-                onLoad(reader.result);
-            }
-        };
-    };
-    return (
-        <Col md={4} className="drag-down">
-            <figure className="thumbnail-img">
-                <Image
-                    src="/service-details/file-upload.svg"
-                    width="70px"
-                    height={"70px"}
-                    objectFit="cover"
-                    alt="serviceprovider-image"
-                />
-            </figure>
-
-            <h5>
-                Drag or {""}
-                <label htmlFor="choosefile">Browse</label> Image/Video
-            </h5>
-            <p>Maximum Image Size 20 MB</p>
-            <p>Maximum Video Size 200 MB</p>
-            <div style={{ visibility: "hidden" }}>
-                <input type={"file"} id="choosefile" onChange={handleChange} />
-            </div>
-        </Col>
-    );
-};
