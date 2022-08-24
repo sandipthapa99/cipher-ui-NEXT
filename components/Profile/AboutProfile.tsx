@@ -299,7 +299,10 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {userSkills.map((info: any, i: any) => (
+                                {(Array.isArray(userSkills)
+                                    ? userSkills
+                                    : []
+                                ).map((info: any, i: any) => (
                                     <div className="skills__type" key={i}>
                                         {info}
                                     </div>
