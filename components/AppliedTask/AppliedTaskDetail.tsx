@@ -38,17 +38,19 @@ const AppliedTaskDetail: NextPage = () => {
     const [showModal, setShowModal] = useState(false);
     const router = useRouter();
 
-    const uuid = router?.query?.slug as string;
+    const slug = router?.query?.slug as string;
 
-    const { data: taskDetail } = useQuery(["task-detail", uuid], async () => {
-        const response = await axiosClient.get(`/task/task/${uuid}`);
+    const { data: taskDetail } = useQuery(["task-detail", slug], async () => {
+        const response = await axiosClient.get(`/task/${slug}`);
         return response?.data;
     });
+
+    console.log("task detail data from applied task detail", taskDetail);
 
     const requirements = taskDetail?.requirements?.split(",");
 
     const isTaskBookmarked = () =>
-        data ? data.result?.some((item) => item.object_id === uuid) : false;
+        data ? data.result?.some((item) => item.object_id === slug) : false;
 
     if (!taskDetail) {
         return <UserLoadingOverlay />;
@@ -68,14 +70,14 @@ const AppliedTaskDetail: NextPage = () => {
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <SaveIcon
-                                object_id={uuid}
+                                object_id={slug}
                                 model="task"
                                 filled={isTaskBookmarked}
                                 showText
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
-                                    url={`http://localhost:3005/task/${uuid}`}
+                                    url={`http://localhost:3005/task/${slug}`}
                                     quote={"This is the task from cipher"}
                                     hashtag={"cipher-task"}
                                 />
@@ -125,7 +127,7 @@ const AppliedTaskDetail: NextPage = () => {
                     <Col md={12} lg={5} className="d-flex">
                         <SimpleProfileCard
                             image={taskDetail?.image}
-                            speciality={taskDetail?.speciality}
+                            speciality={taskDetail?.category}
                             startingPrice={taskDetail?.budget_from}
                             endPrice={taskDetail?.budget_to}
                             isApplied={true}
