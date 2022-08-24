@@ -4,7 +4,6 @@ import {
     faClockEight,
     faLocationArrow,
     faLocationDot,
-    faShare,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +11,6 @@ import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
 const TaskCard = ({
     title,
-    charge = "0",
     location,
     date,
     time,
@@ -27,7 +25,7 @@ const TaskCard = ({
             <div className="d-flex justify-content-between flex-column flex-sm-row task-applied-card-block__header">
                 <span className="title">{title}</span>
                 <span className="charge">
-                    {currency} {startPrice} -{endPrice}
+                    {currency} {startPrice} {endPrice && "-" + endPrice}/hr
                 </span>
             </div>
             <div className="task-applied-card-block__body">

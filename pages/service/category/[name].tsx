@@ -1,10 +1,12 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
+import ServiceCard from "@components/common/ServiceCard";
 import Layout from "@components/Layout";
 import { Box, Text, Title } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import React, { Fragment } from "react";
-import { Container } from "react-bootstrap";
+import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import type { ServiceCardResult } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
 interface RenderListProps<T> {
@@ -21,10 +23,12 @@ export const useTasksByCategory = (category: string) => {
     );
 };
 export const useServicesByCategory = (category: string) => {
-    return useQuery(["services-by-category", category], () =>
-        axiosClient
-            .get(`/task/service?category=${category}`)
-            .then((res) => res.data)
+    return useQuery<ServiceCardResult[]>(
+        ["services-by-category", category],
+        () =>
+            axiosClient
+                .get(`/task/service?category=${category}`)
+                .then((res) => res.data.result)
     );
 };
 
@@ -38,9 +42,13 @@ const RenderList = <T,>({
         <Box>
             <Title order={3}>{title}</Title>
             <Text mt="sm">{subtitle}</Text>
-            {data.map((item, index) => (
-                <Fragment key={index}>{renderItem(item, index)}</Fragment>
-            ))}
+            <Row>
+                {data.map((item, index) => (
+                    <Col md={3} key={index}>
+                        {renderItem(item, index)}
+                    </Col>
+                ))}
+            </Row>
         </Box>
     );
 };
@@ -52,7 +60,7 @@ const ServiceCategoryPage = () => {
 
     const { data: tasksByCategory, error: taskByCategoryError } =
         useTasksByCategory(categorySlug);
-    const { data: servicesByCategory, error: servicesByCategoryError } =
+    const { data: servicesByCategory = [], error: servicesByCategoryError } =
         useServicesByCategory(categorySlug);
 
     return (
@@ -62,8 +70,10 @@ const ServiceCategoryPage = () => {
                 <RenderList
                     title={categoryName}
                     subtitle={`${categoryName} Services Near You`}
-                    data={[1, 2, 3]}
-                    renderItem={(service, index) => <h1>{service}</h1>}
+                    data={servicesByCategory}
+                    renderItem={(service) => (
+                        <ServiceCard serviceCard={service} />
+                    )}
                 />
             </Container>
         </Layout>
