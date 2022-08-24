@@ -47,8 +47,8 @@ const UserProfileCard = ({
     const { data: country } = useGetCountryBYId(countryCode);
 
     const services = moreServices ? JSON.parse(moreServices) : [];
-    const renderServices: string[] | undefined = services?.map(
-        (service: string, index: number) => (
+    const renderServices = (Array.isArray(services) ? services : [])?.map(
+        (service, index) => (
             <p key={index}>
                 {service}
                 {index < services.length - 2
