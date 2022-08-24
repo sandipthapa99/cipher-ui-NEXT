@@ -4,9 +4,12 @@ import BusinessGoal from "@components/common/BusinessGoal";
 import RecommendationChips from "@components/common/RecommendationChips";
 import { SearchInputField } from "@components/common/SearchInputField";
 import Layout from "@components/Layout";
+import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import { resourceCarouselContent } from "staticData/resourceCarouselContent";
 import type { BlogValueProps } from "types/blogs";
@@ -71,7 +74,19 @@ const Resources: NextPage = () => {
                             </Carousel>
                         </div>
                         <div className="featured-resources">
-                            <h3>Featured Resources</h3>
+                            <div className="title-wrapper d-flex justify-content-between">
+                                {/* <h2 className="heading-title">Community activity</h2> */}
+                                <h3>Featured Resources</h3>
+                                <Link href="/blogs">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
+                                        />
+                                    </a>
+                                </Link>
+                            </div>
                             <Row>
                                 {blogData &&
                                     blogData?.data?.result
