@@ -5,6 +5,7 @@ import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
+import FullPageLoader from "@components/common/FullPageLoader";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
 import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
@@ -24,6 +25,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
+import { useTasks } from "hooks/apply-task/useTask";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
@@ -45,7 +47,6 @@ import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
-
 interface LandingPageProps {
     successStoryData: SuccessStoryProps;
     trustedPartnerData: BrandValueProps;
@@ -77,8 +78,11 @@ const Home: NextPage<{
     const handleClosePosttaskPopup = () => {
         setPostTaskPopup(false);
     };
-
     const router = useRouter();
+    //for tasks
+    const { data: recommendedTasks, isLoading } = useTasks();
+    if (isLoading || !recommendedTasks) return <FullPageLoader />;
+
     return (
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
@@ -217,15 +221,15 @@ const Home: NextPage<{
             >
                 {/* <Container fluid="xl" className="px-5"> */}
                 <Marquee gradient={true} className="marquee" speed={40}>
-                    {trustedPartnerData.map((value, key) => (
-                        <Link href={value.redirect_url} key={key}>
+                    {trustedPartnerData?.map((value, key) => (
+                        <Link href={value?.redirect_url} key={key}>
                             <a>
                                 <li className="light">
-                                    {value.logo && (
+                                    {value?.logo && (
                                         <figure>
                                             <Image
-                                                src={value.logo}
-                                                alt={value.alt_text}
+                                                src={value?.logo}
+                                                alt={value?.alt_text}
                                                 layout="fill"
                                                 objectFit="cover"
                                             ></Image>
@@ -260,7 +264,13 @@ const Home: NextPage<{
                         {servicesData &&
                             servicesData?.data?.result?.map((service, key) => {
                                 return (
-                                    <Col sm={6} md={4} lg={3} key={key}>
+                                    <Col
+                                        sm={6}
+                                        md={4}
+                                        lg={3}
+                                        key={key}
+                                        className="d-flex"
+                                    >
                                         <ServiceCard serviceCard={service} />
                                     </Col>
                                 );
@@ -276,7 +286,7 @@ const Home: NextPage<{
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Services near you</h2>
 
-                        <Link href="/search">
+                        <Link href="/service">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -290,7 +300,13 @@ const Home: NextPage<{
                         {servicesData &&
                             servicesData?.data?.result?.map((service, key) => {
                                 return (
-                                    <Col sm={6} md={4} lg={3} key={key}>
+                                    <Col
+                                        sm={6}
+                                        md={4}
+                                        lg={3}
+                                        key={key}
+                                        className="d-flex"
+                                    >
                                         <ServiceCard serviceCard={service} />
                                     </Col>
                                 );
@@ -304,7 +320,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Professional Services</h2>
-                        <Link href="/search">
+                        <Link href="/service">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -327,6 +343,7 @@ const Home: NextPage<{
                                             md={4}
                                             lg={3}
                                             key={service.id}
+                                            className="d-flex"
                                         >
                                             <ServiceCard
                                                 serviceCard={service}
@@ -366,20 +383,22 @@ const Home: NextPage<{
 
                     <Row className="gx-5 hero-category">
                         {serviceCategory &&
-                            serviceCategory.map((category) => {
+                            serviceCategory?.map((category) => {
                                 return (
                                     <Col
                                         lg={3}
                                         md={4}
                                         sm={6}
-                                        key={category.id}
+                                        key={category?.id}
                                         className="d-flex align-items-strecth card-col"
                                     >
                                         <CategoryCardNew
                                             categoryTitle={
-                                                category.categoryTitle
+                                                category?.categoryTitle
                                             }
-                                            categoryIcon={category.categoryIcon}
+                                            categoryIcon={
+                                                category?.categoryIcon
+                                            }
                                         />
                                     </Col>
                                 );
@@ -531,21 +550,23 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {tasks &&
-                            tasks.map((task) => {
-                                return (
-                                    <Col md={6} key={task.id}>
-                                        <TaskCard
-                                            title={task.title}
-                                            charge={task.charge}
-                                            description={task.description}
-                                            location={task.location}
-                                            date={task.date}
-                                            time={task.time}
-                                        />
-                                    </Col>
-                                );
-                            })}
+                        {recommendedTasks?.result?.map(
+                            (task: any, key: any) => (
+                                <Col sm="12" key={key}>
+                                    <TaskCard
+                                        title={task?.title}
+                                        id={task?.id}
+                                        charge={task?.charge}
+                                        description={task?.description}
+                                        location={task?.location}
+                                        start_date={task?.start_date}
+                                        start_time={task?.start_time}
+                                        status={task?.status}
+                                        currency={task?.currency}
+                                    />
+                                </Col>
+                            )
+                        )}
                     </Row>
                 </Container>
             </section>
@@ -563,7 +584,12 @@ const Home: NextPage<{
                         </h1>
                         <h3 className="text-center">Some Success Stories</h3>
                     </div>
-                    <PersonalSuccessCard successStoryData={successStoryData} />
+                    {successStoryData?.result?.slice(0, 1).map((value, key) => (
+                        <PersonalSuccessCard
+                            successStoryData={value}
+                            key={key}
+                        />
+                    ))}
                 </Container>
             </section>
 

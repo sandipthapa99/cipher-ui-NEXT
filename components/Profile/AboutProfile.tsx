@@ -7,16 +7,20 @@ import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import type { RatingResponse } from "hooks/rating/getRating";
 import { useGetTaskerRating } from "hooks/rating/getRating";
+import { useSearchRating } from "hooks/rating/getSearchedRating";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import type { UserProfileProps } from "types/userProfileProps";
-import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
-import { HomeSearchdata } from "utils/homeSearchData";
-import { personType, reviewType } from "utils/options";
+import { reviewSearchData } from "utils/formData";
+import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
+import { isSubmittingClass } from "utils/helpers";
+import { reviewType } from "utils/options";
 
 import AddPortfolio from "./AddPortfolio";
 import CertificationForm from "./CertificationForm";
@@ -34,12 +38,21 @@ const AboutProfile = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [modalName, setModalName] = useState("");
     const [id, setId] = useState<number | undefined>();
+    const [search, setSearch] = useState<string | undefined>("-rating");
+
     // const [uuid, setUUID] = useState<number | undefined>();
     //tasker rating data
-    const { data: taskerRating, error } = useGetTaskerRating();
+    //   const { data: taskerRating, error } = useGetTaskerRating();
     const queryClient = useQueryClient();
-    const data = queryClient.getQueryData(["tasker-rating"]);
-    console.log("user rating=", taskerRating);
+    // user profile certification data
+    const { data: taskerRating } = useData<RatingResponse>(
+        ["tasker-rating"],
+        "/task/rating/"
+    );
+    const { mutate: searchMutation, data: filteredData } =
+        useSearchRating<RatingResponse>(`/task/rating/?ordering=${search}`);
+    console.log("filterd reviw", filteredData?.result);
+
     //user profile certification data
     const { data: certificationData } = useData<
         UserProfileProps["certificationData"]
@@ -532,7 +545,7 @@ const AboutProfile = () => {
                             </Col>
                             <Col md={6}>
                                 <Row className="select-field">
-                                    <Col md={6}>
+                                    {/* <Col md={6}>
                                         <Formik
                                             initialValues={HomeSearchdata}
                                             validationSchema={HomeSearchSchema}
@@ -544,25 +557,149 @@ const AboutProfile = () => {
                                                 name="review"
                                                 options={personType}
                                                 fieldRequired
+                                                type="submit"
                                                 placeHolder="Tasker"
+                                                // onChange={(e: any) => {
+                                                //     {
+                                                //         setOrder(
+                                                //             e?.target?.value
+                                                //         );
+                                                //         searchMutation(order, {
+                                                //             onSuccess:
+                                                //                 async () => {
+                                                //                     console.log(
+                                                //                         "submitted values",
+                                                //                         order
+                                                //                     );
+
+                                                //                     queryClient.invalidateQueries(
+                                                //                         [
+                                                //                             "tasker-rating",
+                                                //                         ]
+                                                //                     );
+                                                //                 },
+                                                //             onError: async (
+                                                //                 error
+                                                //             ) => {
+                                                //                 console.log(
+                                                //                     "error=",
+                                                //                     error
+                                                //                 );
+                                                //             },
+                                                //         });
+                                                //     }
+                                                // }}
                                             />
                                         </Formik>
-                                    </Col>
+                                    </Col> */}
                                     <Col md={6}>
                                         <Formik
-                                            initialValues={HomeSearchdata}
-                                            validationSchema={HomeSearchSchema}
+                                            initialValues={reviewSearchData}
+                                            validationSchema={
+                                                ReviewSearchSchema
+                                            }
                                             onSubmit={async (values) => {
                                                 console.log(values);
                                             }}
                                         >
-                                            <SelectInputField
-                                                name="review"
-                                                options={reviewType}
-                                                placeholder="Most Relevant"
-                                                fieldRequired
-                                                placeHolder="Most Relevant"
-                                            />
+                                            {({
+                                                isSubmitting,
+                                                errors,
+                                                values,
+                                                touched,
+                                            }) => (
+                                                <Form
+                                                    onChange={(e: any) => {
+                                                        setSearch(
+                                                            e.target.value
+                                                        );
+                                                        console.log(
+                                                            "values0,",
+                                                            e.target.value
+                                                        );
+                                                        searchMutation(search, {
+                                                            onSuccess:
+                                                                async () => {
+                                                                    console.log(
+                                                                        "submitted values",
+                                                                        search
+                                                                    );
+
+                                                                    queryClient.invalidateQueries(
+                                                                        [
+                                                                            "tasker-rating",
+                                                                        ]
+                                                                    );
+                                                                },
+                                                            onError: async (
+                                                                error
+                                                            ) => {
+                                                                // console.log(
+                                                                //     "error=",
+                                                                //     error
+                                                                // );
+                                                            },
+                                                        });
+                                                    }}
+                                                >
+                                                    <Form.Select aria-label="Default select example">
+                                                        <option value="-updated_at">
+                                                            Most Relevant
+                                                        </option>
+                                                        <option value="-updated_at">
+                                                            Latest
+                                                        </option>
+                                                        <option value="-rating">
+                                                            Top
+                                                        </option>
+                                                    </Form.Select>
+                                                    {/* <SelectInputField
+                                                        name="search_value"
+                                                        options={reviewType}
+                                                        fieldRequired
+                                                        placeHolder="Most Relevant"
+                                                        // value={
+                                                        //     values.search_category
+                                                        // }
+                                                        onChange={(e: any) => {
+                                                            setSearch(
+                                                                values.search_value
+                                                            );
+                                                            console.log(
+                                                                "values0,",
+                                                                values.search_value
+                                                            );
+                                                            searchMutation(
+                                                                search,
+                                                                {
+                                                                    onSuccess:
+                                                                        async () => {
+                                                                            console.log(
+                                                                                "submitted values",
+                                                                                search
+                                                                            );
+
+                                                                            queryClient.invalidateQueries(
+                                                                                [
+                                                                                    "tasker-rating",
+                                                                                ]
+                                                                            );
+                                                                        },
+                                                                    onError:
+                                                                        async (
+                                                                            error
+                                                                        ) => {
+                                                                            // console.log(
+                                                                            //     "error=",
+                                                                            //     error
+                                                                            // );
+                                                                        },
+                                                                }
+                                                            );
+                                                        }}
+                                                    /> */}
+                                                </Form>
+                                            )}
                                         </Formik>
                                     </Col>
                                 </Row>
@@ -572,21 +709,38 @@ const AboutProfile = () => {
 
                     <div className="review-container">
                         <Row className="gx-5 type">
-                            {taskerRating &&
-                                taskerRating?.result?.map((review) => (
-                                    <Col md={8} key={review.id}>
-                                        <Reviews
-                                            name={review.rated_by.full_name}
-                                            raterEmail={review.rated_by.email}
-                                            ratings={review.rating}
-                                            description={review.review}
-                                            time={review.updated_at}
-                                            raterId={review.rated_by.id}
+                            {filteredData
+                                ? filteredData &&
+                                  filteredData?.result?.map((review) => (
+                                      <Col md={8} key={review.id}>
+                                          <Reviews
+                                              name={review.rated_by.full_name}
+                                              raterEmail={review.rated_by.email}
+                                              ratings={review.rating}
+                                              description={review.review}
+                                              time={review.updated_at}
+                                              raterId={review.rated_by.id}
 
-                                            // image={review.image}
-                                        />
-                                    </Col>
-                                ))}
+                                              // image={review.image}
+                                          />
+                                      </Col>
+                                  ))
+                                : taskerRating &&
+                                  taskerRating?.data?.result?.map((review) => (
+                                      <Col md={8} key={review.id}>
+                                          <Reviews
+                                              name={review.rated_by.full_name}
+                                              raterEmail={review.rated_by.email}
+                                              ratings={review.rating}
+                                              description={review.review}
+                                              time={review.updated_at}
+                                              raterId={review.rated_by.id}
+
+                                              // image={review.image}
+                                          />
+                                      </Col>
+                                  ))}
+
                             <Link href="#!">See all reviews</Link>
                         </Row>
                     </div>

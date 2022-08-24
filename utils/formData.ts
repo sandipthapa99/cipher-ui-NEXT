@@ -64,6 +64,14 @@ export const ExperienceFormData: ExperienceValueProps = {
     id: 0,
 };
 
+interface filterReviewProps {
+    search_value: string;
+}
+//review
+export const reviewSearchData: filterReviewProps = {
+    search_value: "-latest",
+};
+
 export const AddPortfolioFormData: AddPortfolioProps = {
     title: "",
     description: "",

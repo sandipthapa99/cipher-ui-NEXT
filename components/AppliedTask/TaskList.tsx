@@ -33,7 +33,11 @@ const TaskList = ({ task }: { task: TaskList }) => {
                     <figure>
                         {bookNowDetails.image ? (
                             <Image
-                                src={bookNowDetails.image}
+                                src={
+                                    Array.isArray(bookNowDetails.image)
+                                        ? bookNowDetails.image[0].image
+                                        : bookNowDetails.image
+                                }
                                 alt="task-img"
                                 layout="fill"
                             />

@@ -1,16 +1,16 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import CategoryCard from "@components/common/CategoryCard";
 import DiscountCard from "@components/common/discountCard";
 import RecommendationChips from "@components/common/RecommendationChips";
 import ServiceCard from "@components/common/ServiceCard";
 import Layout from "@components/Layout";
+import { ServiceCategories } from "@components/services/ServiceCategories";
 import { faSearch } from "@fortawesome/pro-light-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { serviceCategory } from "staticData/serviceCategory";
 import type { ServicesValueProps } from "types/serviceCard";
 
 const ExploreServices: NextPage = () => {
@@ -18,6 +18,17 @@ const ExploreServices: NextPage = () => {
         ["all-services"],
         "/task/service/"
     );
+    const [chips, setChips] = useState([
+        "Garden Cleaner",
+        "Plumber",
+        "Electrician",
+        "Washing Machine",
+    ]);
+    const removeChip = (chip: string) => {
+        setChips((prevChips) =>
+            prevChips.filter((currentChip) => chip !== currentChip)
+        );
+    };
     return (
         <Layout title="Explore Services | Cipher">
             <Container fluid="xl" className="px-0 px-sm-5">
@@ -56,11 +67,17 @@ const ExploreServices: NextPage = () => {
                                         />
                                     </button>
                                 </div>
-                                <div className="recommendation">
-                                    <RecommendationChips title="Garden Cleaner" />
-                                    <RecommendationChips title="Plumber" />
-                                    <RecommendationChips title="Electrician" />
-                                </div>
+                                {chips.length > 0 && (
+                                    <div className="recommendation d-md-flex d-none">
+                                        {chips.map((chip, key) => (
+                                            <RecommendationChips
+                                                title={chip}
+                                                onChipRemove={removeChip}
+                                                key={key}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -203,50 +220,7 @@ const ExploreServices: NextPage = () => {
                     <h1 className="section-main-title">
                         Our services by category
                     </h1>
-                    <Row className="gx-5">
-                        {serviceCategory &&
-                            serviceCategory.map((category) => {
-                                return (
-                                    <Col
-                                        xs={12}
-                                        sm={6}
-                                        md={4}
-                                        lg={2}
-                                        key={category.id}
-                                        className="d-flex"
-                                    >
-                                        <CategoryCard
-                                            categoryTitle={
-                                                category.categoryTitle
-                                            }
-                                            categoryIcon={category.categoryIcon}
-                                        />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
-                    <Row className="gx-5">
-                        {serviceCategory &&
-                            serviceCategory.map((category) => {
-                                return (
-                                    <Col
-                                        xs={12}
-                                        sm={6}
-                                        md={4}
-                                        lg={2}
-                                        key={category.id}
-                                        className="d-flex"
-                                    >
-                                        <CategoryCard
-                                            categoryTitle={
-                                                category.categoryTitle
-                                            }
-                                            categoryIcon={category.categoryIcon}
-                                        />
-                                    </Col>
-                                );
-                            })}
-                    </Row>
+                    <ServiceCategories />
                     {/* Service category listing end */}
                 </Container>
             </section>

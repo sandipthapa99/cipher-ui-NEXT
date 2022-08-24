@@ -34,9 +34,9 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     if (isLoading || !data) return <FullPageLoader />;
     return (
         <Layout title="Find Services | Cipher">
-            <Container>
+            <Container fluid="xl">
                 <SearchCategory onChange={setQuery} />
-                <ServiceAside query={query} appliedTasks={filteredTasks}>
+                <ServiceAside query={query} service={filteredTasks}>
                     {children}
                 </ServiceAside>
             </Container>

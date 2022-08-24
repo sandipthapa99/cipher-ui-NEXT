@@ -1,25 +1,20 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import CategoryCard from "@components/common/CategoryCard";
+import FullPageLoader from "@components/common/FullPageLoader";
 import MerchantCard from "@components/common/MerchantCard";
-import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import Layout from "@components/Layout";
-import { useData } from "hooks/use-data";
+import { ServiceCategories } from "@components/services/ServiceCategories";
+import { useTasks } from "hooks/apply-task/useTask";
 import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import { merchants } from "staticData/merchants";
-import { serviceCategory } from "staticData/serviceCategory";
 import { tasks } from "staticData/task";
-import type { ServicesValueProps } from "types/serviceCard";
-
 const Gardening = () => {
     const router = useRouter();
     const { categories } = router.query;
-
-    const { data: servicesData } = useData<ServicesValueProps>(
-        ["all-services"],
-        "/task/service/"
-    );
+    //for tasks
+    const { data: recommendedTasks, isLoading } = useTasks();
+    if (isLoading || !recommendedTasks) return <FullPageLoader />;
 
     return (
         <Layout title={`${categories} | Cipher`}>
@@ -32,20 +27,7 @@ const Gardening = () => {
                         <h1 className="heading-title mt-5">
                             {`${categories} Services Near You`}
                         </h1>
-                        <Row className="gx-5">
-                            {servicesData &&
-                                servicesData?.data?.result?.map(
-                                    (service, key) => {
-                                        return (
-                                            <Col sm={6} md={4} lg={3} key={key}>
-                                                <ServiceCard
-                                                    serviceCard={service}
-                                                />
-                                            </Col>
-                                        );
-                                    }
-                                )}
-                        </Row>
+                        <ServiceCategories />
                     </section>
 
                     <section className="tasks-near-you">
@@ -53,21 +35,23 @@ const Gardening = () => {
                             {`  ${categories} Tasks Near You`}
                         </h1>
                         <Row className="gx-5">
-                            {tasks &&
-                                tasks.map((task) => {
-                                    return (
-                                        <Col md={6} key={task.id}>
-                                            <TaskCard
-                                                title={task.title}
-                                                charge={task.charge}
-                                                description={task.description}
-                                                location={task.location}
-                                                date={task.date}
-                                                time={task.time}
-                                            />
-                                        </Col>
-                                    );
-                                })}
+                            {recommendedTasks?.result?.map(
+                                (task: any, key: any) => (
+                                    <Col sm="12" key={key}>
+                                        <TaskCard
+                                            title={task?.title}
+                                            id={task?.id}
+                                            charge={task?.charge}
+                                            description={task?.description}
+                                            location={task?.location}
+                                            start_date={task?.start_date}
+                                            start_time={task?.start_time}
+                                            status={task?.status}
+                                            currency={task?.currency}
+                                        />
+                                    </Col>
+                                )
+                            )}
                         </Row>
                     </section>
 
@@ -123,50 +107,7 @@ const Gardening = () => {
                         <h1 className="section-main-title">
                             Explore Categories
                         </h1>
-                        <Row className="gx-5">
-                            {serviceCategory &&
-                                serviceCategory.map((category) => {
-                                    return (
-                                        <Col
-                                            xs={6}
-                                            sm={4}
-                                            lg={2}
-                                            key={category.id}
-                                        >
-                                            <CategoryCard
-                                                categoryTitle={
-                                                    category.categoryTitle
-                                                }
-                                                categoryIcon={
-                                                    category.categoryIcon
-                                                }
-                                            />
-                                        </Col>
-                                    );
-                                })}
-                        </Row>
-                        <Row className="gx-5">
-                            {serviceCategory &&
-                                serviceCategory.map((category) => {
-                                    return (
-                                        <Col
-                                            xs={6}
-                                            sm={4}
-                                            lg={2}
-                                            key={category.id}
-                                        >
-                                            <CategoryCard
-                                                categoryTitle={
-                                                    category.categoryTitle
-                                                }
-                                                categoryIcon={
-                                                    category.categoryIcon
-                                                }
-                                            />
-                                        </Col>
-                                    );
-                                })}
-                        </Row>
+                        <ServiceCategories />
                         {/* Service category listing end */}
                     </Container>
                 </section>

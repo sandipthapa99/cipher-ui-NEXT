@@ -9,6 +9,7 @@ import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQuery } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
@@ -77,7 +78,7 @@ const AccountForm = () => {
 
     const currencyResults = currency?.result.map((result) => ({
         label: result.name,
-        value: result.current_value,
+        value: result.id,
         id: result.id,
     }));
     const languageResults = language?.result.map((result) => ({

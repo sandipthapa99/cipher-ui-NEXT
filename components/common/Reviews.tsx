@@ -1,25 +1,25 @@
-import { useQueryClient } from "@tanstack/react-query";
-import format from "date-fns/esm/fp/format/index.js";
+import { formatDistanceToNow, parseISO } from "date-fns";
 import { useGetProfileById } from "hooks/profile/getProfileById";
-import moment from "moment";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
 import type { ReviewsProps } from "types/reviews";
 const Reviews = ({
     name,
     ratings,
-    image,
     description,
     raterEmail,
     time,
     raterId,
 }: ReviewsProps) => {
-    console.log("incoming time =", time);
-    const timeago = moment(time).fromNow();
-    console.log("timeago", timeago);
-    const { data: profileDetails, error } = useGetProfileById(raterId);
+    const timeago = () => {
+        try {
+            return formatDistanceToNow(parseISO(time), { addSuffix: true });
+        } catch (error) {
+            return "a while ago";
+        }
+    };
+    const { data: profileDetails } = useGetProfileById(raterId);
 
-    console.log("user data=", profileDetails);
     const userImage = profileDetails?.profile_image;
     return (
         <>
@@ -75,12 +75,12 @@ const Reviews = ({
                                             </span>
                                         )
                                     )}
+                                    <p>{ratings}</p>
                                 </div>
-                                <p>{ratings}</p>
                             </div>
 
                             <p className="description">{description}</p>
-                            <p className="time">{timeago}</p>
+                            <p className="time">{timeago()}</p>
                         </div>
                     </Col>
                 </Row>
