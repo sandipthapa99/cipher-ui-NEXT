@@ -71,8 +71,8 @@ const TaskCard = ({
                             icon={faClockEight}
                             className="svg-icon"
                         />
-                        {format(new Date(formattedtime), "hh:mm")}&nbsp;
-                        {parseInt(starttime[1]) > 12 ? "PM" : "AM"}
+                        {/* {format(new Date(formattedtime), "hh:mm")}&nbsp;
+                        {parseInt(starttime[1]) > 12 ? "PM" : "AM"} */}
                     </div>
                 </div>
             </div>

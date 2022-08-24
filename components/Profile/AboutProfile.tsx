@@ -8,8 +8,6 @@ import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { RatingResponse } from "hooks/rating/getRating";
-import { useGetTaskerRating } from "hooks/rating/getRating";
-import { useSearchRating } from "hooks/rating/getSearchedRating";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
@@ -632,12 +630,12 @@ const AboutProfile = () => {
                                 taskerRating?.data?.result?.map((review) => (
                                     <Col md={8} key={review.id}>
                                         <Reviews
-                                            name={review.rated_by.full_name}
-                                            raterEmail={review.rated_by.email}
-                                            ratings={review.rating}
-                                            description={review.review}
-                                            time={review.updated_at}
-                                            raterId={review.rated_by.id}
+                                            name={review?.rated_by.full_name}
+                                            raterEmail={review?.rated_by.email}
+                                            ratings={review?.rating}
+                                            description={review?.review}
+                                            time={review?.updated_at}
+                                            raterId={review?.rated_by.id}
 
                                             // image={review.image}
                                         />

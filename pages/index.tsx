@@ -43,6 +43,8 @@ import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { SuccessStoryProps } from "types/successStory";
+import type { ITaskApiResponse } from "types/task";
+import type { RecommendedTaskCardProps } from "types/taskCard";
 import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
@@ -62,6 +64,13 @@ const Home: NextPage<{
         "/task/service/"
     );
 
+    //for tasks
+
+    const { data: recommendedTasksData } = useData<ITaskApiResponse>(
+        ["all-tasks"],
+        "/task/"
+    );
+    console.log("recoomm tasks", recommendedTasksData);
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -79,9 +88,6 @@ const Home: NextPage<{
         setPostTaskPopup(false);
     };
     const router = useRouter();
-    //for tasks
-    const { data: recommendedTasks, isLoading } = useTasks();
-    if (isLoading || !recommendedTasks) return <FullPageLoader />;
 
     return (
         <Layout title="Cipher - Catering to Your Requirements">
@@ -550,9 +556,9 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {recommendedTasks?.result?.map(
+                        {recommendedTasksData?.data?.result?.map(
                             (task: any, key: any) => (
-                                <Col sm="12" key={key}>
+                                <Col md={6} key={key}>
                                     <TaskCard
                                         title={task?.title}
                                         id={task?.id}
@@ -752,13 +758,16 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: trustedPartnerData } = await axiosClient.get(
             "/landingpage/trusted-partner/"
         );
+        const { data: recommendedTasksData } = await axiosClient.get("/task");
         const queryClient = new QueryClient();
         await queryClient.prefetchQuery(["all-blogs"]);
         await queryClient.prefetchQuery(["all-services"]);
+        await queryClient.prefetchQuery(["all-tasks"]);
         return {
             props: {
                 successStoryData: successStoryData,
                 trustedPartnerData: trustedPartnerData,
+                recommendedTasksData: recommendedTasksData,
                 dehydratedState: dehydrate(queryClient),
             },
             revalidate: 10,
@@ -770,6 +779,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 trustedPartnerData: [],
                 blogData: [],
                 servicesData: [],
+                recommendedTasksData: [],
             },
             revalidate: 10,
         };
