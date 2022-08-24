@@ -115,10 +115,10 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                                 activeIndex={activeTabIdx}
                                 onTabClick={setActiveTabIdx}
                                 items={[
-                                    {
-                                        title: "About",
-                                        content: <AboutProfile />,
-                                    },
+                                    // {
+                                    //     title: "About",
+                                    //     content: <AboutProfile />,
+                                    // },
                                     {
                                         title: "Tasks",
                                         content: <TasksProfileCard />,
