@@ -133,7 +133,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         console.log(err);
         return {
             props: {
-                blog: { hello: "sdfsdf  " },
+                blog: {},
             },
             revalidate: 10,
         };
