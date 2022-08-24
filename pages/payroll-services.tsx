@@ -126,7 +126,6 @@ const PayrollServices: NextPage = () => {
                                 title="CIPHER provides a hassle free payroll service for all your employees who is working through CIPHER "
                                 subTitle="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500. "
                                 image="/discover/main.svg"
-                                
                             />
                         </div>
                     </Container>
