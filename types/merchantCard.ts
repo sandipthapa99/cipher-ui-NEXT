@@ -4,8 +4,8 @@ export interface MerchantCardProps {
     merchantCategory: string;
     merchantLocation: string;
     merchantDescription: string;
-    merchantRating: string;
-    merchantPrice: number;
+    merchantRating: number | string;
+    merchantPrice: string | number;
     happyClients: number;
     successRate: number;
     liked?: boolean;
