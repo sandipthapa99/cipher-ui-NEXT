@@ -1,42 +1,18 @@
 import { format } from "date-fns";
-import { useGetProfile } from "hooks/profile/useGetProfile";
-import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import type { TaskerDetail } from "types/tasks";
-import type { UserProfileProps } from "types/userProfileProps";
 
-export const AboutTasker = ({ taskerDetail }: TaskerDetail) => {
-    //user profile certification data
-    const { data: certificationData } = useData<
-        UserProfileProps["certificationData"]
-    >(["tasker-certification"], "/tasker/certification/");
+interface AboutTasker {
+    taskerDetail: TaskerDetail;
+}
 
-    //user profile education data
-    const { data: educationData } = useData<UserProfileProps["educationData"]>(
-        ["tasker-education"],
-        "/tasker/education/"
-    );
-
-    //user profile experience data
-    const { data: experienceData } = useData<
-        UserProfileProps["experienceData"]
-    >(["tasker-experience"], "/tasker/experience/");
-
-    //user profile experience data
-    const { data: portfolioData } = useData<UserProfileProps["portfolioData"]>(
-        ["tasker-portfolio"],
-        "/tasker/portfolio/"
-    );
-
-    console.log("education data .......about tasker", educationData);
-
-    const { data: profileDetails } = useGetProfile();
-
-    console.log("profile=", profileDetails);
-    const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
+export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
+    const userSkills = taskerDetail?.skill
+        ? JSON.parse(taskerDetail?.skill)
+        : [];
 
     return (
         <>
@@ -186,8 +162,8 @@ export const AboutTasker = ({ taskerDetail }: TaskerDetail) => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {educationData
-                                    ? educationData?.data.result.map(
+                                {taskerDetail?.education
+                                    ? taskerDetail?.education?.map(
                                           (value: any, key: number) => (
                                               <div
                                                   className="education__type"
@@ -236,9 +212,9 @@ export const AboutTasker = ({ taskerDetail }: TaskerDetail) => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {certificationData
-                                    ? certificationData?.data.result?.map(
-                                          (value, key) => (
+                                {taskerDetail?.certificates
+                                    ? taskerDetail?.certificates?.map(
+                                          (value: any, key: any) => (
                                               <div
                                                   className="certification__type"
                                                   key={key}

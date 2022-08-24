@@ -48,10 +48,7 @@ const UserTaskDetail = ({
                 activeTaskId={activeTaskId}
             />
             <UserShortIntro user={taskerDetail} />
-            <UserTaskDetailTabs
-                activeTaskerId={activeTaskId}
-                taskerDetail={taskerDetail}
-            />
+            <UserTaskDetailTabs taskerDetail={taskerDetail} />
             <UserTaskReviews />
         </div>
     );
