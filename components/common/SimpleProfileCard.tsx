@@ -45,9 +45,7 @@ const SimpleProfileCard = ({
 
                 <div className="intro">
                     <p className="name">{name}</p>
-                    <p className="job">
-                        {speciality ? speciality : "Gardener"}
-                    </p>
+                    <p className="job">{speciality}</p>
                 </div>
             </div>
 

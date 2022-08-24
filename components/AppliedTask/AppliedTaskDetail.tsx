@@ -126,14 +126,14 @@ const AppliedTaskDetail: NextPage = () => {
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         <SimpleProfileCard
-                            image={taskDetail?.image}
-                            speciality={taskDetail?.category}
+                            image={taskDetail?.assigner?.profile_image}
+                            speciality={taskDetail?.category?.name}
                             startingPrice={taskDetail?.budget_from}
                             endPrice={taskDetail?.budget_to}
-                            isApplied={true}
+                            isApplied={false}
                             isPermission={false}
                             currency={taskDetail?.currency}
-                            name={taskDetail?.assigner}
+                            name={taskDetail?.assigner?.full_name}
                         />
                     </Col>
                 </Row>
