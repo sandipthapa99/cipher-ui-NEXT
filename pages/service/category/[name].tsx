@@ -4,7 +4,7 @@ import Layout from "@components/Layout";
 import { Box, Text, Title } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import React, { Fragment } from "react";
+import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { ServiceCardResult } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
