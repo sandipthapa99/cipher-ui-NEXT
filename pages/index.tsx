@@ -1,3 +1,4 @@
+import Advertisement from "@components/Advertisement/Advertisement";
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
 import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
 import { TopCategories } from "@components/Category/TopCategories";
@@ -59,6 +60,7 @@ const Home: NextPage<{
         ["all-services"],
         "/task/service/"
     );
+    console.log(servicesData);
 
     //for tasks
 
@@ -143,6 +145,7 @@ const Home: NextPage<{
                                     ))}
                                 </div>
                             )}
+
                             <div className="come-with-us">
                                 <h1>Join CIPHER for</h1>
                                 <div className="d-flex buttons">
@@ -172,6 +175,7 @@ const Home: NextPage<{
                         </Col>
                     </Row>
                     {/* Service category listing start */}
+
                     <Row className="gx-5 hero-category">
                         <Carousel
                             height={100}
@@ -261,6 +265,7 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.data?.result?.map((service, key) => {
@@ -276,6 +281,9 @@ const Home: NextPage<{
                                     </Col>
                                 );
                             })}
+                    </Row>
+                    <Row>
+                        <Advertisement />
                     </Row>
                 </Container>
             </section>
