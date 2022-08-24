@@ -1,6 +1,5 @@
 import DeleteModal from "@components/common/DeleteModal";
 import Reviews from "@components/common/Reviews";
-import SelectInputField from "@components/common/SelectInputField";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
@@ -10,14 +9,12 @@ import type { RatingResponse } from "hooks/rating/getRating";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useMemo, useState } from "react";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import type { UserProfileProps } from "types/userProfileProps";
 import { reviewSearchData } from "utils/formData";
 import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
-import { isSubmittingClass } from "utils/helpers";
-import { reviewType } from "utils/options";
 
 import AddPortfolio from "./AddPortfolio";
 import CertificationForm from "./CertificationForm";
@@ -35,7 +32,7 @@ const AboutProfile = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [modalName, setModalName] = useState("");
     const [id, setId] = useState<number | undefined>();
-    const [search, setSearch] = useState<string | undefined>("-rating");
+    const [search, setSearch] = useState("-rating");
     const [page, setPage] = useState<number>(1);
 
     const { data: taskerRating } = useData<RatingResponse>(
@@ -69,16 +66,16 @@ const AboutProfile = () => {
         "/tasker/portfolio/"
     );
 
-    const handleEdit = useCallback((id: any) => {
+    const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
         setId(id);
-    }, []);
+    };
 
-    const handleDelete = useCallback((id: any, name: string) => {
+    const handleDelete = (id: any, name: string) => {
         setShowDeleteModal(!showDeleteModal);
         setId(id);
         setModalName(name);
-    }, []);
+    };
 
     const { data: profileDetails } = useGetProfile();
 

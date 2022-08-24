@@ -70,7 +70,7 @@ const AffiliateProgram = () => {
                 </section>
                 <section className="affiliate-get-started-section">
                     <h1 className="heading-title">Get started</h1>
-                    <h2>It&apos;s easy to join us</h2>
+                    <h2>It&apos;s easy to </h2>
                     <Row className="gx-5">
                         {affiliateGetStarted &&
                             affiliateGetStarted.map((card) => {
