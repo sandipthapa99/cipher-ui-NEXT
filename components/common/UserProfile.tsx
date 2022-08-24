@@ -47,18 +47,20 @@ const UserProfileCard = ({
     const { data: country } = useGetCountryBYId(countryCode);
 
     const services = moreServices ? JSON.parse(moreServices) : [];
-    const renderServices: string[] | undefined = services?.map(
-        (service: string, index: number) => (
-            <p key={index}>
-                {service}
-                {index < services.length - 2
-                    ? ", "
-                    : index < services.length - 1
-                    ? " and"
-                    : ""}
-            </p>
-        )
-    );
+
+    // const renderServices: string[] | undefined = services?.map(
+    //     (service: string, index: number) => (
+    //         <p key={index}>
+    //             {service}
+    //             {index < services.length - 2
+    //                 ? ", "
+    //                 : index < services.length - 1
+    //                 ? " and"
+    //                 : ""}
+    //         </p>
+    //     )
+    // );
+
     const userType: string[] = userJob ? JSON.parse(userJob) : [];
 
     const renderType = userType.map((type: string, index: number) => {
@@ -216,15 +218,23 @@ const UserProfileCard = ({
                                             icon={faSparkles}
                                             className="thumbnail-img"
                                         />
-                                        <p
-                                            style={{
-                                                display: "flex",
-                                                gap: "0.5rem",
-                                            }}
-                                        >
-                                            {renderServices}
-                                            {/* {moreServices} */}
-                                        </p>
+                                        {services
+                                            ? services.map(
+                                                  (info: any, index: any) => (
+                                                      <p key={index}>
+                                                          &nbsp;{info}
+                                                          {index <
+                                                          services.length - 2
+                                                              ? ", "
+                                                              : index <
+                                                                services.length -
+                                                                    1
+                                                              ? " and"
+                                                              : ""}
+                                                      </p>
+                                                  )
+                                              )
+                                            : "No skills to show. Please add them"}
                                     </div>
                                 </div>
                             </div>
