@@ -26,6 +26,7 @@ import { Carousel } from "@mantine/carousel";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useTasks } from "hooks/apply-task/useTask";
+import { useTaskers } from "hooks/tasker/use-tasker";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
@@ -68,6 +69,11 @@ const Home: NextPage<{
         "Electrician",
         "Washing Machine",
     ]);
+
+    const { data: allTaskers } = useTaskers();
+
+    console.log("all taskers", allTaskers);
+
     const removeChip = (chip: string) => {
         setChips((prevChips) =>
             prevChips.filter((currentChip) => chip !== currentChip)
@@ -463,44 +469,51 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {merchants &&
-                            merchants.map((merchant, index) => {
+                        {allTaskers &&
+                            allTaskers?.slice(0, 4)?.map((merchant, index) => {
                                 return (
                                     <Col
                                         md={6}
                                         lg={3}
                                         sm={6}
                                         xl={3}
-                                        key={merchant.id}
+                                        key={index}
                                         className="d-flex"
                                     >
                                         <MerchantCard
                                             onClick={() =>
                                                 router.push({
-                                                    pathname: `/tasker/${index}`,
+                                                    pathname: `/tasker/${merchant.user.id}`,
                                                 })
                                             }
                                             merchantImage={
-                                                merchant.merchantImage
+                                                merchant?.user?.profile_image
                                             }
-                                            merchantName={merchant.merchantName}
+                                            merchantName={
+                                                merchant?.user?.full_name
+                                            }
                                             merchantCategory={
-                                                merchant.merchantCategory
+                                                merchant?.designation
                                             }
                                             merchantLocation={
-                                                merchant.merchantLocation
+                                                merchant?.address_line1 +
+                                                " " +
+                                                merchant?.address_line2
                                             }
-                                            merchantDescription={
-                                                merchant.merchantDescription
-                                            }
+                                            merchantDescription={merchant?.bio}
                                             merchantRating={
-                                                merchant.merchantRating
+                                                merchant?.stats?.user_reviews
                                             }
                                             merchantPrice={
-                                                merchant.merchantPrice
+                                                merchant?.charge_currency +
+                                                merchant?.hourly_rate
                                             }
-                                            happyClients={merchant.happyClients}
-                                            successRate={merchant.successRate}
+                                            happyClients={
+                                                merchant?.stats?.happy_clients
+                                            }
+                                            successRate={
+                                                merchant?.stats?.success_rate
+                                            }
                                         />
                                     </Col>
                                 );
