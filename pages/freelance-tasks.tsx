@@ -4,14 +4,33 @@ import { SearchInputField } from "@components/common/SearchInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
+import { Alert } from "@mantine/core";
+import { useQuery } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import { freelanceTasksCarousel } from "staticData/freelanceTasks";
-import { topSkillsInNepal } from "staticData/hireInNepal";
 import type { ServicesValueProps } from "types/serviceCard";
+import { axiosClient } from "utils/axiosClient";
 import searchValidationSchema from "utils/formValidation/searchValidation";
+
+export interface TopSkill {
+    id: number;
+    skills: string;
+    country: string;
+}
+const useTopSkills = () => {
+    return useQuery(
+        ["top-skills"],
+        () =>
+            axiosClient
+                .get<{ result: TopSkill[] }>("/task/top-skills")
+                .then((response) => response.data.result),
+        { initialData: [] }
+    );
+};
 const FreelanceTasks: NextPage = () => {
+    const { data: topSkillsInNepal } = useTopSkills();
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
@@ -85,18 +104,18 @@ const FreelanceTasks: NextPage = () => {
                                 );
                             })}
                     </Row>
-
-                    <div className="freelance-tasks__top-skills">
-                        <h1>Top skills in Nepal</h1>
-                        <Row>
-                            {topSkillsInNepal &&
-                                topSkillsInNepal.map((skill) => (
+                    {topSkillsInNepal.length > 0 && (
+                        <div className="freelance-tasks__top-skills">
+                            <h1>Top skills in Nepal</h1>
+                            <Row>
+                                {topSkillsInNepal.map((skill) => (
                                     <Col md={3} sm={6} xs={6} key={skill.id}>
-                                        <p>{skill.name}</p>
+                                        <p>{skill.skills}</p>
                                     </Col>
                                 ))}
-                        </Row>
-                    </div>
+                            </Row>
+                        </div>
+                    )}
                     <div className="freelance-tasks__bottom-container">
                         <LongSquareImageCard
                             title="An employee takes home 10% more with Cipher Payroll"
