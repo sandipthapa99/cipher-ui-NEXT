@@ -4,7 +4,6 @@ import { SearchInputField } from "@components/common/SearchInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import SquareImageCarousel from "@components/common/SquareImageCarousel";
 import Layout from "@components/Layout";
-import { Alert } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";

@@ -62,7 +62,6 @@ export interface ServicesValueProps {
         slug: string;
     }[];
 }
-export type ServiceCardResult = ServicesValueProps["result"][0];
 export interface ServicesPackageProps {
     total_pages: number;
     count: number;
