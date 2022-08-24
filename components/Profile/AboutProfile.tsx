@@ -79,7 +79,9 @@ const AboutProfile = () => {
 
     const { data: profileDetails } = useGetProfile();
 
-    const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
+    const userSkills = Array.isArray(profileDetails)
+        ? JSON.parse(profileDetails?.skill)
+        : [];
     console.log("sjil", userSkills);
     const [hovered, setHovered] = useState<null | number>(null);
 

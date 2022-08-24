@@ -46,7 +46,9 @@ const UserProfileCard = ({
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
 
-    const services = moreServices ? JSON.parse(moreServices) : [];
+    const services = Array.isArray(moreServices)
+        ? JSON.parse(moreServices)
+        : [];
 
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
