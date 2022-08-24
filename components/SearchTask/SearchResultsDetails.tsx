@@ -25,7 +25,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { getAllPackageCard, getReviews } from "services/commonServices";
+import { getReviews } from "services/commonServices";
 import { useSetBookNowDetails } from "store/use-book-now";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
@@ -51,7 +51,6 @@ const SearchResultsDetail = ({
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const setBookNowDetails = useSetBookNowDetails();
-    const PackageCard = getAllPackageCard();
     const reviewsContent = getReviews();
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
@@ -60,7 +59,7 @@ const SearchResultsDetail = ({
     return (
         <>
             <div className="task-detail mb-5 p-5">
-                <Link href="/task">
+                <Link href="/service">
                     <a>
                         <FontAwesomeIcon
                             icon={faChevronLeft}
@@ -271,21 +270,27 @@ const SearchResultsDetail = ({
                         className="pt-4"
                     >
                         {servicePackage &&
-                            servicePackage.map((offer) => (
-                                <Carousel.Slide key={offer.id}>
-                                    <PackageOffersCard
-                                        title={offer.title}
-                                        price={offer.budget.toString()}
-                                        offers={JSON.parse(
-                                            offer.service_offered
-                                        )}
-                                        isRecommended={offer.is_active}
-                                        isPermium={offer.is_active}
-                                        advantage={offer.title}
-                                        isFromAddService={false}
-                                    />
-                                </Carousel.Slide>
-                            ))}
+                            servicePackage.map(
+                                (offer) =>
+                                    offer && (
+                                        <Carousel.Slide key={offer.id}>
+                                            <PackageOffersCard
+                                                title={offer.title}
+                                                price={offer.budget.toString()}
+                                                // offers={
+                                                //     offer.service_offered &&
+                                                //     JSON.parse(
+                                                //         offer?.service_offered
+                                                //     )
+                                                // }
+                                                isRecommended={offer.is_active}
+                                                isPermium={offer.is_active}
+                                                advantage={offer.title}
+                                                isFromAddService={false}
+                                            />
+                                        </Carousel.Slide>
+                                    )
+                            )}
                     </Carousel>
                 </section>
                 <FilterReview totalReviews={reviewsContent.length} />
