@@ -209,10 +209,6 @@ const Home: NextPage<{
                 </Container>
             </section>
 
-            <Row>
-                <Advertisement />
-            </Row>
-
             {postTaskPopup && (
                 <div className="popup-post-task d-md-block d-none">
                     <PostTaskHomepage handleClose={handleClosePosttaskPopup} />
@@ -264,6 +260,7 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.data?.result?.map((service, key) => {
@@ -279,6 +276,9 @@ const Home: NextPage<{
                                     </Col>
                                 );
                             })}
+                    </Row>
+                    <Row>
+                        <Advertisement />
                     </Row>
                 </Container>
             </section>
