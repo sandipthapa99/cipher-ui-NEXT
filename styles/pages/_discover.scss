@@ -7,6 +7,23 @@
     &__top-container {
         padding-top: 2rem;
         position: relative;
+        .gradient-layout {
+            .overlay {
+                padding-top: 5rem;
+                padding-bottom: 5rem;
+                h1 {
+                    padding-right: 4rem;
+                    font-weight: 500;
+
+                    @include respond(md) {
+                        padding-right: 12rem;
+                    }
+                }
+                .bottom-content {
+                    padding-top: 10rem;
+                }
+            }
+        }
     }
 
     &__services-section {

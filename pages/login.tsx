@@ -1,8 +1,9 @@
-import { FacebookLogin } from "@components/auth/FacebookLogin";
-import GoogleLogin from "@components/auth/GoogleLogin";
+// import { FacebookLogin } from "@components/auth/FacebookLogin";
+// import GoogleLogin from "@components/auth/GoogleLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
+import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
@@ -78,8 +79,21 @@ const Login = () => {
                                 <div className="horizontal-line">
                                     <span className="or">OR</span>
                                 </div>
-                                <FacebookLogin />
-                                <GoogleLogin />
+                                <SocialLoginBtn
+                                    name={"Continue with Facebook"}
+                                    icon="/illustrations/fb.svg"
+                                    className="facebook"
+                                    redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/facebook/`}
+                                />
+                                {/* <Google /> */}
+                                <SocialLoginBtn
+                                    name={"Continue with Google"}
+                                    icon="/illustrations/google.svg"
+                                    className="google"
+                                    redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/google-oauth2/`}
+                                />
+                                {/* <FacebookLogin />
+                                <GoogleLogin /> */}
                                 {/* <Google /> */}
                             </Form>
                         )}

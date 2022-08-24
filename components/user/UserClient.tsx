@@ -86,7 +86,7 @@ export const UserClient = () => {
                                 <h4>Popular on Cipher</h4>
                             </Col>
                             <Col md={1}>
-                                <Link href="/">view more</Link>
+                                <Link href="/service">view more</Link>
                             </Col>
                         </Row>
 
@@ -128,7 +128,7 @@ export const UserClient = () => {
                                 <h4>Popular on Cipher</h4>
                             </Col>
                             <Col md={1}>
-                                <Link href="/">view more</Link>
+                                <Link href="/service">view more</Link>
                             </Col>
                         </Row>
                         <ServiceCategories />

@@ -1,9 +1,9 @@
 import { useGetDocument } from "hooks/document/useGetDocument";
+import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { Col, Row } from "react-bootstrap";
-
 const UserDocument = () => {
     // const [fileName, setFileName] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);
@@ -12,27 +12,13 @@ const UserDocument = () => {
     };
     const { data } = useGetDocument();
     const documents = data?.data?.result;
+    // const { data: documents } = useData<DocumentResponse>(
+    //     ["tasker-document"],
+    //     "/tasker/document"
+    // );
+    // console.log("tsa document", documents);
     // const { mutate, isLoading, data: Document } = usePostDocument();
 
-    //upload file
-    // const uploadFile = async (e: any) => {
-    //     if (e.target.files && e.target.files[0]) {
-    //         const i = e.target.files[0].name;
-    //         console.log("i=", i);
-    //         setFileName()
-    //     }
-    //     const fileUploaded = new FormData();
-    //     // fileUploaded.append("file=", file);
-    //     // console.log("file uploaded=", file);
-    //     // mutate(
-    //     //     { file },
-    //     //     {
-    //     //         onSuccess: async () => {
-    //     //             toast.success("hhhhhh");
-    //     //         },
-    //     //     }
-    //     // );
-    // };
     return (
         <div className="user-document">
             <div className="title-wrapper d-flex justify-content-between">
