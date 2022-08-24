@@ -10,6 +10,7 @@ const Reviews = ({
     raterEmail,
     time,
     raterId,
+    image,
 }: ReviewsProps) => {
     const timeago = () => {
         try {
@@ -20,7 +21,7 @@ const Reviews = ({
     };
     const { data: profileDetails } = useGetProfileById(raterId);
 
-    const userImage = profileDetails?.profile_image;
+    //  const userImage = profileDetails?.profile_image;
     return (
         <>
             <div>
@@ -29,8 +30,8 @@ const Reviews = ({
                         <figure className="thumbnail-img">
                             <Image
                                 src={
-                                    userImage
-                                        ? userImage
+                                    image
+                                        ? image
                                         : "/userprofile/unknownPerson.jpg"
                                 }
                                 layout="fill"

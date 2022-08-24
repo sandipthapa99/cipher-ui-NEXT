@@ -83,7 +83,7 @@ const AboutProfile = () => {
     const { data: profileDetails } = useGetProfile();
 
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
-
+    console.log("sjil", userSkills);
     const [hovered, setHovered] = useState<null | number>(null);
 
     return (
@@ -108,7 +108,7 @@ const AboutProfile = () => {
                     />
 
                     <div className="content">
-                        {portfolioData
+                        {!portfolioData?.data?.result
                             ? portfolioData?.data?.result?.map((info: any) => (
                                   <div className="image" key={info?.id}>
                                       <Row className="gx-5">
@@ -163,7 +163,7 @@ const AboutProfile = () => {
                                       </p>
                                   </div>
                               ))
-                            : "Looks like you have no Portfolio data"}
+                            : "Add your Portfolio."}
                     </div>
                 </div>
                 <div className="type experience">
@@ -185,7 +185,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {experienceData
+                                {!experienceData?.data?.result
                                     ? experienceData?.data?.result?.map(
                                           (value) => {
                                               return (
@@ -276,7 +276,7 @@ const AboutProfile = () => {
                                               );
                                           }
                                       )
-                                    : "Looks like you have no Experience Data"}
+                                    : "Add your Experience details."}
                             </div>
                         </Col>
                     </Row>
@@ -302,11 +302,13 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {userSkills.map((info: any, i: any) => (
-                                    <div className="skills__type" key={i}>
-                                        {info}
-                                    </div>
-                                ))}
+                                {userSkills
+                                    ? userSkills.map((info: any, i: any) => (
+                                          <div className="skills__type" key={i}>
+                                              {info}
+                                          </div>
+                                      ))
+                                    : "No skills to show. Please add them"}
                             </div>
                         </Col>
                     </Row>
@@ -332,7 +334,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {educationData
+                                {!educationData?.data?.result
                                     ? educationData?.data.result.map(
                                           (value: any) => (
                                               <div
@@ -408,7 +410,7 @@ const AboutProfile = () => {
                                               </div>
                                           )
                                       )
-                                    : "Looks like you have no Education Data"}
+                                    : "Add your Education details."}
                             </div>
                         </Col>
                     </Row>
@@ -438,7 +440,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {certificationData
+                                {!certificationData?.data?.result
                                     ? certificationData?.data.result?.map(
                                           (value) => (
                                               <div
@@ -524,7 +526,7 @@ const AboutProfile = () => {
                                               </div>
                                           )
                                       )
-                                    : "Looks like you have no certificates"}
+                                    : "Add your certificate details."}
                             </div>
                         </Col>
                     </Row>
@@ -635,7 +637,9 @@ const AboutProfile = () => {
                                             description={review?.review}
                                             time={review?.updated_at}
                                             raterId={review?.rated_by.id}
-
+                                            image={
+                                                review?.rated_by.profile_image
+                                            }
                                             // image={review.image}
                                         />
                                     </Col>

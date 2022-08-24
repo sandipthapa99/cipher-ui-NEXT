@@ -4,33 +4,35 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { Col, Row } from "react-bootstrap";
+import type { UserProfileProps } from "types/userProfileProps";
+
 const UserDocument = () => {
     // const [fileName, setFileName] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);
     const onButtonClick = () => {
         inputRef?.current?.click();
     };
-    const { data } = useGetDocument();
-    const documents = data?.data?.result;
-    // const { data: documents } = useData<DocumentResponse>(
-    //     ["tasker-document"],
-    //     "/tasker/document"
-    // );
-    // console.log("tsa document", documents);
+    // const { data } = useGetDocument();
+    // const documents = data?.data?.result;
+    const { data: documents } = useData<UserProfileProps["documentData"]>(
+        ["tasker-document"],
+        "/tasker/kyc-document"
+    );
+    console.log("tsa document", documents);
     // const { mutate, isLoading, data: Document } = usePostDocument();
 
     return (
         <div className="user-document">
             <div className="title-wrapper d-flex justify-content-between">
                 <h1>My Documents</h1>
-                <a href="#!" onClick={() => onButtonClick()}>
+                {/* <a href="#!" onClick={() => onButtonClick()}>
                     Add New
-                </a>
+                </a> */}
             </div>
             <div className="content">
                 <Row>
-                    {documents &&
-                        documents.map((document: any) => (
+                    {documents?.data ? (
+                        documents?.data?.map((document: any) => (
                             <Col
                                 key={document.id}
                                 md={3}
@@ -60,15 +62,19 @@ const UserDocument = () => {
                                             </a>
                                         </Link>
                                     </div>
-                                    <p>
+                                    {/* <p>
                                         {document.file.substring(
                                             document.file.indexOf("document/") +
                                                 9
                                         )}
-                                    </p>
+                                    </p> */}
+                                    <p>{document.document_type}</p>
                                 </div>
                             </Col>
-                        ))}
+                        ))
+                    ) : (
+                        <p>Upload you KYC documents here</p>
+                    )}
                 </Row>
             </div>
             <input
