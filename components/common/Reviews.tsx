@@ -1,5 +1,4 @@
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { useGetProfileById } from "hooks/profile/getProfileById";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
 import type { ReviewsProps } from "types/reviews";
@@ -9,7 +8,7 @@ const Reviews = ({
     description,
     raterEmail,
     time,
-    raterId,
+    image,
 }: ReviewsProps) => {
     const timeago = () => {
         try {
@@ -18,9 +17,7 @@ const Reviews = ({
             return "a while ago";
         }
     };
-    const { data: profileDetails } = useGetProfileById(raterId);
 
-    const userImage = profileDetails?.profile_image;
     return (
         <>
             <div>
@@ -29,8 +26,8 @@ const Reviews = ({
                         <figure className="thumbnail-img">
                             <Image
                                 src={
-                                    userImage
-                                        ? userImage
+                                    image
+                                        ? image
                                         : "/userprofile/unknownPerson.jpg"
                                 }
                                 layout="fill"
