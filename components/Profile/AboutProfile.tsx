@@ -304,7 +304,7 @@ const AboutProfile = () => {
                             handleClose={() => setShowAddSkillsForm(false)}
                         />
                     </div>
-
+                    {/* 
                     <Row>
                         <Col md={9}>
                             <div className="content">
@@ -315,7 +315,7 @@ const AboutProfile = () => {
                                 ))}
                             </div>
                         </Col>
-                    </Row>
+                    </Row> */}
                 </div>
                 <div className="type education">
                     <div className="title-wrapper d-flex justify-content-between">
