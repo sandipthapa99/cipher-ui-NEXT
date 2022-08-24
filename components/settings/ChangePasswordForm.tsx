@@ -14,6 +14,8 @@ import { ChangePasswordFromData } from "utils/formData";
 import changePasswordFormSchema from "utils/formValidation/changePasswordFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
+import { SecurityQuestions } from "./SecurityQuestions";
+
 const ChangePasswordForm = () => {
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useChangePassword();
@@ -111,6 +113,7 @@ const ChangePasswordForm = () => {
                                     className="svg-icon"
                                 />
                             </div>
+
                             <p className="mb-3 d-flex align-content-center">
                                 <Field
                                     type="checkbox"
@@ -123,6 +126,10 @@ const ChangePasswordForm = () => {
                                 Answer a question you choose to confirm it’s
                                 you.
                             </p>
+                            {/* <div>
+                                <SecurityQuestions />
+                            </div> */}
+
                             <div className="d-flex justify-content-end">
                                 <Button
                                     className="me-3 mb-0 cancel-btn"
