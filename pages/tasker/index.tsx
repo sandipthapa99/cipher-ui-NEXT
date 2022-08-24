@@ -1,23 +1,31 @@
 import { MapboxMap } from "@components/common/MapboxMap";
 import Footer from "@components/Footer";
-import Header from "@components/Header";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
-import SearchHeader from "@components/SearchTask/searchHeader";
 import { UserTaskCardList } from "@components/Task/UserTaskCard/UserTaskCardList";
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
-import { Tasker, useTaskers } from "hooks/tasker/use-tasker";
+import { useQuery } from "@tanstack/react-query";
+import type { Tasker } from "hooks/tasker/use-tasker";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { taskDetails } from "staticData/taskDetail";
-import type { Task } from "types/tasks";
+import { axiosClient } from "utils/axiosClient";
 
+const useSearchTaskers = (query: string) => {
+    return useQuery(
+        ["taskers", query],
+        () =>
+            axiosClient
+                .get<{ result: Tasker[] }>(`/tasker?search=${query}`)
+                .then((response) => response.data.result),
+        { initialData: [] }
+    );
+};
 const TaskerPage = () => {
     const router = useRouter();
-    const { data: taskers } = useTaskers();
-    const { redirectedFrom } = router.query;
     const [searchQuery, setSearchQuery] = useState("");
+    const { data: taskers } = useSearchTaskers(searchQuery);
+    const { redirectedFrom } = router.query;
     const [activeTaskIdx, setActiveTaskIdx] = useState<string | undefined>();
 
     const toggleActiveTask = (taskerId: string) => {
@@ -36,18 +44,6 @@ const TaskerPage = () => {
             });
         setActiveTaskIdx(undefined);
     };
-
-    // const filteredTasks = useMemo(
-    //     () =>
-    //         searchQuery
-    //             ? taskers?.result?.filter((task) =>
-    //                   tasker?.user.username
-    //                       .toLowerCase()
-    //                       .includes(searchQuery.toLowerCase())
-    //               )
-    //             : taskers,
-    //     [searchQuery, taskers]
-    // );
     useEffect(() => {
         const { taskerId } = router.query;
         if (taskerId !== undefined && typeof taskerId === "string") {
@@ -62,7 +58,7 @@ const TaskerPage = () => {
                     <Col md={4}>
                         <UserTaskCardList
                             onTaskClick={toggleActiveTask}
-                            taskers={taskers ?? []}
+                            taskers={taskers}
                         />
                     </Col>
                     <Col md={8}>
