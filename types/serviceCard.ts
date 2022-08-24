@@ -62,4 +62,22 @@ export interface ServicesValueProps {
         slug: string;
     }[];
 }
-export type ServiceCardResult = ServicesValueProps["result"][0];
+export interface ServicesPackageProps {
+    total_pages: number;
+    count: number;
+    current: number;
+    next: any;
+    previous: any;
+    page_size: number;
+    result: {
+        id: number;
+        service: ServicesValueProps;
+        title: string;
+        description: string;
+        budget: number;
+        no_of_revision: number;
+        service_offered: string;
+        is_active: boolean;
+        slug: any;
+    }[];
+}

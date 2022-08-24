@@ -74,7 +74,7 @@ export const PublishComponent = ({ handlePrev }: PublishComponentProps) => {
                     </div>
 
                     <h3>Packages &amp; Offers</h3>
-                    <Row className="gx-5 d-flex align-items-stretch">
+                    {/* <Row className="gx-5 d-flex align-items-stretch">
                         {PackageCard &&
                             PackageCard.map((offer) => (
                                 <Col
@@ -95,7 +95,7 @@ export const PublishComponent = ({ handlePrev }: PublishComponentProps) => {
                                     />
                                 </Col>
                             ))}
-                    </Row>
+                    </Row> */}
 
                     <div className="d-flex justify-content-center next-button">
                         <span className="previous-step-button">

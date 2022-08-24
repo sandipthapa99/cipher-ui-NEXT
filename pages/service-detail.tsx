@@ -157,7 +157,7 @@ const ServiceDetail: NextPage = () => {
                                         sm={6}
                                         key={offer.id}
                                     >
-                                        <PackageOffersCard
+                                        {/* <PackageOffersCard
                                             title={offer.title}
                                             price={offer.price.toString()}
                                             offers={offer.offers}
@@ -165,7 +165,7 @@ const ServiceDetail: NextPage = () => {
                                             isPermium={offer.isPermium}
                                             advantage={offer.advantage}
                                             isFromAddService={false}
-                                        />
+                                        /> */}
                                     </Col>
                                 ))}
                         </Row>
