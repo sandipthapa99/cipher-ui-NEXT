@@ -81,5 +81,4 @@ export interface ServicesPackageProps {
         slug: any;
     }[];
 }
-
 export type ServiceCardResult = ServicesValueProps["result"][0];

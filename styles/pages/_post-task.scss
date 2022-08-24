@@ -42,4 +42,10 @@
             margin: 0 0 2.7rem;
         }
     }
+    .task-location-time {
+        padding-right: 0rem;
+        @include respond(lg) {
+            padding-right: 20rem;
+        }
+    }
 }

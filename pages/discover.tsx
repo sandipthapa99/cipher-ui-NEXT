@@ -6,15 +6,17 @@ import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
+import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
+import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { AllCategoryCardContent } from "staticData/categoryCardContent";
 import { merchantAdvice } from "staticData/merchantAdvice";
 import { merchants } from "staticData/merchants";
 import { oppurtunitiesCardContent } from "staticData/oppurtunities";
 import type { ServicesValueProps } from "types/serviceCard";
-
 const Discover: NextPage = () => {
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
@@ -41,7 +43,20 @@ const Discover: NextPage = () => {
                         id="services-near-you"
                         className="discover-page__services-section"
                     >
-                        <h1>Popular On Cipher</h1>
+                        {" "}
+                        <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                            <h1>Popular On Cipher</h1>
+
+                            <Link href="/service">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
+                        </div>
                         <Row className="gx-5 d-flex align-items-stretch">
                             {servicesData &&
                                 servicesData?.data?.result?.map(

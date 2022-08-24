@@ -1,21 +1,23 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import FullPageLoader from "@components/common/FullPageLoader";
 import MerchantCard from "@components/common/MerchantCard";
 import TaskCard from "@components/common/TaskCard";
 import Layout from "@components/Layout";
 import { ServiceCategories } from "@components/services/ServiceCategories";
-import { useTasks } from "hooks/apply-task/useTask";
+import { useData } from "hooks/use-data";
 import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import { merchants } from "staticData/merchants";
-import { tasks } from "staticData/task";
+import type { ITaskApiResponse } from "types/task";
+
 const Gardening = () => {
     const router = useRouter();
     const { categories } = router.query;
     //for tasks
-    const { data: recommendedTasks, isLoading } = useTasks();
-    if (isLoading || !recommendedTasks) return <FullPageLoader />;
 
+    const { data: recommendedTasks } = useData<ITaskApiResponse>(
+        ["all-tasks"],
+        "/task/"
+    );
     return (
         <Layout title={`${categories} | Cipher`}>
             <div className="gardening -page">
@@ -35,7 +37,7 @@ const Gardening = () => {
                             {`  ${categories} Tasks Near You`}
                         </h1>
                         <Row className="gx-5">
-                            {recommendedTasks?.result?.map(
+                            {recommendedTasks?.data?.result?.map(
                                 (task: any, key: any) => (
                                     <Col sm="12" key={key}>
                                         <TaskCard

@@ -49,13 +49,15 @@ const PostTask: NextPage = () => {
                     <div className="post-task__popular-services">
                         <div className="title-wrapper d-flex justify-content-between">
                             <h1 className="heading-title">Popular on Cipher</h1>
-                            <a href="/pages" className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
+                            <Link href="/service">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
                         </div>
                         <Row>
                             {servicesData &&

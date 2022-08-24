@@ -167,11 +167,11 @@ const TaxCalculator: NextPage = () => {
                                         >
                                             {({
                                                 isSubmitting,
-                                                // errors,
+                                                errors,
                                                 resetForm,
                                                 touched,
                                             }) => (
-                                                <Form>
+                                                <Form autoComplete="false">
                                                     <div className="marital-status">
                                                         <div className="label">
                                                             <p>
@@ -202,9 +202,9 @@ const TaxCalculator: NextPage = () => {
                                                                     // error={
                                                                     //     errors.salary
                                                                     // }
-                                                                    touch={
-                                                                        touched.salary
-                                                                    }
+                                                                    // touch={
+                                                                    //     touched.salary
+                                                                    // }
                                                                     placeHolder="Salary"
                                                                 />
                                                             </Col>
@@ -276,9 +276,7 @@ const TaxCalculator: NextPage = () => {
                                                         <InputField
                                                             type="text"
                                                             name="pf"
-                                                            //   error={
-                                                            //     errors.providentFund
-                                                            //}
+                                                            error={errors.pf}
                                                             placeHolder="Provident Fund"
                                                             touch={touched.pf}
                                                             haveIcon={true}
@@ -340,25 +338,22 @@ const TaxCalculator: NextPage = () => {
                                                                 md={12}
                                                                 className="reset-btn"
                                                             >
-                                                                {/* <FormButton
+                                                                <FormButton
                                                                     name="Reset"
                                                                     className="btn close-btn"
                                                                     onClick={() =>
                                                                         resetForm()
                                                                     }
-                                                                /> */}
-                                                                <Button
+                                                                />
+                                                                {/* <Button
                                                                     type="button"
                                                                     className="btn close-btn"
-                                                                    onClick={() => {
+                                                                    onClick={() => 
                                                                         resetForm();
-                                                                        console.log(
-                                                                            "SDfasdf"
-                                                                        );
-                                                                    }}
+                                                                    }
                                                                 >
-                                                                    Cancel
-                                                                </Button>
+                                                                    Reset
+                                                                </Button> */}
                                                             </Col>
                                                             <Col lg={6} md={12}>
                                                                 <FormButton

@@ -1,26 +1,20 @@
 import DeleteModal from "@components/common/DeleteModal";
 import Reviews from "@components/common/Reviews";
-import SelectInputField from "@components/common/SelectInputField";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { RatingResponse } from "hooks/rating/getRating";
-import { useGetTaskerRating } from "hooks/rating/getRating";
-import { useSearchRating } from "hooks/rating/getSearchedRating";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import type { UserProfileProps } from "types/userProfileProps";
 import { reviewSearchData } from "utils/formData";
 import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
-import { isSubmittingClass } from "utils/helpers";
-import { reviewType } from "utils/options";
 
 import AddPortfolio from "./AddPortfolio";
 import CertificationForm from "./CertificationForm";
@@ -38,20 +32,17 @@ const AboutProfile = () => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [modalName, setModalName] = useState("");
     const [id, setId] = useState<number | undefined>();
-    const [search, setSearch] = useState<string | undefined>("-rating");
+    const [search, setSearch] = useState("-rating");
+    const [page, setPage] = useState<number>(1);
 
-    // const [uuid, setUUID] = useState<number | undefined>();
-    //tasker rating data
-    //   const { data: taskerRating, error } = useGetTaskerRating();
-    const queryClient = useQueryClient();
-    // user profile certification data
     const { data: taskerRating } = useData<RatingResponse>(
-        ["tasker-rating"],
-        "/task/rating/"
+        ["tasker-rating", search],
+        `/task/rating?ordering=${search}&page=${page}`
     );
-    const { mutate: searchMutation, data: filteredData } =
-        useSearchRating<RatingResponse>(`/task/rating/?ordering=${search}`);
-    console.log("filterd reviw", filteredData?.result);
+
+    // const { mutate: searchMutation, data: filteredData } =
+    //     useSearchRating<RatingResponse>(`/task/rating/?ordering=${search}`);
+    // console.log("filterd reviw", filteredData?.result);
 
     //user profile certification data
     const { data: certificationData } = useData<
@@ -75,16 +66,16 @@ const AboutProfile = () => {
         "/tasker/portfolio/"
     );
 
-    const handleEdit = useCallback((id: any) => {
+    const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
         setId(id);
-    }, []);
+    };
 
-    const handleDelete = useCallback((id: any, name: string) => {
+    const handleDelete = (id: any, name: string) => {
         setShowDeleteModal(!showDeleteModal);
         setId(id);
         setModalName(name);
-    }, []);
+    };
 
     const { data: profileDetails } = useGetProfile();
 
@@ -559,36 +550,7 @@ const AboutProfile = () => {
                                                 fieldRequired
                                                 type="submit"
                                                 placeHolder="Tasker"
-                                                // onChange={(e: any) => {
-                                                //     {
-                                                //         setOrder(
-                                                //             e?.target?.value
-                                                //         );
-                                                //         searchMutation(order, {
-                                                //             onSuccess:
-                                                //                 async () => {
-                                                //                     console.log(
-                                                //                         "submitted values",
-                                                //                         order
-                                                //                     );
-
-                                                //                     queryClient.invalidateQueries(
-                                                //                         [
-                                                //                             "tasker-rating",
-                                                //                         ]
-                                                //                     );
-                                                //                 },
-                                                //             onError: async (
-                                                //                 error
-                                                //             ) => {
-                                                //                 console.log(
-                                                //                     "error=",
-                                                //                     error
-                                                //                 );
-                                                //             },
-                                                //         });
-                                                //     }
-                                                // }}
+                                           
                                             />
                                         </Formik>
                                     </Col> */}
@@ -617,33 +579,10 @@ const AboutProfile = () => {
                                                             "values0,",
                                                             e.target.value
                                                         );
-                                                        searchMutation(search, {
-                                                            onSuccess:
-                                                                async () => {
-                                                                    console.log(
-                                                                        "submitted values",
-                                                                        search
-                                                                    );
-
-                                                                    queryClient.invalidateQueries(
-                                                                        [
-                                                                            "tasker-rating",
-                                                                        ]
-                                                                    );
-                                                                },
-                                                            onError: async (
-                                                                error
-                                                            ) => {
-                                                                // console.log(
-                                                                //     "error=",
-                                                                //     error
-                                                                // );
-                                                            },
-                                                        });
                                                     }}
                                                 >
                                                     <Form.Select aria-label="Default select example">
-                                                        <option value="-updated_at">
+                                                        <option value="-rating">
                                                             Most Relevant
                                                         </option>
                                                         <option value="-updated_at">
@@ -669,33 +608,7 @@ const AboutProfile = () => {
                                                                 "values0,",
                                                                 values.search_value
                                                             );
-                                                            searchMutation(
-                                                                search,
-                                                                {
-                                                                    onSuccess:
-                                                                        async () => {
-                                                                            console.log(
-                                                                                "submitted values",
-                                                                                search
-                                                                            );
-
-                                                                            queryClient.invalidateQueries(
-                                                                                [
-                                                                                    "tasker-rating",
-                                                                                ]
-                                                                            );
-                                                                        },
-                                                                    onError:
-                                                                        async (
-                                                                            error
-                                                                        ) => {
-                                                                            // console.log(
-                                                                            //     "error=",
-                                                                            //     error
-                                                                            // );
-                                                                        },
-                                                                }
-                                                            );
+                                                           
                                                         }}
                                                     /> */}
                                                 </Form>
@@ -709,39 +622,25 @@ const AboutProfile = () => {
 
                     <div className="review-container">
                         <Row className="gx-5 type">
-                            {filteredData
-                                ? filteredData &&
-                                  filteredData?.result?.map((review) => (
-                                      <Col md={8} key={review.id}>
-                                          <Reviews
-                                              name={review.rated_by.full_name}
-                                              raterEmail={review.rated_by.email}
-                                              ratings={review.rating}
-                                              description={review.review}
-                                              time={review.updated_at}
-                                              raterId={review.rated_by.id}
+                            {taskerRating &&
+                                taskerRating?.data?.result?.map((review) => (
+                                    <Col md={8} key={review.id}>
+                                        <Reviews
+                                            name={review?.rated_by.full_name}
+                                            raterEmail={review?.rated_by.email}
+                                            ratings={review?.rating}
+                                            description={review?.review}
+                                            time={review?.updated_at}
+                                            raterId={review?.rated_by.id}
 
-                                              // image={review.image}
-                                          />
-                                      </Col>
-                                  ))
-                                : taskerRating &&
-                                  taskerRating?.data?.result?.map((review) => (
-                                      <Col md={8} key={review.id}>
-                                          <Reviews
-                                              name={review.rated_by.full_name}
-                                              raterEmail={review.rated_by.email}
-                                              ratings={review.rating}
-                                              description={review.review}
-                                              time={review.updated_at}
-                                              raterId={review.rated_by.id}
+                                            // image={review.image}
+                                        />
+                                    </Col>
+                                ))}
 
-                                              // image={review.image}
-                                          />
-                                      </Col>
-                                  ))}
-
-                            <Link href="#!">See all reviews</Link>
+                            <Link href="#!" onClick={() => setPage(page + 1)}>
+                                See all reviews
+                            </Link>
                         </Row>
                     </div>
                 </div>
