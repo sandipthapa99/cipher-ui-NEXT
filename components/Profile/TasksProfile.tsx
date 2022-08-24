@@ -3,6 +3,7 @@ import SelectInputField from "@components/common/SelectInputField";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
+import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
@@ -77,6 +78,12 @@ export interface Assigner {
 }
 
 const TasksProfileCard = () => {
+    const { data: taskData } = useData<TaskerTasksProps>(
+        ["tasker-tasks"],
+        "/task/my-task/"
+    );
+    console.log("taksers tasks=", taskData);
+
     return (
         <section className="profile-task">
             <div className="profile-task__top-container">
