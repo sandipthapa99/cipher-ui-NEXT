@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Image from "next/image";
@@ -43,6 +44,9 @@ const SearchResultsDetail = ({
     highlights,
     slug,
     serviceId,
+    servicePackage,
+    serviceCreated,
+    serviceViews,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -53,7 +57,6 @@ const SearchResultsDetail = ({
         ["all-services"],
         "/task/service/"
     );
-
     return (
         <>
             <div className="task-detail mb-5 p-5">
@@ -194,21 +197,25 @@ const SearchResultsDetail = ({
                             icon={faCalendar}
                             className="svg-icon svg-icon-calender"
                         />
-                        June 9, 2022
+                        {serviceCreated
+                            ? format(new Date(serviceCreated), "dd-MM-yyyy")
+                            : "N/A"}
                     </p>
                     <p>
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon svg-icon-clock"
                         />
-                        08:11 PM
+                        {serviceCreated
+                            ? format(new Date(serviceCreated), "pp")
+                            : "N/A"}
                     </p>
                     <p>
                         <FontAwesomeIcon
                             icon={faEye}
                             className="svg-icon svg-icon-eye"
                         />
-                        2500 Views
+                        {serviceViews} Views
                     </p>
                     <p>
                         <FontAwesomeIcon
@@ -263,16 +270,18 @@ const SearchResultsDetail = ({
                         }}
                         className="pt-4"
                     >
-                        {PackageCard &&
-                            PackageCard.map((offer) => (
+                        {servicePackage &&
+                            servicePackage.map((offer) => (
                                 <Carousel.Slide key={offer.id}>
                                     <PackageOffersCard
                                         title={offer.title}
-                                        price={offer.price.toString()}
-                                        offers={offer.offers}
-                                        isRecommended={offer.isRecommended}
-                                        isPermium={offer.isPermium}
-                                        advantage={offer.advantage}
+                                        price={offer.budget.toString()}
+                                        offers={JSON.parse(
+                                            offer.service_offered
+                                        )}
+                                        isRecommended={offer.is_active}
+                                        isPermium={offer.is_active}
+                                        advantage={offer.title}
                                         isFromAddService={false}
                                     />
                                 </Carousel.Slide>
