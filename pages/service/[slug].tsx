@@ -1,13 +1,18 @@
 import SearchResultsDetail from "@components/SearchTask/SearchResultsDetails";
 import ServiceLayout from "@components/services/ServiceLayout";
 import type { GetStaticPaths, GetStaticProps } from "next";
-import type { ServicesValueProps } from "types/serviceCard";
+import type {
+    ServicesPackageProps,
+    ServicesValueProps,
+} from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
 const ServicesDetail = ({
     service,
+    servicePackage,
 }: {
     service: ServicesValueProps["result"][0];
+    servicePackage: ServicesPackageProps;
 }) => {
     return (
         <>
@@ -31,6 +36,9 @@ const ServicesDetail = ({
                             : []
                     }
                     slug={service?.slug}
+                    servicePackage={servicePackage?.result}
+                    serviceCreated={service?.created_at}
+                    serviceViews={service?.views_count}
                 />
             </ServiceLayout>
         </>
@@ -60,10 +68,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const { data } = await axiosClient.get<ServicesValueProps["result"][0]>(
             `/task/service/${params?.slug}/`
         );
+        const { data: servicePackage } = await axiosClient.get<
+            ServicesPackageProps["result"][0]
+        >(`/task/service-package/`);
 
         return {
             props: {
                 service: data,
+                servicePackage: servicePackage,
             },
             revalidate: 10,
         };
@@ -72,6 +84,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         return {
             props: {
                 service: {},
+                servicePackage: {},
             },
             revalidate: 10,
         };
