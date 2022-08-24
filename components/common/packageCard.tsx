@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { Key } from "react";
 import type { PacakageCardProps } from "types/packageCard";
 
 import CardBtn from "./CardBtn";
@@ -37,19 +38,20 @@ const PackageOffersCard = ({
                     <span>/mo</span>{" "}
                 </h1>
                 <div className="save-recommend">
-                    {isRecommended ? (
+                    {/* {isRecommended ? (
                         <p className="recommended">{advantage}</p>
                     ) : (
                         <p className="saving">{advantage}</p>
-                    )}
+                    )} */}
+                    ----TO DO FROM API---
                 </div>
             </div>
             <div className="offers">
-                {offers?.map((offer: any, i: number) => (
+                {offers?.map((offer, key) => (
                     <PackageServiceHighlights
-                        key={i}
-                        title={offer.name}
-                        isChecked={offer.isChecked}
+                        key={key}
+                        title={offer.text}
+                        isChecked={offer.strike}
                     />
                 ))}
             </div>
