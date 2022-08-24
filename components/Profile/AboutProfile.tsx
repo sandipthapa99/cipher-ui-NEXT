@@ -105,7 +105,7 @@ const AboutProfile = () => {
                     />
 
                     <div className="content">
-                        {!portfolioData?.data?.result
+                        {portfolioData?.data?.result
                             ? portfolioData?.data?.result?.map((info: any) => (
                                   <div className="image" key={info?.id}>
                                       <Row className="gx-5">
