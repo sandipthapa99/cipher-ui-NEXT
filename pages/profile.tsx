@@ -161,6 +161,7 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["tasker-portfolio"]),
             queryClient.prefetchQuery(["profile"]),
             queryClient.prefetchQuery(["tasker-rating"]),
+            queryClient.prefetchQuery(["tasker-document"]),
         ]);
         return {
             props: {
@@ -175,6 +176,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 experienceData: [],
                 profile: [],
                 ratingData: [],
+                documentData: [],
             },
         };
     }

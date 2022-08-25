@@ -19,6 +19,6 @@ export const profileEditFormSchema = Yup.object().shape({
     address_line2: stringReqOnly,
     active_hour_start: dateValidation,
     active_hour_end: dateValidation,
-    skill: tagValidate,
+    // skill: tagValidate,
     hourly_rate: stringReqOnly,
 });

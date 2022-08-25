@@ -18,14 +18,16 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { Spoiler } from "@mantine/core";
 import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { getAllPackageCard, getReviews } from "services/commonServices";
+import { getReviews } from "services/commonServices";
 import { useSetBookNowDetails } from "store/use-book-now";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
@@ -51,16 +53,19 @@ const SearchResultsDetail = ({
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const setBookNowDetails = useSetBookNowDetails();
-    const PackageCard = getAllPackageCard();
     const reviewsContent = getReviews();
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
+
+    const router = useRouter();
+    const servSlug = router.query.slug;
+
     return (
         <>
             <div className="task-detail mb-5 p-5">
-                <Link href="/task">
+                <Link href="/service">
                     <a>
                         <FontAwesomeIcon
                             icon={faChevronLeft}
@@ -271,32 +276,49 @@ const SearchResultsDetail = ({
                         className="pt-4"
                     >
                         {servicePackage &&
-                            servicePackage.map((offer) => (
-                                <Carousel.Slide key={offer.id}>
-                                    <PackageOffersCard
-                                        title={offer.title}
-                                        price={offer.budget.toString()}
-                                        offers={JSON.parse(
-                                            offer.service_offered
-                                        )}
-                                        isRecommended={offer.is_active}
-                                        isPermium={offer.is_active}
-                                        advantage={offer.title}
-                                        isFromAddService={false}
-                                    />
-                                </Carousel.Slide>
-                            ))}
+                            servicePackage
+                                .filter(
+                                    (service) =>
+                                        service.service.slug === servSlug
+                                )
+                                .map(
+                                    (offer) =>
+                                        offer && (
+                                            <Carousel.Slide key={offer.id}>
+                                                <PackageOffersCard
+                                                    title={offer.title}
+                                                    price={offer.budget.toString()}
+                                                    offers={
+                                                        offer.service_offered &&
+                                                        JSON.parse(
+                                                            offer?.service_offered
+                                                        )
+                                                    }
+                                                    isRecommended={
+                                                        offer.is_recommended
+                                                    }
+                                                    isPermium={offer.is_active}
+                                                    advantage={offer.title}
+                                                    isFromAddService={false}
+                                                    discountAmount={
+                                                        offer.discount_value
+                                                    }
+                                                />
+                                            </Carousel.Slide>
+                                        )
+                                )}
                     </Carousel>
                 </section>
                 <FilterReview totalReviews={reviewsContent.length} />
-                <div>
+                <Spoiler
+                    maxHeight={450}
+                    hideLabel={"Hide all reviews"}
+                    showLabel={"See all reviews"}
+                >
                     {reviewsContent.map((reviewContent, index) => (
                         <Reviews key={index} {...reviewContent} />
                     ))}
-                </div>
-                <Link href="/all-reviews">
-                    <a>See all reviews</a>
-                </Link>
+                </Spoiler>
                 <span className="td-divider"></span>
                 <Row className="gx-5">
                     <h4>Similar Services</h4>

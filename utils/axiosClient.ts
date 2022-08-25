@@ -4,7 +4,7 @@ import axios from "axios";
 import { compareAsc, fromUnixTime } from "date-fns";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
-import { autoLogin } from "utils/auth";
+import { autoLogin, autoLogout } from "utils/auth";
 const queryClient = new QueryClient();
 
 const getApiEndpoint = () => {
@@ -58,8 +58,13 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
     (response) => response,
     (error) => {
-        const axiosError = error as AxiosError;
+        const axiosError = error as AxiosError<{ code: string }>;
         if (axiosError.response?.status === 401) {
+            const errorCode = axiosError.response?.data?.code;
+            if (errorCode === "user_not_found") {
+                autoLogout();
+                return;
+            }
             const access = Cookies.get("access");
             const refresh = Cookies.get("refresh");
 

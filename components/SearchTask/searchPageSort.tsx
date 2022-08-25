@@ -32,54 +32,15 @@ const SearchBySort = () => {
                         },
                         {
                             title: "In Progress",
-                            content: progressTask.map((task) => (
-                                <Col sm="12" key={task.id}>
-                                    {/* <TaskCard
-                                        title={task.title}
-                                        charge={task.charge}
-                                        description={task.description}
-                                        location={task.location}
-                                        date={task.date}
-                                        time={task.time}
-                                        isCompleted={task.isCompleted}
-                                        isRunning={task.isRunning}
-                                    /> */}
-                                </Col>
-                            )),
+                            content: <Recommended />,
                         },
                         {
                             title: "History",
-                            content: taskHistory.map((task) => (
-                                <Col sm="12" key={task.id}>
-                                    {/* <TaskCard
-                                        title={task.title}
-                                        charge={task.charge}
-                                        description={task.description}
-                                        location={task.location}
-                                        date={task.date}
-                                        time={task.time}
-                                        isCompleted={task.isCompleted}
-                                        isRunning={task.isRunning}
-                                    /> */}
-                                </Col>
-                            )),
+                            content: <Recommended />,
                         },
                         {
                             title: "Draft",
-                            content: taskHistory.map((task) => (
-                                <Col sm="12" key={task.id}>
-                                    {/* <TaskCard
-                                        title={task.title}
-                                        charge={task.charge}
-                                        description={task.description}
-                                        location={task.location}
-                                        date={task.date}
-                                        time={task.time}
-                                        isCompleted={task.isCompleted}
-                                        isRunning={task.isRunning}
-                                    /> */}
-                                </Col>
-                            )),
+                            content: <Recommended />,
                         },
                     ]}
                     icons={[

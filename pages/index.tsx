@@ -1,3 +1,4 @@
+import Advertisement from "@components/Advertisement/Advertisement";
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
 import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
 import { TopCategories } from "@components/Category/TopCategories";
@@ -5,7 +6,6 @@ import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
-import FullPageLoader from "@components/common/FullPageLoader";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
 import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
@@ -25,7 +25,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
-import { useTasks } from "hooks/apply-task/useTask";
+import { useTaskers } from "hooks/tasker/use-tasker";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
@@ -36,13 +36,12 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
-import { merchants } from "staticData/merchants";
-import { serviceCategory } from "staticData/serviceCategory";
-import { tasks } from "staticData/task";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
+import type { HeroCategoryProps } from "types/heroCategory";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { SuccessStoryProps } from "types/successStory";
+import type { ITaskApiResponse } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
@@ -50,24 +49,35 @@ import { myOptions } from "utils/options";
 interface LandingPageProps {
     successStoryData: SuccessStoryProps;
     trustedPartnerData: BrandValueProps;
+    heroCategoryData: HeroCategoryProps;
 }
 
 const Home: NextPage<{
     successStoryData: LandingPageProps["successStoryData"];
     trustedPartnerData: LandingPageProps["trustedPartnerData"];
-}> = ({ successStoryData, trustedPartnerData }) => {
+    heroCategoryData: LandingPageProps["heroCategoryData"];
+}> = ({ successStoryData, trustedPartnerData, heroCategoryData }) => {
     const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
 
+    //for tasks
+
+    const { data: recommendedTasksData } = useData<ITaskApiResponse>(
+        ["all-tasks"],
+        "/task/"
+    );
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
         "Electrician",
         "Washing Machine",
     ]);
+
+    const { data: allTaskers } = useTaskers();
+
     const removeChip = (chip: string) => {
         setChips((prevChips) =>
             prevChips.filter((currentChip) => chip !== currentChip)
@@ -79,9 +89,6 @@ const Home: NextPage<{
         setPostTaskPopup(false);
     };
     const router = useRouter();
-    //for tasks
-    const { data: recommendedTasks, isLoading } = useTasks();
-    if (isLoading || !recommendedTasks) return <FullPageLoader />;
 
     return (
         <Layout title="Cipher - Catering to Your Requirements">
@@ -142,6 +149,7 @@ const Home: NextPage<{
                                     ))}
                                 </div>
                             )}
+
                             <div className="come-with-us">
                                 <h1>Join CIPHER for</h1>
                                 <div className="d-flex buttons">
@@ -171,6 +179,7 @@ const Home: NextPage<{
                         </Col>
                     </Row>
                     {/* Service category listing start */}
+
                     <Row className="gx-5 hero-category">
                         <Carousel
                             height={100}
@@ -187,21 +196,26 @@ const Home: NextPage<{
                             loop
                             align="start"
                         >
-                            {serviceCategory &&
-                                serviceCategory.map((category) => {
-                                    return (
-                                        <Carousel.Slide key={category.id}>
-                                            <CategoryCardNew
-                                                categoryTitle={
-                                                    category.categoryTitle
-                                                }
-                                                categoryIcon={
-                                                    category.categoryIcon
-                                                }
-                                            />
-                                        </Carousel.Slide>
-                                    );
-                                })}
+                            {heroCategoryData &&
+                                heroCategoryData?.result
+                                    ?.slice(0, 8)
+                                    ?.map((category) => {
+                                        return (
+                                            <Carousel.Slide key={category.id}>
+                                                <CategoryCardNew
+                                                    categoryTitle={
+                                                        category?.category?.name
+                                                    }
+                                                    categoryIcon={
+                                                        category.category?.icon
+                                                    }
+                                                    categorySlug={
+                                                        category?.category?.slug
+                                                    }
+                                                />
+                                            </Carousel.Slide>
+                                        );
+                                    })}
                         </Carousel>
                     </Row>
 
@@ -250,7 +264,7 @@ const Home: NextPage<{
                         <h2 className="heading-title">
                             Popular Verified Services
                         </h2>
-                        <Link href="/search">
+                        <Link href="/service">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -260,6 +274,7 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.data?.result?.map((service, key) => {
@@ -275,6 +290,9 @@ const Home: NextPage<{
                                     </Col>
                                 );
                             })}
+                    </Row>
+                    <Row>
+                        <Advertisement />
                     </Row>
                 </Container>
             </section>
@@ -382,27 +400,32 @@ const Home: NextPage<{
                     </ul>
 
                     <Row className="gx-5 hero-category">
-                        {serviceCategory &&
-                            serviceCategory?.map((category) => {
-                                return (
-                                    <Col
-                                        lg={3}
-                                        md={4}
-                                        sm={6}
-                                        key={category?.id}
-                                        className="d-flex align-items-strecth card-col"
-                                    >
-                                        <CategoryCardNew
-                                            categoryTitle={
-                                                category?.categoryTitle
-                                            }
-                                            categoryIcon={
-                                                category?.categoryIcon
-                                            }
-                                        />
-                                    </Col>
-                                );
-                            })}
+                        {heroCategoryData?.result &&
+                            heroCategoryData?.result
+                                ?.slice(0, 8)
+                                ?.map((category) => {
+                                    return (
+                                        <Col
+                                            lg={3}
+                                            md={4}
+                                            sm={6}
+                                            key={category?.id}
+                                            className="d-flex align-items-strecth card-col"
+                                        >
+                                            <CategoryCardNew
+                                                categoryTitle={
+                                                    category?.category?.name
+                                                }
+                                                categoryIcon={
+                                                    category?.category?.icon
+                                                }
+                                                categorySlug={
+                                                    category?.category?.slug
+                                                }
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                     <div className="how-it-works d-flex justify-content-center">
                         <Link href="/how-it-works">
@@ -463,44 +486,51 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {merchants &&
-                            merchants.map((merchant, index) => {
+                        {allTaskers &&
+                            allTaskers?.slice(0, 4)?.map((merchant, index) => {
                                 return (
                                     <Col
                                         md={6}
                                         lg={3}
                                         sm={6}
                                         xl={3}
-                                        key={merchant.id}
+                                        key={index}
                                         className="d-flex"
                                     >
                                         <MerchantCard
                                             onClick={() =>
                                                 router.push({
-                                                    pathname: `/tasker/${index}`,
+                                                    pathname: `/tasker/${merchant.user.id}`,
                                                 })
                                             }
                                             merchantImage={
-                                                merchant.merchantImage
+                                                merchant?.user?.profile_image
                                             }
-                                            merchantName={merchant.merchantName}
+                                            merchantName={
+                                                merchant?.user?.full_name
+                                            }
                                             merchantCategory={
-                                                merchant.merchantCategory
+                                                merchant?.designation
                                             }
                                             merchantLocation={
-                                                merchant.merchantLocation
+                                                merchant?.address_line1 +
+                                                " " +
+                                                merchant?.address_line2
                                             }
-                                            merchantDescription={
-                                                merchant.merchantDescription
-                                            }
+                                            merchantDescription={merchant?.bio}
                                             merchantRating={
-                                                merchant.merchantRating
+                                                merchant?.stats?.user_reviews
                                             }
                                             merchantPrice={
-                                                merchant.merchantPrice
+                                                merchant?.charge_currency +
+                                                merchant?.hourly_rate
                                             }
-                                            happyClients={merchant.happyClients}
-                                            successRate={merchant.successRate}
+                                            happyClients={
+                                                merchant?.stats?.happy_clients
+                                            }
+                                            successRate={
+                                                merchant?.stats?.success_rate
+                                            }
                                         />
                                     </Col>
                                 );
@@ -538,7 +568,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Tasks You May Like</h2>
-                        <Link href="">
+                        <Link href="/task">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
@@ -549,9 +579,9 @@ const Home: NextPage<{
                         </Link>
                     </div>
                     <Row className="gx-5">
-                        {recommendedTasks?.result?.map(
+                        {recommendedTasksData?.data?.result?.map(
                             (task: any, key: any) => (
-                                <Col sm="12" key={key}>
+                                <Col md={6} key={key}>
                                     <TaskCard
                                         title={task?.title}
                                         id={task?.id}
@@ -751,13 +781,20 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: trustedPartnerData } = await axiosClient.get(
             "/landingpage/trusted-partner/"
         );
+        const { data: heroCategoryData } = await axiosClient.get(
+            "/task/hero-category/"
+        );
+        const { data: recommendedTasksData } = await axiosClient.get("/task");
         const queryClient = new QueryClient();
         await queryClient.prefetchQuery(["all-blogs"]);
         await queryClient.prefetchQuery(["all-services"]);
+        await queryClient.prefetchQuery(["all-tasks"]);
         return {
             props: {
                 successStoryData: successStoryData,
                 trustedPartnerData: trustedPartnerData,
+                recommendedTasksData: recommendedTasksData,
+                heroCategoryData: heroCategoryData,
                 dehydratedState: dehydrate(queryClient),
             },
             revalidate: 10,
@@ -769,6 +806,8 @@ export const getStaticProps: GetStaticProps = async () => {
                 trustedPartnerData: [],
                 blogData: [],
                 servicesData: [],
+                recommendedTasksData: [],
+                heroCategoryData: [],
             },
             revalidate: 10,
         };

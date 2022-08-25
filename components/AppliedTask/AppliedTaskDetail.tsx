@@ -17,9 +17,9 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { useBookmarkTasks } from "hooks/task/use-bookmark-tasks";
+import { useIsBookmarked } from "hooks/use-bookmarks";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -33,7 +33,7 @@ import { TeamMembersSection } from "./TeamMembersSection";
 import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail: NextPage = () => {
-    const { data } = useBookmarkTasks();
+    const queryClient = useQueryClient();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
     const router = useRouter();
@@ -45,12 +45,9 @@ const AppliedTaskDetail: NextPage = () => {
         return response?.data;
     });
 
-    console.log("task detail data from applied task detail", taskDetail);
-
     const requirements = taskDetail?.requirements?.split(",");
 
-    const isTaskBookmarked = () =>
-        data ? data.result?.some((item) => item.object_id === slug) : false;
+    const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
     if (!taskDetail) {
         return <UserLoadingOverlay />;
@@ -70,10 +67,16 @@ const AppliedTaskDetail: NextPage = () => {
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <SaveIcon
-                                object_id={slug}
+                                object_id={taskDetail?.id}
                                 model="task"
                                 filled={isTaskBookmarked}
                                 showText
+                                onSuccess={() =>
+                                    queryClient.invalidateQueries([
+                                        "bookmarks",
+                                        "task",
+                                    ])
+                                }
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
@@ -126,14 +129,14 @@ const AppliedTaskDetail: NextPage = () => {
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         <SimpleProfileCard
-                            image={taskDetail?.image}
-                            speciality={taskDetail?.category}
+                            image={taskDetail?.assigner?.profile_image}
+                            speciality={taskDetail?.category?.name}
                             startingPrice={taskDetail?.budget_from}
                             endPrice={taskDetail?.budget_to}
-                            isApplied={true}
+                            isApplied={false}
                             isPermission={false}
                             currency={taskDetail?.currency}
-                            name={taskDetail?.assigner}
+                            name={taskDetail?.assigner?.full_name}
                         />
                     </Col>
                 </Row>

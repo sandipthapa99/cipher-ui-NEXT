@@ -1,7 +1,6 @@
 import { GoBack } from "@components/common/GoBack";
 import { UserShortIntro } from "@components/Task/UserTaskDetail/atoms/UserShortIntro";
 import { UserTaskDetailHeader } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailHeader";
-import { UserTaskDetailTabs } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailTabs";
 import { UserTaskReviews } from "@components/Task/UserTaskDetail/atoms/UserTaskReviews";
 import { useQuery } from "@tanstack/react-query";
 import type { HTMLAttributes } from "react";
@@ -32,8 +31,6 @@ const UserTaskDetail = ({
         }
     );
 
-    console.log("tasker details ", taskerDetail);
-
     const containerClass = `user-task-detail-container ${className}`;
     return (
         <div {...rest} className={containerClass}>
@@ -48,8 +45,8 @@ const UserTaskDetail = ({
                 activeTaskId={activeTaskId}
             />
             <UserShortIntro user={taskerDetail} />
-            <UserTaskDetailTabs taskerDetail={taskerDetail} />
-            <UserTaskReviews />
+            {/* <UserTaskDetailTabs taskerDetail={taskerDetail} /> */}
+            <UserTaskReviews activeTaskId={activeTaskId} />
         </div>
     );
 };

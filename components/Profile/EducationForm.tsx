@@ -14,7 +14,6 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import type { EducationValueProps } from "types/educationValueProps";
 import { EducationFormData } from "utils/formData";
 import { educationFormSchema } from "utils/formValidation/educationFormValidation";
@@ -36,7 +35,6 @@ const EducationForm = ({
     setShowEducationForm,
     id,
 }: EducationProps) => {
-    const toggleSuccessModal = useToggleSuccessModal();
     const queryClient = useQueryClient();
     const { mutate } = useForm(`/tasker/education/`);
     const { mutate: editMutation } = useEditForm(`/tasker/education/${id}/`);
@@ -113,7 +111,9 @@ const EducationForm = ({
                                               queryClient.invalidateQueries([
                                                   "tasker-education",
                                               ]);
-                                              toggleSuccessModal();
+                                              toast.success(
+                                                  "Education detail added successfully"
+                                              );
                                           },
                                           onError: async (error) => {
                                               toast.error(error.message);

@@ -79,6 +79,7 @@ export const AddPortfolioFormData: AddPortfolioProps = {
     issued_date: "",
     image: "",
     file: "",
+    id: 0,
 };
 
 export const AddSkillFormData: AddSkills = {
@@ -166,15 +167,15 @@ export const ChangePasswordFromData: changePasswordValueProps = {
 
 export const TaxCalculatorFormData: TaxCalculatorValueProps = {
     marital_status: "Unmarried",
-    salary: null,
+    salary: 0,
     income_time: "Yearly",
-    festival_bonus: null,
-    allowance: null,
-    others: null,
-    pf: null,
-    cit: null,
-    life_insurance: null,
-    medical_insurance: null,
+    festival_bonus: 0,
+    allowance: 0,
+    others: 0,
+    pf: 0,
+    cit: 0,
+    life_insurance: 0,
+    medical_insurance: 0,
 };
 
 export const DeactivateFromData: deactivateValueProps = {

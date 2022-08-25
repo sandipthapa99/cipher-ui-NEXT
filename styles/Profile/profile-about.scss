@@ -89,11 +89,25 @@
                     margin-top: 2rem;
                 }
             }
+            .portfolio-title {
+                position: relative;
+            }
             p {
                 font-size: 1.4rem;
                 font-weight: 500;
                 margin-bottom: 1rem;
                 padding-top: 1rem;
+            }
+            .icons {
+                position: absolute;
+                margin-left: 8rem;
+                margin-top: -7rem;
+                z-index: 3;
+                @include transition();
+                .svg-icon {
+                    color: #fff;
+                    cursor: pointer;
+                }
             }
         }
         justify-content: start;

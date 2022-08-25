@@ -1,16 +1,20 @@
-import FullPageLoader from "@components/common/FullPageLoader";
 import TaskCard from "@components/common/TaskCard";
-import { useTasks } from "hooks/apply-task/useTask";
+import { useData } from "hooks/use-data";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import type { ITaskApiResponse } from "types/task";
 
 export const Recommended = () => {
-    const { data: recommendedTasks, isLoading } = useTasks();
-    if (isLoading || !recommendedTasks) return <FullPageLoader />;
+    //for tasks
+
+    const { data: recommendedTasks } = useData<ITaskApiResponse>(
+        ["all-tasks"],
+        "/task/"
+    );
     return (
         <div className="recommended-tab">
             <Row>
-                {recommendedTasks?.result?.map((task: any, key: any) => (
+                {recommendedTasks?.data?.result?.map((task: any, key: any) => (
                     <Col sm="12" key={key}>
                         <TaskCard
                             title={task?.title}

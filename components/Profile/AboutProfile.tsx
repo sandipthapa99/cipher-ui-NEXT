@@ -1,32 +1,27 @@
 import DeleteModal from "@components/common/DeleteModal";
 import Reviews from "@components/common/Reviews";
-import SelectInputField from "@components/common/SelectInputField";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { RatingResponse } from "hooks/rating/getRating";
-import { useGetTaskerRating } from "hooks/rating/getRating";
-import { useSearchRating } from "hooks/rating/getSearchedRating";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import type { UserProfileProps } from "types/userProfileProps";
 import { reviewSearchData } from "utils/formData";
 import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
-import { isSubmittingClass } from "utils/helpers";
-import { reviewType } from "utils/options";
 
 import AddPortfolio from "./AddPortfolio";
 import CertificationForm from "./CertificationForm";
 import EditProfileButton from "./EditProfileButton";
 import EducationForm from "./EducationForm";
 import ExperienceForm from "./ExperienceForm";
+import PortfolioDetails from "./PortfolioDetail";
 import AddSkills from "./SkillsForm";
 
 const AboutProfile = () => {
@@ -36,22 +31,21 @@ const AboutProfile = () => {
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showPortfolioDetails, setShowPortfolioDetails] = useState(false);
     const [modalName, setModalName] = useState("");
     const [id, setId] = useState<number | undefined>();
-    const [search, setSearch] = useState<string | undefined>("-rating");
+    const [search, setSearch] = useState("-rating");
+    const [page, setPage] = useState<number>(1);
+    const [isEditProfile, setIsEditProfile] = useState(false);
 
-    // const [uuid, setUUID] = useState<number | undefined>();
-    //tasker rating data
-    //   const { data: taskerRating, error } = useGetTaskerRating();
-    const queryClient = useQueryClient();
-    // user profile certification data
     const { data: taskerRating } = useData<RatingResponse>(
-        ["tasker-rating"],
-        "/task/rating/"
+        ["tasker-rating", search],
+        `/task/rating?ordering=${search}&page=${page}`
     );
-    const { mutate: searchMutation, data: filteredData } =
-        useSearchRating<RatingResponse>(`/task/rating/?ordering=${search}`);
-    console.log("filterd reviw", filteredData?.result);
+
+    // const { mutate: searchMutation, data: filteredData } =
+    //     useSearchRating<RatingResponse>(`/task/rating/?ordering=${search}`);
+    // console.log("filterd reviw", filteredData?.result);
 
     //user profile certification data
     const { data: certificationData } = useData<
@@ -75,21 +69,20 @@ const AboutProfile = () => {
         "/tasker/portfolio/"
     );
 
-    const handleEdit = useCallback((id: any) => {
+    const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
         setId(id);
-    }, []);
+    };
 
-    const handleDelete = useCallback((id: any, name: string) => {
+    const handleDelete = (id: any, name: string) => {
         setShowDeleteModal(!showDeleteModal);
         setId(id);
         setModalName(name);
-    }, []);
+    };
 
     const { data: profileDetails } = useGetProfile();
 
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
-
     const [hovered, setHovered] = useState<null | number>(null);
 
     return (
@@ -97,50 +90,71 @@ const AboutProfile = () => {
             <div className="about-profile">
                 <div className="type portfolio">
                     <div className="title-wrapper d-flex justify-content-between">
-                        {/* <h2 className="heading-title">Community activity</h2> */}
                         <h1>My Portfolio</h1>
                         <EditProfileButton
                             text="Add New"
                             showModal={true}
-                            handleOnClick={() =>
-                                setShowAddPortfolioModal(!showAddPortfolioModal)
-                            }
+                            handleOnClick={() => {
+                                setShowAddPortfolioModal(
+                                    !showAddPortfolioModal
+                                );
+                                setIsEditProfile(false);
+                            }}
                         />
                     </div>
                     <AddPortfolio
                         show={showAddPortfolioModal}
                         setShowAddPortfolioModal={setShowAddPortfolioModal}
-                        handleClose={() => setShowAddPortfolioModal(false)}
+                        handleClose={() => {
+                            setShowAddPortfolioModal(false);
+                            setIsEditProfile(false);
+                        }}
+                        id={id}
+                        isEditProfile={isEditProfile}
                     />
-
-                    <div className="content">
-                        {portfolioData
+                    <PortfolioDetails
+                        show={showPortfolioDetails}
+                        setShowPortfolioDetails={setShowPortfolioDetails}
+                        handleClose={() => setShowPortfolioDetails(false)}
+                        id={id}
+                        handleDeletePortfolio={() => {
+                            handleDelete(id, "portfolio");
+                            setShowPortfolioDetails(false);
+                        }}
+                    />
+                    <div className="content ">
+                        {portfolioData?.data?.result
                             ? portfolioData?.data?.result?.map((info: any) => (
-                                  <div className="image" key={info?.id}>
+                                  <div
+                                      className="image"
+                                      onMouseLeave={() => setHovered(null)}
+                                      onMouseEnter={() => setHovered(info?.id)}
+                                      key={info?.id}
+                                      onClick={() => setId(info?.id)}
+                                  >
                                       <Row className="gx-5">
-                                          <Col
-                                              md={info?.image ? 6 : 12}
-                                              sm={info?.image ? 6 : 12}
-                                              xs={info?.image ? 6 : 12}
-                                          >
-                                              <Link href={`${info?.image}`}>
-                                                  <a target="_blank">
-                                                      {info?.image ? (
-                                                          <figure className="thumbnail-img">
-                                                              <Image
-                                                                  src={`${info?.image}`}
-                                                                  layout="fill"
-                                                                  objectFit="cover"
-                                                                  alt="portfolio-image"
-                                                              />
-                                                          </figure>
-                                                      ) : (
-                                                          ""
-                                                      )}
-                                                  </a>
-                                              </Link>
+                                          <Col md={6}>
+                                              {info?.image ? (
+                                                  <figure
+                                                      className="thumbnail-img"
+                                                      onClick={() =>
+                                                          setShowPortfolioDetails(
+                                                              true
+                                                          )
+                                                      }
+                                                  >
+                                                      <Image
+                                                          src={`${info?.image}`}
+                                                          layout="fill"
+                                                          objectFit="cover"
+                                                          alt="portfolio-image"
+                                                      />
+                                                  </figure>
+                                              ) : (
+                                                  ""
+                                              )}
                                           </Col>
-                                          <Col
+                                          {/* <Col
                                               md={info?.file ? 6 : 12}
                                               sm={info?.image ? 6 : 12}
                                               xs={info?.image ? 6 : 12}
@@ -161,15 +175,43 @@ const AboutProfile = () => {
                                                       )}
                                                   </a>
                                               </Link>
-                                          </Col>
+                                          </Col> */}
                                       </Row>
-
-                                      <p className="text-center">
-                                          {info.title}
-                                      </p>
+                                      <div className="portfolio-title">
+                                          <p className="text-center">
+                                              {info.title}
+                                          </p>
+                                      </div>
+                                      {hovered === info.id ? (
+                                          <div className="icons">
+                                              <FontAwesomeIcon
+                                                  icon={faPencil}
+                                                  className="svg-icon"
+                                                  onClick={() => {
+                                                      setShowAddPortfolioModal(
+                                                          true
+                                                      );
+                                                      setId(info?.id);
+                                                      setIsEditProfile(true);
+                                                  }}
+                                              />
+                                              <FontAwesomeIcon
+                                                  icon={faTrashCan}
+                                                  className="trash svg-icon"
+                                                  onClick={() =>
+                                                      handleDelete(
+                                                          info?.id,
+                                                          "portfolio"
+                                                      )
+                                                  }
+                                              />
+                                          </div>
+                                      ) : (
+                                          ""
+                                      )}
                                   </div>
                               ))
-                            : "Looks like you have no Portfolio data"}
+                            : "Add your Portfolio."}
                     </div>
                 </div>
                 <div className="type experience">
@@ -191,7 +233,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {experienceData
+                                {experienceData?.data?.result
                                     ? experienceData?.data?.result?.map(
                                           (value) => {
                                               return (
@@ -282,7 +324,7 @@ const AboutProfile = () => {
                                               );
                                           }
                                       )
-                                    : "Looks like you have no Experience Data"}
+                                    : "Add your Experience details."}
                             </div>
                         </Col>
                     </Row>
@@ -308,11 +350,13 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {userSkills.map((info: any, i: any) => (
-                                    <div className="skills__type" key={i}>
-                                        {info}
-                                    </div>
-                                ))}
+                                {userSkills
+                                    ? userSkills.map((info: any, i: any) => (
+                                          <div className="skills__type" key={i}>
+                                              {info}
+                                          </div>
+                                      ))
+                                    : "No skills to show. Please add them"}
                             </div>
                         </Col>
                     </Row>
@@ -338,7 +382,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {educationData
+                                {educationData?.data?.result
                                     ? educationData?.data.result.map(
                                           (value: any) => (
                                               <div
@@ -414,7 +458,7 @@ const AboutProfile = () => {
                                               </div>
                                           )
                                       )
-                                    : "Looks like you have no Education Data"}
+                                    : "Add your Education details."}
                             </div>
                         </Col>
                     </Row>
@@ -444,7 +488,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {certificationData
+                                {certificationData?.data?.result
                                     ? certificationData?.data.result?.map(
                                           (value) => (
                                               <div
@@ -530,7 +574,7 @@ const AboutProfile = () => {
                                               </div>
                                           )
                                       )
-                                    : "Looks like you have no certificates"}
+                                    : "Add your certificate details."}
                             </div>
                         </Col>
                     </Row>
@@ -559,36 +603,7 @@ const AboutProfile = () => {
                                                 fieldRequired
                                                 type="submit"
                                                 placeHolder="Tasker"
-                                                // onChange={(e: any) => {
-                                                //     {
-                                                //         setOrder(
-                                                //             e?.target?.value
-                                                //         );
-                                                //         searchMutation(order, {
-                                                //             onSuccess:
-                                                //                 async () => {
-                                                //                     console.log(
-                                                //                         "submitted values",
-                                                //                         order
-                                                //                     );
-
-                                                //                     queryClient.invalidateQueries(
-                                                //                         [
-                                                //                             "tasker-rating",
-                                                //                         ]
-                                                //                     );
-                                                //                 },
-                                                //             onError: async (
-                                                //                 error
-                                                //             ) => {
-                                                //                 console.log(
-                                                //                     "error=",
-                                                //                     error
-                                                //                 );
-                                                //             },
-                                                //         });
-                                                //     }
-                                                // }}
+                                           
                                             />
                                         </Formik>
                                     </Col> */}
@@ -617,33 +632,10 @@ const AboutProfile = () => {
                                                             "values0,",
                                                             e.target.value
                                                         );
-                                                        searchMutation(search, {
-                                                            onSuccess:
-                                                                async () => {
-                                                                    console.log(
-                                                                        "submitted values",
-                                                                        search
-                                                                    );
-
-                                                                    queryClient.invalidateQueries(
-                                                                        [
-                                                                            "tasker-rating",
-                                                                        ]
-                                                                    );
-                                                                },
-                                                            onError: async (
-                                                                error
-                                                            ) => {
-                                                                // console.log(
-                                                                //     "error=",
-                                                                //     error
-                                                                // );
-                                                            },
-                                                        });
                                                     }}
                                                 >
                                                     <Form.Select aria-label="Default select example">
-                                                        <option value="-updated_at">
+                                                        <option value="-rating">
                                                             Most Relevant
                                                         </option>
                                                         <option value="-updated_at">
@@ -669,33 +661,7 @@ const AboutProfile = () => {
                                                                 "values0,",
                                                                 values.search_value
                                                             );
-                                                            searchMutation(
-                                                                search,
-                                                                {
-                                                                    onSuccess:
-                                                                        async () => {
-                                                                            console.log(
-                                                                                "submitted values",
-                                                                                search
-                                                                            );
-
-                                                                            queryClient.invalidateQueries(
-                                                                                [
-                                                                                    "tasker-rating",
-                                                                                ]
-                                                                            );
-                                                                        },
-                                                                    onError:
-                                                                        async (
-                                                                            error
-                                                                        ) => {
-                                                                            // console.log(
-                                                                            //     "error=",
-                                                                            //     error
-                                                                            // );
-                                                                        },
-                                                                }
-                                                            );
+                                                           
                                                         }}
                                                     /> */}
                                                 </Form>
@@ -709,39 +675,27 @@ const AboutProfile = () => {
 
                     <div className="review-container">
                         <Row className="gx-5 type">
-                            {filteredData
-                                ? filteredData &&
-                                  filteredData?.result?.map((review) => (
-                                      <Col md={8} key={review.id}>
-                                          <Reviews
-                                              name={review.rated_by.full_name}
-                                              raterEmail={review.rated_by.email}
-                                              ratings={review.rating}
-                                              description={review.review}
-                                              time={review.updated_at}
-                                              raterId={review.rated_by.id}
+                            {taskerRating &&
+                                taskerRating?.data?.result?.map((review) => (
+                                    <Col md={8} key={review.id}>
+                                        <Reviews
+                                            name={review?.rated_by.full_name}
+                                            raterEmail={review?.rated_by.email}
+                                            ratings={review?.rating}
+                                            description={review?.review}
+                                            time={review?.updated_at}
+                                            raterId={review?.rated_by.id}
+                                            image={
+                                                review?.rated_by.profile_image
+                                            }
+                                            // image={review.image}
+                                        />
+                                    </Col>
+                                ))}
 
-                                              // image={review.image}
-                                          />
-                                      </Col>
-                                  ))
-                                : taskerRating &&
-                                  taskerRating?.data?.result?.map((review) => (
-                                      <Col md={8} key={review.id}>
-                                          <Reviews
-                                              name={review.rated_by.full_name}
-                                              raterEmail={review.rated_by.email}
-                                              ratings={review.rating}
-                                              description={review.review}
-                                              time={review.updated_at}
-                                              raterId={review.rated_by.id}
-
-                                              // image={review.image}
-                                          />
-                                      </Col>
-                                  ))}
-
-                            <Link href="#!">See all reviews</Link>
+                            <Link href="#!" onClick={() => setPage(page + 1)}>
+                                See all reviews
+                            </Link>
                         </Row>
                     </div>
                 </div>
