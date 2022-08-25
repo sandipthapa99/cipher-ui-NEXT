@@ -12,6 +12,7 @@ const PackageOffersCard = ({
     advantage,
     isRecommended,
     isFromAddService,
+    discountAmount,
 }: PacakageCardProps) => {
     return (
         <div
@@ -38,22 +39,21 @@ const PackageOffersCard = ({
                     <span>/mo</span>{" "}
                 </h1>
                 <div className="save-recommend">
-                    {/* {isRecommended ? (
+                    {isRecommended ? (
                         <p className="recommended">{advantage}</p>
                     ) : (
-                        <p className="saving">{advantage}</p>
-                    )} */}
-                    ----TO DO FROM API---
+                        <p className="saving">{discountAmount}</p>
+                    )}
                 </div>
             </div>
             <div className="offers">
-                {/* {offers?.map((offer, key) => (
+                {offers?.map((offer, key) => (
                     <PackageServiceHighlights
                         key={key}
                         title={offer.text}
                         isChecked={offer.strike}
                     />
-                ))} */}
+                ))}
             </div>
 
             <div className="btn-wrapper">

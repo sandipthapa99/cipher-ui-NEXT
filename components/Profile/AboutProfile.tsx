@@ -107,7 +107,7 @@ const AboutProfile = () => {
                     />
 
                     <div className="content">
-                        {!portfolioData?.data?.result
+                        {portfolioData?.data?.result
                             ? portfolioData?.data?.result?.map((info: any) => (
                                   <div className="image" key={info?.id}>
                                       <Row className="gx-5">
@@ -297,7 +297,7 @@ const AboutProfile = () => {
                             handleClose={() => setShowAddSkillsForm(false)}
                         />
                     </div>
-
+                    {/* 
                     <Row>
                         <Col md={9}>
                             <div className="content">
@@ -310,7 +310,7 @@ const AboutProfile = () => {
                                     : "No skills to show. Please add them"}
                             </div>
                         </Col>
-                    </Row>
+                    </Row> */}
                 </div>
                 <div className="type education">
                     <div className="title-wrapper d-flex justify-content-between">
