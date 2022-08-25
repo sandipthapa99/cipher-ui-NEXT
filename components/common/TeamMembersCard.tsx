@@ -101,7 +101,7 @@ export const TeamMembersCard = ({
 
             <p>{bio}</p>
             <div className="d-flex justify-content-between footer-section">
-                <span className="share-and-like">
+                <div className="d-flex share-and-like">
                     <SaveIcon
                         model="user"
                         object_id={userId}
@@ -111,14 +111,16 @@ export const TeamMembersCard = ({
                         }
                     />
                     <ShareIcon url={""} quote={""} hashtag={""} />
-                </span>
+                </div>
 
                 {collabButton == true ? (
-                    <BigButton
-                        btnTitle={"Collab"}
-                        backgroundColor={"#211D4F"}
-                        handleClick={handleButtonClick}
-                    />
+                    <div className="collab-button">
+                        <BigButton
+                            btnTitle={"Collab"}
+                            backgroundColor={"#211D4F"}
+                            handleClick={handleButtonClick}
+                        />
+                    </div>
                 ) : (
                     <span className="task-price"> {charge}</span>
                 )}
