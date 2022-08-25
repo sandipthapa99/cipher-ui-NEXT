@@ -2,10 +2,16 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
+import { useForm } from "hooks/use-form";
+import { toast } from "react-toastify";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import emailValidationSchema from "utils/formValidation/emailValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const ForgotPassword = () => {
+    const { mutate } = useForm("/user/reset/");
+    const toggleSuccessModal = useToggleSuccessModal();
+
     return (
         <section>
             <OnBoardingLayout
@@ -25,7 +31,15 @@ const ForgotPassword = () => {
                     initialValues={{ email: "" }}
                     validationSchema={emailValidationSchema}
                     onSubmit={async (values, actions) => {
-                        console.log(values);
+                        mutate(values, {
+                            onSuccess: async () => {
+                                actions.resetForm();
+                                toggleSuccessModal();
+                            },
+                            onError: (error) => {
+                                toast.error(error.message);
+                            },
+                        });
                     }}
                 >
                     {({ isSubmitting, errors, touched }) => (
