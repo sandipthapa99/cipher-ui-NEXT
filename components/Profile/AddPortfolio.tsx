@@ -4,7 +4,7 @@ import FileDragDrop from "@components/common/FileDragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { useQueryClient } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
@@ -12,24 +12,37 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
+import { AddPortfolioProps } from "types/editProfile";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { useEditForm } from "hooks/use-edit-form";
 
 interface AddPortfolioModalProps {
     show?: boolean;
+    id?: number;
     handleClose?: () => void;
     setShowAddPortfolioModal: Dispatch<SetStateAction<boolean>>;
 }
-
+interface EditDetailProps {
+    data: { result: AddPortfolioProps[] };
+}
 const AddPortfolio = ({
     show,
     handleClose,
     setShowAddPortfolioModal,
+    id,
 }: AddPortfolioModalProps) => {
     const { mutate } = useForm(`/tasker/portfolio/`);
-    const queryClient = useQueryClient();
+    const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
 
+    const queryClient = useQueryClient();
+    const data = queryClient.getQueryData<EditDetailProps>([
+        "tasker-portfolio",
+    ]);
+
+    const editDetails = data?.data?.result.find((item) => item.id === id);
+    console.log("portfolio edit data=", editDetails, id);
     return (
         <div>
             {/* Modal component */}
@@ -38,7 +51,16 @@ const AddPortfolio = ({
                 <div className="modal-body-content">
                     <h3>Add Portfolio</h3>
                     <Formik
-                        initialValues={AddPortfolioFormData}
+                        initialValues={
+                            editDetails
+                                ? {
+                                      ...editDetails,
+                                      issued_date: parseISO(
+                                          editDetails.issued_date
+                                      ),
+                                  }
+                                : AddPortfolioFormData
+                        }
                         validationSchema={addPortfolioSchema}
                         onSubmit={async (values) => {
                             const formData = new FormData();

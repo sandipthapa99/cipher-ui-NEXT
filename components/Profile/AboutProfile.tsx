@@ -21,6 +21,7 @@ import CertificationForm from "./CertificationForm";
 import EditProfileButton from "./EditProfileButton";
 import EducationForm from "./EducationForm";
 import ExperienceForm from "./ExperienceForm";
+import PortfolioDetails from "./PortfolioDetail";
 import AddSkills from "./SkillsForm";
 
 const AboutProfile = () => {
@@ -30,6 +31,7 @@ const AboutProfile = () => {
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showPortfolioDetails, setShowPortfolioDetails] = useState(false);
     const [modalName, setModalName] = useState("");
     const [id, setId] = useState<number | undefined>();
     const [search, setSearch] = useState("-rating");
@@ -102,36 +104,63 @@ const AboutProfile = () => {
                         show={showAddPortfolioModal}
                         setShowAddPortfolioModal={setShowAddPortfolioModal}
                         handleClose={() => setShowAddPortfolioModal(false)}
+                        id={id}
                     />
 
-                    <div className="content">
+                    <div className="content ">
                         {portfolioData?.data?.result
                             ? portfolioData?.data?.result?.map((info: any) => (
-                                  <div className="image" key={info?.id}>
+                                  <div
+                                      className="image"
+                                      onMouseLeave={() => setHovered(null)}
+                                      onMouseEnter={() => setHovered(info?.id)}
+                                      key={info?.id}
+                                  >
                                       <Row className="gx-5">
-                                          <Col
-                                              md={info?.image ? 6 : 12}
-                                              sm={info?.image ? 6 : 12}
-                                              xs={info?.image ? 6 : 12}
-                                          >
-                                              <Link href={`${info?.image}`}>
-                                                  <a target="_blank">
-                                                      {info?.image ? (
-                                                          <figure className="thumbnail-img">
-                                                              <Image
-                                                                  src={`${info?.image}`}
-                                                                  layout="fill"
-                                                                  objectFit="cover"
-                                                                  alt="portfolio-image"
-                                                              />
-                                                          </figure>
-                                                      ) : (
-                                                          ""
-                                                      )}
-                                                  </a>
-                                              </Link>
+                                          <Col md={6}>
+                                              {info?.image ? (
+                                                  <figure
+                                                      className="thumbnail-img"
+                                                      onClick={() =>
+                                                          setShowPortfolioDetails(
+                                                              true
+                                                          )
+                                                      }
+                                                  >
+                                                      <Image
+                                                          src={`${info?.image}`}
+                                                          layout="fill"
+                                                          objectFit="cover"
+                                                          alt="portfolio-image"
+                                                      />
+                                                  </figure>
+                                              ) : (
+                                                  ""
+                                              )}
+                                              <PortfolioDetails
+                                                  show={showPortfolioDetails}
+                                                  setShowPortfolioDetails={
+                                                      setShowPortfolioDetails
+                                                  }
+                                                  handleClose={() =>
+                                                      setShowPortfolioDetails(
+                                                          false
+                                                      )
+                                                  }
+                                                  id={info?.id}
+                                                  name={info?.title}
+                                                  description={
+                                                      info?.description
+                                                  }
+                                                  url={info?.credential_url}
+                                                  issued_date={
+                                                      info?.issued_date
+                                                  }
+                                                  image={info?.image}
+                                                  file={info?.file}
+                                              />
                                           </Col>
-                                          <Col
+                                          {/* <Col
                                               md={info?.file ? 6 : 12}
                                               sm={info?.image ? 6 : 12}
                                               xs={info?.image ? 6 : 12}
@@ -152,12 +181,39 @@ const AboutProfile = () => {
                                                       )}
                                                   </a>
                                               </Link>
-                                          </Col>
+                                          </Col> */}
                                       </Row>
-
-                                      <p className="text-center">
-                                          {info.title}
-                                      </p>
+                                      <div className="portfolio-title">
+                                          <p className="text-center">
+                                              {info.title}
+                                          </p>
+                                      </div>
+                                      {hovered === info.id ? (
+                                          <div className="icons">
+                                              <FontAwesomeIcon
+                                                  icon={faPencil}
+                                                  className="svg-icon"
+                                                  onClick={() => {
+                                                      setShowAddPortfolioModal(
+                                                          true
+                                                      );
+                                                      setId(info?.id);
+                                                  }}
+                                              />
+                                              <FontAwesomeIcon
+                                                  icon={faTrashCan}
+                                                  className="trash svg-icon"
+                                                  onClick={() =>
+                                                      handleDelete(
+                                                          info?.id,
+                                                          "portfolio"
+                                                      )
+                                                  }
+                                              />
+                                          </div>
+                                      ) : (
+                                          ""
+                                      )}
                                   </div>
                               ))
                             : "Add your Portfolio."}

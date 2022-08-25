@@ -1,0 +1,25 @@
+.portfolio-details {
+    &__content {
+        .header {
+        }
+        .portfolio-img {
+            // width: 80rem;
+            width: 90%;
+            height: 40rem;
+            // object-fit: contain;
+        }
+
+        .description {
+        }
+        .url {
+        }
+        .file {
+            border: 0.1rem solid $border-color;
+            .file-img {
+                width: 8rem;
+                height: 8rem;
+                margin: 2rem;
+            }
+        }
+    }
+}
