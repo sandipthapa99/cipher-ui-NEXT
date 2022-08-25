@@ -122,7 +122,7 @@
         .btn {
             outline: none;
             border-radius: 0.4rem;
-            padding: 0.8rem 4rem !important;
+            padding: 1rem 4rem;
             box-shadow: none;
             font-size: 1.3rem;
             font-weight: 400;
@@ -130,6 +130,7 @@
             &:focus {
                 outline: none;
             }
+            background-color: $primary-color;
         }
         .close-btn {
             background-color: transparent;

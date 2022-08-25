@@ -93,7 +93,6 @@ const HowToFindTasks = () => {
                             descTitle="No fees until you complete your work
                             Our service fees are taken as a percentage of your earnings. We charge you based on lifetime earnings with each client:"
                             description={rules}
-                            buttonText="Join Us Now"
                             imageOnRight={false}
                         />
                     </div>

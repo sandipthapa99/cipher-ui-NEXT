@@ -10,16 +10,23 @@ interface saveIconProps {
     model?: string;
     filled?: boolean;
     showText?: boolean;
+    onSuccess?: () => void;
 }
 
-const SaveIcon = ({ object_id, model, filled, showText }: saveIconProps) => {
+const SaveIcon = ({
+    object_id,
+    model,
+    filled,
+    showText,
+    onSuccess,
+}: saveIconProps) => {
     const { classes } = useStyles();
     const withLogin = useWithLogin();
     const { mutate, isLoading } = useToggleBookmarkTask();
 
     const handleSaveClick = () => {
         if (!object_id || !model) return;
-        mutate({ object_id, model });
+        mutate({ object_id, model }, { onSuccess });
     };
     return (
         <button

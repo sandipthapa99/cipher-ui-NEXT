@@ -3,8 +3,9 @@ export interface AddPortfolioProps {
     description: string;
     credential_url: string;
     issued_date: string;
-    file: string;
-    image: string;
+    id: number;
+    file: any;
+    image: any;
 }
 
 export interface AddSkills {

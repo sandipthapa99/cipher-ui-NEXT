@@ -21,6 +21,7 @@ import CertificationForm from "./CertificationForm";
 import EditProfileButton from "./EditProfileButton";
 import EducationForm from "./EducationForm";
 import ExperienceForm from "./ExperienceForm";
+import PortfolioDetails from "./PortfolioDetail";
 import AddSkills from "./SkillsForm";
 
 const AboutProfile = () => {
@@ -30,10 +31,12 @@ const AboutProfile = () => {
     const [showCertificationModal, setShowCertificationModal] = useState(false);
     const [showEducationForm, setShowEducationForm] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showPortfolioDetails, setShowPortfolioDetails] = useState(false);
     const [modalName, setModalName] = useState("");
     const [id, setId] = useState<number | undefined>();
     const [search, setSearch] = useState("-rating");
     const [page, setPage] = useState<number>(1);
+    const [isEditProfile, setIsEditProfile] = useState(false);
 
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
@@ -79,10 +82,7 @@ const AboutProfile = () => {
 
     const { data: profileDetails } = useGetProfile();
 
-    const userSkills = Array.isArray(profileDetails)
-        ? JSON.parse(profileDetails?.skill)
-        : [];
-    console.log("sjil", userSkills);
+    const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
     const [hovered, setHovered] = useState<null | number>(null);
 
     return (
@@ -90,50 +90,71 @@ const AboutProfile = () => {
             <div className="about-profile">
                 <div className="type portfolio">
                     <div className="title-wrapper d-flex justify-content-between">
-                        {/* <h2 className="heading-title">Community activity</h2> */}
                         <h1>My Portfolio</h1>
                         <EditProfileButton
                             text="Add New"
                             showModal={true}
-                            handleOnClick={() =>
-                                setShowAddPortfolioModal(!showAddPortfolioModal)
-                            }
+                            handleOnClick={() => {
+                                setShowAddPortfolioModal(
+                                    !showAddPortfolioModal
+                                );
+                                setIsEditProfile(false);
+                            }}
                         />
                     </div>
                     <AddPortfolio
                         show={showAddPortfolioModal}
                         setShowAddPortfolioModal={setShowAddPortfolioModal}
-                        handleClose={() => setShowAddPortfolioModal(false)}
+                        handleClose={() => {
+                            setShowAddPortfolioModal(false);
+                            setIsEditProfile(false);
+                        }}
+                        id={id}
+                        isEditProfile={isEditProfile}
                     />
-
-                    <div className="content">
+                    <PortfolioDetails
+                        show={showPortfolioDetails}
+                        setShowPortfolioDetails={setShowPortfolioDetails}
+                        handleClose={() => setShowPortfolioDetails(false)}
+                        id={id}
+                        handleDeletePortfolio={() => {
+                            handleDelete(id, "portfolio");
+                            setShowPortfolioDetails(false);
+                        }}
+                    />
+                    <div className="content ">
                         {portfolioData?.data?.result
                             ? portfolioData?.data?.result?.map((info: any) => (
-                                  <div className="image" key={info?.id}>
+                                  <div
+                                      className="image"
+                                      onMouseLeave={() => setHovered(null)}
+                                      onMouseEnter={() => setHovered(info?.id)}
+                                      key={info?.id}
+                                      onClick={() => setId(info?.id)}
+                                  >
                                       <Row className="gx-5">
-                                          <Col
-                                              md={info?.image ? 6 : 12}
-                                              sm={info?.image ? 6 : 12}
-                                              xs={info?.image ? 6 : 12}
-                                          >
-                                              <Link href={`${info?.image}`}>
-                                                  <a target="_blank">
-                                                      {info?.image ? (
-                                                          <figure className="thumbnail-img">
-                                                              <Image
-                                                                  src={`${info?.image}`}
-                                                                  layout="fill"
-                                                                  objectFit="cover"
-                                                                  alt="portfolio-image"
-                                                              />
-                                                          </figure>
-                                                      ) : (
-                                                          ""
-                                                      )}
-                                                  </a>
-                                              </Link>
+                                          <Col md={6}>
+                                              {info?.image ? (
+                                                  <figure
+                                                      className="thumbnail-img"
+                                                      onClick={() =>
+                                                          setShowPortfolioDetails(
+                                                              true
+                                                          )
+                                                      }
+                                                  >
+                                                      <Image
+                                                          src={`${info?.image}`}
+                                                          layout="fill"
+                                                          objectFit="cover"
+                                                          alt="portfolio-image"
+                                                      />
+                                                  </figure>
+                                              ) : (
+                                                  ""
+                                              )}
                                           </Col>
-                                          <Col
+                                          {/* <Col
                                               md={info?.file ? 6 : 12}
                                               sm={info?.image ? 6 : 12}
                                               xs={info?.image ? 6 : 12}
@@ -154,12 +175,40 @@ const AboutProfile = () => {
                                                       )}
                                                   </a>
                                               </Link>
-                                          </Col>
+                                          </Col> */}
                                       </Row>
-
-                                      <p className="text-center">
-                                          {info.title}
-                                      </p>
+                                      <div className="portfolio-title">
+                                          <p className="text-center">
+                                              {info.title}
+                                          </p>
+                                      </div>
+                                      {hovered === info.id ? (
+                                          <div className="icons">
+                                              <FontAwesomeIcon
+                                                  icon={faPencil}
+                                                  className="svg-icon"
+                                                  onClick={() => {
+                                                      setShowAddPortfolioModal(
+                                                          true
+                                                      );
+                                                      setId(info?.id);
+                                                      setIsEditProfile(true);
+                                                  }}
+                                              />
+                                              <FontAwesomeIcon
+                                                  icon={faTrashCan}
+                                                  className="trash svg-icon"
+                                                  onClick={() =>
+                                                      handleDelete(
+                                                          info?.id,
+                                                          "portfolio"
+                                                      )
+                                                  }
+                                              />
+                                          </div>
+                                      ) : (
+                                          ""
+                                      )}
                                   </div>
                               ))
                             : "Add your Portfolio."}
@@ -184,7 +233,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {!experienceData?.data?.result
+                                {experienceData?.data?.result
                                     ? experienceData?.data?.result?.map(
                                           (value) => {
                                               return (
@@ -297,7 +346,7 @@ const AboutProfile = () => {
                             handleClose={() => setShowAddSkillsForm(false)}
                         />
                     </div>
-                    {/* 
+
                     <Row>
                         <Col md={9}>
                             <div className="content">
@@ -310,7 +359,7 @@ const AboutProfile = () => {
                                     : "No skills to show. Please add them"}
                             </div>
                         </Col>
-                    </Row> */}
+                    </Row>
                 </div>
                 <div className="type education">
                     <div className="title-wrapper d-flex justify-content-between">
@@ -333,7 +382,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {!educationData?.data?.result
+                                {educationData?.data?.result
                                     ? educationData?.data.result.map(
                                           (value: any) => (
                                               <div
@@ -439,7 +488,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {!certificationData?.data?.result
+                                {certificationData?.data?.result
                                     ? certificationData?.data.result?.map(
                                           (value) => (
                                               <div

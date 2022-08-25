@@ -74,7 +74,6 @@ const HowToHire: NextPage = () => {
                             when searched through Cipher"
                             subTitle="“Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500. "
                             image="/discover/main.svg"
-                            btnText="Join Us"
                         />
                     </div>
                     <div className="how-to-hire__bottom-container">

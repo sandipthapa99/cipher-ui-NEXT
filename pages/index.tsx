@@ -401,29 +401,31 @@ const Home: NextPage<{
 
                     <Row className="gx-5 hero-category">
                         {heroCategoryData?.result &&
-                            heroCategoryData?.result?.map((category) => {
-                                return (
-                                    <Col
-                                        lg={3}
-                                        md={4}
-                                        sm={6}
-                                        key={category?.id}
-                                        className="d-flex align-items-strecth card-col"
-                                    >
-                                        <CategoryCardNew
-                                            categoryTitle={
-                                                category?.category?.name
-                                            }
-                                            categoryIcon={
-                                                category?.category?.icon
-                                            }
-                                            categorySlug={
-                                                category?.category?.slug
-                                            }
-                                        />
-                                    </Col>
-                                );
-                            })}
+                            heroCategoryData?.result
+                                ?.slice(0, 8)
+                                ?.map((category) => {
+                                    return (
+                                        <Col
+                                            lg={3}
+                                            md={4}
+                                            sm={6}
+                                            key={category?.id}
+                                            className="d-flex align-items-strecth card-col"
+                                        >
+                                            <CategoryCardNew
+                                                categoryTitle={
+                                                    category?.category?.name
+                                                }
+                                                categoryIcon={
+                                                    category?.category?.icon
+                                                }
+                                                categorySlug={
+                                                    category?.category?.slug
+                                                }
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                     <div className="how-it-works d-flex justify-content-center">
                         <Link href="/how-it-works">
@@ -545,7 +547,6 @@ const Home: NextPage<{
                         title="Looking for work is not that difficult as it sounds any more"
                         subTitle="Allow us to accompany you on your journey"
                         image="/gradient-updated.png"
-                        btnText="Join Us"
                     />
                 </Container>
             </section>
