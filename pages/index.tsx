@@ -547,7 +547,6 @@ const Home: NextPage<{
                         title="Looking for work is not that difficult as it sounds any more"
                         subTitle="Allow us to accompany you on your journey"
                         image="/gradient-updated.png"
-                        btnText="Join Us"
                     />
                 </Container>
             </section>
