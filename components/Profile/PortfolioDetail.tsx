@@ -1,18 +1,13 @@
 import ShareIcon from "@components/common/ShareIcon";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useQueryClient } from "@tanstack/react-query";
 import { useGetPortfolioById } from "hooks/profile/getProfileById";
-import { useData } from "hooks/use-data";
 import Image from "next/image";
-import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { toast } from "react-toastify";
-import type { UserProfileProps } from "types/userProfileProps";
 
 import AddPortfolio from "./AddPortfolio";
 
@@ -21,22 +16,14 @@ interface PortfolioProps {
     handleClose?: () => void;
     setShowPortfolioDetails: Dispatch<SetStateAction<boolean>>;
     id?: number;
-    // description: string;
-    // image: string;
-    // issued_date: string;
-    // url: string;
-    // name: string;
-    // file: string;
+    handleDeletePortfolio?: () => void;
 }
-// interface EditDetailProps {
-//     data: { result: PortfolioValueProps[] };
-// }
 
 const PortfolioDetails = ({
     show,
-    handleClose,
-    setShowPortfolioDetails,
+    handleDeletePortfolio,
     id,
+    handleClose,
 }: // description,
 // image,
 // issued_date,
@@ -47,8 +34,6 @@ PortfolioProps) => {
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
 
     const { data: portfolioDetail } = useGetPortfolioById(id);
-
-    const userdata = portfolioDetail;
 
     return (
         <div className="portfolio-details">
@@ -142,7 +127,7 @@ PortfolioProps) => {
                 <Modal.Footer>
                     <Button
                         className="btn close-btn w-25"
-                        onClick={handleClose}
+                        onClick={handleDeletePortfolio}
                     >
                         Remove
                     </Button>

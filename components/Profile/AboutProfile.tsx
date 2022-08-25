@@ -105,7 +105,10 @@ const AboutProfile = () => {
                     <AddPortfolio
                         show={showAddPortfolioModal}
                         setShowAddPortfolioModal={setShowAddPortfolioModal}
-                        handleClose={() => setShowAddPortfolioModal(false)}
+                        handleClose={() => {
+                            setShowAddPortfolioModal(false);
+                            setIsEditProfile(false);
+                        }}
                         id={id}
                         isEditProfile={isEditProfile}
                     />
@@ -114,6 +117,10 @@ const AboutProfile = () => {
                         setShowPortfolioDetails={setShowPortfolioDetails}
                         handleClose={() => setShowPortfolioDetails(false)}
                         id={id}
+                        handleDeletePortfolio={() => {
+                            handleDelete(id, "portfolio");
+                            setShowPortfolioDetails(false);
+                        }}
                     />
                     <div className="content ">
                         {portfolioData?.data?.result

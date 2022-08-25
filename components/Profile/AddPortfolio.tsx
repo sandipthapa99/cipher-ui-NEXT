@@ -45,7 +45,7 @@ const AddPortfolio = ({
 
     function isValidURL(str: any) {
         const regex =
-            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
         if (!regex.test(str)) {
             return false;
         } else {
@@ -65,7 +65,7 @@ const AddPortfolio = ({
                     <h3>Add Portfolio</h3>
                     <Formik
                         initialValues={
-                            editDetails
+                            editDetails && isEditProfile
                                 ? {
                                       ...editDetails,
                                       issued_date: parseISO(
