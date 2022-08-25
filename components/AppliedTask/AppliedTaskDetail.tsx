@@ -17,7 +17,7 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import type { NextPage } from "next";
@@ -33,6 +33,7 @@ import { TeamMembersSection } from "./TeamMembersSection";
 import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail: NextPage = () => {
+    const queryClient = useQueryClient();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
     const router = useRouter();
@@ -70,6 +71,12 @@ const AppliedTaskDetail: NextPage = () => {
                                 model="task"
                                 filled={isTaskBookmarked}
                                 showText
+                                onSuccess={() =>
+                                    queryClient.invalidateQueries([
+                                        "bookmarks",
+                                        "task",
+                                    ])
+                                }
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
