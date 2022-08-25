@@ -25,7 +25,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
-import { useTasks } from "hooks/apply-task/useTask";
 import { useTaskers } from "hooks/tasker/use-tasker";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
@@ -37,8 +36,6 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
-import { merchants } from "staticData/merchants";
-import { serviceCategory } from "staticData/serviceCategory";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
 import type { HeroCategoryProps } from "types/heroCategory";
@@ -65,7 +62,6 @@ const Home: NextPage<{
         ["all-services"],
         "/task/service/"
     );
-    console.log("herocategoryData", heroCategoryData);
 
     //for tasks
 
@@ -200,21 +196,26 @@ const Home: NextPage<{
                             loop
                             align="start"
                         >
-                            {serviceCategory &&
-                                serviceCategory.map((category) => {
-                                    return (
-                                        <Carousel.Slide key={category.id}>
-                                            <CategoryCardNew
-                                                categoryTitle={
-                                                    category.categoryTitle
-                                                }
-                                                categoryIcon={
-                                                    category.categoryIcon
-                                                }
-                                            />
-                                        </Carousel.Slide>
-                                    );
-                                })}
+                            {heroCategoryData &&
+                                heroCategoryData?.result
+                                    ?.slice(0, 8)
+                                    ?.map((category) => {
+                                        return (
+                                            <Carousel.Slide key={category.id}>
+                                                <CategoryCardNew
+                                                    categoryTitle={
+                                                        category?.category?.name
+                                                    }
+                                                    categoryIcon={
+                                                        category.category?.icon
+                                                    }
+                                                    categorySlug={
+                                                        category?.category?.slug
+                                                    }
+                                                />
+                                            </Carousel.Slide>
+                                        );
+                                    })}
                         </Carousel>
                     </Row>
 
@@ -415,6 +416,9 @@ const Home: NextPage<{
                                             }
                                             categoryIcon={
                                                 category?.category?.icon
+                                            }
+                                            categorySlug={
+                                                category?.category?.slug
                                             }
                                         />
                                     </Col>

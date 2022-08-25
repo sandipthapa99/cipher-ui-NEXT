@@ -9,23 +9,26 @@ import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
+import { useKYC } from "hooks/profile/kyc/useKYC";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
-import React, { useRef } from "react";
-import { Col, Row } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { formatTime } from "utils/FormatTime/formatTime";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+
+import { FillKyc } from "./FillKyc";
 
 const task_preferences = [
     { id: 1, label: "Part time", value: "partTime" },
@@ -61,12 +64,14 @@ const profile_visibility = [
 ];
 
 const AccountForm = () => {
+    const [scrollPosition, setScrollPosition] = useState(0);
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
+    const { data: KYCData } = useKYC();
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -91,9 +96,25 @@ const AccountForm = () => {
         value: result.id,
         id: result.id,
     }));
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const scrollToKyc = () => {
+        scroll.scrollTo(2660);
+    };
 
     return (
         <>
+            {!KYCData ? <FillKyc onClick={scrollToKyc} /> : ""}
             {/* Modal component */}
             <div className="account-form">
                 <Formik
@@ -360,7 +381,6 @@ const AccountForm = () => {
                                     />
                                 </Col>
                             </Row>
-
                             <h3>Address</h3>
                             <SelectInputField
                                 name="country"
