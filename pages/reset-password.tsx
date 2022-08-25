@@ -2,10 +2,20 @@ import FormButton from "@components/common/FormButton";
 import PasswordField from "@components/common/PasswordField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
+import { useForm } from "hooks/use-form";
+import { useRouter } from "next/router";
 import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const ResetPassword = () => {
+    const router = useRouter();
+
+    const { u, t } = router.query;
+
+    console.log("uid", u);
+    console.log("token", t);
+
+    const { mutate } = useForm("/user/reset/verify");
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
