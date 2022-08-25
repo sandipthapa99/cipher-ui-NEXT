@@ -181,25 +181,26 @@ const Home: NextPage<{
                     {/* Service category listing start */}
 
                     <Row className="gx-5 hero-category">
-                        <Carousel
-                            height={100}
-                            slideSize="25%"
-                            slideGap="md"
-                            breakpoints={[
-                                { maxWidth: "md", slideSize: "50%" },
-                                {
-                                    maxWidth: "sm",
-                                    slideSize: "100%",
-                                    slideGap: 3,
-                                },
-                            ]}
-                            loop
-                            align="start"
-                        >
-                            {heroCategoryData &&
-                                heroCategoryData?.result
-                                    ?.slice(0, 8)
-                                    ?.map((category) => {
+                        {heroCategoryData &&
+                        heroCategoryData.result.length > 0 ? (
+                            <Carousel
+                                height={100}
+                                slideSize="25%"
+                                slideGap="md"
+                                breakpoints={[
+                                    { maxWidth: "md", slideSize: "50%" },
+                                    {
+                                        maxWidth: "sm",
+                                        slideSize: "100%",
+                                        slideGap: 3,
+                                    },
+                                ]}
+                                loop
+                                align="start"
+                            >
+                                {heroCategoryData.result
+                                    .slice(0, 8)
+                                    .map((category) => {
                                         return (
                                             <Carousel.Slide key={category.id}>
                                                 <CategoryCardNew
@@ -216,7 +217,8 @@ const Home: NextPage<{
                                             </Carousel.Slide>
                                         );
                                     })}
-                        </Carousel>
+                            </Carousel>
+                        ) : null}
                     </Row>
 
                     {/* Service category listing end */}
