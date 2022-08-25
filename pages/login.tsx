@@ -51,10 +51,10 @@ const Login = () => {
                             <Form className="login-form">
                                 <InputField
                                     type="email"
-                                    name="email"
+                                    name="username"
                                     labelName="Email or phone number"
-                                    touch={touched.email}
-                                    error={errors.email}
+                                    touch={touched.username}
+                                    error={errors.username}
                                     placeHolder="Enter your email"
                                 />
                                 <PasswordField

@@ -164,4 +164,16 @@
             margin: 0;
         }
     }
+    .help-support {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 4rem;
+    }
+    .help-support-text {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 500;
+        color: #212529;
+    }
 }

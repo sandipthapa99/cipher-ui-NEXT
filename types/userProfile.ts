@@ -1,7 +1,7 @@
 export interface UserProfileInfoProps {
     userImage: string;
 
-    countryCode: number | undefined;
+    countryCode: number | undefined | string;
 
     userName: string | undefined;
 

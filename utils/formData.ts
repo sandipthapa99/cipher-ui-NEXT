@@ -21,7 +21,7 @@ import type { UploadCVValueProps } from "types/uploadCVValueProps";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
-    email: "",
+    username: "",
     password: "",
 };
 
