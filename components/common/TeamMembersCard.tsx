@@ -1,14 +1,15 @@
+import SaveIcon from "@components/common/SaveIcon";
 import {
     faAward,
     faEllipsisVertical,
     faFaceGrinBeam,
-    faHeart,
     faLocationArrow,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
-import type { Task, Tasker } from "types/tasks";
+import type { Tasker } from "types/tasks";
 
 import BigButton from "./Button";
 import ShareIcon from "./ShareIcon";
@@ -43,7 +44,10 @@ export const TeamMembersCard = ({
     distance,
     bio,
     charge,
+    ...rest
 }: Props) => {
+    const userId = rest.taskers?.user.id;
+    const isBookmarked = useIsBookmarked("user", userId);
     return (
         <div className="team-members-card">
             <div className="d-flex w-100 image-and-title">
@@ -96,7 +100,11 @@ export const TeamMembersCard = ({
             <p>{bio}</p>
             <div className="d-flex justify-content-between footer-section">
                 <span className="share-and-like">
-                    <FontAwesomeIcon className="heart" icon={faHeart} />
+                    <SaveIcon
+                        model="user"
+                        object_id={userId}
+                        filled={isBookmarked}
+                    />
                     <ShareIcon url={""} quote={""} hashtag={""} />
                 </span>
 

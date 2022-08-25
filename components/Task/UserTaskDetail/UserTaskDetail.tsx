@@ -32,8 +32,6 @@ const UserTaskDetail = ({
         }
     );
 
-    console.log("tasker details ", taskerDetail);
-
     const containerClass = `user-task-detail-container ${className}`;
     return (
         <div {...rest} className={containerClass}>
@@ -48,8 +46,8 @@ const UserTaskDetail = ({
                 activeTaskId={activeTaskId}
             />
             <UserShortIntro user={taskerDetail} />
-            <UserTaskDetailTabs taskerDetail={taskerDetail} />
-            <UserTaskReviews />
+            {/* <UserTaskDetailTabs taskerDetail={taskerDetail} /> */}
+            <UserTaskReviews activeTaskId={activeTaskId} />
         </div>
     );
 };

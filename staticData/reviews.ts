@@ -17,4 +17,13 @@ export const reviewsContent = [
         ratings: 4,
         image: "/service-details/provider1.svg",
     },
+    {
+        id: "2",
+        name: "Ram Baran Yadav",
+        description:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda voluptatem nam sapiente officia dolore reiciendis? Amet hic nihil praesentium quod iure? Aspernatur odit ratione cum a esse modi dolores quasi.",
+        time: "2 weeks",
+        ratings: 4,
+        image: "/service-details/provider1.svg",
+    },
 ];

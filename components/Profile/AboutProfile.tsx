@@ -36,7 +36,7 @@ const AboutProfile = () => {
     const [id, setId] = useState<number | undefined>();
     const [search, setSearch] = useState("-rating");
     const [page, setPage] = useState<number>(1);
-    const [isAddProfile, setIsAddProfile] = useState(false);
+    const [isEditProfile, setIsEditProfile] = useState(false);
 
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
@@ -68,7 +68,7 @@ const AboutProfile = () => {
         ["tasker-portfolio"],
         "/tasker/portfolio/"
     );
-    console.log("portfoosdf", portfolioData);
+
     const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
         setId(id);
@@ -83,7 +83,6 @@ const AboutProfile = () => {
     const { data: profileDetails } = useGetProfile();
 
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
-    console.log("sjil", userSkills);
     const [hovered, setHovered] = useState<null | number>(null);
 
     return (
@@ -91,7 +90,6 @@ const AboutProfile = () => {
             <div className="about-profile">
                 <div className="type portfolio">
                     <div className="title-wrapper d-flex justify-content-between">
-                        {/* <h2 className="heading-title">Community activity</h2> */}
                         <h1>My Portfolio</h1>
                         <EditProfileButton
                             text="Add New"
@@ -100,7 +98,7 @@ const AboutProfile = () => {
                                 setShowAddPortfolioModal(
                                     !showAddPortfolioModal
                                 );
-                                setIsAddProfile(true);
+                                setIsEditProfile(false);
                             }}
                         />
                     </div>
@@ -109,6 +107,7 @@ const AboutProfile = () => {
                         setShowAddPortfolioModal={setShowAddPortfolioModal}
                         handleClose={() => setShowAddPortfolioModal(false)}
                         id={id}
+                        isEditProfile={isEditProfile}
                     />
                     <PortfolioDetails
                         show={showPortfolioDetails}
@@ -186,6 +185,7 @@ const AboutProfile = () => {
                                                           true
                                                       );
                                                       setId(info?.id);
+                                                      setIsEditProfile(true);
                                                   }}
                                               />
                                               <FontAwesomeIcon

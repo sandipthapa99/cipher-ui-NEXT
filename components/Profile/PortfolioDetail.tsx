@@ -50,7 +50,6 @@ PortfolioProps) => {
 
     const userdata = portfolioDetail;
 
-    console.log("values=", userdata);
     return (
         <div className="portfolio-details">
             {/* Modal component */}
@@ -167,6 +166,7 @@ PortfolioProps) => {
             <AddPortfolio
                 show={showAddPortfolioModal}
                 id={id}
+                //  isEditProfile={true}
                 setShowAddPortfolioModal={setShowAddPortfolioModal}
                 handleClose={() => setShowAddPortfolioModal(false)}
             />

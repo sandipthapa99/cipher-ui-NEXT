@@ -23,6 +23,7 @@ interface AddPortfolioModalProps {
     id?: number;
     handleClose?: () => void;
     setShowAddPortfolioModal: Dispatch<SetStateAction<boolean>>;
+    isEditProfile?: boolean;
 }
 interface EditDetailProps {
     data: { result: AddPortfolioProps[] };
@@ -32,6 +33,7 @@ const AddPortfolio = ({
     handleClose,
     setShowAddPortfolioModal,
     id,
+    isEditProfile,
 }: AddPortfolioModalProps) => {
     const { mutate } = useForm(`/tasker/portfolio/`);
     const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
@@ -41,19 +43,19 @@ const AddPortfolio = ({
         "tasker-portfolio",
     ]);
 
+    function isValidURL(str: any) {
+        const regex =
+            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+        if (!regex.test(str)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     const editDetails = data?.data?.result.find((item) => item.id === id);
     console.log("edit data=", editDetails);
-    const formattedImage = editDetails?.image?.substring(
-        editDetails?.image?.indexOf("/portfolio/") + 11
-    );
-    const formattedFile = editDetails?.image?.substring(
-        editDetails?.file?.indexOf("/portfolio/") + 11
-    );
-    console.log("formatted image=", formattedImage, formattedFile);
-    // {document.file.substring(
-    //     document.file.indexOf("document/") +
-    //         9
-    // )}
+
     return (
         <div>
             {/* Modal component */}
@@ -69,60 +71,38 @@ const AddPortfolio = ({
                                       issued_date: parseISO(
                                           editDetails.issued_date
                                       ),
-                                      image: formattedImage,
-                                      file: formattedFile,
+                                      //  image: formData.append("image", )
                                   }
                                 : AddPortfolioFormData
                         }
                         validationSchema={addPortfolioSchema}
                         onSubmit={async (values) => {
-                            const formData = new FormData();
-                            let newValue;
-                            if (editDetails || values.issued_date) {
-                                const formattedValues = {
-                                    ...values,
-                                    issued_date: format(
-                                        new Date(values.issued_date),
-                                        "yyyy-MM-dd"
-                                    ),
-                                    image: formData.append(
-                                        "file",
-                                        formattedImage
-                                    ),
-                                    file: formData.append(
-                                        "image",
-                                        formattedFile
-                                    ),
-                                };
-                                newValue = formattedValues;
+                            const formData: FormData = new FormData();
+                            console.log("valuews =", values);
+                            //let newValue;
+                            const newvalidatedValue = {
+                                ...values,
+                                issued_date: format(
+                                    new Date(values.issued_date),
+                                    "yyyy-MM-dd"
+                                ),
+                            };
 
-                                Object.entries(newValue).forEach((entry) => {
+                            Object.entries(newvalidatedValue).forEach(
+                                (entry) => {
                                     const [key, value] = entry;
+                                    console.log("entry=", entry);
+                                    if (
+                                        (entry[0] == "file" &&
+                                            isValidURL(entry[1])) ||
+                                        (entry[0] == "image" &&
+                                            isValidURL(entry[1]))
+                                    ) {
+                                        return false;
+                                    }
                                     formData.append(key, value);
-                                });
-                            } else {
-                                Object.entries(newValue).forEach((entry) => {
-                                    const [key, value] = entry;
-                                    formData.append(key, value);
-                                });
-
-                                formData.append("file", values.file);
-                                formData.append("image", values.image);
-                            }
-                            console.log("sdfasdfasdf", values);
-                            // const newvalidatedValue = {
-                            //     ...values,
-                            //     issued_date: format(
-                            //         new Date(values.issued_date),
-                            //         "yyyy-MM-dd"
-                            //     ),
-                            // };
-
-                            // Object.entries(newValue).forEach((entry) => {
-                            //     const [key, value] = entry;
-                            //     formData.append(key, value);
-                            // });
-
+                                }
+                            );
                             // formData.append("file", values.file);
                             // formData.append("image", values.image);
                             console.log(
@@ -132,7 +112,7 @@ const AddPortfolio = ({
                             );
                             {
                                 editDetails
-                                    ? editMutation(newValue, {
+                                    ? editMutation(formData, {
                                           onSuccess: async () => {
                                               console.log(
                                                   "submitted values",
@@ -199,7 +179,7 @@ const AddPortfolio = ({
                                             min="1"
                                             error={errors.issued_date}
                                             touch={touched.issued_date}
-                                            dateFormat="yyyy-MM-dd "
+                                            dateFormat="yyyy-MM-dd"
                                             placeHolder="2022-03-06"
                                         />
                                         <h4>Credential URL</h4>

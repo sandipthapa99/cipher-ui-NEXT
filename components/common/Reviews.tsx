@@ -8,7 +8,6 @@ const Reviews = ({
     description,
     raterEmail,
     time,
-    raterId,
     image,
 }: ReviewsProps) => {
     const timeago = () => {
@@ -20,7 +19,6 @@ const Reviews = ({
     };
     //   const { data: profileDetails } = useGetProfileById(raterId);
 
-    //  const userImage = profileDetails?.profile_image;
     return (
         <>
             <div>
