@@ -17,6 +17,7 @@ const Reviews = ({
             return "a while ago";
         }
     };
+    //   const { data: profileDetails } = useGetProfileById(raterId);
 
     return (
         <>

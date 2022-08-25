@@ -78,7 +78,11 @@ export interface ServicesPackageProps {
         no_of_revision: number;
         service_offered: string;
         is_active: boolean;
-        slug: any;
+        slug: string;
+        budget_type: string;
+        discount_type: string;
+        discount_value: number;
+        is_recommended: boolean;
     }[];
 }
 export type ServiceCardResult = ServicesValueProps["result"][0];
