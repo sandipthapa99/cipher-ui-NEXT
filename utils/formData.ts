@@ -15,6 +15,7 @@ import type { KYCFormProps } from "types/kycFormProps";
 import type { LoginValuesProps } from "types/login";
 import type { PostTaskProps } from "types/postTaskData";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
+import type { ServicePostProps } from "types/serviceCard";
 import type { SkillsValueProps } from "types/skillsValueProps";
 import type { TaxCalculatorValueProps } from "types/taxCalculatorValueProps";
 import type { UploadCVValueProps } from "types/uploadCVValueProps";
@@ -248,4 +249,25 @@ export const PostTaskFormData: PostTaskProps = {
     date: null,
     date_from: null,
     date_to: null,
+};
+
+export const ServicePostData: ServicePostProps = {
+    title: "",
+    budget_type: "",
+    budget_from: "",
+    budget_to: "",
+    description: "",
+    highlights: "",
+    location: "",
+    is_professional: false,
+    is_online: false,
+    video: "",
+    no_of_revisions: 0,
+    discount_type: "",
+    discount_value: "",
+    is_active: false,
+    category: 0,
+    city: 1,
+    images: [],
+    imagePreviewUrl: [],
 };

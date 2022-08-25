@@ -276,19 +276,23 @@ const Home: NextPage<{
 
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.data?.result?.map((service, key) => {
-                                return (
-                                    <Col
-                                        sm={6}
-                                        md={4}
-                                        lg={3}
-                                        key={key}
-                                        className="d-flex"
-                                    >
-                                        <ServiceCard serviceCard={service} />
-                                    </Col>
-                                );
-                            })}
+                            servicesData?.data?.result
+                                ?.slice(0, 4)
+                                .map((service, key) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={key}
+                                            className="d-flex"
+                                        >
+                                            <ServiceCard
+                                                serviceCard={service}
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                     <Row>
                         <Advertisement />
@@ -315,19 +319,23 @@ const Home: NextPage<{
                     </div>
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.data?.result?.map((service, key) => {
-                                return (
-                                    <Col
-                                        sm={6}
-                                        md={4}
-                                        lg={3}
-                                        key={key}
-                                        className="d-flex"
-                                    >
-                                        <ServiceCard serviceCard={service} />
-                                    </Col>
-                                );
-                            })}
+                            servicesData?.data?.result
+                                ?.slice(0, 4)
+                                .map((service, key) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={key}
+                                            className="d-flex"
+                                        >
+                                            <ServiceCard
+                                                serviceCard={service}
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                 </Container>
             </section>
