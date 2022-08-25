@@ -8,7 +8,7 @@ import { useWithLogin } from "store/use-login-prompt-store";
 interface saveIconProps {
     object_id?: string;
     model?: string;
-    filled?: () => boolean;
+    filled?: boolean;
     showText?: boolean;
 }
 
@@ -27,14 +27,14 @@ const SaveIcon = ({ object_id, model, filled, showText }: saveIconProps) => {
             className={classes.saveIconContainer}
         >
             <FontAwesomeIcon
-                icon={filled?.() ? FilledHeart : faHeart}
+                icon={filled ? FilledHeart : faHeart}
                 className="svg-icon svg-icon-heart me-2 me-sm-5"
             />
             {showText ? (
                 isLoading ? (
                     <span>Loading</span>
                 ) : (
-                    <span>{filled?.() ? "Remove" : "Save"}</span>
+                    <span>{filled ? "Remove" : "Save"}</span>
                 )
             ) : null}
         </button>
