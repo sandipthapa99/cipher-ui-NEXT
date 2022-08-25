@@ -15,7 +15,6 @@ export const LoginPrompt = () => {
     const hideLoginPrompt = useHideLoginPrompt();
 
     const router = useRouter();
-    const pathname = router.pathname;
 
     useEffect(() => {
         router.events.on("routeChangeStart", hideLoginPrompt);
@@ -30,7 +29,12 @@ export const LoginPrompt = () => {
             <Modal.Header closeButton />
             <Modal.Body>
                 <p>Not logged in ?</p>
-                <Link href={`/login?next=${pathname}`}>
+                <Link
+                    href={{
+                        pathname: "/login",
+                        query: { next: router.asPath },
+                    }}
+                >
                     <a>Login</a>
                 </Link>
             </Modal.Body>

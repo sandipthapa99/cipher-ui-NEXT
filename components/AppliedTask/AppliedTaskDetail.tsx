@@ -46,7 +46,7 @@ const AppliedTaskDetail: NextPage = () => {
 
     const requirements = taskDetail?.requirements?.split(",");
 
-    const isTaskBookmarked = useIsBookmarked("task", taskDetail.id);
+    const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
     if (!taskDetail) {
         return <UserLoadingOverlay />;
