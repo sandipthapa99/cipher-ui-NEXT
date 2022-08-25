@@ -106,26 +106,7 @@ const ChangePasswordForm = () => {
                                 confirm it’s you.
                                 <SwitchValue />
                             </div>
-                            <div className="d-flex justify-content-between security-toggle">
-                                <h2>Security Question</h2>
-                                <FontAwesomeIcon
-                                    icon={faPencil}
-                                    className="svg-icon"
-                                />
-                            </div>
 
-                            <p className="mb-3 d-flex align-content-center">
-                                <Field
-                                    type="checkbox"
-                                    name="toggle"
-                                    className="checkbox me-2"
-                                />{" "}
-                                Enabled
-                            </p>
-                            <p>
-                                Answer a question you choose to confirm it’s
-                                you.
-                            </p>
                             {/* <div>
                                 <SecurityQuestions />
                             </div> */}
@@ -140,7 +121,7 @@ const ChangePasswordForm = () => {
                                 <FormButton
                                     type="submit"
                                     variant="primary"
-                                    name="Save"
+                                    name="Update"
                                     className="submit-btn w-25"
                                     isSubmitting={isSubmitting}
                                     isSubmittingClass={isSubmittingClass(
@@ -151,6 +132,9 @@ const ChangePasswordForm = () => {
                         </Form>
                     )}
                 </Formik>
+                <div>
+                    <SecurityQuestions />
+                </div>
             </div>
             <PostCard
                 text="You are good to continue."
