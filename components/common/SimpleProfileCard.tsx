@@ -49,7 +49,7 @@ const SimpleProfileCard = ({
                 </div>
             </div>
 
-            {isApplied && isPermission && (
+            {/* {isApplied && isPermission && (
                 <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                     <span>Your Price</span>
                     <div className="d-flex price-edit">
@@ -77,7 +77,7 @@ const SimpleProfileCard = ({
                         />
                     </div>
                 </div>
-            )}
+            )} */}
 
             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                 <span>Budget Range</span>
@@ -86,7 +86,14 @@ const SimpleProfileCard = ({
                 </span>
             </div>
 
-            {isApplied &&
+            <BookNowButton
+                btnTitle={"Apply Now"}
+                backgroundColor={"#38C675"}
+                showModal={true}
+                handleOnClick={withLogin(() => setShowModal(!showModal))}
+            />
+
+            {/* {isApplied &&
                 isWorking &&
                 (!priceChanged ? (
                     <BookNowButton
@@ -99,9 +106,9 @@ const SimpleProfileCard = ({
                         backgroundColor={"#211D4F"}
                         handleOnClick={handlePriceSave}
                     />
-                ))}
+                ))} */}
 
-            {isApplied && !isWorking && (
+            {/* {isApplied && !isWorking && (
                 <>
                     {!priceChanged ? (
                         <BookNowButton
@@ -120,7 +127,7 @@ const SimpleProfileCard = ({
                         />
                     )}
                 </>
-            )}
+            )} */}
 
             {BookingDetails &&
                 BookingDetails.map((detail) => (
