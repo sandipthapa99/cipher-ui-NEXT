@@ -79,6 +79,7 @@ export const AddPortfolioFormData: AddPortfolioProps = {
     issued_date: "",
     image: "",
     file: "",
+    id: 0,
 };
 
 export const AddSkillFormData: AddSkills = {
