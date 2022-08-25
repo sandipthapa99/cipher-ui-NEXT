@@ -9,7 +9,6 @@ import {
     faStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
-import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
@@ -47,7 +46,9 @@ const UserProfileCard = ({
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
 
-    const services = moreServices ? JSON.parse(moreServices) : [];
+    const services = Array.isArray(moreServices)
+        ? JSON.parse(moreServices)
+        : [];
 
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
@@ -89,12 +90,31 @@ const UserProfileCard = ({
                                 className="rounded-circle"
                             />
                         </figure>
-                        {/* <FontAwesomeIcon
-                            icon={faBadgeCheck}
-                            className="badge-icon"
-                        /> */}
                     </div>
 
+                    {/* <figure
+                        className="thumbnail-img camera-img"
+                        //  onClick={() => setShowExpForm(!showExpForm)}
+                    >
+                        <Image
+                            src="/userprofile/edit.svg"
+                            objectFit="cover"
+                            alt="user-profile-image"
+                            className="rounded-circle"
+                            height={100}
+                            width={100}
+                        />
+                    </figure>
+                    <figure className="thumbnail-img alert-img">
+                        <Image
+                            src="/userprofile/alert.svg"
+                            objectFit="cover"
+                            alt="user-profile-image"
+                            className="rounded-circle"
+                            height={200}
+                            width={200}
+                        />
+                    </figure> */}
                     <PhotoEdit
                         photo={userImage}
                         show={showExpForm}

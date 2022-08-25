@@ -79,7 +79,9 @@ const AboutProfile = () => {
 
     const { data: profileDetails } = useGetProfile();
 
-    const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
+    const userSkills = Array.isArray(profileDetails)
+        ? JSON.parse(profileDetails?.skill)
+        : [];
     console.log("sjil", userSkills);
     const [hovered, setHovered] = useState<null | number>(null);
 
@@ -182,7 +184,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {experienceData?.data?.result
+                                {!experienceData?.data?.result
                                     ? experienceData?.data?.result?.map(
                                           (value) => {
                                               return (
@@ -295,7 +297,7 @@ const AboutProfile = () => {
                             handleClose={() => setShowAddSkillsForm(false)}
                         />
                     </div>
-
+                    {/* 
                     <Row>
                         <Col md={9}>
                             <div className="content">
@@ -308,7 +310,7 @@ const AboutProfile = () => {
                                     : "No skills to show. Please add them"}
                             </div>
                         </Col>
-                    </Row>
+                    </Row> */}
                 </div>
                 <div className="type education">
                     <div className="title-wrapper d-flex justify-content-between">
@@ -331,7 +333,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {educationData?.data?.result
+                                {!educationData?.data?.result
                                     ? educationData?.data.result.map(
                                           (value: any) => (
                                               <div
@@ -437,7 +439,7 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {certificationData?.data?.result
+                                {!certificationData?.data?.result
                                     ? certificationData?.data.result?.map(
                                           (value) => (
                                               <div
