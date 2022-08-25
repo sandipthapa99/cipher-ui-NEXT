@@ -21,6 +21,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     const { data: profileDetails, error } = useGetProfile();
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData(["profile"]);
+    console.log(profileDetails);
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],
@@ -100,10 +101,12 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             userBadge={remaining.userBadge}
                             userPoints={remaining.userPoints}
                             pointGoal={remaining.pointGoal}
-                            happyClients={remaining.happyClients}
-                            successRate={remaining.successRate}
-                            userReviews={remaining.userReviews}
-                            taskCompleted={remaining.taskCompleted}
+                            happyClients={profileDetails?.stats?.happy_clients}
+                            successRate={profileDetails?.stats?.success_rate}
+                            userReviews={profileDetails?.stats?.user_reviews}
+                            taskCompleted={
+                                profileDetails?.stats?.task_completed
+                            }
                             userActiveStatus={remaining.userActiveStatus}
                             tooltipMessage={remaining.tooltipMessage}
                         />
