@@ -11,7 +11,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { TaskerDetails } from "staticData/taskDetail";
-import { taskDetails } from "staticData/taskDetail";
+import { safeParse } from "utils/safeParse";
 
 import { UserStats } from "./UserStats";
 
@@ -29,6 +29,10 @@ export const UserTaskDetailHeader = ({
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
     const [showMenu, toggleShowMenu] = useToggle([false, true]);
 
+    const userType = safeParse({
+        rawString: taskerDetail?.user_type,
+        initialData: [],
+    }).join(", ");
     return (
         <>
             <HireMerchantModal
@@ -66,7 +70,7 @@ export const UserTaskDetailHeader = ({
                     >
                         {taskerDetail?.full_name}
                     </h4>
-                    <p className="td-text mb-4">{taskerDetail?.user_type}</p>
+                    <p className="td-text mb-4">{userType}</p>
                     <RatingStars value={taskerDetail?.stats?.user_reviews} />
                     <UserStats
                         happyCustomers={taskerDetail?.stats?.happy_clients}

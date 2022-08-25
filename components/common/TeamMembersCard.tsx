@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQueryClient } from "@tanstack/react-query";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import type { Tasker } from "types/tasks";
@@ -48,6 +49,7 @@ export const TeamMembersCard = ({
 }: Props) => {
     const userId = rest.taskers?.user.id;
     const isBookmarked = useIsBookmarked("user", userId);
+    const queryClient = useQueryClient();
     return (
         <div className="team-members-card">
             <div className="d-flex w-100 image-and-title">
@@ -104,6 +106,9 @@ export const TeamMembersCard = ({
                         model="user"
                         object_id={userId}
                         filled={isBookmarked}
+                        onSuccess={() =>
+                            queryClient.invalidateQueries(["bookmarks", "user"])
+                        }
                     />
                     <ShareIcon url={""} quote={""} hashtag={""} />
                 </div>

@@ -7,11 +7,16 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Row } from "react-bootstrap";
 import type { TaskerDetails } from "staticData/taskDetail";
+import { safeParse } from "utils/safeParse";
 
 interface UserShortIntroProps {
     user: TaskerDetails;
 }
 export const UserShortIntro = ({ user }: UserShortIntroProps) => {
+    const userSkills = safeParse<string[]>({
+        rawString: user?.skill,
+        initialData: [],
+    }).join(", ");
     return (
         <Row className="td-mt-24">
             <Col md={6}>
@@ -34,8 +39,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                 </p>
                 <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faStar} />
-                    {/* <span>{user?.skill?.join(", ")}</span> */}
-                    <span>{user?.skill}</span>
+                    <span>{userSkills}</span>
                 </p>
             </Col>
             <Col md={6}>
