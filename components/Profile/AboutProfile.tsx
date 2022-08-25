@@ -36,6 +36,7 @@ const AboutProfile = () => {
     const [id, setId] = useState<number | undefined>();
     const [search, setSearch] = useState("-rating");
     const [page, setPage] = useState<number>(1);
+    const [isAddProfile, setIsAddProfile] = useState(false);
 
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
@@ -67,7 +68,7 @@ const AboutProfile = () => {
         ["tasker-portfolio"],
         "/tasker/portfolio/"
     );
-
+    console.log("portfoosdf", portfolioData);
     const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
         setId(id);
@@ -95,9 +96,12 @@ const AboutProfile = () => {
                         <EditProfileButton
                             text="Add New"
                             showModal={true}
-                            handleOnClick={() =>
-                                setShowAddPortfolioModal(!showAddPortfolioModal)
-                            }
+                            handleOnClick={() => {
+                                setShowAddPortfolioModal(
+                                    !showAddPortfolioModal
+                                );
+                                setIsAddProfile(true);
+                            }}
                         />
                     </div>
                     <AddPortfolio
@@ -106,7 +110,12 @@ const AboutProfile = () => {
                         handleClose={() => setShowAddPortfolioModal(false)}
                         id={id}
                     />
-
+                    <PortfolioDetails
+                        show={showPortfolioDetails}
+                        setShowPortfolioDetails={setShowPortfolioDetails}
+                        handleClose={() => setShowPortfolioDetails(false)}
+                        id={id}
+                    />
                     <div className="content ">
                         {portfolioData?.data?.result
                             ? portfolioData?.data?.result?.map((info: any) => (
@@ -115,6 +124,7 @@ const AboutProfile = () => {
                                       onMouseLeave={() => setHovered(null)}
                                       onMouseEnter={() => setHovered(info?.id)}
                                       key={info?.id}
+                                      onClick={() => setId(info?.id)}
                                   >
                                       <Row className="gx-5">
                                           <Col md={6}>
@@ -137,28 +147,6 @@ const AboutProfile = () => {
                                               ) : (
                                                   ""
                                               )}
-                                              <PortfolioDetails
-                                                  show={showPortfolioDetails}
-                                                  setShowPortfolioDetails={
-                                                      setShowPortfolioDetails
-                                                  }
-                                                  handleClose={() =>
-                                                      setShowPortfolioDetails(
-                                                          false
-                                                      )
-                                                  }
-                                                  id={info?.id}
-                                                  name={info?.title}
-                                                  description={
-                                                      info?.description
-                                                  }
-                                                  url={info?.credential_url}
-                                                  issued_date={
-                                                      info?.issued_date
-                                                  }
-                                                  image={info?.image}
-                                                  file={info?.file}
-                                              />
                                           </Col>
                                           {/* <Col
                                               md={info?.file ? 6 : 12}

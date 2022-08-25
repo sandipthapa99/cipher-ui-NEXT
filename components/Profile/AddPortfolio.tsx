@@ -6,17 +6,17 @@ import InputField from "@components/common/InputField";
 import { useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
+import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { AddPortfolioProps } from "types/editProfile";
+import type { AddPortfolioProps } from "types/editProfile";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { useEditForm } from "hooks/use-edit-form";
 
 interface AddPortfolioModalProps {
     show?: boolean;
@@ -42,7 +42,18 @@ const AddPortfolio = ({
     ]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
-    console.log("portfolio edit data=", editDetails, id);
+    console.log("edit data=", editDetails);
+    const formattedImage = editDetails?.image?.substring(
+        editDetails?.image?.indexOf("/portfolio/") + 11
+    );
+    const formattedFile = editDetails?.image?.substring(
+        editDetails?.file?.indexOf("/portfolio/") + 11
+    );
+    console.log("formatted image=", formattedImage, formattedFile);
+    // {document.file.substring(
+    //     document.file.indexOf("document/") +
+    //         9
+    // )}
     return (
         <div>
             {/* Modal component */}
@@ -58,49 +69,106 @@ const AddPortfolio = ({
                                       issued_date: parseISO(
                                           editDetails.issued_date
                                       ),
+                                      image: formattedImage,
+                                      file: formattedFile,
                                   }
                                 : AddPortfolioFormData
                         }
                         validationSchema={addPortfolioSchema}
                         onSubmit={async (values) => {
                             const formData = new FormData();
+                            let newValue;
+                            if (editDetails || values.issued_date) {
+                                const formattedValues = {
+                                    ...values,
+                                    issued_date: format(
+                                        new Date(values.issued_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                    image: formData.append(
+                                        "file",
+                                        formattedImage
+                                    ),
+                                    file: formData.append(
+                                        "image",
+                                        formattedFile
+                                    ),
+                                };
+                                newValue = formattedValues;
 
-                            const newvalidatedValue = {
-                                ...values,
-                                issued_date: format(
-                                    new Date(values.issued_date),
-                                    "yyyy-MM-dd"
-                                ),
-                            };
-
-                            Object.entries(newvalidatedValue).forEach(
-                                (entry) => {
+                                Object.entries(newValue).forEach((entry) => {
                                     const [key, value] = entry;
                                     formData.append(key, value);
-                                }
-                            );
-                            formData.append("file", values.file);
-                            formData.append("image", values.image);
+                                });
+                            } else {
+                                Object.entries(newValue).forEach((entry) => {
+                                    const [key, value] = entry;
+                                    formData.append(key, value);
+                                });
+
+                                formData.append("file", values.file);
+                                formData.append("image", values.image);
+                            }
+                            console.log("sdfasdfasdf", values);
+                            // const newvalidatedValue = {
+                            //     ...values,
+                            //     issued_date: format(
+                            //         new Date(values.issued_date),
+                            //         "yyyy-MM-dd"
+                            //     ),
+                            // };
+
+                            // Object.entries(newValue).forEach((entry) => {
+                            //     const [key, value] = entry;
+                            //     formData.append(key, value);
+                            // });
+
+                            // formData.append("file", values.file);
+                            // formData.append("image", values.image);
                             console.log(
                                 "file image",
                                 values.file,
                                 values.image
                             );
-                            mutate(formData, {
-                                onSuccess: async () => {
-                                    console.log("submitted values", values);
-                                    setShowAddPortfolioModal(false);
-                                    queryClient.invalidateQueries([
-                                        "tasker-portfolio",
-                                    ]);
-                                    toast.success(
-                                        "Portfolio added successfully."
-                                    );
-                                },
-                                onError: async (error) => {
-                                    toast.error(error.message);
-                                },
-                            });
+                            {
+                                editDetails
+                                    ? editMutation(newValue, {
+                                          onSuccess: async () => {
+                                              console.log(
+                                                  "submitted values",
+                                                  values
+                                              );
+                                              setShowAddPortfolioModal(false);
+                                              queryClient.invalidateQueries([
+                                                  "tasker-portfolio",
+                                              ]);
+                                              toast.success(
+                                                  "Portfolio updated successfully."
+                                              );
+                                          },
+                                          onError: async (error) => {
+                                              toast.error(error.message);
+                                          },
+                                      })
+                                    : mutate(formData, {
+                                          onSuccess: async () => {
+                                              console.log(
+                                                  "submitted values",
+                                                  values
+                                              );
+                                              setShowAddPortfolioModal(false);
+                                              queryClient.invalidateQueries([
+                                                  "tasker-portfolio",
+                                              ]);
+                                              toast.success(
+                                                  "Portfolio added successfully."
+                                              );
+                                          },
+                                          onError: async (error) => {
+                                              toast.error(error.message);
+                                          },
+                                      });
+                            }
                         }}
                     >
                         {({ isSubmitting, errors, touched, setFieldValue }) => (
@@ -131,7 +199,7 @@ const AddPortfolio = ({
                                             min="1"
                                             error={errors.issued_date}
                                             touch={touched.issued_date}
-                                            dateFormat="yyyy-MM-dd"
+                                            dateFormat="yyyy-MM-dd "
                                             placeHolder="2022-03-06"
                                         />
                                         <h4>Credential URL</h4>

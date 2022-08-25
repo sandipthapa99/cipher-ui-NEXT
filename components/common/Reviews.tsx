@@ -1,5 +1,4 @@
 import { formatDistanceToNow, parseISO } from "date-fns";
-import { useGetProfileById } from "hooks/profile/getProfileById";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
 import type { ReviewsProps } from "types/reviews";
