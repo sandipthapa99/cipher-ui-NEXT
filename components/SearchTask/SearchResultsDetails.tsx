@@ -288,18 +288,21 @@ const SearchResultsDetail = ({
                                                 <PackageOffersCard
                                                     title={offer.title}
                                                     price={offer.budget.toString()}
-                                                    // offers={
-                                                    //     offer.service_offered &&
-                                                    //     JSON.parse(
-                                                    //         offer?.service_offered
-                                                    //     )
-                                                    // }
+                                                    offers={
+                                                        offer.service_offered &&
+                                                        JSON.parse(
+                                                            offer?.service_offered
+                                                        )
+                                                    }
                                                     isRecommended={
-                                                        offer.is_active
+                                                        offer.is_recommended
                                                     }
                                                     isPermium={offer.is_active}
                                                     advantage={offer.title}
                                                     isFromAddService={false}
+                                                    discountAmount={
+                                                        offer.discount_value
+                                                    }
                                                 />
                                             </Carousel.Slide>
                                         )

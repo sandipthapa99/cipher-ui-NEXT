@@ -41,6 +41,7 @@ import { merchants } from "staticData/merchants";
 import { serviceCategory } from "staticData/serviceCategory";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
+import type { HeroCategoryProps } from "types/heroCategory";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { SuccessStoryProps } from "types/successStory";
 import type { ITaskApiResponse } from "types/task";
@@ -51,18 +52,20 @@ import { myOptions } from "utils/options";
 interface LandingPageProps {
     successStoryData: SuccessStoryProps;
     trustedPartnerData: BrandValueProps;
+    heroCategoryData: HeroCategoryProps;
 }
 
 const Home: NextPage<{
     successStoryData: LandingPageProps["successStoryData"];
     trustedPartnerData: LandingPageProps["trustedPartnerData"];
-}> = ({ successStoryData, trustedPartnerData }) => {
+    heroCategoryData: LandingPageProps["heroCategoryData"];
+}> = ({ successStoryData, trustedPartnerData, heroCategoryData }) => {
     const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
-    console.log(servicesData);
+    console.log("herocategoryData", heroCategoryData);
 
     //for tasks
 
@@ -78,8 +81,6 @@ const Home: NextPage<{
     ]);
 
     const { data: allTaskers } = useTaskers();
-
-    console.log("all taskers", allTaskers);
 
     const removeChip = (chip: string) => {
         setChips((prevChips) =>
@@ -398,8 +399,8 @@ const Home: NextPage<{
                     </ul>
 
                     <Row className="gx-5 hero-category">
-                        {serviceCategory &&
-                            serviceCategory?.map((category) => {
+                        {heroCategoryData?.result &&
+                            heroCategoryData?.result?.map((category) => {
                                 return (
                                     <Col
                                         lg={3}
@@ -410,10 +411,10 @@ const Home: NextPage<{
                                     >
                                         <CategoryCardNew
                                             categoryTitle={
-                                                category?.categoryTitle
+                                                category?.category?.name
                                             }
                                             categoryIcon={
-                                                category?.categoryIcon
+                                                category?.category?.icon
                                             }
                                         />
                                     </Col>
@@ -775,6 +776,9 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: trustedPartnerData } = await axiosClient.get(
             "/landingpage/trusted-partner/"
         );
+        const { data: heroCategoryData } = await axiosClient.get(
+            "/task/hero-category/"
+        );
         const { data: recommendedTasksData } = await axiosClient.get("/task");
         const queryClient = new QueryClient();
         await queryClient.prefetchQuery(["all-blogs"]);
@@ -785,6 +789,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 successStoryData: successStoryData,
                 trustedPartnerData: trustedPartnerData,
                 recommendedTasksData: recommendedTasksData,
+                heroCategoryData: heroCategoryData,
                 dehydratedState: dehydrate(queryClient),
             },
             revalidate: 10,
@@ -797,6 +802,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 blogData: [],
                 servicesData: [],
                 recommendedTasksData: [],
+                heroCategoryData: [],
             },
             revalidate: 10,
         };
