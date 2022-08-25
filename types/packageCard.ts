@@ -6,6 +6,7 @@ export interface PacakageCardProps {
     advantage: string;
     isRecommended: boolean;
     isFromAddService?: boolean;
+    discountAmount?: number;
 }
 export interface MembershipCardProps {
     title: string;
