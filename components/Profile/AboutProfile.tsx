@@ -79,9 +79,7 @@ const AboutProfile = () => {
 
     const { data: profileDetails } = useGetProfile();
 
-    const userSkills = (
-        profileDetails ? JSON.parse(profileDetails?.skill) : []
-    ).split(",");
+    const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
     console.log("skills", userSkills);
     const [hovered, setHovered] = useState<null | number>(null);
 
@@ -297,7 +295,7 @@ const AboutProfile = () => {
                             handleClose={() => setShowAddSkillsForm(false)}
                         />
                     </div>
-                    {/* 
+
                     <Row>
                         <Col md={9}>
                             <div className="content">
@@ -310,7 +308,7 @@ const AboutProfile = () => {
                                     : "No skills to show. Please add them"}
                             </div>
                         </Col>
-                    </Row> */}
+                    </Row>
                 </div>
                 <div className="type education">
                     <div className="title-wrapper d-flex justify-content-between">
