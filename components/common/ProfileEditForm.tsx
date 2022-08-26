@@ -23,12 +23,11 @@ import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import { axiosClient } from "utils/axiosClient";
-import { formatTime } from "utils/FormatTime/formatTime";
 import { ProfileEditFromData } from "utils/formData";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-
 import TagInputField from "./TagInputField";
+import { parseISO, format } from "date-fns/esm";
 
 interface ProfileEditProps {
     show?: boolean;
@@ -44,13 +43,34 @@ const ProfileEditForm = ({
 }: ProfileEditProps) => {
     const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
+    const start = profile?.active_hour_start.replace(":00", "");
+    const end = profile?.active_hour_end.replace(":00", "");
 
-    // const toggleSuccessModal = useToggleSuccessModal();
+    const starttime = profile?.active_hour_start.split(":");
+
+    function getDateFromHours(time: any) {
+        time = time?.split(":");
+        const now = new Date();
+        return new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            ...time
+        );
+    }
+    const formattedendtime = getDateFromHours(profile?.active_hour_end);
+    const formattedstarttime = getDateFromHours(profile?.active_hour_start);
+
+    const finalstart = format(new Date(formattedendtime), "hh:mm");
+    const finalend = format(new Date(formattedstarttime), "hh:mm");
+
+    console.log("time=", finalstart, finalend);
+    const toggleSuccessModal = useToggleSuccessModal();
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)
     );
-
+    console.log("edit details=", profile);
     const onEditProfile = (data: any) => {
         editProfile.mutate(data, {
             onSuccess: (data) => {
@@ -88,7 +108,10 @@ const ProfileEditForm = ({
                             address_line1: profile?.address_line1 ?? "",
                             address_line2: profile?.address_line2 ?? "",
                             active_hour_start: "",
-                            active_hour_end: "",
+                            active_hour_end: format(
+                                new Date(formattedendtime),
+                                "hh:mm"
+                            ),
                             skill: "",
                             hourly_rate: profile?.hourly_rate ?? "",
                             linkedAccounts: "",
@@ -105,6 +128,7 @@ const ProfileEditForm = ({
                                 )?.toLocaleTimeString(),
                                 skill: JSON.stringify(values.skill),
                             };
+
                             setShowEdit(false);
                             onEditProfile(newValidatedValues);
                             // toggleSuccessModal();

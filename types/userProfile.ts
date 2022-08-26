@@ -40,6 +40,7 @@ export interface UserProfileInfoProps {
     taskCompleted: number | undefined;
 
     userActiveStatus: boolean | undefined;
-
+    isProfileVerified: boolean | undefined;
     tooltipMessage: string | undefined;
+    field?: (name: string, file: any) => void;
 }

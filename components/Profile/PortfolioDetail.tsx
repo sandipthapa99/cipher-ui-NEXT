@@ -32,6 +32,7 @@ const PortfolioDetails = ({
 // file,
 PortfolioProps) => {
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
+    const [isEditProfile, setIsEditProfile] = useState(false);
 
     const { data: portfolioDetail } = useGetPortfolioById(id);
 
@@ -90,38 +91,41 @@ PortfolioProps) => {
                             {portfolioDetail?.credential_url}
                         </a>
                     </div>
+                    {portfolioDetail?.file ? (
+                        <>
+                            <p> File here:</p>
+                            <Row>
+                                <Col md={2} sm={4}>
+                                    <div className="file">
+                                        <br />
 
-                    <p> File here:</p>
-                    <Row>
-                        <Col md={2} sm={4}>
-                            <div className="file">
-                                <br />
+                                        <a
+                                            target="_blank"
+                                            href={portfolioDetail?.file}
+                                            rel="noreferrer"
+                                        >
+                                            <figure className="file-img">
+                                                <Image
+                                                    src={
+                                                        "/userprofile/documents/pdf.svg"
+                                                    }
+                                                    alt="document-type-icon"
+                                                    height={100}
+                                                    width={100}
+                                                />
+                                            </figure>
+                                        </a>
 
-                                <a
-                                    target="_blank"
-                                    href={portfolioDetail?.file}
-                                    rel="noreferrer"
-                                >
-                                    <figure className="file-img">
-                                        <Image
-                                            src={
-                                                "/userprofile/documents/pdf.svg"
-                                            }
-                                            alt="document-type-icon"
-                                            height={100}
-                                            width={100}
-                                        />
-                                    </figure>
-                                </a>
+                                        <br />
+                                    </div>
+                                </Col>
+                            </Row>
 
-                                <br />
+                            <div className="file-name">
+                                {portfolioDetail?.title}.pdf
                             </div>
-                        </Col>
-                    </Row>
-
-                    <div className="file-name">
-                        {portfolioDetail?.title}.pdf
-                    </div>
+                        </>
+                    ) : null}
                 </div>
 
                 <Modal.Footer>
@@ -134,9 +138,10 @@ PortfolioProps) => {
 
                     <Button
                         className="btn submit-btn w-25"
-                        onClick={() =>
-                            setShowAddPortfolioModal(!showAddPortfolioModal)
-                        }
+                        onClick={() => {
+                            setShowAddPortfolioModal(!showAddPortfolioModal);
+                            setIsEditProfile(true);
+                        }}
                     >
                         Edit
                     </Button>
@@ -151,9 +156,11 @@ PortfolioProps) => {
             <AddPortfolio
                 show={showAddPortfolioModal}
                 id={id}
-                //  isEditProfile={true}
+                isEditProfile={isEditProfile}
                 setShowAddPortfolioModal={setShowAddPortfolioModal}
-                handleClose={() => setShowAddPortfolioModal(false)}
+                handleClose={() => {
+                    setShowAddPortfolioModal(false);
+                }}
             />
         </div>
     );
