@@ -6,37 +6,33 @@ import PasswordField from "@components/common/PasswordField";
 import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
-import type { LoginPayload } from "hooks/auth/useLogin";
 import { useLogin } from "hooks/auth/useLogin";
 import { useRouter } from "next/router";
+import type { ChangeEvent } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import {
-    loginWithPhoneSchema,
-    loginWithUsernameSchema,
-} from "utils/formValidation/loginFormValidation";
+import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
     const router = useRouter();
     const { mutate, isLoading } = useLogin();
-    const [loginMethod, setLoginMethod] = useState<"username" | "phone">(
-        "username"
-    );
-    const toggleLoginMethod = (
-        setFieldError: (field: string, message: any) => void
+    const [isPhoneNumber, setIsPhoneNumber] = useState(false);
+
+    const handleChange = (
+        event: ChangeEvent<HTMLInputElement>,
+        setFieldValue: (field: string, value: any) => void
     ) => {
-        // reset username and phone field errors on toggle
-        setFieldError("username", "");
-        setFieldError("phone", "");
-        setLoginMethod((currentMethod) =>
-            currentMethod === "username" ? "phone" : "username"
-        );
+        const { value } = event.currentTarget;
+
+        setFieldValue("username", value);
+
+        if (!isNaN(parseInt(value, 10))) {
+            setIsPhoneNumber(true);
+            return;
+        }
+        setIsPhoneNumber(false);
     };
-    const switchLoginBtnText =
-        loginMethod === "username"
-            ? "Login with phone number ?"
-            : "Login with username ?";
 
     return (
         <section>
@@ -51,29 +47,13 @@ const Login = () => {
             >
                 <div>
                     <Formik
+                        validationSchema={() => getLoginSchema(isPhoneNumber)}
                         initialValues={{
                             username: "",
                             password: "",
-                            phone: "",
                         }}
-                        validationSchema={
-                            loginMethod === "username"
-                                ? loginWithUsernameSchema
-                                : loginWithPhoneSchema
-                        }
                         onSubmit={(values) => {
-                            const { username, phone, password } = values;
-                            const getLoginPayload = (): LoginPayload => {
-                                if (loginMethod === "username")
-                                    return {
-                                        type: "username",
-                                        username,
-                                        password,
-                                    };
-                                return { type: "phone", phone, password };
-                            };
-                            const loginPayload = getLoginPayload();
-                            mutate(loginPayload, {
+                            mutate(values, {
                                 onError: (error) => {
                                     toast.error(error.message);
                                 },
@@ -87,34 +67,18 @@ const Login = () => {
                             });
                         }}
                     >
-                        {({ errors, touched, setFieldError }) => (
+                        {({ errors, touched, setFieldValue }) => (
                             <Form className="login-form">
-                                <button
-                                    onClick={() =>
-                                        toggleLoginMethod(setFieldError)
+                                <InputField
+                                    name="username"
+                                    labelName="Username"
+                                    touch={touched.username}
+                                    error={errors.username}
+                                    placeHolder="Enter your username"
+                                    onChange={(event) =>
+                                        handleChange(event, setFieldValue)
                                     }
-                                    className="switch-login-method"
-                                    type="button"
-                                >
-                                    {switchLoginBtnText}
-                                </button>
-                                {loginMethod === "username" ? (
-                                    <InputField
-                                        name="username"
-                                        labelName="Username"
-                                        touch={touched.username}
-                                        error={errors.username}
-                                        placeHolder="Enter your username"
-                                    />
-                                ) : (
-                                    <InputField
-                                        name="phone"
-                                        labelName="Phone number"
-                                        touch={touched.phone}
-                                        error={errors.phone}
-                                        placeHolder="Enter your phone number"
-                                    />
-                                )}
+                                />
                                 <PasswordField
                                     type="password"
                                     name="password"
