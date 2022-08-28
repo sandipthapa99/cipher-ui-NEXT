@@ -73,7 +73,7 @@ const HelpSettings = () => {
             >
                 {({ isSubmitting, errors, touched, resetForm, values }) => (
                     <Form>
-                        {<pre>{JSON.stringify(values, null, 4)}</pre>}
+                        {/* {<pre>{JSON.stringify(values, null, 4)}</pre>} */}
                         {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
 
                         <Row>
