@@ -1,9 +1,10 @@
+import AnchorButton from "@components/common/AnchorButton";
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import CardBtn from "@components/common/CardBtn";
 import CipherCard from "@components/common/CipherCard";
 import FaqContent from "@components/common/Faq";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import Layout from "@components/Layout";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { Table } from "react-bootstrap";
@@ -12,6 +13,8 @@ import { faqContent } from "staticData/faq";
 import { trustedPartners } from "staticData/taskerMarketPlace";
 
 const AffiliateProgram = () => {
+    const accessToken = Cookies.get("access");
+
     return (
         <Layout title="Affiliate Program | Cipher">
             <section className="affiliate-hero-section">
@@ -50,10 +53,24 @@ const AffiliateProgram = () => {
                                     <li>No credit card required</li>
                                     <li>Cancel anytime</li>
                                 </ul>
-                                <CardBtn
-                                    backgroundColor="#211D4F"
-                                    btnTitle="Join Now"
-                                />
+
+                                {accessToken !== undefined ? (
+                                    <AnchorButton
+                                        className={"px-5"}
+                                        href={"/explore-services"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Explore Services"}
+                                    </AnchorButton>
+                                ) : (
+                                    <AnchorButton
+                                        className={"px-5"}
+                                        href={"/signup"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Join Now"}
+                                    </AnchorButton>
+                                )}
                             </div>
                         </Col>
                     </Row>

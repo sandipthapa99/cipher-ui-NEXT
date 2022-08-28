@@ -10,6 +10,7 @@ const FILE_PLACEHOLDER_IMAGES = {
     video: "/payrollservices/video.svg",
 };
 export type FileType = keyof typeof FILE_PLACEHOLDER_IMAGES;
+
 export interface CustomDropZoneProps
     extends Omit<DropzoneProps, "children" | "onDrop"> {
     name: string;

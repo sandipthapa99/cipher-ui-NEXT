@@ -11,6 +11,7 @@ import { faPlus, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
+import { format, parseISO } from "date-fns/esm";
 import { Form, Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { Dispatch, SetStateAction } from "react";
@@ -23,7 +24,6 @@ import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import { axiosClient } from "utils/axiosClient";
-import { formatTime } from "utils/FormatTime/formatTime";
 import { ProfileEditFromData } from "utils/formData";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -44,13 +44,40 @@ const ProfileEditForm = ({
 }: ProfileEditProps) => {
     const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
+    const start = profile?.active_hour_start.replace(":00", "");
+    const end = profile?.active_hour_end.replace(":00", "");
 
-    // const toggleSuccessModal = useToggleSuccessModal();
+    const starttime = profile?.active_hour_start.split(":");
+
+    const getDateFromHours = (time: any) => {
+        time = time?.split(":");
+        const now = new Date();
+        return new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            ...time
+        );
+    };
+    // const formattedendtime = getDateFromHours(profile?.active_hour_end);
+    // const formattedstarttime = getDateFromHours(profile?.active_hour_start);
+
+    // const finalstart = format(
+    //     new Date(getDateFromHours(profile?.active_hour_end)),
+    //     "hh:mm"
+    // );
+    // const finalend = format(
+    //     new Date(getDateFromHours(profile?.active_hour_start)),
+    //     "hh:mm"
+    // );
+
+    // console.log("time=", finalstart.toString(), finalend.toString());
+    const toggleSuccessModal = useToggleSuccessModal();
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)
     );
-
+    console.log("edit details=", profile);
     const onEditProfile = (data: any) => {
         editProfile.mutate(data, {
             onSuccess: (data) => {
@@ -105,6 +132,7 @@ const ProfileEditForm = ({
                                 )?.toLocaleTimeString(),
                                 skill: JSON.stringify(values.skill),
                             };
+
                             setShowEdit(false);
                             onEditProfile(newValidatedValues);
                             // toggleSuccessModal();

@@ -1,8 +1,9 @@
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
 
-import CardBtn from "./CardBtn";
+import AnchorButton from "./AnchorButton";
 
 export interface CardProps {
     title: string;
@@ -11,6 +12,7 @@ export interface CardProps {
     image: string;
     imageOnRight?: boolean;
     buttonText?: string;
+
     homeImage?: boolean;
     descTitle?: string;
 }
@@ -24,6 +26,7 @@ const LongSquareImageCard = ({
     homeImage,
     descTitle,
 }: CardProps) => {
+    const accessToken = Cookies.get("access");
     return (
         <div className="long-square-image-card">
             <Row className="gx-5 card-content">
@@ -83,16 +86,22 @@ const LongSquareImageCard = ({
                                         <p>{description}</p>
                                     )}
                                 </div>
-                                {buttonText && (
-                                    <Link href={"/contact"}>
-                                        <a>
-                                            <CardBtn
-                                                btnTitle={buttonText}
-                                                backgroundColor="#fff"
-                                                color="#000000"
-                                            />
-                                        </a>
-                                    </Link>
+                                {accessToken !== undefined ? (
+                                    <AnchorButton
+                                        className={"px-5"}
+                                        href={"/explore-services"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Explore Services"}
+                                    </AnchorButton>
+                                ) : (
+                                    <AnchorButton
+                                        className={"px-5"}
+                                        href={"/signup"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Join Us"}
+                                    </AnchorButton>
                                 )}
                             </div>
                         </Col>
@@ -142,16 +151,22 @@ const LongSquareImageCard = ({
                                         <p>{description}</p>
                                     )}
                                 </div>
-                                {buttonText && (
-                                    <Link href={"/contact"}>
-                                        <a>
-                                            <CardBtn
-                                                btnTitle={buttonText}
-                                                color="#fff"
-                                                backgroundColor="primary-color"
-                                            />
-                                        </a>
-                                    </Link>
+                                {accessToken !== undefined ? (
+                                    <AnchorButton
+                                        className={"px-5"}
+                                        href={"/explore-services"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Explore Services"}
+                                    </AnchorButton>
+                                ) : (
+                                    <AnchorButton
+                                        className={"px-5"}
+                                        href={"/signup"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Join Us"}
+                                    </AnchorButton>
                                 )}
                             </div>
                         </Col>
