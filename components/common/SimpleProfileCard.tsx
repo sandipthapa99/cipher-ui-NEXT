@@ -1,24 +1,19 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
+import { useAppliedTasks } from "hooks/task/use-applied-tasks";
 import Image from "next/image";
 import { useState } from "react";
-import { BookingDetails } from "staticData/bookNowModalCard";
 import { useWithLogin } from "store/use-login-prompt-store";
-import type { ServiceProviderCardProps } from "types/serviceDetail";
+import type { ITask } from "types/task";
 
 import BookNowButton from "./BookNowButton";
 
-const SimpleProfileCard = ({
-    id,
-    image,
-    name,
-    speciality,
-    startingPrice,
-    endPrice,
-    isApplied,
-    isPermission,
-    currency,
-}: ServiceProviderCardProps) => {
+interface SimpleProfileCardProps {
+    task: ITask;
+}
+const SimpleProfileCard = ({ task }: SimpleProfileCardProps) => {
     const withLogin = useWithLogin();
+    const { data: appliedTasks } = useAppliedTasks();
+
     const [showModal, setShowModal] = useState(false);
     const [priceValue, setPriceValue] = useState(25);
     const [priceChanged, setPriceChanged] = useState(false);
@@ -27,12 +22,17 @@ const SimpleProfileCard = ({
     const handlePriceSave = () => {
         setPriceChanged(false);
     };
+    const hasAppliedToTask = () =>
+        appliedTasks.some((task) => task.task === "123");
+
     return (
         <div className="simple-card my-5 my-lg-0 ">
             <div className="d-flex align-items-center simple-card__profile">
                 <figure className="thumbnail-img">
                     <Image
-                        src={image ? image : "/hireinnepal/footer.png"}
+                        src={
+                            task.image ? task.image : "/hireinnepal/footer.png"
+                        }
                         layout="fill"
                         objectFit="cover"
                         alt="serviceprovider-image"
@@ -40,8 +40,8 @@ const SimpleProfileCard = ({
                 </figure>
 
                 <div className="intro">
-                    <p className="name">{name}</p>
-                    <p className="job">{speciality}</p>
+                    <p className="name">{task.title}</p>
+                    <p className="job">{task.status}</p>
                 </div>
             </div>
 
@@ -78,7 +78,7 @@ const SimpleProfileCard = ({
             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                 <span>Budget Range</span>
                 <span className="text-right price">
-                    {currency} {startingPrice} {endPrice && "-" + endPrice}/hr
+                    {task.budget_from} - {task.budget_to}
                 </span>
             </div>
 
@@ -125,19 +125,19 @@ const SimpleProfileCard = ({
                 </>
             )} */}
 
-            {BookingDetails &&
-                BookingDetails.map((detail) => (
-                    <AppliedForm
-                        id={id}
-                        key={detail.id}
-                        title={detail.title}
-                        price={detail.price}
-                        image={detail.image}
-                        description={detail.description}
-                        show={showModal}
-                        handleClose={() => setShowModal(false)}
-                    />
-                ))}
+            <AppliedForm
+                id={task.id}
+                title={task.title}
+                price={
+                    task.charge
+                        ? task.charge
+                        : `From ${task.budget_from} - ${task.budget_to}`
+                }
+                image={task.image}
+                description={task.description}
+                show={showModal}
+                handleClose={() => setShowModal(false)}
+            />
         </div>
     );
 };

@@ -3,7 +3,6 @@ import { FacebookLogin } from "@components/auth/FacebookLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
-import SocialLoginBtn from "@components/common/SocialLoginBtn";
 import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
