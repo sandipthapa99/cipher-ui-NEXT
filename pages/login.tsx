@@ -1,21 +1,43 @@
-// import { FacebookLogin } from "@components/auth/FacebookLogin";
+import { FacebookLogin } from "@components/auth/FacebookLogin";
 // import GoogleLogin from "@components/auth/GoogleLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import SocialLoginBtn from "@components/common/SocialLoginBtn";
+import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
+import type { LoginPayload } from "hooks/auth/useLogin";
 import { useLogin } from "hooks/auth/useLogin";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { toast } from "react-toastify";
-import { loginFormData } from "utils/formData";
-import loginFormSchema from "utils/formValidation/loginFormValidation";
+import {
+    loginWithPhoneSchema,
+    loginWithUsernameSchema,
+} from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
     const router = useRouter();
     const { mutate, isLoading } = useLogin();
+    const [loginMethod, setLoginMethod] = useState<"username" | "phone">(
+        "username"
+    );
+    const toggleLoginMethod = (
+        setFieldError: (field: string, message: any) => void
+    ) => {
+        // reset username and phone field errors on toggle
+        setFieldError("username", "");
+        setFieldError("phone", "");
+        setLoginMethod((currentMethod) =>
+            currentMethod === "username" ? "phone" : "username"
+        );
+    };
+    const switchLoginBtnText =
+        loginMethod === "username"
+            ? "Login with phone number ?"
+            : "Login with username ?";
 
     return (
         <section>
@@ -30,10 +52,29 @@ const Login = () => {
             >
                 <div>
                     <Formik
-                        initialValues={loginFormData}
-                        validationSchema={loginFormSchema}
+                        initialValues={{
+                            username: "",
+                            password: "",
+                            phone: "",
+                        }}
+                        validationSchema={
+                            loginMethod === "username"
+                                ? loginWithUsernameSchema
+                                : loginWithPhoneSchema
+                        }
                         onSubmit={(values) => {
-                            mutate(values, {
+                            const { username, phone, password } = values;
+                            const getLoginPayload = (): LoginPayload => {
+                                if (loginMethod === "username")
+                                    return {
+                                        type: "username",
+                                        username,
+                                        password,
+                                    };
+                                return { type: "phone", phone, password };
+                            };
+                            const loginPayload = getLoginPayload();
+                            mutate(loginPayload, {
                                 onError: (error) => {
                                     toast.error(error.message);
                                 },
@@ -47,16 +88,34 @@ const Login = () => {
                             });
                         }}
                     >
-                        {({ errors, touched }) => (
+                        {({ errors, touched, setFieldError }) => (
                             <Form className="login-form">
-                                <InputField
-                                    type="email"
-                                    name="username"
-                                    labelName="Email or phone number"
-                                    touch={touched.username}
-                                    error={errors.username}
-                                    placeHolder="Enter your email"
-                                />
+                                <button
+                                    onClick={() =>
+                                        toggleLoginMethod(setFieldError)
+                                    }
+                                    className="switch-login-method"
+                                    type="button"
+                                >
+                                    {switchLoginBtnText}
+                                </button>
+                                {loginMethod === "username" ? (
+                                    <InputField
+                                        name="username"
+                                        labelName="Username"
+                                        touch={touched.username}
+                                        error={errors.username}
+                                        placeHolder="Enter your username"
+                                    />
+                                ) : (
+                                    <InputField
+                                        name="phone"
+                                        labelName="Phone number"
+                                        touch={touched.phone}
+                                        error={errors.phone}
+                                        placeHolder="Enter your phone number"
+                                    />
+                                )}
                                 <PasswordField
                                     type="password"
                                     name="password"
@@ -79,22 +138,22 @@ const Login = () => {
                                 <div className="horizontal-line">
                                     <span className="or">OR</span>
                                 </div>
-                                <SocialLoginBtn
+                                {/* <SocialLoginBtn
                                     name={"Continue with Facebook"}
                                     icon="/illustrations/fb.svg"
                                     className="facebook"
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/facebook/`}
                                 />
                                 {/* <Google /> */}
-                                <SocialLoginBtn
+                                {/* <SocialLoginBtn
                                     name={"Continue with Google"}
                                     icon="/illustrations/google.svg"
                                     className="google"
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/google-oauth2/`}
-                                />
-                                {/* <FacebookLogin />
-                                <GoogleLogin /> */}
-                                {/* <Google /> */}
+                                /> */}
+                                <FacebookLogin />
+                                {/* <GoogleLogin /> */}
+                                <Google />
                             </Form>
                         )}
                     </Formik>
