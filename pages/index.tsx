@@ -180,7 +180,7 @@ const Home: NextPage<{
                     </Row>
                     {/* Service category listing start */}
 
-                    <Row className="gx-5 hero-category">
+                    {/* <Row className="gx-5 hero-category">
                         {heroCategoryData &&
                         heroCategoryData?.result?.length > 0 ? (
                             <Carousel
