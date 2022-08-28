@@ -5,26 +5,35 @@ import MultiFileDropzone from "@components/common/MultiFileDropzone";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import AddRequirements from "@components/PostTask/AddRequirements";
-import { Code, Loader } from "@mantine/core";
+import { Code, Loader, SelectItem } from "@mantine/core";
+import { Select } from "@mantine/core";
 import { getHotkeyHandler } from "@mantine/hooks";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import type { FormikHelpers } from "formik";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
+import type { GetStaticProps, NextPage } from "next";
 import router from "next/router";
 import React, { useState } from "react";
 import { Button, Col, Container, FormCheck, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { CategoryFieldProps } from "types/categorySearchProps";
+import type { CityOptionsProps } from "types/cityOptionsProps";
 import type { SelectOptionProps } from "types/selectInputField";
 import type { ServicePostProps } from "types/serviceCard";
+import type { ServiceCategoryOptions } from "types/serviceCategoryOptions";
 import { axiosClient } from "utils/axiosClient";
 import { ServicePostData } from "utils/formData";
 import { addServiceFormSchema } from "utils/formValidation/addServiceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+interface ServicePageProps {
+    cityOptionsData: CityOptionsProps;
+}
 
-const AddService = () => {
+const AddService: NextPage<{
+    cityOptionsData: ServicePageProps["cityOptionsData"];
+}> = ({ cityOptionsData }) => {
     const options = [
         {
             id: 1,
@@ -66,6 +75,34 @@ const AddService = () => {
     });
 
     const [checked, setChecked] = useState(false);
+
+    const { data: serviceCategoryOptions } = useQuery(
+        ["service-category"],
+        async () => {
+            const response = axiosClient.get("/task/cms/task-category/list/");
+            return response.data;
+        }
+    );
+
+    console.log("service category options", serviceCategoryOptions);
+
+    const renderCityOptions = cityOptionsData?.map((item) => {
+        return {
+            id: item?.id,
+            value: item?.id,
+            label: item?.name,
+        };
+    });
+
+    // const renderCategoryOptions: SelectItem[] = serviceCategoryOptions?.map(
+    //     (item) => {
+    //         return {
+    //             id: item?.id,
+    //             value: item?.id?.toString(),
+    //             label: item?.name,
+    //         };
+    //     }
+    // );
 
     const handleChange = () => {
         setChecked(!checked);
@@ -133,6 +170,7 @@ const AddService = () => {
                     actions.resetForm();
                     setRowId(null);
                 }
+                toggleSuccessModal();
             },
             onError: (error: any) => {
                 const {
@@ -242,13 +280,20 @@ const AddService = () => {
                                             error={errors.description}
                                             touch={touched.description}
                                         />
-                                        <SelectInputField
+                                        {/* <SelectInputField
                                             name="category"
                                             labelName="Category"
                                             placeHolder="Choose Category"
                                             options={options}
                                             error={errors.category}
                                             touch={touched.category}
+                                        /> */}
+                                        <Select
+                                            label="Category"
+                                            placeholder="Pick one"
+                                            searchable
+                                            nothingFound="No options"
+                                            data={[]}
                                         />
                                         {/* <SelectInputField
                                             name="category"
@@ -424,6 +469,16 @@ const AddService = () => {
                                             error={errors.location}
                                             touch={touched.location}
                                         />
+
+                                        <SelectInputField
+                                            name={"city"}
+                                            labelName="City"
+                                            placeHolder="Select city"
+                                            error={errors.city}
+                                            touch={touched.city}
+                                            options={renderCityOptions}
+                                        />
+
                                         <AddRequirements
                                             onSubmit={(requirements) =>
                                                 setFieldValue(
@@ -481,3 +536,25 @@ const AddService = () => {
 };
 
 export default AddService;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: cityOptionsData } = await axiosClient.get(
+            "/locale/client/city/options/"
+        );
+
+        return {
+            props: {
+                cityOptionsData: cityOptionsData,
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                cityOptionsData: [],
+            },
+            revalidate: 10,
+        };
+    }
+};
