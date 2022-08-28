@@ -19,3 +19,10 @@ export const getLoginSchema = (isPhoneNumber = false) => {
     });
     return validationSchema;
 };
+
+export const resetFormSchema = Yup.object().shape({
+    password: passwordValidate,
+    confirm_password: Yup.string()
+        .oneOf([Yup.ref("password")], "Passwords do not match")
+        .required("Required field"),
+});
