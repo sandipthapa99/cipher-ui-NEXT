@@ -55,7 +55,9 @@ const UserProfileCard = ({
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
     const [image, setImage] = useState();
-    const services = moreServices ? JSON.parse(moreServices) : [];
+    const services: Array<string> = moreServices
+        ? JSON.parse(moreServices)
+        : [];
 
     const queryClient = useQueryClient();
     // const renderServices: string[] | undefined = services?.map(
@@ -276,6 +278,8 @@ const UserProfileCard = ({
                                                   )
                                               )
                                             : "No skills to show. Please add them"} */}
+                                        {services.length}
+                                        =======
                                     </div>
                                 </div>
                             </div>

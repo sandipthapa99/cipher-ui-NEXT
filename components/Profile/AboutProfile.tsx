@@ -83,6 +83,7 @@ const AboutProfile = () => {
     const { data: profileDetails } = useGetProfile();
 
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
+    console.log("useraser", userSkills);
     const [hovered, setHovered] = useState<null | number>(null);
     return (
         <>
@@ -618,31 +619,13 @@ const AboutProfile = () => {
                 <div className="reviews">
                     <div className="head-container">
                         <Row className="align-items-center">
-                            <Col md={6}>
+                            <Col md={4}>
                                 <h3>
                                     My Reviews <span>(3,0003)</span>{" "}
                                 </h3>
                             </Col>
-                            <Col md={6}>
-                                <Row className="select-field">
-                                    {/* <Col md={6}>
-                                        <Formik
-                                            initialValues={HomeSearchdata}
-                                            validationSchema={HomeSearchSchema}
-                                            onSubmit={async (values) =>
-                                                console.log(values)
-                                            }
-                                        >
-                                            <SelectInputField
-                                                name="review"
-                                                options={personType}
-                                                fieldRequired
-                                                type="submit"
-                                                placeHolder="Tasker"
-                                           
-                                            />
-                                        </Formik>
-                                    </Col> */}
+                            <Col md={{ span: 7, offset: 1 }}>
+                                <Row className="select-field justify-content-end">
                                     <Col md={6}>
                                         <Formik
                                             initialValues={reviewSearchData}
@@ -670,7 +653,10 @@ const AboutProfile = () => {
                                                         );
                                                     }}
                                                 >
-                                                    <Form.Select aria-label="Default select example">
+                                                    <Form.Select
+                                                        aria-label="Default select example"
+                                                        className="dropdown-wrapper"
+                                                    >
                                                         <option value="-rating">
                                                             Most Relevant
                                                         </option>
