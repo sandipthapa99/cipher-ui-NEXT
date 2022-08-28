@@ -21,7 +21,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     const { data: profileDetails, error } = useGetProfile();
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData(["profile"]);
-    console.log(profileDetails);
+    console.log("profile", profileDetails);
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],
@@ -109,6 +109,9 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             }
                             userActiveStatus={remaining.userActiveStatus}
                             tooltipMessage={remaining.tooltipMessage}
+                            isProfileVerified={
+                                profileDetails?.is_profile_verified
+                            }
                         />
                     </section>
 
@@ -171,7 +174,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 dehydratedState: dehydrate(queryClient),
             },
         };
-    } catch (err: any) {
+    } catch (err) {
         return {
             props: {
                 certificationData: [],

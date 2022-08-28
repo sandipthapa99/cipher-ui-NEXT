@@ -17,6 +17,7 @@ import type { AddPortfolioProps } from "types/editProfile";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { CustomDropZone } from "@components/common/CustomDropZone";
 
 interface AddPortfolioModalProps {
     show?: boolean;
@@ -44,8 +45,7 @@ const AddPortfolio = ({
     ]);
 
     function isValidURL(str: any) {
-        const regex =
-            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
+        const regex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
         if (!regex.test(str)) {
             return false;
         } else {
@@ -54,7 +54,6 @@ const AddPortfolio = ({
     }
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
-    console.log("edit data=", editDetails);
 
     return (
         <div>
@@ -65,12 +64,13 @@ const AddPortfolio = ({
                     <h3>Add Portfolio</h3>
                     <Formik
                         initialValues={
-                            editDetails && isEditProfile
+                            editDetails && isEditProfile == true
                                 ? {
                                       ...editDetails,
                                       issued_date: parseISO(
                                           editDetails.issued_date
                                       ),
+
                                       //  image: formData.append("image", )
                                   }
                                 : AddPortfolioFormData
@@ -78,31 +78,53 @@ const AddPortfolio = ({
                         validationSchema={addPortfolioSchema}
                         onSubmit={async (values) => {
                             const formData: FormData = new FormData();
-                            console.log("valuews =", values);
-                            //let newValue;
-                            const newvalidatedValue = {
-                                ...values,
-                                issued_date: format(
-                                    new Date(values.issued_date),
-                                    "yyyy-MM-dd"
-                                ),
-                            };
+                            let newValue;
+                            if (!values.file) {
+                                const newvalidatedValue = {
+                                    ...values,
+                                    issued_date: format(
+                                        new Date(values.issued_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                    file: "",
+                                };
+                                newValue = newvalidatedValue;
+                            } else if (!values.image) {
+                                const newvalidatedValue = {
+                                    ...values,
+                                    issued_date: format(
+                                        new Date(values.issued_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                    image: "",
+                                };
+                                newValue = newvalidatedValue;
+                            } else {
+                                const newvalidatedValue = {
+                                    ...values,
+                                    issued_date: format(
+                                        new Date(values.issued_date),
+                                        "yyyy-MM-dd"
+                                    ),
+                                };
+                                newValue = newvalidatedValue;
+                            }
 
-                            Object.entries(newvalidatedValue).forEach(
-                                (entry) => {
-                                    const [key, value] = entry;
-                                    console.log("entry=", entry);
-                                    if (
-                                        (entry[0] == "file" &&
-                                            isValidURL(entry[1])) ||
-                                        (entry[0] == "image" &&
-                                            isValidURL(entry[1]))
-                                    ) {
-                                        return false;
-                                    }
-                                    formData.append(key, value);
+                            console.log("valuews=", values, newValue);
+                            Object.entries(newValue).forEach((entry) => {
+                                const [key, value] = entry;
+                                console.log("entry=", entry, key, value);
+
+                                if (
+                                    (entry[0] == "file" &&
+                                        isValidURL(entry[1])) ||
+                                    (entry[0] == "image" &&
+                                        isValidURL(entry[1]))
+                                ) {
+                                    return false;
                                 }
-                            );
+                                formData.append(key, value);
+                            });
                             // formData.append("file", values.file);
                             // formData.append("image", values.image);
                             console.log(
@@ -111,7 +133,7 @@ const AddPortfolio = ({
                                 values.image
                             );
                             {
-                                editDetails
+                                editDetails && isEditProfile == true
                                     ? editMutation(formData, {
                                           onSuccess: async () => {
                                               console.log(
@@ -199,13 +221,26 @@ const AddPortfolio = ({
                                                     Add relevant images or video
                                                 </p>
 
-                                                <DragDrop
+                                                {/* <DragDrop
                                                     name="image"
                                                     image="/service-details/file-upload.svg"
                                                     fileType="Image/Video"
                                                     maxImageSize={20}
                                                     maxVideoSize={200}
                                                     field={setFieldValue}
+                                                /> */}
+                                                <CustomDropZone
+                                                    name="image"
+                                                    maxSize={200}
+                                                    minSize={20}
+                                                    onDrop={(formData) =>
+                                                        setFieldValue(
+                                                            "image",
+                                                            formData.get(
+                                                                "image"
+                                                            )
+                                                        )
+                                                    }
                                                 />
                                             </Col>
                                         </Row>
@@ -213,12 +248,27 @@ const AddPortfolio = ({
                                             <Col md={5}>
                                                 <h4>Pdf</h4>
                                                 <p>Add relevant pdf</p>
-                                                <FileDragDrop
+                                                {/* <FileDragDrop
                                                     name="file"
                                                     image="/userprofile/pdf.svg"
                                                     fileType="Pdf"
                                                     maxPdfSize={20}
                                                     field={setFieldValue}
+                                                /> */}
+                                                <CustomDropZone
+                                                    name="file"
+                                                    maxSize={200}
+                                                    minSize={20}
+                                                    onDrop={
+                                                        (formData) =>
+                                                            setFieldValue(
+                                                                "file",
+                                                                formData.get(
+                                                                    "file"
+                                                                )
+                                                            )
+                                                        // console.log(formData.get("file"))
+                                                    }
                                                 />
                                             </Col>
                                         </Row>
