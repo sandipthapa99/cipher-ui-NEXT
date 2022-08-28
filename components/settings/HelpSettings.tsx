@@ -42,13 +42,6 @@ const HelpSettings = () => {
                 }}
                 validationSchema={HelpandSupport}
                 onSubmit={(val, action) => {
-                    console.log(
-                        data?.data.find(
-                            (item) =>
-                                item.topic.split(" ").join("").toLowerCase() ===
-                                val.topic
-                        )?.id
-                    );
                     const newValues = {
                         details: val.details,
                         reason: val.topic !== "other" ? val.topic : "other",
@@ -73,7 +66,7 @@ const HelpSettings = () => {
             >
                 {({ isSubmitting, errors, touched, resetForm, values }) => (
                     <Form>
-                        {<pre>{JSON.stringify(values, null, 4)}</pre>}
+                        {/* {<pre>{JSON.stringify(values, null, 4)}</pre>} */}
                         {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
 
                         <Row>
