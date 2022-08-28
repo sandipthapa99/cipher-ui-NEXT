@@ -94,7 +94,7 @@ const ProfileEditForm = ({
                                 new Date(`2022-09-24 ${start}`) ?? "",
                             active_hour_end:
                                 new Date(`2022-09-24 ${endTime}`) ?? "",
-                            skill: "",
+                            skill: profile?.skill ?? "",
                             hourly_rate: profile?.hourly_rate ?? "",
                             linkedAccounts: "",
                         }}
