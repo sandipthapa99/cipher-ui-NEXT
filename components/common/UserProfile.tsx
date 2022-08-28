@@ -278,7 +278,10 @@ const UserProfileCard = ({
                                                   )
                                               )
                                             : "No skills to show. Please add them"} */}
+<<<<<<< components/common/UserProfile.tsx
                                         {services.length}
+=======
+>>>>>>> components/common/UserProfile.tsx
                                     </div>
                                 </div>
                             </div>
