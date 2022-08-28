@@ -110,7 +110,7 @@ const Contact = () => {
                                     mutate(values, {
                                         onSuccess: async () => {
                                             toast.success(
-                                                " Conatct message sent successfully"
+                                                " Contact message sent successfully"
                                             );
                                             action.resetForm();
                                         },

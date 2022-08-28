@@ -1,5 +1,4 @@
 import { format } from "date-fns";
-import { useUser } from "hooks/auth/useUser";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -13,19 +12,12 @@ interface TaskAsideProps {
     query: string;
 }
 const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
-    const { data: user } = useUser();
     const totalAppliedTasks = appliedTasks?.length;
 
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
             <div key={task?.slug}>
-                <Link
-                    href={
-                        user
-                            ? `/task/${task?.slug}`
-                            : `/login?next=/task/${task?.slug}`
-                    }
-                >
+                <Link href={`/task/${task?.slug}`}>
                     <a>
                         <TaskAppliedCard
                             title={task.title}

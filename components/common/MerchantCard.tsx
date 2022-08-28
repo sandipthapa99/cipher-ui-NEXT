@@ -23,12 +23,14 @@ const MerchantCard = ({
         <div onClick={onClick} className="merchant-card-block">
             <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
                 <figure className="thumbnail-img">
-                    <Image
-                        src={merchantImage}
-                        layout="fill"
-                        objectFit="cover"
-                        alt="merchant-image"
-                    />
+                    {merchantImage && (
+                        <Image
+                            src={merchantImage}
+                            layout="fill"
+                            objectFit="cover"
+                            alt="merchant-image"
+                        />
+                    )}
                 </figure>
                 <div className="merchant-name">
                     <h2 className="card-title">{`${

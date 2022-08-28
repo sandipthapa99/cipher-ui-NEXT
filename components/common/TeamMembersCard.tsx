@@ -1,14 +1,16 @@
+import SaveIcon from "@components/common/SaveIcon";
 import {
     faAward,
     faEllipsisVertical,
     faFaceGrinBeam,
-    faHeart,
     faLocationArrow,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQueryClient } from "@tanstack/react-query";
+import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
-import type { Task, Tasker } from "types/tasks";
+import type { Tasker } from "types/tasks";
 
 import BigButton from "./Button";
 import ShareIcon from "./ShareIcon";
@@ -43,7 +45,11 @@ export const TeamMembersCard = ({
     distance,
     bio,
     charge,
+    ...rest
 }: Props) => {
+    const userId = rest.taskers?.user.id;
+    const isBookmarked = useIsBookmarked("user", userId);
+    const queryClient = useQueryClient();
     return (
         <div className="team-members-card">
             <div className="d-flex w-100 image-and-title">
@@ -95,17 +101,26 @@ export const TeamMembersCard = ({
 
             <p>{bio}</p>
             <div className="d-flex justify-content-between footer-section">
-                <span className="share-and-like">
-                    <FontAwesomeIcon className="heart" icon={faHeart} />
+                <div className="d-flex share-and-like">
+                    <SaveIcon
+                        model="user"
+                        object_id={userId}
+                        filled={isBookmarked}
+                        onSuccess={() =>
+                            queryClient.invalidateQueries(["bookmarks", "user"])
+                        }
+                    />
                     <ShareIcon url={""} quote={""} hashtag={""} />
-                </span>
+                </div>
 
                 {collabButton == true ? (
-                    <BigButton
-                        btnTitle={"Collab"}
-                        backgroundColor={"#211D4F"}
-                        handleClick={handleButtonClick}
-                    />
+                    <div className="collab-button">
+                        <BigButton
+                            btnTitle={"Collab"}
+                            backgroundColor={"#211D4F"}
+                            handleClick={handleButtonClick}
+                        />
+                    </div>
                 ) : (
                     <span className="task-price"> {charge}</span>
                 )}

@@ -17,9 +17,9 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { useBookmarkTasks } from "hooks/task/use-bookmark-tasks";
+import { useIsBookmarked } from "hooks/use-bookmarks";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -33,7 +33,7 @@ import { TeamMembersSection } from "./TeamMembersSection";
 import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail: NextPage = () => {
-    const { data } = useBookmarkTasks();
+    const queryClient = useQueryClient();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
     const router = useRouter();
@@ -47,8 +47,7 @@ const AppliedTaskDetail: NextPage = () => {
 
     const requirements = taskDetail?.requirements?.split(",");
 
-    const isTaskBookmarked = (taskId: string) =>
-        data ? data.result?.some((item) => item.object_id === taskId) : false;
+    const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
     if (!taskDetail) {
         return <UserLoadingOverlay />;
@@ -70,8 +69,14 @@ const AppliedTaskDetail: NextPage = () => {
                             <SaveIcon
                                 object_id={taskDetail?.id}
                                 model="task"
-                                filled={() => isTaskBookmarked(taskDetail?.id)}
+                                filled={isTaskBookmarked}
                                 showText
+                                onSuccess={() =>
+                                    queryClient.invalidateQueries([
+                                        "bookmarks",
+                                        "task",
+                                    ])
+                                }
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon

@@ -11,7 +11,7 @@ passwordValidate = Yup.string()
     .matches(/[a-zA-Z]/, "Password can only contain Latin letters.");
 
 const loginFormSchema = Yup.object().shape({
-    email: emailValidate,
+    username: emailValidate,
     password: passwordValidate,
 });
 

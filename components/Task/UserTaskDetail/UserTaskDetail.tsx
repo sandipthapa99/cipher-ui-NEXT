@@ -1,7 +1,6 @@
 import { GoBack } from "@components/common/GoBack";
 import { UserShortIntro } from "@components/Task/UserTaskDetail/atoms/UserShortIntro";
 import { UserTaskDetailHeader } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailHeader";
-import { UserTaskDetailTabs } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailTabs";
 import { UserTaskReviews } from "@components/Task/UserTaskDetail/atoms/UserTaskReviews";
 import { useQuery } from "@tanstack/react-query";
 import type { HTMLAttributes } from "react";

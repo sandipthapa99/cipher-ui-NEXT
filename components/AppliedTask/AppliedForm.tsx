@@ -14,6 +14,7 @@ import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const AppliedForm = ({
+    id,
     title,
     price,
     description,
@@ -27,6 +28,7 @@ const AppliedForm = ({
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
+                <p>{id}</p>
                 <div className="applied-modal">
                     <h3>Task Details</h3>
                     <div className="applied-modal__details">

@@ -9,10 +9,15 @@ import {
     faStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
+import { faStar as rated } from "@fortawesome/pro-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
-import React, { useState } from "react";
+import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
+import { faCamera } from "@fortawesome/pro-light-svg-icons";
+
+import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { UserProfileInfoProps } from "types/userProfile";
 
@@ -41,14 +46,14 @@ const UserProfileCard = ({
     taskCompleted,
     tooltipMessage,
     countryCode,
+    isProfileVerified,
+    field,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
 
-    const services = Array.isArray(moreServices)
-        ? JSON.parse(moreServices)
-        : [];
+    const services = moreServices ? JSON.parse(moreServices) : [];
 
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
@@ -73,11 +78,68 @@ const UserProfileCard = ({
         );
     });
 
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const onButtonClick = () => {
+        // `current` points to the mounted file input element
+        inputRef?.current?.click();
+    };
+
     return (
         <div className="profile-card-block">
             <Row>
                 <Col md={3} className="profile-card-block__profile">
-                    <div>
+                    <figure className="profile-img mx-auto">
+                        {isProfileVerified ?? (
+                            <FontAwesomeIcon
+                                icon={faBadgeCheck}
+                                className="badge-icon"
+                            />
+                        )}
+
+                        <div
+                            className="img-dragdrop d-flex align-items-center justify-content-center"
+                            //   onClick={onButtonClick}
+                            onClick={() => setShowExpForm(!showExpForm)}
+                        >
+                            <FontAwesomeIcon
+                                icon={faCamera}
+                                className="camera-icon"
+                            />
+                            <input
+                                hidden
+                                type="file"
+                                ref={inputRef}
+                                name="image"
+                                onChange={(event: any) => {
+                                    const files = event.target.files;
+
+                                    console.log(files);
+
+                                    field?.("image", (files ?? [])[0]);
+
+                                    // console.log("field", field?.files);
+                                }}
+                            />
+                        </div>
+
+                        <Image
+                            // src={"/userprofile/unknownPerson.jpg"}
+                            src={
+                                userImage
+                                    ? userImage
+                                    : "/userprofile/unknownPerson.jpg"
+                            }
+                            // layout="fill"
+                            alt="profile-pic"
+                            className="rounded-circle"
+                            objectFit="cover"
+                            height={150}
+                            width={150}
+                            priority={true}
+                        />
+                    </figure>
+                    {/* <div>
                         <figure
                             className="thumbnail-img"
                             onClick={() => setShowExpForm(!showExpForm)}
@@ -90,31 +152,8 @@ const UserProfileCard = ({
                                 className="rounded-circle"
                             />
                         </figure>
-                    </div>
+                    </div> */}
 
-                    {/* <figure
-                        className="thumbnail-img camera-img"
-                        //  onClick={() => setShowExpForm(!showExpForm)}
-                    >
-                        <Image
-                            src="/userprofile/edit.svg"
-                            objectFit="cover"
-                            alt="user-profile-image"
-                            className="rounded-circle"
-                            height={100}
-                            width={100}
-                        />
-                    </figure>
-                    <figure className="thumbnail-img alert-img">
-                        <Image
-                            src="/userprofile/alert.svg"
-                            objectFit="cover"
-                            alt="user-profile-image"
-                            className="rounded-circle"
-                            height={200}
-                            width={200}
-                        />
-                    </figure> */}
                     <PhotoEdit
                         photo={userImage}
                         show={showExpForm}
@@ -129,15 +168,10 @@ const UserProfileCard = ({
                     <div className="rating">
                         {Array.from({ length: userRating }, (_, i) => (
                             <span key={i}>
-                                {" "}
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/icons/rated.svg"
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="rated-icon"
-                                    />
-                                </figure>
+                                <FontAwesomeIcon
+                                    icon={rated}
+                                    className="svg-icon star rated-star"
+                                />
                             </span>
                         ))}
                         {Array.from({ length: 5 - userRating }, (_, i) => (
@@ -145,7 +179,7 @@ const UserProfileCard = ({
                                 {" "}
                                 <FontAwesomeIcon
                                     icon={faStar}
-                                    className="svg-icon star"
+                                    className="svg-icon star unrated"
                                 />
                             </span>
                         ))}

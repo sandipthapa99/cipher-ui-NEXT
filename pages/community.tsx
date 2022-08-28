@@ -1,23 +1,15 @@
-import BlogCard from "@components/common/BlogCard";
+import AnchorButton from "@components/common/AnchorButton";
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import BusinessGoal from "@components/common/BusinessGoal";
-import BigButton from "@components/common/Button";
-import CommunityActivityCard from "@components/common/communityActivity";
 import CommunityGuidelineCard from "@components/common/CommunityGuidelineCard";
 import Layout from "@components/Layout";
-import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Cookies from "js-cookie";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
-import { Carousel } from "react-bootstrap";
-import { businessGoal } from "staticData/businessGoal";
-import {
-    blogCardContent,
-    communityActivityContent,
-    communityGuidelineCardContent,
-} from "staticData/community";
+import { communityGuidelineCardContent } from "staticData/community";
+
 const Community: NextPage = () => {
+    const accessToken = Cookies.get("access");
     return (
         <Layout title="Community | Cipher">
             <section className="community-page">
@@ -49,13 +41,24 @@ const Community: NextPage = () => {
                                     providers and service seekers together in
                                     the same platform.
                                 </p>
-                                <BigButton
-                                    btnTitle="Join Us"
-                                    backgroundColor="#fff"
-                                    textColor="#111"
-                                    className="text-dark mb-5"
-                                />
-                                {/* <Button className="button">Join Us</Button> */}
+
+                                {accessToken !== undefined ? (
+                                    <AnchorButton
+                                        className={"px-5"}
+                                        href={"/explore-services"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Explore Services"}
+                                    </AnchorButton>
+                                ) : (
+                                    <AnchorButton
+                                        className={"px-5"}
+                                        href={"/signup"}
+                                        varient={"secondary"}
+                                    >
+                                        {"Join Now"}
+                                    </AnchorButton>
+                                )}
                             </Col>
                         </Row>
                     </div>
