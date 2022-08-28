@@ -84,7 +84,6 @@ const AboutProfile = () => {
 
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
     const [hovered, setHovered] = useState<null | number>(null);
-
     return (
         <>
             <div className="about-profile">
@@ -127,9 +126,9 @@ const AboutProfile = () => {
                             ? portfolioData?.data?.result?.map((info: any) => (
                                   <div
                                       className="image"
+                                      key={info?.id}
                                       onMouseLeave={() => setHovered(null)}
                                       onMouseEnter={() => setHovered(info?.id)}
-                                      key={info?.id}
                                       onClick={() => setId(info?.id)}
                                   >
                                       <Row className="gx-5">
@@ -198,12 +197,13 @@ const AboutProfile = () => {
                                               <FontAwesomeIcon
                                                   icon={faTrashCan}
                                                   className="trash svg-icon"
-                                                  onClick={() =>
+                                                  onClick={() => {
                                                       handleDelete(
                                                           info?.id,
                                                           "portfolio"
-                                                      )
-                                                  }
+                                                      );
+                                                      setIsEditProfile(false);
+                                                  }}
                                               />
                                           </div>
                                       ) : (
@@ -693,7 +693,8 @@ const AboutProfile = () => {
                                     </Col>
                                 ))}
 
-                            <Link href="#!" onClick={() => setPage(page + 1)}>
+                            <Link href="#!">
+                                {/* onClick={() => setPage(page + 1)} */}
                                 See all reviews
                             </Link>
                         </Row>
