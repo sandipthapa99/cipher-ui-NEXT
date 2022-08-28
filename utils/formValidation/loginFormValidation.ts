@@ -16,7 +16,15 @@ export const loginWithUsernameSchema = Yup.object().shape({
     username: usernameValidate,
     password: passwordValidate,
 });
+
 export const loginWithPhoneSchema = Yup.object().shape({
     phone: phoneValidate,
     password: passwordValidate,
+});
+
+export const resetFormSchema = Yup.object().shape({
+    password: passwordValidate,
+    confirm_password: Yup.string()
+        .oneOf([Yup.ref("password")], "Passwords do not match")
+        .required("Required field"),
 });
