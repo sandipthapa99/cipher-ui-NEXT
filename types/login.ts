@@ -1,4 +1,4 @@
 export interface LoginValuesProps {
-    email: string;
+    emailOrPhone: string;
     password: string;
 }

@@ -1,6 +1,7 @@
 import TooltipMessage from "@components/common/Tooltip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field } from "formik";
+import type { HTMLAttributes, InputHTMLAttributes } from "react";
 import type { InputFieldProps } from "types/inputField";
 import { checkFormControl, checkFormGroup } from "utils/helpers";
 
@@ -16,7 +17,7 @@ const InputField = ({
     as,
     fieldRequired,
     ...restProps
-}: InputFieldProps & Partial<HTMLInputElement>) => {
+}: InputFieldProps & InputHTMLAttributes<HTMLInputElement>) => {
     return (
         <div className={checkFormGroup(error)}>
             {labelName && (

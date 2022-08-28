@@ -2,7 +2,6 @@ import FormButton from "@components/common/FormButton";
 import PasswordField from "@components/common/PasswordField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
-import loginFormSchema from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const ResetPassword = () => {
@@ -17,7 +16,6 @@ const ResetPassword = () => {
         >
             <Formik
                 initialValues={{ password: "", confirmPassword: "" }}
-                validationSchema={loginFormSchema}
                 onSubmit={async (values, actions) => {
                     console.log(values);
                 }}
