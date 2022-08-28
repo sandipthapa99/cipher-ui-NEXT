@@ -42,7 +42,7 @@ const HelpSettings = () => {
                 }}
                 validationSchema={HelpandSupport}
                 onSubmit={(val, action) => {
-                   git  const newValues = {
+                    const newValues = {
                         details: val.details,
                         reason: val.topic !== "other" ? val.topic : "other",
                         topic: data?.data.find(
