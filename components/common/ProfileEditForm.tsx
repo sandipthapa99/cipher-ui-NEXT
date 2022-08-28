@@ -48,7 +48,7 @@ const ProfileEditForm = ({
 
     const starttime = profile?.active_hour_start.split(":");
 
-    function getDateFromHours(time: any) {
+    const getDateFromHours = (time: any) => {
         time = time?.split(":");
         const now = new Date();
         return new Date(
@@ -57,14 +57,20 @@ const ProfileEditForm = ({
             now.getDate(),
             ...time
         );
-    }
-    const formattedendtime = getDateFromHours(profile?.active_hour_end);
-    const formattedstarttime = getDateFromHours(profile?.active_hour_start);
+    };
+    // const formattedendtime = getDateFromHours(profile?.active_hour_end);
+    // const formattedstarttime = getDateFromHours(profile?.active_hour_start);
 
-    const finalstart = format(new Date(formattedendtime), "hh:mm");
-    const finalend = format(new Date(formattedstarttime), "hh:mm");
+    // const finalstart = format(
+    //     new Date(getDateFromHours(profile?.active_hour_end)),
+    //     "hh:mm"
+    // );
+    // const finalend = format(
+    //     new Date(getDateFromHours(profile?.active_hour_start)),
+    //     "hh:mm"
+    // );
 
-    console.log("time=", finalstart, finalend);
+    // console.log("time=", finalstart.toString(), finalend.toString());
     const toggleSuccessModal = useToggleSuccessModal();
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
     const editProfile = useMutation((data: ProfileEditValueProps) =>
@@ -108,10 +114,7 @@ const ProfileEditForm = ({
                             address_line1: profile?.address_line1 ?? "",
                             address_line2: profile?.address_line2 ?? "",
                             active_hour_start: "",
-                            active_hour_end: format(
-                                new Date(formattedendtime),
-                                "hh:mm"
-                            ),
+                            active_hour_end: "",
                             skill: "",
                             hourly_rate: profile?.hourly_rate ?? "",
                             linkedAccounts: "",
