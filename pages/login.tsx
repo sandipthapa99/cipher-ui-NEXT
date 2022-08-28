@@ -144,7 +144,7 @@ const Login = () => {
                                     className="facebook"
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/facebook/`}
                                 />
-                                {/* <Google /> */}
+                                
                                 {/* <SocialLoginBtn
                                     name={"Continue with Google"}
                                     icon="/illustrations/google.svg"
@@ -152,7 +152,7 @@ const Login = () => {
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/google-oauth2/`}
                                 /> */}
                                 <FacebookLogin />
-                                {/* <GoogleLogin /> */}
+
                                 <Google />
                             </Form>
                         )}

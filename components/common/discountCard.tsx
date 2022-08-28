@@ -1,8 +1,18 @@
+import { useData } from "hooks/use-data";
 import Image from "next/image";
 
 import BigButton from "./Button";
 
 const DiscountCard = () => {
+    const { data: specialOffer } = useData(
+        ["special-offers"],
+        "/offer/serviceoffer/"
+    );
+    // console.log(specialOffer?.data?.result);
+    // const renderDiscountCard = specialOffer?.data?.result?.map((item) => {
+    //     return;
+    // });
+
     return (
         <div className="discount-card-block">
             <figure className="thumbnail-img">
