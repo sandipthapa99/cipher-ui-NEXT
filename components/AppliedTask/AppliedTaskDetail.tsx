@@ -128,7 +128,9 @@ const AppliedTaskDetail: NextPage = () => {
                         </figure>
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
-                        <SimpleProfileCard
+                        {taskDetail && <SimpleProfileCard task={taskDetail} />}
+                        {/* <SimpleProfileCard
+                            id={taskDetail.id}
                             image={taskDetail?.assigner?.profile_image}
                             speciality={taskDetail?.category?.name}
                             startingPrice={taskDetail?.budget_from}
@@ -137,7 +139,7 @@ const AppliedTaskDetail: NextPage = () => {
                             isPermission={false}
                             currency={taskDetail?.currency}
                             name={taskDetail?.assigner?.full_name}
-                        />
+                        /> */}
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">

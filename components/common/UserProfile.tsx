@@ -13,11 +13,15 @@ import {
 import { faStar as rated } from "@fortawesome/pro-solid-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
+import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
+import { axiosClient } from "utils/axiosClient";
 
 import ProfileEditForm from "./ProfileEditForm";
 import ShareIcon from "./ShareIcon";
@@ -50,9 +54,12 @@ const UserProfileCard = ({
     const [showEdit, setShowEdit] = useState(false);
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
+    const [image, setImage] = useState();
+    const services: Array<string> = moreServices
+        ? JSON.parse(moreServices)
+        : [];
 
-    const services = moreServices ? JSON.parse(moreServices) : [];
-
+    const queryClient = useQueryClient();
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
     //         <p key={index}>
@@ -65,7 +72,26 @@ const UserProfileCard = ({
     //         </p>
     //     )
     // );
-
+    const editProfile = useMutation((data: ProfileEditValueProps) =>
+        axiosClient.patch("/tasker/profile/", data)
+    );
+    const onEditProfile = (data: any) => {
+        const formData: FormData = new FormData();
+        console.log("data=", data);
+        formData.append("profile_image", data);
+        console.log("form data=", formData);
+        data = formData;
+        editProfile.mutate(data, {
+            onSuccess: (data) => {
+                queryClient.invalidateQueries(["profile"]);
+                setShowExpForm(false);
+                toast.success(data?.data?.message);
+            },
+            onError: (error: any) => {
+                toast.error(data?.data?.message);
+            },
+        });
+    };
     const userType: string[] = userJob ? JSON.parse(userJob) : [];
 
     const renderType = userType.map((type: string, index: number) => {
@@ -78,11 +104,9 @@ const UserProfileCard = ({
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const onButtonClick = () => {
-        // `current` points to the mounted file input element
-        inputRef?.current?.click();
-    };
-
+    const finalfrom =
+        activeFrom?.charAt(0) === "0" ? activeFrom?.slice(1) : activeFrom;
+    const finalto = activeTo?.charAt(0) === "0" ? activeTo?.slice(1) : activeTo;
     return (
         <div className="profile-card-block">
             <Row>
@@ -95,40 +119,41 @@ const UserProfileCard = ({
                             />
                         )}
 
-                        <div
-                            className="img-dragdrop d-flex align-items-center justify-content-center"
-                            //   onClick={onButtonClick}
-                            onClick={() => setShowExpForm(!showExpForm)}
-                        >
-                            <FontAwesomeIcon
-                                icon={faCamera}
-                                className="camera-icon"
-                            />
+                        <div className="img-dragdrop d-flex align-items-center justify-content-center">
+                            <label
+                                htmlFor="choosefile"
+                                className="browse text-primary"
+                                role="button"
+                            >
+                                <FontAwesomeIcon
+                                    icon={faCamera}
+                                    className="camera-icon"
+                                />
+                            </label>
+
                             <input
                                 hidden
+                                id="choosefile"
                                 type="file"
                                 ref={inputRef}
                                 name="image"
                                 onChange={(event: any) => {
                                     const files = event.target.files;
-
                                     console.log(files);
-
                                     field?.("image", (files ?? [])[0]);
-
-                                    // console.log("field", field?.files);
+                                    setImage(files[0]);
+                                    console.log("image=", image);
+                                    setShowExpForm(!showExpForm);
                                 }}
                             />
                         </div>
 
                         <Image
-                            // src={"/userprofile/unknownPerson.jpg"}
                             src={
                                 userImage
                                     ? userImage
                                     : "/userprofile/unknownPerson.jpg"
                             }
-                            // layout="fill"
                             alt="profile-pic"
                             className="rounded-circle"
                             objectFit="cover"
@@ -137,26 +162,13 @@ const UserProfileCard = ({
                             priority={true}
                         />
                     </figure>
-                    {/* <div>
-                        <figure
-                            className="thumbnail-img"
-                            onClick={() => setShowExpForm(!showExpForm)}
-                        >
-                            <Image
-                                src={userImage}
-                                layout="fill"
-                                objectFit="cover"
-                                alt="user-profile-image"
-                                className="rounded-circle"
-                            />
-                        </figure>
-                    </div> */}
 
                     <PhotoEdit
-                        photo={userImage}
+                        photo={image}
                         show={showExpForm}
                         setShowExpForm={setShowExpForm}
                         handleClose={() => setShowExpForm(false)}
+                        handleSubmit={() => onEditProfile(image)}
                     />
                     <div className="profile-intro d-flex">
                         <h1 className="name">{userName}</h1>
@@ -238,12 +250,9 @@ const UserProfileCard = ({
                                     />
                                     <p>
                                         &nbsp;Active Hours &nbsp;
-                                        {activeFrom
-                                            ?.replace(":00", "")
-                                            .slice(1)}
+                                        {finalfrom?.replace(":00", "")}
                                         AM to&nbsp;
-                                        {activeTo?.replace(":00", "").slice(1)}
-                                        PM
+                                        {finalto?.replace(":00", "")}PM
                                     </p>
                                 </div>
 
@@ -253,7 +262,7 @@ const UserProfileCard = ({
                                             icon={faSparkles}
                                             className="thumbnail-img"
                                         />
-                                        {services
+                                        {/* {services
                                             ? services.map(
                                                   (info: any, index: any) => (
                                                       <p key={index}>
@@ -269,7 +278,11 @@ const UserProfileCard = ({
                                                       </p>
                                                   )
                                               )
-                                            : "No skills to show. Please add them"}
+                                            : "No skills to show. Please add them"} */}
+<<<<<<< components/common/UserProfile.tsx
+                                        {services.length}
+=======
+>>>>>>> components/common/UserProfile.tsx
                                     </div>
                                 </div>
                             </div>
