@@ -10,21 +10,16 @@ import {
 import { faPlus, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useQuery } from "@tanstack/react-query";
-import { format, parseISO } from "date-fns/esm";
 import { Form, Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { Dispatch, SetStateAction } from "react";
-import { useState } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import { axiosClient } from "utils/axiosClient";
-import { ProfileEditFromData } from "utils/formData";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -44,35 +39,19 @@ const ProfileEditForm = ({
 }: ProfileEditProps) => {
     const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
-    const start = profile?.active_hour_start.replace(":00", "");
-    const end = profile?.active_hour_end.replace(":00", "");
+    const start: string = profile?.active_hour_start
+        ? profile?.active_hour_start.replace(":00", "")
+        : "";
+    const end: string = profile?.active_hour_end
+        ? profile?.active_hour_end.replace(":00", "")
+        : "";
 
-    const starttime = profile?.active_hour_start.split(":");
+    const endparsed = (
+        parseInt(end) < 12 ? parseInt(end) + 12 : parseInt(end)
+    ).toString();
+    const finalend = `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`;
 
-    const getDateFromHours = (time: any) => {
-        time = time?.split(":");
-        const now = new Date();
-        return new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate(),
-            ...time
-        );
-    };
-    // const formattedendtime = getDateFromHours(profile?.active_hour_end);
-    // const formattedstarttime = getDateFromHours(profile?.active_hour_start);
-
-    // const finalstart = format(
-    //     new Date(getDateFromHours(profile?.active_hour_end)),
-    //     "hh:mm"
-    // );
-    // const finalend = format(
-    //     new Date(getDateFromHours(profile?.active_hour_start)),
-    //     "hh:mm"
-    // );
-
-    // console.log("time=", finalstart.toString(), finalend.toString());
-    const toggleSuccessModal = useToggleSuccessModal();
+    const endTime = finalend.toString();
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)
@@ -86,14 +65,11 @@ const ProfileEditForm = ({
                 } else {
                     toast.success(data?.data?.message);
                     queryClient.invalidateQueries(["profile"]);
-                    // actions.resetForm();
                 }
             },
             onError: (error: any) => {
-                const errmessage = error?.response?.data?.email[0];
+                const errmessage = error?.response?.data?.message[0];
                 toast.error(errmessage);
-                // actions.resetForm();
-                // actions.setFieldError("email", errmessage);
             },
         });
     };
@@ -114,8 +90,10 @@ const ProfileEditForm = ({
                                 Math.floor(Math.random() * 1000000000),
                             address_line1: profile?.address_line1 ?? "",
                             address_line2: profile?.address_line2 ?? "",
-                            active_hour_start: "",
-                            active_hour_end: "",
+                            active_hour_start:
+                                new Date(`2022-09-24 ${start}`) ?? "",
+                            active_hour_end:
+                                new Date(`2022-09-24 ${endTime}`) ?? "",
                             skill: "",
                             hourly_rate: profile?.hourly_rate ?? "",
                             linkedAccounts: "",
@@ -147,14 +125,14 @@ const ProfileEditForm = ({
                                     labelName="Name"
                                     error={errors.full_name}
                                     touch={touched.full_name}
-                                    placeHolder="Enter your price"
+                                    placeHolder="Enter your name"
                                 />
                                 <InputField
                                     name="bio"
                                     labelName="Bio"
                                     touch={touched.bio}
                                     error={errors.bio}
-                                    placeHolder="Applying (Remark)"
+                                    placeHolder="Enter your bio"
                                     as="textarea"
                                 />
                                 <Row className="g-5">
@@ -164,7 +142,7 @@ const ProfileEditForm = ({
                                             labelName="Phone Number"
                                             touch={touched.phone}
                                             error={errors.phone}
-                                            placeHolder="Applying (Remark)"
+                                            placeHolder="Enter your phone number"
                                         />
                                     </Col>
                                 </Row>
@@ -174,7 +152,7 @@ const ProfileEditForm = ({
                                     labelName="Address Line 1"
                                     error={errors.address_line1}
                                     touch={touched.address_line1}
-                                    placeHolder="Enter your price"
+                                    placeHolder="Enter your primary address"
                                 />
                                 <InputField
                                     type="text"
@@ -182,7 +160,7 @@ const ProfileEditForm = ({
                                     labelName="Address Line 2"
                                     error={errors.address_line2}
                                     touch={touched.address_line2}
-                                    placeHolder="Enter your price"
+                                    placeHolder="Enter your secondary address"
                                 />
                                 <h4>Active Hours</h4>
                                 <Row className="g-5">
@@ -216,8 +194,8 @@ const ProfileEditForm = ({
                                     name="skill"
                                     error={errors.skill}
                                     touch={touched.skill}
-                                    labelName="Specialities"
-                                    placeHolder="Enter your price"
+                                    labelName="Skills"
+                                    placeHolder="Enter your skills"
                                 />
                                 <Col md={3}>
                                     <InputField
@@ -226,7 +204,7 @@ const ProfileEditForm = ({
                                         labelName="Base Rate Per Hour"
                                         error={errors.hourly_rate}
                                         touch={touched.hourly_rate}
-                                        placeHolder="Enter your price"
+                                        placeHolder="Enter your rate"
                                     />
                                 </Col>
                                 <h4>Linked Accounts</h4>

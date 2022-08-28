@@ -37,7 +37,7 @@ const AboutProfile = () => {
     const [search, setSearch] = useState("-rating");
     const [page, setPage] = useState<number>(1);
     const [isEditProfile, setIsEditProfile] = useState(false);
-
+    const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
         `/task/rating?ordering=${search}&page=${page}`
@@ -176,16 +176,48 @@ const AboutProfile = () => {
                                               </Link>
                                           </Col> */}
                                       </Row>
-                                      <div className="portfolio-title">
-                                          <p className="text-center">
-                                              {info.title}
-                                          </p>
-                                      </div>
+                                      {info?.image === null ? (
+                                          <div className="portfolio-title">
+                                              <p
+                                                  className="text-center"
+                                                  onMouseLeave={() => {
+                                                      setHovered(null);
+                                                      setIsOnlyPortfolioText(
+                                                          false
+                                                      );
+                                                  }}
+                                                  onMouseEnter={() => {
+                                                      //  setHovered(info?.id);
+                                                      setIsOnlyPortfolioText(
+                                                          true
+                                                      );
+                                                  }}
+                                              >
+                                                  {info.title}
+                                              </p>
+                                          </div>
+                                      ) : (
+                                          <div className="portfolio-title">
+                                              <p
+                                                  className={
+                                                      isOnlyPortfolioText
+                                                          ? "text-center text-pointer"
+                                                          : "text-center"
+                                                  }
+                                              >
+                                                  {info.title}
+                                              </p>
+                                          </div>
+                                      )}
                                       {hovered === info.id ? (
                                           <div className="icons">
                                               <FontAwesomeIcon
                                                   icon={faPencil}
-                                                  className="svg-icon"
+                                                  className={
+                                                      isOnlyPortfolioText
+                                                          ? "black-icon"
+                                                          : "svg-icon"
+                                                  }
                                                   onClick={() => {
                                                       setShowAddPortfolioModal(
                                                           true
@@ -196,7 +228,11 @@ const AboutProfile = () => {
                                               />
                                               <FontAwesomeIcon
                                                   icon={faTrashCan}
-                                                  className="trash svg-icon"
+                                                  className={
+                                                      isOnlyPortfolioText
+                                                          ? "trash black-icon"
+                                                          : "trash svg-icon"
+                                                  }
                                                   onClick={() => {
                                                       handleDelete(
                                                           info?.id,
