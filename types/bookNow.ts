@@ -1,7 +1,7 @@
 export interface BookNowModalCardProps {
     id?: string;
     title: string;
-    price: number;
+    price: number | string;
     description: string;
     show?: boolean;
     handleClose?: () => void;
