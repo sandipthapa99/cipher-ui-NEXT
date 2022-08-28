@@ -1,3 +1,4 @@
+import { CustomDropZone } from "@components/common/CustomDropZone";
 import DatePickerField from "@components/common/DateTimeField";
 import DragDrop from "@components/common/DragDrop";
 import FileDragDrop from "@components/common/FileDragDrop";
@@ -17,7 +18,6 @@ import type { AddPortfolioProps } from "types/editProfile";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { CustomDropZone } from "@components/common/CustomDropZone";
 
 interface AddPortfolioModalProps {
     show?: boolean;
@@ -45,7 +45,8 @@ const AddPortfolio = ({
     ]);
 
     function isValidURL(str: any) {
-        const regex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
+        const regex =
+            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
         if (!regex.test(str)) {
             return false;
         } else {

@@ -1,4 +1,5 @@
 import PhotoEdit from "@components/Profile/PhotoEdit";
+import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import {
     faAt,
     faCircleQuestion,
@@ -10,13 +11,10 @@ import {
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar as rated } from "@fortawesome/pro-solid-svg-icons";
-
+import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
-import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
-import { faCamera } from "@fortawesome/pro-light-svg-icons";
-
 import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { UserProfileInfoProps } from "types/userProfile";
