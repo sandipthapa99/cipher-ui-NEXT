@@ -132,6 +132,7 @@ const SimpleProfileCard = ({
             {BookingDetails &&
                 BookingDetails.map((detail) => (
                     <AppliedForm
+                        id={detail.id}
                         key={detail.id}
                         title={detail.title}
                         price={detail.price}
