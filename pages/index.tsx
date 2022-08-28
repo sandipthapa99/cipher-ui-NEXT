@@ -243,8 +243,8 @@ const Home: NextPage<{
                 <Marquee gradient={true} className="marquee" speed={40}>
                     {trustedPartnerData?.map((value, key) => (
                         <Link href={value?.redirect_url} key={key}>
-                            <a>
-                                <li className="light">
+                            <li className="light">
+                                <a>
                                     {value?.logo && (
                                         <figure>
                                             <Image
@@ -255,8 +255,8 @@ const Home: NextPage<{
                                             ></Image>
                                         </figure>
                                     )}
-                                </li>
-                            </a>
+                                </a>
+                            </li>
                         </Link>
                     ))}
                 </Marquee>
