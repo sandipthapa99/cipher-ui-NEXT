@@ -1,9 +1,4 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
-import {
-    faCircleMinus,
-    faCirclePlus,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";
@@ -13,6 +8,7 @@ import type { ServiceProviderCardProps } from "types/serviceDetail";
 import BookNowButton from "./BookNowButton";
 
 const SimpleProfileCard = ({
+    id,
     image,
     name,
     speciality,
@@ -132,7 +128,7 @@ const SimpleProfileCard = ({
             {BookingDetails &&
                 BookingDetails.map((detail) => (
                     <AppliedForm
-                        id={detail.id}
+                        id={id}
                         key={detail.id}
                         title={detail.title}
                         price={detail.price}
