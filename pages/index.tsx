@@ -25,7 +25,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
-import { useTasks } from "hooks/apply-task/useTask";
 import { useTaskers } from "hooks/tasker/use-tasker";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
@@ -37,8 +36,6 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
-import { merchants } from "staticData/merchants";
-import { serviceCategory } from "staticData/serviceCategory";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
 import type { HeroCategoryProps } from "types/heroCategory";
@@ -65,7 +62,6 @@ const Home: NextPage<{
         ["all-services"],
         "/task/service/"
     );
-    console.log("herocategoryData", heroCategoryData);
 
     //for tasks
 
@@ -185,37 +181,44 @@ const Home: NextPage<{
                     {/* Service category listing start */}
 
                     <Row className="gx-5 hero-category">
-                        <Carousel
-                            height={100}
-                            slideSize="25%"
-                            slideGap="md"
-                            breakpoints={[
-                                { maxWidth: "md", slideSize: "50%" },
-                                {
-                                    maxWidth: "sm",
-                                    slideSize: "100%",
-                                    slideGap: 3,
-                                },
-                            ]}
-                            loop
-                            align="start"
-                        >
-                            {serviceCategory &&
-                                serviceCategory.map((category) => {
-                                    return (
-                                        <Carousel.Slide key={category.id}>
-                                            <CategoryCardNew
-                                                categoryTitle={
-                                                    category.categoryTitle
-                                                }
-                                                categoryIcon={
-                                                    category.categoryIcon
-                                                }
-                                            />
-                                        </Carousel.Slide>
-                                    );
-                                })}
-                        </Carousel>
+                        {heroCategoryData &&
+                        heroCategoryData.result.length > 0 ? (
+                            <Carousel
+                                height={100}
+                                slideSize="25%"
+                                slideGap="md"
+                                breakpoints={[
+                                    { maxWidth: "md", slideSize: "50%" },
+                                    {
+                                        maxWidth: "sm",
+                                        slideSize: "100%",
+                                        slideGap: 3,
+                                    },
+                                ]}
+                                loop
+                                align="start"
+                            >
+                                {heroCategoryData.result
+                                    .slice(0, 8)
+                                    .map((category) => {
+                                        return (
+                                            <Carousel.Slide key={category.id}>
+                                                <CategoryCardNew
+                                                    categoryTitle={
+                                                        category?.category?.name
+                                                    }
+                                                    categoryIcon={
+                                                        category.category?.icon
+                                                    }
+                                                    categorySlug={
+                                                        category?.category?.slug
+                                                    }
+                                                />
+                                            </Carousel.Slide>
+                                        );
+                                    })}
+                            </Carousel>
+                        ) : null}
                     </Row>
 
                     {/* Service category listing end */}
@@ -408,26 +411,31 @@ const Home: NextPage<{
 
                     <Row className="gx-5 hero-category">
                         {heroCategoryData?.result &&
-                            heroCategoryData?.result?.map((category) => {
-                                return (
-                                    <Col
-                                        lg={3}
-                                        md={4}
-                                        sm={6}
-                                        key={category?.id}
-                                        className="d-flex align-items-strecth card-col"
-                                    >
-                                        <CategoryCardNew
-                                            categoryTitle={
-                                                category?.category?.name
-                                            }
-                                            categoryIcon={
-                                                category?.category?.icon
-                                            }
-                                        />
-                                    </Col>
-                                );
-                            })}
+                            heroCategoryData?.result
+                                ?.slice(0, 8)
+                                ?.map((category) => {
+                                    return (
+                                        <Col
+                                            lg={3}
+                                            md={4}
+                                            sm={6}
+                                            key={category?.id}
+                                            className="d-flex align-items-strecth card-col"
+                                        >
+                                            <CategoryCardNew
+                                                categoryTitle={
+                                                    category?.category?.name
+                                                }
+                                                categoryIcon={
+                                                    category?.category?.icon
+                                                }
+                                                categorySlug={
+                                                    category?.category?.slug
+                                                }
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                     <div className="how-it-works d-flex justify-content-center">
                         <Link href="/how-it-works">
@@ -549,7 +557,6 @@ const Home: NextPage<{
                         title="Looking for work is not that difficult as it sounds any more"
                         subTitle="Allow us to accompany you on your journey"
                         image="/gradient-updated.png"
-                        btnText="Join Us"
                     />
                 </Container>
             </section>

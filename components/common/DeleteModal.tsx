@@ -33,7 +33,9 @@ const DeleteModal = ({
                     <h3>Are you sure you want to delete your {modalName}?</h3>
 
                     <Modal.Footer>
-                        <Button variant="secondary">No</Button>
+                        <Button variant="secondary" onClick={handleClose}>
+                            No
+                        </Button>
                         <Button
                             onClick={() => {
                                 mutate(id, {

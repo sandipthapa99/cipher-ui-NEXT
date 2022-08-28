@@ -1,7 +1,7 @@
 export interface UserProfileInfoProps {
     userImage: string;
 
-    countryCode: number | undefined;
+    countryCode: number | undefined | string;
 
     userName: string | undefined;
 
@@ -40,6 +40,7 @@ export interface UserProfileInfoProps {
     taskCompleted: number | undefined;
 
     userActiveStatus: boolean | undefined;
-
+    isProfileVerified: boolean | undefined;
     tooltipMessage: string | undefined;
+    field?: (name: string, file: any) => void;
 }

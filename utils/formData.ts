@@ -22,7 +22,7 @@ import type { UploadCVValueProps } from "types/uploadCVValueProps";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
-    email: "",
+    username: "",
     password: "",
 };
 
@@ -80,6 +80,7 @@ export const AddPortfolioFormData: AddPortfolioProps = {
     issued_date: "",
     image: "",
     file: "",
+    id: 0,
 };
 
 export const AddSkillFormData: AddSkills = {
