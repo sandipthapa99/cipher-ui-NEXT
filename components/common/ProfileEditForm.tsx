@@ -39,8 +39,12 @@ const ProfileEditForm = ({
 }: ProfileEditProps) => {
     const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
-    const start = profile?.active_hour_start.replace(":00", "");
-    const end = profile?.active_hour_end.replace(":00", "");
+    const start: string = profile?.active_hour_start
+        ? profile?.active_hour_start.replace(":00", "")
+        : "";
+    const end: string = profile?.active_hour_end
+        ? profile?.active_hour_end.replace(":00", "")
+        : "";
 
     const endparsed = (
         parseInt(end) < 12 ? parseInt(end) + 12 : parseInt(end)
