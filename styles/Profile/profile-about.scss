@@ -91,6 +91,10 @@
             }
             .portfolio-title {
                 position: relative;
+                cursor: pointer;
+                .text-pointer {
+                    cursor: pointer;
+                }
             }
             p {
                 font-size: 1.4rem;
@@ -107,6 +111,11 @@
                 .svg-icon {
                     color: #fff;
                     cursor: pointer;
+                }
+                .black-icon {
+                    color: #111;
+                    cursor: pointer;
+                    margin-top: 4rem;
                 }
             }
         }
