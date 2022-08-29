@@ -6,6 +6,7 @@ export const passwordValidate = Yup.string()
     .matches(/[a-zA-Z]/, "Password can only contain Latin letters.");
 
 export const usernameValidate = Yup.string().required("Username is required");
+export const otpValidate = Yup.number().required("OTP is required");
 export const phoneValidate = Yup.string()
     .required("Phone is required")
     .matches(/^[0-9]+$/, "Phone can only contain numbers")
@@ -25,4 +26,5 @@ export const resetFormSchema = Yup.object().shape({
     confirm_password: Yup.string()
         .oneOf([Yup.ref("password")], "Passwords do not match")
         .required("Required field"),
+    otp: otpValidate,
 });

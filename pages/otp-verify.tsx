@@ -1,4 +1,5 @@
 import FormButton from "@components/common/FormButton";
+import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
@@ -8,17 +9,15 @@ import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { resetFormSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { object } from "yup";
 
-const ResetPassword = () => {
+const VerifyOtp = () => {
     const router = useRouter();
-
-    const { u, t } = router.query;
-    const uid = u;
-    const token = t;
-
     const toggleSuccessModal = useToggleSuccessModal();
 
-    const { mutate } = useForm("/user/reset/email/verify/");
+    const phone = router.query.phone;
+
+    const { mutate } = useForm("/user/reset/otp/verify/");
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
@@ -29,11 +28,11 @@ const ResetPassword = () => {
             redirectionLink="/login"
         >
             <Formik
-                initialValues={{ password: "", confirm_password: "" }}
+                initialValues={{ otp: "", password: "", confirm_password: "" }}
                 validationSchema={resetFormSchema}
                 onSubmit={async (values, actions) => {
                     mutate(
-                        { uid, token, ...values },
+                        { phone, ...values },
                         {
                             onSuccess: async () => {
                                 actions.resetForm();
@@ -46,7 +45,9 @@ const ResetPassword = () => {
                                 });
                             },
                             onError: (error) => {
-                                toast.error(error.message);
+                                toast.error(
+                                    "You have entered old password or you entered wrong OTP"
+                                );
                             },
                         }
                     );
@@ -54,6 +55,14 @@ const ResetPassword = () => {
             >
                 {({ isSubmitting, errors, touched }) => (
                     <Form className="login-form">
+                        <InputField
+                            name={"otp"}
+                            labelName={"OTP key"}
+                            type="text"
+                            touch={touched.otp}
+                            error={errors.otp}
+                            placeHolder={"OTP key"}
+                        />
                         <PasswordField
                             type="password"
                             name="password"
@@ -85,4 +94,4 @@ const ResetPassword = () => {
     );
 };
 
-export default ResetPassword;
+export default VerifyOtp;
