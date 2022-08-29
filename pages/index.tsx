@@ -32,7 +32,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
@@ -180,9 +180,9 @@ const Home: NextPage<{
                     </Row>
                     {/* Service category listing start */}
 
-                    <Row className="gx-5 hero-category">
+                    {/* <Row className="gx-5 hero-category">
                         {heroCategoryData &&
-                        heroCategoryData.result.length > 0 ? (
+                        heroCategoryData?.result?.length > 0 ? (
                             <Carousel
                                 height={100}
                                 slideSize="25%"
@@ -218,7 +218,11 @@ const Home: NextPage<{
                                         );
                                     })}
                             </Carousel>
-                        ) : null}
+                        ) : (
+                            <Alert variant="warning mb-5">
+                                No Data to Display!
+                            </Alert>
+                        )}
                     </Row>
 
                     {/* Service category listing end */}
@@ -239,8 +243,8 @@ const Home: NextPage<{
                 <Marquee gradient={true} className="marquee" speed={40}>
                     {trustedPartnerData?.map((value, key) => (
                         <Link href={value?.redirect_url} key={key}>
-                            <a>
-                                <li className="light">
+                            <li className="light">
+                                <a>
                                     {value?.logo && (
                                         <figure>
                                             <Image
@@ -251,8 +255,8 @@ const Home: NextPage<{
                                             ></Image>
                                         </figure>
                                     )}
-                                </li>
-                            </a>
+                                </a>
+                            </li>
                         </Link>
                     ))}
                 </Marquee>

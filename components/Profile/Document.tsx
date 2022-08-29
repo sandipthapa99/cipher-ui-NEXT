@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRef } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
-
 const UserDocument = () => {
     // const [fileName, setFileName] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);
@@ -73,7 +72,12 @@ const UserDocument = () => {
                             </Col>
                         ))
                     ) : (
-                        <p>Upload you KYC documents here</p>
+                        <div className="mx-3">
+                            Upload your KYC documents
+                            <Link href="settings/account/individual">
+                                <a> here.</a>
+                            </Link>
+                        </div>
                     )}
                 </Row>
             </div>

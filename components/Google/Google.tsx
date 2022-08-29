@@ -1,16 +1,22 @@
 import { GoogleLogin } from "@react-oauth/google";
+import { useGoogle } from "hooks/auth/use-Google";
+import { toast } from "react-toastify";
 
 const Google = () => {
+    const { mutate } = useGoogle();
     return (
         <GoogleLogin
-            type="standard"
-            width="600px"
-            auto_select={true}
-            cancel_on_tap_outside={true}
+            auto_select={false}
             logo_alignment="center"
-            useOneTap={false}
-            context="signin"
             onSuccess={(credentialResponse) => {
+                mutate(credentialResponse, {
+                    onSuccess: () => {
+                        toast.success("Successfully logged in");
+                    },
+                    onError: (err) => {
+                        toast.error(err.message);
+                    },
+                });
                 console.log(credentialResponse);
             }}
             onError={() => {

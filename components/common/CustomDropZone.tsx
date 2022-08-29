@@ -40,6 +40,7 @@ export const CustomDropZone = ({
         [files]
     );
     const previewImages = files.map((file) => URL.createObjectURL(file));
+    console.log("files=", files, file, previewImages);
 
     const dropzoneRef = useRef<HTMLDivElement | null>(null);
     const { classes } = useStyles();

@@ -61,12 +61,14 @@ interface PaymentAccordion {
 
 const Membership = () => {
     return (
-        <Row className="settings-membership">
-            <h2>Memberships</h2>
-            <div className="all-membership-details ">
-                <MembershipPackage />
-            </div>
-        </Row>
+        <div style={{ backgroundColor: "#fff" }}>
+            <Row className="settings-membership">
+                <h2>Memberships</h2>
+                <div className="all-membership-details ">
+                    <MembershipPackage />
+                </div>
+            </Row>
+        </div>
     );
 };
 // <div className="account-form">
