@@ -79,12 +79,14 @@ const AddService: NextPage<{
     const { data: serviceCategoryOptions } = useQuery(
         ["service-category"],
         async () => {
-            const response = axiosClient.get("/task/cms/task-category/list/");
+            const response = await axiosClient.get(
+                "/task/cms/task-category/list/"
+            );
             return response.data;
         }
     );
 
-    console.log("service category options", serviceCategoryOptions);
+    const [serviceCategory, setServiceCategory] = useState<string | null>(null);
 
     const renderCityOptions = cityOptionsData?.map((item) => {
         return {
@@ -94,15 +96,23 @@ const AddService: NextPage<{
         };
     });
 
-    // const renderCategoryOptions: SelectItem[] = serviceCategoryOptions?.map(
-    //     (item) => {
-    //         return {
-    //             id: item?.id,
-    //             value: item?.id?.toString(),
-    //             label: item?.name,
-    //         };
-    //     }
-    // );
+    const handleCategoryChanged = (
+        id: string | null,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setServiceCategory(id);
+        if (id) setFieldValue("category", parseInt(id));
+    };
+
+    const renderCategoryOptions: SelectItem[] = serviceCategoryOptions?.map(
+        (item: any) => {
+            return {
+                id: item?.id,
+                value: item?.id,
+                label: item?.name,
+            };
+        }
+    );
 
     const handleChange = () => {
         setChecked(!checked);
@@ -164,13 +174,10 @@ const AddService: NextPage<{
     ) => {
         serviceMutation.mutate(data, {
             onSuccess: (data: any) => {
-                if (data.data.status === "failure") {
-                    setRowId(null);
-                } else {
-                    actions.resetForm();
-                    setRowId(null);
-                }
+                setRowId(null);
                 toggleSuccessModal();
+
+                actions.resetForm();
             },
             onError: (error: any) => {
                 const {
@@ -205,7 +212,6 @@ const AddService: NextPage<{
         }
     );
 
-    const { mutate } = useForm("/task/service/");
     const toggleSuccessModal = useToggleSuccessModal();
     return (
         <Layout title="Add-service | Cipher">
@@ -253,6 +259,8 @@ const AddService: NextPage<{
 
                                     onCreateService(dataToSend, actions);
                                 }
+
+                                console.log(values);
                             }}
                         >
                             {({
@@ -263,7 +271,6 @@ const AddService: NextPage<{
                             }) => (
                                 <>
                                     <Form>
-                                        <pre>{JSON.stringify(errors)}</pre>
                                         <h3>Service Details</h3>
                                         <InputField
                                             labelName="Title"
@@ -291,9 +298,17 @@ const AddService: NextPage<{
                                         <Select
                                             label="Category"
                                             placeholder="Pick one"
+                                            name="category"
                                             searchable
                                             nothingFound="No options"
-                                            data={[]}
+                                            value={serviceCategory}
+                                            onChange={(value) =>
+                                                handleCategoryChanged(
+                                                    value,
+                                                    setFieldValue
+                                                )
+                                            }
+                                            data={renderCategoryOptions ?? []}
                                         />
                                         {/* <SelectInputField
                                             name="category"
@@ -480,10 +495,10 @@ const AddService: NextPage<{
                                         />
 
                                         <AddRequirements
-                                            onSubmit={(requirements) =>
+                                            onSubmit={(value) =>
                                                 setFieldValue(
                                                     "highlights",
-                                                    requirements
+                                                    value
                                                 )
                                             }
                                             title="Highligits"
