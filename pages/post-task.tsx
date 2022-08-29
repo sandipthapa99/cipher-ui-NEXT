@@ -34,16 +34,8 @@ const PostTask: NextPage = () => {
 
                     <div className="post-task__discount-card">
                         <h1>Special Offers & Discount</h1>
-                        <Row>
-                            <Col md={4}>
-                                <DiscountCard />
-                            </Col>
-                            <Col md={4}>
-                                <DiscountCard />
-                            </Col>
-                            <Col md={4}>
-                                <DiscountCard />
-                            </Col>
+                        <Row className="d-flex">
+                            <DiscountCard />
                         </Row>
                     </div>
                     <div className="post-task__popular-services">
