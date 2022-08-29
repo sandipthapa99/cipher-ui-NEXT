@@ -1,3 +1,6 @@
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert } from "@mantine/core";
 import { format } from "date-fns";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -42,6 +45,16 @@ const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
         <div className="search-results">
             <Row>
                 <Col md={4} style={{ overflowY: "scroll", maxHeight: "90vh" }}>
+                    {!query && appliedTasks?.length === 0 && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="Tasks Unavailable"
+                            variant="filled"
+                            color="yellow"
+                        >
+                            No tasks available at the moment{""}
+                        </Alert>
+                    )}
                     {query && totalAppliedTasks > 0 ? (
                         <p className="search-results-text">
                             {`${totalAppliedTasks} service matching ${query} found`}

@@ -1,21 +1,38 @@
-// import { FacebookLogin } from "@components/auth/FacebookLogin";
+import { FacebookLogin } from "@components/auth/FacebookLogin";
 // import GoogleLogin from "@components/auth/GoogleLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
-import SocialLoginBtn from "@components/common/SocialLoginBtn";
+import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
 import { useRouter } from "next/router";
+import type { ChangeEvent } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
-import { loginFormData } from "utils/formData";
-import loginFormSchema from "utils/formValidation/loginFormValidation";
+import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
     const router = useRouter();
     const { mutate, isLoading } = useLogin();
+    const [isPhoneNumber, setIsPhoneNumber] = useState(false);
+
+    const handleChange = (
+        event: ChangeEvent<HTMLInputElement>,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        const { value } = event.currentTarget;
+
+        setFieldValue("username", value);
+
+        if (!isNaN(parseInt(value, 10))) {
+            setIsPhoneNumber(true);
+            return;
+        }
+        setIsPhoneNumber(false);
+    };
 
     return (
         <section>
@@ -30,8 +47,11 @@ const Login = () => {
             >
                 <div>
                     <Formik
-                        initialValues={loginFormData}
-                        validationSchema={loginFormSchema}
+                        validationSchema={() => getLoginSchema(isPhoneNumber)}
+                        initialValues={{
+                            username: "",
+                            password: "",
+                        }}
                         onSubmit={(values) => {
                             mutate(values, {
                                 onError: (error) => {
@@ -47,15 +67,17 @@ const Login = () => {
                             });
                         }}
                     >
-                        {({ errors, touched }) => (
+                        {({ errors, touched, setFieldValue }) => (
                             <Form className="login-form">
                                 <InputField
-                                    type="email"
                                     name="username"
-                                    labelName="Email or phone number"
+                                    labelName="Username"
                                     touch={touched.username}
                                     error={errors.username}
-                                    placeHolder="Enter your email"
+                                    placeHolder="Enter your username"
+                                    onChange={(event) =>
+                                        handleChange(event, setFieldValue)
+                                    }
                                 />
                                 <PasswordField
                                     type="password"
@@ -79,22 +101,22 @@ const Login = () => {
                                 <div className="horizontal-line">
                                     <span className="or">OR</span>
                                 </div>
-                                <SocialLoginBtn
+                                {/* <SocialLoginBtn
                                     name={"Continue with Facebook"}
                                     icon="/illustrations/fb.svg"
                                     className="facebook"
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/facebook/`}
                                 />
-                                {/* <Google /> */}
-                                <SocialLoginBtn
+                                
+                                {/* <SocialLoginBtn
                                     name={"Continue with Google"}
                                     icon="/illustrations/google.svg"
                                     className="google"
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/google-oauth2/`}
-                                />
-                                {/* <FacebookLogin />
-                                <GoogleLogin /> */}
-                                {/* <Google /> */}
+                                /> */}
+                                <FacebookLogin />
+
+                                <Google />
                             </Form>
                         )}
                     </Formik>

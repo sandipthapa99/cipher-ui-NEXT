@@ -33,7 +33,11 @@ export const PersonalSuccessCard = ({
                             <h6>
                                 Specialities: {successStoryData?.specialities}
                             </h6>
-                            <p>“{successStoryData?.content}“</p>
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: successStoryData?.content,
+                                }}
+                            ></div>
                             <h4>Badges</h4>
                             <div className="d-flex flex-column flex-sm-row align-items-stretch badge-section">
                                 <figure className="mx-auto mx-sm-0 badge-section__img">
