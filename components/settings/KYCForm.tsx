@@ -247,7 +247,7 @@ const KYCForm = () => {
                                 <FormButton
                                     type="submit"
                                     variant="primary"
-                                    name="Save"
+                                    name="Continue"
                                     className="submit-btn w-25"
                                     isSubmitting={isSubmitting}
                                     isSubmittingClass={isSubmittingClass(

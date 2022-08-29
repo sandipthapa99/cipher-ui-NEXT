@@ -180,7 +180,7 @@ const Home: NextPage<{
                     </Row>
                     {/* Service category listing start */}
 
-                    <Row className="gx-5 hero-category">
+                    {/* <Row className="gx-5 hero-category">
                         {heroCategoryData &&
                         heroCategoryData?.result?.length > 0 ? (
                             <Carousel
@@ -243,8 +243,8 @@ const Home: NextPage<{
                 <Marquee gradient={true} className="marquee" speed={40}>
                     {trustedPartnerData?.map((value, key) => (
                         <Link href={value?.redirect_url} key={key}>
-                            <a>
-                                <li className="light">
+                            <li className="light">
+                                <a>
                                     {value?.logo && (
                                         <figure>
                                             <Image
@@ -255,8 +255,8 @@ const Home: NextPage<{
                                             ></Image>
                                         </figure>
                                     )}
-                                </li>
-                            </a>
+                                </a>
+                            </li>
                         </Link>
                     ))}
                 </Marquee>
@@ -283,19 +283,23 @@ const Home: NextPage<{
 
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.data?.result?.map((service, key) => {
-                                return (
-                                    <Col
-                                        sm={6}
-                                        md={4}
-                                        lg={3}
-                                        key={key}
-                                        className="d-flex"
-                                    >
-                                        <ServiceCard serviceCard={service} />
-                                    </Col>
-                                );
-                            })}
+                            servicesData?.data?.result
+                                ?.slice(0, 4)
+                                .map((service, key) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={key}
+                                            className="d-flex"
+                                        >
+                                            <ServiceCard
+                                                serviceCard={service}
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                     <Row>
                         <Advertisement />
@@ -322,19 +326,23 @@ const Home: NextPage<{
                     </div>
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.data?.result?.map((service, key) => {
-                                return (
-                                    <Col
-                                        sm={6}
-                                        md={4}
-                                        lg={3}
-                                        key={key}
-                                        className="d-flex"
-                                    >
-                                        <ServiceCard serviceCard={service} />
-                                    </Col>
-                                );
-                            })}
+                            servicesData?.data?.result
+                                ?.slice(0, 4)
+                                .map((service, key) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={key}
+                                            className="d-flex"
+                                        >
+                                            <ServiceCard
+                                                serviceCard={service}
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                 </Container>
             </section>

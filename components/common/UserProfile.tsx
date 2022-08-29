@@ -222,7 +222,8 @@ const UserProfileCard = ({
                                     />
 
                                     <p>
-                                        +{country?.phone_code} {userPhone}
+                                        +{country?.phone_code}
+                                        {userPhone}
                                     </p>
                                 </div>
                                 <div className="type d-flex flex-col">
