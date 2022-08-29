@@ -261,7 +261,7 @@ const UserProfileCard = ({
                                             icon={faSparkles}
                                             className="thumbnail-img"
                                         />
-                                        {/* {services
+                                        {services
                                             ? services.map(
                                                   (info: any, index: any) => (
                                                       <p key={index}>
@@ -277,8 +277,7 @@ const UserProfileCard = ({
                                                       </p>
                                                   )
                                               )
-                                            : "No skills to show. Please add them"} */}
-                                        {services.length}
+                                            : "No skills to show. Please add them"}
                                     </div>
                                 </div>
                             </div>

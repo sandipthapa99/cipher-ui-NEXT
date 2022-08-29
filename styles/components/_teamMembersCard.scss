@@ -4,7 +4,7 @@
 
     p {
         font: 400 1.2rem $poppins-font;
-        text-align: justify;
+        text-align: inherit;
         margin: 0 0 2.4rem;
     }
 
@@ -90,9 +90,11 @@
             font: 600 2rem $poppins-font;
         }
         .share-and-like {
+            display: flex;
+            align-items: center;
             svg {
-                height: 2.4rem;
-                width: 2.4rem;
+                height: 2rem;
+                width: 2rem;
                 margin: 0 2.4rem 0 0;
                 cursor: pointer;
             }

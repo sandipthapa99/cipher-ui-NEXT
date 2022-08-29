@@ -10,6 +10,7 @@ export interface ServiceCardProps {
     discountRate?: number;
     discountOn?: string;
     proService?: boolean;
+    isEdit?: boolean;
 }
 
 export interface ServicesValueProps {

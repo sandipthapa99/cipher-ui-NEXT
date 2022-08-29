@@ -9,7 +9,7 @@ export interface TabProps {
     }[];
     activeIndex?: number;
     onTabClick: (index: number) => void;
-    icons?: { index: number; type: ReactNode }[];
+    icons?: { index: number; type: ReactNode; iconContent?: ReactNode }[];
 }
 
 export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
@@ -51,7 +51,12 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
 
                 <div className="tab-icons">
                     {icons?.map((icon) => (
-                        <div key={icon.index}>{icon.type}</div>
+                        <>
+                            <div className="icon-content">
+                                {icon.iconContent}
+                            </div>
+                            <div key={icon.index}>{icon.type}</div>
+                        </>
                     ))}
                 </div>
                 {/* {icons?.map((icon) => (
