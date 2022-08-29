@@ -1,17 +1,17 @@
-import { useMutation } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { usePostOffers } from "hooks/offers/use-Post-Offers";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
-import { useState } from "react";
-import { Col } from "react-bootstrap";
-import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import { Col, Row } from "react-bootstrap";
+import { useSetCheckSpecialOffer } from "store/use-check-special-offer";
+import { useSetSpecialOfferDetails } from "store/use-special-offers";
 import { axiosClient } from "utils/axiosClient";
 
 import BigButton from "./Button";
 
 const DiscountCard = () => {
-    const [responseData, setResponseData] = useState<any>([]);
+    const setSpecialOffer = useSetSpecialOfferDetails();
+    const setCheckedOffer = useSetCheckSpecialOffer();
     const { data: specialOffer } = useData<{
         result: Array<{
             id: number;
@@ -35,12 +35,12 @@ const DiscountCard = () => {
             redeems: Array<any>;
         }>;
     }>(["special-offers"], "/offer/serviceoffer/all");
-    console.log(responseData);
 
     // console.log(specialOffer?.data?.result);
     const filteredOffers = specialOffer?.data?.result?.filter(
         (item) => item.is_active === true
     );
+    const router = useRouter();
     // const { mutate, data } = usePostOffers();
 
     // const renderDiscountCard = specialOffer?.data?.result?.map((item) => {
@@ -49,63 +49,71 @@ const DiscountCard = () => {
 
     const renderServiceOffers = filteredOffers?.map((item) => {
         return (
-            <div key={item.id} className="discount-card-block">
-                {specialOffer && (
-                    <figure className="thumbnail-img">
-                        <Image
-                            src={item.image}
-                            layout="fill"
-                            objectFit="cover"
-                            alt="discount-image"
-                        />
-                    </figure>
-                )}
-                <div className="category-overlay">
-                    <h1>{item.title}</h1>
-                    <div className="discount">
-                        <p>
-                            {item.discount_type.toLocaleUpperCase() === "amount"
-                                ? `$
-                                    ${item.discount_value} off`
-                                : `${item.discount_value}% off`}
+            <Col key={item.id} md={3}>
+                <div className="discount-card-block">
+                    {specialOffer && (
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={item.image}
+                                layout="fill"
+                                objectFit="cover"
+                                alt="discount-image"
+                            />
+                        </figure>
+                    )}
+                    <div className="category-overlay">
+                        <h1>{item.title}</h1>
+                        <div className="discount">
+                            <p>
+                                {item.discount_type.toLocaleUpperCase() ===
+                                "amount"
+                                    ? `
+                                    $${item.discount_value} off`
+                                    : `${item.discount_value}% off`}
+                            </p>
+                        </div>
+                        <p>{item.description}</p>
+                        <p className="time">
+                            Ends on:{" "}
+                            {format(new Date(item.end_date), "do MMM ")}
                         </p>
-                    </div>
-                    <p>{item.description}</p>
-                    <p className="time">
-                        Ends on: {format(new Date(item.end_date), "do MMM ")}
-                    </p>
-                    <BigButton
-                        btnTitle="See Offers"
-                        backgroundColor="#fca500"
-                        handleClick={async () => {
-                            const response = await axiosClient.get(
-                                `/task/service?offer=${item.title}`
-                            );
-                            // if (response.status === 200) {
-                            //     console.log("success");
-                            // } else {
-                            //     console.log("failure");
-                            // }
-                            const responseData = response?.data?.result;
-                            setResponseData([...responseData, item.title]);
+                        <BigButton
+                            btnTitle="See Offers"
+                            backgroundColor="#fca500"
+                            handleClick={async () => {
+                                const response = await axiosClient.get(
+                                    `/task/service?offer=${item.title}`
+                                );
+                                // if (response.status === 200) {
+                                //     console.log("success");
+                                // } else {
+                                //     console.log("failure");
+                                // }
+                                const responseData = response?.data?.result;
 
-                            // item.services.forEach(async (item) => {
-                            //     const response: any = await axiosClient.get(
-                            //         `/task/service?offer=${item.title}`
-                            //     );
-                            //     if (response.status === 200) {
-                            //         toast.success(`Success`);
-                            //     } else {
-                            //         toast.error(`Error`);
-                            //     }
-                            // });
-                        }}
-                    />
+                                setSpecialOffer(responseData);
+                                setCheckedOffer();
+
+                                router.push("/service");
+
+                                // item.services.forEach(async (item) => {
+                                //     const response: any = await axiosClient.get(
+                                //         `/task/service?offer=${item.title}`
+                                //     );
+                                //     if (response.status === 200) {
+                                //         toast.success(`Success`);
+                                //     } else {
+                                //         toast.error(`Error`);
+                                //     }
+                                // });
+                            }}
+                        />
+                    </div>
                 </div>
-            </div>
+            </Col>
         );
     });
 
-    return <Col md={3}>{renderServiceOffers}</Col>;
+    return <Row className="gap-5">{renderServiceOffers}</Row>;
 };
 export default DiscountCard;

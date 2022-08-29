@@ -14,6 +14,7 @@ import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
+import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useKYC } from "hooks/profile/kyc/useKYC";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -71,7 +72,7 @@ const AccountForm = () => {
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
-    const { data: KYCData } = useKYC();
+    const { data: KYCData } = useGetKYC();
 
     const inputRef = useRef<HTMLInputElement>(null);
 
