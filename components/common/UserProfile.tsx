@@ -279,8 +279,8 @@ const UserProfileCard = ({
                                                   )
                                               )
                                             : "No skills to show. Please add them"} */}
+
                                         {services.length}
-                                        =======
                                     </div>
                                 </div>
                             </div>
