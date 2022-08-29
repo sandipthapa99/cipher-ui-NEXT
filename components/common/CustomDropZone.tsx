@@ -72,7 +72,6 @@ export const CustomDropZone = ({
                     ref={dropzoneRef}
                     className={classes.dropzone}
                     {...rest}
-                    multiple
                 >
                     <Highlight
                         highlightColor="blue"
