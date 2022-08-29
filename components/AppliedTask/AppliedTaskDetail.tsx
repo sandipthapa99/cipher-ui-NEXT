@@ -216,7 +216,7 @@ const AppliedTaskDetail: NextPage = () => {
                         ))}
                 </div>
 
-                {/* <TeamMembersSection /> */}
+                <TeamMembersSection />
 
                 <Tab
                     activeIndex={activeTabIdx}
