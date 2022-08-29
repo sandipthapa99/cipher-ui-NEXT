@@ -86,3 +86,24 @@ export interface ServicesPackageProps {
     }[];
 }
 export type ServiceCardResult = ServicesValueProps["result"][0];
+
+export interface ServicePostProps {
+    title: string;
+    budget_type: string;
+    budget_from: string;
+    budget_to: string;
+    description: string;
+    highlights: string;
+    location: string;
+    is_professional: boolean;
+    is_online: boolean;
+    video: string;
+    no_of_revisions: number;
+    discount_type: string;
+    discount_value: string;
+    is_active: boolean;
+    category: number;
+    city: number;
+    images: any[];
+    imagePreviewUrl: any[];
+}
