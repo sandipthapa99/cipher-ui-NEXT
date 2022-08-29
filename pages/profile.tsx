@@ -21,13 +21,13 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     const { data: profileDetails, isLoading, error } = useGetProfile();
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData(["profile"]);
-    console.log("profile", profileDetails);
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],
     //     "/tasker/profile/"
     // );
     // const profileDetails = userData?.data;
+
     if (isLoading || !data) return <FullPageLoader />;
 
     const remaining = {
@@ -127,7 +127,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                                         content: <AboutProfile />,
                                     },
                                     {
-                                        title: "Tasks",
+                                        title: "Services",
                                         content: <TasksProfileCard />,
                                     },
                                     {
