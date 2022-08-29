@@ -1,4 +1,5 @@
 import { ProfileModel } from "@components/model/ProfileModel";
+import { PostTaskModal } from "@components/Task/PostTaskModal";
 import { faBars, faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +13,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Container, Form, InputGroup, Navbar } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import { handleMenuActive } from "utils/helpers";
 
 import { PostCard } from "./PostTask/PostCard";
@@ -22,6 +24,7 @@ export function UpperHeader() {
     const [showModal, setShowModal] = useState(false);
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: user } = useUser();
 
     const [showProfileModal, toggleShowProfileModal] = useToggle([false, true]);
@@ -158,7 +161,7 @@ export function UpperHeader() {
 
                             {user && (
                                 <button
-                                    onClick={handleShow}
+                                    onClick={toggleShowPostTaskModal}
                                     className="nav-cta-btn"
                                 >
                                     Post Task
@@ -168,7 +171,8 @@ export function UpperHeader() {
                     </Navbar>
                 </Container>
             </header>
-            <Modal
+            <PostTaskModal />
+            {/* <Modal
                 show={showModal}
                 onHide={handleClose}
                 backdrop="static"
@@ -178,7 +182,7 @@ export function UpperHeader() {
                 <Modal.Body>
                     <PostModal setshowPostModel={handleClose} />
                 </Modal.Body>
-            </Modal>
+            </Modal> */}
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"
