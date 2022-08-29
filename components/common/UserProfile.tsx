@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
+import { safeParse } from "utils/safeParse";
 
 import ProfileEditForm from "./ProfileEditForm";
 import ShareIcon from "./ShareIcon";
@@ -55,10 +56,16 @@ const UserProfileCard = ({
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
     const [image, setImage] = useState();
-    const services: Array<string> = moreServices
-        ? JSON.parse(moreServices)
-        : [];
-
+    // const services: Array<string> = moreServices
+    //     ? JSON.parse(moreServices)
+    //     : [];
+    const userSkills = safeParse({
+        rawString: moreServices || "",
+        initialData: [],
+    });
+    const skills = JSON.parse(userSkills as unknown as string);
+    // console.log("useraser", JSON.parse(userSkills));
+    const [hovered, setHovered] = useState<null | number>(null);
     const queryClient = useQueryClient();
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
@@ -262,16 +269,16 @@ const UserProfileCard = ({
                                             icon={faSparkles}
                                             className="thumbnail-img"
                                         />
-                                        {services
-                                            ? services.map(
+                                        {skills
+                                            ? skills.map(
                                                   (info: any, index: any) => (
                                                       <p key={index}>
                                                           &nbsp;{info}
                                                           {index <
-                                                          services.length - 2
+                                                          skills.length - 2
                                                               ? ", "
                                                               : index <
-                                                                services.length -
+                                                                skills.length -
                                                                     1
                                                               ? " and"
                                                               : ""}

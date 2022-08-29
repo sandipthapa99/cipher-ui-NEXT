@@ -15,6 +15,7 @@ import Form from "react-bootstrap/Form";
 import type { UserProfileProps } from "types/userProfileProps";
 import { reviewSearchData } from "utils/formData";
 import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
+import { safeParse } from "utils/safeParse";
 
 import AddPortfolio from "./AddPortfolio";
 import CertificationForm from "./CertificationForm";
@@ -82,8 +83,12 @@ const AboutProfile = () => {
 
     const { data: profileDetails } = useGetProfile();
 
-    const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
-    console.log("useraser", userSkills);
+    const userSkills = safeParse({
+        rawString: profileDetails?.skill || "",
+        initialData: [],
+    });
+    const skills = JSON.parse(userSkills as unknown as string);
+    // console.log("useraser", JSON.parse(userSkills));
     const [hovered, setHovered] = useState<null | number>(null);
     return (
         <>
@@ -387,8 +392,8 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {userSkills
-                                    ? userSkills.map((info: any, i: any) => (
+                                {skills
+                                    ? skills.map((info: any, i: any) => (
                                           <div className="skills__type" key={i}>
                                               {info}
                                           </div>
