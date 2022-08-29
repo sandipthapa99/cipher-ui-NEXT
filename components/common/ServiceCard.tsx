@@ -73,7 +73,7 @@ const ServiceCard = ({
                 </h3>
                 <Link href={`/service/${serviceCard.slug}`}>
                     <a>
-                        <p className="card-description d-inline">
+                        <div className="card-description d-inline">
                             <Spoiler
                                 maxHeight={50}
                                 hideLabel={"..."}
@@ -81,7 +81,7 @@ const ServiceCard = ({
                             >
                                 {parse(serviceCard?.description)}
                             </Spoiler>
-                        </p>
+                        </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
                                 <FontAwesomeIcon
