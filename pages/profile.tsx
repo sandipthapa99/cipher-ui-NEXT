@@ -1,4 +1,5 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
+import FullPageLoader from "@components/common/FullPageLoader";
 import { Tab } from "@components/common/Tab";
 import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
@@ -15,19 +16,19 @@ import Link from "next/link";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
-
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const { data: profileDetails, error } = useGetProfile();
+    const { data: profileDetails, isLoading, error } = useGetProfile();
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData(["profile"]);
-    console.log("profile", profileDetails);
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],
     //     "/tasker/profile/"
     // );
     // const profileDetails = userData?.data;
+
+    if (isLoading || !data) return <FullPageLoader />;
 
     const remaining = {
         userRating: 4,
@@ -126,7 +127,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                                         content: <AboutProfile />,
                                     },
                                     {
-                                        title: "Tasks",
+                                        title: "Services",
                                         content: <TasksProfileCard />,
                                     },
                                     {

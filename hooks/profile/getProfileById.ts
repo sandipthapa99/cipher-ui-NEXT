@@ -15,21 +15,3 @@ export const useGetPortfolioById = (id: number | undefined) => {
         }
     });
 };
-
-// export const useGetDataById = <T>(
-//     id: string | undefined,
-//     key: string[],
-//     url: string
-// ) => {
-//     return useQuery([key, id], async () => {
-//         try {
-//             const { data } = await axiosClient.get<T>(url);
-//             return data;
-//         } catch (error) {
-//             if (error instanceof AxiosError) {
-//                 throw new Error(error?.response?.data?.message);
-//             }
-//             throw new Error("Something went wrong");
-//         }
-//     });
-// };

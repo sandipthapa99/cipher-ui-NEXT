@@ -1,5 +1,6 @@
 import Reviews from "@components/common/Reviews";
 import SelectInputField from "@components/common/SelectInputField";
+import ServiceCard from "@components/common/ServiceCard";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
@@ -9,10 +10,10 @@ import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
 import { profileTaskCard } from "staticData/profileTaskCard";
 import { reviewsContent } from "staticData/reviews";
+import type { ServicesValueProps } from "types/serviceCard";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { personType, reviewType } from "utils/options";
-
 export interface TaskerTasksProps {
     total_pages: number;
     count: number;
@@ -82,12 +83,32 @@ const TasksProfileCard = () => {
         ["tasker-tasks"],
         "/task/my-task"
     );
-    console.log("taksers tasks=", taskData);
 
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
+    console.log("takser services=", servicesData);
     return (
         <section className="profile-task">
             <div className="profile-task__top-container">
-                <Row>
+                <Row className="gx-5">
+                    {servicesData &&
+                        servicesData?.data?.result?.map((service, key) => {
+                            return (
+                                <Col
+                                    sm={6}
+                                    md={4}
+                                    lg={3}
+                                    key={key}
+                                    className="d-flex"
+                                >
+                                    <ServiceCard serviceCard={service} />
+                                </Col>
+                            );
+                        })}
+                </Row>
+                {/* <Row>
                     {profileTaskCard &&
                         profileTaskCard.map((info) => (
                             <Col lg={3} md={4} key={info.id}>
@@ -109,7 +130,6 @@ const TasksProfileCard = () => {
                                             {info.address}
                                         </p>
                                         <p className="description">
-                                            {/* {`${cardDescription.substring(0, 80)}...`} */}
                                             {info.description}
                                         </p>
 
@@ -131,74 +151,9 @@ const TasksProfileCard = () => {
                                 </div>
                             </Col>
                         ))}
-                </Row>
+                </Row> */}
             </div>
-
-            {/* <div className="profile-task__bottom-container">
-                <div className="reviews">
-                    <Row className="head-container">
-                        <Col md={6}>
-                            <h3>
-                                My Reviews <span>(3,0003)</span>{" "}
-                            </h3>
-                        </Col>
-                        <Col md={6}>
-                            <Row className="select-field">
-                                <Col md={6}>
-                                    <Formik
-                                        initialValues={HomeSearchdata}
-                                        validationSchema={HomeSearchSchema}
-                                        onSubmit={async (values) =>
-                                            console.log(values)
-                                        }
-                                    >
-                                        <SelectInputField
-                                            name="review"
-                                            options={personType}
-                                            fieldRequired
-                                            placeHolder="Tasker"
-                                        />
-                                    </Formik>
-                                </Col>
-                                <Col md={6}>
-                                    <Formik
-                                        initialValues={HomeSearchdata}
-                                        validationSchema={HomeSearchSchema}
-                                        onSubmit={async (values) => {
-                                            console.log(values);
-                                        }}
-                                    >
-                                        <SelectInputField
-                                            name="review"
-                                            options={reviewType}
-                                            placeholder="Most Relevant"
-                                            fieldRequired
-                                            placeHolder="Most Relevant"
-                                        />
-                                    </Formik>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
-                    <div className="review-container">
-                        <Row className="gx-5 type">
-                            {reviewsContent &&
-                                reviewsContent.map((review) => (
-                                    <Col md={8} key={review.id}>
-                                        <Reviews
-                                            name={review.name}
-                                            ratings={review.ratings}
-                                            description={review.description}
-                                            time={review.time}
-                                            image={review.image}
-                                        />
-                                    </Col>
-                                ))}
-                            <Link href="#!">See all reviews</Link>
-                        </Row>
-                    </div>
-                </div>
-            </div> */}
+            {/* task reviews */}
             <div className="profile-task__bottom-container reviews">
                 <div className="head-container">
                     <Row className="align-items-center">

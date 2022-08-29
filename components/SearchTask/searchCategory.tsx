@@ -13,7 +13,7 @@ const DUMMY_DATA = [
     {
         category: "Category",
         value: "",
-        nested: ["one", "two", "three"],
+        nested: ["Car Servicing", "Garden Cleaning", "Plumbing"],
     },
     { category: "Distance", value: "", nested: ["30Km near"] },
 
@@ -22,9 +22,9 @@ const DUMMY_DATA = [
         value: "",
         nested: ["Low to High", "High to Low"],
     },
-    { category: "Any price", nested: ["Low to High", "High to Low"] },
-    { category: "Any price", nested: ["Low to High", "High to Low"] },
-    { category: "Any price", nested: ["Low to High", "High to Low"] },
+    { category: "Task Type", nested: ["Low to High", "High to Low"] },
+    { category: "Other Filters", nested: ["Low to High", "High to Low"] },
+    { category: "Sort", nested: ["Low to High", "High to Low"] },
 ];
 
 export const SearchCategory = ({
@@ -32,6 +32,7 @@ export const SearchCategory = ({
     getOption,
 }: SearchCategoryProps) => {
     const [activeIndex, setActiveIndex] = useState<number>();
+    const [selected, setSelected] = useState(false);
     const checkedIndex = useCallback(
         (index: number) => {
             return index === activeIndex;
@@ -80,7 +81,7 @@ export const SearchCategory = ({
 
     return (
         <div className="search-category">
-            <Row className="rows">
+            <Row className="rows d-flex justify-content-center align-items-center">
                 <Col md={4} className="input-col">
                     <InputGroup className="search-category--input-group">
                         <Form.Control
@@ -105,8 +106,11 @@ export const SearchCategory = ({
                         </Button>
                     </InputGroup>
                 </Col>
-                <Col md={8} className="categories-tab ">
-                    {renderCategory}
+                <Col md={8}>
+                    <div className="d-flex categories-tab pl-2">
+                        {renderCategory}
+                    </div>
+                    {/* {renderCategory} */}
                 </Col>
             </Row>
         </div>
