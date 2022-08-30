@@ -4,6 +4,7 @@ import DragDrop from "@components/common/DragDrop";
 import FileDragDrop from "@components/common/FileDragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import MultiFileDropzone from "@components/common/MultiFileDropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
@@ -18,7 +19,6 @@ import type { AddPortfolioProps } from "types/editProfile";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-
 interface AddPortfolioModalProps {
     show?: boolean;
     id?: number;
@@ -45,8 +45,7 @@ const AddPortfolio = ({
     ]);
 
     function isValidURL(str: any) {
-        const regex =
-            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
+        const regex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
         if (!regex.test(str)) {
             return false;
         } else {
@@ -222,15 +221,7 @@ const AddPortfolio = ({
                                                     Add relevant images or video
                                                 </p>
 
-                                                {/* <DragDrop
-                                                    name="image"
-                                                    image="/service-details/file-upload.svg"
-                                                    fileType="Image/Video"
-                                                    maxImageSize={20}
-                                                    maxVideoSize={200}
-                                                    field={setFieldValue}
-                                                /> */}
-                                                <CustomDropZone
+                                                {/* <CustomDropZone
                                                     name="image"
                                                     maxSize={200}
                                                     minSize={20}
@@ -242,6 +233,15 @@ const AddPortfolio = ({
                                                             )
                                                         )
                                                     }
+                                                /> */}
+                                                <MultiFileDropzone
+                                                    name="images"
+                                                    labelName="Upload your images"
+                                                    textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 1MB."
+                                                    imagePreview="imagePreviewUrl"
+                                                    maxFiles={5}
+                                                    multiple
+                                                    showFileDetail
                                                 />
                                             </Col>
                                         </Row>
