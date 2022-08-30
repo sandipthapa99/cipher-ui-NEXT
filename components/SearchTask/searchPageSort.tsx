@@ -1,3 +1,4 @@
+import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { Tab } from "@components/common/Tab";
 import TaskCard from "@components/common/TaskCard";
 import Post from "@components/PostTask/Post";
@@ -10,10 +11,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { progressTask, taskHistory } from "staticData/task";
-
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-
+    const [showInput, setShowInput] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const RenderInputBox = () => {
+        return (
+            <input
+                type="text"
+                className="input"
+                //value={search_category}
+                placeholder="search"
+            />
+        );
+    };
     return (
         <Row className="recommended-tab">
             {/* <div className="tabs"> */}
@@ -50,16 +61,23 @@ const SearchBySort = () => {
                                 <FontAwesomeIcon
                                     icon={faMagnifyingGlass}
                                     className="svg-icon"
+                                    onClick={() => setShowInput(!showInput)}
                                 />
                             ),
+                            iconContent: showInput ? <RenderInputBox /> : null,
                         },
                         {
                             index: 1,
                             type: (
-                                <FontAwesomeIcon
-                                    icon={faFilterList}
-                                    className="svg-icon"
-                                />
+                                <EllipsisDropdown
+                                    showModal={true}
+                                    handleOnClick={() => setShowModal(true)}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faFilterList}
+                                        className="svg-icon"
+                                    />
+                                </EllipsisDropdown>
                             ),
                         },
                     ]}

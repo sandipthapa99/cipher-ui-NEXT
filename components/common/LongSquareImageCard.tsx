@@ -86,22 +86,26 @@ const LongSquareImageCard = ({
                                         <p>{description}</p>
                                     )}
                                 </div>
-                                {accessToken !== undefined ? (
-                                    <AnchorButton
-                                        className={"px-5"}
-                                        href={"/explore-services"}
-                                        varient={"secondary"}
-                                    >
-                                        {"Explore Services"}
-                                    </AnchorButton>
-                                ) : (
-                                    <AnchorButton
-                                        className={"px-5"}
-                                        href={"/signup"}
-                                        varient={"secondary"}
-                                    >
-                                        {"Join Us"}
-                                    </AnchorButton>
+                                {buttonText && (
+                                    <div>
+                                        {accessToken !== undefined ? (
+                                            <AnchorButton
+                                                className={"px-5"}
+                                                href={"/explore-services"}
+                                                varient={"secondary"}
+                                            >
+                                                {"Explore Services"}
+                                            </AnchorButton>
+                                        ) : (
+                                            <AnchorButton
+                                                className={"px-5"}
+                                                href={"/signup"}
+                                                varient={"secondary"}
+                                            >
+                                                {"Join Us"}
+                                            </AnchorButton>
+                                        )}
+                                    </div>
                                 )}
                             </div>
                         </Col>
@@ -151,22 +155,26 @@ const LongSquareImageCard = ({
                                         <p>{description}</p>
                                     )}
                                 </div>
-                                {accessToken !== undefined ? (
-                                    <AnchorButton
-                                        className={"px-5"}
-                                        href={"/explore-services"}
-                                        varient={"secondary"}
-                                    >
-                                        {"Explore Services"}
-                                    </AnchorButton>
-                                ) : (
-                                    <AnchorButton
-                                        className={"px-5"}
-                                        href={"/signup"}
-                                        varient={"secondary"}
-                                    >
-                                        {"Join Us"}
-                                    </AnchorButton>
+                                {buttonText && (
+                                    <div>
+                                        {accessToken !== undefined ? (
+                                            <AnchorButton
+                                                className={"px-5"}
+                                                href={"/explore-services"}
+                                                varient={"secondary"}
+                                            >
+                                                {"Explore Services"}
+                                            </AnchorButton>
+                                        ) : (
+                                            <AnchorButton
+                                                className={"px-5"}
+                                                href={"/signup"}
+                                                varient={"secondary"}
+                                            >
+                                                {"Join Us"}
+                                            </AnchorButton>
+                                        )}
+                                    </div>
                                 )}
                             </div>
                         </Col>

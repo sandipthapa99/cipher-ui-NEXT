@@ -85,11 +85,12 @@ const ServiceProviderCard = ({
                     <p>Starting price</p>
                     <p className="price">Rs {startingPrice}</p>
                 </div>
-                {isAddServiceForm ? (
+                {!isAddServiceForm ? (
                     <span className="edit-add-service-button">
                         <BookNowButton
                             btnTitle="Edit Service"
                             backgroundColor="#fff"
+                            handleOnClick={handleShowModal}
                         />
                     </span>
                 ) : (

@@ -6,6 +6,15 @@
         box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
         border-radius: 4px;
 
+        .mantine-Input-wrapper.mantine-Select-wrapper.mantine-12sbrde {
+            margin: 0.5rem 0 2rem;
+            input {
+                height: 5rem;
+                font: 400 1.6rem $poppins-font;
+                border: 0.1rem solid #afafaf;
+            }
+        }
+
         h3 {
             font: 500 2rem $poppins-font;
         }
