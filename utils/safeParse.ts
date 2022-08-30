@@ -4,7 +4,8 @@ interface SafeParse<T> {
 }
 export const safeParse = <T>({ rawString, initialData }: SafeParse<T>) => {
     try {
-        return JSON.parse(rawString) as T;
+        const data = JSON.parse(rawString) as T;
+        return data;
     } catch (error) {
         return initialData;
     }
