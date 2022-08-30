@@ -386,7 +386,7 @@ const AboutProfile = () => {
 
                     <Row>
                         <Col md={9}>
-                            {/* <div className="content">
+                            <div className="content">
                                 {userSkills
                                     ? userSkills.map((info: any, i: any) => (
                                           <div className="skills__type" key={i}>
@@ -394,7 +394,7 @@ const AboutProfile = () => {
                                           </div>
                                       ))
                                     : "No skills to show. Please add them"}
-                            </div> */}
+                            </div>
                         </Col>
                     </Row>
                 </div>

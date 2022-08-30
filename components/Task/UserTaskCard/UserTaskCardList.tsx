@@ -1,4 +1,5 @@
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
+import Scrollbars from "react-custom-scrollbars";
 import type { Tasker } from "types/tasks";
 
 export interface Props {
@@ -35,7 +36,9 @@ export const UserTaskCardList = ({ taskers, onTaskClick }: Props) => {
                 {taskers?.length} Tasker in Kathmandu,Bagmati Nepal (
                 {taskers?.length} new)
             </p>
-            <div className="user-task-card-list">{renderTaskList()}</div>
+            <Scrollbars autoHide style={{ height: 700 }}>
+                <div className="user-task-card-list">{renderTaskList()}</div>
+            </Scrollbars>
         </>
     );
 };

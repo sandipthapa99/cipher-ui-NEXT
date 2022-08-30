@@ -87,12 +87,17 @@ const HowToHire: NextPage = () => {
                             relationships they need to thrive and grow.
                         </p>
                         <figure className="thumbnail-img footer-img">
-                            <Image
-                                src="/howitworks/economic.svg"
-                                layout="fill"
-                                objectFit="cover"
-                                alt="economic-image"
-                            />
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                src={
+                                    "https://www.youtube.com/embed/Ke90Tje7VS0"
+                                }
+                                title="YouTube video player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
                         </figure>
                     </div>
                 </section>

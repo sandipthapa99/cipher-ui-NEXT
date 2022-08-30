@@ -56,7 +56,7 @@ const ProfileEditForm = ({
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)
     );
-    console.log("edit details=", profile);
+
     const onEditProfile = (data: any) => {
         editProfile.mutate(data, {
             onSuccess: (data) => {

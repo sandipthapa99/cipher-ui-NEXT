@@ -27,10 +27,11 @@ const TaskCard = ({
 }: RecommendedTaskCardProps) => {
     const [showModal, setShowModal] = useState(false);
 
-    const starttime = start_time.split(":");
+    const starttime = start_time ? start_time?.split(":") : null;
 
     function getDateFromHours(time: any) {
-        time = time?.split(":");
+        time = time ? time?.split(":") : "";
+        console.log("time is", time);
         const now = new Date();
         return new Date(
             now.getFullYear(),
@@ -39,8 +40,9 @@ const TaskCard = ({
             ...time
         );
     }
-    const formattedtime = getDateFromHours(start_time);
 
+    const formattedtime = getDateFromHours(start_time);
+    console.log("start time", starttime, formattedtime);
     return (
         <div className="task-card-block">
             <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
@@ -64,15 +66,21 @@ const TaskCard = ({
                             icon={faCalendar}
                             className="svg-icon"
                         />
-                        {format(new Date(start_date), "MMMM dd, yyyy")}
+                        {start_date
+                            ? format(new Date(start_date), "MMMM dd, yyyy")
+                            : ""}
                     </p>
                     <div className="d-flex align-items-center time">
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon"
                         />
-                        {/* {format(new Date(formattedtime), "hh:mm")}&nbsp;
-                        {parseInt(starttime[1]) > 12 ? "PM" : "AM"} */}
+                        {format(new Date(formattedtime), "hh:mm")}&nbsp;
+                        {starttime
+                            ? parseInt(starttime[1]) > 12
+                                ? "PM"
+                                : "AM"
+                            : ""}
                     </div>
                 </div>
             </div>

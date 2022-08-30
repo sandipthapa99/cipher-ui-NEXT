@@ -16,6 +16,10 @@ import {
     faLocationDot,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faFilterList,
+    faMagnifyingGlass,
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -36,6 +40,18 @@ const AppliedTaskDetail: NextPage = () => {
     const queryClient = useQueryClient();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
+    const [showInput, setShowInput] = useState(false);
+
+    const RenderInputBox = () => {
+        return (
+            <input
+                type="text"
+                className="input"
+                //value={search_category}
+                placeholder="search"
+            />
+        );
+    };
     const router = useRouter();
 
     const slug = router?.query?.slug as string;
@@ -211,6 +227,33 @@ const AppliedTaskDetail: NextPage = () => {
                         {
                             title: "Collaboration",
                             content: <Collaboration />,
+                        },
+                    ]}
+                    icons={[
+                        {
+                            index: 0,
+                            type: (
+                                <FontAwesomeIcon
+                                    icon={faMagnifyingGlass}
+                                    className="svg-icon"
+                                    onClick={() => setShowInput(!showInput)}
+                                />
+                            ),
+                            iconContent: showInput ? <RenderInputBox /> : null,
+                        },
+                        {
+                            index: 1,
+                            type: (
+                                <EllipsisDropdown
+                                    showModal={true}
+                                    handleOnClick={() => setShowModal(true)}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faFilterList}
+                                        className="svg-icon"
+                                    />
+                                </EllipsisDropdown>
+                            ),
                         },
                     ]}
                 />

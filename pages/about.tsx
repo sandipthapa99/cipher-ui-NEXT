@@ -145,12 +145,17 @@ const About: NextPage = () => {
                             business, and so on.
                         </p>
                         <figure className="thumbnail-img footer-img">
-                            <Image
-                                src="/aboutus/egrowth.png"
-                                layout="fill"
-                                objectFit="cover"
-                                alt="about-page-footer-image"
-                            />
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                src={
+                                    "https://www.youtube.com/embed/Ke90Tje7VS0"
+                                }
+                                title="YouTube video player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
                         </figure>
                     </div>
                 </Container>
