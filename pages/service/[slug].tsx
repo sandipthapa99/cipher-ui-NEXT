@@ -80,7 +80,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             revalidate: 10,
         };
     } catch (error: any) {
-        console.log(error);
         return {
             props: {
                 service: {},

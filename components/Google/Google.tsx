@@ -13,8 +13,8 @@ const Google = () => {
 
     return (
         <GoogleLogin
+            size="large"
             auto_select={false}
-            logo_alignment="center"
             onSuccess={(credentialResponse) => {
                 mutate(credentialResponse, {
                     onSuccess: (data) => {

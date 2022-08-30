@@ -16,6 +16,11 @@
         border-radius: 0.4rem;
         width: 27.2rem;
         padding: 1.5rem 3.2rem;
+
+        @include transition();
+        &:hover {
+            transform: scale(1.05);
+        }
         // height: 48.6rem;
 
         .package-detail-settings {
@@ -23,6 +28,7 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
+
             p {
                 margin: 2.4rem 0 0.8rem 0;
                 font-weight: 500;

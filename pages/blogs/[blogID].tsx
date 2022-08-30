@@ -119,7 +119,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const { data } = await axiosClient.get<BlogDetailData>(
             `/blog/detail/${params?.blogID}`
         );
-        console.log(data);
 
         // if (blog.error) throw new Error(blog.error.message);
 
@@ -130,7 +129,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             revalidate: 10,
         };
     } catch (err) {
-        console.log(err);
         return {
             props: {
                 blog: {},

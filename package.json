@@ -12,7 +12,8 @@
         "prepare": "husky install",
         "runjson": "json-server --watch db.json",
         "ngrokToken": "./ngrok config add-authtoken 2Dh6At0DgeWY2bny9Ub8U7ZuKMS_6mfpXX5gjcJCpm31G5WMC",
-        "runngrok": "./ngrok http 3005"
+        "runngrok": "./ngrok http 3005",
+        "runlocal": "node server.js"
     },
     "dependencies": {
         "@emotion/react": "^11.10.0",

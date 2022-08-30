@@ -47,7 +47,7 @@ export const MembershipPackage = () => {
             );
         });
         return (
-            <Col key={index} className="setting-package">
+            <Col lg={4} sm={4} key={index} className="setting-package">
                 <div className="package-detail-settings">
                     <p>{membership.title}</p>
 
