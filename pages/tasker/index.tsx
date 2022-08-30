@@ -77,7 +77,6 @@ const TaskerPage = () => {
                     </Col>
                 </Row>
             </Container>
-            <Footer />
         </Layout>
     );
 };
