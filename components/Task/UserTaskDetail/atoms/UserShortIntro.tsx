@@ -41,10 +41,12 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                     <FontAwesomeIcon className="svg-icon" icon={faUser} />
                     <span>Member Since {"member since"}</span>
                 </p>
-                <p className="td-user-short-intro-text">
-                    <FontAwesomeIcon className="svg-icon" icon={faStar} />
-                    <span>{userSkills.join(", ")}</span>
-                </p>
+                {userSkills.length > 0 && (
+                    <p className="td-user-short-intro-text">
+                        <FontAwesomeIcon className="svg-icon" icon={faStar} />
+                        <span>{userSkills.join(", ")}</span>
+                    </p>
+                )}
             </Col>
             <Col md={6}>
                 <p className="td-user-short-intro-text">{user?.bio}</p>
