@@ -1,39 +1,46 @@
 import {
     faCheck,
-    faCircleExclamation,
     faCirclePlus,
     faXmark,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { TextInputProps } from "@mantine/core";
 import {
     ActionIcon,
     Box,
     createStyles,
     List,
-    Space,
     Text,
     TextInput,
 } from "@mantine/core";
-import type { FormEvent } from "react";
+import type { KeyboardEvent } from "react";
 import { useState } from "react";
 
 export interface TaskRequiremnt {
     id: number;
     title: string;
 }
-export interface TaskRequirementsProps {
+export interface TaskRequirementsProps extends TextInputProps {
     onRequirementsChange: (requirements: TaskRequiremnt[]) => void;
 }
 export const TaskRequirements = ({
     onRequirementsChange,
+    ...rest
 }: TaskRequirementsProps) => {
     const { classes } = useStyles();
     const [requirements, setRequirements] = useState<TaskRequiremnt[]>([]);
     const [newRequirement, setNewRequirement] = useState("");
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key !== "Enter") return;
         if (!newRequirement) return;
+        const requirementAlreadyExist = requirements.some(
+            (requirement) => requirement.title === newRequirement
+        );
+        if (requirementAlreadyExist) {
+            setNewRequirement("");
+            return;
+        }
         const newRequirementObj = {
             id: requirements.length + 1,
             title: newRequirement,
@@ -48,6 +55,15 @@ export const TaskRequirements = ({
             return updatedRequirements;
         });
     };
+    const handleRemoveRequirement = (id: number) => {
+        setRequirements((currentRequirements) => {
+            const updatedRequirements = currentRequirements.filter(
+                (requirement) => requirement.id !== id
+            );
+            onRequirementsChange(updatedRequirements);
+            return updatedRequirements;
+        });
+    };
     const renderRequirements = () => {
         return requirements.map(({ id, title }) => (
             <li className={classes.listItem} key={id}>
@@ -55,7 +71,7 @@ export const TaskRequirements = ({
                     <FontAwesomeIcon icon={faCheck} color="#3EAEFF" />
                 </ActionIcon>
                 <Text className={classes.listItemTitle}>{title}</Text>
-                <ActionIcon>
+                <ActionIcon onClick={() => handleRemoveRequirement(id)}>
                     <FontAwesomeIcon icon={faXmark} color="#CED4DA" />
                 </ActionIcon>
             </li>
@@ -63,24 +79,21 @@ export const TaskRequirements = ({
     };
     return (
         <Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                <Text>Requirements</Text>
-                <FontAwesomeIcon icon={faCircleExclamation} color="#FF9700" />
-            </Box>
-            <Space h={6} />
             <List>{renderRequirements()}</List>
-            <form onSubmit={handleSubmit}>
-                <TextInput
-                    value={newRequirement}
-                    onChange={(event) =>
-                        setNewRequirement(event.currentTarget.value)
-                    }
-                    placeholder="Add Requirements"
-                    rightSection={
-                        <FontAwesomeIcon icon={faCirclePlus} color="#3EAEFF" />
-                    }
-                />
-            </form>
+
+            <TextInput
+                {...rest}
+                label="Requirements"
+                value={newRequirement}
+                onChange={(event) =>
+                    setNewRequirement(event.currentTarget.value)
+                }
+                onKeyDown={handleKeyDown}
+                placeholder="Add Requirements"
+                rightSection={
+                    <FontAwesomeIcon icon={faCirclePlus} color="#3EAEFF" />
+                }
+            />
         </Box>
     );
 };
@@ -88,7 +101,7 @@ export const useStyles = createStyles(() => ({
     listItem: {
         display: "flex",
         gap: "0.8rem",
-        "&:not(:first-child)": {
+        "&:not(:first-of-type)": {
             marginTop: "1rem",
         },
     },

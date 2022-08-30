@@ -51,7 +51,7 @@ export const FixedDate = () => {
                                 <TimeRangeInput
                                     icon={<FontAwesomeIcon icon={faClock} />}
                                     rightSection={
-                                        <ActionIcon>
+                                        <ActionIcon onClick={handleRemoveInput}>
                                             <FontAwesomeIcon icon={faClose} />
                                         </ActionIcon>
                                     }

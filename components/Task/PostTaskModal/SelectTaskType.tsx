@@ -1,3 +1,4 @@
+import type { TextInputProps } from "@mantine/core";
 import { Box, Radio, Space, TextInput } from "@mantine/core";
 import React, { useState } from "react";
 
@@ -7,16 +8,18 @@ export enum TaskType {
 }
 interface SelectTaskTypeProps {
     onTypeChange: (type: TaskType) => void;
+    addressInputProps: TextInputProps;
 }
-export const SelectTaskType = ({ onTypeChange }: SelectTaskTypeProps) => {
+export const SelectTaskType = ({
+    onTypeChange,
+    addressInputProps,
+}: SelectTaskTypeProps) => {
     const [value, setValue] = useState<TaskType>(TaskType.REMOTE);
-    const [premise, setPremise] = useState("");
 
     const handleTaskTypeChange = (value: string) => {
         setValue(value as TaskType);
         onTypeChange(value as TaskType);
     };
-
     return (
         <Box>
             <Radio.Group
@@ -32,10 +35,7 @@ export const SelectTaskType = ({ onTypeChange }: SelectTaskTypeProps) => {
                 <>
                     <Space h={10} />
                     <TextInput
-                        value={premise}
-                        onChange={(event) =>
-                            setPremise(event.currentTarget.value)
-                        }
+                        {...addressInputProps}
                         placeholder="Default Address (HOME)"
                     />
                 </>

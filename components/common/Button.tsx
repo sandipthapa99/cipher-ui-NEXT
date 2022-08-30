@@ -1,6 +1,7 @@
+import type { ButtonProps } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 
-interface BigButtonProps {
+interface BigButtonProps extends ButtonProps {
     btnTitle: string;
     backgroundColor: string;
     textColor?: string;
@@ -14,11 +15,13 @@ const BigButton = ({
     textColor,
     handleClick,
     className,
+    ...rest
 }: BigButtonProps) => {
     return (
         <>
             <Button
-                className={`big-btn ${className}`}
+                {...rest}
+                className={`big-btn ${className ? className : ""}`}
                 style={{
                     backgroundColor: `${backgroundColor}`,
                     color: `${textColor}!important`,

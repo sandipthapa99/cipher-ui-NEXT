@@ -1,4 +1,4 @@
-import type { SelectItem } from "@mantine/core";
+import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useState } from "react";
 
@@ -16,10 +16,13 @@ const data: SelectItem[] = DUMMY_CATEGORIES.map((category, index) => ({
     value: category,
 }));
 
-interface TaskCategoryProps {
+interface TaskCategoryProps extends Omit<SelectProps, "data"> {
     onCategoryChange: (category: string) => void;
 }
-export const TaskCategory = ({ onCategoryChange }: TaskCategoryProps) => {
+export const TaskCategory = ({
+    onCategoryChange,
+    ...rest
+}: TaskCategoryProps) => {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(
         null
     );
@@ -30,6 +33,7 @@ export const TaskCategory = ({ onCategoryChange }: TaskCategoryProps) => {
     };
     return (
         <Select
+            {...rest}
             label="Category"
             placeholder="Select a category"
             value={selectedCategory}

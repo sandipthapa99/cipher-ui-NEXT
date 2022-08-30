@@ -39,6 +39,7 @@ export interface ServicesValueProps {
             name: string;
             size: number;
             image: string;
+            media: string;
         }[];
         created_at: string;
         updated_at: string;

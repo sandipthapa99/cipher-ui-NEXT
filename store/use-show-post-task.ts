@@ -4,11 +4,11 @@ export interface ShowPostTaskModalStore {
     toggleShowPostTaskModal: () => void;
 }
 export const showPostTaskModalStore = create<ShowPostTaskModalStore>((set) => ({
-    showPostTaskModal: true,
+    showPostTaskModal: false,
     toggleShowPostTaskModal: () =>
         set((state) => ({
             ...state,
-            showPostTaskModalStore: !state.showPostTaskModal,
+            showPostTaskModal: !state.showPostTaskModal,
         })),
 }));
 
