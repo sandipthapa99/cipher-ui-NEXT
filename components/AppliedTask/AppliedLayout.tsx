@@ -43,7 +43,6 @@ const AppliedLayout = ({ children }: { children: ReactNode }) => {
                     {children}
                 </TaskAside>
             </Container>
-            <Footer />
         </Layout>
     );
 };

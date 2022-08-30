@@ -25,6 +25,6 @@
         "**/*.ts",
         "**/*.tsx",
         "components/SearchTask/searchHeader.tsx"
-    ],
+, "pages/checkout.jsx"    ],
     "exclude": ["node_modules"]
 }

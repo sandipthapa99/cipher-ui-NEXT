@@ -49,7 +49,6 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
                     {children}
                 </ServiceAside>
             </Container>
-            <Footer />
         </Layout>
     );
 };
