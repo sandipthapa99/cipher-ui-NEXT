@@ -24,7 +24,8 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        "components/SearchTask/searchHeader.tsx"
+        "components/SearchTask/searchHeader.tsx",
+        "pages/checkout.jsx"
     ],
     "exclude": ["node_modules"]
 }
