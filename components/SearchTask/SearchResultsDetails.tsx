@@ -58,6 +58,76 @@ const SearchResultsDetail = ({
         ["all-services"],
         "/task/service/"
     );
+    console.log("servicesData", servicesData?.data?.result);
+
+    const { data: myServicePackage } = useData<{
+        result: Array<{
+            id: number;
+            service: {
+                id: string;
+                created_by: {
+                    id: string;
+                    email: string;
+                    full_name: string;
+                    profile_image: string;
+                };
+                category: {
+                    id: number;
+                    name: string;
+                    slug: string;
+                    icon: string;
+                };
+                city: any;
+                images: Array<{
+                    id: number;
+                    name: string;
+                    size: number;
+                    image: string;
+                }>;
+                created_at: string;
+                updated_at: string;
+                title: string;
+                budget_type: string;
+                budget_from: number;
+                budget_to: number;
+                status: string;
+                description: string;
+                highlights: string;
+                views_count: number;
+                location: string;
+                happy_clients: any;
+                success_rate: any;
+                is_professional: boolean;
+                is_online: boolean;
+                video: string;
+                no_of_revisions: number;
+                discount_type: string;
+                discount_value: any;
+                is_active: boolean;
+                slug: string;
+            };
+            title: string;
+            description: string;
+            budget: number;
+            no_of_revision: number;
+            service_offered: string;
+            is_active: boolean;
+            slug: string;
+            budget_type: string;
+            discount_type: string;
+            discount_value: number;
+            is_recommended: boolean;
+        }>;
+    }>(["my-service-packages"], "/task/service-package/");
+    console.log("my-packages", myServicePackage?.data?.result);
+
+    // const allServicePackages = myServicePackage?.data?.result.find(
+    //     (item) => item.service.id === servicesData?.data?.result?.id
+    // );
+    // const allServicePackages = servicesData?.data?.result?.filter((item) => {
+    //     return item.id === myServicePackage?.data?.result?.service.id;
+    // });
+    // console.log("abc", allServicePackages);
 
     const router = useRouter();
     const servSlug = router.query.slug;
