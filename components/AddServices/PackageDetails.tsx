@@ -80,10 +80,19 @@ export const PackageDetails = ({
     const serviceOptions = myService?.data?.result?.map((item) => {
         return { label: item.title, value: item.id, id: item.id };
     });
-    const postPackageMutation = useMutation((packageData) =>
-        axiosClient.post("/task/service-package/", packageData)
-    );
-
+    const postPackageMutation = useMutation((packageData) => {
+        return axiosClient.post("/task/service-package/", packageData);
+    });
+    const sendPackageData = (values: any) => {
+        postPackageMutation.mutate(values, {
+            onSuccess: () => {
+                toast.success("Package added successfully");
+            },
+            onError: (error: any) => {
+                toast.error(error.message);
+            },
+        });
+    };
     const handleChange = () => {
         setChecked(!checked);
     };
@@ -99,7 +108,7 @@ export const PackageDetails = ({
         // revision_day: "",
         service: "",
         discount_value: 0,
-        is_recommended: null,
+        is_recommended: false,
         is_active: false,
     };
     const allOptions: SelectOptionProps[] = [
@@ -155,16 +164,7 @@ export const PackageDetails = ({
                                                 ? [...prev, values]
                                                 : prev;
                                         });
-                                        postPackageMutation.mutate(values, {
-                                            onSuccess: () => {
-                                                toast.success(
-                                                    "successfully posted package"
-                                                );
-                                            },
-                                            onError: (err: any) => {
-                                                toast.error(err?.message);
-                                            },
-                                        });
+                                        sendPackageData(values);
                                     }}
                                 >
                                     {({

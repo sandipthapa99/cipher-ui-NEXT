@@ -27,8 +27,8 @@ const ShareModal = ({
     const copyToClipBoard = async (copyMe: any) => {
         try {
             await navigator.clipboard.writeText(copyMe);
-        } catch (err) {
-            console.log(err);
+        } catch (err: any) {
+            console.log(err.message);
         }
     };
 
