@@ -10,6 +10,7 @@ import { useLogin } from "hooks/auth/useLogin";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
+import { Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -114,9 +115,11 @@ const Login = () => {
                                     className="google"
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/google-oauth2/`}
                                 /> */}
-                                <FacebookLogin />
 
-                                <Google />
+                                <FacebookLogin />
+                                <Col>
+                                    <Google />
+                                </Col>
                             </Form>
                         )}
                     </Formik>

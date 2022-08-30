@@ -6,6 +6,7 @@ import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
+import { HoroscopeCard } from "@components/common/HoroscopeCard";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
 import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
@@ -15,6 +16,7 @@ import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
+import { HoroscopeSlider } from "@components/HoroscopeSlider";
 import Layout from "@components/Layout";
 import {
     faAngleRight,
@@ -36,6 +38,7 @@ import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
+import { HoroscopeCardData } from "staticData/horoscopeCardData";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
 import type { HeroCategoryProps } from "types/heroCategory";
@@ -249,7 +252,7 @@ const Home: NextPage<{
                                                 src={value?.logo}
                                                 alt={value?.alt_text}
                                                 layout="fill"
-                                                objectFit="cover"
+                                                objectFit="contain"
                                             ></Image>
                                         </figure>
                                     )}
@@ -481,6 +484,18 @@ const Home: NextPage<{
                 </Container>
             </section>
             {/* Find & Hire section end */}
+
+            {/* Horoscope section starts */}
+            <section
+                id="horoscope-slider-section"
+                className="horoscope-slider-section"
+            >
+                <Container className="px-5" fluid="xl">
+                    <h1 className="text-center">Horoscopes</h1>
+                    <HoroscopeSlider />
+                </Container>
+            </section>
+            {/* Horoscope section ends */}
 
             {/* Top Taksers Section Start */}
             <section id="top-merchants" className="top-merchants">

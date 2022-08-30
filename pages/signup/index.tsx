@@ -8,7 +8,7 @@ import Link from "next/link";
 const Signup = () => {
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => console.log(codeResponse),
-        flow: "implicit",
+        flow: "auth-code",
     });
     return (
         <OnBoardingLayout
