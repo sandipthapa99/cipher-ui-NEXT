@@ -2,6 +2,7 @@ import ServiceNearYouCard from "@components/SearchTask/searchAside";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
+import Scrollbars from "react-custom-scrollbars";
 import type { ServicesValueProps } from "types/serviceCard";
 
 interface ServiceAside {
@@ -38,20 +39,21 @@ const ServiceAside = ({ service, query, children }: ServiceAside) => {
     return (
         <div className="search-results">
             <Row>
-                <Col md={4} style={{ overflowY: "scroll", maxHeight: "90vh" }}>
-                    {query && totalAppliedTasks > 0 ? (
-                        <p className="search-results-text">
-                            {`${totalAppliedTasks} service matching ${query} found`}
-                        </p>
-                    ) : null}
-                    {query && totalAppliedTasks === 0 ? (
-                        <p className="search-results-text">
-                            No services matching {query} found
-                        </p>
-                    ) : null}
-                    {renderTaskCards}
+                <Col md={4}>
+                    <Scrollbars autoHide style={{ height: 700 }}>
+                        {query && totalAppliedTasks > 0 ? (
+                            <p className="search-results-text">
+                                {`${totalAppliedTasks} service matching ${query} found`}
+                            </p>
+                        ) : null}
+                        {query && totalAppliedTasks === 0 ? (
+                            <p className="search-results-text">
+                                No services matching {query} found
+                            </p>
+                        ) : null}
+                        {renderTaskCards}
+                    </Scrollbars>
                 </Col>
-
                 <Col md={8}>{children}</Col>
             </Row>
         </div>
