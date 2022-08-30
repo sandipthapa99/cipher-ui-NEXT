@@ -13,8 +13,15 @@ export const HoroscopeSlider = () => {
                 { maxWidth: "md", slideSize: "50%" },
                 { maxWidth: "sm", slideSize: "100%", slideGap: 0 },
             ]}
-            loop
             align="start"
+            styles={{
+                control: {
+                    "&[data-inactive]": {
+                        opacity: 0,
+                        cursor: "default",
+                    },
+                },
+            }}
         >
             {HoroscopeCardData.map((item, index) => (
                 <Carousel.Slide key={index}>
