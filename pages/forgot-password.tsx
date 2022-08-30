@@ -68,9 +68,13 @@ const ForgotPassword = () => {
                                 onSuccess: async () => {
                                     actions.resetForm();
                                     toggleSuccessModal();
-                                    toast.success(
-                                        "Reset link has been sent to your email. Please visit that link"
-                                    );
+                                    choosedValue === "email"
+                                        ? toast.success(
+                                              "Reset link has been sent to your email. Please visit that link"
+                                          )
+                                        : toast.success(
+                                              "An OTP has been sent to your mobile number .. please enter that otp and new password"
+                                          );
                                     setSendOnce(true);
                                     if (choosedValue === "phone") {
                                         router.push({
@@ -80,7 +84,7 @@ const ForgotPassword = () => {
                                     }
                                 },
                                 onError: (error) => {
-                                    toast.error(error.message);
+                                    toast.error("please enter valid user");
                                 },
                             });
                         }}
@@ -103,7 +107,7 @@ const ForgotPassword = () => {
                                         labelName="Phone Number"
                                         touch={touched.phone}
                                         error={errors.phone}
-                                        placeHolder="+977 9805284906"
+                                        placeHolder="+9779805284906"
                                     />
                                 )}
                                 {!sendOnce ? (
