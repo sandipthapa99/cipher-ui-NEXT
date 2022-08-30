@@ -28,7 +28,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     // );
     // const profileDetails = userData?.data;
 
-    if (isLoading || !data) return <FullPageLoader />;
+    // if (isLoading || !data) return <FullPageLoader />;
 
     const remaining = {
         userRating: 4,
@@ -43,7 +43,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         userActiveStatus: true,
     };
 
-    if (!data || error) {
+    if (!profileDetails) {
         return (
             <>
                 <Layout title="Profile | Cipher">
