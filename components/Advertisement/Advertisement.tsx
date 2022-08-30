@@ -21,7 +21,6 @@ const Advertisement = () => {
     const boxImages = Advertisement?.data?.result.filter(
         (ad: any) => ad.mode === "Box"
     );
-    console.log(boxImages);
 
     const landscape = landscapedImages?.map((ad: any) => {
         return (
