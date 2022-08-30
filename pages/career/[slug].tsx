@@ -27,23 +27,23 @@ const CareerDeatils = ({
                     <div className="careers-detail bg-white">
                         <h1>{career?.title}</h1>
                         <p>
-                            <span>Location:</span>
+                            <span className="p-title">Location:</span>
                             {career?.location}
                         </p>
                         <p>
-                            <span>Work Type:</span>
+                            <span className="p-title">Work Type:</span>
                             {career?.job_type}
                         </p>
-                        <h2>What’s the job?</h2>
+                        <h2>What&apos;s the job?</h2>
                         <div className="d-flex justify-content-between align-items-center careers-detail__job">
                             {career && <div>{parse(career?.description)}</div>}
-                            <figure>
+                            {/* <figure>
                                 <Image
                                     src={"/joinTeam.png"}
                                     alt="buiness pic"
                                     layout="fill"
                                 />
-                            </figure>
+                            </figure> */}
                         </div>
                         <h2>What am I going to do?</h2>
                         <ul>{career?.title}</ul>

@@ -37,20 +37,18 @@ const ServiceCard = ({
             <Link href={`/service/${serviceCard.slug}`}>
                 <a>
                     <div className="card-img">
-                        {serviceCard && serviceCard?.images && (
+                        {serviceCard &&
+                        serviceCard?.images &&
+                        serviceCard.images.length > 0 ? (
                             <figure className="thumbnail-img">
                                 <Image
-                                    src={
-                                        Array.isArray(serviceCard.images)
-                                            ? serviceCard.images[0].image
-                                            : serviceCard.images
-                                    }
+                                    src={serviceCard.images[0].image}
                                     layout="fill"
                                     objectFit="cover"
                                     alt="servicecard-image"
                                 />
                             </figure>
-                        )}
+                        ) : null}
 
                         {serviceCard?.is_online && (
                             <div className="offer">
