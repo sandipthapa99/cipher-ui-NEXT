@@ -15,7 +15,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import type { NewsletterDataTypes } from "types/newsletter";
 import { axiosClient } from "utils/axiosClient";
-import emailValidationSchema from "utils/formValidation/emailValidation";
+import { emailValidationSchema } from "utils/formValidation/emailValidation";
 
 import InputField from "./common/InputField";
 

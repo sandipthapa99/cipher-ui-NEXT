@@ -59,7 +59,11 @@ const ForgotPassword = () => {
                     )}
                     <Formik
                         initialValues={{ email: "", phone: "" }}
-                        validationSchema={emailValidationSchema}
+                        validationSchema={
+                            choosedValue === "email"
+                                ? emailValidationSchema
+                                : phoneNumberValidationSchema
+                        }
                         onSubmit={async (values, actions) => {
                             const formData = values.email
                                 ? { email: values?.email }
