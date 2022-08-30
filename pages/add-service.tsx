@@ -225,17 +225,17 @@ const AddService: NextPage<{
                             validationSchema={addServiceFormSchema}
                             onSubmit={(values, actions) => {
                                 const formData = new FormData();
-
+                                console.log("service values=", values);
                                 if (values.images.some((val) => val?.path)) {
                                     values.images.forEach((file) => {
                                         if (file?.path)
                                             formData.append("images", file);
                                     });
-                                    onCreateThumbnail(
-                                        formData,
-                                        values,
-                                        actions
-                                    );
+                                    // onCreateThumbnail(
+                                    //     formData,
+                                    //     values,
+                                    //     actions
+                                    // );
                                 } else {
                                     const getImagesId = values?.images.map(
                                         (val) => val?.id
@@ -258,7 +258,7 @@ const AddService: NextPage<{
                                     delete dataToSend.is_discount_offer;
                                     delete dataToSend.budget_select;
 
-                                    onCreateService(dataToSend, actions);
+                                    //  onCreateService(dataToSend, actions);
                                 }
 
                                 console.log(values);
@@ -565,7 +565,7 @@ export const getStaticProps: GetStaticProps = async () => {
             },
             revalidate: 10,
         };
-    } catch (err: any) {
+    } catch (err) {
         return {
             props: {
                 cityOptionsData: [],

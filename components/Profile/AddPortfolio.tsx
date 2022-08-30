@@ -5,6 +5,7 @@ import FileDragDrop from "@components/common/FileDragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MultiFileDropzone from "@components/common/MultiFileDropzone";
+import MultiImageDropzone from "@components/common/MultiImageDropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
@@ -70,8 +71,6 @@ const AddPortfolio = ({
                                       issued_date: parseISO(
                                           editDetails.issued_date
                                       ),
-
-                                      //  image: formData.append("image", )
                                   }
                                 : AddPortfolioFormData
                         }
@@ -79,6 +78,9 @@ const AddPortfolio = ({
                         onSubmit={async (values) => {
                             const formData: FormData = new FormData();
                             let newValue;
+                            console.log("val", values);
+                            delete values.imagePreviewUrl;
+
                             if (!values.file) {
                                 const newvalidatedValue = {
                                     ...values,
@@ -96,7 +98,7 @@ const AddPortfolio = ({
                                         new Date(values.issued_date),
                                         "yyyy-MM-dd"
                                     ),
-                                    image: "",
+                                    image: [],
                                 };
                                 newValue = newvalidatedValue;
                             } else {
@@ -107,10 +109,19 @@ const AddPortfolio = ({
                                         "yyyy-MM-dd"
                                     ),
                                 };
+
                                 newValue = newvalidatedValue;
                             }
 
                             console.log("valuews=", values, newValue);
+                            if (values.image.some((val) => val?.path)) {
+                                values.image.forEach((file) => {
+                                    if (file?.path)
+                                        formData.append("image", file);
+                                });
+                                console.log("files for app=", values.image);
+                                // onCreateThumbnail(formData, values, actions);
+                            }
                             Object.entries(newValue).forEach((entry) => {
                                 const [key, value] = entry;
                                 console.log("entry=", entry, key, value);
@@ -125,6 +136,7 @@ const AddPortfolio = ({
                                 }
                                 formData.append(key, value);
                             });
+
                             // formData.append("file", values.file);
                             // formData.append("image", values.image);
                             console.log(
@@ -218,7 +230,7 @@ const AddPortfolio = ({
                                             <Col md={5}>
                                                 <h4>Gallery</h4>
                                                 <p>
-                                                    Add relevant images or video
+                                                    Add relevant image or video
                                                 </p>
 
                                                 {/* <CustomDropZone
@@ -234,14 +246,17 @@ const AddPortfolio = ({
                                                         )
                                                     }
                                                 /> */}
-                                                <MultiFileDropzone
-                                                    name="images"
-                                                    labelName="Upload your images"
-                                                    textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 1MB."
+                                                <MultiImageDropzone
+                                                    name="image"
+                                                    labelName="Upload your image"
+                                                    textMuted="More than 5 image are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 1MB."
                                                     imagePreview="imagePreviewUrl"
                                                     maxFiles={5}
                                                     multiple
+                                                    maxSize={200}
+                                                    minSize={20}
                                                     showFileDetail
+                                                    type="Image/Video"
                                                 />
                                             </Col>
                                         </Row>
@@ -249,17 +264,13 @@ const AddPortfolio = ({
                                             <Col md={5}>
                                                 <h4>Pdf</h4>
                                                 <p>Add relevant pdf</p>
-                                                {/* <FileDragDrop
-                                                    name="file"
-                                                    image="/userprofile/pdf.svg"
-                                                    fileType="Pdf"
-                                                    maxPdfSize={20}
-                                                    field={setFieldValue}
-                                                /> */}
+
                                                 <CustomDropZone
                                                     name="file"
                                                     maxSize={200}
                                                     minSize={20}
+                                                    multiple={true}
+                                                    type="Pdf"
                                                     onDrop={
                                                         (formData) =>
                                                             setFieldValue(
