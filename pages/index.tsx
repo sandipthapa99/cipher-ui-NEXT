@@ -179,8 +179,7 @@ const Home: NextPage<{
                         </Col>
                     </Row>
                     {/* Service category listing start */}
-
-                    {/* <Row className="gx-5 hero-category">
+                    <Row className="gx-5 hero-category">
                         {heroCategoryData &&
                         heroCategoryData?.result?.length > 0 ? (
                             <Carousel
@@ -224,7 +223,6 @@ const Home: NextPage<{
                             </Alert>
                         )}
                     </Row>
-
                     {/* Service category listing end */}
                 </Container>
             </section>
