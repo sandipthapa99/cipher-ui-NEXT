@@ -111,7 +111,6 @@ export const PostTaskModal = () => {
             <form onSubmit={handleSubmit}>
                 <Stack spacing="md">
                     <TextInput
-                        data-autofocus
                         placeholder="Need a garden cleaner"
                         label="Title"
                         required

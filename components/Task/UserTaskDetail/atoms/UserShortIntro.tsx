@@ -13,10 +13,14 @@ interface UserShortIntroProps {
     user: TaskerDetails;
 }
 export const UserShortIntro = ({ user }: UserShortIntroProps) => {
-    const userSkills = safeParse<string[]>({
+    const userSkillsString = safeParse<string>({
         rawString: user?.skill,
+        initialData: "",
+    });
+    const userSkills = safeParse<string[]>({
+        rawString: userSkillsString,
         initialData: [],
-    }).join(", ");
+    });
     return (
         <Row className="td-mt-24">
             <Col md={6}>
@@ -39,7 +43,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                 </p>
                 <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faStar} />
-                    <span>{userSkills}</span>
+                    <span>{userSkills.join(", ")}</span>
                 </p>
             </Col>
             <Col md={6}>
