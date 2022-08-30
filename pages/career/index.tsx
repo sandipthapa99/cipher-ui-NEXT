@@ -29,13 +29,13 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                                 creating jobs and income isn’t just a by-product
                                 of the work we do, it’s our core purpose.
                             </p>
-                            <div className="careers-index__popular">
+                            {/* <div className="careers-index__popular">
                                 Popular Categories:{" "}
                                 <ul>
                                     <li>UX Designer</li>
                                     <li>Front-end developer</li>
                                 </ul>
-                            </div>
+                            </div> */}
                         </div>
                         <figure>
                             <Image
@@ -71,7 +71,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                                                   <CareerCard values={values} />
                                               </Col>
                                           ))
-                                    : "No current postions avilable"}
+                                    : "No postions avilable currently."}
                             </Row>
                         </Col>
                     </Row>
@@ -88,7 +88,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                             />
                         </figure>
                     </div>
-                    <div className="mt-5">
+                    {/* <div className="mt-5">
                         <h4>New Job Listings</h4>
                         <Tab
                             items={[
@@ -172,7 +172,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                             activeIndex={tabIndex}
                             onTabClick={setTabIndex}
                         />
-                    </div>
+                    </div> */}
                     <HiringStage />
                     <LeaveYourCV />
                 </Container>

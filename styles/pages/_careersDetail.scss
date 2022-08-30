@@ -9,13 +9,17 @@
         }
         p {
             font-weight: 400;
-            font-size: 14px;
+            font-size: 1.4rem;
             color: $secondary-text-color;
-            margin: 0 0 3.2rem;
-            span {
-                margin: 0 1.6rem 0 0;
+            margin: 0 0 1.2rem 0;
+            .p-title{
                 font-weight: 500;
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            span {
+                margin: 0 1rem 0 0;
+                font-weight: 400;
+                font-size: 1.6rem;
             }
         }
         &__job {
@@ -41,6 +45,7 @@
             font-weight: 500;
             font-size: 2rem;
             color: $primary-color;
+            margin-top: 3.2rem;
         }
         ul {
             margin: 2.4rem 0 3.2rem;
