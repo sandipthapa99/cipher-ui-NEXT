@@ -1,8 +1,6 @@
 import { useSearchQuery } from "@components/common/Search/searchStore";
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
-import { faClose } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ActionIcon, Box, Highlight, Space } from "@mantine/core";
+import { Highlight, Space } from "@mantine/core";
 import Scrollbars from "react-custom-scrollbars";
 import type { Tasker } from "types/tasks";
 
