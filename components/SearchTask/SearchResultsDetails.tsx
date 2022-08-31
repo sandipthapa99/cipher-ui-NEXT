@@ -54,13 +54,82 @@ const SearchResultsDetail = ({
     const handleClose = () => setShow(false);
     const setBookNowDetails = useSetBookNowDetails();
     const reviewsContent = getReviews();
+    const allMyServicePackages: any[] = [];
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
 
+    const { data: myServicePackage } = useData<{
+        result: Array<{
+            id: number;
+            service: {
+                id: string;
+                created_by: {
+                    id: string;
+                    email: string;
+                    full_name: string;
+                    profile_image: string;
+                };
+                category: {
+                    id: number;
+                    name: string;
+                    slug: string;
+                    icon: string;
+                };
+                city: any;
+                images: Array<{
+                    id: number;
+                    name: string;
+                    size: number;
+                    image: string;
+                }>;
+                created_at: string;
+                updated_at: string;
+                title: string;
+                budget_type: string;
+                budget_from: number;
+                budget_to: number;
+                status: string;
+                description: string;
+                highlights: string;
+                views_count: number;
+                location: string;
+                happy_clients: any;
+                success_rate: any;
+                is_professional: boolean;
+                is_online: boolean;
+                video: string;
+                no_of_revisions: number;
+                discount_type: string;
+                discount_value: any;
+                is_active: boolean;
+                slug: string;
+            };
+            title: string;
+            description: string;
+            budget: number;
+            no_of_revision: number;
+            service_offered: string;
+            is_active: boolean;
+            slug: string;
+            budget_type: string;
+            discount_type: string;
+            discount_value: number;
+            is_recommended: boolean;
+        }>;
+    }>(["my-service-packages"], "/task/service-package/");
+
     const router = useRouter();
     const servSlug = router.query.slug;
+    const getSingleService = servicesData?.data?.result.filter(
+        (item) => item.slug === servSlug
+    );
+
+    const getPackageAccordingService = myServicePackage?.data?.result.filter(
+        (servicePackage) =>
+            getSingleService?.[0].id === servicePackage?.service?.id
+    );
 
     return (
         <>
@@ -156,7 +225,6 @@ const SearchResultsDetail = ({
                                         />
                                     </figure>
                                 )} */}
-                                To do API
                                 <div className="intro">
                                     <p className="name">{serviceProvider}</p>
                                     <p className="job">{serviceTitle}</p>
@@ -275,12 +343,12 @@ const SearchResultsDetail = ({
                         }}
                         className="pt-4"
                     >
-                        {servicePackage &&
-                            servicePackage
-                                .filter(
-                                    (service) =>
-                                        service.service.slug === servSlug
-                                )
+                        {getPackageAccordingService &&
+                            getPackageAccordingService
+                                // .filter(
+                                //     (service) =>
+                                //         service.service.slug === servSlug
+                                // )
                                 .map(
                                     (offer) =>
                                         offer && (
