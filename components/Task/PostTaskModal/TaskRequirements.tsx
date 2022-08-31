@@ -1,10 +1,12 @@
 import {
     faCheck,
+    faCircleExclamation,
     faCirclePlus,
     faXmark,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { TextInputProps } from "@mantine/core";
+import { Space } from "@mantine/core";
 import {
     ActionIcon,
     Box,
@@ -33,6 +35,7 @@ export const TaskRequirements = ({
 
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key !== "Enter") return;
+        event.preventDefault();
         if (!newRequirement) return;
         const requirementAlreadyExist = requirements.some(
             (requirement) => requirement.title === newRequirement
@@ -79,11 +82,18 @@ export const TaskRequirements = ({
     };
     return (
         <Box>
+            <Box className={classes.requirement}>
+                <Text>Requirements</Text>
+                <FontAwesomeIcon icon={faCircleExclamation} color="#FF9700" />
+            </Box>
+            <Space h={5} />
+            <Text color="dimmed" size="sm">
+                This helps tasker to find about your requirements better.
+            </Text>
+            <Space h={10} />
             <List>{renderRequirements()}</List>
-
             <TextInput
                 {...rest}
-                label="Requirements"
                 value={newRequirement}
                 onChange={(event) =>
                     setNewRequirement(event.currentTarget.value)
@@ -101,11 +111,14 @@ export const useStyles = createStyles(() => ({
     listItem: {
         display: "flex",
         gap: "0.8rem",
-        "&:not(:first-of-type)": {
-            marginTop: "1rem",
-        },
+        marginBottom: "1rem",
     },
     listItemTitle: {
         flex: 1,
+    },
+    requirement: {
+        display: "flex",
+        alignItems: "center",
+        gap: ".8rem",
     },
 }));
