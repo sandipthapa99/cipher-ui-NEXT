@@ -22,8 +22,8 @@ export const UserTaskDetailTabs = ({ taskerDetail }: UserTaskDetailTabs) => {
                     title: "About",
                     content: <AboutTasker taskerDetail={taskerDetail} />,
                 },
-                { title: "Service", content: <ServiceList /> },
-                { title: "Documents", content: <div>Photos</div> },
+                { title: "Services", content: <ServiceList /> },
+                // { title: "Documents", content: <div>Photos</div> },
             ]}
         />
     );

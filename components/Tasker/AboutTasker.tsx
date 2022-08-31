@@ -10,10 +10,9 @@ interface AboutTasker {
 }
 
 export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
-    const userSkills = taskerDetail?.skill
-        ? JSON.parse(JSON.parse(taskerDetail?.skill))
-        : [];
-    console.log("taskser detaul=", taskerDetail);
+    const userSkills = taskerDetail?.skill ? taskerDetail?.skill : [];
+    console.log("userskills", taskerDetail?.skill, userSkills);
+
     return (
         <>
             <div className="about-profile">
@@ -127,11 +126,13 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {userSkills.map((info: any, i: any) => (
-                                    <div className="skills__type" key={i}>
-                                        {info}
-                                    </div>
-                                ))}
+                                {/* {userSkills
+                                    ? userSkills.map((info: any, i: any) => (
+                                          <div className="skills__type" key={i}>
+                                              {info}
+                                          </div>
+                                      ))
+                                    : "No skills to show. Please add them"} */}
                             </div>
                         </Col>
                     </Row>
