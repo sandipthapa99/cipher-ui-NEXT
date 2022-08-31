@@ -14,6 +14,7 @@ export const SelectTaskType = ({
     onTypeChange,
     addressInputProps,
 }: SelectTaskTypeProps) => {
+    console.log(addressInputProps);
     const [value, setValue] = useState<TaskType>(TaskType.REMOTE);
 
     const handleTaskTypeChange = (value: string) => {

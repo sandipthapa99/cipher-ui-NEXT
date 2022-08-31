@@ -20,6 +20,7 @@ export interface CustomDropZoneProps
     previewImageWidth?: number;
     previewImageHeight?: number;
     fileType?: FileType;
+    fileLabel?: string;
     onDrop?: (image: FormData) => void;
     type: string;
 }
@@ -34,6 +35,7 @@ export const CustomDropZone = ({
     previewImageHeight,
     fileType,
     onDrop,
+    fileLabel,
     ...rest
 }: CustomDropZoneProps) => {
     const [files, setFiles] = useState<File[]>([]);
@@ -42,13 +44,26 @@ export const CustomDropZone = ({
         [files]
     );
     const previewImages = files.map((file) => URL.createObjectURL(file));
+    const [previewVideo, setPreviewVideo] = useState<string | undefined>();
 
     const dropzoneRef = useRef<HTMLDivElement | null>(null);
     const { classes } = useStyles();
 
     const focusDropzone = () => dropzoneRef.current?.focus();
 
+    const readVideo = (file: File) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+            const result = e.target?.result;
+            if (result) setPreviewVideo(result.toString());
+        };
+    };
     const handleOnDrop = (files: File[]) => {
+        const file = files[0];
+        if (fileLabel === "Video") {
+            readVideo(file);
+        }
         const formData = new FormData();
         formData.append(name, files[0]);
         onDrop?.(formData);
@@ -60,57 +75,59 @@ export const CustomDropZone = ({
         return "/service-details/file-upload.svg";
     };
     return (
-        <>
-            <div onClick={focusDropzone} className={classes.dropzoneContainer}>
+        <div onClick={focusDropzone} className={classes.dropzoneContainer}>
+            {previewVideo ? (
+                <video width="100%" height="100%" controls>
+                    <source id="video-source" src={previewVideo} />
+                    Your browser does not support the video tag.
+                </video>
+            ) : (
                 <Image
-                    src={
-                        type.toLocaleLowerCase() == "pdf"
-                            ? "/userprofile/pdf.svg"
-                            : getPlaceHolderImage()
-                    }
-                    width={previewImageWidth ?? 80}
-                    height={previewImageHeight ?? 80}
+                    src={getPlaceHolderImage()}
+                    width={previewImageWidth ?? "100%"}
+                    height={previewImageHeight ?? "100%"}
                     alt="file-upload"
                     objectFit="cover"
                 />
-                <Dropzone
-                    onDrop={handleOnDrop}
-                    ref={dropzoneRef}
-                    className={classes.dropzone}
-                    {...rest}
+            )}
+            <Dropzone
+                onDrop={handleOnDrop}
+                ref={dropzoneRef}
+                className={classes.dropzone}
+                {...rest}
+            >
+                <Highlight
+                    size="sm"
+                    highlightColor="blue"
+                    highlight="Browse"
+                    highlightStyles={() => ({
+                        backgroundImage: "#276EFD",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                    })}
                 >
-                    <Highlight
-                        highlightColor="blue"
-                        highlight="Browse"
-                        highlightStyles={() => ({
-                            backgroundImage: "#276EFD",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                        })}
-                    >
-                        {file ? file.name : "Drag or Browse"}
-                    </Highlight>
-                    <Text mt="xs" className={classes.text}>
-                        {type}
-                    </Text>
-                </Dropzone>
-                {file && (
-                    <Text className={classes.text}>
-                        Current size : {`${file.size / 1000} kb`}
-                    </Text>
-                )}
-                {minSize && (
-                    <Text mt="xl" className={classes.text}>
-                        Minimum {type} size is {minSize} MB
-                    </Text>
-                )}
-                {maxSize && (
-                    <Text mt="xs" className={classes.text}>
-                        Maximum {type} size is {maxSize} MB
-                    </Text>
-                )}
-            </div>
-        </>
+                    {file ? file.name : `Drag or Browse ${fileLabel}`}
+                </Highlight>
+                <Text mt="xs" className={classes.text}>
+                    {file ? file.type : label ?? "Image/Video/PDF"}
+                </Text>
+            </Dropzone>
+            {file && (
+                <Text className={classes.text}>
+                    Current size : {`${file.size / 1000} kb`}
+                </Text>
+            )}
+            {minSize && (
+                <Text mt="xl" className={classes.text}>
+                    Minimum image size is {maxSize} MB
+                </Text>
+            )}
+            {maxSize && (
+                <Text mt="xs" className={classes.text}>
+                    Maximum image size is {minSize} MB
+                </Text>
+            )}
+        </div>
     );
 };
 const useStyles = createStyles({
