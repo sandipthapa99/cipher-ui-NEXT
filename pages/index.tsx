@@ -11,6 +11,7 @@ import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
 import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
 import RecommendationChips from "@components/common/RecommendationChips";
+import { Search } from "@components/common/Search";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
@@ -104,43 +105,7 @@ const Home: NextPage<{
                                 <h1>Catering To Your Requirements</h1>
                                 {/* Hero Text End Here */}
                             </div>
-                            <div className="search-bar">
-                                <Formik
-                                    initialValues={HomeSearchdata}
-                                    validationSchema={HomeSearchSchema}
-                                    onSubmit={async (values) => {
-                                        console.log(values);
-                                    }}
-                                >
-                                    <div className="search_box">
-                                        {/* <div className="dropdown d-flex align-items-center"> */}
-                                        <SelectInputField
-                                            name="experience"
-                                            placeHolder="All"
-                                            options={myOptions}
-                                            fieldRequired
-                                        />
-
-                                        <div className="search_field">
-                                            <input
-                                                type="text"
-                                                className="input"
-                                                placeholder="Find your services"
-                                            />
-                                        </div>
-                                        <Link href="/search">
-                                            <a className="">
-                                                <Button className="search-btn">
-                                                    <FontAwesomeIcon
-                                                        icon={faSearch}
-                                                        className="icon"
-                                                    />
-                                                </Button>
-                                            </a>
-                                        </Link>
-                                    </div>
-                                </Formik>
-                            </div>
+                            <Search />
                             {chips.length > 0 && (
                                 <div className="chips-section d-md-flex d-none">
                                     {chips.map((chip, key) => (
