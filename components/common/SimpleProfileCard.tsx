@@ -11,8 +11,9 @@ import BookNowButton from "./BookNowButton";
 
 interface SimpleProfileCardProps {
     task: ITask;
+    onApply?: () => void;
 }
-const SimpleProfileCard = ({ task }: SimpleProfileCardProps) => {
+const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const withLogin = useWithLogin();
     const { data: appliedTasks } = useAppliedTasks();
     const { mutate } = useLeaveTask();
@@ -22,7 +23,9 @@ const SimpleProfileCard = ({ task }: SimpleProfileCardProps) => {
     const [priceChanged, setPriceChanged] = useState(false);
     const [isWorking, setIsWorking] = useState(false);
 
-    const appliedTask = appliedTasks.find((task) => task.task === task.task);
+    const appliedTask = appliedTasks.find(
+        (appliedTask) => appliedTask.task === task.id && appliedTask.is_active
+    );
 
     const handleLeaveTask = () => {
         if (!appliedTask) return;
@@ -31,6 +34,7 @@ const SimpleProfileCard = ({ task }: SimpleProfileCardProps) => {
             {
                 onSuccess: (message) => {
                     toast.success(message);
+                    onApply?.();
                 },
             }
         );
@@ -105,7 +109,7 @@ const SimpleProfileCard = ({ task }: SimpleProfileCardProps) => {
                     btnTitle={"Apply Now"}
                     backgroundColor={"#38C675"}
                     showModal={true}
-                    handleOnClick={withLogin(() => setShowModal(!showModal))}
+                    handleOnClick={withLogin(() => setShowModal(true))}
                 />
             )}
 

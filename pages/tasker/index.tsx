@@ -20,13 +20,17 @@ import { axiosClient } from "utils/axiosClient";
 const useSearchTaskers = (query: string) => {
     return useQuery(
         ["taskers", query],
-        () =>
-            axiosClient
-                .get<{ result: Tasker[] }>(`/tasker?search=${query}`)
-                .then((response) => response.data.result),
+        async () => {
+            return axiosClient
+                .get<{ result: Tasker[] }>(
+                    query ? `/tasker/?search=${query}` : "/tasker/"
+                )
+                .then((response) => response.data.result);
+        },
         { initialData: [] }
     );
 };
+
 const TaskerPage = () => {
     const router = useRouter();
     const [searchQuery, setSearchQuery] = useState("");
