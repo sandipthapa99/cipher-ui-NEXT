@@ -52,8 +52,7 @@ const ProfileEditForm = ({
     const finalend = `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`;
 
     const endTime = finalend.toString();
-    const skills =
-        profile && profile.skill ? JSON.parse(JSON.parse(profile.skill)) : [];
+    const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)
     );
@@ -95,7 +94,7 @@ const ProfileEditForm = ({
                                 new Date(`2022-09-24 ${start}`) ?? "",
                             active_hour_end:
                                 new Date(`2022-09-24 ${endTime}`) ?? "",
-                            skill: profile?.skill ?? "",
+                            skill: skills ?? "",
                             hourly_rate: profile?.hourly_rate ?? "",
                             linkedAccounts: "",
                         }}
@@ -193,8 +192,8 @@ const ProfileEditForm = ({
                                 <TagInputField
                                     data={skills}
                                     name="skill"
-                                    error={errors.skill}
-                                    touch={touched.skill}
+                                    // error={errors.skill}
+                                    // touch={touched.skill}
                                     labelName="Skills"
                                     placeHolder="Enter your skills"
                                 />

@@ -13,6 +13,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
     const userSkills = taskerDetail?.skill
         ? JSON.parse(taskerDetail?.skill)
         : [];
+    console.log("userskills", taskerDetail?.skill, userSkills);
 
     return (
         <>
@@ -34,7 +35,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                                       {info?.image ? (
                                                           <figure className="thumbnail-img">
                                                               <Image
-                                                                  src={`${info?.image}`}
+                                                                  src={`http://54.252.73.240:8014${info?.image}`}
                                                                   layout="fill"
                                                                   objectFit="cover"
                                                                   alt="portfolio-image"
@@ -46,24 +47,6 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                                   </a>
                                               </Link>
                                           </Col>
-                                          {/* <Col md={6}>
-                                              <Link href={`${info?.file}`}>
-                                                  <a target="_blank">
-                                                      {info?.file ? (
-                                                          <figure className="thumbnail-img">
-                                                              <Image
-                                                                  src="/userprofile/documents/pdf.svg"
-                                                                  layout="fill"
-                                                                  objectFit="cover"
-                                                                  alt="portfolio-file"
-                                                              />
-                                                          </figure>
-                                                      ) : (
-                                                          ""
-                                                      )}
-                                                  </a>
-                                              </Link>
-                                          </Col> */}
                                       </Row>
 
                                       <p className="text-center">
@@ -145,11 +128,13 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {userSkills.map((info: any, i: any) => (
-                                    <div className="skills__type" key={i}>
-                                        {info}
-                                    </div>
-                                ))}
+                                {userSkills
+                                    ? userSkills.map((info: any, i: any) => (
+                                          <div className="skills__type" key={i}>
+                                              {info}
+                                          </div>
+                                      ))
+                                    : "No skills to show. Please add them"}
                             </div>
                         </Col>
                     </Row>
