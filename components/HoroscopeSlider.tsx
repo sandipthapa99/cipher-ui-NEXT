@@ -1,3 +1,5 @@
+import { faArrowLeft, faArrowRight } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import React from "react";
 import { HoroscopeCardData } from "staticData/horoscopeCardData";
@@ -22,6 +24,8 @@ export const HoroscopeSlider = () => {
                     },
                 },
             }}
+            nextControlIcon={<FontAwesomeIcon icon={faArrowRight} />}
+            previousControlIcon={<FontAwesomeIcon icon={faArrowLeft} />}
         >
             {HoroscopeCardData.map((item, index) => (
                 <Carousel.Slide key={index}>

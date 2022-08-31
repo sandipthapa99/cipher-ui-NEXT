@@ -84,6 +84,8 @@ const AboutProfile = () => {
 
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
     console.log("useraser", userSkills);
+    const skills = JSON.parse(userSkills);
+
     const [hovered, setHovered] = useState<null | number>(null);
     return (
         <>
@@ -133,7 +135,7 @@ const AboutProfile = () => {
                                       onClick={() => setId(info?.id)}
                                   >
                                       <Row className="gx-5">
-                                          <Col md={6}>
+                                          <Col md={6} sm={12} xs={12}>
                                               {info?.image ? (
                                                   <figure
                                                       className="thumbnail-img"
@@ -154,28 +156,6 @@ const AboutProfile = () => {
                                                   ""
                                               )}
                                           </Col>
-                                          {/* <Col
-                                              md={info?.file ? 6 : 12}
-                                              sm={info?.image ? 6 : 12}
-                                              xs={info?.image ? 6 : 12}
-                                          >
-                                              <Link href={`${info?.file}`}>
-                                                  <a target="_blank">
-                                                      {info?.file ? (
-                                                          <figure className="thumbnail-img">
-                                                              <Image
-                                                                  src="/userprofile/documents/pdf.svg"
-                                                                  layout="fill"
-                                                                  objectFit="cover"
-                                                                  alt="portfolio-file"
-                                                              />
-                                                          </figure>
-                                                      ) : (
-                                                          ""
-                                                      )}
-                                                  </a>
-                                              </Link>
-                                          </Col> */}
                                       </Row>
                                       {info?.image === null ? (
                                           <div className="portfolio-title">
@@ -211,7 +191,13 @@ const AboutProfile = () => {
                                           </div>
                                       )}
                                       {hovered === info.id ? (
-                                          <div className="icons">
+                                          <div
+                                              className={
+                                                  isOnlyPortfolioText
+                                                      ? "icon-down"
+                                                      : "icons"
+                                              }
+                                          >
                                               <FontAwesomeIcon
                                                   icon={faPencil}
                                                   className={
@@ -387,8 +373,8 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {userSkills
-                                    ? userSkills.map((info: any, i: any) => (
+                                {skills
+                                    ? skills.map((info: any, i: any) => (
                                           <div className="skills__type" key={i}>
                                               {info}
                                           </div>

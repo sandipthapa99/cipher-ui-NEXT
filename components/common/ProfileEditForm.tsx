@@ -52,7 +52,8 @@ const ProfileEditForm = ({
     const finalend = `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`;
 
     const endTime = finalend.toString();
-    const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
+    const skills =
+        profile && profile.skill ? JSON.parse(JSON.parse(profile.skill)) : [];
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)
     );

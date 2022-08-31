@@ -9,4 +9,9 @@
         font-size: 1.3rem;
         margin-bottom: 1.2rem;
     }
+    .mantine-Dropzone-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
 }

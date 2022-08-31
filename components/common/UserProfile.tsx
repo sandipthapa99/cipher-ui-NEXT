@@ -55,10 +55,8 @@ const UserProfileCard = ({
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
     const [image, setImage] = useState();
-    const services: Array<string> = moreServices
-        ? JSON.parse(moreServices)
-        : [];
-
+    const services = moreServices ? JSON.parse(moreServices) : [];
+    const skills = JSON.parse(services);
     const queryClient = useQueryClient();
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
@@ -262,16 +260,16 @@ const UserProfileCard = ({
                                             icon={faSparkles}
                                             className="thumbnail-img"
                                         />
-                                        {services
-                                            ? services.map(
+                                        {skills
+                                            ? skills.map(
                                                   (info: any, index: any) => (
                                                       <p key={index}>
                                                           &nbsp;{info}
                                                           {index <
-                                                          services.length - 2
+                                                          skills.length - 2
                                                               ? ", "
                                                               : index <
-                                                                services.length -
+                                                                skills.length -
                                                                     1
                                                               ? " and"
                                                               : ""}
