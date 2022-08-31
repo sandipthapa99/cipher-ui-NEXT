@@ -26,6 +26,6 @@
         "**/*.tsx",
         "components/SearchTask/searchHeader.tsx",
         "pages/checkout.jsx"
-    ],
+, "utils/firebase.js"    ],
     "exclude": ["node_modules"]
 }

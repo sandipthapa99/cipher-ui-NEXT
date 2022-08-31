@@ -16,8 +16,10 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
+
+// import { getFirebaseToken, onMessageListener } from "../utils/firebase";
 
 interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
     pageProps: {
@@ -30,6 +32,17 @@ const UserLoadingOverlay = dynamic(
     { ssr: false }
 );
 function MyApp({ Component, pageProps }: CustomAppProps) {
+    // useEffect(() => {
+    //     console.log("before-firebase-token");
+    //     getFirebaseToken();
+    // }, []);
+    // useEffect(() => {
+    //     console.log("before-onmessgaelistener");
+    //     onMessageListener()
+    //         .then((payload: any) => console.log(payload))
+    //         .catch((err: any) => console.log(err));
+    // });
+
     const [queryClient] = useState(
         () =>
             new QueryClient({
@@ -40,6 +53,30 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 },
             })
     );
+    // useEffect(() => {
+    //     setToken();
+
+    //     // Event listener that listens for the push notification event in the background
+    //     if ("serviceWorker" in navigator) {
+    //         navigator.serviceWorker.addEventListener("message", (event) => {
+    //             console.log("event for the service worker", event);
+    //         });
+    //     }
+
+    //     // Calls the getMessage() function if the token is there
+    //     async function setToken() {
+    //         try {
+    //             const token = await firebaseCloudMessaging.init();
+    //             if (token) {
+    //                 console.log("token", token);
+    //                 // getMessage();
+    //             }
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    // });
+
     return (
         <GoogleOAuthProvider
             clientId={

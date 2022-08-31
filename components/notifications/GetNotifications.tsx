@@ -1,10 +1,40 @@
+import "firebase/messaging";
+
+import * as firebase from "firebase/app";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 
 import { AcceptedNotification } from "./AcceptedNotification";
 
 export default function GetNotifications() {
+    // const router = useRouter();
+
+    // Handles the click function on the toast showing push notification
+    // const handleClickPushNotification = (url) => {
+    //     router.push(url);
+    // };
+
+    // Get the push notification message and triggers a toast to display it
+    // function getMessage() {
+    //     const messaging = firebase.messaging();
+    //     messaging.onMessage((message) => {
+    //         toast(
+    //             <div
+    //                 onClick={() =>
+    //                     handleClickPushNotification(message?.data?.url)
+    //                 }
+    //             >
+    //                 <h5>{message?.notification?.title}</h5>
+    //                 <h6>{message?.notification?.body}</h6>
+    //             </div>,
+    //             {
+    //                 closeOnClick: false,
+    //             }
+    //         );
+    //     });
+    // }
     return (
         <section id="get-notification-section" className="get-notification">
             <Container>

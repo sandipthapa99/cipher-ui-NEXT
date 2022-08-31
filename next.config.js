@@ -21,6 +21,7 @@ module.exports = {
             "172.16.16.200",
             "172.16.16.123",
             "openweathermap.org",
+            "cipher-media-files.s3.amazonaws.com",
         ],
     },
 };
