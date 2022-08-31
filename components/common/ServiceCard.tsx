@@ -1,11 +1,15 @@
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
 
+import BookNowButton from "./BookNowButton";
+import ModalCard from "./BookNowModalCard";
 import CardBtn from "./CardBtn";
 import SaveIcon from "./SaveIcon";
 import ShareIcon from "./ShareIcon";
@@ -15,25 +19,33 @@ const ServiceCard = ({
 }: {
     serviceCard: ServicesValueProps["result"][0];
 }) => {
+    const { data: profileDetails, isLoading, error } = useGetProfile();
+
+    const userId = profileDetails?.user.id;
+    const serviceProviderId = serviceCard.created_by.id;
+
+    //modal card
+    const [showModal, setShowModal] = useState(false);
+    const handleShowModal = () => {
+        setShowModal(true);
+    };
     return (
         <div className="service-card-block">
             <Link href={`/service/${serviceCard.slug}`}>
                 <a>
                     <div className="card-img">
-                        {serviceCard && serviceCard?.images && (
+                        {serviceCard &&
+                        serviceCard?.images &&
+                        serviceCard.images.length > 0 ? (
                             <figure className="thumbnail-img">
                                 <Image
-                                    src={
-                                        Array.isArray(serviceCard.images)
-                                            ? serviceCard.images[0].image
-                                            : serviceCard.images
-                                    }
+                                    src={serviceCard.images[0].image}
                                     layout="fill"
                                     objectFit="cover"
                                     alt="servicecard-image"
                                 />
                             </figure>
-                        )}
+                        ) : null}
 
                         {serviceCard?.is_online && (
                             <div className="offer">
@@ -73,7 +85,7 @@ const ServiceCard = ({
                 </h3>
                 <Link href={`/service/${serviceCard.slug}`}>
                     <a>
-                        <p className="card-description d-inline">
+                        <div className="card-description d-inline">
                             <Spoiler
                                 maxHeight={50}
                                 hideLabel={"..."}
@@ -81,7 +93,7 @@ const ServiceCard = ({
                             >
                                 {parse(serviceCard?.description)}
                             </Spoiler>
-                        </p>
+                        </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
                                 <FontAwesomeIcon
@@ -101,13 +113,27 @@ const ServiceCard = ({
                                 <ShareIcon url={""} quote={""} hashtag={""} />
                             </div>
                             <CardBtn
-                                btnTitle="Book Now"
+                                btnTitle={`${
+                                    serviceProviderId === userId
+                                        ? "Edit Now"
+                                        : "Book Now"
+                                }`}
                                 backgroundColor="#211D4F"
+                                handleClick={handleShowModal}
                             />
                         </div>
                     </a>
                 </Link>
             </div>
+            {/* <ModalCard
+             key={detail.id}
+            title={detail.title}
+             price={detail.price}
+             image={detail.image}
+             description={detail.description}
+            show={showModal}
+            handleClose={() => setShowModal(false)}
+            /> */}
         </div>
     );
 };

@@ -1,7 +1,9 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
 import { useAppliedTasks } from "hooks/task/use-applied-tasks";
+import { useLeaveTask } from "hooks/task/use-leave-task";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ITask } from "types/task";
 
@@ -13,20 +15,30 @@ interface SimpleProfileCardProps {
 const SimpleProfileCard = ({ task }: SimpleProfileCardProps) => {
     const withLogin = useWithLogin();
     const { data: appliedTasks } = useAppliedTasks();
+    const { mutate } = useLeaveTask();
 
     const [showModal, setShowModal] = useState(false);
     const [priceValue, setPriceValue] = useState(25);
     const [priceChanged, setPriceChanged] = useState(false);
     const [isWorking, setIsWorking] = useState(false);
 
-    const handlePriceSave = () => {
-        setPriceChanged(false);
+    const appliedTask = appliedTasks.find((task) => task.task === task.task);
+
+    const handleLeaveTask = () => {
+        if (!appliedTask) return;
+        mutate(
+            { id: appliedTask.id },
+            {
+                onSuccess: (message) => {
+                    toast.success(message);
+                },
+            }
+        );
     };
-    const hasAppliedToTask = () =>
-        appliedTasks.some((task) => task.task === "123");
 
     return (
         <div className="simple-card my-5 my-lg-0 ">
+            <p>{appliedTask ? "Applied" : "Not Applied"}</p>
             <div className="d-flex align-items-center simple-card__profile">
                 <figure className="thumbnail-img">
                     <Image
@@ -82,12 +94,20 @@ const SimpleProfileCard = ({ task }: SimpleProfileCardProps) => {
                 </span>
             </div>
 
-            <BookNowButton
-                btnTitle={"Apply Now"}
-                backgroundColor={"#38C675"}
-                showModal={true}
-                handleOnClick={withLogin(() => setShowModal(!showModal))}
-            />
+            {appliedTask ? (
+                <BookNowButton
+                    btnTitle="Leave Task"
+                    backgroundColor="#FE5050"
+                    handleOnClick={handleLeaveTask}
+                />
+            ) : (
+                <BookNowButton
+                    btnTitle={"Apply Now"}
+                    backgroundColor={"#38C675"}
+                    showModal={true}
+                    handleOnClick={withLogin(() => setShowModal(!showModal))}
+                />
+            )}
 
             {/* {isApplied &&
                 isWorking &&

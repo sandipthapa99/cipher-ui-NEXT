@@ -11,11 +11,18 @@ interface Props {
     onSubmit?: (requirement: Requirement[]) => void;
     title?: string;
     description?: string;
+    placeHolder?: string;
 }
 
 const requirements: Requirement[] = [];
 
-const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
+const AddRequirements = ({
+    field,
+    onSubmit,
+    title,
+    description,
+    placeHolder,
+}: Props) => {
     const [requirementState, setRequirementState] = useState(requirements);
     const [require, setRequire] = useState("");
 
@@ -86,7 +93,7 @@ const AddRequirements = ({ field, onSubmit, title, description }: Props) => {
                         <InputGroup className="add-requirements--input-group">
                             <Form.Control
                                 className="add-requirements--input"
-                                placeholder="Add requirements"
+                                placeholder={placeHolder}
                                 aria-label="Recipient's username"
                                 aria-describedby="basic-addon2"
                                 value={require}

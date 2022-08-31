@@ -1,42 +1,42 @@
 import CardBtn from "@components/common/CardBtn";
 import { Col, Row } from "react-bootstrap";
 
+const MEMBERSHIP_DETAILS = [
+    {
+        title: "Membership",
+        price: "FREE",
+        details: [
+            "Discounts of offers from Cipher.",
+            "2% off on Subscriptions.",
+            "Quick Service..",
+        ],
+        isactive: true,
+        buttonName: "Join Now",
+    },
+    {
+        title: "Premium Client",
+        price: "Rs500/mon",
+        details: [
+            "Discounts of offers from Cipher.",
+            "2% off on Subscriptions.",
+            "Quick Service..",
+        ],
+        isactive: false,
+        buttonName: "Join Now",
+    },
+    {
+        title: "Premium Tasker",
+        price: "Rs100/mon",
+        details: [
+            "Discounts of offers from Cipher.",
+            "2% off on Subscriptions.",
+            "Quick Service..",
+        ],
+        isactive: false,
+        buttonName: "Join Now",
+    },
+];
 export const MembershipPackage = () => {
-    const MEMBERSHIP_DETAILS = [
-        {
-            title: "Membership",
-            price: "FREE",
-            details: [
-                "Discounts of offers from Cipher.",
-                "2% off on Subscriptions.",
-                "Quick Service..",
-            ],
-            isactive: true,
-            buttonName: "Join Now",
-        },
-        {
-            title: "Premium Client",
-            price: "Rs500/mon",
-            details: [
-                "Discounts of offers from Cipher.",
-                "2% off on Subscriptions.",
-                "Quick Service..",
-            ],
-            isactive: false,
-            buttonName: "Join Now",
-        },
-        {
-            title: "Premium Tasker",
-            price: "Rs100/mon",
-            details: [
-                "Discounts of offers from Cipher.",
-                "2% off on Subscriptions.",
-                "Quick Service..",
-            ],
-            isactive: false,
-            buttonName: "Join Now",
-        },
-    ];
     const renderMembership = MEMBERSHIP_DETAILS.map((membership, index) => {
         const renderDetails = membership.details.map((detail, index) => {
             return (
@@ -47,7 +47,7 @@ export const MembershipPackage = () => {
             );
         });
         return (
-            <Col key={index} className="setting-package">
+            <Col lg={4} sm={4} key={index} className="setting-package">
                 <div className="package-detail-settings">
                     <p>{membership.title}</p>
 
@@ -59,6 +59,9 @@ export const MembershipPackage = () => {
                 <div className="setting-package-btn">
                     {!membership.isactive ? (
                         <CardBtn
+                            handleClick={() => {
+                                console.log(membership);
+                            }}
                             btnTitle={membership.buttonName}
                             backgroundColor="primary-color"
                         />

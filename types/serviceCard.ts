@@ -10,6 +10,7 @@ export interface ServiceCardProps {
     discountRate?: number;
     discountOn?: string;
     proService?: boolean;
+    isEdit?: boolean;
 }
 
 export interface ServicesValueProps {
@@ -19,8 +20,8 @@ export interface ServicesValueProps {
     next: any;
     previous: any;
     page_size: number;
-    result: {
-        id: number;
+    result: Array<{
+        id: string;
         created_by: {
             id: string;
             email: string;
@@ -38,6 +39,7 @@ export interface ServicesValueProps {
             name: string;
             size: number;
             image: string;
+            media: string;
         }[];
         created_at: string;
         updated_at: string;
@@ -60,7 +62,7 @@ export interface ServicesValueProps {
         discount_value: number;
         is_active: boolean;
         slug: string;
-    }[];
+    }>;
 }
 export interface ServicesPackageProps {
     total_pages: number;
@@ -86,3 +88,24 @@ export interface ServicesPackageProps {
     }[];
 }
 export type ServiceCardResult = ServicesValueProps["result"][0];
+
+export interface ServicePostProps {
+    title: string;
+    budget_type: string;
+    budget_from: string;
+    budget_to: string;
+    description: string;
+    highlights: string;
+    location: string;
+    is_professional: boolean;
+    is_online: boolean;
+    video: string;
+    no_of_revisions: number;
+    discount_type: string;
+    discount_value: string;
+    is_active: boolean;
+    category: number;
+    city: number;
+    images: any[];
+    imagePreviewUrl: any[];
+}

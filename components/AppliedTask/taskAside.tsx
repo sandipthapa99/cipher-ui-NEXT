@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
+import Scrollbars from "react-custom-scrollbars";
 import type { ITask } from "types/task";
 
 import TaskAppliedCard from "./taskAppliedCard";
@@ -44,28 +45,30 @@ const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
     return (
         <div className="search-results">
             <Row>
-                <Col md={4} style={{ overflowY: "scroll", maxHeight: "90vh" }}>
-                    {!query && appliedTasks?.length === 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="Tasks Unavailable"
-                            variant="filled"
-                            color="yellow"
-                        >
-                            No tasks available at the moment{""}
-                        </Alert>
-                    )}
-                    {query && totalAppliedTasks > 0 ? (
-                        <p className="search-results-text">
-                            {`${totalAppliedTasks} service matching ${query} found`}
-                        </p>
-                    ) : null}
-                    {query && totalAppliedTasks === 0 ? (
-                        <p className="search-results-text">
-                            No services matching {query} found
-                        </p>
-                    ) : null}
-                    {renderTaskCards}
+                <Col md={4}>
+                    <Scrollbars autoHide style={{ height: 700 }}>
+                        {!query && appliedTasks?.length === 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="Tasks Unavailable"
+                                variant="filled"
+                                color="yellow"
+                            >
+                                No tasks available at the moment{""}
+                            </Alert>
+                        )}
+                        {query && totalAppliedTasks > 0 ? (
+                            <p className="search-results-text">
+                                {`${totalAppliedTasks} service matching ${query} found`}
+                            </p>
+                        ) : null}
+                        {query && totalAppliedTasks === 0 ? (
+                            <p className="search-results-text">
+                                No services matching {query} found
+                            </p>
+                        ) : null}
+                        {renderTaskCards}
+                    </Scrollbars>
                 </Col>
 
                 <Col md={8}>{children}</Col>

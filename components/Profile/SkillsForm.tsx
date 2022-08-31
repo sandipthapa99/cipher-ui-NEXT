@@ -53,11 +53,16 @@ const AddSkills = ({
                         validationSchema={skillsFormSchema}
                         onSubmit={async (values) => {
                             const skill = values.skill;
+
                             const newValue = userSkills?.concat(skill);
 
                             const newSkills = JSON.stringify(newValue);
-                            const finalSKills = { ...values, skill: newSkills };
 
+                            const finalSKills = {
+                                ...values,
+                                skill: newSkills,
+                            };
+                            console.log("new skills=", finalSKills);
                             mutate(finalSKills, {
                                 onSuccess: async () => {
                                     console.log(

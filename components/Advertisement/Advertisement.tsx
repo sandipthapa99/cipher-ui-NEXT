@@ -2,7 +2,7 @@ import { useData } from "hooks/use-data";
 import Image from "next/image";
 
 const Advertisement = () => {
-    const { data: Advertisement, isLoading } = useData<{
+    const { data: Advertisement } = useData<{
         result: Array<{
             id: number;
             category: string;
@@ -16,12 +16,10 @@ const Advertisement = () => {
     const landscapedImages = Advertisement?.data?.result.filter(
         (ad: any) => ad.mode === "Landscape"
     );
-    console.log("abc", Advertisement);
 
     const boxImages = Advertisement?.data?.result.filter(
         (ad: any) => ad.mode === "Box"
     );
-    console.log(boxImages);
 
     const landscape = landscapedImages?.map((ad: any) => {
         return (

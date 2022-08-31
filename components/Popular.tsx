@@ -13,7 +13,7 @@ const Popular = () => {
         ["all-services"],
         "/task/service/"
     );
-    console.log(servicesData);
+
     return (
         <section id="card-wrapper" className="card-wrapper mt-5">
             <Container fluid="xl">

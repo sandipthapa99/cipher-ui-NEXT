@@ -7,6 +7,8 @@ import { useData } from "hooks/use-data";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+import { useCheckSpecialOffer } from "store/use-check-special-offer";
+import { useSpecialOfferDetails } from "store/use-special-offers";
 import type { ServicesValueProps } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
@@ -22,6 +24,9 @@ export const useSearchService = (query: string) => {
 
 const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
+    const specialOfferDetails = useSpecialOfferDetails();
+    const checkSpecialOffer = useCheckSpecialOffer();
+    // console.log(specialOfferDetails, checkSpecialOffer);
 
     const { data, isLoading } = useData<ServicesValueProps>(
         ["all-services"],
@@ -35,11 +40,15 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
         <Layout title="Find Services | Cipher">
             <Container fluid="xl">
                 <SearchCategory onChange={setQuery} />
-                <ServiceAside query={query} service={searchData}>
+                <ServiceAside
+                    query={query}
+                    service={
+                        checkSpecialOffer ? specialOfferDetails : searchData
+                    }
+                >
                     {children}
                 </ServiceAside>
             </Container>
-            <Footer />
         </Layout>
     );
 };

@@ -1,20 +1,32 @@
 import FormButton from "@components/common/FormButton";
 import type { Dispatch, SetStateAction } from "react";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Cropper from "react-easy-crop";
 
-interface ExperienceProps {
+interface editProfileProps {
     show?: boolean;
     handleClose?: () => void;
     setShowExpForm: Dispatch<SetStateAction<boolean>>;
-    photo: string;
+    photo: any;
+    handleSubmit?: () => void;
 }
 
-const PhotoEdit = ({ show, handleClose, photo }: ExperienceProps) => {
+const PhotoEdit = ({
+    show,
+    handleClose,
+    handleSubmit,
+    photo,
+}: editProfileProps) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
+    let previewImage;
+
+    if (photo) {
+        previewImage = URL.createObjectURL(photo);
+    }
+
     return (
         <>
             {/* Modal component */}
@@ -33,7 +45,7 @@ const PhotoEdit = ({ show, handleClose, photo }: ExperienceProps) => {
                     /> */}
                     <Modal.Body className="crop-container">
                         <Cropper
-                            image={"/groupB.png"}
+                            image={previewImage}
                             crop={crop}
                             zoom={zoom}
                             cropShape="round"
@@ -64,12 +76,19 @@ const PhotoEdit = ({ show, handleClose, photo }: ExperienceProps) => {
                         >
                             Cancel
                         </Button>
-                        <FormButton
+                        <Button
+                            className="btn close-btn w-25"
+                            onClick={handleSubmit}
+                        >
+                            Apply
+                        </Button>
+                        {/* <FormButton
                             type="submit"
                             variant="primary"
                             name="Apply"
                             className="submit-btn w-25"
-                        />
+                            onCli
+                        /> */}
                     </Modal.Footer>
                 </div>
             </Modal>

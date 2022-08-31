@@ -1,0 +1,36 @@
+.horoscope-card {
+    padding: 2rem 4rem 1rem 2rem;
+    background: #fff;
+    margin: 2rem;
+    height: 100%;
+
+    &__image {
+        min-height: 6rem;
+        min-width: 6rem;
+        margin: 0 1rem 0 0;
+
+        img {
+            object-fit: cover;
+        }
+    }
+
+    &__description {
+        .title-section {
+            margin: 0 0 0.8rem;
+            .title {
+                font: 600 1.6rem $poppins-font;
+                margin: 0 1rem 0 0;
+            }
+
+            .date {
+                font: 400 1.6rem $poppins-font;
+                color: #fca500;
+            }
+        }
+
+        p {
+            font: 400 1.4rem $poppins-font;
+            text-align: justify;
+        }
+    }
+}

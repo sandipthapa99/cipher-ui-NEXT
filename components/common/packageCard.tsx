@@ -48,11 +48,7 @@ const PackageOffersCard = ({
             </div>
             <div className="offers">
                 {offers?.map((offer, key) => (
-                    <PackageServiceHighlights
-                        key={key}
-                        title={offer.text}
-                        isChecked={offer.strike}
-                    />
+                    <PackageServiceHighlights key={key} title={offer.name} />
                 ))}
             </div>
 

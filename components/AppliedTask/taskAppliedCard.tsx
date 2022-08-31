@@ -59,7 +59,6 @@ const TaskCard = ({
                         2 Km away
                     </span>
                 </div>
-                <hr className="mb-0" />
             </div>
             <div className="task-applied-card-block__footer d-flex mt-4">
                 <ShareIcon

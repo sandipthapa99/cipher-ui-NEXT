@@ -6,6 +6,7 @@ import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
+import { HoroscopeCard } from "@components/common/HoroscopeCard";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
 import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
@@ -16,6 +17,7 @@ import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
+import { HoroscopeSlider } from "@components/HoroscopeSlider";
 import Layout from "@components/Layout";
 import {
     faAngleRight,
@@ -33,10 +35,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
+import { HoroscopeCardData } from "staticData/horoscopeCardData";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
 import type { HeroCategoryProps } from "types/heroCategory";
@@ -144,10 +147,9 @@ const Home: NextPage<{
                         </Col>
                     </Row>
                     {/* Service category listing start */}
-
                     <Row className="gx-5 hero-category">
                         {heroCategoryData &&
-                        heroCategoryData.result.length > 0 ? (
+                        heroCategoryData?.result?.length > 0 ? (
                             <Carousel
                                 height={100}
                                 slideSize="25%"
@@ -183,9 +185,12 @@ const Home: NextPage<{
                                         );
                                     })}
                             </Carousel>
-                        ) : null}
+                        ) : (
+                            <Alert variant="warning mb-5">
+                                No Data to Display!
+                            </Alert>
+                        )}
                     </Row>
-
                     {/* Service category listing end */}
                 </Container>
             </section>
@@ -204,20 +209,20 @@ const Home: NextPage<{
                 <Marquee gradient={true} className="marquee" speed={40}>
                     {trustedPartnerData?.map((value, key) => (
                         <Link href={value?.redirect_url} key={key}>
-                            <a>
-                                <li className="light">
+                            <li className="light">
+                                <a>
                                     {value?.logo && (
                                         <figure>
                                             <Image
                                                 src={value?.logo}
                                                 alt={value?.alt_text}
                                                 layout="fill"
-                                                objectFit="cover"
+                                                objectFit="contain"
                                             ></Image>
                                         </figure>
                                     )}
-                                </li>
-                            </a>
+                                </a>
+                            </li>
                         </Link>
                     ))}
                 </Marquee>
@@ -244,19 +249,23 @@ const Home: NextPage<{
 
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.data?.result?.map((service, key) => {
-                                return (
-                                    <Col
-                                        sm={6}
-                                        md={4}
-                                        lg={3}
-                                        key={key}
-                                        className="d-flex"
-                                    >
-                                        <ServiceCard serviceCard={service} />
-                                    </Col>
-                                );
-                            })}
+                            servicesData?.data?.result
+                                ?.slice(0, 4)
+                                .map((service, key) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={key}
+                                            className="d-flex"
+                                        >
+                                            <ServiceCard
+                                                serviceCard={service}
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                     <Row>
                         <Advertisement />
@@ -283,19 +292,23 @@ const Home: NextPage<{
                     </div>
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.data?.result?.map((service, key) => {
-                                return (
-                                    <Col
-                                        sm={6}
-                                        md={4}
-                                        lg={3}
-                                        key={key}
-                                        className="d-flex"
-                                    >
-                                        <ServiceCard serviceCard={service} />
-                                    </Col>
-                                );
-                            })}
+                            servicesData?.data?.result
+                                ?.slice(0, 4)
+                                .map((service, key) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={key}
+                                            className="d-flex"
+                                        >
+                                            <ServiceCard
+                                                serviceCard={service}
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                 </Container>
             </section>
@@ -436,6 +449,18 @@ const Home: NextPage<{
                 </Container>
             </section>
             {/* Find & Hire section end */}
+
+            {/* Horoscope section starts */}
+            <section
+                id="horoscope-slider-section"
+                className="horoscope-slider-section"
+            >
+                <Container className="px-5" fluid="xl">
+                    <h1 className="text-center">Horoscopes</h1>
+                    <HoroscopeSlider />
+                </Container>
+            </section>
+            {/* Horoscope section ends */}
 
             {/* Top Taksers Section Start */}
             <section id="top-merchants" className="top-merchants">
