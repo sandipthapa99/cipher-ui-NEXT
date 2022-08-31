@@ -1,3 +1,4 @@
+import { AllCategories } from "@components/AllCategories";
 import Layout from "@components/Layout";
 import type { GetStaticProps } from "next";
 import Link from "next/link";
@@ -13,7 +14,7 @@ const CategoriesPage = ({ categories }: CategoriesPageProps) => {
         <Layout title="Categories | Cipher">
             <Container fluid="xl">
                 <h2 className="all-categories-title">Cipher Categories</h2>
-                <div className="d-flex justify-content-center all-categories">
+                {/* <div className="d-flex justify-content-center all-categories">
                     {categories.map((category, index) => (
                         <div key={index} className="category-item">
                             <h4 className="category-item__title title">
@@ -30,7 +31,8 @@ const CategoriesPage = ({ categories }: CategoriesPageProps) => {
                             </div>
                         </div>
                     ))}
-                </div>
+                </div> */}
+                <AllCategories />
             </Container>
         </Layout>
     );
