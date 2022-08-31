@@ -6,7 +6,11 @@ import { Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
 import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
-import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
+import {
+    clientBothSignUpSchema,
+    clientEmailSignUpSchema,
+    clientPhoneSignUpSchema,
+} from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const SignUpAsTasker = () => {
@@ -43,6 +47,7 @@ const SignUpAsTasker = () => {
                 >
                     {({ isSubmitting, errors, touched }) => (
                         <Form className="login-form">
+                            <pre>{JSON.stringify(errors, null, 4)}</pre>
                             <div className="form-group"></div>
                             {/* <RadioField
                                 type="radio"
@@ -70,19 +75,19 @@ const SignUpAsTasker = () => {
                             <InputField
                                 type="email"
                                 name="email"
-                                labelName="Email or phone number"
+                                labelName="Email"
                                 touch={touched.email}
                                 error={errors.email}
                                 placeHolder="example@example.com"
                             />
-                            {/* <InputField
+                            <InputField
                                 type="text"
-                                name="phoneNumber"
+                                name="phone"
                                 labelName="Phone Number"
-                                touch={touched.phoneNumber}
-                                error={errors.phoneNumber}
-                                placeHolder="+00 420 420 4200"
-                            /> */}
+                                touch={touched.phone}
+                                error={errors.phone}
+                                placeHolder="+9779805284906"
+                            />
                             <PasswordField
                                 type="password"
                                 name="password"

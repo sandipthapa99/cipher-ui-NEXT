@@ -21,7 +21,7 @@ const passwordValidate = Yup.string()
     );
 const genderValidate = Yup.string().required("Required Field");
 
-const clientSignUpSchema = Yup.object().shape({
+export const clientEmailSignUpSchema = Yup.object().shape({
     // firstName: stringReqOnly,
     // lastName: stringReqOnly,
     email: emailValidate,
@@ -35,4 +35,21 @@ const clientSignUpSchema = Yup.object().shape({
     // isAgree: isCheckValidate,
 });
 
-export default clientSignUpSchema;
+export const clientPhoneSignUpSchema = Yup.object().shape({
+    phone: phoneValidate,
+    password: passwordValidate,
+    confirmPassword: Yup.string().oneOf(
+        [Yup.ref("password")],
+        "Passwords do not match"
+    ),
+});
+
+export const clientBothSignUpSchema = Yup.object().shape({
+    email: emailValidate,
+    phone: phoneValidate,
+    password: passwordValidate,
+    confirmPassword: Yup.string().oneOf(
+        [Yup.ref("password")],
+        "Passwords do not match"
+    ),
+});
