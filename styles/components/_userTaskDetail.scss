@@ -12,6 +12,10 @@
     justify-content: flex-end;
     align-items: center;
     gap: 1rem;
+    .fa-share {
+        margin-right: 0rem;
+        padding-right: 0rem;
+    }
 
     @include respond(md) {
         display: flex;
@@ -26,7 +30,7 @@
 .td-user-image-container {
     position: relative;
     width: fit-content;
-
+    padding-right: 1.8rem;
     &__badge {
         position: absolute;
         left: 50%;

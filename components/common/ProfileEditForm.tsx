@@ -94,7 +94,7 @@ const ProfileEditForm = ({
                                 new Date(`2022-09-24 ${start}`) ?? "",
                             active_hour_end:
                                 new Date(`2022-09-24 ${endTime}`) ?? "",
-                            skill: profile?.skill ?? "",
+                            skill: skills ?? "",
                             hourly_rate: profile?.hourly_rate ?? "",
                             linkedAccounts: "",
                         }}
@@ -192,8 +192,8 @@ const ProfileEditForm = ({
                                 <TagInputField
                                     data={skills}
                                     name="skill"
-                                    error={errors.skill}
-                                    touch={touched.skill}
+                                    // error={errors.skill}
+                                    // touch={touched.skill}
                                     labelName="Skills"
                                     placeHolder="Enter your skills"
                                 />
