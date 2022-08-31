@@ -56,60 +56,58 @@ export const PostTaskModal = () => {
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
-    const {
-        getFieldProps,
-        handleSubmit,
-        touched,
-        errors,
-        values,
-        setFieldValue,
-    } = useFormik<PostTaskPayload>({
-        initialValues: {
-            title: "",
-            description: "",
-            requirements: "",
-            category: "",
-            location: TaskType.REMOTE,
-            city: "",
-            budget_type: BudgetType.FIXED,
-            budget_fixed: "",
-            budget_from: "",
-            budget_to: "",
-            isNegotiable: false,
-            image: "",
-            video: "",
-            estimated_time: 5,
-            is_recursion: false,
-            is_everyday: false,
-            start_date: "2022-12-01",
-            end_date: "2023-01-04",
-            start_time: "01:00",
-            end_time: "03:00",
-        },
-        validationSchema: postTaskSchema,
-        onSubmit: (values) => {
-            console.log(values);
-            const tempValues = { ...values, budget_type: "Hourly", city: 2 };
-            const formData = new FormData();
-            Object.entries(tempValues).forEach((tempValue) => {
-                const [key, value] = tempValue;
-                if (key !== "video" || key !== "image") {
-                    formData.append(key, value);
-                }
-            });
-            formData.append("video", tempValues.video);
-            formData.append("image", tempValues.image);
-            mutate(formData, {
-                onSuccess: (payload) => {
-                    toggleShowPostTaskModal();
-                    toast.success(payload.message);
-                },
-                onError: (error) => {
-                    toast.error(error.message);
-                },
-            });
-        },
-    });
+    const { getFieldProps, handleSubmit, touched, errors, setFieldValue } =
+        useFormik<PostTaskPayload>({
+            initialValues: {
+                title: "",
+                description: "",
+                requirements: "",
+                category: "",
+                location: TaskType.REMOTE,
+                city: "",
+                budget_type: BudgetType.FIXED,
+                budget_fixed: "",
+                budget_from: "",
+                budget_to: "",
+                isNegotiable: false,
+                image: "",
+                video: "",
+                estimated_time: 5,
+                is_recursion: false,
+                is_everyday: false,
+                start_date: "2022-12-01",
+                end_date: "2023-01-04",
+                start_time: "01:00",
+                end_time: "03:00",
+            },
+            validationSchema: postTaskSchema,
+            onSubmit: (values) => {
+                console.log(values);
+                const tempValues = {
+                    ...values,
+                    budget_type: "Hourly",
+                    city: 2,
+                };
+                const formData = new FormData();
+                Object.entries(tempValues).forEach((tempValue) => {
+                    const [key, value] = tempValue;
+                    if (key !== "video" && key !== "image") {
+                        formData.append(key, value.toString());
+                    }
+                });
+                formData.append("video", tempValues.video);
+                formData.append("image", tempValues.image);
+                mutate(formData, {
+                    onSuccess: (payload) => {
+                        toggleShowPostTaskModal();
+                        toast.success(payload.message);
+                    },
+                    onError: (error) => {
+                        toast.error(error.message);
+                    },
+                });
+            },
+        });
     const getFieldError = (fieldName: keyof PostTaskPayload) =>
         touched[fieldName] && errors[fieldName]
             ? errors[fieldName]?.toString()
