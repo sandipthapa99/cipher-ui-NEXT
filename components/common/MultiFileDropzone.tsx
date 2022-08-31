@@ -51,7 +51,6 @@ const MultiFileDropzone = ({
                             src: val?.src,
                         };
                     });
-                console.log("files are ----->", imageFile);
 
                 const isPreviewImage =
                     imagePreview && form.values[imagePreview]?.length;
@@ -91,7 +90,7 @@ const MultiFileDropzone = ({
                                     },
                                 }}
                                 onDrop={(files) => {
-                                    console.log("files are", files);
+                                    // console.log("files are", files);
                                     const multipleFiles = files.map(
                                         (file, index) => {
                                             const src =

@@ -231,11 +231,11 @@ const AddService: NextPage<{
                                         if (file?.path)
                                             formData.append("images", file);
                                     });
-                                    // onCreateThumbnail(
-                                    //     formData,
-                                    //     values,
-                                    //     actions
-                                    // );
+                                    onCreateThumbnail(
+                                        formData,
+                                        values,
+                                        actions
+                                    );
                                 } else {
                                     const getImagesId = values?.images.map(
                                         (val) => val?.id

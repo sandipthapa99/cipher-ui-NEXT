@@ -37,13 +37,13 @@ const AddPortfolio = ({
     isEditProfile,
 }: AddPortfolioModalProps) => {
     const { mutate } = useForm(`/tasker/portfolio/`);
+    const { mutate: fileStore, data: fileId } = useForm(`/task/filestore/`);
     const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
-    const [imageSrc, setImageSrc] = useState();
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-portfolio",
     ]);
-    const { mutate: fileStore } = useForm(`/task/filestore/`);
+    console.log("file id=", fileId?.data);
 
     function isValidURL(str: any) {
         const regex =
@@ -117,28 +117,58 @@ const AddPortfolio = ({
                             }
 
                             console.log("valuews=", values, newValue);
+
+                            const newData = {
+                                media_type: "video",
+                                placeholder: "new",
+                                // medias: newValue.image,
+                            };
+                            Object.entries(newData).forEach((entry) => {
+                                const [key, value] = entry;
+                                console.log("entry=", entry, key, value);
+
+                                formData.append(key, value);
+                            });
                             if (values.image.some((val) => val?.path)) {
                                 values.image.forEach((file) => {
                                     if (file?.path)
-                                        formData.append("image", file);
+                                        formData.append("medias", file);
                                 });
                                 console.log("files for app=", values.image);
                                 // onCreateThumbnail(formData, values, actions);
                             }
-                            Object.entries(newValue).forEach((entry) => {
-                                const [key, value] = entry;
-                                console.log("entry=", entry, key, value);
+                            fileStore(formData, {
+                                onSuccess: async () => {
+                                    console.log(
+                                        "submitted values new",
+                                        formData
+                                    );
 
-                                if (
-                                    (entry[0] == "file" &&
-                                        isValidURL(entry[1])) ||
-                                    (entry[0] == "image" &&
-                                        isValidURL(entry[1]))
-                                ) {
-                                    return false;
-                                }
-                                formData.append(key, value);
+                                    // queryClient.invalidateQueries([
+                                    //     "tasker-portfolio",
+                                    // ]);
+                                    toast.success(
+                                        "Portfolio added successfully."
+                                    );
+                                },
+                                onError: async (error) => {
+                                    toast.error(error.message);
+                                },
                             });
+                            // Object.entries(newValue).forEach((entry) => {
+                            //     const [key, value] = entry;
+                            //     console.log("entry=", entry, key, value);
+
+                            //     if (
+                            //         (entry[0] == "file" &&
+                            //             isValidURL(entry[1])) ||
+                            //         (entry[0] == "image" &&
+                            //             isValidURL(entry[1]))
+                            //     ) {
+                            //         return false;
+                            //     }
+                            //     formData.append(key, value);
+                            // });
 
                             // formData.append("file", values.file);
                             // formData.append("image", values.image);
@@ -147,45 +177,45 @@ const AddPortfolio = ({
                                 values.file,
                                 values.image
                             );
-                            {
-                                editDetails && isEditProfile == true
-                                    ? editMutation(formData, {
-                                          onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
-                                              setShowAddPortfolioModal(false);
-                                              queryClient.invalidateQueries([
-                                                  "tasker-portfolio",
-                                              ]);
-                                              toast.success(
-                                                  "Portfolio updated successfully."
-                                              );
-                                          },
-                                          onError: async (error) => {
-                                              toast.error(error.message);
-                                          },
-                                      })
-                                    : mutate(formData, {
-                                          onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
-                                              setShowAddPortfolioModal(false);
-                                              queryClient.invalidateQueries([
-                                                  "tasker-portfolio",
-                                              ]);
-                                              toast.success(
-                                                  "Portfolio added successfully."
-                                              );
-                                          },
-                                          onError: async (error) => {
-                                              toast.error(error.message);
-                                          },
-                                      });
-                            }
+                            // {
+                            //     editDetails && isEditProfile == true
+                            //         ? editMutation(formData, {
+                            //               onSuccess: async () => {
+                            //                   console.log(
+                            //                       "submitted values",
+                            //                       values
+                            //                   );
+                            //                   setShowAddPortfolioModal(false);
+                            //                   queryClient.invalidateQueries([
+                            //                       "tasker-portfolio",
+                            //                   ]);
+                            //                   toast.success(
+                            //                       "Portfolio updated successfully."
+                            //                   );
+                            //               },
+                            //               onError: async (error) => {
+                            //                   toast.error(error.message);
+                            //               },
+                            //           })
+                            //         : mutate(formData, {
+                            //               onSuccess: async () => {
+                            //                   console.log(
+                            //                       "submitted values",
+                            //                       values
+                            //                   );
+                            //                   setShowAddPortfolioModal(false);
+                            //                   queryClient.invalidateQueries([
+                            //                       "tasker-portfolio",
+                            //                   ]);
+                            //                   toast.success(
+                            //                       "Portfolio added successfully."
+                            //                   );
+                            //               },
+                            //               onError: async (error) => {
+                            //                   toast.error(error.message);
+                            //               },
+                            //           });
+                            // }
                         }}
                     >
                         {({ isSubmitting, errors, touched, setFieldValue }) => (
