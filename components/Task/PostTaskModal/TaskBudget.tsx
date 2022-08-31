@@ -81,6 +81,7 @@ const FixedBudget = ({ error, setFieldValue }: BudgetInputProps) => {
     return (
         <Group>
             <NumberInput
+                icon="Rs"
                 placeholder="Enter your price"
                 error={error}
                 onChange={(value) => setFieldValue("budget_fixed", value)}
@@ -100,12 +101,14 @@ const VariableBudget = ({
     return (
         <Group>
             <NumberInput
+                icon="Rs"
                 placeholder="Starting budget"
                 error={budgetFromError}
                 onChange={(value) => setFieldValue("budget_from", value)}
             />
             <Text>To</Text>
             <NumberInput
+                icon="Rs"
                 placeholder="Final budget"
                 error={budgetToError}
                 onChange={(value) => setFieldValue("budget_to", value)}
