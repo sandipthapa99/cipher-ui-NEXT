@@ -1,4 +1,8 @@
+import { useSearchQuery } from "@components/common/Search/searchStore";
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
+import { faClose } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ActionIcon, Box, Highlight, Space } from "@mantine/core";
 import type { Tasker } from "types/tasks";
 
 export interface Props {
@@ -6,6 +10,7 @@ export interface Props {
     onTaskClick: (taskerId: string) => void;
 }
 export const UserTaskCardList = ({ taskers, onTaskClick }: Props) => {
+    const searchQuery = useSearchQuery();
     const renderTaskList = () => {
         return taskers?.map((item, index) => (
             <div
@@ -31,10 +36,17 @@ export const UserTaskCardList = ({ taskers, onTaskClick }: Props) => {
     };
     return (
         <>
-            <p>
-                {taskers?.length} Tasker in Kathmandu,Bagmati Nepal (
-                {taskers?.length} new)
-            </p>
+            {searchQuery && searchQuery.context === "tasker.Profile" ? (
+                <Highlight highlight={searchQuery.query}>
+                    {`Showing search result for ${searchQuery.query}`}
+                </Highlight>
+            ) : (
+                <p>
+                    {taskers?.length} Tasker in Kathmandu,Bagmati Nepal (
+                    {taskers?.length} new)
+                </p>
+            )}
+            <Space h={15} />
             <div className="user-task-card-list">{renderTaskList()}</div>
         </>
     );
