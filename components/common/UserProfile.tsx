@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
+import { safeParse } from "utils/safeParse";
 
 import ProfileEditForm from "./ProfileEditForm";
 import ShareIcon from "./ShareIcon";
@@ -55,8 +56,8 @@ const UserProfileCard = ({
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
     const [image, setImage] = useState();
-    const services = moreServices ? JSON.parse(JSON.parse(moreServices)) : [];
-    const skills = services;
+
+    const services = moreServices ? JSON.parse(moreServices) : [];
     const queryClient = useQueryClient();
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
@@ -260,16 +261,16 @@ const UserProfileCard = ({
                                             icon={faSparkles}
                                             className="thumbnail-img"
                                         />
-                                        {skills
-                                            ? skills.map(
+                                        {services
+                                            ? services.map(
                                                   (info: any, index: any) => (
                                                       <p key={index}>
                                                           &nbsp;{info}
                                                           {index <
-                                                          skills.length - 2
+                                                          services.length - 2
                                                               ? ", "
                                                               : index <
-                                                                skills.length -
+                                                                services.length -
                                                                     1
                                                               ? " and"
                                                               : ""}

@@ -83,8 +83,6 @@ const AboutProfile = () => {
     const { data: profileDetails } = useGetProfile();
 
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
-    console.log("useraser", userSkills);
-    const skills = JSON.parse(userSkills);
 
     const [hovered, setHovered] = useState<null | number>(null);
     return (
@@ -92,7 +90,7 @@ const AboutProfile = () => {
             <div className="about-profile">
                 <div className="type portfolio">
                     <div className="title-wrapper d-flex justify-content-between">
-                        <h1>My Portfolio</h1>
+                        <h1>Portfolio</h1>
                         <EditProfileButton
                             text="Add New"
                             showModal={true}
@@ -373,8 +371,8 @@ const AboutProfile = () => {
                     <Row>
                         <Col md={9}>
                             <div className="content">
-                                {skills
-                                    ? skills.map((info: any, i: any) => (
+                                {userSkills
+                                    ? userSkills.map((info: any, i: any) => (
                                           <div className="skills__type" key={i}>
                                               {info}
                                           </div>
