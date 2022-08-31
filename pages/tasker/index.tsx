@@ -1,4 +1,9 @@
 import { MapboxMap } from "@components/common/MapboxMap";
+import {
+    useClearSearchedTaskers,
+    useClearSearchQuery,
+    useSearchedTaskers,
+} from "@components/common/Search/searchStore";
 import Footer from "@components/Footer";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
@@ -6,6 +11,7 @@ import { UserTaskCardList } from "@components/Task/UserTaskCard/UserTaskCardList
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import { useQuery } from "@tanstack/react-query";
 import type { Tasker } from "hooks/tasker/use-tasker";
+import { usePageExit } from "hooks/use-page-exit";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -27,7 +33,10 @@ const TaskerPage = () => {
     const { data: taskers } = useSearchTaskers(searchQuery);
     const { redirectedFrom } = router.query;
     const [activeTaskIdx, setActiveTaskIdx] = useState<string | undefined>();
-    console.log("task detail", taskers);
+    const searchedTaskers = useSearchedTaskers();
+    const clearSearchQuery = useClearSearchQuery();
+    const clearSearchedTaskers = useClearSearchedTaskers();
+
     const toggleActiveTask = (taskerId: string) => {
         router.push({
             pathname: router.pathname,
@@ -50,6 +59,13 @@ const TaskerPage = () => {
             setActiveTaskIdx(taskerId);
         }
     }, [router.query.taskerId, router.query]);
+
+    // clear search query and searched taskers on page exit
+    usePageExit(() => {
+        clearSearchQuery();
+        clearSearchedTaskers();
+    });
+
     return (
         <Layout>
             <Container fluid="xl" className="px-5">
@@ -58,7 +74,11 @@ const TaskerPage = () => {
                     <Col md={4}>
                         <UserTaskCardList
                             onTaskClick={toggleActiveTask}
-                            taskers={taskers}
+                            taskers={
+                                searchedTaskers.length > 0
+                                    ? searchedTaskers
+                                    : taskers
+                            }
                         />
                     </Col>
                     <Col md={8}>
