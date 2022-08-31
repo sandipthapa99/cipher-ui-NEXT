@@ -36,9 +36,9 @@ export const UserTaskCardList = ({ taskers, onTaskClick }: Props) => {
                 {taskers?.length} Tasker in Kathmandu,Bagmati Nepal (
                 {taskers?.length} new)
             </p>
-            <Scrollbars autoHide style={{ height: 700 }}>
+            <div className="user-card-container">
                 <div className="user-task-card-list">{renderTaskList()}</div>
-            </Scrollbars>
+            </div>
         </>
     );
 };

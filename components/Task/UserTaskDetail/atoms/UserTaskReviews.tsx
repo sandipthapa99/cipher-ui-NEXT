@@ -19,7 +19,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
     return (
         <>
             <FilterReview totalReviews={ratingData?.length} />
-            <div>
+            <div className="review">
                 {ratingData?.map((review: any, index: any) => (
                     <Reviews
                         key={index}

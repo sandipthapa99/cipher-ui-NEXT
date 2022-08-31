@@ -114,56 +114,7 @@ export const UserTaskDetailHeader = ({
                         btnTitle="Hire Me"
                         backgroundColor="#FFCA6A"
                     />
-                    {/* <h4
-                        className="td-user-name"
-                        data-is-online={JSON.stringify(true)}
-                    >
-                        {taskerDetail?.full_name}
-                    </h4>
-                    <p className="td-text mb-4">{userType}</p>
-                    <Row>
-                        <Col></Col>
-                        <Col>
-                            <button
-                                onClick={() => setShowHireMerchantModal(true)}
-                                className="td-hire-me-btn"
-                                type="button"
-                            >
-                                Hire Me
-                            </button>
-                        </Col>
-                    </Row>
-                    <RatingStars value={taskerDetail?.stats?.user_reviews} />
-                    <UserStats
-                        happyCustomers={taskerDetail?.stats?.happy_clients}
-                        rewardPercentage={taskerDetail?.stats?.success_rate}
-                        taskCompleted={taskerDetail?.stats?.task_completed}
-                        rank={"12"}
-                    /> */}
                 </Col>
-                {/* <Col>
-                    <div className="td-task-detail-header-icons">
-                        <SaveIcon />
-                        <ShareIcon
-                            url={`http://localhost:3005/tasker?taskerId=${activeTaskId}`}
-                            quote={"Tasker from cipher project"}
-                            hashtag={"cipher-tasker"}
-                        />
-                        <EllipsisDropdown
-                            showModal={showMenu}
-                            handleOnClick={() => toggleShowMenu()}
-                        >
-                            <FontAwesomeIcon
-                                icon={faEllipsisVertical}
-                                className="svg-icon option"
-                            />
-                        </EllipsisDropdown>
-                    </div>
-                    <p className="td-task-charge my-4">
-                        {taskerDetail?.charge_currency}{" "}
-                        {taskerDetail?.hourly_rate}/hr
-                    </p>
-                </Col> */}
             </Row>
         </>
     );
