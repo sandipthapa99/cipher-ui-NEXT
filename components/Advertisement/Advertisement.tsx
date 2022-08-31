@@ -2,7 +2,7 @@ import { useData } from "hooks/use-data";
 import Image from "next/image";
 
 const Advertisement = () => {
-    const { data: Advertisement, isLoading } = useData<{
+    const { data: Advertisement } = useData<{
         result: Array<{
             id: number;
             category: string;
