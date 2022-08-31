@@ -178,6 +178,7 @@ export const PostTaskModal = () => {
                                     formData.get("task-image")
                                 )
                             }
+                            type="image"
                         />
                     </Stack>
                     <Stack sx={{ maxWidth: "40rem" }}>
@@ -196,6 +197,7 @@ export const PostTaskModal = () => {
                                     formData.get("task-video")
                                 )
                             }
+                            type="image"
                         />
                     </Stack>
                     <TaskDate />

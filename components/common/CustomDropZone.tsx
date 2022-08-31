@@ -21,12 +21,14 @@ export interface CustomDropZoneProps
     previewImageHeight?: number;
     fileType?: FileType;
     onDrop?: (image: FormData) => void;
+    type: string;
 }
 
 export const CustomDropZone = ({
     name,
     label,
     maxSize,
+    type,
     minSize,
     previewImageWidth,
     previewImageHeight,
@@ -61,7 +63,11 @@ export const CustomDropZone = ({
         <>
             <div onClick={focusDropzone} className={classes.dropzoneContainer}>
                 <Image
-                    src={getPlaceHolderImage()}
+                    src={
+                        type.toLocaleLowerCase() == "pdf"
+                            ? "/userprofile/pdf.svg"
+                            : getPlaceHolderImage()
+                    }
                     width={previewImageWidth ?? 80}
                     height={previewImageHeight ?? 80}
                     alt="file-upload"
@@ -85,7 +91,7 @@ export const CustomDropZone = ({
                         {file ? file.name : "Drag or Browse"}
                     </Highlight>
                     <Text mt="xs" className={classes.text}>
-                        {file ? file.type : label ?? "Image/Video/PDF"}
+                        {type}
                     </Text>
                 </Dropzone>
                 {file && (
@@ -95,12 +101,12 @@ export const CustomDropZone = ({
                 )}
                 {minSize && (
                     <Text mt="xl" className={classes.text}>
-                        Minimum image size is {maxSize} MB
+                        Minimum {type} size is {minSize} MB
                     </Text>
                 )}
                 {maxSize && (
                     <Text mt="xs" className={classes.text}>
-                        Maximum image size is {minSize} MB
+                        Maximum {type} size is {maxSize} MB
                     </Text>
                 )}
             </div>

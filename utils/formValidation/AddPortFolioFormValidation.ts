@@ -10,6 +10,6 @@ export const addPortfolioSchema = Yup.object().shape({
     description: stringReqOnly,
     credential_url: urlValidation,
     issued_date: dateValidation,
-    image: fileValidation,
+    // image: fileValidation,
     file: fileValidation,
 });
