@@ -77,6 +77,7 @@ const AddService: NextPage<{
 
     const [checked, setChecked] = useState(false);
 
+    //Authorization cannot be send through get static props. So service category options fetched here
     const { data: serviceCategoryOptions } = useQuery(
         ["service-category"],
         async () => {
@@ -122,20 +123,16 @@ const AddService: NextPage<{
     const serviceImageMutation = useForm("/task/service-image/");
     const serviceMutation = useForm("/task/service/");
 
-    const [onSearchCategory, setOnSearchCategory] = useState<string>("");
+    // const [onSearchCategory, setOnSearchCategory] = useState<string>("");
 
-    const [searchCategory, setSearchCategory] = useState<string>(""); // Read the value from category select field after values
+    // const [searchCategory, setSearchCategory] = useState<string>(""); // Read the value from category select field after values
 
     const [rowId, setRowId] = useState<number | null>();
 
-    const [categoryOptions, setCategoryOptions] = useState<
-        { value: string; label: string }[]
-    >([]);
-
-    const onHandleCategorySearch = (query: string) => {
-        setSearchCategory(query);
-        setOnSearchCategory(query);
-    };
+    // const onHandleCategorySearch = (query: string) => {
+    //     setSearchCategory(query);
+    //     setOnSearchCategory(query);
+    // };
 
     const onCreateThumbnail = (
         formData: FormData,
@@ -144,7 +141,6 @@ const AddService: NextPage<{
     ) =>
         serviceImageMutation.mutate(formData, {
             onSuccess: (data: any) => {
-                console.log("sdfasdasdasd", data);
                 const getImagesId = values?.images
                     .filter((val) => !val.path)
                     .map((val) => val?.id);
@@ -189,29 +185,29 @@ const AddService: NextPage<{
     };
 
     // Fetch the category list from the API as the per user keywords request
-    const { isFetching: isCategoryFetching } = useQuery(
-        ["category-options", onSearchCategory],
-        () =>
-            axiosClient
-                .get<CategoryFieldProps>(
-                    `/task/cms/task-category/list/?search=${onSearchCategory}`
-                )
-                .then((response) => response.data),
-        {
-            enabled: !!searchCategory || !!rowId,
-            onSuccess: (data) => {
-                const categoryOptions = data?.map(
-                    ({ id, name }: { id: number; name: string }) => {
-                        return {
-                            value: String(id),
-                            label: name,
-                        };
-                    }
-                );
-                setCategoryOptions(categoryOptions);
-            },
-        }
-    );
+    // const { isFetching: isCategoryFetching } = useQuery(
+    //     ["category-options", onSearchCategory],
+    //     () =>
+    //         axiosClient
+    //             .get<CategoryFieldProps>(
+    //                 `/task/cms/task-category/list/?search=${onSearchCategory}`
+    //             )
+    //             .then((response) => response.data),
+    //     {
+    //         enabled: !!searchCategory || !!rowId,
+    //         onSuccess: (data) => {
+    //             const categoryOptions = data?.map(
+    //                 ({ id, name }: { id: number; name: string }) => {
+    //                     return {
+    //                         value: String(id),
+    //                         label: name,
+    //                     };
+    //                 }
+    //             );
+    //             setCategoryOptions(categoryOptions);
+    //         },
+    //     }
+    // );
 
     const toggleSuccessModal = useToggleSuccessModal();
     return (
@@ -225,17 +221,17 @@ const AddService: NextPage<{
                             validationSchema={addServiceFormSchema}
                             onSubmit={(values, actions) => {
                                 const formData = new FormData();
-                                console.log("service values=", values);
+
                                 if (values.images.some((val) => val?.path)) {
                                     values.images.forEach((file) => {
                                         if (file?.path)
                                             formData.append("images", file);
                                     });
-                                    // onCreateThumbnail(
-                                    //     formData,
-                                    //     values,
-                                    //     actions
-                                    // );
+                                    onCreateThumbnail(
+                                        formData,
+                                        values,
+                                        actions
+                                    );
                                 } else {
                                     const getImagesId = values?.images.map(
                                         (val) => val?.id
@@ -258,10 +254,8 @@ const AddService: NextPage<{
                                     delete dataToSend.is_discount_offer;
                                     delete dataToSend.budget_select;
 
-                                    //  onCreateService(dataToSend, actions);
+                                    onCreateService(dataToSend, actions);
                                 }
-
-                                console.log(values);
                             }}
                         >
                             {({
@@ -430,7 +424,7 @@ const AddService: NextPage<{
                                             <Col md={4}>
                                                 <SelectInputField
                                                     name="budget_type"
-                                                    placeHolder="Choose Category"
+                                                    placeHolder="Choose budget type"
                                                     options={BudgetType}
                                                     error={errors.budget_type}
                                                     touch={touched.budget_type}
@@ -509,7 +503,7 @@ const AddService: NextPage<{
 
                                         <InputField
                                             labelName="Video URL"
-                                            placeHolder="e.g. Buddhanagar"
+                                            placeHolder="e.g. https://www.youtube.com/jirIbhruHHHb"
                                             name="video"
                                             error={errors.video}
                                             touch={touched.video}
@@ -565,7 +559,7 @@ export const getStaticProps: GetStaticProps = async () => {
             },
             revalidate: 10,
         };
-    } catch (err) {
+    } catch (err: any) {
         return {
             props: {
                 cityOptionsData: [],
