@@ -3,8 +3,8 @@ import {
     faTrashCan,
     faXmark,
 } from "@fortawesome/pro-regular-svg-icons";
-import { createStyles, Highlight, Text } from "@mantine/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { createStyles, Highlight, Text } from "@mantine/core";
 import {
     ActionIcon,
     Box,
@@ -16,9 +16,9 @@ import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import type { FieldProps } from "formik";
 import { Field } from "formik";
+import Image from "next/image";
 import type { MultiFileDropzoneProps } from "types/MultiFileDropzoneProps";
 import { formatBytes } from "utils/formatBytes";
-import Image from "next/image";
 
 interface CustomDropZoneProps
     extends Omit<DropzoneProps, "children" | "onDrop"> {
@@ -27,6 +27,7 @@ interface CustomDropZoneProps
     previewImageWidth?: number;
     previewImageHeight?: number;
     type: string;
+    editImage?: string;
 }
 const MultiImageDropzone = ({
     name,
@@ -37,6 +38,7 @@ const MultiImageDropzone = ({
     accept = ["image/jpg", "image/png", "image/jpeg"],
     multiple = false,
     //   maxSize = 1,
+    editImage,
     imagePreview,
     error,
     touch,
@@ -90,7 +92,11 @@ const MultiImageDropzone = ({
                                                         }}
                                                     >
                                                         <MantineImage
-                                                            src={val?.src}
+                                                            src={
+                                                                editImage
+                                                                    ? editImage
+                                                                    : val?.src
+                                                            }
                                                             width={70}
                                                             height={70}
                                                             radius="md"
@@ -228,16 +234,17 @@ const MultiImageDropzone = ({
                                                                 radius="sm"
                                                                 alt="img"
                                                                 styles={{
-                                                                    imageWrapper: {
-                                                                        background:
-                                                                            theme
-                                                                                .colors
-                                                                                .gray[0],
-                                                                        borderRadius:
-                                                                            theme
-                                                                                .radius
-                                                                                .sm,
-                                                                    },
+                                                                    imageWrapper:
+                                                                        {
+                                                                            background:
+                                                                                theme
+                                                                                    .colors
+                                                                                    .gray[0],
+                                                                            borderRadius:
+                                                                                theme
+                                                                                    .radius
+                                                                                    .sm,
+                                                                        },
                                                                     image: {
                                                                         padding: 0,
                                                                     },
@@ -259,10 +266,9 @@ const MultiImageDropzone = ({
                                                                                 2
                                                                             }
                                                                             sx={{
-                                                                                color:
-                                                                                    theme
-                                                                                        .colors
-                                                                                        .gray[0],
+                                                                                color: theme
+                                                                                    .colors
+                                                                                    .gray[0],
                                                                             }}
                                                                         >
                                                                             {
@@ -363,9 +369,10 @@ const MultiImageDropzone = ({
                                     console.log("files are", files);
                                     const multipleFiles = files.map(
                                         (file, index) => {
-                                            const src = window.URL.createObjectURL(
-                                                file
-                                            );
+                                            const src =
+                                                window.URL.createObjectURL(
+                                                    file
+                                                );
                                             return {
                                                 file,
                                                 id: index,

@@ -94,9 +94,10 @@ const MultiFileDropzone = ({
                                     console.log("files are", files);
                                     const multipleFiles = files.map(
                                         (file, index) => {
-                                            const src = window.URL.createObjectURL(
-                                                file
-                                            );
+                                            const src =
+                                                window.URL.createObjectURL(
+                                                    file
+                                                );
                                             return {
                                                 file,
                                                 id: index,
@@ -373,10 +374,9 @@ const MultiFileDropzone = ({
                                                                         }
                                                                         mb={2}
                                                                         sx={{
-                                                                            color:
-                                                                                theme
-                                                                                    .colors
-                                                                                    .gray[0],
+                                                                            color: theme
+                                                                                .colors
+                                                                                .gray[0],
                                                                         }}
                                                                     >
                                                                         {

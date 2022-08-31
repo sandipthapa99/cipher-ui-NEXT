@@ -213,7 +213,13 @@ const AboutProfile = () => {
                                           </div>
                                       )}
                                       {hovered === info.id ? (
-                                          <div className="icons">
+                                          <div
+                                              className={
+                                                  isOnlyPortfolioText
+                                                      ? "icon-down"
+                                                      : "icons"
+                                              }
+                                          >
                                               <FontAwesomeIcon
                                                   icon={faPencil}
                                                   className={

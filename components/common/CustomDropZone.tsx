@@ -37,9 +37,10 @@ export const CustomDropZone = ({
     ...rest
 }: CustomDropZoneProps) => {
     const [files, setFiles] = useState<File[]>([]);
-    const file = useMemo(() => (files.length > 0 ? files[0] : undefined), [
-        files,
-    ]);
+    const file = useMemo(
+        () => (files.length > 0 ? files[0] : undefined),
+        [files]
+    );
     const previewImages = files.map((file) => URL.createObjectURL(file));
 
     const dropzoneRef = useRef<HTMLDivElement | null>(null);

@@ -1,7 +1,5 @@
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import DatePickerField from "@components/common/DateTimeField";
-import DragDrop from "@components/common/DragDrop";
-import FileDragDrop from "@components/common/FileDragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MultiFileDropzone from "@components/common/MultiFileDropzone";
@@ -12,6 +10,7 @@ import { Form, Formik } from "formik";
 import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -39,14 +38,15 @@ const AddPortfolio = ({
 }: AddPortfolioModalProps) => {
     const { mutate } = useForm(`/tasker/portfolio/`);
     const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
-
+    const [imageSrc, setImageSrc] = useState();
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-portfolio",
     ]);
 
     function isValidURL(str: any) {
-        const regex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
+        const regex =
+            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
         if (!regex.test(str)) {
             return false;
         } else {
@@ -71,6 +71,8 @@ const AddPortfolio = ({
                                       issued_date: parseISO(
                                           editDetails.issued_date
                                       ),
+                                      //   image: editDetails.image,
+                                      //   file: editDetails.file,
                                   }
                                 : AddPortfolioFormData
                         }
@@ -257,6 +259,7 @@ const AddPortfolio = ({
                                                     minSize={20}
                                                     showFileDetail
                                                     type="Image/Video"
+                                                    //  editImage={imageSrc}
                                                 />
                                             </Col>
                                         </Row>

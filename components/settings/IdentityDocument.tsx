@@ -174,6 +174,7 @@ export const IdentityDocument = () => {
                                     setFieldValue("file", formData.get("file"))
                                 // console.log(formData.get("file"))
                             }
+                            type="pdf"
                         />
                     </Col>
                     <hr />
