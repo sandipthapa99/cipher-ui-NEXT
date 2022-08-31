@@ -54,11 +54,11 @@ const SearchResultsDetail = ({
     const handleClose = () => setShow(false);
     const setBookNowDetails = useSetBookNowDetails();
     const reviewsContent = getReviews();
+    const allMyServicePackages: any[] = [];
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
-    console.log("servicesData", servicesData?.data?.result);
 
     const { data: myServicePackage } = useData<{
         result: Array<{
@@ -119,18 +119,17 @@ const SearchResultsDetail = ({
             is_recommended: boolean;
         }>;
     }>(["my-service-packages"], "/task/service-package/");
-    console.log("my-packages", myServicePackage?.data?.result);
-
-    // const allServicePackages = myServicePackage?.data?.result.find(
-    //     (item) => item.service.id === servicesData?.data?.result?.id
-    // );
-    // const allServicePackages = servicesData?.data?.result?.filter((item) => {
-    //     return item.id === myServicePackage?.data?.result?.service.id;
-    // });
-    // console.log("abc", allServicePackages);
 
     const router = useRouter();
     const servSlug = router.query.slug;
+    const getSingleService = servicesData?.data?.result.filter(
+        (item) => item.slug === servSlug
+    );
+
+    const getPackageAccordingService = myServicePackage?.data?.result.filter(
+        (servicePackage) =>
+            getSingleService?.[0].id === servicePackage?.service?.id
+    );
 
     return (
         <>
@@ -226,7 +225,6 @@ const SearchResultsDetail = ({
                                         />
                                     </figure>
                                 )} */}
-                                To do API
                                 <div className="intro">
                                     <p className="name">{serviceProvider}</p>
                                     <p className="job">{serviceTitle}</p>
@@ -345,12 +343,12 @@ const SearchResultsDetail = ({
                         }}
                         className="pt-4"
                     >
-                        {servicePackage &&
-                            servicePackage
-                                .filter(
-                                    (service) =>
-                                        service.service.slug === servSlug
-                                )
+                        {getPackageAccordingService &&
+                            getPackageAccordingService
+                                // .filter(
+                                //     (service) =>
+                                //         service.service.slug === servSlug
+                                // )
                                 .map(
                                     (offer) =>
                                         offer && (
