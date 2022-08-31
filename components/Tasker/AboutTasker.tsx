@@ -34,7 +34,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                                       {info?.image ? (
                                                           <figure className="thumbnail-img">
                                                               <Image
-                                                                  src={`${info?.image}`}
+                                                                  src={`http://54.252.73.240:8014${info?.image}`}
                                                                   layout="fill"
                                                                   objectFit="cover"
                                                                   alt="portfolio-image"
