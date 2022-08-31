@@ -248,10 +248,10 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
                                     <p>
-                                        &nbsp;Active Hours &nbsp;
+                                        &nbsp;Active Hours: &nbsp;
                                         {finalfrom?.replace(":00", "")}
-                                        AM to&nbsp;
-                                        {finalto?.replace(":00", "")}PM
+                                        &nbsp;-&nbsp;
+                                        {finalto?.replace(":00", "")}
                                     </p>
                                 </div>
 
