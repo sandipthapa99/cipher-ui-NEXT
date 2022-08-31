@@ -36,9 +36,8 @@ const MultiFileDropzone = ({
     ...restProps
 }: MultiFileDropzoneProps & Partial<DropzoneProps>) => {
     const theme = useMantineTheme();
-
+    console.log("images are", name);
     const errTouch = error && touch ? error : null;
-
     return (
         <Field name={name}>
             {({ form }: FieldProps) => {
@@ -52,6 +51,8 @@ const MultiFileDropzone = ({
                             src: val?.src,
                         };
                     });
+                console.log("files are ----->", imageFile);
+
                 const isPreviewImage =
                     imagePreview && form.values[imagePreview]?.length;
 
@@ -90,6 +91,7 @@ const MultiFileDropzone = ({
                                     },
                                 }}
                                 onDrop={(files) => {
+                                    console.log("files are", files);
                                     const multipleFiles = files.map(
                                         (file, index) => {
                                             const src =
@@ -264,6 +266,7 @@ const MultiFileDropzone = ({
                                                             },
                                                         }}
                                                     />
+
                                                     <ActionIcon
                                                         variant="light"
                                                         color="dark"

@@ -5,7 +5,8 @@ export interface AddPortfolioProps {
     issued_date: string;
     id: number;
     file: any;
-    image: any;
+    image: any[];
+    imagePreviewUrl?: any[];
 }
 
 export interface AddSkills {
