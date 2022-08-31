@@ -7,6 +7,8 @@ import type { HTMLAttributes } from "react";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
 
+import { UserTaskDetailTabs } from "./atoms/UserTaskDetailTabs";
+
 interface UserTaskDetailProps extends HTMLAttributes<HTMLDivElement> {
     // taskDetail: TaskDetail;
     onExitTaskDetail: () => void;
@@ -45,7 +47,7 @@ const UserTaskDetail = ({
                 activeTaskId={activeTaskId}
             />
             <UserShortIntro user={taskerDetail} />
-            {/* <UserTaskDetailTabs taskerDetail={taskerDetail} /> */}
+            <UserTaskDetailTabs taskerDetail={taskerDetail} />
             <UserTaskReviews activeTaskId={activeTaskId} />
         </div>
     );
