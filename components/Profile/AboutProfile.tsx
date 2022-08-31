@@ -156,28 +156,6 @@ const AboutProfile = () => {
                                                   ""
                                               )}
                                           </Col>
-                                          {/* <Col
-                                              md={info?.file ? 6 : 12}
-                                              sm={info?.image ? 6 : 12}
-                                              xs={info?.image ? 6 : 12}
-                                          >
-                                              <Link href={`${info?.file}`}>
-                                                  <a target="_blank">
-                                                      {info?.file ? (
-                                                          <figure className="thumbnail-img">
-                                                              <Image
-                                                                  src="/userprofile/documents/pdf.svg"
-                                                                  layout="fill"
-                                                                  objectFit="cover"
-                                                                  alt="portfolio-file"
-                                                              />
-                                                          </figure>
-                                                      ) : (
-                                                          ""
-                                                      )}
-                                                  </a>
-                                              </Link>
-                                          </Col> */}
                                       </Row>
                                       {info?.image === null ? (
                                           <div className="portfolio-title">

@@ -27,7 +27,7 @@ const TaskerPage = () => {
     const { data: taskers } = useSearchTaskers(searchQuery);
     const { redirectedFrom } = router.query;
     const [activeTaskIdx, setActiveTaskIdx] = useState<string | undefined>();
-
+    console.log("task detail", taskers);
     const toggleActiveTask = (taskerId: string) => {
         router.push({
             pathname: router.pathname,

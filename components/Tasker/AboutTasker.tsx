@@ -11,9 +11,9 @@ interface AboutTasker {
 
 export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
     const userSkills = taskerDetail?.skill
-        ? JSON.parse(taskerDetail?.skill)
+        ? JSON.parse(JSON.parse(taskerDetail?.skill))
         : [];
-
+    console.log("taskser detaul=", taskerDetail);
     return (
         <>
             <div className="about-profile">
@@ -46,24 +46,6 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                                   </a>
                                               </Link>
                                           </Col>
-                                          {/* <Col md={6}>
-                                              <Link href={`${info?.file}`}>
-                                                  <a target="_blank">
-                                                      {info?.file ? (
-                                                          <figure className="thumbnail-img">
-                                                              <Image
-                                                                  src="/userprofile/documents/pdf.svg"
-                                                                  layout="fill"
-                                                                  objectFit="cover"
-                                                                  alt="portfolio-file"
-                                                              />
-                                                          </figure>
-                                                      ) : (
-                                                          ""
-                                                      )}
-                                                  </a>
-                                              </Link>
-                                          </Col> */}
                                       </Row>
 
                                       <p className="text-center">

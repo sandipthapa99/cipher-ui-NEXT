@@ -1,5 +1,6 @@
 import { Rating } from "@smastrom/react-rating";
-import { useFormik } from "formik";
+import { Formik, useFormik } from "formik";
+import { useForm } from "hooks/use-form";
 import { Col, Form, Row } from "react-bootstrap";
 
 interface ReviewData {
@@ -7,6 +8,8 @@ interface ReviewData {
     rating: number;
 }
 export const AddReviewForm = () => {
+    const { mutate } = useForm(`/task/rating/`);
+
     const { handleSubmit, getFieldProps, values, setFieldValue } =
         useFormik<ReviewData>({
             initialValues: {
@@ -14,9 +17,21 @@ export const AddReviewForm = () => {
                 rating: 0,
             },
             onSubmit: (values) => {
-                console.log(values);
+                console.log("rating values=", values);
+                mutate(values, {
+                    onSuccess: async () => {
+                        console.log("submitted values", values);
+                        // queryClient.invalidateQueries(["tasker-experience"]);
+                        // toast.success("Experience detail added successfully");
+                    },
+                    onError: async (error) => {
+                        // toast.error(error.message);
+                        console.log("error=", error);
+                    },
+                });
             },
         });
+
     return (
         <Row>
             <Col md={8}>
