@@ -33,6 +33,7 @@ export const UserTaskDetailHeader = ({
         rawString: taskerDetail?.user_type,
         initialData: [],
     }).join(", ");
+
     return (
         <>
             <HireMerchantModal
@@ -45,7 +46,7 @@ export const UserTaskDetailHeader = ({
                         <Image
                             src={
                                 taskerDetail?.profile_image ??
-                                "/community/gallery2.png"
+                                "/userprofile/unknownPerson.jpg"
                             }
                             width={148}
                             height={148}
