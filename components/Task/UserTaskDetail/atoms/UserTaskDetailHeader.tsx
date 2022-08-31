@@ -1,3 +1,4 @@
+import CardBtn from "@components/common/CardBtn";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { RatingStars } from "@components/common/RatingStars";
 import SaveIcon from "@components/common/SaveIcon";
@@ -105,13 +106,14 @@ export const UserTaskDetailHeader = ({
                         {taskerDetail?.charge_currency}{" "}
                         {taskerDetail?.hourly_rate}/hr
                     </p>
-                    <button
-                        onClick={() => setShowHireMerchantModal(true)}
-                        className="td-hire-me-btn"
-                        type="button"
-                    >
-                        Hire Me
-                    </button>
+                    <CardBtn
+                        handleClick={() => setShowHireMerchantModal(true)}
+                        // className="td-hire-me-btn"
+                        // type="button"
+                        color="#111"
+                        btnTitle="Hire Me"
+                        backgroundColor="#FFCA6A"
+                    />
                     {/* <h4
                         className="td-user-name"
                         data-is-online={JSON.stringify(true)}
