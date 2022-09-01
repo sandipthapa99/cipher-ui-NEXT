@@ -315,7 +315,13 @@ const Footer = () => {
                                 <div>
                                     <h2>Mobile App</h2>
                                     <Row>
-                                        <Col md="6">
+                                        <Col
+                                            md="6"
+                                            xs="6"
+                                            className="d-flex justify-content-start
+                                            align-items-center
+                                            "
+                                        >
                                             <Link href="">
                                                 <a>
                                                     <Image
@@ -327,7 +333,13 @@ const Footer = () => {
                                                 </a>
                                             </Link>
                                         </Col>
-                                        <Col md="6">
+                                        <Col
+                                            md="6"
+                                            xs="6"
+                                            className="d-flex justify-content-start
+                                            align-items-center
+                                            "
+                                        >
                                             <Link href="">
                                                 <a>
                                                     <Image

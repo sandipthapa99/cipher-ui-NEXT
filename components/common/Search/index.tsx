@@ -162,7 +162,7 @@ export const Search = () => {
 };
 export const useStyles = createStyles(() => ({
     selectField: {
-        maxWidth: "12rem",
+        maxWidth: useMediaQuery("(max-width:572px)") ? "7.7rem" : "12rem",
         marginLeft: "1rem",
     },
 }));
