@@ -85,6 +85,7 @@ const AboutProfile = () => {
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
 
     const [hovered, setHovered] = useState<null | number>(null);
+
     return (
         <>
             <div className="about-profile">

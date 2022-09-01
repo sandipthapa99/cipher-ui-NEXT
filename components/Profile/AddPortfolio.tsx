@@ -57,36 +57,33 @@ const AddPortfolio = ({
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
 
-    const onCreateThumbnail = (
-        formData: FormData,
-        values: AddPortfolioProps,
-        actions: FormikHelpers<AddPortfolioProps>
-    ) =>
+    const onCreateThumbnail = (formData: FormData, values: any, actions: any) =>
         fileStore(formData, {
             onSuccess: (data: any) => {
                 console.log("sdfasdasdasd", data);
                 const dataToSend = {
                     ...JSON.parse(JSON.stringify(values)),
-                    placeholder: "new",
-                    media_type: "video",
-                    medias: Object.values(data.data),
+                    // placeholder: "new",
+                    // media_type: "video",
+                    // medias: Object.values(data.data),
+                    images: data.data,
+                    issued_date: values.issued_date
+                        ? format(new Date(values.issued_date), "yyyy-MM-dd")
+                        : null,
                 };
-                delete dataToSend.title;
-                delete dataToSend.description;
-                delete dataToSend.issued_date;
-                delete dataToSend.file;
+                delete dataToSend.medias;
+                delete dataToSend.media_type;
+                delete dataToSend.placeholder;
 
-                onCreateService(dataToSend, actions);
+                onCreatePortfolio(dataToSend, actions);
             },
             onError: (error) => {
                 error.message;
             },
         });
 
-    const onCreateService = (
-        data: any,
-        actions: FormikHelpers<AddPortfolioProps>
-    ) => {
+    const onCreatePortfolio = (data: any, actions: any) => {
+        console.log("create portfolio data", data);
         mutate(data, {
             onSuccess: (data: any) => {
                 toast.success("Portfolio added successfully.");
@@ -124,7 +121,7 @@ const AddPortfolio = ({
                         onSubmit={async (values, actions) => {
                             const formData: FormData = new FormData();
                             let newValue;
-                            console.log("val", values);
+                            console.log("values", values);
                             delete values.imagePreviewUrl;
 
                             if (!values.file) {
@@ -161,26 +158,27 @@ const AddPortfolio = ({
 
                             console.log("valuews=", values, newValue);
 
-                            // const newData = {
-                            //     media_type: "video",
-                            //     placeholder: "new",
-                            //     // medias: newValue.image,
-                            // };
-                            // Object.entries(newData).forEach((entry) => {
-                            //     const [key, value] = entry;
-                            //     console.log("entry=", entry, key, value);
+                            const newData = {
+                                media_type: "video",
+                                placeholder: "new",
+                                // medias: newValue.image,
+                            };
+                            Object.entries(newData).forEach((entry) => {
+                                const [key, value] = entry;
+                                console.log("entry=", entry, key, value);
 
-                            //     formData.append(key, value);
-                            // });
+                                formData.append(key, value);
+                            });
 
                             if (values.image.some((val) => val?.path)) {
                                 values.image.forEach((file) => {
                                     if (file?.path)
-                                        formData.append("image", file);
+                                        formData.append("medias", file);
                                 });
                                 console.log("files for app=", values.image);
-                                // onCreateThumbnail(formData, values, actions);
+                                onCreateThumbnail(formData, values, actions);
                             }
+
                             // Object.entries(newValue).forEach((entry) => {
                             //     const [key, value] = entry;
                             //     console.log("entry=", entry, key, value);
@@ -213,11 +211,57 @@ const AddPortfolio = ({
 
                             // formData.append("file", values.file);
                             // formData.append("image", values.image);
-                            console.log(
-                                "file image",
-                                values.file,
-                                values.image
-                            );
+                            else {
+                                const getImagesId = values?.image.map(
+                                    (val) => val?.id
+                                );
+                                const dataToSend = {
+                                    ...values,
+                                    file: values.file ? values.file : null,
+                                    description: values.description
+                                        ? values.description
+                                        : null,
+                                    images: getImagesId,
+                                    issued_date: values.issued_date
+                                        ? format(
+                                              new Date(values.issued_date),
+                                              "yyyy-MM-dd"
+                                          )
+                                        : null,
+                                    credential_url: values.credential_url
+                                        ? values.credential_url
+                                        : null,
+                                    title: values.title ? values.title : null,
+                                };
+                                delete dataToSend.imagePreviewUrl;
+                                {
+                                    editDetails && isEditProfile == true
+                                        ? editMutation(formData, {
+                                              onSuccess: async () => {
+                                                  console.log(
+                                                      "submitted values",
+                                                      values
+                                                  );
+                                                  setShowAddPortfolioModal(
+                                                      false
+                                                  );
+                                                  queryClient.invalidateQueries(
+                                                      ["tasker-portfolio"]
+                                                  );
+                                                  toast.success(
+                                                      "Portfolio updated successfully."
+                                                  );
+                                              },
+                                              onError: async (error) => {
+                                                  toast.error(error.message);
+                                              },
+                                          })
+                                        : onCreatePortfolio(
+                                              dataToSend,
+                                              actions
+                                          );
+                                }
+                            }
                             // {
                             //     editDetails && isEditProfile == true
                             //         ? editMutation(formData, {

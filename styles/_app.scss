@@ -292,10 +292,13 @@ textarea.form-control {
     justify-content: center;
     @include transition();
     &.facebook {
-        background-color: #1877f2;
-        color: #ffffff;
+        // background-color: #1877f2;
+        background-color: transparent;
+        color: #000;
+        border: 1px solid #dadce0;
         &:hover {
             background-color: #0d58bb;
+            color: #fff;
         }
     }
     &.google {

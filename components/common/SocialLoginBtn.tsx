@@ -25,7 +25,7 @@ const SocialLoginBtn = ({
                             src={`${icon}`}
                             height={24}
                             width={24}
-                            className=""
+                            className="social-icon-img"
                             alt="icon"
                         />
                     </figure>
