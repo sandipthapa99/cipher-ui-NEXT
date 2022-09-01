@@ -45,10 +45,8 @@ export const UserTaskCardList = ({ taskers, onTaskClick }: Props) => {
                     {taskers?.length} new)
                 </p>
             )}
-            <Space h={15} />
-            <Scrollbars autoHide style={{ height: 700 }}>
-                <div className="user-task-card-list">{renderTaskList()}</div>
-            </Scrollbars>
+
+            <div className="user-task-card-list">{renderTaskList()}</div>
         </>
     );
 };

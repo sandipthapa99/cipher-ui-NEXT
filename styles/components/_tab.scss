@@ -3,6 +3,19 @@
     flex-direction: column;
 
     &__headers {
+        &--btn {
+            color: #9fa3b1;
+            font-weight: 500;
+            @include respond(xs) {
+                margin-right: 1rem;
+            }
+            @include respond(xxs) {
+                margin-right: 1rem;
+            }
+        }
+        [data-is-active="true"] {
+            color: $default-text-color;
+        }
         position: relative;
         // display: flex;
         // gap: 62px;
