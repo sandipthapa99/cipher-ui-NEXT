@@ -7,6 +7,7 @@ module.exports = {
     nextConfig,
     images: {
         domains: [
+            "cipher-media-files.s3.amazonaws.com",
             "blog.api.cagtu.io",
             "thispersondoesnotexist.com",
             "picsum.photos",
