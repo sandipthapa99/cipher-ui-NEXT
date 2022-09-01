@@ -127,11 +127,11 @@ const Home: NextPage<{
                                             Earn Money as a Professional
                                         </a>
                                     </Link>
-                                    <Link href="/post-task">
+                                    {/* <Link href="/post-task">
                                         <a href="" className="hero-cta">
                                             Post a Task
                                         </a>
-                                    </Link>
+                                    </Link> */}
                                 </div>
                             </div>
                         </Col>
