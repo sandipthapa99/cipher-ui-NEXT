@@ -40,6 +40,7 @@ const ServicesDetail = ({
                     servicePackage={servicePackage?.result}
                     serviceCreated={service?.created_at}
                     serviceViews={service?.views_count}
+                    serviceId={service?.id}
                 />
             </ServiceLayout>
         </>

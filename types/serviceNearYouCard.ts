@@ -21,7 +21,7 @@ export interface ServiceNearYouCardProps {
     serviceDescription?: string;
     discountOn?: string;
     highlights?: string[];
-    serviceId?: number;
+    serviceId?: string;
     serviceSlug?: string;
     onServiceClick?: (service: any) => void;
     slug?: string;
