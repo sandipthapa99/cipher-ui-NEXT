@@ -1,14 +1,24 @@
 import { SearchBody } from "@components/SearchTask/searchBody";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { Col, Row } from "react-bootstrap";
 import { SearchBodyData } from "staticData/searchBody";
 
 const WelcomeUser = () => {
+    const { data: profileDetails } = useGetProfile();
     return (
         <>
             <Row className="user-stats">
                 <Col lg={7} md={6} className="user-details">
                     <div className="user-name">
-                        <h1>Hi Harry!</h1>
+                        <h2>
+                            Hi{" "}
+                            <span>
+                                {profileDetails
+                                    ? profileDetails?.full_name
+                                    : "user"}
+                            </span>
+                            ,
+                        </h2>
                         <h1>Welcome Back!</h1>
                     </div>
                 </Col>

@@ -21,6 +21,6 @@ COPY --from=builder /my-project/.next ./.next
 COPY --from=builder /my-project/node_modules ./node_modules
 COPY --from=builder /my-project/package.json ./package.json
 
-EXPOSE 3004
-ENV PORT 3004
+EXPOSE 8021
+ENV PORT 8021
 CMD ["yarn", "start"]
