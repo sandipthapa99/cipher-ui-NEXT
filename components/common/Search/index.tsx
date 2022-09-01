@@ -1,10 +1,15 @@
-import { faChevronDown, faSearch } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faChevronDown,
+    faSearch,
+    faWarning,
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createStyles, Select } from "@mantine/core";
+import { Alert, createStyles, Select } from "@mantine/core";
 import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import type { Tasker } from "hooks/tasker/use-tasker";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
 
@@ -55,13 +60,14 @@ const searchData = [
     { label: "Talent", value: "talent" },
 ];
 export const Search = () => {
+    const [searchError, setSearchError] = useState<string | undefined>();
     const router = useRouter();
     const setSearchedTaskers = useSetSearchedTaskers();
     const setSearchQuery = useSetSearchQuery();
     const setSearchedServices = useSetSearchedServices();
     const { classes } = useStyles();
     const { mutate } = useSearchDashboard();
-    const { getFieldProps, handleSubmit } = useFormik<{
+    const { getFieldProps, handleSubmit, values, setFieldValue } = useFormik<{
         scope: SearchScope;
         q: string;
     }>({
@@ -72,6 +78,11 @@ export const Search = () => {
         onSubmit: (values) => {
             mutate(values, {
                 onSuccess: ({ services, taskers }) => {
+                    if (services.length === 0 && taskers.length === 0) {
+                        setSearchError(
+                            `No search result's found for ${values.q}`
+                        );
+                    }
                     if (services.length > 0 && taskers.length > 0) {
                         console.log(
                             "TODO: REDIRECT TO SEARCH TASK AND SERVICE PAGE"
@@ -100,30 +111,53 @@ export const Search = () => {
         },
     });
     return (
-        <div className="search-bar">
-            <form onSubmit={handleSubmit}>
-                <div className="search_box">
-                    <Select
-                        placeholder="All"
-                        variant="unstyled"
-                        className={classes.selectField}
-                        data={searchData}
-                        rightSection={<FontAwesomeIcon icon={faChevronDown} />}
-                    />
-                    <div className="search_field">
-                        <input
-                            type="text"
-                            className="input"
-                            placeholder="Find your services"
-                            {...getFieldProps("q")}
+        <>
+            <div className="search-bar">
+                <form onSubmit={handleSubmit}>
+                    <div className="search_box">
+                        <Select
+                            value={values.scope}
+                            placeholder="All"
+                            variant="unstyled"
+                            className={classes.selectField}
+                            data={searchData}
+                            rightSection={
+                                <FontAwesomeIcon icon={faChevronDown} />
+                            }
+                            onChange={(value) => setFieldValue("scope", value)}
                         />
+                        <div className="search_field">
+                            <input
+                                type="text"
+                                className="input"
+                                placeholder={
+                                    values.scope === SearchScope.ALL
+                                        ? "Find anything"
+                                        : `Find your ${values.scope}`
+                                }
+                                {...getFieldProps("q")}
+                            />
+                        </div>
+                        <Button className="search-btn" type="submit">
+                            <FontAwesomeIcon icon={faSearch} className="icon" />
+                        </Button>
                     </div>
-                    <Button className="search-btn" type="submit">
-                        <FontAwesomeIcon icon={faSearch} className="icon" />
-                    </Button>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+            {searchError && (
+                <Alert
+                    title="Search failed"
+                    icon={<FontAwesomeIcon icon={faWarning} />}
+                    color="red"
+                    withCloseButton
+                    closeButtonLabel="Close"
+                    onClose={() => setSearchError(undefined)}
+                    sx={{ marginBottom: "2rem" }}
+                >
+                    {searchError}
+                </Alert>
+            )}
+        </>
     );
 };
 export const useStyles = createStyles(() => ({
