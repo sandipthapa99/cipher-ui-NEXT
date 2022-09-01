@@ -1,6 +1,6 @@
 export interface SelectOptionProps {
     id: number | string;
-    value: number | string;
+    value: number | string | boolean;
     label: string;
 }
 

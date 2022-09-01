@@ -70,6 +70,19 @@ const AddService: NextPage<{
         },
     ];
 
+    const ActiveType = [
+        {
+            id: 1,
+            value: true,
+            label: "true",
+        },
+        {
+            id: 2,
+            value: false,
+            label: "false",
+        },
+    ];
+
     const [showVariable, setShowVariable] = useState({
         showBudget: false,
         showTime: false,
@@ -493,6 +506,14 @@ const AddService: NextPage<{
                                             error={errors.city}
                                             touch={touched.city}
                                             options={renderCityOptions}
+                                        />
+
+                                        <SelectInputField
+                                            name={"is_active"}
+                                            labelName="Is active?"
+                                            error={errors.is_active}
+                                            touch={touched.is_active}
+                                            options={ActiveType}
                                         />
 
                                         <AddRequirements
