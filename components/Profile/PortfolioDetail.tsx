@@ -5,7 +5,7 @@ import { useGetPortfolioById } from "hooks/profile/getProfileById";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Carousel, Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -66,6 +66,19 @@ PortfolioProps) => {
                             </Col>
                         </Row>
                     </div>
+                    <Carousel>
+                        {portfolioDetail?.images.map((image: any) => (
+                            <Carousel.Item key={image.id}>
+                                <Image
+                                    src={image.media}
+                                    alt="portfolio-img"
+                                    height={500}
+                                    objectFit="contain"
+                                    width={800}
+                                />
+                            </Carousel.Item>
+                        ))}
+                    </Carousel>
                     {portfolioDetail?.image ? (
                         <Image
                             src={portfolioDetail?.images}

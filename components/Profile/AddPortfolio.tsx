@@ -97,14 +97,15 @@ const AddPortfolio = ({
                 error.message;
             },
         });
-
+    console.log("data=", imageId, fileId);
     const onCreatePortfolio = (data: any, actions: any) => {
         const newData = { ...data, images: imageId, files: fileId };
+        console.log("new data=", newData);
         mutate(newData, {
             onSuccess: (data: any) => {
                 toast.success("Portfolio added successfully.");
                 // actions.resetForm();
-                queryClient.invalidateQueries(["tasker-portfolio"]);
+                //queryClient.invalidateQueries(["tasker-portfolio"]);
             },
             onError: (error: any) => {
                 const {

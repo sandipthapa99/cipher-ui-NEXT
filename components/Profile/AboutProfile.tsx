@@ -147,9 +147,9 @@ const AboutProfile = () => {
                                                   >
                                                       <Image
                                                           src={
-                                                              info?.images
-                                                                  ? `/groupB.png`
-                                                                  : "/groupB.png"
+                                                              info?.images[0]
+                                                                  ?.media ??
+                                                              "/userprofile/image.svg"
                                                           }
                                                           layout="fill"
                                                           objectFit="cover"
