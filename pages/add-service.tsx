@@ -120,7 +120,8 @@ const AddService: NextPage<{
         setChecked(!checked);
     };
 
-    const serviceImageMutation = useForm("/task/service-image/");
+    // const serviceImageMutation = useForm("/task/service-image/");
+    const serviceImageMutation = useForm("/task/filestore/");
     const serviceMutation = useForm("/task/service/");
 
     // const [onSearchCategory, setOnSearchCategory] = useState<string>("");
@@ -225,7 +226,12 @@ const AddService: NextPage<{
                                 if (values.images.some((val) => val?.path)) {
                                     values.images.forEach((file) => {
                                         if (file?.path)
-                                            formData.append("images", file);
+                                            formData.append("medias", file);
+                                        formData.append("media_type", "image");
+                                        formData.append(
+                                            "placeholder",
+                                            "new image"
+                                        );
                                     });
                                     onCreateThumbnail(
                                         formData,

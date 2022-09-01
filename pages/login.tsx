@@ -119,9 +119,9 @@ const Login = () => {
                                 /> */}
 
                                 <FacebookLogin />
-                                <Col>
+                                <div className="google-login-btn">
                                     <Google />
-                                </Col>
+                                </div>
                             </Form>
                         )}
                     </Formik>

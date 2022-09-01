@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
+import { useEffect, useState } from "react";
 interface Location {
     asn: string;
     city: string;
@@ -31,17 +32,33 @@ interface Location {
 }
 
 export const useLocation = () => {
-    return useQuery<Location>(["location"], async () => {
-        try {
-            const { data } = await axios.get<Location>(
-                `https://ipapi.co/json/`
-            );
-            return data;
-        } catch (error) {
-            if (error instanceof AxiosError) {
-                throw new Error(error?.response?.data?.message);
+    const [ipAddress, setIpaddress] = useState("");
+    const getIpAddress = async () => {
+        const res = await fetch("https://api64.ipify.org/?format=json");
+        const data = await res.json();
+        setIpaddress(data?.ip);
+    };
+    useEffect(() => {
+        getIpAddress();
+    }, []);
+    console.log("abc", ipAddress);
+    return useQuery<Location>(
+        ["location"],
+        async () => {
+            try {
+                const { data } = await axios.get<Location>(
+                    `http://api.ipapi.com/api/${ipAddress}?access_key=782e6f574a0da6651331708f12c8caf1`
+                );
+                return data;
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    throw new Error(error?.response?.data?.message);
+                }
+                throw new Error("Something went wrong");
             }
-            throw new Error("Something went wrong");
+        },
+        {
+            enabled: ipAddress !== "",
         }
-    });
+    );
 };

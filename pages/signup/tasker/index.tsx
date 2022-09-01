@@ -2,15 +2,38 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import { faCommentAltCaptions } from "@fortawesome/pro-duotone-svg-icons";
 import { Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
+import type { ChangeEvent } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
-import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
+import {
+    clientBothSignUpSchema,
+    clientEmailSignUpSchema,
+    clientPhoneSignUpSchema,
+} from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const SignUpAsTasker = () => {
     const { mutate, isLoading } = useSignup();
+    const [enteredData, setEnteredData] = useState("email");
+
+    const getValidationSchema = () => {
+        if (enteredData === "email") return clientEmailSignUpSchema;
+        if (enteredData === "phone") return clientPhoneSignUpSchema;
+        return clientBothSignUpSchema;
+    };
+
+    const handleFieldChange = (
+        e: ChangeEvent<HTMLInputElement>,
+        fieldName: string,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setEnteredData(fieldName);
+        setFieldValue(fieldName, e.currentTarget.value);
+    };
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
@@ -23,25 +46,43 @@ const SignUpAsTasker = () => {
             <div>
                 <Formik
                     initialValues={ClientSignUpFormData}
-                    validationSchema={clientSignUpSchema}
-                    onSubmit={async (values) => {
-                        const { email, password, confirmPassword } = values;
+                    validationSchema={getValidationSchema()}
+                    onSubmit={async (values, actions) => {
+                        const { password, confirmPassword, phone, email } =
+                            values;
+
+                        const payloadValue = () => {
+                            if (!phone)
+                                return { email, password, confirmPassword };
+
+                            if (!email)
+                                return { phone, password, confirmPassword };
+
+                            return {
+                                phone,
+                                password,
+                                confirmPassword,
+                                email,
+                            };
+                        };
                         mutate(
-                            { email, password, confirmPassword },
+                            { ...payloadValue() },
                             {
                                 onError: (error) => {
                                     toast.error(error.message);
+                                    actions.resetForm();
                                 },
                                 onSuccess: () => {
                                     toast.success(
                                         "Please check your email for verification link"
                                     );
+                                    actions.resetForm();
                                 },
                             }
                         );
                     }}
                 >
-                    {({ isSubmitting, errors, touched }) => (
+                    {({ isSubmitting, errors, touched, setFieldValue }) => (
                         <Form className="login-form">
                             <div className="form-group"></div>
                             {/* <RadioField
@@ -70,19 +111,25 @@ const SignUpAsTasker = () => {
                             <InputField
                                 type="email"
                                 name="email"
-                                labelName="Email or phone number"
+                                labelName="Email"
+                                onChange={(e) =>
+                                    handleFieldChange(e, "email", setFieldValue)
+                                }
                                 touch={touched.email}
                                 error={errors.email}
                                 placeHolder="example@example.com"
                             />
-                            {/* <InputField
+                            <InputField
                                 type="text"
-                                name="phoneNumber"
+                                name="phone"
                                 labelName="Phone Number"
-                                touch={touched.phoneNumber}
-                                error={errors.phoneNumber}
-                                placeHolder="+00 420 420 4200"
-                            /> */}
+                                onChange={(e) =>
+                                    handleFieldChange(e, "phone", setFieldValue)
+                                }
+                                touch={touched.phone}
+                                error={errors.phone}
+                                placeHolder="+9779805284906"
+                            />
                             <PasswordField
                                 type="password"
                                 name="password"
