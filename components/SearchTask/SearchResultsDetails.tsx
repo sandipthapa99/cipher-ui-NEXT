@@ -54,7 +54,7 @@ const SearchResultsDetail = ({
     const handleClose = () => setShow(false);
     const setBookNowDetails = useSetBookNowDetails();
     const reviewsContent = getReviews();
-    const allMyServicePackages: any[] = [];
+
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
@@ -119,6 +119,7 @@ const SearchResultsDetail = ({
             is_recommended: boolean;
         }>;
     }>(["my-service-packages"], "/task/service-package/");
+    console.log(myServicePackage?.data?.result);
 
     const router = useRouter();
     const servSlug = router.query.slug;
