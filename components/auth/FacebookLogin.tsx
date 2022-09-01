@@ -16,7 +16,7 @@ export const FacebookLogin = () => {
                     onClick={renderProps.onClick}
                     name="Sign in with Facebook"
                     className="facebook"
-                    icon="/illustrations/fb.svg"
+                    icon="faFacebook"
                 />
             )}
             callback={(response) => console.log(response)}
