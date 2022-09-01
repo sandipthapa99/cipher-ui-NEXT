@@ -26,8 +26,8 @@ const ServiceAside = ({ service, query, children }: ServiceAside) => {
                             discount={20} // To do form api
                             image={
                                 Array.isArray(task.images)
-                                    ? task.images[0].image
-                                    : task.images
+                                    ? task.images[0]?.image
+                                    : task?.images
                             }
                             serviceProvider={task?.created_by?.full_name}
                         />
