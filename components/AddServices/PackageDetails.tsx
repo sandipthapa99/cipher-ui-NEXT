@@ -105,7 +105,7 @@ export const PackageDetails = ({
         no_of_revision: 0,
         discount_type: "",
         // revision_price: "",
-        // revision_day: "",
+        revision_day: "1",
         service: "",
         discount_value: 0,
         is_recommended: false,
