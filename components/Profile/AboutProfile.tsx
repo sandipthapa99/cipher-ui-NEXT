@@ -85,6 +85,7 @@ const AboutProfile = () => {
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
 
     const [hovered, setHovered] = useState<null | number>(null);
+
     return (
         <>
             <div className="about-profile">
@@ -102,7 +103,7 @@ const AboutProfile = () => {
                             }}
                         />
                     </div>
-                    {/* <AddPortfolio
+                    <AddPortfolio
                         show={showAddPortfolioModal}
                         setShowAddPortfolioModal={setShowAddPortfolioModal}
                         handleClose={() => {
@@ -111,7 +112,7 @@ const AboutProfile = () => {
                         }}
                         id={id}
                         isEditProfile={isEditProfile}
-                    /> */}
+                    />
                     <PortfolioDetails
                         show={showPortfolioDetails}
                         setShowPortfolioDetails={setShowPortfolioDetails}

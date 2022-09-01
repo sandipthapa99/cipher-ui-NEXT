@@ -150,10 +150,8 @@ const AccountForm = () => {
                                 : "",
                         skill: "",
                         experience_level: profile?.experience_level ?? "",
-                        active_hour_start:
-                            new Date(`2022-09-24 ${start}`) ?? "",
-                        active_hour_end:
-                            new Date(`2022-09-24 ${endTime}`) ?? "",
+                        active_hour_start: "" ?? "",
+                        active_hour_end: "" ?? "",
                         hourly_rate: profile?.hourly_rate ?? "",
                         user_type: userType ?? "",
                         country: profile?.country ?? "",
