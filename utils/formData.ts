@@ -29,11 +29,11 @@ export const loginFormData: LoginValuesProps = {
 export const ClientSignUpFormData: ClientSignUpValueProps = {
     // firstName: "",
     // lastName: "",
-    email: "",
+    // email: "",
     // phoneNumber: "",
     password: "",
     confirmPassword: "",
-    phone: "",
+    // phone: "",
     // gender: "male",
     // isAgree: true,
     // addToNewsletter: true,

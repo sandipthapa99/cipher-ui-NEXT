@@ -2,6 +2,7 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import { faCommentAltCaptions } from "@fortawesome/pro-duotone-svg-icons";
 import { Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
 import type { ChangeEvent } from "react";
@@ -46,19 +47,36 @@ const SignUpAsTasker = () => {
                 <Formik
                     initialValues={ClientSignUpFormData}
                     validationSchema={getValidationSchema()}
-                    onSubmit={async (values) => {
-                        const { email, password, confirmPassword, phone } =
+                    onSubmit={async (values, actions) => {
+                        const { password, confirmPassword, phone, email } =
                             values;
+
+                        const payloadValue = () => {
+                            if (!phone)
+                                return { email, password, confirmPassword };
+
+                            if (!email)
+                                return { phone, password, confirmPassword };
+
+                            return {
+                                phone,
+                                password,
+                                confirmPassword,
+                                email,
+                            };
+                        };
                         mutate(
-                            { email, password, confirmPassword, phone },
+                            { ...payloadValue() },
                             {
                                 onError: (error) => {
                                     toast.error(error.message);
+                                    actions.resetForm();
                                 },
                                 onSuccess: () => {
                                     toast.success(
                                         "Please check your email for verification link"
                                     );
+                                    actions.resetForm();
                                 },
                             }
                         );
