@@ -8,7 +8,7 @@ import { useCallback, useEffect } from "react";
 export const usePageExit = (onExit: () => void) => {
     const router = useRouter();
     const handleRouteChangeStart = useCallback(async () => {
-        new Promise((resolve, reject) => setTimeout(resolve, 3000)).then(() => {
+        new Promise((resolve, reject) => setTimeout(resolve, 5000)).then(() => {
             onExit();
         });
     }, [onExit]);

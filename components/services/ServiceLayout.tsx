@@ -1,7 +1,14 @@
 import FullPageLoader from "@components/common/FullPageLoader";
+import {
+    useClearSearchedServices,
+    useClearSearchQuery,
+    useSearchedServices,
+    useSearchQuery,
+} from "@components/common/Search/searchStore";
 import Footer from "@components/Footer";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
+import { Highlight, Space } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { ReactNode } from "react";
@@ -24,6 +31,10 @@ export const useSearchService = (query: string) => {
 
 const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
+    const searchedServices = useSearchedServices();
+    const clearSearchQuery = useClearSearchQuery();
+    const clearSearchedServices = useClearSearchedServices();
+    const searchQuery = useSearchQuery();
     const specialOfferDetails = useSpecialOfferDetails();
     const checkSpecialOffer = useCheckSpecialOffer();
     // console.log(specialOfferDetails, checkSpecialOffer);
@@ -34,16 +45,31 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     );
 
     const { data: searchData = [] } = useSearchService(query);
+    const handleSearchChange = (query: string) => {
+        clearSearchQuery();
+        clearSearchedServices();
+        setQuery(query);
+    };
 
     if (isLoading || !data) return <FullPageLoader />;
     return (
         <Layout title="Find Services | Cipher">
             <Container fluid="xl">
-                <SearchCategory onChange={setQuery} />
+                <SearchCategory onChange={handleSearchChange} />
+                {searchQuery?.query && (
+                    <Highlight highlight={searchQuery.query}>
+                        {`Showing search results for ${searchQuery.query}`}
+                    </Highlight>
+                )}
+                <Space h={10} />
                 <ServiceAside
                     query={query}
                     service={
-                        checkSpecialOffer ? specialOfferDetails : searchData
+                        checkSpecialOffer
+                            ? specialOfferDetails
+                            : searchedServices.length > 0
+                            ? searchedServices
+                            : searchData
                     }
                 >
                     {children}

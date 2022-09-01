@@ -128,6 +128,14 @@ export function UpperHeader() {
                                 </>
                             )}
                             {user && (
+                                <button
+                                    onClick={toggleShowPostTaskModal}
+                                    className="nav-cta-btn"
+                                >
+                                    Post Task
+                                </button>
+                            )}
+                            {user && (
                                 <div
                                     ref={profileModalRef}
                                     className="user-profile"
@@ -157,15 +165,6 @@ export function UpperHeader() {
                                     </span>
                                     {showProfileModal && <ProfileModel />}
                                 </div>
-                            )}
-
-                            {user && (
-                                <button
-                                    onClick={toggleShowPostTaskModal}
-                                    className="nav-cta-btn"
-                                >
-                                    Post Task
-                                </button>
                             )}
                         </div>
                     </Navbar>
