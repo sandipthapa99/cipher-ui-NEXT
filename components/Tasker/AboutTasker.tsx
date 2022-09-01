@@ -189,6 +189,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                         </Col>
                     </Row>
                 </div>
+
                 <div className="type certification">
                     <div className="title-wrapper d-flex justify-content-between">
                         {/* <h2 className="heading-title">Community activity</h2> */}

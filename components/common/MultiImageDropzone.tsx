@@ -33,15 +33,12 @@ const MultiImageDropzone = ({
     name,
     maxSize,
     minSize,
-    labelName,
-    textMuted,
     accept = ["image/jpg", "image/png", "image/jpeg"],
     multiple = false,
     //   maxSize = 1,
     editImage,
     imagePreview,
     error,
-    touch,
     type,
     style,
     maxFiles,
@@ -51,7 +48,6 @@ const MultiImageDropzone = ({
 }: MultiFileDropzoneProps & CustomDropZoneProps & Partial<DropzoneProps>) => {
     const theme = useMantineTheme();
     const { classes } = useStyles();
-    console.log("image preview", imagePreview);
 
     return (
         <Field name={name}>
@@ -379,7 +375,7 @@ const MultiImageDropzone = ({
                                         }
                                     );
                                     form.setFieldValue(name, [
-                                        ...form.values.image,
+                                        ...form.values.images,
                                         ...files,
                                     ]);
                                     imagePreview &&

@@ -146,10 +146,10 @@
 
             .user-profile {
                 position: relative;
-                margin-right: 1.6rem;
+                margin-left: 1.6rem;
 
                 @include respond(md) {
-                    margin-right: 2rem;
+                    margin-left: 2rem;
                 }
 
                 .profile-btn {

@@ -12,7 +12,6 @@ import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import type { SelectOptionProps } from "types/selectInputField";
 import { axiosClient } from "utils/axiosClient";
-import { addServiceFormSchema } from "utils/formValidation/addServiceFormValidation";
 
 import { ServiceVideo } from "./ServiceVideo";
 
@@ -102,10 +101,10 @@ export const PackageDetails = ({
         description: "",
         service_offered: "",
         budget: 0,
-        no_of_revision: 0,
+        no_of_revision: 0, //TODO:Remove This from api
         discount_type: "",
-        // revision_price: "",
-        // revision_day: "",
+        // !revision_price: "",
+        revision_day: "1", //FixMe:Change this to number
         service: "",
         discount_value: 0,
         is_recommended: false,

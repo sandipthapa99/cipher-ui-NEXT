@@ -1,5 +1,6 @@
 export interface ClientSignUpValueProps {
-    email: string;
+    email?: string;
     password: string;
     confirmPassword: string;
+    phone?: string;
 }

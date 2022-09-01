@@ -56,8 +56,8 @@ export interface UserProfileProps {
             description: string;
             issued_date: string;
             credential_url: string;
-            image: string;
-            file: string;
+            images: string;
+            files: string;
         }[];
     };
     profileData: {
