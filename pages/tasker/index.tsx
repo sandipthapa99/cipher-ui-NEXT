@@ -57,6 +57,11 @@ const TaskerPage = () => {
             });
         setActiveTaskIdx(undefined);
     };
+    const handleSearchChange = (query: string) => {
+        clearSearchQuery();
+        clearSearchedTaskers();
+        setSearchQuery(query);
+    };
     useEffect(() => {
         const { taskerId } = router.query;
         if (taskerId !== undefined && typeof taskerId === "string") {
@@ -73,7 +78,7 @@ const TaskerPage = () => {
     return (
         <Layout>
             <Container fluid="xl" className="px-5">
-                <SearchCategory onChange={setSearchQuery} />
+                <SearchCategory onChange={handleSearchChange} />
                 <Row className="gx-5">
                     <Col md={4}>
                         <UserTaskCardList
