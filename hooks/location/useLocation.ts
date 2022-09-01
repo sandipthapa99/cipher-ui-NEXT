@@ -34,9 +34,13 @@ interface Location {
 export const useLocation = () => {
     const [ipAddress, setIpaddress] = useState("");
     const getIpAddress = async () => {
-        const res = await fetch("https://api64.ipify.org/?format=json");
-        const data = await res.json();
-        setIpaddress(data?.ip);
+        try {
+            const res = await fetch("https://api64.ipify.org/?format=json");
+            const data = await res.json();
+            setIpaddress(data?.ip);
+        } catch (err) {
+            console.log("Error here");
+        }
     };
     useEffect(() => {
         getIpAddress();
