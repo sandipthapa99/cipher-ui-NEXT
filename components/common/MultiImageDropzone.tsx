@@ -51,7 +51,6 @@ const MultiImageDropzone = ({
 }: MultiFileDropzoneProps & CustomDropZoneProps & Partial<DropzoneProps>) => {
     const theme = useMantineTheme();
     const { classes } = useStyles();
-    console.log("image preview", imagePreview);
 
     return (
         <Field name={name}>
