@@ -3,6 +3,7 @@ import "../styles/bundle.scss";
 import "react-toastify/dist/ReactToastify.css";
 import "@smastrom/react-rating/style.css";
 
+// import "../public/firebase-messaging-sw";
 import { RouterTransition } from "@components/common/RouterTransition";
 import { LoginPrompt } from "@components/model/LoginPrompt";
 import { MantineProvider } from "@mantine/core";
@@ -32,17 +33,6 @@ const UserLoadingOverlay = dynamic(
     { ssr: false }
 );
 function MyApp({ Component, pageProps }: CustomAppProps) {
-    // useEffect(() => {
-    //     console.log("before-firebase-token");
-    //     getFirebaseToken();
-    // }, []);
-    // useEffect(() => {
-    //     console.log("before-onmessgaelistener");
-    //     onMessageListener()
-    //         .then((payload: any) => console.log(payload))
-    //         .catch((err: any) => console.log(err));
-    // });
-
     const [queryClient] = useState(
         () =>
             new QueryClient({
