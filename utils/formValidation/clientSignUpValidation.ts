@@ -22,34 +22,26 @@ const passwordValidate = Yup.string()
 const genderValidate = Yup.string().required("Required Field");
 
 export const clientEmailSignUpSchema = Yup.object().shape({
-    // firstName: stringReqOnly,
-    // lastName: stringReqOnly,
     email: emailValidate,
-    // phoneNumber: phoneValidate,
     password: passwordValidate,
-    confirmPassword: Yup.string().oneOf(
-        [Yup.ref("password")],
-        "Passwords do not match"
-    ),
-    // gender: genderValidate,
-    // isAgree: isCheckValidate,
+    confirmPassword: Yup.string()
+        .required()
+        .oneOf([Yup.ref("password")], "Passwords do not match"),
 });
 
 export const clientPhoneSignUpSchema = Yup.object().shape({
     phone: phoneValidate,
     password: passwordValidate,
-    confirmPassword: Yup.string().oneOf(
-        [Yup.ref("password")],
-        "Passwords do not match"
-    ),
+    confirmPassword: Yup.string()
+        .required()
+        .oneOf([Yup.ref("password")], "Passwords do not match"),
 });
 
 export const clientBothSignUpSchema = Yup.object().shape({
     email: emailValidate,
     phone: phoneValidate,
     password: passwordValidate,
-    confirmPassword: Yup.string().oneOf(
-        [Yup.ref("password")],
-        "Passwords do not match"
-    ),
+    confirmPassword: Yup.string()
+        .required()
+        .oneOf([Yup.ref("password")], "Passwords do not match"),
 });

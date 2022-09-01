@@ -4,6 +4,8 @@ import PasswordField from "@components/common/PasswordField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
+import type { ChangeEvent } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
 import {
@@ -15,6 +17,22 @@ import { isSubmittingClass } from "utils/helpers";
 
 const SignUpAsTasker = () => {
     const { mutate, isLoading } = useSignup();
+    const [enteredData, setEnteredData] = useState("email");
+
+    const getValidationSchema = () => {
+        if (enteredData === "email") return clientEmailSignUpSchema;
+        if (enteredData === "phone") return clientPhoneSignUpSchema;
+        return clientBothSignUpSchema;
+    };
+
+    const handleFieldChange = (
+        e: ChangeEvent<HTMLInputElement>,
+        fieldName: string,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setEnteredData(fieldName);
+        setFieldValue(fieldName, e.currentTarget.value);
+    };
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
@@ -27,11 +45,12 @@ const SignUpAsTasker = () => {
             <div>
                 <Formik
                     initialValues={ClientSignUpFormData}
-                    validationSchema={clientSignUpSchema}
+                    validationSchema={getValidationSchema()}
                     onSubmit={async (values) => {
-                        const { email, password, confirmPassword } = values;
+                        const { email, password, confirmPassword, phone } =
+                            values;
                         mutate(
-                            { email, password, confirmPassword },
+                            { email, password, confirmPassword, phone },
                             {
                                 onError: (error) => {
                                     toast.error(error.message);
@@ -45,9 +64,8 @@ const SignUpAsTasker = () => {
                         );
                     }}
                 >
-                    {({ isSubmitting, errors, touched }) => (
+                    {({ isSubmitting, errors, touched, setFieldValue }) => (
                         <Form className="login-form">
-                            <pre>{JSON.stringify(errors, null, 4)}</pre>
                             <div className="form-group"></div>
                             {/* <RadioField
                                 type="radio"
@@ -76,6 +94,9 @@ const SignUpAsTasker = () => {
                                 type="email"
                                 name="email"
                                 labelName="Email"
+                                onChange={(e) =>
+                                    handleFieldChange(e, "email", setFieldValue)
+                                }
                                 touch={touched.email}
                                 error={errors.email}
                                 placeHolder="example@example.com"
@@ -84,6 +105,9 @@ const SignUpAsTasker = () => {
                                 type="text"
                                 name="phone"
                                 labelName="Phone Number"
+                                onChange={(e) =>
+                                    handleFieldChange(e, "phone", setFieldValue)
+                                }
                                 touch={touched.phone}
                                 error={errors.phone}
                                 placeHolder="+9779805284906"

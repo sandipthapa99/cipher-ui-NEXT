@@ -33,6 +33,7 @@ export const ClientSignUpFormData: ClientSignUpValueProps = {
     // phoneNumber: "",
     password: "",
     confirmPassword: "",
+    phone: "",
     // gender: "male",
     // isAgree: true,
     // addToNewsletter: true,
