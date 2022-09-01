@@ -10,6 +10,7 @@ import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { useLocation } from "hooks/location/useLocation";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useWeather } from "hooks/weather/useWeather";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,6 +30,7 @@ const Header = () => {
 
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
+    const { data: profileDetails } = useGetProfile();
 
     return (
         <>
@@ -141,19 +143,21 @@ const Header = () => {
                                 </a>
                             </Link>
                         )}
-
-                        <div>
-                            <a
-                                className="btn location-btn d-none d-md-inline-block"
-                                onClick={() => setNotopen(!notopen)}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faBell}
-                                    className="svg-icon"
-                                />
-                            </a>
-                            {notopen && <NotificationDropdown />}
-                        </div>
+                        {/* not */}
+                        {profileDetails ? (
+                            <div>
+                                <a
+                                    className="btn location-btn d-none d-md-inline-block"
+                                    onClick={() => setNotopen(!notopen)}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faBell}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                                {notopen && <NotificationDropdown />}
+                            </div>
+                        ) : null}
                     </Navbar>
                 </Container>
             </header>
