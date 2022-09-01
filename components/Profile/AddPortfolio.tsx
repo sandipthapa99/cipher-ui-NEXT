@@ -6,6 +6,7 @@ import MultiFileDropzone from "@components/common/MultiFileDropzone";
 import MultiImageDropzone from "@components/common/MultiImageDropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
+import type { FormikHelpers } from "formik";
 import { Form, Formik } from "formik";
 import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
@@ -37,8 +38,8 @@ const AddPortfolio = ({
     isEditProfile,
 }: AddPortfolioModalProps) => {
     const { mutate } = useForm(`/tasker/portfolio/`);
+    const { mutate: fileStore, data: fileId } = useForm(`/task/filestore/`);
     const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
-    const [imageSrc, setImageSrc] = useState();
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-portfolio",
@@ -55,6 +56,49 @@ const AddPortfolio = ({
     }
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
+
+    const onCreateThumbnail = (
+        formData: FormData,
+        values: AddPortfolioProps,
+        actions: FormikHelpers<AddPortfolioProps>
+    ) =>
+        fileStore(formData, {
+            onSuccess: (data: any) => {
+                console.log("sdfasdasdasd", data);
+                const dataToSend = {
+                    ...JSON.parse(JSON.stringify(values)),
+                    placeholder: "new",
+                    media_type: "video",
+                    medias: Object.values(data.data),
+                };
+                delete dataToSend.title;
+                delete dataToSend.description;
+                delete dataToSend.issued_date;
+                delete dataToSend.file;
+
+                onCreateService(dataToSend, actions);
+            },
+            onError: (error) => {
+                error.message;
+            },
+        });
+
+    const onCreateService = (
+        data: any,
+        actions: FormikHelpers<AddPortfolioProps>
+    ) => {
+        mutate(data, {
+            onSuccess: (data: any) => {
+                toast.success("Portfolio added successfully.");
+                actions.resetForm();
+            },
+            onError: (error: any) => {
+                const {
+                    data: { message },
+                } = error.response;
+            },
+        });
+    };
 
     return (
         <div>
@@ -77,7 +121,7 @@ const AddPortfolio = ({
                                 : AddPortfolioFormData
                         }
                         validationSchema={addPortfolioSchema}
-                        onSubmit={async (values) => {
+                        onSubmit={async (values, actions) => {
                             const formData: FormData = new FormData();
                             let newValue;
                             console.log("val", values);
@@ -116,6 +160,19 @@ const AddPortfolio = ({
                             }
 
                             console.log("valuews=", values, newValue);
+
+                            // const newData = {
+                            //     media_type: "video",
+                            //     placeholder: "new",
+                            //     // medias: newValue.image,
+                            // };
+                            // Object.entries(newData).forEach((entry) => {
+                            //     const [key, value] = entry;
+                            //     console.log("entry=", entry, key, value);
+
+                            //     formData.append(key, value);
+                            // });
+
                             if (values.image.some((val) => val?.path)) {
                                 values.image.forEach((file) => {
                                     if (file?.path)
@@ -124,20 +181,35 @@ const AddPortfolio = ({
                                 console.log("files for app=", values.image);
                                 // onCreateThumbnail(formData, values, actions);
                             }
-                            Object.entries(newValue).forEach((entry) => {
-                                const [key, value] = entry;
-                                console.log("entry=", entry, key, value);
+                            // Object.entries(newValue).forEach((entry) => {
+                            //     const [key, value] = entry;
+                            //     console.log("entry=", entry, key, value);
 
-                                if (
-                                    (entry[0] == "file" &&
-                                        isValidURL(entry[1])) ||
-                                    (entry[0] == "image" &&
-                                        isValidURL(entry[1]))
-                                ) {
-                                    return false;
-                                }
-                                formData.append(key, value);
-                            });
+                            //     if (
+                            //         (entry[0] == "file" &&
+                            //             isValidURL(entry[1])) ||
+                            //         (entry[0] == "image" &&
+                            //             isValidURL(entry[1]))
+                            //     ) {
+                            //         return false;
+                            //     }
+                            //     formData.append(key, value);
+                            // });
+
+                            // Object.entries(newValue).forEach((entry) => {
+                            //     const [key, value] = entry;
+                            //     console.log("entry=", entry, key, value);
+
+                            //     if (
+                            //         (entry[0] == "file" &&
+                            //             isValidURL(entry[1])) ||
+                            //         (entry[0] == "image" &&
+                            //             isValidURL(entry[1]))
+                            //     ) {
+                            //         return false;
+                            //     }
+                            //     formData.append(key, value);
+                            // });
 
                             // formData.append("file", values.file);
                             // formData.append("image", values.image);
@@ -146,45 +218,45 @@ const AddPortfolio = ({
                                 values.file,
                                 values.image
                             );
-                            {
-                                editDetails && isEditProfile == true
-                                    ? editMutation(formData, {
-                                          onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
-                                              setShowAddPortfolioModal(false);
-                                              queryClient.invalidateQueries([
-                                                  "tasker-portfolio",
-                                              ]);
-                                              toast.success(
-                                                  "Portfolio updated successfully."
-                                              );
-                                          },
-                                          onError: async (error) => {
-                                              toast.error(error.message);
-                                          },
-                                      })
-                                    : mutate(formData, {
-                                          onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
-                                              setShowAddPortfolioModal(false);
-                                              queryClient.invalidateQueries([
-                                                  "tasker-portfolio",
-                                              ]);
-                                              toast.success(
-                                                  "Portfolio added successfully."
-                                              );
-                                          },
-                                          onError: async (error) => {
-                                              toast.error(error.message);
-                                          },
-                                      });
-                            }
+                            // {
+                            //     editDetails && isEditProfile == true
+                            //         ? editMutation(formData, {
+                            //               onSuccess: async () => {
+                            //                   console.log(
+                            //                       "submitted values",
+                            //                       values
+                            //                   );
+                            //                   setShowAddPortfolioModal(false);
+                            //                   queryClient.invalidateQueries([
+                            //                       "tasker-portfolio",
+                            //                   ]);
+                            //                   toast.success(
+                            //                       "Portfolio updated successfully."
+                            //                   );
+                            //               },
+                            //               onError: async (error) => {
+                            //                   toast.error(error.message);
+                            //               },
+                            //           })
+                            //         : mutate(formData, {
+                            //               onSuccess: async () => {
+                            //                   console.log(
+                            //                       "submitted values",
+                            //                       values
+                            //                   );
+                            //                   setShowAddPortfolioModal(false);
+                            //                   queryClient.invalidateQueries([
+                            //                       "tasker-portfolio",
+                            //                   ]);
+                            //                   toast.success(
+                            //                       "Portfolio added successfully."
+                            //                   );
+                            //               },
+                            //               onError: async (error) => {
+                            //                   toast.error(error.message);
+                            //               },
+                            //           });
+                            // }
                         }}
                     >
                         {({ isSubmitting, errors, touched, setFieldValue }) => (

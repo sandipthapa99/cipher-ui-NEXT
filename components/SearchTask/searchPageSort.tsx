@@ -8,6 +8,7 @@ import {
     faMagnifyingGlass,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { QueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { progressTask, taskHistory } from "staticData/task";
@@ -25,6 +26,10 @@ const SearchBySort = () => {
             />
         );
     };
+    const queryClient = new QueryClient();
+    const { data: abc } = queryClient.prefetchQuery("all-services");
+    console.log(abc);
+
     return (
         <Row className="recommended-tab">
             {/* <div className="tabs"> */}

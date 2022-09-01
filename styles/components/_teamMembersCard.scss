@@ -1,6 +1,9 @@
 .team-members-card {
     padding: 2.4rem;
     @include border();
+    &:focus-visible {
+        border: 0.1rem solid #211d4f;
+    }
 
     p {
         font: 400 1.2rem $poppins-font;

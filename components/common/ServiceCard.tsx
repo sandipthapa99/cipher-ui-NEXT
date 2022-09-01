@@ -39,7 +39,7 @@ const ServiceCard = ({
                         serviceCard.images.length > 0 ? (
                             <figure className="thumbnail-img">
                                 <Image
-                                    src={serviceCard.images[0].image}
+                                    src={serviceCard?.images[0]?.media}
                                     layout="fill"
                                     objectFit="cover"
                                     alt="servicecard-image"
