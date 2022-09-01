@@ -68,6 +68,7 @@ const AboutProfile = () => {
         ["tasker-portfolio"],
         "/tasker/portfolio/"
     );
+    console.log("portfolio data=", portfolioData);
 
     const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
@@ -135,7 +136,7 @@ const AboutProfile = () => {
                                   >
                                       <Row className="gx-5">
                                           <Col md={6} sm={12} xs={12}>
-                                              {info?.image ? (
+                                              {info?.images ? (
                                                   <figure
                                                       className="thumbnail-img"
                                                       onClick={() =>
@@ -145,7 +146,11 @@ const AboutProfile = () => {
                                                       }
                                                   >
                                                       <Image
-                                                          src={`${info?.image}`}
+                                                          src={
+                                                              info?.images[0]
+                                                                  ?.media ??
+                                                              "/userprofile/image.svg"
+                                                          }
                                                           layout="fill"
                                                           objectFit="cover"
                                                           alt="portfolio-image"
@@ -156,7 +161,7 @@ const AboutProfile = () => {
                                               )}
                                           </Col>
                                       </Row>
-                                      {info?.image === null ? (
+                                      {info?.images === null ? (
                                           <div className="portfolio-title">
                                               <p
                                                   className="text-center"

@@ -4,9 +4,9 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MultiFileDropzone from "@components/common/MultiFileDropzone";
 import MultiImageDropzone from "@components/common/MultiImageDropzone";
+import MultiPdfFileDropzone from "@components/common/MultiPdfFileDropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
-import type { FormikHelpers } from "formik";
 import { Form, Formik } from "formik";
 import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
@@ -38,13 +38,17 @@ const AddPortfolio = ({
     isEditProfile,
 }: AddPortfolioModalProps) => {
     const { mutate } = useForm(`/tasker/portfolio/`);
-    const { mutate: fileStore, data: fileId } = useForm(`/task/filestore/`);
+
+    const { mutate: fileStore, data: fileStoreData } =
+        useForm(`/task/filestore/`);
+
     const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-portfolio",
     ]);
-
+    const [imageId, setImageId] = useState<number[]>();
+    const [fileId, setfileId] = useState<number[]>();
     function isValidURL(str: any) {
         const regex =
             /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
@@ -60,39 +64,54 @@ const AddPortfolio = ({
     const onCreateThumbnail = (formData: FormData, values: any, actions: any) =>
         fileStore(formData, {
             onSuccess: (data: any) => {
-                console.log("sdfasdasdasd", data);
+                setImageId(data.data);
                 const dataToSend = {
-                    ...JSON.parse(JSON.stringify(values)),
-                    // placeholder: "new",
-                    // media_type: "video",
-                    // medias: Object.values(data.data),
+                    ...values,
                     images: data.data,
                     issued_date: values.issued_date
                         ? format(new Date(values.issued_date), "yyyy-MM-dd")
                         : null,
                 };
-                delete dataToSend.medias;
-                delete dataToSend.media_type;
-                delete dataToSend.placeholder;
-
+                delete dataToSend.imagePreviewUrl;
                 onCreatePortfolio(dataToSend, actions);
             },
             onError: (error) => {
                 error.message;
             },
         });
-
+    const onCreateFile = (formData: FormData, values: any, actions: any) =>
+        fileStore(formData, {
+            onSuccess: (data: any) => {
+                setfileId(data.data);
+                const dataToSend = {
+                    ...values,
+                    files: data.data,
+                    issued_date: values.issued_date
+                        ? format(new Date(values.issued_date), "yyyy-MM-dd")
+                        : null,
+                };
+                delete dataToSend.pdfPreviewUrl;
+                onCreatePortfolio(dataToSend, actions);
+            },
+            onError: (error) => {
+                error.message;
+            },
+        });
+    console.log("data=", imageId, fileId);
     const onCreatePortfolio = (data: any, actions: any) => {
-        console.log("create portfolio data", data);
-        mutate(data, {
+        const newData = { ...data, images: imageId, files: fileId };
+        console.log("new data=", newData);
+        mutate(newData, {
             onSuccess: (data: any) => {
                 toast.success("Portfolio added successfully.");
-                actions.resetForm();
+                // actions.resetForm();
+                //queryClient.invalidateQueries(["tasker-portfolio"]);
             },
             onError: (error: any) => {
                 const {
                     data: { message },
                 } = error.response;
+                console.log("error data=", error, message);
             },
         });
     };
@@ -112,36 +131,39 @@ const AddPortfolio = ({
                                       issued_date: parseISO(
                                           editDetails.issued_date
                                       ),
-                                      //   image: editDetails.image,
-                                      //   file: editDetails.file,
+                                      //   images: editDetails.images,
+                                      //   files: editDetails.files,
                                   }
                                 : AddPortfolioFormData
                         }
                         validationSchema={addPortfolioSchema}
                         onSubmit={async (values, actions) => {
                             const formData: FormData = new FormData();
-                            let newValue;
-                            console.log("values", values);
-                            delete values.imagePreviewUrl;
+                            const fileFormData: FormData = new FormData();
 
-                            if (!values.file) {
+                            let newValue;
+
+                            delete values.imagePreviewUrl;
+                            delete values.pdfPreviewUrl;
+
+                            if (!values.files) {
                                 const newvalidatedValue = {
                                     ...values,
                                     issued_date: format(
                                         new Date(values.issued_date),
                                         "yyyy-MM-dd"
                                     ),
-                                    file: "",
+                                    files: "",
                                 };
                                 newValue = newvalidatedValue;
-                            } else if (!values.image) {
+                            } else if (!values.images) {
                                 const newvalidatedValue = {
                                     ...values,
                                     issued_date: format(
                                         new Date(values.issued_date),
                                         "yyyy-MM-dd"
                                     ),
-                                    image: [],
+                                    images: [],
                                 };
                                 newValue = newvalidatedValue;
                             } else {
@@ -156,72 +178,44 @@ const AddPortfolio = ({
                                 newValue = newvalidatedValue;
                             }
 
-                            console.log("valuews=", values, newValue);
-
-                            const newData = {
-                                media_type: "video",
-                                placeholder: "new",
-                                // medias: newValue.image,
-                            };
-                            Object.entries(newData).forEach((entry) => {
-                                const [key, value] = entry;
-                                console.log("entry=", entry, key, value);
-
-                                formData.append(key, value);
-                            });
-
-                            if (values.image.some((val) => val?.path)) {
-                                values.image.forEach((file) => {
+                            if (values.images.some((val) => val?.path)) {
+                                console.log("for image", values);
+                                values.images.forEach((file) => {
                                     if (file?.path)
                                         formData.append("medias", file);
+                                    formData.append("media_type", "video");
+                                    formData.append("placeholder", "image");
                                 });
-                                console.log("files for app=", values.image);
                                 onCreateThumbnail(formData, values, actions);
                             }
+                            if (values.files.some((val) => val?.path)) {
+                                console.log("for pdf valuws", values);
 
-                            // Object.entries(newValue).forEach((entry) => {
-                            //     const [key, value] = entry;
-                            //     console.log("entry=", entry, key, value);
-
-                            //     if (
-                            //         (entry[0] == "file" &&
-                            //             isValidURL(entry[1])) ||
-                            //         (entry[0] == "image" &&
-                            //             isValidURL(entry[1]))
-                            //     ) {
-                            //         return false;
-                            //     }
-                            //     formData.append(key, value);
-                            // });
-
-                            // Object.entries(newValue).forEach((entry) => {
-                            //     const [key, value] = entry;
-                            //     console.log("entry=", entry, key, value);
-
-                            //     if (
-                            //         (entry[0] == "file" &&
-                            //             isValidURL(entry[1])) ||
-                            //         (entry[0] == "image" &&
-                            //             isValidURL(entry[1]))
-                            //     ) {
-                            //         return false;
-                            //     }
-                            //     formData.append(key, value);
-                            // });
-
-                            // formData.append("file", values.file);
-                            // formData.append("image", values.image);
-                            else {
-                                const getImagesId = values?.image.map(
+                                values.files.forEach((file) => {
+                                    // if (file?.path)
+                                    fileFormData.append("medias", file);
+                                    fileFormData.append("media_type", "pdf");
+                                    fileFormData.append(
+                                        "placeholder",
+                                        "pdf-file"
+                                    );
+                                });
+                                onCreateFile(fileFormData, values, actions);
+                            } else {
+                                const getImagesId = values?.images.map(
                                     (val) => val?.id
                                 );
+                                const getFileId = values?.files.map(
+                                    (val) => val?.id
+                                );
+                                console.log("getimagid", getImagesId);
                                 const dataToSend = {
                                     ...values,
-                                    file: values.file ? values.file : null,
+                                    files: values.files ? getFileId : null,
                                     description: values.description
                                         ? values.description
                                         : null,
-                                    images: getImagesId,
+                                    images: values.images ? getImagesId : null,
                                     issued_date: values.issued_date
                                         ? format(
                                               new Date(values.issued_date),
@@ -233,7 +227,8 @@ const AddPortfolio = ({
                                         : null,
                                     title: values.title ? values.title : null,
                                 };
-                                delete dataToSend.imagePreviewUrl;
+                                // delete dataToSend.imagePreviewUrl;
+                                console.log("datatosend=", dataToSend);
                                 {
                                     editDetails && isEditProfile == true
                                         ? editMutation(formData, {
@@ -262,45 +257,6 @@ const AddPortfolio = ({
                                           );
                                 }
                             }
-                            // {
-                            //     editDetails && isEditProfile == true
-                            //         ? editMutation(formData, {
-                            //               onSuccess: async () => {
-                            //                   console.log(
-                            //                       "submitted values",
-                            //                       values
-                            //                   );
-                            //                   setShowAddPortfolioModal(false);
-                            //                   queryClient.invalidateQueries([
-                            //                       "tasker-portfolio",
-                            //                   ]);
-                            //                   toast.success(
-                            //                       "Portfolio updated successfully."
-                            //                   );
-                            //               },
-                            //               onError: async (error) => {
-                            //                   toast.error(error.message);
-                            //               },
-                            //           })
-                            //         : mutate(formData, {
-                            //               onSuccess: async () => {
-                            //                   console.log(
-                            //                       "submitted values",
-                            //                       values
-                            //                   );
-                            //                   setShowAddPortfolioModal(false);
-                            //                   queryClient.invalidateQueries([
-                            //                       "tasker-portfolio",
-                            //                   ]);
-                            //                   toast.success(
-                            //                       "Portfolio added successfully."
-                            //                   );
-                            //               },
-                            //               onError: async (error) => {
-                            //                   toast.error(error.message);
-                            //               },
-                            //           });
-                            // }
                         }}
                     >
                         {({ isSubmitting, errors, touched, setFieldValue }) => (
@@ -351,21 +307,8 @@ const AddPortfolio = ({
                                                     Add relevant image or video
                                                 </p>
 
-                                                {/* <CustomDropZone
-                                                    name="image"
-                                                    maxSize={200}
-                                                    minSize={20}
-                                                    onDrop={(formData) =>
-                                                        setFieldValue(
-                                                            "image",
-                                                            formData.get(
-                                                                "image"
-                                                            )
-                                                        )
-                                                    }
-                                                /> */}
                                                 <MultiImageDropzone
-                                                    name="image"
+                                                    name="images"
                                                     labelName="Upload your image"
                                                     textMuted="More than 5 image are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 1MB."
                                                     imagePreview="imagePreviewUrl"
@@ -375,7 +318,6 @@ const AddPortfolio = ({
                                                     minSize={20}
                                                     showFileDetail
                                                     type="Image/Video"
-                                                    //  editImage={imageSrc}
                                                 />
                                             </Col>
                                         </Row>
@@ -383,9 +325,20 @@ const AddPortfolio = ({
                                             <Col md={5}>
                                                 <h4>Pdf</h4>
                                                 <p>Add relevant pdf</p>
-
-                                                <CustomDropZone
-                                                    name="file"
+                                                <MultiPdfFileDropzone
+                                                    name="files"
+                                                    pdfPreview="pdfPreviewUrl"
+                                                    labelName="Upload your files"
+                                                    textMuted="less than 2 file supported."
+                                                    maxFiles={2}
+                                                    multiple
+                                                    maxSize={200}
+                                                    minSize={20}
+                                                    showFileDetail
+                                                    type="pdf"
+                                                />
+                                                {/* <CustomDropZone
+                                                    name="files"
                                                     maxSize={200}
                                                     minSize={20}
                                                     multiple={true}
@@ -393,14 +346,14 @@ const AddPortfolio = ({
                                                     onDrop={
                                                         (formData) =>
                                                             setFieldValue(
-                                                                "file",
+                                                                "files",
                                                                 formData.get(
-                                                                    "file"
+                                                                    "files"
                                                                 )
                                                             )
                                                         // console.log(formData.get("file"))
                                                     }
-                                                />
+                                                /> */}
                                             </Col>
                                         </Row>
                                     </Row>

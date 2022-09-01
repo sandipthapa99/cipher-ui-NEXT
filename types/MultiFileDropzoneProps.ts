@@ -9,6 +9,7 @@ export interface MultiFileDropzoneProps {
     maxSize?: number;
     maxFiles?: number;
     imagePreview?: string;
+    pdfPreview?: string;
     error?: string;
     touch?: boolean;
     style?: CSSProperties;

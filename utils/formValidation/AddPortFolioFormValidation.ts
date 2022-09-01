@@ -11,7 +11,7 @@ export const addPortfolioSchema = Yup.object().shape({
     credential_url: urlValidation,
     issued_date: dateValidation,
     // image: fileValidation,
-    file: fileValidation,
+    //files: fileValidation,
 });
 
 // import { CustomDropZone } from "@components/common/CustomDropZone";
