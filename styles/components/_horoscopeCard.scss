@@ -4,6 +4,12 @@
     margin: 2rem;
     height: 100%;
 
+    @include respond(xs){
+        padding: 1rem 2rem 1rem 0rem;
+        background: #fff;
+        margin: 0.8rem;
+    }
+
     &__image {
         min-height: 6rem;
         min-width: 6rem;
@@ -17,6 +23,9 @@
     &__description {
         .title-section {
             margin: 0 0 0.8rem;
+            @include respond(xs){
+                margin: 0 0 -1.2rem;
+            }
             .title {
                 font: 600 1.6rem $poppins-font;
                 margin: 0 1rem 0 0;

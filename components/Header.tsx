@@ -15,7 +15,7 @@ import { useWeather } from "hooks/weather/useWeather";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { handleMenuActive } from "utils/helpers";
 
@@ -25,6 +25,8 @@ import { NotificationDropdown } from "./notifications/NotificationDropdown";
 const Header = () => {
     const date = format(new Date(), "MMMM d");
     const { data: weather } = useWeather();
+    console.log("weather", weather);
+
     const { data: location } = useLocation();
     const getIcon = weather?.weather[0].icon;
 
@@ -100,7 +102,7 @@ const Header = () => {
                                 </li>
                             </Dropdown>
                         </nav>
-                        <div className="d-flex align-items-center gap-3">
+                        <div className="d-flex align-items-center gap-3 weather-container">
                             {weather && (
                                 <Link href="#!">
                                     <a className="btn location-btn d-none d-md-inline-block">

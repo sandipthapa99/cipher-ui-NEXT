@@ -19,7 +19,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Spoiler } from "@mantine/core";
+import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Image from "next/image";
@@ -54,6 +56,7 @@ const SearchResultsDetail = ({
     const handleClose = () => setShow(false);
     const setBookNowDetails = useSetBookNowDetails();
     const reviewsContent = getReviews();
+    const queryClient = useQueryClient();
 
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
@@ -121,7 +124,6 @@ const SearchResultsDetail = ({
             is_recommended: boolean;
         }>;
     }>(["my-service-packages"], "/task/service-package/");
-    console.log(myServicePackage?.data?.result);
 
     const router = useRouter();
     const servSlug = router.query.slug;
@@ -133,6 +135,8 @@ const SearchResultsDetail = ({
         (servicePackage) =>
             getSingleService?.[0].id === servicePackage?.service?.id
     );
+
+    const isServiceBookmarked = useIsBookmarked("service", serviceId);
 
     return (
         <>
@@ -156,10 +160,17 @@ const SearchResultsDetail = ({
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
                                 <SaveIcon
-                                    object_id={String(serviceId)}
-                                    model={"task"}
+                                    object_id={serviceId}
+                                    model={"service"}
+                                    showText
+                                    filled={isServiceBookmarked}
+                                    onSuccess={() =>
+                                        queryClient.invalidateQueries([
+                                            "bookmarks",
+                                            "service",
+                                        ])
+                                    }
                                 />
-                                <span className="name">Save</span>
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
