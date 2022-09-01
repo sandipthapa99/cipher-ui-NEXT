@@ -68,7 +68,7 @@ PortfolioProps) => {
                     </div>
                     {portfolioDetail?.image ? (
                         <Image
-                            src={portfolioDetail?.image}
+                            src={portfolioDetail?.images}
                             alt="portfolio-img"
                             height={500}
                             objectFit="contain"
@@ -101,7 +101,7 @@ PortfolioProps) => {
 
                                         <a
                                             target="_blank"
-                                            href={portfolioDetail?.file}
+                                            href={portfolioDetail?.files}
                                             rel="noreferrer"
                                         >
                                             <figure className="file-img">
