@@ -13,10 +13,12 @@ export const useBookmarks = (type: BookmarkType) => {
         { initialData: [] }
     );
 };
-export const useIsBookmarked = (type: BookmarkType, object_id?: string) =>
-    useBookmarks(type).data.some((item) => item.object_id === object_id);
+export const useIsBookmarked = (type: BookmarkType, object_id?: string) => {
+    const { data: bookmarks } = useBookmarks(type);
+    return bookmarks.some((item) => item.object_id === object_id);
+};
 
-export type BookmarkType = "user" | "task";
+export type BookmarkType = "user" | "task" | "service";
 export interface BookmarkApiResponse {
     total_pages: number;
     count: number;
