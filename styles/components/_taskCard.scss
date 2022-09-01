@@ -4,7 +4,7 @@
     border-radius: 0.4rem;
     box-shadow: 0px 4px 14px #211d4f1a;
     margin-bottom: 2.4rem;
-    @include respond(sm) {
+    @include respond(xs) {
         padding: 2.4rem 4rem;
     }
 

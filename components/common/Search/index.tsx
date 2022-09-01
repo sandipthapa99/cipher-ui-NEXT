@@ -1,6 +1,7 @@
 import { faChevronDown, faSearch } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, Select } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import type { Tasker } from "hooks/tasker/use-tasker";
@@ -100,7 +101,7 @@ export const Search = () => {
 };
 export const useStyles = createStyles(() => ({
     selectField: {
-        maxWidth: "12rem",
+        maxWidth: useMediaQuery("(max-width:572px)") ? "7.7rem" : "12rem",
         marginLeft: "1rem",
     },
 }));

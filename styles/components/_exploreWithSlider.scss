@@ -26,6 +26,10 @@
                 position: absolute;
                 right: 4rem;
                 bottom: 3.2rem;
+
+                @include respond(xs) {
+                    right: 1rem;
+                }
             }
         }
         .win-client-card {
@@ -38,10 +42,16 @@
                 height: 100%;
                 width: 100%;
                 padding: 4rem 8rem;
-
+                @include respond(xs) {
+                    padding: 2rem 4rem;
+                    align-items: center;
+                }
                 h1 {
                     font: 500 4rem $poppins-font;
                     margin: 0 0 2.4rem;
+                    @include respond(xs) {
+                        font: 500 3rem $poppins-font;
+                    }
                 }
 
                 p {
