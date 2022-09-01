@@ -65,7 +65,7 @@ const ServiceNearYouCard = ({
                             <Image
                                 src={
                                     image
-                                        ? image[0].image
+                                        ? image[0].media
                                         : "/service-details/garden-cleaning.png"
                                 }
                                 layout="fill"

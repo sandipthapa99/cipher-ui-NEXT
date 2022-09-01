@@ -80,9 +80,11 @@ const SearchResultsDetail = ({
                 city: any;
                 images: Array<{
                     id: number;
-                    name: string;
+                    media: string;
+                    media_type: string;
                     size: number;
-                    image: string;
+                    name: string;
+                    placeholder: string;
                 }>;
                 created_at: string;
                 updated_at: string;
@@ -193,16 +195,18 @@ const SearchResultsDetail = ({
                                         key={value.id}
                                         className="thumbnail-img "
                                     >
-                                        <Image
-                                            src={
-                                                value.image
-                                                    ? value.image
-                                                    : "/service-details/garden-cleaning.png"
-                                            }
-                                            layout="fill"
-                                            objectFit="cover"
-                                            alt="garden-image"
-                                        />
+                                        {value?.media && (
+                                            <Image
+                                                src={
+                                                    value?.media
+                                                        ? value.media
+                                                        : "/service-details/garden-cleaning.png"
+                                                }
+                                                layout="fill"
+                                                objectFit="cover"
+                                                alt="garden-image"
+                                            />
+                                        )}
                                     </Carousel.Slide>
                                 ))}
                             </Carousel>
