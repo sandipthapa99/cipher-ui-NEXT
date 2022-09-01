@@ -12,6 +12,7 @@ interface ServiceAside {
 }
 const ServiceAside = ({ service, query, children }: ServiceAside) => {
     const totalAppliedTasks = service?.length;
+    console.log("service in service page", service);
     const renderTaskCards = service?.map((task, key) => {
         return (
             <div key={key}>
@@ -26,7 +27,7 @@ const ServiceAside = ({ service, query, children }: ServiceAside) => {
                             discount={20} // To do form api
                             image={
                                 Array.isArray(task.images)
-                                    ? task.images[0]?.image
+                                    ? task.images[0]?.media
                                     : task?.images
                             }
                             serviceProvider={task?.created_by?.full_name}
