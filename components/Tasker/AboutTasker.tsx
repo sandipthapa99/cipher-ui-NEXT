@@ -54,7 +54,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                       </p>
                                   </div>
                               ))
-                            : "Looks like you have no Portfolio data"}
+                            : "This tasker have no portfolio."}
                     </div>
                 </div>
                 <div className="type experience">
@@ -114,7 +114,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                               </div>
                                           )
                                       )
-                                    : "Looks like you have no Experience Data"}
+                                    : "This tasker have no experience."}
                             </div>
                         </Col>
                     </Row>
@@ -134,7 +134,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                               {info}
                                           </div>
                                       ))
-                                    : "No skills to show. Please add them"}
+                                    : "This tasker have no skills."}
                             </div>
                         </Col>
                     </Row>
@@ -184,7 +184,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                               </div>
                                           )
                                       )
-                                    : "Looks like you have no Education Data"}
+                                    : "This tasker have no education."}
                             </div>
                         </Col>
                     </Row>
@@ -249,7 +249,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                               </div>
                                           )
                                       )
-                                    : "Looks like you have no certificates"}
+                                    : "This tasker have no certificates."}
                             </div>
                         </Col>
                     </Row>

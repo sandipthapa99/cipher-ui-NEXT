@@ -23,7 +23,7 @@ export const UserStats = ({
 }: UserStatsProps) => {
     return (
         <Row className="td-mt-24 justify-content-between">
-            <Col className="d-flex">
+            <Col className="type d-flex">
                 <FontAwesomeIcon
                     color="#F98900"
                     className="svg-icon"
@@ -31,7 +31,7 @@ export const UserStats = ({
                 />
                 <span>{happyCustomers}</span>
             </Col>
-            <Col className="d-flex">
+            <Col className="type d-flex">
                 <FontAwesomeIcon
                     className="svg-icon"
                     color="#0693E3"
@@ -39,7 +39,7 @@ export const UserStats = ({
                 />
                 <span>{rewardPercentage}</span>
             </Col>
-            <Col className="d-flex">
+            <Col className="type d-flex">
                 <FontAwesomeIcon
                     className="svg-icon"
                     color="#752DE8"
@@ -47,7 +47,7 @@ export const UserStats = ({
                 />
                 <span>{taskCompleted}</span>
             </Col>
-            <Col className="d-flex">
+            <Col className="type d-flex">
                 <FontAwesomeIcon
                     className="svg-icon"
                     icon={faTire}

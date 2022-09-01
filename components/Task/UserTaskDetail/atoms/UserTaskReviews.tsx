@@ -19,7 +19,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
     return (
         <>
             <FilterReview totalReviews={ratingData?.length} />
-            <div>
+            <div className="review">
                 {ratingData?.map((review: any, index: any) => (
                     <Reviews
                         key={index}
@@ -41,3 +41,34 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
         </>
     );
 };
+
+// const newData = {
+//     media_type: "video",
+//     placeholder: "new",
+//     medias: newValue.image,
+// };
+// Object.entries(newData).forEach((entry) => {
+//     const [key, value] = entry;
+//     console.log("entry=", entry, key, value);
+
+//     formData.append(key, value);
+// });
+// console.log("submitted values new", formData);
+// fileStore(formData, {
+//     onSuccess: async () => {
+//         console.log(
+//             "submitted values new",
+//             formData
+//         );
+
+//         // queryClient.invalidateQueries([
+//         //     "tasker-portfolio",
+//         // ]);
+//         toast.success(
+//             "Portfolio added successfully."
+//         );
+//     },
+//     onError: async (error) => {
+//         toast.error(error.message);
+//     },
+// });

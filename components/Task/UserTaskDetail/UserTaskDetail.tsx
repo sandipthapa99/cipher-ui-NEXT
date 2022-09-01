@@ -41,6 +41,7 @@ const UserTaskDetail = ({
                 onClick={onExitTaskDetail}
                 className="mb-24"
             />
+
             <UserTaskDetailHeader
                 taskerDetail={taskerDetail}
                 maxHeaderWidth={maxHeaderWidth}
