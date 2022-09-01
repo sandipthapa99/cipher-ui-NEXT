@@ -249,9 +249,9 @@ const UserProfileCard = ({
                                     />
                                     <p>
                                         &nbsp;Active Hours: &nbsp;
-                                        {finalfrom?.replace(":00", "")}
-                                        &nbsp;-&nbsp;
-                                        {finalto?.replace(":00", "")}
+                                        {finalfrom?.replace(":00", "")} AM
+                                        &nbsp;to &nbsp;
+                                        {finalto?.replace(":00", "")} PM
                                     </p>
                                 </div>
 

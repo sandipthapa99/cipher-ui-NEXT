@@ -39,6 +39,8 @@ const ProfileEditForm = ({
 }: ProfileEditProps) => {
     const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
+
+    //converting string time value to datetime time value
     const start: string = profile?.active_hour_start
         ? profile?.active_hour_start.replace(":00", "")
         : "";
@@ -52,6 +54,7 @@ const ProfileEditForm = ({
     const finalend = `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`;
 
     const endTime = finalend.toString();
+
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)

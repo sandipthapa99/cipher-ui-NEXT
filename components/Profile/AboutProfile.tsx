@@ -102,7 +102,7 @@ const AboutProfile = () => {
                             }}
                         />
                     </div>
-                    <AddPortfolio
+                    {/* <AddPortfolio
                         show={showAddPortfolioModal}
                         setShowAddPortfolioModal={setShowAddPortfolioModal}
                         handleClose={() => {
@@ -111,7 +111,7 @@ const AboutProfile = () => {
                         }}
                         id={id}
                         isEditProfile={isEditProfile}
-                    />
+                    /> */}
                     <PortfolioDetails
                         show={showPortfolioDetails}
                         setShowPortfolioDetails={setShowPortfolioDetails}
