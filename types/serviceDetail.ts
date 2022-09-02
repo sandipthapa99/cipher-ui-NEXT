@@ -1,4 +1,5 @@
 export interface ServiceProviderCardProps {
+    id?: string;
     name?: string;
     speciality?: string;
     address?: string;

@@ -1,43 +1,48 @@
 import TaskAside from "@components/AppliedTask/taskAside";
 import FullPageLoader from "@components/common/FullPageLoader";
 import Footer from "@components/Footer";
-import Header from "@components/Header";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
-import SearchHeader from "@components/SearchTask/searchHeader";
+import { useQuery } from "@tanstack/react-query";
 import { useTasks } from "hooks/apply-task/useTask";
+import { useUser } from "hooks/auth/useUser";
 import type { ReactNode } from "react";
-import { useMemo } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+import type { ITaskApiResponse } from "types/task";
+import { axiosClient } from "utils/axiosClient";
 
+export const useSearchTask = (query: string) => {
+    const { data: user, isLoading } = useUser();
+    return useQuery(
+        ["all-tasks", query],
+        async () => {
+            const { data } = await axiosClient.get<ITaskApiResponse>(
+                `/task/?search=${query}`
+            );
+            const otherUserTasks = (data.result ?? []).filter(
+                (task) => task.assigner.id !== user?.id
+            );
+            return otherUserTasks;
+        },
+        { enabled: !isLoading }
+    );
+};
 const AppliedLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
 
     const { data, isLoading } = useTasks();
+    const { data: searchData = [] } = useSearchTask(query);
 
-    const filteredTasks =
-        useMemo(
-            () =>
-                query && data
-                    ? data.result?.filter((item) =>
-                          item?.title
-                              .toLowerCase()
-                              .includes(query.toLowerCase())
-                      )
-                    : data?.result,
-            [data, query]
-        ) ?? [];
     if (isLoading || !data) return <FullPageLoader />;
     return (
         <Layout title="Find Tasks | Cipher">
             <Container>
                 <SearchCategory onChange={setQuery} />
-                <TaskAside query={query} appliedTasks={filteredTasks}>
+                <TaskAside query={query} appliedTasks={searchData}>
                     {children}
                 </TaskAside>
             </Container>
-            <Footer />
         </Layout>
     );
 };

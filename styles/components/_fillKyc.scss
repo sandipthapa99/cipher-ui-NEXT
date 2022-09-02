@@ -1,0 +1,34 @@
+.fill-kyc {
+    background-color: #d8efff;
+    border-left: 1rem solid #b9e2ff;
+    margin: 0rem 0 2rem 0;
+    padding: 2.4rem 0;
+    display: flex;
+    align-items: center;
+    gap: 12rem;
+
+    .all-info-detail {
+        .info-details-kyc {
+            display: flex;
+            align-items: center;
+            gap: 1.6rem;
+            margin-left: 2rem;
+
+            .info-kyc {
+                color: #ff9700;
+            }
+            .p-info {
+                font-weight: 500;
+                font-size: 16px;
+                color: #1f1f1f;
+                margin: 0;
+            }
+        }
+        .detail-kyc {
+            font-weight: 400;
+            font-size: 16px;
+            color: #1f1f1f;
+            margin: 0 0 0 5.2rem;
+        }
+    }
+}

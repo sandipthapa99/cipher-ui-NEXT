@@ -134,6 +134,7 @@ const KYCForm = () => {
                                 error={errors.full_name}
                                 touch={touched.full_name}
                                 placeHolder="Enter your Full Name"
+                                disabled={KYCData?.full_name ? true : false}
                             />
                             <InputField
                                 type="text"
@@ -142,6 +143,7 @@ const KYCForm = () => {
                                 error={errors.address}
                                 touch={touched.address}
                                 placeHolder="Enter your Address"
+                                disabled={KYCData?.address ? true : false}
                             />
                             <SelectInputField
                                 name="country"
@@ -150,6 +152,7 @@ const KYCForm = () => {
                                 error={errors.country}
                                 placeHolder="Select Identity Type"
                                 options={countryResults}
+                                disabled={KYCData?.country ? true : false}
                             />
                             {/* <h5>Bank Details (Optional)</h5>
                             <InputField
@@ -244,7 +247,7 @@ const KYCForm = () => {
                                 <FormButton
                                     type="submit"
                                     variant="primary"
-                                    name="Save"
+                                    name="Continue"
                                     className="submit-btn w-25"
                                     isSubmitting={isSubmitting}
                                     isSubmittingClass={isSubmittingClass(

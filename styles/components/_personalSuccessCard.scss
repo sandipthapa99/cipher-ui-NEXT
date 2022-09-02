@@ -1,81 +1,93 @@
-.some-success-stories-section {
-    .success-sroties-header {
-        h1 {
-            font: 500 4rem $poppins-font;
-            margin: 0 0 4rem;
-        }
-        h3 {
-            font: 500 2rem $poppins-font;
-            margin: 0 0 4rem;
-        }
-    }
-}
+    .some-success-stories-section {
+        .success-sroties-header {
+            h1 {
+                font: 500 4rem $poppins-font;
+                margin: 0 0 4rem;
+                @include respond(xs) {
+                    font: 601 1.9rem "Poppins";
+                    margin: 0 0 2rem;
+                }
+            }
+            h3 {
+                font: 500 2rem $poppins-font;
+                margin: 0 0 4rem;
 
-.personal-success-card {
-    background: #fff;
-
-    .success-image {
-        height: 100%;
-        img {
-            object-fit: cover;
-        }
-    }
-
-    &__content {
-        padding: 3rem;
-
-        .description {
-            .title {
-                svg {
-                    color: #fab005;
-                    margin: 0 0 0;
+                @include respond(xs) {
+                    margin: 0 0 1rem;
                 }
             }
         }
+    }
 
-        h3 {
-            font: 500 2rem $poppins-font;
-            margin: 0 0 0.8rem;
-        }
-        h6,
-        span {
-            font: 400 1.2rem $poppins-font;
-        }
-        h6 {
-            color: #868e96;
-            margin: 0 0 3.2rem;
-        }
+    .personal-success-card {
+        background: #fff;
 
-        p {
-            font: 400 1.4rem $poppins-font;
-            margin: 0 0 2.4rem;
-        }
-        h4 {
-            font: 500 1.6rem $poppins-font;
-        }
-
-        .badge-section {
-            margin: 0 0 4rem;
-            .badge-section__img {
-                width: 9.4rem;
-                min-height: 8.4rem;
-                position: relative;
+        .success-image {
+            height: 100%;
+            img {
+                object-fit: cover;
             }
-            h5 {
-                font: 400 1.4rem $poppins-font;
+        }
+
+        &__content {
+            padding: 3rem;
+
+            .description {
+                .title {
+                    svg {
+                        color: #fab005;
+                        margin: 0 0 0;
+                    }
+                }
+            }
+
+            h3 {
+                font: 500 2rem $poppins-font;
                 margin: 0 0 0.8rem;
             }
-
-            h6 {
+            h6,
+            span {
                 font: 400 1.2rem $poppins-font;
             }
-        }
+            h6 {
+                color: #868e96;
+                margin: 0 0 3.2rem;
+                @include respond(xs){
+                    margin: 2px -1px 2.2rem;
+                    word-break: break-word;
+                }
+            }
 
-        .footer {
-            svg {
-                color: #fab005;
-                margin: 0 0.3rem 0 0;
+            p {
+                font: 400 1.4rem $poppins-font;
+                margin: 0 0 2.4rem;
+            }
+            h4 {
+                font: 500 1.6rem $poppins-font;
+            }
+
+            .badge-section {
+                margin: 0 0 4rem;
+                .badge-section__img {
+                    width: 9.4rem;
+                    min-height: 8.4rem;
+                    position: relative;
+                }
+                h5 {
+                    font: 400 1.4rem $poppins-font;
+                    margin: 0 0 0.8rem;
+                }
+
+                h6 {
+                    font: 400 1.2rem $poppins-font;
+                }
+            }
+
+            .footer {
+                svg {
+                    color: #fab005;
+                    margin: 0 0.3rem 0 0;
+                }
             }
         }
     }
-}

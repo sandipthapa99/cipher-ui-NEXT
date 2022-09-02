@@ -82,6 +82,11 @@
 @import "components/personalSuccessCard";
 @import "components/createProfile";
 @import "components/mobileNav";
+@import "components/earnMoney";
+@import "components/advertisement";
+@import "components/fillKyc";
+@import "components/settingsmembershipcard";
+@import "components/horoscopeCard";
 
 // Pages
 @import "pages/privacyPolicy";
@@ -134,6 +139,7 @@
 @import "Profile/profile-about.scss";
 @import "Profile/profile-organization.scss";
 @import "Profile/profileTask";
+@import "Profile/portfolio-details.scss";
 @import "Profile/activities.scss";
 @import "Profile/document.scss";
 @import "Profile/rewardcard.scss";

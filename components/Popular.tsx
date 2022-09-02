@@ -13,14 +13,14 @@ const Popular = () => {
         ["all-services"],
         "/task/service/"
     );
-    console.log(servicesData);
+
     return (
         <section id="card-wrapper" className="card-wrapper mt-5">
             <Container fluid="xl">
                 <div className="title-wrapper d-flex justify-content-between">
                     {/* <h2 className="heading-title">Community activity</h2> */}
                     <h2>Popular on Cipher</h2>
-                    <Link href="/search">
+                    <Link href="/service">
                         <a className="view-more">
                             view more{" "}
                             <FontAwesomeIcon

@@ -52,7 +52,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                         serviceProviderLocation={service?.location}
                         discount={service?.discount}
                         image={service?.image}
-                        serviceProvider={service?.created_by}
+                        // serviceProvider={service?.created_by}
                         onServiceClick={toggleActiveService}
                     />
                 </div>
@@ -98,7 +98,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                                 highlights={JSON.parse(
                                     activeService?.highlights
                                 )}
-                                serviceId={activeService?.id}
+                                serviceId={String(activeService?.id)}
                             />
                         ) : (
                             <iframe

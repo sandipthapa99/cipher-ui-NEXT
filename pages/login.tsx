@@ -1,20 +1,39 @@
 import { FacebookLogin } from "@components/auth/FacebookLogin";
-import GoogleLogin from "@components/auth/GoogleLogin";
+// import GoogleLogin from "@components/auth/GoogleLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
+import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
 import { useRouter } from "next/router";
+import type { ChangeEvent } from "react";
+import { useState } from "react";
+import { Col } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { loginFormData } from "utils/formData";
-import loginFormSchema from "utils/formValidation/loginFormValidation";
+import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
     const router = useRouter();
     const { mutate, isLoading } = useLogin();
+    const [isPhoneNumber, setIsPhoneNumber] = useState(false);
+
+    const handleChange = (
+        event: ChangeEvent<HTMLInputElement>,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        const { value } = event.currentTarget;
+
+        setFieldValue("username", value);
+
+        if (!isNaN(parseInt(value, 10))) {
+            setIsPhoneNumber(true);
+            return;
+        }
+        setIsPhoneNumber(false);
+    };
 
     return (
         <section>
@@ -29,8 +48,11 @@ const Login = () => {
             >
                 <div>
                     <Formik
-                        initialValues={loginFormData}
-                        validationSchema={loginFormSchema}
+                        validationSchema={() => getLoginSchema(isPhoneNumber)}
+                        initialValues={{
+                            username: "",
+                            password: "",
+                        }}
                         onSubmit={(values) => {
                             mutate(values, {
                                 onError: (error) => {
@@ -39,22 +61,26 @@ const Login = () => {
                                 onSuccess: async () => {
                                     const { next } = router.query;
                                     await router.push(
-                                        typeof next === "string" ? next : "/"
+                                        typeof next === "string"
+                                            ? next
+                                            : "/home"
                                     );
                                     toast.success("Login Successful!");
                                 },
                             });
                         }}
                     >
-                        {({ errors, touched }) => (
+                        {({ errors, touched, setFieldValue }) => (
                             <Form className="login-form">
                                 <InputField
-                                    type="email"
-                                    name="email"
-                                    labelName="Email or phone number"
-                                    touch={touched.email}
-                                    error={errors.email}
-                                    placeHolder="Enter your email"
+                                    name="username"
+                                    labelName="Username"
+                                    touch={touched.username}
+                                    error={errors.username}
+                                    placeHolder="Enter your username"
+                                    onChange={(event) =>
+                                        handleChange(event, setFieldValue)
+                                    }
                                 />
                                 <PasswordField
                                     type="password"
@@ -78,9 +104,24 @@ const Login = () => {
                                 <div className="horizontal-line">
                                     <span className="or">OR</span>
                                 </div>
+                                {/* <SocialLoginBtn
+                                    name={"Continue with Facebook"}
+                                    icon="/illustrations/fb.svg"
+                                    className="facebook"
+                                    redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/facebook/`}
+                                />
+                                
+                                {/* <SocialLoginBtn
+                                    name={"Continue with Google"}
+                                    icon="/illustrations/google.svg"
+                                    className="google"
+                                    redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/google-oauth2/`}
+                                /> */}
+
                                 <FacebookLogin />
-                                <GoogleLogin />
-                                {/* <Google /> */}
+                                <div className="google-login-btn">
+                                    <Google />
+                                </div>
                             </Form>
                         )}
                     </Formik>

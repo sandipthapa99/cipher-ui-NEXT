@@ -9,23 +9,27 @@ import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
+import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
+import { useKYC } from "hooks/profile/kyc/useKYC";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
-import React, { useRef } from "react";
-import { Col, Row } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { formatTime } from "utils/FormatTime/formatTime";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+
+import { FillKyc } from "./FillKyc";
 
 const task_preferences = [
     { id: 1, label: "Part time", value: "partTime" },
@@ -61,12 +65,14 @@ const profile_visibility = [
 ];
 
 const AccountForm = () => {
+    const [scrollPosition, setScrollPosition] = useState(0);
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
+    const { data: KYCData } = useGetKYC();
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -91,9 +97,43 @@ const AccountForm = () => {
         value: result.id,
         id: result.id,
     }));
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
 
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const scrollToKyc = () => {
+        scroll.scrollTo(2660);
+    };
+    console.log("hour", profile?.user_type);
+
+    //converting string time value to datetime time value
+    const start: string = profile?.active_hour_start
+        ? profile?.active_hour_start.replace(":00", "")
+        : "";
+    const end: string = profile?.active_hour_end
+        ? profile?.active_hour_end.replace(":00", "")
+        : "";
+
+    const endparsed = (
+        parseInt(end) < 12 ? parseInt(end) + 12 : parseInt(end)
+    ).toString();
+    const finalend = `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`;
+
+    const endTime = finalend.toString();
+
+    //parse user_type
+    const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
     return (
         <>
+            {!KYCData ? <FillKyc onClick={scrollToKyc} /> : ""}
             {/* Modal component */}
             <div className="account-form">
                 <Formik
@@ -110,10 +150,10 @@ const AccountForm = () => {
                                 : "",
                         skill: "",
                         experience_level: profile?.experience_level ?? "",
-                        active_hour_start: "",
-                        active_hour_end: "",
+                        active_hour_start: "" ?? "",
+                        active_hour_end: "" ?? "",
                         hourly_rate: profile?.hourly_rate ?? "",
-                        user_type: profile?.user_type ?? "",
+                        user_type: userType ?? "",
                         country: profile?.country ?? "",
                         education: "abc",
                         address_line1: profile?.address_line1 ?? "",
@@ -360,7 +400,6 @@ const AccountForm = () => {
                                     />
                                 </Col>
                             </Row>
-
                             <h3>Address</h3>
                             <SelectInputField
                                 name="country"

@@ -223,6 +223,9 @@ textarea.form-control {
 }
 
 .site-btn {
+    @include respond(xs) {
+        padding: 0.95rem 0.4rem;
+    }
     @extend %site-btn;
     .svg-icon {
         width: 2.4rem;
@@ -279,7 +282,7 @@ textarea.form-control {
 }
 .social-btn {
     font-size: 1.4rem;
-    font-weight: 400;
+    font-weight: 500;
     border-radius: 0.4rem;
     font-family: $poppins-font;
     color: #fff;
@@ -292,10 +295,13 @@ textarea.form-control {
     justify-content: center;
     @include transition();
     &.facebook {
-        background-color: #1877f2;
-        color: #ffffff;
+        // background-color: #1877f2;
+        background-color: transparent;
+        color: #3c4043;
+        border: 1px solid #dadce0;
         &:hover {
-            background-color: #0d58bb;
+            border: 0.1rem solid #d2e3fc;
+            background-color: #4285f40a;
         }
     }
     &.google {

@@ -196,6 +196,25 @@
     .social-icon {
         position: absolute;
         left: 1.6rem;
+        top: 1.2rem;
         margin: 0;
+        &__fb-img {
+            color: #0693e3;
+            height: 2.4rem;
+            width: 2.4rem;
+        }
+        &__envelope-img {
+            color: #fff;
+            height: 2.4rem;
+            width: 2.4rem;
+        }
     }
+}
+.switch-login-method {
+    border: none;
+    outline: none;
+    padding: 0;
+    background-color: transparent;
+    font-size: 1.4rem;
+    margin: 0 0 1rem 0;
 }

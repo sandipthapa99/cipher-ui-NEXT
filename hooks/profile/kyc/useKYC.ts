@@ -7,12 +7,11 @@ export const useKYC = () => {
     return useMutation<void, Error, any>(async (kycPayload) => {
         try {
             const { data } = await axiosClient.post("/tasker/kyc/", kycPayload);
-            console.log("Profile data", data);
         } catch (error) {
             if (error instanceof AxiosError) {
                 throw new Error(error?.response?.data?.message);
             }
-            throw new Error("Profile failed");
+            throw new Error("Kyc failed");
         }
     });
 };

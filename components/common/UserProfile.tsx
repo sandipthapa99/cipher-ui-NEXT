@@ -1,4 +1,5 @@
 import PhotoEdit from "@components/Profile/PhotoEdit";
+import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import {
     faAt,
     faCircleQuestion,
@@ -9,12 +10,19 @@ import {
     faStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
+import { faStar as rated } from "@fortawesome/pro-solid-svg-icons";
+import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
+import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
+import { axiosClient } from "utils/axiosClient";
+import { safeParse } from "utils/safeParse";
 
 import ProfileEditForm from "./ProfileEditForm";
 import ShareIcon from "./ShareIcon";
@@ -41,24 +49,48 @@ const UserProfileCard = ({
     taskCompleted,
     tooltipMessage,
     countryCode,
+    isProfileVerified,
+    field,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
+    const [image, setImage] = useState();
 
     const services = moreServices ? JSON.parse(moreServices) : [];
-    const renderServices: string[] | undefined = services?.map(
-        (service: string, index: number) => (
-            <p key={index}>
-                {service}
-                {index < services.length - 2
-                    ? ", "
-                    : index < services.length - 1
-                    ? " and"
-                    : ""}
-            </p>
-        )
+    const queryClient = useQueryClient();
+    // const renderServices: string[] | undefined = services?.map(
+    //     (service: string, index: number) => (
+    //         <p key={index}>
+    //             {service}
+    //             {index < services.length - 2
+    //                 ? ", "
+    //                 : index < services.length - 1
+    //                 ? " and"
+    //                 : ""}
+    //         </p>
+    //     )
+    // );
+    const editProfile = useMutation((data: ProfileEditValueProps) =>
+        axiosClient.patch("/tasker/profile/", data)
     );
+    const onEditProfile = (data: any) => {
+        const formData: FormData = new FormData();
+        console.log("data=", data);
+        formData.append("profile_image", data);
+        console.log("form data=", formData);
+        data = formData;
+        editProfile.mutate(data, {
+            onSuccess: (data) => {
+                queryClient.invalidateQueries(["profile"]);
+                setShowExpForm(false);
+                toast.success(data?.data?.message);
+            },
+            onError: (error: any) => {
+                toast.error(data?.data?.message);
+            },
+        });
+    };
     const userType: string[] = userJob ? JSON.parse(userJob) : [];
 
     const renderType = userType.map((type: string, index: number) => {
@@ -69,53 +101,73 @@ const UserProfileCard = ({
         );
     });
 
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const finalfrom =
+        activeFrom?.charAt(0) === "0" ? activeFrom?.slice(1) : activeFrom;
+    const finalto = activeTo?.charAt(0) === "0" ? activeTo?.slice(1) : activeTo;
     return (
         <div className="profile-card-block">
             <Row>
                 <Col md={3} className="profile-card-block__profile">
-                    <div>
-                        <figure
-                            className="thumbnail-img"
-                            onClick={() => setShowExpForm(!showExpForm)}
-                        >
-                            <Image
-                                src={userImage}
-                                layout="fill"
-                                objectFit="cover"
-                                alt="user-profile-image"
-                                className="rounded-circle"
+                    <figure className="profile-img mx-auto">
+                        {isProfileVerified ?? (
+                            <FontAwesomeIcon
+                                icon={faBadgeCheck}
+                                className="badge-icon"
                             />
-                        </figure>
-                    </div>
+                        )}
 
-                    {/* <figure
-                        className="thumbnail-img camera-img"
-                        //  onClick={() => setShowExpForm(!showExpForm)}
-                    >
+                        <div className="img-dragdrop d-flex align-items-center justify-content-center">
+                            <label
+                                htmlFor="choosefile"
+                                className="browse text-primary"
+                                role="button"
+                            >
+                                <FontAwesomeIcon
+                                    icon={faCamera}
+                                    className="camera-icon"
+                                />
+                            </label>
+
+                            <input
+                                hidden
+                                id="choosefile"
+                                type="file"
+                                ref={inputRef}
+                                name="image"
+                                onChange={(event: any) => {
+                                    const files = event.target.files;
+                                    console.log(files);
+                                    field?.("image", (files ?? [])[0]);
+                                    setImage(files[0]);
+                                    console.log("image=", image);
+                                    setShowExpForm(!showExpForm);
+                                }}
+                            />
+                        </div>
+
                         <Image
-                            src="/userprofile/edit.svg"
-                            objectFit="cover"
-                            alt="user-profile-image"
+                            src={
+                                userImage
+                                    ? userImage
+                                    : "/userprofile/unknownPerson.jpg"
+                            }
+                            alt="profile-pic"
                             className="rounded-circle"
-                            height={100}
-                            width={100}
+                            objectFit="cover"
+                            height={150}
+                            width={150}
+                            priority={true}
                         />
                     </figure>
-                    <figure className="thumbnail-img alert-img">
-                        <Image
-                            src="/userprofile/alert.svg"
-                            objectFit="cover"
-                            alt="user-profile-image"
-                            className="rounded-circle"
-                            height={200}
-                            width={200}
-                        />
-                    </figure> */}
+
                     <PhotoEdit
-                        photo={userImage}
+                        photo={image}
                         show={showExpForm}
                         setShowExpForm={setShowExpForm}
                         handleClose={() => setShowExpForm(false)}
+                        handleSubmit={() => onEditProfile(image)}
                     />
                     <div className="profile-intro d-flex">
                         <h1 className="name">{userName}</h1>
@@ -125,15 +177,10 @@ const UserProfileCard = ({
                     <div className="rating">
                         {Array.from({ length: userRating }, (_, i) => (
                             <span key={i}>
-                                {" "}
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/icons/rated.svg"
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="rated-icon"
-                                    />
-                                </figure>
+                                <FontAwesomeIcon
+                                    icon={rated}
+                                    className="svg-icon star rated-star"
+                                />
                             </span>
                         ))}
                         {Array.from({ length: 5 - userRating }, (_, i) => (
@@ -141,7 +188,7 @@ const UserProfileCard = ({
                                 {" "}
                                 <FontAwesomeIcon
                                     icon={faStar}
-                                    className="svg-icon star"
+                                    className="svg-icon star unrated"
                                 />
                             </span>
                         ))}
@@ -174,7 +221,8 @@ const UserProfileCard = ({
                                     />
 
                                     <p>
-                                        +{country?.phone_code} {userPhone}
+                                        +{country?.phone_code}
+                                        {userPhone}
                                     </p>
                                 </div>
                                 <div className="type d-flex flex-col">
@@ -200,34 +248,36 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
                                     <p>
-                                        &nbsp;Active Hours &nbsp;
-                                        {activeFrom
-                                            ?.replaceAll("00:00", "")
-                                            .slice(1)}
-                                        00 AM to&nbsp;
-                                        {activeTo
-                                            ?.replaceAll("00:00", "")
-                                            .slice(1)}
-                                        00 PM
+                                        &nbsp;Active Hours: &nbsp;
+                                        {finalfrom?.replace(":00", "")} AM
+                                        &nbsp;to &nbsp;
+                                        {finalto?.replace(":00", "")} PM
                                     </p>
                                 </div>
-                                {/* document.file
-                                                                .split(".") */}
+
                                 <div className="success-rate type d-flex flex-col">
                                     <div className="count d-flex flex-row">
                                         <FontAwesomeIcon
                                             icon={faSparkles}
                                             className="thumbnail-img"
                                         />
-                                        <p
-                                            style={{
-                                                display: "flex",
-                                                gap: "0.5rem",
-                                            }}
-                                        >
-                                            {renderServices}
-                                            {/* {moreServices} */}
-                                        </p>
+                                        {services
+                                            ? services.map(
+                                                  (info: any, index: any) => (
+                                                      <p key={index}>
+                                                          &nbsp;{info}
+                                                          {index <
+                                                          services.length - 2
+                                                              ? ", "
+                                                              : index <
+                                                                services.length -
+                                                                    1
+                                                              ? " and"
+                                                              : ""}
+                                                      </p>
+                                                  )
+                                              )
+                                            : "No skills to show. Please add them"}
                                     </div>
                                 </div>
                             </div>

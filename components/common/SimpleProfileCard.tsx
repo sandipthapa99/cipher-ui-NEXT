@@ -1,42 +1,54 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
-import {
-    faCircleMinus,
-    faCirclePlus,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAppliedTasks } from "hooks/task/use-applied-tasks";
+import { useLeaveTask } from "hooks/task/use-leave-task";
 import Image from "next/image";
 import { useState } from "react";
-import { BookingDetails } from "staticData/bookNowModalCard";
+import { toast } from "react-toastify";
 import { useWithLogin } from "store/use-login-prompt-store";
-import type { ServiceProviderCardProps } from "types/serviceDetail";
+import type { ITask } from "types/task";
 
 import BookNowButton from "./BookNowButton";
 
-const SimpleProfileCard = ({
-    image,
-    name,
-    speciality,
-    startingPrice,
-    endPrice,
-    isApplied,
-    isPermission,
-    currency,
-}: ServiceProviderCardProps) => {
+interface SimpleProfileCardProps {
+    task: ITask;
+    onApply?: () => void;
+}
+const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const withLogin = useWithLogin();
+    const { data: appliedTasks } = useAppliedTasks();
+    const { mutate } = useLeaveTask();
+
     const [showModal, setShowModal] = useState(false);
     const [priceValue, setPriceValue] = useState(25);
     const [priceChanged, setPriceChanged] = useState(false);
     const [isWorking, setIsWorking] = useState(false);
 
-    const handlePriceSave = () => {
-        setPriceChanged(false);
+    const appliedTask = appliedTasks.find(
+        (appliedTask) => appliedTask.task === task.id && appliedTask.is_active
+    );
+
+    const handleLeaveTask = () => {
+        if (!appliedTask) return;
+        mutate(
+            { id: appliedTask.id },
+            {
+                onSuccess: (message) => {
+                    toast.success(message);
+                    onApply?.();
+                },
+            }
+        );
     };
+
     return (
         <div className="simple-card my-5 my-lg-0 ">
+            <p>{appliedTask ? "Applied" : "Not Applied"}</p>
             <div className="d-flex align-items-center simple-card__profile">
                 <figure className="thumbnail-img">
                     <Image
-                        src={image ? image : "/hireinnepal/footer.png"}
+                        src={
+                            task.image ? task.image : "/hireinnepal/footer.png"
+                        }
                         layout="fill"
                         objectFit="cover"
                         alt="serviceprovider-image"
@@ -44,14 +56,12 @@ const SimpleProfileCard = ({
                 </figure>
 
                 <div className="intro">
-                    <p className="name">{name}</p>
-                    <p className="job">
-                        {speciality ? speciality : "Gardener"}
-                    </p>
+                    <p className="name">{task.title}</p>
+                    <p className="job">{task.status}</p>
                 </div>
             </div>
 
-            {isApplied && isPermission && (
+            {/* {isApplied && isPermission && (
                 <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                     <span>Your Price</span>
                     <div className="d-flex price-edit">
@@ -79,16 +89,31 @@ const SimpleProfileCard = ({
                         />
                     </div>
                 </div>
-            )}
+            )} */}
 
             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                 <span>Budget Range</span>
                 <span className="text-right price">
-                    {currency} {startingPrice} -{endPrice}
+                    {task.budget_from} - {task.budget_to}
                 </span>
             </div>
 
-            {isApplied &&
+            {appliedTask ? (
+                <BookNowButton
+                    btnTitle="Leave Task"
+                    backgroundColor="#FE5050"
+                    handleOnClick={handleLeaveTask}
+                />
+            ) : (
+                <BookNowButton
+                    btnTitle={"Apply Now"}
+                    backgroundColor={"#38C675"}
+                    showModal={true}
+                    handleOnClick={withLogin(() => setShowModal(true))}
+                />
+            )}
+
+            {/* {isApplied &&
                 isWorking &&
                 (!priceChanged ? (
                     <BookNowButton
@@ -101,9 +126,9 @@ const SimpleProfileCard = ({
                         backgroundColor={"#211D4F"}
                         handleOnClick={handlePriceSave}
                     />
-                ))}
+                ))} */}
 
-            {isApplied && !isWorking && (
+            {/* {isApplied && !isWorking && (
                 <>
                     {!priceChanged ? (
                         <BookNowButton
@@ -122,20 +147,21 @@ const SimpleProfileCard = ({
                         />
                     )}
                 </>
-            )}
+            )} */}
 
-            {BookingDetails &&
-                BookingDetails.map((detail) => (
-                    <AppliedForm
-                        key={detail.id}
-                        title={detail.title}
-                        price={detail.price}
-                        image={detail.image}
-                        description={detail.description}
-                        show={showModal}
-                        handleClose={() => setShowModal(false)}
-                    />
-                ))}
+            <AppliedForm
+                id={task.id}
+                title={task.title}
+                price={
+                    task.charge
+                        ? task.charge
+                        : `From ${task.budget_from} - ${task.budget_to}`
+                }
+                image={task.image}
+                description={task.description}
+                show={showModal}
+                handleClose={() => setShowModal(false)}
+            />
         </div>
     );
 };

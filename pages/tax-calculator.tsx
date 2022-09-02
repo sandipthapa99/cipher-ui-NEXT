@@ -115,34 +115,51 @@ const TaxCalculator: NextPage = () => {
                                             validationSchema={
                                                 taxCalculatorSchema
                                             }
-                                            // onSubmit={async (values) => {
-                                            //     console.log("values", values);
-                                            // }}
                                             onSubmit={async (
                                                 values,
                                                 actions
                                             ) => {
-                                                actions.resetForm();
+                                                let newValue: any;
+                                                if (
+                                                    !values.allowance ||
+                                                    !values.festival_bonus ||
+                                                    !values.cit ||
+                                                    !values.life_insurance ||
+                                                    !values.medical_insurance ||
+                                                    !values.others ||
+                                                    !values.pf
+                                                ) {
+                                                    const formatValues = {
+                                                        ...values,
+                                                        allowance: 0,
+                                                        festival_bonus: 0,
+                                                        cit: 0,
+                                                        life_insurance: 0,
+                                                        medical_insurance: 0,
+                                                        others: 0,
+                                                        pf: 0,
+                                                    };
+                                                    newValue = formatValues;
+                                                } else {
+                                                    newValue = values;
+                                                }
 
-                                                mutate(values, {
+                                                mutate(newValue, {
                                                     onSuccess: async () => {
                                                         setIsFormSubmitted(
                                                             true
                                                         );
-                                                        console.log(
-                                                            "actiobn",
-                                                            actions
-                                                        );
 
                                                         actions.resetForm();
-                                                        console.log(
-                                                            "submitted values",
-                                                            values
-                                                        );
                                                     },
                                                     onError: async (error) => {
                                                         toast.error(
                                                             error.message
+                                                        );
+                                                        actions.resetForm();
+                                                        console.log(
+                                                            "fvalues",
+                                                            newValue
                                                         );
                                                     },
                                                 });
@@ -150,11 +167,11 @@ const TaxCalculator: NextPage = () => {
                                         >
                                             {({
                                                 isSubmitting,
-                                                // errors,
+                                                errors,
                                                 resetForm,
                                                 touched,
                                             }) => (
-                                                <Form>
+                                                <Form autoComplete="false">
                                                     <div className="marital-status">
                                                         <div className="label">
                                                             <p>
@@ -169,7 +186,6 @@ const TaxCalculator: NextPage = () => {
                                                                         maritalStatus
                                                                     }
                                                                     placeHolder="Unmarried"
-                                                                    fieldRequired
                                                                 />
                                                             </Col>
                                                         </Row>
@@ -183,12 +199,12 @@ const TaxCalculator: NextPage = () => {
                                                                 <InputField
                                                                     name="salary"
                                                                     type="text"
-                                                                    //   error={
+                                                                    // error={
                                                                     //     errors.salary
-                                                                    //}
-                                                                    touch={
-                                                                        touched.salary
-                                                                    }
+                                                                    // }
+                                                                    // touch={
+                                                                    //     touched.salary
+                                                                    // }
                                                                     placeHolder="Salary"
                                                                 />
                                                             </Col>
@@ -260,9 +276,7 @@ const TaxCalculator: NextPage = () => {
                                                         <InputField
                                                             type="text"
                                                             name="pf"
-                                                            //   error={
-                                                            //     errors.providentFund
-                                                            //}
+                                                            error={errors.pf}
                                                             placeHolder="Provident Fund"
                                                             touch={touched.pf}
                                                             haveIcon={true}
@@ -324,21 +338,22 @@ const TaxCalculator: NextPage = () => {
                                                                 md={12}
                                                                 className="reset-btn"
                                                             >
-                                                                {/* <FormButton
+                                                                <FormButton
                                                                     name="Reset"
                                                                     className="btn close-btn"
                                                                     onClick={() =>
                                                                         resetForm()
                                                                     }
-                                                                /> */}
-                                                                <Button
+                                                                />
+                                                                {/* <Button
+                                                                    type="button"
                                                                     className="btn close-btn"
-                                                                    onClick={() =>
-                                                                        resetForm
+                                                                    onClick={() => 
+                                                                        resetForm();
                                                                     }
                                                                 >
-                                                                    Cancel
-                                                                </Button>
+                                                                    Reset
+                                                                </Button> */}
                                                             </Col>
                                                             <Col lg={6} md={12}>
                                                                 <FormButton

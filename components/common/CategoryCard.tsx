@@ -9,7 +9,7 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ name, icon, slug }: CategoryCardProps) => {
     return (
-        <Link href={`/service/${slug}`}>
+        <Link href={`/service/category/${slug}?category=${name}`}>
             <a>
                 <div className="category-card-block">
                     <div className="category-card-block__image-block">

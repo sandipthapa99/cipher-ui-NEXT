@@ -22,6 +22,7 @@ export type Tasker = {
     user: User;
     portfolio: any[];
     stats: Stats;
+    designation: string;
     status: string;
     bio: string;
     full_name: string;
@@ -49,6 +50,7 @@ export interface User {
     id: string;
     email: string;
     full_name: string;
+    profile_image: string;
 }
 
 export interface Stats {

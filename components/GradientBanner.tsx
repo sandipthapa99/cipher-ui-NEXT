@@ -1,19 +1,20 @@
+import Cookies from "js-cookie";
 import Image from "next/image";
 
-import CardBtn from "./common/CardBtn";
+import AnchorButton from "./common/AnchorButton";
 
 interface GradientBannerProps {
     title: string;
     subTitle: string;
     image: string;
-    btnText: string;
 }
 const GradientBanner = ({
     title,
     subTitle,
-    btnText,
+
     image,
 }: GradientBannerProps) => {
+    const accessToken = Cookies.get("access");
     return (
         <div className="gradient-layout">
             <div className="gradient"></div>
@@ -32,11 +33,23 @@ const GradientBanner = ({
                     <div className="bottom-content">
                         <p>{subTitle}</p>
                     </div>
-                    <CardBtn
-                        btnTitle={btnText}
-                        backgroundColor="#FFF"
-                        color="#000"
-                    />
+                    {accessToken !== undefined ? (
+                        <AnchorButton
+                            className={"px-5"}
+                            href={"/explore-services"}
+                            varient={"secondary"}
+                        >
+                            {"Explore Services"}
+                        </AnchorButton>
+                    ) : (
+                        <AnchorButton
+                            className={"px-5"}
+                            href={"/signup"}
+                            varient={"secondary"}
+                        >
+                            {"Join Us"}
+                        </AnchorButton>
+                    )}
                 </>
                 <div></div>
             </div>

@@ -9,7 +9,7 @@ import {
     faRepeat,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Divider, Text } from "@mantine/core";
+import { Avatar, Button, Divider, Text } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import { useLogout } from "hooks/auth/useLogout";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -57,14 +57,11 @@ export const ProfileModel = () => {
     return (
         <div className={classes.root}>
             <div className={classes.header}>
-                <Image
-                    src={
-                        profileDetails?.profile_image ??
-                        "/userprofile/unknownPerson.jpg"
-                    }
-                    width={40}
-                    height={40}
-                    alt="Profile Image"
+                <Avatar
+                    src={profileDetails?.profile_image}
+                    radius="xl"
+                    size={44}
+                    alt="it's me"
                 />
                 <div>
                     <Text className={classes.username}>
@@ -160,7 +157,7 @@ const PROFILE_LINKS = {
         {
             title: "My Dashboard",
             icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
-            href: "/my-dashboard",
+            href: "/home",
             color: "#495057",
         },
         {

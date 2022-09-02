@@ -9,13 +9,14 @@ const getFacebookAppId = () => {
 export const FacebookLogin = () => {
     return (
         <ReactFacebookLogin
+            autoLoad={false}
             appId={getFacebookAppId()}
             render={(renderProps) => (
                 <SocialLoginBtn
                     onClick={renderProps.onClick}
                     name="Sign in with Facebook"
                     className="facebook"
-                    icon="/illustrations/fb.svg"
+                    icon="faFacebook"
                 />
             )}
             callback={(response) => console.log(response)}

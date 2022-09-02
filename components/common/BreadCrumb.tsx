@@ -4,9 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { Breadcrumb, Container } from "react-bootstrap";
-import type { breadCrumbProps } from "types/breadCrumbProps";
 
-export const BreadCrumb = ({ currentPage }: breadCrumbProps) => {
+export interface BreadCrumbProps {
+    currentPage?: string;
+}
+
+export const BreadCrumb = ({ currentPage }: BreadCrumbProps) => {
     const router = useRouter();
     const routes = router.asPath.split("/").filter((route) => route);
 

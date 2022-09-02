@@ -24,12 +24,14 @@ export interface RatedTo {
     id: string;
     email: string;
     full_name: string;
+    profile_image: string;
 }
 
 export interface RatedBy {
     id: string;
     email: string;
     full_name: string;
+    profile_image: string;
 }
 
 export const useGetTaskerRating = () => {

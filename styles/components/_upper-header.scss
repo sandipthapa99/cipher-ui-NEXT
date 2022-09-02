@@ -120,7 +120,7 @@
                 color: $default-text-color;
                 font-size: 1.2rem;
                 font-weight: 500;
-                padding: 3rem 0;
+                // padding: 3rem 0;
                 border: none;
 
                 @include respond(lg) {
@@ -146,10 +146,10 @@
 
             .user-profile {
                 position: relative;
-                margin-right: 1.6rem;
+                margin-left: 1.6rem;
 
                 @include respond(md) {
-                    margin-right: 2rem;
+                    margin-left: 2rem;
                 }
 
                 .profile-btn {

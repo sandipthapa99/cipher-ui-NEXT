@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
@@ -31,41 +32,61 @@ const ServiceNearYouCard = ({
     serviceRating,
     serviceTitle,
     haveDiscount,
+    serviceSlug,
     discountOn,
     discount,
     onServiceClick,
 }: ServiceNearYouCardProps) => {
-    const { data } = useQuery(
-        ["service-provider-user", serviceProvider],
-        async () => {
-            const { data } = await axiosClient.get<ServiceProvider>(
-                `/user/${serviceProvider}`
-            );
-            return data;
-        }
-    );
+    // const { data } = useQuery(
+    //     ["service-provider-user", serviceProvider],
+    //     async () => {
+    //         const { data } = await axiosClient.get<ServiceProvider>(
+    //             `/user/${serviceProvider}`
+    //         );
+    //         return data;
+    //     }
+    // );
 
-    const providerName = data?.groups[0]?.name;
+    // const providerName = data?.groups[0]?.name;
+
+    const router = useRouter();
+    const path = router.query.slug;
 
     return (
         <div
-            className="service-card-block service-near-you-card-block"
+            data-active={JSON.stringify(path === serviceSlug)}
+            className="service-card-block service-near-you-card-block active"
             onClick={() => onServiceClick}
         >
             <Row>
                 <Col md="5">
-                    <figure className="thumbnail-img">
-                        <Image
-                            src={
-                                image
-                                    ? image
-                                    : "/service-details/garden-cleaning.png"
-                            }
-                            layout="fill"
-                            objectFit="cover"
-                            alt="servicecard-image"
-                        />
-                    </figure>
+                    {image && Array.isArray(image) ? (
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={
+                                    image
+                                        ? image[0].media
+                                        : "/service-details/garden-cleaning.png"
+                                }
+                                layout="fill"
+                                objectFit="cover"
+                                alt="servicecard-image"
+                            />
+                        </figure>
+                    ) : (
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={
+                                    image
+                                        ? image
+                                        : "/service-details/garden-cleaning.png"
+                                }
+                                layout="fill"
+                                objectFit="cover"
+                                alt="servicecard-image"
+                            />
+                        </figure>
+                    )}
                 </Col>
                 <Col md="7">
                     <div className="content">
@@ -77,7 +98,7 @@ const ServiceNearYouCard = ({
                                     className="user svg-icon"
                                 />
 
-                                <p>{providerName}</p>
+                                <p>{serviceProvider}</p>
                             </div>
                             <div className="type d-flex flex-col">
                                 <FontAwesomeIcon

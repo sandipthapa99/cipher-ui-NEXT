@@ -3,10 +3,13 @@ import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
+import type { ApplyTaskPayload } from "hooks/task/use-apply-task";
+import { useApplyTask } from "hooks/task/use-apply-task";
 import { useRouter } from "next/router";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { BookNowModalCardProps } from "types/bookNow";
 import { ApplyFormData } from "utils/formData";
@@ -14,6 +17,7 @@ import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const AppliedForm = ({
+    id,
     title,
     price,
     description,
@@ -22,6 +26,7 @@ const AppliedForm = ({
 }: BookNowModalCardProps) => {
     const toggleSuccessModal = useToggleSuccessModal();
     const router = useRouter();
+    const { mutate } = useApplyTask();
     return (
         <>
             {/* Modal component */}
@@ -39,14 +44,37 @@ const AppliedForm = ({
                         </h4>
                         <p>{description}</p>
                     </div>
-
-                    <hr />
                     <Formik
                         initialValues={ApplyFormData}
                         validationSchema={applyFormSchema}
                         onSubmit={async (values) => {
-                            toggleSuccessModal();
-                            console.log(values);
+                            const price = parseInt(values.price, 10);
+                            if (isNaN(price) || !id) {
+                                return toast.error(
+                                    "Price must be a number and task id must be provided"
+                                );
+                            }
+
+                            const applyTaskPayload: ApplyTaskPayload = {
+                                task: id,
+                                charge: price,
+                                pre_requisites: JSON.stringify(
+                                    values.prerequesties
+                                ),
+                                remarks: values.remarks,
+                            };
+                            mutate(applyTaskPayload, {
+                                onSuccess: (data) => {
+                                    toast.success(data.task);
+                                    toggleSuccessModal();
+                                },
+                                onError: (error) => {
+                                    const errors = Object.values(
+                                        error.response?.data.task ?? []
+                                    ).join("\n");
+                                    toast.error(errors);
+                                },
+                            });
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

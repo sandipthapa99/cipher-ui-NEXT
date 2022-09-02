@@ -2,30 +2,33 @@ import ServiceNearYouCard from "@components/SearchTask/searchAside";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
+import Scrollbars from "react-custom-scrollbars";
 import type { ServicesValueProps } from "types/serviceCard";
 
-interface TaskAsideProps {
+interface ServiceAside {
     children: ReactNode;
-    appliedTasks: ServicesValueProps["result"];
+    service: ServicesValueProps["result"];
     query: string;
 }
-const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
-    const totalAppliedTasks = appliedTasks?.length;
-    const renderTaskCards = appliedTasks?.map((task, key) => {
+const ServiceAside = ({ service, query, children }: ServiceAside) => {
+    const totalAppliedTasks = service?.length;
+    console.log("service in service page", service);
+    const renderTaskCards = service?.map((task, key) => {
         return (
             <div key={key}>
-                <Link href={"/"}>
+                <Link href={`/service/${task.slug}`}>
                     <a>
                         <ServiceNearYouCard
-                            servicePrice={task?.budget}
+                            servicePrice={task?.budget_from}
                             serviceTitle={task?.title}
                             serviceRating={task?.success_rate}
                             serviceProviderLocation={task?.location}
+                            serviceSlug={task?.slug}
                             discount={20} // To do form api
                             image={
                                 Array.isArray(task.images)
-                                    ? task.images[0].image
-                                    : task.images
+                                    ? task.images[0]?.media
+                                    : task?.images
                             }
                             serviceProvider={task?.created_by?.full_name}
                         />
@@ -37,23 +40,24 @@ const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
     return (
         <div className="search-results">
             <Row>
-                <Col md={4} style={{ overflowY: "scroll", maxHeight: "90vh" }}>
-                    {query && totalAppliedTasks > 0 ? (
-                        <p className="search-results-text">
-                            {`${totalAppliedTasks} service matching ${query} found`}
-                        </p>
-                    ) : null}
-                    {query && totalAppliedTasks === 0 ? (
-                        <p className="search-results-text">
-                            No services matching {query} found
-                        </p>
-                    ) : null}
-                    {renderTaskCards}
+                <Col md={4}>
+                    <Scrollbars autoHide style={{ height: 700 }}>
+                        {query && totalAppliedTasks > 0 ? (
+                            <p className="search-results-text">
+                                {`${totalAppliedTasks} service matching ${query} found`}
+                            </p>
+                        ) : null}
+                        {query && totalAppliedTasks === 0 ? (
+                            <p className="search-results-text">
+                                No services matching {query} found
+                            </p>
+                        ) : null}
+                        {renderTaskCards}
+                    </Scrollbars>
                 </Col>
-
                 <Col md={8}>{children}</Col>
             </Row>
         </div>
     );
 };
-export default TaskAside;
+export default ServiceAside;

@@ -1,4 +1,5 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
+import FullPageLoader from "@components/common/FullPageLoader";
 import { Tab } from "@components/common/Tab";
 import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
@@ -15,10 +16,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
-
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const { data: profileDetails, error } = useGetProfile();
+    const { data: profileDetails, isLoading, error } = useGetProfile();
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData(["profile"]);
 
@@ -27,6 +27,8 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     //     "/tasker/profile/"
     // );
     // const profileDetails = userData?.data;
+
+    // if (isLoading || !data) return <FullPageLoader />;
 
     const remaining = {
         userRating: 4,
@@ -41,7 +43,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         userActiveStatus: true,
     };
 
-    if (!data || error) {
+    if (!profileDetails) {
         return (
             <>
                 <Layout title="Profile | Cipher">
@@ -100,12 +102,17 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             userBadge={remaining.userBadge}
                             userPoints={remaining.userPoints}
                             pointGoal={remaining.pointGoal}
-                            happyClients={remaining.happyClients}
-                            successRate={remaining.successRate}
-                            userReviews={remaining.userReviews}
-                            taskCompleted={remaining.taskCompleted}
+                            happyClients={profileDetails?.stats?.happy_clients}
+                            successRate={profileDetails?.stats?.success_rate}
+                            userReviews={profileDetails?.stats?.user_reviews}
+                            taskCompleted={
+                                profileDetails?.stats?.task_completed
+                            }
                             userActiveStatus={remaining.userActiveStatus}
                             tooltipMessage={remaining.tooltipMessage}
+                            isProfileVerified={
+                                profileDetails?.is_profile_verified
+                            }
                         />
                     </section>
 
@@ -120,7 +127,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                                         content: <AboutProfile />,
                                     },
                                     {
-                                        title: "Tasks",
+                                        title: "Services",
                                         content: <TasksProfileCard />,
                                     },
                                     {
@@ -161,13 +168,14 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["tasker-portfolio"]),
             queryClient.prefetchQuery(["profile"]),
             queryClient.prefetchQuery(["tasker-rating"]),
+            queryClient.prefetchQuery(["tasker-document"]),
         ]);
         return {
             props: {
                 dehydratedState: dehydrate(queryClient),
             },
         };
-    } catch (err: any) {
+    } catch (err) {
         return {
             props: {
                 certificationData: [],
@@ -175,6 +183,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 experienceData: [],
                 profile: [],
                 ratingData: [],
+                documentData: [],
             },
         };
     }

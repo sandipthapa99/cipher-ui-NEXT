@@ -3,7 +3,7 @@ import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 
 export interface LoginPayload {
-    email: string;
+    username: string;
     password: string;
 }
 export interface LoginSuccessResponse {

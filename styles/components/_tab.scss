@@ -3,6 +3,19 @@
     flex-direction: column;
 
     &__headers {
+        &--btn {
+            color: #9fa3b1;
+            font-weight: 500;
+            @include respond(xs) {
+                margin-right: 1rem;
+            }
+            @include respond(xxs) {
+                margin-right: 1rem;
+            }
+        }
+        [data-is-active="true"] {
+            color: $default-text-color;
+        }
         position: relative;
         // display: flex;
         // gap: 62px;
@@ -20,6 +33,10 @@
             .tab-icons {
                 display: flex;
                 justify-content: space-between;
+                .svg-icon {
+                    color: $primary-color;
+                    cursor: pointer;
+                }
             }
         }
         @include media("<=tablet") {
@@ -37,6 +54,24 @@
             height: 1px;
             background-color: #ced4da;
             transform: translateY(4px);
+        }
+        input {
+            background: #fff;
+            border: 0.1rem solid #afafaf;
+            box-shadow: none;
+            height: 4.8rem;
+            font-size: 1.6rem;
+            padding: 0.6rem 1.8rem;
+            position: relative;
+            border-radius: 0.4rem;
+            font-family: "Inter";
+            @include transition();
+            @include respond(sm) {
+                width: 80%;
+            }
+            @include respond(md) {
+                width: 85%;
+            }
         }
         &--btn {
             position: relative;

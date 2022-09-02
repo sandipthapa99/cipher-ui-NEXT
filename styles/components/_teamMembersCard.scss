@@ -1,10 +1,13 @@
 .team-members-card {
     padding: 2.4rem;
     @include border();
+    &:focus-visible {
+        border: 0.1rem solid #211d4f;
+    }
 
     p {
         font: 400 1.2rem $poppins-font;
-        text-align: justify;
+        text-align: inherit;
         margin: 0 0 2.4rem;
     }
 
@@ -90,9 +93,11 @@
             font: 600 2rem $poppins-font;
         }
         .share-and-like {
+            display: flex;
+            align-items: center;
             svg {
-                height: 2.4rem;
-                width: 2.4rem;
+                height: 2rem;
+                width: 2rem;
                 margin: 0 2.4rem 0 0;
                 cursor: pointer;
             }
@@ -116,11 +121,13 @@
             }
         }
 
-        button {
-            background: #211d4f;
-            color: white;
-            height: 3rem;
-            width: 7.8rem;
+        .collab-button {
+            button {
+                background: #211d4f;
+                color: white;
+                height: 3rem;
+                width: 7.8rem;
+            }
         }
     }
 }

@@ -1,11 +1,17 @@
+.user-card-container {
+    overflow: auto;
+    height: 90vh;
+    margin-bottom: 5rem;
+}
+
 .user-task-card-list {
-    max-height: 80vh;
-    overflow: hidden scroll;
+    // max-height: 80vh;
+    // overflow: hidden scroll;
     position: sticky;
-    @include media("<=tablet") {
-        max-height: unset;
-        overflow: unset;
-    }
+    // @include media("<=tablet") {
+    //     max-height: unset;
+    //     overflow: unset;
+    // }
     margin-bottom: 5rem;
 
     .team-members-card {

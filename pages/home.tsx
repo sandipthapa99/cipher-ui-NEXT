@@ -16,11 +16,12 @@ import type { ServicesValueProps } from "types/serviceCard";
 const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
     ssr: false,
 });
-const PostTask: NextPage = () => {
+const Home: NextPage = () => {
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
+
     return (
         <Layout title="Post task | Cipher">
             <section className="post-task">
@@ -33,29 +34,22 @@ const PostTask: NextPage = () => {
                     <ApplyPost />
 
                     <div className="post-task__discount-card">
-                        <h1>Special Offers & Discount</h1>
-                        <Row>
-                            <Col md={4}>
-                                <DiscountCard />
-                            </Col>
-                            <Col md={4}>
-                                <DiscountCard />
-                            </Col>
-                            <Col md={4}>
-                                <DiscountCard />
-                            </Col>
-                        </Row>
+                        <h1>Special Offers &amp; Discount</h1>
+
+                        <DiscountCard />
                     </div>
                     <div className="post-task__popular-services">
                         <div className="title-wrapper d-flex justify-content-between">
                             <h1 className="heading-title">Popular on Cipher</h1>
-                            <a href="/pages" className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
+                            <Link href="/service">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
                         </div>
                         <Row>
                             {servicesData &&
@@ -127,4 +121,4 @@ const PostTask: NextPage = () => {
     );
 };
 
-export default PostTask;
+export default Home;

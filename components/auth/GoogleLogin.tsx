@@ -9,9 +9,13 @@ const getGoogleClientId = () => {
 const GoogleLogin = () => {
     return (
         <ReactGoogleLogin
-            autoLoad={true}
+            scope="profile email"
+            isSignedIn={true}
+            autoLoad={false}
             clientId={getGoogleClientId()}
+            onFailure={(err) => console.log(err)}
             onSuccess={(response) => console.log(response)}
+            cookiePolicy={"single_host_origin"}
             render={(renderProps) => (
                 <SocialLoginBtn
                     className="google"

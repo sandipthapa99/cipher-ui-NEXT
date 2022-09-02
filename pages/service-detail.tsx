@@ -1,6 +1,6 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
-import PackageOffersCard from "@components/common/packageCard";
+import sCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
 import SelectInputField from "@components/common/SelectInputField";
@@ -33,6 +33,7 @@ const ServiceDetail: NextPage = () => {
         ["all-services"],
         "/task/service/"
     );
+
     return (
         <Layout title="Service Details | Cipher">
             <BreadCrumb currentPage="Service Details" />
@@ -157,7 +158,7 @@ const ServiceDetail: NextPage = () => {
                                         sm={6}
                                         key={offer.id}
                                     >
-                                        <PackageOffersCard
+                                        {/* <sCard
                                             title={offer.title}
                                             price={offer.price.toString()}
                                             offers={offer.offers}
@@ -165,7 +166,7 @@ const ServiceDetail: NextPage = () => {
                                             isPermium={offer.isPermium}
                                             advantage={offer.advantage}
                                             isFromAddService={false}
-                                        />
+                                        /> */}
                                     </Col>
                                 ))}
                         </Row>
@@ -219,7 +220,7 @@ const ServiceDetail: NextPage = () => {
                         <div className="title-wrapper d-flex justify-content-between">
                             {/* <h2 className="heading-title">Community activity</h2> */}
                             <h1>Popular on Cipher</h1>
-                            <Link href="/search">
+                            <Link href="/service">
                                 <a className="view-more">
                                     view more{" "}
                                     <FontAwesomeIcon

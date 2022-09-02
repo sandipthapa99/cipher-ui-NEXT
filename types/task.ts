@@ -9,10 +9,15 @@ export interface ITaskApiResponse {
 }
 
 export interface ITask {
-    uuid: string;
+    id: string;
     category: any;
     location: any;
-    assigner: string;
+    assigner: {
+        id: string;
+        email: string;
+        full_name: string;
+        profile_image: string;
+    };
     currency: any;
     created_at: string;
     updated_at: string;

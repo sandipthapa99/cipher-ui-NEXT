@@ -15,7 +15,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import type { NewsletterDataTypes } from "types/newsletter";
 import { axiosClient } from "utils/axiosClient";
-import emailValidationSchema from "utils/formValidation/emailValidation";
+import { emailValidationSchema } from "utils/formValidation/emailValidation";
 
 import InputField from "./common/InputField";
 
@@ -315,7 +315,13 @@ const Footer = () => {
                                 <div>
                                     <h2>Mobile App</h2>
                                     <Row>
-                                        <Col md="6">
+                                        <Col
+                                            md="6"
+                                            xs="6"
+                                            className="d-flex justify-content-start
+                                            align-items-center
+                                            "
+                                        >
                                             <Link href="">
                                                 <a>
                                                     <Image
@@ -327,7 +333,13 @@ const Footer = () => {
                                                 </a>
                                             </Link>
                                         </Col>
-                                        <Col md="6">
+                                        <Col
+                                            md="6"
+                                            xs="6"
+                                            className="d-flex justify-content-start
+                                            align-items-center
+                                            "
+                                        >
                                             <Link href="">
                                                 <a>
                                                     <Image

@@ -3,15 +3,21 @@ import MerchantCard from "@components/common/MerchantCard";
 import TaskCard from "@components/common/TaskCard";
 import Layout from "@components/Layout";
 import { ServiceCategories } from "@components/services/ServiceCategories";
+import { useData } from "hooks/use-data";
 import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import { merchants } from "staticData/merchants";
-import { tasks } from "staticData/task";
+import type { ITaskApiResponse } from "types/task";
 
 const Gardening = () => {
     const router = useRouter();
     const { categories } = router.query;
+    //for tasks
 
+    const { data: recommendedTasks } = useData<ITaskApiResponse>(
+        ["all-tasks"],
+        "/task/"
+    );
     return (
         <Layout title={`${categories} | Cipher`}>
             <div className="gardening -page">
@@ -31,21 +37,23 @@ const Gardening = () => {
                             {`  ${categories} Tasks Near You`}
                         </h1>
                         <Row className="gx-5">
-                            {tasks &&
-                                tasks.map((task) => {
-                                    return (
-                                        <Col md={6} key={task.id}>
-                                            <TaskCard
-                                                title={task.title}
-                                                charge={task.charge}
-                                                description={task.description}
-                                                location={task.location}
-                                                date={task.date}
-                                                time={task.time}
-                                            />
-                                        </Col>
-                                    );
-                                })}
+                            {recommendedTasks?.data?.result?.map(
+                                (task: any, key: any) => (
+                                    <Col sm="12" key={key}>
+                                        <TaskCard
+                                            title={task?.title}
+                                            id={task?.id}
+                                            charge={task?.charge}
+                                            description={task?.description}
+                                            location={task?.location}
+                                            start_date={task?.start_date}
+                                            start_time={task?.start_time}
+                                            status={task?.status}
+                                            currency={task?.currency}
+                                        />
+                                    </Col>
+                                )
+                            )}
                         </Row>
                     </section>
 

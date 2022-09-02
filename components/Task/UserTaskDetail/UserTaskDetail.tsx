@@ -1,12 +1,13 @@
 import { GoBack } from "@components/common/GoBack";
 import { UserShortIntro } from "@components/Task/UserTaskDetail/atoms/UserShortIntro";
 import { UserTaskDetailHeader } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailHeader";
-import { UserTaskDetailTabs } from "@components/Task/UserTaskDetail/atoms/UserTaskDetailTabs";
 import { UserTaskReviews } from "@components/Task/UserTaskDetail/atoms/UserTaskReviews";
 import { useQuery } from "@tanstack/react-query";
 import type { HTMLAttributes } from "react";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
+
+import { UserTaskDetailTabs } from "./atoms/UserTaskDetailTabs";
 
 interface UserTaskDetailProps extends HTMLAttributes<HTMLDivElement> {
     // taskDetail: TaskDetail;
@@ -40,14 +41,15 @@ const UserTaskDetail = ({
                 onClick={onExitTaskDetail}
                 className="mb-24"
             />
+
             <UserTaskDetailHeader
                 taskerDetail={taskerDetail}
                 maxHeaderWidth={maxHeaderWidth}
                 activeTaskId={activeTaskId}
             />
             <UserShortIntro user={taskerDetail} />
-            <UserTaskDetailTabs />
-            <UserTaskReviews />
+            <UserTaskDetailTabs taskerDetail={taskerDetail} />
+            <UserTaskReviews activeTaskId={activeTaskId} />
         </div>
     );
 };

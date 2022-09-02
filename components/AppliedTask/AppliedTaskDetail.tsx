@@ -16,10 +16,14 @@ import {
     faLocationDot,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faFilterList,
+    faMagnifyingGlass,
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { useBookmarkTasks } from "hooks/task/use-bookmark-tasks";
+import { useIsBookmarked } from "hooks/use-bookmarks";
 import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -33,22 +37,33 @@ import { TeamMembersSection } from "./TeamMembersSection";
 import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail: NextPage = () => {
-    const { data } = useBookmarkTasks();
+    const queryClient = useQueryClient();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
+    const [showInput, setShowInput] = useState(false);
+
+    const RenderInputBox = () => {
+        return (
+            <input
+                type="text"
+                className="input"
+                //value={search_category}
+                placeholder="search"
+            />
+        );
+    };
     const router = useRouter();
 
-    const uuid = router?.query?.slug as string;
+    const slug = router?.query?.slug as string;
 
-    const { data: taskDetail } = useQuery(["task-detail", uuid], async () => {
-        const response = await axiosClient.get(`/task/task/${uuid}`);
+    const { data: taskDetail } = useQuery(["task-detail", slug], async () => {
+        const response = await axiosClient.get(`/task/${slug}`);
         return response?.data;
     });
 
     const requirements = taskDetail?.requirements?.split(",");
 
-    const isTaskBookmarked = () =>
-        data ? data.result?.some((item) => item.object_id === uuid) : false;
+    const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
     if (!taskDetail) {
         return <UserLoadingOverlay />;
@@ -68,14 +83,20 @@ const AppliedTaskDetail: NextPage = () => {
                         </span>
                         <div className="d-flex justify-content-between align-items-center">
                             <SaveIcon
-                                object_id={uuid}
+                                object_id={taskDetail?.id}
                                 model="task"
                                 filled={isTaskBookmarked}
                                 showText
+                                onSuccess={() =>
+                                    queryClient.invalidateQueries([
+                                        "bookmarks",
+                                        "task",
+                                    ])
+                                }
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
-                                    url={`http://localhost:3005/task/${uuid}`}
+                                    url={`http://localhost:3005/task/${slug}`}
                                     quote={"This is the task from cipher"}
                                     hashtag={"cipher-task"}
                                 />
@@ -123,16 +144,23 @@ const AppliedTaskDetail: NextPage = () => {
                         </figure>
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
-                        <SimpleProfileCard
-                            image={taskDetail?.image}
-                            speciality={taskDetail?.speciality}
+                        {taskDetail && (
+                            <SimpleProfileCard
+                                task={taskDetail}
+                                onApply={() => setShowModal(false)}
+                            />
+                        )}
+                        {/* <SimpleProfileCard
+                            id={taskDetail.id}
+                            image={taskDetail?.assigner?.profile_image}
+                            speciality={taskDetail?.category?.name}
                             startingPrice={taskDetail?.budget_from}
                             endPrice={taskDetail?.budget_to}
-                            isApplied={true}
+                            isApplied={false}
                             isPermission={false}
                             currency={taskDetail?.currency}
-                            name={taskDetail?.assigner}
-                        />
+                            name={taskDetail?.assigner?.full_name}
+                        /> */}
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
@@ -204,6 +232,33 @@ const AppliedTaskDetail: NextPage = () => {
                         {
                             title: "Collaboration",
                             content: <Collaboration />,
+                        },
+                    ]}
+                    icons={[
+                        {
+                            index: 0,
+                            type: (
+                                <FontAwesomeIcon
+                                    icon={faMagnifyingGlass}
+                                    className="svg-icon"
+                                    onClick={() => setShowInput(!showInput)}
+                                />
+                            ),
+                            iconContent: showInput ? <RenderInputBox /> : null,
+                        },
+                        {
+                            index: 1,
+                            type: (
+                                <EllipsisDropdown
+                                    showModal={true}
+                                    handleOnClick={() => setShowModal(true)}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faFilterList}
+                                        className="svg-icon"
+                                    />
+                                </EllipsisDropdown>
+                            ),
                         },
                     ]}
                 />

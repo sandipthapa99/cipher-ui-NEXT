@@ -1,134 +1,213 @@
 // td = taskdetail
 // task detail
+
 .user-task-detail-container {
     padding: 1.6rem;
     background-color: $white;
     border-radius: 0.4rem;
-    max-height: 90vh;
-    margin-bottom: 5rem;
+    height: 95vh;
     overflow-y: auto;
-}
-.td-task-detail-header-icons {
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1rem;
+    padding-left: 3rem;
+    padding-bottom: 2.5rem;
+    span {
+        margin-left: 1.5rem;
+    }
+    .skills {
+        span {
+            margin-left: 0rem;
+        }
+    }
+    .about-profile {
+        .type,
+        .certifications {
+            padding-left: 0rem;
+        }
+    }
+    .about-profile .type:last-child {
+        padding-left: 0rem;
+    }
 
-    @include respond(md) {
+    .td-task-detail-header-icons {
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        .fa-share {
+            margin-right: 0rem;
+            padding-right: 0rem;
+        }
+
+        @include respond(md) {
+            display: flex;
+        }
+        @include respond(xs) {
+            position: absolute;
+            /* margin-bottom: 21rem; */
+            margin-top: 2r;
+            top: 5rem;
+            right: 3rem;
+        }
+    }
+
+    .td-text {
+        font-weight: normal;
+        font-size: 1.4rem;
+    }
+    //task detail header
+    .td-user-image-container {
+        position: relative;
+        width: fit-content;
+        padding-right: 1.8rem;
         display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 1rem;
+        &__badge {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+        }
     }
-}
-
-.td-text {
-    font-weight: normal;
-    font-size: 1.4rem;
-}
-//task detail header
-.td-user-image-container {
-    position: relative;
-    width: fit-content;
-
-    &__badge {
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: translateX(-50%);
+    .td-user-name {
+        max-width: fit-content;
+        position: relative;
+        color: $primary-color;
+        font-weight: 500;
+        &::before {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            content: "";
+            width: 0.8rem;
+            height: 0.8rem;
+            background-color: #38c675;
+            transform: translate(150%, -50%);
+            border-radius: 100%;
+            opacity: 0;
+            visibility: hidden;
+        }
+        &[data-is-online="true"]::before {
+            opacity: 1;
+            visibility: visible;
+        }
     }
-}
-.td-user-name {
-    max-width: fit-content;
-    position: relative;
+    .td-hire-me-btn {
+        width: 16rem;
+        height: 3rem;
+        border-radius: 0.4rem;
+        background-color: #ffca6a;
+        color: #000;
+        outline: 0.1rem solid transparent;
+        border: 0.1rem solid transparent;
 
-    &::before {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        content: "";
-        width: 0.8rem;
-        height: 0.8rem;
-        background-color: #38c675;
-        transform: translate(150%, -50%);
-        border-radius: 100%;
-        opacity: 0;
-        visibility: hidden;
+        &:hover {
+            filter: brightness(95%);
+        }
     }
-    &[data-is-online="true"]::before {
-        opacity: 1;
-        visibility: visible;
+
+    .td-filter-review-container {
+        padding: 1.8rem 0px 0;
+        border-block: 0.1rem solid #ced4da;
+        margin: 2rem 0 0;
+        display: flex;
+        align-items: center;
+        padding-bottom: 1.5rem;
+        h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            span {
+                color: #707579;
+            }
+        }
     }
-}
-.td-hire-me-btn {
-    width: 16rem;
-    height: 3rem;
-    border-radius: 0.4rem;
-    background-color: #ffca6a;
-    color: #000;
-    outline: 0.1rem solid transparent;
-    border: 0.1rem solid transparent;
-
-    &:hover {
-        filter: brightness(95%);
+    .td-divider {
+        display: block;
+        height: 0.1rem;
+        margin-block: 40px;
+        background-color: #ced4da;
     }
-}
 
-.td-filter-review-container {
-    padding: 1.8rem 0px 0;
-    border-block: 0.1rem solid #ced4da;
-}
-.td-divider {
-    display: block;
-    height: 0.1rem;
-    margin-block: 40px;
-    background-color: #ced4da;
-}
-
-// add review form styles
-.td-add-review-label {
-    font-size: 1.1rem;
-    font-weight: 500;
-    line-height: 1.8rem;
-    margin-bottom: 0.5rem;
-    color: $default-text-color;
-}
-
-.td-submit-review-btn {
-    height: 3rem;
-    width: 18rem;
-    background-color: $primary-color;
-    outline: 0.1rem solid transparent;
-    border: 0.1rem solid transparent;
-    color: $white;
-    border-radius: 0.4rem;
-
-    &:hover {
-        background-color: rgba($primary-color, 0.9);
+    // add review form styles
+    .td-add-review-label {
+        font-size: 1.8rem;
+        font-weight: 500;
+        line-height: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: $default-text-color;
     }
-}
-.td-reviews-count {
-    color: $gray-text-color;
-    font-size: 1.6rem;
-    font-weight: normal;
-    margin-left: 3px;
-}
-.td-task-charge {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.8rem;
-
-    @include respond(md) {
-        text-align: right;
+    .review {
+        span {
+            margin-left: 0rem;
+        }
+        .rr--has-stroke .rr--off .rr--svg {
+            stroke: #fab005;
+        }
     }
-}
-.td-user-short-intro {
-    margin-top: 3rem;
-}
-.td-user-short-intro-text {
-    font-size: 1.6rem;
-    font-weight: normal;
-    margin-bottom: 1rem;
-}
-.td-mt-24 {
-    margin-top: 1.8rem;
-}
-.td-mb-24 {
-    margin-bottom: 1.8rem;
+    .form-select {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        font-size: 1.3rem;
+        margin-right: 1.6rem;
+    }
+    .td-submit-review-btn {
+        height: 5rem;
+        width: 18rem;
+        background-color: $primary-color;
+        outline: 0.1rem solid transparent;
+        border: 0.1rem solid transparent;
+        color: $white;
+        border-radius: 0.4rem;
+
+        &:hover {
+            background-color: rgba($primary-color, 0.9);
+        }
+    }
+    .td-reviews-count {
+        color: $gray-text-color;
+        font-size: 1.6rem;
+        font-weight: normal;
+        margin-left: 3px;
+    }
+    .td-task-charge {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.8rem;
+        color: #212529;
+        @include respond(md) {
+            text-align: right;
+        }
+    }
+    .td-user-short-intro {
+        margin-top: 3rem;
+    }
+    .td-user-short-intro-text {
+        font-size: 1.6rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        color: $secondary-text-color;
+        span {
+            font-weight: 400;
+        }
+        .svg-icon {
+            color: $sub-title-color;
+        }
+    }
+    .td-mt-24 {
+        margin-top: 1.8rem;
+
+        .type {
+            margin-right: 1.5rem;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    .td-mb-24 {
+        margin-bottom: 1.8rem;
+    }
+    .card-btn {
+        width: 90%;
+        font-weight: 500;
+        margin-left: 2rem;
+    }
 }

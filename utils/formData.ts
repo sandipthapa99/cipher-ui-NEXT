@@ -15,23 +15,25 @@ import type { KYCFormProps } from "types/kycFormProps";
 import type { LoginValuesProps } from "types/login";
 import type { PostTaskProps } from "types/postTaskData";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
+import type { ServicePostProps } from "types/serviceCard";
 import type { SkillsValueProps } from "types/skillsValueProps";
 import type { TaxCalculatorValueProps } from "types/taxCalculatorValueProps";
 import type { UploadCVValueProps } from "types/uploadCVValueProps";
 
 // Login page data
 export const loginFormData: LoginValuesProps = {
-    email: "",
+    username: "",
     password: "",
 };
 
 export const ClientSignUpFormData: ClientSignUpValueProps = {
     // firstName: "",
     // lastName: "",
-    email: "",
+    // email: "",
     // phoneNumber: "",
     password: "",
     confirmPassword: "",
+    // phone: "",
     // gender: "male",
     // isAgree: true,
     // addToNewsletter: true,
@@ -64,13 +66,24 @@ export const ExperienceFormData: ExperienceValueProps = {
     id: 0,
 };
 
+interface filterReviewProps {
+    search_value: string;
+}
+//review
+export const reviewSearchData: filterReviewProps = {
+    search_value: "-latest",
+};
+
 export const AddPortfolioFormData: AddPortfolioProps = {
     title: "",
     description: "",
     credential_url: "",
     issued_date: "",
-    image: "",
-    file: "",
+    images: [],
+    imagePreviewUrl: [],
+    pdfPreviewUrl: [],
+    files: [],
+    id: 0,
 };
 
 export const AddSkillFormData: AddSkills = {
@@ -158,15 +171,15 @@ export const ChangePasswordFromData: changePasswordValueProps = {
 
 export const TaxCalculatorFormData: TaxCalculatorValueProps = {
     marital_status: "Unmarried",
-    salary: null,
+    salary: 0,
     income_time: "Yearly",
-    festival_bonus: null,
-    allowance: null,
-    others: null,
-    pf: null,
-    cit: null,
-    life_insurance: null,
-    medical_insurance: null,
+    festival_bonus: 0,
+    allowance: 0,
+    others: 0,
+    pf: 0,
+    cit: 0,
+    life_insurance: 0,
+    medical_insurance: 0,
 };
 
 export const DeactivateFromData: deactivateValueProps = {
@@ -240,4 +253,25 @@ export const PostTaskFormData: PostTaskProps = {
     date: null,
     date_from: null,
     date_to: null,
+};
+
+export const ServicePostData: ServicePostProps = {
+    title: "",
+    budget_type: "",
+    budget_from: "",
+    budget_to: "",
+    description: "",
+    highlights: "",
+    location: "",
+    is_professional: false,
+    is_online: false,
+    video: "",
+    no_of_revisions: 0,
+    discount_type: "",
+    discount_value: "",
+    is_active: false,
+    category: 0,
+    city: 1,
+    images: [],
+    imagePreviewUrl: [],
 };

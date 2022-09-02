@@ -1,0 +1,44 @@
+- 14895e64 Removed post task CTA from landing page
+- 0ddd6a00 Changed Prod API
+- 5a598aed Updated env.production
+- a201ddee Added home link to my dashboard button in profile dropdown
+- c44ac1ff Login buttons workout
+- 434a9322 Merge branch 'feature/service-package' into 'develop'
+- 12fb47ea Merge branch 'develop' of gitlab.com:cagtu/np/cipher/project_cipher_frontend into feature/service-package
+- 5777bd64 Merge branch 'bugfix/addService' into 'develop'
+- 1ea79ecd solved category in dropdown
+- 58c0114c build error fixed
+- 991c4aa0 conflict resolved
+- e68d2a65 Fix the image upload issue and image display issue in service and service details
+- be0812f6 Merge branch 'develop' of gitlab.com:cagtu/np/cipher/project_cipher_frontend into develop
+- 79e3cda1 Change facebook login button UI
+- fa4ff157 Merge branch 'feature/search-api-integration' into 'develop'
+- c01626ad Search result not found error added
+- 40f525be Merge branch 'feature/service-package' into 'develop'
+- cd9ac568 added stats in hompage
+- 5e36691f Merge branch 'feature/search-api-integration' into 'develop'
+- c9262547 Merge branch 'develop' of gitlab.com:cagtu/np/cipher/project_cipher_frontend into feature/service-package
+- 820fb1ee added stats in home
+- 89ac48e4 Finished search service api integration
+- eaa18ea0 Swapped postion of profile image and post task button in upper header
+- d87dc268 Added links to task and service card in user home page
+- f5724f95 Merge branch 'feature/phoneRegister' into 'develop'
+- eaf31033 build error fixed
+- 86624334 Merge branch 'develop' of https://gitlab.com/cagtu/np/cipher/project_cipher_frontend into feature/phoneRegister
+- ba817aeb register with phone number error fixed
+- cff8612d Merge branch 'bugfix/notification' into 'develop'
+- 2ef74d58 Merge branch 'develop' of gitlab.com:cagtu/np/cipher/project_cipher_frontend into bugfix/portfolio
+- da29ebee hidden a notification icon if there is no user
+- 53820bb1 ading firebase cloud messaging
+- 5c4da10b Updated Readme.md
+- c150a2a3 Merge branch 'develop' of gitlab.com:cagtu/np/cipher/project_cipher_frontend into bugfix/portfolio
+- 3365f90a Merge branch 'develop' of https://gitlab.com/cagtu/np/cipher/project_cipher_frontend into feature/phoneRegister
+- 2426c8ee sign up with phone number or email or both
+- 09692cf4 Added hosted API url
+- 17bee858 working on profile portfolio
+- 95c5de2c Changed test and production API ports
+- 4761615c Added user logged in redirection page
+- 518feb9f Merge branch 'bugfix/portfolio' into 'develop'
+- 85e04cd9 register with phone incomplete
+- 2afb65e6 merged develop
+- 7cd24849 working on multiple image upload

@@ -1,3 +1,4 @@
+import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { Tab } from "@components/common/Tab";
 import TaskCard from "@components/common/TaskCard";
 import Post from "@components/PostTask/Post";
@@ -7,12 +8,29 @@ import {
     faMagnifyingGlass,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useData } from "hooks/use-data";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { progressTask, taskHistory } from "staticData/task";
-
+import type { ServicesValueProps } from "types/serviceCard";
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
+    const [showInput, setShowInput] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const RenderInputBox = () => {
+        return (
+            <input
+                type="text"
+                className="input"
+                //value={search_category}
+                placeholder="search"
+            />
+        );
+    };
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
 
     return (
         <Row className="recommended-tab">
@@ -28,58 +46,19 @@ const SearchBySort = () => {
                         },
                         {
                             title: "Recent",
-                            content: <Post />,
+                            content: !servicesData ? <Post /> : <Recommended />,
                         },
                         {
                             title: "In Progress",
-                            content: progressTask.map((task) => (
-                                <Col sm="12" key={task.id}>
-                                    <TaskCard
-                                        title={task.title}
-                                        charge={task.charge}
-                                        description={task.description}
-                                        location={task.location}
-                                        date={task.date}
-                                        time={task.time}
-                                        isCompleted={task.isCompleted}
-                                        isRunning={task.isRunning}
-                                    />
-                                </Col>
-                            )),
+                            content: <Recommended />,
                         },
                         {
                             title: "History",
-                            content: taskHistory.map((task) => (
-                                <Col sm="12" key={task.id}>
-                                    <TaskCard
-                                        title={task.title}
-                                        charge={task.charge}
-                                        description={task.description}
-                                        location={task.location}
-                                        date={task.date}
-                                        time={task.time}
-                                        isCompleted={task.isCompleted}
-                                        isRunning={task.isRunning}
-                                    />
-                                </Col>
-                            )),
+                            content: <Recommended />,
                         },
                         {
                             title: "Draft",
-                            content: taskHistory.map((task) => (
-                                <Col sm="12" key={task.id}>
-                                    <TaskCard
-                                        title={task.title}
-                                        charge={task.charge}
-                                        description={task.description}
-                                        location={task.location}
-                                        date={task.date}
-                                        time={task.time}
-                                        isCompleted={task.isCompleted}
-                                        isRunning={task.isRunning}
-                                    />
-                                </Col>
-                            )),
+                            content: <Recommended />,
                         },
                     ]}
                     icons={[
@@ -89,16 +68,23 @@ const SearchBySort = () => {
                                 <FontAwesomeIcon
                                     icon={faMagnifyingGlass}
                                     className="svg-icon"
+                                    onClick={() => setShowInput(!showInput)}
                                 />
                             ),
+                            iconContent: showInput ? <RenderInputBox /> : null,
                         },
                         {
                             index: 1,
                             type: (
-                                <FontAwesomeIcon
-                                    icon={faFilterList}
-                                    className="svg-icon"
-                                />
+                                <EllipsisDropdown
+                                    showModal={true}
+                                    handleOnClick={() => setShowModal(true)}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faFilterList}
+                                        className="svg-icon"
+                                    />
+                                </EllipsisDropdown>
                             ),
                         },
                     ]}

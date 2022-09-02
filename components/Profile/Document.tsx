@@ -1,50 +1,37 @@
 import { useGetDocument } from "hooks/document/useGetDocument";
+import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { Col, Row } from "react-bootstrap";
-
+import type { UserProfileProps } from "types/userProfileProps";
 const UserDocument = () => {
     // const [fileName, setFileName] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);
     const onButtonClick = () => {
         inputRef?.current?.click();
     };
-    const { data } = useGetDocument();
-    const documents = data?.data?.result;
+    // const { data } = useGetDocument();
+    // const documents = data?.data?.result;
+    const { data: documents } = useData<UserProfileProps["documentData"]>(
+        ["tasker-document"],
+        "/tasker/kyc-document"
+    );
+    console.log("tsa document", documents);
     // const { mutate, isLoading, data: Document } = usePostDocument();
 
-    //upload file
-    // const uploadFile = async (e: any) => {
-    //     if (e.target.files && e.target.files[0]) {
-    //         const i = e.target.files[0].name;
-    //         console.log("i=", i);
-    //         setFileName()
-    //     }
-    //     const fileUploaded = new FormData();
-    //     // fileUploaded.append("file=", file);
-    //     // console.log("file uploaded=", file);
-    //     // mutate(
-    //     //     { file },
-    //     //     {
-    //     //         onSuccess: async () => {
-    //     //             toast.success("hhhhhh");
-    //     //         },
-    //     //     }
-    //     // );
-    // };
     return (
         <div className="user-document">
             <div className="title-wrapper d-flex justify-content-between">
                 <h1>My Documents</h1>
-                <a href="#!" onClick={() => onButtonClick()}>
+                {/* <a href="#!" onClick={() => onButtonClick()}>
                     Add New
-                </a>
+                </a> */}
             </div>
             <div className="content">
                 <Row>
-                    {documents &&
-                        documents.map((document: any) => (
+                    {documents?.data ? (
+                        documents?.data?.map((document: any) => (
                             <Col
                                 key={document.id}
                                 md={3}
@@ -74,15 +61,24 @@ const UserDocument = () => {
                                             </a>
                                         </Link>
                                     </div>
-                                    <p>
+                                    {/* <p>
                                         {document.file.substring(
                                             document.file.indexOf("document/") +
                                                 9
                                         )}
-                                    </p>
+                                    </p> */}
+                                    <p>{document.document_type}</p>
                                 </div>
                             </Col>
-                        ))}
+                        ))
+                    ) : (
+                        <div className="mx-3">
+                            Upload your KYC documents
+                            <Link href="settings/account/individual">
+                                <a> here.</a>
+                            </Link>
+                        </div>
+                    )}
                 </Row>
             </div>
             <input
