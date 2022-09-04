@@ -53,7 +53,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
         const menu = sub.replaceAll(" ", "-").toLowerCase();
         return (
             <li className="dropdown-menu-items" key={index}>
-                <Link href={`/category/${menu}`} passHref>
+                <Link href={`/category/${[menu]}`} passHref>
                     <a className="dropdown-menu-item-link">{`${sub} (${randNumber()})`}</a>
                 </Link>
             </li>
