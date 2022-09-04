@@ -8,7 +8,7 @@ import Cropper from "react-easy-crop";
 interface editProfileProps {
     show?: boolean;
     handleClose?: () => void;
-    setShowExpForm: Dispatch<SetStateAction<boolean>>;
+    setShowEditForm: Dispatch<SetStateAction<boolean>>;
     photo: any;
     handleSubmit?: () => void;
 }

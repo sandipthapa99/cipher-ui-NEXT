@@ -70,10 +70,10 @@ const TaskerPage = () => {
     }, [router.query.taskerId, router.query]);
 
     // clear search query and searched taskers on page exit
-    usePageExit(() => {
-        clearSearchQuery();
-        clearSearchedTaskers();
-    });
+    // usePageExit(() => {
+    //     // clearSearchQuery();
+    //     clearSearchedTaskers();
+    // });
 
     return (
         <Layout>

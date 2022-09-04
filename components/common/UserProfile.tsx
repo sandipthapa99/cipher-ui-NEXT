@@ -10,7 +10,7 @@ import {
     faStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
-import { faStar as rated } from "@fortawesome/pro-solid-svg-icons";
+import { faCircle, faStar as rated } from "@fortawesome/pro-solid-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -24,6 +24,7 @@ import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
 import { safeParse } from "utils/safeParse";
 
+import EllipsisDropdown from "./EllipsisDropdown";
 import ProfileEditForm from "./ProfileEditForm";
 import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
@@ -53,10 +54,10 @@ const UserProfileCard = ({
     field,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
-    const [showExpForm, setShowExpForm] = useState(false);
+    const [showEditForm, setShowEditForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
     const [image, setImage] = useState();
-
+    const [showModal, setShowModal] = useState(false);
     const services = moreServices ? JSON.parse(moreServices) : [];
     const queryClient = useQueryClient();
     // const renderServices: string[] | undefined = services?.map(
@@ -81,7 +82,7 @@ const UserProfileCard = ({
         editProfile.mutate(data, {
             onSuccess: (data) => {
                 queryClient.invalidateQueries(["profile"]);
-                setShowExpForm(false);
+                setShowEditForm(false);
                 toast.success(data?.data?.message);
             },
             onError: (error: any) => {
@@ -138,7 +139,8 @@ const UserProfileCard = ({
                                     const files = event.target.files;
                                     field?.("image", (files ?? [])[0]);
                                     setImage(files[0]);
-                                    setShowExpForm(!showExpForm);
+                                    console.log("image=", image);
+                                    setShowEditForm(!showEditForm);
                                 }}
                             />
                         </div>
@@ -160,14 +162,18 @@ const UserProfileCard = ({
 
                     <PhotoEdit
                         photo={image}
-                        show={showExpForm}
-                        setShowExpForm={setShowExpForm}
-                        handleClose={() => setShowExpForm(false)}
+                        show={showEditForm}
+                        setShowEditForm={setShowEditForm}
+                        handleClose={() => setShowEditForm(false)}
                         handleSubmit={() => onEditProfile(image)}
                     />
                     <div className="profile-intro d-flex">
-                        <h1 className="name">{userName}</h1>
-                        <div className="active"></div>
+                        <h1 className="name text-center">{userName}</h1>
+                        {/* <div className="active"></div> */}
+                        <FontAwesomeIcon
+                            icon={faCircle}
+                            className="svg-icon active"
+                        />
                     </div>
                     {renderType}
                     <div className="rating">
@@ -279,7 +285,7 @@ const UserProfileCard = ({
                             </div>
                         </Col>
                         <Col md={6}>
-                            <div className="reactions d-flex">
+                            <div className="reactions d-flex align-items-center">
                                 <div className="d-flex flex-col share">
                                     <ShareIcon
                                         url={`http://localhost:3005/profile/`}
@@ -289,10 +295,15 @@ const UserProfileCard = ({
                                         hashtag={"cipher-profile"}
                                     />
                                 </div>
-                                <FontAwesomeIcon
-                                    icon={faEllipsisVertical}
-                                    className="svg-icon option"
-                                />
+                                <EllipsisDropdown
+                                    showModal={true}
+                                    handleOnClick={() => setShowModal(true)}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faEllipsisVertical}
+                                        className="svg-icon option"
+                                    />
+                                </EllipsisDropdown>
                             </div>
                             <div className="bio d-flex">
                                 <p className="title">Bio</p>
