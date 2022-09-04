@@ -81,7 +81,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
         return (
             <li className="dropdown-menu-items" key={index}>
                 <Link href={`/category/${[menu]}`} passHref>
-                    <a className="dropdown-menu-item-link">{`${sub} (${randNumber()})`}</a>
+                    <a className="dropdown-menu-item-link">{`${sub}`}</a>
                 </Link>
             </li>
         );
