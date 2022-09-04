@@ -1,15 +1,12 @@
-import { CustomDropZone } from "@components/common/CustomDropZone";
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import MultiFileDropzone from "@components/common/MultiFileDropzone";
 import MultiImageDropzone from "@components/common/MultiImageDropzone";
 import MultiPdfFileDropzone from "@components/common/MultiPdfFileDropzone";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
-import { useEditForm } from "hooks/use-edit-form";
-import { useForm } from "hooks/use-form";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -17,6 +14,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import type { AddPortfolioProps } from "types/editProfile";
+import { axiosClient } from "utils/axiosClient";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -30,6 +28,31 @@ interface AddPortfolioModalProps {
 interface EditDetailProps {
     data: { result: AddPortfolioProps[] };
 }
+const useUploadImage = () =>
+    useMutation<number[] | null, AxiosError, FormData>((formData) =>
+        axiosClient
+            .post<{ data: number[] }>("/task/filestore/", formData)
+            .then((res) => {
+                if (res.data.data) return res.data.data;
+                return null;
+            })
+    );
+const useUploadFile = () =>
+    useMutation<number[] | null, AxiosError, FormData>((formData) =>
+        axiosClient
+            .post<{ data: number[] }>("/task/filestore/", formData)
+            .then((res) => {
+                if (res.data.data) return res.data.data;
+                return null;
+            })
+    );
+const useCreatePortfolio = () =>
+    useMutation<string, AxiosError, any>((payload) =>
+        axiosClient
+            .post<{ message: string }>("/tasker/portfolio/", payload)
+            .then((res) => res.data.message)
+    );
+
 const AddPortfolio = ({
     show,
     handleClose,
@@ -37,84 +60,20 @@ const AddPortfolio = ({
     id,
     isEditProfile,
 }: AddPortfolioModalProps) => {
-    const { mutate } = useForm(`/tasker/portfolio/`);
+    const { mutate: createPortfolioMutation } = useCreatePortfolio();
+    const { mutate: uploadImageMutation, isLoading: uploadImageLoading } =
+        useUploadImage();
+    const { mutate: uploadFileMutation, isLoading: uploadFileLoading } =
+        useUploadFile();
 
-    const { mutate: fileStore, data: fileStoreData } =
-        useForm(`/task/filestore/`);
-
-    const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-portfolio",
     ]);
-    const [imageId, setImageId] = useState<number[]>();
-    const [fileId, setfileId] = useState<number[]>();
-    function isValidURL(str: any) {
-        const regex =
-            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
-        if (!regex.test(str)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+    const [imageId, setImageId] = useState<number[]>([]);
+    const [fileId, setfileId] = useState<number[]>([]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
-
-    const onCreateThumbnail = (formData: FormData, values: any, actions: any) =>
-        fileStore(formData, {
-            onSuccess: (data: any) => {
-                setImageId(data.data);
-                const dataToSend = {
-                    ...values,
-                    images: data.data,
-                    issued_date: values.issued_date
-                        ? format(new Date(values.issued_date), "yyyy-MM-dd")
-                        : null,
-                };
-                delete dataToSend.imagePreviewUrl;
-                onCreatePortfolio(dataToSend, actions);
-            },
-            onError: (error) => {
-                error.message;
-            },
-        });
-    const onCreateFile = (formData: FormData, values: any, actions: any) =>
-        fileStore(formData, {
-            onSuccess: (data: any) => {
-                setfileId(data.data);
-                const dataToSend = {
-                    ...values,
-                    files: data.data,
-                    issued_date: values.issued_date
-                        ? format(new Date(values.issued_date), "yyyy-MM-dd")
-                        : null,
-                };
-                delete dataToSend.pdfPreviewUrl;
-                onCreatePortfolio(dataToSend, actions);
-            },
-            onError: (error) => {
-                error.message;
-            },
-        });
-    console.log("data=", imageId, fileId);
-    const onCreatePortfolio = (data: any, actions: any) => {
-        const newData = { ...data, images: imageId, files: fileId };
-        console.log("new data=", newData);
-        mutate(newData, {
-            onSuccess: (data: any) => {
-                toast.success("Portfolio added successfully.");
-                // actions.resetForm();
-                //queryClient.invalidateQueries(["tasker-portfolio"]);
-            },
-            onError: (error: any) => {
-                const {
-                    data: { message },
-                } = error.response;
-                console.log("error data=", error, message);
-            },
-        });
-    };
 
     return (
         <div>
@@ -125,141 +84,97 @@ const AddPortfolio = ({
                     <h3>Add Portfolio</h3>
                     <Formik
                         initialValues={
-                            editDetails && isEditProfile == true
+                            editDetails && isEditProfile === true
                                 ? {
                                       ...editDetails,
                                       issued_date: parseISO(
                                           editDetails.issued_date
                                       ),
-                                      //   images: editDetails.images,
-                                      //   files: editDetails.files,
                                   }
                                 : AddPortfolioFormData
                         }
                         validationSchema={addPortfolioSchema}
-                        onSubmit={async (values, actions) => {
-                            const formData: FormData = new FormData();
-                            const fileFormData: FormData = new FormData();
+                        onSubmit={async (values) => {
+                            const imageFormData = new FormData();
+                            const fileFormData = new FormData();
 
-                            let newValue;
-
-                            delete values.imagePreviewUrl;
-                            delete values.pdfPreviewUrl;
-
-                            if (!values.files) {
-                                const newvalidatedValue = {
-                                    ...values,
-                                    issued_date: format(
-                                        new Date(values.issued_date),
-                                        "yyyy-MM-dd"
-                                    ),
-                                    files: "",
-                                };
-                                newValue = newvalidatedValue;
-                            } else if (!values.images) {
-                                const newvalidatedValue = {
-                                    ...values,
-                                    issued_date: format(
-                                        new Date(values.issued_date),
-                                        "yyyy-MM-dd"
-                                    ),
-                                    images: [],
-                                };
-                                newValue = newvalidatedValue;
-                            } else {
-                                const newvalidatedValue = {
-                                    ...values,
-                                    issued_date: format(
-                                        new Date(values.issued_date),
-                                        "yyyy-MM-dd"
-                                    ),
-                                };
-
-                                newValue = newvalidatedValue;
-                            }
-
-                            if (values.images.some((val) => val?.path)) {
-                                console.log("for image", values);
-                                values.images.forEach((file) => {
-                                    if (file?.path)
-                                        formData.append("medias", file);
-                                    formData.append("media_type", "video");
-                                    formData.append("placeholder", "image");
+                            if (values.images) {
+                                for (const image of values.images) {
+                                    imageFormData.append("medias", image);
+                                    imageFormData.append("media_type", "image");
+                                    imageFormData.append(
+                                        "placeholder",
+                                        "image"
+                                    );
+                                }
+                                uploadImageMutation(imageFormData, {
+                                    onSuccess: (imageIds) => {
+                                        console.log("Image ids are", imageIds);
+                                        if (imageIds) setImageId(imageIds);
+                                    },
                                 });
-                                onCreateThumbnail(formData, values, actions);
                             }
-                            if (values.files.some((val) => val?.path)) {
-                                console.log("for pdf valuws", values);
-
-                                values.files.forEach((file) => {
-                                    // if (file?.path)
+                            if (values.files) {
+                                for (const file of values.files) {
                                     fileFormData.append("medias", file);
                                     fileFormData.append("media_type", "pdf");
-                                    fileFormData.append(
-                                        "placeholder",
-                                        "pdf-file"
-                                    );
-                                });
-                                onCreateFile(fileFormData, values, actions);
-                            } else {
-                                const getImagesId = values?.images.map(
-                                    (val) => val?.id
-                                );
-                                const getFileId = values?.files.map(
-                                    (val) => val?.id
-                                );
-                                console.log("getimagid", getImagesId);
-                                const dataToSend = {
-                                    ...values,
-                                    files: values.files ? getFileId : null,
-                                    description: values.description
-                                        ? values.description
-                                        : null,
-                                    images: values.images ? getImagesId : null,
-                                    issued_date: values.issued_date
-                                        ? format(
-                                              new Date(values.issued_date),
-                                              "yyyy-MM-dd"
-                                          )
-                                        : null,
-                                    credential_url: values.credential_url
-                                        ? values.credential_url
-                                        : null,
-                                    title: values.title ? values.title : null,
-                                };
-                                // delete dataToSend.imagePreviewUrl;
-                                console.log("datatosend=", dataToSend);
-                                {
-                                    editDetails && isEditProfile == true
-                                        ? editMutation(formData, {
-                                              onSuccess: async () => {
-                                                  console.log(
-                                                      "submitted values",
-                                                      values
-                                                  );
-                                                  setShowAddPortfolioModal(
-                                                      false
-                                                  );
-                                                  queryClient.invalidateQueries(
-                                                      ["tasker-portfolio"]
-                                                  );
-                                                  toast.success(
-                                                      "Portfolio updated successfully."
-                                                  );
-                                              },
-                                              onError: async (error) => {
-                                                  toast.error(error.message);
-                                              },
-                                          })
-                                        : onCreatePortfolio(
-                                              dataToSend,
-                                              actions
-                                          );
+                                    fileFormData.append("placeholder", "file");
                                 }
+                                uploadFileMutation(fileFormData, {
+                                    onSuccess: (fileIds) => {
+                                        console.log("File ids are", fileIds);
+                                        if (fileIds) setfileId(fileIds);
+                                    },
+                                });
                             }
+                            (function wait() {
+                                // let timeoutId: NodeJS.Timeout | undefined =
+                                //     undefined;
+                                if (!uploadFileLoading && !uploadImageLoading) {
+                                    const issuedDate = format(
+                                        new Date(values.issued_date),
+                                        "yyyy-MM-dd"
+                                    );
+                                    const addPortfolioPayload = {
+                                        ...values,
+                                        issued_date: issuedDate,
+                                        images: imageId,
+                                        files: fileId,
+                                    };
+
+                                    addPortfolioPayload.images = imageId;
+
+                                    addPortfolioPayload.files = fileId;
+                                    delete addPortfolioPayload.imagePreviewUrl;
+                                    delete addPortfolioPayload.pdfPreviewUrl;
+                                    console.log(
+                                        "add portfolio payload=",
+                                        addPortfolioPayload
+                                    );
+                                    console.log("IDS", fileId, imageId);
+                                    createPortfolioMutation(
+                                        addPortfolioPayload,
+                                        {
+                                            onSuccess: (message) => {
+                                                toast.success(message);
+                                                queryClient.invalidateQueries([
+                                                    "tasker-portfolio",
+                                                ]);
+                                                setShowAddPortfolioModal(false);
+                                                setImageId([]);
+                                                setfileId([]);
+                                            },
+                                        }
+                                    );
+
+                                    // if (timeoutId) clearTimeout(timeoutId);
+                                } else {
+                                    setTimeout(wait, 100);
+                                }
+                            })();
                         }}
                     >
-                        {({ isSubmitting, errors, touched, setFieldValue }) => (
+                        {({ isSubmitting, errors, touched }) => (
                             <Form>
                                 <div className="d-flex add-portfolio justify-content-between align-items-end flex-column flex-md-row">
                                     <Row>
@@ -337,23 +252,6 @@ const AddPortfolio = ({
                                                     showFileDetail
                                                     type="pdf"
                                                 />
-                                                {/* <CustomDropZone
-                                                    name="files"
-                                                    maxSize={200}
-                                                    minSize={20}
-                                                    multiple={true}
-                                                    type="Pdf"
-                                                    onDrop={
-                                                        (formData) =>
-                                                            setFieldValue(
-                                                                "files",
-                                                                formData.get(
-                                                                    "files"
-                                                                )
-                                                            )
-                                                        // console.log(formData.get("file"))
-                                                    }
-                                                /> */}
                                             </Col>
                                         </Row>
                                     </Row>

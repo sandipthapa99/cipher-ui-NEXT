@@ -29,7 +29,9 @@ const WelcomeUser = () => {
                         <Col md={3} xs={6}>
                             <div className="type success-rate">
                                 <h1 className="number">
-                                    {profileDetails?.stats?.task_assigned}
+                                    {profileDetails
+                                        ? profileDetails?.stats?.task_assigned
+                                        : 0}
                                 </h1>
                                 <p>
                                     Task
@@ -41,7 +43,9 @@ const WelcomeUser = () => {
                         <Col md={3} xs={6}>
                             <div className="type happy-clients">
                                 <h1 className="number">
-                                    {profileDetails?.stats?.task_completed}
+                                    {profileDetails
+                                        ? profileDetails?.stats?.task_completed
+                                        : 0}
                                 </h1>
                                 <p>
                                     Tasks
@@ -54,7 +58,10 @@ const WelcomeUser = () => {
                         <Col md={3} xs={6}>
                             <div className="type task-completed">
                                 <h1 className="number">
-                                    {profileDetails?.stats?.task_in_progress}
+                                    {profileDetails
+                                        ? profileDetails?.stats
+                                              ?.task_in_progress
+                                        : 0}
                                 </h1>
                                 <p>
                                     Tasks
@@ -67,7 +74,9 @@ const WelcomeUser = () => {
                             {" "}
                             <div className="type user-reviews">
                                 <h1 className="number">
-                                    {profileDetails?.stats?.task_cancelled}
+                                    {profileDetails
+                                        ? profileDetails?.stats?.task_cancelled
+                                        : 0}
                                 </h1>
                                 <p>
                                     Tasks
