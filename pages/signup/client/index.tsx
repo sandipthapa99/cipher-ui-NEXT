@@ -97,7 +97,7 @@ const SignUpAsClient = () => {
                         <Form className="login-form">
                             <div className="choose-email-or-phone mb-5">
                                 <Radio.Group
-                                    label="Please select one for Signup process(Email Or Phone Number)"
+                                    label="Please select one for Signup process Email Or Phone Number"
                                     onChange={(value) => setChoosedValue(value)}
                                     size="md"
                                     defaultValue="email"
