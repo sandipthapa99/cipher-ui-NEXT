@@ -137,11 +137,9 @@ const AddPortfolio = ({
                                     const addPortfolioPayload = {
                                         ...values,
                                         issued_date: issuedDate,
+                                        images: imageId,
+                                        files: fileId,
                                     };
-                                    if (imageId.length > 0)
-                                        addPortfolioPayload.images = imageId;
-                                    if (fileId.length > 0)
-                                        addPortfolioPayload.files = fileId;
 
                                     createPortfolioMutation(
                                         addPortfolioPayload,
