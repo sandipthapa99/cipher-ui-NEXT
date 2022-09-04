@@ -5,7 +5,7 @@ import { useGetPortfolioById } from "hooks/profile/getProfileById";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Carousel, Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -35,7 +35,7 @@ PortfolioProps) => {
     const [isEditProfile, setIsEditProfile] = useState(false);
 
     const { data: portfolioDetail } = useGetPortfolioById(id);
-
+    console.log("portfolio details=", portfolioDetail);
     return (
         <div className="portfolio-details">
             {/* Modal component */}
@@ -66,15 +66,19 @@ PortfolioProps) => {
                             </Col>
                         </Row>
                     </div>
-                    {portfolioDetail?.image ? (
-                        <Image
-                            src={portfolioDetail?.image}
-                            alt="portfolio-img"
-                            height={500}
-                            objectFit="contain"
-                            width={800}
-                        />
-                    ) : null}
+                    <Carousel>
+                        {portfolioDetail?.images.map((image: any) => (
+                            <Carousel.Item key={image.id}>
+                                <Image
+                                    src={image.media}
+                                    alt="portfolio-img"
+                                    height={500}
+                                    objectFit="contain"
+                                    width={800}
+                                />
+                            </Carousel.Item>
+                        ))}
+                    </Carousel>
 
                     {/* <img
                         src="http://54.252.73.240:8014/tmedia/cipher/user/portfolio/womenBuis_ViZsyj2.png"
@@ -91,34 +95,42 @@ PortfolioProps) => {
                             {portfolioDetail?.credential_url}
                         </a>
                     </div>
-                    {portfolioDetail?.file ? (
+                    {portfolioDetail?.files ? (
                         <>
                             <p> File here:</p>
                             <Row>
-                                <Col md={2} sm={4}>
-                                    <div className="file">
-                                        <br />
+                                {portfolioDetail.files &&
+                                    portfolioDetail.files.map(
+                                        (file: string, i: number) => (
+                                            <Col md={2} sm={4} key={i}>
+                                                <div className="file">
+                                                    <br />
 
-                                        <a
-                                            target="_blank"
-                                            href={portfolioDetail?.file}
-                                            rel="noreferrer"
-                                        >
-                                            <figure className="file-img">
-                                                <Image
-                                                    src={
-                                                        "/userprofile/documents/pdf.svg"
-                                                    }
-                                                    alt="document-type-icon"
-                                                    height={100}
-                                                    width={100}
-                                                />
-                                            </figure>
-                                        </a>
+                                                    <a
+                                                        target="_blank"
+                                                        href={
+                                                            portfolioDetail
+                                                                ?.files[0].media
+                                                        }
+                                                        rel="noreferrer"
+                                                    >
+                                                        <figure className="file-img">
+                                                            <Image
+                                                                src={
+                                                                    "/userprofile/documents/pdf.svg"
+                                                                }
+                                                                alt="document-type-icon"
+                                                                height={100}
+                                                                width={100}
+                                                            />
+                                                        </figure>
+                                                    </a>
 
-                                        <br />
-                                    </div>
-                                </Col>
+                                                    <br />
+                                                </div>
+                                            </Col>
+                                        )
+                                    )}
                             </Row>
 
                             <div className="file-name">

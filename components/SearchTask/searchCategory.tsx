@@ -57,6 +57,11 @@ export const SearchCategory = ({
         const renderNested = data.nested.map((nest, nestIndex) => {
             return (
                 <option
+                    style={{
+                        background: "#fff",
+                        color: "#000",
+                        marginTop: "2rem",
+                    }}
                     key={nestIndex}
                     value={nest.split(" ").join("").toLowerCase()}
                 >
@@ -73,7 +78,12 @@ export const SearchCategory = ({
                 key={index}
                 style={styles(index).category}
             >
-                <option value={""}>{data.category}</option>
+                <option
+                    style={{ background: "#fff", color: "#000" }}
+                    value={""}
+                >
+                    {data.category}
+                </option>
                 {renderNested}
             </select>
         );

@@ -1,55 +1,78 @@
 import {
-    faClock,
-    faLocation,
-    faStar,
+    faLocationDot,
+    faSparkles,
+    faTimer,
     faUser,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Row } from "react-bootstrap";
 import type { TaskerDetails } from "staticData/taskDetail";
-import { safeParse } from "utils/safeParse";
 
 interface UserShortIntroProps {
     user: TaskerDetails;
 }
 export const UserShortIntro = ({ user }: UserShortIntroProps) => {
-    const userSkillsString = safeParse<string>({
-        rawString: user?.skill,
-        initialData: "",
-    });
-    const userSkills = safeParse<string[]>({
-        rawString: userSkillsString,
-        initialData: [],
-    });
+    const userSkills = user?.skill ? JSON.parse(user?.skill) : [];
+    console.log("user=", user, userSkills);
+
+    const finalfrom =
+        user?.active_hour_start?.charAt(0) === "0"
+            ? user?.active_hour_start?.slice(1)
+            : user?.active_hour_start;
+    const finalto =
+        user?.active_hour_end?.charAt(0) === "0"
+            ? user?.active_hour_end?.slice(1)
+            : user?.active_hour_end;
     return (
         <Row className="td-mt-24">
             <Col md={6}>
                 <p className="td-user-short-intro-text">
-                    <FontAwesomeIcon className="svg-icon" icon={faLocation} />
+                    <FontAwesomeIcon
+                        icon={faLocationDot}
+                        className="svg-icon"
+                    />
+
                     <span>
-                        {user?.address_line1 + " " + user?.address_line2}
-                    </span>
-                </p>
-                <p className="td-user-short-intro-text">
-                    <FontAwesomeIcon className="svg-icon" icon={faClock} />
-                    <span>
-                        Active hours {user?.active_hour_start} to{" "}
-                        {user?.active_hour_end}
+                        &nbsp;{user?.address_line1 + " " + user?.address_line2}
                     </span>
                 </p>
                 <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faUser} />
-                    <span>Member Since {"member since"}</span>
+                    <span>Member Since {"no data"}</span>
                 </p>
-                {userSkills.length > 0 && (
-                    <p className="td-user-short-intro-text">
-                        <FontAwesomeIcon className="svg-icon" icon={faStar} />
-                        <span>{userSkills.join(", ")}</span>
-                    </p>
-                )}
+
+                <p className="td-user-short-intro-text">
+                    <FontAwesomeIcon icon={faTimer} className="svg-icon" />
+                    <span>
+                        Active Hours &nbsp;
+                        {finalfrom?.replace(":00", "")}
+                        AM to&nbsp;
+                        {finalto?.replace(":00", "")}PM
+                    </span>
+                </p>
+
+                <p className="td-user-short-intro-text skills">
+                    <FontAwesomeIcon icon={faSparkles} className="svg-icon" />
+                    &nbsp;&nbsp;&nbsp;
+                    {userSkills
+                        ? userSkills.map((info: any, index: any) => (
+                              <span key={index}>
+                                  {info}
+                                  {index < userSkills.length - 2
+                                      ? ", "
+                                      : index < userSkills.length - 1
+                                      ? " and "
+                                      : ""}
+                              </span>
+                          ))
+                        : "No skills to show. Please add them"}
+                </p>
             </Col>
             <Col md={6}>
-                <p className="td-user-short-intro-text">{user?.bio}</p>
+                <p className="td-user-short-intro-text font-bold">
+                    Bio
+                    <span>{user?.bio}</span>
+                </p>
             </Col>
         </Row>
     );

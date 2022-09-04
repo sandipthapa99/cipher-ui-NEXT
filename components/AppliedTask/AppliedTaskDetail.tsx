@@ -144,7 +144,12 @@ const AppliedTaskDetail: NextPage = () => {
                         </figure>
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
-                        {taskDetail && <SimpleProfileCard task={taskDetail} />}
+                        {taskDetail && (
+                            <SimpleProfileCard
+                                task={taskDetail}
+                                onApply={() => setShowModal(false)}
+                            />
+                        )}
                         {/* <SimpleProfileCard
                             id={taskDetail.id}
                             image={taskDetail?.assigner?.profile_image}

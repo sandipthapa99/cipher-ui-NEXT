@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
+import { safeParse } from "utils/safeParse";
 
 import ProfileEditForm from "./ProfileEditForm";
 import ShareIcon from "./ShareIcon";
@@ -55,10 +56,8 @@ const UserProfileCard = ({
     const [showExpForm, setShowExpForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
     const [image, setImage] = useState();
-    const services: Array<string> = moreServices
-        ? JSON.parse(moreServices)
-        : [];
 
+    const services = moreServices ? JSON.parse(moreServices) : [];
     const queryClient = useQueryClient();
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
@@ -249,10 +248,10 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
                                     <p>
-                                        &nbsp;Active Hours &nbsp;
-                                        {finalfrom?.replace(":00", "")}
-                                        AM to&nbsp;
-                                        {finalto?.replace(":00", "")}PM
+                                        &nbsp;Active Hours: &nbsp;
+                                        {finalfrom?.replace(":00", "")} AM
+                                        &nbsp;to &nbsp;
+                                        {finalto?.replace(":00", "")} PM
                                     </p>
                                 </div>
 

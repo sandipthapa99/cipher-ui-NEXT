@@ -15,6 +15,8 @@ const Google = () => {
         <GoogleLogin
             size="large"
             auto_select={false}
+            theme="outline"
+            // width="1200px"
             onSuccess={(credentialResponse) => {
                 mutate(credentialResponse, {
                     onSuccess: (data) => {

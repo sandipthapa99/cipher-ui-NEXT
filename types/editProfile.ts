@@ -4,8 +4,10 @@ export interface AddPortfolioProps {
     credential_url: string;
     issued_date: string;
     id: number;
-    file: any;
-    image: any;
+    files: any[];
+    images: any[];
+    imagePreviewUrl?: any[];
+    pdfPreviewUrl?: any[];
 }
 
 export interface AddSkills {

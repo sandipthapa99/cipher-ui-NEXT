@@ -16,6 +16,7 @@ const GettingStartedTask = () => {
                             key={task.id}
                             title={task.title}
                             image={task.image}
+                            redirection={task.redirection}
                         />
                     ))}
             </div>

@@ -112,7 +112,25 @@ const AccountForm = () => {
     const scrollToKyc = () => {
         scroll.scrollTo(2660);
     };
+    console.log("hour", profile?.user_type);
 
+    //converting string time value to datetime time value
+    const start: string = profile?.active_hour_start
+        ? profile?.active_hour_start.replace(":00", "")
+        : "";
+    const end: string = profile?.active_hour_end
+        ? profile?.active_hour_end.replace(":00", "")
+        : "";
+
+    const endparsed = (
+        parseInt(end) < 12 ? parseInt(end) + 12 : parseInt(end)
+    ).toString();
+    const finalend = `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`;
+
+    const endTime = finalend.toString();
+
+    //parse user_type
+    const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
     return (
         <>
             {!KYCData ? <FillKyc onClick={scrollToKyc} /> : ""}
@@ -132,10 +150,10 @@ const AccountForm = () => {
                                 : "",
                         skill: "",
                         experience_level: profile?.experience_level ?? "",
-                        active_hour_start: "",
-                        active_hour_end: "",
+                        active_hour_start: "" ?? "",
+                        active_hour_end: "" ?? "",
                         hourly_rate: profile?.hourly_rate ?? "",
-                        user_type: profile?.user_type ?? "",
+                        user_type: userType ?? "",
                         country: profile?.country ?? "",
                         education: "abc",
                         address_line1: profile?.address_line1 ?? "",

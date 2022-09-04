@@ -20,8 +20,8 @@ export interface ServicesValueProps {
     next: any;
     previous: any;
     page_size: number;
-    result: {
-        id: number;
+    result: Array<{
+        id: string;
         created_by: {
             id: string;
             email: string;
@@ -38,8 +38,9 @@ export interface ServicesValueProps {
             id: number;
             name: string;
             size: number;
-            image: string;
             media: string;
+            media_type: string;
+            placeholder: string;
         }[];
         created_at: string;
         updated_at: string;
@@ -62,7 +63,7 @@ export interface ServicesValueProps {
         discount_value: number;
         is_active: boolean;
         slug: string;
-    }[];
+    }>;
 }
 export interface ServicesPackageProps {
     total_pages: number;

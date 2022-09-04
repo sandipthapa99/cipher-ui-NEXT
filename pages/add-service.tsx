@@ -5,7 +5,7 @@ import MultiFileDropzone from "@components/common/MultiFileDropzone";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import AddRequirements from "@components/PostTask/AddRequirements";
-import type { SelectItem } from "@mantine/core";
+import { Checkbox, SelectItem } from "@mantine/core";
 import { Code, Loader } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { getHotkeyHandler } from "@mantine/hooks";
@@ -70,6 +70,19 @@ const AddService: NextPage<{
         },
     ];
 
+    const ActiveType = [
+        {
+            id: 1,
+            value: true,
+            label: "true",
+        },
+        {
+            id: 2,
+            value: false,
+            label: "false",
+        },
+    ];
+
     const [showVariable, setShowVariable] = useState({
         showBudget: false,
         showTime: false,
@@ -77,6 +90,7 @@ const AddService: NextPage<{
 
     const [checked, setChecked] = useState(false);
 
+    //Authorization cannot be send through get static props. So service category options fetched here
     const { data: serviceCategoryOptions } = useQuery(
         ["service-category"],
         async () => {
@@ -119,23 +133,20 @@ const AddService: NextPage<{
         setChecked(!checked);
     };
 
-    const serviceImageMutation = useForm("/task/service-image/");
+    // const serviceImageMutation = useForm("/task/service-image/");
+    const serviceImageMutation = useForm("/task/filestore/");
     const serviceMutation = useForm("/task/service/");
 
-    const [onSearchCategory, setOnSearchCategory] = useState<string>("");
+    // const [onSearchCategory, setOnSearchCategory] = useState<string>("");
 
-    const [searchCategory, setSearchCategory] = useState<string>(""); // Read the value from category select field after values
+    // const [searchCategory, setSearchCategory] = useState<string>(""); // Read the value from category select field after values
 
     const [rowId, setRowId] = useState<number | null>();
 
-    const [categoryOptions, setCategoryOptions] = useState<
-        { value: string; label: string }[]
-    >([]);
-
-    const onHandleCategorySearch = (query: string) => {
-        setSearchCategory(query);
-        setOnSearchCategory(query);
-    };
+    // const onHandleCategorySearch = (query: string) => {
+    //     setSearchCategory(query);
+    //     setOnSearchCategory(query);
+    // };
 
     const onCreateThumbnail = (
         formData: FormData,
@@ -144,7 +155,6 @@ const AddService: NextPage<{
     ) =>
         serviceImageMutation.mutate(formData, {
             onSuccess: (data: any) => {
-                console.log("sdfasdasdasd", data);
                 const getImagesId = values?.images
                     .filter((val) => !val.path)
                     .map((val) => val?.id);
@@ -189,29 +199,29 @@ const AddService: NextPage<{
     };
 
     // Fetch the category list from the API as the per user keywords request
-    const { isFetching: isCategoryFetching } = useQuery(
-        ["category-options", onSearchCategory],
-        () =>
-            axiosClient
-                .get<CategoryFieldProps>(
-                    `/task/cms/task-category/list/?search=${onSearchCategory}`
-                )
-                .then((response) => response.data),
-        {
-            enabled: !!searchCategory || !!rowId,
-            onSuccess: (data) => {
-                const categoryOptions = data?.map(
-                    ({ id, name }: { id: number; name: string }) => {
-                        return {
-                            value: String(id),
-                            label: name,
-                        };
-                    }
-                );
-                setCategoryOptions(categoryOptions);
-            },
-        }
-    );
+    // const { isFetching: isCategoryFetching } = useQuery(
+    //     ["category-options", onSearchCategory],
+    //     () =>
+    //         axiosClient
+    //             .get<CategoryFieldProps>(
+    //                 `/task/cms/task-category/list/?search=${onSearchCategory}`
+    //             )
+    //             .then((response) => response.data),
+    //     {
+    //         enabled: !!searchCategory || !!rowId,
+    //         onSuccess: (data) => {
+    //             const categoryOptions = data?.map(
+    //                 ({ id, name }: { id: number; name: string }) => {
+    //                     return {
+    //                         value: String(id),
+    //                         label: name,
+    //                     };
+    //                 }
+    //             );
+    //             setCategoryOptions(categoryOptions);
+    //         },
+    //     }
+    // );
 
     const toggleSuccessModal = useToggleSuccessModal();
     return (
@@ -229,7 +239,12 @@ const AddService: NextPage<{
                                 if (values.images.some((val) => val?.path)) {
                                     values.images.forEach((file) => {
                                         if (file?.path)
-                                            formData.append("images", file);
+                                            formData.append("medias", file);
+                                        formData.append("media_type", "image");
+                                        formData.append(
+                                            "placeholder",
+                                            "new image"
+                                        );
                                     });
                                     onCreateThumbnail(
                                         formData,
@@ -260,8 +275,6 @@ const AddService: NextPage<{
 
                                     onCreateService(dataToSend, actions);
                                 }
-
-                                console.log(values);
                             }}
                         >
                             {({
@@ -430,7 +443,7 @@ const AddService: NextPage<{
                                             <Col md={4}>
                                                 <SelectInputField
                                                     name="budget_type"
-                                                    placeHolder="Choose Category"
+                                                    placeHolder="Choose budget type"
                                                     options={BudgetType}
                                                     error={errors.budget_type}
                                                     touch={touched.budget_type}
@@ -509,7 +522,7 @@ const AddService: NextPage<{
 
                                         <InputField
                                             labelName="Video URL"
-                                            placeHolder="e.g. Buddhanagar"
+                                            placeHolder="e.g. https://www.youtube.com/jirIbhruHHHb"
                                             name="video"
                                             error={errors.video}
                                             touch={touched.video}
@@ -525,6 +538,19 @@ const AddService: NextPage<{
                                             multiple
                                             showFileDetail
                                         />
+
+                                        <Checkbox
+                                            label="is active?"
+                                            name="is_active"
+                                            defaultChecked={true}
+                                            onChange={(event) =>
+                                                setFieldValue(
+                                                    "is_active",
+                                                    event.currentTarget.checked
+                                                )
+                                            }
+                                        />
+
                                         <div className="d-flex justify-content-center">
                                             <Button className="btn close-btn p-3 h-25 w-25">
                                                 Cancel

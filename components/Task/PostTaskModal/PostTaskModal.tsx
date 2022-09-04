@@ -18,6 +18,7 @@ import {
     TextInput,
     Title,
 } from "@mantine/core";
+import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/task/use-post-task";
 import { Button } from "react-bootstrap";
@@ -41,7 +42,7 @@ export interface PostTaskPayload {
     isNegotiable: boolean;
     image: string;
     video: string;
-    estimated_time: string;
+    estimated_time: number;
     is_recursion: boolean;
     is_everyday: boolean;
     start_date: string;
@@ -71,18 +72,32 @@ export const PostTaskModal = () => {
                 isNegotiable: false,
                 image: "",
                 video: "",
-                estimated_time: "",
+                estimated_time: 5,
                 is_recursion: false,
                 is_everyday: false,
-                start_date: "",
-                end_date: "",
-                start_time: "",
-                end_time: "",
+                start_date: "2022-12-01",
+                end_date: "2023-01-04",
+                start_time: "01:00",
+                end_time: "03:00",
             },
             validationSchema: postTaskSchema,
             onSubmit: (values) => {
                 console.log(values);
-                mutate(values, {
+                const tempValues = {
+                    ...values,
+                    budget_type: "Hourly",
+                    city: 2,
+                };
+                const formData = new FormData();
+                Object.entries(tempValues).forEach((tempValue) => {
+                    const [key, value] = tempValue;
+                    if (key !== "video" && key !== "image") {
+                        formData.append(key, value.toString());
+                    }
+                });
+                formData.append("video", tempValues.video);
+                formData.append("image", tempValues.image);
+                mutate(formData, {
                     onSuccess: (payload) => {
                         toggleShowPostTaskModal();
                         toast.success(payload.message);
@@ -108,7 +123,7 @@ export const PostTaskModal = () => {
             title="Post a Task"
             size="xl"
         >
-            <form onSubmit={handleSubmit}>
+            <form encType="multipart/formData" onSubmit={handleSubmit}>
                 <Stack spacing="md">
                     <TextInput
                         placeholder="Need a garden cleaner"
@@ -119,7 +134,7 @@ export const PostTaskModal = () => {
                     />
                     <Textarea
                         label="Task Description"
-                        placeholder="Need a garden cleaner to clean my garden and remove the weeds"
+                        placeholder="Need a garden cleaner to clean my garden and watch morbius"
                         minRows={5}
                         required
                         {...getFieldProps("description")}
@@ -169,7 +184,8 @@ export const PostTaskModal = () => {
                             your task.
                         </Text>
                         <CustomDropZone
-                            fileType="image"
+                            accept={IMAGE_MIME_TYPE}
+                            fileLabel="Image"
                             sx={{ maxWidth: "30rem" }}
                             name="task-image"
                             onDrop={(formData) =>
@@ -178,6 +194,7 @@ export const PostTaskModal = () => {
                                     formData.get("task-image")
                                 )
                             }
+                            type="image"
                         />
                     </Stack>
                     <Stack sx={{ maxWidth: "40rem" }}>
@@ -187,7 +204,8 @@ export const PostTaskModal = () => {
                             merchant for your task.
                         </Text>
                         <CustomDropZone
-                            fileType="video"
+                            accept={[MIME_TYPES.mp4]}
+                            fileLabel="Video"
                             sx={{ maxWidth: "30rem" }}
                             name="task-video"
                             onDrop={(formData) =>
@@ -196,6 +214,7 @@ export const PostTaskModal = () => {
                                     formData.get("task-video")
                                 )
                             }
+                            type="image"
                         />
                     </Stack>
                     <TaskDate />

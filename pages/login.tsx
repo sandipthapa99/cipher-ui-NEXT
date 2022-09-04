@@ -61,7 +61,9 @@ const Login = () => {
                                 onSuccess: async () => {
                                     const { next } = router.query;
                                     await router.push(
-                                        typeof next === "string" ? next : "/"
+                                        typeof next === "string"
+                                            ? next
+                                            : "/home"
                                     );
                                     toast.success("Login Successful!");
                                 },
@@ -117,9 +119,9 @@ const Login = () => {
                                 /> */}
 
                                 <FacebookLogin />
-                                <Col>
+                                <div className="google-login-btn">
                                     <Google />
-                                </Col>
+                                </div>
                             </Form>
                         )}
                     </Formik>

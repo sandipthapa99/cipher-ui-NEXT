@@ -68,6 +68,7 @@ const AboutProfile = () => {
         ["tasker-portfolio"],
         "/tasker/portfolio/"
     );
+    console.log("portfolio data=", portfolioData);
 
     const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
@@ -83,14 +84,15 @@ const AboutProfile = () => {
     const { data: profileDetails } = useGetProfile();
 
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
-    console.log("useraser", userSkills);
+
     const [hovered, setHovered] = useState<null | number>(null);
+
     return (
         <>
             <div className="about-profile">
                 <div className="type portfolio">
                     <div className="title-wrapper d-flex justify-content-between">
-                        <h1>My Portfolio</h1>
+                        <h1>Portfolio</h1>
                         <EditProfileButton
                             text="Add New"
                             showModal={true}
@@ -133,8 +135,8 @@ const AboutProfile = () => {
                                       onClick={() => setId(info?.id)}
                                   >
                                       <Row className="gx-5">
-                                          <Col md={6}>
-                                              {info?.image ? (
+                                          <Col md={6} sm={12} xs={12}>
+                                              {info?.images ? (
                                                   <figure
                                                       className="thumbnail-img"
                                                       onClick={() =>
@@ -144,7 +146,11 @@ const AboutProfile = () => {
                                                       }
                                                   >
                                                       <Image
-                                                          src={`${info?.image}`}
+                                                          src={
+                                                              info?.images[0]
+                                                                  ?.media ??
+                                                              "/userprofile/image.svg"
+                                                          }
                                                           layout="fill"
                                                           objectFit="cover"
                                                           alt="portfolio-image"
@@ -154,30 +160,8 @@ const AboutProfile = () => {
                                                   ""
                                               )}
                                           </Col>
-                                          {/* <Col
-                                              md={info?.file ? 6 : 12}
-                                              sm={info?.image ? 6 : 12}
-                                              xs={info?.image ? 6 : 12}
-                                          >
-                                              <Link href={`${info?.file}`}>
-                                                  <a target="_blank">
-                                                      {info?.file ? (
-                                                          <figure className="thumbnail-img">
-                                                              <Image
-                                                                  src="/userprofile/documents/pdf.svg"
-                                                                  layout="fill"
-                                                                  objectFit="cover"
-                                                                  alt="portfolio-file"
-                                                              />
-                                                          </figure>
-                                                      ) : (
-                                                          ""
-                                                      )}
-                                                  </a>
-                                              </Link>
-                                          </Col> */}
                                       </Row>
-                                      {info?.image === null ? (
+                                      {info?.images === null ? (
                                           <div className="portfolio-title">
                                               <p
                                                   className="text-center"
@@ -211,7 +195,13 @@ const AboutProfile = () => {
                                           </div>
                                       )}
                                       {hovered === info.id ? (
-                                          <div className="icons">
+                                          <div
+                                              className={
+                                                  isOnlyPortfolioText
+                                                      ? "icon-down"
+                                                      : "icons"
+                                              }
+                                          >
                                               <FontAwesomeIcon
                                                   icon={faPencil}
                                                   className={

@@ -19,11 +19,8 @@ const ServiceCard = ({
 }: {
     serviceCard: ServicesValueProps["result"][0];
 }) => {
-    console.log("service card=", serviceCard);
-
     const { data: profileDetails, isLoading, error } = useGetProfile();
 
-    console.log("profile", profileDetails);
     const userId = profileDetails?.user.id;
     const serviceProviderId = serviceCard.created_by.id;
 
@@ -42,7 +39,10 @@ const ServiceCard = ({
                         serviceCard.images.length > 0 ? (
                             <figure className="thumbnail-img">
                                 <Image
-                                    src={serviceCard.images[0].image}
+                                    src={
+                                        serviceCard.images[0].media ??
+                                        "/service-details/garden-cleaning.png"
+                                    }
                                     layout="fill"
                                     objectFit="cover"
                                     alt="servicecard-image"

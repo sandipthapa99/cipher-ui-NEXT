@@ -12,7 +12,6 @@ import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import type { SelectOptionProps } from "types/selectInputField";
 import { axiosClient } from "utils/axiosClient";
-import { addServiceFormSchema } from "utils/formValidation/addServiceFormValidation";
 
 import { ServiceVideo } from "./ServiceVideo";
 
@@ -102,10 +101,10 @@ export const PackageDetails = ({
         description: "",
         service_offered: "",
         budget: 0,
-        no_of_revisions: "",
+        no_of_revision: 0, //TODO:Remove This from api
         discount_type: "",
-        // revision_price: "",
-        // revision_day: "",
+        // !revision_price: "",
+        revision_day: "1", //FixMe:Change this to number
         service: "",
         discount_value: 0,
         is_recommended: false,
@@ -122,12 +121,12 @@ export const PackageDetails = ({
         {
             id: 0,
             label: "Percentage",
-            value: "percentage",
+            value: "Percentage",
         },
         {
             id: 1,
             label: "Amount",
-            value: "amount",
+            value: "Amount",
         },
     ];
     return (
@@ -164,7 +163,13 @@ export const PackageDetails = ({
                                                 ? [...prev, values]
                                                 : prev;
                                         });
-                                        sendPackageData(values);
+                                        const newValues = {
+                                            ...values,
+                                            service_offered: JSON.stringify(
+                                                values.service_offered
+                                            ),
+                                        };
+                                        sendPackageData(newValues);
                                     }}
                                 >
                                     {({
@@ -238,14 +243,14 @@ export const PackageDetails = ({
                                                 />
                                                 <InputField
                                                     type={"number"}
-                                                    name="no_of_revisions"
+                                                    name="no_of_revision"
                                                     labelName="Number of Revisions"
                                                     placeHolder="No. of Revisions"
                                                     error={
-                                                        errors.no_of_revisions
+                                                        errors.no_of_revision
                                                     }
                                                     touch={
-                                                        touched.no_of_revisions
+                                                        touched.no_of_revision
                                                     }
                                                 />
                                                 <SelectInputField

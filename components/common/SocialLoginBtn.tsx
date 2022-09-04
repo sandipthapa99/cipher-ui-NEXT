@@ -1,3 +1,6 @@
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
@@ -20,15 +23,20 @@ const SocialLoginBtn = ({
         <Link href={redirectionLink ?? "/"}>
             <a>
                 <button {...restProps} className={`social-btn ${className}`}>
-                    <figure className="social-icon">
-                        <Image
-                            src={`${icon}`}
-                            height={24}
-                            width={24}
-                            className=""
-                            alt="icon"
+                    <div className="social-icon">
+                        <FontAwesomeIcon
+                            icon={
+                                className === "facebook"
+                                    ? faFacebook
+                                    : faEnvelope
+                            }
+                            className={
+                                className === "facebook"
+                                    ? "social-icon__fb-img"
+                                    : "social-icon__envelope-img"
+                            }
                         />
-                    </figure>
+                    </div>
                     <span>{name}</span>
                 </button>
             </a>

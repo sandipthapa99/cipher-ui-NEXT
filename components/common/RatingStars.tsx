@@ -13,7 +13,7 @@ export const RatingStars = ({ value }: RatingStarsProps) => {
                 <FontAwesomeIcon
                     className="rating-star"
                     size="10x"
-                    color="#FF9700"
+                    color="#FAB005"
                     key={index}
                     icon={index > value ? faStarRegular : faStarSolid}
                 />

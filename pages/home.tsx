@@ -16,11 +16,12 @@ import type { ServicesValueProps } from "types/serviceCard";
 const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
     ssr: false,
 });
-const PostTask: NextPage = () => {
+const Home: NextPage = () => {
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
+
     return (
         <Layout title="Post task | Cipher">
             <section className="post-task">
@@ -33,7 +34,7 @@ const PostTask: NextPage = () => {
                     <ApplyPost />
 
                     <div className="post-task__discount-card">
-                        <h1>Special Offers & Discount</h1>
+                        <h1>Special Offers &amp; Discount</h1>
 
                         <DiscountCard />
                     </div>
@@ -120,4 +121,4 @@ const PostTask: NextPage = () => {
     );
 };
 
-export default PostTask;
+export default Home;

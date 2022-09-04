@@ -10,11 +10,12 @@ import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import { useLocation } from "hooks/location/useLocation";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useWeather } from "hooks/weather/useWeather";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { handleMenuActive } from "utils/helpers";
 
@@ -24,11 +25,14 @@ import { NotificationDropdown } from "./notifications/NotificationDropdown";
 const Header = () => {
     const date = format(new Date(), "MMMM d");
     const { data: weather } = useWeather();
+    console.log("weather", weather);
+
     const { data: location } = useLocation();
     const getIcon = weather?.weather[0].icon;
 
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
+    const { data: profileDetails } = useGetProfile();
 
     return (
         <>
@@ -98,7 +102,7 @@ const Header = () => {
                                 </li>
                             </Dropdown>
                         </nav>
-                        <div className="d-flex align-items-center gap-3">
+                        <div className="d-flex align-items-center gap-3 weather-container">
                             {weather && (
                                 <Link href="#!">
                                     <a className="btn location-btn d-none d-md-inline-block">
@@ -141,19 +145,21 @@ const Header = () => {
                                 </a>
                             </Link>
                         )}
-
-                        <div>
-                            <a
-                                className="btn location-btn d-none d-md-inline-block"
-                                onClick={() => setNotopen(!notopen)}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faBell}
-                                    className="svg-icon"
-                                />
-                            </a>
-                            {notopen && <NotificationDropdown />}
-                        </div>
+                        {/* not */}
+                        {profileDetails ? (
+                            <div>
+                                <a
+                                    className="btn location-btn d-none d-md-inline-block"
+                                    onClick={() => setNotopen(!notopen)}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faBell}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                                {notopen && <NotificationDropdown />}
+                            </div>
+                        ) : null}
                     </Navbar>
                 </Container>
             </header>

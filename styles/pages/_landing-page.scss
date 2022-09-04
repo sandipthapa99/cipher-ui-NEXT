@@ -33,7 +33,7 @@
             }
 
             .search-bar {
-                display: flex;
+                // display: flex;
                 justify-content: center;
                 align-items: center;
                 margin-bottom: 2.4rem;
@@ -555,6 +555,9 @@
             z-index: 2;
             width: 90%;
             padding: 1rem;
+            @include respond(xs){
+                top: 10rem;
+            }
             @include respond(md) {
                 padding: 5.6rem 0 5.6rem 6.4rem;
                 width: 60%;

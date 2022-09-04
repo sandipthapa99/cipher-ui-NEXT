@@ -19,7 +19,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Spoiler } from "@mantine/core";
+import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Image from "next/image";
@@ -54,13 +56,87 @@ const SearchResultsDetail = ({
     const handleClose = () => setShow(false);
     const setBookNowDetails = useSetBookNowDetails();
     const reviewsContent = getReviews();
+    const queryClient = useQueryClient();
+
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
 
+    const { data: myServicePackage } = useData<{
+        result: Array<{
+            id: number;
+            service: {
+                id: string;
+                created_by: {
+                    id: string;
+                    email: string;
+                    full_name: string;
+                    profile_image: string;
+                };
+                category: {
+                    id: number;
+                    name: string;
+                    slug: string;
+                    icon: string;
+                };
+                city: any;
+                images: Array<{
+                    id: number;
+                    media: string;
+                    media_type: string;
+                    size: number;
+                    name: string;
+                    placeholder: string;
+                }>;
+                created_at: string;
+                updated_at: string;
+                title: string;
+                budget_type: string;
+                budget_from: number;
+                budget_to: number;
+                status: string;
+                description: string;
+                highlights: string;
+                views_count: number;
+                location: string;
+                happy_clients: any;
+                success_rate: any;
+                is_professional: boolean;
+                is_online: boolean;
+                video: string;
+                no_of_revisions: number;
+                discount_type: string;
+                discount_value: any;
+                is_active: boolean;
+                slug: string;
+            };
+            title: string;
+            description: string;
+            budget: number;
+            no_of_revision: number;
+            service_offered: string;
+            is_active: boolean;
+            slug: string;
+            budget_type: string;
+            discount_type: string;
+            discount_value: number;
+            is_recommended: boolean;
+        }>;
+    }>(["my-service-packages"], "/task/service-package/");
+
     const router = useRouter();
     const servSlug = router.query.slug;
+    const getSingleService = servicesData?.data?.result.filter(
+        (item) => item.slug === servSlug
+    );
+
+    const getPackageAccordingService = myServicePackage?.data?.result.filter(
+        (servicePackage) =>
+            getSingleService?.[0].id === servicePackage?.service?.id
+    );
+
+    const isServiceBookmarked = useIsBookmarked("service", serviceId);
 
     return (
         <>
@@ -84,10 +160,17 @@ const SearchResultsDetail = ({
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
                                 <SaveIcon
-                                    object_id={String(serviceId)}
-                                    model={"task"}
+                                    object_id={serviceId}
+                                    model={"service"}
+                                    showText
+                                    filled={isServiceBookmarked}
+                                    onSuccess={() =>
+                                        queryClient.invalidateQueries([
+                                            "bookmarks",
+                                            "service",
+                                        ])
+                                    }
                                 />
-                                <span className="name">Save</span>
                             </div>
                             <div className="d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
@@ -123,16 +206,18 @@ const SearchResultsDetail = ({
                                         key={value.id}
                                         className="thumbnail-img "
                                     >
-                                        <Image
-                                            src={
-                                                value.image
-                                                    ? value.image
-                                                    : "/service-details/garden-cleaning.png"
-                                            }
-                                            layout="fill"
-                                            objectFit="cover"
-                                            alt="garden-image"
-                                        />
+                                        {value?.media && (
+                                            <Image
+                                                src={
+                                                    value?.media
+                                                        ? value.media
+                                                        : "/service-details/garden-cleaning.png"
+                                                }
+                                                layout="fill"
+                                                objectFit="cover"
+                                                alt="garden-image"
+                                            />
+                                        )}
                                     </Carousel.Slide>
                                 ))}
                             </Carousel>
@@ -156,7 +241,6 @@ const SearchResultsDetail = ({
                                         />
                                     </figure>
                                 )} */}
-                                To do API
                                 <div className="intro">
                                     <p className="name">{serviceProvider}</p>
                                     <p className="job">{serviceTitle}</p>
@@ -275,12 +359,12 @@ const SearchResultsDetail = ({
                         }}
                         className="pt-4"
                     >
-                        {servicePackage &&
-                            servicePackage
-                                .filter(
-                                    (service) =>
-                                        service.service.slug === servSlug
-                                )
+                        {getPackageAccordingService &&
+                            getPackageAccordingService
+                                // .filter(
+                                //     (service) =>
+                                //         service.service.slug === servSlug
+                                // )
                                 .map(
                                     (offer) =>
                                         offer && (

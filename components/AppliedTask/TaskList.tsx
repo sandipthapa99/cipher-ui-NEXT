@@ -35,7 +35,7 @@ const TaskList = ({ task }: { task: TaskList }) => {
                             <Image
                                 src={
                                     Array.isArray(bookNowDetails.image)
-                                        ? bookNowDetails.image[0].image
+                                        ? bookNowDetails.image[0].media
                                         : bookNowDetails.image
                                 }
                                 alt="task-img"
