@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 
 import { AcceptedNotification } from "./AcceptedNotification";
+import { ApproveNotify } from "./ApproveNotify";
 
 export default function GetNotifications() {
     // const router = useRouter();
@@ -47,6 +48,7 @@ export default function GetNotifications() {
                     </div>
                     <AcceptedNotification />
                     <AcceptedNotification />
+                    <ApproveNotify />
                 </div>
             </Container>
         </section>
