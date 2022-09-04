@@ -101,7 +101,10 @@ const TaskerPage = () => {
                                 </div>
                             </div>
                         ) : (
-                            <MapboxMap />
+                            <MapboxMap
+                            // latitude={weatherData?.latitude}
+                            // longitude={weatherData?.longitude}
+                            />
                         )}
                     </Col>
                 </Row>
