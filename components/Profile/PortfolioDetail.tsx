@@ -79,15 +79,6 @@ PortfolioProps) => {
                             </Carousel.Item>
                         ))}
                     </Carousel>
-                    {portfolioDetail?.image ? (
-                        <Image
-                            src={portfolioDetail?.images}
-                            alt="portfolio-img"
-                            height={500}
-                            objectFit="contain"
-                            width={800}
-                        />
-                    ) : null}
 
                     {/* <img
                         src="http://54.252.73.240:8014/tmedia/cipher/user/portfolio/womenBuis_ViZsyj2.png"
@@ -104,34 +95,42 @@ PortfolioProps) => {
                             {portfolioDetail?.credential_url}
                         </a>
                     </div>
-                    {portfolioDetail?.file ? (
+                    {portfolioDetail?.files ? (
                         <>
                             <p> File here:</p>
                             <Row>
-                                <Col md={2} sm={4}>
-                                    <div className="file">
-                                        <br />
+                                {portfolioDetail.files &&
+                                    portfolioDetail.files.map(
+                                        (file: string, i: number) => (
+                                            <Col md={2} sm={4} key={i}>
+                                                <div className="file">
+                                                    <br />
 
-                                        <a
-                                            target="_blank"
-                                            href={portfolioDetail?.files}
-                                            rel="noreferrer"
-                                        >
-                                            <figure className="file-img">
-                                                <Image
-                                                    src={
-                                                        "/userprofile/documents/pdf.svg"
-                                                    }
-                                                    alt="document-type-icon"
-                                                    height={100}
-                                                    width={100}
-                                                />
-                                            </figure>
-                                        </a>
+                                                    <a
+                                                        target="_blank"
+                                                        href={
+                                                            portfolioDetail
+                                                                ?.files[0].media
+                                                        }
+                                                        rel="noreferrer"
+                                                    >
+                                                        <figure className="file-img">
+                                                            <Image
+                                                                src={
+                                                                    "/userprofile/documents/pdf.svg"
+                                                                }
+                                                                alt="document-type-icon"
+                                                                height={100}
+                                                                width={100}
+                                                            />
+                                                        </figure>
+                                                    </a>
 
-                                        <br />
-                                    </div>
-                                </Col>
+                                                    <br />
+                                                </div>
+                                            </Col>
+                                        )
+                                    )}
                             </Row>
 
                             <div className="file-name">
