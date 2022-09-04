@@ -223,6 +223,9 @@ textarea.form-control {
 }
 
 .site-btn {
+    @include respond(xs) {
+        padding: 0.95rem 0.4rem;
+    }
     @extend %site-btn;
     .svg-icon {
         width: 2.4rem;

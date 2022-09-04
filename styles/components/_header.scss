@@ -94,6 +94,37 @@
                 }
             }
         }
+
+        /* breakpoint specific to certain predefined screens
+            - Galaxy S8+
+            - Ipad Air only
+        */
+
+        @media screen and (width: 360px) {
+            .weather-container {
+                display: none !important;
+            }
+        }
+
+        /* specific to Ipad Air Only*/
+        @media screen and (width: 820px) {
+            .weather-container {
+                display: none !important;
+            }
+            .dropdown-menu-container {
+                display: none !important;
+            }
+        }
+
+        /* specific to Ipad Mini Only*/
+        @media screen and (width: 768px) {
+            .dropdown-menu-container {
+                display: none !important;
+            }
+        }
+
+        /* till here */
+
         .location-btn {
             color: #fff;
             font-size: 1.3rem;
@@ -101,6 +132,17 @@
             padding: 1.2rem 0;
             border: none;
             font-family: $inter-font;
+
+            /* specific to Ipad Air Only*/
+            @media screen and (width: 820px) {
+                display: none !important;
+            }
+
+            /* specific to Ipad Mini Only*/
+            @media screen and (width: 768px) {
+                display: none !important;
+            }
+
             @include respond(lg) {
                 position: static;
             }
