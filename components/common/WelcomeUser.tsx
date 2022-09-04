@@ -31,11 +31,7 @@ const WelcomeUser = () => {
                                 <h1 className="number">
                                     {profileDetails?.stats?.task_assigned}
                                 </h1>
-                                <p>
-                                    Task
-                                    <br />
-                                    Assigned
-                                </p>
+                                <p>Task Assigned</p>
                             </div>
                         </Col>
                         <Col md={3} xs={6}>
@@ -43,11 +39,7 @@ const WelcomeUser = () => {
                                 <h1 className="number">
                                     {profileDetails?.stats?.task_completed}
                                 </h1>
-                                <p>
-                                    Tasks
-                                    <br />
-                                    Completed
-                                </p>
+                                <p>Tasks Completed</p>
                             </div>
                         </Col>
 
@@ -56,11 +48,7 @@ const WelcomeUser = () => {
                                 <h1 className="number">
                                     {profileDetails?.stats?.task_in_progress}
                                 </h1>
-                                <p>
-                                    Tasks
-                                    <br />
-                                    In Progress
-                                </p>
+                                <p>Tasks In Progress</p>
                             </div>
                         </Col>
                         <Col md={3} xs={6}>
@@ -69,11 +57,7 @@ const WelcomeUser = () => {
                                 <h1 className="number">
                                     {profileDetails?.stats?.task_cancelled}
                                 </h1>
-                                <p>
-                                    Tasks
-                                    <br />
-                                    Cancelled
-                                </p>
+                                <p>Tasks Cancelled</p>
                             </div>
                         </Col>
                     </Row>

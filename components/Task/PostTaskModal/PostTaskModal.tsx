@@ -225,7 +225,7 @@ export const PostTaskModal = () => {
                             gap: "1rem",
                         }}
                     >
-                        <Button className="close-btn btn p-3 h-25 w-25">
+                        <Button className="close-btn close-btn-mod btn p-3 h-25 w-25">
                             Cancel
                         </Button>
                         <BigButton
