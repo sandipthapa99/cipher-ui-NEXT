@@ -1,6 +1,5 @@
 import TaskAside from "@components/AppliedTask/taskAside";
 import FullPageLoader from "@components/common/FullPageLoader";
-import Footer from "@components/Footer";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import { useQuery } from "@tanstack/react-query";

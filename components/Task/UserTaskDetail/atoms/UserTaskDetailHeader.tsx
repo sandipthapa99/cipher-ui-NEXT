@@ -8,6 +8,8 @@ import { faEllipsisVertical } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useToggle } from "@mantine/hooks";
+import { useQueryClient } from "@tanstack/react-query";
+import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -18,13 +20,11 @@ import { UserStats } from "./UserStats";
 
 interface UserTaskDetailHeaderProps {
     taskerDetail: TaskerDetails;
-    activeTaskId: string;
     maxHeaderWidth?: string;
 }
 
 export const UserTaskDetailHeader = ({
     taskerDetail,
-    activeTaskId,
     maxHeaderWidth,
 }: UserTaskDetailHeaderProps) => {
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
@@ -34,6 +34,9 @@ export const UserTaskDetailHeader = ({
         rawString: taskerDetail?.user_type,
         initialData: [],
     }).join(", ");
+
+    const isBookmarked = useIsBookmarked("user", taskerDetail.user.id);
+    const queryClient = useQueryClient();
 
     return (
         <>
@@ -86,9 +89,19 @@ export const UserTaskDetailHeader = ({
                 </Col>
                 <Col md={4}>
                     <div className="td-task-detail-header-icons">
-                        <SaveIcon />
+                        <SaveIcon
+                            model="user"
+                            object_id={taskerDetail.user.id}
+                            filled={isBookmarked}
+                            onSuccess={() =>
+                                queryClient.invalidateQueries([
+                                    "bookmarks",
+                                    "user",
+                                ])
+                            }
+                        />
                         <ShareIcon
-                            url={`http://localhost:3005/tasker?taskerId=${activeTaskId}`}
+                            url={`http://localhost:3005/tasker?taskerId=${taskerDetail.user.id}`}
                             quote={"Tasker from cipher project"}
                             hashtag={"cipher-tasker"}
                         />
