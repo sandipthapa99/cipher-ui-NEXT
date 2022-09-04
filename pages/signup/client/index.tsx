@@ -51,8 +51,24 @@ const SignUpAsClient = () => {
                     onSubmit={async (values) => {
                         const { email, password, confirmPassword, phone } =
                             values;
+
+                        const payloadValue = () => {
+                            if (!phone)
+                                return { email, password, confirmPassword };
+
+                            if (!email)
+                                return { phone, password, confirmPassword };
+
+                            return {
+                                phone,
+                                password,
+                                confirmPassword,
+                                email,
+                            };
+                        };
+
                         mutate(
-                            { email, password, confirmPassword, phone },
+                            { ...payloadValue() },
                             {
                                 onSuccess: async () => {
                                     await router.push("/login");
