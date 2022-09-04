@@ -24,10 +24,11 @@ import { NotificationDropdown } from "./notifications/NotificationDropdown";
 
 const Header = () => {
     const date = format(new Date(), "MMMM d");
-    const { data: weather } = useWeather();
+    // const { data: weather } = useWeather();
+    // console.log("weather", weather);
 
-    const { data: location } = useLocation();
-    const getIcon = weather?.weather[0].icon;
+    // const { data: location } = useLocation();
+    // const getIcon = weather?.weather[0].icon;
 
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
@@ -101,7 +102,7 @@ const Header = () => {
                                 </li>
                             </Dropdown>
                         </nav>
-                        <div className="d-flex align-items-center gap-3 weather-container">
+                        {/* <div className="d-flex align-items-center gap-3 weather-container">
                             {weather && (
                                 <Link href="#!">
                                     <a className="btn location-btn d-none d-md-inline-block">
@@ -121,7 +122,7 @@ const Header = () => {
                                     height={30}
                                 />
                             )}
-                        </div>
+                        </div> */}
                         <Link href="#!">
                             <a
                                 className="btn location-btn d-none d-md-inline-block"
@@ -130,7 +131,7 @@ const Header = () => {
                                 {date}
                             </a>
                         </Link>
-                        {location && (
+                        {/* {location && (
                             <Link href="#!">
                                 <a
                                     className="btn location-btn d-none d-md-inline-block"
@@ -143,7 +144,7 @@ const Header = () => {
                                     />
                                 </a>
                             </Link>
-                        )}
+                        )} */}
                         {/* not */}
                         {profileDetails ? (
                             <div>
