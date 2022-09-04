@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import parse from "html-react-parser";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
 
@@ -19,15 +21,25 @@ const ServiceCard = ({
 }: {
     serviceCard: ServicesValueProps["result"][0];
 }) => {
+    const router = useRouter();
     const { data: profileDetails, isLoading, error } = useGetProfile();
+
+    const loggedIn = Cookies.get("access");
 
     const userId = profileDetails?.user.id;
     const serviceProviderId = serviceCard.created_by.id;
 
     //modal card
     const [showModal, setShowModal] = useState(false);
+
     const handleShowModal = () => {
-        setShowModal(true);
+        if (loggedIn) {
+            setShowModal(true);
+        } else {
+            router.push({
+                pathname: `/service/${serviceCard.slug}`,
+            });
+        }
     };
     return (
         <div className="service-card-block">
@@ -86,57 +98,59 @@ const ServiceCard = ({
                         | {serviceCard?.location}
                     </Spoiler>
                 </h3>
-                <Link href={`/service/${serviceCard.slug}`}>
-                    <a>
-                        <div className="card-description d-inline">
-                            <Spoiler
-                                maxHeight={50}
-                                hideLabel={"..."}
-                                showLabel={"..."}
-                            >
-                                {parse(serviceCard?.description)}
-                            </Spoiler>
-                        </div>
-                        <div className="ratings-wrapper d-flex align-items-center justify-content-between">
-                            <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
-                                <FontAwesomeIcon
-                                    icon={faStar}
-                                    className="svg-icon star"
-                                />
-                                {serviceCard?.happy_clients}
-                            </p>
-                            <p className="price">
-                                ${serviceCard?.budget_from}/hr
-                            </p>
-                        </div>
 
-                        <div className="d-flex justify-content-between align-items-center">
-                            <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
-                                <SaveIcon />
-                                <ShareIcon url={""} quote={""} hashtag={""} />
-                            </div>
-                            <CardBtn
-                                btnTitle={`${
-                                    serviceProviderId === userId
-                                        ? "Edit Now"
-                                        : "Book Now"
-                                }`}
-                                backgroundColor="#211D4F"
-                                handleClick={handleShowModal}
-                            />
-                        </div>
-                    </a>
-                </Link>
+                <div className="card-description d-inline">
+                    <Spoiler maxHeight={50} hideLabel={"..."} showLabel={"..."}>
+                        {parse(serviceCard?.description)}
+                    </Spoiler>
+                </div>
+                <div className="ratings-wrapper d-flex align-items-center justify-content-between">
+                    <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
+                        <FontAwesomeIcon
+                            icon={faStar}
+                            className="svg-icon star"
+                        />
+                        {serviceCard?.happy_clients}
+                    </p>
+                    <p className="price">${serviceCard?.budget_from}/hr</p>
+                </div>
+
+                <div className="d-flex justify-content-between align-items-center">
+                    <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
+                        <SaveIcon />
+                        <ShareIcon url={""} quote={""} hashtag={""} />
+                    </div>
+
+                    <CardBtn
+                        btnTitle={`${
+                            serviceProviderId === userId
+                                ? "Edit Now"
+                                : "Book Now"
+                        }`}
+                        backgroundColor="#211D4F"
+                        handleClick={handleShowModal}
+                    />
+                </div>
             </div>
             {/* <ModalCard
-             key={detail.id}
-            title={detail.title}
-             price={detail.price}
-             image={detail.image}
-             description={detail.description}
-            show={showModal}
-            handleClose={() => setShowModal(false)}
+                key={detail.id}
+                title={detail.title}
+                price={detail.price}
+                image={detail.image}
+                description={detail.description}
+                show={showModal}
+                handleClose={() => setShowModal(false)}
             /> */}
+            <ModalCard
+                title={serviceCard?.title}
+                budget_from={serviceCard?.budget_from}
+                budget_to={serviceCard?.budget_to}
+                budget_type={serviceCard?.budget_type}
+                description={serviceCard?.description}
+                service_id={serviceCard?.id}
+                show={showModal}
+                handleClose={() => setShowModal(false)}
+            />
         </div>
     );
 };
