@@ -117,7 +117,6 @@ const ProfileEditForm = ({
                             setShowEdit(false);
                             onEditProfile(newValidatedValues);
                             // toggleSuccessModal();
-                            console.log(newValidatedValues);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

@@ -97,6 +97,7 @@ const AffiliateProgram = () => {
                                             thumbnailImg={card.thumbnailImg}
                                             title={card.title}
                                             description={card.description}
+                                            redirectTo={""}
                                         />
                                     </Col>
                                 );
