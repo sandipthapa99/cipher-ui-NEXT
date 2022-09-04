@@ -34,7 +34,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
@@ -50,6 +50,7 @@ import { axiosClient } from "utils/axiosClient";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
 import { myOptions } from "utils/options";
+
 interface LandingPageProps {
     successStoryData: SuccessStoryProps;
     trustedPartnerData: BrandValueProps;
@@ -106,7 +107,7 @@ const Home: NextPage<{
                                 {/* Hero Text End Here */}
                             </div>
                             <Search />
-                            {chips.length > 0 && (
+                            {/* {chips.length > 0 && (
                                 <div className="chips-section d-md-flex d-none">
                                     {chips.map((chip, key) => (
                                         <RecommendationChips
@@ -116,7 +117,7 @@ const Home: NextPage<{
                                         />
                                     ))}
                                 </div>
-                            )}
+                            )} */}
 
                             <div className="come-with-us">
                                 <h1>Join CIPHER for</h1>
@@ -195,11 +196,11 @@ const Home: NextPage<{
                 </Container>
             </section>
 
-            {postTaskPopup && (
+            {/* {postTaskPopup && (
                 <div className="popup-post-task d-md-block d-none">
                     <PostTaskHomepage handleClose={handleClosePosttaskPopup} />
                 </div>
-            )}
+            )} */}
 
             <section
                 id="trusted-brand-section"

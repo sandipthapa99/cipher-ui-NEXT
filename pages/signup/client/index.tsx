@@ -5,13 +5,35 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
 import { useRouter } from "next/router";
+import type { ChangeEvent } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
-import clientSignUpSchema from "utils/formValidation/clientSignUpValidation";
+import {
+    clientBothSignUpSchema,
+    clientEmailSignUpSchema,
+    clientPhoneSignUpSchema,
+} from "utils/formValidation/clientSignUpValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const SignUpAsClient = () => {
     const { mutate, isLoading } = useSignup();
+    const [enteredData, setEnteredData] = useState("email");
+
+    const getValidationSchema = () => {
+        if (enteredData === "email") return clientEmailSignUpSchema;
+        if (enteredData === "phone") return clientPhoneSignUpSchema;
+        return clientBothSignUpSchema;
+    };
+
+    const handleFieldChange = (
+        e: ChangeEvent<HTMLInputElement>,
+        fieldName: string,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setEnteredData(fieldName);
+        setFieldValue(fieldName, e.currentTarget.value);
+    };
     const router = useRouter();
     return (
         <OnBoardingLayout
@@ -25,11 +47,28 @@ const SignUpAsClient = () => {
             <div>
                 <Formik
                     initialValues={ClientSignUpFormData}
-                    validationSchema={clientSignUpSchema}
+                    validationSchema={getValidationSchema()}
                     onSubmit={async (values) => {
-                        const { email, password, confirmPassword } = values;
+                        const { email, password, confirmPassword, phone } =
+                            values;
+
+                        const payloadValue = () => {
+                            if (!phone)
+                                return { email, password, confirmPassword };
+
+                            if (!email)
+                                return { phone, password, confirmPassword };
+
+                            return {
+                                phone,
+                                password,
+                                confirmPassword,
+                                email,
+                            };
+                        };
+
                         mutate(
-                            { email, password, confirmPassword },
+                            { ...payloadValue() },
                             {
                                 onSuccess: async () => {
                                     await router.push("/login");
@@ -44,15 +83,29 @@ const SignUpAsClient = () => {
                         );
                     }}
                 >
-                    {({ isSubmitting, errors, touched }) => (
+                    {({ isSubmitting, errors, touched, setFieldValue }) => (
                         <Form className="login-form">
                             <InputField
                                 type="email"
                                 name="email"
                                 labelName="Email"
+                                onChange={(e) =>
+                                    handleFieldChange(e, "email", setFieldValue)
+                                }
                                 touch={touched.email}
                                 error={errors.email}
-                                placeHolder="Enter your email"
+                                placeHolder="example@example.com"
+                            />
+                            <InputField
+                                type="text"
+                                name="phone"
+                                labelName="Phone Number"
+                                onChange={(e) =>
+                                    handleFieldChange(e, "phone", setFieldValue)
+                                }
+                                touch={touched.phone}
+                                error={errors.phone}
+                                placeHolder="+9779805284906"
                             />
                             <PasswordField
                                 type="password"

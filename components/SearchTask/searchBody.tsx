@@ -1,6 +1,6 @@
 import { Col } from "react-bootstrap";
 export interface SearchBodyProps {
-    number: string;
+    number: number | string;
     textOne: string;
     color: string;
     textColor: string;

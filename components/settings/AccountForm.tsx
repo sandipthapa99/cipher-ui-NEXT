@@ -83,7 +83,7 @@ const AccountForm = () => {
     };
 
     const currencyResults = currency?.result.map((result) => ({
-        label: result.name,
+        label: result.code,
         value: result.id,
         id: result.id,
     }));
@@ -113,6 +113,27 @@ const AccountForm = () => {
         scroll.scrollTo(2660);
     };
 
+    //converting string time value to datetime time value
+    const start: string = profile?.active_hour_start
+        ? profile?.active_hour_start.replace(":00", "")
+        : "";
+    const end: string = profile?.active_hour_end
+        ? profile?.active_hour_end.replace(":00", "")
+        : "";
+
+    const endparsed = profile?.active_hour_end
+        ? (parseInt(end) < 12 ? parseInt(end) + 12 : parseInt(end)).toString()
+        : "";
+
+    const finalend = profile?.active_hour_end
+        ? `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`
+        : "";
+
+    const endTime = finalend.toString();
+    const startTime = start.toString();
+
+    //parse user_type
+    const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
     return (
         <>
             {!KYCData ? <FillKyc onClick={scrollToKyc} /> : ""}
@@ -132,10 +153,13 @@ const AccountForm = () => {
                                 : "",
                         skill: "",
                         experience_level: profile?.experience_level ?? "",
-                        active_hour_start: "",
-                        active_hour_end: "",
+                        active_hour_start:
+                            new Date(`2022-09-24 ${startTime}`) ?? "",
+                        active_hour_end: endTime
+                            ? new Date(`2022-09-24 ${endTime}`)
+                            : "",
                         hourly_rate: profile?.hourly_rate ?? "",
-                        user_type: profile?.user_type ?? "",
+                        user_type: userType ?? "",
                         country: profile?.country ?? "",
                         education: "abc",
                         address_line1: profile?.address_line1 ?? "",
@@ -331,7 +355,7 @@ const AccountForm = () => {
                                 error={errors.skill}
                                 touch={touched.skill}
                                 labelName="Specialities"
-                                placeHolder="Enter your price"
+                                placeHolder="Enter your skills"
                             />
                             <RadioField
                                 type="radio"
@@ -399,7 +423,7 @@ const AccountForm = () => {
                                 error={errors.address_line1}
                                 touch={touched.address_line1}
                                 disabled={profile ? true : false}
-                                placeHolder="Enter your price"
+                                placeHolder="Enter your permanent address"
                             />
                             <InputField
                                 type="text"
@@ -407,7 +431,7 @@ const AccountForm = () => {
                                 labelName="Address Line 2"
                                 error={errors.address_line2}
                                 touch={touched.address_line2}
-                                placeHolder="Enter your price"
+                                placeHolder="Enter your temporary address"
                                 disabled={profile ? true : false}
                             />
                             <SelectInputField
@@ -448,25 +472,27 @@ const AccountForm = () => {
                                 options={task_preferences}
                                 disabled={profile ? true : false}
                             />
-                            <div className="d-flex justify-content-end">
-                                <Button
-                                    className="me-3 mb-0 cancel-btn"
-                                    onClick={() => resetForm}
-                                >
-                                    Cancel
-                                </Button>
-                                <FormButton
-                                    disabled={profile ? true : false}
-                                    type="submit"
-                                    variant="primary"
-                                    name="Save"
-                                    className="submit-btn w-25"
-                                    isSubmitting={isSubmitting}
-                                    isSubmittingClass={isSubmittingClass(
-                                        isSubmitting
-                                    )}
-                                />
-                            </div>
+                            {profile ? null : (
+                                <div className="d-flex justify-content-end">
+                                    <Button
+                                        className="me-3 mb-0 cancel-btn"
+                                        onClick={() => resetForm}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <FormButton
+                                        disabled={profile ? true : false}
+                                        type="submit"
+                                        variant="primary"
+                                        name="Save"
+                                        className="submit-btn w-25"
+                                        isSubmitting={isSubmitting}
+                                        isSubmittingClass={isSubmittingClass(
+                                            isSubmitting
+                                        )}
+                                    />
+                                </div>
+                            )}
                         </Form>
                     )}
                 </Formik>

@@ -6,6 +6,7 @@ import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import AddRequirements from "@components/PostTask/AddRequirements";
 import type { SelectItem } from "@mantine/core";
+import { Checkbox } from "@mantine/core";
 import { Code, Loader } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { getHotkeyHandler } from "@mantine/hooks";
@@ -70,6 +71,19 @@ const AddService: NextPage<{
         },
     ];
 
+    const ActiveType = [
+        {
+            id: 1,
+            value: true,
+            label: "true",
+        },
+        {
+            id: 2,
+            value: false,
+            label: "false",
+        },
+    ];
+
     const [showVariable, setShowVariable] = useState({
         showBudget: false,
         showTime: false,
@@ -120,7 +134,8 @@ const AddService: NextPage<{
         setChecked(!checked);
     };
 
-    const serviceImageMutation = useForm("/task/service-image/");
+    // const serviceImageMutation = useForm("/task/service-image/");
+    const serviceImageMutation = useForm("/task/filestore/");
     const serviceMutation = useForm("/task/service/");
 
     // const [onSearchCategory, setOnSearchCategory] = useState<string>("");
@@ -225,7 +240,12 @@ const AddService: NextPage<{
                                 if (values.images.some((val) => val?.path)) {
                                     values.images.forEach((file) => {
                                         if (file?.path)
-                                            formData.append("images", file);
+                                            formData.append("medias", file);
+                                        formData.append("media_type", "image");
+                                        formData.append(
+                                            "placeholder",
+                                            "new image"
+                                        );
                                     });
                                     onCreateThumbnail(
                                         formData,
@@ -519,6 +539,19 @@ const AddService: NextPage<{
                                             multiple
                                             showFileDetail
                                         />
+
+                                        <Checkbox
+                                            label="is active?"
+                                            name="is_active"
+                                            defaultChecked={true}
+                                            onChange={(event) =>
+                                                setFieldValue(
+                                                    "is_active",
+                                                    event.currentTarget.checked
+                                                )
+                                            }
+                                        />
+
                                         <div className="d-flex justify-content-center">
                                             <Button className="btn close-btn p-3 h-25 w-25">
                                                 Cancel

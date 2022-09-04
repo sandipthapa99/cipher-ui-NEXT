@@ -57,6 +57,11 @@ const TaskerPage = () => {
             });
         setActiveTaskIdx(undefined);
     };
+    const handleSearchChange = (query: string) => {
+        clearSearchQuery();
+        clearSearchedTaskers();
+        setSearchQuery(query);
+    };
     useEffect(() => {
         const { taskerId } = router.query;
         if (taskerId !== undefined && typeof taskerId === "string") {
@@ -65,15 +70,15 @@ const TaskerPage = () => {
     }, [router.query.taskerId, router.query]);
 
     // clear search query and searched taskers on page exit
-    usePageExit(() => {
-        clearSearchQuery();
-        clearSearchedTaskers();
-    });
+    // usePageExit(() => {
+    //     // clearSearchQuery();
+    //     clearSearchedTaskers();
+    // });
 
     return (
         <Layout>
             <Container fluid="xl" className="px-5">
-                <SearchCategory onChange={setSearchQuery} />
+                <SearchCategory onChange={handleSearchChange} />
                 <Row className="gx-5">
                     <Col md={4}>
                         <UserTaskCardList
@@ -96,7 +101,10 @@ const TaskerPage = () => {
                                 </div>
                             </div>
                         ) : (
-                            <MapboxMap />
+                            <MapboxMap
+                            // latitude={weatherData?.latitude}
+                            // longitude={weatherData?.longitude}
+                            />
                         )}
                     </Col>
                 </Row>

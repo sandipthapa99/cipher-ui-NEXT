@@ -3,7 +3,14 @@ import type { ServicesPackageProps } from "./serviceCard";
 export interface ServiceNearYouCardProps {
     image?:
         | string
-        | { id: number; name: string; size: number; image: string }[];
+        | {
+              id: number;
+              name: string;
+              size: number;
+              media: string;
+              media_type: string;
+              placeholder: string;
+          }[];
     serviceTitle?: string;
     serviceProvider?: string;
     serviceProviderLocation?: string;
@@ -14,7 +21,7 @@ export interface ServiceNearYouCardProps {
     serviceDescription?: string;
     discountOn?: string;
     highlights?: string[];
-    serviceId?: number;
+    serviceId?: string;
     serviceSlug?: string;
     onServiceClick?: (service: any) => void;
     slug?: string;

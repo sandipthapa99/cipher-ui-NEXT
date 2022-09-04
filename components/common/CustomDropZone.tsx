@@ -22,7 +22,7 @@ export interface CustomDropZoneProps
     fileType?: FileType;
     fileLabel?: string;
     onDrop?: (image: FormData) => void;
-    type: string;
+    type: string[];
 }
 
 export const CustomDropZone = ({
@@ -95,6 +95,7 @@ export const CustomDropZone = ({
                 ref={dropzoneRef}
                 className={classes.dropzone}
                 {...rest}
+                accept={type}
             >
                 <Highlight
                     size="sm"

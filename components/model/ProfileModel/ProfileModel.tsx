@@ -157,7 +157,7 @@ const PROFILE_LINKS = {
         {
             title: "My Dashboard",
             icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
-            href: "/my-dashboard",
+            href: "/home",
             color: "#495057",
         },
         {

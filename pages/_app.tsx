@@ -3,6 +3,7 @@ import "../styles/bundle.scss";
 import "react-toastify/dist/ReactToastify.css";
 import "@smastrom/react-rating/style.css";
 
+// import "../public/firebase-messaging-sw";
 import { RouterTransition } from "@components/common/RouterTransition";
 import { LoginPrompt } from "@components/model/LoginPrompt";
 import { MantineProvider } from "@mantine/core";
@@ -16,8 +17,10 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
+
+// import { getFirebaseToken, onMessageListener } from "../utils/firebase";
 
 interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
     pageProps: {
@@ -40,6 +43,30 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 },
             })
     );
+    // useEffect(() => {
+    //     setToken();
+
+    //     // Event listener that listens for the push notification event in the background
+    //     if ("serviceWorker" in navigator) {
+    //         navigator.serviceWorker.addEventListener("message", (event) => {
+    //             console.log("event for the service worker", event);
+    //         });
+    //     }
+
+    //     // Calls the getMessage() function if the token is there
+    //     async function setToken() {
+    //         try {
+    //             const token = await firebaseCloudMessaging.init();
+    //             if (token) {
+    //                 console.log("token", token);
+    //                 // getMessage();
+    //             }
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    // });
+
     return (
         <GoogleOAuthProvider
             clientId={

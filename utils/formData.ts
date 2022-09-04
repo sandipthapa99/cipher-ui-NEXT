@@ -29,10 +29,11 @@ export const loginFormData: LoginValuesProps = {
 export const ClientSignUpFormData: ClientSignUpValueProps = {
     // firstName: "",
     // lastName: "",
-    email: "",
+    // email: "",
     // phoneNumber: "",
     password: "",
     confirmPassword: "",
+    // phone: "",
     // gender: "male",
     // isAgree: true,
     // addToNewsletter: true,
@@ -78,9 +79,10 @@ export const AddPortfolioFormData: AddPortfolioProps = {
     description: "",
     credential_url: "",
     issued_date: "",
-    image: [],
+    images: [],
     imagePreviewUrl: [],
-    file: "",
+    pdfPreviewUrl: [],
+    files: [],
     id: 0,
 };
 
