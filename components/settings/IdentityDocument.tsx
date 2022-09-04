@@ -175,7 +175,7 @@ export const IdentityDocument = () => {
                                 // console.log(formData.get("file"))
                             }
                             label="Image"
-                            type="image"
+                            type={["image/jpg", "image/png", "image/jpeg"]}
                             fileLabel="Image"
                         />
                     </Col>
