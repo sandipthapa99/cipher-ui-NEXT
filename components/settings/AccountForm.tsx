@@ -128,6 +128,7 @@ const AccountForm = () => {
     const finalend = `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`;
 
     const endTime = finalend.toString();
+    const startTime = start.toString();
 
     //parse user_type
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
@@ -150,8 +151,10 @@ const AccountForm = () => {
                                 : "",
                         skill: "",
                         experience_level: profile?.experience_level ?? "",
-                        active_hour_start: "" ?? "",
-                        active_hour_end: "" ?? "",
+                        active_hour_start:
+                            new Date(`2022-09-24 ${startTime}`) ?? "",
+                        active_hour_end:
+                            new Date(`2022-09-24 ${endTime}`) ?? "",
                         hourly_rate: profile?.hourly_rate ?? "",
                         user_type: userType ?? "",
                         country: profile?.country ?? "",

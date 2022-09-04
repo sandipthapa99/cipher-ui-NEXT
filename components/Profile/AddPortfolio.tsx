@@ -274,11 +274,11 @@ const AddPortfolio = ({
                                     files: fileId ? fileId : [],
                                 };
                                 console.log(" a very new data=", newData, data);
-                                {
-                                    imageId.length > 0 && fileId.length > 0
-                                        ? onCreatePortfolio(newData, actions)
-                                        : console.log("no", imageId, fileId);
-                                }
+                                // {
+                                //     imageId.length > 0 && fileId.length > 0
+                                //         ? onCreatePortfolio(newData, actions)
+                                //         : console.log("no", imageId, fileId);
+                                // }
                                 //onCreatePortfolio(newData, actions);
                             } else {
                                 const dataToSend = {
