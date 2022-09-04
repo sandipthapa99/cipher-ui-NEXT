@@ -8,6 +8,8 @@ import Layout from "@components/Layout";
 import MembershipCard from "@components/MembershipCard";
 import Popular from "@components/Popular";
 import { PostCard } from "@components/PostTask/PostCard";
+import Membership from "@components/settings/Membership";
+import { MembershipPackage } from "@components/settings/MembershipPackage";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import React, { Fragment } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -55,7 +57,11 @@ const Checkout = () => {
                 >
                     <Container fluid="xl">
                         <h1>Get membership</h1>
-                        <Row className="gx-5 d-flex align-items-stretch">
+                        <div className="all-membership-details ">
+                            <MembershipPackage />
+                        </div>
+
+                        {/* <Row className="gx-5 d-flex align-items-stretch">
                             {MembershipCardContent &&
                                 MembershipCardContent.map((offer) => (
                                     <Col
@@ -75,7 +81,7 @@ const Checkout = () => {
                                         />
                                     </Col>
                                 ))}
-                        </Row>
+                        </Row> */}
                     </Container>
                 </section>
 

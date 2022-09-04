@@ -216,11 +216,13 @@ const AccountForm = () => {
                         isSubmitting,
                         errors,
                         touched,
+                        values,
                         resetForm,
                         setFieldValue,
                     }) => (
                         <Form autoComplete="off">
-                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre>
+                            <pre>{JSON.stringify(values, null, 4)}</pre> */}
                             <figure className="profile-img mx-auto">
                                 <FontAwesomeIcon
                                     icon={faBadgeCheck}

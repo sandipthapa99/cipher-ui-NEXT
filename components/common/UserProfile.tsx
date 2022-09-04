@@ -77,9 +77,7 @@ const UserProfileCard = ({
     );
     const onEditProfile = (data: any) => {
         const formData: FormData = new FormData();
-        console.log("data=", data);
         formData.append("profile_image", data);
-        console.log("form data=", formData);
         data = formData;
         editProfile.mutate(data, {
             onSuccess: (data) => {
@@ -139,7 +137,6 @@ const UserProfileCard = ({
                                 name="image"
                                 onChange={(event: any) => {
                                     const files = event.target.files;
-                                    console.log(files);
                                     field?.("image", (files ?? [])[0]);
                                     setImage(files[0]);
                                     console.log("image=", image);
