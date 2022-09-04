@@ -30,7 +30,7 @@ const Signup = () => {
             </div>
 
             <SocialLoginBtn
-                name={"Sign Up with Email"}
+                name={"Sign Up with Email or Phone Number"}
                 redirectionLink="/signup/choose"
                 className="email"
             />
