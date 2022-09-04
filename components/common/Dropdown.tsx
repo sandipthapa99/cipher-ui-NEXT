@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useCallback, useEffect, useRef } from "react";
 import type { DropdownSubMenu } from "staticData/dropdownData";
 import { axiosClient } from "utils/axiosClient";
+import { randNumber } from "utils/randNumber";
 
 interface DropdownProps {
     children?: ReactNode;
@@ -80,8 +81,8 @@ export const Dropdown = ({ children }: DropdownProps) => {
         }
         return (
             <li className="dropdown-menu-items" key={index}>
-                <Link href={`/category/${menu}`} passHref>
-                    <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
+                <Link href={`/category/${[menu]}`} passHref>
+                    <a className="dropdown-menu-item-link">{`${sub}`}</a>
                 </Link>
             </li>
         );
