@@ -5,21 +5,21 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import { useCallback, useEffect, useRef } from "react";
 import type { DropdownSubMenu } from "staticData/dropdownData";
-import { DUMMY_MENU_ITEMS } from "staticData/dropdownData";
-import { randNumber } from "utils/randNumber";
+import { axiosClient } from "utils/axiosClient";
 
 interface DropdownProps {
     children?: ReactNode;
 }
 
 export const Dropdown = ({ children }: DropdownProps) => {
-    // const { data, isLoading } = useCategories();
-    // console.log(data);
-
+    const [menu, setMenu] = useState<DropdownSubMenu>([]); //available menu
     const [subMenu, setSubMenu] = useState<DropdownSubMenu>([]);
+    const [nestedMenu, setNestedMenu] = useState<DropdownSubMenu>([]);
     const [prevIndex, setPrevIndex] = useState();
     const dropdownContainer = useRef<HTMLDivElement | null>(null);
     const [isSubMenuOpened, setIsSubMenuOpened] = useState(false);
+    const [isNestedSubMenuOpened, setIsNestedSubMenuOpened] = useState(false);
+
     const [isMenuOpened, setIsMenuOpened] = useState(false);
 
     const toggleDropdown = () => {
@@ -49,8 +49,35 @@ export const Dropdown = ({ children }: DropdownProps) => {
         };
     }, [handleBodyClick]);
 
-    const renderSubMenus = subMenu.map((sub, index) => {
-        const menu = sub.replaceAll(" ", "-").toLowerCase();
+    useEffect(() => {
+        axiosClient
+            .get("/task/task-category/nested/")
+            .then(({ data }) => {
+                setMenu(data);
+            })
+            .catch((e) => {
+                setMenu([]);
+            });
+    }, []);
+
+    const renderNestedSubMenus = nestedMenu.map((sub: any, index) => {
+        const menu = sub.name.replaceAll(" ", "").toLowerCase();
+        if (sub?.child.length > 0) {
+            return (
+                <li
+                    key={index}
+                    className="dropdown-menu-items d-flex justify-space-between"
+                >
+                    <Link href="#!">
+                        <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
+                    </Link>
+                    <FontAwesomeIcon
+                        icon={faChevronRight}
+                        className="svg-icon"
+                    />
+                </li>
+            );
+        }
         return (
             <li className="dropdown-menu-items" key={index}>
                 <Link href={`/category/${[menu]}`} passHref>
@@ -59,13 +86,53 @@ export const Dropdown = ({ children }: DropdownProps) => {
             </li>
         );
     });
-    const renderMenus = DUMMY_MENU_ITEMS.map((item: any, index: any) => {
-        const onHandleDropdown = () => {
-            const subMenuItems = item.subMenu;
 
+    const renderSubMenus = subMenu.map((sub: any, index: any) => {
+        const menu = sub.name.replaceAll(" ", "").toLowerCase();
+        if (sub?.child.length > 0) {
+            const onHandleDropdown = () => {
+                const subMenuItems = sub?.child;
+                setNestedMenu(subMenuItems);
+
+                if (subMenu.indexOf(sub) === index) {
+                    setIsNestedSubMenuOpened((prev) => !prev);
+                    setPrevIndex(index);
+                }
+                if (prevIndex !== index) {
+                    setIsNestedSubMenuOpened(true);
+                }
+            };
+            return (
+                <li
+                    key={index}
+                    className="dropdown-menu-items d-flex justify-space-between"
+                    onClick={onHandleDropdown}
+                >
+                    <Link href="#!">
+                        <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
+                    </Link>
+                    <FontAwesomeIcon
+                        icon={faChevronRight}
+                        className="svg-icon"
+                    />
+                </li>
+            );
+        }
+        return (
+            <li className="dropdown-menu-items" key={index}>
+                <Link href={`/category/${menu}`} passHref>
+                    <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
+                </Link>
+            </li>
+        );
+    });
+
+    const renderMenus = menu.map((item: any, index: any) => {
+        const onHandleDropdown = () => {
+            const subMenuItems = item?.child;
             setSubMenu(subMenuItems);
 
-            if (DUMMY_MENU_ITEMS.indexOf(item) === index) {
+            if (menu.indexOf(item) === index) {
                 setIsSubMenuOpened((prev) => !prev);
                 setPrevIndex(index);
             }
@@ -86,6 +153,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
             </li>
         );
     });
+
     return (
         <div className="dropdown-menu-container" ref={dropdownContainer}>
             <div className="btn-content" onClick={toggleDropdown} role="button">
@@ -105,7 +173,16 @@ export const Dropdown = ({ children }: DropdownProps) => {
                         {renderSubMenus}
                     </div>
                 )}
+
+                {isMenuOpened && isSubMenuOpened && isNestedSubMenuOpened && (
+                    <div className="dropdown-menu-items sub-menu">
+                        {renderNestedSubMenus}
+                    </div>
+                )}
             </div>
         </div>
     );
 };
+function item(item: any) {
+    throw new Error("Function not implemented.");
+}

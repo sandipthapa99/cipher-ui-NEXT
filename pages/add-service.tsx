@@ -5,7 +5,7 @@ import MultiFileDropzone from "@components/common/MultiFileDropzone";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
 import AddRequirements from "@components/PostTask/AddRequirements";
-import type { SelectItem } from "@mantine/core";
+import { Checkbox, SelectItem } from "@mantine/core";
 import { Code, Loader } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { getHotkeyHandler } from "@mantine/hooks";
@@ -67,6 +67,19 @@ const AddService: NextPage<{
             id: 3,
             value: "Fixed",
             label: "Fixed",
+        },
+    ];
+
+    const ActiveType = [
+        {
+            id: 1,
+            value: true,
+            label: "true",
+        },
+        {
+            id: 2,
+            value: false,
+            label: "false",
         },
     ];
 
@@ -525,6 +538,19 @@ const AddService: NextPage<{
                                             multiple
                                             showFileDetail
                                         />
+
+                                        <Checkbox
+                                            label="is active?"
+                                            name="is_active"
+                                            defaultChecked={true}
+                                            onChange={(event) =>
+                                                setFieldValue(
+                                                    "is_active",
+                                                    event.currentTarget.checked
+                                                )
+                                            }
+                                        />
+
                                         <div className="d-flex justify-content-center">
                                             <Button className="btn close-btn p-3 h-25 w-25">
                                                 Cancel
