@@ -29,6 +29,7 @@ export const UserTaskCardList = ({ taskers, onTaskClick }: Props) => {
                     distance={"2 km"}
                     bio={item?.bio}
                     charge={item?.charge_currency + " " + item?.hourly_rate}
+                    tasker={""}
                 />
             </div>
         ));

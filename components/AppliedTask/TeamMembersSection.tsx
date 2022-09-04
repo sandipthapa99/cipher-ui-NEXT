@@ -20,6 +20,7 @@ export const TeamMembersSection = () => {
                             distance={"2 km"}
                             bio={"description(bio)"}
                             location={"kathmandu"}
+                            tasker={""}
                         />
                     </Col>
                 ))}

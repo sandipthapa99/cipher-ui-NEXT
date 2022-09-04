@@ -62,6 +62,7 @@ export const Collaboration = () => {
                                 charge={item?.price}
                                 collabButton={true}
                                 handleButtonClick={handleOpen}
+                                tasker={""}
                             />
                         </Col>
                     ))}
