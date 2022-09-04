@@ -3,12 +3,10 @@ import { UserTaskDetailHeader } from "@components/Task/UserTaskDetail/atoms/User
 import { UserTaskReviews } from "@components/Task/UserTaskDetail/atoms/UserTaskReviews";
 import { faChevronLeft } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import type { HTMLAttributes } from "react";
 import React from "react";
 import type { TaskerProps } from "types/taskerProps";
-import { axiosClient } from "utils/axiosClient";
 
 import { UserTaskDetailTabs } from "./atoms/UserTaskDetailTabs";
 
@@ -20,23 +18,23 @@ interface UserTaskDetailProps extends HTMLAttributes<HTMLDivElement> {
 const UserTaskDetail = ({
     maxHeaderWidth,
     taskerDetail,
-    ...rest
 }: UserTaskDetailProps) => {
     return (
         <div className="user-task-detail-container">
-            <Link href="/tasker">
-                <a>
-                    <FontAwesomeIcon
-                        icon={faChevronLeft}
-                        className="svg-icon"
-                    />
-                    Go Back
-                </a>
-            </Link>
+            <div className="mb-5">
+                <Link href="/tasker">
+                    <a>
+                        <FontAwesomeIcon
+                            icon={faChevronLeft}
+                            className="svg-icon"
+                        />
+                        Go Back
+                    </a>
+                </Link>
+            </div>
             <UserTaskDetailHeader
                 taskerDetail={taskerDetail}
                 maxHeaderWidth={maxHeaderWidth}
-                activeTaskId={taskerDetail.user.id}
             />
             <UserShortIntro user={taskerDetail} />
             <UserTaskDetailTabs taskerDetail={taskerDetail} />

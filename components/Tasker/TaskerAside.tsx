@@ -19,7 +19,7 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
                     <a>
                         <TeamMembersCard
                             // taskers={tasker?.user}
-                            tasker={tasker?.full_name}
+                            tasker={tasker?.user.id}
                             image={tasker?.profile_image}
                             name={tasker?.full_name}
                             speciality={"Teacher"} //doesnt come from api

@@ -1,4 +1,3 @@
-import ServiceLayout from "@components/services/ServiceLayout";
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
 import type { GetStaticPaths, GetStaticProps } from "next";
@@ -6,7 +5,6 @@ import type { TaskerProps } from "types/taskerProps";
 import { axiosClient } from "utils/axiosClient";
 
 const TaskerDetail = ({ tasker }: { tasker: TaskerProps["result"][0] }) => {
-    console.log(tasker);
     return (
         <>
             <TaskerLayout>

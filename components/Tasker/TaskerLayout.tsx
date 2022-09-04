@@ -37,8 +37,6 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
     );
 
     const { data: searchData = [] } = useSearchTasker(query);
-
-    console.log("sdsdsdsd", searchData);
     const handleSearchChange = (query: string) => {
         clearSearchQuery();
         clearSearchedServices();

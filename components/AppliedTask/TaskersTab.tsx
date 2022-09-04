@@ -21,6 +21,7 @@ export const TaskersTab = () => {
                             distance={"2 km"}
                             bio={item?.user?.bio}
                             charge={item?.price}
+                            tasker={""}
                         />
                     </Col>
                 ))}
