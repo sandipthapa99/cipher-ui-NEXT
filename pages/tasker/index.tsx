@@ -4,14 +4,12 @@ import {
     useClearSearchQuery,
     useSearchedTaskers,
 } from "@components/common/Search/searchStore";
-import Footer from "@components/Footer";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import { UserTaskCardList } from "@components/Task/UserTaskCard/UserTaskCardList";
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import { useQuery } from "@tanstack/react-query";
 import type { Tasker } from "hooks/tasker/use-tasker";
-import { usePageExit } from "hooks/use-page-exit";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -68,12 +66,6 @@ const TaskerPage = () => {
             setActiveTaskIdx(taskerId);
         }
     }, [router.query.taskerId, router.query]);
-
-    // clear search query and searched taskers on page exit
-    // usePageExit(() => {
-    //     // clearSearchQuery();
-    //     clearSearchedTaskers();
-    // });
 
     return (
         <Layout>
