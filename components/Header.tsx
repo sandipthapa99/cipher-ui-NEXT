@@ -25,7 +25,6 @@ import { NotificationDropdown } from "./notifications/NotificationDropdown";
 const Header = () => {
     const date = format(new Date(), "MMMM d");
     const { data: weather } = useWeather();
-    console.log("weather", weather);
 
     const { data: location } = useLocation();
     const getIcon = weather?.weather[0].icon;
