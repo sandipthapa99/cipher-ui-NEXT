@@ -9,11 +9,12 @@ import {
     faMagnifyingGlass,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { QueryClient } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { progressTask, taskHistory } from "staticData/task";
-import type { ServicesValueProps } from "types/serviceCard";
+import type { RecentProps, ServicesValueProps } from "types/serviceCard";
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const [showInput, setShowInput] = useState(false);
@@ -32,6 +33,11 @@ const SearchBySort = () => {
         ["all-services"],
         "/task/service/"
     );
+    const { data: myTasks } = useData<RecentProps>(
+        ["my-tasks"],
+        "/task/my-task"
+    );
+    console.log("dsfsdf0", myTasks);
 
     return (
         <Row className="recommended-tab">
@@ -47,7 +53,12 @@ const SearchBySort = () => {
                         },
                         {
                             title: "Recent",
-                            content: !servicesData ? <Post /> : <Recent />,
+                            content:
+                                myTasks?.data?.result?.length === 0 ? (
+                                    <Post />
+                                ) : myTasks ? (
+                                    <Recent recentTask={myTasks} />
+                                ) : null,
                         },
                         {
                             title: "In Progress",
