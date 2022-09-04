@@ -42,6 +42,30 @@ export const Dropdown = ({ children }: DropdownProps) => {
         [isMenuOpened, setIsMenuOpened]
     );
 
+    /**
+     * Hook that detect clicks outside of the passed ref
+     */
+    const useOutsideAlerter = (ref: any) => {
+        useEffect(() => {
+            /**
+             * Detect if clicked on outside of dropdown component
+             */
+            const handleClickOutside = (event: any) => {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    setIsMenuOpened(false);
+                    setIsSubMenuOpened(false);
+                    setIsNestedSubMenuOpened(false);
+                }
+            };
+            // Bind the event listener
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                // Unbind the event listener on clean up
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, [ref]);
+    };
+
     useEffect(() => {
         document.body.addEventListener("mousedown", handleBodyClick);
         return () => {
@@ -55,7 +79,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
             .then(({ data }) => {
                 setMenu(data);
             })
-            .catch((e) => {
+            .catch(() => {
                 setMenu([]);
             });
     }, []);
@@ -81,7 +105,14 @@ export const Dropdown = ({ children }: DropdownProps) => {
         return (
             <li className="dropdown-menu-items" key={index}>
                 <Link href={`/category/${menu}`} passHref>
-                    <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
+                    <a
+                        onClick={() => {
+                            setIsMenuOpened(false);
+                            setIsSubMenuOpened(false);
+                            setIsNestedSubMenuOpened(false);
+                        }}
+                        className="dropdown-menu-item-link"
+                    >{`${menu} (${sub?.child?.length})`}</a>
                 </Link>
             </li>
         );
@@ -89,6 +120,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
 
     const renderSubMenus = subMenu.map((sub: any, index: any) => {
         const menu = sub.name.replaceAll(" ", "").toLowerCase();
+
         if (sub?.child.length > 0) {
             const onHandleDropdown = () => {
                 const subMenuItems = sub?.child;
@@ -121,7 +153,14 @@ export const Dropdown = ({ children }: DropdownProps) => {
         return (
             <li className="dropdown-menu-items" key={index}>
                 <Link href={`/category/${menu}`} passHref>
-                    <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
+                    <a
+                        onClick={() => {
+                            setIsMenuOpened(false);
+                            setIsSubMenuOpened(false);
+                            setIsNestedSubMenuOpened(false);
+                        }}
+                        className="dropdown-menu-item-link"
+                    >{`${menu} (${sub?.child?.length})`}</a>
                 </Link>
             </li>
         );
@@ -131,7 +170,9 @@ export const Dropdown = ({ children }: DropdownProps) => {
         const onHandleDropdown = () => {
             const subMenuItems = item?.child;
             setSubMenu(subMenuItems);
-
+            //reseting nested menu
+            setNestedMenu([]);
+            setIsNestedSubMenuOpened(false);
             if (menu.indexOf(item) === index) {
                 setIsSubMenuOpened((prev) => !prev);
                 setPrevIndex(index);
@@ -154,6 +195,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
         );
     });
 
+    useOutsideAlerter(dropdownContainer); //this will detect if user clicked outside this component
     return (
         <div className="dropdown-menu-container" ref={dropdownContainer}>
             <div className="btn-content" onClick={toggleDropdown} role="button">
@@ -165,12 +207,26 @@ export const Dropdown = ({ children }: DropdownProps) => {
                     <div className="dropdown-menu-items">
                         <p className="all-category">All Category</p>{" "}
                         {renderMenus}
+                        {/*View All  */}
+                        <li className="dropdown-menu-items d-flex justify-space-between">
+                            <Link href="/category">
+                                <a className="dropdown-menu-item-link fw-bold">
+                                    View All Category
+                                </a>
+                            </Link>
+                            <FontAwesomeIcon
+                                icon={faChevronRight}
+                                className="svg-icon"
+                            />
+                        </li>
                     </div>
                 )}
 
                 {isMenuOpened && isSubMenuOpened && (
                     <div className="dropdown-menu-items sub-menu">
-                        {renderSubMenus}
+                        {renderSubMenus.length > 0
+                            ? renderSubMenus
+                            : "Sub Categories not avilable"}
                     </div>
                 )}
 
