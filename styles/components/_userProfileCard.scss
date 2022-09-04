@@ -38,69 +38,9 @@
             }
         }
     }
-    // &__profile {
-    //     .thumbnail-img {
-    //         height: 10rem;
-    //         width: 10rem;
-    //         object-fit: contain;
-    //         @include respond(md) {
-    //             height: 15rem;
-    //             width: 15rem;
-    //         }
-    //     }
-    //     .profile-intro {
-    //         position: relative;
-    //     }
-    //     .camera-img {
-    //         height: 4rem;
-    //         width: 4rem;
-    //         position: absolute;
-    //         // left: 13.3rem;
-    //         // top: 25rem;
-
-    //         // @include respond(xs) {
-    //         //     left: 14.3rem;
-    //         //     top: 26rem;
-    //         // }
-    //         // left: 21rem;
-    //         // top: 13rem;
-
-    //         @include respond(md) {
-    //             left: 13.3rem;
-    //             top: 29rem;
-    //         }
-    //         @include respond(xl) {
-    //             left: 18.3rem;
-    //             top: 22rem;
-    //         }
-    //         @include respond(lg) {
-    //             left: 18.3rem;
-    //             top: 22rem;
-    //         }
-    //         // @include respond(xs) {
-    //         //     left: 21rem;
-    //         //     top: 13rem;
-    //         // }
-    //     }
-    //     .alert-img {
-    //         height: 2rem;
-    //         top: 28.7rem;
-    //         width: 2rem;
-    //         position: absolute;
-    //         @include respond(xs) {
-    //             top: 16.5rem;
-    //         }
-    //         @include respond(md) {
-    //             top: 33.5rem;
-    //         }
-    //         @include respond(lg) {
-    //             top: 27rem;
-    //         }
-    //         @include respond(xl) {
-    //             top: 27rem;
-    //         }
-    //     }
-
+    .active {
+        color: #38c675;
+    }
     .button {
         border: 0.1rem solid $sub-title-color;
         background: transparent;
