@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useCallback, useEffect, useRef } from "react";
 import type { DropdownSubMenu } from "staticData/dropdownData";
 import { axiosClient } from "utils/axiosClient";
+import { randNumber } from "utils/randNumber";
 
 interface DropdownProps {
     children?: ReactNode;
