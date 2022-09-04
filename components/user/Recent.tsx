@@ -5,7 +5,7 @@ import { Col, Row } from "react-bootstrap";
 import type { RecentProps } from "types/serviceCard";
 
 interface Props {
-    recentTask: RecentProps;
+    recentTask: RecentProps | any;
 }
 export const Recent = ({ recentTask }: Props) => {
     //for tasks
