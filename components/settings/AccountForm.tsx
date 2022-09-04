@@ -121,11 +121,13 @@ const AccountForm = () => {
         ? profile?.active_hour_end.replace(":00", "")
         : "";
 
-    const endparsed = (
-        parseInt(end) < 12 ? parseInt(end) + 12 : parseInt(end)
-    ).toString();
+    const endparsed = profile?.active_hour_end
+        ? (parseInt(end) < 12 ? parseInt(end) + 12 : parseInt(end)).toString()
+        : "";
 
-    const finalend = `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`;
+    const finalend = profile?.active_hour_end
+        ? `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`
+        : "";
 
     const endTime = finalend.toString();
     const startTime = start.toString();
