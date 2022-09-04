@@ -83,7 +83,7 @@ const AccountForm = () => {
     };
 
     const currencyResults = currency?.result.map((result) => ({
-        label: result.name,
+        label: result.code,
         value: result.id,
         id: result.id,
     }));
