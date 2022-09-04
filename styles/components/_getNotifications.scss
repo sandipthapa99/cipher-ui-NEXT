@@ -70,6 +70,21 @@
         fill: $primary-color;
         cursor: pointer;
     }
+    .image-cont-scheduling {
+        gap: 2.4rem;
+    }
+    .confirm-cross {
+        gap: 9rem;
+        .text-confirm {
+            border-radius: 5px;
+
+            background-color: #ccf6e6;
+            color: #38c675;
+            padding: 0.8rem 2rem;
+            font-weight: 400;
+            font-size: 12px;
+        }
+    }
 }
 
 //Pay Component
