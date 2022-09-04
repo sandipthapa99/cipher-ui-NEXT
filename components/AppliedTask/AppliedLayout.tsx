@@ -11,13 +11,13 @@ import { Container } from "react-bootstrap";
 import type { ITaskApiResponse } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 
-export const useSearchTask = (query: string) => {
+export const useSearchTask = (query: string, type: string) => {
     const { data: user, isLoading } = useUser();
     return useQuery(
         ["all-tasks", query],
         async () => {
             const { data } = await axiosClient.get<ITaskApiResponse>(
-                `/task/?search=${query}`
+                `/task/?search=${query}&recommendation=${type ?? ""}`
             );
             const otherUserTasks = (data.result ?? []).filter(
                 (task) => task.assigner.id !== user?.id
@@ -27,17 +27,23 @@ export const useSearchTask = (query: string) => {
         { enabled: !isLoading }
     );
 };
-const AppliedLayout = ({ children }: { children: ReactNode }) => {
+const AppliedLayout = ({
+    children,
+    type,
+}: {
+    children: ReactNode;
+    type?: string;
+}) => {
     const [query, setQuery] = useState("");
 
     const { data, isLoading } = useTasks();
-    const { data: searchData = [] } = useSearchTask(query);
+    const { data: searchData = [] } = useSearchTask(query, type ?? "");
 
     if (isLoading || !data) return <FullPageLoader />;
     return (
         <Layout title="Find Tasks | Cipher">
             <Container>
-                <SearchCategory onChange={setQuery} />
+                <SearchCategory type={type} onChange={setQuery} />
                 <TaskAside query={query} appliedTasks={searchData}>
                     {children}
                 </TaskAside>
