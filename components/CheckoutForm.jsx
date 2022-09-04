@@ -20,6 +20,7 @@ export default function CheckoutForm() {
         const clientSecret = new URLSearchParams(window.location.search).get(
             "payment_intent_client_secret"
         );
+        console.log("cl key: ", clientSecret);
 
         if (!clientSecret) {
             return;
@@ -59,8 +60,8 @@ export default function CheckoutForm() {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                // Make sure to change this to your payment completion page
-                return_url: "http://localhost:3000",
+                // payment completion page
+                return_url: "http://localhost:8020",
             },
         });
 
