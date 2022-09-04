@@ -12,7 +12,6 @@ interface ServiceAside {
 }
 const ServiceAside = ({ service, query, children }: ServiceAside) => {
     const totalAppliedTasks = service?.length;
-    console.log("service in service page", service);
     const renderTaskCards = service?.map((task, key) => {
         return (
             <div key={key}>

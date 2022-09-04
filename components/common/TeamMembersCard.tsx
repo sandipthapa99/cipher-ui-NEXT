@@ -17,6 +17,7 @@ import ShareIcon from "./ShareIcon";
 
 interface Props {
     taskers?: Tasker;
+    tasker: string;
     collabButton?: boolean;
     onTaskClick?: (taskerId: string) => void;
     handleButtonClick?: () => void;
@@ -42,16 +43,17 @@ export const TeamMembersCard = ({
     happyClients,
     awardPercentage,
     location,
+    tasker,
     distance,
     bio,
     charge,
     ...rest
 }: Props) => {
-    const userId = rest.taskers?.user.id;
+    const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
     const queryClient = useQueryClient();
     return (
-        <div className="team-members-card">
+        <div className="team-members-card mb-5">
             <div className="d-flex w-100 image-and-title">
                 <figure className="team-member-card-image">
                     <Image

@@ -1,44 +1,57 @@
-import Layout from "@components/Layout";
+import ServiceLayout from "@components/services/ServiceLayout";
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
-import { createStyles } from "@mantine/core";
-import { useRouter } from "next/router";
-import { Container } from "react-bootstrap";
-import { taskDetails } from "staticData/taskDetail";
+import TaskerLayout from "@components/Tasker/TaskerLayout";
+import type { GetStaticPaths, GetStaticProps } from "next";
+import type { TaskerProps } from "types/taskerProps";
+import { axiosClient } from "utils/axiosClient";
 
-const TaskerDetailPage = () => {
-    const router = useRouter();
-    const { classes } = useStyles();
-    const { id: taskId } = router.query;
-    const taskDetail =
-        taskId && typeof taskId === "string"
-            ? taskDetails[parseInt(taskId, 10)]
-            : null;
-
-    if (!taskDetail) return <p>Task fot found</p>;
+const TaskerDetail = ({ tasker }: { tasker: TaskerProps["result"][0] }) => {
+    console.log(tasker);
     return (
-        <Layout>
-            <Container className={classes.container}>
-                <UserTaskDetail
-                    maxHeaderWidth="80rem"
-                    className={classes.userTaskDetailContainer}
-                    activeTaskId={""}
-                    onExitTaskDetail={() =>
-                        router.push({ pathname: "/", hash: "top-taskers" })
-                    }
-                />
-            </Container>
-        </Layout>
+        <>
+            <TaskerLayout>
+                <UserTaskDetail taskerDetail={tasker} />
+            </TaskerLayout>
+        </>
     );
 };
-const useStyles = createStyles({
-    container: {
-        padding: "0 5rem",
-        marginTop: "1rem",
-    },
-    userTaskDetailContainer: {
-        backgroundColor: "transparent !important",
-        maxHeight: "initial !important",
-        maxWidth: "120rem !important",
-    },
-});
-export default TaskerDetailPage;
+export default TaskerDetail;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    try {
+        const { data: taskerData } = await axiosClient.get("/tasker/");
+        const paths = taskerData?.result?.map(
+            ({ user: { id } }: TaskerProps["result"][0]) => ({
+                params: { id: id },
+            })
+        );
+        return { paths, fallback: true };
+    } catch (error: any) {
+        return {
+            paths: [],
+            fallback: true,
+        };
+    }
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+    try {
+        const { data } = await axiosClient.get<TaskerProps["result"][0]>(
+            `/tasker/profile/${params?.id}/`
+        );
+
+        return {
+            props: {
+                tasker: data,
+            },
+            revalidate: 10,
+        };
+    } catch (error: any) {
+        return {
+            props: {
+                tasker: {},
+            },
+            revalidate: 10,
+        };
+    }
+};
