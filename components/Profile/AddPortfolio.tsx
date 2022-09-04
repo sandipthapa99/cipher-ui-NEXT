@@ -30,6 +30,10 @@ interface AddPortfolioModalProps {
 interface EditDetailProps {
     data: { result: AddPortfolioProps[] };
 }
+interface FileStoreData {
+    data: [];
+    status: string;
+}
 const AddPortfolio = ({
     show,
     handleClose,
@@ -40,15 +44,23 @@ const AddPortfolio = ({
     const { mutate } = useForm(`/tasker/portfolio/`);
 
     const { mutate: fileStore, data: fileStoreData } =
-        useForm(`/task/filestore/`);
+        useForm<FileStoreData>(`/task/filestore/`);
 
+    const { mutate: fileImageStore, data: fileImageStoreData } =
+        useForm<FileStoreData>(`/task/filestore/`);
+    console.log("filestore=", fileStoreData, fileImageStoreData);
     const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-portfolio",
     ]);
-    const [imageId, setImageId] = useState<number[]>();
-    const [fileId, setfileId] = useState<number[]>();
+    const [imageId, setImageId] = useState<number[]>([]);
+    const [fileId, setfileId] = useState<number[]>([]);
+    const [isImageEmpty, setIsImageEmpty] = useState(true);
+    const [isFileEmpty, setIsFileEmpty] = useState(true);
+    const [imagesData, setImagesData] = useState<AddPortfolioProps>();
+    const [filesData, setFilesData] = useState<AddPortfolioProps>();
+
     function isValidURL(str: any) {
         const regex =
             /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
@@ -61,59 +73,104 @@ const AddPortfolio = ({
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
 
+    // if (isImageEmpty) {
+    //     console.log("we have no image");
+    // } else if (isFileEmpty) {
+    //     console.log("we have noo file");
+    // } else if (isFileEmpty || isImageEmpty) {
+    //     console.log("we have image and file empty");
+    // }
+    let imageData;
+    let fileData;
     const onCreateThumbnail = (formData: FormData, values: any, actions: any) =>
-        fileStore(formData, {
+        fileImageStore(formData, {
             onSuccess: (data: any) => {
                 setImageId(data.data);
-                const dataToSend = {
+
+                imageData = {
                     ...values,
                     images: data.data,
+                    files: fileId ? fileId : null,
                     issued_date: values.issued_date
                         ? format(new Date(values.issued_date), "yyyy-MM-dd")
                         : null,
                 };
-                delete dataToSend.imagePreviewUrl;
-                onCreatePortfolio(dataToSend, actions);
+                delete imageData.imagePreviewUrl;
+                console.log("on create thumbnail====>", imageData);
+                setImagesData(imageData);
+                // {
+                //     imageId && fileId
+                //         ? onCreatePortfolio(imageData, actions)
+                //         : console.log("no");
+                // }
             },
             onError: (error) => {
                 error.message;
             },
         });
+
     const onCreateFile = (formData: FormData, values: any, actions: any) =>
         fileStore(formData, {
             onSuccess: (data: any) => {
                 setfileId(data.data);
-                const dataToSend = {
+                fileData = {
                     ...values,
                     files: data.data,
+                    images: imageId ? imageId : null,
                     issued_date: values.issued_date
                         ? format(new Date(values.issued_date), "yyyy-MM-dd")
                         : null,
                 };
-                delete dataToSend.pdfPreviewUrl;
-                onCreatePortfolio(dataToSend, actions);
+                delete fileData.pdfPreviewUrl;
+                setFilesData(fileData);
+
+                // console.log("on create file====>", fileData, fileId);
+                // {
+                //     imageId && fileId
+                //         ? onCreatePortfolio(fileData, actions)
+                //         : console.log("no");
+                // }
             },
             onError: (error) => {
                 error.message;
             },
         });
-    console.log("data=", imageId, fileId);
+
+    console.log("data=====", imageId, fileId);
+    // setImageId(imageId);
+    // setfileId(fileId);
+    if (!imageId || !fileId) {
+        console.log("both are empty");
+    }
+    console.log("file data to send=", filesData);
+    console.log("image data to send=", imagesData);
+
     const onCreatePortfolio = (data: any, actions: any) => {
-        const newData = { ...data, images: imageId, files: fileId };
-        console.log("new data=", newData);
-        mutate(newData, {
-            onSuccess: (data: any) => {
-                toast.success("Portfolio added successfully.");
-                // actions.resetForm();
-                //queryClient.invalidateQueries(["tasker-portfolio"]);
-            },
-            onError: (error: any) => {
-                const {
-                    data: { message },
-                } = error.response;
-                console.log("error data=", error, message);
-            },
-        });
+        const newData = {
+            ...data,
+            images: imagesData ? imagesData.images : [],
+            files: filesData ? filesData.files : [],
+        };
+        console.log("new data=", newData, data);
+        setfileId([]);
+        setImageId([]);
+        // mutate(newData, {
+        //     onSuccess: (data: any) => {
+        //         setImageId([]);
+        //         setfileId([]);
+        //         setIsImageEmpty(true);
+        //         setIsFileEmpty(true);
+        //         toast.success("Portfolio added successfully.");
+        //         setShowAddPortfolioModal(false);
+        //         queryClient.invalidateQueries(["tasker-portfolio"]);
+        //     },
+        //     onError: (error: any) => {
+        //         const {
+        //             data: { message },
+        //         } = error.response;
+        //         console.log("error data=", error, message);
+        //     },
+        // });
     };
 
     return (
@@ -153,8 +210,9 @@ const AddPortfolio = ({
                                         new Date(values.issued_date),
                                         "yyyy-MM-dd"
                                     ),
-                                    files: "",
+                                    files: [],
                                 };
+                                setIsFileEmpty(true);
                                 newValue = newvalidatedValue;
                             } else if (!values.images) {
                                 const newvalidatedValue = {
@@ -165,6 +223,7 @@ const AddPortfolio = ({
                                     ),
                                     images: [],
                                 };
+                                setIsImageEmpty(true);
                                 newValue = newvalidatedValue;
                             } else {
                                 const newvalidatedValue = {
@@ -174,23 +233,24 @@ const AddPortfolio = ({
                                         "yyyy-MM-dd"
                                     ),
                                 };
+                                setIsImageEmpty(false);
+                                setIsFileEmpty(false);
 
                                 newValue = newvalidatedValue;
                             }
 
                             if (values.images.some((val) => val?.path)) {
-                                console.log("for image", values);
                                 values.images.forEach((file) => {
                                     if (file?.path)
                                         formData.append("medias", file);
                                     formData.append("media_type", "video");
                                     formData.append("placeholder", "image");
                                 });
+                                setIsImageEmpty(false);
+
                                 onCreateThumbnail(formData, values, actions);
                             }
                             if (values.files.some((val) => val?.path)) {
-                                console.log("for pdf valuws", values);
-
                                 values.files.forEach((file) => {
                                     // if (file?.path)
                                     fileFormData.append("medias", file);
@@ -200,22 +260,34 @@ const AddPortfolio = ({
                                         "pdf-file"
                                     );
                                 });
+                                setIsFileEmpty(false);
+
                                 onCreateFile(fileFormData, values, actions);
+                            }
+                            if (
+                                values.images.some((val) => val?.path) ||
+                                values.files.some((val) => val?.path)
+                            ) {
+                                const newData = {
+                                    ...newValue,
+                                    images: imageId ? imageId : [],
+                                    files: fileId ? fileId : [],
+                                };
+                                console.log(" a very new data=", newData, data);
+                                {
+                                    imageId.length > 0 && fileId.length > 0
+                                        ? onCreatePortfolio(newData, actions)
+                                        : console.log("no", imageId, fileId);
+                                }
+                                //onCreatePortfolio(newData, actions);
                             } else {
-                                const getImagesId = values?.images.map(
-                                    (val) => val?.id
-                                );
-                                const getFileId = values?.files.map(
-                                    (val) => val?.id
-                                );
-                                console.log("getimagid", getImagesId);
                                 const dataToSend = {
                                     ...values,
-                                    files: values.files ? getFileId : null,
+                                    files: [],
                                     description: values.description
                                         ? values.description
                                         : null,
-                                    images: values.images ? getImagesId : null,
+                                    images: [],
                                     issued_date: values.issued_date
                                         ? format(
                                               new Date(values.issued_date),
