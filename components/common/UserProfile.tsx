@@ -24,6 +24,7 @@ import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
 import { safeParse } from "utils/safeParse";
 
+import EllipsisDropdown from "./EllipsisDropdown";
 import ProfileEditForm from "./ProfileEditForm";
 import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
@@ -56,7 +57,7 @@ const UserProfileCard = ({
     const [showEditForm, setShowEditForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
     const [image, setImage] = useState();
-
+    const [showModal, setShowModal] = useState(false);
     const services = moreServices ? JSON.parse(moreServices) : [];
     const queryClient = useQueryClient();
     // const renderServices: string[] | undefined = services?.map(
@@ -287,7 +288,7 @@ const UserProfileCard = ({
                             </div>
                         </Col>
                         <Col md={6}>
-                            <div className="reactions d-flex">
+                            <div className="reactions d-flex align-items-center">
                                 <div className="d-flex flex-col share">
                                     <ShareIcon
                                         url={`http://localhost:3005/profile/`}
@@ -297,10 +298,15 @@ const UserProfileCard = ({
                                         hashtag={"cipher-profile"}
                                     />
                                 </div>
-                                <FontAwesomeIcon
-                                    icon={faEllipsisVertical}
-                                    className="svg-icon option"
-                                />
+                                <EllipsisDropdown
+                                    showModal={true}
+                                    handleOnClick={() => setShowModal(true)}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faEllipsisVertical}
+                                        className="svg-icon option"
+                                    />
+                                </EllipsisDropdown>
                             </div>
                             <div className="bio d-flex">
                                 <p className="title">Bio</p>
