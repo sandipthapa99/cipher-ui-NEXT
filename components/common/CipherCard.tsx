@@ -1,3 +1,4 @@
+import { LoginPrompt } from "@components/model/LoginPrompt";
 import { PostTaskModal } from "@components/Task/PostTaskModal";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -5,8 +6,8 @@ import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "react-bootstrap";
+import { useShowLoginPrompt, useWithLogin } from "store/use-login-prompt-store";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
-
 const CipherCard = ({
     thumbnailImg,
     title,
@@ -20,6 +21,7 @@ const CipherCard = ({
 }) => {
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: user } = useUser();
+    const withLogin = useWithLogin();
 
     return (
         <div className="cipher-card-block">
@@ -36,12 +38,16 @@ const CipherCard = ({
                 <p>{description}</p>
 
                 {redirectTo == "/post-task" ? (
-                    <Button
-                        onClick={toggleShowPostTaskModal}
-                        className="nav-cta-tn"
+                    <a
+                        onClick={withLogin(toggleShowPostTaskModal)}
+                        type="button"
                     >
-                        Post Task
-                    </Button>
+                        {title}
+                        <FontAwesomeIcon
+                            icon={faAngleRight}
+                            className="svg-icon"
+                        />
+                    </a>
                 ) : (
                     <Link href={redirectTo}>
                         <a>
@@ -55,6 +61,7 @@ const CipherCard = ({
                 )}
             </div>
             <PostTaskModal />
+            <LoginPrompt />
         </div>
     );
 };
