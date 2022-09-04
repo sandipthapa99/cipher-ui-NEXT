@@ -53,6 +53,9 @@
                 text-align: left;
                 line-height: 3.4rem;
             }
+            @include respond(xs) {
+                font-size: 3rem;
+            }
             @include respond(md) {
                 font-size: 3rem;
                 line-height: 4rem;
@@ -72,6 +75,9 @@
             @include respond(sm) {
                 font-size: 1.6rem;
                 line-height: 3rem;
+            }
+            @include respond(xs) {
+                font-size: 1.5rem;
             }
             @include respond(md) {
                 font-size: 2rem;
