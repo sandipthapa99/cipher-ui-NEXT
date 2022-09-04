@@ -5,8 +5,6 @@ import { Col, Row } from "react-bootstrap";
 const WelcomeUser = () => {
     const { data: profileDetails } = useGetProfile();
 
-    console.log("abc", profileDetails);
-
     return (
         <>
             <Row className="user-stats">

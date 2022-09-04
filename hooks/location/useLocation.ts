@@ -45,7 +45,6 @@ export const useLocation = () => {
     useEffect(() => {
         getIpAddress();
     }, []);
-    console.log("abc", ipAddress);
     return useQuery<Location>(
         ["location"],
         async () => {
