@@ -555,7 +555,7 @@
             z-index: 2;
             width: 90%;
             padding: 1rem;
-            @include respond(xs){
+            @include respond(xs) {
                 top: 10rem;
             }
             @include respond(md) {
