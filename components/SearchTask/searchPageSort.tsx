@@ -2,6 +2,7 @@ import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { Tab } from "@components/common/Tab";
 import TaskCard from "@components/common/TaskCard";
 import Post from "@components/PostTask/Post";
+import { Recent } from "@components/user/Recent";
 import { Recommended } from "@components/user/Recommended";
 import {
     faFilterList,
@@ -46,7 +47,7 @@ const SearchBySort = () => {
                         },
                         {
                             title: "Recent",
-                            content: !servicesData ? <Post /> : <Recommended />,
+                            content: !servicesData ? <Post /> : <Recent />,
                         },
                         {
                             title: "In Progress",
