@@ -79,9 +79,10 @@ export const AddPortfolioFormData: AddPortfolioProps = {
     description: "",
     credential_url: "",
     issued_date: "",
-    image: [],
+    images: [],
     imagePreviewUrl: [],
-    file: "",
+    pdfPreviewUrl: [],
+    files: [],
     id: 0,
 };
 

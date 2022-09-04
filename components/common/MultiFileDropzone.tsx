@@ -36,7 +36,6 @@ const MultiFileDropzone = ({
     ...restProps
 }: MultiFileDropzoneProps & Partial<DropzoneProps>) => {
     const theme = useMantineTheme();
-    console.log("images are", name);
     const errTouch = error && touch ? error : null;
     return (
         <Field name={name}>

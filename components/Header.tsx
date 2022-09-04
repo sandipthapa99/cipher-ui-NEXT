@@ -102,7 +102,7 @@ const Header = () => {
                                 </li>
                             </Dropdown>
                         </nav>
-                        <div className="d-flex align-items-center gap-3">
+                        <div className="d-flex align-items-center gap-3 weather-container">
                             {weather && (
                                 <Link href="#!">
                                     <a className="btn location-btn d-none d-md-inline-block">
