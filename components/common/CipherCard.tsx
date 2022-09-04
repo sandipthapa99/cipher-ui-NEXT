@@ -35,7 +35,7 @@ const CipherCard = ({
                 <h2>{title}</h2>
                 <p>{description}</p>
 
-                {/* {redirectTo == "/post-task" ? (
+                {redirectTo == "/post-task" ? (
                     <Button
                         onClick={toggleShowPostTaskModal}
                         className="nav-cta-tn"
@@ -52,7 +52,7 @@ const CipherCard = ({
                             />
                         </a>
                     </Link>
-                )} */}
+                )}
             </div>
             <PostTaskModal />
         </div>

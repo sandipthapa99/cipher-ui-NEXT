@@ -74,6 +74,7 @@ const AddPortfolio = ({
     const [fileId, setfileId] = useState<number[]>([]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
+
     return (
         <div>
             {/* Modal component */}
@@ -127,8 +128,8 @@ const AddPortfolio = ({
                                 });
                             }
                             (function wait() {
-                                let timeoutId: NodeJS.Timeout | undefined =
-                                    undefined;
+                                // let timeoutId: NodeJS.Timeout | undefined =
+                                //     undefined;
                                 if (!uploadFileLoading && !uploadImageLoading) {
                                     const issuedDate = format(
                                         new Date(values.issued_date),
@@ -137,12 +138,20 @@ const AddPortfolio = ({
                                     const addPortfolioPayload = {
                                         ...values,
                                         issued_date: issuedDate,
+                                        images: imageId,
+                                        files: fileId,
                                     };
-                                    if (imageId.length > 0)
-                                        addPortfolioPayload.images = imageId;
-                                    if (fileId.length > 0)
-                                        addPortfolioPayload.files = fileId;
 
+                                    addPortfolioPayload.images = imageId;
+
+                                    addPortfolioPayload.files = fileId;
+                                    delete addPortfolioPayload.imagePreviewUrl;
+                                    delete addPortfolioPayload.pdfPreviewUrl;
+                                    console.log(
+                                        "add portfolio payload=",
+                                        addPortfolioPayload
+                                    );
+                                    console.log("IDS", fileId, imageId);
                                     createPortfolioMutation(
                                         addPortfolioPayload,
                                         {
@@ -157,9 +166,10 @@ const AddPortfolio = ({
                                             },
                                         }
                                     );
-                                    if (timeoutId) clearTimeout(timeoutId);
+
+                                    // if (timeoutId) clearTimeout(timeoutId);
                                 } else {
-                                    timeoutId = setTimeout(wait, 100);
+                                    setTimeout(wait, 100);
                                 }
                             })();
                         }}
