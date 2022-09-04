@@ -1,3 +1,4 @@
+import { Loader } from "@mantine/core";
 import {
     PaymentElement,
     useElements,
@@ -61,7 +62,7 @@ export default function CheckoutForm() {
             elements,
             confirmParams: {
                 // payment completion page
-                return_url: "http://localhost:8020",
+                return_url: "/home",
             },
         });
 
@@ -85,14 +86,10 @@ export default function CheckoutForm() {
             <button
                 disabled={isLoading || !stripe || !elements}
                 id="submit"
-                className="btn-primary mt-3 p-2"
+                className="btn-primary mt-5"
             >
                 <span id="button-text">
-                    {isLoading ? (
-                        <div className="spinner" id="spinner"></div>
-                    ) : (
-                        "Pay now"
-                    )}
+                    {isLoading ? <Loader color="gray" size="sm" /> : "Pay now"}
                 </span>
             </button>
             {/* Show any error or success messages */}
