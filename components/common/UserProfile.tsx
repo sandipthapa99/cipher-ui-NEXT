@@ -10,7 +10,7 @@ import {
     faStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
-import { faStar as rated } from "@fortawesome/pro-solid-svg-icons";
+import { faCircle, faStar as rated } from "@fortawesome/pro-solid-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -53,7 +53,7 @@ const UserProfileCard = ({
     field,
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
-    const [showExpForm, setShowExpForm] = useState(false);
+    const [showEditForm, setShowEditForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
     const [image, setImage] = useState();
 
@@ -83,7 +83,7 @@ const UserProfileCard = ({
         editProfile.mutate(data, {
             onSuccess: (data) => {
                 queryClient.invalidateQueries(["profile"]);
-                setShowExpForm(false);
+                setShowEditForm(false);
                 toast.success(data?.data?.message);
             },
             onError: (error: any) => {
@@ -142,7 +142,7 @@ const UserProfileCard = ({
                                     field?.("image", (files ?? [])[0]);
                                     setImage(files[0]);
                                     console.log("image=", image);
-                                    setShowExpForm(!showExpForm);
+                                    setShowEditForm(!showEditForm);
                                 }}
                             />
                         </div>
@@ -164,14 +164,18 @@ const UserProfileCard = ({
 
                     <PhotoEdit
                         photo={image}
-                        show={showExpForm}
-                        setShowExpForm={setShowExpForm}
-                        handleClose={() => setShowExpForm(false)}
+                        show={showEditForm}
+                        setShowEditForm={setShowEditForm}
+                        handleClose={() => setShowEditForm(false)}
                         handleSubmit={() => onEditProfile(image)}
                     />
                     <div className="profile-intro d-flex">
-                        <h1 className="name">{userName}</h1>
-                        <div className="active"></div>
+                        <h1 className="name text-center">{userName}</h1>
+                        {/* <div className="active"></div> */}
+                        <FontAwesomeIcon
+                            icon={faCircle}
+                            className="svg-icon active"
+                        />
                     </div>
                     {renderType}
                     <div className="rating">

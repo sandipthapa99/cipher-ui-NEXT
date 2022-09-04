@@ -112,7 +112,6 @@ const AccountForm = () => {
     const scrollToKyc = () => {
         scroll.scrollTo(2660);
     };
-    console.log("hour", profile?.user_type);
 
     //converting string time value to datetime time value
     const start: string = profile?.active_hour_start
@@ -125,6 +124,7 @@ const AccountForm = () => {
     const endparsed = (
         parseInt(end) < 12 ? parseInt(end) + 12 : parseInt(end)
     ).toString();
+
     const finalend = `${endparsed}:${end?.substring(end.indexOf(":") + 1)}`;
 
     const endTime = finalend.toString();
@@ -153,8 +153,9 @@ const AccountForm = () => {
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start:
                             new Date(`2022-09-24 ${startTime}`) ?? "",
-                        active_hour_end:
-                            new Date(`2022-09-24 ${endTime}`) ?? "",
+                        active_hour_end: endTime
+                            ? new Date(`2022-09-24 ${endTime}`)
+                            : "",
                         hourly_rate: profile?.hourly_rate ?? "",
                         user_type: userType ?? "",
                         country: profile?.country ?? "",
@@ -352,7 +353,7 @@ const AccountForm = () => {
                                 error={errors.skill}
                                 touch={touched.skill}
                                 labelName="Specialities"
-                                placeHolder="Enter your price"
+                                placeHolder="Enter your skills"
                             />
                             <RadioField
                                 type="radio"
@@ -420,7 +421,7 @@ const AccountForm = () => {
                                 error={errors.address_line1}
                                 touch={touched.address_line1}
                                 disabled={profile ? true : false}
-                                placeHolder="Enter your price"
+                                placeHolder="Enter your permanent address"
                             />
                             <InputField
                                 type="text"
@@ -428,7 +429,7 @@ const AccountForm = () => {
                                 labelName="Address Line 2"
                                 error={errors.address_line2}
                                 touch={touched.address_line2}
-                                placeHolder="Enter your price"
+                                placeHolder="Enter your temporary address"
                                 disabled={profile ? true : false}
                             />
                             <SelectInputField
@@ -469,25 +470,27 @@ const AccountForm = () => {
                                 options={task_preferences}
                                 disabled={profile ? true : false}
                             />
-                            <div className="d-flex justify-content-end">
-                                <Button
-                                    className="me-3 mb-0 cancel-btn"
-                                    onClick={() => resetForm}
-                                >
-                                    Cancel
-                                </Button>
-                                <FormButton
-                                    disabled={profile ? true : false}
-                                    type="submit"
-                                    variant="primary"
-                                    name="Save"
-                                    className="submit-btn w-25"
-                                    isSubmitting={isSubmitting}
-                                    isSubmittingClass={isSubmittingClass(
-                                        isSubmitting
-                                    )}
-                                />
-                            </div>
+                            {profile ? null : (
+                                <div className="d-flex justify-content-end">
+                                    <Button
+                                        className="me-3 mb-0 cancel-btn"
+                                        onClick={() => resetForm}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <FormButton
+                                        disabled={profile ? true : false}
+                                        type="submit"
+                                        variant="primary"
+                                        name="Save"
+                                        className="submit-btn w-25"
+                                        isSubmitting={isSubmitting}
+                                        isSubmittingClass={isSubmittingClass(
+                                            isSubmitting
+                                        )}
+                                    />
+                                </div>
+                            )}
                         </Form>
                     )}
                 </Formik>
