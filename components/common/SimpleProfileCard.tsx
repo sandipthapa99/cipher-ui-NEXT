@@ -150,17 +150,15 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
             )} */}
 
             <AppliedForm
-                id={task.id}
+                service_id={task.id}
                 title={task.title}
-                price={
-                    task.charge
-                        ? task.charge
-                        : `From ${task.budget_from} - ${task.budget_to}`
-                }
-                image={task.image}
-                description={task.description}
+                budget_from={task?.budget_from}
+                budget_to={task?.budget_to}
+                budget_type={task?.budget_type}
+                description={task?.description}
                 show={showModal}
                 handleClose={() => setShowModal(false)}
+                images={[]}
             />
         </div>
     );

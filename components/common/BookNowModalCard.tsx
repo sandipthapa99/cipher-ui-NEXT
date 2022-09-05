@@ -1,15 +1,10 @@
-import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import { format, parseISO } from "date-fns";
+import type { AxiosError } from "axios";
+import { format } from "date-fns";
 import { Form, Formik } from "formik";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -50,13 +45,11 @@ const BookNowModalCard = ({
 
     handleClose,
 }: BookNowModalCardProps) => {
-    const [imageId, setImageId] = useState<number[]>([]);
     const router = useRouter();
     const queryClient = useQueryClient();
 
     const { mutate: bookNowServiceMutation } = useBookNowService();
-    const { mutate: uploadImageMutation, isLoading: uploadImageLoading } =
-        useUploadImage();
+    const { mutate: uploadImageMutation } = useUploadImage();
     return (
         <>
             {/* Modal component */}
@@ -89,7 +82,7 @@ const BookNowModalCard = ({
                         onSubmit={async (values) => {
                             const imageFormData = new FormData();
 
-                            if (values.images) {
+                            if (values.images && values.images.length > 0) {
                                 for (const image of values.images) {
                                     imageFormData.append("medias", image);
                                     imageFormData.append("media_type", "image");
@@ -98,55 +91,80 @@ const BookNowModalCard = ({
                                         "image"
                                     );
                                 }
+
                                 uploadImageMutation(imageFormData, {
                                     onSuccess: (imageIds) => {
-                                        console.log("Image ids are", imageIds);
-                                        if (imageIds)
-                                            return setImageId(imageIds);
+                                        const start_date = format(
+                                            new Date(values.start_date),
+                                            "yyyy-MM-dd"
+                                        );
+                                        const end_date = format(
+                                            new Date(values.end_date),
+                                            "yyyy-MM-dd"
+                                        );
+
+                                        const bookNowPayload = {
+                                            ...values,
+                                            start_date: start_date,
+                                            end_date: end_date,
+                                            service: service_id,
+                                        };
+
+                                        delete bookNowPayload.imagePreviewUrl;
+
+                                        if (imageIds && imageIds?.length > 0)
+                                            bookNowPayload.images = imageIds;
+
+                                        bookNowServiceMutation(bookNowPayload, {
+                                            onSuccess: (message) => {
+                                                toast.success(
+                                                    "Successfully booked a service"
+                                                );
+                                                queryClient.invalidateQueries([
+                                                    "book-now",
+                                                ]);
+
+                                                router.push({
+                                                    pathname: "task/checkout",
+                                                });
+                                            },
+                                        });
+                                    },
+                                });
+                            } else {
+                                const start_date = format(
+                                    new Date(values.start_date),
+                                    "yyyy-MM-dd"
+                                );
+                                const end_date = format(
+                                    new Date(values.end_date),
+                                    "yyyy-MM-dd"
+                                );
+
+                                const bookNowPayload = {
+                                    ...values,
+                                    start_date: start_date,
+                                    end_date: end_date,
+                                    service: service_id,
+                                };
+
+                                delete bookNowPayload.imagePreviewUrl;
+
+                                bookNowServiceMutation(bookNowPayload, {
+                                    onSuccess: (message) => {
+                                        toast.success(
+                                            "Successfully booked a service"
+                                        );
+                                        queryClient.invalidateQueries([
+                                            "book-now",
+                                        ]);
+
+                                        router.push({
+                                            pathname: "task/checkout",
+                                        });
                                     },
                                 });
                             }
-                            (function wait() {
-                                let timeoutId: NodeJS.Timeout | undefined =
-                                    undefined;
-                                if (!uploadImageLoading) {
-                                    const start_date = format(
-                                        new Date(values.start_date),
-                                        "yyyy-MM-dd"
-                                    );
-                                    const end_date = format(
-                                        new Date(values.end_date),
-                                        "yyyy-MM-dd"
-                                    );
-
-                                    const bookNowPayload = {
-                                        ...values,
-                                        start_date: start_date,
-                                        end_date: end_date,
-                                        service: service_id,
-                                    };
-                                    if (imageId.length > 0)
-                                        bookNowPayload.images = imageId;
-
-                                    bookNowServiceMutation(bookNowPayload, {
-                                        onSuccess: (message) => {
-                                            toast.success(
-                                                "Successfully booked a service"
-                                            );
-                                            queryClient.invalidateQueries([
-                                                "book-now",
-                                            ]);
-                                            setImageId([]);
-                                            router.push({
-                                                pathname: "task/checkout",
-                                            });
-                                        },
-                                    });
-                                    if (timeoutId) clearTimeout(timeoutId);
-                                } else {
-                                    timeoutId = setTimeout(wait, 100);
-                                }
-                            })();
                         }}
                     >
                         {({ isSubmitting, errors, touched, setFieldValue }) => (
