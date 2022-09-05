@@ -203,9 +203,9 @@ const SearchResultsDetail = ({
                                 }}
                                 className="rounded"
                             >
-                                {image.map((value) => (
+                                {image.map((value, key) => (
                                     <Carousel.Slide
-                                        key={value.id}
+                                        key={key}
                                         className="thumbnail-img "
                                     >
                                         {value?.media && (
@@ -222,6 +222,14 @@ const SearchResultsDetail = ({
                                         )}
                                     </Carousel.Slide>
                                 ))}
+                                {/* <Carousel.Slide className="thumbnail-img ">
+                                    <Image
+                                        src={"/No_image_available.svg.webp"}
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="garden-image"
+                                    />
+                                </Carousel.Slide> */}
                             </Carousel>
                         )}
                     </Col>
@@ -287,7 +295,7 @@ const SearchResultsDetail = ({
                             className="svg-icon svg-icon-clock"
                         />
                         {serviceCreated
-                            ? format(new Date(serviceCreated), "pp")
+                            ? format(new Date(serviceCreated), "p")
                             : "N/A"}
                     </p>
                     <p>

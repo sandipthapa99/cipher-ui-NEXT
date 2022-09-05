@@ -44,7 +44,11 @@ const AppliedLayout = ({
         <Layout title="Find Tasks | Cipher">
             <Container>
                 <SearchCategory type={type} onChange={setQuery} />
-                <TaskAside query={query} appliedTasks={searchData}>
+                <TaskAside
+                    query={query}
+                    appliedTasks={searchData}
+                    type={type ?? ""}
+                >
                     {children}
                 </TaskAside>
             </Container>

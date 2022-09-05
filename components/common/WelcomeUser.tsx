@@ -25,7 +25,7 @@ const WelcomeUser = () => {
                 <Col lg={5} md={6} xs={12}>
                     <Row className="d-flex status">
                         <Col md={3} xs={6}>
-                            <div className="type success-rate">
+                            <div className="d-flex flex-column align-items-start p-4 type success-rate">
                                 <h1 className="number">
                                     {profileDetails
                                         ? profileDetails?.stats?.task_assigned
@@ -35,7 +35,7 @@ const WelcomeUser = () => {
                             </div>
                         </Col>
                         <Col md={3} xs={6}>
-                            <div className="type happy-clients">
+                            <div className="d-flex flex-column align-items-start p-4 type happy-clients">
                                 <h1 className="number">
                                     {profileDetails
                                         ? profileDetails?.stats?.task_completed
@@ -46,7 +46,7 @@ const WelcomeUser = () => {
                         </Col>
 
                         <Col md={3} xs={6}>
-                            <div className="type task-completed">
+                            <div className="d-flex flex-column align-items-start p-4 type task-completed">
                                 <h1 className="number">
                                     {profileDetails
                                         ? profileDetails?.stats
@@ -58,7 +58,7 @@ const WelcomeUser = () => {
                         </Col>
                         <Col md={3} xs={6}>
                             {" "}
-                            <div className="type user-reviews">
+                            <div className="d-flex flex-column align-items-start p-4 type user-reviews">
                                 <h1 className="number">
                                     {profileDetails
                                         ? profileDetails?.stats?.task_cancelled
