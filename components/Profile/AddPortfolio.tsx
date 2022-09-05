@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
+import { useEditForm } from "hooks/use-edit-form";
 import type { Dispatch, SetStateAction } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -19,7 +20,6 @@ import { axiosClient } from "utils/axiosClient";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-
 interface AddPortfolioModalProps {
     show?: boolean;
     id?: number;
@@ -66,7 +66,7 @@ const AddPortfolio = ({
         useUploadImage();
     const { mutate: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
-
+    const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
     const loadingOverlayVisible = useMemo(
         () => createPortfolioLoading || uploadImageLoading || uploadFileLoading,
         [createPortfolioLoading, uploadFileLoading, uploadImageLoading]
@@ -118,6 +118,19 @@ const AddPortfolio = ({
             },
         });
     };
+    const editPortfolio = <T,>(data: T) => {
+        editMutation(data, {
+            onSuccess: async () => {
+                console.log("submitted values", data);
+                setShowAddPortfolioModal(false);
+                queryClient.invalidateQueries(["tasker-portfolio"]);
+                toast.success("Portfolio updated successfully.");
+            },
+            onError: async (error) => {
+                toast.error(error.message);
+            },
+        });
+    };
     if (loadingOverlayVisible)
         return (
             <LoadingOverlay
@@ -150,6 +163,8 @@ const AddPortfolio = ({
                         }
                         validationSchema={addPortfolioSchema}
                         onSubmit={async (values) => {
+                            delete values.imagePreviewUrl;
+                            delete values.pdfPreviewUrl;
                             const issued_date = format(
                                 new Date(values.issued_date),
                                 "yyyy-MM-dd"
@@ -171,32 +186,78 @@ const AddPortfolio = ({
                                     images: imageIds,
                                     files: fileIds,
                                 };
-                                uploadPortfolio(
-                                    portfolioPayloadWithImageAndFile
-                                );
+                                {
+                                    !isEditProfile
+                                        ? uploadPortfolio(
+                                              portfolioPayloadWithImageAndFile
+                                          )
+                                        : editPortfolio(
+                                              portfolioPayloadWithImageAndFile
+                                          );
+                                }
+
                                 return;
                             }
+                            let editData;
                             if (values.images && values.images.length > 0) {
                                 const imageIds = await uploadImage(
                                     values.images
                                 );
+                                // addPortfolioPayload?.files ??
+                                //     delete addPortfolioPayload.files;
+
                                 const portfolioPayloadWithImage = {
                                     ...addPortfolioPayload,
                                     images: imageIds,
                                 };
-                                uploadPortfolio(portfolioPayloadWithImage);
+                                {
+                                    !isEditProfile
+                                        ? uploadPortfolio(
+                                              portfolioPayloadWithImage
+                                          )
+                                        : editPortfolio(
+                                              portfolioPayloadWithImage
+                                          );
+                                }
                                 return;
                             }
                             if (values.files && values.files.length > 0) {
                                 const fileIds = await uploadFile(values.files);
+                                // delete addPortfolioPayload.images;
                                 const portfolioPayloadWithFile = {
                                     ...addPortfolioPayload,
                                     files: fileIds,
                                 };
-                                uploadPortfolio(portfolioPayloadWithFile);
+                                {
+                                    !isEditProfile
+                                        ? uploadPortfolio(
+                                              portfolioPayloadWithFile
+                                          )
+                                        : editPortfolio(
+                                              portfolioPayloadWithFile
+                                          );
+                                }
                                 return;
+                            } else {
+                                // delete addPortfolioPayload.files;
+                                // delete addPortfolioPayload.images;
+                                const newPayloadWithoutImageAndFile = {
+                                    ...addPortfolioPayload,
+                                };
+
+                                editData = newPayloadWithoutImageAndFile;
+                                console.log("we have no files");
                             }
-                            uploadPortfolio(addPortfolioPayload);
+
+                            console.log("editedd=", editData);
+
+                            // delete addPortfolioPayload.files;
+                            // delete addPortfolioPayload.images;
+
+                            editDetails && isEditProfile == true
+                                ? editPortfolio(editData)
+                                : uploadPortfolio(addPortfolioPayload);
+                            // uploadPortfolio(addPortfolioPayload);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
