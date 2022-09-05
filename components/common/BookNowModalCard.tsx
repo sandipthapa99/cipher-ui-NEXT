@@ -169,7 +169,6 @@ const BookNowModalCard = ({
                     >
                         {({ isSubmitting, errors, touched, setFieldValue }) => (
                             <Form>
-                                <pre>{JSON.stringify(errors, null, 4)}</pre>
                                 <div className="problem">
                                     <h4>Problem Description</h4>
                                     <InputField
