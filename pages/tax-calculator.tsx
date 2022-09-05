@@ -3,6 +3,8 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
+import TaxCalculatorInfo from "@components/TaxCalculator/InfoList";
+import RelatedInfo from "@components/TaxCalculator/RelatedInformation";
 import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
 import { useTaxCalculator } from "hooks/tax-calculator/useTaxCalculator";
@@ -392,6 +394,7 @@ const TaxCalculator: NextPage = () => {
                                     </div>
                                 </Col>
                                 <Col md={6}>
+                                    <RelatedInfo />
                                     <Row className="d-flex tax-blocks align-items-stretch">
                                         {taxContent.map((tax) => (
                                             <Col
@@ -463,6 +466,7 @@ const TaxCalculator: NextPage = () => {
                             </Row>
                         </div>
                     </div>
+                    <TaxCalculatorInfo />
                 </Container>
             </section>
         </Layout>

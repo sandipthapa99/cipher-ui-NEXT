@@ -197,8 +197,12 @@
         padding: 2.8rem 1rem;
         border: 0.1rem solid rgba(0, 0, 0, 0.1);
         border-radius: 0.4rem;
-        background-color: #fff;
+        background-color: #5c6096;
+        color: #fff;
         margin-left: -0.8rem;
+        h1 {
+            color: #fff;
+        }
         @include respond(xs) {
             margin: 0rem 2.8rem;
             margin-top: 1rem;
@@ -243,6 +247,29 @@
         }
         @include respond(xs) {
             overflow: scroll;
+        }
+    }
+    .tax-card-block {
+        background: #edf4ff;
+        /* grayScale/gray[4] */
+        border: 0.1rem solid #ced4da;
+        border-radius: 0.4rem;
+        padding: 5rem;
+        justify-content: center;
+        padding-top: 6rem;
+        h2 {
+            font-size: 1.7rem;
+            font-weight: 500;
+            color: $sub-title-color;
+            margin-bottom: 0rem;
+            padding-bottom: 1.8rem;
+        }
+        p {
+            margin-bottom: 0rem;
+            padding-bottom: 0.7rem;
+            font-weight: 400;
+            color: $secondary-text-color;
+            font-size: 1.4rem;
         }
     }
 }

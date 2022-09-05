@@ -80,11 +80,17 @@ const SignUpAsClient = () => {
                             {
                                 onSuccess: async () => {
                                     // await router.push("/login");
-                                    setShow(true);
+                                    choosedValue === "phone"
+                                        ? setShow(true)
+                                        : null;
 
-                                    toast.success(
-                                        `Please check your ${choosedValue} for verification link`
-                                    );
+                                    choosedValue === "email"
+                                        ? toast.success(
+                                              "Check your email and click the link to verify your registration."
+                                          )
+                                        : toast.success(
+                                              "An OTP has been sent to your mobile number.Please enter that otp and new password"
+                                          );
                                 },
                                 onError: (error) => {
                                     toast.error(error.message);
