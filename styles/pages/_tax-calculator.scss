@@ -135,6 +135,8 @@
         //flex-wrap: wrap;
         @include respond(md) {
             margin-top: 0rem;
+            display: flex;
+            flex-direction: row;
         }
         @include respond(xs) {
             margin: 0rem 2.8rem;
@@ -165,11 +167,12 @@
         border-radius: 0.4rem;
         padding: 4.2rem 1rem;
         padding-bottom: 1.8rem;
+        // width: 13.5rem;
         @include respond(lg) {
-            width: 12.5rem;
+            width: 12.6rem;
         }
-        @include respond(xl) {
-            width: 14.6rem;
+        @include respond(xxl) {
+            width: 17.6rem;
         }
         h1 {
             text-align: center;

@@ -16,7 +16,6 @@ const Gardening = () => {
     const nameCategory = categories
         ? categories[0].toUpperCase() + categories.slice(1)
         : "";
-    console.log("abc", nameCategory);
 
     // for (let i = 0; i < categories?.length; i++) {
     //     const name = categories[0]?.toUpperCase() + categories?.slice(1);

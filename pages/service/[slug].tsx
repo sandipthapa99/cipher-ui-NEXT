@@ -14,7 +14,6 @@ const ServicesDetail = ({
     service: ServicesValueProps["result"][0];
     servicePackage: ServicesPackageProps;
 }) => {
-    console.log(service);
     return (
         <>
             <ServiceLayout>

@@ -5,10 +5,11 @@ import {
     useSearchedServices,
     useSearchQuery,
 } from "@components/common/Search/searchStore";
-import Footer from "@components/Footer";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
-import { Highlight, Space } from "@mantine/core";
+import { faClose } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ActionIcon, Box, Highlight, Space } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { ReactNode } from "react";
@@ -45,6 +46,12 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     );
 
     const { data: searchData = [] } = useSearchService(query);
+
+    const handleClearSearchResults = () => {
+        clearSearchedServices();
+        clearSearchQuery();
+    };
+
     const handleSearchChange = (query: string) => {
         clearSearchQuery();
         clearSearchedServices();
@@ -57,9 +64,20 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
             <Container fluid="xl">
                 <SearchCategory onChange={handleSearchChange} />
                 {searchQuery?.query && (
-                    <Highlight highlight={searchQuery.query}>
-                        {`Showing search results for ${searchQuery.query}`}
-                    </Highlight>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Highlight highlight={searchQuery.query}>
+                            {`Showing search results for ${searchQuery.query}`}
+                        </Highlight>
+                        <ActionIcon onClick={handleClearSearchResults}>
+                            <FontAwesomeIcon icon={faClose} />
+                        </ActionIcon>
+                    </Box>
                 )}
                 <Space h={10} />
                 <ServiceAside

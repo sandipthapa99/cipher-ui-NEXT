@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
+import { useEditForm } from "hooks/use-edit-form";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -18,6 +19,7 @@ import { axiosClient } from "utils/axiosClient";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+
 interface AddPortfolioModalProps {
     show?: boolean;
     id?: number;
@@ -65,6 +67,7 @@ const AddPortfolio = ({
         useUploadImage();
     const { mutate: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
+    const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
 
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData<EditDetailProps>([
@@ -74,6 +77,9 @@ const AddPortfolio = ({
     const [fileId, setfileId] = useState<number[]>([]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
+    console.log("edit details=", editDetails, isEditProfile);
+    console.log("imge id, fileId=", imageId, fileId);
+
     return (
         <div>
             {/* Modal component */}
@@ -89,6 +95,10 @@ const AddPortfolio = ({
                                       issued_date: parseISO(
                                           editDetails.issued_date
                                       ),
+                                      files: [],
+                                      images: [],
+                                      imagePreviewUrl: [],
+                                      pdfPreviewUrl: [],
                                   }
                                 : AddPortfolioFormData
                         }
@@ -96,8 +106,8 @@ const AddPortfolio = ({
                         onSubmit={async (values) => {
                             const imageFormData = new FormData();
                             const fileFormData = new FormData();
-
-                            if (values.images) {
+                            console.log("imagessss=", values.images);
+                            if (values.images[0].path) {
                                 for (const image of values.images) {
                                     imageFormData.append("medias", image);
                                     imageFormData.append("media_type", "image");
@@ -113,7 +123,7 @@ const AddPortfolio = ({
                                     },
                                 });
                             }
-                            if (values.files) {
+                            if (values.files[0].path) {
                                 for (const file of values.files) {
                                     fileFormData.append("medias", file);
                                     fileFormData.append("media_type", "pdf");
@@ -127,8 +137,8 @@ const AddPortfolio = ({
                                 });
                             }
                             (function wait() {
-                                let timeoutId: NodeJS.Timeout | undefined =
-                                    undefined;
+                                // let timeoutId: NodeJS.Timeout | undefined =
+                                //     undefined;
                                 if (!uploadFileLoading && !uploadImageLoading) {
                                     const issuedDate = format(
                                         new Date(values.issued_date),
@@ -137,29 +147,76 @@ const AddPortfolio = ({
                                     const addPortfolioPayload = {
                                         ...values,
                                         issued_date: issuedDate,
+                                        images: imageId,
+                                        files: fileId,
                                     };
-                                    if (imageId.length > 0)
-                                        addPortfolioPayload.images = imageId;
-                                    if (fileId.length > 0)
-                                        addPortfolioPayload.files = fileId;
 
-                                    createPortfolioMutation(
-                                        addPortfolioPayload,
-                                        {
-                                            onSuccess: (message) => {
-                                                toast.success(message);
-                                                queryClient.invalidateQueries([
-                                                    "tasker-portfolio",
-                                                ]);
-                                                setShowAddPortfolioModal(false);
-                                                setImageId([]);
-                                                setfileId([]);
-                                            },
-                                        }
+                                    addPortfolioPayload.images = imageId;
+
+                                    addPortfolioPayload.files = fileId;
+                                    delete addPortfolioPayload.imagePreviewUrl;
+                                    delete addPortfolioPayload.pdfPreviewUrl;
+                                    console.log(
+                                        "add portfolio payload=",
+                                        addPortfolioPayload
                                     );
-                                    if (timeoutId) clearTimeout(timeoutId);
+                                    console.log("IDS", fileId, imageId);
+                                    {
+                                        editDetails && isEditProfile == true
+                                            ? editMutation(
+                                                  addPortfolioPayload,
+                                                  {
+                                                      onSuccess: async () => {
+                                                          console.log(
+                                                              "submitted values",
+                                                              values
+                                                          );
+                                                          setShowAddPortfolioModal(
+                                                              false
+                                                          );
+                                                          queryClient.invalidateQueries(
+                                                              [
+                                                                  "tasker-portfolio",
+                                                              ]
+                                                          );
+                                                          toast.success(
+                                                              "Portfolio updated successfully."
+                                                          );
+                                                      },
+                                                      onError: async (
+                                                          error
+                                                      ) => {
+                                                          toast.error(
+                                                              error.message
+                                                          );
+                                                      },
+                                                  }
+                                              )
+                                            : createPortfolioMutation(
+                                                  addPortfolioPayload,
+                                                  {
+                                                      onSuccess: (message) => {
+                                                          toast.success(
+                                                              message
+                                                          );
+                                                          queryClient.invalidateQueries(
+                                                              [
+                                                                  "tasker-portfolio",
+                                                              ]
+                                                          );
+                                                          setShowAddPortfolioModal(
+                                                              false
+                                                          );
+                                                          setImageId([]);
+                                                          setfileId([]);
+                                                      },
+                                                  }
+                                              );
+                                    }
+
+                                    // if (timeoutId) clearTimeout(timeoutId);
                                 } else {
-                                    timeoutId = setTimeout(wait, 100);
+                                    setTimeout(wait, 100);
                                 }
                             })();
                         }}
