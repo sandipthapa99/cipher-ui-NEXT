@@ -452,7 +452,7 @@ const Home: NextPage<{
             {/* Find & Hire section end */}
 
             {/* Horoscope section starts */}
-            <section
+            {/* <section
                 id="horoscope-slider-section"
                 className="horoscope-slider-section"
             >
@@ -460,7 +460,7 @@ const Home: NextPage<{
                     <h1 className="text-center">Horoscopes</h1>
                     <HoroscopeSlider />
                 </Container>
-            </section>
+            </section> */}
             {/* Horoscope section ends */}
 
             {/* Top Taksers Section Start */}
