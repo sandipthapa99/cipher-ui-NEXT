@@ -16,7 +16,7 @@ interface menu {
 interface DropdownProps {
     children?: ReactNode;
     showModal?: boolean;
-    menu: menu[];
+    menu?: menu[];
     handleOnClick?: () => void;
 }
 const EllipsisDropdown = ({ children, handleOnClick, menu }: DropdownProps) => {
