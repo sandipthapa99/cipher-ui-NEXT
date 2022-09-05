@@ -128,7 +128,7 @@
 .single-blog {
     margin: 8rem;
 
-    @include respond(xs){
+    @include respond(xs) {
         margin: 2rem;
     }
 
@@ -149,7 +149,7 @@
             line-height: 3.6rem;
             margin: 2.4rem 0 4rem 0;
 
-            @include respond(xs){
+            @include respond(xs) {
                 margin: 1.4rem 0 4rem 0;
             }
         }
