@@ -99,7 +99,7 @@ export const TaskRequirements = ({
                     setNewRequirement(event.currentTarget.value)
                 }
                 onKeyDown={handleKeyDown}
-                placeholder="Add Requirements"
+                placeholder="Add your Requirements"
                 rightSection={
                     <FontAwesomeIcon icon={faCirclePlus} color="#3EAEFF" />
                 }

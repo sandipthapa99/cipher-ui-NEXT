@@ -1,14 +1,16 @@
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
-import { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
+import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { BudgetType } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCategory } from "@components/Task/PostTaskModal/TaskCategory";
+import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskDate } from "@components/Task/PostTaskModal/TaskDate";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import {
+    Anchor,
     Box,
     Checkbox,
     Modal,
@@ -21,6 +23,7 @@ import {
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/task/use-post-task";
+import Link from "next/link";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import {
@@ -34,12 +37,11 @@ export interface PostTaskPayload {
     requirements: string;
     category: string;
     location: TaskType;
-    city: string;
+    currency: string;
     budget_type: BudgetType;
-    budget_fixed: string;
     budget_from: string;
     budget_to: string;
-    isNegotiable: boolean;
+    is_negotiable: boolean;
     image: string;
     video: string;
     estimated_time: number;
@@ -63,13 +65,11 @@ export const PostTaskModal = () => {
                 description: "",
                 requirements: "",
                 category: "",
-                location: TaskType.REMOTE,
-                city: "",
+                location: "remote",
                 budget_type: BudgetType.FIXED,
-                budget_fixed: "",
                 budget_from: "",
                 budget_to: "",
-                isNegotiable: false,
+                is_negotiable: false,
                 image: "",
                 video: "",
                 estimated_time: 5,
@@ -79,24 +79,19 @@ export const PostTaskModal = () => {
                 end_date: "2023-01-04",
                 start_time: "01:00",
                 end_time: "03:00",
+                currency: "",
             },
             validationSchema: postTaskSchema,
             onSubmit: (values) => {
-                console.log(values);
-                const tempValues = {
-                    ...values,
-                    budget_type: "Hourly",
-                    city: 2,
-                };
                 const formData = new FormData();
-                Object.entries(tempValues).forEach((tempValue) => {
+                Object.entries(values).forEach((tempValue) => {
                     const [key, value] = tempValue;
                     if (key !== "video" && key !== "image") {
                         formData.append(key, value.toString());
                     }
                 });
-                formData.append("video", tempValues.video);
-                formData.append("image", tempValues.image);
+                formData.append("video", values.video);
+                formData.append("image", values.image);
                 mutate(formData, {
                     onSuccess: (payload) => {
                         toggleShowPostTaskModal();
@@ -126,7 +121,7 @@ export const PostTaskModal = () => {
             <form encType="multipart/formData" onSubmit={handleSubmit}>
                 <Stack spacing="md">
                     <TextInput
-                        placeholder="Need a garden cleaner"
+                        placeholder="Enter your title"
                         label="Title"
                         required
                         {...getFieldProps("title")}
@@ -134,7 +129,7 @@ export const PostTaskModal = () => {
                     />
                     <Textarea
                         label="Task Description"
-                        placeholder="Need a garden cleaner to clean my garden and watch morbius"
+                        placeholder="Enter your description"
                         minRows={5}
                         required
                         {...getFieldProps("description")}
@@ -150,6 +145,12 @@ export const PostTaskModal = () => {
                         error={getFieldError("requirements")}
                         {...getFieldProps("requirements")}
                     />
+                    <TaskCurrency
+                        onCurrencyChange={(currencyId) =>
+                            setFieldValue("currency", currencyId)
+                        }
+                        error={getFieldError("currency")}
+                    />
                     <TaskCategory
                         onCategoryChange={(category) =>
                             setFieldValue("category", category)
@@ -159,23 +160,19 @@ export const PostTaskModal = () => {
                     />
                     <SelectTaskType
                         onTypeChange={(type) => setFieldValue("location", type)}
-                        addressInputProps={{
-                            ...getFieldProps("city"),
-                            error: getFieldError("city"),
-                        }}
+                        {...getFieldProps("location")}
+                        error={getFieldError("location")}
                     />
                     <TaskBudget
-                        budgetFixedError={getFieldError("budget_fixed")}
                         budgetFromError={getFieldError("budget_from")}
                         budgetToError={getFieldError("budget_to")}
+                        budgetTypeError={getFieldError("budget_type")}
                         setFieldValue={setFieldValue}
-                        onBudgetTypeChange={(type) =>
-                            setFieldValue("budget_type", type)
-                        }
+                        getFieldProps={getFieldProps}
                     />
                     <Checkbox
                         label="Yes, it is negotiable."
-                        {...getFieldProps("isNegotiable")}
+                        {...getFieldProps("is_negotiable")}
                     />
                     <Stack sx={{ maxWidth: "40rem" }}>
                         <Title order={6}>Images</Title>
@@ -217,7 +214,17 @@ export const PostTaskModal = () => {
                             type={["video"]}
                         />
                     </Stack>
-                    <TaskDate />
+                    <TaskDate setFieldValue={setFieldValue} />
+                    <Checkbox
+                        label={
+                            <Text>
+                                Accept all{" "}
+                                <Link passHref href="/terms-and-conditions">
+                                    <Anchor>Terms and Conditions</Anchor>
+                                </Link>
+                            </Text>
+                        }
+                    />
                     <Box
                         sx={{
                             display: "flex",
@@ -225,7 +232,10 @@ export const PostTaskModal = () => {
                             gap: "1rem",
                         }}
                     >
-                        <Button className="close-btn close-btn-mod btn p-3 h-25 w-25">
+                        <Button
+                            onClick={toggleShowPostTaskModal}
+                            className="close-btn close-btn-mod btn p-3 h-25 w-25"
+                        >
                             Cancel
                         </Button>
                         <BigButton

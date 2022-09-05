@@ -2,43 +2,37 @@ import type { TextInputProps } from "@mantine/core";
 import { Box, Radio, Space, TextInput } from "@mantine/core";
 import React, { useState } from "react";
 
-export enum TaskType {
-    REMOTE = "remote",
-    ONPREMISE = "onPremise",
-}
-interface SelectTaskTypeProps {
+export type TaskType = "remote" | "onPremise";
+interface SelectTaskTypeProps extends TextInputProps {
     onTypeChange: (type: TaskType) => void;
-    addressInputProps: TextInputProps;
 }
 export const SelectTaskType = ({
     onTypeChange,
-    addressInputProps,
+    ...rest
 }: SelectTaskTypeProps) => {
-    console.log(addressInputProps);
-    const [value, setValue] = useState<TaskType>(TaskType.REMOTE);
+    const [taskType, setTaskType] = useState<TaskType>("remote");
 
-    const handleTaskTypeChange = (value: string) => {
-        setValue(value as TaskType);
-        onTypeChange(value as TaskType);
+    const handleTaskTypeChange = (value: TaskType) => {
+        setTaskType(value);
+        if (value === "remote") {
+            onTypeChange("remote");
+        }
     };
     return (
         <Box>
             <Radio.Group
                 label="Select Task Type"
-                value={value}
+                value={taskType}
                 onChange={handleTaskTypeChange}
                 required
             >
-                <Radio value={TaskType.REMOTE} label="Remote" />
-                <Radio value={TaskType.ONPREMISE} label="On Premise" />
+                <Radio value="remote" label="Remote" />
+                <Radio value="onPremise" label="On Premise" />
             </Radio.Group>
-            {value === TaskType.ONPREMISE && (
+            {taskType === "onPremise" && (
                 <>
                     <Space h={10} />
-                    <TextInput
-                        {...addressInputProps}
-                        placeholder="Default Address (HOME)"
-                    />
+                    <TextInput placeholder="Default Address (HOME)" {...rest} />
                 </>
             )}
         </Box>
