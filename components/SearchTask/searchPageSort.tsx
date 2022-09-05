@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QueryClient } from "@tanstack/react-query";
+import { useMyTasks } from "hooks/task/use-my-tasks";
 import { useData } from "hooks/use-data";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -19,6 +20,7 @@ const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const [showInput, setShowInput] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const { data: myTasks } = useMyTasks();
     const RenderInputBox = () => {
         return (
             <input
@@ -33,11 +35,8 @@ const SearchBySort = () => {
         ["all-services"],
         "/task/service/"
     );
-    const { data: myTasks } = useData<RecentProps>(
-        ["my-tasks"],
-        "/task/my-task"
-    );
-    console.log("dsfsdf0", myTasks);
+
+    console.log("dsfsdf0", myTasks?.result?.length);
 
     return (
         <Row className="recommended-tab">
@@ -54,11 +53,11 @@ const SearchBySort = () => {
                         {
                             title: "Recent",
                             content:
-                                myTasks?.data?.result?.length === 0 ? (
+                                myTasks?.result?.length === 0 ? (
                                     <Post />
-                                ) : myTasks ? (
-                                    <Recent recentTask={myTasks} />
-                                ) : null,
+                                ) : (
+                                    <Recent />
+                                ),
                         },
                         {
                             title: "In Progress",

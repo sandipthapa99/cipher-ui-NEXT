@@ -1,13 +1,11 @@
 import TaskCard from "@components/common/TaskCard";
+import { useMyTasks } from "hooks/task/use-my-tasks";
 import { useData } from "hooks/use-data";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import type { RecentProps } from "types/serviceCard";
 
-interface Props {
-    recentTask: RecentProps | any;
-}
-export const Recent = ({ recentTask }: Props) => {
+export const Recent = () => {
+    const { data: recentTask } = useMyTasks();
     //for tasks
 
     return (
