@@ -80,6 +80,9 @@
         h1 {
             font-weight: 400;
             font-size: 4.8rem;
+            @include respond(xs) {
+                font-size: 3.8rem;
+            }
         }
         ol {
             font-weight: 500;

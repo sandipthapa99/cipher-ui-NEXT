@@ -117,7 +117,8 @@ export const PostTaskModal = () => {
         <Modal
             overflow="outside"
             overlayOpacity={0.65}
-            overlayBlur={3}
+            overlayBlur={1}
+            overlayColor="rgba(0, 0, 0, 0.4)"
             opened={showPostTaskModal}
             onClose={toggleShowPostTaskModal}
             title="Post a Task"
@@ -230,7 +231,7 @@ export const PostTaskModal = () => {
                         </Button>
                         <BigButton
                             type="submit"
-                            className="close-btn btn p-3 h-25 w-25"
+                            className="close-btn post-add_btn btn p-3 h-25 w-25"
                             btnTitle="Post Task"
                             backgroundColor="#211D4F"
                         />
