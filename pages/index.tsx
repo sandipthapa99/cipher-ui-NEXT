@@ -561,7 +561,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Tasks You May Like</h2>
-                        <Link href="/task">
+                        <Link href="/task-you-may-like">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon
