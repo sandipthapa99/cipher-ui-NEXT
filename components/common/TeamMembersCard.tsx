@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQueryClient } from "@tanstack/react-query";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import type { Tasker } from "types/tasks";
 
 import BigButton from "./Button";
@@ -17,6 +18,7 @@ import ShareIcon from "./ShareIcon";
 
 interface Props {
     taskers?: Tasker;
+    tasker: string;
     collabButton?: boolean;
     onTaskClick?: (taskerId: string) => void;
     handleButtonClick?: () => void;
@@ -42,16 +44,23 @@ export const TeamMembersCard = ({
     happyClients,
     awardPercentage,
     location,
+    tasker,
     distance,
     bio,
     charge,
-    ...rest
 }: Props) => {
-    const userId = rest.taskers?.user.id;
+    const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
     const queryClient = useQueryClient();
+
+    const router = useRouter();
+    const path = router.query.id;
+
     return (
-        <div className="team-members-card">
+        <div
+            data-active={JSON.stringify(path === tasker)}
+            className="team-members-card mb-5 active"
+        >
             <div className="d-flex w-100 image-and-title">
                 <figure className="team-member-card-image">
                     <Image
@@ -62,17 +71,17 @@ export const TeamMembersCard = ({
                     />
                 </figure>
                 <div className="w-100 name-post-count">
-                    <div className="d-flex justify-content-between title-and-dots">
+                    <div className="d-flex justify-content-between title-and-dots text-dark">
                         <h5>{name}</h5>
                         <FontAwesomeIcon
                             className="ellipsis-vertical"
                             icon={faEllipsisVertical}
                         />
                     </div>
-                    <h6>
+                    <h6 className="text-dark">
                         <span>{speciality} </span>| {location}
                     </h6>
-                    <div className="d-flex justify-content-between align-items-center emoji-section">
+                    <div className="d-flex justify-content-between align-items-center emoji-section text-dark">
                         <span className="star">
                             <FontAwesomeIcon className="star" icon={faStar} />
                             {rating}

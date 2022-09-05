@@ -4,7 +4,7 @@
     margin: 2rem;
     height: 100%;
 
-    @include respond(xs){
+    @include respond(xs) {
         padding: 1rem 2rem 1rem 0rem;
         background: #fff;
         margin: 0.8rem;
@@ -23,7 +23,7 @@
     &__description {
         .title-section {
             margin: 0 0 0.8rem;
-            @include respond(xs){
+            @include respond(xs) {
                 margin: 0 0 -1.2rem;
             }
             .title {

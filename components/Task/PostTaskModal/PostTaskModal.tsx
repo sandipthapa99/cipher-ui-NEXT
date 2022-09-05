@@ -194,7 +194,7 @@ export const PostTaskModal = () => {
                                     formData.get("task-image")
                                 )
                             }
-                            type="image"
+                            type={["image"]}
                         />
                     </Stack>
                     <Stack sx={{ maxWidth: "40rem" }}>
@@ -214,7 +214,7 @@ export const PostTaskModal = () => {
                                     formData.get("task-video")
                                 )
                             }
-                            type="image"
+                            type={["video"]}
                         />
                     </Stack>
                     <TaskDate />
@@ -225,7 +225,7 @@ export const PostTaskModal = () => {
                             gap: "1rem",
                         }}
                     >
-                        <Button className="close-btn btn p-3 h-25 w-25">
+                        <Button className="close-btn close-btn-mod btn p-3 h-25 w-25">
                             Cancel
                         </Button>
                         <BigButton

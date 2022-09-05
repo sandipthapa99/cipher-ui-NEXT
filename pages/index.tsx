@@ -107,7 +107,7 @@ const Home: NextPage<{
                                 {/* Hero Text End Here */}
                             </div>
                             <Search />
-                            {chips.length > 0 && (
+                            {/* {chips.length > 0 && (
                                 <div className="chips-section d-md-flex d-none">
                                     {chips.map((chip, key) => (
                                         <RecommendationChips
@@ -117,7 +117,7 @@ const Home: NextPage<{
                                         />
                                     ))}
                                 </div>
-                            )}
+                            )} */}
 
                             <div className="come-with-us">
                                 <h1>Join CIPHER for</h1>
@@ -196,11 +196,11 @@ const Home: NextPage<{
                 </Container>
             </section>
 
-            {postTaskPopup && (
+            {/* {postTaskPopup && (
                 <div className="popup-post-task d-md-block d-none">
                     <PostTaskHomepage handleClose={handleClosePosttaskPopup} />
                 </div>
-            )}
+            )} */}
 
             <section
                 id="trusted-brand-section"
@@ -561,7 +561,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                         <h2 className="heading-title">Tasks You May Like</h2>
-                        <Link href="/task">
+                        <Link href="/task-you-may-like">
                             <a className="view-more">
                                 view more{" "}
                                 <FontAwesomeIcon

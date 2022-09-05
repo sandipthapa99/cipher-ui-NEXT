@@ -5,8 +5,6 @@ import { Col, Row } from "react-bootstrap";
 const WelcomeUser = () => {
     const { data: profileDetails } = useGetProfile();
 
-    console.log("abc", profileDetails);
-
     return (
         <>
             <Row className="user-stats">
@@ -29,51 +27,44 @@ const WelcomeUser = () => {
                         <Col md={3} xs={6}>
                             <div className="type success-rate">
                                 <h1 className="number">
-                                    {profileDetails?.stats?.task_assigned}
+                                    {profileDetails
+                                        ? profileDetails?.stats?.task_assigned
+                                        : 0}
                                 </h1>
-                                <p>
-                                    Task
-                                    <br />
-                                    Assigned
-                                </p>
+                                <p>Task Assigned</p>
                             </div>
                         </Col>
                         <Col md={3} xs={6}>
                             <div className="type happy-clients">
                                 <h1 className="number">
-                                    {profileDetails?.stats?.task_completed}
+                                    {profileDetails
+                                        ? profileDetails?.stats?.task_completed
+                                        : 0}
                                 </h1>
-                                <p>
-                                    Tasks
-                                    <br />
-                                    Completed
-                                </p>
+                                <p>Tasks Completed</p>
                             </div>
                         </Col>
 
                         <Col md={3} xs={6}>
                             <div className="type task-completed">
                                 <h1 className="number">
-                                    {profileDetails?.stats?.task_in_progress}
+                                    {profileDetails
+                                        ? profileDetails?.stats
+                                              ?.task_in_progress
+                                        : 0}
                                 </h1>
-                                <p>
-                                    Tasks
-                                    <br />
-                                    In Progress
-                                </p>
+                                <p>Tasks In Progress</p>
                             </div>
                         </Col>
                         <Col md={3} xs={6}>
                             {" "}
                             <div className="type user-reviews">
                                 <h1 className="number">
-                                    {profileDetails?.stats?.task_cancelled}
+                                    {profileDetails
+                                        ? profileDetails?.stats?.task_cancelled
+                                        : 0}
                                 </h1>
-                                <p>
-                                    Tasks
-                                    <br />
-                                    Cancelled
-                                </p>
+                                <p>Tasks Cancelled</p>
                             </div>
                         </Col>
                     </Row>

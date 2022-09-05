@@ -1,0 +1,22 @@
+#payment-form{
+    button{
+        width: 100%;
+        background-color: $primary-color;
+        border-radius: 0.4rem;
+        border: none;
+        padding: 1.2rem 0;
+        @include transition();
+        &:hover{
+            background-color: $secondary-color;
+            color: #000;
+        }
+        &:active{
+            background-color: $secondary-color;
+        }
+    }
+    #payment-message{
+        margin-top: 0.8rem;
+        font-size: 1.4rem;
+        color: #df1b41;
+    }
+}
