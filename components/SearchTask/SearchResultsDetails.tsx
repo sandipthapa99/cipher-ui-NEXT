@@ -36,7 +36,9 @@ import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 
 const SearchResultsDetail = ({
     image,
-    servicePrice,
+    budget_from,
+    budget_to,
+    budget_type,
     serviceProvider,
     serviceProviderLocation,
     serviceDescription,
@@ -201,9 +203,9 @@ const SearchResultsDetail = ({
                                 }}
                                 className="rounded"
                             >
-                                {image.map((value) => (
+                                {image.map((value, key) => (
                                     <Carousel.Slide
-                                        key={value.id}
+                                        key={key}
                                         className="thumbnail-img "
                                     >
                                         {value?.media && (
@@ -220,6 +222,14 @@ const SearchResultsDetail = ({
                                         )}
                                     </Carousel.Slide>
                                 ))}
+                                {/* <Carousel.Slide className="thumbnail-img ">
+                                    <Image
+                                        src={"/No_image_available.svg.webp"}
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="garden-image"
+                                    />
+                                </Carousel.Slide> */}
                             </Carousel>
                         )}
                     </Col>
@@ -249,26 +259,15 @@ const SearchResultsDetail = ({
 
                             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                                 <span>Starting Price</span>
-                                <span className="price">Rs {servicePrice}</span>
+                                <span className="price">
+                                    {budget_from} {budget_to && "-" + budget_to}
+                                    {budget_type}
+                                </span>
                             </div>
                             <CardBtn
                                 btnTitle="Book Now"
                                 backgroundColor="#211D4F"
-                                handleClick={() => {
-                                    setShow(true);
-                                    setBookNowDetails({
-                                        image,
-                                        servicePrice,
-                                        serviceProvider,
-                                        serviceProviderLocation,
-                                        serviceDescription,
-                                        serviceRating,
-                                        serviceTitle,
-                                        haveDiscount,
-                                        discountOn,
-                                        discount,
-                                    });
-                                }}
+                                handleClick={() => setShow(true)}
                             />
                         </div>
                     </Col>
@@ -296,7 +295,7 @@ const SearchResultsDetail = ({
                             className="svg-icon svg-icon-clock"
                         />
                         {serviceCreated
-                            ? format(new Date(serviceCreated), "pp")
+                            ? format(new Date(serviceCreated), "p")
                             : "N/A"}
                     </p>
                     <p>
@@ -439,10 +438,12 @@ const SearchResultsDetail = ({
                 </Row>
             </div>
             <BookNowModalCard
-                description={serviceDescription ?? ""}
-                price={servicePrice ?? 0}
-                title={serviceTitle ?? ""}
-                key={serviceTitle}
+                title={serviceTitle}
+                budget_to={budget_to}
+                budget_from={budget_from}
+                budget_type={budget_type}
+                service_id={serviceId}
+                description={serviceDescription}
                 show={show}
                 handleClose={handleClose}
             />

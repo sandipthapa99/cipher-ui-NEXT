@@ -106,9 +106,11 @@ const Home: NextPage = () => {
                                             key={service.id}
                                         >
                                             <Link href="/service-detail">
-                                                <ServiceCard
-                                                    serviceCard={service}
-                                                />
+                                                <a>
+                                                    <ServiceCard
+                                                        serviceCard={service}
+                                                    />
+                                                </a>
                                             </Link>
                                         </Col>
                                     );

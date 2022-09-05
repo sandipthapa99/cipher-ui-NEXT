@@ -44,7 +44,7 @@ const TaskCard = ({
     const formattedtime = getDateFromHours(start_time);
     console.log("start time", starttime, formattedtime);
     return (
-        <div className="task-card-block">
+        <div className="task-card-block p-5">
             <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                 <h1 className="title">{title}</h1>
                 <h1 className="charge">
@@ -53,15 +53,15 @@ const TaskCard = ({
             </div>
             <div className="task-card-block__body">
                 <p className="task-description">{description}</p>
-                <div className="task-location-time d-flex flex-column flex-sm-row justify-content-between">
-                    <p className="d-flex align-items-center location">
+                <div className="task-location-time d-flex flex-column flex-sm-row">
+                    <p className="d-flex align-items-center pe-4 location">
                         <FontAwesomeIcon
                             icon={faLocationDot}
                             className="svg-icon"
                         />
                         {location}
                     </p>
-                    <p className="d-flex align-items-center date my-3 my-sm-0">
+                    <p className="d-flex align-items-center date pe-4 my-3 my-sm-0">
                         <FontAwesomeIcon
                             icon={faCalendar}
                             className="svg-icon"
@@ -70,17 +70,12 @@ const TaskCard = ({
                             ? format(new Date(start_date), "MMMM dd, yyyy")
                             : ""}
                     </p>
-                    <div className="d-flex align-items-center time">
+                    <div className="d-flex align-items-center pe-4 time">
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon"
                         />
-                        {format(new Date(formattedtime), "hh:mm")}&nbsp;
-                        {starttime
-                            ? parseInt(starttime[1]) > 12
-                                ? "PM"
-                                : "AM"
-                            : ""}
+                        {format(new Date(formattedtime), "p")}
                     </div>
                 </div>
             </div>

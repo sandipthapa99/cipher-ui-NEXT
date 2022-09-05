@@ -63,8 +63,12 @@ const MultiImageDropzone = ({
                         };
                     });
 
+                console.log("image file", imageFile);
+
                 const isPreviewImage =
                     imagePreview && form.values[imagePreview]?.length;
+
+                console.log(isPreviewImage, "isPreviewImage");
 
                 return (
                     <>
