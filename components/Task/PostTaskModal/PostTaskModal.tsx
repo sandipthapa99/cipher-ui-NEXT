@@ -1,3 +1,4 @@
+import { AddServiceModalComponent } from "@components/AddServices/AddServiceModalComponent";
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
@@ -8,6 +9,7 @@ import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCategory } from "@components/Task/PostTaskModal/TaskCategory";
 import { TaskDate } from "@components/Task/PostTaskModal/TaskDate";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
+import { Radio } from "@mantine/core";
 import {
     Box,
     Checkbox,
@@ -21,6 +23,7 @@ import {
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/task/use-post-task";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import {
@@ -52,6 +55,7 @@ export interface PostTaskPayload {
 }
 
 export const PostTaskModal = () => {
+    const [choosedValue, setChoosedValue] = useState("task");
     const { mutate } = usePostTask();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
@@ -114,129 +118,149 @@ export const PostTaskModal = () => {
             : null;
 
     return (
-        <Modal
-            overflow="outside"
-            overlayOpacity={0.65}
-            overlayBlur={3}
-            opened={showPostTaskModal}
-            onClose={toggleShowPostTaskModal}
-            title="Post a Task"
-            size="xl"
-        >
-            <form encType="multipart/formData" onSubmit={handleSubmit}>
-                <Stack spacing="md">
-                    <TextInput
-                        placeholder="Need a garden cleaner"
-                        label="Title"
-                        required
-                        {...getFieldProps("title")}
-                        error={getFieldError("title")}
-                    />
-                    <Textarea
-                        label="Task Description"
-                        placeholder="Need a garden cleaner to clean my garden and watch morbius"
-                        minRows={5}
-                        required
-                        {...getFieldProps("description")}
-                        error={getFieldError("description")}
-                    />
-                    <TaskRequirements
-                        onRequirementsChange={(requirements) =>
-                            setFieldValue(
-                                "requirements",
-                                JSON.stringify(requirements)
-                            )
-                        }
-                        error={getFieldError("requirements")}
-                        {...getFieldProps("requirements")}
-                    />
-                    <TaskCategory
-                        onCategoryChange={(category) =>
-                            setFieldValue("category", category)
-                        }
-                        {...getFieldProps("category")}
-                        error={getFieldError("category")}
-                    />
-                    <SelectTaskType
-                        onTypeChange={(type) => setFieldValue("location", type)}
-                        addressInputProps={{
-                            ...getFieldProps("city"),
-                            error: getFieldError("city"),
-                        }}
-                    />
-                    <TaskBudget
-                        budgetFixedError={getFieldError("budget_fixed")}
-                        budgetFromError={getFieldError("budget_from")}
-                        budgetToError={getFieldError("budget_to")}
-                        setFieldValue={setFieldValue}
-                        onBudgetTypeChange={(type) =>
-                            setFieldValue("budget_type", type)
-                        }
-                    />
-                    <Checkbox
-                        label="Yes, it is negotiable."
-                        {...getFieldProps("isNegotiable")}
-                    />
-                    <Stack sx={{ maxWidth: "40rem" }}>
-                        <Title order={6}>Images</Title>
-                        <Text color="dimmed" size="sm">
-                            Including images helps you find best merchant for
-                            your task.
-                        </Text>
-                        <CustomDropZone
-                            accept={IMAGE_MIME_TYPE}
-                            fileLabel="Image"
-                            sx={{ maxWidth: "30rem" }}
-                            name="task-image"
-                            onDrop={(formData) =>
-                                setFieldValue(
-                                    "image",
-                                    formData.get("task-image")
-                                )
-                            }
-                            type={["image"]}
-                        />
-                    </Stack>
-                    <Stack sx={{ maxWidth: "40rem" }}>
-                        <Title order={6}>Videos</Title>
-                        <Text color="dimmed" size="sm">
-                            Including images or videos helps you find best
-                            merchant for your task.
-                        </Text>
-                        <CustomDropZone
-                            accept={[MIME_TYPES.mp4]}
-                            fileLabel="Video"
-                            sx={{ maxWidth: "30rem" }}
-                            name="task-video"
-                            onDrop={(formData) =>
-                                setFieldValue(
-                                    "video",
-                                    formData.get("task-video")
-                                )
-                            }
-                            type={["video"]}
-                        />
-                    </Stack>
-                    <TaskDate />
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            gap: "1rem",
-                        }}
+        <>
+            <Modal
+                overflow="outside"
+                overlayOpacity={0.65}
+                overlayBlur={3}
+                opened={showPostTaskModal}
+                onClose={toggleShowPostTaskModal}
+                title="Post a Task or Service"
+                size="xl"
+            >
+                <div className="choose-email-or-phone mb-5">
+                    <Radio.Group
+                        label="Please select task or service which you want to post "
+                        onChange={(value) => setChoosedValue(value)}
+                        size="sm"
+                        defaultValue="task"
                     >
-                        <Button className="close-btn close-btn-mod btn p-3 h-25 w-25">
-                            Cancel
-                        </Button>
-                        <BigButton
-                            type="submit"
-                            className="close-btn btn p-3 h-25 w-25"
-                            btnTitle="Post Task"
-                            backgroundColor="#211D4F"
-                        />
-                    </Box>
-                </Stack>
-            </form>
-        </Modal>
+                        <Radio value="task" label="Post Task" />
+                        <Radio value="service" label="Post Service" />
+                    </Radio.Group>
+                </div>
+
+                {choosedValue === "task" ? (
+                    <form encType="multipart/formData" onSubmit={handleSubmit}>
+                        <Stack spacing="md">
+                            <TextInput
+                                placeholder="Need a garden cleaner"
+                                label="Title"
+                                required
+                                {...getFieldProps("title")}
+                                error={getFieldError("title")}
+                            />
+                            <Textarea
+                                label="Task Description"
+                                placeholder="Need a garden cleaner to clean my garden and watch morbius"
+                                minRows={5}
+                                required
+                                {...getFieldProps("description")}
+                                error={getFieldError("description")}
+                            />
+                            <TaskRequirements
+                                onRequirementsChange={(requirements) =>
+                                    setFieldValue(
+                                        "requirements",
+                                        JSON.stringify(requirements)
+                                    )
+                                }
+                                error={getFieldError("requirements")}
+                                {...getFieldProps("requirements")}
+                            />
+                            <TaskCategory
+                                onCategoryChange={(category) =>
+                                    setFieldValue("category", category)
+                                }
+                                {...getFieldProps("category")}
+                                error={getFieldError("category")}
+                            />
+                            <SelectTaskType
+                                onTypeChange={(type) =>
+                                    setFieldValue("location", type)
+                                }
+                                addressInputProps={{
+                                    ...getFieldProps("city"),
+                                    error: getFieldError("city"),
+                                }}
+                            />
+                            <TaskBudget
+                                budgetFixedError={getFieldError("budget_fixed")}
+                                budgetFromError={getFieldError("budget_from")}
+                                budgetToError={getFieldError("budget_to")}
+                                setFieldValue={setFieldValue}
+                                onBudgetTypeChange={(type) =>
+                                    setFieldValue("budget_type", type)
+                                }
+                            />
+                            <Checkbox
+                                label="Yes, it is negotiable."
+                                {...getFieldProps("isNegotiable")}
+                            />
+                            <Stack sx={{ maxWidth: "40rem" }}>
+                                <Title order={6}>Images</Title>
+                                <Text color="dimmed" size="sm">
+                                    Including images helps you find best
+                                    merchant for your task.
+                                </Text>
+                                <CustomDropZone
+                                    accept={IMAGE_MIME_TYPE}
+                                    fileLabel="Image"
+                                    sx={{ maxWidth: "30rem" }}
+                                    name="task-image"
+                                    onDrop={(formData) =>
+                                        setFieldValue(
+                                            "image",
+                                            formData.get("task-image")
+                                        )
+                                    }
+                                    type={["image"]}
+                                />
+                            </Stack>
+                            <Stack sx={{ maxWidth: "40rem" }}>
+                                <Title order={6}>Videos</Title>
+                                <Text color="dimmed" size="sm">
+                                    Including images or videos helps you find
+                                    best merchant for your task.
+                                </Text>
+                                <CustomDropZone
+                                    accept={[MIME_TYPES.mp4]}
+                                    fileLabel="Video"
+                                    sx={{ maxWidth: "30rem" }}
+                                    name="task-video"
+                                    onDrop={(formData) =>
+                                        setFieldValue(
+                                            "video",
+                                            formData.get("task-video")
+                                        )
+                                    }
+                                    type={["video"]}
+                                />
+                            </Stack>
+                            <TaskDate />
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    gap: "1rem",
+                                }}
+                            >
+                                <Button className="close-btn close-btn-mod btn p-3 h-25 w-25">
+                                    Cancel
+                                </Button>
+                                <BigButton
+                                    type="submit"
+                                    className="close-btn btn p-3 h-25 w-25"
+                                    btnTitle="Post Task"
+                                    backgroundColor="#211D4F"
+                                />
+                            </Box>
+                        </Stack>
+                    </form>
+                ) : (
+                    <AddServiceModalComponent />
+                )}
+            </Modal>
+        </>
     );
 };
