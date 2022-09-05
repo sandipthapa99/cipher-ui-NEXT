@@ -22,7 +22,7 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const firebaseCloudMessaging = {
     tokenInlocalforage: async () => {
         const token = await localforage.getItem("fcm_token");
-        console.log("fcm_token tokenInlocalforage", token);
+        // console.log("fcm_token tokenInlocalforage", token);
         return token;
     },
     onMessage: async () => {
@@ -49,12 +49,12 @@ const firebaseCloudMessaging = {
                     "BG4z48E68RIMUoaxLCJULmW54cCFCRZizpKCvrlnFNnk67wfN-pooKw6dVFqHJHdO_jSpROK5mAOatF7gl6ezI4",
             })
                 .then((currentToken) => {
-                    console.log("current Token", currentToken);
+                    // console.log("current Token", currentToken);
                     if (currentToken) {
                         // Send the token to your server and update the UI if necessary
                         // save the token in your database
                         localforage.setItem("fcm_token", currentToken);
-                        console.log("fcm_token", currentToken);
+                        // console.log("fcm_token", currentToken);
                     } else {
                         // Show permission request UI
                         console.log(
