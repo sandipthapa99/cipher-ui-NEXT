@@ -20,18 +20,6 @@ const Login = () => {
     const router = useRouter();
     const { mutate, isLoading } = useLogin();
     const [isPhoneNumber, setIsPhoneNumber] = useState(false);
-    const [fcm_token, setFcm_token] = useState("");
-    const FCM_TOKEN = localforage.getItem("fcmToken");
-
-    console.log("abc0", FCM_TOKEN);
-    const getFCMTOKEN = async () => {
-        const token = await localforage.getItem("fcm_token");
-        return token;
-    };
-    const token = getFCMTOKEN();
-
-    token.then((res) => res).then((data: any) => setFcm_token(data));
-    console.log("FCM_TOKEN", fcm_token);
 
     const handleChange = (
         event: ChangeEvent<HTMLInputElement>,

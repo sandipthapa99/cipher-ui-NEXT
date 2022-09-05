@@ -39,4 +39,5 @@ yarn-error.log*
 # lock files
 yarn.lock
 package-lock.json
+out.md
 

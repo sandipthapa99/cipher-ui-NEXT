@@ -35,6 +35,16 @@ const UserLoadingOverlay = dynamic(
     { ssr: false }
 );
 function MyApp({ Component, pageProps }: CustomAppProps) {
+    const [queryClient] = useState(
+        () =>
+            new QueryClient({
+                defaultOptions: {
+                    queries: {
+                        refetchOnWindowFocus: false,
+                    },
+                },
+            })
+    );
     const [mounted, setMounted] = useState(false);
     if (mounted) {
         firebaseCloudMessaging.onMessage();
@@ -51,16 +61,6 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
         const result = setToken();
         console.log("result", result);
     }, []);
-    const [queryClient] = useState(
-        () =>
-            new QueryClient({
-                defaultOptions: {
-                    queries: {
-                        refetchOnWindowFocus: false,
-                    },
-                },
-            })
-    );
     // useEffect(() => {
     //     setToken();
 

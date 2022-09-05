@@ -1,5 +1,5 @@
 {
-    "name": "cipher-web-applicatio",
+    "name": "cipher-web-application",
     "version": "0.1.0",
     "private": true,
     "proxy": "http://172.16.16.68:8014/api/v1",

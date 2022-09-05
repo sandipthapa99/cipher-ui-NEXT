@@ -22,16 +22,14 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const firebaseCloudMessaging = {
     tokenInlocalforage: async () => {
         const token = await localforage.getItem("fcm_token");
-        // console.log("fcm_token tokenInlocalforage", token);
+        console.log("fcm_token tokenInlocalforage", token);
         return token;
     },
     onMessage: async () => {
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {
             console.log("Message received. ", payload);
-            alert(
-                `${payload.notification.title} with ${payload.notification.body}`
-            );
+            // alert("Notificacion");
         });
     },
 
@@ -41,7 +39,7 @@ const firebaseCloudMessaging = {
                 console.log("it already exists");
                 return false;
             }
-
+            console.log("it is creating it.");
             const messaging = getMessaging(app);
             await Notification.requestPermission();
             getToken(messaging, {
@@ -49,12 +47,12 @@ const firebaseCloudMessaging = {
                     "BG4z48E68RIMUoaxLCJULmW54cCFCRZizpKCvrlnFNnk67wfN-pooKw6dVFqHJHdO_jSpROK5mAOatF7gl6ezI4",
             })
                 .then((currentToken) => {
-                    // console.log("current Token", currentToken);
-                    if (currentToken) {
+                    console.log("current Token", currentToken);
+                    if (currentToken && typeof window !== "undefined") {
                         // Send the token to your server and update the UI if necessary
                         // save the token in your database
                         localforage.setItem("fcm_token", currentToken);
-                        // console.log("fcm_token", currentToken);
+                        console.log("fcm_token", currentToken);
                     } else {
                         // Show permission request UI
                         console.log(
