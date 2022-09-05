@@ -91,11 +91,12 @@ export const AddSkillFormData: AddSkills = {
 };
 
 export const BookServiceFormData: BookNowFormProps = {
-    problemDescription: "",
-    startdate: null,
-    enddate: null,
+    description: "",
+    start_date: "",
+    end_date: "",
     time: 1,
-    image: "/services/s1.png",
+    images: [],
+    imagePreviewUrl: [],
     book_image: "",
 };
 
@@ -171,6 +172,7 @@ export const ChangePasswordFromData: changePasswordValueProps = {
 
 export const TaxCalculatorFormData: TaxCalculatorValueProps = {
     marital_status: "Unmarried",
+    gender: "Female",
     salary: 0,
     income_time: "Yearly",
     festival_bonus: 0,

@@ -6,7 +6,7 @@ import type { GetStaticProps } from "next";
 const TaskYouMayLike = () => {
     return (
         <>
-            <AppliedLayout type="you may like">
+            <AppliedLayout type={"you may like"}>
                 <MapboxMap />
             </AppliedLayout>
         </>

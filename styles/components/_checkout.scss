@@ -14,15 +14,15 @@
         border: none;
         padding: 1.2rem 0;
         @include transition();
-        &:hover{
+        &:hover {
             background-color: $secondary-color;
             color: #000;
         }
-        &:active{
+        &:active {
             background-color: $secondary-color;
         }
     }
-    #payment-message{
+    #payment-message {
         margin-top: 0.8rem;
         font-size: 1.4rem;
         color: #df1b41;

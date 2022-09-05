@@ -14,14 +14,21 @@ interface TaskAsideProps {
     children: ReactNode;
     appliedTasks: ITask[];
     query: string;
+    type?: string;
 }
-const TaskAside = ({ appliedTasks, query, children }: TaskAsideProps) => {
+const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
 
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
             <div key={task?.slug}>
-                <Link href={`/task/${task?.slug}`}>
+                <Link
+                    href={
+                        type === "you may like"
+                            ? `/task-you-may-like/${task?.slug}`
+                            : `/task/${task?.slug}`
+                    }
+                >
                     <a>
                         <TaskAppliedCard
                             title={task.title}

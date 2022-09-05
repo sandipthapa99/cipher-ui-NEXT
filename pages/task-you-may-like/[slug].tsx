@@ -4,8 +4,8 @@ import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
 const TaskDetail = () => {
     return (
         <>
-            <AppliedLayout type="you may like">
-                <AppliedTaskDetail />
+            <AppliedLayout type={"you may like"}>
+                <AppliedTaskDetail type={"you may like"} />
             </AppliedLayout>
         </>
     );

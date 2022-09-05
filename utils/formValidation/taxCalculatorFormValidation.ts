@@ -8,6 +8,7 @@ const numberUnrequiredValidate = Yup.number().typeError(
 );
 
 const maritalStatusValidate = Yup.mixed().oneOf(["Married", "Unmarried"]);
+const genderStatusValidate = Yup.mixed().oneOf(["Male", "Female"]);
 const incomeStatusValidate = Yup.mixed().oneOf(["Yearly", "Monthly"]);
 
 export const taxCalculatorSchema = Yup.object().shape({
@@ -18,6 +19,7 @@ export const taxCalculatorSchema = Yup.object().shape({
     income_time: incomeStatusValidate,
     pf: numberUnrequiredValidate,
     cit: numberUnrequiredValidate,
+    gender: genderStatusValidate,
     life_insurance: numberUnrequiredValidate,
     medical_insurance: numberUnrequiredValidate,
     others: numberUnrequiredValidate,
