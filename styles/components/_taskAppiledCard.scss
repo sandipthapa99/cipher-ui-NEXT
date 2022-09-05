@@ -5,6 +5,10 @@
     margin-bottom: 2.4rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
 
+    &[data-active="true"] {
+        background: #fff;
+    }
+
     &__header {
         .title {
             font-size: 1.3rem;
