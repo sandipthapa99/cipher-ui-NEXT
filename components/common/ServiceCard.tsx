@@ -150,6 +150,7 @@ const ServiceCard = ({
                 service_id={serviceCard?.id}
                 show={showModal}
                 handleClose={() => setShowModal(false)}
+                images={[]}
             />
         </div>
     );

@@ -1,14 +1,16 @@
 export interface BookNowModalCardProps {
-    service_id: string | undefined;
+    service_id?: string | undefined;
     title: string | undefined;
-    budget_from: number | string | undefined;
-    budget_to: number | string | undefined;
+    budget_from?: number | string | undefined;
+    budget_to?: number | string | undefined;
     description: string | undefined;
     show?: boolean;
     handleClose?: () => void;
-    budget_type: string;
+    budget_type?: string;
+    price?: number | string;
+    image?: string;
 
-    images: any[];
+    images?: any[];
 }
 
 export interface BookNowFormProps {

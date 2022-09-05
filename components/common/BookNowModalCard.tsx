@@ -160,7 +160,7 @@ const BookNowModalCard = ({
                                         ]);
 
                                         router.push({
-                                            pathname: "task/checkout",
+                                            pathname: "/task/checkout",
                                         });
                                     },
                                 });
