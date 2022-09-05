@@ -19,11 +19,11 @@ const RelatedInfoModal = ({
             {/* Modal component */}
             <Modal show={show} centered onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
-                    <Modal.Title>{title}</Modal.Title>
+                    <Modal.Title className="title pt-4">{title}</Modal.Title>
                 </Modal.Header>
 
                 <div className="modal-body-content">
-                    <div className="details">
+                    <div className="info details">
                         {desc.map((info, i) => (
                             <p key={i}>{info}</p>
                         ))}
