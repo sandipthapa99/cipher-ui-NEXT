@@ -19,6 +19,7 @@ import { axiosClient } from "utils/axiosClient";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+
 interface AddPortfolioModalProps {
     show?: boolean;
     id?: number;
@@ -140,6 +141,10 @@ const AddPortfolio = ({
                                       issued_date: parseISO(
                                           editDetails.issued_date
                                       ),
+                                      files: [],
+                                      images: [],
+                                      imagePreviewUrl: [],
+                                      pdfPreviewUrl: [],
                                   }
                                 : AddPortfolioFormData
                         }

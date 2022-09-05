@@ -72,16 +72,20 @@
 }
 
 .big-btn {
-    color: white;
+    color: black;
     height: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 0.2rem solid #211d4f;
     font: 400 1.4rem $poppins-font;
-
+    flex: 0.6;
     &:hover {
         color: white;
     }
+}
+.close-btn-mod {
+    flex: 0.6;
 }
 .task-price {
     flex: 1;

@@ -1,7 +1,9 @@
+import AuthenticationModalCard from "@components/AuthenticationModal";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import { Radio } from "@mantine/core";
 import { Form, Formik } from "formik";
 import { useSignup } from "hooks/auth/useSignup";
 import { useRouter } from "next/router";
@@ -19,6 +21,7 @@ import { isSubmittingClass } from "utils/helpers";
 const SignUpAsClient = () => {
     const { mutate, isLoading } = useSignup();
     const [enteredData, setEnteredData] = useState("email");
+    const [choosedValue, setChoosedValue] = useState("email");
 
     const getValidationSchema = () => {
         if (enteredData === "email") return clientEmailSignUpSchema;
@@ -35,6 +38,11 @@ const SignUpAsClient = () => {
         setFieldValue(fieldName, e.currentTarget.value);
     };
     const router = useRouter();
+
+    //for 2 factor modal
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+
     return (
         <OnBoardingLayout
             topLeftText="Already have an account ?"
@@ -71,9 +79,11 @@ const SignUpAsClient = () => {
                             { ...payloadValue() },
                             {
                                 onSuccess: async () => {
-                                    await router.push("/login");
+                                    // await router.push("/login");
+                                    setShow(true);
+
                                     toast.success(
-                                        "Please check your email for verification link"
+                                        `Please check your ${choosedValue} for verification link`
                                     );
                                 },
                                 onError: (error) => {
@@ -85,28 +95,52 @@ const SignUpAsClient = () => {
                 >
                     {({ isSubmitting, errors, touched, setFieldValue }) => (
                         <Form className="login-form">
-                            <InputField
-                                type="email"
-                                name="email"
-                                labelName="Email"
-                                onChange={(e) =>
-                                    handleFieldChange(e, "email", setFieldValue)
-                                }
-                                touch={touched.email}
-                                error={errors.email}
-                                placeHolder="example@example.com"
-                            />
-                            <InputField
-                                type="text"
-                                name="phone"
-                                labelName="Phone Number"
-                                onChange={(e) =>
-                                    handleFieldChange(e, "phone", setFieldValue)
-                                }
-                                touch={touched.phone}
-                                error={errors.phone}
-                                placeHolder="+9779805284906"
-                            />
+                            <div className="choose-email-or-phone mb-5">
+                                <Radio.Group
+                                    label="Please select one for Signup process Email Or Phone Number"
+                                    onChange={(value) => setChoosedValue(value)}
+                                    size="md"
+                                    defaultValue="email"
+                                >
+                                    <Radio value="email" label="Email" />
+                                    <Radio value="phone" label="Phone Number" />
+                                </Radio.Group>
+                            </div>
+                            {choosedValue === "email" ? (
+                                <InputField
+                                    type="email"
+                                    name="email"
+                                    labelName="Email"
+                                    onChange={(e) =>
+                                        handleFieldChange(
+                                            e,
+                                            "email",
+                                            setFieldValue
+                                        )
+                                    }
+                                    touch={touched.email}
+                                    error={errors.email}
+                                    placeHolder="example@example.com"
+                                />
+                            ) : (
+                                <InputField
+                                    type="text"
+                                    name="phone"
+                                    labelName="Phone Number"
+                                    onChange={(e) => {
+                                        console.log("values=", e.target.value);
+                                        handleFieldChange(
+                                            e,
+                                            "phone",
+                                            setFieldValue
+                                        );
+                                    }}
+                                    touch={touched.phone}
+                                    error={errors.phone}
+                                    placeHolder="+9779805284906"
+                                />
+                            )}
+
                             <PasswordField
                                 type="password"
                                 name="password"
@@ -181,7 +215,7 @@ const SignUpAsClient = () => {
                             <FormButton
                                 type="submit"
                                 variant="primary"
-                                name={isLoading ? "Loading..." : "Continue"}
+                                name={isLoading ? "Loading..." : "Sign Up"}
                                 className="login-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(
@@ -192,6 +226,7 @@ const SignUpAsClient = () => {
                     )}
                 </Formik>
             </div>
+            <AuthenticationModalCard show={show} handleClose={handleClose} />
         </OnBoardingLayout>
     );
 };

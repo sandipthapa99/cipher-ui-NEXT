@@ -66,19 +66,34 @@ PortfolioProps) => {
                             </Col>
                         </Row>
                     </div>
-                    <Carousel>
-                        {portfolioDetail?.images.map((image: any) => (
-                            <Carousel.Item key={image.id}>
-                                <Image
-                                    src={image.media}
-                                    alt="portfolio-img"
-                                    height={500}
-                                    objectFit="contain"
-                                    width={800}
-                                />
-                            </Carousel.Item>
-                        ))}
-                    </Carousel>
+                    {/* {portfolioDetail?.images.length > 1 ? (
+                        <Carousel>
+                            {portfolioDetail?.images.map((image: any) => (
+                                <Carousel.Item key={image.id}>
+                                    <Image
+                                        src={image.media}
+                                        alt="portfolio-img"
+                                        height={500}
+                                        objectFit="contain"
+                                        width={800}
+                                    />
+                                </Carousel.Item>
+                            ))}
+                        </Carousel>
+                    ) : (
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={
+                                    portfolioDetail?.images[0].media ??
+                                    "/userprofile/image.svg"
+                                }
+                                alt="portfolio-img"
+                                height={500}
+                                objectFit="contain"
+                                width={800}
+                            />
+                        </figure>
+                    )} */}
 
                     {/* <img
                         src="http://54.252.73.240:8014/tmedia/cipher/user/portfolio/womenBuis_ViZsyj2.png"

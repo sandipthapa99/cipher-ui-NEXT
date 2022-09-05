@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import type { TaskerDetail } from "types/tasks";
+import type { TaskerProps } from "types/taskerProps";
 
 interface AboutTasker {
-    taskerDetail: TaskerDetail;
+    taskerDetail: TaskerProps["result"][0];
 }
 
 export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
