@@ -9,9 +9,6 @@ export const AcceptReject = () => {
                     btnTitle={"Reject"}
                     backgroundColor={"#fff"}
                     textColor={"black"}
-                    handleClick={() =>
-                        alert("this feature is not available yet")
-                    }
                 />
             </div>
 
@@ -20,9 +17,6 @@ export const AcceptReject = () => {
                     btnTitle={"Accept"}
                     backgroundColor={"#211D4F"}
                     textColor={"white"}
-                    handleClick={() =>
-                        alert("this feature is not available yet")
-                    }
                 />
             </div>
         </div>
