@@ -72,7 +72,7 @@ const Home: NextPage<{
 
     const { data: recommendedTasksData } = useData<ITaskApiResponse>(
         ["all-tasks"],
-        "/task/"
+        "/task/?recommendation=you may like"
     );
     const [chips, setChips] = useState([
         "Garden Cleaner",
@@ -452,7 +452,7 @@ const Home: NextPage<{
             {/* Find & Hire section end */}
 
             {/* Horoscope section starts */}
-            <section
+            {/* <section
                 id="horoscope-slider-section"
                 className="horoscope-slider-section"
             >
@@ -460,7 +460,7 @@ const Home: NextPage<{
                     <h1 className="text-center">Horoscopes</h1>
                     <HoroscopeSlider />
                 </Container>
-            </section>
+            </section> */}
             {/* Horoscope section ends */}
 
             {/* Top Taksers Section Start */}
@@ -573,19 +573,25 @@ const Home: NextPage<{
                     </div>
                     <Row className="gx-5">
                         {recommendedTasksData?.data?.result?.map(
-                            (task: any, key: any) => (
+                            (task, key) => (
                                 <Col md={6} key={key}>
-                                    <TaskCard
-                                        title={task?.title}
-                                        id={task?.id}
-                                        charge={task?.charge}
-                                        description={task?.description}
-                                        location={task?.location}
-                                        start_date={task?.start_date}
-                                        start_time={task?.start_time}
-                                        status={task?.status}
-                                        currency={task?.currency}
-                                    />
+                                    <Link
+                                        href={`/task-you-may-like/${task.slug}`}
+                                    >
+                                        <a>
+                                            <TaskCard
+                                                title={task?.title}
+                                                id={task?.id}
+                                                charge={task?.charge}
+                                                description={task?.description}
+                                                location={task?.location}
+                                                start_date={task?.start_date}
+                                                start_time={task?.start_time}
+                                                status={task?.status}
+                                                currency={task?.currency}
+                                            />
+                                        </a>
+                                    </Link>
                                 </Col>
                             )
                         )}

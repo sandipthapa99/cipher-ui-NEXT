@@ -15,8 +15,11 @@ export interface ServiceNearYouCardProps {
     serviceProvider?: string;
     serviceProviderLocation?: string;
     serviceRating?: string | number;
-    servicePrice?: number;
+    budget_from?: string | number;
+    budget_to?: string | number;
+    budget_type?: string;
     haveDiscount?: boolean;
+    servicePrice?: string | number;
     discount?: number;
     serviceDescription?: string;
     discountOn?: string;

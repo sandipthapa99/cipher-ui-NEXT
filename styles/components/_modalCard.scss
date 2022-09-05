@@ -24,10 +24,17 @@
             font-size: 2rem;
             font-weight: 500;
         }
+
         .details {
             display: flex;
             flex-direction: column;
-
+            p {
+                font-weight: 400;
+                font-size: 1.5rem;
+                color: #495057;
+            }
+            font-weight: 400;
+            color: #495057;
             .title,
             .price {
                 margin-bottom: 1.8rem;
