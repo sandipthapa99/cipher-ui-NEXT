@@ -66,7 +66,7 @@ PortfolioProps) => {
                             </Col>
                         </Row>
                     </div>
-                    {portfolioDetail?.images.length > 1 ? (
+                    {/* {portfolioDetail?.images.length > 1 ? (
                         <Carousel>
                             {portfolioDetail?.images.map((image: any) => (
                                 <Carousel.Item key={image.id}>
@@ -93,7 +93,7 @@ PortfolioProps) => {
                                 width={800}
                             />
                         </figure>
-                    )}
+                    )} */}
 
                     {/* <img
                         src="http://54.252.73.240:8014/tmedia/cipher/user/portfolio/womenBuis_ViZsyj2.png"
