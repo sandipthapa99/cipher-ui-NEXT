@@ -31,6 +31,7 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { getReviews } from "services/commonServices";
 import { useSetBookNowDetails } from "store/use-book-now";
+import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 
@@ -127,6 +128,7 @@ const SearchResultsDetail = ({
         }>;
     }>(["my-service-packages"], "/task/service-package/");
 
+    const withLogin = useWithLogin();
     const router = useRouter();
     const servSlug = router.query.slug;
     const getSingleService = servicesData?.data?.result.filter(
@@ -267,7 +269,7 @@ const SearchResultsDetail = ({
                             <CardBtn
                                 btnTitle="Book Now"
                                 backgroundColor="#211D4F"
-                                handleClick={() => setShow(true)}
+                                handleClick={withLogin(() => setShow(true))}
                             />
                         </div>
                     </Col>
