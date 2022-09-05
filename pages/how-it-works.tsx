@@ -7,7 +7,6 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { AllCategoryCardContent } from "staticData/categoryCardContent";
-import { howItWorkContent } from "staticData/howTtWork";
 import { messageCard } from "staticData/messageCard";
 
 const HowItWorks: NextPage = () => {
