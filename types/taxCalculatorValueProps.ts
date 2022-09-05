@@ -1,5 +1,6 @@
 export interface TaxCalculatorValueProps {
     marital_status: string;
+    gender: string;
     salary: number | null;
     income_time: string;
     festival_bonus: number | null;
