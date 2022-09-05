@@ -91,11 +91,12 @@ export const AddSkillFormData: AddSkills = {
 };
 
 export const BookServiceFormData: BookNowFormProps = {
-    problemDescription: "",
-    startdate: null,
-    enddate: null,
+    description: "",
+    start_date: "",
+    end_date: "",
     time: 1,
-    image: "/services/s1.png",
+    images: [],
+    imagePreviewUrl: [],
     book_image: "",
 };
 
