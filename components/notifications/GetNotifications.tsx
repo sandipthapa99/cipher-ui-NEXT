@@ -1,6 +1,5 @@
 import "firebase/messaging";
 
-import { firebaseCloudMessaging } from "firebase/firebase";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
