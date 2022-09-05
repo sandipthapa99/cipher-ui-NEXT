@@ -7,6 +7,7 @@ import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
+import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
@@ -19,6 +20,18 @@ const Login = () => {
     const router = useRouter();
     const { mutate, isLoading } = useLogin();
     const [isPhoneNumber, setIsPhoneNumber] = useState(false);
+    const [fcm_token, setFcm_token] = useState("");
+    const FCM_TOKEN = localforage.getItem("fcmToken");
+
+    console.log("abc0", FCM_TOKEN);
+    const getFCMTOKEN = async () => {
+        const token = await localforage.getItem("fcm_token");
+        return token;
+    };
+    const token = getFCMTOKEN();
+
+    token.then((res) => res).then((data: any) => setFcm_token(data));
+    console.log("FCM_TOKEN", fcm_token);
 
     const handleChange = (
         event: ChangeEvent<HTMLInputElement>,
