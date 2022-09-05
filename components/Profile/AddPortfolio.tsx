@@ -3,12 +3,13 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MultiImageDropzone from "@components/common/MultiImageDropzone";
 import MultiPdfFileDropzone from "@components/common/MultiPdfFileDropzone";
+import { createStyles, LoadingOverlay } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import type { Dispatch, SetStateAction } from "react";
-import { useState } from "react";
+import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -29,22 +30,16 @@ interface EditDetailProps {
     data: { result: AddPortfolioProps[] };
 }
 const useUploadImage = () =>
-    useMutation<number[] | null, AxiosError, FormData>((formData) =>
+    useMutation<number[], AxiosError, FormData>((formData) =>
         axiosClient
             .post<{ data: number[] }>("/task/filestore/", formData)
-            .then((res) => {
-                if (res.data.data) return res.data.data;
-                return null;
-            })
+            .then((res) => res.data.data)
     );
 const useUploadFile = () =>
-    useMutation<number[] | null, AxiosError, FormData>((formData) =>
+    useMutation<number[], AxiosError, FormData>((formData) =>
         axiosClient
             .post<{ data: number[] }>("/task/filestore/", formData)
-            .then((res) => {
-                if (res.data.data) return res.data.data;
-                return null;
-            })
+            .then((res) => res.data.data)
     );
 const useCreatePortfolio = () =>
     useMutation<string, AxiosError, any>((payload) =>
@@ -60,25 +55,81 @@ const AddPortfolio = ({
     id,
     isEditProfile,
 }: AddPortfolioModalProps) => {
-    const { mutate: createPortfolioMutation } = useCreatePortfolio();
+    const { classes } = useStyles();
+    const queryClient = useQueryClient();
+    const {
+        mutate: createPortfolioMutation,
+        isLoading: createPortfolioLoading,
+    } = useCreatePortfolio();
     const { mutate: uploadImageMutation, isLoading: uploadImageLoading } =
         useUploadImage();
     const { mutate: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
 
-    const queryClient = useQueryClient();
+    const loadingOverlayVisible = useMemo(
+        () => createPortfolioLoading || uploadImageLoading || uploadFileLoading,
+        [createPortfolioLoading, uploadFileLoading, uploadImageLoading]
+    );
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-portfolio",
     ]);
-    const [imageId, setImageId] = useState<number[]>([]);
-    const [fileId, setfileId] = useState<number[]>([]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
+
+    const uploadImage = (images: any[]) => {
+        return new Promise<number[]>((resolve, reject) => {
+            if (images && images.length > 0) {
+                const imageFormData = new FormData();
+                for (const image of images) {
+                    imageFormData.append("medias", image);
+                    imageFormData.append("media_type", "image");
+                    imageFormData.append("placeholder", "image");
+                }
+                uploadImageMutation(imageFormData, {
+                    onSuccess: (fileIds) => resolve(fileIds),
+                    onError: () => reject(),
+                });
+            }
+        });
+    };
+    const uploadFile = (files: any[]) => {
+        return new Promise<number[] | null>((resolve, reject) => {
+            if (files && files.length > 0) {
+                const fileFormData = new FormData();
+                for (const file of files) {
+                    fileFormData.append("medias", file);
+                    fileFormData.append("media_type", "pdf");
+                    fileFormData.append("placeholder", "file");
+                    uploadFileMutation(fileFormData, {
+                        onSuccess: (imageIds) => resolve(imageIds),
+                        onError: () => reject(),
+                    });
+                }
+            }
+        });
+    };
+    const uploadPortfolio = <T,>(payload: T) => {
+        createPortfolioMutation(payload, {
+            onSuccess: (message) => {
+                toast.success(message);
+                setShowAddPortfolioModal(false);
+                queryClient.invalidateQueries(["tasker-portfolio"]);
+            },
+        });
+    };
+    if (loadingOverlayVisible)
+        return (
+            <LoadingOverlay
+                visible={loadingOverlayVisible}
+                className={classes.overlay}
+                overlayBlur={2}
+            />
+        );
     return (
         <div>
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
-                <Modal.Header closeButton></Modal.Header>
+                <Modal.Header closeButton />
                 <div className="modal-body-content">
                     <h3>Add Portfolio</h3>
                     <Formik
@@ -94,72 +145,53 @@ const AddPortfolio = ({
                         }
                         validationSchema={addPortfolioSchema}
                         onSubmit={async (values) => {
-                            const imageFormData = new FormData();
-                            const fileFormData = new FormData();
-
-                            if (values.images) {
-                                for (const image of values.images) {
-                                    imageFormData.append("medias", image);
-                                    imageFormData.append("media_type", "image");
-                                    imageFormData.append(
-                                        "placeholder",
-                                        "image"
-                                    );
-                                }
-                                uploadImageMutation(imageFormData, {
-                                    onSuccess: (imageIds) => {
-                                        console.log("Image ids are", imageIds);
-                                        if (imageIds) setImageId(imageIds);
-                                    },
-                                });
+                            const issued_date = format(
+                                new Date(values.issued_date),
+                                "yyyy-MM-dd"
+                            );
+                            const addPortfolioPayload = {
+                                ...values,
+                                issued_date,
+                            };
+                            if (
+                                values.files.length > 0 &&
+                                values.images.length > 0
+                            ) {
+                                const imageIds = await uploadImage(
+                                    values.images
+                                );
+                                const fileIds = await uploadFile(values.files);
+                                const portfolioPayloadWithImageAndFile = {
+                                    ...addPortfolioPayload,
+                                    images: imageIds,
+                                    files: fileIds,
+                                };
+                                uploadPortfolio(
+                                    portfolioPayloadWithImageAndFile
+                                );
+                                return;
                             }
-                            if (values.files) {
-                                for (const file of values.files) {
-                                    fileFormData.append("medias", file);
-                                    fileFormData.append("media_type", "pdf");
-                                    fileFormData.append("placeholder", "file");
-                                }
-                                uploadFileMutation(fileFormData, {
-                                    onSuccess: (fileIds) => {
-                                        console.log("File ids are", fileIds);
-                                        if (fileIds) setfileId(fileIds);
-                                    },
-                                });
+                            if (values.images && values.images.length > 0) {
+                                const imageIds = await uploadImage(
+                                    values.images
+                                );
+                                const portfolioPayloadWithImage = {
+                                    ...addPortfolioPayload,
+                                    images: imageIds,
+                                };
+                                uploadPortfolio(portfolioPayloadWithImage);
+                                return;
                             }
-                            (function wait() {
-                                let timeoutId: NodeJS.Timeout | undefined =
-                                    undefined;
-                                if (!uploadFileLoading && !uploadImageLoading) {
-                                    const issuedDate = format(
-                                        new Date(values.issued_date),
-                                        "yyyy-MM-dd"
-                                    );
-                                    const addPortfolioPayload = {
-                                        ...values,
-                                        issued_date: issuedDate,
-                                        images: imageId,
-                                        files: fileId,
-                                    };
-
-                                    createPortfolioMutation(
-                                        addPortfolioPayload,
-                                        {
-                                            onSuccess: (message) => {
-                                                toast.success(message);
-                                                queryClient.invalidateQueries([
-                                                    "tasker-portfolio",
-                                                ]);
-                                                setShowAddPortfolioModal(false);
-                                                setImageId([]);
-                                                setfileId([]);
-                                            },
-                                        }
-                                    );
-                                    if (timeoutId) clearTimeout(timeoutId);
-                                } else {
-                                    timeoutId = setTimeout(wait, 100);
-                                }
-                            })();
+                            if (values.files && values.files.length > 0) {
+                                const fileIds = await uploadFile(values.files);
+                                const portfolioPayloadWithFile = {
+                                    ...addPortfolioPayload,
+                                    files: fileIds,
+                                };
+                                uploadPortfolio(portfolioPayloadWithFile);
+                                return;
+                            }
+                            uploadPortfolio(addPortfolioPayload);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
@@ -271,4 +303,11 @@ const AddPortfolio = ({
         </div>
     );
 };
+const useStyles = createStyles(() => ({
+    overlay: {
+        postion: "fixed",
+        inset: 0,
+        zIndex: 9999,
+    },
+}));
 export default AddPortfolio;
