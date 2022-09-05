@@ -79,30 +79,33 @@ const RelatedInfo = () => {
     const [modalId, setModalId] = useState(0);
 
     const handleModalClick = (id: number) => {
-        setShow(true);
         setModalId(id);
-        console.log("iid--->", id);
+        setShow(true);
     };
+
+    const modalData = TaxIncomeData.find((item) => item.id == modalId);
     return (
-        <div className="tax-card-block">
+        <div className="related-card-block">
             <Row>
                 <Col md={6}>
                     <h2>Related Information</h2>
                     {TaxIncomeData.map((info, i) => (
                         <div key={info.id}>
-                            <p onClick={() => handleModalClick(info.id)}>
+                            <p
+                                onClick={() => {
+                                    handleModalClick(info.id);
+                                }}
+                            >
                                 {info.item}
                             </p>
-                            {modalId !== i ?? (
-                                <RelatedInfoModal
-                                    title={info.modal}
-                                    desc={info.content}
-                                    show={show}
-                                    handleClose={handleClose}
-                                />
-                            )}
                         </div>
                     ))}
+                    <RelatedInfoModal
+                        title={modalData ? modalData?.item : ""}
+                        desc={modalData ? modalData.content : []}
+                        show={show}
+                        handleClose={handleClose}
+                    />
                 </Col>
             </Row>
         </div>
