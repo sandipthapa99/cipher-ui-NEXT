@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Modal } from "@mantine/core";
 import { format } from "date-fns";
 import { useLocation } from "hooks/location/useLocation";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -32,6 +33,7 @@ const Header = () => {
 
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
+    const [rasifal, setRasifal] = useState(false);
     const { data: profileDetails } = useGetProfile();
 
     return (
@@ -131,6 +133,17 @@ const Header = () => {
                                 {date}
                             </a>
                         </Link>
+
+                        <Link href="#!">
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ margin: "0 1.6rem 0 1.6rem" }}
+                                onClick={() => setRasifal(true)}
+                            >
+                                Rasifal
+                            </a>
+                        </Link>
+
                         {/* {location && (
                             <Link href="#!">
                                 <a

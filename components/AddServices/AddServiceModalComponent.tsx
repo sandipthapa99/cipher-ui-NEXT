@@ -312,12 +312,26 @@ export const AddServiceModalComponent = () => {
                                 )}
 
                                 <Col md={4}>
-                                    <SelectInputField
+                                    {/* <SelectInputField
                                         name="budget_type"
-                                        placeHolder="Choose budget type"
+                                        placeHolder="Fixed"
                                         options={BudgetType}
                                         error={errors.budget_type}
                                         touch={touched.budget_type}
+                                    /> */}
+                                    <Select
+                                        placeholder="Pick one"
+                                        name="category"
+                                        searchable
+                                        nothingFound="No options"
+                                        value={serviceCategory}
+                                        onChange={(value) =>
+                                            handleCategoryChanged(
+                                                value,
+                                                setFieldValue
+                                            )
+                                        }
+                                        data={renderCategoryOptions ?? []}
                                     />
                                 </Col>
                             </Row>

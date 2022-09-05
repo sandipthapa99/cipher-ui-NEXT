@@ -125,7 +125,7 @@ export const PostTaskModal = () => {
                 overlayBlur={3}
                 opened={showPostTaskModal}
                 onClose={toggleShowPostTaskModal}
-                title="Post a Task or Service"
+                title="Post Task/Service"
                 size="xl"
             >
                 <div className="choose-email-or-phone mb-5">
