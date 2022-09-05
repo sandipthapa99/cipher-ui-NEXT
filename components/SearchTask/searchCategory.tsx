@@ -8,6 +8,7 @@ import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 interface SearchCategoryProps {
     onChange?: (text: string) => void;
     getOption?: (value: string | undefined) => void;
+    type?: string;
 }
 const DUMMY_DATA = [
     {
@@ -30,6 +31,7 @@ const DUMMY_DATA = [
 export const SearchCategory = ({
     onChange,
     getOption,
+    type,
 }: SearchCategoryProps) => {
     const [activeIndex, setActiveIndex] = useState<number>();
     const [selected, setSelected] = useState(false);
@@ -118,7 +120,7 @@ export const SearchCategory = ({
                 </Col>
                 <Col md={8}>
                     <div className="d-flex categories-tab pl-2">
-                        {renderCategory}
+                        {type !== "you may like" && renderCategory}
                     </div>
                     {/* {renderCategory} */}
                 </Col>

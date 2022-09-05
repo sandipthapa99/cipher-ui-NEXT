@@ -6,7 +6,10 @@ type CustomFunction = () => void;
 interface LoginPromptStore {
     showPrompt: boolean;
     hidePrompt: () => void;
-    withLogin: (_function: CustomFunction) => CustomFunction;
+    withLogin: (
+        _function: CustomFunction,
+        notLoggedInFunction?: CustomFunction
+    ) => CustomFunction;
 }
 
 export const loginPromptStore = createStore<LoginPromptStore>((set) => {
@@ -16,10 +19,10 @@ export const loginPromptStore = createStore<LoginPromptStore>((set) => {
     return {
         showPrompt: false,
         hidePrompt: () => set((state) => ({ ...state, showPrompt: false })),
-        withLogin: (_function) => {
+        withLogin: (_function, notLoggedInFunction) => {
             //! temporary workground untill zustand@4 releases proper docs
             const user = Cookies.get("access");
-            return user ? _function : showLoginPrompt;
+            return user ? _function : notLoggedInFunction ?? showLoginPrompt;
         },
     };
 });

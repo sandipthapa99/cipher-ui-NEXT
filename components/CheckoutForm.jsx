@@ -82,6 +82,7 @@ export default function CheckoutForm() {
 
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
+            <h1>Card Information</h1>
             <PaymentElement id="payment-element" />
             <button
                 disabled={isLoading || !stripe || !elements}

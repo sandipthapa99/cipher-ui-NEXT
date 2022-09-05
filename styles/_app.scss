@@ -663,3 +663,11 @@ small.text-muted {
         top: 15rem;
     }
 }
+
+.search-input {
+    &:focus {
+        outline: none !important;
+        border-color: $secondary-color;
+        box-shadow: 0 0 6px $secondary-color;
+    }
+}

@@ -51,7 +51,11 @@
 
         .file {
             border: 0.1rem solid $border-color;
-
+            border-radius: 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0rem;
             .file-img {
                 width: 8rem;
                 height: 8rem;
@@ -59,7 +63,6 @@
             }
         }
         .file-name {
-            padding-top: 1rem;
             color: $sub-title-color;
             font-weight: 500;
         }

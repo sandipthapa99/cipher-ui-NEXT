@@ -78,12 +78,7 @@ export const CheckoutModal = ({ show, onHide }: props) => {
                     <div className="grand-total">
                         <p>Grand Total:</p>
                         {bookNowDetails?.servicePrice && (
-                            <p>
-                                Rs.{" "}
-                                {bookNowDetails?.servicePrice +
-                                    serviceCharge +
-                                    GST}
-                            </p>
+                            <p>Rs. {bookNowDetails?.servicePrice}</p>
                         )}
                     </div>
                 </div>

@@ -84,7 +84,7 @@ PortfolioProps) => {
                         <figure className="thumbnail-img">
                             <Image
                                 src={
-                                    portfolioDetail?.images[0].media ??
+                                    portfolioDetail?.images[0]?.media ??
                                     "/userprofile/image.svg"
                                 }
                                 alt="portfolio-img"
@@ -116,17 +116,14 @@ PortfolioProps) => {
                             <Row>
                                 {portfolioDetail.files &&
                                     portfolioDetail.files.map(
-                                        (file: string, i: number) => (
-                                            <Col md={2} sm={4} key={i}>
+                                        (file: any, i: number) => (
+                                            <Col md={3} sm={4} key={i}>
                                                 <div className="file">
                                                     <br />
 
                                                     <a
                                                         target="_blank"
-                                                        href={
-                                                            portfolioDetail
-                                                                ?.files[0].media
-                                                        }
+                                                        href={file.media}
                                                         rel="noreferrer"
                                                     >
                                                         <figure className="file-img">
@@ -140,17 +137,20 @@ PortfolioProps) => {
                                                             />
                                                         </figure>
                                                     </a>
+                                                </div>
+                                                <br />
 
-                                                    <br />
+                                                <div className="file-name py-2 px-2">
+                                                    {file.name.substring(
+                                                        file.name.indexOf(
+                                                            "/media/"
+                                                        ) + 7
+                                                    )}
                                                 </div>
                                             </Col>
                                         )
                                     )}
                             </Row>
-
-                            <div className="file-name">
-                                {portfolioDetail?.title}.pdf
-                            </div>
                         </>
                     ) : null}
                 </div>

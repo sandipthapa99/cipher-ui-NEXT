@@ -19,7 +19,9 @@ const ServicesDetail = ({
             <ServiceLayout>
                 <SearchResultsDetail
                     image={service?.images}
-                    servicePrice={service?.budget_from ?? ""}
+                    budget_from={service?.budget_from}
+                    budget_to={service?.budget_to}
+                    budget_type={service?.budget_type}
                     serviceProvider={service?.created_by?.full_name ?? ""}
                     serviceProviderLocation={service?.location ?? ""}
                     serviceDescription={service?.description ?? ""}

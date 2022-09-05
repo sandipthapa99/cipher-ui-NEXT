@@ -1,6 +1,5 @@
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { Tab } from "@components/common/Tab";
-import TaskCard from "@components/common/TaskCard";
 import Post from "@components/PostTask/Post";
 import { Recent } from "@components/user/Recent";
 import { Recommended } from "@components/user/Recommended";
@@ -9,22 +8,20 @@ import {
     faMagnifyingGlass,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { QueryClient } from "@tanstack/react-query";
+import { Popover } from "@mantine/core";
+import { useMyTasks } from "hooks/task/use-my-tasks";
 import { useData } from "hooks/use-data";
 import { useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import { progressTask, taskHistory } from "staticData/task";
-import type { RecentProps, ServicesValueProps } from "types/serviceCard";
+import type { ServicesValueProps } from "types/serviceCard";
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const [showInput, setShowInput] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+    const [_, setShowModal] = useState(false);
+    const { data: myTasks } = useMyTasks();
     const RenderInputBox = () => {
         return (
             <input
                 type="text"
-                className="input"
-                //value={search_category}
+                className="h-100 w-100 search-input border-warning"
                 placeholder="search"
             />
         );
@@ -33,76 +30,75 @@ const SearchBySort = () => {
         ["all-services"],
         "/task/service/"
     );
-    const { data: myTasks } = useData<RecentProps>(
-        ["my-tasks"],
-        "/task/my-task"
-    );
-    console.log("dsfsdf0", myTasks);
 
     return (
-        <Row className="recommended-tab">
-            {/* <div className="tabs"> */}
-            <Col md={12} className="recomended">
-                <Tab
-                    activeIndex={activeTabIdx}
-                    onTabClick={setActiveTabIdx}
-                    items={[
-                        {
-                            title: "Recommended",
-                            content: <Recommended />,
-                        },
-                        {
-                            title: "Recent",
-                            content:
-                                myTasks?.data?.result?.length === 0 ? (
-                                    <Post />
-                                ) : myTasks ? (
-                                    <Recent recentTask={myTasks} />
-                                ) : null,
-                        },
-                        {
-                            title: "In Progress",
-                            content: <Recommended />,
-                        },
-                        {
-                            title: "History",
-                            content: <Recommended />,
-                        },
-                        {
-                            title: "Draft",
-                            content: <Recommended />,
-                        },
-                    ]}
-                    icons={[
-                        {
-                            index: 0,
-                            type: (
+        <>
+            <Tab
+                activeIndex={activeTabIdx}
+                onTabClick={setActiveTabIdx}
+                items={[
+                    {
+                        title: "Recommended",
+                        content: <Recommended />,
+                    },
+                    {
+                        title: "Recent",
+                        content:
+                            myTasks?.result?.length === 0 ? (
+                                <Post />
+                            ) : (
+                                <Recent />
+                            ),
+                    },
+                    {
+                        title: "In Progress",
+                        content: <Recommended />,
+                    },
+                    {
+                        title: "History",
+                        content: <Recommended />,
+                    },
+                    {
+                        title: "Draft",
+                        content: <Recommended />,
+                    },
+                ]}
+                icons={[
+                    {
+                        index: 0,
+                        type: (
+                            <Popover width={300} trapFocus position="bottom">
+                                <Popover.Target>
+                                    <button className="btn">
+                                        <FontAwesomeIcon
+                                            icon={faMagnifyingGlass}
+                                            className="svg-icon"
+                                        />
+                                    </button>
+                                </Popover.Target>
+                                <Popover.Dropdown>
+                                    <RenderInputBox />
+                                </Popover.Dropdown>
+                            </Popover>
+                        ),
+                    },
+                    {
+                        index: 1,
+                        type: (
+                            <EllipsisDropdown
+                                showModal={true}
+                                handleOnClick={() => setShowModal(true)}
+                            >
                                 <FontAwesomeIcon
-                                    icon={faMagnifyingGlass}
+                                    icon={faFilterList}
                                     className="svg-icon"
-                                    onClick={() => setShowInput(!showInput)}
                                 />
-                            ),
-                            iconContent: showInput ? <RenderInputBox /> : null,
-                        },
-                        {
-                            index: 1,
-                            type: (
-                                <EllipsisDropdown
-                                    showModal={true}
-                                    handleOnClick={() => setShowModal(true)}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faFilterList}
-                                        className="svg-icon"
-                                    />
-                                </EllipsisDropdown>
-                            ),
-                        },
-                    ]}
-                />
-            </Col>
-        </Row>
+                            </EllipsisDropdown>
+                        ),
+                    },
+                ]}
+            />
+        </>
     );
 };
 export default SearchBySort;

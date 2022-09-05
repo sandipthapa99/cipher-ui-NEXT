@@ -20,6 +20,8 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
+import { firebaseCloudMessaging } from "../firebase/firebase";
+
 // import { getFirebaseToken, onMessageListener } from "../utils/firebase";
 
 interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
@@ -43,6 +45,22 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 },
             })
     );
+    const [mounted, setMounted] = useState(false);
+    if (mounted) {
+        firebaseCloudMessaging.onMessage();
+    }
+    useEffect(() => {
+        firebaseCloudMessaging.init();
+        const setToken = async () => {
+            const token = await firebaseCloudMessaging.tokenInlocalforage();
+            if (token) {
+                setMounted(true);
+                // not working
+            }
+        };
+        const result = setToken();
+        console.log("result", result);
+    }, []);
     // useEffect(() => {
     //     setToken();
 
