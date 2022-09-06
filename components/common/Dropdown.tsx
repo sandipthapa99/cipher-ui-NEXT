@@ -11,7 +11,6 @@ import { randNumber } from "utils/randNumber";
 interface DropdownProps {
     children?: ReactNode;
 }
-
 export const Dropdown = ({ children }: DropdownProps) => {
     const [menu, setMenu] = useState<DropdownSubMenu>([]); //available menu
     const [subMenu, setSubMenu] = useState<DropdownSubMenu>([]);
@@ -93,13 +92,9 @@ export const Dropdown = ({ children }: DropdownProps) => {
                     key={index}
                     className="dropdown-menu-items d-flex justify-space-between"
                 >
-                    <Link href="#!">
+                    <Link href={`/category/${menu}`}>
                         <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
                     </Link>
-                    <FontAwesomeIcon
-                        icon={faChevronRight}
-                        className="svg-icon"
-                    />
                 </li>
             );
         }
