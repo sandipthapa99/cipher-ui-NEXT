@@ -222,6 +222,7 @@ export const AddServiceModalComponent = () => {
                 {({ setFieldValue, errors, touched, isSubmitting }) => (
                     <>
                         <Form>
+                            <pre>{JSON.stringify(errors, null, 4)}</pre>
                             <InputField
                                 labelName="Title"
                                 placeHolder="service title"
@@ -298,7 +299,7 @@ export const AddServiceModalComponent = () => {
                                     />
                                 </Col>
                                 {showVariable.showBudget && (
-                                    <Col md={4}>
+                                    <Col md={4} classNam="mt-2">
                                         <InputField
                                             type="text"
                                             name="budget_to"
@@ -320,18 +321,13 @@ export const AddServiceModalComponent = () => {
                                         touch={touched.budget_type}
                                     /> */}
                                     <Select
-                                        placeholder="Pick one"
-                                        name="category"
-                                        searchable
-                                        nothingFound="No options"
-                                        value={serviceCategory}
+                                        placeholder="Fixed"
+                                        name="budget_type"
+                                        data={BudgetType ?? []}
+                                        defaultValue="Fixed"
                                         onChange={(value) =>
-                                            handleCategoryChanged(
-                                                value,
-                                                setFieldValue
-                                            )
+                                            setFieldValue("budget_type", value)
                                         }
-                                        data={renderCategoryOptions ?? []}
                                     />
                                 </Col>
                             </Row>
