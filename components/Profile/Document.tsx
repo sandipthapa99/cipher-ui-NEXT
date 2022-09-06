@@ -8,25 +8,19 @@ import type { UserProfileProps } from "types/userProfileProps";
 const UserDocument = () => {
     // const [fileName, setFileName] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);
-    const onButtonClick = () => {
-        inputRef?.current?.click();
-    };
+
     // const { data } = useGetDocument();
     // const documents = data?.data?.result;
     const { data: documents } = useData<UserProfileProps["documentData"]>(
         ["tasker-document"],
         "/tasker/kyc-document"
     );
-    console.log("tsa document", documents);
     // const { mutate, isLoading, data: Document } = usePostDocument();
 
     return (
         <div className="user-document">
             <div className="title-wrapper d-flex justify-content-between">
                 <h1>My Documents</h1>
-                {/* <a href="#!" onClick={() => onButtonClick()}>
-                    Add New
-                </a> */}
             </div>
             <div className="content">
                 <Row>
