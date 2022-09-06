@@ -1,7 +1,8 @@
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
-import { Skeleton } from "@mantine/core";
+import { Skeleton, Space } from "@mantine/core";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
 import Scrollbars from "react-custom-scrollbars";
 import type { TaskerProps } from "types/taskerProps";
@@ -12,23 +13,9 @@ interface TaskerAsideProps {
     query: string;
     isLoading: boolean;
 }
-const TaskerAside = ({
-    tasker,
-    query,
-    children,
-    isLoading,
-}: TaskerAsideProps) => {
+const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
     const totalAppliedTasks = tasker?.length;
     const renderTaskCards = tasker?.map((tasker, key) => {
-        if ((!query && totalAppliedTasks === 0) || isLoading)
-            return (
-                <div className="mantine-Skeleton mb-5 p-5">
-                    <Skeleton height={50} circle mb="xl" />
-                    <Skeleton height={8} radius="xl" />
-                    <Skeleton height={8} mt={6} radius="xl" />
-                    <Skeleton height={8} mt={6} width="70%" radius="xl" />
-                </div>
-            );
         return (
             <div key={key}>
                 <Link href={`/tasker/${tasker?.user?.id}`}>
@@ -65,17 +52,57 @@ const TaskerAside = ({
             <Row>
                 <Col md={4}>
                     <Scrollbars autoHide style={{ height: 700 }}>
-                        {query && totalAppliedTasks > 0 ? (
-                            <p className="search-results-text">
-                                {`${totalAppliedTasks} service matching ${query} found`}
-                            </p>
-                        ) : null}
-                        {query && totalAppliedTasks === 0 ? (
-                            <p className="search-results-text">
-                                No services matching {query} found
-                            </p>
-                        ) : null}
-                        {renderTaskCards}
+                        <>
+                            {query && totalAppliedTasks > 0 ? (
+                                <p className="search-results-text">
+                                    {`${totalAppliedTasks} service matching ${query} found`}
+                                </p>
+                            ) : null}
+
+                            {!query && totalAppliedTasks === 0 ? (
+                                <Fragment>
+                                    {Array.from({ length: 3 }).map((_, key) => (
+                                        <div
+                                            className="mantine-Skeleton mb-5 p-5"
+                                            key={key}
+                                        >
+                                            <div className="d-flex justify-content-between">
+                                                <Skeleton
+                                                    height={60}
+                                                    circle
+                                                    mb="xl"
+                                                />
+                                                <Skeleton
+                                                    height={60}
+                                                    width="70%"
+                                                    mb="xl"
+                                                />
+                                            </div>
+                                            <Space h={5} />
+                                            <Skeleton
+                                                height={20}
+                                                mt={6}
+                                                width="70%"
+                                                radius="xl"
+                                            />
+                                            <Space h={20} />
+                                            <Skeleton
+                                                height={30}
+                                                mt={6}
+                                                radius="xl"
+                                            />
+                                        </div>
+                                    ))}
+                                </Fragment>
+                            ) : (
+                                renderTaskCards
+                            )}
+                            {query && totalAppliedTasks === 0 ? (
+                                <p className="search-results-text">
+                                    No services matching {query} found
+                                </p>
+                            ) : null}
+                        </>
                     </Scrollbars>
                 </Col>
                 <Col md={8}>{children}</Col>

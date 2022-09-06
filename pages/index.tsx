@@ -26,7 +26,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Grid, Skeleton, Space } from "@mantine/core";
+import { Divider, Grid, Skeleton, Space } from "@mantine/core";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useTaskers } from "hooks/tasker/use-tasker";
@@ -562,14 +562,14 @@ const Home: NextPage<{
                                             mt={6}
                                             radius="xl"
                                         />
-                                        <hr />
+                                        <Divider my={"sm"} color="#F1F3F5" />
                                         <Skeleton
                                             height={50}
                                             mt={6}
                                             width="70%"
                                             radius="xl"
                                         />
-                                        <hr />
+                                        <Divider my={"sm"} color="#F1F3F5" />
                                         <Skeleton
                                             height={8}
                                             mt={6}

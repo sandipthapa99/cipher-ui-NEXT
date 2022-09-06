@@ -1,9 +1,10 @@
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Skeleton } from "@mantine/core";
+import { Alert, Divider, Skeleton } from "@mantine/core";
 import { format } from "date-fns";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
 import Scrollbars from "react-custom-scrollbars";
 import type { ITask } from "types/task";
@@ -27,15 +28,6 @@ const TaskAside = ({
     const totalAppliedTasks = appliedTasks?.length;
 
     const renderTaskCards = appliedTasks?.map((task) => {
-        if ((!query && appliedTasks?.length === 0) || isLoading)
-            return (
-                <div className="mantine-Skeleton mb-5 p-5">
-                    <Skeleton height={50} circle mb="xl" />
-                    <Skeleton height={8} radius="xl" />
-                    <Skeleton height={8} mt={6} radius="xl" />
-                    <Skeleton height={8} mt={6} width="70%" radius="xl" />
-                </div>
-            );
         return (
             <div key={task?.slug}>
                 <Link
@@ -80,7 +72,51 @@ const TaskAside = ({
                                 No services matching {query} found
                             </p>
                         ) : null}
-                        {renderTaskCards}
+                        {!query && totalAppliedTasks === 0 ? (
+                            <Fragment>
+                                {Array.from({ length: 4 }).map((_, key) => (
+                                    <div
+                                        className="mantine-Skeleton mb-5 p-5"
+                                        key={key}
+                                    >
+                                        <div className="d-flex justify-content-between mb-3">
+                                            <Skeleton
+                                                height={50}
+                                                width={"20%"}
+                                                mt={6}
+                                            />
+                                            <Skeleton
+                                                height={20}
+                                                mt={6}
+                                                radius="xl"
+                                                width={"60%"}
+                                            />
+                                        </div>
+                                        <Skeleton
+                                            height={20}
+                                            mt={6}
+                                            radius="xl"
+                                            width={"40%"}
+                                            className="mb-3"
+                                        />
+                                        <Skeleton
+                                            height={20}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Divider my={"xl"} color="#F1F3F5" />
+                                        <Skeleton
+                                            height={20}
+                                            mt={6}
+                                            width={"60%"}
+                                            radius="xl"
+                                        />
+                                    </div>
+                                ))}
+                            </Fragment>
+                        ) : (
+                            renderTaskCards
+                        )}
                         {!query && appliedTasks?.length === 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
