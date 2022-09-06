@@ -20,11 +20,14 @@ const numReqOnly = Yup.number().required("Required field");
 const schema = Yup.object().shape({
     code: numReqOnly,
 });
+
 const AuthenticationModalCard = ({
     handleClose,
     show,
 }: AuthenticationModalCardProps) => {
     const router = useRouter();
+    // const { mutate } = useForm(`/tasker/experience/`);
+
     return (
         <>
             {/* Modal component */}
@@ -40,7 +43,7 @@ const AuthenticationModalCard = ({
                         validationSchema={schema}
                         onSubmit={async (values) => {
                             console.log(values);
-                            await router.push("task/checkout");
+
                             // setBookNowDetails((prev) => ({
                             //     ...prev,
                             //     ...values,

@@ -32,6 +32,8 @@ const PortfolioDetails = ({
     const [isEditProfile, setIsEditProfile] = useState(false);
 
     const { data: portfolioDetail } = useGetPortfolioById(id);
+    console.log("profsd", portfolioDetail);
+
     return (
         <div className="portfolio-details">
             {/* Modal component */}
