@@ -5,17 +5,26 @@ import React, { useState } from "react";
 export type TaskType = "remote" | "onPremise";
 interface SelectTaskTypeProps extends TextInputProps {
     onTypeChange: (type: TaskType) => void;
+    setFieldValue: (
+        field: string,
+        value: any,
+        shouldValidate?: boolean
+    ) => void;
 }
 export const SelectTaskType = ({
+    setFieldValue,
     onTypeChange,
     ...rest
 }: SelectTaskTypeProps) => {
     const [taskType, setTaskType] = useState<TaskType>("remote");
 
     const handleTaskTypeChange = (value: TaskType) => {
+        setFieldValue("taskTypeRadio", value);
         setTaskType(value);
         if (value === "remote") {
             onTypeChange("remote");
+        } else {
+            setFieldValue("location", "");
         }
     };
     return (

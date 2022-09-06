@@ -1,6 +1,7 @@
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
+import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { BudgetType } from "@components/Task/PostTaskModal/TaskBudget";
@@ -21,9 +22,11 @@ import {
     Title,
 } from "@mantine/core";
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/task/use-post-task";
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import {
@@ -36,6 +39,7 @@ export interface PostTaskPayload {
     description: string;
     requirements: string;
     category: string;
+    city: string;
     location: TaskType;
     currency: string;
     budget_type: BudgetType;
@@ -54,59 +58,69 @@ export interface PostTaskPayload {
 }
 
 export const PostTaskModal = () => {
+    const queryClient = useQueryClient();
     const { mutate } = usePostTask();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
+    const [termsAccepted, setTermsAccepted] = useState(false);
+
+    const formik = useFormik<PostTaskPayload>({
+        initialValues: {
+            title: "",
+            description: "",
+            requirements: "",
+            category: "",
+            city: "",
+            location: "remote",
+            budget_type: BudgetType.FIXED,
+            budget_from: "",
+            budget_to: "",
+            is_negotiable: false,
+            image: "",
+            video: "",
+            estimated_time: 5,
+            is_recursion: false,
+            is_everyday: false,
+            start_date: "2022-12-01",
+            end_date: "2023-01-04",
+            start_time: "01:00",
+            end_time: "03:00",
+            currency: "",
+        },
+        validationSchema: postTaskSchema,
+        onSubmit: (values) => {
+            if (!termsAccepted) {
+                toast.error(
+                    "You must accept the terms and conditions before posting a task"
+                );
+                return;
+            }
+            const formData = new FormData();
+            Object.entries(values).forEach((tempValue) => {
+                const [key, value] = tempValue;
+                if (key !== "video" && key !== "image") {
+                    formData.append(key, value.toString());
+                }
+            });
+            formData.append("video", values.video);
+            formData.append("image", values.image);
+            mutate(formData, {
+                onSuccess: (payload) => {
+                    toggleShowPostTaskModal();
+                    toast.success(payload.message);
+                    queryClient.invalidateQueries(["all-tasks"]);
+                },
+                onError: (error) => {
+                    toast.error(error.message);
+                },
+            });
+        },
+    });
     const { getFieldProps, handleSubmit, touched, errors, setFieldValue } =
-        useFormik<PostTaskPayload>({
-            initialValues: {
-                title: "",
-                description: "",
-                requirements: "",
-                category: "",
-                location: "remote",
-                budget_type: BudgetType.FIXED,
-                budget_from: "",
-                budget_to: "",
-                is_negotiable: false,
-                image: "",
-                video: "",
-                estimated_time: 5,
-                is_recursion: false,
-                is_everyday: false,
-                start_date: "2022-12-01",
-                end_date: "2023-01-04",
-                start_time: "01:00",
-                end_time: "03:00",
-                currency: "",
-            },
-            validationSchema: postTaskSchema,
-            onSubmit: (values) => {
-                const formData = new FormData();
-                Object.entries(values).forEach((tempValue) => {
-                    const [key, value] = tempValue;
-                    if (key !== "video" && key !== "image") {
-                        formData.append(key, value.toString());
-                    }
-                });
-                formData.append("video", values.video);
-                formData.append("image", values.image);
-                mutate(formData, {
-                    onSuccess: (payload) => {
-                        toggleShowPostTaskModal();
-                        toast.success(payload.message);
-                    },
-                    onError: (error) => {
-                        toast.error(error.message);
-                    },
-                });
-            },
-        });
-    const getFieldError = (fieldName: keyof PostTaskPayload) =>
-        touched[fieldName] && errors[fieldName]
-            ? errors[fieldName]?.toString()
-            : null;
+        formik;
+    const getFieldError = (key: keyof PostTaskPayload) =>
+        touched[key] && errors[key] ? errors[key] : null;
 
     return (
         <Modal
@@ -151,6 +165,9 @@ export const PostTaskModal = () => {
                         }
                         error={getFieldError("currency")}
                     />
+                    <SelectCity
+                        onCitySelect={(cityId) => setFieldValue("city", cityId)}
+                    />
                     <TaskCategory
                         onCategoryChange={(category) =>
                             setFieldValue("category", category)
@@ -159,17 +176,12 @@ export const PostTaskModal = () => {
                         error={getFieldError("category")}
                     />
                     <SelectTaskType
+                        setFieldValue={setFieldValue}
                         onTypeChange={(type) => setFieldValue("location", type)}
                         {...getFieldProps("location")}
                         error={getFieldError("location")}
                     />
-                    <TaskBudget
-                        budgetFromError={getFieldError("budget_from")}
-                        budgetToError={getFieldError("budget_to")}
-                        budgetTypeError={getFieldError("budget_type")}
-                        setFieldValue={setFieldValue}
-                        getFieldProps={getFieldProps}
-                    />
+                    <TaskBudget {...formik} />
                     <Checkbox
                         label="Yes, it is negotiable."
                         {...getFieldProps("is_negotiable")}
@@ -216,6 +228,10 @@ export const PostTaskModal = () => {
                     </Stack>
                     <TaskDate setFieldValue={setFieldValue} />
                     <Checkbox
+                        checked={termsAccepted}
+                        onChange={(event) =>
+                            setTermsAccepted(event.target.checked)
+                        }
                         label={
                             <Text>
                                 Accept all{" "}
@@ -240,7 +256,7 @@ export const PostTaskModal = () => {
                         </Button>
                         <BigButton
                             type="submit"
-                            className="close-btn btn p-3 h-25 w-25"
+                            className="close-btn btn p-3 h-25 w-25 text-white"
                             btnTitle="Post Task"
                             backgroundColor="#211D4F"
                         />

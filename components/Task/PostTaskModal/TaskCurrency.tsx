@@ -30,6 +30,7 @@ export const TaskCurrency = ({
     }));
     return (
         <Select
+            {...rest}
             required
             searchable
             label="Currency"
