@@ -1,5 +1,4 @@
 import TaskAside from "@components/AppliedTask/taskAside";
-import FullPageLoader from "@components/common/FullPageLoader";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import { useQuery } from "@tanstack/react-query";
@@ -39,7 +38,6 @@ const AppliedLayout = ({
     const { data, isLoading } = useTasks();
     const { data: searchData = [] } = useSearchTask(query, type ?? "");
 
-    if (isLoading || !data) return <FullPageLoader />;
     return (
         <Layout title="Find Tasks | Cipher">
             <Container>
@@ -48,6 +46,7 @@ const AppliedLayout = ({
                     query={query}
                     appliedTasks={searchData}
                     type={type ?? ""}
+                    isLoading={isLoading || !data}
                 >
                     {children}
                 </TaskAside>

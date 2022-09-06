@@ -22,7 +22,7 @@ const SignUpAsClient = () => {
     const { mutate, isLoading } = useSignup();
     const [enteredData, setEnteredData] = useState("email");
     const [choosedValue, setChoosedValue] = useState("email");
-
+    const [phoneNumber, setPhoneNumber] = useState<string>("");
     const getValidationSchema = () => {
         if (enteredData === "email") return clientEmailSignUpSchema;
         if (enteredData === "phone") return clientPhoneSignUpSchema;
@@ -59,7 +59,7 @@ const SignUpAsClient = () => {
                     onSubmit={async (values) => {
                         const { email, password, confirmPassword, phone } =
                             values;
-
+                        values.phone ? setPhoneNumber(values.phone) : null;
                         const payloadValue = () => {
                             if (!phone)
                                 return { email, password, confirmPassword };
@@ -134,7 +134,7 @@ const SignUpAsClient = () => {
                                     name="phone"
                                     labelName="Phone Number"
                                     onChange={(e) => {
-                                        console.log("values=", e.target.value);
+                                        // console.log("values=", e.target.value);
                                         handleFieldChange(
                                             e,
                                             "phone",
@@ -232,7 +232,12 @@ const SignUpAsClient = () => {
                     )}
                 </Formik>
             </div>
-            <AuthenticationModalCard show={show} handleClose={handleClose} />
+            <AuthenticationModalCard
+                show={show}
+                handleClose={handleClose}
+                phone={phoneNumber}
+                setShowForm={setShow}
+            />
         </OnBoardingLayout>
     );
 };

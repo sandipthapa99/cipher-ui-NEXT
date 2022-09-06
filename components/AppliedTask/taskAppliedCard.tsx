@@ -23,8 +23,6 @@ const TaskCard = ({
 }: TaskCardProps) => {
     const router = useRouter();
     const query = router.query.slug;
-
-    console.log("first", query);
     return (
         <div
             data-active={JSON.stringify(query === taskId)}

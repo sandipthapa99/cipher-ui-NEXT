@@ -1,4 +1,3 @@
-import FullPageLoader from "@components/common/FullPageLoader";
 import {
     useClearSearchedServices,
     useClearSearchQuery,
@@ -58,7 +57,6 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
         setQuery(query);
     };
 
-    if (isLoading || !data) return <FullPageLoader />;
     return (
         <Layout title="Find Services | Cipher">
             <Container fluid="xl">
@@ -89,6 +87,7 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
                             ? searchedServices
                             : searchData
                     }
+                    isLoading={isLoading || !data}
                 >
                     {children}
                 </ServiceAside>
