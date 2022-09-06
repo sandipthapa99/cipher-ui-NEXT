@@ -78,10 +78,39 @@ const PortfolioDetails = ({
                         >
                             {portfolioDetail?.images.map((image: any) => (
                                 <Carousel.Slide key={image.id}>
-                                    {image.name.substring(
-                                        image.name.indexOf(".") + 1
-                                    ) ===
-                                    ("jpg" || "png" || "jpeg" || "svg") ? (
+                                    {image.name
+                                        .substring(image.name.indexOf(".") + 1)
+                                        .includes("png") ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : image.name.substring(
+                                          image.name.indexOf(".") + 1
+                                      ) === "jpg" ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : image.name.substring(
+                                          image.name.indexOf(".") + 1
+                                      ) === "svg" ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : image.name.substring(
+                                          image.name.indexOf(".") + 1
+                                      ) === "jpeg" ? (
                                         <Image
                                             src={image.media}
                                             alt="portfolio-img"

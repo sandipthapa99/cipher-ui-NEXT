@@ -1,18 +1,23 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { Form, Formik } from "formik";
+import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { toast } from "react-toastify";
 import { isSubmittingClass } from "utils/helpers";
 import * as Yup from "yup";
+
 interface AuthenticationModalCardProps {
     show?: boolean;
     handleClose?: () => void;
     code?: number;
+    username: string;
 }
 const AuthenticationData: AuthenticationModalCardProps = {
     code: 0,
+    username: "",
 };
 
 const numReqOnly = Yup.number().required("Required field");
@@ -24,10 +29,11 @@ const schema = Yup.object().shape({
 const AuthenticationModalCard = ({
     handleClose,
     show,
+    username,
 }: AuthenticationModalCardProps) => {
     const router = useRouter();
-    // const { mutate } = useForm(`/tasker/experience/`);
-
+    const { mutate } = useForm(`/security/multi-factor/otp/verify`);
+    console.log("phoneNu", username);
     return (
         <>
             {/* Modal component */}
@@ -42,18 +48,27 @@ const AuthenticationModalCard = ({
                         initialValues={AuthenticationData}
                         validationSchema={schema}
                         onSubmit={async (values) => {
-                            console.log(values);
-
-                            // setBookNowDetails((prev) => ({
-                            //     ...prev,
-                            //     ...values,
-                            // }));
+                            console.log("values=", values);
+                            const dataToSend = {
+                                code: values.code,
+                                method: "otp",
+                                username: username,
+                            };
+                            console.log(dataToSend);
+                            mutate(dataToSend, {
+                                onSuccess: async () => {
+                                    toast.success("OTP verified!");
+                                },
+                                onError: async (error) => {
+                                    toast.error(error.message);
+                                },
+                            });
                         }}
                     >
-                        {({ isSubmitting, errors, touched, setFieldValue }) => (
+                        {({ isSubmitting, errors, touched }) => (
                             <Form>
                                 <div className="problem">
-                                    <h4>Code:</h4>
+                                    <h4>OTP:</h4>
                                     <InputField
                                         type="number"
                                         name="code"

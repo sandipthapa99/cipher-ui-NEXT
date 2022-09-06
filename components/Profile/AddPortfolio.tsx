@@ -160,8 +160,8 @@ const AddPortfolio = ({
                                       issued_date: parseISO(
                                           editDetails.issued_date
                                       ),
-                                      files: [],
-                                      images: [],
+                                      files: [] as File[],
+                                      images: [] as File[],
                                       imagePreviewUrl: [],
                                       pdfPreviewUrl: [],
                                   }
