@@ -1,18 +1,102 @@
-import { faCalendar } from "@fortawesome/pro-regular-svg-icons";
+import { faCalendar, faCirclePlus } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+    ActionIcon,
     Box,
     Checkbox,
     createStyles,
+    Group,
     Space,
+    Stack,
     Text,
     TextInput,
 } from "@mantine/core";
+import { TimeRangeInput } from "@mantine/dates";
 import { useState } from "react";
 
-export const CustomDate = () => {
+interface CustomDateProps {
+    setFieldValue: (
+        field: string,
+        value: any,
+        shouldValidate?: boolean
+    ) => void;
+}
+const SPECIFIC_DAYS = [
+    {
+        day: "Sunday",
+        selected: false,
+        inputLength: 0,
+    },
+    {
+        day: "Monday",
+        selected: false,
+        inputLength: 0,
+    },
+    {
+        day: "Tuesday",
+        selected: false,
+        inputLength: 0,
+    },
+    {
+        day: "Wednesday",
+        selected: false,
+        inputLength: 0,
+    },
+    {
+        day: "Thursday",
+        selected: false,
+        inputLength: 0,
+    },
+    {
+        day: "Friday",
+        selected: false,
+        inputLength: 0,
+    },
+    {
+        day: "Saturday",
+        selected: false,
+        inputLength: 0,
+    },
+];
+
+export const CustomDate = ({ setFieldValue }: CustomDateProps) => {
     const { classes } = useStyles();
     const [selectSpecificTime, setSelectSpecificTime] = useState(false);
+    const [specificDays, setSpecificDays] = useState(SPECIFIC_DAYS);
+
+    const handleDayChecked = (day: string) => {
+        setSpecificDays((currentSpecificDays) =>
+            currentSpecificDays.map((currentSpecificDay) =>
+                currentSpecificDay.day === day
+                    ? {
+                          ...currentSpecificDay,
+                          selected: !currentSpecificDay.selected,
+                      }
+                    : currentSpecificDay
+            )
+        );
+    };
+    const handleAddTime = (day: string) => {
+        setSpecificDays((currentSpecificDays) =>
+            currentSpecificDays.map((currentSpecificDay) =>
+                currentSpecificDay.day === day
+                    ? {
+                          ...currentSpecificDay,
+                          inputLength: currentSpecificDay.inputLength + 1,
+                      }
+                    : currentSpecificDay
+            )
+        );
+    };
+    const handleTimeInputChange = (
+        event: [Date, Date],
+        day: string,
+        index: number
+    ) => {
+        const [from, to] = event;
+        setFieldValue("extra_data.type", "custom");
+        setFieldValue(`extra_data.data.${[day]}.${[index]}`, { from, to });
+    };
     return (
         <Box>
             <Box className={classes.datesContainer}>
@@ -39,6 +123,45 @@ export const CustomDate = () => {
                 }
                 label="Set specific time"
             />
+            {selectSpecificTime && (
+                <>
+                    <Space h={16} />
+                    <Stack spacing="md">
+                        {specificDays.map((day, index) => (
+                            <Group key={index}>
+                                <Checkbox
+                                    checked={day.selected}
+                                    onChange={() => handleDayChecked(day.day)}
+                                />
+                                <Text>{day.day}</Text>
+                                {Array.from({ length: day.inputLength }).map(
+                                    (_, index) => (
+                                        <TimeRangeInput
+                                            key={index}
+                                            onChange={(event) =>
+                                                handleTimeInputChange(
+                                                    event,
+                                                    day.day,
+                                                    index
+                                                )
+                                            }
+                                            clearable
+                                        />
+                                    )
+                                )}
+                                {day.selected && (
+                                    <ActionIcon
+                                        onClick={() => handleAddTime(day.day)}
+                                        color="blue"
+                                    >
+                                        <FontAwesomeIcon icon={faCirclePlus} />
+                                    </ActionIcon>
+                                )}
+                            </Group>
+                        ))}
+                    </Stack>
+                </>
+            )}
         </Box>
     );
 };

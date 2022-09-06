@@ -4,38 +4,50 @@ import InputField from "@components/common/InputField";
 import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
+import { useForm } from "hooks/use-form";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import type { Dispatch, SetStateAction } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { toast } from "react-toastify";
 import { isSubmittingClass } from "utils/helpers";
 import * as Yup from "yup";
 interface AuthenticationModalCardProps {
     show?: boolean;
     handleClose?: () => void;
-    code?: number;
+    setShowForm: Dispatch<SetStateAction<boolean>>;
 }
-const AuthenticationData: AuthenticationModalCardProps = {
-    code: 0,
+interface AuthProps {
+    otp?: string;
+    phone: string;
+}
+const AuthenticationData: AuthProps = {
+    otp: "",
+    phone: "",
 };
 
-const numReqOnly = Yup.number().required("Required field");
+const strReqOnly = Yup.string().required("Required field");
 
 const schema = Yup.object().shape({
-    code: numReqOnly,
+    otp: strReqOnly,
 });
 const AuthenticationModalCard = ({
     handleClose,
     show,
-}: AuthenticationModalCardProps) => {
+    phone,
+    setShowForm,
+}: AuthenticationModalCardProps & AuthProps) => {
     const router = useRouter();
+    const { mutate } = useForm(`/user/reset/otp/verify/`);
+
     return (
         <>
             {/* Modal component */}
             <Modal show={show} centered onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
-                    <Modal.Title>Enter your verification code</Modal.Title>
+                    <Modal.Title>Enter your verification otp</Modal.Title>
                 </Modal.Header>
 
                 <div className="modal-body-content">
@@ -44,24 +56,37 @@ const AuthenticationModalCard = ({
                         initialValues={AuthenticationData}
                         validationSchema={schema}
                         onSubmit={async (values) => {
+                            console.log("values=", values);
+                            const dataToSend = {
+                                otp: values.otp,
+                                scope: "verify",
+                                phone: phone,
+                            };
+                            console.log(dataToSend);
+                            mutate(dataToSend, {
+                                onSuccess: async () => {
+                                    toast.success("OTP verified!");
+                                    setShowForm(false);
+                                    router.push("/login");
+                                },
+                                onError: async (error) => {
+                                    toast.error(error.message);
+                                },
+                            });
+
                             console.log(values);
-                            await router.push("task/checkout");
-                            // setBookNowDetails((prev) => ({
-                            //     ...prev,
-                            //     ...values,
-                            // }));
                         }}
                     >
-                        {({ isSubmitting, errors, touched, setFieldValue }) => (
+                        {({ isSubmitting, errors, touched }) => (
                             <Form>
                                 <div className="problem">
-                                    <h4>Code:</h4>
+                                    <h4>OTP:</h4>
                                     <InputField
-                                        type="number"
-                                        name="code"
-                                        error={errors.code}
-                                        touch={touched.code}
-                                        placeHolder="Your Code"
+                                        type="string"
+                                        name="otp"
+                                        error={errors.otp}
+                                        touch={touched.otp}
+                                        placeHolder="Your otp"
                                     />
                                 </div>
 

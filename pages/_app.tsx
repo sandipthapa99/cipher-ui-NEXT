@@ -101,7 +101,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 <Hydrate state={pageProps.dehydratedState}>
                     <MantineProvider>
                         <RouterTransition />
-                        <UserLoadingOverlay />
+                        {/* <UserLoadingOverlay /> */}
                         <LoginPrompt />
                         <Component {...pageProps} />
                     </MantineProvider>

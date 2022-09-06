@@ -17,6 +17,7 @@
                 flex-direction: column;
                 @include respond(xs) {
                     align-items: flex-start;
+                    flex-direction: row;
                 }
                 @include respond(xxs) {
                     align-items: center;
@@ -34,7 +35,7 @@
                 }
 
                 @include respond(xs) {
-                    width: 4rem;
+                    width: 12rem;
                     height: 4rem;
                     margin-bottom: 1rem;
                 }

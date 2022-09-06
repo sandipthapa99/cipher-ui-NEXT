@@ -102,6 +102,7 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
                         //     ? searchedServices
                         //     : searchData
                     }
+                    isLoading={isLoading || !data}
                 >
                     {children}
                 </ServiceAside>
