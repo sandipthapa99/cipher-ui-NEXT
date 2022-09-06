@@ -15,4 +15,5 @@ export interface SelectInputFieldProps {
     options?: SelectOptionProps[];
     getData?: any;
     onChange?: any;
+    defaultValue?: any;
 }
