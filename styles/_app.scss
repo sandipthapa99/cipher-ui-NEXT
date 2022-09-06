@@ -671,7 +671,13 @@ small.text-muted {
         box-shadow: 0 0 6px $secondary-color;
     }
 }
+.mantine-Skeleton {
+    background: white;
+    &-root {
+        z-index: 0;
+    }
+}
 
-.mantine-Select-dropdown.mantine-rynikm{
+.mantine-Select-dropdown.mantine-rynikm {
     font-size: 1000px !important;
 }

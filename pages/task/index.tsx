@@ -1,7 +1,6 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import { MapboxMap } from "@components/common/MapboxMap";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { useLocation } from "hooks/location/useLocation";
 import type { GetStaticProps } from "next";
 
 const AppliedTask = () => {

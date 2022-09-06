@@ -185,7 +185,7 @@
 .find-hire {
     margin: 0 0 6rem;
 
-    @include respond(xs){
+    @include respond(xs) {
         margin: 0 0 -1rem;
     }
     .find-hire-card-block {
