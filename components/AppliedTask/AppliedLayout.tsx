@@ -39,7 +39,6 @@ const AppliedLayout = ({
     const { data, isLoading } = useTasks();
     const { data: searchData = [] } = useSearchTask(query, type ?? "");
 
-    if (isLoading || !data) return <FullPageLoader />;
     return (
         <Layout title="Find Tasks | Cipher">
             <Container>
@@ -48,6 +47,7 @@ const AppliedLayout = ({
                     query={query}
                     appliedTasks={searchData}
                     type={type ?? ""}
+                    isLoading={isLoading || !data}
                 >
                     {children}
                 </TaskAside>

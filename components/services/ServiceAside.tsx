@@ -1,4 +1,5 @@
 import ServiceNearYouCard from "@components/SearchTask/searchAside";
+import { Skeleton } from "@mantine/core";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -9,10 +10,27 @@ interface ServiceAside {
     children: ReactNode;
     service: ServicesValueProps["result"];
     query: string;
+    isLoading: boolean;
 }
-const ServiceAside = ({ service, query, children }: ServiceAside) => {
+const ServiceAside = ({
+    service,
+    query,
+    children,
+    isLoading,
+}: ServiceAside) => {
+    console.log("first", isLoading);
     const totalAppliedTasks = service?.length;
     const renderTaskCards = service?.map((task, key) => {
+        if (isLoading)
+            return (
+                <div className="mantine-Skeleton mb-5 p-5">
+                    <Skeleton height={80} circle mb="xl" />
+                    <Skeleton height={8} radius="xl" />
+                    <Skeleton height={8} mt={6} radius="xl" />
+                    <Skeleton height={8} mt={6} width="70%" radius="xl" />
+                    <Skeleton height={8} mt={6} width="70%" radius="xl" />
+                </div>
+            );
         return (
             <div key={key}>
                 <Link href={`/service/${task.slug}`}>

@@ -1,4 +1,5 @@
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
+import { Skeleton } from "@mantine/core";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -9,10 +10,25 @@ interface TaskerAsideProps {
     children: ReactNode;
     tasker: TaskerProps["result"];
     query: string;
+    isLoading: boolean;
 }
-const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
+const TaskerAside = ({
+    tasker,
+    query,
+    children,
+    isLoading,
+}: TaskerAsideProps) => {
     const totalAppliedTasks = tasker?.length;
     const renderTaskCards = tasker?.map((tasker, key) => {
+        if ((!query && totalAppliedTasks === 0) || isLoading)
+            return (
+                <div className="mantine-Skeleton mb-5 p-5">
+                    <Skeleton height={50} circle mb="xl" />
+                    <Skeleton height={8} radius="xl" />
+                    <Skeleton height={8} mt={6} radius="xl" />
+                    <Skeleton height={8} mt={6} width="70%" radius="xl" />
+                </div>
+            );
         return (
             <div key={key}>
                 <Link href={`/tasker/${tasker?.user?.id}`}>

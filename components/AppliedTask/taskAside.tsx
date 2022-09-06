@@ -1,6 +1,6 @@
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert } from "@mantine/core";
+import { Alert, Skeleton } from "@mantine/core";
 import { format } from "date-fns";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -15,11 +15,27 @@ interface TaskAsideProps {
     appliedTasks: ITask[];
     query: string;
     type?: string;
+    isLoading?: boolean;
 }
-const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
+const TaskAside = ({
+    appliedTasks,
+    query,
+    children,
+    type,
+    isLoading,
+}: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
 
     const renderTaskCards = appliedTasks?.map((task) => {
+        if ((!query && appliedTasks?.length === 0) || isLoading)
+            return (
+                <div className="mantine-Skeleton mb-5 p-5">
+                    <Skeleton height={50} circle mb="xl" />
+                    <Skeleton height={8} radius="xl" />
+                    <Skeleton height={8} mt={6} radius="xl" />
+                    <Skeleton height={8} mt={6} width="70%" radius="xl" />
+                </div>
+            );
         return (
             <div key={task?.slug}>
                 <Link
@@ -54,16 +70,6 @@ const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
             <Row>
                 <Col md={4}>
                     <Scrollbars autoHide style={{ height: 700 }}>
-                        {!query && appliedTasks?.length === 0 && (
-                            <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="Tasks Unavailable"
-                                variant="filled"
-                                color="yellow"
-                            >
-                                No tasks available at the moment{""}
-                            </Alert>
-                        )}
                         {query && totalAppliedTasks > 0 ? (
                             <p className="search-results-text">
                                 {`${totalAppliedTasks} service matching ${query} found`}
@@ -75,6 +81,16 @@ const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
                             </p>
                         ) : null}
                         {renderTaskCards}
+                        {!query && appliedTasks?.length === 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="Tasks Unavailable"
+                                variant="filled"
+                                color="yellow"
+                            >
+                                No tasks available at the moment{""}
+                            </Alert>
+                        )}
                     </Scrollbars>
                 </Col>
 
