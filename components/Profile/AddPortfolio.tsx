@@ -11,6 +11,7 @@ import { Form, Formik } from "formik";
 import { useEditForm } from "hooks/use-edit-form";
 import type { Dispatch, SetStateAction } from "react";
 import { useMemo } from "react";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -62,6 +63,7 @@ const AddPortfolio = ({
         mutate: createPortfolioMutation,
         isLoading: createPortfolioLoading,
     } = useCreatePortfolio();
+    const [isVideo, setIsVideo] = useState(false);
     const { mutate: uploadImageMutation, isLoading: uploadImageLoading } =
         useUploadImage();
     const { mutate: uploadFileMutation, isLoading: uploadFileLoading } =
@@ -83,8 +85,14 @@ const AddPortfolio = ({
                 const imageFormData = new FormData();
                 for (const image of images) {
                     imageFormData.append("medias", image);
-                    imageFormData.append("media_type", "image");
-                    imageFormData.append("placeholder", "image");
+                    imageFormData.append(
+                        "media_type",
+                        isVideo ? "video" : "image"
+                    );
+                    imageFormData.append(
+                        "placeholder",
+                        isVideo ? "video" : "image"
+                    );
                 }
                 uploadImageMutation(imageFormData, {
                     onSuccess: (fileIds) => resolve(fileIds),
@@ -169,10 +177,12 @@ const AddPortfolio = ({
 
                             console.log("values videos", values.images);
 
-                            values.images ??
-                            (values.images[0] as File).type === "video/mp4"
-                                ? setIsVideo(true)
-                                : setIsVideo(false);
+                            {
+                                values.images ??
+                                (values.images[0] as File).type === "video/mp4"
+                                    ? setIsVideo(true)
+                                    : setIsVideo(false);
+                            }
 
                             const issued_date = format(
                                 new Date(values.issued_date),
