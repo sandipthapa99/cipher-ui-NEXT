@@ -13,7 +13,7 @@ interface SearchCategoryProps {
     onChange?: (text: string) => void;
     getOption?: (value: string | undefined) => void;
     type?: string;
-    getSortingByPrice: any;
+    getSortingByPrice?: any;
 }
 const DUMMY_DATA = [
     {
