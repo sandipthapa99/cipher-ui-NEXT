@@ -69,15 +69,66 @@ PortfolioProps) => {
                     {portfolioDetail?.images.length > 1 ? (
                         <Carousel>
                             {portfolioDetail?.images.map((image: any) => (
-                                <Carousel.Item key={image.id}>
-                                    <Image
-                                        src={image.media}
-                                        alt="portfolio-img"
-                                        height={500}
-                                        objectFit="contain"
-                                        width={800}
-                                    />
-                                </Carousel.Item>
+                                <Carousel.Slide key={image.id}>
+                                    {image.name
+                                        .substring(image.name.indexOf(".") + 1)
+                                        .includes("png") ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : image.name.substring(
+                                          image.name.indexOf(".") + 1
+                                      ) === "jpg" ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : image.name.substring(
+                                          image.name.indexOf(".") + 1
+                                      ) === "svg" ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : image.name.substring(
+                                          image.name.indexOf(".") + 1
+                                      ) === "jpeg" ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : (
+                                        <div>
+                                            <video
+                                                style={{
+                                                    width: "90%",
+                                                }}
+                                                controls
+                                                autoPlay
+                                            >
+                                                <source
+                                                    src={image.media}
+                                                    type="video/mp4"
+                                                ></source>
+                                                Sorry, your browser doesn&apos;t
+                                                support videos.
+                                            </video>
+                                        </div>
+                                    )}
+                                </Carousel.Slide>
                             ))}
                         </Carousel>
                     ) : (

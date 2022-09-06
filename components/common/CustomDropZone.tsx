@@ -29,7 +29,6 @@ export const CustomDropZone = ({
     name,
     label,
     maxSize,
-    type,
     minSize,
     previewImageWidth,
     previewImageHeight,
@@ -95,7 +94,6 @@ export const CustomDropZone = ({
                 ref={dropzoneRef}
                 className={classes.dropzone}
                 {...rest}
-                accept={type}
             >
                 <Highlight
                     size="sm"
