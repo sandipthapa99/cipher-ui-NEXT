@@ -116,6 +116,7 @@ const AddPortfolio = ({
             }
         });
     };
+
     const uploadPortfolio = <T,>(payload: T) => {
         createPortfolioMutation(payload, {
             onSuccess: (message) => {
@@ -173,12 +174,11 @@ const AddPortfolio = ({
                             delete values.pdfPreviewUrl;
 
                             console.log("values videos", values.images);
-                            {
-                                values.images ??
-                                values.images[0].type === "video/mp4"
-                                    ? setIsVideo(true)
-                                    : setIsVideo(false);
-                            }
+
+                            values.images ??
+                            (values.images[0] as File).type === "video/mp4"
+                                ? setIsVideo(true)
+                                : setIsVideo(false);
 
                             const issued_date = format(
                                 new Date(values.issued_date),

@@ -32,7 +32,7 @@ const AuthenticationModalCard = ({
     username,
 }: AuthenticationModalCardProps) => {
     const router = useRouter();
-    const { mutate } = useForm(`/security/multi-factor/otp/verify`);
+    const { mutate } = useForm(`/security/multi-factor/otp/verify/`);
     console.log("phoneNu", username);
     return (
         <>
