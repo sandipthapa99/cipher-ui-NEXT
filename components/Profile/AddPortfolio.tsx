@@ -11,7 +11,6 @@ import { Form, Formik } from "formik";
 import { useEditForm } from "hooks/use-edit-form";
 import type { Dispatch, SetStateAction } from "react";
 import { useMemo } from "react";
-import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -72,26 +71,20 @@ const AddPortfolio = ({
         () => createPortfolioLoading || uploadImageLoading || uploadFileLoading,
         [createPortfolioLoading, uploadFileLoading, uploadImageLoading]
     );
-    const [isVideo, setIsVideo] = useState(false);
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-portfolio",
     ]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
+
     const uploadImage = (images: any[]) => {
         return new Promise<number[]>((resolve, reject) => {
             if (images && images.length > 0) {
                 const imageFormData = new FormData();
                 for (const image of images) {
                     imageFormData.append("medias", image);
-                    imageFormData.append(
-                        "media_type",
-                        isVideo ? "video" : "image"
-                    );
-                    imageFormData.append(
-                        "placeholder",
-                        isVideo ? "video" : "image"
-                    );
+                    imageFormData.append("media_type", "image");
+                    imageFormData.append("placeholder", "image");
                 }
                 uploadImageMutation(imageFormData, {
                     onSuccess: (fileIds) => resolve(fileIds),
@@ -129,6 +122,7 @@ const AddPortfolio = ({
     const editPortfolio = <T,>(data: T) => {
         editMutation(data, {
             onSuccess: async () => {
+                console.log("submitted values", data);
                 setShowAddPortfolioModal(false);
                 queryClient.invalidateQueries(["tasker-portfolio"]);
                 toast.success("Portfolio updated successfully.");

@@ -92,9 +92,7 @@ const UserProfileCard = ({
             },
         });
     };
-    const userType: string[] = Array.isArray(userJob)
-        ? JSON.parse(userJob)
-        : [];
+    const userType: string[] = userJob ? JSON.parse(userJob) : [];
 
     const renderType = userType.map((type: string, index: number) => {
         return (

@@ -1,8 +1,13 @@
+import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
 import { useForm } from "hooks/use-form";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
@@ -25,13 +30,13 @@ const numReqOnly = Yup.number().required("Required field");
 const schema = Yup.object().shape({
     code: numReqOnly,
 });
-
 const AuthenticationModalCard = ({
     handleClose,
     show,
     username,
 }: AuthenticationModalCardProps) => {
     const router = useRouter();
+
     const { mutate } = useForm(`/security/multi-factor/otp/verify/`);
     console.log("phoneNu", username);
     return (
@@ -63,6 +68,9 @@ const AuthenticationModalCard = ({
                                     toast.error(error.message);
                                 },
                             });
+
+                            console.log(values);
+                            await router.push("task/checkout");
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
