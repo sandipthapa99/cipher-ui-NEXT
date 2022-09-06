@@ -398,7 +398,7 @@ small.text-muted {
     font-weight: 500;
     color: $primary-color;
     @include respond(xs) {
-        margin: 5rem 1rem 2.4rem 0rem;
+        margin: 2rem 1rem 1rem 0rem;
     }
     @include respond(md) {
         font-size: 2rem;
@@ -670,4 +670,8 @@ small.text-muted {
         border-color: $secondary-color;
         box-shadow: 0 0 6px $secondary-color;
     }
+}
+
+.mantine-Select-dropdown.mantine-rynikm{
+    font-size: 1000px !important;
 }

@@ -139,6 +139,7 @@ export const Search = () => {
                                 <FontAwesomeIcon icon={faChevronDown} />
                             }
                             onChange={(value) => setFieldValue("scope", value)}
+                            styles={{ dropdown: { marginLeft: `${-1}rem` } }}
                         />
                         <div className="search_field">
                             <input
