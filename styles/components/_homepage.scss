@@ -160,7 +160,7 @@
 
 // Services near you section start
 .services-near-you {
-    padding: 2rem 0;
+    padding: 0rem;
     // background: #fff;
     margin: 0;
     // @include respond(sm) {
@@ -184,6 +184,10 @@
 // Find & Hire section Start
 .find-hire {
     margin: 0 0 6rem;
+
+    @include respond(xs){
+        margin: 0 0 -1rem;
+    }
     .find-hire-card-block {
         margin: 0 0 3rem;
         border-radius: 0.4rem;

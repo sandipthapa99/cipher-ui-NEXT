@@ -48,7 +48,7 @@
                     justify-content: space-between;
                     align-items: center;
                     box-shadow: 0 8px 6px -10px #b3c6ff;
-
+                 
                     .form-group {
                         margin: 0;
                         flex: 0.3;
@@ -430,6 +430,9 @@
     margin-top: 5rem;
     /* Container */
     margin: 5rem 0rem;
+    @include respond(xs){
+        margin: 2rem 0rem;
+    }
 
     .long-square-image-card {
         background: #0693e3;
@@ -612,3 +615,4 @@
         margin-bottom: 2.4rem;
     }
 }
+
