@@ -130,8 +130,7 @@ export const PostTaskModal = () => {
             <Modal
                 opened={showPostTaskModal}
                 onClose={toggleShowPostTaskModal}
-                overlayOpacity={0.55}
-                overlayBlur={3}
+                overlayColor="rgba(0, 0, 0, 0.25)"
                 title="Post a Task or Service"
                 size="xl"
             >
