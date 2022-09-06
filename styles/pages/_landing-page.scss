@@ -430,6 +430,9 @@
     margin-top: 5rem;
     /* Container */
     margin: 5rem 0rem;
+    @include respond(xs) {
+        margin: 2rem 0rem;
+    }
 
     .long-square-image-card {
         background: #0693e3;

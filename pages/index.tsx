@@ -406,7 +406,6 @@ const Home: NextPage<{
                         {servicesData &&
                             servicesData?.data?.result
                                 ?.slice(0, 4)
-                                .filter((p) => p.is_professional)
                                 .map((service) => {
                                     return (
                                         <Col
