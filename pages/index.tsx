@@ -26,10 +26,12 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { Divider, Grid, Skeleton, Space } from "@mantine/core";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useTaskers } from "hooks/tasker/use-tasker";
 import { useData } from "hooks/use-data";
+import { key } from "localforage";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -62,18 +64,20 @@ const Home: NextPage<{
     trustedPartnerData: LandingPageProps["trustedPartnerData"];
     heroCategoryData: LandingPageProps["heroCategoryData"];
 }> = ({ successStoryData, trustedPartnerData, heroCategoryData }) => {
-    const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
-    const { data: servicesData } = useData<ServicesValueProps>(
-        ["all-services"],
-        "/task/service/"
+    const { data: blogData, isLoading: blogLoading } = useData<BlogValueProps>(
+        ["all-blogs"],
+        "/blog/"
     );
+    const { data: servicesData, isLoading: serviceLoading } =
+        useData<ServicesValueProps>(["all-services"], "/task/service/");
 
     //for tasks
 
-    const { data: recommendedTasksData } = useData<ITaskApiResponse>(
-        ["all-tasks"],
-        "/task/?recommendation=you may like"
-    );
+    const { data: recommendedTasksData, isLoading: taskLoading } =
+        useData<ITaskApiResponse>(
+            ["all-tasks"],
+            "/task/?recommendation=you may like"
+        );
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -81,7 +85,7 @@ const Home: NextPage<{
         "Washing Machine",
     ]);
 
-    const { data: allTaskers } = useTaskers();
+    const { data: allTaskers, isLoading: taskerLoading } = useTaskers();
 
     const removeChip = (chip: string) => {
         setChips((prevChips) =>
@@ -247,6 +251,29 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {serviceLoading && (
+                        <Grid>
+                            {Array.from({ length: 4 }).map((_, key) => (
+                                <Grid.Col span={3} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={80} mb="xl" />
+                                        <Skeleton height={8} radius="xl" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
 
                     <Row className="gx-5">
                         {servicesData &&
@@ -291,6 +318,29 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {serviceLoading && (
+                        <Grid>
+                            {Array.from({ length: 4 }).map((_, key) => (
+                                <Grid.Col span={3} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={80} mb="xl" />
+                                        <Skeleton height={8} radius="xl" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.data?.result
@@ -329,7 +379,29 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
-
+                    {serviceLoading && (
+                        <Grid>
+                            {Array.from({ length: 4 }).map((_, key) => (
+                                <Grid.Col span={3} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={80} mb="xl" />
+                                        <Skeleton height={8} radius="xl" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.data?.result
@@ -477,6 +549,41 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {taskerLoading && (
+                        <Grid>
+                            {Array.from({ length: 4 }).map((_, key) => (
+                                <Grid.Col span={3} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={80} circle mb="xl" />
+                                        <Skeleton height={8} radius="xl" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Divider my={"sm"} color="#F1F3F5" />
+                                        <Skeleton
+                                            height={50}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                        <Divider my={"sm"} color="#F1F3F5" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
                     <Row className="gx-5">
                         {allTaskers &&
                             allTaskers?.slice(0, 4)?.map((merchant, index) => {
@@ -570,6 +677,38 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {taskLoading && (
+                        <Grid>
+                            {Array.from({ length: 2 }).map((_, key) => (
+                                <Grid.Col span={6} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={60} mb="xl" />
+                                        <Skeleton height={8} radius="xl" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Space h={20} />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                        <Space h={20} />
+                                        <hr />
+                                        <Space h={10} />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
                     <Row className="gx-5">
                         {recommendedTasksData?.data?.result?.map(
                             (task, key) => (
@@ -650,6 +789,37 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {blogLoading && (
+                        <Grid gutter="xl">
+                            {Array.from({ length: 3 }).map((_, key) => (
+                                <Grid.Col span={4} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={60} mb="xl" />
+                                        <Space h={20} />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Space h={20} />
+                                        <Space h={10} />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            width="40%"
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
                     <Row className="gx-5">
                         {blogData
                             ? blogData?.data?.result
