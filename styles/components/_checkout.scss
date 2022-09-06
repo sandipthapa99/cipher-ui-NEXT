@@ -28,6 +28,7 @@
         color: #df1b41;
     }
 }
+
 .checkout-row{
     .right{
         background-color: #fff;
@@ -39,7 +40,7 @@
             border-bottom: 1px solid #CED4DA;
             padding-bottom: 2.4rem;
         }
-        
+
         p{
             font-size: 1rem;
         }
@@ -48,7 +49,7 @@
             .left{
                 .thumbnail-img{
                     img{
-    
+
                         border-radius: 0.4rem;
                     }
                 }
@@ -82,7 +83,7 @@
                 }
             }
         }
-        .fee{                                                                           
+        .fee{
             padding-bottom: 1rem;
             p{
                 margin: 0;
@@ -114,7 +115,7 @@
                 font-size: 2rem;
                 color: $primary-color;
                 font-weight: 500;
-                
+
             }
         }
     }

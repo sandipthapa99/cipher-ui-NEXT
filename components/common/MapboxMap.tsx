@@ -63,8 +63,8 @@ export const MapboxMap = ({
             <Map
                 mapboxAccessToken={getMapBoxToken()}
                 initialViewState={{
-                    longitude: longitude ?? coords?.longitude,
-                    latitude: latitude ?? coords?.latitude,
+                    longitude: longitude ?? coords?.data?.longitude,
+                    latitude: latitude ?? coords?.data?.latitude,
                     zoom,
                 }}
                 style={{
@@ -78,8 +78,8 @@ export const MapboxMap = ({
                 <FullscreenControl />
                 <GeolocateControl />
                 <Popup
-                    longitude={longitude ?? coords?.longitude ?? 0}
-                    latitude={latitude ?? coords?.latitude ?? 0}
+                    longitude={longitude ?? coords?.data?.longitude ?? 0}
+                    latitude={latitude ?? coords?.data?.latitude ?? 0}
                 >
                     You are here
                 </Popup>

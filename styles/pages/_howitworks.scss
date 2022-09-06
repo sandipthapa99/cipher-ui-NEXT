@@ -24,6 +24,11 @@
             font-weight: 400;
         }
     }
+    .card-block {
+        .thumbnail-img {
+            height: 30rem;
+        }
+    }
     &__categories {
         .allcategory-card-block {
             p {

@@ -40,8 +40,8 @@ export const useWeather = () => {
     const openWeatherBaseUrl =
         "https://api.openweathermap.org/data/2.5/weather";
     const query = new URLSearchParams({
-        lat: location?.latitude.toString() as string,
-        lon: location?.longitude.toString() as string,
+        lat: location?.data?.latitude?.toString() as string,
+        lon: location?.data?.longitude?.toString() as string,
         units: "metric",
         appId: getOpenWeatherApiKey(),
     });
