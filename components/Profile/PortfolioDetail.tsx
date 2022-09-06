@@ -1,11 +1,12 @@
 import ShareIcon from "@components/common/ShareIcon";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { Carousel } from "@mantine/carousel";
 import { useGetPortfolioById } from "hooks/profile/getProfileById";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import React, { useState } from "react";
-import { Carousel, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 

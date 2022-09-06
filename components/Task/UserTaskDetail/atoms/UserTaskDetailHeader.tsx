@@ -35,7 +35,7 @@ export const UserTaskDetailHeader = ({
         initialData: [],
     }).join(", ");
 
-    const isBookmarked = useIsBookmarked("user", taskerDetail.user.id);
+    const isBookmarked = useIsBookmarked("user", taskerDetail?.user?.id);
     const queryClient = useQueryClient();
 
     return (
@@ -91,7 +91,7 @@ export const UserTaskDetailHeader = ({
                     <div className="td-task-detail-header-icons">
                         <SaveIcon
                             model="user"
-                            object_id={taskerDetail.user.id}
+                            object_id={taskerDetail?.user?.id}
                             filled={isBookmarked}
                             onSuccess={() =>
                                 queryClient.invalidateQueries([
@@ -101,7 +101,7 @@ export const UserTaskDetailHeader = ({
                             }
                         />
                         <ShareIcon
-                            url={`http://localhost:3005/tasker?taskerId=${taskerDetail.user.id}`}
+                            url={`http://localhost:3005/tasker?taskerId=${taskerDetail?.user?.id}`}
                             quote={"Tasker from cipher project"}
                             hashtag={"cipher-tasker"}
                         />

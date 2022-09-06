@@ -1,4 +1,3 @@
-import FullPageLoader from "@components/common/FullPageLoader";
 import {
     useClearSearchedServices,
     useClearSearchQuery,
@@ -43,7 +42,6 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
         setQuery(query);
     };
 
-    if (isLoading || !data) return <FullPageLoader />;
     return (
         <Layout title="Find Tasker | Cipher">
             <Container fluid="xl">
@@ -54,7 +52,11 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
                     </Highlight>
                 )}
                 <Space h={10} />
-                <TaskerAside query={query} tasker={searchData}>
+                <TaskerAside
+                    query={query}
+                    tasker={searchData}
+                    isLoading={isLoading || !data}
+                >
                     {children}
                 </TaskerAside>
             </Container>

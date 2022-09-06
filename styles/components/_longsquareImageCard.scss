@@ -18,7 +18,6 @@
                 @include respond(xs) {
                     align-items: flex-start;
                     flex-direction: row;
-
                 }
                 @include respond(xxs) {
                     align-items: center;
