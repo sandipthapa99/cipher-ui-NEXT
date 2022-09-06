@@ -2,6 +2,7 @@ import DeleteModal from "@components/common/DeleteModal";
 import Reviews from "@components/common/Reviews";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { profile } from "console";
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -38,6 +39,8 @@ const AboutProfile = () => {
     const [page, setPage] = useState<number>(1);
     const [isEditProfile, setIsEditProfile] = useState(false);
     const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
+    const [isArray, setIsArray] = useState(true);
+
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
         `/task/rating?ordering=${search}&page=${page}`
@@ -68,7 +71,6 @@ const AboutProfile = () => {
         ["tasker-portfolio"],
         "/tasker/portfolio/"
     );
-    console.log("portfolio data=", portfolioData);
 
     const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
@@ -86,7 +88,6 @@ const AboutProfile = () => {
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
 
     const [hovered, setHovered] = useState<null | number>(null);
-    console.log("is hover", hovered, isOnlyPortfolioText);
     return (
         <>
             <div className="about-profile">

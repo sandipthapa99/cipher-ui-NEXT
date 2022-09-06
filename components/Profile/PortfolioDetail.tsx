@@ -1,11 +1,12 @@
 import ShareIcon from "@components/common/ShareIcon";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { Carousel } from "@mantine/carousel";
 import { useGetPortfolioById } from "hooks/profile/getProfileById";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import React, { useState } from "react";
-import { Carousel, Col, Row } from "react-bootstrap";
+import { Carousel as ReactCarousel, Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -24,18 +25,11 @@ const PortfolioDetails = ({
     handleDeletePortfolio,
     id,
     handleClose,
-}: // description,
-// image,
-// issued_date,
-// url,
-// name,
-// file,
-PortfolioProps) => {
+}: PortfolioProps) => {
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
     const [isEditProfile, setIsEditProfile] = useState(false);
 
     const { data: portfolioDetail } = useGetPortfolioById(id);
-    console.log("portfolio details=", portfolioDetail);
     return (
         <div className="portfolio-details">
             {/* Modal component */}
@@ -67,17 +61,49 @@ PortfolioProps) => {
                         </Row>
                     </div>
                     {portfolioDetail?.images.length > 1 ? (
-                        <Carousel>
+                        <Carousel
+                            withIndicators
+                            styles={{
+                                control: {
+                                    "&[data-inactive]": {
+                                        opacity: 0,
+                                        cursor: "default",
+                                    },
+                                },
+                            }}
+                        >
                             {portfolioDetail?.images.map((image: any) => (
-                                <Carousel.Item key={image.id}>
-                                    <Image
-                                        src={image.media}
-                                        alt="portfolio-img"
-                                        height={500}
-                                        objectFit="contain"
-                                        width={800}
-                                    />
-                                </Carousel.Item>
+                                <Carousel.Slide key={image.id}>
+                                    {image.name.substring(
+                                        image.name.indexOf(".") + 1
+                                    ) ===
+                                    ("jpg" || "png" || "jpeg" || "svg") ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : (
+                                        <div>
+                                            <video
+                                                style={{
+                                                    width: "90%",
+                                                }}
+                                                controls
+                                                autoPlay
+                                            >
+                                                <source
+                                                    src={image.media}
+                                                    type="video/mp4"
+                                                ></source>
+                                                Sorry, your browser doesn&apos;t
+                                                support videos.
+                                            </video>
+                                        </div>
+                                    )}
+                                </Carousel.Slide>
                             ))}
                         </Carousel>
                     ) : (
@@ -110,7 +136,7 @@ PortfolioProps) => {
                             {portfolioDetail?.credential_url}
                         </a>
                     </div>
-                    {portfolioDetail?.files ? (
+                    {portfolioDetail?.files.length > 0 ? (
                         <>
                             <p> File here:</p>
                             <Row>
