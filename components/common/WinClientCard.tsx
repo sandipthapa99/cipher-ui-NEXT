@@ -34,11 +34,13 @@ export const WinClientCard = ({
                     <div className="d-flex flex-column justify-content-center  win-client-card-content">
                         <h1>{title}</h1>
                         <p>{description}</p>
-                        <BigButton
-                            btnTitle={buttonText}
-                            backgroundColor="#fff"
-                            textColor="#111"
-                        />
+                        <div className="btn-wrapper">
+                            <BigButton
+                                btnTitle={buttonText}
+                                backgroundColor="#fff"
+                                textColor="#111"
+                            />
+                        </div>
                     </div>
                 </Col>
             </Row>
