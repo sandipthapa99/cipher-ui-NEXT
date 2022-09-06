@@ -7,7 +7,6 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { AllCategoryCardContent } from "staticData/categoryCardContent";
-import { howItWorkContent } from "staticData/howTtWork";
 import { messageCard } from "staticData/messageCard";
 
 const HowItWorks: NextPage = () => {
@@ -23,26 +22,30 @@ const HowItWorks: NextPage = () => {
                             Here is the video that can be very helpful to know
                             about Cipher
                         </p>
+
                         <figure className="thumbnail-img footer-img">
-                            <Image
-                                src="/howitworks/economic.svg"
-                                layout="fill"
-                                objectFit="cover"
-                                alt="economic-image"
-                            />
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                src={
+                                    "https://www.youtube.com/embed/Ke90Tje7VS0"
+                                }
+                                title="YouTube video player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
                         </figure>
                     </div>
+
                     <div className="how-it-works__content card-block">
-                        {howItWorkContent &&
-                            howItWorkContent.map((info) => (
-                                <LongSquareImageCard
-                                    title={info.title}
-                                    subtitle={info.subtitle}
-                                    image={info.image}
-                                    description={info.description}
-                                    key={info.id}
-                                />
-                            ))}
+                        <LongSquareImageCard
+                            title="How does it work?"
+                            subtitle="What do you need done?"
+                            image="/howitworks/howitwork.svg"
+                            description="Start by telling us about your task. Mention when and where (in person or online) you need it done, then suggest a fair budget for the task. Post any task you need from cleaning to web design in only two minutes – for free! There's no obligation to hire. Take a look at profiles and reviews to pick the best Tasker for your task. When you accept an offer, your payment is held securely with Airtasker Pay until the task is complete. Now you can message and call the Tasker to sort out the details."
+                            imageOnRight={true}
+                        />
                     </div>
                     <div className="how-it-works__categories">
                         <h1>Our categories</h1>

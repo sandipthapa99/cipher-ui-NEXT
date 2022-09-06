@@ -1,4 +1,4 @@
-import "firebase/messaging";
+//import "firebase/messaging";
 
 import Link from "next/link";
 import { useRouter } from "next/router";

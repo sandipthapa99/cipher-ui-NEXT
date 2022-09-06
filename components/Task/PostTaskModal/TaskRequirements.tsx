@@ -16,6 +16,7 @@ import {
     TextInput,
 } from "@mantine/core";
 import type { KeyboardEvent } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 
 export interface TaskRequiremnt {
@@ -53,7 +54,6 @@ export const TaskRequirements = ({
                 newRequirementObj,
                 ...currentRequirements,
             ];
-            onRequirementsChange(updatedRequirements);
             setNewRequirement("");
             return updatedRequirements;
         });
@@ -63,10 +63,14 @@ export const TaskRequirements = ({
             const updatedRequirements = currentRequirements.filter(
                 (requirement) => requirement.id !== id
             );
-            onRequirementsChange(updatedRequirements);
             return updatedRequirements;
         });
     };
+    useEffect(() => {
+        onRequirementsChange(requirements);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [requirements]);
+
     const renderRequirements = () => {
         return requirements.map(({ id, title }) => (
             <li className={classes.listItem} key={id}>
