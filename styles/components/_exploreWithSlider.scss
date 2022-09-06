@@ -36,6 +36,9 @@
             box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
             background: rgba(255, 255, 255, 0.4);
             border-radius: 4px;
+            @include respond(xs){
+                height: 761.562px;
+            }
 
             .win-client-card-content {
                 display: flex;
@@ -57,6 +60,12 @@
                 p {
                     font: 500 1.6rem $poppins-font;
                     color: #495057;
+                    @include respond(xs){
+                        height: 150px;
+                        overflow: hidden;
+                        text-align: justify;
+                        padding-left: 19px;
+                    }
                 }
 
                 button {
