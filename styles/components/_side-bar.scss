@@ -1,0 +1,31 @@
+.sidebar-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+    .all-sidebar-items {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        margin: 1rem 0 0 1rem;
+        gap: 2rem;
+        .text-icon {
+            .side-bar-icon {
+                font-size: 2.2rem;
+                color: $secondary-color;
+            }
+            p {
+                margin: 0;
+                font-weight: 500;
+                font-size: 1.8rem;
+                color: $primary-color;
+
+
+                // &:hover{
+                //     color: $primary-color;
+                // }
+            }
+        }
+    }
+}
