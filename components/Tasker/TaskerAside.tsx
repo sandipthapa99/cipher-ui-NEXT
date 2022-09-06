@@ -22,7 +22,7 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
                     <a>
                         <TeamMembersCard
                             // taskers={tasker?.user}
-                            tasker={tasker?.user.id}
+                            tasker={tasker?.user?.id}
                             image={tasker?.profile_image}
                             name={tasker?.full_name}
                             speciality={"Teacher"} //doesnt come from api
@@ -95,7 +95,8 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
                                     ))}
                                 </Fragment>
                             ) : (
-                                renderTaskCards
+                                // renderTaskCards
+                                ""
                             )}
                             {query && totalAppliedTasks === 0 ? (
                                 <p className="search-results-text">
