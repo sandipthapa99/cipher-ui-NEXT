@@ -1,0 +1,74 @@
+.rasifal-slide-wrapper {
+    position: absolute;
+    height: 100vh;
+    width: 45rem;
+    background: white;
+    position: fixed;
+    top: 0;
+    right: -45rem;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    transition: all 800ms ease;
+    overflow-y: auto;
+    opacity: 0;
+    padding: 0 0 3rem;
+
+    @include respond(xs) {
+        width: 100%;
+    }
+
+    &.active {
+        right: 0;
+        opacity: 1;
+    }
+
+    .cart-empty {
+        padding: 0 3rem;
+    }
+
+    .top-section__header {
+        padding: 2rem 3rem;
+        margin: 0 0 1rem;
+        display: flex;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        left: 0;
+        background: #fff;
+        z-index: 5;
+        box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+
+        .icon {
+            margin-left: auto;
+            cursor: pointer;
+            svg {
+                fill: #797979;
+                &:hover {
+                    fill: $secondary-color;
+                }
+            }
+        }
+        h3 {
+            margin: 0;
+            font: 600 1.8rem $poppins-font;
+            color: #1f1f1f;
+        }
+    }
+}
+
+.each-rasifal-card {
+    border: 1px solid #ced4da;
+    border-radius: 0.4rem;
+    padding: 0.8rem;
+    margin: 1.5rem 2rem;
+    cursor: pointer;
+
+    &__details {
+        p {
+            margin: 0;
+            text-align: justify;
+            font: 400 1.4rem $poppins-font;
+        }
+    }
+}

@@ -298,7 +298,7 @@ export const AddServiceModalComponent = () => {
                                     />
                                 </Col>
                                 {showVariable.showBudget && (
-                                    <Col md={4}>
+                                    <Col md={4} classNam="mt-2">
                                         <InputField
                                             type="text"
                                             name="budget_to"
@@ -312,12 +312,21 @@ export const AddServiceModalComponent = () => {
                                 )}
 
                                 <Col md={4}>
-                                    <SelectInputField
+                                    {/* <SelectInputField
                                         name="budget_type"
-                                        placeHolder="Choose budget type"
+                                        placeHolder="Fixed"
                                         options={BudgetType}
                                         error={errors.budget_type}
                                         touch={touched.budget_type}
+                                    /> */}
+                                    <Select
+                                        placeholder="Fixed"
+                                        name="budget_type"
+                                        data={BudgetType ?? []}
+                                        defaultValue="Fixed"
+                                        onChange={(value) =>
+                                            setFieldValue("budget_type", value)
+                                        }
                                     />
                                 </Col>
                             </Row>

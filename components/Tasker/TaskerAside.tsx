@@ -95,8 +95,7 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
                                     ))}
                                 </Fragment>
                             ) : (
-                                // renderTaskCards
-                                ""
+                                renderTaskCards
                             )}
                             {query && totalAppliedTasks === 0 ? (
                                 <p className="search-results-text">
