@@ -60,9 +60,7 @@ const UserProfileCard = ({
     const { data: country } = useGetCountryBYId(countryCode);
     const [image, setImage] = useState();
     const [showModal, setShowModal] = useState(false);
-    const services = Array.isArray(moreServices)
-        ? JSON.parse(moreServices)
-        : [];
+    const services = moreServices ? JSON.parse(moreServices) : [];
     const queryClient = useQueryClient();
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
@@ -105,7 +103,6 @@ const UserProfileCard = ({
             </p>
         );
     });
-    // console.log("user profile=", profile);
 
     const inputRef = useRef<HTMLInputElement>(null);
 

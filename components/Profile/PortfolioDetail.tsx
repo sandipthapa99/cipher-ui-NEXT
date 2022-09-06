@@ -18,6 +18,7 @@ interface PortfolioProps {
     setShowPortfolioDetails: Dispatch<SetStateAction<boolean>>;
     id?: number;
     handleDeletePortfolio?: () => void;
+    isTaskerPortfolio?: boolean;
 }
 
 const PortfolioDetails = ({
@@ -25,6 +26,7 @@ const PortfolioDetails = ({
     handleDeletePortfolio,
     id,
     handleClose,
+    isTaskerPortfolio,
 }: PortfolioProps) => {
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
     const [isEditProfile, setIsEditProfile] = useState(false);
@@ -180,25 +182,30 @@ const PortfolioDetails = ({
                         </>
                     ) : null}
                 </div>
+                {isTaskerPortfolio ? (
+                    <div className="py-3"></div>
+                ) : (
+                    <Modal.Footer>
+                        <Button
+                            className="btn close-btn w-25"
+                            onClick={handleDeletePortfolio}
+                        >
+                            Remove
+                        </Button>
 
-                <Modal.Footer>
-                    <Button
-                        className="btn close-btn w-25"
-                        onClick={handleDeletePortfolio}
-                    >
-                        Remove
-                    </Button>
-
-                    <Button
-                        className="btn submit-btn w-25"
-                        onClick={() => {
-                            setShowAddPortfolioModal(!showAddPortfolioModal);
-                            setIsEditProfile(true);
-                        }}
-                    >
-                        Edit
-                    </Button>
-                </Modal.Footer>
+                        <Button
+                            className="btn submit-btn w-25"
+                            onClick={() => {
+                                setShowAddPortfolioModal(
+                                    !showAddPortfolioModal
+                                );
+                                setIsEditProfile(true);
+                            }}
+                        >
+                            Edit
+                        </Button>
+                    </Modal.Footer>
+                )}
             </Modal>
             <PostCard
                 text="You are good to continue."

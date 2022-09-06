@@ -2,7 +2,6 @@ import DeleteModal from "@components/common/DeleteModal";
 import Reviews from "@components/common/Reviews";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { profile } from "console";
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -39,7 +38,6 @@ const AboutProfile = () => {
     const [page, setPage] = useState<number>(1);
     const [isEditProfile, setIsEditProfile] = useState(false);
     const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
-    const [isArray, setIsArray] = useState(true);
 
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
@@ -124,6 +122,7 @@ const AboutProfile = () => {
                             handleDelete(id, "portfolio");
                             setShowPortfolioDetails(false);
                         }}
+                        isTaskerPortfolio={false}
                     />
                     <div className="content ">
                         {portfolioData?.data?.result
