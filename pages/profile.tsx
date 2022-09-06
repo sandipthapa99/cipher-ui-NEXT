@@ -29,7 +29,6 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     // const profileDetails = userData?.data;
 
     // if (isLoading || !data) return <FullPageLoader />;
-    console.log("user profile=", profileDetails);
 
     const remaining = {
         userRating: 4,

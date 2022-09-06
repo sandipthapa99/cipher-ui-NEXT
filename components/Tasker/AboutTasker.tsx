@@ -1,7 +1,7 @@
-import PortfolioDetails from "@components/Profile/PortfolioDetail";
 import { format } from "date-fns";
 import Image from "next/image";
-import React, { useState } from "react";
+import Link from "next/link";
+import React from "react";
 import { Col, Row } from "react-bootstrap";
 import type { TaskerProps } from "types/taskerProps";
 
@@ -13,10 +13,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
     const userSkills = taskerDetail?.skill
         ? JSON.parse(taskerDetail?.skill)
         : [];
-    console.log("tasker detail", taskerDetail);
-    const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
-    const [showPortfolioDetails, setShowPortfolioDetails] = useState(false);
-    const [id, setId] = useState<number | undefined>();
+    console.log("userskills", taskerDetail?.skill, userSkills);
 
     return (
         <>
@@ -30,68 +27,31 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                     <div className="content">
                         {taskerDetail?.portfolio
                             ? taskerDetail?.portfolio?.map((info: any) => (
-                                  <div
-                                      className="image"
-                                      key={info?.id}
-                                      onClick={() => setId(info?.id)}
-                                  >
-                                      <Row className="gx-5 px-3">
-                                          <Col md={6} sm={12} xs={12}>
-                                              {info?.images[0]?.media ? (
-                                                  <figure
-                                                      className="thumbnail-img"
-                                                      onClick={() =>
-                                                          setShowPortfolioDetails(
-                                                              true
-                                                          )
-                                                      }
-                                                  >
-                                                      <Image
-                                                          src={
-                                                              info?.images[0]
-                                                                  ?.media ??
-                                                              "/userprofile/image.svg"
-                                                          }
-                                                          layout="fill"
-                                                          objectFit="cover"
-                                                          alt="portfolio-image"
-                                                      />
-                                                  </figure>
-                                              ) : (
-                                                  ""
-                                              )}
+                                  <div className="image" key={info?.id}>
+                                      <Row>
+                                          <Col md={6}>
+                                              <Link href={info?.credential_url}>
+                                                  <a target="_blank">
+                                                      {info?.image ? (
+                                                          <figure className="thumbnail-img">
+                                                              <Image
+                                                                  src={`http://54.252.73.240:8014${info?.image}`}
+                                                                  layout="fill"
+                                                                  objectFit="cover"
+                                                                  alt="portfolio-image"
+                                                              />
+                                                          </figure>
+                                                      ) : (
+                                                          ""
+                                                      )}
+                                                  </a>
+                                              </Link>
                                           </Col>
                                       </Row>
-                                      <PortfolioDetails
-                                          show={showPortfolioDetails}
-                                          setShowPortfolioDetails={
-                                              setShowPortfolioDetails
-                                          }
-                                          handleClose={() =>
-                                              setShowPortfolioDetails(false)
-                                          }
-                                          id={id}
-                                          isTaskerPortfolio={true}
-                                      />
-                                      {info?.images.length < 1 ? (
-                                          <div className="portfolio-title">
-                                              <p className="text-center">
-                                                  {info.title}
-                                              </p>
-                                          </div>
-                                      ) : (
-                                          <div className="portfolio-title">
-                                              <p
-                                                  className={
-                                                      isOnlyPortfolioText
-                                                          ? "text-center text-pointer"
-                                                          : "text-center"
-                                                  }
-                                              >
-                                                  {info.title}
-                                              </p>
-                                          </div>
-                                      )}
+
+                                      <p className="text-center">
+                                          {info.title}
+                                      </p>
                                   </div>
                               ))
                             : "This tasker have no portfolio."}

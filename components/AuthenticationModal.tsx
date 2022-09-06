@@ -1,7 +1,12 @@
+import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, Formik } from "formik";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { isSubmittingClass } from "utils/helpers";
@@ -20,14 +25,11 @@ const numReqOnly = Yup.number().required("Required field");
 const schema = Yup.object().shape({
     code: numReqOnly,
 });
-
 const AuthenticationModalCard = ({
     handleClose,
     show,
 }: AuthenticationModalCardProps) => {
     const router = useRouter();
-    // const { mutate } = useForm(`/tasker/experience/`);
-
     return (
         <>
             {/* Modal component */}
@@ -43,7 +45,7 @@ const AuthenticationModalCard = ({
                         validationSchema={schema}
                         onSubmit={async (values) => {
                             console.log(values);
-
+                            await router.push("task/checkout");
                             // setBookNowDetails((prev) => ({
                             //     ...prev,
                             //     ...values,
