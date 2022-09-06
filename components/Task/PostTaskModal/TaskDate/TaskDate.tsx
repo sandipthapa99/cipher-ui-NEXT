@@ -8,7 +8,14 @@ export enum TaskDateType {
     FIXED = "Fixed",
     CUSTOM = "Custom",
 }
-export const TaskDate = () => {
+interface TaskDateProps {
+    setFieldValue: (
+        field: string,
+        value: any,
+        shouldValidate?: boolean
+    ) => void;
+}
+export const TaskDate = ({ setFieldValue }: TaskDateProps) => {
     const [value, setValue] = useState(TaskDateType.FIXED);
     return (
         <Box>
@@ -22,7 +29,11 @@ export const TaskDate = () => {
                 <Radio label="Custom" value={TaskDateType.CUSTOM} />
             </Radio.Group>
             <Space h={20} />
-            {value === TaskDateType.FIXED ? <FixedDate /> : <CustomDate />}
+            {value === TaskDateType.FIXED ? (
+                <FixedDate />
+            ) : (
+                <CustomDate setFieldValue={setFieldValue} />
+            )}
         </Box>
     );
 };

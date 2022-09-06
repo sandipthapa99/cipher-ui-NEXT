@@ -2,15 +2,18 @@ import { AddServiceModalComponent } from "@components/AddServices/AddServiceModa
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
-import { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
+import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
+import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { BudgetType } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCategory } from "@components/Task/PostTaskModal/TaskCategory";
+import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskDate } from "@components/Task/PostTaskModal/TaskDate";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import { Radio } from "@mantine/core";
 import {
+    Anchor,
     Box,
     Checkbox,
     Modal,
@@ -21,8 +24,10 @@ import {
     Title,
 } from "@mantine/core";
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
+import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/task/use-post-task";
+import Link from "next/link";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -36,13 +41,13 @@ export interface PostTaskPayload {
     description: string;
     requirements: string;
     category: string;
-    location: TaskType;
     city: string;
+    location: TaskType;
+    currency: string;
     budget_type: BudgetType;
-    budget_fixed: string;
     budget_from: string;
     budget_to: string;
-    isNegotiable: boolean;
+    is_negotiable: boolean;
     image: string;
     video: string;
     estimated_time: number;
@@ -56,76 +61,77 @@ export interface PostTaskPayload {
 
 export const PostTaskModal = () => {
     const [choosedValue, setChoosedValue] = useState("task");
+    const queryClient = useQueryClient();
     const { mutate } = usePostTask();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
+    const [termsAccepted, setTermsAccepted] = useState(false);
+
+    const formik = useFormik<PostTaskPayload>({
+        initialValues: {
+            title: "",
+            description: "",
+            requirements: "",
+            category: "",
+            city: "",
+            location: "remote",
+            budget_type: BudgetType.FIXED,
+            budget_from: "",
+            budget_to: "",
+            is_negotiable: false,
+            image: "",
+            video: "",
+            estimated_time: 5,
+            is_recursion: false,
+            is_everyday: false,
+            start_date: "2022-12-01",
+            end_date: "2023-01-04",
+            start_time: "01:00",
+            end_time: "03:00",
+            currency: "",
+        },
+        validationSchema: postTaskSchema,
+        onSubmit: (values) => {
+            if (!termsAccepted) {
+                toast.error(
+                    "You must accept the terms and conditions before posting a task"
+                );
+                return;
+            }
+            const formData = new FormData();
+            Object.entries(values).forEach((tempValue) => {
+                const [key, value] = tempValue;
+                if (key !== "video" && key !== "image") {
+                    formData.append(key, value.toString());
+                }
+            });
+            formData.append("video", values.video);
+            formData.append("image", values.image);
+            mutate(formData, {
+                onSuccess: (payload) => {
+                    toggleShowPostTaskModal();
+                    toast.success(payload.message);
+                    queryClient.invalidateQueries(["all-tasks"]);
+                },
+                onError: (error) => {
+                    toast.error(error.message);
+                },
+            });
+        },
+    });
     const { getFieldProps, handleSubmit, touched, errors, setFieldValue } =
-        useFormik<PostTaskPayload>({
-            initialValues: {
-                title: "",
-                description: "",
-                requirements: "",
-                category: "",
-                location: TaskType.REMOTE,
-                city: "",
-                budget_type: BudgetType.FIXED,
-                budget_fixed: "",
-                budget_from: "",
-                budget_to: "",
-                isNegotiable: false,
-                image: "",
-                video: "",
-                estimated_time: 5,
-                is_recursion: false,
-                is_everyday: false,
-                start_date: "2022-12-01",
-                end_date: "2023-01-04",
-                start_time: "01:00",
-                end_time: "03:00",
-            },
-            validationSchema: postTaskSchema,
-            onSubmit: (values) => {
-                console.log(values);
-                const tempValues = {
-                    ...values,
-                    budget_type: "Hourly",
-                    city: 2,
-                };
-                const formData = new FormData();
-                Object.entries(tempValues).forEach((tempValue) => {
-                    const [key, value] = tempValue;
-                    if (key !== "video" && key !== "image") {
-                        formData.append(key, value.toString());
-                    }
-                });
-                formData.append("video", tempValues.video);
-                formData.append("image", tempValues.image);
-                mutate(formData, {
-                    onSuccess: (payload) => {
-                        toggleShowPostTaskModal();
-                        toast.success(payload.message);
-                    },
-                    onError: (error) => {
-                        toast.error(error.message);
-                    },
-                });
-            },
-        });
-    const getFieldError = (fieldName: keyof PostTaskPayload) =>
-        touched[fieldName] && errors[fieldName]
-            ? errors[fieldName]?.toString()
-            : null;
+        formik;
+    const getFieldError = (key: keyof PostTaskPayload) =>
+        touched[key] && errors[key] ? errors[key] : null;
 
     return (
         <>
             <Modal
-                overflow="outside"
-                overlayOpacity={0.65}
-                overlayColor="rgba(0, 0, 0, 0.4)"
-                overlayBlur={1}
                 opened={showPostTaskModal}
                 onClose={toggleShowPostTaskModal}
+                overlayOpacity={0.55}
+                overlayBlur={3}
                 title="Post a Task or Service"
                 size="xl"
             >
@@ -145,7 +151,7 @@ export const PostTaskModal = () => {
                     <form encType="multipart/formData" onSubmit={handleSubmit}>
                         <Stack spacing="md">
                             <TextInput
-                                placeholder="Need a garden cleaner"
+                                placeholder="Enter your title"
                                 label="Title"
                                 required
                                 {...getFieldProps("title")}
@@ -153,7 +159,7 @@ export const PostTaskModal = () => {
                             />
                             <Textarea
                                 label="Task Description"
-                                placeholder="Need a garden cleaner to clean my garden and watch morbius"
+                                placeholder="Enter your description"
                                 minRows={5}
                                 required
                                 {...getFieldProps("description")}
@@ -169,6 +175,17 @@ export const PostTaskModal = () => {
                                 error={getFieldError("requirements")}
                                 {...getFieldProps("requirements")}
                             />
+                            <TaskCurrency
+                                onCurrencyChange={(currencyId) =>
+                                    setFieldValue("currency", currencyId)
+                                }
+                                error={getFieldError("currency")}
+                            />
+                            <SelectCity
+                                onCitySelect={(cityId) =>
+                                    setFieldValue("city", cityId)
+                                }
+                            />
                             <TaskCategory
                                 onCategoryChange={(category) =>
                                     setFieldValue("category", category)
@@ -177,26 +194,17 @@ export const PostTaskModal = () => {
                                 error={getFieldError("category")}
                             />
                             <SelectTaskType
+                                setFieldValue={setFieldValue}
                                 onTypeChange={(type) =>
                                     setFieldValue("location", type)
                                 }
-                                addressInputProps={{
-                                    ...getFieldProps("city"),
-                                    error: getFieldError("city"),
-                                }}
+                                {...getFieldProps("location")}
+                                error={getFieldError("location")}
                             />
-                            <TaskBudget
-                                budgetFixedError={getFieldError("budget_fixed")}
-                                budgetFromError={getFieldError("budget_from")}
-                                budgetToError={getFieldError("budget_to")}
-                                setFieldValue={setFieldValue}
-                                onBudgetTypeChange={(type) =>
-                                    setFieldValue("budget_type", type)
-                                }
-                            />
+                            <TaskBudget {...formik} />
                             <Checkbox
                                 label="Yes, it is negotiable."
-                                {...getFieldProps("isNegotiable")}
+                                {...getFieldProps("is_negotiable")}
                             />
                             <Stack sx={{ maxWidth: "40rem" }}>
                                 <Title order={6}>Images</Title>
@@ -238,7 +246,26 @@ export const PostTaskModal = () => {
                                     type={["video"]}
                                 />
                             </Stack>
-                            <TaskDate />
+                            <TaskDate setFieldValue={setFieldValue} />
+                            <Checkbox
+                                checked={termsAccepted}
+                                onChange={(event) =>
+                                    setTermsAccepted(event.target.checked)
+                                }
+                                label={
+                                    <Text>
+                                        Accept all{" "}
+                                        <Link
+                                            passHref
+                                            href="/terms-and-conditions"
+                                        >
+                                            <Anchor>
+                                                Terms and Conditions
+                                            </Anchor>
+                                        </Link>
+                                    </Text>
+                                }
+                            />
                             <Box
                                 sx={{
                                     display: "flex",
@@ -246,12 +273,15 @@ export const PostTaskModal = () => {
                                     gap: "1rem",
                                 }}
                             >
-                                <Button className="close-btn close-btn-mod btn p-3 h-25 w-25">
+                                <Button
+                                    onClick={toggleShowPostTaskModal}
+                                    className="close-btn close-btn-mod btn p-3 h-25 w-25"
+                                >
                                     Cancel
                                 </Button>
                                 <BigButton
                                     type="submit"
-                                    className="close-btn btn p-3 h-25 w-25"
+                                    className="close-btn btn p-3 h-25 w-25 text-white"
                                     btnTitle="Post Task"
                                     backgroundColor="#211D4F"
                                 />
