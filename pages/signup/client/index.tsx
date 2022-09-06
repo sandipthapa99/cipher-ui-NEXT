@@ -235,7 +235,8 @@ const SignUpAsClient = () => {
             <AuthenticationModalCard
                 show={show}
                 handleClose={handleClose}
-                username={phoneNumber}
+                phone={phoneNumber}
+                setShowForm={setShow}
             />
         </OnBoardingLayout>
     );
