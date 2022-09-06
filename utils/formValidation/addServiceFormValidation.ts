@@ -12,7 +12,7 @@ const highlightValidate = Yup.array(
 
 export const addServiceFormSchema = Yup.object().shape({
     title: StrigReqValidate,
-    budget_type: StrigReqValidate,
+    budget_type: Yup.string(),
     budget_from: numberValidate,
     description: StrigReqValidate,
     highlights: highlightValidate,
@@ -21,4 +21,5 @@ export const addServiceFormSchema = Yup.object().shape({
     no_of_revisions: numberValidate,
     category: numberValidate,
     city: numberValidate,
+    is_active: Yup.boolean().required(),
 });

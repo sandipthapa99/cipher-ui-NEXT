@@ -4,9 +4,10 @@ import {
     faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, createStyles, Select } from "@mantine/core";
+import { Alert, createStyles, LoadingOverlay, Select } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 import { useFormik } from "formik";
 import type { Tasker } from "hooks/tasker/use-tasker";
 import { useRouter } from "next/router";
@@ -39,21 +40,23 @@ export interface SearchDashboardPayload {
     q: string;
 }
 export const useSearchDashboard = () => {
-    return useMutation<SearchDashboardResult, Error, SearchDashboardPayload>(
-        async ({ scope, q }) => {
-            const { data } = await axiosClient.get<SearchApiResponse>(
-                `/search/dashboard?scope=${scope}&q=${q}`
-            );
-            const taskers = data.result
-                .filter((item) => item.c_type === "tasker.Profile")
-                .map((item) => item.result) as Tasker[];
-            const services = data.result
-                .filter((item) => item.c_type === "task.Service")
-                .map((item) => item.result);
-            return { taskers, services };
-            // return data.result;
-        }
-    );
+    return useMutation<
+        SearchDashboardResult,
+        AxiosError,
+        SearchDashboardPayload
+    >(async ({ scope, q }) => {
+        const { data } = await axiosClient.get<SearchApiResponse>(
+            `/search/dashboard?scope=${scope}&q=${q}`
+        );
+        const taskers = data.result
+            .filter((item) => item.c_type === "tasker.Profile")
+            .map((item) => item.result) as Tasker[];
+        const services = data.result
+            .filter((item) => item.c_type === "task.Service")
+            .map((item) => item.result);
+        return { taskers, services };
+        // return data.result;
+    });
 };
 const searchData = [
     { label: "All", value: "all" },
@@ -67,7 +70,7 @@ export const Search = () => {
     const setSearchQuery = useSetSearchQuery();
     const setSearchedServices = useSetSearchedServices();
     const { classes } = useStyles();
-    const { mutate } = useSearchDashboard();
+    const { mutate, isLoading } = useSearchDashboard();
     const { getFieldProps, handleSubmit, values, setFieldValue } = useFormik<{
         scope: SearchScope;
         q: string;
@@ -108,11 +111,21 @@ export const Search = () => {
                         router.push({ pathname: "/service" });
                     }
                 },
+                onError: (error: any) => {
+                    const errorList = Object.values(error?.response?.data);
+                    const errorMessage = errorList.join("\n");
+                    setSearchError(errorMessage);
+                },
             });
         },
     });
     return (
         <>
+            <LoadingOverlay
+                visible={isLoading}
+                className={classes.loadingOverlay}
+                overlayBlur={2}
+            />
             <div className="search-bar">
                 <form onSubmit={handleSubmit}>
                     <div className="search_box">
@@ -126,6 +139,7 @@ export const Search = () => {
                                 <FontAwesomeIcon icon={faChevronDown} />
                             }
                             onChange={(value) => setFieldValue("scope", value)}
+                            styles={{ dropdown: { marginLeft: `${-1}rem` } }}
                         />
                         <div className="search_field">
                             <input
@@ -163,7 +177,11 @@ export const Search = () => {
 };
 export const useStyles = createStyles(() => ({
     selectField: {
-        maxWidth: useMediaQuery("(max-width:572px)") ? "7.7rem" : "12rem",
+        maxWidth: useMediaQuery("(max-width:572px)") ? "12rem" : "12rem",
         marginLeft: "1rem",
+    },
+    loadingOverlay: {
+        position: "fixed",
+        inset: 0,
     },
 }));

@@ -135,6 +135,8 @@
         //flex-wrap: wrap;
         @include respond(md) {
             margin-top: 0rem;
+            display: flex;
+            flex-direction: row;
         }
         @include respond(xs) {
             margin: 0rem 2.8rem;
@@ -165,11 +167,12 @@
         border-radius: 0.4rem;
         padding: 4.2rem 1rem;
         padding-bottom: 1.8rem;
+        // width: 13.5rem;
         @include respond(lg) {
-            width: 12.5rem;
+            width: 12.6rem;
         }
-        @include respond(xl) {
-            width: 14.6rem;
+        @include respond(xxl) {
+            width: 17.6rem;
         }
         h1 {
             text-align: center;
@@ -194,8 +197,12 @@
         padding: 2.8rem 1rem;
         border: 0.1rem solid rgba(0, 0, 0, 0.1);
         border-radius: 0.4rem;
-        background-color: #fff;
+        background-color: #5c6096;
+        color: #fff;
         margin-left: -0.8rem;
+        h1 {
+            color: #fff;
+        }
         @include respond(xs) {
             margin: 0rem 2.8rem;
             margin-top: 1rem;
@@ -228,18 +235,61 @@
             color: $default-text-color;
         }
         tbody > tr {
-            &:first-child {
-                td {
-                    color: $secondary-text-color;
-                }
-            }
             td {
+                color: $secondary-text-color;
                 padding: 1.3rem 0rem;
                 padding-left: 1rem;
+            }
+
+            &:nth-last-child(1),
+            &:nth-last-child(2) {
+                td {
+                    color: #212529;
+                }
             }
         }
         @include respond(xs) {
             overflow: scroll;
+        }
+    }
+    .tax-card-block,
+    .related-card-block {
+        background: #edf4ff;
+        /* grayScale/gray[4] */
+        border: 0.1rem solid #ced4da;
+        border-radius: 0.4rem;
+        padding: 5rem;
+        justify-content: center;
+        padding-top: 6rem;
+        h2 {
+            font-size: 1.7rem;
+            font-weight: 500;
+            color: $sub-title-color;
+            margin-bottom: 0rem;
+            padding-bottom: 1.8rem;
+        }
+        p {
+            margin-bottom: 0rem;
+            padding-bottom: 0.7rem;
+            font-weight: 400;
+            color: $secondary-text-color;
+            font-size: 1.4rem;
+        }
+    }
+    .related-card-block {
+        margin-bottom: 2.6rem;
+        padding: 2.5rem;
+        background-color: transparent;
+        border: 0.1rem solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.4rem;
+        p {
+            padding-bottom: 1rem;
+            color: #3eaeff;
+            cursor: pointer;
+        }
+
+        .title {
+            color: $primary-color;
         }
     }
 }

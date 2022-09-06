@@ -25,7 +25,7 @@ export const LoginPrompt = () => {
         };
     }, [hideLoginPrompt, router.events]);
     return (
-        <Modal show={showLoginPrompt} onHide={hideLoginPrompt}>
+        <Modal centered show={showLoginPrompt} onHide={hideLoginPrompt}>
             <Modal.Header closeButton />
             <Modal.Body>
                 <p>Not logged in ?</p>

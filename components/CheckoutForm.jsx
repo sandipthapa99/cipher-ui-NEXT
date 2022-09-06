@@ -1,3 +1,4 @@
+import { Loader } from "@mantine/core";
 import {
     PaymentElement,
     useElements,
@@ -20,6 +21,7 @@ export default function CheckoutForm() {
         const clientSecret = new URLSearchParams(window.location.search).get(
             "payment_intent_client_secret"
         );
+        console.log("cl key: ", clientSecret);
 
         if (!clientSecret) {
             return;
@@ -59,8 +61,8 @@ export default function CheckoutForm() {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                // Make sure to change this to your payment completion page
-                return_url: "http://localhost:3000",
+                // payment completion page
+                return_url: "/home",
             },
         });
 
@@ -80,18 +82,15 @@ export default function CheckoutForm() {
 
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
+            <h1>Card Information</h1>
             <PaymentElement id="payment-element" />
             <button
                 disabled={isLoading || !stripe || !elements}
                 id="submit"
-                className="btn-primary mt-3 p-2"
+                className="btn-primary mt-5"
             >
                 <span id="button-text">
-                    {isLoading ? (
-                        <div className="spinner" id="spinner"></div>
-                    ) : (
-                        "Pay now"
-                    )}
+                    {isLoading ? <Loader color="gray" size="sm" /> : "Pay now"}
                 </span>
             </button>
             {/* Show any error or success messages */}

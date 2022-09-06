@@ -5,10 +5,11 @@ import {
     useSearchedServices,
     useSearchQuery,
 } from "@components/common/Search/searchStore";
-import Footer from "@components/Footer";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
-import { Highlight, Space } from "@mantine/core";
+import { faClose } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ActionIcon, Box, Highlight, Space } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { ReactNode } from "react";
@@ -31,6 +32,7 @@ export const useSearchService = (query: string) => {
 
 const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
+    const [sortPriceServices, setSortPriceServices] = useState([]);
     const searchedServices = useSearchedServices();
     const clearSearchQuery = useClearSearchQuery();
     const clearSearchedServices = useClearSearchedServices();
@@ -45,6 +47,12 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     );
 
     const { data: searchData = [] } = useSearchService(query);
+
+    const handleClearSearchResults = () => {
+        clearSearchedServices();
+        clearSearchQuery();
+    };
+
     const handleSearchChange = (query: string) => {
         clearSearchQuery();
         clearSearchedServices();
@@ -52,25 +60,49 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     };
 
     if (isLoading || !data) return <FullPageLoader />;
+
+    const getSortByPrice = (services: any) => {
+        setSortPriceServices(services);
+    };
+    console.log("ser", sortPriceServices);
+
     return (
         <Layout title="Find Services | Cipher">
             <Container fluid="xl">
-                <SearchCategory onChange={handleSearchChange} />
+                <SearchCategory
+                    onChange={handleSearchChange}
+                    getSortingByPrice={getSortByPrice}
+                />
                 {searchQuery?.query && (
-                    <Highlight highlight={searchQuery.query}>
-                        {`Showing search results for ${searchQuery.query}`}
-                    </Highlight>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Highlight highlight={searchQuery.query}>
+                            {`Showing search results for ${searchQuery.query}`}
+                        </Highlight>
+                        <ActionIcon onClick={handleClearSearchResults}>
+                            <FontAwesomeIcon icon={faClose} />
+                        </ActionIcon>
+                    </Box>
                 )}
                 <Space h={10} />
                 <ServiceAside
                     query={query}
                     service={
-                        checkSpecialOffer
-                            ? specialOfferDetails
-                            : searchedServices.length > 0
-                            ? searchedServices
+                        sortPriceServices.length > 0
+                            ? sortPriceServices
                             : searchData
+                        // checkSpecialOffer
+                        //     ? specialOfferDetails
+                        //     : searchedServices.length > 0
+                        //     ? searchedServices
+                        //     : searchData
                     }
+                    isLoading={isLoading || !data}
                 >
                     {children}
                 </ServiceAside>

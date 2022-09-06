@@ -5,6 +5,7 @@ import {
     faLocation,
     faShare,
 } from "@fortawesome/pro-regular-svg-icons";
+import { faCircle } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
@@ -40,8 +41,14 @@ const MerchantProfileCard = ({
                         />
                     </figure>
                     <div className="profile-intro d-flex">
-                        <h1 className="job">I am the {merchantJob}</h1>
-                        <div className="active"></div>
+                        <h1 className="job text-center">
+                            I am the {merchantJob}
+                        </h1>
+                        {/* <div className="active"></div> */}
+                        <FontAwesomeIcon
+                            icon={faCircle}
+                            className="svg-icon active"
+                        />
                     </div>
                     <p className="organization">
                         Organization | {merchantOrganization}

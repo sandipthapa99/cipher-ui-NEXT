@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Modal } from "@mantine/core";
 import { format } from "date-fns";
 import { useLocation } from "hooks/location/useLocation";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -21,18 +22,30 @@ import { handleMenuActive } from "utils/helpers";
 
 import { Dropdown } from "./common/Dropdown";
 import { NotificationDropdown } from "./notifications/NotificationDropdown";
+import { RasifalSlideComponent } from "./Rasifal/RasifalSlideComponent";
 
 const Header = () => {
     const date = format(new Date(), "MMMM d");
-    const { data: weather } = useWeather();
-    console.log("weather", weather);
-
     const { data: location } = useLocation();
+    // console.log(weather?.data);
+
+    const { data: weather } = useWeather();
+    // console.log("weather", weather);
+
     const getIcon = weather?.weather[0].icon;
 
     const router = useRouter();
     const [notopen, setNotopen] = useState(false);
+    const [rasifal, setRasifal] = useState(false);
     const { data: profileDetails } = useGetProfile();
+
+    // const handleBodyScroll = () => {
+    //     if (!rasifal) {
+    //         document.body.style.overflow = "hidden";
+    //     } else {
+    //         document.body.style.overflow = "unset";
+    //     }
+    // };
 
     return (
         <>
@@ -42,6 +55,10 @@ const Header = () => {
                 className="site-header sticky-wrapper-header"
             >
                 <Container fluid="xl">
+                    <RasifalSlideComponent
+                        rasifal={rasifal}
+                        setRasifal={setRasifal}
+                    />
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li
@@ -131,26 +148,46 @@ const Header = () => {
                                 {date}
                             </a>
                         </Link>
+
+                        <Link href="#!">
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ margin: "0 1.6rem 0 1.6rem" }}
+                                onClick={() =>
+                                    setRasifal(
+                                        (currentRasifal) => !currentRasifal
+                                    )
+                                }
+                            >
+                                राशिफल
+                            </a>
+                        </Link>
+
+                        {/* {location && (
                         {location && (
                             <Link href="#!">
                                 <a
                                     className="btn location-btn d-none d-md-inline-block"
                                     style={{ marginRight: "1.6rem" }}
                                 >
-                                    {location?.city}
+                                    {location?.data?.city}
                                     <FontAwesomeIcon
                                         icon={faLocationDot}
                                         className="svg-icon"
                                     />
                                 </a>
                             </Link>
-                        )}
-                        {/* not */}
+                        )} */}
+
                         {profileDetails ? (
                             <div>
                                 <a
                                     className="btn location-btn d-none d-md-inline-block"
-                                    onClick={() => setNotopen(!notopen)}
+                                    onClick={() =>
+                                        setNotopen(
+                                            (currentNotopen) => !currentNotopen
+                                        )
+                                    }
                                 >
                                     <FontAwesomeIcon
                                         icon={faBell}

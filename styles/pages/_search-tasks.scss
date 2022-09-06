@@ -1,11 +1,11 @@
 .user-stats {
-    padding: 3rem 3rem;
+    padding: 2rem;
     justify-content: center;
     display: flex;
     align-items: center;
 
     @include respond(md) {
-        padding: 3rem 0;
+        padding: 3rem;
     }
     .status {
         padding: 2rem 0rem;
@@ -22,6 +22,10 @@
             padding-right: 5rem;
             padding-bottom: 0.7rem;
             border-radius: 0.4rem;
+            width: 100%;
+            p {
+                text-align: left;
+            }
 
             @include respond(sm) {
                 margin-bottom: 2rem;
@@ -34,10 +38,10 @@
             }
         }
         .success-rate {
-            background-color: #ffeded;
+            background-color: #ecf7ff;
 
             h1 {
-                color: #fe5050;
+                color: #3eaeff;
             }
             p {
                 font-size: 1.3rem;
@@ -70,10 +74,10 @@
         }
     }
     .user-reviews {
-        background-color: #ecf7ff;
+        background-color: #ffeded;
 
         h1 {
-            color: #3eaeff;
+            color: #fe5050;
         }
         p {
             font-size: 1.3rem;

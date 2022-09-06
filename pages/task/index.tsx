@@ -7,10 +7,7 @@ const AppliedTask = () => {
     return (
         <>
             <AppliedLayout>
-                <MapboxMap
-                    latitude={27.687713889865993}
-                    longitude={85.32806957052709}
-                />
+                <MapboxMap />
             </AppliedLayout>
         </>
     );

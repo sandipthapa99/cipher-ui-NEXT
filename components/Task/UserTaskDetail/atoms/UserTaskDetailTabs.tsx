@@ -5,10 +5,10 @@ import { useData } from "hooks/use-data";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
-import type { TaskerDetail } from "types/tasks";
+import type { TaskerProps } from "types/taskerProps";
 
 interface UserTaskDetailTabs {
-    taskerDetail: TaskerDetail;
+    taskerDetail: TaskerProps["result"][0];
 }
 
 export const UserTaskDetailTabs = ({ taskerDetail }: UserTaskDetailTabs) => {

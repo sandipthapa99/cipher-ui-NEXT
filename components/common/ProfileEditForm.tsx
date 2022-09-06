@@ -102,7 +102,7 @@ const ProfileEditForm = ({
                             linkedAccounts: "",
                         }}
                         validationSchema={profileEditFormSchema}
-                        onSubmit={async (values, actions) => {
+                        onSubmit={async (values: any, actions: any) => {
                             const newValidatedValues = {
                                 ...values,
                                 active_hour_start: new Date(
@@ -117,7 +117,6 @@ const ProfileEditForm = ({
                             setShowEdit(false);
                             onEditProfile(newValidatedValues);
                             // toggleSuccessModal();
-                            console.log(newValidatedValues);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

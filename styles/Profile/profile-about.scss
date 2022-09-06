@@ -71,7 +71,7 @@
             flex-wrap: wrap;
             padding-top: 1.5rem;
 
-            .image {
+            .data {
                 padding-right: 2rem;
             }
             .thumbnail-img {
@@ -102,21 +102,27 @@
                 margin-bottom: 1rem;
                 padding-top: 1rem;
             }
+            .icon-down {
+                cursor: pointer;
+            }
             .icons {
                 position: absolute;
                 margin-left: 8rem;
                 margin-top: -7rem;
                 z-index: 3;
+                cursor: pointer;
+
                 @include transition();
                 .svg-icon {
                     color: #fff;
                     cursor: pointer;
                 }
-                .black-icon {
-                    color: #111;
-                    cursor: pointer;
-                    margin-top: 6rem;
-                }
+                // .black-icon {
+                //     color: #111;
+                //     display: none;
+                //     cursor: pointer;
+                //     // margin-top: 6rem;
+                // }
             }
         }
         justify-content: start;
@@ -199,7 +205,6 @@
         }
     }
     .certification {
-        padding-bottom: 2.5rem;
         border-bottom: none;
         .name {
             a {

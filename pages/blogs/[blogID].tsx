@@ -35,6 +35,7 @@ const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
                                             navigator.clipboard.writeText(
                                                 `${socialShareURL}`
                                             );
+
                                             // successToast("Link Copied")
                                         }}
                                     >

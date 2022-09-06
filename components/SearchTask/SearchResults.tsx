@@ -54,6 +54,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                         image={service?.image}
                         // serviceProvider={service?.created_by}
                         onServiceClick={toggleActiveService}
+                        budget_type={""}
                     />
                 </div>
             );

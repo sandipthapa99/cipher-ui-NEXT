@@ -23,7 +23,7 @@ const Home: NextPage = () => {
     );
 
     return (
-        <Layout title="Post task | Cipher">
+        <Layout title="Home | Cipher">
             <section className="post-task">
                 <div className="post-task__search-header">
                     <Container fluid="xl">
@@ -106,9 +106,11 @@ const Home: NextPage = () => {
                                             key={service.id}
                                         >
                                             <Link href="/service-detail">
-                                                <ServiceCard
-                                                    serviceCard={service}
-                                                />
+                                                <a>
+                                                    <ServiceCard
+                                                        serviceCard={service}
+                                                    />
+                                                </a>
                                             </Link>
                                         </Col>
                                     );

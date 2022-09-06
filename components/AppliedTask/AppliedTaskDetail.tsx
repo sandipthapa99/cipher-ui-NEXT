@@ -36,7 +36,7 @@ import { TaskersTab } from "./TaskersTab";
 import { TeamMembersSection } from "./TeamMembersSection";
 import { TimelineTab } from "./TimelineTab";
 
-const AppliedTaskDetail: NextPage = () => {
+const AppliedTaskDetail = ({ type }: { type?: string }) => {
     const queryClient = useQueryClient();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
@@ -71,7 +71,11 @@ const AppliedTaskDetail: NextPage = () => {
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
-                <GoBack href="/task" />
+                <GoBack
+                    href={
+                        type === "you may like" ? `/task-you-may-like` : `/task`
+                    }
+                />
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">

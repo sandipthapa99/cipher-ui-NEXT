@@ -22,14 +22,13 @@ export interface CustomDropZoneProps
     fileType?: FileType;
     fileLabel?: string;
     onDrop?: (image: FormData) => void;
-    type: string;
+    type: string[];
 }
 
 export const CustomDropZone = ({
     name,
     label,
     maxSize,
-    type,
     minSize,
     previewImageWidth,
     previewImageHeight,

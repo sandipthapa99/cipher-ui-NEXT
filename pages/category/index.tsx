@@ -1,19 +1,21 @@
+import { AllCategories } from "@components/AllCategories";
 import Layout from "@components/Layout";
-import type { GetStaticProps } from "next";
-import Link from "next/link";
+import type { GetStaticProps, NextPage } from "next";
 import { Container } from "react-bootstrap";
-import type { AllCategory } from "staticData/allCategories";
-import { ALL_CATEGORIES } from "staticData/allCategories";
+import type { NestedCategoriesDataProps } from "types/nestedCategoryProps";
+import { axiosClient } from "utils/axiosClient";
 
 interface CategoriesPageProps {
-    categories: AllCategory[];
+    nestedCategoriesData: NestedCategoriesDataProps;
 }
-const CategoriesPage = ({ categories }: CategoriesPageProps) => {
+const CategoriesPage: NextPage<{
+    nestedCategoriesData: CategoriesPageProps["nestedCategoriesData"];
+}> = ({ nestedCategoriesData }) => {
     return (
         <Layout title="Categories | Cipher">
             <Container fluid="xl">
                 <h2 className="all-categories-title">Cipher Categories</h2>
-                <div className="d-flex justify-content-center all-categories">
+                {/* <div className="d-flex justify-content-center all-categories">
                     {categories.map((category, index) => (
                         <div key={index} className="category-item">
                             <h4 className="category-item__title title">
@@ -30,17 +32,31 @@ const CategoriesPage = ({ categories }: CategoriesPageProps) => {
                             </div>
                         </div>
                     ))}
-                </div>
+                </div> */}
+                <AllCategories nestedCategoriesData={nestedCategoriesData} />
             </Container>
         </Layout>
     );
 };
 
-export const getStaticProps: GetStaticProps = () => {
-    return {
-        props: {
-            categories: ALL_CATEGORIES,
-        },
-    };
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: nestedCategoriesData } = await axiosClient.get(
+            "/task/task-category/nested/"
+        );
+        return {
+            props: {
+                nestedCategoriesData: nestedCategoriesData,
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                nestedCategoriesData: [],
+            },
+            revalidate: 10,
+        };
+    }
 };
 export default CategoriesPage;

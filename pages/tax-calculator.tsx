@@ -3,6 +3,8 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import Layout from "@components/Layout";
+import TaxCalculatorInfo from "@components/TaxCalculator/InfoList";
+import RelatedInfo from "@components/TaxCalculator/RelatedInformation";
 import { faCircleQuestion } from "@fortawesome/pro-regular-svg-icons";
 import { Form, Formik } from "formik";
 import { useTaxCalculator } from "hooks/tax-calculator/useTaxCalculator";
@@ -15,7 +17,7 @@ import { toast } from "react-toastify";
 import { TaxCalculatorFormData } from "utils/formData";
 import taxCalculatorSchema from "utils/formValidation/taxCalculatorFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { maritalStatus, salaryType } from "utils/options";
+import { gender, maritalStatus, salaryType } from "utils/options";
 
 const TaxCalculator: NextPage = () => {
     const { mutate, isLoading, data: TableData } = useTaxCalculator();
@@ -38,6 +40,7 @@ const TaxCalculator: NextPage = () => {
         },
     ];
     const tax_rate = TableData?.details["tax rate"];
+    console.log("table data=", TableData?.data);
     const table = [
         {
             id: "0",
@@ -63,23 +66,92 @@ const TaxCalculator: NextPage = () => {
                 {
                     id: "0",
                     salary: "First Slab",
-                    amount: `${TableData?.data[0].taxable_amount}`,
-                    rate: `${TableData?.data[0].tax_rate}`,
-                    liability: `${TableData?.data[0].tax_liability}`,
+                    amount: `${
+                        TableData?.data[0]
+                            ? TableData?.data[0].taxable_amount
+                            : ""
+                    }`,
+                    rate: `${
+                        TableData?.data[0] ? TableData?.data[0].tax_rate : ""
+                    }`,
+                    liability: `${
+                        TableData?.data[0]
+                            ? TableData?.data[0].tax_liability
+                            : ""
+                    }`,
                 },
                 {
                     id: "1",
-                    salary: "Net Tax Liability(yearly)",
-                    amount: ``,
-                    rate: ``,
-                    liability: `${TableData?.details["net tax liability yearly"]}`,
+                    salary: "Second Slab",
+                    amount: `${
+                        TableData?.data[1]
+                            ? TableData?.data[1].taxable_amount
+                            : ""
+                    }`,
+                    rate: `${
+                        TableData?.data[1] ? TableData?.data[1].tax_rate : ""
+                    }`,
+                    liability: `${
+                        TableData?.data[1]
+                            ? TableData?.data[1].tax_liability
+                            : ""
+                    }`,
                 },
                 {
                     id: "2",
+                    salary: "Third Slab",
+                    amount: `${
+                        TableData?.data[2]
+                            ? TableData?.data[2].taxable_amount
+                            : ""
+                    }`,
+                    rate: `${
+                        TableData?.data[2] ? TableData?.data[2].tax_rate : ""
+                    }`,
+                    liability: `${
+                        TableData?.data[2]
+                            ? TableData?.data[2].tax_liability
+                            : ""
+                    }`,
+                },
+                {
+                    id: "3",
+                    salary: "Fourth Slab",
+                    amount: `${
+                        TableData?.data[3]
+                            ? TableData?.data[3].taxable_amount
+                            : ""
+                    }`,
+                    rate: `${
+                        TableData?.data[3] ? TableData?.data[3].tax_rate : ""
+                    }`,
+                    liability: `${
+                        TableData?.data[3]
+                            ? TableData?.data[3].tax_liability
+                            : ""
+                    }`,
+                },
+                {
+                    id: "4",
+                    salary: "Net Tax Liability(yearly)",
+                    amount: ``,
+                    rate: ``,
+                    liability: `${
+                        TableData?.details["net tax liability yearly"]
+                            ? TableData?.details["net tax liability yearly"]
+                            : "0"
+                    }`,
+                },
+                {
+                    id: "5",
                     salary: "Net Tax Liability(monthly)",
                     amount: ``,
                     rate: ``,
-                    liability: `${TableData?.details["net tax liability monthly"]}`,
+                    liability: `${
+                        TableData?.details["net tax liability monthly"]
+                            ? TableData?.details["net tax liability monthly"]
+                            : "0"
+                    }`,
                 },
             ],
         },
@@ -172,21 +244,36 @@ const TaxCalculator: NextPage = () => {
                                                 touched,
                                             }) => (
                                                 <Form autoComplete="false">
-                                                    <div className="marital-status">
-                                                        <div className="label">
-                                                            <p>
-                                                                Marital Status
-                                                            </p>
-                                                        </div>
+                                                    <div className="info marital-status">
                                                         <Row>
-                                                            <Col md={7}>
-                                                                <SelectInputField
-                                                                    name="marital_status"
-                                                                    options={
-                                                                        maritalStatus
-                                                                    }
-                                                                    placeHolder="Unmarried"
-                                                                />
+                                                            <Col md={6}>
+                                                                <div className="label">
+                                                                    <p>
+                                                                        Marital
+                                                                        Status
+                                                                    </p>
+                                                                    <SelectInputField
+                                                                        name="marital_status"
+                                                                        options={
+                                                                            maritalStatus
+                                                                        }
+                                                                        placeHolder="Unmarried"
+                                                                    />
+                                                                </div>
+                                                            </Col>
+                                                            <Col md={6}>
+                                                                <div className="label">
+                                                                    <p>
+                                                                        Gender
+                                                                    </p>
+                                                                    <SelectInputField
+                                                                        name="gender"
+                                                                        options={
+                                                                            gender
+                                                                        }
+                                                                        placeHolder="Female"
+                                                                    />
+                                                                </div>
                                                             </Col>
                                                         </Row>
                                                     </div>
@@ -338,22 +425,22 @@ const TaxCalculator: NextPage = () => {
                                                                 md={12}
                                                                 className="reset-btn"
                                                             >
-                                                                <FormButton
+                                                                <Button
+                                                                    type="button"
+                                                                    className="btn close-btn"
+                                                                    onClick={() =>
+                                                                        resetForm()
+                                                                    }
+                                                                >
+                                                                    Reset
+                                                                </Button>
+                                                                {/* <FormButton
                                                                     name="Reset"
                                                                     className="btn close-btn"
                                                                     onClick={() =>
                                                                         resetForm()
                                                                     }
-                                                                />
-                                                                {/* <Button
-                                                                    type="button"
-                                                                    className="btn close-btn"
-                                                                    onClick={() => 
-                                                                        resetForm();
-                                                                    }
-                                                                >
-                                                                    Reset
-                                                                </Button> */}
+                                                                /> */}
                                                             </Col>
                                                             <Col lg={6} md={12}>
                                                                 <FormButton
@@ -392,6 +479,7 @@ const TaxCalculator: NextPage = () => {
                                     </div>
                                 </Col>
                                 <Col md={6}>
+                                    <RelatedInfo />
                                     <Row className="d-flex tax-blocks align-items-stretch">
                                         {taxContent.map((tax) => (
                                             <Col
@@ -463,6 +551,7 @@ const TaxCalculator: NextPage = () => {
                             </Row>
                         </div>
                     </div>
+                    <TaxCalculatorInfo />
                 </Container>
             </section>
         </Layout>

@@ -58,6 +58,7 @@ const HireInNepal: NextPage = () => {
                                         distance={"2 km"}
                                         bio={item?.user?.bio}
                                         charge={item?.price}
+                                        tasker={""}
                                     />
                                 </Col>
                             ))}
@@ -76,6 +77,7 @@ const HireInNepal: NextPage = () => {
                                         distance={"2 km"}
                                         bio={item?.user?.bio}
                                         charge={item?.price}
+                                        tasker={""}
                                     />
                                 </Col>
                             ))}
