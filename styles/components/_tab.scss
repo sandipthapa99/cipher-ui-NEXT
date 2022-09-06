@@ -40,7 +40,6 @@
             }
         }
         @include media("<=tablet") {
-            overflow-x: scroll;
             flex-wrap: nowrap;
             gap: 32px;
         }

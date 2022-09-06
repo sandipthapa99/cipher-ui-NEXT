@@ -1,5 +1,6 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import MerchantCard from "@components/common/MerchantCard";
+import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import Layout from "@components/Layout";
 import { ServiceCategories } from "@components/services/ServiceCategories";
@@ -7,12 +8,17 @@ import { useData } from "hooks/use-data";
 import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import { merchants } from "staticData/merchants";
+import type { ServicesValueProps } from "types/serviceCard";
 import type { ITaskApiResponse } from "types/task";
 
 const Gardening = () => {
     const router = useRouter();
     const { categories } = router.query;
     console.log(categories, typeof categories);
+    const { data: servicesData } = useData<ServicesValueProps>(
+        ["all-services"],
+        "/task/service/"
+    );
     const nameCategory = categories
         ? categories[0].toUpperCase() + categories.slice(1)
         : "";
@@ -33,13 +39,33 @@ const Gardening = () => {
             <div className="gardening -page">
                 <BreadCrumb currentPage={nameCategory} />
                 <Container fluid="xl">
-                    <h1 className="section-title">{nameCategory}</h1>
+                    <h1 className="section-title m-0">{nameCategory}</h1>
 
                     <section className="services-near-you">
-                        <h1 className="heading-title mt-5">
+                        <h1 className="heading-title mt-3">
                             {`${nameCategory} Services Near You`}
                         </h1>
-                        <ServiceCategories />
+                        <Row className="gx-5">
+                            {servicesData &&
+                                servicesData?.data?.result
+                                    ?.slice(0, 4)
+                                    .map((service, key) => {
+                                        return (
+                                            <Col
+                                                sm={6}
+                                                md={4}
+                                                lg={3}
+                                                key={key}
+                                                className="d-flex"
+                                            >
+                                                <ServiceCard
+                                                    serviceCard={service}
+                                                />
+                                            </Col>
+                                        );
+                                    })}
+                        </Row>
+                        {/* <ServiceCategories /> */}
                     </section>
 
                     <section className="tasks-near-you">

@@ -2,6 +2,7 @@ import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import parse from "html-react-parser";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import type { CategoryCardProps } from "types/categoryCard";
 
 const CategoryCardNew = ({
@@ -9,8 +10,12 @@ const CategoryCardNew = ({
     categoryTitle,
     categoryIcon,
 }: CategoryCardProps) => {
+    const router = useRouter();
     return (
-        <div className="hero-category__card-block d-inline-block flex-row">
+        <div
+            onClick={() => router.push(`category/${categorySlug}`)}
+            className="hero-category__card-block d-inline-block flex-row"
+        >
             <div className="wrapper d-flex flex-row">
                 <div className="image-block">
                     <figure className="d-flex align-items-center justify-content-center thumbnail-icon">

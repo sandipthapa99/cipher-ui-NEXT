@@ -35,13 +35,13 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
 
     const renderTabItems = () => {
         return (
-            <div className="tab-wrapper">
+            <div className="d-flex flex-wrap flex-sm-row tab-wrapper">
                 {items.map((item, index) => (
                     <button
                         data-is-active={JSON.stringify(
                             index === currentActiveIndex
                         )}
-                        className="custom-tab__headers--btn"
+                        className="custom-tab__headers--btn mb-5 mb-sm-0"
                         onClick={() => handleTabClick(index)}
                         key={index}
                     >
