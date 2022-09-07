@@ -23,6 +23,7 @@ const BookNowButton = ({
                     display: "flex",
                     width: "100%",
                     justifyContent: "center",
+                    border: "none",
                 }}
             >
                 <span>{btnTitle}</span>

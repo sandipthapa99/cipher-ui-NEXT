@@ -68,10 +68,20 @@ const AddPortfolio = ({
         useUploadImage();
     const { mutate: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
-    const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
+    const { mutate: editMutation, isLoading: updatePortfolioLoading } =
+        useEditForm(`/tasker/portfolio/${id}/`);
     const loadingOverlayVisible = useMemo(
-        () => createPortfolioLoading || uploadImageLoading || uploadFileLoading,
-        [createPortfolioLoading, uploadFileLoading, uploadImageLoading]
+        () =>
+            createPortfolioLoading ||
+            uploadImageLoading ||
+            uploadFileLoading ||
+            updatePortfolioLoading,
+        [
+            createPortfolioLoading,
+            uploadFileLoading,
+            updatePortfolioLoading,
+            uploadImageLoading,
+        ]
     );
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-portfolio",

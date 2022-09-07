@@ -11,7 +11,6 @@ import { randNumber } from "utils/randNumber";
 interface DropdownProps {
     children?: ReactNode;
 }
-
 export const Dropdown = ({ children }: DropdownProps) => {
     const [menu, setMenu] = useState<DropdownSubMenu>([]); //available menu
     const [subMenu, setSubMenu] = useState<DropdownSubMenu>([]);
@@ -96,10 +95,6 @@ export const Dropdown = ({ children }: DropdownProps) => {
                     <Link href={`/category/${sub.slug}`}>
                         <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
                     </Link>
-                    <FontAwesomeIcon
-                        icon={faChevronRight}
-                        className="svg-icon"
-                    />
                 </li>
             );
         }
@@ -191,7 +186,12 @@ export const Dropdown = ({ children }: DropdownProps) => {
                 <Link href={`/category/${item.slug}`}>
                     <a className="dropdown-menu-item-link">{item.name}</a>
                 </Link>
-                <FontAwesomeIcon icon={faChevronRight} className="svg-icon" />
+                {item?.child.length > 0 && (
+                    <FontAwesomeIcon
+                        icon={faChevronRight}
+                        className="svg-icon"
+                    />
+                )}
             </li>
         );
     });
@@ -215,21 +215,19 @@ export const Dropdown = ({ children }: DropdownProps) => {
                                     View All Category
                                 </a>
                             </Link>
-                            <FontAwesomeIcon
-                                icon={faChevronRight}
-                                className="svg-icon"
-                            />
                         </li>
                     </div>
                 )}
 
-                {isMenuOpened && isSubMenuOpened && (
-                    <div className="dropdown-menu-items sub-menu">
-                        {renderSubMenus.length > 0
-                            ? renderSubMenus
-                            : "Sub Categories not avilable"}
-                    </div>
-                )}
+                {isMenuOpened &&
+                    isSubMenuOpened &&
+                    (renderSubMenus.length > 0 ? (
+                        <div className="dropdown-menu-items sub-menu">
+                            {renderSubMenus}
+                        </div>
+                    ) : (
+                        ""
+                    ))}
 
                 {isMenuOpened && isSubMenuOpened && isNestedSubMenuOpened && (
                     <div className="dropdown-menu-items sub-menu">

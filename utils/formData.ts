@@ -259,7 +259,7 @@ export const PostTaskFormData: PostTaskProps = {
 
 export const ServicePostData: ServicePostProps = {
     title: "",
-    budget_type: "",
+    budget_type: "Fixed",
     budget_from: "",
     budget_to: "",
     description: "",
