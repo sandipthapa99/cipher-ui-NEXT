@@ -17,6 +17,7 @@ export interface RecommendedTaskCardProps
 export interface TaskCardProps extends HTMLAttributes<HTMLDivElement> {
     title: string;
     charge?: string;
+    budget_type?: string;
     description?: string;
     location: string;
     date: string;

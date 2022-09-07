@@ -1,6 +1,7 @@
 export interface MerchantCardProps {
     merchantImage: string;
     merchantName: string;
+    currency?: string;
     merchantCategory: string;
     merchantLocation: string;
     merchantDescription: string;
