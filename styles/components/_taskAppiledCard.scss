@@ -4,8 +4,8 @@
     border-radius: 0.4rem;
     margin-bottom: 2.4rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
-       //specific to NestHub
-       @media screen and (width: 1024px) {
+    //specific to NestHub
+    @media screen and (width: 1024px) {
         padding: 2.4rem 2rem;
     }
 
@@ -62,10 +62,10 @@
                 font-size: 1.2rem !important;
                 margin-top: 5px;
             }
-               //specific to surface pro,ipad air and
-        @media screen and (width: 768px), (width: 820px), (width: 912px) {
-            margin-top: 5px;
-        }
+            //specific to surface pro,ipad air and
+            @media screen and (width: 768px), (width: 820px), (width: 912px) {
+                margin-top: 5px;
+            }
         }
     }
 

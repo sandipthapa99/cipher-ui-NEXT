@@ -1,7 +1,7 @@
+import { useTopCategories } from "@components/Category/TopCategories";
 import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { da } from "date-fns/locale";
 import { debounce } from "debounce";
 import type { ChangeEvent } from "react";
 import { useCallback, useState } from "react";
@@ -9,58 +9,14 @@ import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
+import { useCategories } from "../../hooks/category/useCategories";
+
 interface SearchCategoryProps {
     onChange?: (text: string) => void;
     getOption?: (value: string | undefined) => void;
     type?: string;
     getSortingByPrice?: any;
 }
-const DUMMY_DATA = [
-    {
-        category: "Category",
-        value: "",
-        nested: [
-            { name: "Car Servicing", value: "" },
-            { name: "Garden Cleaning", value: "" },
-            { name: "Plumbing", value: "" },
-        ],
-    },
-    {
-        category: "Distance",
-        value: "",
-        nested: [{ name: "30Km near", value: "" }],
-    },
-
-    {
-        category: "Any price",
-        value: "",
-        nested: [
-            { name: "Low to High", value: "budget_from" },
-            { name: "High to Low", value: "-budget_from" },
-        ],
-    },
-    {
-        category: "Task Type",
-        nested: [
-            { name: "Low to High", value: "budget_from" },
-            { name: "High to Low" },
-        ],
-    },
-    {
-        category: "Other Filters",
-        nested: [
-            { name: "Low to High", value: "budget_from" },
-            { name: "High to Low", value: "budget_from" },
-        ],
-    },
-    {
-        category: "Sort",
-        nested: [
-            { name: "Low to High", value: "budget_from" },
-            { name: "High to Low", value: "budget_from" },
-        ],
-    },
-];
 
 export const SearchCategory = ({
     onChange,
@@ -68,7 +24,61 @@ export const SearchCategory = ({
     type,
     getSortingByPrice,
 }: SearchCategoryProps) => {
+    const { data: allcategories } = useCategories();
+    // console.log("ser", allcategories);
+
+    const categoriesValues = allcategories?.map((category: any) => {
+        return {
+            name: category?.name,
+            value: category?.slug,
+        };
+    });
+
+    console.log("catgeory", categoriesValues);
+    const DUMMY_DATA = [
+        {
+            category: "Category",
+            value: "",
+            nested: categoriesValues ? categoriesValues : [],
+        },
+        {
+            category: "Distance",
+            value: "",
+            nested: [{ name: "30Km near", value: "" }],
+        },
+
+        {
+            category: "Any price",
+            value: "",
+            nested: [
+                { name: "Low to High", value: "budget_from" },
+                { name: "High to Low", value: "-budget_from" },
+            ],
+        },
+        {
+            category: "Task Type",
+            nested: [
+                { name: "Low to High", value: "budget_from" },
+                { name: "High to Low" },
+            ],
+        },
+        {
+            category: "Other Filters",
+            nested: [
+                { name: "Low to High", value: "budget_from" },
+                { name: "High to Low", value: "budget_from" },
+            ],
+        },
+        {
+            category: "Sort",
+            nested: [
+                { name: "Low to High", value: "budget_from" },
+                { name: "High to Low", value: "budget_from" },
+            ],
+        },
+    ];
     const [priceQuery, setPriceQuery] = useState("");
+    const [categoryName, setCategoryName] = useState("");
     const [activeIndex, setActiveIndex] = useState<number>();
     const [selected, setSelected] = useState(false);
     const checkedIndex = useCallback(
@@ -84,9 +94,19 @@ export const SearchCategory = ({
                 .then((response) => getSortingByPrice(response.data.result))
         );
     };
-    const { data: searchDataByPrice } = useSearchServiceByPrice(priceQuery);
-    // getSortingByPrice(searchDataByPrice);
+    const useSearchServiceByCategory = (query: string) => {
+        return useQuery(["all-service", query], () =>
+            axiosClient
+                .get<ServicesValueProps>(`/task/service/?category=${query}`)
+                .then((response) => getSortingByPrice(response.data.result))
+        );
+    };
 
+    const { data: searchDataByPrice } = useSearchServiceByPrice(priceQuery);
+    const { data: searchDataByCategory } =
+        useSearchServiceByCategory(categoryName);
+    // getSortingByPrice(searchDataByPrice);
+    console.log("abc", searchDataByCategory);
     const styles = (index: number) => {
         return {
             category: {
@@ -101,7 +121,7 @@ export const SearchCategory = ({
         };
     };
     const renderCategory = DUMMY_DATA.map((data, index) => {
-        const renderNested = data.nested.map((nest, nestIndex) => {
+        const renderNested = data.nested.map((nest: any, nestIndex: number) => {
             return (
                 <option
                     style={{
@@ -127,7 +147,7 @@ export const SearchCategory = ({
                         setPriceQuery(e.target.value);
                     }
                     if (data.category === "Category") {
-                        console.log("Category");
+                        setCategoryName(e.target.value);
                     }
                 }}
                 key={index}

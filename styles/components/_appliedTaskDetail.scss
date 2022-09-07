@@ -1,5 +1,5 @@
-.task-detail__loc-time{
-    @include respond(xs){
+.task-detail__loc-time {
+    @include respond(xs) {
         flex-wrap: wrap;
         justify-content: space-between;
     }
