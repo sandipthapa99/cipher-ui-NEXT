@@ -18,6 +18,7 @@ const MerchantCard = ({
     merchantPrice,
     happyClients,
     successRate,
+    currency,
     onClick,
     merchantId,
 }: MerchantCardProps) => {
@@ -51,66 +52,62 @@ const MerchantCard = ({
                 </a>
             </Link>
             <div className="card-content">
-                <Link href={`/tasker/${merchantId}`}>
-                    <a>
-                        <div className="merchant-description">
-                            <p className="card-description">
-                                {`${
-                                    merchantDescription.length > 100
-                                        ? `${merchantDescription.substring(
-                                              0,
-                                              100
-                                          )}...`
-                                        : merchantDescription
-                                }`}
-                            </p>
-                        </div>
-                        <div className="analytics d-flex justify-content-between">
-                            <div className="happy-clients d-flex flex-column">
-                                <div className="count d-flex flex-row">
-                                    <figure className="thumbnail-img">
-                                        <Image
-                                            src="/icons/happy-face.svg"
-                                            layout="fill"
-                                            objectFit="contain"
-                                            alt="Happy Face"
-                                        />
-                                    </figure>
-                                    <p>{happyClients}</p>
-                                </div>
-                                <div className="analytics-title">
-                                    <p>Happy Clients</p>
-                                </div>
-                            </div>
-                            <div className="success-rate d-flex flex-column">
-                                <div className="count  d-flex flex-row">
-                                    <figure className="thumbnail-img">
-                                        <Image
-                                            src="/icons/badge.svg"
-                                            layout="fill"
-                                            objectFit="contain"
-                                            alt="Happy Face"
-                                        />
-                                    </figure>
-                                    <p>{successRate}%</p>
-                                </div>
-                                <div className="analytics-title">
-                                    <p>Success Rate</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="ratings-wrapper d-flex justify-content-between">
-                            <p className="ratings d-flex align-items-center justify-content-sm-center">
-                                <FontAwesomeIcon
-                                    icon={faStar}
-                                    className="svg-icon star"
+                <div className="merchant-description">
+                    <p className="card-description">
+                        {`${
+                            merchantDescription.length > 100
+                                ? `${merchantDescription.substring(0, 100)}...`
+                                : merchantDescription
+                        }`}
+                    </p>
+                </div>
+                <div className="analytics d-flex justify-content-between">
+                    <div className="happy-clients d-flex flex-column">
+                        <div className="count d-flex flex-row">
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src="/icons/happy-face.svg"
+                                    layout="fill"
+                                    objectFit="contain"
+                                    alt="Happy Face"
                                 />
-                                {merchantRating}
-                            </p>
-                            <p className="price">{merchantPrice}/hr</p>
+                            </figure>
+                            <p>{happyClients}</p>
                         </div>
-                    </a>
-                </Link>
+                        <div className="analytics-title">
+                            <p>Happy Clients</p>
+                        </div>
+                    </div>
+                    <div className="success-rate d-flex flex-column">
+                        <div className="count  d-flex flex-row">
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src="/icons/badge.svg"
+                                    layout="fill"
+                                    objectFit="contain"
+                                    alt="Happy Face"
+                                />
+                            </figure>
+                            <p>{successRate}%</p>
+                        </div>
+                        <div className="analytics-title">
+                            <p>Success Rate</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="ratings-wrapper d-flex justify-content-between">
+                    <p className="ratings d-flex align-items-center justify-content-sm-center">
+                        <FontAwesomeIcon
+                            icon={faStar}
+                            className="svg-icon star"
+                        />
+                        {merchantRating}
+                    </p>
+                    <p className="price">
+                        {currency}
+                        {merchantPrice}/hr
+                    </p>
+                </div>
                 <div className="d-flex justify-content-between align-items-md-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
                         <SaveIcon />

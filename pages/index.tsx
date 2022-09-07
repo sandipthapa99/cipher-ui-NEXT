@@ -527,9 +527,9 @@ const Home: NextPage<{
                                                 merchant?.stats?.user_reviews
                                             }
                                             merchantPrice={
-                                                merchant?.charge_currency +
                                                 merchant?.hourly_rate
                                             }
+                                            currency={merchant?.currency?.code}
                                             happyClients={
                                                 merchant?.stats?.happy_clients
                                             }

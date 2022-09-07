@@ -56,6 +56,7 @@ const SearchResultsDetail = ({
     servicePackage,
     serviceCreated,
     serviceViews,
+    currency,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -280,6 +281,7 @@ const SearchResultsDetail = ({
                             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                                 <span>Starting Price</span>
                                 <span className="price">
+                                    {currency}
                                     {budget_from} {budget_to && "-" + budget_to}
                                     {budget_type}
                                 </span>
