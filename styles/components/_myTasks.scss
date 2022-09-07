@@ -1,0 +1,74 @@
+.my-task {
+    background: #fff;
+
+    h3 {
+        font: 500 1.6rem $poppins-font;
+        padding: 2.4rem;
+        margin: 0;
+        border-bottom: 1px solid #ced4da;
+    }
+}
+
+.my-task-order {
+    .order-section {
+        padding: 1.6rem 2.4rem;
+        border-bottom: 1px solid #ced4da;
+
+        .order-id {
+            font: 400 1.2rem $poppins-font;
+            padding: 0.8rem 1.6rem;
+            background: #e9ecef;
+            border-radius: 0.4rem;
+        }
+
+        .ordered-date {
+            font: 400 1.2rem $poppins-font;
+            color: #868e96;
+        }
+    }
+
+    .order-detail-section {
+        padding: 2.4rem;
+        border-bottom: 1px solid #ced4da;
+
+        &__image {
+            img {
+                object-fit: cover;
+            }
+        }
+
+        .title-and-description {
+            margin: 0 0 0 1rem;
+            h4 {
+                font: 500 2rem $poppins-font;
+                margin: 0 0 0.4rem;
+            }
+            p {
+                font: 400 1.2rem $poppins-font;
+                color: #868e96;
+                margin: 0 0 1.6rem;
+            }
+
+            .price-section {
+                margin: 0 0 1rem;
+                .price {
+                    font: 400 1.4rem $poppins-font;
+                }
+                .value {
+                    font: 500 1.6rem $poppins-font;
+                }
+            }
+        }
+
+        .status-section {
+            .status {
+                font: 500 1.6rem $poppins-font;
+            }
+
+            .status-value {
+                padding: 0.4rem 0.8rem;
+                background: #3EAEFF;
+            }
+        }
+    }
+}
