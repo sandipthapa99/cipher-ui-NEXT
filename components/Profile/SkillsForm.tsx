@@ -44,7 +44,7 @@ const AddSkills = ({
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose} backdrop="static">
+            <Modal show={show} centered onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
                 <div className="applied-modal edit-form">
                     <h3>Add Skills</h3>
@@ -105,7 +105,7 @@ const AddSkills = ({
                                 />
                                 <Modal.Footer>
                                     <Button
-                                        className="btn close-btn w-25"
+                                        className="btn close-btn"
                                         onClick={handleClose}
                                     >
                                         Cancel
@@ -115,7 +115,7 @@ const AddSkills = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting

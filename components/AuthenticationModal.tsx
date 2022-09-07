@@ -77,10 +77,10 @@ const AuthenticationModalCard = ({
                                 isInputNum={true}
                                 shouldAutoFocus={true}
                                 className="otp-box"
-                                // focusStyle={{
-                                //     border: "1px solid #CFD3DB",
-                                //     outline: "none",
-                                // }}
+                                focusStyle={{
+                                    border: "1px solid #fff",
+                                    outline: "none",
+                                }}
                             />
                         </div>
                     </div>

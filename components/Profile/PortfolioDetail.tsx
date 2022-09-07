@@ -218,14 +218,14 @@ PortfolioProps) => {
 
                 <Modal.Footer>
                     <Button
-                        className="btn close-btn w-25"
+                        className="btn close-btn"
                         onClick={handleDeletePortfolio}
                     >
                         Remove
                     </Button>
 
                     <Button
-                        className="btn submit-btn w-25"
+                        className="btn submit-btn"
                         onClick={() => {
                             setShowAddPortfolioModal(!showAddPortfolioModal);
                             setIsEditProfile(true);

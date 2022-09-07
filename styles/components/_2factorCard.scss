@@ -41,7 +41,8 @@
             flex-direction: column;
 
             .otp-box {
-                justify-content: space-between;
+                justify-content: center;
+                align-items: center;
                 flex-direction: column;
 
                 @include respond(xs) {
