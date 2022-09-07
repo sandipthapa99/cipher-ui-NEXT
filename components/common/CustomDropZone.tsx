@@ -1,4 +1,11 @@
-import { createStyles, Highlight, Text } from "@mantine/core";
+import {
+    createStyles,
+    Grid,
+    Highlight,
+    SimpleGrid,
+    Stack,
+    Text,
+} from "@mantine/core";
 import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
@@ -21,10 +28,14 @@ export interface CustomDropZoneProps
     previewImageHeight?: number;
     fileType?: FileType;
     fileLabel?: string;
-    onDrop?: (image: FormData) => void;
+    onDrop?: (image: File[]) => void;
     type: string[];
 }
 
+const convertToMB = (value: number) => {
+    const mbValue = (value / 1024 / 1024).toFixed(2);
+    return `${mbValue} MB`;
+};
 export const CustomDropZone = ({
     name,
     label,
@@ -42,7 +53,15 @@ export const CustomDropZone = ({
         () => (files.length > 0 ? files[0] : undefined),
         [files]
     );
-    const previewImages = files.map((file) => URL.createObjectURL(file));
+    const previewImages = useMemo(
+        () =>
+            files.map((file) => ({
+                name: file.name,
+                size: file.size,
+                url: URL.createObjectURL(file),
+            })),
+        [files]
+    );
     const [previewVideo, setPreviewVideo] = useState<string | undefined>();
 
     const dropzoneRef = useRef<HTMLDivElement | null>(null);
@@ -65,11 +84,12 @@ export const CustomDropZone = ({
         }
         const formData = new FormData();
         formData.append(name, files[0]);
-        onDrop?.(formData);
+        // onDrop?.(formData);
+        onDrop?.(files);
         setFiles(files);
     };
     const getPlaceHolderImage = () => {
-        if (previewImages.length > 0) return previewImages[0];
+        if (previewImages.length > 0) return previewImages[0].url;
         if (fileType) return FILE_PLACEHOLDER_IMAGES[fileType];
         return "/service-details/file-upload.svg";
     };
@@ -80,6 +100,25 @@ export const CustomDropZone = ({
                     <source id="video-source" src={previewVideo} />
                     Your browser does not support the video tag.
                 </video>
+            ) : previewImages.length > 0 ? (
+                <SimpleGrid cols={4}>
+                    {previewImages.map((previewImage, key) => (
+                        <Stack key={key}>
+                            <Image
+                                src={previewImage.url}
+                                width={"100%"}
+                                height="100%"
+                                objectFit="cover"
+                                className={classes.previewImage}
+                                alt={`Preview image ${key}`}
+                            />
+                            <Text size="xs">{previewImage.name}</Text>
+                            <Text size="xs" color="dimmed">
+                                {convertToMB(previewImage.size)}
+                            </Text>
+                        </Stack>
+                    ))}
+                </SimpleGrid>
             ) : (
                 <Image
                     src={getPlaceHolderImage()}
@@ -95,27 +134,10 @@ export const CustomDropZone = ({
                 className={classes.dropzone}
                 {...rest}
             >
-                <Highlight
-                    size="sm"
-                    highlightColor="blue"
-                    highlight="Browse"
-                    highlightStyles={() => ({
-                        backgroundImage: "#276EFD",
-                        WebkitBackgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                    })}
-                >
-                    {file ? file.name : `Drag or Browse ${fileLabel}`}
-                </Highlight>
                 <Text mt="xs" className={classes.text}>
                     {file ? file.type : label ?? "Image/Video/PDF"}
                 </Text>
             </Dropzone>
-            {file && (
-                <Text className={classes.text}>
-                    Current size : {`${file.size / 1000} kb`}
-                </Text>
-            )}
             {minSize && (
                 <Text mt="xl" className={classes.text}>
                     Minimum image size is {maxSize} MB
@@ -151,5 +173,8 @@ const useStyles = createStyles({
         "&:hover": {
             backgroundColor: "transparent",
         },
+    },
+    previewImage: {
+        borderRadius: "1rem",
     },
 });

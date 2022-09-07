@@ -170,8 +170,7 @@ export const IdentityDocument = () => {
                             maxSize={200}
                             minSize={20}
                             onDrop={
-                                (formData) =>
-                                    setFieldValue("file", formData.get("file"))
+                                (files) => setFieldValue("file", files[0])
                                 // console.log(formData.get("file"))
                             }
                             label="Image"
