@@ -93,7 +93,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                     key={index}
                     className="dropdown-menu-items d-flex justify-space-between"
                 >
-                    <Link href="#!">
+                    <Link href={`/category/${sub.slug}`}>
                         <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
                     </Link>
                     <FontAwesomeIcon
@@ -105,7 +105,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
         }
         return (
             <li className="dropdown-menu-items" key={index}>
-                <Link href={`/category/${menu}`} passHref>
+                <Link href={`/category/${sub.slug}`} passHref>
                     <a
                         onClick={() => {
                             setIsMenuOpened(false);
@@ -141,7 +141,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                     className="dropdown-menu-items d-flex justify-space-between"
                     onClick={onHandleDropdown}
                 >
-                    <Link href="#!">
+                    <Link href={`/category/${sub.slug}`}>
                         <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
                     </Link>
                     <FontAwesomeIcon
@@ -153,7 +153,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
         }
         return (
             <li className="dropdown-menu-items" key={index}>
-                <Link href={`/category/${menu}`} passHref>
+                <Link href={`/category/${sub.slug}`} passHref>
                     <a
                         onClick={() => {
                             setIsMenuOpened(false);
@@ -188,7 +188,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                 className="dropdown-menu-items d-flex justify-space-between"
                 onClick={onHandleDropdown}
             >
-                <Link href="#!">
+                <Link href={`/category/${item.slug}`}>
                     <a className="dropdown-menu-item-link">{item.name}</a>
                 </Link>
                 <FontAwesomeIcon icon={faChevronRight} className="svg-icon" />
