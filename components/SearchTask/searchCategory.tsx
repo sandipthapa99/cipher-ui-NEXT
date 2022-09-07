@@ -77,6 +77,9 @@ export const SearchCategory = ({
         },
         [activeIndex]
     );
+    if (typeof window !== "undefined") {
+        // console.log(details);
+    }
     const useSearchServiceByPrice = (query: string) => {
         return useQuery(["all-service", query], () =>
             axiosClient
