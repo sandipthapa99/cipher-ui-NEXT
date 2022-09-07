@@ -15,6 +15,7 @@ interface TaskerAsideProps {
 }
 const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
     const totalAppliedTasks = tasker?.length;
+    console.log("tskers===", tasker);
     const renderTaskCards = tasker?.map((tasker, key) => {
         return (
             <div key={key} className="pe-1">
@@ -36,8 +37,8 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
                             }
                             distance={"2 km"}
                             bio={tasker?.bio}
-                            charge={
-                                tasker?.charge_currency +
+                            charge_currency={
+                                tasker?.charge_currency?.code +
                                 " " +
                                 tasker?.hourly_rate
                             }
