@@ -33,6 +33,10 @@
             .tab-icons {
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
+                @include respond(xs) {
+                    align-items: baseline;
+                }
                 .svg-icon {
                     color: $primary-color;
                     cursor: pointer;
@@ -65,11 +69,11 @@
             border-radius: 0.4rem;
             font-family: "Inter";
             @include transition();
-            @include respond(sm) {
-                width: 80%;
+            @include respond(xs) {
+                width: 90%;
             }
             @include respond(md) {
-                width: 85%;
+                width: 95%;
             }
         }
         &--btn {
