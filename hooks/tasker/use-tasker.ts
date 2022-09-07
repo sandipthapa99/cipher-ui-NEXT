@@ -18,7 +18,11 @@ export const useTaskers = () => {
 
 export type Tasker = {
     id: number;
-    charge_currency: string;
+    currency: {
+        id: number;
+        name: string;
+        code: string;
+    };
     user: User;
     portfolio: any[];
     stats: Stats;
