@@ -1,0 +1,91 @@
+.auth-modal,
+.modal.show .modal-dialog {
+    justify-content: center;
+    .modal-dialog .modal-content {
+        width: 62rem;
+
+        justify-content: center;
+
+        @include respond(md) {
+            width: 62rem;
+        }
+        @include respond(sm) {
+            width: 58rem;
+        }
+        @include respond(xs) {
+            width: 38rem;
+        }
+        @include respond(xxs) {
+            width: 32rem;
+        }
+        .modal-title {
+            font-size: 2rem;
+        }
+        .modal-body-content {
+            h3 {
+                margin: 0 0 3.2rem 0;
+                font-size: 2rem;
+                font-weight: 500;
+            }
+        }
+    }
+    .problem {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .otp-wrapper > div {
+            justify-content: space-between;
+        }
+        .otp-wrapper {
+            justify-content: space-between;
+            flex-direction: column;
+
+            .otp-box {
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                @include respond(xs) {
+                    height: 3.5rem;
+                    width: 3.5rem;
+                }
+                @include respond(xxs) {
+                    height: 3rem;
+                    width: 3rem;
+                    margin-right: 0.5rem;
+                }
+                @include respond(sm) {
+                    height: 5rem;
+                    width: 5rem;
+                }
+                border: 1px solid #ccc;
+                border-radius: 0.8rem;
+                // width: "54px",
+                // height: "54px",
+                font-size: 18px;
+                color: #111;
+                outline: none;
+                font-weight: 500;
+                input {
+                    border: none;
+                }
+            }
+        }
+
+        .modal-footer {
+            border-top: none !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 5rem;
+            @include respond(xs) {
+                display: flex;
+                flex-direction: column;
+            }
+            @include respond(xxs) {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}

@@ -52,7 +52,7 @@ const SignUp = () => {
             redirectionLink="/login"
             currentPage="client-signup"
         >
-            <div>
+            <div className="cipher modals signup">
                 <Formik
                     initialValues={ClientSignUpFormData}
                     validationSchema={getValidationSchema()}
@@ -231,13 +231,13 @@ const SignUp = () => {
                         </Form>
                     )}
                 </Formik>
+                <AuthenticationModalCard
+                    show={show}
+                    handleClose={handleClose}
+                    phone={phoneNumber}
+                    setShowForm={setShow}
+                />
             </div>
-            <AuthenticationModalCard
-                show={show}
-                handleClose={handleClose}
-                phone={phoneNumber}
-                setShowForm={setShow}
-            />
         </OnBoardingLayout>
     );
 };
