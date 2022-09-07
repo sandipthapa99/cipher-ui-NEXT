@@ -107,7 +107,6 @@ export const SearchCategory = ({
         useSearchServiceByCategory(categoryName);
     // getSortingByPrice(searchDataByPrice);
     console.log("abc", searchDataByCategory);
-
     const styles = (index: number) => {
         return {
             category: {
