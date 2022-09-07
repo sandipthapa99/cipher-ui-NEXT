@@ -1,4 +1,5 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
+import { useUser } from "hooks/auth/useUser";
 import { useAppliedTasks } from "hooks/task/use-applied-tasks";
 import { useLeaveTask } from "hooks/task/use-leave-task";
 import Image from "next/image";
@@ -15,6 +16,7 @@ interface SimpleProfileCardProps {
 }
 const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const withLogin = useWithLogin();
+    const { data: user } = useUser();
     const { data: appliedTasks } = useAppliedTasks();
     const { mutate } = useLeaveTask();
 
@@ -39,7 +41,11 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
             }
         );
     };
+    const isUserTask = task.assigner.id === user?.id;
 
+    const handleViewApplicants = () => {
+        toast.success("You have no applicants yet.");
+    };
     return (
         <div className="simple-card my-5 my-lg-0 ">
             <p>{appliedTask ? "Applied" : "Not Applied"}</p>
@@ -98,18 +104,26 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 </span>
             </div>
 
-            {appliedTask ? (
-                <BookNowButton
-                    btnTitle="Leave Task"
-                    backgroundColor="#FE5050"
-                    handleOnClick={handleLeaveTask}
-                />
+            {!isUserTask ? (
+                appliedTask ? (
+                    <BookNowButton
+                        btnTitle="Leave Task"
+                        backgroundColor="#FE5050"
+                        handleOnClick={handleLeaveTask}
+                    />
+                ) : (
+                    <BookNowButton
+                        btnTitle={"Apply Now"}
+                        backgroundColor={"#38C675"}
+                        showModal={true}
+                        handleOnClick={withLogin(() => setShowModal(true))}
+                    />
+                )
             ) : (
                 <BookNowButton
-                    btnTitle={"Apply Now"}
-                    backgroundColor={"#38C675"}
-                    showModal={true}
-                    handleOnClick={withLogin(() => setShowModal(true))}
+                    btnTitle="View Applicants"
+                    backgroundColor="#FE5050"
+                    handleOnClick={handleViewApplicants}
                 />
             )}
 

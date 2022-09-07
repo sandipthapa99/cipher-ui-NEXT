@@ -21,6 +21,7 @@ import { Carousel } from "@mantine/carousel";
 import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
@@ -29,6 +30,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { getReviews } from "services/commonServices";
 import { useSetBookNowDetails } from "store/use-book-now";
 import { useWithLogin } from "store/use-login-prompt-store";
@@ -128,6 +130,7 @@ const SearchResultsDetail = ({
         }>;
     }>(["my-service-packages"], "/task/service-package/");
 
+    const { data: user } = useUser();
     const withLogin = useWithLogin();
     const router = useRouter();
     const servSlug = router.query.slug;
@@ -141,6 +144,21 @@ const SearchResultsDetail = ({
     );
 
     const isServiceBookmarked = useIsBookmarked("service", serviceId);
+
+    // check if current logged in user is the owner of the current service
+    const isCurrentUserService = () => {
+        const service = servicesData?.data.result.find(
+            (service) => service.id === serviceId
+        );
+        return service?.created_by.id === user?.id;
+    };
+
+    const handleViewApplicants = () => {
+        // @TODO : REPLACE WITH SOMETHING MEANINGFUL
+        toast.success(
+            "You have 100 Morbillion applicants for this service.Congrats!!"
+        );
+    };
 
     return (
         <>
@@ -266,11 +284,19 @@ const SearchResultsDetail = ({
                                     {budget_type}
                                 </span>
                             </div>
-                            <CardBtn
-                                btnTitle="Book Now"
-                                backgroundColor="#211D4F"
-                                handleClick={withLogin(() => setShow(true))}
-                            />
+                            {isCurrentUserService() ? (
+                                <CardBtn
+                                    btnTitle="View Applicants"
+                                    backgroundColor="#211D4F"
+                                    handleClick={handleViewApplicants}
+                                />
+                            ) : (
+                                <CardBtn
+                                    btnTitle="Book Now"
+                                    backgroundColor="#211D4F"
+                                    handleClick={withLogin(() => setShow(true))}
+                                />
+                            )}
                         </div>
                     </Col>
                 </Row>
