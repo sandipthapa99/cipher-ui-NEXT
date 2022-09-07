@@ -38,7 +38,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
             }
         );
     };
-    const isUserTask = task.assigner.id === user?.id;
+    const isUserTask = task?.assigner?.id === user?.id;
 
     const handleViewApplicants = () => {
         toast.success("You have no applicants yet.");
