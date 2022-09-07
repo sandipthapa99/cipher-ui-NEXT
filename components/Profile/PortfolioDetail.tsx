@@ -68,7 +68,16 @@ PortfolioProps) => {
                         </Row>
                     </div>
                     {portfolioDetail?.images.length > 1 ? (
-                        <Carousel>
+                        <Carousel
+                            styles={{
+                                control: {
+                                    "&[data-inactive]": {
+                                        opacity: 0,
+                                        cursor: "default",
+                                    },
+                                },
+                            }}
+                        >
                             {portfolioDetail?.images.map((image: any) => (
                                 <Carousel.Slide key={image.id}>
                                     {image.name
@@ -209,14 +218,14 @@ PortfolioProps) => {
 
                 <Modal.Footer>
                     <Button
-                        className="btn close-btn w-25"
+                        className="btn close-btn"
                         onClick={handleDeletePortfolio}
                     >
                         Remove
                     </Button>
 
                     <Button
-                        className="btn submit-btn w-25"
+                        className="btn submit-btn"
                         onClick={() => {
                             setShowAddPortfolioModal(!showAddPortfolioModal);
                             setIsEditProfile(true);
