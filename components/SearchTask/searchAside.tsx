@@ -26,7 +26,9 @@ export type ServiceProvider = {
 
 const ServiceNearYouCard = ({
     image,
-    servicePrice,
+    budget_from,
+    budget_to,
+    budget_type,
     serviceProvider,
     serviceProviderLocation,
     serviceRating,
@@ -119,7 +121,15 @@ const ServiceNearYouCard = ({
                                 </div>
                             </div>
                             <div></div>
-                            <h1 className="price">Rs. {servicePrice}</h1>
+                            <h1 className="price">
+                                $ {budget_from}
+                                {budget_to && "-" + budget_to}
+                                {budget_type === "Hourly"
+                                    ? "/hr"
+                                    : budget_type === "Monthly"
+                                    ? "/mn"
+                                    : ""}
+                            </h1>
                         </div>
                     </div>
                 </Col>

@@ -19,7 +19,8 @@ const ServiceAside = ({
     children,
     isLoading,
 }: ServiceAside) => {
-    console.log("first", isLoading);
+    console.log("🚀 ~ file: ServiceAside.tsx ~ line 22 ~ service", service);
+
     const totalAppliedTasks = service?.length;
     const renderTaskCards = service?.map((task, key) => {
         return (
@@ -27,7 +28,9 @@ const ServiceAside = ({
                 <Link href={`/service/${task.slug}`}>
                     <a>
                         <ServiceNearYouCard
-                            servicePrice={task?.budget_from}
+                            budget_from={task?.budget_from}
+                            budget_to={task?.budget_to}
+                            budget_type={task?.budget_type}
                             serviceTitle={task?.title}
                             serviceRating={task?.success_rate}
                             serviceProviderLocation={task?.location}

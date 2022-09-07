@@ -19,6 +19,7 @@ const TaskCard = ({
     endPrice,
     currency,
     taskId,
+    budget_type,
     ...rest
 }: TaskCardProps) => {
     const router = useRouter();
@@ -32,7 +33,12 @@ const TaskCard = ({
             <div className="d-flex justify-content-between flex-column flex-sm-row task-applied-card-block__header">
                 <span className="title">{title}</span>
                 <span className="charge">
-                    {currency} {startPrice} {endPrice && "-" + endPrice}/hr
+                    {currency} {startPrice} {endPrice && "-" + endPrice}
+                    {budget_type === "Hourly"
+                        ? "/hr"
+                        : budget_type === "Monthly"
+                        ? "/mn"
+                        : ""}
                 </span>
             </div>
             <div className="task-applied-card-block__body">

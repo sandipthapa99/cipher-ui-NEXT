@@ -94,7 +94,13 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                 <span>Budget Range</span>
                 <span className="text-right price">
-                    {task.budget_from} - {task.budget_to}
+                    {task?.currency?.code}
+                    {task?.budget_from} - {task?.budget_to}
+                    {task?.budget_type === "Hourly"
+                        ? "/hr"
+                        : task?.budget_type === "Monthly"
+                        ? "/mn"
+                        : ""}
                 </span>
             </div>
 
