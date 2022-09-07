@@ -633,12 +633,25 @@ const Home: NextPage<{
                         </h1>
                         <h3 className="text-center">Some Success Stories</h3>
                     </div>
-                    {successStoryData?.result?.slice(0, 1).map((value, key) => (
-                        <PersonalSuccessCard
-                            successStoryData={value}
-                            key={key}
-                        />
-                    ))}
+                    <Carousel
+                        mx="auto"
+                        styles={{
+                            control: {
+                                "&[data-inactive]": {
+                                    opacity: 0,
+                                    cursor: "default",
+                                },
+                            },
+                        }}
+                        className="rounded"
+                        withIndicators
+                    >
+                        {successStoryData?.result.map((value, key) => (
+                            <Carousel.Slide key={key}>
+                                <PersonalSuccessCard successStoryData={value} />
+                            </Carousel.Slide>
+                        ))}
+                    </Carousel>
                 </Container>
             </section>
 

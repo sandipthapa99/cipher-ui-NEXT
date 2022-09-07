@@ -1,10 +1,10 @@
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import SkeletonTaskerCard from "@components/Skeletons/SkeletonTaskerCard";
+import { ScrollArea } from "@mantine/core";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
-import Scrollbars from "react-custom-scrollbars";
 import type { TaskerProps } from "types/taskerProps";
 
 interface TaskerAsideProps {
@@ -17,7 +17,7 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
     const totalAppliedTasks = tasker?.length;
     const renderTaskCards = tasker?.map((tasker, key) => {
         return (
-            <div key={key}>
+            <div key={key} className="pe-1">
                 <Link href={`/tasker/${tasker?.user?.id}`}>
                     <a>
                         <TeamMembersCard
@@ -51,7 +51,11 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
         <div className="search-results">
             <Row>
                 <Col md={4}>
-                    <Scrollbars autoHide style={{ height: 700 }}>
+                    <ScrollArea.Autosize
+                        maxHeight={700}
+                        offsetScrollbars
+                        scrollbarSize={5}
+                    >
                         <>
                             {query && totalAppliedTasks > 0 ? (
                                 <p className="search-results-text">
@@ -74,7 +78,7 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
                                 </p>
                             ) : null}
                         </>
-                    </Scrollbars>
+                    </ScrollArea.Autosize>
                 </Col>
                 <Col md={8}>{children}</Col>
             </Row>

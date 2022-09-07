@@ -44,22 +44,24 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
 
     return (
         <Layout title="Find Tasker | Cipher">
-            <Container fluid="xl">
-                <SearchCategory onChange={handleSearchChange} />
-                {searchQuery?.query && (
-                    <Highlight highlight={searchQuery.query}>
-                        {`Showing search results for ${searchQuery.query}`}
-                    </Highlight>
-                )}
-                <Space h={10} />
-                <TaskerAside
-                    query={query}
-                    tasker={searchData}
-                    isLoading={isLoading || !data}
-                >
-                    {children}
-                </TaskerAside>
-            </Container>
+            <section className="Tasker-section" id="Tasker-section">
+                <Container fluid="xl">
+                    <SearchCategory onChange={handleSearchChange} />
+                    {searchQuery?.query && (
+                        <Highlight highlight={searchQuery.query}>
+                            {`Showing search results for ${searchQuery.query}`}
+                        </Highlight>
+                    )}
+                    <Space h={10} />
+                    <TaskerAside
+                        query={query}
+                        tasker={searchData}
+                        isLoading={isLoading || !data}
+                    >
+                        {children}
+                    </TaskerAside>
+                </Container>
+            </section>
         </Layout>
     );
 };

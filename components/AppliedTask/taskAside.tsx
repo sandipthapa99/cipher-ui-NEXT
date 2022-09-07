@@ -1,13 +1,12 @@
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert } from "@mantine/core";
+import { Alert, ScrollArea } from "@mantine/core";
 import { format } from "date-fns";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
-import Scrollbars from "react-custom-scrollbars";
 import type { ITask } from "types/task";
 
 import TaskAppliedCard from "./taskAppliedCard";
@@ -58,7 +57,11 @@ const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
         <div className="search-results">
             <Row>
                 <Col md={4} className="left">
-                    <Scrollbars autoHide style={{ height: 700 }}>
+                    <ScrollArea.Autosize
+                        maxHeight={700}
+                        offsetScrollbars
+                        scrollbarSize={5}
+                    >
                         {query && totalAppliedTasks > 0 ? (
                             <p className="search-results-text">
                                 {`${totalAppliedTasks} service matching ${query} found`}
@@ -88,7 +91,7 @@ const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
                                 No tasks available at the moment{""}
                             </Alert>
                         )}
-                    </Scrollbars>
+                    </ScrollArea.Autosize>
                 </Col>
 
                 <Col md={8} className="right">
