@@ -51,9 +51,15 @@ const BookNowModalCard = ({
     const { mutate: bookNowServiceMutation } = useBookNowService();
     const { mutate: uploadImageMutation } = useUploadImage();
     return (
-        <>
+        <div className="cipher-modals">
             {/* Modal component */}
-            <Modal show={show} onHide={handleClose} backdrop="static">
+            <Modal
+                show={show}
+                centered
+                onHide={handleClose}
+                backdrop="static"
+                className="cipher-modals"
+            >
                 <Modal.Header closeButton>
                     <Modal.Title>Booking Details</Modal.Title>
                 </Modal.Header>
@@ -280,7 +286,7 @@ const BookNowModalCard = ({
                     </Formik>
                 </div>
             </Modal>
-        </>
+        </div>
     );
 };
 export default BookNowModalCard;
