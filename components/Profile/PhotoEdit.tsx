@@ -70,14 +70,11 @@ const PhotoEdit = ({
                         />
                     </div>
                     <Modal.Footer>
-                        <Button
-                            className="btn close-btn w-25"
-                            onClick={handleClose}
-                        >
+                        <Button className="btn close-btn" onClick={handleClose}>
                             Cancel
                         </Button>
                         <Button
-                            className="btn close-btn w-25"
+                            className="btn close-btn"
                             onClick={handleSubmit}
                         >
                             Apply
@@ -86,7 +83,7 @@ const PhotoEdit = ({
                             type="submit"
                             variant="primary"
                             name="Apply"
-                            className="submit-btn w-25"
+                            className="submit-btn"
                             onCli
                         /> */}
                     </Modal.Footer>

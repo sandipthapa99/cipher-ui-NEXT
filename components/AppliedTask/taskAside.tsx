@@ -20,7 +20,6 @@ interface TaskAsideProps {
 }
 const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
-
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
             <div key={task?.slug}>
@@ -58,7 +57,7 @@ const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
     return (
         <div className="search-results">
             <Row>
-                <Col md={4}>
+                <Col md={4} className="left">
                     <Scrollbars autoHide style={{ height: 700 }}>
                         {query && totalAppliedTasks > 0 ? (
                             <p className="search-results-text">
@@ -92,7 +91,9 @@ const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
                     </Scrollbars>
                 </Col>
 
-                <Col md={8}>{children}</Col>
+                <Col md={8} className="right">
+                    {children}
+                </Col>
             </Row>
         </div>
     );

@@ -571,7 +571,7 @@ const Home: NextPage<{
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Tasks You May Like</h2>
                         <Link href="/task-you-may-like">
                             <a className="view-more">
@@ -660,7 +660,7 @@ const Home: NextPage<{
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Our blogs</h2>
                         <Link href="/blogs">
                             <a className="view-more">
