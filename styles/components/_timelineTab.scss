@@ -21,6 +21,10 @@
 
         button {
             margin: 0 0 1rem;
+            color: white !important;
+            @include respond(xs) {
+                flex: 1;
+            }
         }
         .edit-delete-button {
             button {
