@@ -24,7 +24,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useIsBookmarked } from "hooks/use-bookmarks";
-import type { NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -36,7 +35,7 @@ import { TaskersTab } from "./TaskersTab";
 import { TeamMembersSection } from "./TeamMembersSection";
 import { TimelineTab } from "./TimelineTab";
 
-const AppliedTaskDetail: NextPage = () => {
+const AppliedTaskDetail = ({ type }: { type?: string }) => {
     const queryClient = useQueryClient();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
@@ -71,7 +70,11 @@ const AppliedTaskDetail: NextPage = () => {
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
-                <GoBack href="/task" />
+                <GoBack
+                    href={
+                        type === "you may like" ? `/task-you-may-like` : `/task`
+                    }
+                />
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
@@ -164,45 +167,56 @@ const AppliedTaskDetail: NextPage = () => {
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faLocationDot}
                             className="svg-icon svg-icon-location"
                         />
-                        {taskDetail?.location
-                            ? taskDetail?.location
-                            : "Buddhanagar, Kathmandu"}
+                        <span>
+                            {" "}
+                            {taskDetail?.location
+                                ? taskDetail?.location
+                                : "Buddhanagar, Kathmandu"}
+                        </span>
                     </p>
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faCalendar}
                             className="svg-icon svg-icon-calender"
                         />
-                        {format(
-                            new Date(taskDetail?.start_date),
-                            "dd MMM, yyyy"
-                        )}
+                        <span>
+                            {" "}
+                            {format(
+                                new Date(taskDetail?.start_date),
+                                "dd MMM, yyyy"
+                            )}
+                        </span>
                     </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faClockEight}
-                            className="svg-icon svg-icon-clock"
-                        />
-                        {taskDetail?.start_time}
-                    </p>
-                    <p>
+
+                    {taskDetail?.start_time ? (
+                        <p className="d-flex align-items-center">
+                            <FontAwesomeIcon
+                                icon={faClockEight}
+                                className="svg-icon svg-icon-clock"
+                            />
+                            <span>{taskDetail?.start_time}</span>
+                        </p>
+                    ) : (
+                        ""
+                    )}
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faEye}
                             className="svg-icon svg-icon-eye"
                         />
-                        2500 Views
+                        <span> 2500 Views</span>
                     </p>
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                        {taskDetail?.applicants_count} Applied
+                        <span> {taskDetail?.applicants_count} Applied</span>
                     </p>
                 </div>
 

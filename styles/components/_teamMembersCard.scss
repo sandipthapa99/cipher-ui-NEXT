@@ -12,6 +12,13 @@
     }
 
     .image-and-title {
+        @include respond(xs) {
+            width: 105% !important;
+        }
+        //specific to surface duo
+        @media screen and (width: 540px) {
+            width: 100% !important;
+        }
         .team-member-card-image {
             margin: 0 2.4rem 0 0;
             width: 8rem;
@@ -33,6 +40,10 @@
                     width: 2.4rem;
                     fill: #000000;
                     cursor: pointer;
+                    //specific to galaxy s8
+                    @media screen and (width: 360px) {
+                        height: 2rem;
+                    }
                 }
             }
 
@@ -55,6 +66,10 @@
                 padding: 0 0 2.9rem;
                 flex-wrap: wrap;
 
+                //specific to galaxy s8
+                @media screen and (width: 360px) {
+                    gap: 1rem;
+                }
                 span {
                     display: flex;
                     align-items: center;

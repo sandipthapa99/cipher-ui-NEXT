@@ -4,7 +4,9 @@ import {
     faAt,
     faCircleQuestion,
     faEllipsisVertical,
+    faGear,
     faLocationDot,
+    faPencil,
     faPhone,
     faSparkles,
     faStar,
@@ -16,19 +18,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
+import Link from "next/link";
+import type { ReactNode } from "react";
 import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
 import { toast } from "react-toastify";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
-import { safeParse } from "utils/safeParse";
 
-import EllipsisDropdown from "./EllipsisDropdown";
 import ProfileEditForm from "./ProfileEditForm";
 import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
-
 const UserProfileCard = ({
     userImage,
     userJob,
@@ -105,6 +107,48 @@ const UserProfileCard = ({
     const finalfrom =
         activeFrom?.charAt(0) === "0" ? activeFrom?.slice(1) : activeFrom;
     const finalto = activeTo?.charAt(0) === "0" ? activeTo?.slice(1) : activeTo;
+
+    interface DropdownProps {
+        children?: ReactNode;
+    }
+
+    const ProfileDropdown = ({ children }: DropdownProps) => {
+        return (
+            <div className="ellipsis">
+                <Dropdown>
+                    <Dropdown.Toggle>
+                        {children && <>{children}</>}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item
+                            href="#/action-1"
+                            onClick={() => setShowEdit(!showEdit)}
+                            className="d-flex align-items-center"
+                        >
+                            <FontAwesomeIcon
+                                className="svg-icon"
+                                icon={faPencil}
+                            />
+                            Edit
+                        </Dropdown.Item>
+                        <Link href="/settings/account/individual">
+                            <Dropdown.Item
+                                href="#/action-3"
+                                className="d-flex align-items-center"
+                            >
+                                <FontAwesomeIcon
+                                    className="svg-icon"
+                                    icon={faGear}
+                                />
+                                Settings
+                            </Dropdown.Item>
+                        </Link>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+        );
+    };
+
     return (
         <div className="profile-card-block">
             <Row>
@@ -295,15 +339,12 @@ const UserProfileCard = ({
                                         hashtag={"cipher-profile"}
                                     />
                                 </div>
-                                <EllipsisDropdown
-                                    showModal={true}
-                                    handleOnClick={() => setShowModal(true)}
-                                >
+                                <ProfileDropdown>
                                     <FontAwesomeIcon
                                         icon={faEllipsisVertical}
                                         className="svg-icon option"
                                     />
-                                </EllipsisDropdown>
+                                </ProfileDropdown>
                             </div>
                             <div className="bio d-flex">
                                 <p className="title">Bio</p>

@@ -13,7 +13,6 @@ interface UserShortIntroProps {
 }
 export const UserShortIntro = ({ user }: UserShortIntroProps) => {
     const userSkills = user?.skill ? JSON.parse(user?.skill) : [];
-    console.log("user=", user, userSkills);
 
     const finalfrom =
         user?.active_hour_start?.charAt(0) === "0"

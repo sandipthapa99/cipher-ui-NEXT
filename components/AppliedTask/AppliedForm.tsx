@@ -17,9 +17,11 @@ import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const AppliedForm = ({
-    id,
+    service_id,
     title,
-    price,
+    budget_from,
+    budget_to,
+    budget_type,
     description,
     show,
     handleClose,
@@ -40,7 +42,12 @@ const AppliedForm = ({
                         </h4>
 
                         <h4>
-                            Price: <span>{price}</span>
+                            Price:{" "}
+                            <span>
+                                {budget_from}
+                                {budget_to && "-" + budget_to}
+                                {budget_type}
+                            </span>
                         </h4>
                         <p>{description}</p>
                     </div>
@@ -49,14 +56,14 @@ const AppliedForm = ({
                         validationSchema={applyFormSchema}
                         onSubmit={async (values) => {
                             const price = parseInt(values.price, 10);
-                            if (isNaN(price) || !id) {
+                            if (isNaN(price) || !service_id) {
                                 return toast.error(
                                     "Price must be a number and task id must be provided"
                                 );
                             }
 
                             const applyTaskPayload: ApplyTaskPayload = {
-                                task: id,
+                                task: service_id,
                                 charge: price,
                                 pre_requisites: JSON.stringify(
                                     values.prerequesties

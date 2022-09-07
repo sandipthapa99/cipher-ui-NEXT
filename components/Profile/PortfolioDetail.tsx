@@ -1,11 +1,12 @@
 import ShareIcon from "@components/common/ShareIcon";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { Carousel } from "@mantine/carousel";
 import { useGetPortfolioById } from "hooks/profile/getProfileById";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
 import React, { useState } from "react";
-import { Carousel, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -16,6 +17,7 @@ interface PortfolioProps {
     handleClose?: () => void;
     setShowPortfolioDetails: Dispatch<SetStateAction<boolean>>;
     id?: number;
+    isTaskerPortfolio?: boolean;
     handleDeletePortfolio?: () => void;
 }
 
@@ -23,6 +25,7 @@ const PortfolioDetails = ({
     show,
     handleDeletePortfolio,
     id,
+    isTaskerPortfolio,
     handleClose,
 }: // description,
 // image,
@@ -35,7 +38,6 @@ PortfolioProps) => {
     const [isEditProfile, setIsEditProfile] = useState(false);
 
     const { data: portfolioDetail } = useGetPortfolioById(id);
-    console.log("portfolio details=", portfolioDetail);
     return (
         <div className="portfolio-details">
             {/* Modal component */}
@@ -67,24 +69,84 @@ PortfolioProps) => {
                         </Row>
                     </div>
                     {portfolioDetail?.images.length > 1 ? (
-                        <Carousel>
+                        <Carousel
+                            styles={{
+                                control: {
+                                    "&[data-inactive]": {
+                                        opacity: 0,
+                                        cursor: "default",
+                                    },
+                                },
+                            }}
+                        >
                             {portfolioDetail?.images.map((image: any) => (
-                                <Carousel.Item key={image.id}>
-                                    <Image
-                                        src={image.media}
-                                        alt="portfolio-img"
-                                        height={500}
-                                        objectFit="contain"
-                                        width={800}
-                                    />
-                                </Carousel.Item>
+                                <Carousel.Slide key={image.id}>
+                                    {image.name
+                                        .substring(image.name.indexOf(".") + 1)
+                                        .includes("png") ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : image.name.substring(
+                                          image.name.indexOf(".") + 1
+                                      ) === "jpg" ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : image.name.substring(
+                                          image.name.indexOf(".") + 1
+                                      ) === "svg" ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : image.name.substring(
+                                          image.name.indexOf(".") + 1
+                                      ) === "jpeg" ? (
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
+                                    ) : (
+                                        <div>
+                                            <video
+                                                style={{
+                                                    width: "90%",
+                                                }}
+                                                controls
+                                                autoPlay
+                                            >
+                                                <source
+                                                    src={image.media}
+                                                    type="video/mp4"
+                                                ></source>
+                                                Sorry, your browser doesn&apos;t
+                                                support videos.
+                                            </video>
+                                        </div>
+                                    )}
+                                </Carousel.Slide>
                             ))}
                         </Carousel>
                     ) : (
                         <figure className="thumbnail-img">
                             <Image
                                 src={
-                                    portfolioDetail?.images[0].media ??
+                                    portfolioDetail?.images[0]?.media ??
                                     "/userprofile/image.svg"
                                 }
                                 alt="portfolio-img"
@@ -110,23 +172,20 @@ PortfolioProps) => {
                             {portfolioDetail?.credential_url}
                         </a>
                     </div>
-                    {portfolioDetail?.files ? (
+                    {portfolioDetail?.files.length > 0 ? (
                         <>
                             <p> File here:</p>
                             <Row>
                                 {portfolioDetail.files &&
                                     portfolioDetail.files.map(
-                                        (file: string, i: number) => (
-                                            <Col md={2} sm={4} key={i}>
+                                        (file: any, i: number) => (
+                                            <Col md={3} sm={4} key={i}>
                                                 <div className="file">
                                                     <br />
 
                                                     <a
                                                         target="_blank"
-                                                        href={
-                                                            portfolioDetail
-                                                                ?.files[0].media
-                                                        }
+                                                        href={file.media}
                                                         rel="noreferrer"
                                                     >
                                                         <figure className="file-img">
@@ -140,39 +199,47 @@ PortfolioProps) => {
                                                             />
                                                         </figure>
                                                     </a>
+                                                </div>
+                                                <br />
 
-                                                    <br />
+                                                <div className="file-name py-2 px-2">
+                                                    {file.name.substring(
+                                                        file.name.indexOf(
+                                                            "/media/"
+                                                        ) + 7
+                                                    )}
                                                 </div>
                                             </Col>
                                         )
                                     )}
                             </Row>
-
-                            <div className="file-name">
-                                {portfolioDetail?.title}.pdf
-                            </div>
                         </>
                     ) : null}
                 </div>
+                {isTaskerPortfolio ? (
+                    ""
+                ) : (
+                    <Modal.Footer>
+                        <Button
+                            className="btn close-btn"
+                            onClick={handleDeletePortfolio}
+                        >
+                            Remove
+                        </Button>
 
-                <Modal.Footer>
-                    <Button
-                        className="btn close-btn w-25"
-                        onClick={handleDeletePortfolio}
-                    >
-                        Remove
-                    </Button>
-
-                    <Button
-                        className="btn submit-btn w-25"
-                        onClick={() => {
-                            setShowAddPortfolioModal(!showAddPortfolioModal);
-                            setIsEditProfile(true);
-                        }}
-                    >
-                        Edit
-                    </Button>
-                </Modal.Footer>
+                        <Button
+                            className="btn submit-btn"
+                            onClick={() => {
+                                setShowAddPortfolioModal(
+                                    !showAddPortfolioModal
+                                );
+                                setIsEditProfile(true);
+                            }}
+                        >
+                            Edit
+                        </Button>
+                    </Modal.Footer>
+                )}
             </Modal>
             <PostCard
                 text="You are good to continue."

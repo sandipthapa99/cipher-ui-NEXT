@@ -9,8 +9,10 @@ import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useToggle } from "@mantine/hooks";
 import { useQueryClient } from "@tanstack/react-query";
+import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { TaskerDetails } from "staticData/taskDetail";
@@ -27,6 +29,8 @@ export const UserTaskDetailHeader = ({
     taskerDetail,
     maxHeaderWidth,
 }: UserTaskDetailHeaderProps) => {
+    const router = useRouter();
+    const { data: user } = useUser();
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
     const [showMenu, toggleShowMenu] = useToggle([false, true]);
 
@@ -35,7 +39,8 @@ export const UserTaskDetailHeader = ({
         initialData: [],
     }).join(", ");
 
-    const isBookmarked = useIsBookmarked("user", taskerDetail.user.id);
+    const isBookmarked = useIsBookmarked("user", taskerDetail?.user?.id);
+    const isSelf = user?.id === taskerDetail?.user?.id;
     const queryClient = useQueryClient();
 
     return (
@@ -91,7 +96,7 @@ export const UserTaskDetailHeader = ({
                     <div className="td-task-detail-header-icons">
                         <SaveIcon
                             model="user"
-                            object_id={taskerDetail.user.id}
+                            object_id={taskerDetail?.user?.id}
                             filled={isBookmarked}
                             onSuccess={() =>
                                 queryClient.invalidateQueries([
@@ -101,7 +106,7 @@ export const UserTaskDetailHeader = ({
                             }
                         />
                         <ShareIcon
-                            url={`http://localhost:3005/tasker?taskerId=${taskerDetail.user.id}`}
+                            url={`http://localhost:3005/tasker?taskerId=${taskerDetail?.user?.id}`}
                             quote={"Tasker from cipher project"}
                             hashtag={"cipher-tasker"}
                         />
@@ -119,14 +124,23 @@ export const UserTaskDetailHeader = ({
                         {taskerDetail?.charge_currency}{" "}
                         {taskerDetail?.hourly_rate}/hr
                     </p>
-                    <CardBtn
-                        handleClick={() => setShowHireMerchantModal(true)}
-                        // className="td-hire-me-btn"
-                        // type="button"
-                        color="#111"
-                        btnTitle="Hire Me"
-                        backgroundColor="#FFCA6A"
-                    />
+                    {isSelf ? (
+                        <CardBtn
+                            color="#fff"
+                            backgroundColor="#FE5050"
+                            btnTitle="View Profile"
+                            handleClick={() => router.push("/profile")}
+                        />
+                    ) : (
+                        <CardBtn
+                            handleClick={() => setShowHireMerchantModal(true)}
+                            // className="td-hire-me-btn"
+                            // type="button"
+                            color="#111"
+                            btnTitle="Hire Me"
+                            backgroundColor="#FFCA6A"
+                        />
+                    )}
                 </Col>
             </Row>
         </>

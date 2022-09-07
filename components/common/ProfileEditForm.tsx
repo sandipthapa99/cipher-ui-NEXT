@@ -102,7 +102,7 @@ const ProfileEditForm = ({
                             linkedAccounts: "",
                         }}
                         validationSchema={profileEditFormSchema}
-                        onSubmit={async (values, actions) => {
+                        onSubmit={async (values: any, actions: any) => {
                             const newValidatedValues = {
                                 ...values,
                                 active_hour_start: new Date(
@@ -243,7 +243,7 @@ const ProfileEditForm = ({
 
                                 <Modal.Footer>
                                     <Button
-                                        className="btn close-btn w-25"
+                                        className="btn close-btn"
                                         onClick={handleClose}
                                     >
                                         Cancel
@@ -253,7 +253,7 @@ const ProfileEditForm = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting

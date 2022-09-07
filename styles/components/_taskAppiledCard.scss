@@ -4,6 +4,14 @@
     border-radius: 0.4rem;
     margin-bottom: 2.4rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
+    //specific to NestHub
+    @media screen and (width: 1024px) {
+        padding: 2.4rem 2rem;
+    }
+
+    &[data-active="true"] {
+        background: #fff;
+    }
 
     &__header {
         .title {
@@ -14,8 +22,17 @@
             @include respond(lg) {
                 font-size: 1.6rem;
             }
+
             @media screen and (min-width: 1024px) {
                 font-size: 1.6rem;
+            }
+            //specific to NestHubMax
+            @media screen and (width: 1280px) {
+                font-size: 1.2rem !important;
+            }
+            //specific to NestHub
+            @media screen and (width: 1024px) {
+                font-size: 1.1rem !important;
             }
         }
 
@@ -24,16 +41,38 @@
             font-size: 1.3rem;
             text-align: right;
             color: #343a40;
+            @include respond(xs) {
+                font-weight: 600;
+                text-align: left;
+            }
             @include respond(lg) {
                 font-size: 2rem;
             }
             @media screen and (min-width: 1024px) {
                 font-size: 2rem;
             }
+
+            //specific to NestHub
+            @media screen and (width: 1024px) {
+                font-size: 1.1rem !important;
+                margin-top: 5px;
+            }
+            //specific to NestHub max
+            @media screen and (width: 1280px) {
+                font-size: 1.2rem !important;
+                margin-top: 5px;
+            }
+            //specific to surface pro,ipad air and
+            @media screen and (width: 768px), (width: 820px), (width: 912px) {
+                margin-top: 5px;
+            }
         }
     }
 
     &__body {
+        @include respond(xs) {
+            margin-top: 6px;
+        }
         .task-description {
             font-size: 1.2rem;
             font-weight: 400;

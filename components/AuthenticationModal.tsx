@@ -1,92 +1,96 @@
-import DragDrop from "@components/common/DragDrop";
-import FormButton from "@components/common/FormButton";
-import InputField from "@components/common/InputField";
-import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Form, Formik } from "formik";
-import Image from "next/image";
+import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
-import { Col, Row } from "react-bootstrap";
+import type { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { isSubmittingClass } from "utils/helpers";
-import * as Yup from "yup";
+import OtpInput from "react-otp-input";
+import { toast } from "react-toastify";
+
 interface AuthenticationModalCardProps {
     show?: boolean;
     handleClose?: () => void;
-    code?: number;
+    setShowForm: Dispatch<SetStateAction<boolean>>;
 }
-const AuthenticationData: AuthenticationModalCardProps = {
-    code: 0,
-};
+interface AuthProps {
+    otp?: string;
+    phone: string;
+}
 
-const numReqOnly = Yup.number().required("Required field");
-
-const schema = Yup.object().shape({
-    code: numReqOnly,
-});
 const AuthenticationModalCard = ({
     handleClose,
     show,
-}: AuthenticationModalCardProps) => {
+    phone,
+    setShowForm,
+}: AuthenticationModalCardProps & AuthProps) => {
     const router = useRouter();
+    const { mutate } = useForm(`/user/reset/otp/verify/`);
+
+    const [otpNum, setOTPNum] = useState("");
+    const handleChange = (otpNum: string) => {
+        setOTPNum(otpNum);
+    };
+    const handleSubmit = () => {
+        const dataToSend = {
+            otp: otpNum,
+            scope: "verify",
+            phone: phone,
+        };
+        mutate(dataToSend, {
+            onSuccess: async () => {
+                toast.success("OTP verified!");
+                setShowForm(false);
+                router.push("/login");
+            },
+            onError: async (error) => {
+                toast.error("Invalid OTP");
+            },
+        });
+    };
     return (
         <>
             {/* Modal component */}
-            <Modal show={show} centered onHide={handleClose} backdrop="static">
+            <Modal
+                show={show}
+                centered
+                onHide={handleClose}
+                className="auth-modal"
+                backdrop="static"
+            >
                 <Modal.Header closeButton>
-                    <Modal.Title>Enter your verification code</Modal.Title>
+                    <Modal.Title>Enter your verification code.</Modal.Title>
                 </Modal.Header>
 
                 <div className="modal-body-content">
-                    <div className="details"></div>
-                    <Formik
-                        initialValues={AuthenticationData}
-                        validationSchema={schema}
-                        onSubmit={async (values) => {
-                            console.log(values);
-                            await router.push("task/checkout");
-                            // setBookNowDetails((prev) => ({
-                            //     ...prev,
-                            //     ...values,
-                            // }));
-                        }}
-                    >
-                        {({ isSubmitting, errors, touched, setFieldValue }) => (
-                            <Form>
-                                <div className="problem">
-                                    <h4>Code:</h4>
-                                    <InputField
-                                        type="number"
-                                        name="code"
-                                        error={errors.code}
-                                        touch={touched.code}
-                                        placeHolder="Your Code"
-                                    />
-                                </div>
+                    <div className="problem">
+                        <h4>OTP:</h4>
+                        <div className="otp-wrapper">
+                            <OtpInput
+                                value={otpNum}
+                                onChange={handleChange}
+                                numInputs={8}
+                                separator={
+                                    <span style={{ width: "8px" }}></span>
+                                }
+                                isInputNum={true}
+                                shouldAutoFocus={true}
+                                className="otp-box"
+                                focusStyle={{
+                                    border: "1px solid #fff",
+                                    outline: "none",
+                                }}
+                            />
+                        </div>
+                    </div>
 
-                                <Modal.Footer>
-                                    <Button
-                                        className="btn close-btn"
-                                        onClick={handleClose}
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <FormButton
-                                        type="submit"
-                                        variant="primary"
-                                        name="Submit"
-                                        className="submit-btn w-25"
-                                        isSubmitting={isSubmitting}
-                                        isSubmittingClass={isSubmittingClass(
-                                            isSubmitting
-                                        )}
-                                        onClick={handleClose}
-                                    />
-                                </Modal.Footer>
-                            </Form>
-                        )}
-                    </Formik>
+                    <Modal.Footer>
+                        <Button className="btn close-btn" onClick={handleClose}>
+                            Cancel
+                        </Button>
+                        <Button className="submit-btn" onClick={handleSubmit}>
+                            Submit
+                        </Button>
+                    </Modal.Footer>
                 </div>
             </Modal>
         </>

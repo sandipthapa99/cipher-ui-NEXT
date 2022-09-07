@@ -139,6 +139,7 @@ export const Search = () => {
                                 <FontAwesomeIcon icon={faChevronDown} />
                             }
                             onChange={(value) => setFieldValue("scope", value)}
+                            styles={{ dropdown: { marginLeft: `${-1}rem` } }}
                         />
                         <div className="search_field">
                             <input
@@ -176,7 +177,7 @@ export const Search = () => {
 };
 export const useStyles = createStyles(() => ({
     selectField: {
-        maxWidth: useMediaQuery("(max-width:572px)") ? "7.7rem" : "12rem",
+        maxWidth: useMediaQuery("(max-width:572px)") ? "12rem" : "12rem",
         marginLeft: "1rem",
     },
     loadingOverlay: {

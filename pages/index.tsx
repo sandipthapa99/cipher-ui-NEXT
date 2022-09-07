@@ -26,10 +26,12 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { Divider, Grid, Skeleton, Space } from "@mantine/core";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
 import { useTaskers } from "hooks/tasker/use-tasker";
 import { useData } from "hooks/use-data";
+import { key } from "localforage";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -62,18 +64,20 @@ const Home: NextPage<{
     trustedPartnerData: LandingPageProps["trustedPartnerData"];
     heroCategoryData: LandingPageProps["heroCategoryData"];
 }> = ({ successStoryData, trustedPartnerData, heroCategoryData }) => {
-    const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
-    const { data: servicesData } = useData<ServicesValueProps>(
-        ["all-services"],
-        "/task/service/"
+    const { data: blogData, isLoading: blogLoading } = useData<BlogValueProps>(
+        ["all-blogs"],
+        "/blog/"
     );
+    const { data: servicesData, isLoading: serviceLoading } =
+        useData<ServicesValueProps>(["all-services"], "/task/service/");
 
     //for tasks
 
-    const { data: recommendedTasksData } = useData<ITaskApiResponse>(
-        ["all-tasks"],
-        "/task/"
-    );
+    const { data: recommendedTasksData, isLoading: taskLoading } =
+        useData<ITaskApiResponse>(
+            ["all-tasks"],
+            "/task/?recommendation=you may like"
+        );
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -81,7 +85,7 @@ const Home: NextPage<{
         "Washing Machine",
     ]);
 
-    const { data: allTaskers } = useTaskers();
+    const { data: allTaskers, isLoading: taskerLoading } = useTaskers();
 
     const removeChip = (chip: string) => {
         setChips((prevChips) =>
@@ -233,7 +237,7 @@ const Home: NextPage<{
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">
                             Popular Verified Services
                         </h2>
@@ -247,6 +251,29 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {serviceLoading && (
+                        <Grid>
+                            {Array.from({ length: 4 }).map((_, key) => (
+                                <Grid.Col span={3} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={80} mb="xl" />
+                                        <Skeleton height={8} radius="xl" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
 
                     <Row className="gx-5">
                         {servicesData &&
@@ -278,7 +305,7 @@ const Home: NextPage<{
             {/* Services near you section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Services near you</h2>
 
                         <Link href="/service">
@@ -291,6 +318,29 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {serviceLoading && (
+                        <Grid>
+                            {Array.from({ length: 4 }).map((_, key) => (
+                                <Grid.Col span={3} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={80} mb="xl" />
+                                        <Skeleton height={8} radius="xl" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.data?.result
@@ -317,7 +367,7 @@ const Home: NextPage<{
 
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Professional Services</h2>
                         <Link href="/service">
                             <a className="view-more">
@@ -329,12 +379,33 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
-
+                    {serviceLoading && (
+                        <Grid>
+                            {Array.from({ length: 4 }).map((_, key) => (
+                                <Grid.Col span={3} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={80} mb="xl" />
+                                        <Skeleton height={8} radius="xl" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.data?.result
                                 ?.slice(0, 4)
-                                .filter((p) => p.is_professional)
                                 .map((service) => {
                                     return (
                                         <Col
@@ -452,7 +523,7 @@ const Home: NextPage<{
             {/* Find & Hire section end */}
 
             {/* Horoscope section starts */}
-            <section
+            {/* <section
                 id="horoscope-slider-section"
                 className="horoscope-slider-section"
             >
@@ -460,13 +531,13 @@ const Home: NextPage<{
                     <h1 className="text-center">Horoscopes</h1>
                     <HoroscopeSlider />
                 </Container>
-            </section>
+            </section> */}
             {/* Horoscope section ends */}
 
             {/* Top Taksers Section Start */}
             <section id="top-merchants" className="top-merchants">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Top Taskers</h2>
                         <Link href="/tasker">
                             <a className="view-more">
@@ -478,6 +549,41 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {taskerLoading && (
+                        <Grid>
+                            {Array.from({ length: 4 }).map((_, key) => (
+                                <Grid.Col span={3} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={80} circle mb="xl" />
+                                        <Skeleton height={8} radius="xl" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Divider my={"sm"} color="#F1F3F5" />
+                                        <Skeleton
+                                            height={50}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                        <Divider my={"sm"} color="#F1F3F5" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
                     <Row className="gx-5">
                         {allTaskers &&
                             allTaskers?.slice(0, 4)?.map((merchant, index) => {
@@ -559,7 +665,7 @@ const Home: NextPage<{
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Tasks You May Like</h2>
                         <Link href="/task-you-may-like">
                             <a className="view-more">
@@ -571,21 +677,59 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {taskLoading && (
+                        <Grid>
+                            {Array.from({ length: 2 }).map((_, key) => (
+                                <Grid.Col span={6} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={60} mb="xl" />
+                                        <Skeleton height={8} radius="xl" />
+                                        <Skeleton
+                                            height={8}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Space h={20} />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                        <Space h={20} />
+                                        <hr />
+                                        <Space h={10} />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
                     <Row className="gx-5">
                         {recommendedTasksData?.data?.result?.map(
-                            (task: any, key: any) => (
+                            (task, key) => (
                                 <Col md={6} key={key}>
-                                    <TaskCard
-                                        title={task?.title}
-                                        id={task?.id}
-                                        charge={task?.charge}
-                                        description={task?.description}
-                                        location={task?.location}
-                                        start_date={task?.start_date}
-                                        start_time={task?.start_time}
-                                        status={task?.status}
-                                        currency={task?.currency}
-                                    />
+                                    <Link
+                                        href={`/task-you-may-like/${task.slug}`}
+                                    >
+                                        <a>
+                                            <TaskCard
+                                                title={task?.title}
+                                                id={task?.id}
+                                                charge={task?.charge}
+                                                description={task?.description}
+                                                location={task?.location}
+                                                start_date={task?.start_date}
+                                                start_time={task?.start_time}
+                                                status={task?.status}
+                                                currency={task?.currency}
+                                            />
+                                        </a>
+                                    </Link>
                                 </Col>
                             )
                         )}
@@ -633,7 +777,7 @@ const Home: NextPage<{
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Our blogs</h2>
                         <Link href="/blogs">
                             <a className="view-more">
@@ -645,6 +789,37 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {blogLoading && (
+                        <Grid gutter="xl">
+                            {Array.from({ length: 3 }).map((_, key) => (
+                                <Grid.Col span={4} key={key}>
+                                    <div className="mantine-Skeleton mb-5 p-5">
+                                        <Skeleton height={60} mb="xl" />
+                                        <Space h={20} />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            width="70%"
+                                            radius="xl"
+                                        />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            radius="xl"
+                                        />
+                                        <Space h={20} />
+                                        <Space h={10} />
+                                        <Skeleton
+                                            height={30}
+                                            mt={6}
+                                            width="40%"
+                                            radius="xl"
+                                        />
+                                    </div>
+                                </Grid.Col>
+                            ))}
+                        </Grid>
+                    )}
                     <Row className="gx-5">
                         {blogData
                             ? blogData?.data?.result

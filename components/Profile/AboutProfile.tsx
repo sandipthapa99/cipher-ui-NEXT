@@ -68,7 +68,6 @@ const AboutProfile = () => {
         ["tasker-portfolio"],
         "/tasker/portfolio/"
     );
-    console.log("portfolio data=", portfolioData);
 
     const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
@@ -86,7 +85,6 @@ const AboutProfile = () => {
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
 
     const [hovered, setHovered] = useState<null | number>(null);
-
     return (
         <>
             <div className="about-profile">
@@ -128,15 +126,18 @@ const AboutProfile = () => {
                         {portfolioData?.data?.result
                             ? portfolioData?.data?.result?.map((info: any) => (
                                   <div
-                                      className="image"
+                                      className="data"
                                       key={info?.id}
                                       onMouseLeave={() => setHovered(null)}
-                                      onMouseEnter={() => setHovered(info?.id)}
+                                      onMouseEnter={() => {
+                                          setHovered(info?.id);
+                                          setIsOnlyPortfolioText(false);
+                                      }}
                                       onClick={() => setId(info?.id)}
                                   >
                                       <Row className="gx-5">
                                           <Col md={6} sm={12} xs={12}>
-                                              {info?.images ? (
+                                              {info?.images[0]?.media ? (
                                                   <figure
                                                       className="thumbnail-img"
                                                       onClick={() =>
@@ -146,10 +147,29 @@ const AboutProfile = () => {
                                                       }
                                                   >
                                                       <Image
+                                                          //   src={
+                                                          //       info?.images[0]
+                                                          //           ?.media ??
+                                                          //       info?.images[1]
+                                                          //           ?.media
+                                                          //   }
                                                           src={
-                                                              info?.images[0]
-                                                                  ?.media ??
-                                                              "/userprofile/image.svg"
+                                                              //info?.images ??
+                                                              info?.images[0]?.name
+                                                                  .substring(
+                                                                      info.images[0]?.name.indexOf(
+                                                                          "."
+                                                                      ) + 1
+                                                                  )
+                                                                  .includes(
+                                                                      "jpg"
+                                                                  )
+                                                                  ? info
+                                                                        ?.images[0]
+                                                                        ?.media
+                                                                  : info
+                                                                        ?.images[1]
+                                                                        ?.media
                                                           }
                                                           layout="fill"
                                                           objectFit="cover"
@@ -161,23 +181,16 @@ const AboutProfile = () => {
                                               )}
                                           </Col>
                                       </Row>
-                                      {info?.images === null ? (
-                                          <div className="portfolio-title">
-                                              <p
-                                                  className="text-center"
-                                                  onMouseLeave={() => {
-                                                      setHovered(null);
-                                                      setIsOnlyPortfolioText(
-                                                          false
-                                                      );
-                                                  }}
-                                                  onMouseEnter={() => {
-                                                      //  setHovered(info?.id);
-                                                      setIsOnlyPortfolioText(
-                                                          true
-                                                      );
-                                                  }}
-                                              >
+
+                                      {info?.images.length < 1 ? (
+                                          <div
+                                              className="portfolio-title"
+                                              onMouseEnter={() => {
+                                                  setIsOnlyPortfolioText(true);
+                                                  setHovered(info?.id);
+                                              }}
+                                          >
+                                              <p className="text-center">
                                                   {info.title}
                                               </p>
                                           </div>
@@ -189,6 +202,11 @@ const AboutProfile = () => {
                                                           ? "text-center text-pointer"
                                                           : "text-center"
                                                   }
+                                                  onMouseEnter={() => {
+                                                      setIsOnlyPortfolioText(
+                                                          false
+                                                      );
+                                                  }}
                                               >
                                                   {info.title}
                                               </p>
@@ -206,7 +224,7 @@ const AboutProfile = () => {
                                                   icon={faPencil}
                                                   className={
                                                       isOnlyPortfolioText
-                                                          ? "black-icon"
+                                                          ? "blak-icon"
                                                           : "svg-icon"
                                                   }
                                                   onClick={() => {

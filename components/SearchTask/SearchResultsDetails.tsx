@@ -21,6 +21,7 @@ import { Carousel } from "@mantine/carousel";
 import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
@@ -29,14 +30,18 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { getReviews } from "services/commonServices";
 import { useSetBookNowDetails } from "store/use-book-now";
+import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
 
 const SearchResultsDetail = ({
     image,
-    servicePrice,
+    budget_from,
+    budget_to,
+    budget_type,
     serviceProvider,
     serviceProviderLocation,
     serviceDescription,
@@ -125,6 +130,8 @@ const SearchResultsDetail = ({
         }>;
     }>(["my-service-packages"], "/task/service-package/");
 
+    const { data: user } = useUser();
+    const withLogin = useWithLogin();
     const router = useRouter();
     const servSlug = router.query.slug;
     const getSingleService = servicesData?.data?.result.filter(
@@ -138,9 +145,24 @@ const SearchResultsDetail = ({
 
     const isServiceBookmarked = useIsBookmarked("service", serviceId);
 
+    // check if current logged in user is the owner of the current service
+    const isCurrentUserService = () => {
+        const service = servicesData?.data.result.find(
+            (service) => service.id === serviceId
+        );
+        return service?.created_by.id === user?.id;
+    };
+
+    const handleViewApplicants = () => {
+        // @TODO : REPLACE WITH SOMETHING MEANINGFUL
+        toast.success(
+            "You have 100 Morbillion applicants for this service.Congrats!!"
+        );
+    };
+
     return (
         <>
-            <div className="task-detail mb-5 p-5">
+            <div className="task-detail  mb-5 p-5">
                 <Link href="/service">
                     <a>
                         <FontAwesomeIcon
@@ -201,9 +223,9 @@ const SearchResultsDetail = ({
                                 }}
                                 className="rounded"
                             >
-                                {image.map((value) => (
+                                {image.map((value, key) => (
                                     <Carousel.Slide
-                                        key={value.id}
+                                        key={key}
                                         className="thumbnail-img "
                                     >
                                         {value?.media && (
@@ -220,6 +242,14 @@ const SearchResultsDetail = ({
                                         )}
                                     </Carousel.Slide>
                                 ))}
+                                {/* <Carousel.Slide className="thumbnail-img ">
+                                    <Image
+                                        src={"/No_image_available.svg.webp"}
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="garden-image"
+                                    />
+                                </Carousel.Slide> */}
                             </Carousel>
                         )}
                     </Col>
@@ -249,27 +279,24 @@ const SearchResultsDetail = ({
 
                             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                                 <span>Starting Price</span>
-                                <span className="price">Rs {servicePrice}</span>
+                                <span className="price">
+                                    {budget_from} {budget_to && "-" + budget_to}
+                                    {budget_type}
+                                </span>
                             </div>
-                            <CardBtn
-                                btnTitle="Book Now"
-                                backgroundColor="#211D4F"
-                                handleClick={() => {
-                                    setShow(true);
-                                    setBookNowDetails({
-                                        image,
-                                        servicePrice,
-                                        serviceProvider,
-                                        serviceProviderLocation,
-                                        serviceDescription,
-                                        serviceRating,
-                                        serviceTitle,
-                                        haveDiscount,
-                                        discountOn,
-                                        discount,
-                                    });
-                                }}
-                            />
+                            {isCurrentUserService() ? (
+                                <CardBtn
+                                    btnTitle="View Applicants"
+                                    backgroundColor="#211D4F"
+                                    handleClick={handleViewApplicants}
+                                />
+                            ) : (
+                                <CardBtn
+                                    btnTitle="Book Now"
+                                    backgroundColor="#211D4F"
+                                    handleClick={withLogin(() => setShow(true))}
+                                />
+                            )}
                         </div>
                     </Col>
                 </Row>
@@ -296,7 +323,7 @@ const SearchResultsDetail = ({
                             className="svg-icon svg-icon-clock"
                         />
                         {serviceCreated
-                            ? format(new Date(serviceCreated), "pp")
+                            ? format(new Date(serviceCreated), "p")
                             : "N/A"}
                     </p>
                     <p>
@@ -437,15 +464,17 @@ const SearchResultsDetail = ({
                             })}
                     </Carousel>
                 </Row>
+                <BookNowModalCard
+                    title={serviceTitle}
+                    budget_to={budget_to}
+                    budget_from={budget_from}
+                    budget_type={budget_type}
+                    service_id={serviceId}
+                    description={serviceDescription}
+                    show={show}
+                    handleClose={handleClose}
+                />
             </div>
-            <BookNowModalCard
-                description={serviceDescription ?? ""}
-                price={servicePrice ?? 0}
-                title={serviceTitle ?? ""}
-                key={serviceTitle}
-                show={show}
-                handleClose={handleClose}
-            />
         </>
     );
 };

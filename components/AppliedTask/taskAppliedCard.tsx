@@ -7,6 +7,7 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
 const TaskCard = ({
@@ -20,8 +21,14 @@ const TaskCard = ({
     taskId,
     ...rest
 }: TaskCardProps) => {
+    const router = useRouter();
+    const query = router.query.slug;
     return (
-        <div className="task-applied-card-block" {...rest}>
+        <div
+            data-active={JSON.stringify(query === taskId)}
+            className="task-applied-card-block"
+            {...rest}
+        >
             <div className="d-flex justify-content-between flex-column flex-sm-row task-applied-card-block__header">
                 <span className="title">{title}</span>
                 <span className="charge">
@@ -29,34 +36,34 @@ const TaskCard = ({
                 </span>
             </div>
             <div className="task-applied-card-block__body">
-                <p className="location mb-3">
+                <p className="location mb-3 d-flex align-items-center">
                     <FontAwesomeIcon
                         icon={faLocationDot}
                         className="svg-icon"
                     />
-                    {location}
+                    <span>{location}</span>
                 </p>
                 <div className="task-location-time d-flex justify-content-between">
-                    <span className="time me-4">
+                    <span className="time me-4 d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon"
                         />
-                        {time}
+                        <span> {time}</span>
                     </span>
-                    <span className="date">
+                    <span className="date d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faCalendar}
                             className="svg-icon"
                         />
-                        {date}
+                        <span> {date}</span>
                     </span>
-                    <span className="date">
+                    <span className="date d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faLocationArrow}
                             className="svg-icon"
                         />
-                        2 Km away
+                        <span> 2 Km away</span>
                     </span>
                 </div>
             </div>

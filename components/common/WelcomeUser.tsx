@@ -1,4 +1,3 @@
-import { SearchBody } from "@components/SearchTask/searchBody";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { Col, Row } from "react-bootstrap";
 
@@ -24,8 +23,8 @@ const WelcomeUser = () => {
                 </Col>
                 <Col lg={5} md={6} xs={12}>
                     <Row className="d-flex status">
-                        <Col md={3} xs={6}>
-                            <div className="type success-rate">
+                        <Col md={3} xs={6} className="d-flex">
+                            <div className="d-flex flex-column align-items-start p-4 type success-rate">
                                 <h1 className="number">
                                     {profileDetails
                                         ? profileDetails?.stats?.task_assigned
@@ -34,8 +33,8 @@ const WelcomeUser = () => {
                                 <p>Task Assigned</p>
                             </div>
                         </Col>
-                        <Col md={3} xs={6}>
-                            <div className="type happy-clients">
+                        <Col md={3} xs={6} className="d-flex">
+                            <div className="d-flex flex-column align-items-start p-4 type happy-clients">
                                 <h1 className="number">
                                     {profileDetails
                                         ? profileDetails?.stats?.task_completed
@@ -45,8 +44,8 @@ const WelcomeUser = () => {
                             </div>
                         </Col>
 
-                        <Col md={3} xs={6}>
-                            <div className="type task-completed">
+                        <Col md={3} xs={6} className="d-flex">
+                            <div className="d-flex flex-column align-items-start p-4 type task-completed">
                                 <h1 className="number">
                                     {profileDetails
                                         ? profileDetails?.stats
@@ -56,9 +55,8 @@ const WelcomeUser = () => {
                                 <p>Tasks In Progress</p>
                             </div>
                         </Col>
-                        <Col md={3} xs={6}>
-                            {" "}
-                            <div className="type user-reviews">
+                        <Col md={3} xs={6} className="d-flex">
+                            <div className="d-flex flex-column align-items-start p-4 type user-reviews">
                                 <h1 className="number">
                                     {profileDetails
                                         ? profileDetails?.stats?.task_cancelled

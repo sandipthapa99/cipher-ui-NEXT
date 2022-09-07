@@ -45,6 +45,7 @@ const ServiceNearYouProviderCard = ({
                             description={detail.description}
                             show={showModal}
                             handleClose={() => setShowModal(false)}
+                            images={[]}
                         />
                     ))}
 

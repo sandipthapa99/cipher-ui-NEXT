@@ -3,12 +3,14 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MultiImageDropzone from "@components/common/MultiImageDropzone";
 import MultiPdfFileDropzone from "@components/common/MultiPdfFileDropzone";
+import { createStyles, LoadingOverlay } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { useEditForm } from "hooks/use-edit-form";
 import type { Dispatch, SetStateAction } from "react";
+import { useMemo } from "react";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -19,7 +21,6 @@ import { axiosClient } from "utils/axiosClient";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-
 interface AddPortfolioModalProps {
     show?: boolean;
     id?: number;
@@ -31,22 +32,16 @@ interface EditDetailProps {
     data: { result: AddPortfolioProps[] };
 }
 const useUploadImage = () =>
-    useMutation<number[] | null, AxiosError, FormData>((formData) =>
+    useMutation<number[], AxiosError, FormData>((formData) =>
         axiosClient
             .post<{ data: number[] }>("/task/filestore/", formData)
-            .then((res) => {
-                if (res.data.data) return res.data.data;
-                return null;
-            })
+            .then((res) => res.data.data)
     );
 const useUploadFile = () =>
-    useMutation<number[] | null, AxiosError, FormData>((formData) =>
+    useMutation<number[], AxiosError, FormData>((formData) =>
         axiosClient
             .post<{ data: number[] }>("/task/filestore/", formData)
-            .then((res) => {
-                if (res.data.data) return res.data.data;
-                return null;
-            })
+            .then((res) => res.data.data)
     );
 const useCreatePortfolio = () =>
     useMutation<string, AxiosError, any>((payload) =>
@@ -62,29 +57,112 @@ const AddPortfolio = ({
     id,
     isEditProfile,
 }: AddPortfolioModalProps) => {
-    const { mutate: createPortfolioMutation } = useCreatePortfolio();
+    const { classes } = useStyles();
+    const queryClient = useQueryClient();
+    const {
+        mutate: createPortfolioMutation,
+        isLoading: createPortfolioLoading,
+    } = useCreatePortfolio();
+    const [isVideo, setIsVideo] = useState(false);
     const { mutate: uploadImageMutation, isLoading: uploadImageLoading } =
         useUploadImage();
     const { mutate: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
-    const { mutate: editMutation } = useEditForm(`/tasker/portfolio/${id}/`);
-
-    const queryClient = useQueryClient();
+    const { mutate: editMutation, isLoading: updatePortfolioLoading } =
+        useEditForm(`/tasker/portfolio/${id}/`);
+    const loadingOverlayVisible = useMemo(
+        () =>
+            createPortfolioLoading ||
+            uploadImageLoading ||
+            uploadFileLoading ||
+            updatePortfolioLoading,
+        [
+            createPortfolioLoading,
+            uploadFileLoading,
+            updatePortfolioLoading,
+            uploadImageLoading,
+        ]
+    );
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-portfolio",
     ]);
-    const [imageId, setImageId] = useState<number[]>([]);
-    const [fileId, setfileId] = useState<number[]>([]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
-    console.log("edit details=", editDetails, isEditProfile);
-    console.log("imge id, fileId=", imageId, fileId);
 
+    const uploadImage = (images: any[]) => {
+        return new Promise<number[]>((resolve, reject) => {
+            if (images && images.length > 0) {
+                const imageFormData = new FormData();
+                for (const image of images) {
+                    imageFormData.append("medias", image);
+                    imageFormData.append(
+                        "media_type",
+                        isVideo ? "video" : "image"
+                    );
+                    imageFormData.append(
+                        "placeholder",
+                        isVideo ? "video" : "image"
+                    );
+                }
+                uploadImageMutation(imageFormData, {
+                    onSuccess: (fileIds) => resolve(fileIds),
+                    onError: () => reject(),
+                });
+            }
+        });
+    };
+    const uploadFile = (files: any[]) => {
+        return new Promise<number[] | null>((resolve, reject) => {
+            if (files && files.length > 0) {
+                const fileFormData = new FormData();
+                for (const file of files) {
+                    fileFormData.append("medias", file);
+                    fileFormData.append("media_type", "pdf");
+                    fileFormData.append("placeholder", "file");
+                    uploadFileMutation(fileFormData, {
+                        onSuccess: (imageIds) => resolve(imageIds),
+                        onError: () => reject(),
+                    });
+                }
+            }
+        });
+    };
+
+    const uploadPortfolio = <T,>(payload: T) => {
+        createPortfolioMutation(payload, {
+            onSuccess: (message) => {
+                toast.success(message);
+                setShowAddPortfolioModal(false);
+                queryClient.invalidateQueries(["tasker-portfolio"]);
+            },
+        });
+    };
+    const editPortfolio = <T,>(data: T) => {
+        editMutation(data, {
+            onSuccess: async () => {
+                console.log("submitted values", data);
+                setShowAddPortfolioModal(false);
+                queryClient.invalidateQueries(["tasker-portfolio"]);
+                toast.success("Portfolio updated successfully.");
+            },
+            onError: async (error) => {
+                toast.error(error.message);
+            },
+        });
+    };
+    if (loadingOverlayVisible)
+        return (
+            <LoadingOverlay
+                visible={loadingOverlayVisible}
+                className={classes.overlay}
+                overlayBlur={2}
+            />
+        );
     return (
         <div>
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
-                <Modal.Header closeButton></Modal.Header>
+                <Modal.Header closeButton />
                 <div className="modal-body-content">
                     <h3>Add Portfolio</h3>
                     <Formik
@@ -95,8 +173,8 @@ const AddPortfolio = ({
                                       issued_date: parseISO(
                                           editDetails.issued_date
                                       ),
-                                      files: [],
-                                      images: [],
+                                      files: [] as File[],
+                                      images: [] as File[],
                                       imagePreviewUrl: [],
                                       pdfPreviewUrl: [],
                                   }
@@ -104,121 +182,111 @@ const AddPortfolio = ({
                         }
                         validationSchema={addPortfolioSchema}
                         onSubmit={async (values) => {
-                            const imageFormData = new FormData();
-                            const fileFormData = new FormData();
-                            console.log("imagessss=", values.images);
-                            if (values.images[0].path) {
-                                for (const image of values.images) {
-                                    imageFormData.append("medias", image);
-                                    imageFormData.append("media_type", "image");
-                                    imageFormData.append(
-                                        "placeholder",
-                                        "image"
-                                    );
-                                }
-                                uploadImageMutation(imageFormData, {
-                                    onSuccess: (imageIds) => {
-                                        console.log("Image ids are", imageIds);
-                                        if (imageIds) setImageId(imageIds);
-                                    },
-                                });
+                            delete values.imagePreviewUrl;
+                            delete values.pdfPreviewUrl;
+
+                            console.log("values videos", values.images);
+
+                            {
+                                values.images ??
+                                (values.images[0] as File).type === "video/mp4"
+                                    ? setIsVideo(true)
+                                    : setIsVideo(false);
                             }
-                            if (values.files[0].path) {
-                                for (const file of values.files) {
-                                    fileFormData.append("medias", file);
-                                    fileFormData.append("media_type", "pdf");
-                                    fileFormData.append("placeholder", "file");
+
+                            const issued_date = format(
+                                new Date(values.issued_date),
+                                "yyyy-MM-dd"
+                            );
+                            const addPortfolioPayload = {
+                                ...values,
+                                issued_date,
+                            };
+                            if (
+                                values.files.length > 0 &&
+                                values.images.length > 0
+                            ) {
+                                const imageIds = await uploadImage(
+                                    values.images
+                                );
+                                const fileIds = await uploadFile(values.files);
+                                const portfolioPayloadWithImageAndFile = {
+                                    ...addPortfolioPayload,
+                                    images: imageIds,
+                                    files: fileIds,
+                                };
+                                {
+                                    !isEditProfile
+                                        ? uploadPortfolio(
+                                              portfolioPayloadWithImageAndFile
+                                          )
+                                        : editPortfolio(
+                                              portfolioPayloadWithImageAndFile
+                                          );
                                 }
-                                uploadFileMutation(fileFormData, {
-                                    onSuccess: (fileIds) => {
-                                        console.log("File ids are", fileIds);
-                                        if (fileIds) setfileId(fileIds);
-                                    },
-                                });
+
+                                return;
                             }
-                            (function wait() {
-                                // let timeoutId: NodeJS.Timeout | undefined =
-                                //     undefined;
-                                if (!uploadFileLoading && !uploadImageLoading) {
-                                    const issuedDate = format(
-                                        new Date(values.issued_date),
-                                        "yyyy-MM-dd"
-                                    );
-                                    const addPortfolioPayload = {
-                                        ...values,
-                                        issued_date: issuedDate,
-                                        images: imageId,
-                                        files: fileId,
-                                    };
+                            let editData;
+                            if (values.images && values.images.length > 0) {
+                                const imageIds = await uploadImage(
+                                    values.images
+                                );
+                                // addPortfolioPayload?.files ??
+                                //     delete addPortfolioPayload.files;
 
-                                    addPortfolioPayload.images = imageId;
-
-                                    addPortfolioPayload.files = fileId;
-                                    delete addPortfolioPayload.imagePreviewUrl;
-                                    delete addPortfolioPayload.pdfPreviewUrl;
-                                    console.log(
-                                        "add portfolio payload=",
-                                        addPortfolioPayload
-                                    );
-                                    console.log("IDS", fileId, imageId);
-                                    {
-                                        editDetails && isEditProfile == true
-                                            ? editMutation(
-                                                  addPortfolioPayload,
-                                                  {
-                                                      onSuccess: async () => {
-                                                          console.log(
-                                                              "submitted values",
-                                                              values
-                                                          );
-                                                          setShowAddPortfolioModal(
-                                                              false
-                                                          );
-                                                          queryClient.invalidateQueries(
-                                                              [
-                                                                  "tasker-portfolio",
-                                                              ]
-                                                          );
-                                                          toast.success(
-                                                              "Portfolio updated successfully."
-                                                          );
-                                                      },
-                                                      onError: async (
-                                                          error
-                                                      ) => {
-                                                          toast.error(
-                                                              error.message
-                                                          );
-                                                      },
-                                                  }
-                                              )
-                                            : createPortfolioMutation(
-                                                  addPortfolioPayload,
-                                                  {
-                                                      onSuccess: (message) => {
-                                                          toast.success(
-                                                              message
-                                                          );
-                                                          queryClient.invalidateQueries(
-                                                              [
-                                                                  "tasker-portfolio",
-                                                              ]
-                                                          );
-                                                          setShowAddPortfolioModal(
-                                                              false
-                                                          );
-                                                          setImageId([]);
-                                                          setfileId([]);
-                                                      },
-                                                  }
-                                              );
-                                    }
-
-                                    // if (timeoutId) clearTimeout(timeoutId);
-                                } else {
-                                    setTimeout(wait, 100);
+                                const portfolioPayloadWithImage = {
+                                    ...addPortfolioPayload,
+                                    images: imageIds,
+                                };
+                                {
+                                    !isEditProfile
+                                        ? uploadPortfolio(
+                                              portfolioPayloadWithImage
+                                          )
+                                        : editPortfolio(
+                                              portfolioPayloadWithImage
+                                          );
                                 }
-                            })();
+                                return;
+                            }
+                            if (values.files && values.files.length > 0) {
+                                const fileIds = await uploadFile(values.files);
+                                // delete addPortfolioPayload.images;
+                                const portfolioPayloadWithFile = {
+                                    ...addPortfolioPayload,
+                                    files: fileIds,
+                                };
+                                {
+                                    !isEditProfile
+                                        ? uploadPortfolio(
+                                              portfolioPayloadWithFile
+                                          )
+                                        : editPortfolio(
+                                              portfolioPayloadWithFile
+                                          );
+                                }
+                                return;
+                            } else {
+                                // delete addPortfolioPayload.files;
+                                // delete addPortfolioPayload.images;
+                                const newPayloadWithoutImageAndFile = {
+                                    ...addPortfolioPayload,
+                                };
+
+                                editData = newPayloadWithoutImageAndFile;
+                                console.log("we have no files");
+                            }
+
+                            console.log("editedd=", editData);
+
+                            // delete addPortfolioPayload.files;
+                            // delete addPortfolioPayload.images;
+
+                            editDetails && isEditProfile == true
+                                ? editPortfolio(editData)
+                                : uploadPortfolio(addPortfolioPayload);
+                            // uploadPortfolio(addPortfolioPayload);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (
@@ -314,7 +382,7 @@ const AddPortfolio = ({
                                         type="submit"
                                         variant="primary"
                                         name="Add"
-                                        className="submit-btn w-25"
+                                        className="submit-btn"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
@@ -330,4 +398,11 @@ const AddPortfolio = ({
         </div>
     );
 };
+const useStyles = createStyles(() => ({
+    overlay: {
+        postion: "fixed",
+        inset: 0,
+        zIndex: 9999,
+    },
+}));
 export default AddPortfolio;

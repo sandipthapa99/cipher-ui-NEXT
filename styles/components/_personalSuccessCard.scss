@@ -3,9 +3,15 @@
         h1 {
             font: 500 4rem $poppins-font;
             margin: 0 0 4rem;
+            text-transform: capitalize;
+
+            /* brand/primary */
+
+            color: #211d4f;
+
             @include respond(xs) {
                 font: 601 1.9rem "Poppins";
-                margin: 0 0 2rem;
+                margin: 0 0 1rem;
             }
         }
         h3 {
