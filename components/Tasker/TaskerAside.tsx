@@ -1,5 +1,5 @@
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
-import { Skeleton, Space } from "@mantine/core";
+import SkeletonTaskerCard from "@components/Skeletons/SkeletonTaskerCard";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
@@ -62,36 +62,7 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
                             {!query && totalAppliedTasks === 0 ? (
                                 <Fragment>
                                     {Array.from({ length: 3 }).map((_, key) => (
-                                        <div
-                                            className="mantine-Skeleton mb-5 p-5"
-                                            key={key}
-                                        >
-                                            <div className="d-flex justify-content-between">
-                                                <Skeleton
-                                                    height={60}
-                                                    circle
-                                                    mb="xl"
-                                                />
-                                                <Skeleton
-                                                    height={60}
-                                                    width="70%"
-                                                    mb="xl"
-                                                />
-                                            </div>
-                                            <Space h={5} />
-                                            <Skeleton
-                                                height={20}
-                                                mt={6}
-                                                width="70%"
-                                                radius="xl"
-                                            />
-                                            <Space h={20} />
-                                            <Skeleton
-                                                height={30}
-                                                mt={6}
-                                                radius="xl"
-                                            />
-                                        </div>
+                                        <SkeletonTaskerCard key={key} />
                                     ))}
                                 </Fragment>
                             ) : (

@@ -1,6 +1,7 @@
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import Link from "next/link";
 import type { MerchantCardProps } from "types/merchantCard";
 
 import CardBtn from "./CardBtn";
@@ -19,31 +20,37 @@ const MerchantCard = ({
     successRate,
     currency,
     onClick,
+    merchantId,
 }: MerchantCardProps) => {
     return (
         <div onClick={onClick} className="merchant-card-block">
-            <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
-                <figure className="thumbnail-img">
-                    {merchantImage && (
-                        <Image
-                            src={merchantImage}
-                            layout="fill"
-                            objectFit="cover"
-                            alt="merchant-image"
-                        />
-                    )}
-                </figure>
-                <div className="merchant-name">
-                    <h2 className="card-title">{`${
-                        merchantName.length > 17
-                            ? `${merchantName.substring(0, 17)}...`
-                            : merchantName
-                    }`}</h2>
-                    <h3 className="card-subtitle">
-                        <span>{merchantCategory}</span> | {merchantLocation}
-                    </h3>
-                </div>
-            </div>
+            <Link href={`/tasker/${merchantId}`}>
+                <a>
+                    <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
+                        <figure className="thumbnail-img">
+                            {merchantImage && (
+                                <Image
+                                    src={merchantImage}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="merchant-image"
+                                />
+                            )}
+                        </figure>
+                        <div className="merchant-name">
+                            <h2 className="card-title">{`${
+                                merchantName.length > 17
+                                    ? `${merchantName.substring(0, 17)}...`
+                                    : merchantName
+                            }`}</h2>
+                            <h3 className="card-subtitle">
+                                <span>{merchantCategory}</span> |{" "}
+                                {merchantLocation}
+                            </h3>
+                        </div>
+                    </div>
+                </a>
+            </Link>
             <div className="card-content">
                 <div className="merchant-description">
                     <p className="card-description">
@@ -106,7 +113,14 @@ const MerchantCard = ({
                         <SaveIcon />
                         <ShareIcon url={""} quote={""} hashtag={""} />
                     </div>
-                    <CardBtn btnTitle="Hire Me" backgroundColor="#211D4F" />
+                    <Link href={`/tasker/${merchantId}`}>
+                        <a>
+                            <CardBtn
+                                btnTitle="Hire Me"
+                                backgroundColor="#211D4F"
+                            />
+                        </a>
+                    </Link>
                 </div>
             </div>
         </div>

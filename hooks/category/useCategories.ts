@@ -4,7 +4,7 @@ import { useUser } from "hooks/auth/useUser";
 import { axiosClient } from "utils/axiosClient";
 
 export const useCategories = () => {
-    const { data } = useUser();
+    // const { data } = useUser();
     return useQuery(
         ["categories"],
         async () => {
@@ -19,7 +19,7 @@ export const useCategories = () => {
                 }
                 throw new Error("Something went wrong");
             }
-        },
-        { enabled: !!data }
+        }
+        // { enabled: !!data }
     );
 };

@@ -64,49 +64,50 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const getSortByPrice = (services: any) => {
         setSortPriceServices(services);
     };
-    console.log("ser", sortPriceServices);
 
     return (
         <Layout title="Find Services | Cipher">
-            <Container fluid="xl">
-                <SearchCategory
-                    onChange={handleSearchChange}
-                    getSortingByPrice={getSortByPrice}
-                />
-                {searchQuery?.query && (
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                        }}
+            <section className="service-section mb-5" id="service-section">
+                <Container fluid="xl">
+                    <SearchCategory
+                        onChange={handleSearchChange}
+                        getSortingByPrice={getSortByPrice}
+                    />
+                    {searchQuery?.query && (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Highlight highlight={searchQuery.query}>
+                                {`Showing search results for ${searchQuery.query}`}
+                            </Highlight>
+                            <ActionIcon onClick={handleClearSearchResults}>
+                                <FontAwesomeIcon icon={faClose} />
+                            </ActionIcon>
+                        </Box>
+                    )}
+                    <Space h={10} />
+                    <ServiceAside
+                        query={query}
+                        service={
+                            sortPriceServices.length > 0
+                                ? sortPriceServices
+                                : searchData
+                            // checkSpecialOffer
+                            //     ? specialOfferDetails
+                            //     : searchedServices.length > 0
+                            //     ? searchedServices
+                            //     : searchData
+                        }
+                        isLoading={isLoading || !data}
                     >
-                        <Highlight highlight={searchQuery.query}>
-                            {`Showing search results for ${searchQuery.query}`}
-                        </Highlight>
-                        <ActionIcon onClick={handleClearSearchResults}>
-                            <FontAwesomeIcon icon={faClose} />
-                        </ActionIcon>
-                    </Box>
-                )}
-                <Space h={10} />
-                <ServiceAside
-                    query={query}
-                    service={
-                        sortPriceServices.length > 0
-                            ? sortPriceServices
-                            : searchData
-                        // checkSpecialOffer
-                        //     ? specialOfferDetails
-                        //     : searchedServices.length > 0
-                        //     ? searchedServices
-                        //     : searchData
-                    }
-                    isLoading={isLoading || !data}
-                >
-                    {children}
-                </ServiceAside>
-            </Container>
+                        {children}
+                    </ServiceAside>
+                </Container>
+            </section>
         </Layout>
     );
 };
