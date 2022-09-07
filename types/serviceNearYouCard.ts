@@ -12,7 +12,7 @@ export interface ServiceNearYouCardProps {
               placeholder: string;
           }[];
     serviceTitle?: string;
-    currency: string;
+    currency?: string;
     serviceProvider?: string;
     serviceProviderLocation?: string;
     serviceRating?: string | number;
