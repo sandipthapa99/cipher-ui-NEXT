@@ -29,6 +29,7 @@ import { useFormik } from "formik";
 import { usePostTask } from "hooks/task/use-post-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -49,8 +50,8 @@ export interface PostTaskPayload {
     budget_from: number;
     budget_to: number;
     is_negotiable: boolean;
-    image: string;
-    video: string;
+    images: string;
+    videos: string;
     estimated_time: number;
     is_recursion: boolean;
     is_everyday: boolean;
@@ -67,6 +68,8 @@ export const PostTaskModal = () => {
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
+    const router = useRouter();
+
     const [termsAccepted, setTermsAccepted] = useState(false);
     const { mutateAsync: uploadFileMutation } = useUploadFile();
 
@@ -82,8 +85,6 @@ export const PostTaskModal = () => {
             budget_from: 100,
             budget_to: 100,
             is_negotiable: false,
-            image: "",
-            video: "",
             estimated_time: 5,
             is_recursion: false,
             is_everyday: false,
@@ -92,6 +93,8 @@ export const PostTaskModal = () => {
             start_time: "01:00",
             end_time: "03:00",
             currency: "",
+            images: "",
+            videos: "",
         },
         validationSchema: postTaskSchema,
         onSubmit: async (values) => {
@@ -102,11 +105,11 @@ export const PostTaskModal = () => {
                 return;
             }
             const imageIds = await uploadFileMutation({
-                files: values.image,
+                files: values.images,
                 media_type: "image",
             });
             const videoIds = await uploadFileMutation({
-                files: values.video,
+                files: values.videos,
                 media_type: "video",
             });
             const postTaskPayload = {
@@ -116,10 +119,11 @@ export const PostTaskModal = () => {
                 extra_data: [],
             };
             mutate(postTaskPayload, {
-                onSuccess: (payload) => {
+                onSuccess: async (payload) => {
                     toggleShowPostTaskModal();
                     toast.success(payload.message);
-                    queryClient.invalidateQueries(["all-tasks"]);
+                    await queryClient.invalidateQueries(["all-tasks"]);
+                    router.push("/task");
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -229,11 +233,8 @@ export const PostTaskModal = () => {
                                     fileLabel="Image"
                                     sx={{ maxWidth: "30rem" }}
                                     name="task-image"
-                                    onDrop={(formData) =>
-                                        setFieldValue(
-                                            "image",
-                                            formData.get("task-image")
-                                        )
+                                    onDrop={(images) =>
+                                        setFieldValue("images", images)
                                     }
                                     type={["image"]}
                                 />
@@ -249,11 +250,8 @@ export const PostTaskModal = () => {
                                     fileLabel="Video"
                                     sx={{ maxWidth: "30rem" }}
                                     name="task-video"
-                                    onDrop={(formData) =>
-                                        setFieldValue(
-                                            "video",
-                                            formData.get("task-video")
-                                        )
+                                    onDrop={(videos) =>
+                                        setFieldValue("videos", videos)
                                     }
                                     type={["video"]}
                                 />

@@ -56,6 +56,7 @@ const SearchResultsDetail = ({
     servicePackage,
     serviceCreated,
     serviceViews,
+    currency,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -162,7 +163,7 @@ const SearchResultsDetail = ({
 
     return (
         <>
-            <div className="task-detail  mb-5 p-5">
+            <div className="task-detail mb-5 p-5">
                 <Link href="/service">
                     <a>
                         <FontAwesomeIcon
@@ -211,7 +212,7 @@ const SearchResultsDetail = ({
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        {image && Array.isArray(image) && (
+                        {Array.isArray(image) && image.length > 1 ? (
                             <Carousel
                                 styles={{
                                     control: {
@@ -223,25 +224,26 @@ const SearchResultsDetail = ({
                                 }}
                                 className="rounded"
                             >
-                                {image.map((value, key) => (
-                                    <Carousel.Slide
-                                        key={key}
-                                        className="thumbnail-img "
-                                    >
-                                        {value?.media && (
-                                            <Image
-                                                src={
-                                                    value?.media
-                                                        ? value.media
-                                                        : "/service-details/garden-cleaning.png"
-                                                }
-                                                layout="fill"
-                                                objectFit="cover"
-                                                alt="garden-image"
-                                            />
-                                        )}
-                                    </Carousel.Slide>
-                                ))}
+                                {Array.isArray(image) &&
+                                    image.map((value, key) => (
+                                        <Carousel.Slide
+                                            key={key}
+                                            className="thumbnail-img "
+                                        >
+                                            {value?.media && (
+                                                <Image
+                                                    src={
+                                                        value?.media
+                                                            ? value.media
+                                                            : "/service-details/garden-cleaning.png"
+                                                    }
+                                                    layout="fill"
+                                                    objectFit="cover"
+                                                    alt="garden-image"
+                                                />
+                                            )}
+                                        </Carousel.Slide>
+                                    ))}
                                 {/* <Carousel.Slide className="thumbnail-img ">
                                     <Image
                                         src={"/No_image_available.svg.webp"}
@@ -251,6 +253,22 @@ const SearchResultsDetail = ({
                                     />
                                 </Carousel.Slide> */}
                             </Carousel>
+                        ) : (
+                            Array.isArray(image) &&
+                            image.map((value, key) => (
+                                <figure key={key} className="thumbnail-img">
+                                    <Image
+                                        src={
+                                            value?.media
+                                                ? value.media
+                                                : "/service-details/garden-cleaning.png"
+                                        }
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="garden-image"
+                                    />
+                                </figure>
+                            ))
                         )}
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
@@ -280,6 +298,7 @@ const SearchResultsDetail = ({
                             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                                 <span>Starting Price</span>
                                 <span className="price">
+                                    {currency}
                                     {budget_from} {budget_to && "-" + budget_to}
                                     {budget_type}
                                 </span>
