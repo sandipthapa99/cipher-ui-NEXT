@@ -55,10 +55,6 @@ const Header = () => {
                 className="site-header sticky-wrapper-header"
             >
                 <Container fluid="xl">
-                    <RasifalSlideComponent
-                        rasifal={rasifal}
-                        setRasifal={setRasifal}
-                    />
                     <Navbar expand="lg" className="header-navigation">
                         <nav className="navbar-nav ms-lg-auto">
                             <li
@@ -200,6 +196,7 @@ const Header = () => {
                     </Navbar>
                 </Container>
             </header>
+            <RasifalSlideComponent rasifal={rasifal} setRasifal={setRasifal} />
             {/* Site Upper Header End */}
         </>
     );
