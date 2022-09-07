@@ -17,6 +17,7 @@ interface PortfolioProps {
     handleClose?: () => void;
     setShowPortfolioDetails: Dispatch<SetStateAction<boolean>>;
     id?: number;
+    isTaskerPortfolio?: boolean;
     handleDeletePortfolio?: () => void;
 }
 
@@ -24,6 +25,7 @@ const PortfolioDetails = ({
     show,
     handleDeletePortfolio,
     id,
+    isTaskerPortfolio,
     handleClose,
 }: // description,
 // image,
@@ -171,7 +173,7 @@ PortfolioProps) => {
                             {portfolioDetail?.credential_url}
                         </a>
                     </div>
-                    {portfolioDetail?.files ? (
+                    {portfolioDetail?.files.length > 0 ? (
                         <>
                             <p> File here:</p>
                             <Row>
@@ -215,25 +217,30 @@ PortfolioProps) => {
                         </>
                     ) : null}
                 </div>
+                {isTaskerPortfolio ? (
+                    ""
+                ) : (
+                    <Modal.Footer>
+                        <Button
+                            className="btn close-btn"
+                            onClick={handleDeletePortfolio}
+                        >
+                            Remove
+                        </Button>
 
-                <Modal.Footer>
-                    <Button
-                        className="btn close-btn"
-                        onClick={handleDeletePortfolio}
-                    >
-                        Remove
-                    </Button>
-
-                    <Button
-                        className="btn submit-btn"
-                        onClick={() => {
-                            setShowAddPortfolioModal(!showAddPortfolioModal);
-                            setIsEditProfile(true);
-                        }}
-                    >
-                        Edit
-                    </Button>
-                </Modal.Footer>
+                        <Button
+                            className="btn submit-btn"
+                            onClick={() => {
+                                setShowAddPortfolioModal(
+                                    !showAddPortfolioModal
+                                );
+                                setIsEditProfile(true);
+                            }}
+                        >
+                            Edit
+                        </Button>
+                    </Modal.Footer>
+                )}
             </Modal>
             <PostCard
                 text="You are good to continue."
