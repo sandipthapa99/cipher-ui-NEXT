@@ -7,9 +7,6 @@
     @include respond(lg) {
         padding: 8rem;
     }
-    input#mantine-R2icv6m {
-        height: 4.7rem;
-    }
     .profile-img {
         // background-color: red;
 
@@ -103,12 +100,6 @@
                 border-color: $grayScale6;
             }
         }
-        input#mantine-R2icv6m {
-            height: 4.7rem;
-        }
-        .mantine-1wlhy24:disabled {
-            background-color: #e9ecef;
-        }
     }
     .membership {
         .card {
@@ -184,11 +175,5 @@
         font-size: 16px;
         font-weight: 500;
         color: #212529;
-    }
-    input#mantine-R2icv6m {
-        height: 4.7rem;
-    }
-    .mantine-1wlhy24:disabled {
-        background-color: #e9ecef;
     }
 }

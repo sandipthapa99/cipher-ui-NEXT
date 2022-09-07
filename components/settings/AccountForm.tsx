@@ -9,28 +9,23 @@ import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { SelectItem } from "@mantine/core";
-import { Select } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
-import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
+import { useKYC } from "hooks/profile/kyc/useKYC";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import { useData } from "hooks/use-data";
-import { useEditForm } from "hooks/use-edit-form";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
-import { axiosClient } from "utils/axiosClient";
+import { formatTime } from "utils/FormatTime/formatTime";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -78,7 +73,7 @@ const AccountForm = () => {
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
     const { data: KYCData } = useGetKYC();
-    const [countryIdValues, setCountryIdValue] = useState<number>();
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
@@ -87,24 +82,25 @@ const AccountForm = () => {
         inputRef?.current?.click();
     };
 
-    const useGetCountryBYId = (name: string) => {
-        return useQuery(["country-id"], async () => {
-            const { data } = await axiosClient.get(
-                `/locale/cms/country/option?search=${name}`
-            );
-            return data;
-        });
-    };
-    const country = profile?.country ? profile?.country : "";
-    console.log("countr", country);
-    // const { data: countryId } = useGetCountryBYId(country);
-
+    const currencyResults = currency?.result.map((result) => ({
+        label: result.code,
+        value: result.id,
+        id: result.id,
+    }));
+    const languageResults = language?.result.map((result) => ({
+        label: result.name,
+        value: result.id,
+        id: result.id,
+    }));
+    const countryResults = countryName?.result.map((result) => ({
+        label: result.name,
+        value: result.id,
+        id: result.id,
+    }));
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
     };
-    // countryId ?? setCountryIdValue(countryId);
-    //  console.log("country id =", countryId);
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
 
@@ -135,68 +131,9 @@ const AccountForm = () => {
 
     const endTime = finalend.toString();
     const startTime = start.toString();
-    const [countryChange, setCountryChange] = useState<string | null>(null);
-    const [languageChange, setLanguageChange] = useState<string | null>(null);
-    const [currencyChange, setCurrencyChange] = useState<string | null>(null);
 
-    const currencyResults: SelectItem[] = currency
-        ? currency.result.map((result) => {
-              return {
-                  label: result?.code,
-                  value: result.id.toString(),
-                  id: result?.id,
-              };
-          })
-        : ([] as SelectItem[]);
-
-    const languageResults: SelectItem[] = language
-        ? language.result.map((result) => ({
-              label: result?.name,
-              value: result?.id.toString(),
-              id: result?.id,
-          }))
-        : ([] as SelectItem[]);
-
-    const countryResults: SelectItem[] = countryName
-        ? countryName.result.map((result) => ({
-              label: result?.name,
-              value: result?.id.toString(),
-              id: result?.id,
-          }))
-        : ([] as SelectItem[]);
-
-    //handle country change
-    const handleCountryChanged = (
-        id: string | null,
-        setFieldValue: (field: string, value: any) => void
-    ) => {
-        setCountryChange(id);
-        if (id) setFieldValue("country", parseInt(id));
-    };
-
-    //handle language change
-    const handleLanguageChanged = (
-        id: string | null,
-        setFieldValue: (field: string, value: any) => void
-    ) => {
-        setLanguageChange(id);
-        if (id) setFieldValue("language", parseInt(id));
-    };
-
-    //handle currency change
-    const handleCurrencyChanged = (
-        id: string | null,
-        setFieldValue: (field: string, value: any) => void
-    ) => {
-        setCurrencyChange(id);
-        if (id) setFieldValue("charge_currency", parseInt(id));
-    };
     //parse user_type
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
-
-    // const { data: countryID } = useGetCountryBYId(parseInt(countryChange));
-    // console.log("data country change", countryID);
-
     return (
         <>
             {!KYCData ? <FillKyc onClick={scrollToKyc} /> : ""}
@@ -236,6 +173,8 @@ const AccountForm = () => {
                     validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
                         const formData = new FormData();
+
+                        console.log(values);
 
                         const newValidatedValues = {
                             ...values,
@@ -470,7 +409,7 @@ const AccountForm = () => {
                                 </Col>
                             </Row>
                             <h3>Address</h3>
-                            {/* <SelectInputField
+                            <SelectInputField
                                 name="country"
                                 labelName="Country"
                                 touch={touched.country}
@@ -478,20 +417,6 @@ const AccountForm = () => {
                                 placeHolder="Select your country"
                                 options={countryResults}
                                 disabled={profile ? true : false}
-                            /> */}
-                            <Select
-                                label="Country"
-                                placeholder="Pick one"
-                                name="country"
-                                disabled={profile ? true : false}
-                                searchable
-                                //     defaultValue={}
-                                nothingFound="No result found."
-                                value={countryChange}
-                                onChange={(value) =>
-                                    handleCountryChanged(value, setFieldValue)
-                                }
-                                data={countryResults ?? []}
                             />
                             <InputField
                                 type="text"
@@ -511,7 +436,7 @@ const AccountForm = () => {
                                 placeHolder="Enter your temporary address"
                                 disabled={profile ? true : false}
                             />
-                            {/* <SelectInputField
+                            <SelectInputField
                                 name="language"
                                 labelName="Language"
                                 touch={touched.language}
@@ -519,22 +444,8 @@ const AccountForm = () => {
                                 placeHolder="Select your language"
                                 options={languageResults}
                                 disabled={profile ? true : false}
-                            /> */}
-                            <Select
-                                label="Language"
-                                placeholder="Pick one"
-                                name="language"
-                                searchable
-                                defaultValue={profile?.language}
-                                nothingFound="No result found."
-                                value={languageChange}
-                                disabled={profile ? true : false}
-                                onChange={(value) =>
-                                    handleLanguageChanged(value, setFieldValue)
-                                }
-                                data={languageResults ?? []}
                             />
-                            {/* <SelectInputField
+                            <SelectInputField
                                 name="charge_currency"
                                 labelName="Currency"
                                 touch={touched.charge_currency}
@@ -542,19 +453,6 @@ const AccountForm = () => {
                                 placeHolder="Select your currency"
                                 options={currencyResults}
                                 disabled={profile ? true : false}
-                            /> */}
-                            <Select
-                                label="Currency"
-                                placeholder="Pick one"
-                                disabled={profile ? true : false}
-                                name="charge_currency"
-                                searchable
-                                nothingFound="No result found."
-                                value={currencyChange}
-                                onChange={(value) =>
-                                    handleCurrencyChanged(value, setFieldValue)
-                                }
-                                data={currencyResults ?? []}
                             />
                             <hr />
                             <h3>Profile Configurations</h3>
