@@ -15,17 +15,17 @@ export const MyTaskOrder = () => {
 
             <div className="order-detail-section">
                 <Row>
-                    <Col md={2}>
-                        <figure className="d-flex align-items-center justify-content-center h-100 w-100 order-detail-section__image">
+                    <Col lg={2} md={6} sm={6} xs={12}>
+                        <figure className="d-flex align-items-center justify-content-start h-100 w-100 order-detail-section__image">
                             <Image
                                 src={"/business.png"}
                                 alt="order-detail-image"
-                                height={152}
+                                height={160}
                                 width={130}
                             />
                         </figure>
                     </Col>
-                    <Col md={6}>
+                    <Col md={6} sm={12}>
                         <div className="title-and-description">
                             <h4>Root Canal Treatment (RCT)</h4>
                             <p>By Hary Clinic</p>
@@ -45,11 +45,20 @@ export const MyTaskOrder = () => {
                             </div>
                         </div>
                     </Col>
-                    <Col md={4}>
-                        <span>Author</span>
-                        <div className="status-section">
-                            <span className="status">Status</span>
-                            <span className="status-value">Completed</span>
+                    <Col md={12} lg={4}>
+                        <div className="badge-and-status w-100 d-flex">
+                            <figure className="d-flex w-100 author-image">
+                                <Image
+                                    src="/userprofile/author.png"
+                                    alt="author-image"
+                                    height={62}
+                                    width={40}
+                                />
+                            </figure>
+                            <div className="d-flex justify-content-end align-items-center status-section">
+                                <span className="status">Status</span>
+                                <span className="status-value">Completed</span>
+                            </div>
                         </div>
                     </Col>
                 </Row>

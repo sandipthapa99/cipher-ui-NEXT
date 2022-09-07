@@ -9,6 +9,9 @@ export const MyTasks = () => {
 
             <div className="my-task__each-orders">
                 <MyTaskOrder />
+                <MyTaskOrder />
+                <MyTaskOrder />
+                <MyTaskOrder />
             </div>
         </div>
     );
