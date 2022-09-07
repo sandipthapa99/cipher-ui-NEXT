@@ -20,10 +20,11 @@ import SkeletonTaskerCard from "@components/Skeletons/SkeletonTaskerCard";
 import {
     faAngleRight,
     faChevronCircleRight,
+    faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Grid, Skeleton, Space } from "@mantine/core";
+import { Alert, Grid, Highlight, Skeleton, Space } from "@mantine/core";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useTaskers } from "hooks/tasker/use-tasker";
 import { useData } from "hooks/use-data";
@@ -31,7 +32,8 @@ import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Alert, Col, Container, Row } from "react-bootstrap";
+import { Alert as BootstrapAlert } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
@@ -165,9 +167,9 @@ const Home: NextPage<{
                                     })}
                             </Carousel>
                         ) : (
-                            <Alert variant="warning mb-5">
+                            <BootstrapAlert variant="warning mb-5">
                                 No Data to Display!
-                            </Alert>
+                            </BootstrapAlert>
                         )}
                     </Row>
                     {/* Service category listing end */}
@@ -592,6 +594,19 @@ const Home: NextPage<{
                             ))}
                         </Grid>
                     )}
+                    {recommendedTasksData && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            <Highlight highlight={"No"}>
+                                {`There are No Tasks available`}
+                            </Highlight>
+                        </Alert>
+                    )}
                     <Row className="gx-5">
                         {recommendedTasksData?.data?.result?.map(
                             (task, key) => (
@@ -633,12 +648,25 @@ const Home: NextPage<{
                         </h1>
                         <h3 className="text-center">Some Success Stories</h3>
                     </div>
-                    {successStoryData?.result?.slice(0, 1).map((value, key) => (
-                        <PersonalSuccessCard
-                            successStoryData={value}
-                            key={key}
-                        />
-                    ))}
+                    <Carousel
+                        mx="auto"
+                        styles={{
+                            control: {
+                                "&[data-inactive]": {
+                                    opacity: 0,
+                                    cursor: "default",
+                                },
+                            },
+                        }}
+                        className="rounded"
+                        withIndicators
+                    >
+                        {successStoryData?.result.map((value, key) => (
+                            <Carousel.Slide key={key}>
+                                <PersonalSuccessCard successStoryData={value} />
+                            </Carousel.Slide>
+                        ))}
+                    </Carousel>
                 </Container>
             </section>
 

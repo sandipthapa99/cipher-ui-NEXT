@@ -48,4 +48,13 @@ export interface ITask {
     meta_description?: string;
     meta_keyword: any;
     task_draft: any;
+    applicants_count: number;
+    images: {
+        media: string;
+        placeholder: string;
+    }[];
+    videos: {
+        media: string;
+        placeholder: string;
+    }[];
 }
