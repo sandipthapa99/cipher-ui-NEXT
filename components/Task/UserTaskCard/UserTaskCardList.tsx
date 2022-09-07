@@ -22,7 +22,6 @@ export const UserTaskCardList = ({ taskers, onTaskClick }: Props) => {
         clearSearchQuery();
         clearSearchedTaskers();
     };
-    console.log("taskers=", taskers);
 
     const renderTaskList = () => {
         return taskers?.map((item, index) => (
@@ -42,9 +41,7 @@ export const UserTaskCardList = ({ taskers, onTaskClick }: Props) => {
                     location={item?.address_line1 + " " + item?.address_line2}
                     distance={"2 km"}
                     bio={item?.bio}
-                    charge_currency={
-                        item?.charge_currency + " " + item?.hourly_rate
-                    }
+                    charge={item?.charge_currency + " " + item?.hourly_rate}
                     tasker={""}
                 />
             </div>

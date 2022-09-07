@@ -10,6 +10,7 @@ const SavedBookings = () => {
         ["all-services"],
         "/task/service/"
     );
+    console.log("saved tasjs=");
     return (
         <div className="saved-bookings px-5">
             {/* <pre>{JSON.stringify(TasksData, null, 4)}</pre> */}
