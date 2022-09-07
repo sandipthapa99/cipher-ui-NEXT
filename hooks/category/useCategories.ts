@@ -4,13 +4,13 @@ import { useUser } from "hooks/auth/useUser";
 import { axiosClient } from "utils/axiosClient";
 
 export const useCategories = () => {
-    const { data } = useUser();
+    // const { data } = useUser();
     return useQuery(
         ["categories"],
         async () => {
             try {
                 const { data } = await axiosClient.get(
-                    "/task/cms/task-category"
+                    "/task/task-category/nested/"
                 );
                 return data;
             } catch (error) {
@@ -19,7 +19,7 @@ export const useCategories = () => {
                 }
                 throw new Error("Something went wrong");
             }
-        },
-        { enabled: !!data }
+        }
+        // { enabled: !!data }
     );
 };

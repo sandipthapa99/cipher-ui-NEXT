@@ -1,5 +1,5 @@
 import ServiceNearYouCard from "@components/SearchTask/searchAside";
-import { Skeleton } from "@mantine/core";
+import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
@@ -19,7 +19,8 @@ const ServiceAside = ({
     children,
     isLoading,
 }: ServiceAside) => {
-    console.log("first", isLoading);
+    console.log("🚀 ~ file: ServiceAside.tsx ~ line 22 ~ service", service);
+
     const totalAppliedTasks = service?.length;
     const renderTaskCards = service?.map((task, key) => {
         return (
@@ -27,7 +28,10 @@ const ServiceAside = ({
                 <Link href={`/service/${task.slug}`}>
                     <a>
                         <ServiceNearYouCard
-                            servicePrice={task?.budget_from}
+                            budget_from={task?.budget_from}
+                            budget_to={task?.budget_to}
+                            budget_type={task?.budget_type}
+                            currency={task?.currency?.code}
                             serviceTitle={task?.title}
                             serviceRating={task?.success_rate}
                             serviceProviderLocation={task?.location}
@@ -58,24 +62,7 @@ const ServiceAside = ({
                         {!query && totalAppliedTasks === 0 ? (
                             <Fragment>
                                 {Array.from({ length: 3 }).map((_, key) => (
-                                    <div
-                                        className="mantine-Skeleton mb-5 p-5"
-                                        key={key}
-                                    >
-                                        <div className="d-flex justify-content-between">
-                                            <Skeleton
-                                                height={90}
-                                                width={"40%"}
-                                            />
-
-                                            <Skeleton
-                                                height={20}
-                                                mt={6}
-                                                radius="xl"
-                                                width={"50%"}
-                                            />
-                                        </div>
-                                    </div>
+                                    <SkeletonServiceCard key={key} />
                                 ))}
                             </Fragment>
                         ) : (

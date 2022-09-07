@@ -22,7 +22,7 @@ export const ServiceCategories = () => {
         <div className="es-task-category-list">
             {taskCategories.map((category) => (
                 <Col key={category.id}>
-                    <CategoryCard {...category} />
+                    <h1>TO REMOVE</h1>
                 </Col>
             ))}
         </div>

@@ -30,22 +30,22 @@ const AppliedLayout = ({
 }) => {
     const [query, setQuery] = useState("");
 
-    const { data, isLoading } = useTasks();
     const { data: searchData = [] } = useSearchTask(query, type ?? "");
 
     return (
         <Layout title="Find Tasks | Cipher">
-            <Container>
-                <SearchCategory type={type} onChange={setQuery} />
-                <TaskAside
-                    query={query}
-                    appliedTasks={searchData}
-                    type={type ?? ""}
-                    isLoading={isLoading || !data}
-                >
-                    {children}
-                </TaskAside>
-            </Container>
+            <section className="Tasks-section mb-5" id="Tasks-section">
+                <Container>
+                    <SearchCategory type={type} onChange={setQuery} />
+                    <TaskAside
+                        query={query}
+                        appliedTasks={searchData}
+                        type={type ?? ""}
+                    >
+                        {children}
+                    </TaskAside>
+                </Container>
+            </section>
         </Layout>
     );
 };

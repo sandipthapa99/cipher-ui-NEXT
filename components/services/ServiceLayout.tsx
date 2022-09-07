@@ -1,3 +1,4 @@
+import FullPageLoader from "@components/common/FullPageLoader";
 import {
     useClearSearchedServices,
     useClearSearchQuery,
@@ -31,6 +32,7 @@ export const useSearchService = (query: string) => {
 
 const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
+    const [sortPriceServices, setSortPriceServices] = useState([]);
     const searchedServices = useSearchedServices();
     const clearSearchQuery = useClearSearchQuery();
     const clearSearchedServices = useClearSearchedServices();
@@ -57,41 +59,55 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
         setQuery(query);
     };
 
+    if (isLoading || !data) return <FullPageLoader />;
+
+    const getSortByPrice = (services: any) => {
+        setSortPriceServices(services);
+    };
+
     return (
         <Layout title="Find Services | Cipher">
-            <Container fluid="xl">
-                <SearchCategory onChange={handleSearchChange} />
-                {searchQuery?.query && (
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                        }}
+            <section className="service-section mb-5" id="service-section">
+                <Container fluid="xl">
+                    <SearchCategory
+                        onChange={handleSearchChange}
+                        getSortingByPrice={getSortByPrice}
+                    />
+                    {searchQuery?.query && (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Highlight highlight={searchQuery.query}>
+                                {`Showing search results for ${searchQuery.query}`}
+                            </Highlight>
+                            <ActionIcon onClick={handleClearSearchResults}>
+                                <FontAwesomeIcon icon={faClose} />
+                            </ActionIcon>
+                        </Box>
+                    )}
+                    <Space h={10} />
+                    <ServiceAside
+                        query={query}
+                        service={
+                            sortPriceServices.length > 0
+                                ? sortPriceServices
+                                : searchData
+                            // checkSpecialOffer
+                            //     ? specialOfferDetails
+                            //     : searchedServices.length > 0
+                            //     ? searchedServices
+                            //     : searchData
+                        }
+                        isLoading={isLoading || !data}
                     >
-                        <Highlight highlight={searchQuery.query}>
-                            {`Showing search results for ${searchQuery.query}`}
-                        </Highlight>
-                        <ActionIcon onClick={handleClearSearchResults}>
-                            <FontAwesomeIcon icon={faClose} />
-                        </ActionIcon>
-                    </Box>
-                )}
-                <Space h={10} />
-                <ServiceAside
-                    query={query}
-                    service={
-                        checkSpecialOffer
-                            ? specialOfferDetails
-                            : searchedServices.length > 0
-                            ? searchedServices
-                            : searchData
-                    }
-                    isLoading={isLoading || !data}
-                >
-                    {children}
-                </ServiceAside>
-            </Container>
+                        {children}
+                    </ServiceAside>
+                </Container>
+            </section>
         </Layout>
     );
 };

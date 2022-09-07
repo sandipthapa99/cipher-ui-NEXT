@@ -131,8 +131,14 @@ export const PostTaskModal = () => {
             });
         },
     });
-    const { getFieldProps, handleSubmit, touched, errors, setFieldValue } =
-        formik;
+    const {
+        getFieldProps,
+        handleSubmit,
+        touched,
+        errors,
+        values,
+        setFieldValue,
+    } = formik;
     const getFieldError = (key: keyof PostTaskPayload) =>
         touched[key] && errors[key] ? errors[key] : null;
 
@@ -279,13 +285,13 @@ export const PostTaskModal = () => {
                             >
                                 <Button
                                     onClick={toggleShowPostTaskModal}
-                                    className="close-btn close-btn-mod btn p-3 h-25 w-25"
+                                    className="close-btn close-btn-mod btn p-3 h-25"
                                 >
                                     Cancel
                                 </Button>
                                 <BigButton
                                     type="submit"
-                                    className="close-btn btn p-3 h-25 w-25 text-white"
+                                    className="close-btn btn p-3 h-25 text-white"
                                     btnTitle="Post Task"
                                     backgroundColor="#211D4F"
                                 />

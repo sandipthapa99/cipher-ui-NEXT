@@ -18,8 +18,23 @@ import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
     const router = useRouter();
+    const [fcmToken, setFcmToken] = useState("");
     const { mutate, isLoading } = useLogin();
     const [isPhoneNumber, setIsPhoneNumber] = useState(false);
+
+    const getFCMTOKEN = async () => {
+        if (typeof window !== "undefined") {
+            const token = await localforage.getItem<string>("fcm_token");
+            return token;
+        }
+        return null;
+    };
+    const token = getFCMTOKEN();
+    token.then((token) => {
+        if (token) {
+            setFcmToken(token);
+        }
+    });
 
     const handleChange = (
         event: ChangeEvent<HTMLInputElement>,
@@ -55,7 +70,13 @@ const Login = () => {
                             password: "",
                         }}
                         onSubmit={(values) => {
-                            mutate(values, {
+                            const newValues = {
+                                ...values,
+                                fcm_token: fcmToken,
+                            };
+                            console.log(newValues);
+
+                            mutate(newValues, {
                                 onError: (error) => {
                                     toast.error(error.message);
                                 },

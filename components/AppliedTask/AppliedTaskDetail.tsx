@@ -204,14 +204,17 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faLocationDot}
                             className="svg-icon svg-icon-location"
                         />
-                        {taskDetail?.location
-                            ? taskDetail?.location
-                            : "Buddhanagar, Kathmandu"}
+                        <span>
+                            {" "}
+                            {taskDetail?.location
+                                ? taskDetail?.location
+                                : "Buddhanagar, Kathmandu"}
+                        </span>
                     </p>
                     {taskDetail?.created_at && (
                         <p>
@@ -234,14 +237,14 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                             icon={faEye}
                             className="svg-icon svg-icon-eye"
                         />
-                        2500 Views
+                        <span> 2500 Views</span>
                     </p>
-                    <p>
+                    <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                        {taskDetail?.applicants_count} Applied
+                        <span> {taskDetail?.applicants_count} Applied</span>
                     </p>
                 </div>
 

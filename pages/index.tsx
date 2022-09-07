@@ -1,47 +1,40 @@
 import Advertisement from "@components/Advertisement/Advertisement";
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
-import { PostTaskHomepage } from "@components/Cards/PostTaskHomepage";
 import { TopCategories } from "@components/Category/TopCategories";
 import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
 import CipherCard from "@components/common/CipherCard";
-import { HoroscopeCard } from "@components/common/HoroscopeCard";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MerchantCard from "@components/common/MerchantCard";
 import { PersonalSuccessCard } from "@components/common/PersonalSuccessCard";
-import RecommendationChips from "@components/common/RecommendationChips";
 import { Search } from "@components/common/Search";
-import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
-import { HoroscopeSlider } from "@components/HoroscopeSlider";
 import Layout from "@components/Layout";
+import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
+import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
+import SkeletonTaskerCard from "@components/Skeletons/SkeletonTaskerCard";
 import {
     faAngleRight,
     faChevronCircleRight,
-    faSearch,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Divider, Grid, Skeleton, Space } from "@mantine/core";
+import { Grid, Skeleton, Space } from "@mantine/core";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { Formik } from "formik";
 import { useTaskers } from "hooks/tasker/use-tasker";
 import { useData } from "hooks/use-data";
-import { key } from "localforage";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { Alert, Button, Col, Container, Row } from "react-bootstrap";
+import { Alert, Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
-import { HoroscopeCardData } from "staticData/horoscopeCardData";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
 import type { HeroCategoryProps } from "types/heroCategory";
@@ -49,9 +42,6 @@ import type { ServicesValueProps } from "types/serviceCard";
 import type { SuccessStoryProps } from "types/successStory";
 import type { ITaskApiResponse } from "types/task";
 import { axiosClient } from "utils/axiosClient";
-import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
-import { HomeSearchdata } from "utils/homeSearchData";
-import { myOptions } from "utils/options";
 
 interface LandingPageProps {
     successStoryData: SuccessStoryProps;
@@ -78,25 +68,9 @@ const Home: NextPage<{
             ["all-tasks"],
             "/task/?recommendation=you may like"
         );
-    const [chips, setChips] = useState([
-        "Garden Cleaner",
-        "Plumber",
-        "Electrician",
-        "Washing Machine",
-    ]);
 
     const { data: allTaskers, isLoading: taskerLoading } = useTaskers();
 
-    const removeChip = (chip: string) => {
-        setChips((prevChips) =>
-            prevChips.filter((currentChip) => chip !== currentChip)
-        );
-    };
-    const [postTaskPopup, setPostTaskPopup] = useState(true);
-
-    const handleClosePosttaskPopup = () => {
-        setPostTaskPopup(false);
-    };
     const router = useRouter();
 
     return (
@@ -255,21 +229,7 @@ const Home: NextPage<{
                         <Grid>
                             {Array.from({ length: 4 }).map((_, key) => (
                                 <Grid.Col span={3} key={key}>
-                                    <div className="mantine-Skeleton mb-5 p-5">
-                                        <Skeleton height={80} mb="xl" />
-                                        <Skeleton height={8} radius="xl" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            width="70%"
-                                            radius="xl"
-                                        />
-                                    </div>
+                                    <SkeletonServiceCard />
                                 </Grid.Col>
                             ))}
                         </Grid>
@@ -322,21 +282,7 @@ const Home: NextPage<{
                         <Grid>
                             {Array.from({ length: 4 }).map((_, key) => (
                                 <Grid.Col span={3} key={key}>
-                                    <div className="mantine-Skeleton mb-5 p-5">
-                                        <Skeleton height={80} mb="xl" />
-                                        <Skeleton height={8} radius="xl" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            width="70%"
-                                            radius="xl"
-                                        />
-                                    </div>
+                                    <SkeletonServiceCard />
                                 </Grid.Col>
                             ))}
                         </Grid>
@@ -383,21 +329,7 @@ const Home: NextPage<{
                         <Grid>
                             {Array.from({ length: 4 }).map((_, key) => (
                                 <Grid.Col span={3} key={key}>
-                                    <div className="mantine-Skeleton mb-5 p-5">
-                                        <Skeleton height={80} mb="xl" />
-                                        <Skeleton height={8} radius="xl" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            width="70%"
-                                            radius="xl"
-                                        />
-                                    </div>
+                                    <SkeletonServiceCard />
                                 </Grid.Col>
                             ))}
                         </Grid>
@@ -553,33 +485,7 @@ const Home: NextPage<{
                         <Grid>
                             {Array.from({ length: 4 }).map((_, key) => (
                                 <Grid.Col span={3} key={key}>
-                                    <div className="mantine-Skeleton mb-5 p-5">
-                                        <Skeleton height={80} circle mb="xl" />
-                                        <Skeleton height={8} radius="xl" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Divider my={"sm"} color="#F1F3F5" />
-                                        <Skeleton
-                                            height={50}
-                                            mt={6}
-                                            width="70%"
-                                            radius="xl"
-                                        />
-                                        <Divider my={"sm"} color="#F1F3F5" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Skeleton
-                                            height={30}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                    </div>
+                                    <SkeletonTaskerCard />
                                 </Grid.Col>
                             ))}
                         </Grid>
@@ -621,9 +527,9 @@ const Home: NextPage<{
                                                 merchant?.stats?.user_reviews
                                             }
                                             merchantPrice={
-                                                merchant?.charge_currency +
                                                 merchant?.hourly_rate
                                             }
+                                            currency={merchant?.currency?.code}
                                             happyClients={
                                                 merchant?.stats?.happy_clients
                                             }
@@ -665,7 +571,7 @@ const Home: NextPage<{
             {/* Tasks you may like section start */}
             <section id="tasks-you-may-like" className="tasks-you-may-like">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Tasks You May Like</h2>
                         <Link href="/task-you-may-like">
                             <a className="view-more">
@@ -681,30 +587,7 @@ const Home: NextPage<{
                         <Grid>
                             {Array.from({ length: 2 }).map((_, key) => (
                                 <Grid.Col span={6} key={key}>
-                                    <div className="mantine-Skeleton mb-5 p-5">
-                                        <Skeleton height={60} mb="xl" />
-                                        <Skeleton height={8} radius="xl" />
-                                        <Skeleton
-                                            height={8}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Space h={20} />
-                                        <Skeleton
-                                            height={30}
-                                            mt={6}
-                                            width="70%"
-                                            radius="xl"
-                                        />
-                                        <Space h={20} />
-                                        <hr />
-                                        <Space h={10} />
-                                        <Skeleton
-                                            height={30}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                    </div>
+                                    <SkeletonTaskCard />
                                 </Grid.Col>
                             ))}
                         </Grid>
@@ -777,7 +660,7 @@ const Home: NextPage<{
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Our blogs</h2>
                         <Link href="/blogs">
                             <a className="view-more">

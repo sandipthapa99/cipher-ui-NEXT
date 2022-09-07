@@ -68,7 +68,6 @@ const AboutProfile = () => {
         ["tasker-portfolio"],
         "/tasker/portfolio/"
     );
-    console.log("portfolio data=", portfolioData);
 
     const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
@@ -86,7 +85,6 @@ const AboutProfile = () => {
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
 
     const [hovered, setHovered] = useState<null | number>(null);
-    console.log("is hover", hovered, isOnlyPortfolioText);
     return (
         <>
             <div className="about-profile">
@@ -149,10 +147,29 @@ const AboutProfile = () => {
                                                       }
                                                   >
                                                       <Image
+                                                          //   src={
+                                                          //       info?.images[0]
+                                                          //           ?.media ??
+                                                          //       info?.images[1]
+                                                          //           ?.media
+                                                          //   }
                                                           src={
-                                                              info?.images[0]
-                                                                  ?.media ??
-                                                              "/userprofile/image.svg"
+                                                              //info?.images ??
+                                                              info?.images[0]?.name
+                                                                  .substring(
+                                                                      info.images[0]?.name.indexOf(
+                                                                          "."
+                                                                      ) + 1
+                                                                  )
+                                                                  .includes(
+                                                                      "jpg"
+                                                                  )
+                                                                  ? info
+                                                                        ?.images[0]
+                                                                        ?.media
+                                                                  : info
+                                                                        ?.images[1]
+                                                                        ?.media
                                                           }
                                                           layout="fill"
                                                           objectFit="cover"

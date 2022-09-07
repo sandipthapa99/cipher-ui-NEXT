@@ -1,5 +1,6 @@
 import parse from "html-react-parser";
 import Link from "next/link";
+import type { HeroCategoryProps } from "types/heroCategory";
 
 interface CategoryCardProps {
     name: string;
@@ -7,17 +8,22 @@ interface CategoryCardProps {
     slug: string;
 }
 
-const CategoryCard = ({ name, icon, slug }: CategoryCardProps) => {
+const CategoryCard = ({
+    category,
+}: {
+    category: HeroCategoryProps["result"][0];
+}) => {
     return (
-        <Link href={`/service/category/${slug}?category=${name}`}>
+        <Link href={`/category/${category.category.slug}`}>
             <a>
                 <div className="category-card-block">
                     <div className="category-card-block__image-block">
                         <figure className="thumbnail-icon">
-                            {icon && parse(icon)}
+                            {category.category.icon &&
+                                parse(category.category.icon)}
                         </figure>
                     </div>
-                    <p>{name}</p>
+                    <p>{category.category.name}</p>
                 </div>
             </a>
         </Link>

@@ -277,7 +277,7 @@ const PostModal = ({
 
                                 <div className="d-flex justify-content-center">
                                     <Button
-                                        className="btn close-btn p-3 h-25 w-25"
+                                        className="btn close-btn p-3 h-25"
                                         onClick={() => setshowPostModel(false)}
                                     >
                                         Cancel
@@ -286,7 +286,7 @@ const PostModal = ({
                                         type="submit"
                                         variant="primary"
                                         name="Apply"
-                                        className="submit-btn w-25 ms-3"
+                                        className="submit-btn ms-3"
                                         isSubmitting={isSubmitting}
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
