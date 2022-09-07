@@ -34,14 +34,13 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                @include respond(xs){
+                @include respond(xs) {
                     align-items: baseline;
                 }
                 .svg-icon {
                     color: $primary-color;
                     cursor: pointer;
                 }
-             
             }
         }
         @include media("<=tablet") {
