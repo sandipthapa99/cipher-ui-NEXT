@@ -32,6 +32,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { Alert as BootstrapAlert } from "react-bootstrap";
 import { Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
@@ -166,9 +167,9 @@ const Home: NextPage<{
                                     })}
                             </Carousel>
                         ) : (
-                            <Alert variant="warning mb-5">
+                            <BootstrapAlert variant="warning mb-5">
                                 No Data to Display!
-                            </Alert>
+                            </BootstrapAlert>
                         )}
                     </Row>
                     {/* Service category listing end */}
