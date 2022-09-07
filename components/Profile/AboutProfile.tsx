@@ -68,7 +68,6 @@ const AboutProfile = () => {
         ["tasker-portfolio"],
         "/tasker/portfolio/"
     );
-    console.log("portfolio data=", portfolioData);
 
     const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
@@ -86,7 +85,6 @@ const AboutProfile = () => {
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
 
     const [hovered, setHovered] = useState<null | number>(null);
-    console.log("is hover", hovered, isOnlyPortfolioText);
     return (
         <>
             <div className="about-profile">

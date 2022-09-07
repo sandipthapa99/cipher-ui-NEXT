@@ -14,7 +14,6 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
     const userSkills = taskerDetail?.skill
         ? JSON.parse(taskerDetail?.skill)
         : [];
-    console.log("userskills", taskerDetail);
     const [showPortfolioDetails, setShowPortfolioDetails] = useState(false);
     const [id, setId] = useState<number | undefined>();
 
