@@ -18,13 +18,7 @@ interface TaskAsideProps {
     type?: string;
     isLoading?: boolean;
 }
-const TaskAside = ({
-    appliedTasks,
-    query,
-    children,
-    type,
-    isLoading,
-}: TaskAsideProps) => {
+const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
 
     const renderTaskCards = appliedTasks?.map((task) => {
