@@ -14,7 +14,7 @@ const CategoryCard = ({
     category: HeroCategoryProps["result"][0];
 }) => {
     return (
-        <Link href={`/service/category/${category.category.slug}`}>
+        <Link href={`/category/${category.category.slug}`}>
             <a>
                 <div className="category-card-block">
                     <div className="category-card-block__image-block">

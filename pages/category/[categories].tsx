@@ -35,7 +35,7 @@ const Gardening = ({
     const category = (
         (serviceData?.length > 0 ? serviceData : taskData) as any[]
     )?.find((item) => item?.category?.slug === categories);
-    const categoryName = category ? category.category.name : "";
+    const categoryName = category ? category.category.name : " ";
 
     return (
         <Layout
