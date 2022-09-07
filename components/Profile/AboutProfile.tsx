@@ -149,10 +149,29 @@ const AboutProfile = () => {
                                                       }
                                                   >
                                                       <Image
+                                                          //   src={
+                                                          //       info?.images[0]
+                                                          //           ?.media ??
+                                                          //       info?.images[1]
+                                                          //           ?.media
+                                                          //   }
                                                           src={
-                                                              info?.images[0]
-                                                                  ?.media ??
-                                                              "/userprofile/image.svg"
+                                                              //info?.images ??
+                                                              info?.images[0]?.name
+                                                                  .substring(
+                                                                      info.images[0]?.name.indexOf(
+                                                                          "."
+                                                                      ) + 1
+                                                                  )
+                                                                  .includes(
+                                                                      "jpg"
+                                                                  )
+                                                                  ? info
+                                                                        ?.images[0]
+                                                                        ?.media
+                                                                  : info
+                                                                        ?.images[1]
+                                                                        ?.media
                                                           }
                                                           layout="fill"
                                                           objectFit="cover"

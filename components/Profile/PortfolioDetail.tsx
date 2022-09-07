@@ -68,7 +68,16 @@ PortfolioProps) => {
                         </Row>
                     </div>
                     {portfolioDetail?.images.length > 1 ? (
-                        <Carousel>
+                        <Carousel
+                            styles={{
+                                control: {
+                                    "&[data-inactive]": {
+                                        opacity: 0,
+                                        cursor: "default",
+                                    },
+                                },
+                            }}
+                        >
                             {portfolioDetail?.images.map((image: any) => (
                                 <Carousel.Slide key={image.id}>
                                     {image.name
