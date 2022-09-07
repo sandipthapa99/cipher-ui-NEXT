@@ -7,7 +7,7 @@ export interface PostTaskResponse {
     task_id: string;
 }
 export const usePostTask = () => {
-    return useMutation<PostTaskResponse, Error, FormData>((postTaskPayload) =>
+    return useMutation<PostTaskResponse, Error, any>((postTaskPayload) =>
         axiosClient
             .post<PostTaskResponse>("/task/", postTaskPayload)
             .then((res) => res.data)

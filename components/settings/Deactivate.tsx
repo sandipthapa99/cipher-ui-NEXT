@@ -93,7 +93,7 @@ const DeactivateAccount = () => {
                             type="submit"
                             variant="primary"
                             name="Save"
-                            className="submit-btn w-25"
+                            className="submit-btn"
                             isSubmitting={isSubmitting}
                             isSubmittingClass={isSubmittingClass(isSubmitting)}
                         />

@@ -120,6 +120,7 @@ export const EachTimeline = ({
 
                     {isActive && !isGivingRevision && !timelineRequested && (
                         <BigButton
+                            className="timeline-btn"
                             btnTitle={buttonName}
                             backgroundColor={"#211D4F"}
                             textColor={"#fff"}

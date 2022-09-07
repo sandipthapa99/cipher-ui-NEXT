@@ -10,7 +10,7 @@ export const useCategories = () => {
         async () => {
             try {
                 const { data } = await axiosClient.get(
-                    "/task/cms/task-category"
+                    "/task/task-category/nested/"
                 );
                 return data;
             } catch (error) {
