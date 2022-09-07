@@ -161,7 +161,6 @@ export const PostTaskModal = () => {
 
                 {choosedValue === "task" ? (
                     <form encType="multipart/formData" onSubmit={handleSubmit}>
-                        <pre>{JSON.stringify(values, null, 4)}</pre>
                         <Stack spacing="md">
                             <TextInput
                                 placeholder="Enter your title"
