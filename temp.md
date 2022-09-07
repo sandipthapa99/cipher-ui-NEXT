@@ -796,7 +796,7 @@ ada7015c share functionality of tasker in /tasker page
 7b540174 Merge branch 'feature/shareService' into 'develop'
 132e6bb8 bugfix/community community activity save icon aliginment fixed
 d83027ad Merge branch 'develop' of https://gitlab.com/cagtu/np/cipher/project_cipher_frontend into feature/shareService
-37f58b5d share functionality of service page  (/search)
+37f58b5d share functionality of service page (/search)
 24c4eb19 bugfix/help help content changed
 0cd323e4 bugfix/help/community unnecssary component removed from community
 2e35a3ef Fixed profile modal opening on outside click
@@ -1091,7 +1091,7 @@ bbe23315 Merge branch 'bugfix/taskDetail' into 'develop'
 d9dcb6de type error fixed
 6a91e39e Merge branch 'develop' of https://gitlab.com/cagtu/np/cipher/project_cipher_frontend into bugfix/taskDetail
 875cc7b4 types updated in service details and task card props
-d41c69b2 start price end price and speciality  added in simple profile card dynamically
+d41c69b2 start price end price and speciality added in simple profile card dynamically
 fbd2099b start price end price and currency added in task applied card dynamically
 eabcd13a start price end price and currency added in task applied card dynamically
 32231fdf loading overlay added if the data not appear
@@ -1299,7 +1299,7 @@ b6c42659 Merge branch 'develop' of gitlab.com:cagtu/np/cipher/project_cipher_fro
 6111bf15 feature/career use-form hook added
 a6ff77c1 feature/career radio button css fixed
 31307145 feature/career selectField dropdown icon fixed
-d42eb18b post task  homepage popup
+d42eb18b post task homepage popup
 d347c996 solved weather and date in header component
 574d7090 feature/career unneccesay spaces removed
 a8a26af6 solved weather and date in header component
@@ -1378,7 +1378,7 @@ e44abdb6 passing isAddFromService as a props to handle the button display
 55cb28b6 making steplines responsive
 ed4033a4 passing the form value in the state of mainstep component
 87394874 Merge branch 'develop' of gitlab.com:cagtu/np/cipher/project_cipher_frontend into feature/authenticate
-e666d060 created  useCategories hook for fetching data
+e666d060 created useCategories hook for fetching data
 f82331f3 Merge branch 'feature/affiliate-program' into 'develop'
 d4048ac1 Merge branch 'feature/tasker-marketplace' into 'develop'
 1733f8d7 feature/affiliate-program page completed
@@ -1616,7 +1616,7 @@ e6728961 fix the height problem of cancel button
 9e910af0 Merge branch 'develop' of https://gitlab.com/cagtu/np/cipher/project_cipher_frontend into feature/auth
 d50351e2 Updated api endpoint url
 772a038f Merge branch 'develop' of gitlab.com:cagtu/np/cipher/project_cipher_frontend into feature/profileSettings
-38a2df2f  added padding to the p tag - how it work page
+38a2df2f added padding to the p tag - how it work page
 de49cda8 Merge branch 'feature/collaboration' into 'develop'
 852a88b2 feature/setting/account account setting page added
 f87ebd0a feature/setting/account account page added
@@ -1667,7 +1667,7 @@ b538b6dd Git flow Initialized successfully
 26460649 Merge branch 'feature/hire-in-nepal' into 'develop'
 d75962a7 Merge branch 'feature/how-to-hire' into 'develop'
 83e18677 Merge branch 'develop' of gitlab.com:cagtu/np/cipher/project_cipher_frontend into feature/hire-in-nepal
-94955681 hire in nepal  bottom card finished
+94955681 hire in nepal bottom card finished
 8930cb18 Merge branch 'develop' of https://gitlab.com/cagtu/np/cipher/project_cipher_frontend into feature/collaboration
 7a4dde13 adding css of report revision form in collaboration request form
 f99b82ec adding css of report revision form in collaboration request form
@@ -1694,7 +1694,7 @@ b6653ec2 pass close function to handleclick
 e6739be1 team member section component
 453895e3 adding handleclick function in form button
 4f576215 adding team member section in applied task detail
-6647247f added padding to the bottom  container
+6647247f added padding to the bottom container
 68c4735f Added axios client setup
 68c1a7fc gradient component built
 5dfc45b4 Merge branch 'develop' of gitlab.com:cagtu/np/cipher/project_cipher_frontend into feature/profileForm
