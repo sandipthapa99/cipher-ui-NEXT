@@ -27,6 +27,7 @@ import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/task/use-post-task";
+import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
@@ -45,8 +46,8 @@ export interface PostTaskPayload {
     location: TaskType;
     currency: string;
     budget_type: BudgetType;
-    budget_from: string;
-    budget_to: string;
+    budget_from: number;
+    budget_to: number;
     is_negotiable: boolean;
     image: string;
     video: string;
@@ -67,6 +68,7 @@ export const PostTaskModal = () => {
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
     const [termsAccepted, setTermsAccepted] = useState(false);
+    const { mutateAsync: uploadFileMutation } = useUploadFile();
 
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
@@ -77,8 +79,8 @@ export const PostTaskModal = () => {
             city: "",
             location: "remote",
             budget_type: BudgetType.FIXED,
-            budget_from: "",
-            budget_to: "",
+            budget_from: 100,
+            budget_to: 100,
             is_negotiable: false,
             image: "",
             video: "",
@@ -92,23 +94,28 @@ export const PostTaskModal = () => {
             currency: "",
         },
         validationSchema: postTaskSchema,
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             if (!termsAccepted) {
                 toast.error(
                     "You must accept the terms and conditions before posting a task"
                 );
                 return;
             }
-            const formData = new FormData();
-            Object.entries(values).forEach((tempValue) => {
-                const [key, value] = tempValue;
-                if (key !== "video" && key !== "image") {
-                    formData.append(key, value.toString());
-                }
+            const imageIds = await uploadFileMutation({
+                files: values.image,
+                media_type: "image",
             });
-            formData.append("video", values.video);
-            formData.append("image", values.image);
-            mutate(formData, {
+            const videoIds = await uploadFileMutation({
+                files: values.video,
+                media_type: "video",
+            });
+            const postTaskPayload = {
+                ...values,
+                images: imageIds,
+                videos: videoIds,
+                extra_data: [],
+            };
+            mutate(postTaskPayload, {
                 onSuccess: (payload) => {
                     toggleShowPostTaskModal();
                     toast.success(payload.message);
