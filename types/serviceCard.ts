@@ -33,6 +33,11 @@ export interface ServicesValueProps {
             slug: string;
             icon: string;
         };
+        currency: {
+            id: number;
+            name: string;
+            code: string;
+        };
         city: any;
         images?: {
             id: number;
