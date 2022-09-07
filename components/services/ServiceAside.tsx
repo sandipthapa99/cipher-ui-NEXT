@@ -31,6 +31,7 @@ const ServiceAside = ({
                             budget_from={task?.budget_from}
                             budget_to={task?.budget_to}
                             budget_type={task?.budget_type}
+                            currency={task?.currency?.code}
                             serviceTitle={task?.title}
                             serviceRating={task?.success_rate}
                             serviceProviderLocation={task?.location}

@@ -37,6 +37,7 @@ const ServiceNearYouCard = ({
     serviceSlug,
     discountOn,
     discount,
+    currency,
     onServiceClick,
 }: ServiceNearYouCardProps) => {
     // const { data } = useQuery(
@@ -122,7 +123,7 @@ const ServiceNearYouCard = ({
                             </div>
                             <div></div>
                             <h1 className="price">
-                                $ {budget_from}
+                                {currency} {budget_from}
                                 {budget_to && "-" + budget_to}
                                 {budget_type === "Hourly"
                                     ? "/hr"
