@@ -34,7 +34,7 @@ export const SearchCategory = ({
         };
     });
 
-    console.log("catgeory", categoriesValues);
+    // console.log("catgeory", categoriesValues);
     const DUMMY_DATA = [
         {
             category: "Category",
@@ -87,6 +87,7 @@ export const SearchCategory = ({
         },
         [activeIndex]
     );
+
     const useSearchServiceByPrice = (query: string) => {
         return useQuery(["all-service", query], () =>
             axiosClient
@@ -98,7 +99,9 @@ export const SearchCategory = ({
         return useQuery(["all-service", query], () =>
             axiosClient
                 .get<ServicesValueProps>(`/task/service/?category=${query}`)
-                .then((response) => getSortingByPrice(response.data.result))
+                .then((response) =>
+                    console.log("category", response.data.result)
+                )
         );
     };
 
@@ -145,12 +148,12 @@ export const SearchCategory = ({
             <select
                 onChange={(e: any) => {
                     setActiveIndex(index);
-                    if (data.category === "Any price") {
-                        setPriceQuery(e.target.value);
-                    }
-                    if (data.category === "Category") {
-                        setCategoryName(e.target.value);
-                    }
+                    // if (data.category === "Any price") {
+                    //     setPriceQuery(e.target.value);
+                    // }
+                    // if (data.category === "Category") {
+                    //     setCategoryName(e.target.value);
+                    // }
                 }}
                 key={index}
                 style={styles(index).category}

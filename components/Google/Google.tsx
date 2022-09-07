@@ -22,7 +22,7 @@ const Google = () => {
                     onSuccess: (data) => {
                         autoLogin(data.access, data.refresh);
                         toast.success("Successfully logged in");
-                        router.push("/");
+                        router.push("/home");
                     },
                     onError: (err) => {
                         toast.error(err.message);

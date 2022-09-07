@@ -1,5 +1,5 @@
 import ServiceNearYouCard from "@components/SearchTask/searchAside";
-import { Skeleton } from "@mantine/core";
+import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
@@ -58,24 +58,7 @@ const ServiceAside = ({
                         {!query && totalAppliedTasks === 0 ? (
                             <Fragment>
                                 {Array.from({ length: 3 }).map((_, key) => (
-                                    <div
-                                        className="mantine-Skeleton mb-5 p-5"
-                                        key={key}
-                                    >
-                                        <div className="d-flex justify-content-between">
-                                            <Skeleton
-                                                height={90}
-                                                width={"40%"}
-                                            />
-
-                                            <Skeleton
-                                                height={20}
-                                                mt={6}
-                                                radius="xl"
-                                                width={"50%"}
-                                            />
-                                        </div>
-                                    </div>
+                                    <SkeletonServiceCard key={key} />
                                 ))}
                             </Fragment>
                         ) : (
