@@ -48,7 +48,11 @@ const TaskAside = ({
                                 "dd MMM, yyyy"
                             )}
                             time={format(new Date(task.created_at), "HH : mm")}
-                            currency={task?.currency}
+                            currency={
+                                task?.currency === "Nepalese Rupee"
+                                    ? "NRs"
+                                    : "$"
+                            }
                             charge={task.charge?.toString() ?? "0"}
                             taskId={task?.slug}
                         />
