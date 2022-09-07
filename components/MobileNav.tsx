@@ -11,7 +11,11 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { handleMenuActive } from "utils/helpers";
 
-const MobileNav = () => {
+interface MobileProps {
+    getSide: any;
+}
+const MobileNav = ({ getSide }: MobileProps) => {
+    const [sideBarOpened, setSideBarOpened] = useState(false);
     const router = useRouter();
 
     const [show, setShow] = useState(true);
@@ -81,7 +85,13 @@ const MobileNav = () => {
                     </a>
                 </Link>
                 <Link href="">
-                    <a className={`nav-link ${handleMenuActive("", router)}`}>
+                    <a
+                        className={`nav-link ${handleMenuActive("", router)}`}
+                        onClick={() => {
+                            setSideBarOpened(() => !sideBarOpened);
+                            getSide(sideBarOpened);
+                        }}
+                    >
                         <FontAwesomeIcon icon={faBars} className="nav-icon" />
                     </a>
                 </Link>

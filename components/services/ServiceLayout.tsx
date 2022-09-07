@@ -1,3 +1,4 @@
+import FullPageLoader from "@components/common/FullPageLoader";
 import {
     useClearSearchedServices,
     useClearSearchQuery,
@@ -31,6 +32,7 @@ export const useSearchService = (query: string) => {
 
 const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
+    const [sortPriceServices, setSortPriceServices] = useState([]);
     const searchedServices = useSearchedServices();
     const clearSearchQuery = useClearSearchQuery();
     const clearSearchedServices = useClearSearchedServices();
@@ -57,10 +59,20 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
         setQuery(query);
     };
 
+    if (isLoading || !data) return <FullPageLoader />;
+
+    const getSortByPrice = (services: any) => {
+        setSortPriceServices(services);
+    };
+    console.log("ser", sortPriceServices);
+
     return (
         <Layout title="Find Services | Cipher">
             <Container fluid="xl">
-                <SearchCategory onChange={handleSearchChange} />
+                <SearchCategory
+                    onChange={handleSearchChange}
+                    getSortingByPrice={getSortByPrice}
+                />
                 {searchQuery?.query && (
                     <Box
                         sx={{
@@ -81,11 +93,14 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
                 <ServiceAside
                     query={query}
                     service={
-                        checkSpecialOffer
-                            ? specialOfferDetails
-                            : searchedServices.length > 0
-                            ? searchedServices
+                        sortPriceServices.length > 0
+                            ? sortPriceServices
                             : searchData
+                        // checkSpecialOffer
+                        //     ? specialOfferDetails
+                        //     : searchedServices.length > 0
+                        //     ? searchedServices
+                        //     : searchData
                     }
                     isLoading={isLoading || !data}
                 >

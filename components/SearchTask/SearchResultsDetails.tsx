@@ -162,7 +162,7 @@ const SearchResultsDetail = ({
 
     return (
         <>
-            <div className="task-detail mb-5 p-5">
+            <div className="task-detail  mb-5 p-5">
                 <Link href="/service">
                     <a>
                         <FontAwesomeIcon
@@ -464,17 +464,17 @@ const SearchResultsDetail = ({
                             })}
                     </Carousel>
                 </Row>
+                <BookNowModalCard
+                    title={serviceTitle}
+                    budget_to={budget_to}
+                    budget_from={budget_from}
+                    budget_type={budget_type}
+                    service_id={serviceId}
+                    description={serviceDescription}
+                    show={show}
+                    handleClose={handleClose}
+                />
             </div>
-            <BookNowModalCard
-                title={serviceTitle}
-                budget_to={budget_to}
-                budget_from={budget_from}
-                budget_type={budget_type}
-                service_id={serviceId}
-                description={serviceDescription}
-                show={show}
-                handleClose={handleClose}
-            />
         </>
     );
 };

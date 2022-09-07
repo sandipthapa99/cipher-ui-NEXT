@@ -84,25 +84,25 @@ export const TeamMembersCard = ({
                     <div className="d-flex justify-content-between align-items-center emoji-section text-dark">
                         <span className="star">
                             <FontAwesomeIcon className="star" icon={faStar} />
-                            {rating}
+                            <span> {rating}</span>
                         </span>
                         <span className="emoji">
                             <FontAwesomeIcon
                                 className="emoji"
                                 icon={faFaceGrinBeam}
                             />
-                            {happyClients}
+                            <span>{happyClients}</span>
                         </span>
                         <span className="award">
                             <FontAwesomeIcon className="award" icon={faAward} />
-                            {awardPercentage}
+                            <span> {awardPercentage}</span>
                         </span>
                         <span className="location">
                             <FontAwesomeIcon
                                 className="location"
                                 icon={faLocationArrow}
                             />
-                            {distance}
+                            <span> {distance}</span>
                         </span>
                     </div>
                 </div>

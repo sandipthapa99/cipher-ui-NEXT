@@ -26,7 +26,6 @@ const TaskAside = ({
     isLoading,
 }: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
-
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
             <div key={task?.slug}>
@@ -48,7 +47,11 @@ const TaskAside = ({
                                 "dd MMM, yyyy"
                             )}
                             time={format(new Date(task.created_at), "HH : mm")}
-                            currency={task?.currency}
+                            currency={
+                                task?.currency === "Nepalese Rupee"
+                                    ? "NRs"
+                                    : "$"
+                            }
                             charge={task.charge?.toString() ?? "0"}
                             taskId={task?.slug}
                         />
@@ -60,7 +63,7 @@ const TaskAside = ({
     return (
         <div className="search-results">
             <Row>
-                <Col md={4}>
+                <Col md={4} className="left">
                     <Scrollbars autoHide style={{ height: 700 }}>
                         {query && totalAppliedTasks > 0 ? (
                             <p className="search-results-text">
@@ -130,7 +133,9 @@ const TaskAside = ({
                     </Scrollbars>
                 </Col>
 
-                <Col md={8}>{children}</Col>
+                <Col md={8} className="right">
+                    {children}
+                </Col>
             </Row>
         </div>
     );
