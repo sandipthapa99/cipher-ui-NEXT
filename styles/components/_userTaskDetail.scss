@@ -6,7 +6,7 @@
     background-color: $white;
     border-radius: 0.4rem;
     height: 95vh;
-    overflow-y: auto;
+    // overflow-y: auto;
     padding-left: 3rem;
     padding-bottom: 2.5rem;
     span {
@@ -16,8 +16,6 @@
         @media screen and (width: 1024px),(width: 1280px) {
             margin-left: 0;
         }
-
-    
 
         //specific to surface duo
         @media screen and (width: 540px) {
