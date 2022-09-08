@@ -10,7 +10,7 @@ export const MyTasks = () => {
         const response = await axiosClient.get("/task/my-task/");
         return response.data.result;
     });
-    
+
     return (
         <div className="my-task">
             <h3>My Tasks</h3>

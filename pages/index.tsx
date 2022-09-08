@@ -669,7 +669,7 @@ const Home: NextPage<{
                         className="rounded"
                         withIndicators
                     >
-                        {successStoryData?.result.map((value, key) => (
+                        {(successStoryData?.result ?? []).map((value, key) => (
                             <Carousel.Slide key={key}>
                                 <PersonalSuccessCard successStoryData={value} />
                             </Carousel.Slide>

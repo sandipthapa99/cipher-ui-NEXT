@@ -1,23 +1,15 @@
 import TaskCard from "@components/AppliedTask/taskAppliedCard";
-import type { UserTask } from "staticData/userTasks";
+import type { ITask } from "types/task";
 
 interface UserTaskListProps {
-    userTasks: UserTask[];
-    onTaskClick?: (task: UserTask) => void;
+    userTasks: ITask[];
+    onTaskClick?: (task: ITask) => void;
 }
 
 const UserTaskList = ({ userTasks, onTaskClick }: UserTaskListProps) => {
     const renderUserTasks = () => {
         return userTasks.map((task, index) => (
-            <TaskCard
-                key={index}
-                onClick={() => onTaskClick?.(task)}
-                charge={task.charge}
-                date={task.date}
-                location={task.location}
-                time={task.time}
-                title={task.title}
-            />
+            <TaskCard onTaskClick={onTaskClick} key={index} task={task} />
         ));
     };
     return <div className="accept-task__list">{renderUserTasks()}</div>;

@@ -2,7 +2,6 @@ import TaskAside from "@components/AppliedTask/taskAside";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import { useQuery } from "@tanstack/react-query";
-import { useTasks } from "hooks/apply-task/useTask";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
