@@ -30,11 +30,6 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
     const clearSearchedServices = useClearSearchedServices();
     const searchQuery = useSearchQuery();
 
-    const { data, isLoading } = useData<TaskerProps>(
-        ["all-tasker"],
-        "/tasker/"
-    );
-
     const { data: searchData = [] } = useSearchTasker(query);
     const handleSearchChange = (query: string) => {
         clearSearchQuery();
@@ -44,22 +39,20 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
 
     return (
         <Layout title="Find Tasker | Cipher">
-            <Container fluid="xl">
-                <SearchCategory onChange={handleSearchChange} />
-                {searchQuery?.query && (
-                    <Highlight highlight={searchQuery.query}>
-                        {`Showing search results for ${searchQuery.query}`}
-                    </Highlight>
-                )}
-                <Space h={10} />
-                <TaskerAside
-                    query={query}
-                    tasker={searchData}
-                    isLoading={isLoading || !data}
-                >
-                    {children}
-                </TaskerAside>
-            </Container>
+            <section className="Tasker-section" id="Tasker-section">
+                <Container fluid="xl">
+                    <SearchCategory onChange={handleSearchChange} />
+                    {searchQuery?.query && (
+                        <Highlight highlight={searchQuery.query}>
+                            {`Showing search results for ${searchQuery.query}`}
+                        </Highlight>
+                    )}
+                    <Space h={10} />
+                    <TaskerAside query={query} tasker={searchData}>
+                        {children}
+                    </TaskerAside>
+                </Container>
+            </section>
         </Layout>
     );
 };

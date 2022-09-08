@@ -11,7 +11,6 @@ import { faClose } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Box, Highlight, Space } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { useData } from "hooks/use-data";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -23,7 +22,7 @@ import { axiosClient } from "utils/axiosClient";
 import ServiceAside from "./ServiceAside";
 
 export const useSearchService = (query: string) => {
-    return useQuery(["all-service", query], () =>
+    return useQuery(["all-services", query], () =>
         axiosClient
             .get<ServicesValueProps>(`/task/service/list?search=${query}`)
             .then((response) => response.data.result)
@@ -41,11 +40,6 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const checkSpecialOffer = useCheckSpecialOffer();
     // console.log(specialOfferDetails, checkSpecialOffer);
 
-    const { data, isLoading } = useData<ServicesValueProps>(
-        ["all-services"],
-        "/task/service/"
-    );
-
     const { data: searchData = [] } = useSearchService(query);
 
     const handleClearSearchResults = () => {
@@ -58,8 +52,6 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
         clearSearchedServices();
         setQuery(query);
     };
-
-    if (isLoading || !data) return <FullPageLoader />;
 
     const getSortByPrice = (services: any) => {
         setSortPriceServices(services);
@@ -102,7 +94,6 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
                             //     ? searchedServices
                             //     : searchData
                         }
-                        isLoading={isLoading || !data}
                     >
                         {children}
                     </ServiceAside>
