@@ -22,6 +22,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { ScrollArea } from "@mantine/core";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useIsBookmarked } from "hooks/use-bookmarks";
@@ -79,119 +80,125 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
         return <UserLoadingOverlay />;
     }
     return (
-        <div className="aside-detail-wrapper">
-            <div className="task-detail mb-5 p-5">
-                <GoBack
-                    href={
-                        type === "you may like" ? `/task-you-may-like` : `/task`
-                    }
-                />
-                <h3>{taskDetail?.title}</h3>
-                <Row>
-                    <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
-                        {taskDetail.created_at && (
-                            <span className="pb-3 pb-sm-0 provider-name">
-                                {format(new Date(taskDetail?.created_at), "PP")}
-                            </span>
-                        )}
-                        <div className="d-flex justify-content-between align-items-center">
-                            <SaveIcon
-                                object_id={taskDetail?.id}
-                                model="task"
-                                filled={isTaskBookmarked}
-                                showText
-                                onSuccess={() =>
-                                    queryClient.invalidateQueries([
-                                        "bookmarks",
-                                        "task",
-                                    ])
-                                }
-                            />
-                            <button className="btn d-flex flex-col align-items-center mx-5">
-                                <ShareIcon
-                                    url={`http://localhost:3005/task/${slug}`}
-                                    quote={"This is the task from cipher"}
-                                    hashtag={"cipher-task"}
+        <ScrollArea.Autosize maxHeight={700} offsetScrollbars scrollbarSize={5}>
+            <div className="aside-detail-wrapper">
+                <div className="task-detail mb-5 p-5">
+                    <GoBack
+                        href={
+                            type === "you may like"
+                                ? `/task-you-may-like`
+                                : `/task`
+                        }
+                    />
+                    <h3>{taskDetail?.title}</h3>
+                    <Row>
+                        <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
+                            {taskDetail.created_at && (
+                                <span className="pb-3 pb-sm-0 provider-name">
+                                    {format(
+                                        new Date(taskDetail?.created_at),
+                                        "PP"
+                                    )}
+                                </span>
+                            )}
+                            <div className="d-flex justify-content-between align-items-center">
+                                <SaveIcon
+                                    object_id={taskDetail?.id}
+                                    model="task"
+                                    filled={isTaskBookmarked}
+                                    showText
+                                    onSuccess={() =>
+                                        queryClient.invalidateQueries([
+                                            "bookmarks",
+                                            "task",
+                                        ])
+                                    }
                                 />
-                                <span className="name">Share</span>
-                            </button>
-                            <EllipsisDropdown
-                                showModal={true}
-                                handleOnClick={() => setShowModal(true)}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faEllipsisVertical}
-                                    className="svg-icon option"
-                                />
-                            </EllipsisDropdown>
-                            <Modal
-                                show={showModal}
-                                onHide={() => setShowModal(false)}
-                                backdrop="static"
-                                className="post-modal"
-                            >
-                                <Modal.Header
-                                    className="mt-4"
-                                    closeButton
-                                ></Modal.Header>
-                                <Modal.Body>
-                                    <PostModal
-                                        setshowPostModel={() =>
-                                            setShowModal(false)
-                                        }
+                                <button className="btn d-flex flex-col align-items-center mx-5">
+                                    <ShareIcon
+                                        url={`http://localhost:3005/task/${slug}`}
+                                        quote={"This is the task from cipher"}
+                                        hashtag={"cipher-task"}
                                     />
-                                </Modal.Body>
-                            </Modal>
+                                    <span className="name">Share</span>
+                                </button>
+                                <EllipsisDropdown
+                                    showModal={true}
+                                    handleOnClick={() => setShowModal(true)}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faEllipsisVertical}
+                                        className="svg-icon option"
+                                    />
+                                </EllipsisDropdown>
+                                <Modal
+                                    show={showModal}
+                                    onHide={() => setShowModal(false)}
+                                    backdrop="static"
+                                    className="post-modal"
+                                >
+                                    <Modal.Header
+                                        className="mt-4"
+                                        closeButton
+                                    ></Modal.Header>
+                                    <Modal.Body>
+                                        <PostModal
+                                            setshowPostModel={() =>
+                                                setShowModal(false)
+                                            }
+                                        />
+                                    </Modal.Body>
+                                </Modal>
+                            </div>
                         </div>
-                    </div>
-                </Row>
-                <Row>
-                    <Col md={12} lg={7}>
-                        {(taskDetail?.images ?? []).length > 0 ? (
-                            <Carousel
-                                withIndicators
-                                withControls={hasMultipleImages}
-                                draggable={hasMultipleImages}
-                                styles={{
-                                    control: {
-                                        "&[data-inactive]": {
-                                            opacity: 0,
-                                            cursor: "default",
+                    </Row>
+                    <Row>
+                        <Col md={12} lg={7}>
+                            {(taskDetail?.images ?? []).length > 0 ? (
+                                <Carousel
+                                    withIndicators
+                                    withControls={hasMultipleImages}
+                                    draggable={hasMultipleImages}
+                                    styles={{
+                                        control: {
+                                            "&[data-inactive]": {
+                                                opacity: 0,
+                                                cursor: "default",
+                                            },
                                         },
-                                    },
-                                }}
-                            >
-                                {taskDetail.images.map((image, key) => (
-                                    <Carousel.Slide key={key}>
-                                        <figure className="thumbnail-img">
-                                            <Image
-                                                src={image.media}
-                                                alt={image.placeholder}
-                                                layout="fill"
-                                            />
-                                        </figure>
-                                    </Carousel.Slide>
-                                ))}
-                            </Carousel>
-                        ) : (
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src="/service-details/Garden.svg"
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt="garden-image"
+                                    }}
+                                >
+                                    {taskDetail.images.map((image, key) => (
+                                        <Carousel.Slide key={key}>
+                                            <figure className="thumbnail-img">
+                                                <Image
+                                                    src={image.media}
+                                                    alt={image.placeholder}
+                                                    layout="fill"
+                                                />
+                                            </figure>
+                                        </Carousel.Slide>
+                                    ))}
+                                </Carousel>
+                            ) : (
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src="/service-details/Garden.svg"
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="garden-image"
+                                    />
+                                </figure>
+                            )}
+                        </Col>
+                        <Col md={12} lg={5} className="d-flex">
+                            {taskDetail && (
+                                <SimpleProfileCard
+                                    task={taskDetail}
+                                    onApply={() => setShowModal(false)}
                                 />
-                            </figure>
-                        )}
-                    </Col>
-                    <Col md={12} lg={5} className="d-flex">
-                        {taskDetail && (
-                            <SimpleProfileCard
-                                task={taskDetail}
-                                onApply={() => setShowModal(false)}
-                            />
-                        )}
-                        {/* <SimpleProfileCard
+                            )}
+                            {/* <SimpleProfileCard
                             id={taskDetail.id}
                             image={taskDetail?.assigner?.profile_image}
                             speciality={taskDetail?.category?.name}
@@ -202,110 +209,113 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                             currency={taskDetail?.currency}
                             name={taskDetail?.assigner?.full_name}
                         /> */}
-                    </Col>
-                </Row>
-                <div className="d-flex mt-4 task-detail__loc-time">
-                    <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="svg-icon svg-icon-location"
-                        />
-                        <span>
-                            {" "}
-                            {taskDetail?.location
-                                ? taskDetail?.location
-                                : "Buddhanagar, Kathmandu"}
-                        </span>
-                    </p>
-                    {taskDetail?.created_at && (
+                        </Col>
+                    </Row>
+                    <div className="d-flex mt-4 task-detail__loc-time">
+                        <p className="d-flex align-items-center">
+                            <FontAwesomeIcon
+                                icon={faLocationDot}
+                                className="svg-icon svg-icon-location"
+                            />
+                            <span>
+                                {" "}
+                                {taskDetail?.location
+                                    ? taskDetail?.location
+                                    : "Buddhanagar, Kathmandu"}
+                            </span>
+                        </p>
+                        {taskDetail?.created_at && (
+                            <p>
+                                <FontAwesomeIcon
+                                    icon={faCalendar}
+                                    className="svg-icon svg-icon-calender"
+                                />
+                                {format(new Date(taskDetail?.created_at), "PP")}
+                            </p>
+                        )}
                         <p>
                             <FontAwesomeIcon
-                                icon={faCalendar}
-                                className="svg-icon svg-icon-calender"
+                                icon={faClockEight}
+                                className="svg-icon svg-icon-clock"
                             />
-                            {format(new Date(taskDetail?.created_at), "PP")}
+                            {taskDetail?.start_time}
                         </p>
-                    )}
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faClockEight}
-                            className="svg-icon svg-icon-clock"
-                        />
-                        {taskDetail?.start_time}
-                    </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faEye}
-                            className="svg-icon svg-icon-eye"
-                        />
-                        <span> 2500 Views</span>
-                    </p>
-                    <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faUserGroup}
-                            className="svg-icon svg-icon-user-group"
-                        />
-                        <span> {taskDetail?.applicants_count} Applied</span>
-                    </p>
-                </div>
+                        <p>
+                            <FontAwesomeIcon
+                                icon={faEye}
+                                className="svg-icon svg-icon-eye"
+                            />
+                            <span> 2500 Views</span>
+                        </p>
+                        <p className="d-flex align-items-center">
+                            <FontAwesomeIcon
+                                icon={faUserGroup}
+                                className="svg-icon svg-icon-user-group"
+                            />
+                            <span> {taskDetail?.applicants_count} Applied</span>
+                        </p>
+                    </div>
 
-                <div className="task-detail__desc">
-                    <h3>Description</h3>
-                    <p>{taskDetail?.description}</p>
-                </div>
+                    <div className="task-detail__desc">
+                        <h3>Description</h3>
+                        <p>{taskDetail?.description}</p>
+                    </div>
 
-                <h3>Requirements</h3>
-                <div className="mt-5">
-                    {taskRequirements.map(({ id, title }) => (
-                        <div key={id}>
-                            <ServiceHighlights title={title} />
-                        </div>
-                    ))}
-                </div>
+                    <h3>Requirements</h3>
+                    <div className="mt-5">
+                        {taskRequirements.map(({ id, title }) => (
+                            <div key={id}>
+                                <ServiceHighlights title={title} />
+                            </div>
+                        ))}
+                    </div>
 
-                <TeamMembersSection />
+                    {/* <TeamMembersSection /> */}
 
-                <Tab
-                    activeIndex={activeTabIdx}
-                    onTabClick={setActiveTabIdx}
-                    items={[
-                        { title: "Taskers", content: <TaskersTab /> },
-                        { title: "Timeline", content: <TimelineTab /> },
-                        {
-                            title: "Collaboration",
-                            content: <Collaboration />,
-                        },
-                    ]}
-                    icons={[
-                        {
-                            index: 0,
-                            type: (
-                                <FontAwesomeIcon
-                                    icon={faMagnifyingGlass}
-                                    className="svg-icon"
-                                    onClick={() => setShowInput(!showInput)}
-                                />
-                            ),
-                            iconContent: showInput ? <RenderInputBox /> : null,
-                        },
-                        {
-                            index: 1,
-                            type: (
-                                <EllipsisDropdown
-                                    showModal={true}
-                                    handleOnClick={() => setShowModal(true)}
-                                >
+                    <Tab
+                        activeIndex={activeTabIdx}
+                        onTabClick={setActiveTabIdx}
+                        items={[
+                            { title: "Taskers", content: <TaskersTab /> },
+                            { title: "Timeline", content: <TimelineTab /> },
+                            {
+                                title: "Collaboration",
+                                content: <Collaboration />,
+                            },
+                        ]}
+                        icons={[
+                            {
+                                index: 0,
+                                type: (
                                     <FontAwesomeIcon
-                                        icon={faFilterList}
+                                        icon={faMagnifyingGlass}
                                         className="svg-icon"
+                                        onClick={() => setShowInput(!showInput)}
                                     />
-                                </EllipsisDropdown>
-                            ),
-                        },
-                    ]}
-                />
+                                ),
+                                iconContent: showInput ? (
+                                    <RenderInputBox />
+                                ) : null,
+                            },
+                            {
+                                index: 1,
+                                type: (
+                                    <EllipsisDropdown
+                                        showModal={true}
+                                        handleOnClick={() => setShowModal(true)}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faFilterList}
+                                            className="svg-icon"
+                                        />
+                                    </EllipsisDropdown>
+                                ),
+                            },
+                        ]}
+                    />
+                </div>
             </div>
-        </div>
+        </ScrollArea.Autosize>
     );
 };
 

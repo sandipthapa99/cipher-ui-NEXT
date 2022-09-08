@@ -18,7 +18,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Spoiler } from "@mantine/core";
+import { ScrollArea, Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
@@ -162,7 +162,7 @@ const SearchResultsDetail = ({
     };
 
     return (
-        <>
+        <ScrollArea.Autosize maxHeight={700} offsetScrollbars scrollbarSize={5}>
             <div className="task-detail mb-5 p-5">
                 <Link href="/service">
                     <a>
@@ -494,7 +494,7 @@ const SearchResultsDetail = ({
                     handleClose={handleClose}
                 />
             </div>
-        </>
+        </ScrollArea.Autosize>
     );
 };
 export default SearchResultsDetail;
