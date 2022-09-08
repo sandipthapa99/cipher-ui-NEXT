@@ -1,42 +1,52 @@
-import { BudgetType } from "@components/Task/PostTaskModal/TaskBudget";
+import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { MyTaskProps } from "types/myTasksProps";
+import type { MyTaskOrderProps } from "types/myTasksProps";
 
-interface MyTaskOrderProps {
-    myTask: MyTaskProps;
-}
-
-export const MyTaskOrder = ({ myTask }: MyTaskOrderProps) => {
+export const MyTaskOrder = ({
+    task_id,
+    assigner_id,
+    created_at,
+    currency,
+    image,
+    title,
+    assigner_name,
+    budget_from,
+    budget_to,
+    budget_type,
+    status,
+}: MyTaskOrderProps) => {
     const [isAuthor, setIsAuthor] = useState(false);
     const { data: userData } = useUser();
 
     useEffect(() => {
-        if (userData?.id === myTask?.assigner?.id) {
+        if (userData?.id === assigner_id) {
             setIsAuthor(true);
         } else {
             setIsAuthor(false);
         }
-    }, [myTask, userData]);
+    }, [assigner_id, userData]);
 
     return (
         <div className="my-task-order">
             <div className="d-flex justify-content-between align-items-center order-section">
                 <span className="order-id">
-                    Order ID: #{myTask?.id?.slice(0, 8)}
+                    Order ID: #{task_id?.slice(0, 8)}
                 </span>
-                <span className="ordered-date">Wednesday, 03 June 2022</span>
+                <span className="ordered-date">
+                    {format(new Date(created_at), "eeee, ii LLLL yyyy")}
+                </span>
             </div>
 
             <div className="order-detail-section">
                 <Row>
                     <Col lg={2} md={6} sm={6} xs={12}>
                         <figure className="d-flex align-items-center justify-content-start h-100 w-100 order-detail-section__image">
-                            {myTask?.images?.length && (
+                            {image && (
                                 <Image
-                                    src={myTask?.images[0]?.media}
+                                    src={image}
                                     alt="order-detail-image"
                                     height={160}
                                     width={130}
@@ -46,33 +56,32 @@ export const MyTaskOrder = ({ myTask }: MyTaskOrderProps) => {
                     </Col>
                     <Col md={6} sm={12}>
                         <div className="title-and-description">
-                            <h4>{myTask?.title}</h4>
-                            <p>By {myTask?.assigner?.full_name}</p>
+                            <h4>{title}</h4>
+                            <p>By {assigner_name}</p>
                             <div className="price-section">
                                 <span className="price">Price : </span>
                                 <span className="value">
-                                    {myTask?.currency?.code}
-                                    {myTask?.budget_from}
-                                    {myTask?.budget_to &&
-                                        "-" + myTask?.budget_to}
+                                    {currency}
+                                    {budget_from}
+                                    {budget_to && "-" + budget_to}
 
-                                    {myTask?.budget_type === "Hourly"
+                                    {budget_type === "Hourly"
                                         ? "/hr"
-                                        : myTask?.budget_type === "Monthly"
+                                        : budget_type === "Monthly"
                                         ? "/mnth"
                                         : ""}
                                 </span>
                             </div>
 
-                            <div className="price-section">
+                            {/* <div className="price-section">
                                 <span className="price">Duration : </span>
                                 <span className="value">2 max hr/ week</span>
-                            </div>
+                            </div> */}
 
                             <div className="price-section">
                                 <span className="price">Completed On : </span>
                                 <span className="value">
-                                    {myTask?.status === "completed"
+                                    {status === "completed"
                                         ? "12 May 2022"
                                         : "not completed yet"}
                                 </span>
@@ -93,10 +102,8 @@ export const MyTaskOrder = ({ myTask }: MyTaskOrderProps) => {
                             </figure>
                             <div className="d-flex justify-content-end align-items-center status-section">
                                 <span className="status">Status</span>
-                                <span
-                                    className={`status-value__${myTask?.status}`}
-                                >
-                                    {myTask?.status}
+                                <span className={`status-value__${status}`}>
+                                    {status}
                                 </span>
                             </div>
                         </div>

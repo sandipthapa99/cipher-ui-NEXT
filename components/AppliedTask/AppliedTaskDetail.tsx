@@ -22,6 +22,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { ScrollArea } from "@mantine/core";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
@@ -277,7 +278,7 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                     ))}
                 </div>
 
-                <TeamMembersSection />
+                {/* <TeamMembersSection /> */}
 
                 <Tab
                     activeIndex={activeTabIdx}
