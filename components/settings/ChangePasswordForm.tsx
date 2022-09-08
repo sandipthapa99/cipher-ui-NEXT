@@ -79,7 +79,7 @@ const ChangePasswordForm = () => {
                                             error={errors.new_password}
                                             touch={touched.new_password}
                                             placeHolder="New Password"
-                                            f
+                                            fieldRequired
                                         />
                                         <PasswordField
                                             typeOf="password"

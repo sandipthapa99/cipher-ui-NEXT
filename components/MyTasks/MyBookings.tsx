@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { MyBookingProps } from "types/myBookingProps";
+import type { MyBookingProps } from "types/myBookingProps";
 import type { MyTaskProps } from "types/myTasksProps";
 import { axiosClient } from "utils/axiosClient";
 
