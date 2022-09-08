@@ -47,8 +47,8 @@ export interface PostTaskPayload {
     location: TaskType;
     currency: string;
     budget_type: BudgetType;
-    budget_from: number;
-    budget_to: number;
+    // budget_from: number;
+    // budget_to: number;
     is_negotiable: boolean;
     images: string;
     videos: string;
@@ -70,7 +70,7 @@ export const PostTaskModal = () => {
 
     const router = useRouter();
 
-    const [termsAccepted, setTermsAccepted] = useState(false);
+    const [termsAccepted, setTermsAccepted] = useState(true);
     const { mutateAsync: uploadFileMutation } = useUploadFile();
 
     const formik = useFormik<PostTaskPayload>({
@@ -82,8 +82,8 @@ export const PostTaskModal = () => {
             city: "",
             location: "remote",
             budget_type: BudgetType.FIXED,
-            budget_from: 100,
-            budget_to: 100,
+            // budget_from: 100,
+            // budget_to: 100,
             is_negotiable: false,
             estimated_time: 5,
             is_recursion: false,
@@ -165,6 +165,7 @@ export const PostTaskModal = () => {
 
                 {choosedValue === "task" ? (
                     <form encType="multipart/formData" onSubmit={handleSubmit}>
+                        <pre>{JSON.stringify(values, null, 4)}</pre>
                         <Stack spacing="md">
                             <TextInput
                                 placeholder="Enter your title"
@@ -230,13 +231,12 @@ export const PostTaskModal = () => {
                                 </Text>
                                 <CustomDropZone
                                     accept={IMAGE_MIME_TYPE}
-                                    fileLabel="Image"
+                                    fileType="image"
                                     sx={{ maxWidth: "30rem" }}
                                     name="task-image"
                                     onDrop={(images) =>
                                         setFieldValue("images", images)
                                     }
-                                    type={["image"]}
                                 />
                             </Stack>
                             <Stack sx={{ maxWidth: "40rem" }}>
@@ -247,16 +247,14 @@ export const PostTaskModal = () => {
                                 </Text>
                                 <CustomDropZone
                                     accept={[MIME_TYPES.mp4]}
-                                    fileLabel="Video"
-                                    sx={{ maxWidth: "30rem" }}
+                                    fileType="video"
                                     name="task-video"
                                     onDrop={(videos) =>
                                         setFieldValue("videos", videos)
                                     }
-                                    type={["video"]}
                                 />
                             </Stack>
-                            <TaskDate setFieldValue={setFieldValue} />
+                            {/* <TaskDate setFieldValue={setFieldValue} /> */}
                             <Checkbox
                                 checked={termsAccepted}
                                 onChange={(event) =>
