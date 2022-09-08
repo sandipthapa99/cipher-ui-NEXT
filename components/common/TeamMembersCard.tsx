@@ -16,9 +16,6 @@ import type { Tasker } from "types/tasks";
 import BigButton from "./Button";
 import ShareIcon from "./ShareIcon";
 
-interface Currency {
-    code: string;
-}
 interface Props {
     taskers?: Tasker;
     tasker: string;
@@ -34,7 +31,7 @@ interface Props {
     location?: string;
     distance?: string;
     bio?: string;
-    charge_currency?: any;
+    charge?: string;
 }
 
 export const TeamMembersCard = ({
@@ -50,7 +47,7 @@ export const TeamMembersCard = ({
     tasker,
     distance,
     bio,
-    charge_currency,
+    charge,
 }: Props) => {
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
@@ -58,7 +55,7 @@ export const TeamMembersCard = ({
 
     const router = useRouter();
     const path = router.query.id;
-    console.log("currency=", charge_currency);
+
     return (
         <div
             data-active={JSON.stringify(path === tasker)}
@@ -134,7 +131,7 @@ export const TeamMembersCard = ({
                         />
                     </div>
                 ) : (
-                    <span className="task-price"> {charge_currency}</span>
+                    <span className="task-price"> {charge}</span>
                 )}
             </div>
         </div>

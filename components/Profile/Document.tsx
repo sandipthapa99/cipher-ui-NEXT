@@ -17,6 +17,7 @@ const UserDocument = () => {
         ["tasker-document"],
         "/tasker/kyc-document"
     );
+    console.log("tsa document", documents);
     // const { mutate, isLoading, data: Document } = usePostDocument();
 
     return (

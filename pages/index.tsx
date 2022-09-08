@@ -868,7 +868,6 @@ export const getStaticProps: GetStaticProps = async () => {
         await queryClient.prefetchQuery(["all-blogs"]);
         await queryClient.prefetchQuery(["all-services"]);
         await queryClient.prefetchQuery(["all-tasks"]);
-        await queryClient.prefetchQuery(["country-id"]);
         return {
             props: {
                 successStoryData: successStoryData,
