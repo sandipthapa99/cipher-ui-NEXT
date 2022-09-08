@@ -132,7 +132,7 @@ export const PostTaskModal = () => {
                     toggleShowPostTaskModal();
                     toast.success(payload.message);
                     await queryClient.invalidateQueries(["all-tasks"]);
-                    router.push("/task");
+                    // router.push("/task");
                 },
                 onError: (error) => {
                     toast.error(error.message);
