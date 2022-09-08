@@ -9,7 +9,6 @@ import { BudgetType } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCategory } from "@components/Task/PostTaskModal/TaskCategory";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
-import { TaskDate } from "@components/Task/PostTaskModal/TaskDate";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import { Radio } from "@mantine/core";
 import {
@@ -34,9 +33,11 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import {
+    usePostTaskModalType,
     useShowPostTaskModal,
     useToggleShowPostTaskModal,
 } from "store/use-show-post-task";
+import type { ITask } from "types/task";
 
 export interface PostTaskPayload {
     title: string;
@@ -65,17 +66,24 @@ export const PostTaskModal = () => {
     const [choosedValue, setChoosedValue] = useState("task");
     const queryClient = useQueryClient();
     const { mutate } = usePostTask();
+    const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
     const router = useRouter();
+
+    const taskSlug = router.query?.slug;
+    const taskDetail = queryClient.getQueryData<ITask>([
+        "task-detail",
+        taskSlug,
+    ]);
 
     const [termsAccepted, setTermsAccepted] = useState(true);
     const { mutateAsync: uploadFileMutation } = useUploadFile();
 
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
-            title: "",
+            title: taskDetail ? taskDetail.title : "",
             description: "",
             requirements: "",
             category: "",
@@ -145,18 +153,19 @@ export const PostTaskModal = () => {
                 title="Post a Task or Service"
                 size="xl"
             >
-                <div className="choose-email-or-phone mb-5">
-                    <Radio.Group
-                        label="Please select task or service which you want to post "
-                        onChange={(value) => setChoosedValue(value)}
-                        size="sm"
-                        defaultValue="task"
-                    >
-                        <Radio value="task" label="Post Task" />
-                        <Radio value="service" label="Post Service" />
-                    </Radio.Group>
-                </div>
-
+                {showPostTaskModalType === "CREATE" && (
+                    <div className="choose-email-or-phone mb-5">
+                        <Radio.Group
+                            label="Please select task or service which you want to post "
+                            onChange={(value) => setChoosedValue(value)}
+                            size="sm"
+                            defaultValue="task"
+                        >
+                            <Radio value="task" label="Post Task" />
+                            <Radio value="service" label="Post Service" />
+                        </Radio.Group>
+                    </div>
+                )}
                 {choosedValue === "task" ? (
                     <form encType="multipart/formData" onSubmit={handleSubmit}>
                         <Stack spacing="md">
@@ -275,7 +284,7 @@ export const PostTaskModal = () => {
                                 }}
                             >
                                 <Button
-                                    onClick={toggleShowPostTaskModal}
+                                    onClick={() => toggleShowPostTaskModal()}
                                     className="close-btn close-btn-mod btn p-3 h-25"
                                 >
                                     Cancel

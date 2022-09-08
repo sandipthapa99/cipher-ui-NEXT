@@ -12,7 +12,7 @@
     span {
         margin-left: 0.4rem;
         //nest hub
-        @media screen and (width:1280px) {
+        @media screen and (width: 1280px) {
             margin-left: 3.5rem;
         }
 
@@ -21,7 +21,7 @@
         }
 
         //specific to surface duo
-        @media screen and (width:540px) {
+        @media screen and (width: 540px) {
             margin-left: -0.5rem;
         }
         @include respond(xs) {
