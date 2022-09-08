@@ -619,23 +619,18 @@ const Home: NextPage<{
                         {recommendedTasksData?.data?.result?.map(
                             (task, key) => (
                                 <Col md={6} key={key}>
-                                    <Link
-                                        href={`/task-you-may-like/${task.slug}`}
-                                    >
-                                        <a>
-                                            <TaskCard
-                                                title={task?.title}
-                                                id={task?.id}
-                                                charge={task?.charge}
-                                                description={task?.description}
-                                                location={task?.location}
-                                                start_date={task?.start_date}
-                                                start_time={task?.start_time}
-                                                status={task?.status}
-                                                currency={task?.currency}
-                                            />
-                                        </a>
-                                    </Link>
+                                    <TaskCard
+                                        title={task?.title}
+                                        id={task?.id}
+                                        charge={task?.charge}
+                                        description={task?.description}
+                                        location={task?.location}
+                                        start_date={task?.start_date}
+                                        start_time={task?.start_time}
+                                        status={task?.status}
+                                        currency={task?.currency}
+                                        slug={`/task-you-may-like/${task.slug}`}
+                                    />
                                 </Col>
                             )
                         )}
@@ -669,7 +664,7 @@ const Home: NextPage<{
                         className="rounded"
                         withIndicators
                     >
-                        {successStoryData?.result.map((value, key) => (
+                        {successStoryData?.result?.map((value, key) => (
                             <Carousel.Slide key={key}>
                                 <PersonalSuccessCard successStoryData={value} />
                             </Carousel.Slide>
@@ -853,15 +848,17 @@ const Home: NextPage<{
                         See some of our top categories
                     </h2>
                     {/* <TopCategories /> */}
-                    {/* <Row>
+                    <Row className="g-5">
                         {topCategoryData.map((category, key) => (
                             <Col md={2} key={key}>
-                                <Link href={category.slug}>
-                                    <a>{category.category}</a>
-                                </Link>
+                                <span className="bg-danger">
+                                    <Link href={`/category/${category.slug}`}>
+                                        <a>{category.category}</a>
+                                    </Link>
+                                </span>
                             </Col>
                         ))}
-                    </Row> */}
+                    </Row>
                 </Container>
             </section>
         </Layout>

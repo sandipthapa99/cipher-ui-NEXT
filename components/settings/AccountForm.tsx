@@ -91,6 +91,7 @@ const AccountForm = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
+    const [imageUrl, setImageUrl] = useState("");
 
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
     const onButtonClick = () => {
@@ -176,7 +177,7 @@ const AccountForm = () => {
 
     //find the country
     const foundCountry = countryResults.find((item) => item.label === country);
-
+    console.log("found country", foundCountry);
     //handle country change
     const handleCountryChanged = (
         id: string | null,
@@ -203,15 +204,16 @@ const AccountForm = () => {
         setCurrencyChange(id);
         if (id) setFieldValue("charge_currency", parseInt(id));
     };
+    console.log("userprofile=", profile);
     //parse user_type
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
 
-    // const { data: countryID } = useGetCountryBYId(parseInt(countryChange));
-    // console.log("data country change", countryID);
+    const { data: countryID } = useGetCountryBYId(parseInt(countryChange));
+    console.log("data country change", countryID);
 
     const queryClient = useQueryClient();
 
-    const editProfile = useMutation((data: ProfileEditValueProps) =>
+    const editProfile = useMutation((data: FormData) =>
         axiosClient.patch("/tasker/profile/", data)
     );
     const onEditProfile = (data: any) => {
@@ -229,9 +231,22 @@ const AccountForm = () => {
             },
         });
     };
-
+    console.log("is update click", isEditButtonClicked);
+    let previewImage: any;
     //profile success modal
     const [show, setShow] = useState(false);
+
+    //edit profile
+    function isValidURL(str: any) {
+        const regex =
+            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
+        if (!regex.test(str)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     return (
         <>
             {!KYCData && profile ? <FillKyc onClick={scrollToKyc} /> : ""}
@@ -284,7 +299,7 @@ const AccountForm = () => {
                         charge_currency: profile?.charge_currency,
                         profile_visibility: profile?.profile_visibility ?? "",
                         task_preferences: profile?.task_preferences ?? "",
-                        profile_image: "",
+                        profile_image: profile?.profile_image ?? "",
                     }}
                     validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
@@ -306,26 +321,65 @@ const AccountForm = () => {
                             ),
                         };
 
+                        // Object.entries(newValidatedValues).forEach((entry) => {
+                        //     const [key, value] = entry;
+                        //     if (value && key) {
+                        //         formData.append(key, value.toString());
+                        //     }
+                        // });
                         Object.entries(newValidatedValues).forEach((entry) => {
                             const [key, value] = entry;
-                            if (value && key !== "profile_image") {
-                                formData.append(key, value.toString());
+                            console.log("entry=", entry, key, value);
+
+                            if (
+                                entry[0] == "profile_image" &&
+                                isValidURL(entry[1])
+                            ) {
+                                return false;
+                            }
+                            if (key !== "profile_image") {
+                                formData.append(
+                                    key,
+                                    value ? value?.toString() : ""
+                                );
+                            } else {
+                                formData.append(
+                                    "profile_image",
+                                    values.profile_image
+                                );
                             }
                         });
-                        formData.append("profile_image", values.profile_image);
-
-                        mutate(formData, {
-                            onSuccess: () => {
-                                // toggleSuccessModal();
-                                setShow(true);
-                                queryClient.invalidateQueries(["profile"]);
-                            },
-                            onError: (err) => {
-                                toast.error(err.message);
-                            },
-                        });
-
-                        // setShowSuccessModal(true);
+                        const editedData = formData;
+                        {
+                            isEditButtonClicked
+                                ? editProfile.mutate(editedData, {
+                                      onSuccess: () => {
+                                          toast.success(
+                                              "Profile updated successfully."
+                                          );
+                                          setIsEditButtonClicked(
+                                              !isEditButtonClicked
+                                          );
+                                          queryClient.invalidateQueries([
+                                              "profile",
+                                          ]);
+                                      },
+                                      onError: (err: any) => {
+                                          toast.error(err.message);
+                                      },
+                                  })
+                                : mutate(formData, {
+                                      onSuccess: () => {
+                                          setShow(true);
+                                          queryClient.invalidateQueries([
+                                              "profile",
+                                          ]);
+                                      },
+                                      onError: (err) => {
+                                          toast.error(err.message);
+                                      },
+                                  });
+                        }
                     }}
                 >
                     {({
@@ -337,51 +391,6 @@ const AccountForm = () => {
                         setFieldValue,
                     }) => (
                         <Form autoComplete="off">
-                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre>
-                            <pre>{JSON.stringify(values, null, 4)}</pre> */}
-                            {/* <figure className="profile-img mx-auto">
-                                <FontAwesomeIcon
-                                    icon={faBadgeCheck}
-                                    className="badge-icon"
-                                />
-                                {!profile && (
-                                    <div
-                                        className="img-dragdrop d-flex align-items-center justify-content-center"
-                                        onClick={onButtonClick}
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={faCamera}
-                                            className="camera-icon"
-                                        />
-                                        <input
-                                            hidden
-                                            type="file"
-                                            ref={inputRef}
-                                            onChange={(e: any) => {
-                                                const files = e.target.files;
-
-                                                setFieldValue(
-                                                    "profile_image",
-                                                    files[0]
-                                                );
-                                            }}
-                                        />
-                                    </div>
-                                )}
-                                <Image
-                                    // src={"/userprofile/unknownPerson.jpg"}
-                                    src={
-                                        profile && profile.profile_image
-                                            ? profile.profile_image
-                                            : "/userprofile/unknownPerson.jpg"
-                                    }
-                                    layout="fill"
-                                    alt="profile-pic"
-                                    className="rounded-circle"
-                                    objectFit="cover"
-                                    priority={true}
-                                />
-                            </figure> */}
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ?? (
@@ -391,29 +400,53 @@ const AccountForm = () => {
                                         />
                                     )}
                                     <div
-                                        className="img-dragdrop d-flex align-items-center justify-content-center"
+                                        className={`${
+                                            isEditButtonClicked
+                                                ? "img-dragdrop"
+                                                : "d-flex align-items-center justify-content-center"
+                                        }`}
                                         onClick={onButtonClick}
                                     >
-                                        <FontAwesomeIcon
-                                            icon={faCamera}
-                                            className="camera-icon"
-                                        />
-                                        <input
-                                            hidden
-                                            type="file"
-                                            name="profile_image"
-                                            ref={inputRef}
-                                            onChange={(e: any) => {
-                                                const files = e.target.files;
-                                                setFieldValue(
-                                                    "profile_image",
-                                                    files[0]
-                                                );
-                                                setImage(files[0]);
-                                                //console.log("image=", files[0]);
-                                                //setShowEditForm(!showEditForm);
-                                            }}
-                                        />
+                                        {isEditButtonClicked ? (
+                                            <>
+                                                <FontAwesomeIcon
+                                                    icon={faCamera}
+                                                    className="camera-icon"
+                                                />
+                                                <input
+                                                    hidden
+                                                    type="file"
+                                                    name="profile_image"
+                                                    ref={inputRef}
+                                                    onChange={(e: any) => {
+                                                        const files =
+                                                            e.target.files;
+                                                        setFieldValue(
+                                                            "profile_image",
+                                                            files[0]
+                                                        );
+                                                        setImage(files[0]);
+                                                        image
+                                                            ? (previewImage =
+                                                                  URL.createObjectURL(
+                                                                      image
+                                                                  ))
+                                                            : null;
+
+                                                        console.log(
+                                                            "image=",
+                                                            image,
+                                                            previewImage
+                                                        );
+                                                        setShowEditForm(
+                                                            !showEditForm
+                                                        );
+                                                    }}
+                                                />
+                                            </>
+                                        ) : (
+                                            ""
+                                        )}
                                     </div>
 
                                     <Image
@@ -421,6 +454,8 @@ const AccountForm = () => {
                                         src={
                                             profile && profile.profile_image
                                                 ? profile.profile_image
+                                                : isEditButtonClicked
+                                                ? previewImage
                                                 : "/userprofile/unknownPerson.jpg"
                                         }
                                         layout="fill"
@@ -433,13 +468,24 @@ const AccountForm = () => {
                                 {profile ? (
                                     <div>
                                         {isEditButtonClicked || !profile ? (
-                                            <BigButton
-                                                btnTitle={"Update Profile"}
-                                                backgroundColor={"#FFCA6A"}
-                                                textColor={"#212529"}
-                                                // handleClick={() =>
-                                                //     setIsEditButtonClicked(true)
-                                                // }
+                                            // <BigButton
+                                            //     btnTitle={"Update Profile"}
+                                            //     backgroundColor={"#FFCA6A"}
+                                            //     textColor={"#212529"}
+                                            //     handleClick={() =>
+                                            //         setIsUpdateClicked(true)
+                                            //     }
+                                            //     type="submit"
+                                            // />
+                                            <FormButton
+                                                type="submit"
+                                                variant="primary"
+                                                name="Update Profile"
+                                                className="submit-btn"
+                                                isSubmitting={isSubmitting}
+                                                isSubmittingClass={isSubmittingClass(
+                                                    isSubmitting
+                                                )}
                                             />
                                         ) : (
                                             <BigButton
@@ -670,10 +716,13 @@ const AccountForm = () => {
                                 // placeholder={
                                 //     profile ? profile.country : "Pick One"
                                 // }
+                                // defaultValue={profile ? profile.country : ""}
                                 name="country"
                                 searchable
                                 nothingFound="No result found."
-                                value={countryChange}
+                                value={
+                                    profile ? foundCountry.id : countryChange
+                                }
                                 onChange={(value) =>
                                     handleCountryChanged(value, setFieldValue)
                                 }
@@ -811,6 +860,7 @@ const AccountForm = () => {
                                     />
                                 </div>
                             )}
+
                             {/* {isEditButtonClicked ? (
                                 <div className="d-flex justify-content-end">
                                     <Button

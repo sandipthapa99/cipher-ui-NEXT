@@ -73,51 +73,6 @@ const Home: NextPage = () => {
                         </Row>
                     </div>
                 </Container>
-                <section id="browse-category" className="browse-category">
-                    <Container fluid="xl" className="px-5">
-                        <h1 className="section-main-title">
-                            Our services by category
-                        </h1>
-                        <ServiceCategories />
-                    </Container>
-                </section>
-                <Container fluid="xl" className="px-5">
-                    <div className="post-task__service-recommendation">
-                        <div className="title-wrapper d-flex justify-content-between">
-                            <h1 className="heading-title">
-                                Our Recommendation
-                            </h1>
-                            <a href="/pages" className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </div>
-                        <Row>
-                            {servicesData &&
-                                servicesData?.data?.result?.map((service) => {
-                                    return (
-                                        <Col
-                                            sm={6}
-                                            md={4}
-                                            lg={3}
-                                            key={service.id}
-                                        >
-                                            <Link href="/service-detail">
-                                                <a>
-                                                    <ServiceCard
-                                                        serviceCard={service}
-                                                    />
-                                                </a>
-                                            </Link>
-                                        </Col>
-                                    );
-                                })}
-                        </Row>
-                    </div>
-                </Container>
             </section>
         </Layout>
     );

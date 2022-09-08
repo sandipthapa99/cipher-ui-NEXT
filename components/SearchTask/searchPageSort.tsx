@@ -1,8 +1,9 @@
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { Tab } from "@components/common/Tab";
-import Post from "@components/PostTask/Post";
-import { Recent } from "@components/user/Recent";
-import { Recommended } from "@components/user/Recommended";
+import { MyBookings } from "@components/MyTasks/MyBookings";
+import { MyTasks } from "@components/MyTasks/MyTasks";
+import { PaymentHistory } from "@components/MyTasks/PaymentHistory";
+import { TaskYouMayLike } from "@components/MyTasks/TaskYouMayLike";
 import {
     faFilterList,
     faMagnifyingGlass,
@@ -38,29 +39,24 @@ const SearchBySort = () => {
                 onTabClick={setActiveTabIdx}
                 items={[
                     {
-                        title: "Recommended",
-                        content: <Recommended />,
+                        title: "My Tasks",
+                        content: <MyTasks />,
                     },
                     {
-                        title: "Recent",
-                        content:
-                            myTasks?.result?.length === 0 ? (
-                                <Post />
-                            ) : (
-                                <Recent />
-                            ),
+                        title: "My Bookings",
+                        content: <MyBookings />,
                     },
                     {
-                        title: "In Progress",
-                        content: <Recommended />,
+                        title: "Task You May Like",
+                        content: <TaskYouMayLike />,
                     },
                     {
-                        title: "History",
-                        content: <Recommended />,
+                        title: "Payment History",
+                        content: <PaymentHistory />,
                     },
                     {
-                        title: "Draft",
-                        content: <Recommended />,
+                        title: "Help",
+                        content: <PaymentHistory />,
                     },
                 ]}
                 icons={[

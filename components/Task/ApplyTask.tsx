@@ -27,6 +27,7 @@ const ApplyTask = () => {
                     start_time={task?.start_time}
                     status={task?.status}
                     currency={task?.currency}
+                    slug={`/task/${task?.slug}`}
                 />
             );
         });
