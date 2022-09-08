@@ -216,17 +216,6 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                                 onApply={() => setShowModal(false)}
                             />
                         )}
-                        {/* <SimpleProfileCard
-                            id={taskDetail.id}
-                            image={taskDetail?.assigner?.profile_image}
-                            speciality={taskDetail?.category?.name}
-                            startingPrice={taskDetail?.budget_from}
-                            endPrice={taskDetail?.budget_to}
-                            isApplied={false}
-                            isPermission={false}
-                            currency={taskDetail?.currency}
-                            name={taskDetail?.assigner?.full_name}
-                        /> */}
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">

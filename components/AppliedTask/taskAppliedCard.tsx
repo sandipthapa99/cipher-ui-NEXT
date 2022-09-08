@@ -42,7 +42,7 @@ const TaskCard = ({ task, onTaskClick }: TaskCardProps) => {
                 <span className="title">{title}</span>
                 {budget_from && budget_to ? (
                     <span className="charge">
-                        {currency} {budget_from} - {budget_to}
+                        {currency.code} {budget_from} - {budget_to}
                         {budget_type === "Hourly"
                             ? "/hr"
                             : budget_type === "Monthly"
@@ -51,7 +51,7 @@ const TaskCard = ({ task, onTaskClick }: TaskCardProps) => {
                     </span>
                 ) : (
                     <span className="charge">
-                        {currency} {budget_to}
+                        {currency.code} {budget_to}
                     </span>
                 )}
             </div>

@@ -13,23 +13,9 @@ const ApplyTask = () => {
         "/task/"
     );
     const renderTasks = () =>
-        recommendedTasks?.data?.result?.map((task: any) => {
+        recommendedTasks?.data?.result?.map((task: any, index) => {
             // return <TaskCard key={index} {...task} />;
-            return (
-                <TaskCard
-                    key={task?.id}
-                    title={task?.title}
-                    id={task?.id}
-                    charge={task?.charge}
-                    description={task?.description}
-                    location={task?.location}
-                    start_date={task?.start_date}
-                    start_time={task?.start_time}
-                    status={task?.status}
-                    currency={task?.currency}
-                    slug={`/task/${task?.slug}`}
-                />
-            );
+            return <TaskCard key={index} task={task} />;
         });
     return (
         <div style={{ margin: "2rem 0 0 0 " }}>
