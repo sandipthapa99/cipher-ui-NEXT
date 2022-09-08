@@ -39,10 +39,10 @@ export const SecurityQuestions = () => {
 
     return (
         <>
-            <div className="d-flex justify-content-between security-toggle mt-5">
-                <h2>Security Question</h2>
+            {/* <div className="d-flex justify-content-between security-toggle mt-0">
+                <p className="">Security Question</p>
                 <FontAwesomeIcon icon={faPencil} className="svg-icon" />
-            </div>
+            </div> */}
             {/* <p className="mb-3 d-flex align-content-center"> */}
             {/* <Field
                     type="checkbox"
@@ -51,6 +51,7 @@ export const SecurityQuestions = () => {
                 />{" "} */}
             {/* Enabled
             </p> */}
+            {/* <p className="">Security Question</p> */}
             <p>Answer a question you choose to confirm it’s you.</p>
             <Formik
                 initialValues={{}}

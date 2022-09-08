@@ -2,10 +2,10 @@
     background: #fff;
     padding: 3rem;
     @include respond(md) {
-        padding: 5rem;
+         padding: 5rem;
     }
     @include respond(lg) {
-        padding: 8rem;
+     padding: 8rem;
     }
     .profile-img {
         // background-color: red;
