@@ -1,5 +1,6 @@
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { Tab } from "@components/common/Tab";
+import { MyBookings } from "@components/MyTasks/MyBookings";
 import { MyTasks } from "@components/MyTasks/MyTasks";
 import Post from "@components/PostTask/Post";
 import { Recent } from "@components/user/Recent";
@@ -44,12 +45,7 @@ const SearchBySort = () => {
                     },
                     {
                         title: "My Bookings",
-                        content:
-                            myTasks?.result?.length === 0 ? (
-                                <Post />
-                            ) : (
-                                <Recent />
-                            ),
+                        content: <MyBookings />,
                     },
                     {
                         title: "Task You May Like",
