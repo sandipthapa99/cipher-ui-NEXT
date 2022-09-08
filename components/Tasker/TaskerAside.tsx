@@ -36,9 +36,9 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
                             distance={"2 km"}
                             bio={tasker?.bio}
                             charge={
-                                tasker?.charge_currency +
-                                " " +
-                                tasker?.hourly_rate
+                                tasker?.charge_currency
+                                    ? `Rs ${tasker?.hourly_rate}`
+                                    : `$ ${tasker?.hourly_rate}`
                             }
                         />
                     </a>
