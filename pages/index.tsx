@@ -594,7 +594,7 @@ const Home: NextPage<{
                             ))}
                         </Grid>
                     )}
-                    {recommendedTasksData && (
+                    {!taskLoading && !recommendedTasksData && (
                         <Alert
                             icon={<FontAwesomeIcon icon={faWarning} />}
                             title="No data Available!"
