@@ -1,5 +1,6 @@
 import { faLocationDot } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ScrollArea } from "@mantine/core";
 import { useLocation } from "hooks/location/useLocation";
 import type { HTMLAttributes } from "react";
 import Map, {
@@ -59,34 +60,36 @@ export const MapboxMap = ({
         ));
     };
     return (
-        <div {...rest}>
-            <Map
-                mapboxAccessToken={getMapBoxToken()}
-                initialViewState={{
-                    longitude: longitude ?? coords?.data?.longitude,
-                    latitude: latitude ?? coords?.data?.latitude,
-                    zoom,
-                }}
-                style={{
-                    width: width ?? "100%",
-                    height: height ?? "600px",
-                    paddingBottom: "1rem",
-                }}
-                mapStyle="mapbox://styles/mapbox/streets-v11"
-            >
-                <NavigationControl />
-                <FullscreenControl />
-                <GeolocateControl />
-                <Popup
-                    longitude={longitude ?? coords?.data?.longitude ?? 0}
-                    latitude={latitude ?? coords?.data?.latitude ?? 0}
+        <ScrollArea.Autosize maxHeight={700} offsetScrollbars scrollbarSize={5}>
+            <div {...rest}>
+                <Map
+                    mapboxAccessToken={getMapBoxToken()}
+                    initialViewState={{
+                        longitude: longitude ?? coords?.data?.longitude,
+                        latitude: latitude ?? coords?.data?.latitude,
+                        zoom,
+                    }}
+                    style={{
+                        width: width ?? "100%",
+                        height: height ?? "600px",
+                        paddingBottom: "1rem",
+                    }}
+                    mapStyle="mapbox://styles/mapbox/streets-v11"
                 >
-                    You are here
-                </Popup>
-                {markerCoordinates && markerCoordinates.length > 0
-                    ? renderMultipleMarkers(markerCoordinates)
-                    : null}
-            </Map>
-        </div>
+                    <NavigationControl />
+                    <FullscreenControl />
+                    <GeolocateControl />
+                    <Popup
+                        longitude={longitude ?? coords?.data?.longitude ?? 0}
+                        latitude={latitude ?? coords?.data?.latitude ?? 0}
+                    >
+                        You are here
+                    </Popup>
+                    {markerCoordinates && markerCoordinates.length > 0
+                        ? renderMultipleMarkers(markerCoordinates)
+                        : null}
+                </Map>
+            </div>
+        </ScrollArea.Autosize>
     );
 };

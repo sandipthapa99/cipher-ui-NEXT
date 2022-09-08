@@ -8,8 +8,15 @@ export interface ITaskApiResponse {
     result: ITask[];
 }
 
+export interface Media {
+    id: number;
+    media: string;
+    media_type: "image" | "video" | "pdf";
+    placeholder: string;
+}
 export interface ITask {
     id: string;
+    title: string;
     category: any;
     location: any;
     assigner: {
@@ -18,11 +25,10 @@ export interface ITask {
         full_name: string;
         profile_image: string;
     };
-    currency: any;
+    currency: { id: number; code: string; name: number };
     created_at: string;
     updated_at: string;
     deleted_at: any;
-    title: string;
     description: string;
     charge?: number;
     requirements: string;
@@ -48,13 +54,9 @@ export interface ITask {
     meta_description?: string;
     meta_keyword: any;
     task_draft: any;
+    date: string;
+    time: string;
     applicants_count: number;
-    images: {
-        media: string;
-        placeholder: string;
-    }[];
-    videos: {
-        media: string;
-        placeholder: string;
-    }[];
+    images: Media[];
+    videos: Media[];
 }

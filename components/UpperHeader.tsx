@@ -129,7 +129,7 @@ export function UpperHeader() {
                             )}
                             {user && (
                                 <button
-                                    onClick={toggleShowPostTaskModal}
+                                    onClick={() => toggleShowPostTaskModal()}
                                     className="nav-cta-btn"
                                 >
                                     Post Task

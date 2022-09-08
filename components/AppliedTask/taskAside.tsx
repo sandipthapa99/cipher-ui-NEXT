@@ -2,7 +2,6 @@ import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, ScrollArea } from "@mantine/core";
-import { format } from "date-fns";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
@@ -30,21 +29,7 @@ const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
                     }
                 >
                     <a>
-                        <TaskAppliedCard
-                            title={task.title}
-                            startPrice={task.budget_from}
-                            endPrice={task?.budget_to}
-                            location={task.location}
-                            date={format(
-                                new Date(task.created_at),
-                                "dd MMM, yyyy"
-                            )}
-                            time={format(new Date(task.created_at), "HH : mm")}
-                            currency={task?.currency?.code}
-                            charge={task.charge?.toString() ?? "0"}
-                            taskId={task?.slug}
-                            budget_type={task?.budget_type}
-                        />
+                        <TaskAppliedCard task={task} />
                     </a>
                 </Link>
             </div>

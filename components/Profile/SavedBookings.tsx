@@ -17,18 +17,7 @@ const SavedBookings = () => {
             <Row>
                 {TasksData?.result?.map((task: any, key: any) => (
                     <Col sm="12" key={key}>
-                        <TaskCard
-                            title={task?.data?.title}
-                            id={task?.data?.id}
-                            charge={task?.data?.charge}
-                            description={task?.data?.description}
-                            location={task?.data?.location}
-                            start_date={task.data.start_date}
-                            start_time={task.data.start_time}
-                            status={task?.data?.status}
-                            currency={task?.data?.currency}
-                            slug={`/task/${task?.slug}`}
-                        />
+                        <TaskCard task={task} />
                     </Col>
                 ))}
             </Row>

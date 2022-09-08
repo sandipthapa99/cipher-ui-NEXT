@@ -59,40 +59,40 @@ const SearchBySort = () => {
                         content: <PaymentHistory />,
                     },
                 ]}
-                icons={[
-                    {
-                        index: 0,
-                        type: (
-                            <Popover width={300} trapFocus position="bottom">
-                                <Popover.Target>
-                                    <button className="btn">
-                                        <FontAwesomeIcon
-                                            icon={faMagnifyingGlass}
-                                            className="svg-icon"
-                                        />
-                                    </button>
-                                </Popover.Target>
-                                <Popover.Dropdown>
-                                    <RenderInputBox />
-                                </Popover.Dropdown>
-                            </Popover>
-                        ),
-                    },
-                    {
-                        index: 1,
-                        type: (
-                            <EllipsisDropdown
-                                showModal={true}
-                                handleOnClick={() => setShowModal(true)}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faFilterList}
-                                    className="svg-icon"
-                                />
-                            </EllipsisDropdown>
-                        ),
-                    },
-                ]}
+                // icons={[
+                //     {
+                //         index: 0,
+                //         type: (
+                //             <Popover width={300} trapFocus position="bottom">
+                //                 <Popover.Target>
+                //                     <button className="btn">
+                //                         <FontAwesomeIcon
+                //                             icon={faMagnifyingGlass}
+                //                             className="svg-icon"
+                //                         />
+                //                     </button>
+                //                 </Popover.Target>
+                //                 <Popover.Dropdown>
+                //                     <RenderInputBox />
+                //                 </Popover.Dropdown>
+                //             </Popover>
+                //         ),
+                //     },
+                //     {
+                //         index: 1,
+                //         type: (
+                //             <EllipsisDropdown
+                //                 showModal={true}
+                //                 handleOnClick={() => setShowModal(true)}
+                //             >
+                //                 <FontAwesomeIcon
+                //                     icon={faFilterList}
+                //                     className="svg-icon"
+                //                 />
+                //             </EllipsisDropdown>
+                //         ),
+                //     },
+                // ]}
             />
         </>
     );
