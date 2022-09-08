@@ -15,18 +15,7 @@ export const TaskYouMayLike = () => {
         <Row className="gx-5">
             {recommendedTasksData?.data?.result?.map((task: any, key) => (
                 <Col md={12} key={key}>
-                    <TaskCard
-                        title={task?.title}
-                        id={task?.id}
-                        charge={task?.charge}
-                        description={task?.description}
-                        location={task?.location}
-                        start_date={task?.start_date}
-                        start_time={task?.start_time}
-                        status={task?.status}
-                        currency={task?.currency}
-                        slug={`/${task?.slug}`}
-                    />
+                    <TaskCard task={task} />
                 </Col>
             ))}
         </Row>
