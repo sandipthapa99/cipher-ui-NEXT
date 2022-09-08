@@ -8,7 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
-interface menu {
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
+interface Menu {
     item: string;
     onClick: string;
     redirectTo?: string;
@@ -16,10 +17,11 @@ interface menu {
 interface DropdownProps {
     children?: ReactNode;
     showModal?: boolean;
-    menu?: menu[];
+    menu?: Menu[];
     handleOnClick?: () => void;
 }
 const EllipsisDropdown = ({ children, handleOnClick, menu }: DropdownProps) => {
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     return (
         <div className="ellipsis">
             <Dropdown>
@@ -75,7 +77,7 @@ const EllipsisDropdown = ({ children, handleOnClick, menu }: DropdownProps) => {
                         <>
                             <Dropdown.Item
                                 href="#/action-1"
-                                onClick={handleOnClick}
+                                onClick={() => toggleShowPostTaskModal("EDIT")}
                                 className="d-flex align-items-center"
                             >
                                 <FontAwesomeIcon

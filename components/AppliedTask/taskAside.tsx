@@ -30,21 +30,7 @@ const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
                     }
                 >
                     <a>
-                        <TaskAppliedCard
-                            title={task.title}
-                            startPrice={task.budget_from}
-                            endPrice={task?.budget_to}
-                            location={task.location}
-                            date={format(
-                                new Date(task.created_at),
-                                "dd MMM, yyyy"
-                            )}
-                            time={format(new Date(task.created_at), "HH : mm")}
-                            currency={task?.currency?.code}
-                            charge={task.charge?.toString() ?? "0"}
-                            taskId={task?.slug}
-                            budget_type={task?.budget_type}
-                        />
+                        <TaskAppliedCard task={task} />
                     </a>
                 </Link>
             </div>
