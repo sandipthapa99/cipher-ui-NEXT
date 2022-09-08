@@ -44,13 +44,13 @@ const TaskCard = ({
     const formattedtime = getDateFromHours(start_time);
     return (
         <div className="task-card-block p-5">
-            <Link href={`/task/${slug}` ?? "/"}>
+            <Link href={`${slug}`}>
                 <a>
                     <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                         <h1 className="title">{title}</h1>
-                        <h1 className="charge">
-                            {currency ? currency : "Rs"} {charge}
-                        </h1>
+                        <h2 className="charge">
+                            {currency ? currency.code : "Rs"} {charge}
+                        </h2>
                     </div>
                     <div className="task-card-block__body">
                         <p className="task-description">{description}</p>

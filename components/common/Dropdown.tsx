@@ -101,7 +101,9 @@ export const Dropdown = ({ children }: DropdownProps) => {
                                 setIsNestedSubMenuOpened(false);
                             }}
                             className="dropdown-menu-item-link"
-                        >{`${menu} (${sub?.child?.length})`}</a>
+                        >
+                            {`${sub.name}`}{" "}
+                        </a>
                     </Link>
                 </li>
             );
@@ -116,7 +118,9 @@ export const Dropdown = ({ children }: DropdownProps) => {
                             setIsNestedSubMenuOpened(false);
                         }}
                         className="dropdown-menu-item-link"
-                    >{`${menu} (${sub?.child?.length})`}</a>
+                    >
+                        {`${sub.name}`}{" "}
+                    </a>
                 </Link>
             </li>
         );
@@ -152,7 +156,12 @@ export const Dropdown = ({ children }: DropdownProps) => {
                             }}
                             onMouseOver={onHandleDropdown}
                             className="dropdown-menu-item-link"
-                        >{`${menu} (${sub?.child?.length})`}</a>
+                        >
+                            {`${sub.name}`}{" "}
+                            {sub?.child?.length > 0
+                                ? `(${sub?.child?.length})`
+                                : ""}
+                        </a>
                     </Link>
                     <FontAwesomeIcon
                         icon={faChevronRight}
@@ -171,7 +180,12 @@ export const Dropdown = ({ children }: DropdownProps) => {
                             setIsNestedSubMenuOpened(false);
                         }}
                         className="dropdown-menu-item-link"
-                    >{`${menu} (${sub?.child?.length})`}</a>
+                    >
+                        {`${sub.name}`}
+                        {sub?.child?.length > 0
+                            ? `(${sub?.child?.length})`
+                            : ""}
+                    </a>
                 </Link>
             </li>
         );
