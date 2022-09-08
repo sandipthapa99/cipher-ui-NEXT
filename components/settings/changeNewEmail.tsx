@@ -1,38 +1,51 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
+import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { Button } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { axiosClient } from "utils/axiosClient";
 import { isSubmittingClass } from "utils/helpers";
 
 export const ChangeNewEmail = () => {
+    const changeEmail = useMutation((values: any) => {
+        return axiosClient.post("/tasker/change-email/", values);
+    });
     return (
         <div className=" p-0">
             <Formik
                 initialValues={{
-                    current_email: "",
-                    new_email: "",
-                    confirm_password: "",
+                    email: "",
+                    // new_email: "",
+                    // confirm_password: "",
                 }}
                 //validationSchema={changePasswordFormSchema}
                 onSubmit={async (values, action) => {
-                    console.log(values);
-                    action.resetForm();
+                    changeEmail.mutate(values, {
+                        onSuccess: () => {
+                            toast.success("Email changed successfully");
+                            action.resetForm();
+                        },
+                        onError: (err: any) => {
+                            toast.error(err.message);
+                        },
+                    });
                 }}
             >
                 {({ isSubmitting, errors, touched, resetForm }) => (
                     <Form autoComplete="off">
                         <InputField
-                            name="current_email"
+                            name="email"
                             type="text"
-                            labelName="Current Email"
-                            error={errors.current_email}
-                            touch={touched.current_email}
-                            placeHolder="Current Email"
+                            labelName="Email"
+                            error={errors.email}
+                            touch={touched.email}
+                            placeHolder="Email"
                             fieldRequired
                             required={true}
                         />
-                        <InputField
+                        {/* <InputField
                             type="text"
                             name="new_email"
                             labelName="New Email"
@@ -51,7 +64,7 @@ export const ChangeNewEmail = () => {
                             placeHolder="Confirm Password"
                             fieldRequired
                             required={true}
-                        />
+                        /> */}
 
                         {/* <PasswordField
                             name="confirm_password"
