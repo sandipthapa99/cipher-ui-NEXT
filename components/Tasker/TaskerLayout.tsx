@@ -30,11 +30,6 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
     const clearSearchedServices = useClearSearchedServices();
     const searchQuery = useSearchQuery();
 
-    const { data, isLoading } = useData<TaskerProps>(
-        ["all-tasker"],
-        "/tasker/"
-    );
-
     const { data: searchData = [] } = useSearchTasker(query);
     const handleSearchChange = (query: string) => {
         clearSearchQuery();
@@ -53,11 +48,7 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
                         </Highlight>
                     )}
                     <Space h={10} />
-                    <TaskerAside
-                        query={query}
-                        tasker={searchData}
-                        isLoading={isLoading || !data}
-                    >
+                    <TaskerAside query={query} tasker={searchData}>
                         {children}
                     </TaskerAside>
                 </Container>

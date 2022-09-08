@@ -11,7 +11,6 @@ interface TaskerAsideProps {
     children: ReactNode;
     tasker: TaskerProps["result"];
     query: string;
-    isLoading: boolean;
 }
 const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
     const totalAppliedTasks = tasker?.length;
