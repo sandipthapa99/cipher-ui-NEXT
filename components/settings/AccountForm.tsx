@@ -224,7 +224,6 @@ const AccountForm = () => {
             },
         });
     };
-    console.log("is update click", isEditButtonClicked);
     let previewImage: any;
     //profile success modal
     const [show, setShow] = useState(false);
@@ -239,6 +238,7 @@ const AccountForm = () => {
             return true;
         }
     }
+    console.log("profile=", profile);
 
     return (
         <>
@@ -799,6 +799,7 @@ const AccountForm = () => {
                                         ? profile.charge_currency?.id.toString()
                                         : currencyChange
                                 }
+                                //value={currencyChange}
                                 onChange={(value) =>
                                     handleCurrencyChanged(value, setFieldValue)
                                 }
