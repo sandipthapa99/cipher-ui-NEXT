@@ -32,10 +32,11 @@ const Gardening = ({
 }) => {
     const router = useRouter();
     const categories = router.query.categories;
+
     const category = (
         (serviceData?.length > 0 ? serviceData : taskData) as any[]
     )?.find((item) => item?.category?.slug === categories);
-    const categoryName = category ? category.category.name : " ";
+    const categoryName = category ? category.category.name : categories;
 
     return (
         <Layout
@@ -154,7 +155,7 @@ const Gardening = ({
                                             start_time={task?.start_time}
                                             status={task?.status}
                                             currency={task?.currency}
-                                            slug={task?.slug}
+                                            slug={`/task/${task?.slug}`}
                                         />
                                     </Col>
                                 ))}

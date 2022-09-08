@@ -21,6 +21,7 @@ import {
     faMagnifyingGlass,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Carousel } from "@mantine/carousel";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useIsBookmarked } from "hooks/use-bookmarks";
@@ -29,7 +30,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
+import type { ITask } from "types/task";
 import { axiosClient } from "utils/axiosClient";
+import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
 import { TeamMembersSection } from "./TeamMembersSection";
@@ -55,14 +58,22 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
 
     const slug = router?.query?.slug as string;
 
-    const { data: taskDetail } = useQuery(["task-detail", slug], async () => {
-        const response = await axiosClient.get(`/task/${slug}`);
-        return response?.data;
-    });
-
-    const requirements = taskDetail?.requirements?.split(",");
+    const { data: taskDetail } = useQuery(
+        ["task-detail", slug],
+        async () => {
+            const { data } = await axiosClient.get<ITask>(`/task/${slug}`);
+            return data;
+        },
+        { initialData: {} as ITask }
+    );
 
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
+    const hasMultipleImages = taskDetail?.images?.length > 1;
+
+    const taskRequirements = safeParse<Array<{ id: string; title: string }>>({
+        rawString: taskDetail.requirements,
+        initialData: [],
+    });
 
     if (!taskDetail) {
         return <UserLoadingOverlay />;
@@ -78,12 +89,11 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
-                        <span className="pb-3 pb-sm-0 provider-name">
-                            {format(
-                                new Date(taskDetail?.created_at),
-                                "dd MMM, yyyy - hh:mm a"
-                            )}
-                        </span>
+                        {taskDetail.created_at && (
+                            <span className="pb-3 pb-sm-0 provider-name">
+                                {format(new Date(taskDetail?.created_at), "PP")}
+                            </span>
+                        )}
                         <div className="d-flex justify-content-between align-items-center">
                             <SaveIcon
                                 object_id={taskDetail?.id}
@@ -137,14 +147,42 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        <figure className="thumbnail-img">
-                            <Image
-                                src="/service-details/Garden.svg"
-                                layout="fill"
-                                objectFit="cover"
-                                alt="garden-image"
-                            />
-                        </figure>
+                        {(taskDetail?.images ?? []).length > 0 ? (
+                            <Carousel
+                                withIndicators
+                                withControls={hasMultipleImages}
+                                draggable={hasMultipleImages}
+                                styles={{
+                                    control: {
+                                        "&[data-inactive]": {
+                                            opacity: 0,
+                                            cursor: "default",
+                                        },
+                                    },
+                                }}
+                            >
+                                {taskDetail.images.map((image, key) => (
+                                    <Carousel.Slide key={key}>
+                                        <figure className="thumbnail-img">
+                                            <Image
+                                                src={image.media}
+                                                alt={image.placeholder}
+                                                layout="fill"
+                                            />
+                                        </figure>
+                                    </Carousel.Slide>
+                                ))}
+                            </Carousel>
+                        ) : (
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src="/service-details/Garden.svg"
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="garden-image"
+                                />
+                            </figure>
+                        )}
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         {taskDetail && (
@@ -179,32 +217,23 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                                 : "Buddhanagar, Kathmandu"}
                         </span>
                     </p>
-                    <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faCalendar}
-                            className="svg-icon svg-icon-calender"
-                        />
-                        <span>
-                            {" "}
-                            {format(
-                                new Date(taskDetail?.start_date),
-                                "dd MMM, yyyy"
-                            )}
-                        </span>
-                    </p>
-
-                    {taskDetail?.start_time ? (
-                        <p className="d-flex align-items-center">
+                    {taskDetail?.created_at && (
+                        <p>
                             <FontAwesomeIcon
-                                icon={faClockEight}
-                                className="svg-icon svg-icon-clock"
+                                icon={faCalendar}
+                                className="svg-icon svg-icon-calender"
                             />
-                            <span>{taskDetail?.start_time}</span>
+                            {format(new Date(taskDetail?.created_at), "PP")}
                         </p>
-                    ) : (
-                        ""
                     )}
-                    <p className="d-flex align-items-center">
+                    <p>
+                        <FontAwesomeIcon
+                            icon={faClockEight}
+                            className="svg-icon svg-icon-clock"
+                        />
+                        {taskDetail?.start_time}
+                    </p>
+                    <p>
                         <FontAwesomeIcon
                             icon={faEye}
                             className="svg-icon svg-icon-eye"
@@ -227,12 +256,11 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {requirements &&
-                        requirements.map((name: string, index: number) => (
-                            <div key={index}>
-                                <ServiceHighlights title={name} />
-                            </div>
-                        ))}
+                    {taskRequirements.map(({ id, title }) => (
+                        <div key={id}>
+                            <ServiceHighlights title={title} />
+                        </div>
+                    ))}
                 </div>
 
                 <TeamMembersSection />

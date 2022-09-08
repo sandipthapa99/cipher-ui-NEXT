@@ -21,9 +21,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const { mutate } = useLeaveTask();
 
     const [showModal, setShowModal] = useState(false);
-    const [priceValue, setPriceValue] = useState(25);
-    const [priceChanged, setPriceChanged] = useState(false);
-    const [isWorking, setIsWorking] = useState(false);
 
     const appliedTask = appliedTasks.find(
         (appliedTask) => appliedTask.task === task.id && appliedTask.is_active
@@ -41,7 +38,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
             }
         );
     };
-    const isUserTask = task.assigner.id === user?.id;
+    const isUserTask = task?.assigner?.id === user?.id;
 
     const handleViewApplicants = () => {
         toast.success("You have no applicants yet.");
@@ -53,7 +50,9 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 <figure className="thumbnail-img">
                     <Image
                         src={
-                            task.image ? task.image : "/hireinnepal/footer.png"
+                            task?.assigner?.profile_image
+                                ? task?.assigner?.profile_image
+                                : "/hireinnepal/footer.png"
                         }
                         layout="fill"
                         objectFit="cover"
@@ -62,7 +61,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 </figure>
 
                 <div className="intro">
-                    <p className="name">{task.title}</p>
+                    <p className="name">{task?.assigner?.full_name}</p>
                     <p className="job">{task.status}</p>
                 </div>
             </div>
