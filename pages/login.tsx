@@ -7,6 +7,7 @@ import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
@@ -51,6 +52,9 @@ const Login = () => {
         setIsPhoneNumber(false);
     };
 
+    const { data: profile } = useGetProfile();
+    console.log("have profile=", profile);
+
     return (
         <section>
             <OnBoardingLayout
@@ -85,8 +89,20 @@ const Login = () => {
                                     await router.push(
                                         typeof next === "string"
                                             ? next
-                                            : "/home"
+                                            : "/settings/account/individual"
                                     );
+                                    // !profile
+                                    //     ? await router.push(
+                                    //           typeof next === "string"
+                                    //               ? next
+                                    //               : "/settings/account/individual"
+                                    //       )
+                                    //     : await router.push(
+                                    //           typeof next === "string"
+                                    //               ? next
+                                    //               : "/home"
+                                    //       );
+
                                     toast.success("Login Successful!");
                                 },
                             });

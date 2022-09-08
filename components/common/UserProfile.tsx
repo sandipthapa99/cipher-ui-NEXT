@@ -59,7 +59,6 @@ const UserProfileCard = ({
     const [showEditForm, setShowEditForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
     const [image, setImage] = useState();
-    const [showModal, setShowModal] = useState(false);
     const services = moreServices ? JSON.parse(moreServices) : [];
     const queryClient = useQueryClient();
     // const renderServices: string[] | undefined = services?.map(

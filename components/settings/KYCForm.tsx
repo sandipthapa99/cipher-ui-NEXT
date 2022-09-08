@@ -1,47 +1,54 @@
-import { CustomDropZone } from "@components/common/CustomDropZone";
-import DatePickerField from "@components/common/DateTimeField";
-import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { format, parseISO } from "date-fns";
+import type { SelectItem } from "@mantine/core";
+import { Select } from "@mantine/core";
 import { Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useKYC } from "hooks/profile/kyc/useKYC";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
 import { isSubmittingClass } from "utils/helpers";
 
 import { IdentityDocument } from "./IdentityDocument";
 
-const dropdownCountryOptions = [
-    { id: 1, label: "Citizenship ", value: "citizenship" },
-    { id: 2, label: "Passport", value: "passport" },
-    { id: 3, label: "Pan Card", value: "pancard" },
-];
+// const dropdownCountryOptions = [
+//     { id: 1, label: "Citizenship ", value: "citizenship" },
+//     { id: 2, label: "Passport", value: "passport" },
+//     { id: 3, label: "Pan Card", value: "pancard" },
+// ];
 
 const KYCForm = () => {
-    const toggleSuccessModal = useToggleSuccessModal();
     const { data: KYCData } = useGetKYC();
 
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();
     const [showDocument, setShowDocument] = useState(false);
 
-    const countryResults = countryName?.result.map((result) => ({
-        label: result.name,
-        value: result.id,
-        id: result.id,
-    }));
+    const { data: profileDetails } = useGetProfile();
+    const [countryChange, setCountryChange] = useState<string | null>(null);
 
+    const countryResults: SelectItem[] = countryName
+        ? countryName.result.map((result) => ({
+              label: result?.name,
+              value: result?.id.toString(),
+              id: result?.id,
+          }))
+        : ([] as SelectItem[]);
+    //handle country change
+    const handleCountryChanged = (
+        id: string | null,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setCountryChange(id);
+        if (id) setFieldValue("country", parseInt(id));
+    };
     return (
         <>
             {/* Modal component */}
@@ -50,9 +57,9 @@ const KYCForm = () => {
                 <Formik
                     enableReinitialize={true}
                     initialValues={{
-                        full_name: KYCData?.full_name ?? "",
-                        address: KYCData?.address ?? "",
-                        country: KYCData?.country ?? "",
+                        full_name: profileDetails?.full_name ?? "",
+                        address: profileDetails?.address_line1 ?? "",
+                        country: profileDetails?.country ?? "",
                         company: "",
                         // passport_size_photo: "",
                         // personal_address_verification_document: "",
@@ -134,7 +141,9 @@ const KYCForm = () => {
                                 error={errors.full_name}
                                 touch={touched.full_name}
                                 placeHolder="Enter your Full Name"
-                                disabled={KYCData?.full_name ? true : false}
+                                disabled={
+                                    profileDetails?.full_name ? true : false
+                                }
                             />
                             <InputField
                                 type="text"
@@ -143,9 +152,11 @@ const KYCForm = () => {
                                 error={errors.address}
                                 touch={touched.address}
                                 placeHolder="Enter your Address"
-                                disabled={KYCData?.address ? true : false}
+                                disabled={
+                                    profileDetails?.address_line1 ? true : false
+                                }
                             />
-                            <SelectInputField
+                            {/* <SelectInputField
                                 name="country"
                                 labelName="Country"
                                 touch={touched.country}
@@ -153,7 +164,23 @@ const KYCForm = () => {
                                 placeHolder="Select Identity Type"
                                 options={countryResults}
                                 disabled={KYCData?.country ? true : false}
+                            /> */}
+                            <Select
+                                label="Country"
+                                placeholder="Pick one"
+                                name="country"
+                                disabled={
+                                    profileDetails?.country ? true : false
+                                }
+                                searchable
+                                nothingFound="No result found."
+                                value={countryChange}
+                                onChange={(value) =>
+                                    handleCountryChanged(value, setFieldValue)
+                                }
+                                data={countryResults ?? []}
                             />
+
                             {/* <h5>Bank Details (Optional)</h5>
                             <InputField
                                 name="bank_name"

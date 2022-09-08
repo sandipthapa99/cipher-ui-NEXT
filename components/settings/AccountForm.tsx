@@ -5,13 +5,19 @@ import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
 import { PostCard } from "@components/PostTask/PostCard";
+import PhotoEdit from "@components/Profile/PhotoEdit";
 import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { Select } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
+import {
+    QueryClient,
+    useMutation,
+    useQuery,
+    useQueryClient,
+} from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
@@ -30,11 +36,14 @@ import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
+import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import { axiosClient } from "utils/axiosClient";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 import { FillKyc } from "./FillKyc";
+import { CompleteProfile } from "./ProfileForm";
+import ProfileSuccessModalCard from "./ProfileSuccessModal";
 
 const task_preferences = [
     { id: 1, label: "Part time", value: "partTime" },
@@ -71,15 +80,15 @@ const profile_visibility = [
 
 const AccountForm = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
-    const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
     const { data: KYCData } = useGetKYC();
-    const [countryIdValues, setCountryIdValue] = useState<number>();
+    const [image, setImage] = useState();
     const inputRef = useRef<HTMLInputElement>(null);
+    const [showAccountForm, setShowAccountForm] = useState(false);
 
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
     const onButtonClick = () => {
@@ -96,15 +105,12 @@ const AccountForm = () => {
         });
     };
     const country = profile?.country ? profile?.country : "";
-    console.log("countr", country, profile);
-    const { data: countryId } = useGetCountryBYId(country);
-    console.log("country idddd=", countryId);
+    //const { data: countryId } = useGetCountryBYId(country);
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
     };
-    // countryId ?? setCountryIdValue(countryId);
-    //  console.log("country id =", countryId);
+
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
 
@@ -138,6 +144,7 @@ const AccountForm = () => {
     const [countryChange, setCountryChange] = useState<string | null>(null);
     const [languageChange, setLanguageChange] = useState<string | null>(null);
     const [currencyChange, setCurrencyChange] = useState<string | null>(null);
+    const [showEditForm, setShowEditForm] = useState(false);
 
     const currencyResults: SelectItem[] = currency
         ? currency.result.map((result) => {
@@ -167,7 +174,6 @@ const AccountForm = () => {
 
     //find the country
     const foundCountry = countryResults.find((item) => item.label === country);
-    console.log("foundCountry", foundCountry);
 
     //handle country change
     const handleCountryChanged = (
@@ -201,11 +207,50 @@ const AccountForm = () => {
     // const { data: countryID } = useGetCountryBYId(parseInt(countryChange));
     // console.log("data country change", countryID);
 
+    const queryClient = useQueryClient();
+
+    const editProfile = useMutation((data: ProfileEditValueProps) =>
+        axiosClient.patch("/tasker/profile/", data)
+    );
+    const onEditProfile = (data: any) => {
+        const formData: FormData = new FormData();
+        formData.append("profile_image", data);
+        data = formData;
+        editProfile.mutate(data, {
+            onSuccess: (data) => {
+                queryClient.invalidateQueries(["profile"]);
+                setShowEditForm(false);
+                toast.success(data?.data?.message);
+            },
+            onError: (error: any) => {
+                toast.error(data?.data?.message);
+            },
+        });
+    };
+
+    //profile success modal
+    const [show, setShow] = useState(false);
+
     return (
         <>
-            {!KYCData ? <FillKyc onClick={scrollToKyc} /> : ""}
+            {!KYCData && profile ? <FillKyc onClick={scrollToKyc} /> : ""}
+            <ProfileSuccessModalCard
+                show={show}
+                setShowForm={setShow}
+                onClick={scrollToKyc}
+            />{" "}
+            {!profile ? (
+                <CompleteProfile onClick={() => setShowAccountForm(true)} />
+            ) : (
+                ""
+            )}
             {/* Modal component */}
-            <div className="account-form">
+            <div
+                className={"account-form"}
+                style={
+                    showAccountForm ? { display: "block" } : { display: "none" }
+                }
+            >
                 <Formik
                     enableReinitialize={true}
                     initialValues={{
@@ -267,7 +312,8 @@ const AccountForm = () => {
 
                         mutate(formData, {
                             onSuccess: () => {
-                                toggleSuccessModal();
+                                // toggleSuccessModal();
+                                setShow(true);
                             },
                             onError: (err) => {
                                 toast.error(err.message);
@@ -288,7 +334,7 @@ const AccountForm = () => {
                         <Form autoComplete="off">
                             {/* <pre>{JSON.stringify(errors, null, 4)}</pre>
                             <pre>{JSON.stringify(values, null, 4)}</pre> */}
-                            <figure className="profile-img mx-auto">
+                            {/* <figure className="profile-img mx-auto">
                                 <FontAwesomeIcon
                                     icon={faBadgeCheck}
                                     className="badge-icon"
@@ -330,8 +376,61 @@ const AccountForm = () => {
                                     objectFit="cover"
                                     priority={true}
                                 />
-                            </figure>
+                            </figure> */}
+                            <figure className="profile-img mx-auto">
+                                {profile?.is_profile_verified ?? (
+                                    <FontAwesomeIcon
+                                        icon={faBadgeCheck}
+                                        className="badge-icon"
+                                    />
+                                )}
+                                <div
+                                    className="img-dragdrop d-flex align-items-center justify-content-center"
+                                    onClick={onButtonClick}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faCamera}
+                                        className="camera-icon"
+                                    />
+                                    <input
+                                        hidden
+                                        type="file"
+                                        name="profile_image"
+                                        ref={inputRef}
+                                        onChange={(e: any) => {
+                                            const files = e.target.files;
+                                            setFieldValue(
+                                                "profile_image",
+                                                files[0]
+                                            );
+                                            setImage(files[0]);
+                                            //console.log("image=", files[0]);
+                                            //setShowEditForm(!showEditForm);
+                                        }}
+                                    />
+                                </div>
 
+                                <Image
+                                    // src={"/userprofile/unknownPerson.jpg"}
+                                    src={
+                                        profile && profile.profile_image
+                                            ? profile.profile_image
+                                            : "/userprofile/unknownPerson.jpg"
+                                    }
+                                    layout="fill"
+                                    alt="profile-pic"
+                                    className="rounded-circle"
+                                    objectFit="cover"
+                                    priority={true}
+                                />
+                            </figure>
+                            <PhotoEdit
+                                photo={image}
+                                show={showEditForm}
+                                setShowEditForm={setShowEditForm}
+                                handleClose={() => setShowEditForm(false)}
+                                handleSubmit={() => onEditProfile(image)}
+                            />
                             <InputField
                                 type="text"
                                 name="full_name"
@@ -476,9 +575,9 @@ const AccountForm = () => {
                             /> */}
                             <Select
                                 label="Country"
-                                placeholder={
-                                    profile ? profile.country : "Pick One"
-                                }
+                                // placeholder={
+                                //     profile ? profile.country : "Pick One"
+                                // }
                                 name="country"
                                 searchable
                                 nothingFound="No result found."
