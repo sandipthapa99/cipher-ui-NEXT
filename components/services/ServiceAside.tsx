@@ -13,6 +13,8 @@ interface ServiceAside {
     query: string;
 }
 const ServiceAside = ({ service, query, children }: ServiceAside) => {
+    console.log("🚀 ~ file: ServiceAside.tsx ~ line 22 ~ service", service);
+
     const totalAppliedTasks = service?.length;
     const renderTaskCards = service?.map((task, key) => {
         return (
