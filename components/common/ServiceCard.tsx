@@ -90,7 +90,12 @@ const ServiceCard = ({
                         </a>
                     </Link>
                     <h3 className="card-subtitle">
-                        <Spoiler maxHeight={15} hideLabel={""} showLabel={""}>
+                        <Spoiler
+                            maxHeight={15}
+                            hideLabel={""}
+                            showLabel={""}
+                            className="card-wrapper d-flex"
+                        >
                             <Link
                                 href={`/tasker/${serviceCard?.created_by?.id}`}
                             >
@@ -100,7 +105,7 @@ const ServiceCard = ({
                                     </span>{" "}
                                 </a>
                             </Link>
-                            | {serviceCard?.location}
+                            <span> | {serviceCard?.location}</span>
                         </Spoiler>
                     </h3>
                     <Link href={`/service/${serviceCard.slug}`}>

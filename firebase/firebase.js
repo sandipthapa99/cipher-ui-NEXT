@@ -22,7 +22,6 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const firebaseCloudMessaging = {
     tokenInlocalforage: async () => {
         const token = await localforage.getItem("fcm_token");
-        console.log("fcm_token tokenInlocalforage", token);
         return token;
     },
     onMessage: async () => {
@@ -37,10 +36,8 @@ const firebaseCloudMessaging = {
     init: async function () {
         try {
             if ((await this.tokenInlocalforage()) !== null) {
-                console.log("it already exists");
                 return false;
             }
-            console.log("it is creating it.");
             const messaging = getMessaging(app);
             await Notification.requestPermission();
             getToken(messaging, {
