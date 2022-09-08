@@ -59,7 +59,7 @@ export const Collaboration = () => {
                                 location={item?.user?.location}
                                 distance={"2 km"}
                                 bio={item?.user?.bio}
-                                charge={item?.price}
+                                charge_currency={item?.price}
                                 collabButton={true}
                                 handleButtonClick={handleOpen}
                                 tasker={""}
