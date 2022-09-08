@@ -49,31 +49,39 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
     return (
         <div className="search-results">
             <Row>
-                <Col md={4}>
-                    <>
-                        {query && totalAppliedTasks > 0 ? (
-                            <p className="search-results-text">
-                                {`${totalAppliedTasks} service matching ${query} found`}
-                            </p>
-                        ) : null}
+                <Col md={4} className="left">
+                    <ScrollArea.Autosize
+                        maxHeight={700}
+                        offsetScrollbars
+                        scrollbarSize={5}
+                    >
+                        <>
+                            {query && totalAppliedTasks > 0 ? (
+                                <p className="search-results-text">
+                                    {`${totalAppliedTasks} service matching ${query} found`}
+                                </p>
+                            ) : null}
 
-                        {!query && totalAppliedTasks === 0 ? (
-                            <Fragment>
-                                {Array.from({ length: 3 }).map((_, key) => (
-                                    <SkeletonTaskerCard key={key} />
-                                ))}
-                            </Fragment>
-                        ) : (
-                            renderTaskCards
-                        )}
-                        {query && totalAppliedTasks === 0 ? (
-                            <p className="search-results-text">
-                                No services matching {query} found
-                            </p>
-                        ) : null}
-                    </>
+                            {!query && totalAppliedTasks === 0 ? (
+                                <Fragment>
+                                    {Array.from({ length: 3 }).map((_, key) => (
+                                        <SkeletonTaskerCard key={key} />
+                                    ))}
+                                </Fragment>
+                            ) : (
+                                renderTaskCards
+                            )}
+                            {query && totalAppliedTasks === 0 ? (
+                                <p className="search-results-text">
+                                    No services matching {query} found
+                                </p>
+                            ) : null}
+                        </>
+                    </ScrollArea.Autosize>
                 </Col>
-                <Col md={8}>{children}</Col>
+                <Col md={8} className="right">
+                    {children}
+                </Col>
             </Row>
         </div>
     );
