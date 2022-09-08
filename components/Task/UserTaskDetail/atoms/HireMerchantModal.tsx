@@ -6,12 +6,22 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormCheck, Modal } from "react-bootstrap";
 import { DUMMY_CLIENT_PROJECTS } from "staticData/clientProjects";
+import type { TaskerDetails } from "staticData/taskDetail";
 
 interface HireMerchantModalProps {
     show: boolean;
     onHide: () => void;
+    taskerDetail: TaskerDetails;
 }
-export const HireMerchantModal = ({ show, onHide }: HireMerchantModalProps) => {
+export const HireMerchantModal = ({
+    show,
+    onHide,
+    taskerDetail,
+}: HireMerchantModalProps) => {
+    console.log(
+        "🚀 ~ file: HireMerchantModal.tsx ~ line 21 ~ taskerDetail",
+        taskerDetail
+    );
     const renderClientProjects = () => {
         return DUMMY_CLIENT_PROJECTS.map((project, index) => (
             <div className="hmm-client-project" key={index}>
@@ -65,16 +75,17 @@ export const HireMerchantModal = ({ show, onHide }: HireMerchantModalProps) => {
             </Modal.Header>
             <Modal.Body>
                 <p className="mb-16">
-                    <span className="hmm-label-text">Merchant : </span>
-                    <span className="hmm-value-text">
-                        {"offered services here"}
+                    <span className="hmm-label-text">
+                        Merchant : {taskerDetail?.full_name}
                     </span>
                 </p>
                 <p className="mb-16">
-                    <span className="hmm-label-text">Address: </span>
-                    <span className="hmm-value-text">{"location here"}</span>
+                    <span className="hmm-label-text">
+                        Address: {taskerDetail?.address_line1}{" "}
+                        {taskerDetail?.address_line2}
+                    </span>
                 </p>
-                <p className="hmm-value-text">{"merchant bio here"}</p>
+                <p className="hmm-value-text">{taskerDetail?.bio}</p>
                 <span className="divider hmm-divider" />
                 <p className="hmm-label-text mb-8">Select Task</p>
                 <p className="hmm-label-text">

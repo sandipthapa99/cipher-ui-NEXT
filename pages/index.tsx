@@ -664,7 +664,7 @@ const Home: NextPage<{
                         className="rounded"
                         withIndicators
                     >
-                        {successStoryData?.result.map((value, key) => (
+                        {successStoryData?.result?.map((value, key) => (
                             <Carousel.Slide key={key}>
                                 <PersonalSuccessCard successStoryData={value} />
                             </Carousel.Slide>
@@ -851,11 +851,13 @@ const Home: NextPage<{
                     <Row className="g-5">
                         {topCategoryData.map((category, key) => (
                             <Col md={2} key={key}>
-                                <span className="bg-danger">
+                                <div className="d-flex justify-content-center top-categories">
                                     <Link href={`/category/${category.slug}`}>
-                                        <a>{category.category}</a>
+                                        <a>
+                                            <span>{category.category}</span>
+                                        </a>
                                     </Link>
-                                </span>
+                                </div>
                             </Col>
                         ))}
                     </Row>

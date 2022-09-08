@@ -1,6 +1,8 @@
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import SkeletonTaskerCard from "@components/Skeletons/SkeletonTaskerCard";
-import { ScrollArea } from "@mantine/core";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, ScrollArea } from "@mantine/core";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
@@ -11,8 +13,14 @@ interface TaskerAsideProps {
     children: ReactNode;
     tasker: TaskerProps["result"];
     query: string;
+    isLoading: boolean;
 }
-const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
+const TaskerAside = ({
+    tasker,
+    query,
+    children,
+    isLoading,
+}: TaskerAsideProps) => {
     const totalAppliedTasks = tasker?.length;
     const renderTaskCards = tasker?.map((tasker, key) => {
         return (
@@ -56,20 +64,31 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
                         scrollbarSize={5}
                     >
                         <>
+                            {isLoading && (
+                                <Fragment>
+                                    {Array.from({ length: 3 }).map((_, key) => (
+                                        <SkeletonTaskerCard key={key} />
+                                    ))}
+                                </Fragment>
+                            )}
                             {query && totalAppliedTasks > 0 ? (
                                 <p className="search-results-text">
                                     {`${totalAppliedTasks} service matching ${query} found`}
                                 </p>
                             ) : null}
 
-                            {!query && totalAppliedTasks === 0 ? (
-                                <Fragment>
-                                    {Array.from({ length: 3 }).map((_, key) => (
-                                        <SkeletonTaskerCard key={key} />
-                                    ))}
-                                </Fragment>
-                            ) : (
-                                renderTaskCards
+                            {!query && totalAppliedTasks === 0
+                                ? null
+                                : renderTaskCards}
+                            {!query && totalAppliedTasks === 0 && (
+                                <Alert
+                                    icon={<FontAwesomeIcon icon={faWarning} />}
+                                    title="Taskers Unavailable"
+                                    variant="filled"
+                                    color="yellow"
+                                >
+                                    No tasks available at the moment{""}
+                                </Alert>
                             )}
                             {query && totalAppliedTasks === 0 ? (
                                 <p className="search-results-text">
