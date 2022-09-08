@@ -7,7 +7,7 @@ import type { TaskAction } from "../../types/tasksActions";
 
 const TaskActionCard = ({ title, image, redirection }: TaskAction) => {
     return (
-        <div className="task-blocks">
+        <div className="task-blocks" >
             <Link href={redirection}>
                 <a>
                     <figure className="thumbnail-img">

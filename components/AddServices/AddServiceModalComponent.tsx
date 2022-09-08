@@ -329,6 +329,16 @@ export const AddServiceModalComponent = () => {
                                         }
                                     />
                                 </Col>
+                                <Col md={4}>
+                                    <Select
+                                        placeholder="select currency"
+                                        name="currency"
+                                        data={BudgetType ?? []}
+                                        onChange={(value) =>
+                                            setFieldValue("currency", value)
+                                        }
+                                    />
+                                </Col>
                             </Row>
 
                             <div className="checkbox">
