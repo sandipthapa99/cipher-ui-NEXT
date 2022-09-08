@@ -8,7 +8,11 @@ export interface RecommendedTaskCardProps
     location: string;
     start_date: string;
     start_time: string;
-    currency: string;
+    currency: {
+        id: string;
+        name: string;
+        code: string;
+    };
     id: string;
     status: string;
     slug?: string;

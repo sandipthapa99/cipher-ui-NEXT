@@ -10,7 +10,23 @@
     padding-left: 3rem;
     padding-bottom: 2.5rem;
     span {
-        margin-left: 1.5rem;
+        margin-left: 0.4rem;
+        //nest hub
+        @media screen and (width:1280px) {
+            margin-left: 3.5rem;
+        }
+
+        @media screen and (width: 1024px) {
+            margin-left: 1.5rem;
+        }
+
+        //specific to surface duo
+        @media screen and (width:540px) {
+            margin-left: -0.5rem;
+        }
+        @include respond(xs) {
+            margin-left: 0;
+        }
     }
     .skills {
         span {
