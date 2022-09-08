@@ -173,9 +173,6 @@ export const IdentityDocument = () => {
                                 (files) => setFieldValue("file", files[0])
                                 // console.log(formData.get("file"))
                             }
-                            label="Image"
-                            type={["image/jpg", "image/png", "image/jpeg"]}
-                            fileLabel="Image"
                         />
                     </Col>
                     <hr />

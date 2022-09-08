@@ -50,8 +50,8 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 <figure className="thumbnail-img">
                     <Image
                         src={
-                            task?.images && task.images.length > 0
-                                ? task.images[0].media
+                            task?.assigner?.profile_image
+                                ? task?.assigner?.profile_image
                                 : "/hireinnepal/footer.png"
                         }
                         layout="fill"
@@ -61,7 +61,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 </figure>
 
                 <div className="intro">
-                    <p className="name">{task.title}</p>
+                    <p className="name">{task?.assigner?.full_name}</p>
                     <p className="job">{task.status}</p>
                 </div>
             </div>
