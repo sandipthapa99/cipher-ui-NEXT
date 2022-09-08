@@ -21,3 +21,11 @@ export const categoryData = [
     },
 ];
 export type CategoryData = typeof categoryData[0];
+
+export type CategoryDataProps = [
+    {
+        id: 0;
+        category: "string";
+        slug: "string";
+    }
+];
