@@ -49,7 +49,7 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
     return (
         <div className="search-results">
             <Row>
-                <Col md={4}>
+                <Col md={4} className="left">
                     <ScrollArea.Autosize
                         maxHeight={700}
                         offsetScrollbars
@@ -79,7 +79,9 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
                         </>
                     </ScrollArea.Autosize>
                 </Col>
-                <Col md={8}>{children}</Col>
+                <Col md={8} className="right">
+                    {children}
+                </Col>
             </Row>
         </div>
     );
