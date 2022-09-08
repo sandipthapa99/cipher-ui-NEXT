@@ -34,7 +34,11 @@ export type TaskDetail = typeof taskDetails[0];
 
 export type TaskerDetails = {
     id: number;
-    charge_currency: string;
+    charge_currency: {
+        id: string;
+        name: string;
+        code: string;
+    };
     user: {
         id: string;
         email: string;

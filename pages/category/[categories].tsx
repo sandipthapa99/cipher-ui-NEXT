@@ -232,7 +232,8 @@ const Gardening = ({
                                                         ?.user_reviews
                                                 }
                                                 merchantPrice={
-                                                    merchant?.charge_currency +
+                                                    merchant?.charge_currency
+                                                        ?.code +
                                                     merchant?.hourly_rate
                                                 }
                                                 happyClients={
