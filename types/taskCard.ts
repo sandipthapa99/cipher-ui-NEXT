@@ -15,7 +15,7 @@ export interface RecommendedTaskCardProps
     };
     id: string;
     status: string;
-    slug?: string;
+    slug: string;
 }
 
 export interface TaskCardProps extends HTMLAttributes<HTMLDivElement> {
