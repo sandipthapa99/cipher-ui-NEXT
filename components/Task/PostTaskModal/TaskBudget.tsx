@@ -82,10 +82,10 @@ export const TaskBudget = ({
                 <Group>
                     <NumberInput
                         {...getFieldProps("budget_to")}
-                        error={
-                            value === BudgetType.FIXED &&
-                            getFieldError("budget_to")
-                        }
+                        // error={
+                        //     value === BudgetType.FIXED &&
+                        //     getFieldError("budget_to")
+                        // }
                         icon="Rs"
                         placeholder="Enter your price"
                         onChange={(value) => setFieldValue("budget_to", value)}
@@ -103,7 +103,7 @@ export const TaskBudget = ({
                 <Group>
                     <NumberInput
                         {...getFieldProps("budget_from")}
-                        error={getFieldError("budget_from")}
+                        // error={getFieldError("budget_from")}
                         icon="Rs"
                         placeholder="Starting budget"
                         onChange={(value) =>
@@ -113,10 +113,10 @@ export const TaskBudget = ({
                     <Text>To</Text>
                     <NumberInput
                         {...getFieldProps("budget_to")}
-                        error={
-                            value === BudgetType.VARIABLE &&
-                            getFieldError("budget_to")
-                        }
+                        // error={
+                        //     value === BudgetType.VARIABLE &&
+                        //     getFieldError("budget_to")
+                        // }
                         icon="Rs"
                         placeholder="Final budget"
                         onChange={(value) => setFieldValue("budget_to", value)}

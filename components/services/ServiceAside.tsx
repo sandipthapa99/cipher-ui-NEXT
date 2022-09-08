@@ -11,14 +11,8 @@ interface ServiceAside {
     children: ReactNode;
     service: ServicesValueProps["result"];
     query: string;
-    isLoading: boolean;
 }
-const ServiceAside = ({
-    service,
-    query,
-    children,
-    isLoading,
-}: ServiceAside) => {
+const ServiceAside = ({ service, query, children }: ServiceAside) => {
     console.log("🚀 ~ file: ServiceAside.tsx ~ line 22 ~ service", service);
 
     const totalAppliedTasks = service?.length;
