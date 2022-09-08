@@ -25,11 +25,18 @@ export const SecurityQuestions = () => {
         (question: any, index: number) => {
             return (
                 <div key={index}>
+                    {/* <InputField
+                        type="text"
+                        name={question?.id.toSting()}
+                        labelName={question.question}
+                        placeholder="Answer these questions"
+                        fieldRequired
+                    /> */}
                     <InputField
                         type="text"
                         name={question.id.toString()}
                         labelName={question.question}
-                        placeholder="Answer"
+                        placeholder="Answer your security question"
                         required={true}
                     />
                 </div>
@@ -91,7 +98,7 @@ export const SecurityQuestions = () => {
                             <FormButton
                                 type="submit"
                                 variant="primary"
-                                name="Add"
+                                name="Answer"
                                 className="submit-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(

@@ -5,13 +5,15 @@ import { Form, Formik } from "formik";
 import { Button } from "react-bootstrap";
 import { isSubmittingClass } from "utils/helpers";
 
-export const ChangeNewEmail = () => {
+export const ChangePhoneNumber = () => {
     return (
-        <div className=" p-0">
+        <div className="p-0">
+            {/* <h2>Password</h2> */}
+            {/* <p className="m-0">Configurations</p> */}
             <Formik
                 initialValues={{
-                    current_email: "",
-                    new_email: "",
+                    current_phone: "",
+                    new_phone: "",
                     confirm_password: "",
                 }}
                 //validationSchema={changePasswordFormSchema}
@@ -22,26 +24,28 @@ export const ChangeNewEmail = () => {
             >
                 {({ isSubmitting, errors, touched, resetForm }) => (
                     <Form autoComplete="off">
+                        {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                         <InputField
-                            name="current_email"
                             type="text"
-                            labelName="Current Email"
-                            error={errors.current_email}
-                            touch={touched.current_email}
-                            placeHolder="Current Email"
+                            name="current_phone"
+                            labelName="Current Phone Number"
+                            error={errors.current_phone}
+                            touch={touched.current_phone}
+                            placeHolder="Current Phone number"
                             fieldRequired
                             required={true}
                         />
                         <InputField
                             type="text"
-                            name="new_email"
-                            labelName="New Email"
-                            error={errors.new_email}
-                            touch={touched.new_email}
-                            placeHolder="New Email"
+                            name="new_phone"
+                            labelName="New Phone Number"
+                            error={errors.new_phone}
+                            touch={touched.new_phone}
+                            placeHolder="New phone number"
                             fieldRequired
                             required={true}
                         />
+
                         <PasswordField
                             name="confirm_password"
                             typeOf="password"
@@ -52,16 +56,6 @@ export const ChangeNewEmail = () => {
                             fieldRequired
                             required={true}
                         />
-
-                        {/* <PasswordField
-                            name="confirm_password"
-                            typeOf="password"
-                            labelName="Confirm Password"
-                            error={errors.confirm_password}
-                            touch={touched.confirm_password}
-                            placeHolder="Confirm Password"
-                            fieldRequired
-                        /> */}
 
                         <div className="d-flex justify-content-end">
                             <Button
@@ -84,6 +78,9 @@ export const ChangeNewEmail = () => {
                     </Form>
                 )}
             </Formik>
+            {/* <div>
+                                <SecurityQuestions />
+                            </div> */}
         </div>
     );
 };

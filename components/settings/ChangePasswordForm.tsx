@@ -17,6 +17,7 @@ import changePasswordFormSchema from "utils/formValidation/changePasswordFormVal
 import { isSubmittingClass } from "utils/helpers";
 
 import { ChangeNewEmail } from "./changeNewEmail";
+import { ChangePhoneNumber } from "./changePhonenumber";
 import { SecurityQuestions } from "./SecurityQuestions";
 
 const ChangePasswordForm = () => {
@@ -78,6 +79,7 @@ const ChangePasswordForm = () => {
                                             error={errors.new_password}
                                             touch={touched.new_password}
                                             placeHolder="New Password"
+                                            f
                                         />
                                         <PasswordField
                                             typeOf="password"
@@ -86,6 +88,7 @@ const ChangePasswordForm = () => {
                                             error={errors.old_password}
                                             touch={touched.old_password}
                                             placeHolder="Old Password"
+                                            fieldRequired
                                         />
                                         <PasswordField
                                             name="confirm_password"
@@ -94,6 +97,7 @@ const ChangePasswordForm = () => {
                                             error={errors.confirm_password}
                                             touch={touched.confirm_password}
                                             placeHolder="Confirm Password"
+                                            fieldRequired
                                         />
 
                                         <div className="d-flex justify-content-end">
@@ -118,6 +122,27 @@ const ChangePasswordForm = () => {
                                 )}
                             </Formik>
                         </div>
+                    </Accordion.Panel>
+                </Accordion.Item>
+                <Accordion.Item value="phone-number">
+                    <Accordion.Control>
+                        <p className="m-0 font-weight-normal">
+                            Change Phone Number
+                        </p>
+                    </Accordion.Control>
+                    <Accordion.Panel>
+                        <ChangePhoneNumber />
+                    </Accordion.Panel>
+                </Accordion.Item>
+
+                <Accordion.Item value="email-address">
+                    <Accordion.Control>
+                        <p className="m-0 font-weight-normal">
+                            Change Email Address
+                        </p>
+                    </Accordion.Control>
+                    <Accordion.Panel>
+                        <ChangeNewEmail />
                     </Accordion.Panel>
                 </Accordion.Item>
 
@@ -129,99 +154,6 @@ const ChangePasswordForm = () => {
                     </Accordion.Control>
                     <Accordion.Panel>
                         <SecurityQuestions />
-                    </Accordion.Panel>
-                </Accordion.Item>
-                <Accordion.Item value="email-address">
-                    <Accordion.Control>
-                        <p className="m-0 font-weight-normal">
-                            Change Email Address
-                        </p>
-                    </Accordion.Control>
-                    <Accordion.Panel>
-                        <ChangeNewEmail />
-                    </Accordion.Panel>
-                </Accordion.Item>
-                <Accordion.Item value="phone-number">
-                    <Accordion.Control>
-                        <p className="m-0 font-weight-normal">
-                            Change Phone Number
-                        </p>
-                    </Accordion.Control>
-                    <Accordion.Panel>
-                        <div className="p-0">
-                            {/* <h2>Password</h2> */}
-                            {/* <p className="m-0">Configurations</p> */}
-                            <Formik
-                                initialValues={{
-                                    current_phone: "",
-                                    new_phone: "",
-                                    confirm_password: "",
-                                }}
-                                //validationSchema={changePasswordFormSchema}
-                                onSubmit={async (values, action) => {
-                                    console.log(values);
-                                    action.resetForm();
-                                }}
-                            >
-                                {({
-                                    isSubmitting,
-                                    errors,
-                                    touched,
-                                    resetForm,
-                                }) => (
-                                    <Form autoComplete="off">
-                                        {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
-                                        <InputField
-                                            type="text"
-                                            name="current_phone"
-                                            labelName="Current Phone Number"
-                                            error={errors.current_phone}
-                                            touch={touched.current_phone}
-                                            placeHolder="Current Phone number"
-                                        />
-                                        <InputField
-                                            type="text"
-                                            name="new_phone"
-                                            labelName="New Phone Number"
-                                            error={errors.new_phone}
-                                            touch={touched.new_phone}
-                                            placeHolder="New phone number"
-                                        />
-
-                                        <PasswordField
-                                            name="confirm_password"
-                                            typeOf="password"
-                                            labelName="Confirm Password"
-                                            error={errors.confirm_password}
-                                            touch={touched.confirm_password}
-                                            placeHolder="Confirm Password"
-                                        />
-
-                                        <div className="d-flex justify-content-end">
-                                            <Button
-                                                className="me-3 mb-0 cancel-btn"
-                                                onClick={() => resetForm}
-                                            >
-                                                Cancel
-                                            </Button>
-                                            <FormButton
-                                                type="submit"
-                                                variant="primary"
-                                                name="Update"
-                                                className="submit-btn"
-                                                isSubmitting={isSubmitting}
-                                                isSubmittingClass={isSubmittingClass(
-                                                    isSubmitting
-                                                )}
-                                            />
-                                        </div>
-                                    </Form>
-                                )}
-                            </Formik>
-                            {/* <div>
-                                <SecurityQuestions />
-                            </div> */}
-                        </div>
                     </Accordion.Panel>
                 </Accordion.Item>
             </Accordion>
