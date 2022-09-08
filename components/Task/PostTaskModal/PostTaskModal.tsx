@@ -64,11 +64,12 @@ export interface PostTaskPayload {
 export const PostTaskModal = () => {
     const [choosedValue, setChoosedValue] = useState("task");
     const queryClient = useQueryClient();
-    const { mutate } = usePostTask();
+    const { mutate, data: postTaskResponse } = usePostTask();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
     const router = useRouter();
+    console.log("taskResponse", postTaskResponse);
 
     const [termsAccepted, setTermsAccepted] = useState(true);
     const { mutateAsync: uploadFileMutation } = useUploadFile();

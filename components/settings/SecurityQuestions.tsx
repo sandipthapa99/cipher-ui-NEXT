@@ -4,6 +4,7 @@ import SelectInputField from "@components/common/SelectInputField";
 import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { Field, Form, Formik } from "formik";
 import { useChangePassword } from "hooks/profile/changePassword/useChangePassword";
 import { usePostSecurity } from "hooks/security/use-post-security";
@@ -26,6 +27,14 @@ export const SecurityQuestions = () => {
     const sendSecurityQuestions = useMutation((data: any) => {
         return axiosClient.post("/tasker/security-answer/", data);
     });
+    const { data: answeredSecurityQuestions } = useData<
+        Array<{
+            question: { id: number; question: string };
+            answer: string;
+        }>
+    >(["answered-security-questions"], "/tasker/security-answer/");
+    console.log("abc", answeredSecurityQuestions);
+
     const renderQuestionsOptions = securityQuestions?.data?.map(
         (item, index) => {
             return {
@@ -33,6 +42,15 @@ export const SecurityQuestions = () => {
                 label: item?.question,
                 value: item?.id,
             };
+        }
+    );
+    const answeredQuestions = answeredSecurityQuestions?.data?.map(
+        (item, index) => {
+            return (
+                <li className="m-2" key={index}>{`${index + 1}.${" "} ${
+                    item?.question?.question
+                }`}</li>
+            );
         }
     );
 
@@ -75,7 +93,7 @@ export const SecurityQuestions = () => {
             {/* Enabled
             </p> */}
             {/* <p className="">Security Question</p> */}
-            <p>Answer a question you choose to confirm it’s you.</p>
+            <p>Answer a question you choose to confirm it&apos;s you.</p>
             <Formik
                 initialValues={{
                     question: "",
@@ -87,8 +105,8 @@ export const SecurityQuestions = () => {
                         onSuccess: () => {
                             toast.success("Security questions Answered");
                         },
-                        onError: (err: any) => {
-                            toast.error(err?.message);
+                        onError: (error: any) => {
+                            toast.error(error.message);
                         },
                     });
 
@@ -137,6 +155,10 @@ export const SecurityQuestions = () => {
                             required={true}
                             fieldRequired
                         />
+                        <div>
+                            <p className="m-1">Answered Questions</p>
+                            <ol>{answeredQuestions}</ol>
+                        </div>
 
                         <div className="d-flex justify-content-end ">
                             <Button
