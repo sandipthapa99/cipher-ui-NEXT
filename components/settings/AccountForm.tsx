@@ -99,16 +99,10 @@ const AccountForm = () => {
         inputRef?.current?.click();
     };
 
-    const useGetCountryBYId = (name: string) => {
-        return useQuery(["country-id"], async () => {
-            const { data } = await axiosClient.get(
-                `/locale/cms/country/option?search=${name}`
-            );
-            return data;
-        });
-    };
     const country = profile?.country ? profile?.country : "";
-    //const { data: countryId } = useGetCountryBYId(country);
+
+    const user_language = profile?.language ? profile?.language : "";
+
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
@@ -177,7 +171,10 @@ const AccountForm = () => {
 
     //find the country
     const foundCountry = countryResults.find((item) => item.label === country);
-    console.log("found country", foundCountry);
+
+    const foundLanguage = languageResults.find(
+        (item) => item.label === user_language
+    );
     //handle country change
     const handleCountryChanged = (
         id: string | null,
@@ -204,12 +201,8 @@ const AccountForm = () => {
         setCurrencyChange(id);
         if (id) setFieldValue("charge_currency", parseInt(id));
     };
-    console.log("userprofile=", profile);
     //parse user_type
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
-
-    const { data: countryID } = useGetCountryBYId(parseInt(countryChange));
-    console.log("data country change", countryID);
 
     const queryClient = useQueryClient();
 
@@ -321,12 +314,6 @@ const AccountForm = () => {
                             ),
                         };
 
-                        // Object.entries(newValidatedValues).forEach((entry) => {
-                        //     const [key, value] = entry;
-                        //     if (value && key) {
-                        //         formData.append(key, value.toString());
-                        //     }
-                        // });
                         Object.entries(newValidatedValues).forEach((entry) => {
                             const [key, value] = entry;
                             console.log("entry=", entry, key, value);
@@ -713,15 +700,13 @@ const AccountForm = () => {
                             /> */}
                             <Select
                                 label="Country"
-                                // placeholder={
-                                //     profile ? profile.country : "Pick One"
-                                // }
-                                // defaultValue={profile ? profile.country : ""}
                                 name="country"
                                 searchable
                                 nothingFound="No result found."
                                 value={
-                                    profile ? foundCountry.id : countryChange
+                                    profile
+                                        ? foundCountry?.value
+                                        : countryChange
                                 }
                                 onChange={(value) =>
                                     handleCountryChanged(value, setFieldValue)
@@ -778,9 +763,12 @@ const AccountForm = () => {
                                         ? false
                                         : true
                                 }
-                                defaultValue={profile?.language}
                                 nothingFound="No result found."
-                                value={languageChange}
+                                value={
+                                    profile
+                                        ? foundLanguage?.value
+                                        : languageChange
+                                }
                                 onChange={(value) =>
                                     handleLanguageChanged(value, setFieldValue)
                                 }
@@ -806,7 +794,11 @@ const AccountForm = () => {
                                         ? false
                                         : true
                                 }
-                                value={currencyChange}
+                                value={
+                                    profile
+                                        ? profile.charge_currency?.id.toString()
+                                        : currencyChange
+                                }
                                 onChange={(value) =>
                                     handleCurrencyChanged(value, setFieldValue)
                                 }

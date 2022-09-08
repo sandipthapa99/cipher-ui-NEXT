@@ -50,6 +50,10 @@ const KYCForm = () => {
         setCountryChange(id);
         if (id) setFieldValue("country", parseInt(id));
     };
+    const country = profileDetails?.country ? profileDetails?.country : "";
+
+    const foundCountry = countryResults.find((item) => item.label === country);
+
     return (
         <>
             {/* Modal component */}
@@ -180,7 +184,11 @@ const KYCForm = () => {
                                 }
                                 searchable
                                 nothingFound="No result found."
-                                value={countryChange}
+                                value={
+                                    profileDetails
+                                        ? foundCountry?.value
+                                        : countryChange
+                                }
                                 onChange={(value) =>
                                     handleCountryChanged(value, setFieldValue)
                                 }
