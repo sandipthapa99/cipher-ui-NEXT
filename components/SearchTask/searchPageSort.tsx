@@ -2,9 +2,8 @@ import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { Tab } from "@components/common/Tab";
 import { MyBookings } from "@components/MyTasks/MyBookings";
 import { MyTasks } from "@components/MyTasks/MyTasks";
-import Post from "@components/PostTask/Post";
-import { Recent } from "@components/user/Recent";
-import { Recommended } from "@components/user/Recommended";
+import { PaymentHistory } from "@components/MyTasks/PaymentHistory";
+import { TaskYouMayLike } from "@components/MyTasks/TaskYouMayLike";
 import {
     faFilterList,
     faMagnifyingGlass,
@@ -49,15 +48,15 @@ const SearchBySort = () => {
                     },
                     {
                         title: "Task You May Like",
-                        content: <Recommended />,
+                        content: <TaskYouMayLike />,
                     },
                     {
                         title: "Payment History",
-                        content: <Recommended />,
+                        content: <PaymentHistory />,
                     },
                     {
                         title: "Help",
-                        content: <Recommended />,
+                        content: <PaymentHistory />,
                     },
                 ]}
                 icons={[
