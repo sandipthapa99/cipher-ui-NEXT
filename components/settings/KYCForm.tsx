@@ -30,6 +30,7 @@ const KYCForm = () => {
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();
     const [showDocument, setShowDocument] = useState(false);
+    const [showAccountForm, setShowAccountForm] = useState(false);
 
     const { data: profileDetails } = useGetProfile();
     const [countryChange, setCountryChange] = useState<string | null>(null);
@@ -52,7 +53,12 @@ const KYCForm = () => {
     return (
         <>
             {/* Modal component */}
-            <div className="account-form mt-5">
+            <div
+                className="account-form mt-5"
+                style={
+                    profileDetails ? { display: "block" } : { display: "none" }
+                }
+            >
                 <h3>KYC Details</h3>
                 <Formik
                     enableReinitialize={true}
@@ -264,7 +270,7 @@ const KYCForm = () => {
                                 </Col>
                             </Row> */}
 
-                            <div className="d-flex justify-content-end">
+                            <div className="d-flex mt-5 justify-content-end">
                                 <Button
                                     className="me-3 mb-0 cancel-btn"
                                     onClick={() => resetForm}

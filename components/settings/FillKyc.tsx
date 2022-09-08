@@ -1,7 +1,6 @@
 import BigButton from "@components/common/Button";
 import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { number } from "yup";
 interface FillKycProps {
     onClick: () => void;
 }

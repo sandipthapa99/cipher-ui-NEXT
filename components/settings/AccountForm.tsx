@@ -1,3 +1,4 @@
+import BigButton from "@components/common/Button";
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
@@ -89,6 +90,7 @@ const AccountForm = () => {
     const [image, setImage] = useState();
     const inputRef = useRef<HTMLInputElement>(null);
     const [showAccountForm, setShowAccountForm] = useState(false);
+    const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
 
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
     const onButtonClick = () => {
@@ -230,7 +232,6 @@ const AccountForm = () => {
 
     //profile success modal
     const [show, setShow] = useState(false);
-
     return (
         <>
             {!KYCData && profile ? <FillKyc onClick={scrollToKyc} /> : ""}
@@ -238,6 +239,7 @@ const AccountForm = () => {
                 show={show}
                 setShowForm={setShow}
                 onClick={scrollToKyc}
+                handleClose={scrollToKyc}
             />{" "}
             {!profile ? (
                 <CompleteProfile onClick={() => setShowAccountForm(true)} />
@@ -248,7 +250,9 @@ const AccountForm = () => {
             <div
                 className={"account-form"}
                 style={
-                    showAccountForm ? { display: "block" } : { display: "none" }
+                    showAccountForm || profile
+                        ? { display: "block" }
+                        : { display: "none" }
                 }
             >
                 <Formik
@@ -263,7 +267,7 @@ const AccountForm = () => {
                             profile && profile.date_of_birth
                                 ? parseISO(profile.date_of_birth)
                                 : "",
-                        skill: "",
+                        skill: profile?.skill ? skills : "",
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start:
                             new Date(`2022-09-24 ${startTime}`) ?? "",
@@ -314,6 +318,7 @@ const AccountForm = () => {
                             onSuccess: () => {
                                 // toggleSuccessModal();
                                 setShow(true);
+                                queryClient.invalidateQueries(["profile"]);
                             },
                             onError: (err) => {
                                 toast.error(err.message);
@@ -377,53 +382,81 @@ const AccountForm = () => {
                                     priority={true}
                                 />
                             </figure> */}
-                            <figure className="profile-img mx-auto">
-                                {profile?.is_profile_verified ?? (
-                                    <FontAwesomeIcon
-                                        icon={faBadgeCheck}
-                                        className="badge-icon"
-                                    />
-                                )}
-                                <div
-                                    className="img-dragdrop d-flex align-items-center justify-content-center"
-                                    onClick={onButtonClick}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faCamera}
-                                        className="camera-icon"
-                                    />
-                                    <input
-                                        hidden
-                                        type="file"
-                                        name="profile_image"
-                                        ref={inputRef}
-                                        onChange={(e: any) => {
-                                            const files = e.target.files;
-                                            setFieldValue(
-                                                "profile_image",
-                                                files[0]
-                                            );
-                                            setImage(files[0]);
-                                            //console.log("image=", files[0]);
-                                            //setShowEditForm(!showEditForm);
-                                        }}
-                                    />
-                                </div>
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <figure className="profile-img">
+                                    {profile?.is_profile_verified ?? (
+                                        <FontAwesomeIcon
+                                            icon={faBadgeCheck}
+                                            className="badge-icon"
+                                        />
+                                    )}
+                                    <div
+                                        className="img-dragdrop d-flex align-items-center justify-content-center"
+                                        onClick={onButtonClick}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faCamera}
+                                            className="camera-icon"
+                                        />
+                                        <input
+                                            hidden
+                                            type="file"
+                                            name="profile_image"
+                                            ref={inputRef}
+                                            onChange={(e: any) => {
+                                                const files = e.target.files;
+                                                setFieldValue(
+                                                    "profile_image",
+                                                    files[0]
+                                                );
+                                                setImage(files[0]);
+                                                //console.log("image=", files[0]);
+                                                //setShowEditForm(!showEditForm);
+                                            }}
+                                        />
+                                    </div>
 
-                                <Image
-                                    // src={"/userprofile/unknownPerson.jpg"}
-                                    src={
-                                        profile && profile.profile_image
-                                            ? profile.profile_image
-                                            : "/userprofile/unknownPerson.jpg"
-                                    }
-                                    layout="fill"
-                                    alt="profile-pic"
-                                    className="rounded-circle"
-                                    objectFit="cover"
-                                    priority={true}
-                                />
-                            </figure>
+                                    <Image
+                                        // src={"/userprofile/unknownPerson.jpg"}
+                                        src={
+                                            profile && profile.profile_image
+                                                ? profile.profile_image
+                                                : "/userprofile/unknownPerson.jpg"
+                                        }
+                                        layout="fill"
+                                        alt="profile-pic"
+                                        className="rounded-circle"
+                                        objectFit="cover"
+                                        priority={true}
+                                    />
+                                </figure>
+                                {profile ? (
+                                    <div>
+                                        {isEditButtonClicked || !profile ? (
+                                            <BigButton
+                                                btnTitle={"Update Profile"}
+                                                backgroundColor={"#FFCA6A"}
+                                                textColor={"#212529"}
+                                                // handleClick={() =>
+                                                //     setIsEditButtonClicked(true)
+                                                // }
+                                            />
+                                        ) : (
+                                            <BigButton
+                                                btnTitle={"Edit Profile"}
+                                                backgroundColor={"#FFCA6A"}
+                                                textColor={"#212529"}
+                                                handleClick={() =>
+                                                    setIsEditButtonClicked(true)
+                                                }
+                                            />
+                                        )}
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+                            </div>
+
                             <PhotoEdit
                                 photo={image}
                                 show={showEditForm}
@@ -437,7 +470,12 @@ const AccountForm = () => {
                                 labelName="Full Name"
                                 error={errors.full_name}
                                 touch={touched.full_name}
-                                placeholder="Full Name"
+                                placeHolder="Full Name"
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                             />
                             {/* <InputField
                                 type="email"
@@ -454,6 +492,11 @@ const AccountForm = () => {
                                 error={errors.bio}
                                 placeHolder="Enter your Bio"
                                 as="textarea"
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                             />
                             <Row className="g-5">
                                 <Col md={6}>
@@ -462,6 +505,11 @@ const AccountForm = () => {
                                         labelName="Phone Number"
                                         touch={touched.phone}
                                         error={errors.phone}
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
                                         placeHolder="Enter your Phone Number"
                                     />
                                 </Col>
@@ -473,6 +521,11 @@ const AccountForm = () => {
                                 labelName="Please specify your gender"
                                 touch={touched.gender}
                                 error={errors.gender}
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                             />
                             <DatePickerField
                                 name="date_of_birth"
@@ -481,6 +534,11 @@ const AccountForm = () => {
                                 placeHolder="dd/mm/yy"
                                 touch={touched.date_of_birth}
                                 error={errors.date_of_birth}
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                             />
                             <hr />
                             <h3>Profession Information</h3>
@@ -496,6 +554,11 @@ const AccountForm = () => {
                                         name="user_type"
                                         value="Client"
                                         className="me-2"
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
                                     />
                                     Client
                                 </label>
@@ -504,19 +567,28 @@ const AccountForm = () => {
                                         type="checkbox"
                                         name="user_type"
                                         className="me-2"
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
                                         value="Tasker"
                                     />
                                     Tasker
                                 </label>
                             </div>
                             <TagInputField
-                                defaultValue={skills}
                                 data={skills}
                                 name="skill"
-                                error={errors.skill}
-                                touch={touched.skill}
+                                // error={!profile && errors.skill}
+                                // touch={!profile && touched.skill}
                                 labelName="Specialities"
                                 placeHolder="Enter your skills"
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                             />
                             <RadioField
                                 type="radio"
@@ -525,6 +597,11 @@ const AccountForm = () => {
                                 labelName="Experience Level"
                                 touch={touched.experience_level}
                                 error={errors.experience_level}
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                             />
                             <h4>Active Hours</h4>
                             <Row className="g-5">
@@ -536,6 +613,11 @@ const AccountForm = () => {
                                         dateFormat="HH:mm aa"
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
                                         timeOnly
                                     />
                                 </Col>
@@ -548,6 +630,11 @@ const AccountForm = () => {
                                         touch={touched.active_hour_end}
                                         error={errors.active_hour_end}
                                         timeOnly
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
                                     />
                                 </Col>
                             </Row>
@@ -559,6 +646,11 @@ const AccountForm = () => {
                                         labelName="Base Rate Per Hour"
                                         error={errors.hourly_rate}
                                         touch={touched.hourly_rate}
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
                                         placeHolder="Base Rate Per Hour"
                                     />
                                 </Col>
@@ -586,6 +678,11 @@ const AccountForm = () => {
                                     handleCountryChanged(value, setFieldValue)
                                 }
                                 data={countryResults ?? []}
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                             />
                             <InputField
                                 type="text"
@@ -593,6 +690,11 @@ const AccountForm = () => {
                                 labelName="Address Line 1"
                                 error={errors.address_line1}
                                 touch={touched.address_line1}
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                                 placeHolder="Enter your permanent address"
                             />
                             <InputField
@@ -600,6 +702,11 @@ const AccountForm = () => {
                                 name="address_line2"
                                 labelName="Address Line 2"
                                 error={errors.address_line2}
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                                 touch={touched.address_line2}
                                 placeHolder="Enter your temporary address"
                             />
@@ -617,6 +724,11 @@ const AccountForm = () => {
                                 placeholder="Pick one"
                                 name="language"
                                 searchable
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                                 defaultValue={profile?.language}
                                 nothingFound="No result found."
                                 value={languageChange}
@@ -640,6 +752,11 @@ const AccountForm = () => {
                                 name="charge_currency"
                                 searchable
                                 nothingFound="No result found."
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                                 value={currencyChange}
                                 onChange={(value) =>
                                     handleCurrencyChanged(value, setFieldValue)
@@ -653,6 +770,11 @@ const AccountForm = () => {
                                 labelName="Visibility"
                                 touch={touched.profile_visibility}
                                 error={errors.profile_visibility}
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                                 placeHolder="Select your visibility"
                                 options={profile_visibility}
                             />
@@ -663,6 +785,11 @@ const AccountForm = () => {
                                 error={errors.task_preferences}
                                 placeHolder="Select your preferences"
                                 options={task_preferences}
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                             />
                             {profile ? null : (
                                 <div className="d-flex justify-content-end">
@@ -684,6 +811,16 @@ const AccountForm = () => {
                                     />
                                 </div>
                             )}
+                            {/* {isEditButtonClicked ? (
+                                <div className="d-flex justify-content-end">
+                                    <Button
+                                        className="me-3 mb-0 submit-btn"
+                                        onClick={() => resetForm}
+                                    >
+                                        Cancel Editing
+                                    </Button>
+                                </div>
+                            ) : null} */}
                         </Form>
                     )}
                 </Formik>

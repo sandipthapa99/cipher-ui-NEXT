@@ -13,15 +13,22 @@ interface ProfileSuccessModalCardProps {
     show?: boolean;
     onClick: () => void;
     setShowForm: Dispatch<SetStateAction<boolean>>;
+    handleClose?: () => void;
 }
 
 const ProfileSuccessModalCard = ({
     show,
     setShowForm,
+    handleClose,
+
     onClick,
 }: ProfileSuccessModalCardProps) => {
     const router = useRouter();
 
+    const handleCloseModal = () => {
+        setShowForm(false);
+        onClick();
+    };
     return (
         <>
             {/* Modal component */}
@@ -32,7 +39,7 @@ const ProfileSuccessModalCard = ({
                 backdrop="static"
             >
                 <Modal.Header>
-                    <Modal.Title>Enter your verification code.</Modal.Title>
+                    <Modal.Title>Profile Created Successfullty</Modal.Title>
                 </Modal.Header>
 
                 <div className="modal-body-content">
@@ -43,7 +50,7 @@ const ProfileSuccessModalCard = ({
                             btnTitle={"Complete KYC"}
                             backgroundColor={"#FFCA6A"}
                             textColor={"#212529"}
-                            handleClick={() => onClick()}
+                            handleClick={handleCloseModal}
                         />
                         <Link href={"/home"} className="text-profile">
                             <Button className="submit-btn">Go Home</Button>
