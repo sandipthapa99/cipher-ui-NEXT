@@ -45,7 +45,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     };
     return (
         <div className="simple-card my-5 my-lg-0 ">
-            <p>{appliedTask ? "Applied" : "Not Applied"}</p>
             <div className="d-flex align-items-center simple-card__profile">
                 <figure className="thumbnail-img">
                     <Image
@@ -97,18 +96,30 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
             )} */}
 
             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
-                <span>Budget Range</span>
-                <span className="text-right price">
-                    {task?.currency?.code}
-                    {task?.budget_from} - {task?.budget_to}
-                    {task?.budget_type === "Hourly"
-                        ? "/hr"
-                        : task?.budget_type === "Monthly"
-                        ? "/mn"
-                        : ""}
-                </span>
+                {task?.budget_from && task?.budget_to ? (
+                    <>
+                        <span>Budget Range</span>
+                        <span className="text-right price">
+                            {task?.currency?.code}
+                            {task?.budget_from} - {task?.budget_to}
+                            {task?.budget_type === "Hourly"
+                                ? "/hr"
+                                : task?.budget_type === "Monthly"
+                                ? "/mn"
+                                : ""}
+                        </span>
+                    </>
+                ) : (
+                    <>
+                        <span>Budget</span>
+                        <span className="text-right price">
+                            {`${task?.currency?.code ?? ""} ${
+                                task?.budget_to
+                            } / ${task?.budget_type}`}
+                        </span>
+                    </>
+                )}
             </div>
-
             {!isUserTask ? (
                 appliedTask ? (
                     <BookNowButton
