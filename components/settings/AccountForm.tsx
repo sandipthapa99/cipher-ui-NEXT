@@ -274,7 +274,7 @@ const AccountForm = () => {
                                 error={errors.full_name}
                                 touch={touched.full_name}
                                 placeholder="Full Name"
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                             />
                             {/* <InputField
                                 type="email"
@@ -291,7 +291,7 @@ const AccountForm = () => {
                                 error={errors.bio}
                                 placeHolder="Enter your Bio"
                                 as="textarea"
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                             />
                             <Row className="g-5">
                                 <Col md={6}>
@@ -301,7 +301,7 @@ const AccountForm = () => {
                                         touch={touched.phone}
                                         error={errors.phone}
                                         placeHolder="Enter your Phone Number"
-                                        disabled={profile ? true : false}
+                                        // disabled={profile ? true : false}
                                     />
                                 </Col>
                             </Row>
@@ -312,7 +312,7 @@ const AccountForm = () => {
                                 labelName="Please specify your gender"
                                 touch={touched.gender}
                                 error={errors.gender}
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                             />
                             <DatePickerField
                                 name="date_of_birth"
@@ -321,7 +321,7 @@ const AccountForm = () => {
                                 placeHolder="dd/mm/yy"
                                 touch={touched.date_of_birth}
                                 error={errors.date_of_birth}
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                             />
                             <hr />
                             <h3>Profession Information</h3>
@@ -366,7 +366,7 @@ const AccountForm = () => {
                                 labelName="Experience Level"
                                 touch={touched.experience_level}
                                 error={errors.experience_level}
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                             />
                             <h4>Active Hours</h4>
                             <Row className="g-5">
@@ -379,7 +379,7 @@ const AccountForm = () => {
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
                                         timeOnly
-                                        disabled={profile ? true : false}
+                                        // disabled={profile ? true : false}
                                     />
                                 </Col>
                                 <Col md={3}>
@@ -391,7 +391,7 @@ const AccountForm = () => {
                                         touch={touched.active_hour_end}
                                         error={errors.active_hour_end}
                                         timeOnly
-                                        disabled={profile ? true : false}
+                                        // disabled={profile ? true : false}
                                     />
                                 </Col>
                             </Row>
@@ -404,7 +404,7 @@ const AccountForm = () => {
                                         error={errors.hourly_rate}
                                         touch={touched.hourly_rate}
                                         placeHolder="Base Rate Per Hour"
-                                        disabled={profile ? true : false}
+                                        // disabled={profile ? true : false}
                                     />
                                 </Col>
                             </Row>
@@ -416,7 +416,7 @@ const AccountForm = () => {
                                 error={errors.country}
                                 placeHolder="Select your country"
                                 options={countryResults}
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                             />
                             <InputField
                                 type="text"
@@ -424,7 +424,7 @@ const AccountForm = () => {
                                 labelName="Address Line 1"
                                 error={errors.address_line1}
                                 touch={touched.address_line1}
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                                 placeHolder="Enter your permanent address"
                             />
                             <InputField
@@ -434,7 +434,7 @@ const AccountForm = () => {
                                 error={errors.address_line2}
                                 touch={touched.address_line2}
                                 placeHolder="Enter your temporary address"
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                             />
                             <SelectInputField
                                 name="language"
@@ -443,7 +443,7 @@ const AccountForm = () => {
                                 error={errors.language}
                                 placeHolder="Select your language"
                                 options={languageResults}
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                             />
                             <SelectInputField
                                 name="charge_currency"
@@ -452,7 +452,7 @@ const AccountForm = () => {
                                 error={errors.charge_currency}
                                 placeHolder="Select your currency"
                                 options={currencyResults}
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                             />
                             <hr />
                             <h3>Profile Configurations</h3>
@@ -463,7 +463,7 @@ const AccountForm = () => {
                                 error={errors.profile_visibility}
                                 placeHolder="Select your visibility"
                                 options={profile_visibility}
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                             />
                             <SelectInputField
                                 name="task_preferences"
@@ -472,29 +472,28 @@ const AccountForm = () => {
                                 error={errors.task_preferences}
                                 placeHolder="Select your preferences"
                                 options={task_preferences}
-                                disabled={profile ? true : false}
+                                // disabled={profile ? true : false}
                             />
-                            {profile ? null : (
-                                <div className="d-flex justify-content-end">
-                                    <Button
-                                        className="me-3 mb-0 cancel-btn"
-                                        onClick={() => resetForm}
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <FormButton
-                                        disabled={profile ? true : false}
-                                        type="submit"
-                                        variant="primary"
-                                        name="Save"
-                                        className="submit-btn"
-                                        isSubmitting={isSubmitting}
-                                        isSubmittingClass={isSubmittingClass(
-                                            isSubmitting
-                                        )}
-                                    />
-                                </div>
-                            )}
+
+                            <div className="d-flex justify-content-end">
+                                <Button
+                                    className="me-3 mb-0 cancel-btn"
+                                    onClick={() => console.log("abc", values)}
+                                >
+                                    Edit
+                                </Button>
+                                <FormButton
+                                    // disabled={profile ? true : false}
+                                    type="submit"
+                                    variant="primary"
+                                    name="Save"
+                                    className="submit-btn"
+                                    isSubmitting={isSubmitting}
+                                    isSubmittingClass={isSubmittingClass(
+                                        isSubmitting
+                                    )}
+                                />
+                            </div>
                         </Form>
                     )}
                 </Formik>
