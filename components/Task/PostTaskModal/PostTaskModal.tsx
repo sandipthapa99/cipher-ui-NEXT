@@ -27,7 +27,9 @@ import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { usePostTask } from "hooks/task/use-post-task";
+import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -45,11 +47,11 @@ export interface PostTaskPayload {
     location: TaskType;
     currency: string;
     budget_type: BudgetType;
-    budget_from: string;
-    budget_to: string;
+    budget_from: number;
+    budget_to: number;
     is_negotiable: boolean;
-    image: string;
-    video: string;
+    images: string;
+    videos: string;
     estimated_time: number;
     is_recursion: boolean;
     is_everyday: boolean;
@@ -66,7 +68,10 @@ export const PostTaskModal = () => {
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
+    const router = useRouter();
+
     const [termsAccepted, setTermsAccepted] = useState(false);
+    const { mutateAsync: uploadFileMutation } = useUploadFile();
 
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
@@ -77,11 +82,9 @@ export const PostTaskModal = () => {
             city: "",
             location: "remote",
             budget_type: BudgetType.FIXED,
-            budget_from: "",
-            budget_to: "",
+            budget_from: 100,
+            budget_to: 100,
             is_negotiable: false,
-            image: "",
-            video: "",
             estimated_time: 5,
             is_recursion: false,
             is_everyday: false,
@@ -90,29 +93,37 @@ export const PostTaskModal = () => {
             start_time: "01:00",
             end_time: "03:00",
             currency: "",
+            images: "",
+            videos: "",
         },
         validationSchema: postTaskSchema,
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             if (!termsAccepted) {
                 toast.error(
                     "You must accept the terms and conditions before posting a task"
                 );
                 return;
             }
-            const formData = new FormData();
-            Object.entries(values).forEach((tempValue) => {
-                const [key, value] = tempValue;
-                if (key !== "video" && key !== "image") {
-                    formData.append(key, value.toString());
-                }
+            const imageIds = await uploadFileMutation({
+                files: values.images,
+                media_type: "image",
             });
-            formData.append("video", values.video);
-            formData.append("image", values.image);
-            mutate(formData, {
-                onSuccess: (payload) => {
+            const videoIds = await uploadFileMutation({
+                files: values.videos,
+                media_type: "video",
+            });
+            const postTaskPayload = {
+                ...values,
+                images: imageIds,
+                videos: videoIds,
+                extra_data: [],
+            };
+            mutate(postTaskPayload, {
+                onSuccess: async (payload) => {
                     toggleShowPostTaskModal();
                     toast.success(payload.message);
-                    queryClient.invalidateQueries(["all-tasks"]);
+                    await queryClient.invalidateQueries(["all-tasks"]);
+                    router.push("/task");
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -120,8 +131,14 @@ export const PostTaskModal = () => {
             });
         },
     });
-    const { getFieldProps, handleSubmit, touched, errors, setFieldValue } =
-        formik;
+    const {
+        getFieldProps,
+        handleSubmit,
+        touched,
+        errors,
+        values,
+        setFieldValue,
+    } = formik;
     const getFieldError = (key: keyof PostTaskPayload) =>
         touched[key] && errors[key] ? errors[key] : null;
 
@@ -216,11 +233,8 @@ export const PostTaskModal = () => {
                                     fileLabel="Image"
                                     sx={{ maxWidth: "30rem" }}
                                     name="task-image"
-                                    onDrop={(formData) =>
-                                        setFieldValue(
-                                            "image",
-                                            formData.get("task-image")
-                                        )
+                                    onDrop={(images) =>
+                                        setFieldValue("images", images)
                                     }
                                     type={["image"]}
                                 />
@@ -236,11 +250,8 @@ export const PostTaskModal = () => {
                                     fileLabel="Video"
                                     sx={{ maxWidth: "30rem" }}
                                     name="task-video"
-                                    onDrop={(formData) =>
-                                        setFieldValue(
-                                            "video",
-                                            formData.get("task-video")
-                                        )
+                                    onDrop={(videos) =>
+                                        setFieldValue("videos", videos)
                                     }
                                     type={["video"]}
                                 />

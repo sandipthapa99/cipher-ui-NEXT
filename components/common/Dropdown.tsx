@@ -57,6 +57,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                     setIsNestedSubMenuOpened(false);
                 }
             };
+
             // Bind the event listener
             document.addEventListener("mousedown", handleClickOutside);
             return () => {
@@ -92,15 +93,22 @@ export const Dropdown = ({ children }: DropdownProps) => {
                     key={index}
                     className="dropdown-menu-items d-flex justify-space-between"
                 >
-                    <Link href={`/category/${menu}`}>
-                        <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
+                    <Link href={`/category/${sub.slug}`}>
+                        <a
+                            onClick={() => {
+                                setIsMenuOpened(false);
+                                setIsSubMenuOpened(false);
+                                setIsNestedSubMenuOpened(false);
+                            }}
+                            className="dropdown-menu-item-link"
+                        >{`${menu} (${sub?.child?.length})`}</a>
                     </Link>
                 </li>
             );
         }
         return (
             <li className="dropdown-menu-items" key={index}>
-                <Link href={`/category/${menu}`} passHref>
+                <Link href={`/category/${sub.slug}`} passHref>
                     <a
                         onClick={() => {
                             setIsMenuOpened(false);
@@ -134,10 +142,17 @@ export const Dropdown = ({ children }: DropdownProps) => {
                 <li
                     key={index}
                     className="dropdown-menu-items d-flex justify-space-between"
-                    onClick={onHandleDropdown}
                 >
-                    <Link href="#!">
-                        <a className="dropdown-menu-item-link">{`${menu} (${sub?.child?.length})`}</a>
+                    <Link href={`/category/${sub.slug}`}>
+                        <a
+                            onClick={() => {
+                                setIsMenuOpened(false);
+                                setIsSubMenuOpened(false);
+                                setIsNestedSubMenuOpened(false);
+                            }}
+                            onMouseOver={onHandleDropdown}
+                            className="dropdown-menu-item-link"
+                        >{`${menu} (${sub?.child?.length})`}</a>
                     </Link>
                     <FontAwesomeIcon
                         icon={faChevronRight}
@@ -148,7 +163,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
         }
         return (
             <li className="dropdown-menu-items" key={index}>
-                <Link href={`/category/${menu}`} passHref>
+                <Link href={`/category/${sub.slug}`} passHref>
                     <a
                         onClick={() => {
                             setIsMenuOpened(false);
@@ -181,10 +196,19 @@ export const Dropdown = ({ children }: DropdownProps) => {
             <li
                 key={index}
                 className="dropdown-menu-items d-flex justify-space-between"
-                onClick={onHandleDropdown}
             >
-                <Link href="#!">
-                    <a className="dropdown-menu-item-link">{item.name}</a>
+                <Link href={`/category/${item.slug}`}>
+                    <a
+                        onMouseOver={onHandleDropdown}
+                        onClick={() => {
+                            setIsMenuOpened(false);
+                            setIsSubMenuOpened(false);
+                            setIsNestedSubMenuOpened(false);
+                        }}
+                        className="dropdown-menu-item-link"
+                    >
+                        {item.name}
+                    </a>
                 </Link>
                 {item?.child.length > 0 && (
                     <FontAwesomeIcon

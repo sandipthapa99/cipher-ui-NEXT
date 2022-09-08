@@ -1,7 +1,8 @@
+import PortfolioDetails from "@components/Profile/PortfolioDetail";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { TaskerProps } from "types/taskerProps";
 
@@ -13,7 +14,8 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
     const userSkills = taskerDetail?.skill
         ? JSON.parse(taskerDetail?.skill)
         : [];
-    console.log("userskills", taskerDetail?.skill, userSkills);
+    const [showPortfolioDetails, setShowPortfolioDetails] = useState(false);
+    const [id, setId] = useState<number | undefined>();
 
     return (
         <>
@@ -27,27 +29,68 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                     <div className="content">
                         {taskerDetail?.portfolio
                             ? taskerDetail?.portfolio?.map((info: any) => (
-                                  <div className="image" key={info?.id}>
-                                      <Row>
+                                  <div
+                                      className="image"
+                                      key={info?.id}
+                                      onClick={() => setId(info?.id)}
+                                  >
+                                      <Row className="px-3">
                                           <Col md={6}>
-                                              <Link href={info?.credential_url}>
-                                                  <a target="_blank">
-                                                      {info?.image ? (
-                                                          <figure className="thumbnail-img">
-                                                              <Image
-                                                                  src={`http://54.252.73.240:8014${info?.image}`}
-                                                                  layout="fill"
-                                                                  objectFit="cover"
-                                                                  alt="portfolio-image"
-                                                              />
-                                                          </figure>
-                                                      ) : (
-                                                          ""
-                                                      )}
-                                                  </a>
-                                              </Link>
+                                              {info?.images[0]?.media ? (
+                                                  <figure
+                                                      className="thumbnail-img"
+                                                      onClick={() =>
+                                                          setShowPortfolioDetails(
+                                                              true
+                                                          )
+                                                      }
+                                                  >
+                                                      <Image
+                                                          //   src={
+                                                          //       info?.images[0]
+                                                          //           ?.media ??
+                                                          //       info?.images[1]
+                                                          //           ?.media
+                                                          //   }
+                                                          src={
+                                                              //info?.images ??
+                                                              info?.images[0]?.name
+                                                                  .substring(
+                                                                      info.images[0]?.name.indexOf(
+                                                                          "."
+                                                                      ) + 1
+                                                                  )
+                                                                  .includes(
+                                                                      "jpg"
+                                                                  )
+                                                                  ? info
+                                                                        ?.images[0]
+                                                                        ?.media
+                                                                  : info
+                                                                        ?.images[1]
+                                                                        ?.media
+                                                          }
+                                                          layout="fill"
+                                                          objectFit="cover"
+                                                          alt="portfolio-image"
+                                                      />
+                                                  </figure>
+                                              ) : (
+                                                  ""
+                                              )}
                                           </Col>
                                       </Row>
+                                      <PortfolioDetails
+                                          show={showPortfolioDetails}
+                                          setShowPortfolioDetails={
+                                              setShowPortfolioDetails
+                                          }
+                                          handleClose={() =>
+                                              setShowPortfolioDetails(false)
+                                          }
+                                          isTaskerPortfolio={true}
+                                          id={id}
+                                      />
 
                                       <p className="text-center">
                                           {info.title}

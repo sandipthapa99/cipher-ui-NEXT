@@ -19,6 +19,7 @@ const TaskCard = ({
     endPrice,
     currency,
     taskId,
+    budget_type,
     ...rest
 }: TaskCardProps) => {
     const router = useRouter();
@@ -32,38 +33,43 @@ const TaskCard = ({
             <div className="d-flex justify-content-between flex-column flex-sm-row task-applied-card-block__header">
                 <span className="title">{title}</span>
                 <span className="charge">
-                    {currency} {startPrice} {endPrice && "-" + endPrice}/hr
+                    {currency} {startPrice} {endPrice && "-" + endPrice}
+                    {budget_type === "Hourly"
+                        ? "/hr"
+                        : budget_type === "Monthly"
+                        ? "/mn"
+                        : ""}
                 </span>
             </div>
             <div className="task-applied-card-block__body">
-                <p className="location mb-3">
+                <p className="location mb-3 d-flex align-items-center">
                     <FontAwesomeIcon
                         icon={faLocationDot}
                         className="svg-icon"
                     />
-                    {location}
+                    <span>{location}</span>
                 </p>
                 <div className="task-location-time d-flex justify-content-between">
-                    <span className="time me-4">
+                    <span className="time me-4 d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faClockEight}
                             className="svg-icon"
                         />
-                        {time}
+                        <span> {time}</span>
                     </span>
-                    <span className="date">
+                    <span className="date d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faCalendar}
                             className="svg-icon"
                         />
-                        {date}
+                        <span> {date}</span>
                     </span>
-                    <span className="date">
+                    <span className="date d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faLocationArrow}
                             className="svg-icon"
                         />
-                        2 Km away
+                        <span> 2 Km away</span>
                     </span>
                 </div>
             </div>

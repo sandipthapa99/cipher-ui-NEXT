@@ -271,7 +271,7 @@ export const ServicePostData: ServicePostProps = {
     no_of_revisions: 0,
     discount_type: "",
     discount_value: "",
-    is_active: false,
+    is_active: true,
     category: 0,
     city: 1,
     images: [],

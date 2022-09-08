@@ -1,12 +1,12 @@
+import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Divider, Skeleton } from "@mantine/core";
+import { Alert, ScrollArea } from "@mantine/core";
 import { format } from "date-fns";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
-import Scrollbars from "react-custom-scrollbars";
 import type { ITask } from "types/task";
 
 import TaskAppliedCard from "./taskAppliedCard";
@@ -16,17 +16,9 @@ interface TaskAsideProps {
     appliedTasks: ITask[];
     query: string;
     type?: string;
-    isLoading?: boolean;
 }
-const TaskAside = ({
-    appliedTasks,
-    query,
-    children,
-    type,
-    isLoading,
-}: TaskAsideProps) => {
+const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
-
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
             <div key={task?.slug}>
@@ -48,13 +40,10 @@ const TaskAside = ({
                                 "dd MMM, yyyy"
                             )}
                             time={format(new Date(task.created_at), "HH : mm")}
-                            currency={
-                                task?.currency === "Nepalese Rupee"
-                                    ? "NRs"
-                                    : "$"
-                            }
+                            currency={task?.currency?.code}
                             charge={task.charge?.toString() ?? "0"}
                             taskId={task?.slug}
+                            budget_type={task?.budget_type}
                         />
                     </a>
                 </Link>
@@ -64,8 +53,12 @@ const TaskAside = ({
     return (
         <div className="search-results">
             <Row>
-                <Col md={4}>
-                    <Scrollbars autoHide style={{ height: 700 }}>
+                <Col md={4} className="left">
+                    <ScrollArea.Autosize
+                        maxHeight={700}
+                        offsetScrollbars
+                        scrollbarSize={5}
+                    >
                         {query && totalAppliedTasks > 0 ? (
                             <p className="search-results-text">
                                 {`${totalAppliedTasks} service matching ${query} found`}
@@ -79,43 +72,7 @@ const TaskAside = ({
                         {!query && totalAppliedTasks === 0 ? (
                             <Fragment>
                                 {Array.from({ length: 4 }).map((_, key) => (
-                                    <div
-                                        className="mantine-Skeleton mb-5 p-5"
-                                        key={key}
-                                    >
-                                        <div className="d-flex justify-content-between mb-3">
-                                            <Skeleton
-                                                height={50}
-                                                width={"20%"}
-                                                mt={6}
-                                            />
-                                            <Skeleton
-                                                height={20}
-                                                mt={6}
-                                                radius="xl"
-                                                width={"60%"}
-                                            />
-                                        </div>
-                                        <Skeleton
-                                            height={20}
-                                            mt={6}
-                                            radius="xl"
-                                            width={"40%"}
-                                            className="mb-3"
-                                        />
-                                        <Skeleton
-                                            height={20}
-                                            mt={6}
-                                            radius="xl"
-                                        />
-                                        <Divider my={"xl"} color="#F1F3F5" />
-                                        <Skeleton
-                                            height={20}
-                                            mt={6}
-                                            width={"60%"}
-                                            radius="xl"
-                                        />
-                                    </div>
+                                    <SkeletonTaskCard key={key} />
                                 ))}
                             </Fragment>
                         ) : (
@@ -131,10 +88,12 @@ const TaskAside = ({
                                 No tasks available at the moment{""}
                             </Alert>
                         )}
-                    </Scrollbars>
+                    </ScrollArea.Autosize>
                 </Col>
 
-                <Col md={8}>{children}</Col>
+                <Col md={8} className="right">
+                    {children}
+                </Col>
             </Row>
         </div>
     );

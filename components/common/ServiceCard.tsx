@@ -123,7 +123,15 @@ const ServiceCard = ({
                                     {serviceCard?.happy_clients}
                                 </p>
                                 <p className="price">
-                                    ${serviceCard?.budget_from}/hr
+                                    {serviceCard?.currency?.code + " "}
+                                    {serviceCard?.budget_from}
+                                    {serviceCard?.budget_to &&
+                                        "-" + serviceCard?.budget_to}
+                                    {serviceCard?.budget_type === "Hourly"
+                                        ? "/hr"
+                                        : serviceCard?.budget_type === "Monthly"
+                                        ? "/mn"
+                                        : ""}
                                 </p>
                             </div>
 

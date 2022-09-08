@@ -31,13 +31,11 @@ const AuthenticationModalCard = ({
         setOTPNum(otpNum);
     };
     const handleSubmit = () => {
-        console.log("values=", otpNum);
         const dataToSend = {
             otp: otpNum,
             scope: "verify",
             phone: phone,
         };
-        console.log(dataToSend);
         mutate(dataToSend, {
             onSuccess: async () => {
                 toast.success("OTP verified!");
@@ -45,7 +43,7 @@ const AuthenticationModalCard = ({
                 router.push("/login");
             },
             onError: async (error) => {
-                toast.error(error.message);
+                toast.error("Invalid OTP");
             },
         });
     };

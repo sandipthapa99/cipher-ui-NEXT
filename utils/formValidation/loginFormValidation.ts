@@ -9,6 +9,7 @@ export const usernameValidate = Yup.string().required("Username is required");
 export const otpValidate = Yup.number().required("OTP is required");
 export const phoneValidate = Yup.string()
     .required("Phone is required")
+    // .matches(/^[0-9]+$/, "Phone can only contain numbers")
     .min(10, "Phone is too short - should be 10 chars minimum.")
     .max(15, "Phone is too long - should be 10 chars maximum.");
 

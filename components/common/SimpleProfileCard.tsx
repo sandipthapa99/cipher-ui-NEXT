@@ -1,4 +1,5 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
+import { useUser } from "hooks/auth/useUser";
 import { useAppliedTasks } from "hooks/task/use-applied-tasks";
 import { useLeaveTask } from "hooks/task/use-leave-task";
 import Image from "next/image";
@@ -15,13 +16,11 @@ interface SimpleProfileCardProps {
 }
 const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const withLogin = useWithLogin();
+    const { data: user } = useUser();
     const { data: appliedTasks } = useAppliedTasks();
     const { mutate } = useLeaveTask();
 
     const [showModal, setShowModal] = useState(false);
-    const [priceValue, setPriceValue] = useState(25);
-    const [priceChanged, setPriceChanged] = useState(false);
-    const [isWorking, setIsWorking] = useState(false);
 
     const appliedTask = appliedTasks.find(
         (appliedTask) => appliedTask.task === task.id && appliedTask.is_active
@@ -39,7 +38,11 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
             }
         );
     };
+    const isUserTask = task?.assigner?.id === user?.id;
 
+    const handleViewApplicants = () => {
+        toast.success("You have no applicants yet.");
+    };
     return (
         <div className="simple-card my-5 my-lg-0 ">
             <p>{appliedTask ? "Applied" : "Not Applied"}</p>
@@ -47,7 +50,9 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 <figure className="thumbnail-img">
                     <Image
                         src={
-                            task.image ? task.image : "/hireinnepal/footer.png"
+                            task?.images && task.images.length > 0
+                                ? task.images[0].media
+                                : "/hireinnepal/footer.png"
                         }
                         layout="fill"
                         objectFit="cover"
@@ -94,22 +99,36 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                 <span>Budget Range</span>
                 <span className="text-right price">
-                    {task.budget_from} - {task.budget_to}
+                    {task?.currency?.code}
+                    {task?.budget_from} - {task?.budget_to}
+                    {task?.budget_type === "Hourly"
+                        ? "/hr"
+                        : task?.budget_type === "Monthly"
+                        ? "/mn"
+                        : ""}
                 </span>
             </div>
 
-            {appliedTask ? (
-                <BookNowButton
-                    btnTitle="Leave Task"
-                    backgroundColor="#FE5050"
-                    handleOnClick={handleLeaveTask}
-                />
+            {!isUserTask ? (
+                appliedTask ? (
+                    <BookNowButton
+                        btnTitle="Leave Task"
+                        backgroundColor="#FE5050"
+                        handleOnClick={handleLeaveTask}
+                    />
+                ) : (
+                    <BookNowButton
+                        btnTitle={"Apply Now"}
+                        backgroundColor={"#38C675"}
+                        showModal={true}
+                        handleOnClick={withLogin(() => setShowModal(true))}
+                    />
+                )
             ) : (
                 <BookNowButton
-                    btnTitle={"Apply Now"}
-                    backgroundColor={"#38C675"}
-                    showModal={true}
-                    handleOnClick={withLogin(() => setShowModal(true))}
+                    btnTitle="View Applicants"
+                    backgroundColor="#FE5050"
+                    handleOnClick={handleViewApplicants}
                 />
             )}
 

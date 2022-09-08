@@ -127,6 +127,8 @@ export const SearchCategory = ({
                 backgroundColor: checkedIndex(index) ? "#0693e3" : "#fff",
                 outline: "none",
                 boder: "1px solid #ced4da",
+                borderRightWidth: "7px",
+                borderColor: "white",
             },
         };
     };
