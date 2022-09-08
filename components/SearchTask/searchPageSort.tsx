@@ -1,5 +1,6 @@
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { Tab } from "@components/common/Tab";
+import { MyTasks } from "@components/MyTasks/MyTasks";
 import Post from "@components/PostTask/Post";
 import { Recent } from "@components/user/Recent";
 import { Recommended } from "@components/user/Recommended";
@@ -38,11 +39,11 @@ const SearchBySort = () => {
                 onTabClick={setActiveTabIdx}
                 items={[
                     {
-                        title: "Recommended",
-                        content: <Recommended />,
+                        title: "My Tasks",
+                        content: <MyTasks />,
                     },
                     {
-                        title: "Recent",
+                        title: "My Bookings",
                         content:
                             myTasks?.result?.length === 0 ? (
                                 <Post />
@@ -51,15 +52,15 @@ const SearchBySort = () => {
                             ),
                     },
                     {
-                        title: "In Progress",
+                        title: "Task You May Like",
                         content: <Recommended />,
                     },
                     {
-                        title: "History",
+                        title: "Payment History",
                         content: <Recommended />,
                     },
                     {
-                        title: "Draft",
+                        title: "Help",
                         content: <Recommended />,
                     },
                 ]}
