@@ -10,23 +10,27 @@ import { format } from "date-fns";
 import Link from "next/link";
 import { useState } from "react";
 import { BookingDetails } from "staticData/bookNowModalCard";
-import type { RecommendedTaskCardProps } from "types/taskCard";
+import type { ITask } from "types/task";
 
 import CardBtn from "./CardBtn";
 import ShareIcon from "./ShareIcon";
 // css for this file is done in _gettingStartedTask.scss page
 
-const TaskCard = ({
-    title,
-    charge,
-    description,
-    location,
-    start_date,
-    start_time,
-    status,
-    currency,
-    slug,
-}: RecommendedTaskCardProps) => {
+interface TaskCardProps {
+    task: ITask;
+}
+const TaskCard = ({ task }: TaskCardProps) => {
+    const {
+        title,
+        charge,
+        description,
+        location,
+        start_date,
+        start_time,
+        status,
+        currency,
+        slug,
+    } = task;
     const [showModal, setShowModal] = useState(false);
 
     function getDateFromHours(time: any) {
