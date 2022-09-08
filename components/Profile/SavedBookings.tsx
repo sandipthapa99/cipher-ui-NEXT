@@ -27,7 +27,6 @@ const SavedBookings = () => {
                             start_time={task.data.start_time}
                             status={task?.data?.status}
                             currency={task?.data?.currency}
-                            slug={`/task/${task?.slug}`}
                         />
                     </Col>
                 ))}
