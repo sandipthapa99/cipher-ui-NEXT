@@ -25,7 +25,7 @@ export interface ITask {
         full_name: string;
         profile_image: string;
     };
-    currency: any;
+    currency: { id: number; code: string; name: number };
     created_at: string;
     updated_at: string;
     deleted_at: any;

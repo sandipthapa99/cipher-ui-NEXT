@@ -2,7 +2,6 @@ import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, ScrollArea } from "@mantine/core";
-import { format } from "date-fns";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
