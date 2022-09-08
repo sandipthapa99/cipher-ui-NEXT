@@ -48,9 +48,9 @@ const TaskCard = ({
                 <a>
                     <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                         <h1 className="title">{title}</h1>
-                        <h1 className="charge">
-                            {currency ? currency : "Rs"} {charge}
-                        </h1>
+                        <h2 className="charge">
+                            {currency ? currency.code : "Rs"} {charge}
+                        </h2>
                     </div>
                     <div className="task-card-block__body">
                         <p className="task-description">{description}</p>
@@ -91,7 +91,7 @@ const TaskCard = ({
                         <ShareIcon url={""} quote={""} hashtag={""} />
                         Share
                     </div>
-                    <Link href={`${slug}`}>
+                    <Link href={`/task/${slug}` ?? "/"}>
                         <a>
                             <p className="applicants  d-flex align-items-center">
                                 <FontAwesomeIcon
@@ -104,10 +104,10 @@ const TaskCard = ({
                     </Link>
                 </div>
                 <div className="right">
-                    <Link href={`${slug}`}>
+                    <Link href={`/task/${slug}` ?? "/"}>
                         <a>
                             <CardBtn
-                                btnTitle={"Apply"}
+                                btnTitle={status}
                                 backgroundColor={
                                     status == "Completed"
                                         ? "#FE5050"

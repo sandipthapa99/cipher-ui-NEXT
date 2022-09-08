@@ -39,6 +39,7 @@ import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
+import type { CategoryDataProps } from "types/categoryData";
 import type { HeroCategoryProps } from "types/heroCategory";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { SuccessStoryProps } from "types/successStory";
@@ -49,13 +50,20 @@ interface LandingPageProps {
     successStoryData: SuccessStoryProps;
     trustedPartnerData: BrandValueProps;
     heroCategoryData: HeroCategoryProps;
+    topCategoryData: CategoryDataProps;
 }
 
 const Home: NextPage<{
     successStoryData: LandingPageProps["successStoryData"];
     trustedPartnerData: LandingPageProps["trustedPartnerData"];
     heroCategoryData: LandingPageProps["heroCategoryData"];
-}> = ({ successStoryData, trustedPartnerData, heroCategoryData }) => {
+    topCategoryData: LandingPageProps["topCategoryData"];
+}> = ({
+    successStoryData,
+    trustedPartnerData,
+    heroCategoryData,
+    topCategoryData,
+}) => {
     const { data: blogData, isLoading: blogLoading } = useData<BlogValueProps>(
         ["all-blogs"],
         "/blog/"
@@ -621,7 +629,7 @@ const Home: NextPage<{
                                         start_time={task?.start_time}
                                         status={task?.status}
                                         currency={task?.currency}
-                                        slug={`/task-you-may-like/${task?.slug}`}
+                                        slug={`/task-you-may-like/${task.slug}`}
                                     />
                                 </Col>
                             )
@@ -839,7 +847,18 @@ const Home: NextPage<{
                     <h2 className="section-sub-title">
                         See some of our top categories
                     </h2>
-                    <TopCategories />
+                    {/* <TopCategories /> */}
+                    <Row className="g-5">
+                        {topCategoryData.map((category, key) => (
+                            <Col md={2} key={key}>
+                                <span className="bg-danger">
+                                    <Link href={`/category/${category.slug}`}>
+                                        <a>{category.category}</a>
+                                    </Link>
+                                </span>
+                            </Col>
+                        ))}
+                    </Row>
                 </Container>
             </section>
         </Layout>
@@ -858,6 +877,9 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: heroCategoryData } = await axiosClient.get(
             "/task/hero-category/"
         );
+        const { data: topCategoryData } = await axiosClient.get(
+            "/task/top-categories/"
+        );
         const { data: recommendedTasksData } = await axiosClient.get("/task");
         const queryClient = new QueryClient();
         await queryClient.prefetchQuery(["all-blogs"]);
@@ -869,6 +891,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 trustedPartnerData: trustedPartnerData,
                 recommendedTasksData: recommendedTasksData,
                 heroCategoryData: heroCategoryData,
+                topCategoryData: topCategoryData,
                 dehydratedState: dehydrate(queryClient),
             },
             revalidate: 10,
@@ -882,6 +905,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 servicesData: [],
                 recommendedTasksData: [],
                 heroCategoryData: [],
+                topCategoryData: [],
             },
             revalidate: 10,
         };
