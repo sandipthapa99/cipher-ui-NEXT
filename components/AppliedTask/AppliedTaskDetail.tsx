@@ -149,6 +149,7 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                     <Col md={12} lg={7}>
                         {(taskDetail?.images ?? []).length > 0 ? (
                             <Carousel
+                                withIndicators
                                 withControls={hasMultipleImages}
                                 draggable={hasMultipleImages}
                                 styles={{
