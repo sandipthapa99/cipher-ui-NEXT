@@ -89,6 +89,7 @@ const AccountForm = () => {
     const { data: profile } = useGetProfile();
     const { data: KYCData } = useGetKYC();
     const [image, setImage] = useState();
+    const [file, setFile] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);
     const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
@@ -429,21 +430,29 @@ const AccountForm = () => {
                                                             "profile_image",
                                                             files[0]
                                                         );
+                                                        setFile(
+                                                            URL.createObjectURL(
+                                                                files[0]
+                                                            )
+                                                        );
+
                                                         setImage(files[0]);
                                                         image
                                                             ? (previewImage = URL.createObjectURL(
                                                                   image
                                                               ))
-                                                            : null;
+                                                            : "http://localhost:3005/91d7fdd7-8af5-4e1c-ab1e-0b2b4585eea7";
 
                                                         console.log(
                                                             "image=",
                                                             image,
                                                             previewImage
                                                         );
-                                                        setShowEditForm(
-                                                            !showEditForm
-                                                        );
+                                                        isEditButtonClicked
+                                                            ? setShowEditForm(
+                                                                  !showEditForm
+                                                              )
+                                                            : null;
                                                     }}
                                                 />
                                             </>
@@ -457,9 +466,8 @@ const AccountForm = () => {
                                         src={
                                             profile && profile.profile_image
                                                 ? profile.profile_image
-                                                : isNoProfileImage &&
-                                                  previewImage
-                                                ? previewImage
+                                                : isNoProfileImage && file
+                                                ? file
                                                 : isEditButtonClicked
                                                 ? previewImage
                                                 : "/userprofile/unknownPerson.jpg"
