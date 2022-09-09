@@ -212,6 +212,7 @@ const AccountForm = () => {
     );
     const onEditProfile = (data: any) => {
         const formData: FormData = new FormData();
+        console.log("image==", data);
         formData.append("profile_image", data);
         data = formData;
         editProfile.mutate(data, {
@@ -386,21 +387,23 @@ const AccountForm = () => {
                         <Form autoComplete="off">
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
-                                    {profile?.is_profile_verified ?? (
+                                    {profile?.is_profile_verified ? (
                                         <FontAwesomeIcon
                                             icon={faBadgeCheck}
                                             className="badge-icon"
                                         />
+                                    ) : (
+                                        ""
                                     )}
                                     <div
                                         className={`${
-                                            isEditButtonClicked
+                                            !profile || isEditButtonClicked
                                                 ? "img-dragdrop"
                                                 : "d-flex align-items-center justify-content-center"
                                         }`}
                                         onClick={onButtonClick}
                                     >
-                                        {isEditButtonClicked ? (
+                                        {!profile || isEditButtonClicked ? (
                                             <>
                                                 <FontAwesomeIcon
                                                     icon={faCamera}
@@ -448,6 +451,9 @@ const AccountForm = () => {
                                                 ? profile.profile_image
                                                 : isEditButtonClicked
                                                 ? previewImage
+                                                : !profile?.profile_image &&
+                                                  previewImage
+                                                ? previewImage
                                                 : "/userprofile/unknownPerson.jpg"
                                         }
                                         layout="fill"
@@ -460,15 +466,6 @@ const AccountForm = () => {
                                 {profile ? (
                                     <div>
                                         {isEditButtonClicked || !profile ? (
-                                            // <BigButton
-                                            //     btnTitle={"Update Profile"}
-                                            //     backgroundColor={"#FFCA6A"}
-                                            //     textColor={"#212529"}
-                                            //     handleClick={() =>
-                                            //         setIsUpdateClicked(true)
-                                            //     }
-                                            //     type="submit"
-                                            // />
                                             <FormButton
                                                 type="submit"
                                                 variant="primary"
@@ -500,8 +497,13 @@ const AccountForm = () => {
                                 show={showEditForm}
                                 setShowEditForm={setShowEditForm}
                                 handleClose={() => setShowEditForm(false)}
-                                handleSubmit={() => onEditProfile(image)}
+                                handleSubmit={() => {
+                                    isEditButtonClicked
+                                        ? onEditProfile(image)
+                                        : setShowEditForm(false);
+                                }}
                             />
+
                             <InputField
                                 type="text"
                                 name="full_name"

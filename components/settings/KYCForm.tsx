@@ -69,7 +69,10 @@ const KYCForm = () => {
                     initialValues={{
                         full_name: profileDetails?.full_name ?? "",
                         address: profileDetails?.address_line1 ?? "",
-                        country: profileDetails?.country ?? "",
+                        country:
+                            foundCountry && profileDetails
+                                ? parseInt(foundCountry.value)
+                                : "",
                         company: "",
                         // passport_size_photo: "",
                         // personal_address_verification_document: "",
