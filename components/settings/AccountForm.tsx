@@ -175,6 +175,7 @@ const AccountForm = () => {
     const foundLanguage = languageResults.find(
         (item) => item.label === user_language
     );
+
     //handle country change
     const handleCountryChanged = (
         id: string | null,
@@ -230,15 +231,13 @@ const AccountForm = () => {
 
     //edit profile
     function isValidURL(str: any) {
-        const regex =
-            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
+        const regex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/;
         if (!regex.test(str)) {
             return false;
         } else {
             return true;
         }
     }
-    console.log("profile=", profile);
 
     return (
         <>
@@ -284,12 +283,20 @@ const AccountForm = () => {
                             : "",
                         hourly_rate: profile?.hourly_rate ?? "",
                         user_type: userType ?? "",
-                        country: profile?.country ?? "",
+                        country:
+                            foundCountry && profile
+                                ? parseInt(foundCountry.value)
+                                : "",
                         education: "abc",
                         address_line1: profile?.address_line1 ?? "",
                         address_line2: profile?.address_line2 ?? "",
-                        language: profile?.language ?? "",
-                        charge_currency: profile?.charge_currency,
+                        language:
+                            profile && foundLanguage
+                                ? parseInt(foundLanguage.value)
+                                : "",
+                        charge_currency: profile
+                            ? profile.charge_currency?.id
+                            : "",
                         profile_visibility: profile?.profile_visibility ?? "",
                         task_preferences: profile?.task_preferences ?? "",
                         profile_image: profile?.profile_image ?? "",
@@ -297,7 +304,7 @@ const AccountForm = () => {
                     validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
                         const formData = new FormData();
-
+                        console.log("edit values=", values);
                         const newValidatedValues = {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
@@ -316,7 +323,6 @@ const AccountForm = () => {
 
                         Object.entries(newValidatedValues).forEach((entry) => {
                             const [key, value] = entry;
-                            console.log("entry=", entry, key, value);
 
                             if (
                                 entry[0] == "profile_image" &&
@@ -414,10 +420,9 @@ const AccountForm = () => {
                                                         );
                                                         setImage(files[0]);
                                                         image
-                                                            ? (previewImage =
-                                                                  URL.createObjectURL(
-                                                                      image
-                                                                  ))
+                                                            ? (previewImage = URL.createObjectURL(
+                                                                  image
+                                                              ))
                                                             : null;
 
                                                         console.log(
@@ -700,6 +705,7 @@ const AccountForm = () => {
                             /> */}
                             <Select
                                 label="Country"
+                                placeholder="Pick One"
                                 name="country"
                                 searchable
                                 nothingFound="No result found."
