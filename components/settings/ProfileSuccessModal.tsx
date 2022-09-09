@@ -35,11 +35,13 @@ const ProfileSuccessModalCard = ({
             <Modal
                 show={show}
                 centered
-                className="auth-modal"
+                className="profile-success-modal"
                 backdrop="static"
             >
                 <Modal.Header>
-                    <Modal.Title>Profile Created Successfullty</Modal.Title>
+                    <Modal.Title className="mx-auto">
+                        Profile Created Successfullty
+                    </Modal.Title>
                 </Modal.Header>
 
                 <div className="modal-body-content">

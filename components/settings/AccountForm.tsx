@@ -81,6 +81,7 @@ const profile_visibility = [
 
 const AccountForm = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
+    //hooks call
     const { mutate } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
@@ -91,14 +92,21 @@ const AccountForm = () => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
-    const [imageUrl, setImageUrl] = useState("");
-
+    const [isNoProfileImage, setIsNoProfileImage] = useState(false);
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
     const onButtonClick = () => {
         // `current` points to the mounted file input element
         inputRef?.current?.click();
+        //  setIsEditButtonClicked(!isEditButtonClicked);
     };
 
+    useEffect(() => {
+        if (!profile?.profile_image) {
+            setIsNoProfileImage(true);
+        }
+    }, []);
+    //  !profile?.profile_image ?? setIsEditButtonClicked(true);\
+    console.log("is no image", isNoProfileImage);
     const country = profile?.country ? profile?.country : "";
 
     const user_language = profile?.language ? profile?.language : "";
@@ -239,7 +247,7 @@ const AccountForm = () => {
             return true;
         }
     }
-
+    console.log("is edit", isEditButtonClicked);
     return (
         <>
             {!KYCData && profile ? <FillKyc onClick={scrollToKyc} /> : ""}
@@ -449,10 +457,10 @@ const AccountForm = () => {
                                         src={
                                             profile && profile.profile_image
                                                 ? profile.profile_image
-                                                : isEditButtonClicked
-                                                ? previewImage
-                                                : !profile?.profile_image &&
+                                                : isNoProfileImage &&
                                                   previewImage
+                                                ? previewImage
+                                                : isEditButtonClicked
                                                 ? previewImage
                                                 : "/userprofile/unknownPerson.jpg"
                                         }
@@ -707,7 +715,7 @@ const AccountForm = () => {
                             /> */}
                             <Select
                                 label="Country"
-                                placeholder="Pick One"
+                                placeholder="Select your country"
                                 name="country"
                                 searchable
                                 nothingFound="No result found."
@@ -763,7 +771,7 @@ const AccountForm = () => {
                             /> */}
                             <Select
                                 label="Language"
-                                placeholder="Pick one"
+                                placeholder="Select your language"
                                 name="language"
                                 searchable
                                 disabled={
@@ -780,6 +788,9 @@ const AccountForm = () => {
                                 onChange={(value) =>
                                     handleLanguageChanged(value, setFieldValue)
                                 }
+                                // sx={{
+                                //     height: "4.8rem",
+                                // }}
                                 data={languageResults ?? []}
                             />
                             {/* <SelectInputField
@@ -793,7 +804,7 @@ const AccountForm = () => {
                             /> */}
                             <Select
                                 label="Currency"
-                                placeholder="Pick one"
+                                placeholder="Select your currency"
                                 name="charge_currency"
                                 searchable
                                 nothingFound="No result found."

@@ -1,6 +1,5 @@
 import BigButton from "@components/common/Button";
 import Link from "next/link";
-import { Col, Row } from "react-bootstrap";
 
 interface CompleteProfileProps {
     onClick: () => void;
@@ -10,10 +9,7 @@ export const CompleteProfile = ({ onClick }: CompleteProfileProps) => {
     return (
         <div className="complete-profile">
             <h1>Your profile is incomplete!</h1>
-            <p>
-                Fill in the details to Complete your profile and get started
-                with tasks.
-            </p>
+            <p>Complete it to get started with tasks.</p>
 
             <div className="d-flex buttons">
                 <BigButton
@@ -27,8 +23,8 @@ export const CompleteProfile = ({ onClick }: CompleteProfileProps) => {
                     <a>
                         <BigButton
                             btnTitle={"Later"}
-                            backgroundColor={"#FFCA6A"}
-                            textColor={"#212529"}
+                            backgroundColor={"#211d4f"}
+                            textColor={"#fff"}
                         />
                     </a>
                 </Link>

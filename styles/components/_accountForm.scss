@@ -1,3 +1,102 @@
+.profile-success-modal,
+.modal.show .modal-dialog {
+    justify-content: center;
+
+    .modal-dialog .modal-content {
+        width: 62rem;
+
+        justify-content: center;
+
+        @include respond(md) {
+            width: 62rem;
+        }
+        @include respond(sm) {
+            width: 58rem;
+        }
+        @include respond(xs) {
+            width: 38rem;
+        }
+        @include respond(xxs) {
+            width: 32rem;
+        }
+        .modal-title {
+            font-size: 2rem;
+        }
+        .modal-body-content {
+            h3 {
+                margin: 0 0 3.2rem 0;
+                font-size: 2rem;
+                font-weight: 500;
+            }
+        }
+        .modal-footer {
+            padding-top: 0rem;
+            .big-btn {
+                height: 3.8rem;
+            }
+        }
+    }
+    .problem {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .otp-wrapper > div {
+            justify-content: space-between;
+        }
+        .otp-wrapper {
+            justify-content: space-between;
+            flex-direction: column;
+
+            .otp-box {
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                @include respond(xs) {
+                    height: 3.5rem;
+                    width: 3.5rem;
+                }
+                @include respond(xxs) {
+                    height: 3rem;
+                    width: 3rem;
+                    margin-right: 0.5rem;
+                }
+                @include respond(sm) {
+                    height: 5rem;
+                    width: 5rem;
+                }
+                border: 1px solid #ccc;
+                border-radius: 0.8rem;
+                // width: "54px",
+                // height: "54px",
+                font-size: 18px;
+                color: #111;
+                outline: none;
+                font-weight: 500;
+                input {
+                    border: none;
+                }
+            }
+        }
+
+        .modal-footer {
+            border-top: none !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 5rem;
+            @include respond(xs) {
+                display: flex;
+                flex-direction: column;
+            }
+            @include respond(xxs) {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}
+
 .account-form {
     background: #fff;
     padding: 3rem;
@@ -7,6 +106,7 @@
     @include respond(lg) {
         padding: 8rem;
     }
+
     .profile-img {
         // background-color: red;
 
@@ -70,6 +170,25 @@
         border: 0.1rem solid #afafaf;
         height: 4.8rem;
         color: #111;
+    }
+    .mantine-1m3pqry {
+        margin-bottom: 1.5rem;
+    }
+    .mantine-ittua2 {
+        font-weight: 400;
+        margin-bottom: 0.5rem;
+    }
+    .mantine-qew57g {
+        background: #fff;
+        border: 0.1rem solid #afafaf;
+        box-shadow: none;
+        height: 4.8rem;
+        font-size: 1.6rem;
+        padding: 0.6rem 1.8rem;
+        //  position: relative;
+        border-radius: 0.4rem;
+        font-family: "Inter";
+        font-weight: 400;
     }
     .mantine-1wlhy24:disabled {
         background-color: #e9ecef;

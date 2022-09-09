@@ -27,10 +27,8 @@ const PhotoEdit = ({
         photo ? (previewImage = URL.createObjectURL(photo)) : "";
         return previewImage;
     }, [photo]);
-    console.log("react preview img=", reactImage);
-    // if (photo) {
-    //     previewImage = URL.createObjectURL(photo);
-    // }
+
+    console.log("preview image=", previewImage);
 
     return (
         <>
