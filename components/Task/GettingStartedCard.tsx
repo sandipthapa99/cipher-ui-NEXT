@@ -15,7 +15,10 @@ const GettingStartedTask = () => {
             <div className="task-container">
                 {taskActionCardContent &&
                     taskActionCardContent.map((task) => (
-                        <div key={task.id} onClick={toggleShowPostTaskModal}>
+                        <div
+                            key={task.id}
+                            onClick={() => toggleShowPostTaskModal()}
+                        >
                             <TaskActionCard
                                 title={task.title}
                                 image={task.image}

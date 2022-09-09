@@ -273,6 +273,7 @@ export const ServicePostData: ServicePostProps = {
     discount_value: "",
     is_active: true,
     category: 0,
+    currency: 0,
     city: 1,
     images: [],
     imagePreviewUrl: [],
