@@ -28,8 +28,6 @@ const PhotoEdit = ({
         return previewImage;
     }, [photo]);
 
-    console.log("preview image=", previewImage);
-
     return (
         <>
             {/* Modal component */}

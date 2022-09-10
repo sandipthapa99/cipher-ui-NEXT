@@ -53,8 +53,6 @@ const Login = () => {
     };
 
     const { data: profile } = useGetProfile();
-    console.log("have profile=", profile);
-
     return (
         <section>
             <OnBoardingLayout
@@ -86,22 +84,20 @@ const Login = () => {
                                 },
                                 onSuccess: async () => {
                                     const { next } = router.query;
-                                    await router.push(
-                                        typeof next === "string"
-                                            ? next
-                                            : "/settings/account/individual"
-                                    );
-                                    // !profile
-                                    //     ? await router.push(
-                                    //           typeof next === "string"
-                                    //               ? next
-                                    //               : "/settings/account/individual"
-                                    //       )
-                                    //     : await router.push(
-                                    //           typeof next === "string"
-                                    //               ? next
-                                    //               : "/home"
-                                    //       );
+                                    // await router.push(
+                                    //     typeof next === "string"
+                                    //         ? next
+                                    //         : "/settings/account/individual"
+                                    // );
+                                    profile
+                                        ? await router.push(
+                                              typeof next === "string"
+                                                  ? next
+                                                  : "/home"
+                                          )
+                                        : await router.push(
+                                              "/settings/account/individual"
+                                          );
 
                                     toast.success("Login Successful!");
                                 },

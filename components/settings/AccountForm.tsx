@@ -98,7 +98,7 @@ const AccountForm = () => {
     const onButtonClick = () => {
         // `current` points to the mounted file input element
         inputRef?.current?.click();
-        //  setIsEditButtonClicked(!isEditButtonClicked);
+        //  setIsEdtButtonClicked(!isEditButtonClicked);
     };
 
     useEffect(() => {
@@ -107,7 +107,6 @@ const AccountForm = () => {
         }
     }, []);
     //  !profile?.profile_image ?? setIsEditButtonClicked(true);\
-    console.log("is no image", isNoProfileImage);
     const country = profile?.country ? profile?.country : "";
 
     const user_language = profile?.language ? profile?.language : "";
@@ -221,7 +220,6 @@ const AccountForm = () => {
     );
     const onEditProfile = (data: any) => {
         const formData: FormData = new FormData();
-        console.log("image==", data);
         formData.append("profile_image", data);
         data = formData;
         editProfile.mutate(data, {
@@ -248,7 +246,6 @@ const AccountForm = () => {
             return true;
         }
     }
-    console.log("is edit", isEditButtonClicked);
     return (
         <>
             {!KYCData && profile ? <FillKyc onClick={scrollToKyc} /> : ""}
@@ -314,7 +311,6 @@ const AccountForm = () => {
                     validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
                         const formData = new FormData();
-                        console.log("edit values=", values);
                         const newValidatedValues = {
                             ...values,
                             user_type: JSON.stringify(values.user_type),
@@ -443,11 +439,6 @@ const AccountForm = () => {
                                                               ))
                                                             : "http://localhost:3005/91d7fdd7-8af5-4e1c-ab1e-0b2b4585eea7";
 
-                                                        console.log(
-                                                            "image=",
-                                                            image,
-                                                            previewImage
-                                                        );
                                                         isEditButtonClicked
                                                             ? setShowEditForm(
                                                                   !showEditForm

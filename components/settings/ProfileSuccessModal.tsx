@@ -55,7 +55,13 @@ const ProfileSuccessModalCard = ({
                             handleClick={handleCloseModal}
                         />
                         <Link href={"/home"} className="text-profile">
-                            <Button className="submit-btn">Go Home</Button>
+                            {/* <Button className="submit-btn">Go Home</Button> */}
+                            <BigButton
+                                btnTitle={"Complete KYC"}
+                                backgroundColor={"#211d4f"}
+                                textColor={"#fff"}
+                                handleClick={handleCloseModal}
+                            />
                         </Link>
                     </Modal.Footer>
                 </div>
