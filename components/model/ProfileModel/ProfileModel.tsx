@@ -107,7 +107,7 @@ export const ProfileModel = () => {
 const PROFILE_LINKS = {
     sectionOne: [
         {
-            title: "Overview",
+            title: "Profile",
             icon: (
                 <FontAwesomeIcon
                     color={REGULAR_ICON_COLOR}
