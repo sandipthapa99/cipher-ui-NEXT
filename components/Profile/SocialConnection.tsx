@@ -5,6 +5,12 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import type { socialConnectionProps } from "staticData/socialConnection";
 
+interface socialMediaProps {
+    provider: string;
+    email: string;
+    icon: string;
+    isConnected: true;
+}
 const SocialConnection = ({ values }: { values: socialConnectionProps }) => {
     return (
         <div className="social-connection me-4">
@@ -15,7 +21,11 @@ const SocialConnection = ({ values }: { values: socialConnectionProps }) => {
             <p>Your are signed in as {values.email}</p>
             <span className="d-flex align-items-center justify-content-center my-4">
                 {values.isConnected ? (
-                    <BigButton btnTitle="Connect" backgroundColor={"#211d4f"} />
+                    <BigButton
+                        btnTitle="Connect"
+                        backgroundColor={"#211d4f"}
+                        textColor={"#fff"}
+                    />
                 ) : (
                     <Button className="btn close-btn px-3">Disconnect</Button>
                 )}

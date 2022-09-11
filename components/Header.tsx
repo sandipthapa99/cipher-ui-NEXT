@@ -160,24 +160,30 @@ const Header = () => {
                             </Link>
                         )}
 
-                        {profileDetails ? (
-                            <div>
-                                <a
-                                    className="btn location-btn d-none d-md-inline-block"
-                                    onClick={() =>
-                                        setNotopen(
-                                            (currentNotopen) => !currentNotopen
-                                        )
-                                    }
-                                >
+                        {/* {profileDetails ? ( */}
+                        <div className="notification-icon-wrapper">
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                onClick={() =>
+                                    setNotopen(
+                                        (currentNotopen) => !currentNotopen
+                                    )
+                                }
+                            >
+                                <div className="bell-icon-header">
                                     <FontAwesomeIcon
                                         icon={faBell}
                                         className="svg-icon"
                                     />
-                                </a>
-                                {notopen && <NotificationDropdown />}
-                            </div>
-                        ) : null}
+                                    <span className="notification-badge">
+                                        2
+                                    </span>
+                                </div>
+                            </a>
+
+                            {notopen && <NotificationDropdown />}
+                        </div>
+                        {/* ) : null} */}
 
                         <Link href="#!">
                             <a
