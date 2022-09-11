@@ -678,6 +678,19 @@ const Home: NextPage<{
                         </h1>
                         <h3 className="text-center">Some Success Stories</h3>
                     </div>
+                    {topCategoryData.length <= 0 && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            <Highlight highlight={"No"}>
+                                {`There are No Services available`}
+                            </Highlight>
+                        </Alert>
+                    )}
                     <Carousel
                         mx="auto"
                         styles={{
@@ -691,11 +704,14 @@ const Home: NextPage<{
                         className="rounded"
                         withIndicators
                     >
-                        {successStoryData?.result?.map((value, key) => (
-                            <Carousel.Slide key={key}>
-                                <PersonalSuccessCard successStoryData={value} />
-                            </Carousel.Slide>
-                        ))}
+                        {successStoryData &&
+                            successStoryData?.result?.map((value, key) => (
+                                <Carousel.Slide key={key}>
+                                    <PersonalSuccessCard
+                                        successStoryData={value}
+                                    />
+                                </Carousel.Slide>
+                            ))}
                     </Carousel>
                 </Container>
             </section>
@@ -760,6 +776,19 @@ const Home: NextPage<{
                                 </Grid.Col>
                             ))}
                         </Grid>
+                    )}
+                    {!blogLoading && !blogData && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            <Highlight highlight={"No"}>
+                                {`There are No Tasks available`}
+                            </Highlight>
+                        </Alert>
                     )}
                     <Row className="gx-5">
                         {blogData
@@ -875,18 +904,36 @@ const Home: NextPage<{
                         See some of our top categories
                     </h2>
                     {/* <TopCategories /> */}
+                    {topCategoryData.length <= 0 && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            <Highlight highlight={"No"}>
+                                {`There are No Tasks available`}
+                            </Highlight>
+                        </Alert>
+                    )}
                     <Row className="g-5">
-                        {topCategoryData.map((category, key) => (
-                            <Col md={2} key={key}>
-                                <div className="d-flex justify-content-center top-categories">
-                                    <Link href={`/category/${category.slug}`}>
-                                        <a>
-                                            <span>{category.category}</span>
-                                        </a>
-                                    </Link>
-                                </div>
-                            </Col>
-                        ))}
+                        {topCategoryData &&
+                            topCategoryData.map((category, key) => (
+                                <Col md={2} key={key}>
+                                    <div className="d-flex justify-content-center top-categories">
+                                        <Link
+                                            href={`/category/${category?.slug}`}
+                                        >
+                                            <a>
+                                                <span>
+                                                    {category?.category}
+                                                </span>
+                                            </a>
+                                        </Link>
+                                    </div>
+                                </Col>
+                            ))}
                     </Row>
                 </Container>
             </section>
