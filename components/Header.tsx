@@ -9,8 +9,10 @@ import {
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "@mantine/core";
+import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useLocation } from "hooks/location/useLocation";
+import { useGetNotification } from "hooks/Notifications/use-notification";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useWeather } from "hooks/weather/useWeather";
 import Image from "next/image";
@@ -38,6 +40,7 @@ const Header = () => {
     const [notopen, setNotopen] = useState(false);
     const [rasifal, setRasifal] = useState(false);
     const { data: profileDetails } = useGetProfile();
+    const { data: allNotification } = useGetNotification();
 
     // const handleBodyScroll = () => {
     //     if (!rasifal) {
@@ -175,13 +178,17 @@ const Header = () => {
                                         icon={faBell}
                                         className="svg-icon"
                                     />
-                                    <span className="notification-badge">
-                                        2
-                                    </span>
+                                    {allNotification?.unread_count !== 0 && (
+                                        <span className="notification-badge">
+                                            {allNotification?.unread_count}
+                                        </span>
+                                    )}
                                 </div>
                             </a>
 
-                            {notopen && <NotificationDropdown />}
+                            {notopen && (
+                                <NotificationDropdown setNotOpen={setNotopen} />
+                            )}
                         </div>
                         {/* ) : null} */}
 
