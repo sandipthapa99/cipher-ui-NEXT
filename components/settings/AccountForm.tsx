@@ -439,7 +439,7 @@ const AccountForm = () => {
                                                                   URL.createObjectURL(
                                                                       image
                                                                   ))
-                                                            : "http://localhost:3005/91d7fdd7-8af5-4e1c-ab1e-0b2b4585eea7";
+                                                            : "";
 
                                                         isEditButtonClicked
                                                             ? setShowEditForm(
