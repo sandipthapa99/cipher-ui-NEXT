@@ -29,7 +29,10 @@ const AppliedLayout = ({
 }) => {
     const [query, setQuery] = useState("");
 
-    const { data: searchData = [] } = useSearchTask(query, type ?? "");
+    const { data: searchData = [], isFetching } = useSearchTask(
+        query,
+        type ?? ""
+    );
 
     return (
         <Layout title="Find Tasks | Cipher">
@@ -40,6 +43,7 @@ const AppliedLayout = ({
                         query={query}
                         appliedTasks={searchData}
                         type={type ?? ""}
+                        isLoading={isFetching}
                     >
                         {children}
                     </TaskAside>

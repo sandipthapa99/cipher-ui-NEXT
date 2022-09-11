@@ -40,7 +40,7 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const checkSpecialOffer = useCheckSpecialOffer();
     // console.log(specialOfferDetails, checkSpecialOffer);
 
-    const { data: searchData = [] } = useSearchService(query);
+    const { data: searchData = [], isFetching } = useSearchService(query);
 
     const handleClearSearchResults = () => {
         clearSearchedServices();
@@ -94,6 +94,7 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
                             //     ? searchedServices
                             //     : searchData
                         }
+                        isLoading={isFetching}
                     >
                         {children}
                     </ServiceAside>
