@@ -56,9 +56,9 @@
         @include respond(xs) {
             position: absolute;
             /* margin-bottom: 21rem; */
-            margin-top: 2r;
-            top: 5rem;
-            right: 3rem;
+            top: 1.6rem;
+            right: 1rem;
+            display: flex;
         }
     }
 
