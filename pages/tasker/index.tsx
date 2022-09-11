@@ -1,4 +1,4 @@
-import { MapboxMap } from "@components/common/MapboxMap";
+import { GoogleMap } from "@components/GoogleMap";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
 import type { NextPage } from "next";
 
@@ -6,10 +6,7 @@ const TaskerPage: NextPage = () => {
     return (
         <>
             <TaskerLayout>
-                <MapboxMap
-                    latitude={27.687713889865993}
-                    longitude={85.32806957052709}
-                />
+                <GoogleMap />
             </TaskerLayout>
         </>
     );
