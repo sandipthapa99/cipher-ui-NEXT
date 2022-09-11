@@ -11,9 +11,9 @@
     padding-bottom: 2.5rem;
     span {
         margin-left: 0.4rem;
-  
+
         //Nest Hub
-        @media screen and (width: 1024px),(width: 1280px) {
+        @media screen and (width: 1024px), (width: 1280px) {
             margin-left: 0;
         }
 
@@ -217,10 +217,9 @@
                 margin-right: 0;
                 justify-content: flex-start;
             }
-            @media screen and (width: 1024px),(width: 1280px) {
+            @media screen and (width: 1024px), (width: 1280px) {
                 justify-content: flex-start;
             }
-    
         }
     }
     .td-mb-24 {
@@ -231,10 +230,10 @@
         font-weight: 500;
         margin-left: 2rem;
 
-        @media screen and (width:768px) {
+        @media screen and (width: 768px) {
             margin-left: 0;
         }
-        @include respond(xs){
+        @include respond(xs) {
             width: 100%;
             margin-left: 0;
         }
