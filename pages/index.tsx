@@ -1,6 +1,5 @@
 import Advertisement from "@components/Advertisement/Advertisement";
 import MarketPlaceCard from "@components/Cards/MarketPlaceCard";
-import { TopCategories } from "@components/Category/TopCategories";
 import CommunityBlogCard from "@components/common/BlogCard";
 import CardBtn from "@components/common/CardBtn";
 import CategoryCardNew from "@components/common/CategoryCardNew";
@@ -235,6 +234,19 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {!serviceLoading && !servicesData && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            <Highlight highlight={"No"}>
+                                {`There are No Services available`}
+                            </Highlight>
+                        </Alert>
+                    )}
                     {serviceLoading && (
                         <Grid>
                             {Array.from({ length: 4 }).map((_, key) => (
@@ -288,6 +300,19 @@ const Home: NextPage<{
                             </a>
                         </Link>
                     </div>
+                    {!serviceLoading && !servicesData && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            <Highlight highlight={"No"}>
+                                {`There are No Services available`}
+                            </Highlight>
+                        </Alert>
+                    )}
                     {serviceLoading && (
                         <Grid>
                             {Array.from({ length: 4 }).map((_, key) => (
@@ -343,6 +368,19 @@ const Home: NextPage<{
                                 </Grid.Col>
                             ))}
                         </Grid>
+                    )}
+                    {!serviceLoading && !servicesData && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            <Highlight highlight={"No"}>
+                                {`There are No Services available`}
+                            </Highlight>
+                        </Alert>
                     )}
                     <Row className="gx-5">
                         {servicesData &&
