@@ -1,14 +1,24 @@
 import { faBell } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useClickOutside } from "@mantine/hooks";
 import Link from "next/link";
+import type { Dispatch, SetStateAction } from "react";
 import React from "react";
 
 import { ApproveNotification } from "./dropdown-notifications/ApproveNotification";
 import { CreatedTask } from "./dropdown-notifications/CreatedTask";
 
-export const NotificationDropdown = () => {
+interface NotificationDropdownProps {
+    setNotOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export const NotificationDropdown = ({
+    setNotOpen,
+}: NotificationDropdownProps) => {
+    const notificationRef = useClickOutside(() => setNotOpen(false));
+
     return (
-        <div className="notification-dropdown">
+        <div className="notification-dropdown" ref={notificationRef}>
             <div className="d-flex notification-title align-items-center">
                 <FontAwesomeIcon icon={faBell} />
                 <h3>Notifications</h3>

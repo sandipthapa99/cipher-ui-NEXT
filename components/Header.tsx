@@ -181,7 +181,9 @@ const Header = () => {
                                 </div>
                             </a>
 
-                            {notopen && <NotificationDropdown />}
+                            {notopen && (
+                                <NotificationDropdown setNotOpen={setNotopen} />
+                            )}
                         </div>
                         {/* ) : null} */}
 
