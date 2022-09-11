@@ -48,11 +48,6 @@ export const SecurityQuestions = () => {
         }
     );
 
-    // console.log(
-    //     "🚀 ~ file: SecurityQuestions.tsx ~ line 33 ~ SecurityQuestions ~ answeredSecurityQuestions",
-    //     answeredSecurityQuestions
-    // );
-
     const [hovered, setHovered] = useState<null | number>(null);
     const { mutate: editAnswer } = useEditForm(
         `/tasker/security-answer/${questionId}/`
@@ -135,6 +130,7 @@ export const SecurityQuestions = () => {
                                 {`${index + 1}.${" "} ${
                                     item?.question?.question
                                 }`}
+
                                 <FontAwesomeIcon
                                     className="svg-icon"
                                     icon={faPencil}
