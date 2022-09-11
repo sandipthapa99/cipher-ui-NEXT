@@ -30,8 +30,7 @@ const firebaseCloudMessaging = {
     onMessage: async () => {
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {
-            // console.log("Message received. ", payload);
-
+            console.log("Message received. ", payload);
             toast.success(payload?.data?.title, {
                 onClick: () => {
                     window.open(

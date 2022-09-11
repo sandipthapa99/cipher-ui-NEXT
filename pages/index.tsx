@@ -453,19 +453,20 @@ const Home: NextPage<{
                         </li>
                     </ul>
 
-                    {heroCategoryData?.result.length <= 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No Category"}>
-                                {`There are No Category available`}
-                            </Highlight>
-                        </Alert>
-                    )}
+                    {heroCategoryData ??
+                        (heroCategoryData?.result.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                <Highlight highlight={"No Category"}>
+                                    {`There are No Category available`}
+                                </Highlight>
+                            </Alert>
+                        ))}
                     <Row className="gx-5 hero-category">
                         {heroCategoryData?.result &&
                             heroCategoryData?.result
