@@ -88,6 +88,14 @@ export const AddServiceModalComponent = () => {
         }
     );
 
+    const { data: currencyOptionsData } = useQuery(
+        ["currency-options"],
+        async () => {
+            const response = await axiosClient.get("/locale/currency/options/");
+            return response.data;
+        }
+    );
+
     const { data: cityOptionsData } = useQuery(["city-options"], async () => {
         const response = await axiosClient.get("/locale/client/city/options/");
         return response.data;
@@ -98,6 +106,13 @@ export const AddServiceModalComponent = () => {
     const renderCityOptions = cityOptionsData?.map((item: any) => {
         return {
             id: item?.id,
+            value: item?.id,
+            label: item?.name,
+        };
+    });
+
+    const renderCurrencyOptions = currencyOptionsData?.map((item: any) => {
+        return {
             value: item?.id,
             label: item?.name,
         };
@@ -287,6 +302,18 @@ export const AddServiceModalComponent = () => {
                             </span>
                             <Row className="gx-5">
                                 <Col md={4}>
+                                    <Select
+                                        placeholder="choose currency"
+                                        name="currency"
+                                        error={errors.currency}
+                                        searchable
+                                        data={renderCurrencyOptions ?? []}
+                                        onChange={(value) =>
+                                            setFieldValue("currency", value)
+                                        }
+                                    />
+                                </Col>
+                                <Col md={4}>
                                     <InputField
                                         type="text"
                                         name="budget_from"
@@ -294,7 +321,11 @@ export const AddServiceModalComponent = () => {
                                         touch={touched.budget_from}
                                         fieldRequired
                                         className="mb-0"
-                                        placeHolder="Enter your price"
+                                        placeHolder={
+                                            showVariable.showBudget
+                                                ? "Budget From"
+                                                : "Enter your Budget"
+                                        }
                                     />
                                 </Col>
                                 {showVariable.showBudget && (
@@ -306,7 +337,7 @@ export const AddServiceModalComponent = () => {
                                             touch={touched.budget_to}
                                             fieldRequired
                                             className="mb-0"
-                                            placeHolder="Enter your price"
+                                            placeHolder="Budget to"
                                         />
                                     </Col>
                                 )}
