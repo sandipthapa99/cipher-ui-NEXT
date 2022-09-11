@@ -33,7 +33,7 @@ export const SecurityQuestions = () => {
             answer: string;
         }>
     >(["answered-security-questions"], "/tasker/security-answer/");
-    console.log("abc", answeredSecurityQuestions);
+    // console.log("abc", answeredSecurityQuestions);
 
     const renderQuestionsOptions = securityQuestions?.data?.map(
         (item, index) => {
@@ -100,7 +100,7 @@ export const SecurityQuestions = () => {
                     answer: "",
                 }}
                 onSubmit={async (values, action) => {
-                    console.log(values);
+                    // console.log(values);
                     sendSecurityQuestions.mutate(values, {
                         onSuccess: () => {
                             toast.success("Security questions Answered");

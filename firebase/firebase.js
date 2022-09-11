@@ -4,6 +4,7 @@ import { getApp, getApps, initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 // import { doc, getFirestore, setDoc } from "firebase/firestore";
 import localforage from "localforage";
+import { toast } from "react-toastify";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBSPPQD4M1anH8uT7Ldh-zevS2lgWoL-9Q",
@@ -18,6 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const db = getFirestore();
+let _toast = null;
 
 const firebaseCloudMessaging = {
     tokenInlocalforage: async () => {
@@ -28,7 +30,21 @@ const firebaseCloudMessaging = {
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {
             console.log("Message received. ", payload);
-            // alert(payload.notification.title, payload.notification.body);
+
+            toast.success(payload?.data?.title, {
+                onClick: () => {
+                    if (!_toast) {
+                        _toast = 5;
+                        window.open(
+                            `/task/${payload?.data?.object_slug}`,
+                            "_blank"
+                        );
+                        setTimeout(() => {
+                            _toast = null;
+                        }, 200);
+                    }
+                },
+            });
             // alert("Notificacion");
         });
     },

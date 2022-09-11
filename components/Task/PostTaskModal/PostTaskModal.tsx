@@ -130,7 +130,7 @@ export const PostTaskModal = () => {
             mutate(postTaskPayload, {
                 onSuccess: async (payload) => {
                     toggleShowPostTaskModal();
-                    toast.success(payload.message);
+                    // toast.success(payload.message);
                     await queryClient.invalidateQueries(["all-tasks"]);
                     // router.push("/task");
                 },
