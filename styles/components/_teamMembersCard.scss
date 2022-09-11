@@ -17,7 +17,6 @@
         }
         @include respond(xs) {
             width: 105% !important;
-            
         }
         //specific to surface duo
         @media screen and (width: 540px) {
@@ -151,4 +150,3 @@
         }
     }
 }
-

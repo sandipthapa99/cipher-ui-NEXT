@@ -7,7 +7,6 @@ import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import { Highlight, Space } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { useData } from "hooks/use-data";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -30,7 +29,7 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
     const clearSearchedServices = useClearSearchedServices();
     const searchQuery = useSearchQuery();
 
-    const { data: searchData = [] } = useSearchTasker(query);
+    const { data: searchData = [], isFetching } = useSearchTasker(query);
     const handleSearchChange = (query: string) => {
         clearSearchQuery();
         clearSearchedServices();
@@ -48,7 +47,11 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
                         </Highlight>
                     )}
                     <Space h={10} />
-                    <TaskerAside query={query} tasker={searchData}>
+                    <TaskerAside
+                        query={query}
+                        tasker={searchData}
+                        isLoading={isFetching}
+                    >
                         {children}
                     </TaskerAside>
                 </Container>

@@ -1,6 +1,8 @@
 import ServiceNearYouCard from "@components/SearchTask/searchAside";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
-import { ScrollArea } from "@mantine/core";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, ScrollArea } from "@mantine/core";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
@@ -11,8 +13,14 @@ interface ServiceAside {
     children: ReactNode;
     service: ServicesValueProps["result"];
     query: string;
+    isLoading: boolean;
 }
-const ServiceAside = ({ service, query, children }: ServiceAside) => {
+const ServiceAside = ({
+    service,
+    query,
+    children,
+    isLoading,
+}: ServiceAside) => {
     const totalAppliedTasks = service?.length;
     const renderTaskCards = service?.map((task, key) => {
         return (
@@ -50,27 +58,37 @@ const ServiceAside = ({ service, query, children }: ServiceAside) => {
                         offsetScrollbars
                         scrollbarSize={5}
                     >
-                        {query && totalAppliedTasks > 0 ? (
-                            <p className="search-results-text">
-                                {`${totalAppliedTasks} service matching ${query} found`}
-                            </p>
-                        ) : null}
-                        {!query && totalAppliedTasks === 0 ? (
+                        {isLoading && (
                             <Fragment>
                                 {Array.from({ length: 3 }).map((_, key) => (
                                     <SkeletonServiceCard key={key} />
                                 ))}
                             </Fragment>
-                        ) : (
-                            renderTaskCards
                         )}
+                        {query && totalAppliedTasks > 0 ? (
+                            <p className="search-results-text">
+                                {`${totalAppliedTasks} service matching ${query} found`}
+                            </p>
+                        ) : null}
+                        {renderTaskCards}
                         {query && totalAppliedTasks === 0 ? (
                             <p className="search-results-text">
                                 No services matching {query} found
                             </p>
                         ) : null}
+                        {!isLoading && !query && totalAppliedTasks === 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="Services Unavailable"
+                                variant="filled"
+                                color="yellow"
+                            >
+                                No Services available at the moment
+                            </Alert>
+                        )}
                     </ScrollArea.Autosize>
                 </Col>
+
                 <Col md={8}>{children}</Col>
             </Row>
         </div>

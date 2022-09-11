@@ -62,7 +62,7 @@ const ServiceNearYouCard = ({
             onClick={() => onServiceClick}
         >
             <Row>
-                <Col md="5">
+                <Col md={5}>
                     {image && Array.isArray(image) ? (
                         <figure className="thumbnail-img">
                             <Image
@@ -91,7 +91,7 @@ const ServiceNearYouCard = ({
                         </figure>
                     )}
                 </Col>
-                <Col md="7">
+                <Col md={7}>
                     <div className="content">
                         <h4>{serviceTitle}</h4>
                         <div className="information">
