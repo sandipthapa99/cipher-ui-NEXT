@@ -10,6 +10,6 @@ export interface MerchantCardProps {
     happyClients: number;
     successRate: number;
     liked?: boolean;
-    merchantId?: string;
+    merchantId: string | number;
     onClick?: () => void;
 }

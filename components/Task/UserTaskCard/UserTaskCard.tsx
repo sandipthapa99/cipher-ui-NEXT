@@ -81,7 +81,7 @@ export const UserTaskCard = ({
             <p className="td-text user-info__bio">bio</p>
             <div className="d-flex justify-content-between user-task-card__footer">
                 <div className="icons">
-                    <SaveIcon />
+                    <SaveIcon object_id={String(taskId)} model={"task"} />
                     <ShareIcon
                         url={`http://localhost:3005/tasker?taskerId=${taskId}`}
                         quote={"Tasker from cipher project"}

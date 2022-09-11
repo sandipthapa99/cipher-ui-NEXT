@@ -183,7 +183,7 @@ const SearchResultsDetail = ({
                         <div className="d-flex justify-content-between align-items-center">
                             <div className="d-flex flex-col align-items-center">
                                 <SaveIcon
-                                    object_id={serviceId}
+                                    object_id={String(serviceId)}
                                     model={"service"}
                                     showText
                                     filled={isServiceBookmarked}
