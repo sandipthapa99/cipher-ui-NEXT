@@ -411,9 +411,9 @@ const SearchResultsDetail = ({
                             //         service.service.slug === servSlug
                             // )
                             .map(
-                                (offer) =>
+                                (offer, key) =>
                                     offer && (
-                                        <Carousel.Slide key={offer.id}>
+                                        <Carousel.Slide key={key}>
                                             <PackageOffersCard
                                                 title={offer.title}
                                                 price={offer.budget.toString()}

@@ -62,8 +62,7 @@ export const SecurityQuestions = () => {
                     answer: "",
                 }}
                 onSubmit={async (values, action) => {
-                    console.log(values);
-
+                    // console.log(values);
                     sendSecurityQuestions.mutate(values, {
                         onSuccess: () => {
                             toast.success("Security questions Answered");
