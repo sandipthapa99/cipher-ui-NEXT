@@ -43,7 +43,7 @@ const AppliedLayout = ({
                         query={query}
                         appliedTasks={searchData}
                         type={type ?? ""}
-                        isLoading={isFetching}
+                        isFetching={isFetching}
                     >
                         {children}
                     </TaskAside>

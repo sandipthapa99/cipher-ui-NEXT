@@ -15,14 +15,14 @@ interface TaskAsideProps {
     appliedTasks: ITask[];
     query: string;
     type?: string;
-    isLoading?: boolean;
+    isFetching: boolean;
 }
 const TaskAside = ({
     appliedTasks,
     query,
     children,
     type,
-    isLoading,
+    isFetching,
 }: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
     const renderTaskCards = appliedTasks?.map((task) => {
@@ -51,7 +51,7 @@ const TaskAside = ({
                         offsetScrollbars
                         scrollbarSize={5}
                     >
-                        {isLoading && (
+                        {isFetching && (
                             <Fragment>
                                 {Array.from({ length: 4 }).map((_, key) => (
                                     <SkeletonTaskCard key={key} />
@@ -68,9 +68,16 @@ const TaskAside = ({
                                 No services matching {query} found
                             </p>
                         ) : null}
-
-                        {renderTaskCards}
-                        {!isLoading && !query && appliedTasks?.length === 0 && (
+                        {isFetching ? (
+                            <Fragment>
+                                {Array.from({ length: 4 }).map((_, key) => (
+                                    <SkeletonTaskCard key={key} />
+                                ))}
+                            </Fragment>
+                        ) : (
+                            renderTaskCards
+                        )}
+                        {!query && appliedTasks?.length === 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
                                 title="Tasks Unavailable"
