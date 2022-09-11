@@ -11,6 +11,7 @@ import { Search } from "@components/common/Search";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
+import { GoogleMap } from "@components/GoogleMap";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
@@ -84,6 +85,7 @@ const Home: NextPage<{
 
     return (
         <Layout title="Cipher - Catering to Your Requirements">
+            <GoogleMap />
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-5">
                     <Row className="gx-5 hero-content">
