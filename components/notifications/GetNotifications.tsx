@@ -1,6 +1,7 @@
 //import "firebase/messaging";
 
 import { QueryClient } from "@tanstack/react-query";
+import { useGetNotification } from "hooks/Notifications/use-notification";
 import { useData } from "hooks/use-data";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -39,32 +40,21 @@ export default function GetNotifications() {
     //         );
     //     });
     // }
+    const { data: allNotifications } = useGetNotification();
     const queryClient = new QueryClient();
-    const { data: allNotifications } = useData<{
-        result: Array<{
-            user: string;
-            type: string;
-            title: string;
-            object: string;
-            created_date: string;
-            read_date: any;
-            content: any;
-        }>;
-    }>(["notifications"], "/notification/");
-    queryClient.invalidateQueries(["notifications"]);
-    console.log("notifications", allNotifications);
-    const todayNotifications = allNotifications?.data?.result.filter(
-        (notify) => {
-            const date = new Date(notify.created_date);
-            const today = new Date();
 
-            return (
-                date.getDate() === today.getDate() &&
-                date.getMonth() === today.getMonth() &&
-                date.getFullYear() === today.getFullYear()
-            );
-        }
-    );
+    queryClient.invalidateQueries(["notification"]);
+    console.log("notifications", allNotifications);
+    const todayNotifications = allNotifications?.result.filter((notify) => {
+        const date = new Date(notify.created_date);
+        const today = new Date();
+
+        return (
+            date.getDate() === today.getDate() &&
+            date.getMonth() === today.getMonth() &&
+            date.getFullYear() === today.getFullYear()
+        );
+    });
     // console.log("today", todayNotifications);
     // if (allNotifications?.data?.result.length === 0) {
     //     return (
@@ -77,14 +67,12 @@ export default function GetNotifications() {
     //         </Container>
     //     );
     // }
-    const earlierNotifications = allNotifications?.data?.result.filter(
-        (notify) => {
-            const date = new Date(notify.created_date);
-            const today = new Date();
+    const earlierNotifications = allNotifications?.result.filter((notify) => {
+        const date = new Date(notify.created_date);
+        const today = new Date();
 
-            return date.getDate() !== today.getDate();
-        }
-    );
+        return date.getDate() !== today.getDate();
+    });
     console.log("earlier", earlierNotifications);
 
     const renderTodayNotifications = todayNotifications?.map(
@@ -96,6 +84,7 @@ export default function GetNotifications() {
                             taskTitle={notification.title}
                             taskObject={notification.object}
                             createdDate={notification.created_date}
+                            slug={notification.object_slug}
                         />
                     </div>
                 );
@@ -112,6 +101,7 @@ export default function GetNotifications() {
                             taskTitle={notification.title}
                             taskObject={notification.object}
                             createdDate={notification.created_date}
+                            slug={notification.object_slug}
                         />
                     </div>
                 );

@@ -2,6 +2,7 @@ import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 
 import { AcceptReject } from "./AcceptReject";
@@ -9,13 +10,16 @@ interface PostedNotifyProps {
     taskTitle: string;
     taskObject: string;
     createdDate: string;
+    slug: string;
 }
 
 export const PostNotifyTask = ({
     taskTitle,
     taskObject,
     createdDate,
+    slug,
 }: PostedNotifyProps) => {
+    const router = useRouter();
     return (
         <div className="d-flex align-items-center justify-content-between accepted-notification">
             <div className="d-flex notification-wrapper">
@@ -29,9 +33,17 @@ export const PostNotifyTask = ({
                 </figure>
                 <div className="description-section">
                     <p>
-                        <span className="span-name">You</span> have posted a
-                        task with {taskTitle} for
-                        <span className="span-name"> {taskObject}</span>
+                        <span className="span-name">You </span>
+                        {taskTitle} a task for
+                        <span
+                            className="span-name"
+                            onClick={() => {
+                                router.push(`/task/${slug}`);
+                            }}
+                        >
+                            {" "}
+                            {taskObject}
+                        </span>
                     </p>
 
                     <p className="date">

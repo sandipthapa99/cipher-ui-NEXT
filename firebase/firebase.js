@@ -19,7 +19,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const db = getFirestore();
-let _toast = null;
 
 const firebaseCloudMessaging = {
     tokenInlocalforage: async () => {
@@ -33,16 +32,10 @@ const firebaseCloudMessaging = {
 
             toast.success(payload?.data?.title, {
                 onClick: () => {
-                    if (!_toast) {
-                        _toast = 5;
-                        window.open(
-                            `/task/${payload?.data?.object_slug}`,
-                            "_blank"
-                        );
-                        setTimeout(() => {
-                            _toast = null;
-                        }, 200);
-                    }
+                    window.open(
+                        `/task/${payload?.data?.object_slug}`,
+                        "_blank"
+                    );
                 },
             });
             // alert("Notificacion");
