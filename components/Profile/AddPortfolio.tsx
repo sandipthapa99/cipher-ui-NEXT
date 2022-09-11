@@ -111,6 +111,7 @@ const AddPortfolio = ({
             }
         });
     };
+
     const uploadFile = (files: any[]) => {
         return new Promise<number[] | null>((resolve, reject) => {
             if (files && files.length > 0) {
@@ -150,6 +151,7 @@ const AddPortfolio = ({
             },
         });
     };
+
     if (loadingOverlayVisible)
         return (
             <LoadingOverlay

@@ -19,6 +19,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import React, { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -59,7 +60,6 @@ const UserProfileCard = ({
     const [showEditForm, setShowEditForm] = useState(false);
     const { data: country } = useGetCountryBYId(countryCode);
     const [image, setImage] = useState();
-    const [showModal, setShowModal] = useState(false);
     const services = moreServices ? JSON.parse(moreServices) : [];
     const queryClient = useQueryClient();
     // const renderServices: string[] | undefined = services?.map(
@@ -111,7 +111,7 @@ const UserProfileCard = ({
     interface DropdownProps {
         children?: ReactNode;
     }
-
+    const router = useRouter();
     const ProfileDropdown = ({ children }: DropdownProps) => {
         return (
             <div className="ellipsis">
@@ -242,7 +242,9 @@ const UserProfileCard = ({
                     <div className="price">${userPrice}/hr</div>
                     <button
                         className="button"
-                        onClick={() => setShowEdit(!showEdit)}
+                        onClick={() =>
+                            router.push("/settings/account/individual")
+                        }
                     >
                         Edit Profile
                     </button>

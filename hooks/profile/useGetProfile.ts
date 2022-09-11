@@ -6,7 +6,11 @@ import { axiosClient } from "utils/axiosClient";
 
 export type ProfileResponse = {
     id: number;
-    charge_currency: string;
+    charge_currency: {
+        code: string;
+        id: number;
+        name: string;
+    };
     user: {
         id: string;
         email: string;
