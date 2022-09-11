@@ -70,15 +70,13 @@ const ServiceAside = ({
                                 {`${totalAppliedTasks} service matching ${query} found`}
                             </p>
                         ) : null}
-                        {!query && totalAppliedTasks === 0
-                            ? null
-                            : renderTaskCards}
+                        {renderTaskCards}
                         {query && totalAppliedTasks === 0 ? (
                             <p className="search-results-text">
                                 No services matching {query} found
                             </p>
                         ) : null}
-                        {!query && totalAppliedTasks === 0 && (
+                        {!isLoading && !query && totalAppliedTasks === 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
                                 title="Services Unavailable"

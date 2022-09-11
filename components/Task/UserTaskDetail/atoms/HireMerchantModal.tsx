@@ -18,10 +18,6 @@ export const HireMerchantModal = ({
     onHide,
     taskerDetail,
 }: HireMerchantModalProps) => {
-    console.log(
-        "🚀 ~ file: HireMerchantModal.tsx ~ line 21 ~ taskerDetail",
-        taskerDetail
-    );
     const renderClientProjects = () => {
         return DUMMY_CLIENT_PROJECTS.map((project, index) => (
             <div className="hmm-client-project" key={index}>

@@ -68,10 +68,9 @@ const TaskAside = ({
                                 No services matching {query} found
                             </p>
                         ) : null}
-                        {!query && totalAppliedTasks === 0
-                            ? null
-                            : renderTaskCards}
-                        {!query && appliedTasks?.length === 0 && (
+
+                        {renderTaskCards}
+                        {!isLoading && !query && appliedTasks?.length === 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
                                 title="Tasks Unavailable"

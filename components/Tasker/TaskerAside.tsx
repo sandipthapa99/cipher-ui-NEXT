@@ -77,10 +77,8 @@ const TaskerAside = ({
                                 </p>
                             ) : null}
 
-                            {!query && totalAppliedTasks === 0
-                                ? null
-                                : renderTaskCards}
-                            {!query && totalAppliedTasks === 0 && (
+                            {renderTaskCards}
+                            {!isLoading && !query && totalAppliedTasks === 0 && (
                                 <Alert
                                     icon={<FontAwesomeIcon icon={faWarning} />}
                                     title="Taskers Unavailable"
