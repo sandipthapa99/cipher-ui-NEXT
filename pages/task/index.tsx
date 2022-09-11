@@ -1,13 +1,17 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
-import { GoogleMap } from "@react-google-maps/api";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps } from "next";
+import dynamic from "next/dynamic";
 
+const GoogleMap = dynamic(
+    () => import("@components/GoogleMap").then((mod) => mod.GoogleMap),
+    { ssr: false }
+);
 const AppliedTask = () => {
     return (
         <>
             <AppliedLayout>
-                <GoogleMap />
+                {typeof window !== "undefined" && <GoogleMap />}
             </AppliedLayout>
         </>
     );
