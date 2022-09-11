@@ -1,6 +1,5 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
-import UserLoadingOverlay from "@components/common/FullPageLoader";
 import { GoBack } from "@components/common/GoBack";
 import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
@@ -8,6 +7,7 @@ import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
 import PostModal from "@components/PostTask/PostModal";
+import { TaskDetailSkeleton } from "@components/Skeletons/TaskDetailSkeleton";
 import {
     faCalendar,
     faClockEight,
@@ -22,7 +22,6 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { ScrollArea } from "@mantine/core";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
@@ -37,7 +36,6 @@ import { axiosClient } from "utils/axiosClient";
 import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
-import { TeamMembersSection } from "./TeamMembersSection";
 import { TimelineTab } from "./TimelineTab";
 
 const AppliedTaskDetail = ({ type }: { type?: string }) => {
@@ -61,7 +59,7 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
 
     const slug = router?.query?.slug as string;
 
-    const { data: taskDetail } = useQuery(
+    const { data: taskDetail, isFetching: isTaskDetailLoading } = useQuery(
         ["task-detail", slug],
         async () => {
             const { data } = await axiosClient.get<ITask>(`/task/${slug}`);
@@ -76,15 +74,16 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
         rawString: taskDetail.requirements,
         initialData: [],
     });
-    const isUserTask = taskDetail?.assigner?.id === user?.id;
+    const isUserTask = user ? taskDetail?.assigner?.id === user?.id : false;
+
     const taskVideosAndImages = [
         ...(taskDetail?.images ?? []),
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
-    if (!taskDetail) {
-        return <UserLoadingOverlay />;
+    if (!taskDetail || isTaskDetailLoading) {
+        return <TaskDetailSkeleton />;
     }
     return (
         <div className="aside-detail-wrapper">
