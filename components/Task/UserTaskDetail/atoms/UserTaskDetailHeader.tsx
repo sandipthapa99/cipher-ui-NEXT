@@ -93,7 +93,7 @@ export const UserTaskDetailHeader = ({
                         />
                     </div>
                 </Col>
-                <Col md={4}>
+                <Col md={4} className="d-flex flex-column">
                     <div className="td-task-detail-header-icons">
                         <SaveIcon
                             model="user"
@@ -111,7 +111,7 @@ export const UserTaskDetailHeader = ({
                             quote={"Tasker from cipher project"}
                             hashtag={"cipher-tasker"}
                         />
-                        <EllipsisDropdown
+                        {/* <EllipsisDropdown
                             showModal={showMenu}
                             handleOnClick={() => toggleShowMenu()}
                         >
@@ -119,7 +119,7 @@ export const UserTaskDetailHeader = ({
                                 icon={faEllipsisVertical}
                                 className="svg-icon option"
                             />
-                        </EllipsisDropdown>
+                        </EllipsisDropdown> */}
                     </div>
                     <p className="td-task-charge my-4">
                         {taskerDetail?.charge_currency?.code}{" "}

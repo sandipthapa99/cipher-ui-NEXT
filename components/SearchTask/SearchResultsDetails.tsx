@@ -162,89 +162,88 @@ const SearchResultsDetail = ({
     };
 
     return (
-        <ScrollArea.Autosize maxHeight={700} offsetScrollbars scrollbarSize={5}>
-            <div className="task-detail mb-5 p-5">
-                <Link href="/service">
-                    <a>
-                        <FontAwesomeIcon
-                            icon={faChevronLeft}
-                            className="svg-icon"
-                        />
-                        Go Back
-                    </a>
-                </Link>
+        <div className="task-detail mb-5 p-5">
+            <Link href="/service">
+                <a>
+                    <FontAwesomeIcon
+                        icon={faChevronLeft}
+                        className="svg-icon"
+                    />
+                    Go Back
+                </a>
+            </Link>
 
-                <h3>{serviceTitle}</h3>
-                <Row>
-                    <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
-                        <span className="pb-3 pb-sm-0 provider-name">
-                            By {serviceProvider}
-                        </span>
-                        <div className="d-flex justify-content-between align-items-center">
-                            <div className="d-flex flex-col align-items-center">
-                                <SaveIcon
-                                    object_id={serviceId}
-                                    model={"service"}
-                                    showText
-                                    filled={isServiceBookmarked}
-                                    onSuccess={() =>
-                                        queryClient.invalidateQueries([
-                                            "bookmarks",
-                                            "service",
-                                        ])
-                                    }
-                                />
-                            </div>
-                            <div className="d-flex flex-col align-items-center mx-5">
-                                <ShareIcon
-                                    url={`http://localhost:3005/search/${slug}`}
-                                    quote={"Service from Cipher Project"}
-                                    hashtag={"cipher-services"}
-                                />
-                                <span className="name">Share</span>
-                            </div>
-                            <FontAwesomeIcon
-                                icon={faEllipsisVertical}
-                                className="svg-icon option"
+            <h3>{serviceTitle}</h3>
+            <Row>
+                <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
+                    <span className="pb-3 pb-sm-0 provider-name">
+                        By {serviceProvider}
+                    </span>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex flex-col align-items-center">
+                            <SaveIcon
+                                object_id={serviceId}
+                                model={"service"}
+                                showText
+                                filled={isServiceBookmarked}
+                                onSuccess={() =>
+                                    queryClient.invalidateQueries([
+                                        "bookmarks",
+                                        "service",
+                                    ])
+                                }
                             />
                         </div>
+                        <div className="d-flex flex-col align-items-center mx-5">
+                            <ShareIcon
+                                url={`http://localhost:3005/search/${slug}`}
+                                quote={"Service from Cipher Project"}
+                                hashtag={"cipher-services"}
+                            />
+                            <span className="name">Share</span>
+                        </div>
+                        <FontAwesomeIcon
+                            icon={faEllipsisVertical}
+                            className="svg-icon option"
+                        />
                     </div>
-                </Row>
-                <Row>
-                    <Col md={12} lg={7}>
-                        {Array.isArray(image) && image.length > 1 ? (
-                            <Carousel
-                                styles={{
-                                    control: {
-                                        "&[data-inactive]": {
-                                            opacity: 0,
-                                            cursor: "default",
-                                        },
+                </div>
+            </Row>
+            <Row>
+                <Col md={12} lg={7}>
+                    {Array.isArray(image) && image.length > 1 ? (
+                        <Carousel
+                            styles={{
+                                control: {
+                                    "&[data-inactive]": {
+                                        opacity: 0,
+                                        cursor: "default",
                                     },
-                                }}
-                                className="rounded"
-                            >
-                                {Array.isArray(image) &&
-                                    image.map((value, key) => (
-                                        <Carousel.Slide
-                                            key={key}
-                                            className="thumbnail-img "
-                                        >
-                                            {value?.media && (
-                                                <Image
-                                                    src={
-                                                        value?.media
-                                                            ? value.media
-                                                            : "/service-details/garden-cleaning.png"
-                                                    }
-                                                    layout="fill"
-                                                    objectFit="cover"
-                                                    alt="garden-image"
-                                                />
-                                            )}
-                                        </Carousel.Slide>
-                                    ))}
-                                {/* <Carousel.Slide className="thumbnail-img ">
+                                },
+                            }}
+                            className="rounded"
+                        >
+                            {Array.isArray(image) &&
+                                image.map((value, key) => (
+                                    <Carousel.Slide
+                                        key={key}
+                                        className="thumbnail-img "
+                                    >
+                                        {value?.media && (
+                                            <Image
+                                                src={
+                                                    value?.media
+                                                        ? value.media
+                                                        : "/service-details/garden-cleaning.png"
+                                                }
+                                                layout="fill"
+                                                objectFit="cover"
+                                                alt="garden-image"
+                                            />
+                                        )}
+                                    </Carousel.Slide>
+                                ))}
+                            {/* <Carousel.Slide className="thumbnail-img ">
                                     <Image
                                         src={"/No_image_available.svg.webp"}
                                         layout="fill"
@@ -252,30 +251,30 @@ const SearchResultsDetail = ({
                                         alt="garden-image"
                                     />
                                 </Carousel.Slide> */}
-                            </Carousel>
-                        ) : (
-                            Array.isArray(image) &&
-                            image.map((value, key) => (
-                                <figure key={key} className="thumbnail-img">
-                                    <Image
-                                        src={
-                                            value?.media
-                                                ? value.media
-                                                : "/service-details/garden-cleaning.png"
-                                        }
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="garden-image"
-                                    />
-                                </figure>
-                            ))
-                        )}
-                    </Col>
-                    <Col md={12} lg={5} className="d-flex">
-                        <div className="simple-card my-5 my-lg-0 ">
-                            <div className="d-flex align-items-center simple-card__profile">
-                                {/* TO BE IMPLEMENTED */}
-                                {/* {image && (
+                        </Carousel>
+                    ) : (
+                        Array.isArray(image) &&
+                        image.map((value, key) => (
+                            <figure key={key} className="thumbnail-img">
+                                <Image
+                                    src={
+                                        value?.media
+                                            ? value.media
+                                            : "/service-details/garden-cleaning.png"
+                                    }
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="garden-image"
+                                />
+                            </figure>
+                        ))
+                    )}
+                </Col>
+                <Col md={12} lg={5} className="d-flex">
+                    <div className="simple-card my-5 my-lg-0 ">
+                        <div className="d-flex align-items-center simple-card__profile">
+                            {/* TO BE IMPLEMENTED */}
+                            {/* {image && (
                                     <figure className="thumbnail-img">
                                         <Image
                                             src={
@@ -289,212 +288,211 @@ const SearchResultsDetail = ({
                                         />
                                     </figure>
                                 )} */}
-                                <div className="intro">
-                                    <p className="name">{serviceProvider}</p>
-                                    <p className="job">{serviceTitle}</p>
-                                </div>
+                            <div className="intro">
+                                <p className="name">{serviceProvider}</p>
+                                <p className="job">{serviceTitle}</p>
                             </div>
-
-                            <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
-                                <span>Starting Price</span>
-                                <span className="price">
-                                    {currency}
-                                    {budget_from} {budget_to && "-" + budget_to}
-                                    {budget_type}
-                                </span>
-                            </div>
-                            {isCurrentUserService() ? (
-                                <CardBtn
-                                    btnTitle="View Applicants"
-                                    backgroundColor="#211D4F"
-                                    handleClick={handleViewApplicants}
-                                />
-                            ) : (
-                                <CardBtn
-                                    btnTitle="Book Now"
-                                    backgroundColor="#211D4F"
-                                    handleClick={withLogin(() => setShow(true))}
-                                />
-                            )}
                         </div>
-                    </Col>
-                </Row>
-                <div className="d-flex flex-column flex-sm-row mt-4 task-detail__loc-time">
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="svg-icon svg-icon-location"
-                        />
-                        {serviceProviderLocation}
-                    </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faCalendar}
-                            className="svg-icon svg-icon-calender"
-                        />
-                        {serviceCreated
-                            ? format(new Date(serviceCreated), "dd-MM-yyyy")
-                            : "N/A"}
-                    </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faClockEight}
-                            className="svg-icon svg-icon-clock"
-                        />
-                        {serviceCreated
-                            ? format(new Date(serviceCreated), "p")
-                            : "N/A"}
-                    </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faEye}
-                            className="svg-icon svg-icon-eye"
-                        />
-                        {serviceViews} Views
-                    </p>
-                    <p>
-                        <FontAwesomeIcon
-                            icon={faUserGroup}
-                            className="svg-icon svg-icon-user-group"
-                        />
-                        100 Applied
-                    </p>
-                </div>
 
-                <div className="task-detail__desc">
-                    <h3>Description</h3>
-                    {serviceDescription && (
-                        <div>{parse(serviceDescription ?? "")}</div>
-                    )}
-                </div>
-
-                <h3>Requirements</h3>
-                {highlights && (
-                    <div className="mt-5">
-                        {highlights?.map((name, index) => (
-                            <div key={index}>
-                                <ServiceHighlights title={name} />
-                            </div>
-                        ))}
+                        <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
+                            <span>Starting Price</span>
+                            <span className="price">
+                                {currency}
+                                {budget_from} {budget_to && "-" + budget_to}
+                                {budget_type}
+                            </span>
+                        </div>
+                        {isCurrentUserService() ? (
+                            <CardBtn
+                                btnTitle="View Applicants"
+                                backgroundColor="#211D4F"
+                                handleClick={handleViewApplicants}
+                            />
+                        ) : (
+                            <CardBtn
+                                btnTitle="Book Now"
+                                backgroundColor="#211D4F"
+                                handleClick={withLogin(() => setShow(true))}
+                            />
+                        )}
                     </div>
-                )}
-                <section
-                    className="service-details__offers"
-                    style={{ margin: "41px 0 0 0" }}
-                >
-                    <h1>Packages &amp; Offers</h1>
-                    <Carousel
-                        slideSize="32%"
-                        slideGap="sm"
-                        align="start"
-                        breakpoints={[
-                            { maxWidth: "md", slideSize: "50%" },
-                            {
-                                maxWidth: "sm",
-                                slideSize: "90%",
-                                slideGap: 10,
-                            },
-                        ]}
-                        styles={{
-                            control: {
-                                "&[data-inactive]": {
-                                    opacity: 0,
-                                    cursor: "default",
-                                },
-                            },
-                        }}
-                        className="pt-4"
-                    >
-                        {getPackageAccordingService &&
-                            getPackageAccordingService
-                                // .filter(
-                                //     (service) =>
-                                //         service.service.slug === servSlug
-                                // )
-                                .map(
-                                    (offer) =>
-                                        offer && (
-                                            <Carousel.Slide key={offer.id}>
-                                                <PackageOffersCard
-                                                    title={offer.title}
-                                                    price={offer.budget.toString()}
-                                                    offers={
-                                                        offer.service_offered &&
-                                                        JSON.parse(
-                                                            offer?.service_offered
-                                                        )
-                                                    }
-                                                    isRecommended={
-                                                        offer.is_recommended
-                                                    }
-                                                    isPermium={offer.is_active}
-                                                    advantage={offer.title}
-                                                    isFromAddService={false}
-                                                    discountAmount={
-                                                        offer.discount_value
-                                                    }
-                                                />
-                                            </Carousel.Slide>
-                                        )
-                                )}
-                    </Carousel>
-                </section>
-                <FilterReview totalReviews={reviewsContent.length} />
-                <Spoiler
-                    maxHeight={450}
-                    hideLabel={"Hide all reviews"}
-                    showLabel={"See all reviews"}
-                >
-                    {reviewsContent.map((reviewContent, index) => (
-                        <Reviews key={index} {...reviewContent} />
-                    ))}
-                </Spoiler>
-                <span className="td-divider"></span>
-                <Row className="gx-5">
-                    <h4>Similar Services</h4>
-                    <Carousel
-                        slideSize="40%"
-                        slideGap="sm"
-                        align="start"
-                        breakpoints={[
-                            { maxWidth: "md", slideSize: "50%" },
-                            {
-                                maxWidth: "sm",
-                                slideSize: "70%",
-                                slideGap: 10,
-                            },
-                        ]}
-                        styles={{
-                            control: {
-                                "&[data-inactive]": {
-                                    opacity: 0,
-                                    cursor: "default",
-                                },
-                            },
-                        }}
-                    >
-                        {servicesData &&
-                            servicesData?.data?.result?.map((service) => {
-                                return (
-                                    <Carousel.Slide key={service.id}>
-                                        <ServiceCard serviceCard={service} />
-                                    </Carousel.Slide>
-                                );
-                            })}
-                    </Carousel>
-                </Row>
-                <BookNowModalCard
-                    title={serviceTitle}
-                    budget_to={budget_to}
-                    budget_from={budget_from}
-                    budget_type={budget_type}
-                    service_id={serviceId}
-                    description={serviceDescription}
-                    show={show}
-                    handleClose={handleClose}
-                />
+                </Col>
+            </Row>
+            <div className="d-flex flex-column flex-sm-row mt-4 task-detail__loc-time">
+                <p>
+                    <FontAwesomeIcon
+                        icon={faLocationDot}
+                        className="svg-icon svg-icon-location"
+                    />
+                    {serviceProviderLocation}
+                </p>
+                <p>
+                    <FontAwesomeIcon
+                        icon={faCalendar}
+                        className="svg-icon svg-icon-calender"
+                    />
+                    {serviceCreated
+                        ? format(new Date(serviceCreated), "dd-MM-yyyy")
+                        : "N/A"}
+                </p>
+                <p>
+                    <FontAwesomeIcon
+                        icon={faClockEight}
+                        className="svg-icon svg-icon-clock"
+                    />
+                    {serviceCreated
+                        ? format(new Date(serviceCreated), "p")
+                        : "N/A"}
+                </p>
+                <p>
+                    <FontAwesomeIcon
+                        icon={faEye}
+                        className="svg-icon svg-icon-eye"
+                    />
+                    {serviceViews} Views
+                </p>
+                <p>
+                    <FontAwesomeIcon
+                        icon={faUserGroup}
+                        className="svg-icon svg-icon-user-group"
+                    />
+                    100 Applied
+                </p>
             </div>
-        </ScrollArea.Autosize>
+
+            <div className="task-detail__desc">
+                <h3>Description</h3>
+                {serviceDescription && (
+                    <div>{parse(serviceDescription ?? "")}</div>
+                )}
+            </div>
+
+            <h3>Requirements</h3>
+            {highlights && (
+                <div className="mt-5">
+                    {highlights?.map((name, index) => (
+                        <div key={index}>
+                            <ServiceHighlights title={name} />
+                        </div>
+                    ))}
+                </div>
+            )}
+            <section
+                className="service-details__offers"
+                style={{ margin: "41px 0 0 0" }}
+            >
+                <h1>Packages &amp; Offers</h1>
+                <Carousel
+                    slideSize="32%"
+                    slideGap="sm"
+                    align="start"
+                    breakpoints={[
+                        { maxWidth: "md", slideSize: "50%" },
+                        {
+                            maxWidth: "sm",
+                            slideSize: "90%",
+                            slideGap: 10,
+                        },
+                    ]}
+                    styles={{
+                        control: {
+                            "&[data-inactive]": {
+                                opacity: 0,
+                                cursor: "default",
+                            },
+                        },
+                    }}
+                    className="pt-4"
+                >
+                    {getPackageAccordingService &&
+                        getPackageAccordingService
+                            // .filter(
+                            //     (service) =>
+                            //         service.service.slug === servSlug
+                            // )
+                            .map(
+                                (offer) =>
+                                    offer && (
+                                        <Carousel.Slide key={offer.id}>
+                                            <PackageOffersCard
+                                                title={offer.title}
+                                                price={offer.budget.toString()}
+                                                offers={
+                                                    offer.service_offered &&
+                                                    JSON.parse(
+                                                        offer?.service_offered
+                                                    )
+                                                }
+                                                isRecommended={
+                                                    offer.is_recommended
+                                                }
+                                                isPermium={offer.is_active}
+                                                advantage={offer.title}
+                                                isFromAddService={false}
+                                                discountAmount={
+                                                    offer.discount_value
+                                                }
+                                            />
+                                        </Carousel.Slide>
+                                    )
+                            )}
+                </Carousel>
+            </section>
+            <FilterReview totalReviews={reviewsContent.length} />
+            <Spoiler
+                maxHeight={450}
+                hideLabel={"Hide all reviews"}
+                showLabel={"See all reviews"}
+            >
+                {reviewsContent.map((reviewContent, index) => (
+                    <Reviews key={index} {...reviewContent} />
+                ))}
+            </Spoiler>
+            <span className="td-divider"></span>
+            <Row className="gx-5">
+                <h4>Similar Services</h4>
+                <Carousel
+                    slideSize="40%"
+                    slideGap="sm"
+                    align="start"
+                    breakpoints={[
+                        { maxWidth: "md", slideSize: "50%" },
+                        {
+                            maxWidth: "sm",
+                            slideSize: "70%",
+                            slideGap: 10,
+                        },
+                    ]}
+                    styles={{
+                        control: {
+                            "&[data-inactive]": {
+                                opacity: 0,
+                                cursor: "default",
+                            },
+                        },
+                    }}
+                >
+                    {servicesData &&
+                        servicesData?.data?.result?.map((service) => {
+                            return (
+                                <Carousel.Slide key={service.id}>
+                                    <ServiceCard serviceCard={service} />
+                                </Carousel.Slide>
+                            );
+                        })}
+                </Carousel>
+            </Row>
+            <BookNowModalCard
+                title={serviceTitle}
+                budget_to={budget_to}
+                budget_from={budget_from}
+                budget_type={budget_type}
+                service_id={serviceId}
+                description={serviceDescription}
+                show={show}
+                handleClose={handleClose}
+            />
+        </div>
     );
 };
 export default SearchResultsDetail;
