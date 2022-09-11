@@ -40,7 +40,7 @@ export const GoogleMap = () => {
         setMap(undefined);
     }, []);
 
-    return isLoaded && location ? (
+    return isLoaded ? (
         <ReactGoogleMap
             mapContainerStyle={{ width: "100%", height: "60rem" }}
             center={location}
