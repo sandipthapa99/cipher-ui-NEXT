@@ -1,5 +1,5 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
-import { MapboxMap } from "@components/common/MapboxMap";
+import { GoogleMap } from "@react-google-maps/api";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps } from "next";
 
@@ -7,7 +7,7 @@ const AppliedTask = () => {
     return (
         <>
             <AppliedLayout>
-                <MapboxMap />
+                <GoogleMap />
             </AppliedLayout>
         </>
     );

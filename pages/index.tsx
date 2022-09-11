@@ -11,6 +11,7 @@ import { Search } from "@components/common/Search";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
+import { GoogleMap } from "@components/GoogleMap";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
@@ -31,7 +32,6 @@ import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Alert as BootstrapAlert } from "react-bootstrap";
 import { Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
@@ -84,6 +84,7 @@ const Home: NextPage<{
 
     return (
         <Layout title="Cipher - Catering to Your Requirements">
+            <GoogleMap />
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-5">
                     <Row className="gx-5 hero-content">
@@ -174,9 +175,17 @@ const Home: NextPage<{
                                     })}
                             </Carousel>
                         ) : (
-                            <BootstrapAlert variant="warning mb-5">
-                                No Data to Display!
-                            </BootstrapAlert>
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                <Highlight highlight={"No Data"}>
+                                    {`There are No Data available`}
+                                </Highlight>
+                            </Alert>
                         )}
                     </Row>
                     {/* Service category listing end */}
@@ -224,29 +233,33 @@ const Home: NextPage<{
                         <h2 className="heading-title">
                             Popular Verified Services
                         </h2>
-                        <Link href="/service">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
+                        {servicesData && servicesData?.data?.result.length > 0 && (
+                            <Link href="/service">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
+                        )}
                     </div>
-                    {!serviceLoading && !servicesData && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No"}>
-                                {`There are No Services available`}
-                            </Highlight>
-                        </Alert>
-                    )}
+                    {!serviceLoading &&
+                        servicesData &&
+                        servicesData?.data?.result?.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                <Highlight highlight={"No Popular Services"}>
+                                    {`There are No Popular Services available`}
+                                </Highlight>
+                            </Alert>
+                        )}
                     {serviceLoading && (
                         <Grid>
                             {Array.from({ length: 4 }).map((_, key) => (
@@ -290,29 +303,34 @@ const Home: NextPage<{
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Services near you</h2>
 
-                        <Link href="/service">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
+                        {servicesData &&
+                            servicesData?.data?.result?.length > 0 && (
+                                <Link href="/service">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
+                                        />
+                                    </a>
+                                </Link>
+                            )}
                     </div>
-                    {!serviceLoading && !servicesData && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No"}>
-                                {`There are No Services available`}
-                            </Highlight>
-                        </Alert>
-                    )}
+                    {servicesData &&
+                        !serviceLoading &&
+                        servicesData?.data?.result?.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                <Highlight highlight={"No Services Near you"}>
+                                    {`There are No Services Near you available`}
+                                </Highlight>
+                            </Alert>
+                        )}
                     {serviceLoading && (
                         <Grid>
                             {Array.from({ length: 4 }).map((_, key) => (
@@ -350,15 +368,17 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Professional Services</h2>
-                        <Link href="/service">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
+                        {servicesData && servicesData?.data?.result.length > 0 && (
+                            <Link href="/service">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
+                        )}
                     </div>
                     {serviceLoading && (
                         <Grid>
@@ -369,19 +389,23 @@ const Home: NextPage<{
                             ))}
                         </Grid>
                     )}
-                    {!serviceLoading && !servicesData && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No"}>
-                                {`There are No Services available`}
-                            </Highlight>
-                        </Alert>
-                    )}
+                    {!serviceLoading &&
+                        servicesData &&
+                        servicesData?.data?.result.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                <Highlight
+                                    highlight={"No Professional Services"}
+                                >
+                                    {`There are No Professional Services available`}
+                                </Highlight>
+                            </Alert>
+                        )}
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.data?.result
@@ -431,6 +455,19 @@ const Home: NextPage<{
                         </li>
                     </ul>
 
+                    {heroCategoryData?.result.length <= 0 && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            <Highlight highlight={"No Category"}>
+                                {`There are No Category available`}
+                            </Highlight>
+                        </Alert>
+                    )}
                     <Row className="gx-5 hero-category">
                         {heroCategoryData?.result &&
                             heroCategoryData?.result
@@ -519,15 +556,17 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Top Taskers</h2>
-                        <Link href="/tasker">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
+                        {allTaskers && allTaskers.length > 0 && (
+                            <Link href="/service">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
+                        )}
                     </div>
                     {taskerLoading && (
                         <Grid>
@@ -537,6 +576,19 @@ const Home: NextPage<{
                                 </Grid.Col>
                             ))}
                         </Grid>
+                    )}
+                    {!taskerLoading && allTaskers && allTaskers?.length <= 0 && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            <Highlight highlight={"No Top Taskers"}>
+                                {`There are No Top Taskers available`}
+                            </Highlight>
+                        </Alert>
                     )}
                     <Row className="gx-5">
                         {allTaskers &&
@@ -621,15 +673,18 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Tasks You May Like</h2>
-                        <Link href="/task-you-may-like">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
+                        {recommendedTasksData &&
+                            recommendedTasksData.data.result.length > 0 && (
+                                <Link href="/task-you-may-like">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
+                                        />
+                                    </a>
+                                </Link>
+                            )}
                     </div>
                     {taskLoading && (
                         <Grid>
@@ -640,19 +695,21 @@ const Home: NextPage<{
                             ))}
                         </Grid>
                     )}
-                    {!taskLoading && !recommendedTasksData && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No"}>
-                                {`There are No Tasks available`}
-                            </Highlight>
-                        </Alert>
-                    )}
+                    {recommendedTasksData &&
+                        !taskLoading &&
+                        recommendedTasksData.data.result.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                <Highlight highlight={"No Tasks"}>
+                                    {`There are No Tasks available`}
+                                </Highlight>
+                            </Alert>
+                        )}
                     <Row className="gx-5">
                         {recommendedTasksData?.data?.result?.map(
                             (task, key) => (
@@ -686,8 +743,8 @@ const Home: NextPage<{
                             radius="md"
                             sx={{ minWidth: 100 }}
                         >
-                            <Highlight highlight={"No"}>
-                                {`There are No Services available`}
+                            <Highlight highlight={"No Success Story"}>
+                                {`There are No Success Story available`}
                             </Highlight>
                         </Alert>
                     )}
@@ -736,15 +793,17 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Our blogs</h2>
-                        <Link href="/blogs">
-                            <a className="view-more">
-                                view more{" "}
-                                <FontAwesomeIcon
-                                    icon={faAngleRight}
-                                    className="svg-icon"
-                                />
-                            </a>
-                        </Link>
+                        {blogData && blogData.data.result.length > 0 && (
+                            <Link href="/blogs">
+                                <a className="view-more">
+                                    view more{" "}
+                                    <FontAwesomeIcon
+                                        icon={faAngleRight}
+                                        className="svg-icon"
+                                    />
+                                </a>
+                            </Link>
+                        )}
                     </div>
                     {blogLoading && (
                         <Grid gutter="xl">
@@ -777,19 +836,21 @@ const Home: NextPage<{
                             ))}
                         </Grid>
                     )}
-                    {!blogLoading && !blogData && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No"}>
-                                {`There are No Tasks available`}
-                            </Highlight>
-                        </Alert>
-                    )}
+                    {blogData &&
+                        !blogLoading &&
+                        blogData.data.result.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                <Highlight highlight={"No Blogs"}>
+                                    {`There are No Blogs available`}
+                                </Highlight>
+                            </Alert>
+                        )}
                     <Row className="gx-5">
                         {blogData
                             ? blogData?.data?.result
@@ -912,8 +973,8 @@ const Home: NextPage<{
                             radius="md"
                             sx={{ minWidth: 100 }}
                         >
-                            <Highlight highlight={"No"}>
-                                {`There are No Tasks available`}
+                            <Highlight highlight={"No top Categorys"}>
+                                {`There are No top Categorys available`}
                             </Highlight>
                         </Alert>
                     )}

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
 interface Location {
