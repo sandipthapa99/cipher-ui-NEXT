@@ -80,7 +80,13 @@ const TaskerAside = ({ tasker, query, children }: TaskerAsideProps) => {
                     </ScrollArea.Autosize>
                 </Col>
                 <Col md={8} className="right">
-                    {children}
+                    <ScrollArea.Autosize
+                        maxHeight={700}
+                        offsetScrollbars
+                        scrollbarSize={5}
+                    >
+                        {children}
+                    </ScrollArea.Autosize>
                 </Col>
             </Row>
         </div>
