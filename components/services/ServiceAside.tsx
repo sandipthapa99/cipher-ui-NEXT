@@ -88,6 +88,7 @@ const ServiceAside = ({
                         )}
                     </ScrollArea.Autosize>
                 </Col>
+
                 <Col md={8}>{children}</Col>
             </Row>
         </div>
