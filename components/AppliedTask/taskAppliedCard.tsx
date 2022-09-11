@@ -19,7 +19,6 @@ interface TaskCardProps {
 const TaskCard = ({ task, onTaskClick }: TaskCardProps) => {
     const router = useRouter();
     const query = router.query.slug;
-
     const {
         id: taskId,
         title,
@@ -28,8 +27,8 @@ const TaskCard = ({ task, onTaskClick }: TaskCardProps) => {
         budget_to,
         currency,
         location,
-        time,
-        date,
+        start_time: time,
+        start_date: date,
         applicants_count,
     } = task;
     return (

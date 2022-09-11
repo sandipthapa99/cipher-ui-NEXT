@@ -1,12 +1,9 @@
 import FormButton from "@components/common/FormButton";
-import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
-import SwitchValue from "@components/common/SwitchValue";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faPencil, faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Accordion } from "@mantine/core";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { useChangePassword } from "hooks/profile/changePassword/useChangePassword";
 import React from "react";
 import Button from "react-bootstrap/Button";

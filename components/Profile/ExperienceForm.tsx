@@ -49,6 +49,7 @@ const ExperienceForm = ({
     ]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
+
     const [toggle, setToggled] = useState(
         editDetails?.currently_working ?? false
     );

@@ -73,10 +73,10 @@ export const TeamMembersCard = ({
                 <div className="w-100 name-post-count">
                     <div className="d-flex justify-content-between title-and-dots text-dark">
                         <h5>{name}</h5>
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                             className="ellipsis-vertical"
                             icon={faEllipsisVertical}
-                        />
+                        /> */}
                     </div>
                     <h6 className="text-dark">
                         <span>{speciality} </span>| {location}
