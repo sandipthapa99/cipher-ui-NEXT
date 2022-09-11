@@ -14,10 +14,15 @@
         margin: 0 0 5rem;
     }
 
+    label#mantine-r7r-label {
+        margin: 0 0 0.5rem;
+        font: 400 1.4rem $poppins-font;
+    }
+
     .mantine-Input-wrapper.mantine-Select-wrapper.mantine-12sbrde {
         margin: 0 0 2rem;
         input {
-            height: 5rem;
+            height: 4.7rem;
             font: 400 1.6rem $poppins-font;
             border: 0.1rem solid #afafaf;
         }

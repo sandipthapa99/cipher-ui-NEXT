@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosClient } from "utils/axiosClient";
 
+import { useUser } from "./auth/useUser";
+
 export const useBookmarks = (type: BookmarkType) => {
+    const { data: userData } = useUser();
     return useQuery<Result[]>(
         ["bookmarks", type],
         () =>
@@ -10,7 +13,7 @@ export const useBookmarks = (type: BookmarkType) => {
                 .then((response) =>
                     response.data.result.filter((item) => item.type === type)
                 ),
-        { initialData: [] }
+        { initialData: [], enabled: !!userData }
     );
 };
 export const useIsBookmarked = (type: BookmarkType, object_id?: string) => {

@@ -51,6 +51,13 @@ const TaskAside = ({
                         offsetScrollbars
                         scrollbarSize={5}
                     >
+                        {isFetching && (
+                            <Fragment>
+                                {Array.from({ length: 4 }).map((_, key) => (
+                                    <SkeletonTaskCard key={key} />
+                                ))}
+                            </Fragment>
+                        )}
                         {query && totalAppliedTasks > 0 ? (
                             <p className="search-results-text">
                                 {`${totalAppliedTasks} service matching ${query} found`}

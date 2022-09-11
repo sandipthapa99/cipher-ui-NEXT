@@ -35,7 +35,6 @@ const TaskCard = ({ task }: TaskCardProps) => {
 
     function getDateFromHours(time: any) {
         time = time ? time?.split(":") : "";
-        console.log("time is", time);
         const now = new Date();
         return new Date(
             now.getFullYear(),

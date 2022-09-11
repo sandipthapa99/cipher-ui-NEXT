@@ -1,14 +1,19 @@
-import { Skeleton } from "@mantine/core";
+import { Grid, Skeleton } from "@mantine/core";
 import React from "react";
 
 const SkeletonServiceCard = () => {
     return (
-        <div className="mantine-Skeleton mb-5 p-5">
-            <div className="d-flex justify-content-between">
-                <Skeleton height={90} width={"40%"} />
-
-                <Skeleton height={20} mt={6} radius="xl" width={"50%"} />
-            </div>
+        <div className="mantine-Skeleton mb-5 p-4">
+            <Grid className="d-flex justify-content-between">
+                <Grid.Col span={6}>
+                    <Skeleton height={90} width={"100%"} />
+                </Grid.Col>
+                <Grid.Col span={6}>
+                    <Skeleton height={10} width={"100%"} className="my-2" />
+                    <Skeleton height={10} width={"100%"} className="my-3" />
+                    <Skeleton height={10} width={"100%"} className="my-3" />
+                </Grid.Col>
+            </Grid>
         </div>
     );
 };

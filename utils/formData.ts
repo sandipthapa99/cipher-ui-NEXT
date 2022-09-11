@@ -123,6 +123,15 @@ export const ProfileEditFromData: ProfileEditValueProps = {
     skill: "",
     hourly_rate: "",
     linkedAccounts: "",
+    date_of_birth: "",
+    gender: "",
+    profile_image: "",
+    user_type: "",
+    country: 0,
+    language: 0,
+    charge_currency: 0,
+    task_preferences: "",
+    profile_visibility: "",
 };
 
 export const EducationFormData: EducationValueProps = {
@@ -273,6 +282,7 @@ export const ServicePostData: ServicePostProps = {
     discount_value: "",
     is_active: true,
     category: 0,
+    currency: 0,
     city: 1,
     images: [],
     imagePreviewUrl: [],
