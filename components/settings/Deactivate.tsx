@@ -70,7 +70,7 @@ const DeactivateAccount = () => {
                             touch={touched.reason}
                             error={errors.reason}
                             fieldRequired
-                            placeHolder="I am leaving because"
+                            placeHolder="Choose Reason"
                             options={DeactivationOptions}
                         />
                         {/* <SelectInputField
