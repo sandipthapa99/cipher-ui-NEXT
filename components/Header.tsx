@@ -145,21 +145,6 @@ const Header = () => {
                             </a>
                         </Link>
 
-                        <Link href="#!">
-                            <a
-                                className="btn location-btn d-none d-md-inline-block"
-                                style={{ margin: "0 1.6rem 0 1.6rem" }}
-                                onClick={() =>
-                                    setRasifal(
-                                        (currentRasifal) => !currentRasifal
-                                    )
-                                }
-                            >
-                                राशिफल
-                            </a>
-                        </Link>
-
-                        {/* {location && (
                         {location && (
                             <Link href="#!">
                                 <a
@@ -173,7 +158,7 @@ const Header = () => {
                                     />
                                 </a>
                             </Link>
-                        )} */}
+                        )}
 
                         {profileDetails ? (
                             <div>
@@ -193,6 +178,20 @@ const Header = () => {
                                 {notopen && <NotificationDropdown />}
                             </div>
                         ) : null}
+
+                        <Link href="#!">
+                            <a
+                                className="btn location-btn d-none d-md-inline-block"
+                                style={{ margin: "0 1.6rem 0 1.6rem" }}
+                                onClick={() =>
+                                    setRasifal(
+                                        (currentRasifal) => !currentRasifal
+                                    )
+                                }
+                            >
+                                राशिफल
+                            </a>
+                        </Link>
                     </Navbar>
                 </Container>
             </header>
