@@ -1,5 +1,9 @@
 .team-members-card {
     padding: 2.4rem;
+    //sepcific to ipad air
+    @media screen and (width:820px),(width:768px) {
+        padding: 1.4rem;
+    }
     @include border();
     &:focus-visible {
         border: 0.1rem solid #211d4f;
@@ -15,9 +19,13 @@
         .icon-wrapper-member.gap-5.align-items-center.emoji-section.text-dark {
             gap: 2rem !important;
         }
+        @media screen and (width:1024px) {
+            .icon-wrapper-member.gap-5.align-items-center.emoji-section.text-dark {
+                gap: 1rem !important;
+            }
+        }
         @include respond(xs) {
             width: 105% !important;
-            
         }
         //specific to surface duo
         @media screen and (width: 540px) {
@@ -151,4 +159,3 @@
         }
     }
 }
-

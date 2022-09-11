@@ -9,6 +9,10 @@
         padding: 2.4rem 2rem;
     }
 
+    @media screen and (width:768px),(width:820px) {
+        padding: 2.4rem 2rem;
+
+    }
     &[data-active="true"] {
         background: #fff;
     }
