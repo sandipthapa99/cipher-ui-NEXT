@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 
 const stringReqOnly = Yup.string().required("Required field");
+const stringUnReq = Yup.string();
 const dateValidation = Yup.date().nullable().required("Required field");
 const emailValidate = Yup.string()
     .email("Invalid email address")
@@ -11,18 +12,19 @@ export const accountFormSchema = Yup.object().shape({
     // full_name: stringReqOnly,
     phone: Yup.number().nullable().required("Required field"),
     full_name: stringReqOnly,
-
+    profile_image: stringUnReq,
     bio: stringReqOnly,
     gender: stringReqOnly,
-    // date_of_birth: stringReqOnly,
+    date_of_birth: dateValidation,
     skill: tagValidate,
     active_hour_start: dateValidation,
     active_hour_end: dateValidation,
     hourly_rate: Yup.number().nullable().required("Required field"),
     user_type: Yup.mixed().required("Required field"),
-    country: stringReqOnly,
+    country: stringUnReq,
     address_line1: stringReqOnly,
-    language: stringReqOnly,
+    address_line2: stringUnReq,
+    language: stringUnReq,
     charge_currency: stringReqOnly,
     profile_visibility: stringReqOnly,
     task_preferences: stringReqOnly,
