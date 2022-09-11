@@ -13,7 +13,7 @@ export const TaskYouMayLike = () => {
 
     return (
         <Row className="gx-5">
-            {/* {recommendedTasksData?.data?.result?.map((task: any, key) => (
+            {recommendedTasksData?.data?.result?.map((task: any, key) => (
                 <Col md={12} key={key}>
                     <TaskCard
                         title={task?.title}
@@ -28,7 +28,7 @@ export const TaskYouMayLike = () => {
                         slug={`/${task?.slug}`}
                     />
                 </Col>
-            ))} */}
+            ))}
         </Row>
     );
 };
