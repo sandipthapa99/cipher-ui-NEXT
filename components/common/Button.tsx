@@ -24,7 +24,7 @@ const BigButton = ({
                 className={`big-btn ${className ? className : ""}`}
                 style={{
                     backgroundColor: `${backgroundColor}`,
-                    color: `${textColor}!important`,
+                    color: `${textColor}`,
                 }}
                 onClick={handleClick}
             >

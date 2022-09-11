@@ -7,7 +7,7 @@ const GettingStartedTask = () => {
         <div className="getting-started card-block">
             <div className="top-container">
                 <h1>Getting Started</h1>
-                <p>10% done - great Work!</p>
+                {/* <p>10% done - great Work!</p> */}
             </div>
             <div className="task-container">
                 {taskActionCardContent &&

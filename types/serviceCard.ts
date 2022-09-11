@@ -172,6 +172,7 @@ export interface ServicePostProps {
     discount_value: string;
     is_active: boolean;
     category: number;
+    currency: number;
     city: number;
     images: any[];
     imagePreviewUrl: any[];

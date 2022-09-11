@@ -25,4 +25,5 @@ export const addServiceFormSchema = Yup.object().shape({
     category: numberValidate,
     city: numberValidate,
     is_active: Yup.boolean().required(),
+    currency: numberValidate,
 });

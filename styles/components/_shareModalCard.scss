@@ -1,16 +1,20 @@
-.share-modal {
-    max-width: 60.25rem !important;
-
+.share-modal,
+.modal-show .modal-dialog {
+    justify-content: center;
+    .modal-dialog .modal-content {
+        width: 76rem;
+        justify-content: center;
+    }
     .modal-header {
         padding: 2rem 0rem;
-        border-bottom: none !important;
+        border-bottom: none;
     }
     &__modal-body-content {
-        display: flex !important;
+        display: flex;
         flex-direction: column;
-        border: none !important;
-        border-radius: 0.4rem !important;
-        align-items: center !important;
+        border: none;
+        border-radius: 0.4rem;
+        align-items: center;
         padding-bottom: 5rem;
         h1 {
             color: $sub-title-color;
@@ -30,25 +34,63 @@
             margin: 0.7rem;
             font-weight: 400;
             padding: 0rem 0.4rem;
+            cursor: pointer;
+            @include transition();
         }
+
         .svg-icon {
             margin: 2.6rem;
             margin-top: 3rem;
             height: 2.3rem;
             width: 2.3rem;
         }
-        .facebook {
+        .facebook-icon {
             color: $facebook-logo-color;
         }
-        .linkedin {
+        .facebook:hover {
+            background-color: $facebook-logo-color;
+
+            .facebook-icon {
+                color: #fff;
+            }
+        }
+        .linkedin-icon {
             color: #0072b1;
         }
-        .instagram {
+        .linkedin:hover {
+            background-color: #0072b1;
+
+            .linkedin-icon {
+                color: #fff;
+            }
+        }
+        .instagram-icon {
             color: #e95950;
         }
+        .instagram:hover {
+            background-color: #e95950;
+            .instagram-icon {
+                color: #fff;
+            }
+        }
+        .twitter-icon {
+            color: #0072b1;
+        }
+        .twitter:hover {
+            background-color: #0072b1;
 
-        .social-media .twitter {
-            color: #fff;
+            .twitter-icon {
+                color: #fff;
+            }
+        }
+        .share:hover,
+        .copy:hover {
+            background-color: #111;
+
+            .copy-icon,
+            .share-link {
+                color: #fff;
+            }
         }
     }
 }
