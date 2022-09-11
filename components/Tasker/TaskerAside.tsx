@@ -96,7 +96,9 @@ const TaskerAside = ({
                         </>
                     </ScrollArea.Autosize>
                 </Col>
-                <Col md={8}>{children}</Col>
+                <Col md={8} className="right">
+                    {children}
+                </Col>
             </Row>
         </div>
     );

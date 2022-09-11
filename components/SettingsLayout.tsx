@@ -64,7 +64,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
                                                     icon={faKey}
                                                     className="svg-icon"
                                                 />
-                                                Password & Security
+                                                Security
                                             </a>
                                         </Link>
                                     </li>

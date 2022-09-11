@@ -65,12 +65,13 @@ export interface PostTaskPayload {
 export const PostTaskModal = () => {
     const [choosedValue, setChoosedValue] = useState("task");
     const queryClient = useQueryClient();
-    const { mutate } = usePostTask();
+    const { mutate, data: postTaskResponse } = usePostTask();
     const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
     const router = useRouter();
+    //console.log("taskResponse", postTaskResponse);
 
     const taskSlug = router.query?.slug;
     const taskDetail = queryClient.getQueryData<ITask>([
@@ -131,7 +132,7 @@ export const PostTaskModal = () => {
                     toggleShowPostTaskModal();
                     toast.success(payload.message);
                     await queryClient.invalidateQueries(["all-tasks"]);
-                    router.push("/task");
+                    // router.push("/task");
                 },
                 onError: (error) => {
                     toast.error(error.message);

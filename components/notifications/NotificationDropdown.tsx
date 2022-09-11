@@ -18,10 +18,10 @@ export const NotificationDropdown = () => {
                 <p className="mark">Mark all as read</p>
             </div>
 
-            <ApproveNotification accept={true} />
+            {/* <ApproveNotification accept={true} />
             <ApproveNotification pay={true} />
             <CreatedTask />
-            <CreatedTask text_after="for Bathroom" />
+            <CreatedTask text_after="for Bathroom" /> */}
 
             <div className="d-flex align-items-center justify-content-center footer-section">
                 <Link href="/notifications">
