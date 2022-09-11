@@ -15,6 +15,7 @@ export type NotificationResponse = {
         content: any;
         object_slug: string;
     }>;
+    unread_count: number;
 };
 
 export const useGetNotification = () => {

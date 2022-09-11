@@ -26,7 +26,7 @@ export const useLanguage = () => {
         async () => {
             try {
                 const { data } = await axiosClient.get<Language>(
-                    "/locale/cms/language/"
+                    "/locale/cms/language/?page_size=1000"
                 );
                 return data;
             } catch (error) {

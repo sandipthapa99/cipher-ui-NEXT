@@ -15,8 +15,15 @@ interface TaskAsideProps {
     appliedTasks: ITask[];
     query: string;
     type?: string;
+    isFetching: boolean;
 }
-const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
+const TaskAside = ({
+    appliedTasks,
+    query,
+    children,
+    type,
+    isFetching,
+}: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
@@ -44,6 +51,13 @@ const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
                         offsetScrollbars
                         scrollbarSize={5}
                     >
+                        {isFetching && (
+                            <Fragment>
+                                {Array.from({ length: 4 }).map((_, key) => (
+                                    <SkeletonTaskCard key={key} />
+                                ))}
+                            </Fragment>
+                        )}
                         {query && totalAppliedTasks > 0 ? (
                             <p className="search-results-text">
                                 {`${totalAppliedTasks} service matching ${query} found`}
@@ -54,7 +68,7 @@ const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
                                 No services matching {query} found
                             </p>
                         ) : null}
-                        {!query && totalAppliedTasks === 0 ? (
+                        {isFetching ? (
                             <Fragment>
                                 {Array.from({ length: 4 }).map((_, key) => (
                                     <SkeletonTaskCard key={key} />

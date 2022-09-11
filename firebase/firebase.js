@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 // Import the functions you need from the SDKs you need
+import { QueryClient } from "@tanstack/react-query";
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 // import { doc, getFirestore, setDoc } from "firebase/firestore";
@@ -17,6 +18,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const db = getFirestore();
 
@@ -28,7 +30,7 @@ const firebaseCloudMessaging = {
     onMessage: async () => {
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {
-            console.log("Message received. ", payload);
+            // console.log("Message received. ", payload);
 
             toast.success(payload?.data?.title, {
                 onClick: () => {

@@ -93,6 +93,8 @@
 @import "components/side-bar";
 @import "components/appliedTaskDetail";
 @import "components/2factorCard";
+@import "components/completeProfileCard.scss";
+
 @import "components/myTasks";
 // Pages
 @import "pages/privacyPolicy";
@@ -179,7 +181,7 @@
 @import "components/socialConnection";
 @import "components/userLoadingOverlay";
 @import "components/squarecarousel";
-
+@import "components/_security.scss";
 @import "components/saveIcon";
 // Pages
 @import "pages/privacyPolicy";
