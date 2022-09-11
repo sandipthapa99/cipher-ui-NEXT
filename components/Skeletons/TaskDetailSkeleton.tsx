@@ -15,9 +15,18 @@ export const TaskDetailSkeleton = () => {
                         <Skeleton height={20} width={20} />
                     </Group>
                 </Box>
-                <Box className={classes.detailBody}>
-                    <Skeleton height={400} sx={{ flex: 1 }} />
-                    <Skeleton height={400} width={320} />
+                <Box className={classes.row}>
+                    <Stack spacing="md">
+                        <Skeleton height={320} sx={{ flex: 1 }} />
+                        <Box className={classes.row}>
+                            <Skeleton height={20} width={120} />
+                            <Skeleton height={20} width={120} />
+                            <Skeleton height={20} width={120} />
+                            <Skeleton height={20} width={120} />
+                            <Skeleton height={20} width={120} />
+                        </Box>
+                    </Stack>
+                    <Skeleton height={320} width={320} />
                 </Box>
             </Stack>
         </Box>
@@ -32,7 +41,7 @@ const useStyles = createStyles(() => ({
         display: "flex",
         justifyContent: "space-between",
     },
-    detailBody: {
+    row: {
         display: "flex",
         justifyContent: "space-between",
         gap: "2rem",

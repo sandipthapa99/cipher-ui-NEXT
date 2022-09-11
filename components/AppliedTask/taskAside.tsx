@@ -15,8 +15,15 @@ interface TaskAsideProps {
     appliedTasks: ITask[];
     query: string;
     type?: string;
+    isFetching: boolean;
 }
-const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
+const TaskAside = ({
+    appliedTasks,
+    query,
+    children,
+    type,
+    isFetching,
+}: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
@@ -54,7 +61,7 @@ const TaskAside = ({ appliedTasks, query, children, type }: TaskAsideProps) => {
                                 No services matching {query} found
                             </p>
                         ) : null}
-                        {!query && totalAppliedTasks === 0 ? (
+                        {isFetching ? (
                             <Fragment>
                                 {Array.from({ length: 4 }).map((_, key) => (
                                     <SkeletonTaskCard key={key} />
