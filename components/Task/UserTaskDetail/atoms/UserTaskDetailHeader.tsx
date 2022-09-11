@@ -48,6 +48,7 @@ export const UserTaskDetailHeader = ({
             <HireMerchantModal
                 show={showHireMerchantModal}
                 onHide={() => setShowHireMerchantModal(false)}
+                taskerDetail={taskerDetail}
             />
             <Row style={{ maxWidth: maxHeaderWidth ?? undefined }}>
                 <Col md={8} className="d-flex">
