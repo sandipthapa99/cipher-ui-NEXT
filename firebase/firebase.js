@@ -28,6 +28,7 @@ const firebaseCloudMessaging = {
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {
             console.log("Message received. ", payload);
+            // alert(payload.notification.title, payload.notification.body);
             // alert("Notificacion");
         });
     },

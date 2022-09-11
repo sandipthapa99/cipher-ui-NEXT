@@ -65,12 +65,13 @@ export interface PostTaskPayload {
 export const PostTaskModal = () => {
     const [choosedValue, setChoosedValue] = useState("task");
     const queryClient = useQueryClient();
-    const { mutate } = usePostTask();
+    const { mutate, data: postTaskResponse } = usePostTask();
     const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
     const router = useRouter();
+    //console.log("taskResponse", postTaskResponse);
 
     const taskSlug = router.query?.slug;
     const taskDetail = queryClient.getQueryData<ITask>([
@@ -131,7 +132,7 @@ export const PostTaskModal = () => {
                     toggleShowPostTaskModal();
                     toast.success(payload.message);
                     await queryClient.invalidateQueries(["all-tasks"]);
-                    router.push("/task");
+                    // router.push("/task");
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -153,19 +154,19 @@ export const PostTaskModal = () => {
                 title="Post a Task or Service"
                 size="xl"
             >
-                {showPostTaskModalType === "CREATE" && (
-                    <div className="choose-email-or-phone mb-5">
-                        <Radio.Group
-                            label="Please select task or service which you want to post "
-                            onChange={(value) => setChoosedValue(value)}
-                            size="sm"
-                            defaultValue="task"
-                        >
-                            <Radio value="task" label="Post Task" />
-                            <Radio value="service" label="Post Service" />
-                        </Radio.Group>
-                    </div>
-                )}
+                {/* {showPostTaskModalType === "CREATE" && ( */}
+                <div className="choose-email-or-phone mb-5">
+                    <Radio.Group
+                        label="Please select task or service which you want to post "
+                        onChange={(value) => setChoosedValue(value)}
+                        size="sm"
+                        defaultValue="task"
+                    >
+                        <Radio value="task" label="Post Task" />
+                        <Radio value="service" label="Post Service" />
+                    </Radio.Group>
+                </div>
+                {/* )} */}
                 {choosedValue === "task" ? (
                     <form encType="multipart/formData" onSubmit={handleSubmit}>
                         <Stack spacing="md">

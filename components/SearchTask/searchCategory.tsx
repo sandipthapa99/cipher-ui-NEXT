@@ -25,7 +25,7 @@ export const SearchCategory = ({
     getSortingByPrice,
 }: SearchCategoryProps) => {
     const { data: allcategories } = useCategories();
-    // console.log("ser", allcategories);
+    console.log("ser", allcategories);
 
     const categoriesValues = allcategories?.map((category: any) => {
         return {
@@ -96,20 +96,27 @@ export const SearchCategory = ({
         );
     };
     const useSearchServiceByCategory = (query: string) => {
-        return useQuery(["all-service", query], () =>
-            axiosClient
-                .get<ServicesValueProps>(`/task/service/?category=${query}`)
-                .then((response) =>
-                    console.log("category", response.data.result)
-                )
+        return useQuery(
+            ["all-service", query],
+            () =>
+                axiosClient
+                    .get<ServicesValueProps>(`/task/service/?category=${query}`)
+                    .then((response) => {
+                        console.log("response", response.data.result);
+                        getSortingByPrice(response.data.result);
+                    }),
+            {
+                enabled: allcategories ? true : false,
+            }
         );
     };
 
     const { data: searchDataByPrice } = useSearchServiceByPrice(priceQuery);
     const { data: searchDataByCategory } =
         useSearchServiceByCategory(categoryName);
+
     // getSortingByPrice(searchDataByPrice);
-    console.log("abc", searchDataByCategory);
+    // console.log("abc", searchDataByCategory);
     const styles = (index: number) => {
         return {
             category: {
@@ -148,12 +155,14 @@ export const SearchCategory = ({
             <select
                 onChange={(e: any) => {
                     setActiveIndex(index);
-                    // if (data.category === "Any price") {
-                    //     setPriceQuery(e.target.value);
-                    // }
-                    // if (data.category === "Category") {
-                    //     setCategoryName(e.target.value);
-                    // }
+                    if (data.category === "Any price") {
+                        setPriceQuery(e.target.value);
+                    }
+                    if (data.category === "Category") {
+                        console.log("category", e.target.value);
+
+                        setCategoryName(e.target.value);
+                    }
                 }}
                 key={index}
                 style={styles(index).category}

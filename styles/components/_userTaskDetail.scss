@@ -11,13 +11,10 @@
     padding-bottom: 2.5rem;
     span {
         margin-left: 0.4rem;
-        //nest hub
-        @media screen and (width: 1280px) {
-            margin-left: 3.5rem;
-        }
-
-        @media screen and (width: 1024px) {
-            margin-left: 1.5rem;
+  
+        //Nest Hub
+        @media screen and (width: 1024px),(width: 1280px) {
+            margin-left: 0;
         }
 
         //specific to surface duo
@@ -216,6 +213,14 @@
             margin-right: 1.5rem;
             justify-content: center;
             align-items: center;
+            @include respond(xs) {
+                margin-right: 0;
+                justify-content: flex-start;
+            }
+            @media screen and (width: 1024px),(width: 1280px) {
+                justify-content: flex-start;
+            }
+    
         }
     }
     .td-mb-24 {
@@ -225,5 +230,13 @@
         width: 90%;
         font-weight: 500;
         margin-left: 2rem;
+
+        @media screen and (width:768px) {
+            margin-left: 0;
+        }
+        @include respond(xs){
+            width: 100%;
+            margin-left: 0;
+        }
     }
 }

@@ -119,8 +119,9 @@ const ProfileEditForm = ({
                             // toggleSuccessModal();
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, errors, touched, values }) => (
                             <Form>
+                                {/* <pre>{JSON.stringify(values, null, 4)}</pre>; */}
                                 <InputField
                                     type="text"
                                     name="full_name"
@@ -240,7 +241,6 @@ const ProfileEditForm = ({
                                         Dribble
                                     </span>
                                 </div>
-
                                 <Modal.Footer>
                                     <Button
                                         className="btn close-btn"
