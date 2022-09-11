@@ -32,7 +32,9 @@ const LanguagesSettings = () => {
             ))}
             <Accordion className="mt-5" alwaysOpen flush>
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>More Languages</Accordion.Header>
+                    <Accordion.Header className="font-weight-bold">
+                        More Languages
+                    </Accordion.Header>
                     <Accordion.Body>
                         {languageExtraData.map((value, key) => (
                             <div
