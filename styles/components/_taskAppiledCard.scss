@@ -5,10 +5,14 @@
     margin-bottom: 2.4rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     //specific to NestHub
-    @media screen and (width: 1024px) {
-        padding: 2.4rem 2rem;
+    @media screen and (width: 1024px),(width:360px) {
+        padding: 2.4rem 1rem;
     }
 
+
+    @media screen and (width: 768px), (width: 820px) {
+        padding: 2.4rem 2rem;
+    }
     &[data-active="true"] {
         background: #fff;
     }
@@ -92,6 +96,11 @@
             font-size: 1.2rem;
             font-weight: 400;
             color: #343a40;
+
+            @media screen and (width:820px),(width:768px),(width:912px),(width:280px) {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
             span {
                 margin: 0;
             }
