@@ -84,7 +84,6 @@ const Home: NextPage<{
 
     return (
         <Layout title="Cipher - Catering to Your Requirements">
-            <GoogleMap />
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-5">
                     <Row className="gx-5 hero-content">
