@@ -16,17 +16,17 @@ export const TaskDetailSkeleton = () => {
                     </Group>
                 </Box>
                 <Box className={classes.row}>
-                    <Stack spacing="md">
-                        <Skeleton height={320} sx={{ flex: 1 }} />
+                    <Stack spacing="md" sx={{ flex: 1 }}>
+                        <Skeleton height={320} />
                         <Box className={classes.row}>
-                            <Skeleton height={20} width={120} />
-                            <Skeleton height={20} width={120} />
-                            <Skeleton height={20} width={120} />
-                            <Skeleton height={20} width={120} />
-                            <Skeleton height={20} width={120} />
+                            <Skeleton height={20} width={60} />
+                            <Skeleton height={20} width={60} />
+                            <Skeleton height={20} width={60} />
+                            <Skeleton height={20} width={60} />
+                            <Skeleton height={20} width={60} />
                         </Box>
                     </Stack>
-                    <Skeleton height={320} width={320} />
+                    <Skeleton height={320} />
                 </Box>
             </Stack>
         </Box>

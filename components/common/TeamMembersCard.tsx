@@ -1,7 +1,6 @@
 import SaveIcon from "@components/common/SaveIcon";
 import {
     faAward,
-    faEllipsisVertical,
     faFaceGrinBeam,
     faLocationArrow,
 } from "@fortawesome/pro-regular-svg-icons";
@@ -10,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQueryClient } from "@tanstack/react-query";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import type { Tasker } from "types/tasks";
 
@@ -61,54 +61,63 @@ export const TeamMembersCard = ({
             data-active={JSON.stringify(path === tasker)}
             className="team-members-card mb-5 active"
         >
-            <div className="d-flex w-100 image-and-title">
-                <figure className="team-member-card-image">
-                    <Image
-                        src={image ?? "/community/gallery2.png"}
-                        alt="team-member-card-image"
-                        height={80}
-                        width={80}
-                    />
-                </figure>
-                <div className="w-100 name-post-count">
-                    <div className="d-flex justify-content-between title-and-dots text-dark">
-                        <h5>{name}</h5>
-                        {/* <FontAwesomeIcon
+            <Link href={`/tasker/${tasker}/`}>
+                <a>
+                    <div className="d-flex w-100 image-and-title">
+                        <figure className="team-member-card-image">
+                            <Image
+                                src={image ?? "/community/gallery2.png"}
+                                alt="team-member-card-image"
+                                height={80}
+                                width={80}
+                            />
+                        </figure>
+                        <div className="w-100 name-post-count">
+                            <div className="d-flex justify-content-between title-and-dots text-dark">
+                                <h5>{name}</h5>
+                                {/* <FontAwesomeIcon
                             className="ellipsis-vertical"
                             icon={faEllipsisVertical}
                         /> */}
+                            </div>
+                            <h6 className="text-dark">
+                                <span>{speciality} </span>| {location}
+                            </h6>
+                            <div className="d-flex icon-wrapper-member gap-5 align-items-center emoji-section text-dark">
+                                <span className="star">
+                                    <FontAwesomeIcon
+                                        className="star"
+                                        icon={faStar}
+                                    />
+                                    <span> {rating}</span>
+                                </span>
+                                <span className="emoji">
+                                    <FontAwesomeIcon
+                                        className="emoji"
+                                        icon={faFaceGrinBeam}
+                                    />
+                                    <span>{happyClients}</span>
+                                </span>
+                                <span className="award">
+                                    <FontAwesomeIcon
+                                        className="award"
+                                        icon={faAward}
+                                    />
+                                    <span> {awardPercentage}</span>
+                                </span>
+                                <span className="location">
+                                    <FontAwesomeIcon
+                                        className="location"
+                                        icon={faLocationArrow}
+                                    />
+                                    <span> {distance}</span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <h6 className="text-dark">
-                        <span>{speciality} </span>| {location}
-                    </h6>
-                    <div className="d-flex icon-wrapper-member gap-5 align-items-center emoji-section text-dark">
-                        <span className="star">
-                            <FontAwesomeIcon className="star" icon={faStar} />
-                            <span> {rating}</span>
-                        </span>
-                        <span className="emoji">
-                            <FontAwesomeIcon
-                                className="emoji"
-                                icon={faFaceGrinBeam}
-                            />
-                            <span>{happyClients}</span>
-                        </span>
-                        <span className="award">
-                            <FontAwesomeIcon className="award" icon={faAward} />
-                            <span> {awardPercentage}</span>
-                        </span>
-                        <span className="location">
-                            <FontAwesomeIcon
-                                className="location"
-                                icon={faLocationArrow}
-                            />
-                            <span> {distance}</span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <p>{bio}</p>
+                    <p>{bio}</p>
+                </a>
+            </Link>
             <div className="d-flex justify-content-between footer-section">
                 <div className="d-flex share-and-like">
                     <SaveIcon
@@ -118,21 +127,25 @@ export const TeamMembersCard = ({
                         onSuccess={() =>
                             queryClient.invalidateQueries(["bookmarks", "user"])
                         }
+                        className={"me-3"}
                     />
                     <ShareIcon url={""} quote={""} hashtag={""} />
                 </div>
-
-                {collabButton == true ? (
-                    <div className="collab-button">
-                        <BigButton
-                            btnTitle={"Collab"}
-                            backgroundColor={"#211D4F"}
-                            handleClick={handleButtonClick}
-                        />
-                    </div>
-                ) : (
-                    <span className="task-price"> {charge}</span>
-                )}
+                <Link href={`/tasker/${tasker}/`}>
+                    <a>
+                        {collabButton == true ? (
+                            <div className="collab-button">
+                                <BigButton
+                                    btnTitle={"Collab"}
+                                    backgroundColor={"#211D4F"}
+                                    handleClick={handleButtonClick}
+                                />
+                            </div>
+                        ) : (
+                            <span className="task-price"> {charge}</span>
+                        )}
+                    </a>
+                </Link>
             </div>
         </div>
     );

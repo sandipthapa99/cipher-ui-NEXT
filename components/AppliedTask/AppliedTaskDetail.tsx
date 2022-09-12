@@ -70,7 +70,7 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
 
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
-    const taskRequirements = safeParse<Array<{ id: string; title: string }>>({
+    const taskRequirements = safeParse<Array<{ id: number; title: string }>>({
         rawString: taskDetail.requirements,
         initialData: [],
     });
@@ -270,9 +270,9 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {taskRequirements.map(({ id, title }) => (
-                        <div key={id}>
-                            <ServiceHighlights title={title} />
+                    {taskRequirements.map((highlight, key) => (
+                        <div key={key}>
+                            <ServiceHighlights highlight={highlight} />
                         </div>
                     ))}
                 </div>
