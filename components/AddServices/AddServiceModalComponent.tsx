@@ -399,14 +399,14 @@ export const AddServiceModalComponent = () => {
                                 touch={touched.location}
                             />
 
-                            {/* <SelectInputField
+                            <SelectInputField
                                 name={"city"}
                                 labelName="City"
                                 placeHolder="Select city"
                                 error={errors.city}
                                 touch={touched.city}
                                 options={renderCityOptions}
-                            /> */}
+                            />
 
                             <AddRequirements
                                 onSubmit={(value) =>
