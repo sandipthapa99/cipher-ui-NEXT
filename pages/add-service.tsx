@@ -553,14 +553,14 @@ const AddService: NextPage<{
                                         />
 
                                         <div className="d-flex justify-content-center">
-                                            <Button className="btn close-btn p-3 h-25 w-25">
+                                            <Button className="btn close-btn p-3 h-25 w-25 add-service-cancel">
                                                 Cancel
                                             </Button>
                                             <FormButton
                                                 type="submit"
                                                 variant="primary"
                                                 name="Apply"
-                                                className="submit-btn w-25 ms-3"
+                                                className="submit-btn w-25 ms-3 add-service-submit"
                                                 isSubmitting={isSubmitting}
                                                 isSubmittingClass={isSubmittingClass(
                                                     isSubmitting
