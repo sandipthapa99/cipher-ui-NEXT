@@ -167,6 +167,10 @@
         border-radius: 0.4rem;
         padding: 4.2rem 1rem;
         padding-bottom: 1.8rem;
+
+        @include respond(xs){
+            padding: 0;
+        }
         // width: 13.5rem;
         @include respond(lg) {
             width: 12.6rem;
@@ -188,6 +192,9 @@
             font-weight: 400;
             padding-left: 2rem;
             padding-right: 2rem;
+            @include respond(xs){
+                padding-top: 0;
+            }
         }
     }
     .tax-slab {
@@ -280,6 +287,9 @@
         margin-bottom: 2.6rem;
         padding: 2.5rem;
         background-color: transparent;
+        @include respond(xs){
+            background-color: #EDF4FF !important;
+        }
         border: 0.1rem solid rgba(0, 0, 0, 0.1);
         border-radius: 0.4rem;
         p {

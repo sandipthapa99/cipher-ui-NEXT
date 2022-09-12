@@ -102,11 +102,16 @@
                 .thumbnail-img {
                     margin: 0 2rem 0 0;
                     height: 2.5rem;
-                    width: 2.5rem;
+                    width: 4.5rem;
+                    object-fit: contain;
                     @include respond(xs){
-                        object-fit: contain;
                         display: none;
                     }
+
+                    @media screen and (width:1280px),(width:1024px),(width:768px) {
+                        display: none;
+                    }
+                    
                 }
             }
         }
