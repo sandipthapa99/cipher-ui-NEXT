@@ -55,10 +55,6 @@ export const RasifalSlideComponent = ({
         };
     }, []);
 
-    const today = new Date();
-
-    console.log(today);
-
     return (
         <>
             <div
@@ -77,8 +73,6 @@ export const RasifalSlideComponent = ({
                         <FontAwesomeIcon icon={faXmark} />
                     </span>
                 </div>
-
-                {/* <h4>{today}</h4> */}
 
                 {dailyRasifal.map((item, index) => (
                     <RasifalCard
