@@ -114,7 +114,7 @@ export const AddServiceModalComponent = () => {
     const renderCurrencyOptions = currencyOptionsData?.map((item: any) => {
         return {
             value: item?.id,
-            label: item?.name,
+            label: item?.code,
         };
     });
 

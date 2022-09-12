@@ -27,7 +27,7 @@ const ServiceCard = ({
     const loggedIn = Cookies.get("access");
 
     const userId = profileDetails?.user.id;
-    const serviceProviderId = serviceCard.created_by.id;
+    const serviceProviderId = serviceCard?.created_by?.id;
 
     //modal card
     const [showModal, setShowModal] = useState(false);
@@ -37,14 +37,14 @@ const ServiceCard = ({
             setShowModal(true);
         } else {
             router.push({
-                pathname: `/service/${serviceCard.slug}`,
+                pathname: `/service/${serviceCard?.slug}`,
             });
         }
     };
     return (
-        <Link href={`/service/${serviceCard.slug}`}>
+        <Link href={`/service/${serviceCard?.slug}`}>
             <div className="service-card-block">
-                <Link href={`/service/${serviceCard.slug}`}>
+                <Link href={`/service/${serviceCard?.slug}`}>
                     <a>
                         <div className="card-img">
                             {serviceCard &&
@@ -73,7 +73,7 @@ const ServiceCard = ({
                     </a>
                 </Link>
                 <div className="card-content">
-                    <Link href={`/service/${serviceCard.slug}`}>
+                    <Link href={`/service/${serviceCard?.slug}`}>
                         <a>
                             <div className="d-flex pro-title-wrapper justify-content-between">
                                 <h2 className="card-title">
@@ -108,7 +108,7 @@ const ServiceCard = ({
                             <span> | {serviceCard?.location}</span>
                         </Spoiler>
                     </h3>
-                    <Link href={`/service/${serviceCard.slug}`}>
+                    <Link href={`/service/${serviceCard?.slug}`}>
                         <a>
                             <div className="card-description d-inline">
                                 <Spoiler
