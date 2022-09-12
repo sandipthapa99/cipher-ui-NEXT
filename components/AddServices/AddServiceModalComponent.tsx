@@ -240,7 +240,6 @@ export const AddServiceModalComponent = () => {
                 {({ setFieldValue, errors, touched, isSubmitting, values }) => (
                     <>
                         <Form>
-                            <pre>{JSON.stringify(errors, null, 4)}</pre>
                             <InputField
                                 labelName="Title"
                                 placeHolder="service title"
