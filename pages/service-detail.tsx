@@ -48,7 +48,10 @@ const ServiceDetail: NextPage = () => {
                                     <span>By Harry Smith, Gardener</span>
                                     <div className="d-flex justify-content-between align-items-center reactions">
                                         <div className="d-flex align-items-center me-4">
-                                            <SaveIcon />
+                                            <SaveIcon
+                                                object_id={""}
+                                                model={""}
+                                            />
                                             <span>Save</span>
                                         </div>
                                         <span className="d-flex align-items-center">
@@ -132,17 +135,19 @@ const ServiceDetail: NextPage = () => {
                     <div className="service-details__highlights">
                         <h1>Highlights</h1>
 
-                        <Row className="content gx-5 flex-column">
+                        {/* <Row className="content gx-5 flex-column">
                             {serviceHighlights &&
-                                serviceHighlights.map((name) => (
+                                serviceHighlights.map((highlight, key) => (
                                     // <div >
-                                    <Col key={name.id}>
-                                        <ServiceHighlights title={name.title} />
+                                    <Col key={key}>
+                                        <ServiceHighlights
+                                            highlight={highlight}
+                                        />
                                     </Col>
 
                                     // </div>
                                 ))}
-                        </Row>
+                        </Row> */}
                     </div>
                     {/* Service details highlights div end*/}
                     {/* Service details package and offers start */}

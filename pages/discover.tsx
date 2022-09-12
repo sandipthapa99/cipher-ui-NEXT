@@ -146,6 +146,7 @@ const Discover: NextPage = () => {
                                                 successRate={
                                                     merchant.successRate
                                                 }
+                                                merchantId={merchant.id}
                                             />
                                         </Col>
                                     );
