@@ -17,7 +17,7 @@
             margin: 0 0 0 3rem;
             h1 {
                 font: 600 4rem $poppins-font;
-                @include respond(xs){
+                @include respond(xs) {
                     font: 600 3rem "Poppins";
                 }
             }
@@ -75,7 +75,7 @@
             height: 100%;
             margin: 0 0 0 5rem;
 
-            @include respond(xs){
+            @include respond(xs) {
                 justify-content: start;
                 height: 100%;
                 margin: 0 0 0 3rem;
@@ -103,7 +103,7 @@
                     margin: 0 2rem 0 0;
                     height: 2.5rem;
                     width: 2.5rem;
-                    @include respond(xs){
+                    @include respond(xs) {
                         object-fit: contain;
                         display: none;
                     }
@@ -136,7 +136,7 @@
     .description-section {
         padding: 4rem;
         height: 100%;
-        @include respond(xs){
+        @include respond(xs) {
             padding: 2rem;
         }
         h2 {

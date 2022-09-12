@@ -6,7 +6,7 @@ import { axiosClient } from "utils/axiosClient";
 export interface LoginPayload {
     username: string;
     password: string;
-    fcm_token: string;
+    fcm_token: string | null;
 }
 export interface LoginSuccessResponse {
     refresh: string;
