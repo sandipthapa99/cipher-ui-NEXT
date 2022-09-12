@@ -23,6 +23,7 @@ import { axiosClient } from "utils/axiosClient";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
+import PhoneNumberInput from "./PhoneNumberInput";
 import TagInputField from "./TagInputField";
 
 interface ProfileEditProps {
@@ -140,12 +141,12 @@ const ProfileEditForm = ({
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
-                                        <InputField
-                                            name="phone"
+                                        <PhoneNumberInput
+                                            name={"phone"}
+                                            fieldRequired={true}
                                             labelName="Phone Number"
                                             touch={touched.phone}
                                             error={errors.phone}
-                                            placeHolder="Enter your phone number"
                                         />
                                     </Col>
                                 </Row>

@@ -1,6 +1,7 @@
 import FileInputField from "@components/common/FileInputField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import ReCaptchaField from "@components/common/ReCaptchaField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
@@ -100,14 +101,12 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                                         />
                                     </Col>
                                     <Col md={6}>
-                                        <InputField
-                                            type="text"
-                                            name="phone"
-                                            labelName="Phone"
-                                            error={errors.phone}
+                                        <PhoneNumberInput
+                                            name={"phone"}
+                                            fieldRequired={true}
+                                            labelName="Phone Number"
                                             touch={touched.phone}
-                                            placeHolder="Enter your phone"
-                                            fieldRequired
+                                            error={errors.phone}
                                         />
                                     </Col>
                                     <Col md={6}>
