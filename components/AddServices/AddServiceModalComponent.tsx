@@ -237,7 +237,7 @@ export const AddServiceModalComponent = () => {
                     }
                 }}
             >
-                {({ setFieldValue, errors, touched, isSubmitting }) => (
+                {({ setFieldValue, errors, touched, isSubmitting, values }) => (
                     <>
                         <Form>
                             <InputField
@@ -346,13 +346,6 @@ export const AddServiceModalComponent = () => {
                                 )}
 
                                 <Col md={4}>
-                                    {/* <SelectInputField
-                                        name="budget_type"
-                                        placeHolder="Fixed"
-                                        options={BudgetType}
-                                        error={errors.budget_type}
-                                        touch={touched.budget_type}
-                                    /> */}
                                     <Select
                                         placeholder="Fixed"
                                         name="budget_type"
@@ -434,7 +427,11 @@ export const AddServiceModalComponent = () => {
                                 name="images"
                                 labelName="Upload your images"
                                 textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 1MB."
-                                error={errors.images as string}
+                                error={
+                                    values?.images.length > 0
+                                        ? undefined
+                                        : (errors.images as string)
+                                }
                                 touch={touched.images as boolean}
                                 imagePreview="imagePreviewUrl"
                                 maxFiles={5}

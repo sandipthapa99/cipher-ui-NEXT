@@ -76,7 +76,7 @@ const Login = () => {
                         onSubmit={(values) => {
                             const newValues = {
                                 ...values,
-                                fcm_token: fcmToken,
+                                fcm_token: fcmToken ? fcmToken : null,
                             };
                             console.log(newValues);
 

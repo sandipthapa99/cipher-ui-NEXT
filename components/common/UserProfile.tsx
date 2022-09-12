@@ -408,7 +408,6 @@ const UserProfileCard = ({
                                     </p>
                                     <div
                                         className="progress-bar"
-                                        //style={`@include progressBar(50%)`}
                                         //  style={style}
                                     ></div>
                                     <p>
