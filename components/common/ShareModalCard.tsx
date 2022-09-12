@@ -96,14 +96,14 @@ const ShareModal = ({
                                 />
                             </Link>
                         </div>
-                        <div className="social-media share">
+                        {/* <div className="social-media share">
                             <Link href="#!">
                                 <FontAwesomeIcon
                                     icon={faLink}
                                     className="svg-icon share-link"
                                 />
                             </Link>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </Modal>
