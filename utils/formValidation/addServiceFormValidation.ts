@@ -7,7 +7,9 @@ const numberValidate = Yup.number()
     .typeError("This must be a number");
 
 const highlightValidate = Yup.array(
-    Yup.object().shape({ id: Yup.number(), name: Yup.string() })
+    Yup.object()
+        .shape({ id: Yup.number(), name: Yup.string() })
+        .required("Required field")
 );
 
 export const addServiceFormSchema = Yup.object().shape({
