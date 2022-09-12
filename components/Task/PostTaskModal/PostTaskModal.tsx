@@ -65,7 +65,7 @@ export interface PostTaskPayload {
 export const PostTaskModal = () => {
     const [choosedValue, setChoosedValue] = useState("task");
     const queryClient = useQueryClient();
-    const { mutate, data: postTaskResponse } = usePostTask();
+    const { mutate } = usePostTask();
     const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
@@ -106,7 +106,7 @@ export const PostTaskModal = () => {
             videos: "",
         },
         validationSchema: postTaskSchema,
-        onSubmit: async (values) => {
+        onSubmit: async (values, action) => {
             if (!termsAccepted) {
                 toast.error(
                     "You must accept the terms and conditions before posting a task"
@@ -128,12 +128,11 @@ export const PostTaskModal = () => {
                 extra_data: [],
             };
             mutate(postTaskPayload, {
-                onSuccess: async (payload) => {
-                    toggleShowPostTaskModal();
-                    // toast.success(payload.message);
+                onSuccess: async () => {
                     await queryClient.invalidateQueries(["all-tasks"]);
                     await queryClient.invalidateQueries(["notification"]);
-                    // router.push("/task");
+                    action.resetForm();
+                    handleCloseModal();
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -148,13 +147,14 @@ export const PostTaskModal = () => {
 
     const handleCloseModal = () => {
         toggleShowPostTaskModal("CREATE");
+        formik.resetForm();
     };
 
     return (
         <>
             <Modal
                 opened={showPostTaskModal}
-                onClose={toggleShowPostTaskModal}
+                onClose={handleCloseModal}
                 overlayColor="rgba(0, 0, 0, 0.25)"
                 title="Post a Task or Service"
                 size="xl"
