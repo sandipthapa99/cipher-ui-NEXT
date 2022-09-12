@@ -2,7 +2,6 @@ import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, ScrollArea } from "@mantine/core";
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -28,17 +27,7 @@ const TaskAside = ({
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
             <div key={task?.slug}>
-                <Link
-                    href={
-                        type === "you may like"
-                            ? `/task-you-may-like/${task?.slug}`
-                            : `/task/${task?.slug}`
-                    }
-                >
-                    <a>
-                        <TaskAppliedCard task={task} />
-                    </a>
-                </Link>
+                <TaskAppliedCard task={task} type={type} />
             </div>
         );
     });
@@ -91,7 +80,13 @@ const TaskAside = ({
                 </Col>
 
                 <Col md={8} className="right">
-                    {children}
+                    <ScrollArea.Autosize
+                        maxHeight={700}
+                        offsetScrollbars
+                        scrollbarSize={5}
+                    >
+                        {children}
+                    </ScrollArea.Autosize>
                 </Col>
             </Row>
         </div>

@@ -9,7 +9,7 @@ import {
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal } from "@mantine/core";
-import { QueryClient } from "@tanstack/react-query";
+import { useClickOutside } from "@mantine/hooks";
 import { format } from "date-fns";
 import { useLocation } from "hooks/location/useLocation";
 import { useGetNotification } from "hooks/Notifications/use-notification";
@@ -42,13 +42,7 @@ const Header = () => {
     const { data: profileDetails } = useGetProfile();
     const { data: allNotification } = useGetNotification();
 
-    // const handleBodyScroll = () => {
-    //     if (!rasifal) {
-    //         document.body.style.overflow = "hidden";
-    //     } else {
-    //         document.body.style.overflow = "unset";
-    //     }
-    // };
+    const notificationRef = useClickOutside(() => setNotopen(false));
 
     return (
         <>
@@ -163,34 +157,36 @@ const Header = () => {
                             </Link>
                         )}
 
-                        {/* {profileDetails ? ( */}
-                        <div className="notification-icon-wrapper">
-                            <a
-                                className="btn location-btn d-none d-md-inline-block"
-                                onClick={() =>
-                                    setNotopen(
-                                        (currentNotopen) => !currentNotopen
-                                    )
-                                }
+                        {profileDetails ? (
+                            <div
+                                className="notification-icon-wrapper"
+                                ref={notificationRef}
                             >
-                                <div className="bell-icon-header">
-                                    <FontAwesomeIcon
-                                        icon={faBell}
-                                        className="svg-icon"
-                                    />
-                                    {allNotification?.unread_count !== 0 && (
-                                        <span className="notification-badge">
-                                            {allNotification?.unread_count}
-                                        </span>
-                                    )}
-                                </div>
-                            </a>
+                                <a
+                                    className="btn location-btn d-none d-md-inline-block"
+                                    onClick={() =>
+                                        setNotopen(
+                                            (currentNotopen) => !currentNotopen
+                                        )
+                                    }
+                                >
+                                    <div className="bell-icon-header">
+                                        <FontAwesomeIcon
+                                            icon={faBell}
+                                            className="svg-icon"
+                                        />
+                                        {allNotification?.unread_count !==
+                                            0 && (
+                                            <span className="notification-badge">
+                                                {allNotification?.unread_count}
+                                            </span>
+                                        )}
+                                    </div>
+                                </a>
 
-                            {notopen && (
-                                <NotificationDropdown setNotOpen={setNotopen} />
-                            )}
-                        </div>
-                        {/* ) : null} */}
+                                {notopen && <NotificationDropdown />}
+                            </div>
+                        ) : null}
 
                         <Link href="#!">
                             <a

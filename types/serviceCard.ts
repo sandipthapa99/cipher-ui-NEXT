@@ -38,7 +38,16 @@ export interface ServicesValueProps {
             name: string;
             code: string;
         };
-        city: any;
+        city: {
+            id: number;
+            name: string;
+            latitude: number;
+            longitude: number;
+            country: {
+                id: number;
+                name: string;
+            };
+        };
         images?: {
             id: number;
             name: string;

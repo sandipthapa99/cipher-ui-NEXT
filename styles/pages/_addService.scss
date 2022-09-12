@@ -1,0 +1,6 @@
+.add-service-cancel,
+.add-service-submit {
+    @include respond(xs) {
+        flex: 1;
+    }
+}

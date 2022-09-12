@@ -17,6 +17,9 @@
             margin: 0 0 0 3rem;
             h1 {
                 font: 600 4rem $poppins-font;
+                @include respond(xs){
+                    font: 600 3rem "Poppins";
+                }
             }
             p {
                 font: 400 1.4rem $poppins-font;
@@ -72,6 +75,11 @@
             height: 100%;
             margin: 0 0 0 5rem;
 
+            @include respond(xs){
+                justify-content: start;
+                height: 100%;
+                margin: 0 0 0 3rem;
+            }
             .description {
                 max-width: 70%;
 
@@ -95,6 +103,10 @@
                     margin: 0 2rem 0 0;
                     height: 2.5rem;
                     width: 2.5rem;
+                    @include respond(xs){
+                        object-fit: contain;
+                        display: none;
+                    }
                 }
             }
         }
@@ -102,7 +114,7 @@
 }
 
 .get-started-card {
-    height: 40rem;
+    min-height: 40rem;
     background: linear-gradient(
         100.12deg,
         rgba(255, 255, 255, 0.48) 0%,
@@ -124,6 +136,9 @@
     .description-section {
         padding: 4rem;
         height: 100%;
+        @include respond(xs){
+            padding: 2rem;
+        }
         h2 {
             font: 400 2.4rem $poppins-font;
             margin: 0 0 1.6rem;

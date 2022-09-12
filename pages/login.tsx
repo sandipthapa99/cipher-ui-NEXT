@@ -53,6 +53,8 @@ const Login = () => {
     };
 
     const { data: profile } = useGetProfile();
+
+    console.log("profile....", profile);
     return (
         <section>
             <OnBoardingLayout
@@ -89,15 +91,17 @@ const Login = () => {
                                     //         ? next
                                     //         : "/settings/account/individual"
                                     // );
-                                    profile
-                                        ? await router.push(
-                                              typeof next === "string"
-                                                  ? next
-                                                  : "/home"
-                                          )
-                                        : await router.push(
-                                              "/settings/account/individual"
-                                          );
+                                    if (profile) {
+                                        router.push(
+                                            typeof next === "string"
+                                                ? next
+                                                : "/home"
+                                        );
+                                    } else {
+                                        await router.push(
+                                            "/settings/account/individual"
+                                        );
+                                    }
 
                                     toast.success("Login Successful!");
                                 },

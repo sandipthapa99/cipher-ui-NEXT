@@ -81,7 +81,19 @@ const AffiliateProgram = () => {
                     <div className="content">
                         {trustedPartners &&
                             trustedPartners.map((partner) => (
-                                <h1 key={partner.id}>{partner.name}</h1>
+                                <h1
+                                    style={{
+                                        color: [
+                                            "#3EAEFF",
+                                            "#FFCA6A",
+                                            "#3D3F7D",
+                                            "#00D084",
+                                        ][Math.floor(Math.random() * 4)],
+                                    }}
+                                    key={partner.id}
+                                >
+                                    {partner.name}
+                                </h1>
                             ))}
                     </div>
                 </section>

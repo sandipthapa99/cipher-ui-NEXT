@@ -40,7 +40,7 @@ const ProfileSuccessModalCard = ({
             >
                 <Modal.Header>
                     <Modal.Title className="mx-auto">
-                        Profile Created Successfullty
+                        Profile Created Successfully!
                     </Modal.Title>
                 </Modal.Header>
 

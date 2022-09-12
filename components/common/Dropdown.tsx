@@ -78,7 +78,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
         axiosClient
             .get("/task/task-category/nested/")
             .then(({ data }) => {
-                setMenu(data);
+                setMenu(data?.slice(0, 7));
             })
             .catch(() => {
                 setMenu([]);

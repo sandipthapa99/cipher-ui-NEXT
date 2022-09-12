@@ -29,13 +29,13 @@ export const HoroscopeSlider = () => {
         >
             {HoroscopeCardData.map((item, index) => (
                 <Carousel.Slide key={index}>
-                    <HoroscopeCard
+                    {/* <HoroscopeCard
                         image={item.image}
                         title={item.title}
                         dateFrom={item.dateFrom}
                         dateTo={item.dateTo}
                         description={item.description}
-                    />
+                    /> */}
                 </Carousel.Slide>
             ))}
         </Carousel>

@@ -15,15 +15,7 @@ import { ApproveNotification } from "./dropdown-notifications/ApproveNotificatio
 import { CreatedTask } from "./dropdown-notifications/CreatedTask";
 import { PostNotifyTask } from "./PostedTask";
 
-interface NotificationDropdownProps {
-    setNotOpen: Dispatch<SetStateAction<boolean>>;
-}
-
-export const NotificationDropdown = ({
-    setNotOpen,
-}: NotificationDropdownProps) => {
-    const notificationRef = useClickOutside(() => setNotOpen(false));
-
+export const NotificationDropdown = () => {
     const { data: allNotifications } = useGetNotification();
     const queryClient = new QueryClient();
     // console.log("all", allNotifications);
@@ -87,7 +79,7 @@ export const NotificationDropdown = ({
     // );
 
     return (
-        <div className="notification-dropdown" ref={notificationRef}>
+        <div className="notification-dropdown">
             <div className="d-flex notification-title align-items-center">
                 <FontAwesomeIcon icon={faBell} />
                 <h3>Notifications</h3>

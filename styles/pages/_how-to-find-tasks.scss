@@ -32,6 +32,9 @@
                 padding-bottom: 9rem;
                 padding-right: 2.2rem;
                 padding-left: 2rem;
+                @include respond(xs) {
+                    padding-bottom: 0;
+                }
 
                 @include respond(md) {
                     padding-left: 0rem;
@@ -41,6 +44,9 @@
                     padding-bottom: 4rem;
                     padding-top: 5.1rem;
                     font-size: 2.8rem;
+                    @include respond(xs) {
+                        padding-top: 0;
+                    }
                     @include respond(md) {
                         padding-right: 16rem;
                     }

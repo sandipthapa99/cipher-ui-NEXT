@@ -65,7 +65,7 @@ export interface PostTaskPayload {
 export const PostTaskModal = () => {
     const [choosedValue, setChoosedValue] = useState("task");
     const queryClient = useQueryClient();
-    const { mutate, data: postTaskResponse } = usePostTask();
+    const { mutate } = usePostTask();
     const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
@@ -106,7 +106,7 @@ export const PostTaskModal = () => {
             videos: "",
         },
         validationSchema: postTaskSchema,
-        onSubmit: async (values) => {
+        onSubmit: async (values, action) => {
             if (!termsAccepted) {
                 toast.error(
                     "You must accept the terms and conditions before posting a task"
@@ -128,12 +128,11 @@ export const PostTaskModal = () => {
                 extra_data: [],
             };
             mutate(postTaskPayload, {
-                onSuccess: async (payload) => {
-                    toggleShowPostTaskModal();
-                    // toast.success(payload.message);
+                onSuccess: async () => {
                     await queryClient.invalidateQueries(["all-tasks"]);
                     await queryClient.invalidateQueries(["notification"]);
-                    // router.push("/task");
+                    action.resetForm();
+                    handleCloseModal();
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -146,28 +145,33 @@ export const PostTaskModal = () => {
     const getFieldError = (key: keyof PostTaskPayload) =>
         touched[key] && errors[key] ? errors[key] : null;
 
+    const handleCloseModal = () => {
+        toggleShowPostTaskModal("CREATE");
+        formik.resetForm();
+    };
+
     return (
         <>
             <Modal
                 opened={showPostTaskModal}
-                onClose={toggleShowPostTaskModal}
+                onClose={handleCloseModal}
                 overlayColor="rgba(0, 0, 0, 0.25)"
                 title="Post a Task or Service"
                 size="xl"
             >
-                {/* {showPostTaskModalType === "CREATE" && ( */}
-                <div className="choose-email-or-phone mb-5">
-                    <Radio.Group
-                        label="Please select task or service which you want to post "
-                        onChange={(value) => setChoosedValue(value)}
-                        size="sm"
-                        defaultValue="task"
-                    >
-                        <Radio value="task" label="Post Task" />
-                        <Radio value="service" label="Post Service" />
-                    </Radio.Group>
-                </div>
-                {/* )} */}
+                {showPostTaskModalType === "CREATE" && (
+                    <div className="choose-email-or-phone mb-5">
+                        <Radio.Group
+                            label="Please select task or service which you want to post "
+                            onChange={(value) => setChoosedValue(value)}
+                            size="sm"
+                            defaultValue="task"
+                        >
+                            <Radio value="task" label="Post Task" />
+                            <Radio value="service" label="Post Service" />
+                        </Radio.Group>
+                    </div>
+                )}
                 {choosedValue === "task" ? (
                     <form encType="multipart/formData" onSubmit={handleSubmit}>
                         <Stack spacing="md">
@@ -286,7 +290,7 @@ export const PostTaskModal = () => {
                                 }}
                             >
                                 <Button
-                                    onClick={() => toggleShowPostTaskModal()}
+                                    onClick={handleCloseModal}
                                     className="close-btn close-btn-mod btn p-3 h-25"
                                 >
                                     Cancel

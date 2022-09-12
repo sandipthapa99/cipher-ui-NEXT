@@ -13,7 +13,8 @@ import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
@@ -21,6 +22,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     const { data: profileDetails, isLoading, error } = useGetProfile();
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData(["profile"]);
+    const router = useRouter();
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],
@@ -42,6 +44,12 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         taskCompleted: 30,
         userActiveStatus: true,
     };
+    useEffect(() => {
+        if (!profileDetails) {
+            router.push("/settings/account/individual");
+            console.log("test");
+        }
+    }, []);
 
     if (!profileDetails) {
         return (
@@ -52,18 +60,15 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <Row className="row-create-profile">
                             <Col className="create-profile">
                                 <h1>Your profile is incomplete!</h1>
-                                <p>
-                                    Fill in the details to Complete your profile
-                                    and get started with tasks.
-                                </p>
-                                <button className="btn-create-profile">
+                                <p>Redirecting to your Account Settings...</p>
+                                {/* <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
                                         className="text-profile"
                                     >
                                         Complete Profile Now
                                     </Link>
-                                </button>
+                                </button> */}
                             </Col>
                         </Row>
                     </Container>
@@ -82,35 +87,36 @@ const UserProfile: NextPage<UserProfileProps> = () => {
 
                     <section className="user-profile__top-container">
                         <UserProfileCard
-                            countryCode={profileDetails?.country}
+                            user={profileDetails?.user}
+                            stats={profileDetails?.stats}
+                            country={profileDetails?.country}
                             key={profileDetails?.id}
-                            userImage={
+                            points={profileDetails?.points}
+                            profile_image={
                                 profileDetails?.profile_image ??
                                 "/userprofile/unknownPerson.jpg"
                             }
-                            userName={profileDetails?.full_name}
-                            userJob={profileDetails?.user_type}
-                            userRating={remaining.userRating}
-                            userPrice={profileDetails?.hourly_rate}
-                            userLocation={profileDetails?.address_line1}
-                            userPhone={profileDetails?.phone}
-                            userEmail={profileDetails?.user?.email}
-                            moreServices={profileDetails?.skill}
-                            activeFrom={profileDetails?.active_hour_start}
-                            activeTo={profileDetails?.active_hour_end}
-                            userBio={profileDetails?.bio}
+                            full_name={profileDetails?.full_name}
+                            user_type={profileDetails?.user_type}
+                            rating={profileDetails.rating.avg_rating}
+                            hourly_rate={profileDetails?.hourly_rate}
+                            phone={profileDetails?.phone}
+                            address_line1={profileDetails?.address_line1}
+                            skill={profileDetails?.skill}
+                            active_hour_start={
+                                profileDetails?.active_hour_start
+                            }
+                            active_hour_end={profileDetails?.active_hour_end}
+                            bio={profileDetails?.bio}
                             userBadge={remaining.userBadge}
                             userPoints={remaining.userPoints}
                             pointGoal={remaining.pointGoal}
-                            happyClients={profileDetails?.stats?.happy_clients}
-                            successRate={profileDetails?.stats?.success_rate}
-                            userReviews={profileDetails?.stats?.user_reviews}
-                            taskCompleted={
-                                profileDetails?.stats?.task_completed
+                            charge_currency={
+                                profileDetails?.charge_currency.code
                             }
                             userActiveStatus={remaining.userActiveStatus}
                             tooltipMessage={remaining.tooltipMessage}
-                            isProfileVerified={
+                            is_profile_verified={
                                 profileDetails?.is_profile_verified
                             }
                         />
