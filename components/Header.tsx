@@ -175,11 +175,12 @@ const Header = () => {
                                             icon={faBell}
                                             className="svg-icon"
                                         />
-                                    {allNotification?.unread_count !== 0 && (
+                                        {allNotification?.unread_count !==
+                                            0 && (
                                             <span className="notification-badge">
                                                 {allNotification?.unread_count}
                                             </span>
-                                    )}
+                                        )}
                                     </div>
                                 </a>
 
