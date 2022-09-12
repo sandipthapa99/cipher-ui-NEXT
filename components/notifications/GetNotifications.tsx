@@ -41,6 +41,7 @@ export default function GetNotifications() {
     //     });
     // }
     const { data: allNotifications } = useGetNotification();
+    const allNotify = allNotifications ? allNotifications.result : [];
     const queryClient = new QueryClient();
 
     queryClient.invalidateQueries(["notification"]);
@@ -81,10 +82,10 @@ export default function GetNotifications() {
                 return (
                     <div key={index}>
                         <PostNotifyTask
-                            taskTitle={notification.title}
-                            taskObject={notification.object}
-                            createdDate={notification.created_date}
-                            slug={notification.object_slug}
+                            taskTitle={notification?.title}
+                            taskObject={notification?.object}
+                            createdDate={notification?.created_date}
+                            slug={notification?.object_slug}
                         />
                     </div>
                 );

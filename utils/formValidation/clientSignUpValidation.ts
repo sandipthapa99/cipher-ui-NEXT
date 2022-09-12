@@ -2,8 +2,9 @@ import { phoneRegExp } from "utils/helpers";
 import * as Yup from "yup";
 
 const emailValidate = Yup.string()
-    .email("Invalid email address")
-    .required("Required field");
+    .required("Required field")
+    .email("Invalid email address");
+
 const stringValidate = Yup.string()
     .min(3, "Must be 3 charactersor or more")
     .required("Required field");
@@ -12,6 +13,7 @@ const phoneValidate = Yup.string()
     .required("Required field");
 const stringReqOnly = Yup.string().required("Required field");
 const isCheckValidate = Yup.bool().required();
+
 const passwordValidate = Yup.string()
     .required("Required field")
     .min(10, "Password is too short - should be 10 chars minimum.")
@@ -22,23 +24,14 @@ const passwordValidate = Yup.string()
 const genderValidate = Yup.string().required("Required Field");
 
 export const clientEmailSignUpSchema = Yup.object().shape({
-    email: emailValidate,
     password: passwordValidate,
     confirmPassword: Yup.string()
         .required()
         .oneOf([Yup.ref("password")], "Passwords do not match"),
+    email: emailValidate,
 });
 
 export const clientPhoneSignUpSchema = Yup.object().shape({
-    phone: phoneValidate,
-    password: passwordValidate,
-    confirmPassword: Yup.string()
-        .required()
-        .oneOf([Yup.ref("password")], "Passwords do not match"),
-});
-
-export const clientBothSignUpSchema = Yup.object().shape({
-    email: emailValidate,
     phone: phoneValidate,
     password: passwordValidate,
     confirmPassword: Yup.string()

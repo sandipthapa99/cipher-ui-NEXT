@@ -51,15 +51,9 @@ const BookNowModalCard = ({
     const { mutate: bookNowServiceMutation } = useBookNowService();
     const { mutate: uploadImageMutation } = useUploadImage();
     return (
-        <div className="cipher-modals">
+        <>
             {/* Modal component */}
-            <Modal
-                show={show}
-                centered
-                onHide={handleClose}
-                backdrop="static"
-                className="cipher-modals"
-            >
+            <Modal show={show} centered onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
                     <Modal.Title>Booking Details</Modal.Title>
                 </Modal.Header>
@@ -179,6 +173,7 @@ const BookNowModalCard = ({
                                     <h4>Problem Description</h4>
                                     <InputField
                                         type="text"
+                                        as="textarea"
                                         name="description"
                                         error={errors.description}
                                         touch={touched.description}
@@ -286,7 +281,7 @@ const BookNowModalCard = ({
                     </Formik>
                 </div>
             </Modal>
-        </div>
+        </>
     );
 };
 export default BookNowModalCard;
