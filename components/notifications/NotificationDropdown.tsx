@@ -16,7 +16,7 @@ import { CreatedTask } from "./dropdown-notifications/CreatedTask";
 import { PostNotifyTask } from "./PostedTask";
 
 export const NotificationDropdown = () => {
-    const { data: allNotifications } = useGetNotification();
+    const { data: allNotifications, refetch } = useGetNotification();
     const queryClient = new QueryClient();
     // console.log("all", allNotifications);
     const router = useRouter();
@@ -41,6 +41,10 @@ export const NotificationDropdown = () => {
     //     settodayNotifications((prev) =>
     //         prev.filter((notification) => notification.id !== id)
     //     );
+
+    if (todayNotifications.length > 5) {
+        settodayNotifications((prev) => prev.slice(0, 5));
+    }
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification: any, index: number) => {
@@ -94,8 +98,10 @@ export const NotificationDropdown = () => {
                         );
                         console.log(response);
                         if (response.status === 200) {
-                            console.log("read");
-                            queryClient.invalidateQueries(["notification"]);
+                            refetch();
+                            // await queryClient.invalidateQueries([
+                            //     "notification",
+                            // ]);
                         }
                         // queryClient.invalidateQueries(["notification"]);
                     }}

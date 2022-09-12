@@ -49,12 +49,12 @@ export const PostNotifyTask = ({
                     </p>
 
                     <p className="date">
-                        {format(new Date(createdDate), "yyyy-MM-dd")}
+                        {format(new Date(createdDate), "yyyy-MM-dd hh:mm a")}
                     </p>
                 </div>
             </div>
 
-            <FontAwesomeIcon icon={faXmark} />
+            {/* <FontAwesomeIcon icon={faXmark} /> */}
         </div>
     );
 };
