@@ -4,6 +4,9 @@
 
     .row {
         padding: 4rem 0 9.2rem 0;
+        @include respond(xs) {
+            padding: 1rem 0 3rem 0;
+        }
     }
 
     .thumbnail-img {
@@ -59,7 +62,6 @@
         justify-content: space-between;
         padding: 0rem 1rem;
         align-items: center;
-
         h1 {
             padding-top: 1.8rem;
             font-weight: 600;

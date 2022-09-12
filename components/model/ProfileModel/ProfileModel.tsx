@@ -27,7 +27,13 @@ export const ProfileModel = () => {
     const { classes } = useProfileModelStyles();
     const { data: profileDetails } = useGetProfile();
 
-    const logout = useLogout({ onLogout: () => router.push(router.pathname) });
+    const logout = useLogout({
+        onLogout: () =>
+            router.push({
+                pathname: "/login",
+                query: { next: router.pathname },
+            }),
+    });
 
     const renderProfileSections = () => {
         return Object.entries(PROFILE_LINKS).map((entry) => {

@@ -25,32 +25,26 @@ const TaskerAside = ({
     const renderTaskCards = tasker?.map((tasker, key) => {
         return (
             <div key={key} className="pe-1">
-                <Link href={`/tasker/${tasker?.user?.id}`}>
-                    <a>
-                        <TeamMembersCard
-                            // taskers={tasker?.user}
-                            tasker={tasker?.user?.id}
-                            image={tasker?.profile_image}
-                            name={tasker?.full_name}
-                            speciality={"Teacher"} //doesnt come from api
-                            rating={tasker?.stats?.user_reviews}
-                            happyClients={tasker?.stats?.happy_clients}
-                            awardPercentage={tasker?.stats?.success_rate}
-                            location={
-                                tasker?.address_line1 +
-                                " " +
-                                tasker?.address_line2
-                            }
-                            distance={"2 km"}
-                            bio={tasker?.bio}
-                            charge={
-                                tasker?.charge_currency
-                                    ? `Rs ${tasker?.hourly_rate}`
-                                    : `$ ${tasker?.hourly_rate}`
-                            }
-                        />
-                    </a>
-                </Link>
+                <TeamMembersCard
+                    // taskers={tasker?.user}
+                    tasker={tasker?.user?.id}
+                    image={tasker?.profile_image}
+                    name={tasker?.full_name}
+                    speciality={"Teacher"} //doesnt come from api
+                    rating={tasker?.stats?.user_reviews}
+                    happyClients={tasker?.stats?.happy_clients}
+                    awardPercentage={tasker?.stats?.success_rate}
+                    location={
+                        tasker?.address_line1 + " " + tasker?.address_line2
+                    }
+                    distance={"2 km"}
+                    bio={tasker?.bio}
+                    charge={
+                        tasker?.charge_currency
+                            ? `Rs ${tasker?.hourly_rate}`
+                            : `$ ${tasker?.hourly_rate}`
+                    }
+                />
             </div>
         );
     });

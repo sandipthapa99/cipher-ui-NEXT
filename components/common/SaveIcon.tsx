@@ -6,11 +6,12 @@ import { useToggleBookmarkTask } from "hooks/task/use-toggle-bookmark-task";
 import { useWithLogin } from "store/use-login-prompt-store";
 
 interface saveIconProps {
-    object_id?: string;
-    model?: string;
+    object_id: string;
+    model: string;
     filled?: boolean;
     showText?: boolean;
     onSuccess?: () => void;
+    className?: string;
 }
 
 const SaveIcon = ({
@@ -19,6 +20,7 @@ const SaveIcon = ({
     filled,
     showText,
     onSuccess,
+    className,
 }: saveIconProps) => {
     const { classes } = useStyles();
     const withLogin = useWithLogin();
@@ -31,7 +33,7 @@ const SaveIcon = ({
     return (
         <button
             onClick={withLogin(handleSaveClick)}
-            className={classes.saveIconContainer}
+            className={`${classes.saveIconContainer} ${className}`}
         >
             <FontAwesomeIcon
                 icon={filled ? FilledHeart : faHeart}
