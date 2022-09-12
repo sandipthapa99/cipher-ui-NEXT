@@ -103,10 +103,12 @@ const AddCVForm = ({ show, handleClose, setShowCvForm }: AddCVProps) => {
                                     <Col md={6}>
                                         <PhoneNumberInput
                                             name={"phone"}
-                                            fieldRequired={true}
                                             labelName="Phone Number"
                                             touch={touched.phone}
                                             error={errors.phone}
+                                            placeHolder={
+                                                "Enter your Phone Number"
+                                            }
                                         />
                                     </Col>
                                     <Col md={6}>
