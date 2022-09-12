@@ -129,12 +129,12 @@ export const PostTaskModal = () => {
             };
             createTaskMutation(postTaskPayload, {
                 onSuccess: async ({ message }) => {
+                    handleCloseModal();
+                    action.resetForm();
+                    toast.success(message);
                     await queryClient.invalidateQueries(["all-tasks"]);
                     // await queryClient.invalidateQueries(["notification"]);
-                    await router.push({ pathname: "/task" });
-                    action.resetForm();
-                    handleCloseModal();
-                    toast.success(message);
+                    router.push({ pathname: "/task" });
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -152,15 +152,15 @@ export const PostTaskModal = () => {
         setChoosedValue("task");
         formik.resetForm();
     };
-
+    const isCreateTaskLoading = createTaskLoading || uploadFileLoading;
     return (
         <>
             <LoadingOverlay
-                visible={createTaskLoading || uploadFileLoading}
+                visible={isCreateTaskLoading}
                 sx={{ position: "fixed", inset: 0 }}
             />
             <Modal
-                opened={showPostTaskModal}
+                opened={!isCreateTaskLoading && showPostTaskModal}
                 onClose={handleCloseModal}
                 overlayColor="rgba(0, 0, 0, 0.25)"
                 title="Post a Task or Service"
