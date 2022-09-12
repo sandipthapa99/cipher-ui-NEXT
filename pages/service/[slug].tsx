@@ -6,6 +6,7 @@ import type {
     ServicesValueProps,
 } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
+import { safeParse } from "utils/safeParse";
 
 const ServicesDetail = ({
     service,
@@ -14,6 +15,10 @@ const ServicesDetail = ({
     service: ServicesValueProps["result"][0];
     servicePackage: ServicesPackageProps;
 }) => {
+    const highlights = safeParse<Array<{ id: number; name: string }>>({
+        rawString: service?.highlights,
+        initialData: [],
+    });
     return (
         <>
             <ServiceLayout>
@@ -32,11 +37,7 @@ const ServicesDetail = ({
                     discount={
                         service?.discount_value ? service?.discount_value : 0
                     }
-                    highlights={
-                        service?.highlights
-                            ? JSON.parse(service?.highlights)
-                            : []
-                    }
+                    highlights={highlights}
                     slug={service?.slug}
                     servicePackage={servicePackage?.result}
                     serviceCreated={service?.created_at}

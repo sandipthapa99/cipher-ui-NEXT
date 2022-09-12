@@ -63,15 +63,15 @@ export const PublishComponent = ({ handlePrev }: PublishComponentProps) => {
                         </Col>
                     </Row>
 
-                    <h3>Highlights</h3>
+                    {/* <h3>Highlights</h3>
                     <div className="mt-5">
                         {serviceHighlights &&
-                            serviceHighlights.map((name) => (
-                                <div key={name.id}>
-                                    <ServiceHighlights title={name.title} />
+                            serviceHighlights.map((highlight, key) => (
+                                <div key={key}>
+                                    <ServiceHighlights highlight={highlight} />
                                 </div>
                             ))}
-                    </div>
+                    </div> */}
 
                     <h3>Packages &amp; Offers</h3>
                     {/* <Row className="gx-5 d-flex align-items-stretch">

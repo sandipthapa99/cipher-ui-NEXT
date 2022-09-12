@@ -25,7 +25,6 @@ export const SearchCategory = ({
     getSortingByPrice,
 }: SearchCategoryProps) => {
     const { data: allcategories } = useCategories();
-    console.log("ser", allcategories);
 
     const categoriesValues = allcategories?.map((category: any) => {
         return {

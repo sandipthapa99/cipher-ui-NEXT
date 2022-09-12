@@ -30,7 +30,6 @@ import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
@@ -78,8 +77,6 @@ const Home: NextPage<{
         );
 
     const { data: allTaskers, isLoading: taskerLoading } = useTaskers();
-
-    const router = useRouter();
 
     return (
         <Layout title="Cipher - Catering to Your Requirements">
@@ -601,11 +598,6 @@ const Home: NextPage<{
                                         className="d-flex"
                                     >
                                         <MerchantCard
-                                            onClick={() =>
-                                                router.push({
-                                                    pathname: `/tasker/${merchant.user.id}`,
-                                                })
-                                            }
                                             merchantImage={
                                                 merchant?.user?.profile_image
                                             }
@@ -634,6 +626,7 @@ const Home: NextPage<{
                                             successRate={
                                                 merchant?.stats?.success_rate
                                             }
+                                            merchantId={merchant?.user?.id}
                                         />
                                     </Col>
                                 );
