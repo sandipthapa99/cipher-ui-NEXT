@@ -3,15 +3,14 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps } from "next";
 import dynamic from "next/dynamic";
 
-const GoogleMap = dynamic(
-    () => import("@components/GoogleMap").then((mod) => mod.GoogleMap),
-    { ssr: false }
-);
+const GoogleMap = dynamic(() => import("@components/GoogleMap"), {
+    ssr: false,
+});
 const AppliedTask = () => {
     return (
         <>
             <AppliedLayout>
-                {typeof window !== "undefined" && <GoogleMap />}
+                <GoogleMap />
             </AppliedLayout>
         </>
     );
