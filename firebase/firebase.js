@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 // Import the functions you need from the SDKs you need
-import { QueryClient } from "@tanstack/react-query";
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 // import { doc, getFirestore, setDoc } from "firebase/firestore";
@@ -9,37 +8,34 @@ import { toast } from "react-toastify";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBSPPQD4M1anH8uT7Ldh-zevS2lgWoL-9Q",
-    projectId: "notification-cipher-61823",
     authDomain: "notification-cipher-61823.firebaseapp.com",
-    storageBucket: "gs://notification-cipher-61823.appspot.com",
+    projectId: "notification-cipher-61823",
+    storageBucket: "notification-cipher-61823.appspot.com",
     messagingSenderId: "185572736284",
     appId: "1:185572736284:web:54928d1587844ac5fc0ed9",
-    measurementId: "G-XBZJZJR69",
+    measurementId: "G-XBZJZJR692",
 };
 
 // Initialize Firebase
-
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const db = getFirestore();
 
 const firebaseCloudMessaging = {
     tokenInlocalforage: async () => {
         const token = await localforage.getItem("fcm_token");
+        console.log("fcm_token tokenInlocalforage", token);
         return token;
     },
     onMessage: async () => {
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {
-            // console.log("Message received. ", payload);
-
+            console.log("Message received. ", payload);
             toast.success(payload?.data?.title, {
                 onClick: () => {
-                    window.open(
-                        `/task/${payload?.data?.object_slug}`,
-                        "_blank"
-                    );
+                    window.open(`/task/${payload?.data?.task_slug}`, "_blank");
                 },
             });
+
             // alert("Notificacion");
         });
     },
@@ -47,8 +43,10 @@ const firebaseCloudMessaging = {
     init: async function () {
         try {
             if ((await this.tokenInlocalforage()) !== null) {
+                console.log("it already exists");
                 return false;
             }
+            // console.log("it is creating it.");
             const messaging = getMessaging(app);
             await Notification.requestPermission();
             getToken(messaging, {
@@ -56,12 +54,12 @@ const firebaseCloudMessaging = {
                     "BG4z48E68RIMUoaxLCJULmW54cCFCRZizpKCvrlnFNnk67wfN-pooKw6dVFqHJHdO_jSpROK5mAOatF7gl6ezI4",
             })
                 .then((currentToken) => {
-                    console.log("current Token", currentToken);
-                    if (currentToken && typeof window !== "undefined") {
+                    // console.log("current Token", currentToken);
+                    if (currentToken) {
                         // Send the token to your server and update the UI if necessary
                         // save the token in your database
                         localforage.setItem("fcm_token", currentToken);
-                        console.log("fcm_token", currentToken);
+                        // console.log("fcm_token", currentToken);
                     } else {
                         // Show permission request UI
                         console.log(

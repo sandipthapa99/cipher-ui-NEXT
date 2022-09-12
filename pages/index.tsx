@@ -18,6 +18,8 @@ import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import SkeletonTaskerCard from "@components/Skeletons/SkeletonTaskerCard";
 import {
     faAngleRight,
+    faArrowLeft,
+    faArrowRight,
     faChevronCircleRight,
     faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
@@ -135,7 +137,7 @@ const Home: NextPage<{
                         {heroCategoryData &&
                         heroCategoryData?.result?.length > 0 ? (
                             <Carousel
-                                height={100}
+                                // height={150}
                                 slideSize="25%"
                                 slideGap="md"
                                 breakpoints={[
@@ -148,6 +150,12 @@ const Home: NextPage<{
                                 ]}
                                 loop
                                 align="start"
+                                nextControlIcon={
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                }
+                                previousControlIcon={
+                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                }
                             >
                                 {heroCategoryData.result
                                     .slice(0, 8)
@@ -425,7 +433,7 @@ const Home: NextPage<{
             </section>
 
             {/* Get services section start */}
-            <section className="get-services">
+            {/* <section className="get-services">
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">
                         Book Your Services in an Instant
@@ -450,19 +458,20 @@ const Home: NextPage<{
                         </li>
                     </ul>
 
-                    {heroCategoryData?.result.length <= 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No Category"}>
-                                {`There are No Category available`}
-                            </Highlight>
-                        </Alert>
-                    )}
+                    {heroCategoryData ??
+                        (heroCategoryData?.result.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                <Highlight highlight={"No Category"}>
+                                    {`There are No Category available`}
+                                </Highlight>
+                            </Alert>
+                        ))}
                     <Row className="gx-5 hero-category">
                         {heroCategoryData?.result &&
                             heroCategoryData?.result
@@ -503,7 +512,7 @@ const Home: NextPage<{
                         </Link>
                     </div>
                 </Container>
-            </section>
+            </section> */}
             {/* Get services section end */}
 
             {/* Find & Hire section start */}

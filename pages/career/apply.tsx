@@ -2,6 +2,7 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import FileInputField from "@components/common/FileInputField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import ReCaptchaField from "@components/common/ReCaptchaField";
 import Layout from "@components/Layout";
 import { Form, Formik } from "formik";
@@ -82,12 +83,12 @@ const Apply = () => {
                                         touch={touched.email}
                                         placeHolder="Enter your email address here"
                                     />
-                                    <InputField
-                                        name="phone"
+                                    <PhoneNumberInput
+                                        name={"phone"}
                                         labelName="Phone Number"
                                         touch={touched.phone}
                                         error={errors.phone}
-                                        placeHolder="Enter your phone number here"
+                                        placeHolder={"Enter your Phone Number"}
                                     />
                                     <InputField
                                         type="text"
