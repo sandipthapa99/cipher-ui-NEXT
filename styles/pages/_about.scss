@@ -94,12 +94,12 @@
         }
         .purpose-container {
             padding-top: 6rem;
-            @include respond(xs){
+            @include respond(xs) {
                 padding-top: 0;
             }
             .about-information {
                 padding-left: 1rem;
-                @include respond(xs){
+                @include respond(xs) {
                     padding-left: 0;
                 }
                 h1 {
@@ -123,7 +123,7 @@
         .purpose {
             margin-left: 1.2rem;
             border-radius: 0.4rem;
-            @include respond(xs){
+            @include respond(xs) {
                 margin-left: 0;
             }
             @include respond(sm) {
