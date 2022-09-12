@@ -1,10 +1,12 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import { createStyles, LoadingOverlay } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -42,14 +44,29 @@ const BookNowModalCard = ({
     service_id,
     description,
     show,
-
+    setShow,
     handleClose,
 }: BookNowModalCardProps) => {
     const router = useRouter();
     const queryClient = useQueryClient();
+    const { classes } = useStyles();
+    const { mutate: bookNowServiceMutation, isLoading: bookServiceLoading } =
+        useBookNowService();
+    const { mutate: uploadImageMutation, isLoading: uploadImageLoading } =
+        useUploadImage();
+    const loadingOverlayVisible = useMemo(
+        () => bookServiceLoading || uploadImageLoading,
+        [bookServiceLoading, uploadImageLoading]
+    );
 
-    const { mutate: bookNowServiceMutation } = useBookNowService();
-    const { mutate: uploadImageMutation } = useUploadImage();
+    if (loadingOverlayVisible)
+        return (
+            <LoadingOverlay
+                visible={loadingOverlayVisible}
+                className={classes.overlay}
+                overlayBlur={2}
+            />
+        );
     return (
         <>
             {/* Modal component */}
@@ -120,6 +137,7 @@ const BookNowModalCard = ({
                                                 toast.success(
                                                     "Successfully booked a service"
                                                 );
+                                                setShow(false);
                                                 queryClient.invalidateQueries([
                                                     "book-now",
                                                 ]);
@@ -284,4 +302,11 @@ const BookNowModalCard = ({
         </>
     );
 };
+const useStyles = createStyles(() => ({
+    overlay: {
+        postion: "fixed",
+        inset: 0,
+        zIndex: 9999,
+    },
+}));
 export default BookNowModalCard;

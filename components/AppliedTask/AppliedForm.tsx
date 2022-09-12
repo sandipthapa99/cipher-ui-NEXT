@@ -2,11 +2,12 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import { createStyles, LoadingOverlay } from "@mantine/core";
 import { Form, Formik } from "formik";
 import type { ApplyTaskPayload } from "hooks/task/use-apply-task";
 import { useApplyTask } from "hooks/task/use-apply-task";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useMemo } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
@@ -24,11 +25,27 @@ const AppliedForm = ({
     budget_type,
     description,
     show,
+    setShow,
     handleClose,
 }: BookNowModalCardProps) => {
     const toggleSuccessModal = useToggleSuccessModal();
     const router = useRouter();
-    const { mutate } = useApplyTask();
+    const { mutate, isLoading: applyTaskLoading } = useApplyTask();
+    const { classes } = useStyles();
+
+    // const loadingOverlayVisible = useMemo(
+    //     () => applyTaskLoading,
+    //     [applyTaskLoading]
+    // );
+
+    // if (loadingOverlayVisible)
+    //     return (
+    //         <LoadingOverlay
+    //             visible={loadingOverlayVisible}
+    //             className={classes.overlay}
+    //             overlayBlur={2}
+    //         />
+    //     );
     return (
         <>
             {/* Modal component */}
@@ -72,14 +89,20 @@ const AppliedForm = ({
                             };
                             mutate(applyTaskPayload, {
                                 onSuccess: (data) => {
-                                    toast.success(data.task);
-                                    toggleSuccessModal();
+                                    toast.success(
+                                        "You have successfully applied for task"
+                                    );
+                                    //toggleSuccessModal();
+                                    setShow(false);
+                                    router.push("/task/checkout");
                                 },
                                 onError: (error) => {
                                     const errors = Object.values(
                                         error.response?.data.task ?? []
                                     ).join("\n");
                                     toast.error(errors);
+                                    setShow(false);
+                                    console.log("error", errors);
                                 },
                             });
                         }}
@@ -123,9 +146,9 @@ const AppliedForm = ({
                                         isSubmittingClass={isSubmittingClass(
                                             isSubmitting
                                         )}
-                                        onClick={() => {
-                                            router.push("/task/checkout");
-                                        }}
+                                        // onClick={() => {
+                                        //     router.push("/task/checkout");
+                                        // }}
                                     />
                                 </Modal.Footer>
                             </Form>
@@ -142,4 +165,11 @@ const AppliedForm = ({
         </>
     );
 };
+const useStyles = createStyles(() => ({
+    overlay: {
+        postion: "fixed",
+        inset: 0,
+        zIndex: 9999,
+    },
+}));
 export default AppliedForm;
