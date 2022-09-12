@@ -18,6 +18,8 @@ import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import SkeletonTaskerCard from "@components/Skeletons/SkeletonTaskerCard";
 import {
     faAngleRight,
+    faArrowLeft,
+    faArrowRight,
     faChevronCircleRight,
     faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
@@ -135,7 +137,7 @@ const Home: NextPage<{
                         {heroCategoryData &&
                         heroCategoryData?.result?.length > 0 ? (
                             <Carousel
-                                height={100}
+                                // height={150}
                                 slideSize="25%"
                                 slideGap="md"
                                 breakpoints={[
@@ -148,6 +150,12 @@ const Home: NextPage<{
                                 ]}
                                 loop
                                 align="start"
+                                nextControlIcon={
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                }
+                                previousControlIcon={
+                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                }
                             >
                                 {heroCategoryData.result
                                     .slice(0, 8)
