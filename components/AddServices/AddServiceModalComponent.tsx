@@ -160,8 +160,10 @@ export const AddServiceModalComponent = () => {
                         ? values.discount_value
                         : null,
                     images: Object.values(data.data),
-                    highlights: JSON.stringify(data.highlights),
+                    highlights: JSON.stringify(values.highlights),
                 };
+
+                console.log("data to send", dataToSend);
                 delete dataToSend.imagePreviewUrl;
                 delete dataToSend.highlights_list;
                 delete dataToSend.is_discount_offer;
@@ -231,6 +233,7 @@ export const AddServiceModalComponent = () => {
                         delete dataToSend.budget_select;
 
                         onCreateService(dataToSend, actions);
+                        console.log("data to send", dataToSend);
                     }
                 }}
             >

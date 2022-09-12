@@ -370,9 +370,9 @@ const SearchResultsDetail = ({
             <h3>Requirements</h3>
             {highlights && (
                 <div className="mt-5">
-                    {highlights?.map((name, index) => (
+                    {highlights?.map((item: any, index) => (
                         <div key={index}>
-                            <ServiceHighlights title={name} />
+                            <ServiceHighlights title={item.name} />
                         </div>
                     ))}
                 </div>
