@@ -1,7 +1,7 @@
 import { faBell } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useClickOutside } from "@mantine/hooks";
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { useGetNotification } from "hooks/Notifications/use-notification";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -24,7 +24,7 @@ export const NotificationDropdown = ({
 }: NotificationDropdownProps) => {
     const notificationRef = useClickOutside(() => setNotOpen(false));
 
-    const { data: allNotifications, refetch } = useGetNotification();
+    const { data: allNotifications } = useGetNotification();
     const queryClient = new QueryClient();
     // console.log("all", allNotifications);
     const router = useRouter();
@@ -56,15 +56,15 @@ export const NotificationDropdown = ({
                 return (
                     <div
                         key={index}
-                        onClick={() => {
+                        onClick={async () => {
                             router.push(`/task/${notification.object_slug}`);
-                            axiosClient.get(
+                            await axiosClient.get(
                                 `/notification/read/?id=${notification.id}`
                             );
 
-                            queryClient.invalidateQueries(["notification"], {
-                                exact: true,
-                            });
+                            // // await queryClient.invalidateQueries([
+                            // //     "notification",
+                            // // ]);
                         }}
                     >
                         <PostNotifyTask
@@ -96,11 +96,16 @@ export const NotificationDropdown = ({
                 <p className="today">Today</p>
                 <p
                     className="mark"
-                    onClick={() => {
-                        axiosClient.get("/notification/read/");
-                        queryClient.invalidateQueries(["notification"], {
-                            exact: true,
-                        });
+                    onClick={async () => {
+                        const response = await axiosClient.get(
+                            "/notification/read/"
+                        );
+                        console.log(response);
+                        if (response.status === 200) {
+                            console.log("read");
+                            queryClient.invalidateQueries(["notification"]);
+                        }
+                        // queryClient.invalidateQueries(["notification"]);
                     }}
                 >
                     Mark all as read
