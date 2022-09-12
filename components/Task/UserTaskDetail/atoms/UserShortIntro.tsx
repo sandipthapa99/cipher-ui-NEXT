@@ -52,7 +52,7 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
 
                 <p className="td-user-short-intro-text skills">
                     <FontAwesomeIcon icon={faSparkles} className="svg-icon" />
-                    &nbsp;&nbsp;&nbsp;
+
                     {userSkills
                         ? userSkills.map((info: any, index: any) => (
                               <span key={index}>
