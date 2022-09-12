@@ -79,7 +79,7 @@
             padding-left: 0rem;
         }
 
-        @media screen and (width:1024px) {
+        @media screen and (width: 1024px) {
             padding-top: 0rem;
         }
         @include respond(xs) {
