@@ -11,6 +11,7 @@ import { Search } from "@components/common/Search";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
+import { GoogleMap } from "@components/GoogleMap";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
