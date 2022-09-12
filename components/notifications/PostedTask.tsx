@@ -1,6 +1,7 @@
 import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
+import type { NotificationResponse } from "hooks/Notifications/use-notification";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
@@ -20,6 +21,7 @@ export const PostNotifyTask = ({
     slug,
 }: PostedNotifyProps) => {
     const router = useRouter();
+
     return (
         <div className="d-flex align-items-center justify-content-between accepted-notification">
             <div className="d-flex notification-wrapper">
