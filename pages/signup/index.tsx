@@ -2,6 +2,7 @@ import AuthenticationModalCard from "@components/AuthenticationModal";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Radio } from "@mantine/core";
 import { Form, Formik } from "formik";
@@ -15,15 +16,12 @@ import {
     clientEmailSignUpSchema,
     clientPhoneSignUpSchema,
 } from "utils/formValidation/clientSignUpValidation";
-import { emailValidationSchema } from "utils/formValidation/emailValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const SignUp = () => {
     const { mutate, isLoading } = useSignup();
     const [choosedValue, setChoosedValue] = useState("email");
     const [phoneNumber, setPhoneNumber] = useState<string>("");
-
-    const router = useRouter();
 
     //for 2 factor modal
     const [show, setShow] = useState(false);
@@ -89,9 +87,8 @@ const SignUp = () => {
                         );
                     }}
                 >
-                    {({ isSubmitting, errors, touched, setFieldValue }) => (
+                    {({ isSubmitting, errors, touched }) => (
                         <Form className="login-form">
-                            <pre>{JSON.stringify(errors)}</pre>
                             <div className="choose-email-or-phone mb-5">
                                 <Radio.Group
                                     label="Please select one for Signup process Email Or Phone Number"
@@ -114,13 +111,20 @@ const SignUp = () => {
                                     placeHolder="example@example.com"
                                 />
                             ) : (
-                                <InputField
-                                    type="text"
-                                    name="phone"
+                                // <InputField
+                                //     type="text"
+                                //     name="phone"
+                                //     labelName="Phone Number"
+                                //     touch={touched.phone}
+                                //     error={errors.phone}
+                                //     placeHolder="+9779805284906"
+                                // />
+                                <PhoneNumberInput
+                                    name={"phone"}
+                                    fieldRequired={true}
                                     labelName="Phone Number"
                                     touch={touched.phone}
                                     error={errors.phone}
-                                    placeHolder="+9779805284906"
                                 />
                             )}
 
