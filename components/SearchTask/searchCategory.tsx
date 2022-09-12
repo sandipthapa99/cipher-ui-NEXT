@@ -1,7 +1,7 @@
-import { useTopCategories } from "@components/Category/TopCategories";
 import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { ScrollArea } from "@mantine/core";
+import { useQuery } from "@tanstack/react-query";
 import { debounce } from "debounce";
 import type { ChangeEvent } from "react";
 import { useCallback, useState } from "react";
@@ -205,9 +205,15 @@ export const SearchCategory = ({
                     </InputGroup>
                 </Col>
                 <Col md={8}>
-                    <div className="d-flex categories-tab pl-2">
-                        {type !== "you may like" && renderCategory}
-                    </div>
+                    <ScrollArea
+                        offsetScrollbars
+                        scrollbarSize={5}
+                        className="mt-3 mt-md-0"
+                    >
+                        <div className="d-flex categories-tab mb-2">
+                            {type !== "you may like" && renderCategory}
+                        </div>
+                    </ScrollArea>
                     {/* {renderCategory} */}
                 </Col>
             </Row>
