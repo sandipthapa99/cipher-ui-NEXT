@@ -174,6 +174,7 @@ const ServiceCard = ({
                 description={serviceCard?.description}
                 service_id={serviceCard?.id}
                 show={showModal}
+                setShow={setShowModal}
                 handleClose={() => setShowModal(false)}
                 images={[]}
             />

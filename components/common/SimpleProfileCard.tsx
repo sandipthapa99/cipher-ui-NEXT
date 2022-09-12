@@ -187,6 +187,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 budget_type={task?.budget_type}
                 description={task?.description}
                 show={showModal}
+                setShow={setShowModal}
                 handleClose={() => setShowModal(false)}
                 images={[]}
             />
