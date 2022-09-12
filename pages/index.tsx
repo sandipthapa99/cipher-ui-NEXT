@@ -425,7 +425,7 @@ const Home: NextPage<{
             </section>
 
             {/* Get services section start */}
-            <section className="get-services">
+            {/* <section className="get-services">
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">
                         Book Your Services in an Instant
@@ -504,7 +504,7 @@ const Home: NextPage<{
                         </Link>
                     </div>
                 </Container>
-            </section>
+            </section> */}
             {/* Get services section end */}
 
             {/* Find & Hire section start */}
