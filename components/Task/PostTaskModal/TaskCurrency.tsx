@@ -14,7 +14,7 @@ export interface TaskCurrencyProps extends Omit<SelectProps, "data"> {
 export const useCurrencies = () => {
     return useQuery(["currencies"], () =>
         axiosClient
-            .get<{ result: Currency[] }>("locale/cms/currency/")
+            .get<{ result: Currency[] }>("/locale/cms/currency/?page_size=1000")
             .then((response) => response.data.result)
     );
 };
@@ -25,7 +25,7 @@ export const TaskCurrency = ({
     const { data: currencies = [] } = useCurrencies();
     const currencyData = currencies.map((currency) => ({
         id: currency,
-        label: currency.name,
+        label: currency.code,
         value: currency.id.toString(),
     }));
     return (

@@ -13,7 +13,8 @@ import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
@@ -21,6 +22,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     const { data: profileDetails, isLoading, error } = useGetProfile();
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData(["profile"]);
+    const router = useRouter();
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
     //     ["profile"],
@@ -42,6 +44,12 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         taskCompleted: 30,
         userActiveStatus: true,
     };
+    useEffect(() => {
+        if (!profileDetails) {
+            router.push("/settings/account/individual");
+            console.log("test");
+        }
+    }, []);
 
     if (!profileDetails) {
         return (
@@ -52,18 +60,15 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <Row className="row-create-profile">
                             <Col className="create-profile">
                                 <h1>Your profile is incomplete!</h1>
-                                <p>
-                                    Fill in the details to Complete your profile
-                                    and get started with tasks.
-                                </p>
-                                <button className="btn-create-profile">
+                                <p>Redirecting to your Account Settings...</p>
+                                {/* <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
                                         className="text-profile"
                                     >
                                         Complete Profile Now
                                     </Link>
-                                </button>
+                                </button> */}
                             </Col>
                         </Row>
                     </Container>

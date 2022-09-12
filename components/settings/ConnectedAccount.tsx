@@ -1,39 +1,111 @@
-import SocialConnection from "@components/Profile/SocialConnection";
+import BigButton from "@components/common/Button";
+import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faTrashCan } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
 import React from "react";
+import { Button } from "react-bootstrap";
 import { socialConnectionValues } from "staticData/socialConnection";
 import { axiosClient } from "utils/axiosClient";
 
-interface linkedAccountProps {
-    id: 0;
+export type LinkedAccountProps = LinkedAccount[];
+
+export interface LinkedAccount {
+    id: number;
     provider: string;
     uid: string;
-    extra_data: {
-        additionalProp1: string;
-        additionalProp2: string;
-        additionalProp3: string;
-    };
+    extra_data: ExtraData;
     created: string;
     modified: string;
     user: string;
 }
+
+export interface ExtraData {
+    hd: string;
+    aud: string;
+    azp: string;
+    exp: number;
+    iat: number;
+    iss: string;
+    jti: string;
+    nbf: number;
+    sub: string;
+    name: string;
+    email: string;
+    picture: string;
+    given_name: string;
+    family_name: string;
+    email_verified: boolean;
+}
+
 const ConnectedAccount = () => {
-    const { data: linkedAccounts } = useData<linkedAccountProps>(
+    const { data: linkedAccounts } = useData<LinkedAccountProps>(
         ["linked-accounts"],
         "/user/linked-accounts/list/"
     );
 
-    console.log("linked accounts=", linkedAccounts);
+    console.log("linked accounts= hahah", linkedAccounts?.data);
 
     return (
         <div className="account-form">
             <h2>Connected Accounts</h2>
-            <div className="d-flex">
-                {socialConnectionValues.map((values, key) => (
-                    <SocialConnection key={key} values={values} />
-                ))}
+            <div className="account-wrapper">
+                {linkedAccounts?.data &&
+                    linkedAccounts?.data.map((values, key) => (
+                        // <SocialConnection key={key} values={linkedAccounts} />
+                        <div className="social-connection me-4" key={values.id}>
+                            {/* <span className="d-flex flex-col align-items-center justify-content-center my-4"> */}
+                            <div className="d-flex align-items-center justify-content-center">
+                                <FontAwesomeIcon
+                                    icon={faGoogle}
+                                    className="svg-icon google"
+                                />
+                            </div>
+
+                            <h4 className="text-center">
+                                {values?.provider.substring(
+                                    values?.provider.indexOf("-"),
+                                    0
+                                )}
+                            </h4>
+                            {/* </span> */}
+                            <p>{values.uid}</p>
+                            <div className="d-flex button-wrapper align-items-stretch justify-content-center my-4">
+                                <Button className="btn close-btn px-5">
+                                    Update
+                                </Button>
+                                <div className="delete-wrapper">
+                                    <FontAwesomeIcon
+                                        icon={faTrashCan}
+                                        className="svg-icon"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                <div className="social-connection  me-4">
+                    {/* <span className="d-flex flex-col align-items-center justify-content-center my-4"> */}
+                    <div className="d-flex align-items-center justify-content-center">
+                        <FontAwesomeIcon
+                            icon={faFacebookF}
+                            className="svg-icon facebook-icon"
+                        />
+                    </div>
+
+                    <h4 className="text-center">Facebook</h4>
+                    {/* </span> */}
+                    <p>You are not signed in through Facebook.</p>
+                    <div className="d-flex button-wrapper align-items-stretch justify-content-center my-4">
+                        <BigButton
+                            btnTitle={"Connect"}
+                            backgroundColor={"#211d4f"}
+                            textColor={"#fff"}
+                            //  handleClick={handleCloseModal}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );
