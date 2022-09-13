@@ -25,6 +25,7 @@ import {
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { usePostTask } from "hooks/task/use-post-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
@@ -70,7 +71,7 @@ export const PostTaskModal = () => {
     const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
-
+    const { data: profileDetails } = useGetProfile();
     const router = useRouter();
     //console.log("taskResponse", postTaskResponse);
 
@@ -127,19 +128,25 @@ export const PostTaskModal = () => {
                 videos: videoIds,
                 extra_data: [],
             };
-            createTaskMutation(postTaskPayload, {
-                onSuccess: async ({ message }) => {
-                    handleCloseModal();
-                    action.resetForm();
-                    toast.success(message);
-                    await queryClient.invalidateQueries(["all-tasks"]);
-                    // await queryClient.invalidateQueries(["notification"]);
-                    router.push({ pathname: "/task" });
-                },
-                onError: (error) => {
-                    toast.error(error.message);
-                },
-            });
+            if (profileDetails) {
+                createTaskMutation(postTaskPayload, {
+                    onSuccess: async ({ message }) => {
+                        handleCloseModal();
+                        action.resetForm();
+                        toast.success(message);
+                        await queryClient.invalidateQueries(["all-tasks"]);
+                        // await queryClient.invalidateQueries(["notification"]);
+                        router.push({ pathname: "/task" });
+                    },
+                    onError: (error) => {
+                        toast.error(error.message);
+                    },
+                });
+            } else {
+                handleCloseModal();
+                router.push("/settings/account/individual");
+                toast.error("Please Create a profile to post a task");
+            }
         },
     });
     const { getFieldProps, handleSubmit, touched, errors, setFieldValue } =

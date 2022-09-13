@@ -46,7 +46,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     };
     useEffect(() => {
         if (!profileDetails) {
-            router.push("/settings/account/individual");
+            router.push("");
             console.log("test");
         }
     }, []);
