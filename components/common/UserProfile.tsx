@@ -32,6 +32,7 @@ import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
 
 import ProfileEditForm from "./ProfileEditForm";
+import { RatingStars } from "./RatingStars";
 import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 const UserProfileCard = ({
@@ -250,25 +251,8 @@ const UserProfileCard = ({
                         />
                     </div>
                     {renderType}
-                    <div className="rating">
-                        {Array.from({ length: rating }, (_, i) => (
-                            <span key={i}>
-                                <FontAwesomeIcon
-                                    icon={rated}
-                                    className="svg-icon star rated-star"
-                                />
-                            </span>
-                        ))}
-                        {Array.from({ length: 5 - rating }, (_, i) => (
-                            <span key={i}>
-                                {" "}
-                                <FontAwesomeIcon
-                                    icon={faStar}
-                                    className="svg-icon star unrated"
-                                />
-                            </span>
-                        ))}
-                    </div>
+
+                    <RatingStars value={rating} />
                     <div className="price">
                         {charge_currency} {hourly_rate}/hr
                     </div>
@@ -301,7 +285,7 @@ const UserProfileCard = ({
                                     />
 
                                     <p>
-                                        +{countryData?.phone_code}
+                                        {countryData?.phone_code}
                                         {phone}
                                     </p>
                                 </div>
