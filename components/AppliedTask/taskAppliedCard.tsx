@@ -7,6 +7,7 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ITask } from "types/task";
@@ -77,7 +78,14 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                                     icon={faClockEight}
                                     className="svg-icon"
                                 />
-                                <span> {time}</span>
+                                <span>
+                                    {task?.created_at
+                                        ? format(
+                                              new Date(task?.created_at),
+                                              "p"
+                                          )
+                                        : "N/A"}
+                                </span>
                             </span>
                             <span className="date d-flex align-items-center">
                                 <FontAwesomeIcon

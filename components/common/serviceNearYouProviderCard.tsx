@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { BookingDetails } from "staticData/bookNowModalCard";
+// import { BookingDetails } from "staticData/bookNowModalCard";
 import type { ServiceNearYouProviderCardProps } from "types/serviceNearYouCards";
 
 import BookNowButton from "./BookNowButton";
@@ -35,7 +35,7 @@ const ServiceNearYouProviderCard = ({
                     <p>Starting price</p>
                     <p className="price">Rs. {price}</p>
                 </div>
-                {BookingDetails &&
+                {/* {BookingDetails &&
                     BookingDetails.map((detail) => (
                         <ModalCard
                             key={detail.id}
@@ -48,7 +48,7 @@ const ServiceNearYouProviderCard = ({
                             handleClose={() => setShowModal(false)}
                             images={[]}
                         />
-                    ))}
+                    ))} */}
 
                 <BookNowButton
                     btnTitle="Book Now"

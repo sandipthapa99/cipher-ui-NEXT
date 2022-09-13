@@ -30,7 +30,7 @@ const KYCForm = () => {
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();
     const [showDocument, setShowDocument] = useState(false);
-    const [showButtons, setShowButtons] = useState(false);
+    // const [showButtons, setShowButtons] = useState(false);
 
     const { data: profileDetails } = useGetProfile();
     const [countryChange, setCountryChange] = useState<string | null>(null);
@@ -67,12 +67,9 @@ const KYCForm = () => {
                 <Formik
                     enableReinitialize={true}
                     initialValues={{
-                        full_name: profileDetails?.full_name ?? "",
-                        address: profileDetails?.address_line1 ?? "",
-                        country:
-                            foundCountry && profileDetails
-                                ? parseInt(foundCountry.value)
-                                : "",
+                        full_name: "",
+                        address: "",
+                        country: "",
                         company: "",
                         // passport_size_photo: "",
                         // personal_address_verification_document: "",
@@ -130,7 +127,7 @@ const KYCForm = () => {
                                 // toggleSuccessModal();
                                 toast.success("KYC Details Added Successfully");
                                 setShowDocument(true);
-                                setShowButtons(false);
+                                // setShowButtons(false);
                             },
                             onError: (error) => {
                                 toast.error(error.message);
@@ -155,9 +152,9 @@ const KYCForm = () => {
                                 error={errors.full_name}
                                 touch={touched.full_name}
                                 placeHolder="Enter your Full Name"
-                                disabled={
-                                    profileDetails?.full_name ? true : false
-                                }
+                                // disabled={
+                                //     profileDetails?.full_name ? true : false
+                                // }
                             />
                             <InputField
                                 type="text"
@@ -166,9 +163,9 @@ const KYCForm = () => {
                                 error={errors.address}
                                 touch={touched.address}
                                 placeHolder="Enter your Address"
-                                disabled={
-                                    profileDetails?.address_line1 ? true : false
-                                }
+                                // disabled={
+                                //     profileDetails?.address_line1 ? true : false
+                                // }
                             />
                             {/* <SelectInputField
                                 name="country"
@@ -183,9 +180,9 @@ const KYCForm = () => {
                                 label="Country"
                                 placeholder="Pick one"
                                 name="country"
-                                disabled={
-                                    profileDetails?.country ? true : false
-                                }
+                                // disabled={
+                                //     profileDetails?.country ? true : false
+                                // }
                                 searchable
                                 nothingFound="No result found."
                                 value={
@@ -281,32 +278,33 @@ const KYCForm = () => {
                                     />
                                 </Col>
                             </Row> */}
-                            {showButtons ? (
-                                <div className="d-flex mt-5 justify-content-end">
-                                    <Button
-                                        className="me-3 mb-0 cancel-btn"
-                                        onClick={() => resetForm}
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <FormButton
-                                        type="submit"
-                                        variant="primary"
-                                        name="Continue"
-                                        className="submit-btn"
-                                        isSubmitting={isSubmitting}
-                                        isSubmittingClass={isSubmittingClass(
-                                            isSubmitting
-                                        )}
-                                    />
-                                </div>
-                            ) : (
+                            {/* {showButtons ? ( */}
+                            <div className="d-flex mt-5 justify-content-end">
+                                <Button
+                                    className="me-3 mb-0 cancel-btn"
+                                    onClick={() => resetForm}
+                                >
+                                    Cancel
+                                </Button>
+                                <FormButton
+                                    type="submit"
+                                    variant="primary"
+                                    name="Continue"
+                                    className="submit-btn"
+                                    isSubmitting={isSubmitting}
+                                    isSubmittingClass={isSubmittingClass(
+                                        isSubmitting
+                                    )}
+                                />
+                            </div>
+                            {/* ) : (
                                 ""
-                            )}
+                            )} */}
                         </Form>
                     )}
                 </Formik>
-                {(showDocument || KYCData) && <IdentityDocument />}
+                <IdentityDocument />
+                {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
             <PostCard
                 text="You are good to continue."

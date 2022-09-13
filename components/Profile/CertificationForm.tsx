@@ -156,7 +156,6 @@ const CertificationForm = ({
                                     touch={touched.issuing_organization}
                                     error={errors.issuing_organization}
                                     placeHolder="Eg: Cagtu"
-                                    as="textarea"
                                 />
                                 <InputField
                                     name="description"
@@ -164,6 +163,7 @@ const CertificationForm = ({
                                     touch={touched.description}
                                     error={errors.description}
                                     placeHolder="Experience Description"
+                                    as="textarea"
                                 />
                                 <p className="mb-3 d-flex checkbox">
                                     <input

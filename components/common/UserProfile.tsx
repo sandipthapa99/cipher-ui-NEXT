@@ -15,6 +15,7 @@ import {
 import { faCircle, faStar as rated } from "@fortawesome/pro-solid-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Progress } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import { useTaskers } from "hooks/tasker/use-tasker";
@@ -31,6 +32,7 @@ import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
 
 import ProfileEditForm from "./ProfileEditForm";
+import { RatingStars } from "./RatingStars";
 import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 const UserProfileCard = ({
@@ -249,25 +251,8 @@ const UserProfileCard = ({
                         />
                     </div>
                     {renderType}
-                    <div className="rating">
-                        {Array.from({ length: rating }, (_, i) => (
-                            <span key={i}>
-                                <FontAwesomeIcon
-                                    icon={rated}
-                                    className="svg-icon star rated-star"
-                                />
-                            </span>
-                        ))}
-                        {Array.from({ length: 5 - rating }, (_, i) => (
-                            <span key={i}>
-                                {" "}
-                                <FontAwesomeIcon
-                                    icon={faStar}
-                                    className="svg-icon star unrated"
-                                />
-                            </span>
-                        ))}
-                    </div>
+
+                    <RatingStars value={rating > 0 ? rating : 0} />
                     <div className="price">
                         {charge_currency} {hourly_rate}/hr
                     </div>
@@ -300,7 +285,7 @@ const UserProfileCard = ({
                                     />
 
                                     <p>
-                                        +{countryData?.phone_code}
+                                        {countryData?.phone_code}
                                         {phone}
                                     </p>
                                 </div>
@@ -406,10 +391,15 @@ const UserProfileCard = ({
                                     <p className="user-point">
                                         {points} points
                                     </p>
-                                    <div
-                                        className="progress-bar"
-                                        //  style={style}
-                                    ></div>
+                                    <div>
+                                        <Progress
+                                            color="yellow"
+                                            value={points}
+                                        />
+                                    </div>
+                                    {/* <div className="progress-bar">
+                                        <div className="inside-progress-bar"></div>
+                                    </div> */}
                                     <p>
                                         Earn {100 - points} points more to reach
                                         Gold

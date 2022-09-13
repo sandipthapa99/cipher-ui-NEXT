@@ -2,6 +2,8 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 import Image from "next/image";
 import { Col, Row } from "react-bootstrap";
 import type { ReviewsProps } from "types/reviews";
+
+import { RatingStars } from "./RatingStars";
 const Reviews = ({
     name,
     ratings,
@@ -44,37 +46,7 @@ const Reviews = ({
                                     {name ? name : raterEmail}
                                 </h3>
 
-                                <div className="ratings d-flex">
-                                    {Array.from({ length: ratings }, (_, i) => (
-                                        <span key={i}>
-                                            <figure className="thumbnail-img">
-                                                <Image
-                                                    src="/icons/rated.svg"
-                                                    layout="fill"
-                                                    objectFit="cover"
-                                                    alt="rated-star-img"
-                                                />
-                                            </figure>
-                                        </span>
-                                    ))}
-                                    {Array.from(
-                                        { length: 5 - ratings },
-                                        (_, i) => (
-                                            <span key={i}>
-                                                {" "}
-                                                <figure className="thumbnail-img">
-                                                    <Image
-                                                        src="/icons/unrated.svg"
-                                                        layout="fill"
-                                                        objectFit="cover"
-                                                        alt="unrated-star-img"
-                                                    />
-                                                </figure>
-                                            </span>
-                                        )
-                                    )}
-                                    <p>{ratings}</p>
-                                </div>
+                                <RatingStars value={ratings} />
                             </div>
 
                             <p className="description">{description}</p>
