@@ -15,6 +15,7 @@ import {
 import { faCircle, faStar as rated } from "@fortawesome/pro-solid-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Progress } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import { useTaskers } from "hooks/tasker/use-tasker";
@@ -390,10 +391,15 @@ const UserProfileCard = ({
                                     <p className="user-point">
                                         {points} points
                                     </p>
-                                    <div
-                                        className="progress-bar"
-                                        //  style={style}
-                                    ></div>
+                                    <div>
+                                        <Progress
+                                            color="yellow"
+                                            value={points}
+                                        />
+                                    </div>
+                                    {/* <div className="progress-bar">
+                                        <div className="inside-progress-bar"></div>
+                                    </div> */}
                                     <p>
                                         Earn {100 - points} points more to reach
                                         Gold
