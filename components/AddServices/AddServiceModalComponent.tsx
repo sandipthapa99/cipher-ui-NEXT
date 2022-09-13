@@ -9,8 +9,8 @@ import { Select } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import type { FormikHelpers } from "formik";
 import { Form, Formik } from "formik";
-import { useCities } from "hooks/use-cities";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useCities } from "hooks/use-cities";
 import { useForm } from "hooks/use-form";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -239,13 +239,6 @@ export const AddServiceModalComponent = () => {
                             onCreateService(dataToSend, actions);
                             console.log("data to send", dataToSend);
                         }
-                    } else {
-                        toogleShowPostTaskModal();
-                        router.push("/settings/account/individual");
-                        toast.error(
-                            "Please Create a profile to post a service"
-                        );
-                    }
                     } else {
                         toogleShowPostTaskModal();
                         router.push("/settings/account/individual");

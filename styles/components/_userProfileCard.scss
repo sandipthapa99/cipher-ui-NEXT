@@ -199,6 +199,7 @@
                     height: 1.2rem;
                     width: 100%;
                     border-radius: 7rem;
+
                     //  position: relative;
                     &::after {
                         // position: absolute;
@@ -211,7 +212,13 @@
                         //     #e8b873 46.12%,
                         //     #f79c19 86.42%
                         // );
-                        @include progressBar(0%);
+                        // @include progressBar(0%);
+
+                        .inside-progress-bar {
+                            width: 50%;
+                            height: 100%;
+                            background-color: #f79c19;
+                        }
                     }
                 }
             }
