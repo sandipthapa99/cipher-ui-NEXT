@@ -1,12 +1,16 @@
-import { faStar } from "@fortawesome/pro-regular-svg-icons";
+import { faStar, faStarHalfStroke } from "@fortawesome/pro-regular-svg-icons";
 import { faStar as rated } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import ReactRating from "react-rating";
+import { Rating } from "@smastrom/react-rating";
 
 interface RatingStarsProps {
     value: number;
 }
 
 export const RatingStars = ({ value }: RatingStarsProps) => {
+    console.log("ating", value);
+
     // const renderRatingStars = () => {
     //     return Array.from({ length: 5 })
     //         .map((_, index) => index)
@@ -24,7 +28,7 @@ export const RatingStars = ({ value }: RatingStarsProps) => {
 
     return (
         <div className="rating">
-            {Array.from({ length: Math.ceil(value) }, (_, i) => (
+            {/* {Array.from({ length: Math.ceil(value) }, (_, i) => (
                 <span key={i}>
                     <FontAwesomeIcon
                         icon={rated}
@@ -45,7 +49,24 @@ export const RatingStars = ({ value }: RatingStarsProps) => {
                         />
                     </span>
                 )
-            )}
+            )} */}
+            {/* <ReactRating
+                initialRating={2.5}
+                emptySymbol={
+                    <FontAwesomeIcon
+                        icon={faStar}
+                        className="rating-star unrated"
+                    />
+                }
+                fullSymbol={
+                    <FontAwesomeIcon
+                        icon={rated}
+                        className="rating-star rated-star"
+                    />
+                }
+                readonly
+            /> */}
+            <Rating style={{ maxWidth: 180 }} value={3} readOnly />{" "}
         </div>
     );
 };
