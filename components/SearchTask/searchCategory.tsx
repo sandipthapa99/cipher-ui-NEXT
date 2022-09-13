@@ -263,7 +263,7 @@ export const SearchCategory = ({
                         scrollbarSize={5}
                         className="mt-3 mt-md-0"
                     >
-                        <div className="d-flex categories-tab mb-2">
+                        <div className="d-flex categories-tab py-3">
                             {type !== "you may like" && renderCategory}
                         </div>
                     </ScrollArea>
