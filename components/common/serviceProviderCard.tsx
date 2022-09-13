@@ -106,6 +106,7 @@ const ServiceProviderCard = ({
                 BookingDetails.map((detail) => (
                     <ModalCard
                         key={detail.id}
+                        setShow={setShowModal}
                         title={detail.title}
                         price={detail.price}
                         image={detail.image}
