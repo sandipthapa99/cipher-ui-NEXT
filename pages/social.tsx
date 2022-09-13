@@ -10,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
-import { businessGoal } from "staticData/businessGoal";
+// import { businessGoal } from "staticData/businessGoal"; //DONOT Remove
 import type { BlogValueProps } from "types/blogs";
 
 const SocialResponsibilities: NextPage = () => {
@@ -64,7 +64,7 @@ const SocialResponsibilities: NextPage = () => {
                             />
                         </figure>
                     </div>
-                    <Carousel>
+                    {/* <Carousel>
                         {businessGoal &&
                             businessGoal.map((goal) => {
                                 return (
@@ -83,7 +83,7 @@ const SocialResponsibilities: NextPage = () => {
                                     </Carousel.Item>
                                 );
                             })}
-                    </Carousel>
+                    </Carousel> */}
 
                     <div className="social-page__blogs">
                         <div className="title-wrapper d-flex justify-content-between">

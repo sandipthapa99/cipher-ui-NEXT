@@ -28,17 +28,16 @@ interface TaskCategoryProps extends Omit<SelectProps, "data"> {
     onCategoryChange: (category: string) => void;
 }
 export const TaskCategory = ({
+    value,
     onCategoryChange,
     ...rest
 }: TaskCategoryProps) => {
     const { data: serviceCategories = [] } = useServiceCategories();
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(
-        null
-    );
-    const handleCategoryChange = (category: string | null) => {
-        if (!category) return;
-        onCategoryChange(category);
-        setSelectedCategory(category);
+    const [category, setCategory] = useState(value);
+    const handleCategoryChange = (selectedCategory: string | null) => {
+        if (!selectedCategory) return;
+        onCategoryChange(selectedCategory);
+        setCategory(selectedCategory);
     };
     return (
         <Select
@@ -46,7 +45,7 @@ export const TaskCategory = ({
             searchable
             label="Category"
             placeholder="Select a category"
-            value={selectedCategory}
+            value={category}
             onChange={handleCategoryChange}
             data={serviceCategories}
             required
