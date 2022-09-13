@@ -118,13 +118,22 @@ export default function GetNotifications() {
                 <div className="get-notification__body">
                     <div className="header d-flex justify-content-between">
                         <h4>Today</h4>
+
                         <Link href="">
                             <a>Mark all as read</a>
                         </Link>
                     </div>
+                    {!allNotifications && (
+                        <p className="text-center">No notifications to show.</p>
+                    )}
                     {renderTodayNotifications}
                     <div className="header">
                         <h4 className="mt-3">Earlier</h4>
+                        {!allNotifications && (
+                            <p className="text-center">
+                                No notifications to show.
+                            </p>
+                        )}
                         {renderEarlierNotifications}
                     </div>
 

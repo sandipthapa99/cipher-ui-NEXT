@@ -46,10 +46,10 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     };
     useEffect(() => {
         if (!profileDetails) {
-            router.push("");
+            router.push("/settings/account/individual");
             console.log("test");
         }
-    }, []);
+    }, [profileDetails, router]);
 
     if (!profileDetails) {
         return (
@@ -61,6 +61,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             <Col className="create-profile">
                                 <h1>Your profile is incomplete!</h1>
                                 <p>Redirecting to your Account Settings...</p>
+
                                 {/* <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
