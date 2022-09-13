@@ -49,11 +49,12 @@ export type TaskerDetails = {
         success_rate: number;
         happy_clients: number;
         task_completed: number;
-        user_reviews: number;
+
         task_assigned: number;
         task_in_progress: number;
         task_cancelled: number;
     };
+    rating?: Rating | any;
     status: string;
     bio: string;
     full_name: string;
@@ -76,3 +77,8 @@ export type TaskerDetails = {
     language: any;
     subscription: Array<any>;
 };
+
+export interface Rating {
+    user_rating_count: number;
+    avg_rating: number;
+}

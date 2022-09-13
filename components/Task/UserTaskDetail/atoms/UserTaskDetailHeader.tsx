@@ -83,8 +83,13 @@ export const UserTaskDetailHeader = ({
                         <p className="td-text mb-4">{userType}</p>
 
                         <RatingStars
-                            value={taskerDetail?.stats?.user_reviews}
+                            value={
+                                taskerDetail?.rating?.avg_rating > 0
+                                    ? taskerDetail?.rating?.avg_rating
+                                    : 0
+                            }
                         />
+
                         <UserStats
                             happyCustomers={taskerDetail?.stats?.happy_clients}
                             rewardPercentage={taskerDetail?.stats?.success_rate}

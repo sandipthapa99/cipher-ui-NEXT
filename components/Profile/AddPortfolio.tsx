@@ -322,7 +322,7 @@ const AddPortfolio = ({
                                             dateFormat="yyyy-MM-dd"
                                             placeHolder="2022-03-06"
                                         />
-                                        <h4>Credential URL</h4>
+                                        <h4>Portfolio URL</h4>
                                         <InputField
                                             type="url"
                                             name="credential_url"

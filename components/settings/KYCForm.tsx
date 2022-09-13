@@ -30,7 +30,7 @@ const KYCForm = () => {
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();
     const [showDocument, setShowDocument] = useState(false);
-    const [showButtons, setShowButtons] = useState(false);
+    // const [showButtons, setShowButtons] = useState(false);
 
     const { data: profileDetails } = useGetProfile();
     const [countryChange, setCountryChange] = useState<string | null>(null);
@@ -127,7 +127,7 @@ const KYCForm = () => {
                                 // toggleSuccessModal();
                                 toast.success("KYC Details Added Successfully");
                                 setShowDocument(true);
-                                setShowButtons(false);
+                                // setShowButtons(false);
                             },
                             onError: (error) => {
                                 toast.error(error.message);
@@ -278,7 +278,7 @@ const KYCForm = () => {
                                     />
                                 </Col>
                             </Row> */}
-
+                            {/* {showButtons ? ( */}
                             <div className="d-flex mt-5 justify-content-end">
                                 <Button
                                     className="me-3 mb-0 cancel-btn"
@@ -297,6 +297,9 @@ const KYCForm = () => {
                                     )}
                                 />
                             </div>
+                            {/* ) : (
+                                ""
+                            )} */}
                         </Form>
                     )}
                 </Formik>

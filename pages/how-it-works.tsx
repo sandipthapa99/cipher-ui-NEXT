@@ -1,12 +1,9 @@
-import AllCategoryCard from "@components/common/AllCategoryCard";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import MessageCard from "@components/common/MessageCard";
 import Layout from "@components/Layout";
 import type { NextPage } from "next";
-import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
-import { AllCategoryCardContent } from "staticData/categoryCardContent";
 import { messageCard } from "staticData/messageCard";
 
 const HowItWorks: NextPage = () => {
@@ -46,30 +43,6 @@ const HowItWorks: NextPage = () => {
                             description="Start by telling us about your task. Mention when and where (in person or online) you need it done, then suggest a fair budget for the task. Post any task you need from cleaning to web design in only two minutes – for free! There's no obligation to hire. Take a look at profiles and reviews to pick the best Tasker for your task. When you accept an offer, your payment is held securely with Airtasker Pay until the task is complete. Now you can message and call the Tasker to sort out the details."
                             imageOnRight={true}
                         />
-                    </div>
-                    <div className="how-it-works__categories">
-                        <h1>Our categories</h1>
-                        <p>Choose category according to your needs.</p>
-                        <Row className="gy-4 align-tems-stretch">
-                            {AllCategoryCardContent &&
-                                AllCategoryCardContent.map((category) => {
-                                    return (
-                                        <Col
-                                            className="gx-4 align-items-stretch"
-                                            sm={4}
-                                            xs={12}
-                                            md={3}
-                                            // lg={4}
-                                            key={category.id}
-                                        >
-                                            <AllCategoryCard
-                                                categoryImage={category.image}
-                                                categoryTitle={category.name}
-                                            />
-                                        </Col>
-                                    );
-                                })}
-                        </Row>
                     </div>
                     <div className="how-it-works__communicate service-card-block">
                         <div className="communicate-card">

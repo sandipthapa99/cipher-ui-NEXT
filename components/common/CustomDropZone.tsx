@@ -106,7 +106,7 @@ export const CustomDropZone = ({
                     width={previewImageWidth ?? "100%"}
                     height={previewImageHeight ?? "100%"}
                     alt="file-upload"
-                    objectFit="cover"
+                    objectFit="contain"
                 />
             )}
             <Dropzone
