@@ -29,6 +29,10 @@ const ProfileSuccessModalCard = ({
         setShowForm(false);
         onClick();
     };
+    const handleGoHome = () => {
+        setShowForm(false);
+        router.push("/home");
+    };
     return (
         <>
             {/* Modal component */}
@@ -60,7 +64,7 @@ const ProfileSuccessModalCard = ({
                                 btnTitle={"Home"}
                                 backgroundColor={"#211d4f"}
                                 textColor={"#fff"}
-                                handleClick={handleCloseModal}
+                                handleClick={handleGoHome}
                             />
                         </Link>
                     </Modal.Footer>
