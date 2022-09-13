@@ -124,6 +124,7 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                             </button>
                             {isUserTask && (
                                 <EllipsisDropdown
+                                    task={taskDetail}
                                     showModal={true}
                                     handleOnClick={() => setShowModal(true)}
                                 >

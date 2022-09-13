@@ -25,6 +25,7 @@ import {
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
+import { useEditTask } from "hooks/task/use-edit-task";
 import { usePostTask } from "hooks/task/use-post-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
@@ -67,18 +68,19 @@ export const PostTaskModal = () => {
     const queryClient = useQueryClient();
     const { mutate: createTaskMutation, isLoading: createTaskLoading } =
         usePostTask();
+    const { mutate: editTaskMutation, isLoading: editTaskLoading } =
+        useEditTask();
     const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
 
     const router = useRouter();
-    //console.log("taskResponse", postTaskResponse);
 
     const taskSlug = router.query?.slug;
-    const taskDetail = queryClient.getQueryData<ITask>([
-        "task-detail",
-        taskSlug,
-    ]);
+    const taskDetail =
+        showPostTaskModalType === "EDIT"
+            ? queryClient.getQueryData<ITask>(["task-detail", taskSlug])
+            : undefined;
 
     const [termsAccepted, setTermsAccepted] = useState(true);
     const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
@@ -87,8 +89,8 @@ export const PostTaskModal = () => {
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
-            description: "",
-            requirements: "",
+            description: taskDetail ? taskDetail.description : "",
+            requirements: taskDetail ? taskDetail.requirements : "",
             category: "",
             city: "",
             location: "remote",
@@ -105,6 +107,7 @@ export const PostTaskModal = () => {
             images: "",
             videos: "",
         },
+        enableReinitialize: true,
         validationSchema: postTaskSchema,
         onSubmit: async (values, action) => {
             if (!termsAccepted) {
@@ -127,6 +130,22 @@ export const PostTaskModal = () => {
                 videos: videoIds,
                 extra_data: [],
             };
+            if (showPostTaskModalType === "EDIT" && taskDetail) {
+                editTaskMutation(
+                    { id: taskDetail.id, data: postTaskPayload },
+                    {
+                        onSuccess: async (message) => {
+                            handleCloseModal();
+                            await queryClient.invalidateQueries([
+                                "task-detail",
+                                taskSlug,
+                            ]);
+                            toast.success(message);
+                        },
+                    }
+                );
+                return;
+            }
             createTaskMutation(postTaskPayload, {
                 onSuccess: async ({ message }) => {
                     handleCloseModal();
@@ -148,11 +167,12 @@ export const PostTaskModal = () => {
         touched[key] && errors[key] ? errors[key] : null;
 
     const handleCloseModal = () => {
+        formik.resetForm();
         toggleShowPostTaskModal("CREATE");
         setChoosedValue("task");
-        formik.resetForm();
     };
-    const isCreateTaskLoading = createTaskLoading || uploadFileLoading;
+    const isCreateTaskLoading =
+        createTaskLoading || uploadFileLoading || editTaskLoading;
     return (
         <>
             <LoadingOverlay
@@ -198,6 +218,9 @@ export const PostTaskModal = () => {
                                 error={getFieldError("description")}
                             />
                             <TaskRequirements
+                                initialRequirements={
+                                    taskDetail?.requirements ?? ""
+                                }
                                 onRequirementsChange={(requirements) =>
                                     setFieldValue(
                                         "requirements",
@@ -208,6 +231,11 @@ export const PostTaskModal = () => {
                                 {...getFieldProps("requirements")}
                             />
                             <TaskCurrency
+                                value={
+                                    taskDetail
+                                        ? taskDetail?.currency?.id?.toString()
+                                        : ""
+                                }
                                 onCurrencyChange={(currencyId) =>
                                     setFieldValue("currency", currencyId)
                                 }
@@ -219,11 +247,16 @@ export const PostTaskModal = () => {
                                 }
                             />
                             <TaskCategory
+                                {...getFieldProps("category")}
                                 onCategoryChange={(category) =>
                                     setFieldValue("category", category)
                                 }
-                                {...getFieldProps("category")}
                                 error={getFieldError("category")}
+                                value={
+                                    taskDetail
+                                        ? taskDetail?.category?.id?.toString()
+                                        : ""
+                                }
                             />
                             <SelectTaskType
                                 setFieldValue={setFieldValue}
@@ -233,8 +266,13 @@ export const PostTaskModal = () => {
                                 {...getFieldProps("location")}
                                 error={getFieldError("location")}
                             />
-                            <TaskBudget {...formik} />
+                            <TaskBudget
+                                initialBudgetFrom={taskDetail?.budget_from}
+                                initialBudgetTo={taskDetail?.budget_to}
+                                {...formik}
+                            />
                             <Checkbox
+                                defaultChecked={taskDetail?.is_negotiable}
                                 label="Yes, it is negotiable."
                                 {...getFieldProps("is_negotiable")}
                             />
