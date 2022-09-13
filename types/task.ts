@@ -10,6 +10,8 @@ export interface ITaskApiResponse {
 
 export interface Media {
     id: number;
+    size: number;
+    name: string;
     media: string;
     media_type: "image" | "video" | "pdf";
     placeholder: string;
@@ -17,14 +19,20 @@ export interface Media {
 export interface ITask {
     id: string;
     title: string;
-    category: any;
-    location: any;
+    category: {
+        id: number;
+        name: string;
+        slug: string;
+        icon: string | null;
+    };
+    location: string;
     assigner: {
         id: string;
         email: string;
         full_name: string;
         profile_image: string;
     };
+    is_negotiable: boolean;
     currency: { id: number; code: string; name: number };
     created_at: string;
     updated_at: string;

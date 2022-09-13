@@ -1,6 +1,7 @@
 import type { SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { axiosClient } from "utils/axiosClient";
 
 export interface Currency {
@@ -19,24 +20,31 @@ export const useCurrencies = () => {
     );
 };
 export const TaskCurrency = ({
+    value,
     onCurrencyChange,
     ...rest
 }: TaskCurrencyProps) => {
+    const [currency, setCurrency] = useState(value);
     const { data: currencies = [] } = useCurrencies();
     const currencyData = currencies.map((currency) => ({
         id: currency,
         label: currency.code,
         value: currency.id.toString(),
     }));
+    const handleCurrencyChange = (currencyId: number) => {
+        setCurrency(currencyId.toString());
+        onCurrencyChange(currencyId);
+    };
     return (
         <Select
             {...rest}
+            value={currency}
             required
             searchable
             label="Currency"
             placeholder="Select your currency"
             data={currencyData}
-            onChange={(value) => onCurrencyChange(Number(value))}
+            onChange={(value) => handleCurrencyChange(Number(value))}
         />
     );
 };
