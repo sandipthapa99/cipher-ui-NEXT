@@ -20,7 +20,6 @@ import {
     faAngleRight,
     faArrowLeft,
     faArrowRight,
-    faChevronCircleRight,
     faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -542,18 +541,6 @@ const Home: NextPage<{
                 </Container>
             </section>
             {/* Find & Hire section end */}
-
-            {/* Horoscope section starts */}
-            {/* <section
-                id="horoscope-slider-section"
-                className="horoscope-slider-section"
-            >
-                <Container className="px-5" fluid="xl">
-                    <h1 className="text-center">Horoscopes</h1>
-                    <HoroscopeSlider />
-                </Container>
-            </section> */}
-            {/* Horoscope section ends */}
 
             {/* Top Taksers Section Start */}
             <section id="top-merchants" className="top-merchants">
