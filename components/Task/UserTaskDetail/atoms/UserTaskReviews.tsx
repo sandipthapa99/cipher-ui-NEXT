@@ -1,3 +1,4 @@
+import { FilterReview } from "@components/common/FilterReview";
 import Reviews from "@components/common/Reviews";
 import { AddReviewForm } from "@components/Task/UserTaskDetail/atoms/AddReviewForm";
 import { Spoiler } from "@mantine/core";
@@ -46,7 +47,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
             </Spoiler>
             <span className="td-divider"></span>
             <AddReviewForm />
-        </div>
+        </>
     );
 };
 
