@@ -29,6 +29,9 @@
         }
     }
     .about-profile {
+        padding-bottom: 0rem;
+    }
+    .about-profile {
         .type,
         .certifications {
             padding-left: 0rem;
@@ -147,6 +150,38 @@
         margin-bottom: 1.5rem;
         color: $default-text-color;
     }
+    .reviews {
+        padding-bottom: 2.5rem;
+        border-bottom: none;
+        .head-container {
+            border-top: 0.1rem solid $border-color;
+
+            border-bottom: 0.1rem solid $border-color;
+            padding: 1.5rem 0rem;
+
+            @include respond(md) {
+                padding: 1.5rem 0rem;
+            }
+            span {
+                color: #9fa3b1;
+                font-weight: 400;
+                font-size: 1.7rem;
+            }
+            h3 {
+                color: $primary-color;
+                font-size: 1.7rem;
+                font-weight: 500;
+                // padding-left: 1.7rem;
+                margin-bottom: 0rem;
+            }
+        }
+        .review-container {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 0.1rem solid $border-color;
+        }
+    }
+
     .review {
         span {
             margin-left: 0rem;

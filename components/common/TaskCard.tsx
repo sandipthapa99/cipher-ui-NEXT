@@ -133,6 +133,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                         image={detail.image}
                         description={detail.description}
                         show={showModal}
+                        setShow={setShowModal}
                         handleClose={() => setShowModal(false)}
                     />
                 ))}

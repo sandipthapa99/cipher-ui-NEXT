@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from "react";
 export interface BookNowModalCardProps {
     service_id?: string | undefined;
     title: string | undefined;
@@ -6,6 +7,7 @@ export interface BookNowModalCardProps {
     description: string | undefined;
     show?: boolean;
     handleClose?: () => void;
+    setShow: Dispatch<SetStateAction<boolean>>;
     budget_type?: string;
     price?: number | string;
     image?: string;

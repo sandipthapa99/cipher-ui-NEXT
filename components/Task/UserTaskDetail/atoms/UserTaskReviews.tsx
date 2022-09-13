@@ -1,21 +1,26 @@
-import { FilterReview } from "@components/common/FilterReview";
 import Reviews from "@components/common/Reviews";
 import { AddReviewForm } from "@components/Task/UserTaskDetail/atoms/AddReviewForm";
 import { Spoiler } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import { Formik } from "formik";
 import Link from "next/link";
-import { reviewsContent } from "staticData/reviews";
+import { useState } from "react";
+import { Col, Row } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import { axiosClient } from "utils/axiosClient";
-
+import { reviewSearchData } from "utils/formData";
+import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
 export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
     const { data: taskerRatingData } = useQuery(
         ["tasker-rating-data", activeTaskId],
         async () => {
-            return await axiosClient.get(`/task/rating/list/${activeTaskId}`);
+            return await axiosClient.get(
+                `/task/rating/list/${activeTaskId}?ordering=${search}`
+            );
         }
     );
+    const [search, setSearch] = useState("-rating");
 
-    console.log("tasker rating data", taskerRatingData?.data?.result);
     const ratingData = taskerRatingData?.data?.result;
     return (
         <>
@@ -41,7 +46,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
             </Spoiler>
             <span className="td-divider"></span>
             <AddReviewForm />
-        </>
+        </div>
     );
 };
 

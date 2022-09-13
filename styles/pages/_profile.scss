@@ -39,7 +39,11 @@
             .head-container {
                 border-bottom: 0.1rem solid $border-color;
                 padding: 1.5rem 2.5rem;
-
+                span {
+                    color: #9fa3b1;
+                    font-weight: 400;
+                    font-size: 1.7rem;
+                }
                 @include respond(md) {
                     padding: 0rem 2.5rem;
                 }

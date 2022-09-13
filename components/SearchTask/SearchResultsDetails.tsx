@@ -492,6 +492,7 @@ const SearchResultsDetail = ({
                 description={serviceDescription}
                 show={show}
                 handleClose={handleClose}
+                setShow={() => setShow(false)}
             />
         </div>
     );
