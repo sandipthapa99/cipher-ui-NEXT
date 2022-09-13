@@ -1,5 +1,4 @@
 import AboutCard from "@components/common/AboutCard";
-import AllCategoryCard from "@components/common/AllCategoryCard";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import MerchantAdviceCard from "@components/common/MerchantAdviceCard";
 import MerchantCard from "@components/common/MerchantCard";
@@ -12,7 +11,6 @@ import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
-import { AllCategoryCardContent } from "staticData/categoryCardContent";
 import { merchantAdvice } from "staticData/merchantAdvice";
 import { merchants } from "staticData/merchants";
 import { oppurtunitiesCardContent } from "staticData/oppurtunities";
@@ -78,33 +76,6 @@ const Discover: NextPage = () => {
                         </Row>
                     </section>
                     {/* Services near you section end */}
-
-                    {/* Our categories section started */}
-                    <section className="discover-page__categories">
-                        <h1>Our categories</h1>
-                        <p>Choose category according to your needs.</p>
-                        <Row className="gy-4 gx-5 align-tems-stretch">
-                            {AllCategoryCardContent &&
-                                AllCategoryCardContent.map((category) => {
-                                    return (
-                                        <Col
-                                            className="gx-4 align-items-stretch"
-                                            sm={4}
-                                            xs={12}
-                                            md={3}
-                                            // lg={4}
-                                            key={category.id}
-                                        >
-                                            <AllCategoryCard
-                                                categoryImage={category.image}
-                                                categoryTitle={category.name}
-                                            />
-                                        </Col>
-                                    );
-                                })}
-                        </Row>
-                    </section>
-                    {/* Our categories section ended */}
                     {/* merchants section start */}
                     <section className="discover-page__merchants">
                         <h1>Top Merchants</h1>

@@ -78,7 +78,12 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                                     className="svg-icon"
                                 />
                                 <span>
-                                    {date ? format(new Date(date), "p") : "N/A"}
+                                    {task?.created_at
+                                        ? format(
+                                              new Date(task?.created_at),
+                                              "p"
+                                          )
+                                        : "N/A"}
                                 </span>
                             </span>
                             <span className="date d-flex align-items-center">
