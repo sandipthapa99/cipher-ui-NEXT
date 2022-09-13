@@ -21,9 +21,10 @@ export const RatingStars = ({ value }: RatingStarsProps) => {
     //         ));
     // };
     // return <div className="d-flex">{renderRatingStars()}</div>;
+
     return (
         <div className="rating">
-            {Array.from({ length: value }, (_, i) => (
+            {Array.from({ length: Math.ceil(value) }, (_, i) => (
                 <span key={i}>
                     <FontAwesomeIcon
                         icon={rated}
@@ -33,7 +34,7 @@ export const RatingStars = ({ value }: RatingStarsProps) => {
             ))}
             {Array.from(
                 {
-                    length: 5 - value,
+                    length: 5 - Math.ceil(value),
                 },
                 (_, i) => (
                     <span key={i}>
