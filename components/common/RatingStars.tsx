@@ -66,7 +66,7 @@ export const RatingStars = ({ value }: RatingStarsProps) => {
                 }
                 readonly
             /> */}
-            <Rating style={{ maxWidth: 180 }} value={3} readOnly />{" "}
+            <Rating style={{ maxWidth: 180 }} value={value} readOnly />{" "}
         </div>
     );
 };
