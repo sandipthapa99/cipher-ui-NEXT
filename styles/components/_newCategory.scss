@@ -4,7 +4,7 @@
     .mantine-Carousel-controls {
         padding: 0;
     }
-    .mantine-Carousel-slide{
+    .mantine-Carousel-slide {
         display: flex;
         align-items: stretch;
     }
@@ -16,7 +16,8 @@
         // margin-bottom: 2rem;
         width: 100%;
 
-        @include respond(md) {}
+        @include respond(md) {
+        }
 
         .image-block {
             height: 6rem;
