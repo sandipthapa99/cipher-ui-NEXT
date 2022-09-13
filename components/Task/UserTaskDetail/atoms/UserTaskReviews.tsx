@@ -1,6 +1,7 @@
 import { FilterReview } from "@components/common/FilterReview";
 import Reviews from "@components/common/Reviews";
 import { AddReviewForm } from "@components/Task/UserTaskDetail/atoms/AddReviewForm";
+import { Spoiler } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { reviewsContent } from "staticData/reviews";
@@ -19,7 +20,12 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
     return (
         <>
             <FilterReview totalReviews={ratingData?.length} />
-            <div className="review">
+            <Spoiler
+                maxHeight={350}
+                hideLabel={"Hide all reviews"}
+                showLabel={"See all reviews"}
+                className={"mb-5"}
+            >
                 {ratingData?.map((review: any, index: any) => (
                     <Reviews
                         key={index}
@@ -32,10 +38,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                         image={review?.rated_by?.profile_image}
                     />
                 ))}
-            </div>
-            <Link href="/all-reviews">
-                <a>See all reviews</a>
-            </Link>
+            </Spoiler>
             <span className="td-divider"></span>
             <AddReviewForm />
         </>

@@ -698,3 +698,14 @@ small.text-muted {
         height: 100%;
     }
 }
+.mantine-Spoiler-root {
+    .mantine-Spoiler-control {
+        color: $nav-link-color;
+        font: 400 1.4rem $poppins-font;
+        @include transition();
+        &:hover {
+            text-decoration: none;
+            color: $secondary-color;
+        }
+    }
+}
