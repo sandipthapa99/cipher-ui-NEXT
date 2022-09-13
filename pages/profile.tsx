@@ -31,6 +31,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     // const profileDetails = userData?.data;
 
     // if (isLoading || !data) return <FullPageLoader />;
+    console.log("profileDetails", profileDetails);
 
     const remaining = {
         userRating: 4,
@@ -47,9 +48,8 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     useEffect(() => {
         if (!profileDetails) {
             router.push("/settings/account/individual");
-            console.log("test");
         }
-    }, []);
+    });
 
     if (!profileDetails) {
         return (
@@ -109,7 +109,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             active_hour_end={profileDetails?.active_hour_end}
                             bio={profileDetails?.bio}
                             userBadge={remaining.userBadge}
-                            userPoints={remaining.userPoints}
+                            userPoints={profileDetails?.points}
                             pointGoal={remaining.pointGoal}
                             charge_currency={
                                 profileDetails?.charge_currency.code
