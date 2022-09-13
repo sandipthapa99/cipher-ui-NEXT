@@ -1,0 +1,36 @@
+.rasifal-details-section {
+    .rasifal-details {
+        .mantine-1b1ndg2[data-active] {
+            background-color: #fca500;
+        }
+
+        @include respond(xs) {
+            .mantine-Tabs-tabsList.d-flex.justify-content-between.mantine-1ueqwn5 {
+                flex-direction: column;
+            }
+        }
+        h1 {
+            font: 500 4rem $poppins-font;
+        }
+
+        .tab-lists {
+            font: 500 1.4rem $poppins-font;
+            justify-content: end;
+
+            @include respond(xs) {
+                justify-content: start;
+            }
+        }
+
+        .daily-rasifal-details {
+            h3 {
+                font: 500 1.8rem $poppins-font;
+                color: $primary-color;
+            }
+            .each-rasifal-card {
+                background: #fff;
+                padding: 2rem;
+            }
+        }
+    }
+}
