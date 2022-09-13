@@ -1,5 +1,4 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import FullPageLoader from "@components/common/FullPageLoader";
 import { Tab } from "@components/common/Tab";
 import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
@@ -12,7 +11,6 @@ import TasksProfileCard from "@components/Profile/TasksProfile";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -31,6 +29,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     // const profileDetails = userData?.data;
 
     // if (isLoading || !data) return <FullPageLoader />;
+    // console.log("profileDetails", profileDetails);
 
     const remaining = {
         userRating: 4,
@@ -47,9 +46,8 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     useEffect(() => {
         if (!profileDetails) {
             router.push("/settings/account/individual");
-            console.log("test");
         }
-    }, []);
+    }, [profileDetails, router]);
 
     if (!profileDetails) {
         return (
@@ -61,6 +59,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             <Col className="create-profile">
                                 <h1>Your profile is incomplete!</h1>
                                 <p>Redirecting to your Account Settings...</p>
+
                                 {/* <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
@@ -109,7 +108,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             active_hour_end={profileDetails?.active_hour_end}
                             bio={profileDetails?.bio}
                             userBadge={remaining.userBadge}
-                            userPoints={remaining.userPoints}
+                            userPoints={profileDetails?.points}
                             pointGoal={remaining.pointGoal}
                             charge_currency={
                                 profileDetails?.charge_currency.code
