@@ -4,6 +4,7 @@ import { useClickOutside, useScrollLock } from "@mantine/hooks";
 import axios from "axios";
 import cheerio from "cheerio";
 import {} from "date-fns/locale";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import type { Rasifal } from "types/rasifal";
 
@@ -121,14 +122,18 @@ export const RasifalSlideComponent = ({
                     </span>
                 </div>
 
-                {dailyRasifal.map((item, index) => (
-                    <RasifalCard
-                        key={index}
-                        title={item.title}
-                        image={item.image}
-                        description={item?.description}
-                    />
-                ))}
+                <Link href="/rasifal">
+                    <a>
+                        {dailyRasifal.map((item, index) => (
+                            <RasifalCard
+                                key={index}
+                                title={item.title}
+                                image={item.image}
+                                description={item?.description}
+                            />
+                        ))}
+                    </a>
+                </Link>
             </div>
         </>
     );
