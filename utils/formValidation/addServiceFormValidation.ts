@@ -20,8 +20,9 @@ export const addServiceFormSchema = Yup.object().shape({
     highlights: highlightValidate,
     location: StrigReqValidate,
     images: Yup.array()
-        .max(5, "Cannot upload more than 5 files")
-        .length(1, "Required field"),
+        .max(4, "Cannot upload more than 5 files")
+        // .length(0, "Required field"),
+        .min(1, "Required field"),
     video: Yup.string(),
     no_of_revisions: numberValidate,
     category: numberValidate,

@@ -2,6 +2,7 @@ import BigButton from "@components/common/Button";
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
@@ -549,18 +550,22 @@ const AccountForm = () => {
                             />
                             <Row className="g-5">
                                 <Col md={6}>
-                                    <InputField
-                                        name="phone"
-                                        labelName="Phone Number"
-                                        touch={touched.phone}
-                                        error={errors.phone}
-                                        disabled={
-                                            isEditButtonClicked || !profile
-                                                ? false
-                                                : true
-                                        }
-                                        placeHolder="Enter your Phone Number"
-                                    />
+                                    {isEditButtonClicked || !profile ? (
+                                        <PhoneNumberInput
+                                            name={"phone"}
+                                            labelName="Phone Number"
+                                            touch={touched.phone}
+                                            error={errors.phone}
+                                        />
+                                    ) : (
+                                        <InputField
+                                            name="phone"
+                                            labelName="Phone Number"
+                                            touch={touched.phone}
+                                            error={errors.phone}
+                                            disabled={true}
+                                        />
+                                    )}
                                 </Col>
                             </Row>
                             <RadioField

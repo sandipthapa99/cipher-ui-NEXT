@@ -89,7 +89,15 @@ const ServiceAside = ({
                     </ScrollArea.Autosize>
                 </Col>
 
-                <Col md={8}>{children}</Col>
+                <Col md={8}>
+                    <ScrollArea.Autosize
+                        maxHeight={700}
+                        offsetScrollbars
+                        scrollbarSize={5}
+                    >
+                        {children}
+                    </ScrollArea.Autosize>
+                </Col>
             </Row>
         </div>
     );

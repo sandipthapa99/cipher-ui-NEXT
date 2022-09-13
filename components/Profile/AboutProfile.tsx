@@ -629,7 +629,13 @@ const AboutProfile = () => {
                         <Row className="align-items-center">
                             <Col md={4}>
                                 <h3>
-                                    My Reviews <span>(3,0003)</span>{" "}
+                                    My Reviews{" "}
+                                    <span>
+                                        (
+                                        {taskerRating &&
+                                            taskerRating.data.result.length}
+                                        )
+                                    </span>{" "}
                                 </h3>
                             </Col>
                             <Col md={{ span: 7, offset: 1 }}>
@@ -653,10 +659,6 @@ const AboutProfile = () => {
                                                 <Form
                                                     onChange={(e: any) => {
                                                         setSearch(
-                                                            e.target.value
-                                                        );
-                                                        console.log(
-                                                            "values0,",
                                                             e.target.value
                                                         );
                                                     }}

@@ -443,6 +443,7 @@ const SearchResultsDetail = ({
                 maxHeight={450}
                 hideLabel={"Hide all reviews"}
                 showLabel={"See all reviews"}
+                className={"mb-5"}
             >
                 {reviewsContent.map((reviewContent, index) => (
                     <Reviews key={index} {...reviewContent} />
@@ -491,6 +492,7 @@ const SearchResultsDetail = ({
                 description={serviceDescription}
                 show={show}
                 handleClose={handleClose}
+                setShow={() => setShow(false)}
             />
         </div>
     );

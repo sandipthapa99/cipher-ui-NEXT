@@ -91,21 +91,19 @@ const ShareModal = ({
                             <Link href="/">
                                 <FontAwesomeIcon
                                     icon={faCopy}
-                                    onClick={() =>
-                                        copyToClipBoard("https://cipher.com/")
-                                    }
+                                    onClick={() => copyToClipBoard(url)}
                                     className="svg-icon copy-icon"
                                 />
                             </Link>
                         </div>
-                        <div className="social-media share">
+                        {/* <div className="social-media share">
                             <Link href="#!">
                                 <FontAwesomeIcon
                                     icon={faLink}
                                     className="svg-icon share-link"
                                 />
                             </Link>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </Modal>

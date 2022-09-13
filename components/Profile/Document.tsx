@@ -30,7 +30,7 @@ const UserDocument = () => {
             </div>
             <div className="content">
                 <Row>
-                    {documents?.data ? (
+                    {documents?.data && documents?.data.length > 0 ? (
                         documents?.data?.map((document: any) => (
                             <Col
                                 key={document.id}

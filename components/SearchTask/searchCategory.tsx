@@ -16,6 +16,8 @@ interface SearchCategoryProps {
     getOption?: (value: string | undefined) => void;
     type?: string;
     getSortingByPrice?: any;
+    getTaskBySort?: any;
+    getTaskerBySort?: any;
 }
 
 export const SearchCategory = ({
@@ -23,6 +25,8 @@ export const SearchCategory = ({
     getOption,
     type,
     getSortingByPrice,
+    getTaskBySort,
+    getTaskerBySort,
 }: SearchCategoryProps) => {
     const { data: allcategories } = useCategories();
 
@@ -50,8 +54,8 @@ export const SearchCategory = ({
             category: "Any price",
             value: "",
             nested: [
-                { name: "Low to High", value: "budget_from" },
-                { name: "High to Low", value: "-budget_from" },
+                { name: "Low to High", value: "budget_to" },
+                { name: "High to Low", value: "-budget_to" },
             ],
         },
         {
@@ -110,9 +114,58 @@ export const SearchCategory = ({
         );
     };
 
+    const useSearchTaskByPrice = (query: string) => {
+        return useQuery(["all-Task", query], () =>
+            axiosClient
+                .get(`/task/?ordering=${query}`)
+                .then((response) => getTaskBySort(response.data.result))
+        );
+    };
+    const useSearchTaskByCategory = (query: string) => {
+        return useQuery(
+            ["all-Task", query],
+            () =>
+                axiosClient.get(`/task/?category=${query}`).then((response) => {
+                    getTaskBySort(response.data.result);
+                }),
+            {
+                enabled: allcategories ? true : false,
+            }
+        );
+    };
+    // const useSearchTaskerByPrice = (query: string) => {
+    //     return useQuery(["all-Tasker", query], () =>
+    //         axiosClient
+    //             .get(`/tasker/?ordering=${query}`)
+    //             .then((response) => getTaskerBySort(response.data.result))
+    //     );
+    // };
+    // const useSearchTaskerByCategory = (query: string) => {
+    //     return useQuery(
+    //         ["all-Tasker", query],
+    //         () =>
+    //             axiosClient
+    //                 .get(`/tasker/?category=${query}`)
+    //                 .then((response) => {
+    //                     getTaskerBySort(response.data.result);
+    //                 }),
+    //         {
+    //             enabled: allcategories ? true : false,
+    //         }
+    //     );
+    // };
+
+    const { data: searchTaskByPrice } = useSearchTaskByPrice(priceQuery);
+    const { data: searchTaskByCategory } =
+        useSearchTaskByCategory(categoryName);
+
     const { data: searchDataByPrice } = useSearchServiceByPrice(priceQuery);
     const { data: searchDataByCategory } =
         useSearchServiceByCategory(categoryName);
+
+    // const { data: searchTaskertByPrice } = useSearchTaskerByPrice(priceQuery);
+    // const { data: searchTaskerByCategory } =
+    //     useSearchTaskerByCategory(categoryName);
 
     // getSortingByPrice(searchDataByPrice);
     // console.log("abc", searchDataByCategory);

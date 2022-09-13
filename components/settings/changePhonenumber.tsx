@@ -1,6 +1,7 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { Button } from "react-bootstrap";
@@ -48,15 +49,12 @@ export const ChangePhoneNumber = () => {
                             fieldRequired
                             required={true}
                         /> */}
-                        <InputField
-                            name="phone"
-                            type="text"
-                            labelName="Phone"
-                            error={errors.phone}
+                        <PhoneNumberInput
+                            name={"phone"}
+                            fieldRequired={true}
+                            labelName="Phone Number"
                             touch={touched.phone}
-                            placeHolder="Enter new phone number"
-                            fieldRequired
-                            required={true}
+                            error={errors.phone}
                         />
 
                         <PasswordField

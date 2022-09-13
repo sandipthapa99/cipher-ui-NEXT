@@ -31,10 +31,11 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
         start_time: time,
         start_date: date,
         applicants_count,
+        slug,
     } = task;
     return (
         <div
-            data-active={JSON.stringify(query === taskId)}
+            data-active={JSON.stringify(query === slug)}
             className="task-applied-card-block"
         >
             <Link
