@@ -1,6 +1,9 @@
+import { FilterReview } from "@components/common/FilterReview";
 import Reviews from "@components/common/Reviews";
 import { AddReviewForm } from "@components/Task/UserTaskDetail/atoms/AddReviewForm";
-import { Spoiler } from "@mantine/core";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, Highlight, Spoiler } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { Formik } from "formik";
 import Link from "next/link";
@@ -31,6 +34,21 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                 showLabel={"See all reviews"}
                 className={"mb-5"}
             >
+                {!ratingData ||
+                    (ratingData.length <= 0 && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            className="mt-5"
+                            sx={{ minWidth: 100 }}
+                        >
+                            <Highlight highlight={"not reviewed"}>
+                                {`Product not reviewed yet`}
+                            </Highlight>
+                        </Alert>
+                    ))}
                 {ratingData?.map((review: any, index: any) => (
                     <Reviews
                         key={index}
@@ -46,7 +64,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
             </Spoiler>
             <span className="td-divider"></span>
             <AddReviewForm />
-        </div>
+        </>
     );
 };
 

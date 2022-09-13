@@ -109,6 +109,9 @@ export const NotificationDropdown = () => {
                     Mark all as read
                 </p>
             </div>
+            {!allNotifications && (
+                <p className="text-center">No notifications to show.</p>
+            )}
             {renderTodayNotifications}
             {/* <ApproveNotification accept={true} />
             <ApproveNotification pay={true} />

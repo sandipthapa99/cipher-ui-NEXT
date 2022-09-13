@@ -49,7 +49,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         if (!profileDetails) {
             router.push("/settings/account/individual");
         }
-    });
+    }, [profileDetails, router]);
 
     if (!profileDetails) {
         return (
@@ -61,6 +61,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             <Col className="create-profile">
                                 <h1>Your profile is incomplete!</h1>
                                 <p>Redirecting to your Account Settings...</p>
+
                                 {/* <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
