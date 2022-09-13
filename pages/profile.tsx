@@ -1,5 +1,4 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import FullPageLoader from "@components/common/FullPageLoader";
 import { Tab } from "@components/common/Tab";
 import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
@@ -12,7 +11,6 @@ import TasksProfileCard from "@components/Profile/TasksProfile";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
@@ -31,7 +29,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     // const profileDetails = userData?.data;
 
     // if (isLoading || !data) return <FullPageLoader />;
-    console.log("profileDetails", profileDetails);
+    // console.log("profileDetails", profileDetails);
 
     const remaining = {
         userRating: 4,

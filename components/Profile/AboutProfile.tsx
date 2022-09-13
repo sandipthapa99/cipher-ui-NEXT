@@ -2,6 +2,7 @@ import DeleteModal from "@components/common/DeleteModal";
 import Reviews from "@components/common/Reviews";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Spoiler } from "@mantine/core";
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -708,27 +709,52 @@ const AboutProfile = () => {
                     <div className="review-container">
                         <Row className="gx-5 type">
                             {taskerRating &&
-                                taskerRating?.data?.result?.map((review) => (
-                                    <Col md={8} key={review.id}>
-                                        <Reviews
-                                            name={review?.rated_by.full_name}
-                                            raterEmail={review?.rated_by.email}
-                                            ratings={review?.rating}
-                                            description={review?.review}
-                                            time={review?.updated_at}
-                                            raterId={review?.rated_by.id}
-                                            image={
-                                                review?.rated_by.profile_image
-                                            }
-                                            // image={review.image}
-                                        />
-                                    </Col>
-                                ))}
-
-                            <Link href="#!">
-                                {/* onClick={() => setPage(page + 1)} */}
-                                See all reviews
-                            </Link>
+                            taskerRating?.data.result.length > 0 ? (
+                                <div>
+                                    <Spoiler
+                                        maxHeight={350}
+                                        hideLabel={"Hide"}
+                                        showLabel={"See all reviews"}
+                                        className={"mb-5"}
+                                    >
+                                        {taskerRating?.data?.result?.map(
+                                            (review) => (
+                                                <Col md={8} key={review.id}>
+                                                    <Reviews
+                                                        name={
+                                                            review?.rated_by
+                                                                .full_name
+                                                        }
+                                                        raterEmail={
+                                                            review?.rated_by
+                                                                .email
+                                                        }
+                                                        ratings={review?.rating}
+                                                        description={
+                                                            review?.review
+                                                        }
+                                                        time={
+                                                            review?.updated_at
+                                                        }
+                                                        raterId={
+                                                            review?.rated_by.id
+                                                        }
+                                                        image={
+                                                            review?.rated_by
+                                                                .profile_image
+                                                        }
+                                                    />
+                                                </Col>
+                                            )
+                                        )}
+                                    </Spoiler>
+                                </div>
+                            ) : (
+                                <p>
+                                    You have no reviews yet, Get started with
+                                    task.
+                                </p>
+                            )}
                         </Row>
                     </div>
                 </div>
