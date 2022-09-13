@@ -44,10 +44,10 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         userActiveStatus: true,
     };
     useEffect(() => {
-        if (!profileDetails) {
+        if (!profileDetails && !isLoading) {
             router.push("/settings/account/individual");
         }
-    }, [profileDetails, router]);
+    }, [profileDetails]);
 
     if (!profileDetails) {
         return (
