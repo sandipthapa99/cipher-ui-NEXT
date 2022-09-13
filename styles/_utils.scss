@@ -69,10 +69,7 @@ $sizes: (8, 16, 24, 48, 64, 96, 128, 256);
     color: #ff9700;
     // margin-bottom: 1.2rem;
 }
-.rr--on .rr--svg {
-    fill: #ff9700;
-    stroke: none;
-}
+
 .rr--has-stroke .rr--on .rr--svg {
     stroke: none;
 }
@@ -81,6 +78,7 @@ $sizes: (8, 16, 24, 48, 64, 96, 128, 256);
     width: 2.7rem;
     height: 2.7rem;
     color: #ff9700;
+    stroke: #ff9700;
     // fill: #ff9700;
     // stroke: #ff9700;
 }
@@ -91,5 +89,17 @@ $sizes: (8, 16, 24, 48, 64, 96, 128, 256);
 .rr--has-stroke .rr--off .rr--svg {
     fill: #fff;
     margin-top: 0.19rem;
-    stroke: #ff9700;
+    // stroke: none !important;
 }
+.rr--on .rr--svg {
+    fill: #ff9700;
+    stroke: none;
+}
+.rr--has-stroke .rr--hf-svg-on {
+    color: #ff9700;
+    stroke: #ff9700 !important;
+}
+
+// .rr--hf-svg-off {
+//     stroke: # none  !important;
+// }

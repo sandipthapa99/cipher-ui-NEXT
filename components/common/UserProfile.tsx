@@ -252,7 +252,7 @@ const UserProfileCard = ({
                     </div>
                     {renderType}
 
-                    <RatingStars value={rating} />
+                    <RatingStars value={rating > 0 ? rating : 0} />
                     <div className="price">
                         {charge_currency} {hourly_rate}/hr
                     </div>
