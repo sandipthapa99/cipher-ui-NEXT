@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
-import { BookingDetails } from "staticData/bookNowModalCard";
+// import { BookingDetails } from "staticData/bookNowModalCard";
 import type { ServiceProviderCardProps } from "types/serviceDetail";
 
 import BookNowButton from "./BookNowButton";
@@ -102,7 +102,7 @@ const ServiceProviderCard = ({
                     />
                 )}
             </div>
-            {BookingDetails &&
+            {/* {BookingDetails &&
                 BookingDetails.map((detail) => (
                     <ModalCard
                         key={detail.id}
@@ -114,7 +114,7 @@ const ServiceProviderCard = ({
                         show={showModal}
                         handleClose={() => setShowModal(false)}
                     />
-                ))}
+                ))} */}
         </>
     );
 };
