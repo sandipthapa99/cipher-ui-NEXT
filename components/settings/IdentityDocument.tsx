@@ -87,7 +87,7 @@ export const IdentityDocument = () => {
                 mutate(formData, {
                     onSuccess: () => {
                         action.resetForm();
-                        toast.success("Document added successfully");
+                        toast.success("Your KYC is pending for approval");
                     },
                     onError: (error) => {
                         toast.error(error.message);

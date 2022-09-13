@@ -3,15 +3,20 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import { useMutation } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
 import { isSubmittingClass } from "utils/helpers";
 
 export const ChangePhoneNumber = () => {
+    const { data: userDetails } = useUser();
+    const boolean = false;
+    const url = boolean ? "/tasker/add-phone/" : "/tasker/change-phone/";
     const changePhoneNumber = useMutation((values: any) => {
-        return axiosClient.post("/tasker/change-phone/", values);
+        return axiosClient.post(url, values);
     });
     return (
         <div className="p-0">
@@ -26,7 +31,13 @@ export const ChangePhoneNumber = () => {
                 onSubmit={async (values, action) => {
                     changePhoneNumber.mutate(values, {
                         onSuccess: () => {
-                            toast.success("Phone number changed successfully");
+                            boolean
+                                ? toast.success(
+                                      "Phone Number added successfully"
+                                  )
+                                : toast.success(
+                                      "Phone number changed successfully"
+                                  );
                         },
                         onError: (err: any) => {
                             toast.error(err.message);
@@ -78,7 +89,7 @@ export const ChangePhoneNumber = () => {
                             <FormButton
                                 type="submit"
                                 variant="primary"
-                                name="Update"
+                                name={boolean ? "Add" : "Update"}
                                 className="submit-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(

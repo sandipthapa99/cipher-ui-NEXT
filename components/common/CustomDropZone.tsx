@@ -13,6 +13,7 @@ import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
+import type { Media } from "types/task";
 
 const FILE_PLACEHOLDER_IMAGES = {
     pdf: "/userprofile/pdf.svg",
@@ -106,7 +107,7 @@ export const CustomDropZone = ({
                     width={previewImageWidth ?? "100%"}
                     height={previewImageHeight ?? "100%"}
                     alt="file-upload"
-                    objectFit="cover"
+                    objectFit="contain"
                 />
             )}
             <Dropzone

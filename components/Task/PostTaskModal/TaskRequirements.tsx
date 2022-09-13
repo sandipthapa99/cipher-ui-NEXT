@@ -18,20 +18,29 @@ import {
 import type { KeyboardEvent } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { safeParse } from "utils/safeParse";
 
 export interface TaskRequiremnt {
     id: number;
     title: string;
 }
 export interface TaskRequirementsProps extends TextInputProps {
+    initialRequirements: string;
     onRequirementsChange: (requirements: TaskRequiremnt[]) => void;
 }
 export const TaskRequirements = ({
+    initialRequirements,
     onRequirementsChange,
     ...rest
 }: TaskRequirementsProps) => {
+    const initialTaskRequirementsJSON = safeParse<TaskRequiremnt[]>({
+        rawString: initialRequirements,
+        initialData: [],
+    });
     const { classes } = useStyles();
-    const [requirements, setRequirements] = useState<TaskRequiremnt[]>([]);
+    const [requirements, setRequirements] = useState<TaskRequiremnt[]>(
+        () => initialTaskRequirementsJSON
+    );
     const [newRequirement, setNewRequirement] = useState("");
 
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
