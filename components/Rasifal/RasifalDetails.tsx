@@ -16,7 +16,7 @@ export const RasifalDetails = () => {
                         <h1 className="m-0">Rashifal</h1>
                     </Col>
                     <Col md={6}>
-                        <div className="d-flex justify-content-end tab-lists">
+                        <div className="d-flex tab-lists">
                             <Tabs.List className="d-flex justify-content-between">
                                 <Tabs.Tab value="daily">Daily</Tabs.Tab>
                                 <Tabs.Tab value="weekly">Weekly</Tabs.Tab>
