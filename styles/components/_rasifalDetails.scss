@@ -1,0 +1,18 @@
+.rasifal-details-section {
+    .rasifal-details {
+        h1 {
+            font: 500 4rem $poppins-font;
+        }
+
+        .tab-lists {
+            font: 500 1.4rem $poppins-font;
+        }
+
+        .daily-rasifal-details {
+            .each-rasifal-card {
+                background: #fff;
+                padding: 2rem;
+            }
+        }
+    }
+}
