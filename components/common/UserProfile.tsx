@@ -301,7 +301,7 @@ const UserProfileCard = ({
                                     />
 
                                     <p>
-                                        +{countryData?.phone_code}
+                                        {countryData?.phone_code}
                                         {phone}
                                     </p>
                                 </div>
