@@ -1,4 +1,3 @@
-import { Spoiler } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
@@ -18,13 +17,14 @@ export const RasifalCard = ({
         <div className="each-rasifal-card">
             <Row>
                 <Col md={3}>
-                    <figure className="d-flex justify-content-center align-items-center w-100 h-100 each-rasifal-card__image">
+                    <figure className="d-flex justify-content-center each-rasifal-card__image">
                         {image && (
                             <Image
                                 src={image ?? "/horoscope/image1.png"}
                                 alt={"rasifal-image"}
-                                height={60}
-                                width={60}
+                                height={102}
+                                width={120}
+                                objectFit="cover"
                             />
                         )}
                     </figure>
@@ -34,15 +34,7 @@ export const RasifalCard = ({
                     <div className="each-rasifal-card__details">
                         <h5>{title}</h5>
 
-                        <p>
-                            <Spoiler
-                                maxHeight={205}
-                                showLabel="Show more"
-                                hideLabel="Hide"
-                            >
-                                {description}
-                            </Spoiler>
-                        </p>
+                        <p>{description}</p>
                     </div>
                 </Col>
             </Row>

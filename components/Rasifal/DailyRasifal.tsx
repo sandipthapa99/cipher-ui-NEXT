@@ -61,12 +61,15 @@ const HoroscopeCardData = [
 
 export const DailyRasifal = () => {
     const [dailyRasifal, setDailyRasifal] = useState<Rasifal[]>([]);
+    const [heading, setHeading] = useState("");
 
     const url = "https://www.hamropatro.com/rashifal";
 
     useEffect(() => {
         axios.get(url).then((response) => {
             const $ = cheerio.load(response.data);
+            const heading = $(".articleTitleNew").text();
+            setHeading(heading);
             $(".item").each(function (index, element) {
                 const title = $(element).children("h3").text();
 
@@ -89,6 +92,7 @@ export const DailyRasifal = () => {
 
     return (
         <div className="daily-rasifal-details">
+            <h3>{heading}</h3>
             <Row>
                 {dailyRasifal.map((item, index) => (
                     <Col md={6} key={index} className="d-flex">

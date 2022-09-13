@@ -1,5 +1,8 @@
 .rasifal-details-section {
     .rasifal-details {
+        .mantine-1b1ndg2[data-active] {
+            background-color: #fca500;
+        }
         h1 {
             font: 500 4rem $poppins-font;
         }
@@ -9,6 +12,10 @@
         }
 
         .daily-rasifal-details {
+            h3 {
+                font: 500 1.8rem $poppins-font;
+                color: $primary-color;
+            }
             .each-rasifal-card {
                 background: #fff;
                 padding: 2rem;

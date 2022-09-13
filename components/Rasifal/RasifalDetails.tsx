@@ -10,12 +10,7 @@ import { YearlyRasifal } from "./YearlyRasifal";
 export const RasifalDetails = () => {
     return (
         <div className="rasifal-details mt-5">
-            <Tabs
-                color="lime"
-                variant="pills"
-                radius="md"
-                defaultValue="gallery"
-            >
+            <Tabs color="lime" variant="pills" radius="md" defaultValue="daily">
                 <Row>
                     <Col md={6}>
                         <h1 className="m-0">Rashifal</h1>
