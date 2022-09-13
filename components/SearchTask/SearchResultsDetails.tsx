@@ -485,7 +485,7 @@ const SearchResultsDetail = ({
                 </Alert>
             </Spoiler>
             <span className="td-divider"></span>
-            <Row className="gx-5">
+            {/* <Row className="gx-5">
                 <h4>Similar Services</h4>
                 <Carousel
                     slideSize="40%"
@@ -517,7 +517,7 @@ const SearchResultsDetail = ({
                             );
                         })}
                 </Carousel>
-            </Row>
+            </Row> */}
             <BookNowModalCard
                 title={serviceTitle}
                 budget_to={budget_to}
