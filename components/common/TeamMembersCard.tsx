@@ -89,7 +89,11 @@ export const TeamMembersCard = ({
                                         className="star"
                                         icon={faStar}
                                     />
-                                    <span> {rating}</span>
+                                    {rating && rating > 0 ? (
+                                        <span>{`${rating}.0`}</span>
+                                    ) : (
+                                        <span>0</span>
+                                    )}
                                 </span>
                                 <span className="emoji">
                                     <FontAwesomeIcon
