@@ -8,18 +8,20 @@ import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useData } from "hooks/use-data";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { merchantAdvice } from "staticData/merchantAdvice";
-import { merchants } from "staticData/merchants";
 import { oppurtunitiesCardContent } from "staticData/oppurtunities";
 import type { ServicesValueProps } from "types/serviceCard";
-const Discover: NextPage = () => {
+import type { TaskerProps } from "types/taskerProps";
+import { axiosClient } from "utils/axiosClient";
+const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
+    console.log("🚀 ~ file: discover.tsx ~ line 188 ~ taskerData", taskerData);
     return (
         <Layout title="Discover | Cipher">
             <Container fluid="xl" className="px-5">
@@ -80,44 +82,49 @@ const Discover: NextPage = () => {
                     <section className="discover-page__merchants">
                         <h1>Top Merchants</h1>
                         <Row className="gx-5">
-                            {merchants &&
-                                merchants.map((merchant) => {
+                            {taskerData.result &&
+                                taskerData.result.map((merchant, key) => {
                                     return (
-                                        <Col
-                                            sm={6}
-                                            lg={4}
-                                            xl={3}
-                                            key={merchant.id}
-                                        >
+                                        <Col sm={6} lg={4} xl={3} key={key}>
                                             <MerchantCard
                                                 merchantImage={
-                                                    merchant.merchantImage
+                                                    merchant?.user
+                                                        ?.profile_image
                                                 }
                                                 merchantName={
-                                                    merchant.merchantName
+                                                    merchant?.user?.full_name
                                                 }
                                                 merchantCategory={
-                                                    merchant.merchantCategory
+                                                    merchant?.designation
                                                 }
                                                 merchantLocation={
-                                                    merchant.merchantLocation
+                                                    merchant?.address_line1 +
+                                                    " " +
+                                                    merchant?.address_line2
                                                 }
                                                 merchantDescription={
-                                                    merchant.merchantDescription
+                                                    merchant?.bio
                                                 }
                                                 merchantRating={
-                                                    merchant.merchantRating
+                                                    merchant?.stats
+                                                        ?.user_reviews
                                                 }
                                                 merchantPrice={
-                                                    merchant.merchantPrice
+                                                    merchant?.hourly_rate
+                                                }
+                                                currency={
+                                                    merchant?.charge_currency
+                                                        ?.code
                                                 }
                                                 happyClients={
-                                                    merchant.happyClients
+                                                    merchant?.stats
+                                                        ?.happy_clients
                                                 }
                                                 successRate={
-                                                    merchant.successRate
+                                                    merchant?.stats
+                                                        ?.success_rate
                                                 }
-                                                merchantId={merchant.id}
+                                                merchantId={merchant?.user?.id}
                                             />
                                         </Col>
                                     );
@@ -181,3 +188,20 @@ const Discover: NextPage = () => {
 };
 
 export default Discover;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: taskerData } = await axiosClient.get(
+            "/tasker/top-tasker/"
+        );
+        return {
+            props: { taskerData },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: { taskerData: [] },
+            revalidate: 10,
+        };
+    }
+};
