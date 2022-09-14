@@ -1,15 +1,12 @@
 import Reviews from "@components/common/Reviews";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import { useData } from "hooks/use-data";
-import Image from "next/image";
 import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
-import { profileTaskCard } from "staticData/profileTaskCard";
 import { reviewsContent } from "staticData/reviews";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { ServicesValueProps } from "types/serviceCard";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
 import { HomeSearchdata } from "utils/homeSearchData";
@@ -84,16 +81,18 @@ const TasksProfileCard = () => {
         "/task/my-task"
     );
 
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"
     );
-    console.log("takser services=", servicesData);
+    const serviceLength = servicesData?.data?.result.length;
+
     return (
         <section className="profile-task">
             <div className="profile-task__top-container">
                 <Row className="gx-5">
-                    {servicesData &&
+                    {serviceLength && serviceLength > 0 ? (
                         servicesData?.data?.result?.map((service, key) => {
                             return (
                                 <Col
@@ -106,7 +105,27 @@ const TasksProfileCard = () => {
                                     <ServiceCard serviceCard={service} />
                                 </Col>
                             );
-                        })}
+                        })
+                    ) : (
+                        // <p>
+                        //     You have not posted any services right now. Add
+                        //     services.
+                        // </p>
+
+                        <div>
+                            <p>
+                                You have not posted any services right now. Add
+                                services.
+                            </p>
+                            <a
+                                onClick={() => toggleShowPostTaskModal()}
+                                className="nav-cta-btn"
+                                role="button"
+                            >
+                                Post a Service
+                            </a>
+                        </div>
+                    )}
                 </Row>
                 {/* <Row>
                     {profileTaskCard &&

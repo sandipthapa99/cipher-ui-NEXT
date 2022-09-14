@@ -289,14 +289,16 @@ const UserProfileCard = ({
                                         {phone}
                                     </p>
                                 </div>
-                                <div className="type d-flex flex-col">
-                                    <FontAwesomeIcon
-                                        icon={faAt}
-                                        className="thumbnail-img"
-                                    />
+                                {user.email && (
+                                    <div className="type d-flex flex-col">
+                                        <FontAwesomeIcon
+                                            icon={faAt}
+                                            className="thumbnail-img"
+                                        />
 
-                                    <p>{user.email}</p>
-                                </div>
+                                        <p>{user.email}</p>
+                                    </div>
+                                )}
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faLocationDot}
