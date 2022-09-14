@@ -20,7 +20,10 @@ export const MessageList = ({ messages }: MessageListProps) => {
                 key={message.id}
             >
                 <Image
-                    src={message.user.profileImage}
+                    src={
+                        message.user.profileImage ??
+                        "/userprofile/unknownPerson.jpg"
+                    }
                     width="40px"
                     height="40px"
                     alt="Profile Image"

@@ -522,18 +522,6 @@ const Home: NextPage<{
             </section>
             {/* Find & Hire section end */}
 
-            {/* Horoscope section starts */}
-            {/* <section
-                id="horoscope-slider-section"
-                className="horoscope-slider-section"
-            >
-                <Container className="px-5" fluid="xl">
-                    <h1 className="text-center">Horoscopes</h1>
-                    <HoroscopeSlider />
-                </Container>
-            </section> */}
-            {/* Horoscope section ends */}
-
             {/* Top Taksers Section Start */}
             <section id="top-merchants" className="top-merchants">
                 <Container fluid="xl" className="px-5">

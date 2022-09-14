@@ -34,7 +34,7 @@ const ServiceProviderCard = ({
                 <div className="profile">
                     <figure className="thumbnail-img">
                         <Image
-                            src={image}
+                            src={image ?? "/userprofile/unknownPerson.jpg"}
                             layout="fill"
                             objectFit="cover"
                             alt="serviceprovider-image"

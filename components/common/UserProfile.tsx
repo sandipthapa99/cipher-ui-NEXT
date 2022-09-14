@@ -297,6 +297,16 @@ const UserProfileCard = ({
                                         </Link>
                                     )}
                                 </div>
+                                {user.email && (
+                                    <div className="type d-flex flex-col">
+                                        <FontAwesomeIcon
+                                            icon={faAt}
+                                            className="thumbnail-img"
+                                        />
+
+                                        <p>{user.email}</p>
+                                    </div>
+                                )}
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faAt}
