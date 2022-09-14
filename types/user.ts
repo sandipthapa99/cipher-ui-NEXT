@@ -4,4 +4,6 @@ export interface User {
     is_verified: boolean;
     groups: string;
     permissions: string;
+    email: string;
+    phone: string;
 }
