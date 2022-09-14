@@ -1,8 +1,8 @@
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
 
@@ -11,7 +11,12 @@ const UserActivities = () => {
         ["tasker-activities"],
         "/history/my-activities/"
     );
-    const [id, setId] = useState<number | undefined>();
+    const [id, setId] = useState<number | undefined>(
+        activities?.data.result[0].id
+    );
+    useEffect(() => {
+        setId(activities?.data.result[0].id);
+    }, []);
 
     return (
         <div className="activities">

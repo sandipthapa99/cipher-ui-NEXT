@@ -86,6 +86,18 @@ const AboutProfile = () => {
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
 
     const [hovered, setHovered] = useState<null | number>(null);
+    const [educationHovered, setEducationHovered] = useState<null | number>(
+        null
+    );
+
+    const [certificationHovered, setCertificationHovered] = useState<
+        null | number
+    >(null);
+
+    const [experienceHovered, setExperienceHovered] = useState<null | number>(
+        null
+    );
+
     return (
         <>
             <div className="about-profile">
@@ -287,10 +299,14 @@ const AboutProfile = () => {
                                                       className="experience__type"
                                                       key={value.id}
                                                       onMouseLeave={() =>
-                                                          setHovered(null)
+                                                          setExperienceHovered(
+                                                              null
+                                                          )
                                                       }
                                                       onMouseEnter={() =>
-                                                          setHovered(value?.id)
+                                                          setExperienceHovered(
+                                                              value?.id
+                                                          )
                                                       }
                                                   >
                                                       <div className="name d-flex">
@@ -298,7 +314,7 @@ const AboutProfile = () => {
                                                               {value?.title}
                                                           </h3>
 
-                                                          {hovered ===
+                                                          {experienceHovered ===
                                                           value.id ? (
                                                               <div className="icons">
                                                                   <FontAwesomeIcon
@@ -435,10 +451,12 @@ const AboutProfile = () => {
                                                   className="education__type"
                                                   key={value?.id}
                                                   onMouseLeave={() =>
-                                                      setHovered(null)
+                                                      setEducationHovered(null)
                                                   }
                                                   onMouseEnter={() =>
-                                                      setHovered(value?.id)
+                                                      setEducationHovered(
+                                                          value?.id
+                                                      )
                                                   }
                                               >
                                                   <div className="name d-flex">
@@ -446,7 +464,8 @@ const AboutProfile = () => {
                                                           {value.school}
                                                       </h3>
 
-                                                      {hovered === value.id ? (
+                                                      {educationHovered ===
+                                                      value.id ? (
                                                           <div className="icons">
                                                               <FontAwesomeIcon
                                                                   icon={
@@ -544,10 +563,14 @@ const AboutProfile = () => {
                                                   <div
                                                       className="name d-flex"
                                                       onMouseLeave={() =>
-                                                          setHovered(null)
+                                                          setCertificationHovered(
+                                                              null
+                                                          )
                                                       }
                                                       onMouseEnter={() =>
-                                                          setHovered(value?.id)
+                                                          setCertificationHovered(
+                                                              value?.id
+                                                          )
                                                       }
                                                   >
                                                       <a
@@ -561,7 +584,8 @@ const AboutProfile = () => {
                                                               {value?.name}
                                                           </h3>
                                                       </a>
-                                                      {hovered === value?.id ? (
+                                                      {certificationHovered ===
+                                                      value?.id ? (
                                                           <div className="icons">
                                                               <FontAwesomeIcon
                                                                   icon={
@@ -684,7 +708,7 @@ const AboutProfile = () => {
                             taskerRating?.data.result.length > 0 ? (
                                 <div>
                                     <Spoiler
-                                        maxHeight={350}
+                                        maxHeight={480}
                                         hideLabel={"Hide"}
                                         showLabel={"See all reviews"}
                                         className={"mb-5"}

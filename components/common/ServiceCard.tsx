@@ -22,7 +22,7 @@ const ServiceCard = ({
     serviceCard: ServicesValueProps["result"][0];
 }) => {
     const router = useRouter();
-    const { data: profileDetails, isLoading, error } = useGetProfile();
+    const { data: profileDetails } = useGetProfile();
 
     const loggedIn = Cookies.get("access");
 
