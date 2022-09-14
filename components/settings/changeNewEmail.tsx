@@ -10,12 +10,14 @@ import { axiosClient } from "utils/axiosClient";
 import { isSubmittingClass } from "utils/helpers";
 
 export const ChangeNewEmail = () => {
-    const boolean = false;
-    const url = boolean ? "/tasker/add-email/" : "/tasker/change-email/";
+    const { data: userDetails } = useUser();
+    const url =
+        userDetails?.email === ""
+            ? "/tasker/add-email/"
+            : "/tasker/change-email/";
     const changeEmail = useMutation((values: any) => {
         return axiosClient.post(url, values);
     });
-    const { data: userDetails } = useUser();
 
     // console.log("userDetails", userDetails);
 
@@ -31,7 +33,7 @@ export const ChangeNewEmail = () => {
                 onSubmit={async (values, action) => {
                     changeEmail.mutate(values, {
                         onSuccess: () => {
-                            boolean
+                            userDetails?.email === ""
                                 ? toast.success(" Email added successfully")
                                 : toast.success("Email changed successfully");
 
@@ -96,7 +98,9 @@ export const ChangeNewEmail = () => {
                             <FormButton
                                 type="submit"
                                 variant="primary"
-                                name={boolean ? "Add" : "Update"}
+                                name={
+                                    userDetails?.email === "" ? "Add" : "Update"
+                                }
                                 className="submit-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(
