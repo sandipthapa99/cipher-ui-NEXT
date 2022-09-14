@@ -51,7 +51,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         src={
                             task?.assigner?.profile_image
                                 ? task?.assigner?.profile_image
-                                : "/hireinnepal/footer.png"
+                                : "/userprofile/unknownPerson.jpg"
                         }
                         layout="fill"
                         objectFit="cover"

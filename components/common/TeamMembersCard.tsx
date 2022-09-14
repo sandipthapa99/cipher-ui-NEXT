@@ -66,7 +66,7 @@ export const TeamMembersCard = ({
                     <div className="d-flex w-100 image-and-title">
                         <figure className="team-member-card-image">
                             <Image
-                                src={image ?? "/community/gallery2.png"}
+                                src={image ?? "/userprofile/unknownPerson.jpg"}
                                 alt="team-member-card-image"
                                 height={80}
                                 width={80}
