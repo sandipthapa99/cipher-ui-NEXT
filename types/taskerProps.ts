@@ -1,7 +1,6 @@
 export interface TaskerProps {
     total_pages: number;
     count: number;
-    current: number;
     next: any;
     previous: any;
     page_size: number;

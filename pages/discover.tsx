@@ -5,8 +5,9 @@ import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
-import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
+import { faAngleRight, faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert } from "@mantine/core";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
@@ -21,7 +22,6 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
         ["all-services"],
         "/task/service/"
     );
-    console.log("🚀 ~ file: discover.tsx ~ line 188 ~ taskerData", taskerData);
     return (
         <Layout title="Discover | Cipher">
             <Container fluid="xl" className="px-5">
@@ -42,7 +42,6 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
                         id="services-near-you"
                         className="discover-page__services-section"
                     >
-                        {" "}
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
                             <h1>Popular On Cipher</h1>
 
@@ -81,9 +80,19 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
                     {/* merchants section start */}
                     <section className="discover-page__merchants">
                         <h1>Top Merchants</h1>
+                        {taskerData.result && taskerData.result.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="Taskers Unavailable"
+                                variant="filled"
+                                color="yellow"
+                            >
+                                No tasks available at the moment{""}
+                            </Alert>
+                        )}
                         <Row className="gx-5">
-                            {taskerData.result &&
-                                taskerData.result.map((merchant, key) => {
+                            {taskerData?.result &&
+                                taskerData?.result?.map((merchant, key) => {
                                     return (
                                         <Col sm={6} lg={4} xl={3} key={key}>
                                             <MerchantCard
