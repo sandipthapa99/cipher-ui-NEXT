@@ -1,4 +1,4 @@
-import Cookies from "js-cookie";
+import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 
 import AnchorButton from "./common/AnchorButton";
@@ -14,7 +14,7 @@ const GradientBanner = ({
 
     image,
 }: GradientBannerProps) => {
-    const accessToken = Cookies.get("access");
+    const { data: user } = useUser();
     return (
         <div className="gradient-layout">
             <div className="gradient"></div>
@@ -28,30 +28,27 @@ const GradientBanner = ({
             </figure>
 
             <div className="overlay pb-3">
-                <>
-                    <h1>{title}</h1>
-                    <div className="bottom-content">
-                        <p>{subTitle}</p>
-                    </div>
-                    {accessToken !== undefined ? (
-                        <AnchorButton
-                            className={"px-5"}
-                            href={"/explore-services"}
-                            varient={"secondary"}
-                        >
-                            {"Explore Services"}
-                        </AnchorButton>
-                    ) : (
-                        <AnchorButton
-                            className={"px-5"}
-                            href={"/signup"}
-                            varient={"secondary"}
-                        >
-                            {"Join Us"}
-                        </AnchorButton>
-                    )}
-                </>
-                <div></div>
+                <h1>{title}</h1>
+                <p className="bottom-content">
+                    <span>{subTitle}</span>
+                </p>
+                {user ? (
+                    <AnchorButton
+                        className={"px-5"}
+                        href={"/service"}
+                        varient={"secondary"}
+                    >
+                        {"Explore Services"}
+                    </AnchorButton>
+                ) : (
+                    <AnchorButton
+                        className={"px-5"}
+                        href={"/signup"}
+                        varient={"secondary"}
+                    >
+                        {"Join Us"}
+                    </AnchorButton>
+                )}
             </div>
         </div>
     );
