@@ -29,7 +29,10 @@ const MerchantCard = ({
                         <figure className="thumbnail-img">
                             {merchantImage && (
                                 <Image
-                                    src={merchantImage}
+                                    src={
+                                        merchantImage ??
+                                        "/userprofile/unknownPerson.jpg"
+                                    }
                                     layout="fill"
                                     objectFit="cover"
                                     alt="merchant-image"

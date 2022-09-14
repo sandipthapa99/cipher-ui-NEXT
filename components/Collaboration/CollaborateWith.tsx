@@ -10,7 +10,10 @@ export const CollaborateWith = () => {
                 {DUMMY_TASKS.map((item, key) => (
                     <figure className="collaborate-with-image" key={key}>
                         <Image
-                            src={item?.user?.profileImage}
+                            src={
+                                item?.user?.profileImage ??
+                                "/userprofile/unknownPerson.jpg"
+                            }
                             alt="collaborate-with-image"
                             height={48}
                             width={48}
