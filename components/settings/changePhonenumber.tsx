@@ -13,8 +13,12 @@ import { isSubmittingClass } from "utils/helpers";
 
 export const ChangePhoneNumber = () => {
     const { data: userDetails } = useUser();
-    const boolean = false;
-    const url = boolean ? "/tasker/add-phone/" : "/tasker/change-phone/";
+    console.log("user-details", userDetails);
+
+    const url =
+        userDetails?.phone === ""
+            ? "/tasker/add-phone/"
+            : "/tasker/change-phone/";
     const changePhoneNumber = useMutation((values: any) => {
         return axiosClient.post(url, values);
     });
@@ -31,7 +35,7 @@ export const ChangePhoneNumber = () => {
                 onSubmit={async (values, action) => {
                     changePhoneNumber.mutate(values, {
                         onSuccess: () => {
-                            boolean
+                            userDetails?.phone === ""
                                 ? toast.success(
                                       "Phone Number added successfully"
                                   )
@@ -89,7 +93,9 @@ export const ChangePhoneNumber = () => {
                             <FormButton
                                 type="submit"
                                 variant="primary"
-                                name={boolean ? "Add" : "Update"}
+                                name={
+                                    userDetails?.phone === "" ? "Add" : "Update"
+                                }
                                 className="submit-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(
