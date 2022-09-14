@@ -297,7 +297,6 @@ const UserProfileCard = ({
                                         </Link>
                                     )}
                                 </div>
-<<<<<<< HEAD
                                 {user.email && (
                                     <div className="type d-flex flex-col">
                                         <FontAwesomeIcon
@@ -308,7 +307,6 @@ const UserProfileCard = ({
                                         <p>{user.email}</p>
                                     </div>
                                 )}
-=======
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faAt}
@@ -325,7 +323,6 @@ const UserProfileCard = ({
                                         </Link>
                                     )}
                                 </div>
->>>>>>> a5ab7ec04c710cd63d3d168860a9f29e7f4e1486
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faLocationDot}
