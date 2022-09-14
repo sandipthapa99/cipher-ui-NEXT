@@ -13,7 +13,6 @@ import {
     growBusinessCarousel,
     growBusinessSteps,
 } from "staticData/growBusiness";
-import { services } from "staticData/services";
 import type { BlogValueProps } from "types/blogs";
 import type { ServicesValueProps } from "types/serviceCard";
 
@@ -104,7 +103,7 @@ const GrowYourBusiness: NextPage = () => {
                                 )}
                         </Row>
                         <Row className="gx-5 more-services">
-                            {services &&
+                            {servicesData &&
                                 servicesData?.data?.result?.map(
                                     (service, key) => {
                                         return (

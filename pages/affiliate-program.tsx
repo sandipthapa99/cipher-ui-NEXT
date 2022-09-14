@@ -1,16 +1,16 @@
 import AnchorButton from "@components/common/AnchorButton";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import CipherCard from "@components/common/CipherCard";
-import FaqContent from "@components/common/Faq";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import Layout from "@components/Layout";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert } from "@mantine/core";
 import Cookies from "js-cookie";
 import Image from "next/image";
-import { Accordion, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { Table } from "react-bootstrap";
 import { affiliateGetStarted } from "staticData/affiliate";
-import { faqContent } from "staticData/faq";
-import { trustedPartners } from "staticData/taskerMarketPlace";
 
 const AffiliateProgram = () => {
     const accessToken = Cookies.get("access");
@@ -78,7 +78,7 @@ const AffiliateProgram = () => {
             </section>
             <Container className="px-5" fluid="xl">
                 <section className="affiliate-partners-section">
-                    <div className="content">
+                    {/* <div className="content">
                         {trustedPartners &&
                             trustedPartners.map((partner) => (
                                 <h1
@@ -95,7 +95,14 @@ const AffiliateProgram = () => {
                                     {partner.name}
                                 </h1>
                             ))}
-                    </div>
+                    </div> */}
+                    <Alert
+                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        title="Feature TO-BE Implemented"
+                        color="teal"
+                    >
+                        This feature is to be Implemented
+                    </Alert>
                 </section>
                 <section className="affiliate-get-started-section">
                     <h1 className="heading-title">Get started</h1>
@@ -190,7 +197,7 @@ const AffiliateProgram = () => {
 
                 <section className="affiliate-faqs">
                     <h1>Frequently asked questions</h1>
-                    <Accordion flush>
+                    {/* <Accordion flush>
                         {faqContent &&
                             faqContent.map((faq) => (
                                 <FaqContent
@@ -200,7 +207,14 @@ const AffiliateProgram = () => {
                                     question={faq.question}
                                 />
                             ))}
-                    </Accordion>
+                    </Accordion> */}
+                    <Alert
+                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        title="Feature TO-BE Implemented"
+                        color="teal"
+                    >
+                        This feature is to be Implemented
+                    </Alert>
                 </section>
             </Container>
         </Layout>
