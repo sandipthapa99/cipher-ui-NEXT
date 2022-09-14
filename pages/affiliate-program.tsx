@@ -11,7 +11,6 @@ import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 import { Table } from "react-bootstrap";
 import { affiliateGetStarted } from "staticData/affiliate";
-import { trustedPartners } from "staticData/taskerMarketPlace";
 
 const AffiliateProgram = () => {
     const accessToken = Cookies.get("access");
@@ -79,7 +78,7 @@ const AffiliateProgram = () => {
             </section>
             <Container className="px-5" fluid="xl">
                 <section className="affiliate-partners-section">
-                    <div className="content">
+                    {/* <div className="content">
                         {trustedPartners &&
                             trustedPartners.map((partner) => (
                                 <h1
@@ -96,7 +95,14 @@ const AffiliateProgram = () => {
                                     {partner.name}
                                 </h1>
                             ))}
-                    </div>
+                    </div> */}
+                    <Alert
+                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        title="Feature TO-BE Implemented"
+                        color="teal"
+                    >
+                        This feature is to be Implemented
+                    </Alert>
                 </section>
                 <section className="affiliate-get-started-section">
                     <h1 className="heading-title">Get started</h1>

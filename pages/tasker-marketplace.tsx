@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert } from "@mantine/core";
 import type { NextPage } from "next";
 import { Col, Container, Row } from "react-bootstrap";
-import { taskerServices, trustedPartners } from "staticData/taskerMarketPlace";
+import { taskerServices } from "staticData/taskerMarketPlace";
 
 const waysToHire = [
     {
@@ -80,12 +80,19 @@ const TaskerMarketPlace: NextPage = () => {
                     </div>
                     <div className="tasker-marketplace__partners">
                         <h1>Trusted Partners</h1>
-                        <div className="content">
+                        {/* <div className="content">
                             {trustedPartners &&
                                 trustedPartners.map((partner) => (
                                     <h1 key={partner.id}>{partner.name}</h1>
                                 ))}
-                        </div>
+                        </div> */}
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="Feature TO-BE Implemented"
+                            color="teal"
+                        >
+                            This feature is to be Implemented
+                        </Alert>
                     </div>
                     <div className="tasker-marketplace__faq">
                         <h1>Frequently Asked Questions</h1>
