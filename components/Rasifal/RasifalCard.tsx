@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 interface RasifalCardProps {
@@ -13,6 +13,11 @@ export const RasifalCard = ({
     description,
     image,
 }: RasifalCardProps) => {
+    const [showMore, setShowMore] = useState(false);
+
+    const handleShowMore = () => {
+        setShowMore((prevShowMore) => !prevShowMore);
+    };
     return (
         <div className="each-rasifal-card">
             <Row>
@@ -33,8 +38,18 @@ export const RasifalCard = ({
                 <Col md={9}>
                     <div className="each-rasifal-card__details">
                         <h5>{title}</h5>
-
-                        <p>{description}</p>
+                        {description?.length > 400 ? (
+                            <p>
+                                {!showMore
+                                    ? description.substring(0, 400)
+                                    : description}
+                                <a onClick={() => handleShowMore()}>
+                                    {showMore ? "hide" : "show more"}
+                                </a>
+                            </p>
+                        ) : (
+                            <p>{description}</p>
+                        )}
                     </div>
                 </Col>
             </Row>
