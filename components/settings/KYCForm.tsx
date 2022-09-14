@@ -67,10 +67,10 @@ const KYCForm = () => {
                 <Formik
                     enableReinitialize={true}
                     initialValues={{
-                        full_name: "",
-                        address: "",
-                        country: "",
-                        company: "",
+                        full_name: KYCData ? KYCData?.full_name : "",
+                        address: KYCData ? KYCData?.address : "",
+                        country: KYCData ? KYCData?.country : "",
+                        company: KYCData ? KYCData?.company : "",
                         // passport_size_photo: "",
                         // personal_address_verification_document: "",
                         // bank_name: KYCData?.bank_name ?? "",
@@ -185,11 +185,11 @@ const KYCForm = () => {
                                 // }
                                 searchable
                                 nothingFound="No result found."
-                                value={
-                                    profileDetails
-                                        ? foundCountry?.value
-                                        : countryChange
-                                }
+                                // value={
+                                //     profileDetails
+                                //         ? foundCountry?.value
+                                //         : countryChange
+                                // }
                                 onChange={(value) =>
                                     handleCountryChanged(value, setFieldValue)
                                 }
