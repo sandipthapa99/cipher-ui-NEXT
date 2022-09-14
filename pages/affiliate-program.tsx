@@ -19,10 +19,6 @@ const AffiliateProgram: NextPage<{
     trustedPartnerData: BrandValueProps;
     faqData: FAQValueProps;
 }> = ({ trustedPartnerData, faqData }) => {
-    console.log(
-        "🚀 ~ file: affiliate-program.tsx ~ line 25 ~ trustedPartnerData",
-        trustedPartnerData
-    );
     const accessToken = Cookies.get("access");
 
     return (
