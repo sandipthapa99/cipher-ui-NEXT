@@ -333,22 +333,25 @@ const Home: NextPage<{
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                        {servicesData && servicesData?.result.length > 0 && (
-                            <>
-                                <h2 className="heading-title">
-                                    Professional Services
-                                </h2>
-                                <Link href="/service">
-                                    <a className="view-more">
-                                        view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
-                                    </a>
-                                </Link>
-                            </>
-                        )}
+                        {servicesData &&
+                            servicesData?.result?.filter(
+                                (q) => q.is_professional
+                            ).length > 0 && (
+                                <>
+                                    <h2 className="heading-title">
+                                        Professional Services
+                                    </h2>
+                                    <Link href="/service">
+                                        <a className="view-more">
+                                            view more{" "}
+                                            <FontAwesomeIcon
+                                                icon={faAngleRight}
+                                                className="svg-icon"
+                                            />
+                                        </a>
+                                    </Link>
+                                </>
+                            )}
                     </div>
                     {servicesData && servicesData?.result.length <= 0 && (
                         <Alert
@@ -365,19 +368,24 @@ const Home: NextPage<{
                     )}
                     <Row className="gx-5">
                         {servicesData &&
-                            servicesData?.result?.slice(0, 4).map((service) => {
-                                return (
-                                    <Col
-                                        sm={6}
-                                        md={4}
-                                        lg={3}
-                                        key={service.id}
-                                        className="d-flex"
-                                    >
-                                        <ServiceCard serviceCard={service} />
-                                    </Col>
-                                );
-                            })}
+                            servicesData?.result
+                                ?.filter((q) => q.is_professional)
+                                .slice(0, 4)
+                                .map((service) => {
+                                    return (
+                                        <Col
+                                            sm={6}
+                                            md={4}
+                                            lg={3}
+                                            key={service.id}
+                                            className="d-flex"
+                                        >
+                                            <ServiceCard
+                                                serviceCard={service}
+                                            />
+                                        </Col>
+                                    );
+                                })}
                     </Row>
                 </Container>
             </section>
