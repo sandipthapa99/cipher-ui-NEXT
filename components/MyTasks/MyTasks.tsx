@@ -1,3 +1,4 @@
+import { Alert } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import type { MyTaskProps } from "types/myTasksProps";
@@ -16,7 +17,7 @@ export const MyTasks = () => {
             <h3>My Tasks</h3>
 
             <div className="my-task__each-orders">
-                {mytaskData &&
+                {mytaskData?.length ? (
                     mytaskData?.map((item: MyTaskProps, index: number) => (
                         <MyTaskOrder
                             key={index}
@@ -33,7 +34,12 @@ export const MyTasks = () => {
                             currency={item?.currency?.code}
                             budget_to={item?.budget_to}
                         />
-                    ))}
+                    ))
+                ) : (
+                    <Alert title="NO DATA AVAILABLE !!!" color="orange">
+                        Sorrry, You have no task data to show
+                    </Alert>
+                )}
             </div>
         </div>
     );
