@@ -9,6 +9,7 @@ import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/TasksProfile";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";

@@ -172,13 +172,14 @@ const Header = () => {
                                 >
                                     <div className="bell-icon-header">
                                         {allNotification &&
-                                        allNotification?.unread_count <= 0 ? (
+                                        allNotification?.unread_count > 0 ? (
                                             <Indicator
+                                                color="#e62e04"
                                                 label={
                                                     allNotification?.unread_count
                                                 }
                                                 inline
-                                                size={22}
+                                                size={15}
                                             >
                                                 <FontAwesomeIcon
                                                     icon={faBell}
