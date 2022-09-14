@@ -1,11 +1,4 @@
-import {
-    Box,
-    createStyles,
-    Group,
-    Skeleton,
-    Space,
-    Stack,
-} from "@mantine/core";
+import { Box, createStyles, Group, Skeleton, Stack } from "@mantine/core";
 
 export const TaskDetailSkeleton = () => {
     const { classes } = useStyles();
