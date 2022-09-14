@@ -46,8 +46,6 @@ const ConnectedAccount = () => {
         "/user/linked-accounts/list/"
     );
 
-    console.log("linked accounts= hahah", linkedAccounts?.data);
-
     return (
         <div className="account-form">
             <h2>Connected Accounts</h2>
