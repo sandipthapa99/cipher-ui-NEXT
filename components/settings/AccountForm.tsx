@@ -13,32 +13,25 @@ import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
+import { createStyles } from "@mantine/core";
+import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
-import {
-    QueryClient,
-    useMutation,
-    useQuery,
-    useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useCurrency } from "hooks/dropdown/useCurrency";
 import { useLanguage } from "hooks/dropdown/useLanguage";
-import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import { useData } from "hooks/use-data";
-import { useEditForm } from "hooks/use-edit-form";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
-import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import { axiosClient } from "utils/axiosClient";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -82,6 +75,8 @@ const profile_visibility = [
 
 const AccountForm = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
+    //profile success modal
+    const [show, setShow] = useState(false);
     //hooks call
     const { mutate } = useProfile();
     const { data: currency } = useCurrency();
@@ -101,6 +96,7 @@ const AccountForm = () => {
         inputRef?.current?.click();
         //  setIsEdtButtonClicked(!isEditButtonClicked);
     };
+    const { classes } = useStyles();
 
     useEffect(() => {
         if (!profile?.profile_image) {
@@ -219,6 +215,19 @@ const AccountForm = () => {
     const editProfile = useMutation((data: FormData) =>
         axiosClient.patch("/tasker/profile/", data)
     );
+    const loadingOverlayVisible = useMemo(
+        () => editProfile.isLoading,
+        [editProfile.isLoading]
+    );
+    if (loadingOverlayVisible)
+        return (
+            <LoadingOverlay
+                visible={loadingOverlayVisible}
+                className={classes.overlay}
+                overlayBlur={2}
+            />
+        );
+
     const onEditProfile = (data: any) => {
         const formData: FormData = new FormData();
         formData.append("profile_image", data);
@@ -235,8 +244,6 @@ const AccountForm = () => {
         });
     };
     let previewImage: any;
-    //profile success modal
-    const [show, setShow] = useState(false);
 
     //edit profile
     function isValidURL(str: any) {
@@ -456,12 +463,15 @@ const AccountForm = () => {
                                     </div>
 
                                     <Image
-                                        // src={"/userprofile/unknownPerson.jpg"}
+                                        //src={"/userprofile/unknownPerson.jpg"}
                                         src={
                                             profile && profile.profile_image
                                                 ? profile.profile_image
                                                 : isNoProfileImage && file
                                                 ? file
+                                                : isEditButtonClicked &&
+                                                  !profile?.profile_image
+                                                ? "/userprofile/unknownPerson.jpg"
                                                 : isEditButtonClicked
                                                 ? previewImage
                                                 : "/userprofile/unknownPerson.jpg"
@@ -902,4 +912,11 @@ const AccountForm = () => {
         </>
     );
 };
+const useStyles = createStyles(() => ({
+    overlay: {
+        postion: "fixed",
+        inset: 0,
+        zIndex: 9999,
+    },
+}));
 export default AccountForm;

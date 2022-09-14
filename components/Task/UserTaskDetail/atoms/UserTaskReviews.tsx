@@ -6,31 +6,71 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Highlight, Spoiler } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { Formik } from "formik";
-import Link from "next/link";
 import { useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
+import { Col, Form, Row } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
 import { reviewSearchData } from "utils/formData";
 import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
 export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
+    const [search, setSearch] = useState("-rating");
     const { data: taskerRatingData } = useQuery(
-        ["tasker-rating-data", activeTaskId],
+        ["tasker-rating-data", activeTaskId, search],
         async () => {
             return await axiosClient.get(
                 `/task/rating/list/${activeTaskId}?ordering=${search}`
             );
         }
     );
-    const [search, setSearch] = useState("-rating");
 
     const ratingData = taskerRatingData?.data?.result;
     return (
         <>
-            <FilterReview totalReviews={ratingData?.length} />
+            {/* <FilterReview totalReviews={ratingData?.length} /> */}
+            <Row className="align-items-center td-filter-review-container">
+                <Col md={4}>
+                    <div className="d-flex">
+                        <h2 className="d-flex align-items-center">
+                            Reviews
+                            <span>({ratingData && ratingData.length})</span>
+                        </h2>
+                    </div>
+                </Col>
+                <Col md={{ span: 7, offset: 1 }}>
+                    <Row className="select-field justify-content-end">
+                        <Col md={6}>
+                            <Formik
+                                initialValues={reviewSearchData}
+                                validationSchema={ReviewSearchSchema}
+                                onSubmit={async (values) => {
+                                    console.log(values);
+                                }}
+                            >
+                                <Form
+                                    onChange={(e: any) => {
+                                        setSearch(e.target.value);
+                                    }}
+                                >
+                                    <Form.Select
+                                        aria-label="Default select example"
+                                        className="dropdown-wrapper"
+                                    >
+                                        <option value="-rating">
+                                            Most Relevant
+                                        </option>
+                                        <option value="-updated_at">
+                                            Latest
+                                        </option>
+                                        <option value="-rating">Top</option>
+                                    </Form.Select>
+                                </Form>
+                            </Formik>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
             <Spoiler
                 maxHeight={350}
-                hideLabel={"Hide all reviews"}
+                hideLabel={"Hide"}
                 showLabel={"See all reviews"}
                 className={"mb-5"}
             >

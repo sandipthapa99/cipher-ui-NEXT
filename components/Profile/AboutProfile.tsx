@@ -9,10 +9,10 @@ import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { RatingResponse } from "hooks/rating/getRating";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { UserProfileProps } from "types/userProfileProps";
 import { reviewSearchData } from "utils/formData";
 import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
@@ -36,12 +36,12 @@ const AboutProfile = () => {
     const [modalName, setModalName] = useState("");
     const [id, setId] = useState<number | undefined>();
     const [search, setSearch] = useState("-rating");
-    const [page, setPage] = useState<number>(1);
     const [isEditProfile, setIsEditProfile] = useState(false);
     const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
-        `/task/rating?ordering=${search}&page=${page}`
+        `/task/rating?ordering=${search}`
     );
 
     // const { mutate: searchMutation, data: filteredData } =
@@ -651,54 +651,26 @@ const AboutProfile = () => {
                                                 console.log(values);
                                             }}
                                         >
-                                            {({
-                                                isSubmitting,
-                                                errors,
-                                                values,
-                                                touched,
-                                            }) => (
-                                                <Form
-                                                    onChange={(e: any) => {
-                                                        setSearch(
-                                                            e.target.value
-                                                        );
-                                                    }}
+                                            <Form
+                                                onChange={(e: any) => {
+                                                    setSearch(e.target.value);
+                                                }}
+                                            >
+                                                <Form.Select
+                                                    aria-label="Default select example"
+                                                    className="dropdown-wrapper"
                                                 >
-                                                    <Form.Select
-                                                        aria-label="Default select example"
-                                                        className="dropdown-wrapper"
-                                                    >
-                                                        <option value="-rating">
-                                                            Most Relevant
-                                                        </option>
-                                                        <option value="-updated_at">
-                                                            Latest
-                                                        </option>
-                                                        <option value="-rating">
-                                                            Top
-                                                        </option>
-                                                    </Form.Select>
-                                                    {/* <SelectInputField
-                                                        name="search_value"
-                                                        options={reviewType}
-                                                        fieldRequired
-                                                        placeHolder="Most Relevant"
-                                                        // value={
-                                                        //     values.search_category
-                                                        // }
-                                                        onChange={(e: any) => {
-                                                            setSearch(
-                                                                values.search_value
-                                                            );
-                                                            console.log(
-                                                                "values0,",
-                                                                values.search_value
-                                                            );
-                                                           
-                                                        }}
-                                                    /> */}
-                                                </Form>
-                                            )}
+                                                    <option value="-rating">
+                                                        Most Relevant
+                                                    </option>
+                                                    <option value="-updated_at">
+                                                        Latest
+                                                    </option>
+                                                    <option value="-rating">
+                                                        Top
+                                                    </option>
+                                                </Form.Select>
+                                            </Form>
                                         </Formik>
                                     </Col>
                                 </Row>
@@ -750,10 +722,21 @@ const AboutProfile = () => {
                                     </Spoiler>
                                 </div>
                             ) : (
-                                <p>
-                                    You have no reviews yet, Get started with
-                                    task.
-                                </p>
+                                <div>
+                                    <p>
+                                        You have no reviews yet, Get started
+                                        with task.
+                                    </p>
+                                    <a
+                                        onClick={() =>
+                                            toggleShowPostTaskModal()
+                                        }
+                                        className="nav-cta-btn"
+                                        role="button"
+                                    >
+                                        Post a Task
+                                    </a>
+                                </div>
                             )}
                         </Row>
                     </div>
