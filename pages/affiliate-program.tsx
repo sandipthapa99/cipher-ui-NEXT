@@ -203,21 +203,23 @@ const AffiliateProgram: NextPage<{
 
                 <section className="affiliate-faqs">
                     <h1>Frequently asked questions</h1>
-                    {(faqData?.result ?? []).length > 0
-                        ? faqData?.result?.map((value, key) => (
-                              <Accordion.Item
-                                  eventKey={key.toString()}
-                                  key={key}
-                              >
-                                  <Accordion.Header>
-                                      {value.title}
-                                  </Accordion.Header>
-                                  <Accordion.Body>
-                                      <p>{value.content}</p>
-                                  </Accordion.Body>
-                              </Accordion.Item>
-                          ))
-                        : "No FAQ datas found"}
+                    <Accordion flush>
+                        {(faqData?.result ?? []).length > 0
+                            ? faqData?.result?.map((value, key) => (
+                                  <Accordion.Item
+                                      eventKey={key.toString()}
+                                      key={key}
+                                  >
+                                      <Accordion.Header>
+                                          {value?.title}
+                                      </Accordion.Header>
+                                      <Accordion.Body>
+                                          <p>{value?.content}</p>
+                                      </Accordion.Body>
+                                  </Accordion.Item>
+                              ))
+                            : "No FAQ datas found"}
+                    </Accordion>
                 </section>
             </Container>
         </Layout>
