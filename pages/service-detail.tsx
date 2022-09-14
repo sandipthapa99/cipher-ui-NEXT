@@ -5,7 +5,6 @@ import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
-import ServiceHighlights from "@components/common/ServiceHighlights";
 import ServiceProviderCard from "@components/common/serviceProviderCard";
 import ShareIcon from "@components/common/ShareIcon";
 import Tags from "@components/common/Tags";
