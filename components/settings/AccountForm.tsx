@@ -91,6 +91,12 @@ const AccountForm = () => {
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
+
+    // console.log(
+    //     "🚀 ~ file: AccountForm.tsx ~ line 94 ~ AccountForm ~ skills",
+    //     skills
+    // );
+
     const onButtonClick = () => {
         // `current` points to the mounted file input element
         inputRef?.current?.click();

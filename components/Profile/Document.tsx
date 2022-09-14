@@ -11,13 +11,12 @@ const UserDocument = () => {
     const onButtonClick = () => {
         inputRef?.current?.click();
     };
-    // const { data } = useGetDocument();
-    // const documents = data?.data?.result;
+
     const { data: documents } = useData<UserProfileProps["documentData"]>(
         ["tasker-document"],
         "/tasker/kyc-document"
     );
-    console.log("tsa document", documents);
+
     // const { mutate, isLoading, data: Document } = usePostDocument();
 
     return (
