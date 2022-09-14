@@ -17,7 +17,7 @@ export const AddReviewForm = () => {
                 rating: 0,
             },
             onSubmit: (values) => {
-                console.log("rating values=", values);
+                // console.log("rating values=", values);
                 mutate(values, {
                     onSuccess: async () => {
                         console.log("submitted values", values);
