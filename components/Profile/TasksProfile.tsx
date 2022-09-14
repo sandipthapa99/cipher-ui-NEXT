@@ -1,16 +1,17 @@
 import Reviews from "@components/common/Reviews";
-import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
+import { Spoiler } from "@mantine/core";
 import { Formik } from "formik";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import type { RatingResponse } from "hooks/rating/getRating";
 import { useData } from "hooks/use-data";
-import Link from "next/link";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { reviewsContent } from "staticData/reviews";
+import Form from "react-bootstrap/Form";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { ServicesValueProps } from "types/serviceCard";
-import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
-import { HomeSearchdata } from "utils/homeSearchData";
-import { personType, reviewType } from "utils/options";
+import { reviewSearchData } from "utils/formData";
+import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
 export interface TaskerTasksProps {
     total_pages: number;
     count: number;
@@ -76,6 +77,8 @@ export interface Assigner {
 }
 
 const TasksProfileCard = () => {
+    const [search, setSearch] = useState("-rating");
+
     const { data: taskData } = useData<TaskerTasksProps>(
         ["tasker-tasks"],
         "/task/my-task"
@@ -86,14 +89,27 @@ const TasksProfileCard = () => {
         ["all-services"],
         "/task/service/"
     );
-    const serviceLength = servicesData?.data?.result.length;
 
+    const { data: profileDetails } = useGetProfile();
+    const userId = profileDetails?.user.id;
+    const taskerServices = servicesData?.data.result.find(
+        (services) => services.created_by.id === userId
+    );
+    console.log("tasker services=", servicesData, taskerServices);
+
+    const { data: taskerRating } = useData<RatingResponse>(
+        ["tasker-rating", search],
+        `/task/rating?ordering=${search}`
+    );
+
+    const serviceLength = servicesData?.data?.result.length;
+    console.log("service lenth", serviceLength);
     return (
         <section className="profile-task">
             <div className="profile-task__top-container">
-                <Row className="gx-5">
+                {/* <Row className="gx-5">
                     {serviceLength && serviceLength > 0 ? (
-                        servicesData?.data?.result?.map((service, key) => {
+                        taskerServices?.map((service, key) => {
                             return (
                                 <Col
                                     sm={6}
@@ -126,7 +142,7 @@ const TasksProfileCard = () => {
                             </a>
                         </div>
                     )}
-                </Row>
+                </Row> */}
                 {/* <Row>
                     {profileTaskCard &&
                         profileTaskCard.map((info) => (
@@ -173,7 +189,114 @@ const TasksProfileCard = () => {
                 </Row> */}
             </div>
             {/* task reviews */}
-            <div className="profile-task__bottom-container reviews">
+            <div className="reviews">
+                <div className="head-container">
+                    <Row className="align-items-center">
+                        <Col md={4}>
+                            <h3>
+                                My Reviews{" "}
+                                <span>
+                                    (
+                                    {taskerRating &&
+                                        taskerRating.data.result.length}
+                                    )
+                                </span>{" "}
+                            </h3>
+                        </Col>
+                        <Col md={{ span: 7, offset: 1 }}>
+                            <Row className="select-field justify-content-end">
+                                <Col md={6}>
+                                    <Formik
+                                        initialValues={reviewSearchData}
+                                        validationSchema={ReviewSearchSchema}
+                                        onSubmit={async (values) => {
+                                            console.log(values);
+                                        }}
+                                    >
+                                        <Form
+                                            onChange={(e: any) => {
+                                                setSearch(e.target.value);
+                                            }}
+                                        >
+                                            <Form.Select
+                                                aria-label="Default select example"
+                                                className="dropdown-wrapper"
+                                            >
+                                                <option value="-rating">
+                                                    Most Relevant
+                                                </option>
+                                                <option value="-updated_at">
+                                                    Latest
+                                                </option>
+                                                <option value="-rating">
+                                                    Top
+                                                </option>
+                                            </Form.Select>
+                                        </Form>
+                                    </Formik>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                </div>
+
+                <div className="review-container">
+                    <Row className="gx-5 type">
+                        {taskerRating &&
+                        taskerRating?.data.result.length > 0 ? (
+                            <div>
+                                <Spoiler
+                                    maxHeight={480}
+                                    hideLabel={"Hide"}
+                                    showLabel={"See all reviews"}
+                                    className={"mb-5"}
+                                >
+                                    {taskerRating?.data?.result?.map(
+                                        (review) => (
+                                            <Col md={8} key={review.id}>
+                                                <Reviews
+                                                    name={
+                                                        review?.rated_by
+                                                            .full_name
+                                                    }
+                                                    raterEmail={
+                                                        review?.rated_by.email
+                                                    }
+                                                    ratings={review?.rating}
+                                                    description={review?.review}
+                                                    time={review?.updated_at}
+                                                    raterId={
+                                                        review?.rated_by.id
+                                                    }
+                                                    image={
+                                                        review?.rated_by
+                                                            .profile_image
+                                                    }
+                                                />
+                                            </Col>
+                                        )
+                                    )}
+                                </Spoiler>
+                            </div>
+                        ) : (
+                            <div>
+                                <p>
+                                    You have no reviews yet, Get started with
+                                    task.
+                                </p>
+                                <a
+                                    onClick={() => toggleShowPostTaskModal()}
+                                    className="nav-cta-btn"
+                                    role="button"
+                                >
+                                    Post a Task
+                                </a>
+                            </div>
+                        )}
+                    </Row>
+                </div>
+            </div>
+            {/* <div className="profile-task__bottom-container reviews">
                 <div className="head-container">
                     <Row className="align-items-center">
                         <Col md={6}>
@@ -238,7 +361,7 @@ const TasksProfileCard = () => {
                         <Link href="#!">See all reviews</Link>
                     </Row>
                 </div>
-            </div>
+            </div> */}
         </section>
     );
 };
