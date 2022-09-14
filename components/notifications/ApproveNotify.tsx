@@ -12,7 +12,7 @@ export const ApproveNotify = () => {
                 <figure className="d-flex flex-column justify-content-center notification-image">
                     <Image
                         alt="testimage"
-                        src="/community/blog1.png"
+                        src="/userprofile/unknownPerson.jpg"
                         height={50}
                         width={50}
                     />

@@ -456,7 +456,7 @@ export const AddServiceModalComponent = () => {
                             />
 
                             <Checkbox
-                                label="is active?"
+                                label="is active"
                                 name="is_active"
                                 defaultChecked={true}
                                 onChange={(event) =>
