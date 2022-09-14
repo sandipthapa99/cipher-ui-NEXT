@@ -1,3 +1,4 @@
+import { Alert } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import type { MyBookingProps } from "types/myBookingProps";
@@ -11,17 +12,13 @@ export const MyBookings = () => {
         const response = await axiosClient.get("/task/service/my-booking/");
         return response.data.result;
     });
-    console.log(
-        "🚀 ~ file: MyBookings.tsx ~ line 13 ~ const{data:myBookingData}=useQuery ~ myBookingData",
-        myBookingData
-    );
 
     return (
         <div className="my-task">
             <h3>My Bookings</h3>
 
             <div className="my-task__each-orders">
-                {myBookingData &&
+                {myBookingData?.length ? (
                     myBookingData?.map(
                         (item: MyBookingProps, index: number) => (
                             <MyTaskOrder
@@ -41,7 +38,12 @@ export const MyBookings = () => {
                                 currency={item?.service?.currency?.code}
                             />
                         )
-                    )}
+                    )
+                ) : (
+                    <Alert title="NO DATA AVAILABLE !!!" color="orange">
+                        Sorrry, You have no booking data to show
+                    </Alert>
+                )}
             </div>
         </div>
     );
