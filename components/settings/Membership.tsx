@@ -15,7 +15,6 @@ import {
     Row,
     useAccordionButton,
 } from "react-bootstrap";
-import { membershipPlanData } from "staticData/membershipPlanData";
 
 import { MembershipPackage } from "./MembershipPackage";
 
@@ -61,7 +60,7 @@ interface PaymentAccordion {
 
 const Membership = () => {
     return (
-        <div style={{ backgroundColor: "#fff" }}>
+        <div className="bg-white">
             <Row className="settings-membership">
                 <h2>Memberships</h2>
                 <div className="all-membership-details ">

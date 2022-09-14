@@ -1,14 +1,10 @@
 import Reviews from "@components/common/Reviews";
 import SelectInputField from "@components/common/SelectInputField";
 import ServiceCard from "@components/common/ServiceCard";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import { useData } from "hooks/use-data";
-import Image from "next/image";
 import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
-import { profileTaskCard } from "staticData/profileTaskCard";
 import { reviewsContent } from "staticData/reviews";
 import type { ServicesValueProps } from "types/serviceCard";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";
@@ -79,11 +75,6 @@ export interface Assigner {
 }
 
 const TasksProfileCard = () => {
-    const { data: taskData } = useData<TaskerTasksProps>(
-        ["tasker-tasks"],
-        "/task/my-task"
-    );
-
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"

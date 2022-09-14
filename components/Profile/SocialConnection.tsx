@@ -3,14 +3,8 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Button } from "react-bootstrap";
-import type { socialConnectionProps } from "staticData/socialConnection";
+import type { socialConnectionProps } from "types/socialConnectionProps";
 
-interface socialMediaProps {
-    provider: string;
-    email: string;
-    icon: string;
-    isConnected: true;
-}
 const SocialConnection = ({ values }: { values: socialConnectionProps }) => {
     return (
         <div className="social-connection me-4">
