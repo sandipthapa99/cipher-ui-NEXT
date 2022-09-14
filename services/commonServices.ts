@@ -1,7 +1,5 @@
-import axios from "axios";
 import { reviewsContent } from "staticData/reviews";
 import { SearchBodyData } from "staticData/searchBody";
-import { serviceCategory } from "staticData/serviceCategory";
 import { serviceHighlights } from "staticData/serviceHighlights";
 import { services } from "staticData/services";
 import { axiosClient } from "utils/axiosClient";
@@ -13,13 +11,6 @@ import { axiosClient } from "utils/axiosClient";
 
 //     return servicesNearYou;
 // };
-
-export const getServiceCategory = () => {
-    // const response = await axiosClient.get("/services/category");
-    // return response.data;
-
-    return serviceCategory;
-};
 
 export const getSearchBody = () => {
     // const response = await axiosClient.get("/searchBody");
