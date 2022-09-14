@@ -1,12 +1,13 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import CommunityGuidelineCard from "@components/common/CommunityGuidelineCard";
-import FaqContent from "@components/common/Faq";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import Layout from "@components/Layout";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert } from "@mantine/core";
 import type { NextPage } from "next";
-import { Accordion, Col, Container, Row } from "react-bootstrap";
-import { faqContent } from "staticData/faq";
-import { taskerServices, trustedPartners } from "staticData/taskerMarketPlace";
+import { Col, Container, Row } from "react-bootstrap";
+import { taskerServices } from "staticData/taskerMarketPlace";
 
 const waysToHire = [
     {
@@ -79,16 +80,23 @@ const TaskerMarketPlace: NextPage = () => {
                     </div>
                     <div className="tasker-marketplace__partners">
                         <h1>Trusted Partners</h1>
-                        <div className="content">
+                        {/* <div className="content">
                             {trustedPartners &&
                                 trustedPartners.map((partner) => (
                                     <h1 key={partner.id}>{partner.name}</h1>
                                 ))}
-                        </div>
+                        </div> */}
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="Feature TO-BE Implemented"
+                            color="teal"
+                        >
+                            This feature is to be Implemented
+                        </Alert>
                     </div>
                     <div className="tasker-marketplace__faq">
                         <h1>Frequently Asked Questions</h1>
-                        <Accordion flush>
+                        {/* <Accordion flush>
                             {faqContent &&
                                 faqContent.map((faq) => (
                                     <FaqContent
@@ -98,7 +106,14 @@ const TaskerMarketPlace: NextPage = () => {
                                         question={faq.question}
                                     />
                                 ))}
-                        </Accordion>
+                        </Accordion> */}
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="Feature TO-BE Implemented"
+                            color="teal"
+                        >
+                            This feature is to be Implemented
+                        </Alert>
                     </div>
                 </section>
             </Container>

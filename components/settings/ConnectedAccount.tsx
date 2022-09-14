@@ -6,8 +6,6 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
 import React from "react";
-import { Button } from "react-bootstrap";
-import { socialConnectionValues } from "staticData/socialConnection";
 import { axiosClient } from "utils/axiosClient";
 
 export type LinkedAccountProps = LinkedAccount[];

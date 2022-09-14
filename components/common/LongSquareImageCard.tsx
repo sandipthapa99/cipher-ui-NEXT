@@ -91,7 +91,7 @@ const LongSquareImageCard = ({
                                         {accessToken !== undefined ? (
                                             <AnchorButton
                                                 className={"px-5"}
-                                                href={"/explore-services"}
+                                                href={"/service/"}
                                                 varient={"secondary"}
                                             >
                                                 {"Explore Services"}
@@ -160,7 +160,7 @@ const LongSquareImageCard = ({
                                         {accessToken !== undefined ? (
                                             <AnchorButton
                                                 className={"px-5"}
-                                                href={"/explore-services"}
+                                                href={"/service/"}
                                                 varient={"secondary"}
                                             >
                                                 {"Explore Services"}

@@ -9,8 +9,6 @@ interface RatingStarsProps {
 }
 
 export const RatingStars = ({ value }: RatingStarsProps) => {
-    console.log("ating", value);
-
     // const renderRatingStars = () => {
     //     return Array.from({ length: 5 })
     //         .map((_, index) => index)
