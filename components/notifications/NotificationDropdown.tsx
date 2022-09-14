@@ -109,7 +109,7 @@ export const NotificationDropdown = () => {
                     Mark all as read
                 </p>
             </div>
-            {!allNotifications && (
+            {allNotifications?.result.length === 0 && (
                 <p className="text-center">No notifications to show.</p>
             )}
             {renderTodayNotifications}

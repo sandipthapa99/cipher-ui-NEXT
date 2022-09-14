@@ -55,7 +55,7 @@ export interface UserProfileInfoProps {
     status?: string;
     bio?: string;
     full_name?: string;
-    phone?: string;
+    phone?: User | any;
     gender?: string;
     profile_image?: string;
     date_of_birth?: string;

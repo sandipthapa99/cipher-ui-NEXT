@@ -123,13 +123,13 @@ export default function GetNotifications() {
                             <a>Mark all as read</a>
                         </Link>
                     </div>
-                    {!allNotifications && (
+                    {allNotifications?.result.length === 0 && (
                         <p className="text-center">No notifications to show.</p>
                     )}
                     {renderTodayNotifications}
                     <div className="header">
                         <h4 className="mt-3">Earlier</h4>
-                        {!allNotifications && (
+                        {allNotifications?.result.length === 0 && (
                             <p className="text-center">
                                 No notifications to show.
                             </p>
