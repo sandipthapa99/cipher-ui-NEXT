@@ -1,5 +1,4 @@
 import axios from "axios";
-import { PackageCard } from "staticData/packageCard";
 import { reviewsContent } from "staticData/reviews";
 import { SearchBodyData } from "staticData/searchBody";
 import { serviceCategory } from "staticData/serviceCategory";
@@ -14,12 +13,6 @@ import { axiosClient } from "utils/axiosClient";
 
 //     return servicesNearYou;
 // };
-export const getAllPackageCard = () => {
-    // const response = await axiosClient.get("/packages");
-    // return response.data;
-
-    return PackageCard;
-};
 
 export const getServiceCategory = () => {
     // const response = await axiosClient.get("/services/category");
