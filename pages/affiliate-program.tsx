@@ -3,16 +3,22 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import CipherCard from "@components/common/CipherCard";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import Layout from "@components/Layout";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert } from "@mantine/core";
 import Cookies from "js-cookie";
+import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
-import { Col, Container, Row } from "react-bootstrap";
+import Link from "next/link";
+import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { Table } from "react-bootstrap";
+import Marquee from "react-fast-marquee";
 import { affiliateGetStarted } from "staticData/affiliate";
+import type { BrandValueProps } from "types/brandValueProps";
+import type { FAQValueProps } from "types/faqValueProps";
+import { axiosClient } from "utils/axiosClient";
 
-const AffiliateProgram = () => {
+const AffiliateProgram: NextPage<{
+    trustedPartnerData: BrandValueProps;
+    faqData: FAQValueProps;
+}> = ({ trustedPartnerData, faqData }) => {
     const accessToken = Cookies.get("access");
 
     return (
@@ -57,7 +63,7 @@ const AffiliateProgram = () => {
                                 {accessToken !== undefined ? (
                                     <AnchorButton
                                         className={"px-5"}
-                                        href={"/explore-services"}
+                                        href={"/service/"}
                                         varient={"secondary"}
                                     >
                                         {"Explore Services"}
@@ -76,34 +82,34 @@ const AffiliateProgram = () => {
                     </Row>
                 </Container>
             </section>
+            <section
+                id="trusted-brand-section"
+                className="trusted-brand-section"
+            >
+                {/* <Container fluid="xl" className="px-5"> */}
+                <Marquee gradient={true} className="marquee" speed={40}>
+                    {trustedPartnerData?.map((value, key) => (
+                        <Link href={value?.redirect_url} key={key}>
+                            <li className="light">
+                                <a>
+                                    {value?.logo && (
+                                        <figure>
+                                            <Image
+                                                src={value?.logo}
+                                                alt={value?.alt_text}
+                                                layout="fill"
+                                                objectFit="contain"
+                                            ></Image>
+                                        </figure>
+                                    )}
+                                </a>
+                            </li>
+                        </Link>
+                    ))}
+                </Marquee>
+                {/* </Container> */}
+            </section>
             <Container className="px-5" fluid="xl">
-                <section className="affiliate-partners-section">
-                    {/* <div className="content">
-                        {trustedPartners &&
-                            trustedPartners.map((partner) => (
-                                <h1
-                                    style={{
-                                        color: [
-                                            "#3EAEFF",
-                                            "#FFCA6A",
-                                            "#3D3F7D",
-                                            "#00D084",
-                                        ][Math.floor(Math.random() * 4)],
-                                    }}
-                                    key={partner.id}
-                                >
-                                    {partner.name}
-                                </h1>
-                            ))}
-                    </div> */}
-                    <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="Feature TO-BE Implemented"
-                        color="teal"
-                    >
-                        This feature is to be Implemented
-                    </Alert>
-                </section>
                 <section className="affiliate-get-started-section">
                     <h1 className="heading-title">Get started</h1>
                     <h2>It&apos;s easy to </h2>
@@ -197,27 +203,48 @@ const AffiliateProgram = () => {
 
                 <section className="affiliate-faqs">
                     <h1>Frequently asked questions</h1>
-                    {/* <Accordion flush>
-                        {faqContent &&
-                            faqContent.map((faq) => (
-                                <FaqContent
-                                    answer={faq.answer}
-                                    key={faq.id}
-                                    id={faq.id}
-                                    question={faq.question}
-                                />
-                            ))}
-                    </Accordion> */}
-                    <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="Feature TO-BE Implemented"
-                        color="teal"
-                    >
-                        This feature is to be Implemented
-                    </Alert>
+                    {(faqData?.result ?? []).length > 0
+                        ? faqData?.result?.map((value, key) => (
+                              <Accordion.Item
+                                  eventKey={key.toString()}
+                                  key={key}
+                              >
+                                  <Accordion.Header>
+                                      {value.title}
+                                  </Accordion.Header>
+                                  <Accordion.Body>
+                                      <p>{value.content}</p>
+                                  </Accordion.Body>
+                              </Accordion.Item>
+                          ))
+                        : "No FAQ datas found"}
                 </section>
             </Container>
         </Layout>
     );
 };
 export default AffiliateProgram;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: trustedPartnerData } = await axiosClient.get(
+            "/landingpage/trusted-partner/"
+        );
+        const { data: faqData } = await axiosClient.get("/support/faq/");
+        return {
+            props: {
+                trustedPartnerData,
+                faqData,
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                trustedPartnerData: [],
+                faqData: [],
+            },
+            revalidate: 10,
+        };
+    }
+};
