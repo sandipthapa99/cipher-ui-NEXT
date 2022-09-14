@@ -32,6 +32,7 @@ import { useData } from "hooks/use-data";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
 import { quality } from "staticData/cipherNotableQuality";
@@ -63,6 +64,7 @@ const Home: NextPage<{
     heroCategoryData,
     topCategoryData,
 }) => {
+    const [isClient, setIsClient] = useState(false);
     const { data: blogData, isLoading: blogLoading } = useData<BlogValueProps>(
         ["all-blogs"],
         "/blog/"
@@ -80,6 +82,8 @@ const Home: NextPage<{
 
     const { data: allTaskers, isLoading: taskerLoading } = useTaskers();
 
+    useEffect(() => setIsClient(true), []);
+    if (!isClient) return null;
     return (
         <Layout title="Cipher - Catering to Your Requirements">
             <section className="landing-main-banner">
