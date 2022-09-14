@@ -64,6 +64,7 @@ const UserProfileCard = ({
     const [image, setImage] = useState();
     const services = skill ? JSON.parse(skill) : [];
     const queryClient = useQueryClient();
+
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
     //         <p key={index}>
@@ -96,7 +97,7 @@ const UserProfileCard = ({
                 toast.success(data?.data?.message);
             },
             onError: (error: any) => {
-                toast.error(data?.data?.message);
+                toast.error(error?.data?.message);
             },
         });
     };
@@ -126,21 +127,21 @@ const UserProfileCard = ({
         children?: ReactNode;
     }
 
-    const style = {
-        backgroundColor: "#d9d9d9",
-        height: "1.2rem",
-        width: "100%",
-        borderRadius: "7rem",
+    // const style = {
+    //     backgroundColor: "#d9d9d9",
+    //     height: "1.2rem",
+    //     width: "100%",
+    //     borderRadius: "7rem",
 
-        ":hover": {
-            width: "58vw",
-            content: "",
-            height: "1.2rem",
-            background:
-                "linearGradient(270.06deg,rgba(241, 163, 65, 0.58) 0.06%,e8b873 46.12%,#f79c19 86.42%)",
-            backgroundColor: "#111",
-        },
-    };
+    //     ":hover": {
+    //         width: "58vw",
+    //         content: "",
+    //         height: "1.2rem",
+    //         background:
+    //             "linearGradient(270.06deg,rgba(241, 163, 65, 0.58) 0.06%,e8b873 46.12%,#f79c19 86.42%)",
+    //         backgroundColor: "#111",
+    //     },
+    // };
 
     const router = useRouter();
     const ProfileDropdown = ({ children }: DropdownProps) => {
@@ -283,19 +284,34 @@ const UserProfileCard = ({
                                         icon={faPhone}
                                         className="thumbnail-img"
                                     />
-
-                                    <p>
-                                        {countryData?.phone_code}
-                                        {phone}
-                                    </p>
+                                    {user.phone ? (
+                                        <p>
+                                            {countryData?.phone_code}
+                                            {user.phone
+                                                ? user.phone
+                                                : "Add new phone number"}
+                                        </p>
+                                    ) : (
+                                        <Link href="/settings/account/security">
+                                            Add a phone number.
+                                        </Link>
+                                    )}
                                 </div>
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faAt}
                                         className="thumbnail-img"
                                     />
-
-                                    <p>{user.email}</p>
+                                    {user.email ? (
+                                        <p>{user.email}</p>
+                                    ) : (
+                                        <Link
+                                            className="text-Link"
+                                            href="/settings/account/security"
+                                        >
+                                            Add an email.
+                                        </Link>
+                                    )}
                                 </div>
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon

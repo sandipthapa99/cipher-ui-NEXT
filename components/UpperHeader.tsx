@@ -1,29 +1,31 @@
 import { ProfileModel } from "@components/model/ProfileModel";
 import { PostTaskModal } from "@components/Task/PostTaskModal";
-import { faBars, faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Avatar } from "@mantine/core";
+import {
+    Avatar,
+    Button as MantineButton,
+    Group,
+    Stack,
+    Text,
+} from "@mantine/core";
 import { useClickOutside, useToggle } from "@mantine/hooks";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import { Button, Container, Form, InputGroup, Navbar } from "react-bootstrap";
-import { Modal } from "react-bootstrap";
+import { Button, Container, Form, Navbar } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import { handleMenuActive } from "utils/helpers";
 
 import { PostCard } from "./PostTask/PostCard";
-import PostModal from "./PostTask/PostModal";
 
 export function UpperHeader() {
     const router = useRouter();
-    const [showModal, setShowModal] = useState(false);
-    const handleShow = () => setShowModal(true);
-    const handleClose = () => setShowModal(false);
+    const { data: profile } = useGetProfile();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: user } = useUser();
 
@@ -46,6 +48,16 @@ export function UpperHeader() {
 
     const { data: profileDetails } = useGetProfile();
 
+    const handleShowPostTaskModal = () => {
+        if (!profile) {
+            toast.error(<ProfileNotCompleteToast />, {
+                icon: false,
+                autoClose: false,
+            });
+            return;
+        }
+        toggleShowPostTaskModal();
+    };
     return (
         <>
             {/* Site Upper Header Start */}
@@ -129,7 +141,7 @@ export function UpperHeader() {
                             )}
                             {user && (
                                 <button
-                                    onClick={() => toggleShowPostTaskModal()}
+                                    onClick={() => handleShowPostTaskModal()}
                                     className="nav-cta-btn"
                                 >
                                     Post Task
@@ -193,5 +205,23 @@ export function UpperHeader() {
         </>
     );
 }
-
+const ProfileNotCompleteToast = () => {
+    const router = useRouter();
+    return (
+        <Stack>
+            <Text>Please complete your profile before posting a task.</Text>
+            <Group>
+                <MantineButton variant="white" color="gray">
+                    Cancel
+                </MantineButton>
+                <MantineButton
+                    color="yellow"
+                    onClick={() => router.push("/profile")}
+                >
+                    Complete Profile
+                </MantineButton>
+            </Group>
+        </Stack>
+    );
+};
 export default UpperHeader;
