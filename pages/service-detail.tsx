@@ -20,7 +20,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { reviewsContent } from "staticData/reviews";
-import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
 import type { ServicesValueProps } from "types/serviceCard";
 import HomeSearchSchema from "utils/formValidation/homeSearchValidation";

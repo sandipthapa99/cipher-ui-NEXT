@@ -1,6 +1,5 @@
 import { reviewsContent } from "staticData/reviews";
 import { SearchBodyData } from "staticData/searchBody";
-import { serviceHighlights } from "staticData/serviceHighlights";
 import { services } from "staticData/services";
 import { axiosClient } from "utils/axiosClient";
 
@@ -26,11 +25,6 @@ export const getReviews = () => {
     // const response = await axiosClient.get("/reviews");
     // return response.data;
     return reviewsContent;
-};
-export const getServiceHighlights = () => {
-    // const response = await axiosClient.get("/services/highlights");
-    // return response.data;
-    return serviceHighlights;
 };
 
 //POST----------------
