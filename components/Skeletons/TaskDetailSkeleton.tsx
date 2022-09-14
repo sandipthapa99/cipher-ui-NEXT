@@ -1,4 +1,11 @@
-import { Box, createStyles, Group, Skeleton, Stack } from "@mantine/core";
+import {
+    Box,
+    createStyles,
+    Group,
+    Skeleton,
+    Space,
+    Stack,
+} from "@mantine/core";
 
 export const TaskDetailSkeleton = () => {
     const { classes } = useStyles();
@@ -28,6 +35,10 @@ export const TaskDetailSkeleton = () => {
                     </Stack>
                     <Skeleton height={320} />
                 </Box>
+                <Skeleton height={20} width={120} />
+                {Array.from({ length: 5 }).map((_, index) => (
+                    <Skeleton key={index} width="100%" height={10} />
+                ))}
             </Stack>
         </Box>
     );
