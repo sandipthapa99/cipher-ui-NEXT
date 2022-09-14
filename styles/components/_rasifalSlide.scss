@@ -69,6 +69,15 @@
             margin: 0;
             text-align: justify;
             font: 400 1.4rem $poppins-font;
+
+            a {
+                margin: 0 0 0 1rem;
+                color: blue !important;
+
+                &:hover {
+                    color: skyblue !important;
+                }
+            }
         }
         h5 {
             color: black;
