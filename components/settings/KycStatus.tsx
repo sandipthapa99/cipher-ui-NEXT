@@ -68,12 +68,14 @@ export const KYCStatus = () => {
                                 {item.issued_date}
                             </p>
                         </Col>
-                        <Col className="Kyc-documnet-verify" md={3}>
-                            <p className="m-0 document-text">Expiry Date</p>
-                            <p className="m-0 document-text-value">
-                                {item.issued_date}
-                            </p>
-                        </Col>
+                        {item.valid_through !== null && (
+                            <Col className="Kyc-documnet-verify" md={3}>
+                                <p className="m-0 document-text">Expiry Date</p>
+                                <p className="m-0 document-text-value">
+                                    {item.valid_through}
+                                </p>
+                            </Col>
+                        )}
                     </Row>
                     <Row className="mt-3">
                         <Col className="Kyc-documnet-verify" md={3}>
@@ -96,7 +98,7 @@ export const KYCStatus = () => {
         <Container fluid className="bg-white mt-5 container-kyc-status">
             <Row>
                 <h3 className="mt-5 title-kyc-status">KYC Form</h3>
-                <Col md={9} className="d-flex gap-4 photo-text-col ">
+                <Col md={8} className="d-flex gap-4 photo-text-col ">
                     <Image
                         src={
                             profileDetails
@@ -137,7 +139,7 @@ export const KYCStatus = () => {
                         </div>
                     </div>
                 </Col>
-                <Col md={3} className="location-text-kyc">
+                <Col md={4} className="location-text-kyc">
                     <div className="d-flex align-items-center gap-2">
                         <FontAwesomeIcon
                             icon={faLocationDot}
@@ -147,11 +149,11 @@ export const KYCStatus = () => {
                     </div>
                     <p className="m-0 body-kyc">
                         <span className="body-kyc-span">Submitted On: </span>{" "}
-                        {format(new Date(KycData?.created_at), "do MMM yyyy")}
+                        {/* {format(new Date(KycData?.created_at), "do MMM yyyy")} */}
                     </p>
                     <p className="m-0 body-kyc">
                         <span className="body-kyc-span">Updated On: </span>{" "}
-                        {format(new Date(KycData?.updated_at), "do MMM yyyy")}
+                        {/* {format(new Date(KycData?.updated_at), "do MMM yyyy")} */}
                     </p>
                 </Col>
             </Row>
@@ -187,7 +189,7 @@ export const KYCStatus = () => {
             <Row className="">
                 <h2 className="mt-5 title-kyc-status">KYC Documents</h2>
                 <Divider my="sm" size="xs" variant="dashed" className="mb-4" />
-                {KycDocuments?.length === 0 ? (
+                {!KycData && KycDocuments?.length === 0 ? (
                     <Alert
                         icon={<FontAwesomeIcon icon={faCircleQuestion} />}
                         title=""

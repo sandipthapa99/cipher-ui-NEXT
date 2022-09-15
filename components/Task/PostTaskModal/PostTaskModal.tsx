@@ -153,10 +153,10 @@ export const PostTaskModal = () => {
                 onSuccess: async ({ message }) => {
                     handleCloseModal();
                     action.resetForm();
-                    toast.success(message);
+                    // toast.success(message);
                     await queryClient.invalidateQueries(["all-tasks"]);
                     // await queryClient.invalidateQueries(["notification"]);
-                    router.push({ pathname: "/task" });
+                    // router.push({ pathname: "/task" });
                 },
                 onError: (error) => {
                     toast.error(error.message);
