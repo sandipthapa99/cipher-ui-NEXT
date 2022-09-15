@@ -101,7 +101,7 @@ const TasksProfileCard = () => {
         <section className="profile-task">
             <div className="profile-task__top-container">
                 <Row className="gx-5">
-                    {taskerServices ? (
+                    {taskerServices && taskerServices?.length > 0 ? (
                         taskerServices?.map((service, key) => {
                             return (
                                 <Col

@@ -6,7 +6,7 @@ import AddRequirements from "@components/PostTask/AddRequirements";
 import type { SelectItem } from "@mantine/core";
 import { Checkbox } from "@mantine/core";
 import { Select } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { FormikHelpers } from "formik";
 import { Form, Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -24,7 +24,13 @@ import { ServicePostData } from "utils/formData";
 import { addServiceFormSchema } from "utils/formValidation/addServiceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-export const AddServiceModalComponent = () => {
+interface serviceModalProps {
+    handleClose: () => void;
+}
+
+export const AddServiceModalComponent = ({
+    handleClose,
+}: serviceModalProps) => {
     const { data: profileDetails } = useGetProfile();
     const toogleShowPostTaskModal = useToggleShowPostTaskModal();
     const router = useRouter();
@@ -84,6 +90,9 @@ export const AddServiceModalComponent = () => {
     });
 
     const [checked, setChecked] = useState(false);
+
+    //queryclient
+    const queryClient = useQueryClient();
 
     //Authorization cannot be send through get static props. So service category options fetched here
     const { data: serviceCategoryOptions } = useQuery(
@@ -187,6 +196,8 @@ export const AddServiceModalComponent = () => {
             onSuccess: (data: any) => {
                 toggleSuccessModal();
                 toogleShowPostTaskModal();
+                queryClient.invalidateQueries(["all-services"]);
+
                 actions.resetForm();
             },
             onError: (error: any) => {
@@ -468,7 +479,10 @@ export const AddServiceModalComponent = () => {
                             />
 
                             <div className="d-flex justify-content-center">
-                                <Button className="btn close-btn p-3 h-25 w-25">
+                                <Button
+                                    className="btn close-btn p-3 h-25 w-25"
+                                    onClick={handleClose}
+                                >
                                     Cancel
                                 </Button>
                                 <FormButton

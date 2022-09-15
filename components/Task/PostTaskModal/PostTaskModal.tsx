@@ -364,7 +364,7 @@ export const PostTaskModal = () => {
                         </Stack>
                     </form>
                 ) : (
-                    <AddServiceModalComponent />
+                    <AddServiceModalComponent handleClose={handleCloseModal} />
                 )}
             </Modal>
         </>
