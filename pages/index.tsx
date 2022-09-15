@@ -90,17 +90,15 @@ const Home: NextPage<{
                             )} */}
 
                             <div className="come-with-us">
-                                <h1>Join CIPHER for</h1>
+                                <h1>Join Cipher To</h1>
                                 <div className="d-flex buttons">
-                                    <Link href="/task">
-                                        <a href="" className="hero-cta">
+                                    <Link href="/earn-money">
+                                        <a className="hero-cta">
                                             Earn Money as a Professional
                                         </a>
                                     </Link>
                                     <Link href="/post-task">
-                                        <a href="" className="hero-cta">
-                                            Post a Task
-                                        </a>
+                                        <a className="hero-cta">Post a Task</a>
                                     </Link>
                                 </div>
                             </div>

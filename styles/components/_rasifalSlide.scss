@@ -64,6 +64,11 @@
     margin: 1.5rem 2rem;
     cursor: pointer;
 
+    &__image {
+        float: left;
+        margin: 0 1rem 0 0;
+    }
+
     &__details {
         p {
             margin: 0;
