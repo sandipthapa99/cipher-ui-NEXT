@@ -142,25 +142,31 @@ const Home: NextPage<{
                                     <FontAwesomeIcon icon={faArrowLeft} />
                                 }
                             >
-                                {heroCategoryData.result
-                                    .slice(0, 8)
-                                    .map((category) => {
-                                        return (
-                                            <Carousel.Slide key={category.id}>
-                                                <CategoryCardNew
-                                                    categoryTitle={
-                                                        category?.category?.name
-                                                    }
-                                                    categoryIcon={
-                                                        category.category?.icon
-                                                    }
-                                                    categorySlug={
-                                                        category?.category?.slug
-                                                    }
-                                                />
-                                            </Carousel.Slide>
-                                        );
-                                    })}
+                                {heroCategoryData &&
+                                    heroCategoryData?.result
+                                        .slice(0, 8)
+                                        .map((category) => {
+                                            return (
+                                                <Carousel.Slide
+                                                    key={category.id}
+                                                >
+                                                    <CategoryCardNew
+                                                        categoryTitle={
+                                                            category?.category
+                                                                ?.name
+                                                        }
+                                                        categoryIcon={
+                                                            category.category
+                                                                ?.icon
+                                                        }
+                                                        categorySlug={
+                                                            category?.category
+                                                                ?.slug
+                                                        }
+                                                    />
+                                                </Carousel.Slide>
+                                            );
+                                        })}
                             </Carousel>
                         ) : (
                             <Alert

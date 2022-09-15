@@ -11,10 +11,19 @@ import type { ITask } from "types/task";
 
 import CardBtn from "./CardBtn";
 import ShareIcon from "./ShareIcon";
-// css for this file is done in _gettingStartedTask.scss page
 
+type RequiredTaskKeys =
+    | "title"
+    | "charge"
+    | "description"
+    | "location"
+    | "start_date"
+    | "start_time"
+    | "status"
+    | "currency"
+    | "slug";
 interface TaskCardProps {
-    task: ITask;
+    task: Pick<ITask, RequiredTaskKeys>;
 }
 const TaskCard = ({ task }: TaskCardProps) => {
     const {
