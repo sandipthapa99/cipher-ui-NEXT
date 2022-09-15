@@ -130,7 +130,9 @@ export const KYCStatus = () => {
                                 className="font-icon-kyc"
                             />
                             <p className="m-0 body-kyc">
-                                {profileDetails?.user?.phone}
+                                {profileDetails?.user?.phone
+                                    ? profileDetails?.user?.phone
+                                    : "Add a Phone Number"}
                             </p>
                         </div>
                     </div>
@@ -145,13 +147,11 @@ export const KYCStatus = () => {
                     </div>
                     <p className="m-0 body-kyc">
                         <span className="body-kyc-span">Submitted On: </span>{" "}
-                        {/* {format(new Date(), "yyyy-MM-dd")} */}
-                        2022-20-20
+                        {format(new Date(KycData?.created_at), "do MMM yyyy")}
                     </p>
                     <p className="m-0 body-kyc">
                         <span className="body-kyc-span">Updated On: </span>{" "}
-                        {/* {format(new Date(), "yyyy-MM-dd")} */}
-                        2022-20-20
+                        {format(new Date(KycData?.updated_at), "do MMM yyyy")}
                     </p>
                 </Col>
             </Row>
@@ -167,15 +167,21 @@ export const KYCStatus = () => {
                 </Col>
                 <Col className="basic-info-cont" md={3}>
                     <p className="m-0 text-title-basic-info">Kyc Verified</p>
-                    {/* <p className="m-0 text-yes">Yes</p> */}
-                    <p className="m-0 text-pending">Pending</p>
+                    {KycData?.is_kyc_verified ? (
+                        <p className="m-0 text-yes">Yes</p>
+                    ) : (
+                        <p className="m-0 text-pending">Pending</p>
+                    )}
                 </Col>
                 <Col className="basic-info-cont" md={3}>
                     <p className="m-0 text-title-basic-info">
                         Address Verified
                     </p>
-                    {/* <p className="m-0 text-yes">Yes</p> */}
-                    <p className="m-0 text-pending">Pending</p>
+                    {KycData?.is_address_verified ? (
+                        <p className="m-0 text-yes">Yes</p>
+                    ) : (
+                        <p className="m-0 text-pending">Pending</p>
+                    )}
                 </Col>
             </Row>
             <Row className="">

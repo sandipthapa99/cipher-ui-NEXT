@@ -3,8 +3,8 @@ import { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 export type KYCResponse = {
     id: number | string;
-    created_at: string;
-    updated_at: string;
+    created_at: any;
+    updated_at: any;
     full_name: string;
     is_company: boolean;
     organization_name: string;
