@@ -626,7 +626,7 @@ const AboutProfile = () => {
                                                           new Date(
                                                               value?.issued_date
                                                           ),
-                                                          "MM yyyy"
+                                                          "MMMM yyyy"
                                                       )}
                                                       {`${
                                                           value?.expire_date

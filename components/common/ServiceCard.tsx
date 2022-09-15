@@ -10,16 +10,21 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
 
-import BookNowButton from "./BookNowButton";
 import ModalCard from "./BookNowModalCard";
 import CardBtn from "./CardBtn";
 import SaveIcon from "./SaveIcon";
 import ShareIcon from "./ShareIcon";
 
+interface savedService {
+    isSaved?: boolean;
+}
+
 const ServiceCard = ({
     serviceCard,
+    isSaved,
 }: {
     serviceCard: ServicesValueProps["result"][0];
+    isSaved: savedService;
 }) => {
     const router = useRouter();
     const { data: profileDetails } = useGetProfile();
@@ -145,6 +150,7 @@ const ServiceCard = ({
                             <SaveIcon
                                 object_id={serviceCard?.slug}
                                 model={"service"}
+                                filled={isSaved}
                             />
                         )}
                         <ShareIcon url={""} quote={""} hashtag={""} />
