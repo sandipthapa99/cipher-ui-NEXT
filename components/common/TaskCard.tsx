@@ -11,45 +11,13 @@ import type { ITask } from "types/task";
 
 import CardBtn from "./CardBtn";
 import ShareIcon from "./ShareIcon";
-
-type RequiredTaskKeys =
-    | "title"
-    | "charge"
-    | "description"
-    | "location"
-    | "start_date"
-    | "start_time"
-    | "status"
-    | "currency"
-    | "slug";
 interface TaskCardProps {
-    task: Pick<ITask, RequiredTaskKeys>;
+    task: ITask;
 }
 const TaskCard = ({ task }: TaskCardProps) => {
-    const {
-        title,
-        charge,
-        description,
-        location,
-        start_date,
-        start_time,
-        status,
-        currency,
-        slug,
-    } = task;
+    const { title, charge, description, location, status, currency, slug } =
+        task;
 
-    function getDateFromHours(time: any) {
-        time = time ? time?.split(":") : "";
-        const now = new Date();
-        return new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate(),
-            ...time
-        );
-    }
-
-    const formattedtime = getDateFromHours(start_time);
     return (
         <div className="task-card-block p-5">
             <Link href={`${slug}`}>
@@ -75,19 +43,19 @@ const TaskCard = ({ task }: TaskCardProps) => {
                                     icon={faCalendar}
                                     className="svg-icon"
                                 />
-                                {start_date
-                                    ? format(
-                                          new Date(start_date),
-                                          "MMMM dd, yyyy"
-                                      )
-                                    : ""}
+                                {task?.created_at &&
+                                    format(
+                                        new Date(task?.created_at),
+                                        "MMMM dd, yyyy"
+                                    )}
                             </p>
                             <div className="d-flex align-items-center pe-4 time">
                                 <FontAwesomeIcon
                                     icon={faClockEight}
                                     className="svg-icon"
                                 />
-                                {format(new Date(formattedtime), "p")}
+                                {task?.created_at &&
+                                    format(new Date(task?.created_at), "p")}
                             </div>
                         </div>
                     </div>
@@ -106,7 +74,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                                     icon={faUserGroup}
                                     className="svg-icon"
                                 />
-                                100 Applied
+                                {task?.no_of_applicants} Applied
                             </p>
                         </a>
                     </Link>
