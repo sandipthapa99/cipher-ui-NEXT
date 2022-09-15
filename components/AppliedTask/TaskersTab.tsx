@@ -14,7 +14,7 @@ export const TaskersTab = ({
     return (
         <div className="tasker-tab-taskdetail">
             <Row className="g-5">
-                {taskApplicants && taskApplicants.result.length <= 0 && (
+                {taskApplicants && taskApplicants?.result?.length <= 0 && (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
                         title="No Applicants!"

@@ -354,7 +354,7 @@ const Home: NextPage<{
                                 </Link>
                             </div>
                         )}
-                    {servicesData && servicesData?.result.length <= 0 && (
+                    {servicesData && servicesData?.result?.length <= 0 && (
                         <Alert
                             icon={<FontAwesomeIcon icon={faWarning} />}
                             title="No data Available!"
@@ -508,7 +508,7 @@ const Home: NextPage<{
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         <h2 className="heading-title">Top Taskers</h2>
                         {topTaskerData?.result &&
-                            topTaskerData?.result.length > 0 && (
+                            topTaskerData?.result?.length > 0 && (
                                 <Link href="/service">
                                     <a className="view-more">
                                         view more{" "}
@@ -623,7 +623,7 @@ const Home: NextPage<{
             <section id="tasks-you-may-like" className="tasks-you-may-like">
                 <Container fluid="xl" className="px-5">
                     {recommendedTasksData &&
-                        recommendedTasksData.result.length > 0 && (
+                        recommendedTasksData?.result?.length > 0 && (
                             <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                                 <h2 className="heading-title">
                                     Tasks You May Like
@@ -718,7 +718,7 @@ const Home: NextPage<{
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
                 <Container fluid="xl" className="px-5">
-                    {blogData && blogData.result.length > 0 && (
+                    {blogData && blogData?.result?.length > 0 && (
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                             <h2 className="heading-title">Our blogs</h2>
                             <Link href="/blogs">
@@ -839,7 +839,7 @@ const Home: NextPage<{
                         See some of our top categories
                     </h2>
                     {/* <TopCategories /> */}
-                    {topCategoryData.length <= 0 && (
+                    {topCategoryData?.length <= 0 && (
                         <Alert
                             icon={<FontAwesomeIcon icon={faWarning} />}
                             title="No data Available!"
