@@ -128,7 +128,7 @@ const About: NextPage = () => {
                         </Row>
                     </div>
                     <div className="referral-page__bottom-container">
-                        <h1>How does it work?</h1>
+                        <h1>Post your skills</h1>
                         <Row className="gx-5">
                             {referralCardContent &&
                                 referralCardContent.map((referral) => {
