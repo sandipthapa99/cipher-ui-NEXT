@@ -1,14 +1,18 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import type { ITask } from "types/task";
+import type { ITask, TaskApplicantsProps } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 
-const TaskDetail: NextPage<{ taskDetail: ITask }> = ({ taskDetail }) => {
+const TaskDetail: NextPage<{
+    taskDetail: ITask;
+    taskApplicants: TaskApplicantsProps;
+}> = ({ taskDetail, taskApplicants }) => {
     return (
         <>
             <AppliedLayout type={"you may like"}>
                 <AppliedTaskDetail
+                    taskApplicants={taskApplicants}
                     taskDetail={taskDetail}
                     type={"you may like"}
                 />
@@ -38,10 +42,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const { data: taskDetail } = await axiosClient.get<ITask>(
             `/task/${params?.slug}/`
         );
+        const { data: taskApplicants } =
+            await axiosClient.get<TaskApplicantsProps>(
+                `/task/${params?.slug}/applicants/`
+            );
 
         return {
             props: {
                 taskDetail,
+                taskApplicants,
             },
             revalidate: 10,
         };
@@ -49,6 +58,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         return {
             props: {
                 taskDetail: {},
+                taskApplicants: {},
             },
             revalidate: 10,
         };

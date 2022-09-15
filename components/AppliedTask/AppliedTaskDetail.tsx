@@ -30,7 +30,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import type { ITask } from "types/task";
+import type { ITask, TaskApplicantsProps } from "types/task";
 import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
@@ -39,9 +39,11 @@ import { TimelineTab } from "./TimelineTab";
 const AppliedTaskDetail = ({
     type,
     taskDetail,
+    taskApplicants,
 }: {
     type?: string;
     taskDetail: ITask;
+    taskApplicants: TaskApplicantsProps;
 }) => {
     const queryClient = useQueryClient();
     const { data: user } = useUser();
@@ -278,7 +280,12 @@ const AppliedTaskDetail = ({
                     activeIndex={activeTabIdx}
                     onTabClick={setActiveTabIdx}
                     items={[
-                        { title: "Taskers", content: <TaskersTab /> },
+                        {
+                            title: "Taskers",
+                            content: (
+                                <TaskersTab taskApplicants={taskApplicants} />
+                            ),
+                        },
                         { title: "Timeline", content: <TimelineTab /> },
                         {
                             title: "Collaboration",
