@@ -1,4 +1,3 @@
-import { useGetDocument } from "hooks/document/useGetDocument";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";

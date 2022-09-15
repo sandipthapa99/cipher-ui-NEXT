@@ -28,7 +28,7 @@ export const MyBookings = () => {
                                 key={index}
                                 onClick={() =>
                                     router.push({
-                                        pathname: `/service/${item?.service?.id}`,
+                                        pathname: `/service/${item?.service?.slug}`,
                                     })
                                 }
                             >

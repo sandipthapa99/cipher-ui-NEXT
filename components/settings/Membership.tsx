@@ -1,20 +1,5 @@
-import BigButton from "@components/common/Button";
-import PackageOffersCard from "@components/common/packageCard";
-import {
-    faChevronDown,
-    faChevronRight,
-} from "@fortawesome/pro-regular-svg-icons";
-import { faCheck } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ReactNode } from "react";
-import React, { useContext } from "react";
-import {
-    Accordion,
-    AccordionContext,
-    Card,
-    Row,
-    useAccordionButton,
-} from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
 import { MembershipPackage } from "./MembershipPackage";
 

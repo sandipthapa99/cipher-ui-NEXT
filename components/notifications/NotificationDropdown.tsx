@@ -1,23 +1,16 @@
 import { faBell } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useClickOutside } from "@mantine/hooks";
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { useGetNotification } from "hooks/Notifications/use-notification";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import React from "react";
-import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
 
-import { ApproveNotification } from "./dropdown-notifications/ApproveNotification";
-import { CreatedTask } from "./dropdown-notifications/CreatedTask";
 import { PostNotifyTask } from "./PostedTask";
 
 export const NotificationDropdown = () => {
     const { data: allNotifications, refetch } = useGetNotification();
-    const queryClient = new QueryClient();
     // console.log("all", allNotifications);
     const router = useRouter();
 

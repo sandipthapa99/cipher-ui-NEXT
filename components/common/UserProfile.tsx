@@ -9,10 +9,9 @@ import {
     faPencil,
     faPhone,
     faSparkles,
-    faStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
-import { faCircle, faStar as rated } from "@fortawesome/pro-solid-svg-icons";
+import { faCircle } from "@fortawesome/pro-solid-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress } from "@mantine/core";
@@ -297,7 +296,7 @@ const UserProfileCard = ({
                                         </Link>
                                     )}
                                 </div>
-                                {user.email && (
+                                {/* {user.email && (
                                     <div className="type d-flex flex-col">
                                         <FontAwesomeIcon
                                             icon={faAt}
@@ -306,7 +305,7 @@ const UserProfileCard = ({
 
                                         <p>{user.email}</p>
                                     </div>
-                                )}
+                                )} */}
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faAt}

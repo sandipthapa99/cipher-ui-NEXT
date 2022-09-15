@@ -17,6 +17,7 @@ interface Props {
     onTaskClick: (task: Task) => void;
     handleButtonClick?: () => void;
     taskId?: number;
+    isSaved?: boolean;
 }
 export const UserTaskCard = ({
     isButton,
@@ -24,6 +25,7 @@ export const UserTaskCard = ({
     onTaskClick,
     handleButtonClick,
     taskId,
+    isSaved,
 }: Props) => {
     return (
         <div className="user-task-card">
@@ -81,7 +83,11 @@ export const UserTaskCard = ({
             <p className="td-text user-info__bio">bio</p>
             <div className="d-flex justify-content-between user-task-card__footer">
                 <div className="icons">
-                    <SaveIcon object_id={String(taskId)} model={"task"} />
+                    <SaveIcon
+                        filled={isSaved}
+                        object_id={String(taskId)}
+                        model={"task"}
+                    />
                     <ShareIcon
                         url={`http://localhost:3005/tasker?taskerId=${taskId}`}
                         quote={"Tasker from cipher project"}

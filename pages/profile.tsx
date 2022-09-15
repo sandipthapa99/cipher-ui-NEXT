@@ -2,25 +2,23 @@ import { BreadCrumb } from "@components/common/BreadCrumb";
 import { Tab } from "@components/common/Tab";
 import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
-import AboutProfile from "@components/Profile/AboutProfile";
+import AboutProfile from "@components/Profile/AboutUser";
 import UserActivities from "@components/Profile/Activities";
 import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
-import TasksProfileCard from "@components/Profile/TasksProfile";
-import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
-import { useUser } from "hooks/auth/useUser";
+import TasksProfileCard from "@components/Profile/UserServices";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const { data: profileDetails, isLoading, error } = useGetProfile();
-    const queryClient = useQueryClient();
-    const data = queryClient.getQueryData(["profile"]);
+    const { data: profileDetails, isLoading } = useGetProfile();
     const router = useRouter();
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
@@ -61,14 +59,14 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                                 <h1>Your profile is incomplete!</h1>
                                 <p>Redirecting to your Account Settings...</p>
 
-                                {/* <button className="btn-create-profile">
+                                <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
                                         className="text-profile"
                                     >
                                         Complete Profile Now
                                     </Link>
-                                </button> */}
+                                </button>
                             </Col>
                         </Row>
                     </Container>
@@ -177,6 +175,9 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["tasker-document"]),
             queryClient.prefetchQuery(["tasker-activities"]),
             queryClient.prefetchQuery(["all-services"]),
+            queryClient.prefetchQuery(["bookmarks", "user"]),
+            queryClient.prefetchQuery(["bookmarks", "task"]),
+            queryClient.prefetchQuery(["bookmarks", "service"]),
         ]);
         return {
             props: {

@@ -1,6 +1,5 @@
 import Reviews from "@components/common/Reviews";
 import ServiceCard from "@components/common/ServiceCard";
-import { faAnalytics } from "@fortawesome/pro-regular-svg-icons";
 import { Spoiler } from "@mantine/core";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
