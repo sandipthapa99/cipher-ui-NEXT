@@ -10,11 +10,14 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
 
-import BookNowButton from "./BookNowButton";
 import ModalCard from "./BookNowModalCard";
 import CardBtn from "./CardBtn";
 import SaveIcon from "./SaveIcon";
 import ShareIcon from "./ShareIcon";
+
+interface savedService {
+    isSaved: boolean;
+}
 
 const ServiceCard = ({
     serviceCard,
