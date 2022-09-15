@@ -7,7 +7,6 @@ import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
 import PostModal from "@components/PostTask/PostModal";
-import { TaskDetailSkeleton } from "@components/Skeletons/TaskDetailSkeleton";
 import {
     faCalendar,
     faClockEight,
@@ -22,7 +21,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
@@ -32,13 +31,18 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import type { ITask } from "types/task";
-import { axiosClient } from "utils/axiosClient";
 import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
 import { TimelineTab } from "./TimelineTab";
 
-const AppliedTaskDetail = ({ type }: { type?: string }) => {
+const AppliedTaskDetail = ({
+    type,
+    taskDetail,
+}: {
+    type?: string;
+    taskDetail: ITask;
+}) => {
     const queryClient = useQueryClient();
     const { data: user } = useUser();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
@@ -59,21 +63,13 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
 
     const slug = router?.query?.slug as string;
 
-    const { data: taskDetail, isFetching: isTaskDetailLoading } = useQuery(
-        ["task-detail", slug],
-        async () => {
-            const { data } = await axiosClient.get<ITask>(`/task/${slug}`);
-            return data;
-        },
-        { initialData: {} as ITask }
-    );
-
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
     const taskRequirements = safeParse<Array<{ id: number; title: string }>>({
-        rawString: taskDetail.requirements,
+        rawString: taskDetail?.requirements,
         initialData: [],
     });
+
     const isUserTask = user ? taskDetail?.assigner?.id === user?.id : false;
 
     const taskVideosAndImages = [
@@ -81,10 +77,6 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
-
-    if (!taskDetail || isTaskDetailLoading) {
-        return <TaskDetailSkeleton />;
-    }
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
@@ -96,7 +88,7 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
-                        {taskDetail.created_at && (
+                        {taskDetail?.created_at && (
                             <span className="pb-3 pb-sm-0 provider-name">
                                 {format(new Date(taskDetail?.created_at), "PP")}
                             </span>
