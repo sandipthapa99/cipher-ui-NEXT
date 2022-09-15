@@ -1,12 +1,7 @@
-import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert } from "@mantine/core";
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
-import { DUMMY_TASKS } from "types/tasks";
-
-import { CollaborationRequestForm } from "./CollaborationRequestForm";
 
 export const Collaboration = () => {
     const [onToogle, setOnToogle] = useState(false);

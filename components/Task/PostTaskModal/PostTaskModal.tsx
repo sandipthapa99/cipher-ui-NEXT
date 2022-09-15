@@ -75,7 +75,6 @@ export const PostTaskModal = () => {
     const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
-    const { data: profileDetails } = useGetProfile();
     const router = useRouter();
 
     const taskSlug = router.query?.slug;
