@@ -1,5 +1,6 @@
 import Reviews from "@components/common/Reviews";
 import ServiceCard from "@components/common/ServiceCard";
+import { faAnalytics } from "@fortawesome/pro-regular-svg-icons";
 import { Spoiler } from "@mantine/core";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -79,11 +80,6 @@ export interface Assigner {
 const TasksProfileCard = () => {
     const [search, setSearch] = useState("-rating");
 
-    const { data: taskData } = useData<TaskerTasksProps>(
-        ["tasker-tasks"],
-        "/task/my-task"
-    );
-
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
@@ -92,23 +88,20 @@ const TasksProfileCard = () => {
 
     const { data: profileDetails } = useGetProfile();
     const userId = profileDetails?.user.id;
-    const taskerServices = servicesData?.data.result.find(
+    const taskerServices = servicesData?.data.result.filter(
         (services) => services.created_by.id === userId
     );
-    console.log("tasker services=", servicesData, taskerServices);
 
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
         `/task/rating?ordering=${search}`
     );
 
-    const serviceLength = servicesData?.data?.result.length;
-    console.log("service lenth", serviceLength);
     return (
         <section className="profile-task">
             <div className="profile-task__top-container">
-                {/* <Row className="gx-5">
-                    {serviceLength && serviceLength > 0 ? (
+                <Row className="gx-5">
+                    {taskerServices ? (
                         taskerServices?.map((service, key) => {
                             return (
                                 <Col
@@ -123,11 +116,6 @@ const TasksProfileCard = () => {
                             );
                         })
                     ) : (
-                        // <p>
-                        //     You have not posted any services right now. Add
-                        //     services.
-                        // </p>
-
                         <div>
                             <p>
                                 You have not posted any services right now. Add
@@ -142,51 +130,7 @@ const TasksProfileCard = () => {
                             </a>
                         </div>
                     )}
-                </Row> */}
-                {/* <Row>
-                    {profileTaskCard &&
-                        profileTaskCard.map((info) => (
-                            <Col lg={3} md={4} key={info.id}>
-                                <div className="about-card-block">
-                                    <figure className="thumbnail-img">
-                                        <Image
-                                            src={info.cardImage}
-                                            layout="fill"
-                                            objectFit="cover"
-                                            alt="about-card-image"
-                                        />
-                                    </figure>
-                                    <div className="card-content">
-                                        <h2 className="card-title">
-                                            {info.title}
-                                        </h2>
-
-                                        <p className="address">
-                                            {info.address}
-                                        </p>
-                                        <p className="description">
-                                            {info.description}
-                                        </p>
-
-                                        <div className="bottom d-flex justify-content-between">
-                                            <div className="rating d-flex align-items-center">
-                                                <FontAwesomeIcon
-                                                    icon={faStar}
-                                                    className="svg-icon"
-                                                />
-                                                <p className="value">
-                                                    {info.rating}
-                                                </p>
-                                            </div>
-                                            <p className="price">
-                                                ${info.price}/hr
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Col>
-                        ))}
-                </Row> */}
+                </Row>
             </div>
             {/* task reviews */}
             <div className="reviews">

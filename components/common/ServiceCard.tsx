@@ -112,7 +112,7 @@ const ServiceCard = ({
                                 hideLabel={"..."}
                                 showLabel={"..."}
                             >
-                                {parse(serviceCard?.description)}
+                                {serviceCard?.description}
                             </Spoiler>
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
