@@ -13,8 +13,8 @@ export type KYCResponse = {
     is_address_verified: boolean;
     is_company_kyc_verified: boolean;
     is_company_address_verified: boolean;
-    company: number;
-    country: number;
+    company: string;
+    country: { id: number; name: string };
 };
 
 export const useGetKYC = () => {
