@@ -62,8 +62,9 @@ export const MyTaskOrder = ({
                             <div className="price-section">
                                 <span className="price">Price : </span>
                                 <span className="value">
-                                    {currency + "-"} {budget_from}
-                                    {budget_to && "-" + budget_to}
+                                    {currency + " "}{" "}
+                                    {budget_from && budget_from + "-"}
+                                    {budget_to}
                                     {budget_type === "Hourly"
                                         ? "/hr"
                                         : budget_type === "Monthly"
