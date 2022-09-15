@@ -5,6 +5,7 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import type { SelectItem } from "@mantine/core";
 import { Select } from "@mantine/core";
+import { QueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
@@ -17,6 +18,7 @@ import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
 import { isSubmittingClass } from "utils/helpers";
 
 import { IdentityDocument } from "./IdentityDocument";
+import { KYCStatus } from "./KycStatus";
 
 // const dropdownCountryOptions = [
 //     { id: 1, label: "Citizenship ", value: "citizenship" },
@@ -51,6 +53,7 @@ const KYCForm = () => {
         if (id) setFieldValue("country", parseInt(id));
     };
     const country = profileDetails?.country ? profileDetails?.country : "";
+    const queryClient = new QueryClient();
 
     const foundCountry = countryResults.find((item) => item.label === country);
 
@@ -67,10 +70,10 @@ const KYCForm = () => {
                 <Formik
                     enableReinitialize={true}
                     initialValues={{
-                        full_name: "",
-                        address: "",
-                        country: "",
-                        company: "",
+                        full_name: KYCData ? KYCData?.full_name : "",
+                        address: KYCData ? KYCData?.address : "",
+                        country: KYCData ? KYCData?.country : "",
+                        company: KYCData ? KYCData?.company : "",
                         // passport_size_photo: "",
                         // personal_address_verification_document: "",
                         // bank_name: KYCData?.bank_name ?? "",
@@ -127,6 +130,7 @@ const KYCForm = () => {
                                 // toggleSuccessModal();
                                 toast.success("KYC Details Added Successfully");
                                 setShowDocument(true);
+                                queryClient.invalidateQueries(["GET_KYC"]);
                                 // setShowButtons(false);
                             },
                             onError: (error) => {
@@ -185,11 +189,7 @@ const KYCForm = () => {
                                 // }
                                 searchable
                                 nothingFound="No result found."
-                                value={
-                                    profileDetails
-                                        ? foundCountry?.value
-                                        : countryChange
-                                }
+                                // defaultValue={KYCData?.country}
                                 onChange={(value) =>
                                     handleCountryChanged(value, setFieldValue)
                                 }
@@ -306,6 +306,7 @@ const KYCForm = () => {
                 <IdentityDocument />
                 {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
+            <KYCStatus />
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"

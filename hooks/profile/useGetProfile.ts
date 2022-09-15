@@ -16,6 +16,7 @@ export type ProfileResponse = {
         email: string;
         full_name: string;
         profile_image: string;
+        phone: string;
     };
     portfolio: Array<{
         id: number;
