@@ -1,6 +1,3 @@
-import { faStar, faStarHalfStroke } from "@fortawesome/pro-regular-svg-icons";
-import { faStar as rated } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //import ReactRating from "react-rating";
 import { Rating } from "@smastrom/react-rating";
 

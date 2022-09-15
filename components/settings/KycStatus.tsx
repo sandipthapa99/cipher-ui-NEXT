@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Accordion, Alert, Badge, Container, Divider } from "@mantine/core";
-import { format } from "date-fns";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";

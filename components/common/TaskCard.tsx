@@ -24,8 +24,9 @@ type RequiredTaskKeys =
     | "slug";
 interface TaskCardProps {
     task: Pick<ITask, RequiredTaskKeys>;
+    isSaved?: boolean;
 }
-const TaskCard = ({ task }: TaskCardProps) => {
+const TaskCard = ({ task, isSaved }: TaskCardProps) => {
     const {
         title,
         charge,

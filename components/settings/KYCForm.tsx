@@ -1,6 +1,5 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import type { SelectItem } from "@mantine/core";

@@ -1,9 +1,6 @@
 import BigButton from "@components/common/Button";
-import { faCircleInfo } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-import { Col, Row } from "react-bootstrap";
 interface FillKycProps {
     onClick: () => void;
 }

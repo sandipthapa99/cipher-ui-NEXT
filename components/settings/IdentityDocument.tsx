@@ -1,7 +1,6 @@
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
-import FullPageLoader from "@components/common/FullPageLoader";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
 import { format } from "date-fns";
