@@ -35,7 +35,7 @@ export const CompleteProfile = ({ onClick }: CompleteProfileProps) => {
 
                 <figure className="thumbnail-img">
                     <Image
-                        src="/settings/profile.svg"
+                        src="/userprofile/unknownPerson.jpg"
                         layout="fill"
                         objectFit="cover"
                         alt="profile-image"

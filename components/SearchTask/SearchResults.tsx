@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import type { ServiceNearYou } from "types/serviceNearYouCards";
 
-import type { ServiceNearYou } from "../../staticData/servicesNearYouCard";
 import ServiceNearYouCard from "./searchAside";
 import SearchResultsDetail from "./SearchResultsDetails";
 

@@ -15,25 +15,25 @@ export const TimelineTab = () => {
     };
 
     return (
-        // <div className="timeline-tab-component">
-        //     {TaskDetailTimelineData.map((item) => (
-        //         <EachTimeline
-        //             {...item}
-        //             key={item?.id}
-        //             buttonName="Request for revision"
-        //             activeId={activeId}
-        //             setActiveId={setActiveId}
-        //             isGivingRevision={isGivingRevision}
-        //             handleRevisionOpen={handleRevisionOpen}
-        //             setIsGivingRevision={setIsGivingRevision}
-        //         />
-        //     ))}
-        // </div>
-        <Alert
-            icon={<FontAwesomeIcon icon={faWarning} />}
-            title="Feature Coming soon"
-        >
-            Stay tuned this feature is coming soon!
-        </Alert>
+        <div className="timeline-tab-component">
+            {TaskDetailTimelineData.map((item) => (
+                <EachTimeline
+                    {...item}
+                    key={item?.id}
+                    buttonName="Request for revision"
+                    activeId={activeId}
+                    setActiveId={setActiveId}
+                    isGivingRevision={isGivingRevision}
+                    handleRevisionOpen={handleRevisionOpen}
+                    setIsGivingRevision={setIsGivingRevision}
+                />
+            ))}
+        </div>
+        // <Alert
+        //     icon={<FontAwesomeIcon icon={faWarning} />}
+        //     title="Feature Coming soon"
+        // >
+        //     Stay tuned this feature is coming soon!
+        // </Alert>
     );
 };

@@ -31,7 +31,7 @@ export const MessageHeader = ({
             <div className="message-header__left">
                 <div className="message-header__left--user">
                     <Image
-                        src={profileImage}
+                        src={profileImage ?? "/userprofile/unknownPerson.jpg"}
                         width="50px"
                         height="50px"
                         alt="Contact profile image"

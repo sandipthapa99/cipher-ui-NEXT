@@ -17,16 +17,14 @@ const AnchorButton = ({
     onClick,
 }: AnchorButtonProps) => {
     return (
-        <>
-            <Link href={href}>
-                <a
-                    onClick={onClick}
-                    className={`btn anchor-button ${className} ${varient}`}
-                >
-                    <span>{children}</span>
-                </a>
-            </Link>
-        </>
+        <Link href={href}>
+            <a
+                onClick={onClick}
+                className={`btn anchor-button ${className} ${varient}`}
+            >
+                <span>{children}</span>
+            </a>
+        </Link>
     );
 };
 export default AnchorButton;

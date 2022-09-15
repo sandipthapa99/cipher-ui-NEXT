@@ -5,8 +5,6 @@ import ServiceProviderCard from "@components/common/serviceProviderCard";
 import Image from "next/image";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { PackageCard } from "staticData/packageCard";
-import { serviceHighlights } from "staticData/serviceHighlights";
 import { serviceProvider } from "staticData/serviceProvider";
 
 interface PublishComponentProps {

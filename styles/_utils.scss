@@ -73,31 +73,35 @@ $sizes: (8, 16, 24, 48, 64, 96, 128, 256);
 .rr--has-stroke .rr--on .rr--svg {
     stroke: none;
 }
+.rr--has-stroke .rr--on .rr--svg {
+    stroke: none;
+}
 .rr--on .rr--svg,
 .rr--off .rr--svg {
-    width: 2.7rem;
-    height: 2.7rem;
-    color: #ff9700;
-    stroke: #ff9700;
-    // fill: #ff9700;
-    // stroke: #ff9700;
+    width: 2.3rem;
+    height: 2.3rem;
+    color: #ff9700 !important;
+    stroke: #ff9700 !important;
 }
 .rr--on .rr--svg {
-    width: 3rem;
-    height: 3rem;
+    width: 2.7rem;
+    height: 2.7rem;
 }
+
 .rr--has-stroke .rr--off .rr--svg {
     fill: #fff;
     margin-top: 0.19rem;
-    // stroke: none !important;
 }
 .rr--on .rr--svg {
-    fill: #ff9700;
-    stroke: none;
+    fill: #ff9700 !important;
+    stroke: none !important;
 }
 .rr--has-stroke .rr--hf-svg-on {
-    color: #ff9700;
+    color: #ff9700 !important;
     stroke: #ff9700 !important;
+}
+.rr--has-stroke .rr--off .rr--svg {
+    stroke: #fab005 !important;
 }
 
 // .rr--hf-svg-off {

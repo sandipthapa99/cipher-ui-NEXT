@@ -62,6 +62,7 @@ export interface PostTaskPayload {
     end_date: string;
     start_time: string;
     end_time: string;
+    is_active: boolean;
 }
 
 export const PostTaskModal = () => {
@@ -107,6 +108,7 @@ export const PostTaskModal = () => {
             currency: "",
             images: "",
             videos: "",
+            is_active: true,
         },
         enableReinitialize: true,
         validationSchema: postTaskSchema,
@@ -308,6 +310,17 @@ export const PostTaskModal = () => {
                                     }
                                 />
                             </Stack>
+                            <Checkbox
+                                label="is active"
+                                name="is_active"
+                                defaultChecked={true}
+                                onChange={(event) =>
+                                    setFieldValue(
+                                        "is_active",
+                                        event.currentTarget.checked
+                                    )
+                                }
+                            />
                             {/* <TaskDate setFieldValue={setFieldValue} /> */}
                             <Checkbox
                                 checked={termsAccepted}
@@ -351,7 +364,7 @@ export const PostTaskModal = () => {
                         </Stack>
                     </form>
                 ) : (
-                    <AddServiceModalComponent />
+                    <AddServiceModalComponent handleClose={handleCloseModal} />
                 )}
             </Modal>
         </>

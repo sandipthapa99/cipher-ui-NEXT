@@ -9,10 +9,10 @@ import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { RatingResponse } from "hooks/rating/getRating";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { UserProfileProps } from "types/userProfileProps";
 import { reviewSearchData } from "utils/formData";
 import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
@@ -36,12 +36,12 @@ const AboutProfile = () => {
     const [modalName, setModalName] = useState("");
     const [id, setId] = useState<number | undefined>();
     const [search, setSearch] = useState("-rating");
-    const [page, setPage] = useState<number>(1);
     const [isEditProfile, setIsEditProfile] = useState(false);
     const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
-        `/task/rating?ordering=${search}&page=${page}`
+        `/task/rating?ordering=${search}`
     );
 
     // const { mutate: searchMutation, data: filteredData } =
@@ -86,6 +86,18 @@ const AboutProfile = () => {
     const userSkills = profileDetails ? JSON.parse(profileDetails?.skill) : [];
 
     const [hovered, setHovered] = useState<null | number>(null);
+    const [educationHovered, setEducationHovered] = useState<null | number>(
+        null
+    );
+
+    const [certificationHovered, setCertificationHovered] = useState<
+        null | number
+    >(null);
+
+    const [experienceHovered, setExperienceHovered] = useState<null | number>(
+        null
+    );
+
     return (
         <>
             <div className="about-profile">
@@ -287,10 +299,14 @@ const AboutProfile = () => {
                                                       className="experience__type"
                                                       key={value.id}
                                                       onMouseLeave={() =>
-                                                          setHovered(null)
+                                                          setExperienceHovered(
+                                                              null
+                                                          )
                                                       }
                                                       onMouseEnter={() =>
-                                                          setHovered(value?.id)
+                                                          setExperienceHovered(
+                                                              value?.id
+                                                          )
                                                       }
                                                   >
                                                       <div className="name d-flex">
@@ -298,7 +314,7 @@ const AboutProfile = () => {
                                                               {value?.title}
                                                           </h3>
 
-                                                          {hovered ===
+                                                          {experienceHovered ===
                                                           value.id ? (
                                                               <div className="icons">
                                                                   <FontAwesomeIcon
@@ -435,10 +451,12 @@ const AboutProfile = () => {
                                                   className="education__type"
                                                   key={value?.id}
                                                   onMouseLeave={() =>
-                                                      setHovered(null)
+                                                      setEducationHovered(null)
                                                   }
                                                   onMouseEnter={() =>
-                                                      setHovered(value?.id)
+                                                      setEducationHovered(
+                                                          value?.id
+                                                      )
                                                   }
                                               >
                                                   <div className="name d-flex">
@@ -446,7 +464,8 @@ const AboutProfile = () => {
                                                           {value.school}
                                                       </h3>
 
-                                                      {hovered === value.id ? (
+                                                      {educationHovered ===
+                                                      value.id ? (
                                                           <div className="icons">
                                                               <FontAwesomeIcon
                                                                   icon={
@@ -544,10 +563,14 @@ const AboutProfile = () => {
                                                   <div
                                                       className="name d-flex"
                                                       onMouseLeave={() =>
-                                                          setHovered(null)
+                                                          setCertificationHovered(
+                                                              null
+                                                          )
                                                       }
                                                       onMouseEnter={() =>
-                                                          setHovered(value?.id)
+                                                          setCertificationHovered(
+                                                              value?.id
+                                                          )
                                                       }
                                                   >
                                                       <a
@@ -561,7 +584,8 @@ const AboutProfile = () => {
                                                               {value?.name}
                                                           </h3>
                                                       </a>
-                                                      {hovered === value?.id ? (
+                                                      {certificationHovered ===
+                                                      value?.id ? (
                                                           <div className="icons">
                                                               <FontAwesomeIcon
                                                                   icon={
@@ -602,7 +626,7 @@ const AboutProfile = () => {
                                                           new Date(
                                                               value?.issued_date
                                                           ),
-                                                          "MMMM yyyy"
+                                                          "MM yyyy"
                                                       )}
                                                       {`${
                                                           value?.expire_date
@@ -651,54 +675,26 @@ const AboutProfile = () => {
                                                 console.log(values);
                                             }}
                                         >
-                                            {({
-                                                isSubmitting,
-                                                errors,
-                                                values,
-                                                touched,
-                                            }) => (
-                                                <Form
-                                                    onChange={(e: any) => {
-                                                        setSearch(
-                                                            e.target.value
-                                                        );
-                                                    }}
+                                            <Form
+                                                onChange={(e: any) => {
+                                                    setSearch(e.target.value);
+                                                }}
+                                            >
+                                                <Form.Select
+                                                    aria-label="Default select example"
+                                                    className="dropdown-wrapper"
                                                 >
-                                                    <Form.Select
-                                                        aria-label="Default select example"
-                                                        className="dropdown-wrapper"
-                                                    >
-                                                        <option value="-rating">
-                                                            Most Relevant
-                                                        </option>
-                                                        <option value="-updated_at">
-                                                            Latest
-                                                        </option>
-                                                        <option value="-rating">
-                                                            Top
-                                                        </option>
-                                                    </Form.Select>
-                                                    {/* <SelectInputField
-                                                        name="search_value"
-                                                        options={reviewType}
-                                                        fieldRequired
-                                                        placeHolder="Most Relevant"
-                                                        // value={
-                                                        //     values.search_category
-                                                        // }
-                                                        onChange={(e: any) => {
-                                                            setSearch(
-                                                                values.search_value
-                                                            );
-                                                            console.log(
-                                                                "values0,",
-                                                                values.search_value
-                                                            );
-                                                           
-                                                        }}
-                                                    /> */}
-                                                </Form>
-                                            )}
+                                                    <option value="-rating">
+                                                        Most Relevant
+                                                    </option>
+                                                    <option value="-updated_at">
+                                                        Latest
+                                                    </option>
+                                                    <option value="-rating">
+                                                        Top
+                                                    </option>
+                                                </Form.Select>
+                                            </Form>
                                         </Formik>
                                     </Col>
                                 </Row>
@@ -712,7 +708,7 @@ const AboutProfile = () => {
                             taskerRating?.data.result.length > 0 ? (
                                 <div>
                                     <Spoiler
-                                        maxHeight={350}
+                                        maxHeight={480}
                                         hideLabel={"Hide"}
                                         showLabel={"See all reviews"}
                                         className={"mb-5"}
@@ -750,10 +746,21 @@ const AboutProfile = () => {
                                     </Spoiler>
                                 </div>
                             ) : (
-                                <p>
-                                    You have no reviews yet, Get started with
-                                    task.
-                                </p>
+                                <div>
+                                    <p>
+                                        You have no reviews yet, Get started
+                                        with task.
+                                    </p>
+                                    <a
+                                        onClick={() =>
+                                            toggleShowPostTaskModal()
+                                        }
+                                        className="nav-cta-btn"
+                                        role="button"
+                                    >
+                                        Post a Task
+                                    </a>
+                                </div>
                             )}
                         </Row>
                     </div>
