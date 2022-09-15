@@ -4,10 +4,12 @@ import FormButton from "@components/common/FormButton";
 import FullPageLoader from "@components/common/FullPageLoader";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
+import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useDocumentKYC } from "hooks/profile/kyc/use-Kyc-Document";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
+import { useRouter } from "next/router";
 import { Button, Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { KYCDocumentSchema } from "utils/formValidation/kycDocument";
@@ -22,9 +24,12 @@ export type KYCDocuments = {
     valid_through: Date | string;
 };
 
-export const IdentityDocument = () => {
-    const { data: KYCData, refetch } = useGetKYC();
-    const { mutate, isLoading } = useDocumentKYC();
+export const IdentityDocument = ({ getReadvalue }: { getReadvalue: any }) => {
+    const { data: KYCData } = useGetKYC();
+    const { mutate } = useDocumentKYC();
+    const queryClient = new QueryClient();
+    const router = useRouter();
+
     // if (isLoading) return <FullPageLoader />;
 
     // if (!KYCData || isLoading) {
@@ -58,10 +63,10 @@ export const IdentityDocument = () => {
                 issuer_organization: "",
                 issued_date: "",
                 valid_through: "",
-                kyc: KYCData ? KYCData.id : "",
+                kyc: "",
             }}
             validationSchema={KYCDocumentSchema}
-            onSubmit={(val, action) => {
+            onSubmit={async (val, action) => {
                 const formData: FormData = new FormData();
 
                 const newValues = {
@@ -74,7 +79,7 @@ export const IdentityDocument = () => {
                         val.valid_through !== ""
                             ? format(new Date(val.valid_through), "yyyy-MM-dd")
                             : "",
-                    kyc: KYCData ? KYCData.id : "",
+                    kyc: router.query.kycId,
                 };
 
                 Object.entries(newValues).forEach((entry) => {
@@ -86,8 +91,10 @@ export const IdentityDocument = () => {
                 formData.append("file", val.file);
                 mutate(formData, {
                     onSuccess: () => {
+                        queryClient.invalidateQueries(["KYC-document"]);
                         action.resetForm();
                         toast.success("Your KYC is pending for approval");
+                        getReadvalue(true);
                     },
                     onError: (error) => {
                         toast.error(error.message);
@@ -180,6 +187,7 @@ export const IdentityDocument = () => {
                         >
                             Cancel
                         </Button>
+
                         <FormButton
                             type="submit"
                             variant="primary"

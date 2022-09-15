@@ -48,7 +48,7 @@ const GoogleMap = () => {
             onLoad={onLoad}
             onUnmount={onUnmount}
         >
-            {location && <Marker position={location} label="You are here" />}
+            {location && <Marker position={location} label={"You are here"} />}
         </ReactGoogleMap>
     ) : null;
 };

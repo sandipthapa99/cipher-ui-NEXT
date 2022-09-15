@@ -71,17 +71,17 @@ $sizes: (8, 16, 24, 48, 64, 96, 128, 256);
 }
 
 .rr--has-stroke .rr--on .rr--svg {
-    stroke: none;
+    stroke: none !important;
 }
 .rr--has-stroke .rr--on .rr--svg {
-    stroke: none;
+    stroke: none !important;
 }
 .rr--on .rr--svg,
 .rr--off .rr--svg {
     width: 2.3rem;
     height: 2.3rem;
     color: #ff9700 !important;
-    stroke: #ff9700 !important;
+    stroke: none !important;
 }
 .rr--on .rr--svg {
     width: 2.7rem;

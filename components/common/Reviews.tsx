@@ -47,6 +47,7 @@ const Reviews = ({
                                 </h3>
 
                                 <RatingStars value={ratings} />
+                                <span>{ratings}</span>
                             </div>
 
                             <p className="description">{description}</p>

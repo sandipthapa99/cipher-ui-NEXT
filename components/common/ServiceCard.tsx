@@ -10,11 +10,14 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
 
-import BookNowButton from "./BookNowButton";
 import ModalCard from "./BookNowModalCard";
 import CardBtn from "./CardBtn";
 import SaveIcon from "./SaveIcon";
 import ShareIcon from "./ShareIcon";
+
+interface savedService {
+    isSaved: boolean;
+}
 
 const ServiceCard = ({
     serviceCard,
@@ -22,7 +25,7 @@ const ServiceCard = ({
     serviceCard: ServicesValueProps["result"][0];
 }) => {
     const router = useRouter();
-    const { data: profileDetails, isLoading, error } = useGetProfile();
+    const { data: profileDetails } = useGetProfile();
 
     const loggedIn = Cookies.get("access");
 
@@ -43,7 +46,7 @@ const ServiceCard = ({
     };
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
-        <div className="service-card-block">
+        <div className="service-card-block align-items-stretch">
             <Link href={`/service/${serviceCard?.slug}`}>
                 <a>
                     <div className="card-img">
@@ -112,7 +115,7 @@ const ServiceCard = ({
                                 hideLabel={"..."}
                                 showLabel={"..."}
                             >
-                                {parse(serviceCard?.description)}
+                                {serviceCard?.description}
                             </Spoiler>
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
@@ -139,13 +142,25 @@ const ServiceCard = ({
                 </Link>
                 <div className="d-flex justify-content-between align-items-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
-                        <SaveIcon
-                            object_id={serviceCard?.slug}
-                            model={"service"}
-                        />
+                        {serviceProviderId === userId ? (
+                            ""
+                        ) : (
+                            <SaveIcon
+                                object_id={serviceCard?.slug}
+                                model={"service"}
+                            />
+                        )}
                         <ShareIcon url={""} quote={""} hashtag={""} />
                     </div>
-
+                    {/* <CardBtn
+                        btnTitle={`${
+                            serviceProviderId === userId
+                                ? "Edit Now"
+                                : "Book Now"
+                        }`}
+                        backgroundColor="#211D4F"
+                        handleClick={handleShowModal}
+                    /> */}
                     <CardBtn
                         btnTitle={`${
                             serviceProviderId === userId
