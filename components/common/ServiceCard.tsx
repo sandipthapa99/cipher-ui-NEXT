@@ -16,15 +16,13 @@ import SaveIcon from "./SaveIcon";
 import ShareIcon from "./ShareIcon";
 
 interface savedService {
-    isSaved?: boolean;
+    isSaved: boolean;
 }
 
 const ServiceCard = ({
     serviceCard,
-    isSaved,
 }: {
     serviceCard: ServicesValueProps["result"][0];
-    isSaved: savedService;
 }) => {
     const router = useRouter();
     const { data: profileDetails } = useGetProfile();
@@ -150,7 +148,6 @@ const ServiceCard = ({
                             <SaveIcon
                                 object_id={serviceCard?.slug}
                                 model={"service"}
-                                filled={isSaved}
                             />
                         )}
                         <ShareIcon url={""} quote={""} hashtag={""} />

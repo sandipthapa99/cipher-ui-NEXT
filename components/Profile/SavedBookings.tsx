@@ -18,7 +18,7 @@ const SavedBookings = () => {
                         <ServiceCard
                             key={bookmark.id}
                             serviceCard={bookmark.data as any}
-                            isSaved={true}
+                            // isSaved={true}
                         />
                     </Col>
                 ))}
