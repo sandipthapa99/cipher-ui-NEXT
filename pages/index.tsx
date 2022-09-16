@@ -222,7 +222,7 @@ const Home: NextPage<{
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                        {servicesData && servicesData?.result.length > 0 && (
+                        {servicesData && servicesData?.result?.length > 0 && (
                             <>
                                 <h2 className="heading-title">
                                     Popular Verified Services
