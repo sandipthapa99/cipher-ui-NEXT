@@ -1,8 +1,9 @@
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
+import { useQueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import parse from "html-react-parser";
+import { useIsBookmarked } from "hooks/use-bookmarks";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,14 +16,12 @@ import CardBtn from "./CardBtn";
 import SaveIcon from "./SaveIcon";
 import ShareIcon from "./ShareIcon";
 
-interface savedService {
-    isSaved: boolean;
-}
-
 const ServiceCard = ({
     serviceCard,
+    isSaved,
 }: {
     serviceCard: ServicesValueProps["result"][0];
+    isSaved?: boolean;
 }) => {
     const router = useRouter();
     const { data: profileDetails } = useGetProfile();
@@ -44,6 +43,13 @@ const ServiceCard = ({
             });
         }
     };
+    const queryClient = useQueryClient();
+    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.slug);
+    console.log(
+        "🚀 ~ file: ServiceCard.tsx ~ line 48 ~ isServiceBookmarked",
+        isServiceBookmarked,
+        serviceCard?.slug
+    );
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
         <div className="service-card-block align-items-stretch">
@@ -115,7 +121,7 @@ const ServiceCard = ({
                                 hideLabel={"..."}
                                 showLabel={"..."}
                             >
-                                {serviceCard?.description}
+                                <p>{serviceCard?.description}</p>
                             </Spoiler>
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
@@ -148,6 +154,13 @@ const ServiceCard = ({
                             <SaveIcon
                                 object_id={serviceCard?.slug}
                                 model={"service"}
+                                filled={!isServiceBookmarked}
+                                onSuccess={() =>
+                                    queryClient.invalidateQueries([
+                                        "bookmarks",
+                                        "service",
+                                    ])
+                                }
                             />
                         )}
                         <ShareIcon url={""} quote={""} hashtag={""} />

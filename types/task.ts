@@ -25,6 +25,16 @@ export interface ITask {
         slug: string;
         icon: string | null;
     };
+    city: {
+        id: number;
+        name: string;
+        latitude: number;
+        longitude: number;
+        country: {
+            id: number;
+            name: string;
+        };
+    };
     location: string;
     assigner: {
         id: string;
