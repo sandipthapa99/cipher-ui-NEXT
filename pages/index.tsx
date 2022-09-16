@@ -22,7 +22,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Highlight } from "@mantine/core";
-import { QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -661,7 +660,7 @@ const Home: NextPage<{
                         </h1>
                         <h3 className="text-center">Some Success Stories</h3>
                     </div>
-                    {topCategoryData.length <= 0 && (
+                    {topCategoryData?.length <= 0 && (
                         <Alert
                             icon={<FontAwesomeIcon icon={faWarning} />}
                             title="No data Available!"
@@ -717,7 +716,7 @@ const Home: NextPage<{
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
                 <Container fluid="xl" className="px-5">
-                    {blogData && blogData.result.length > 0 && (
+                    {blogData && blogData?.result?.length > 0 && (
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                             <h2 className="heading-title">Our blogs</h2>
                             <Link href="/blogs">
