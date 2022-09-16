@@ -26,6 +26,7 @@ export interface ServicesValueProps {
             id: string;
             email: string;
             full_name: string;
+            profile_image: string;
         };
         category: {
             id: number;
@@ -55,6 +56,13 @@ export interface ServicesValueProps {
             media: string;
             media_type: string;
             placeholder: string;
+        }[];
+        videos: {
+            id: number;
+            name: string;
+            size: string;
+            media_type: string;
+            media: string;
         }[];
         created_at: string;
         updated_at: string;

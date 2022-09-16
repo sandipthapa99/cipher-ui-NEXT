@@ -27,7 +27,7 @@ import { KYCStatus } from "./KycStatus";
 // ];
 
 const KYCForm = () => {
-    const { data: KYCData } = useGetKYC();
+    const { data: KYCData, refetch: refetchKycData } = useGetKYC();
 
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();
@@ -53,6 +53,7 @@ const KYCForm = () => {
         if (id) setFieldValue("country", parseInt(id));
     };
     const country = profileDetails?.country ? profileDetails?.country : "";
+
     const queryClient = new QueryClient();
 
     const foundCountry = countryResults.find((item) => item.label === country);
@@ -131,19 +132,10 @@ const KYCForm = () => {
                         mutate(values, {
                             onSuccess: (data) => {
                                 // toggleSuccessModal();
+                                refetchKycData();
                                 toast.success("KYC Details Added Successfully");
-                                router.push(
-                                    {
-                                        pathname: router.pathname,
-                                        query: { kycId: data?.id },
-                                    },
-                                    undefined,
-                                    {
-                                        scroll: false,
-                                    }
-                                );
                                 setShowDocument(true);
-                                queryClient.invalidateQueries(["GET_KYC"]);
+                                //queryClient.invalidateQueries(["GET_KYC"]);
                                 // setShowButtons(false);
                             },
                             onError: (error) => {
@@ -313,11 +305,10 @@ const KYCForm = () => {
                         </Form>
                     )}
                 </Formik>
-                <IdentityDocument getReadvalue={setShowKYCRead} />
+                {KYCData && <IdentityDocument getReadvalue={setShowKYCRead} />}
                 {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
-
-            {showKYCRead && <KYCStatus />}
+            {!KYCData?.is_kyc_verified && <KYCStatus />}
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"

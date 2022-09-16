@@ -7,7 +7,6 @@ import ShareIcon from "@components/common/ShareIcon";
 import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import { Tab } from "@components/common/Tab";
 import PostModal from "@components/PostTask/PostModal";
-import { TaskDetailSkeleton } from "@components/Skeletons/TaskDetailSkeleton";
 import {
     faCalendar,
     faClockEight,
@@ -22,23 +21,32 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import type { ITask } from "types/task";
-import { axiosClient } from "utils/axiosClient";
+import type { ITask, TaskApplicantsProps } from "types/task";
+import { isImage } from "utils/isImage";
+import { isVideo } from "utils/isVideo";
 import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
 import { TimelineTab } from "./TimelineTab";
 
-const AppliedTaskDetail = ({ type }: { type?: string }) => {
+const AppliedTaskDetail = ({
+    type,
+    taskDetail,
+    taskApplicants,
+}: {
+    type?: string;
+    taskDetail: ITask;
+    taskApplicants: TaskApplicantsProps;
+}) => {
     const queryClient = useQueryClient();
     const { data: user } = useUser();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
@@ -59,19 +67,10 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
 
     const slug = router?.query?.slug as string;
 
-    const { data: taskDetail, isFetching: isTaskDetailLoading } = useQuery(
-        ["task-detail", slug],
-        async () => {
-            const { data } = await axiosClient.get<ITask>(`/task/${slug}`);
-            return data;
-        },
-        { initialData: {} as ITask }
-    );
-
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
     const taskRequirements = safeParse<Array<{ id: number; title: string }>>({
-        rawString: taskDetail.requirements,
+        rawString: taskDetail?.requirements,
         initialData: [],
     });
     const isUserTask = user ? taskDetail?.assigner?.id === user?.id : false;
@@ -82,9 +81,6 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
-    if (!taskDetail || isTaskDetailLoading) {
-        return <TaskDetailSkeleton />;
-    }
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
@@ -96,7 +92,7 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
-                        {taskDetail.created_at && (
+                        {taskDetail?.created_at && (
                             <span className="pb-3 pb-sm-0 provider-name">
                                 {format(new Date(taskDetail?.created_at), "PP")}
                             </span>
@@ -157,7 +153,37 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        {(taskVideosAndImages ?? []).length > 0 ? (
+                        {(taskVideosAndImages ?? []).length === 1 &&
+                            taskVideosAndImages.map((file, key) => (
+                                <Fragment key={key}>
+                                    {isImage(file.media_type) ? (
+                                        <figure className="thumbnail-img">
+                                            <Image
+                                                src={file.media}
+                                                alt={file.placeholder}
+                                                layout="fill"
+                                                placeholder="blur"
+                                                blurDataURL="/service-details/Garden.svg"
+                                            />
+                                        </figure>
+                                    ) : isVideo(file.media_type) ? (
+                                        <video
+                                            className="thumbnail-img"
+                                            width="100%"
+                                            height="100%"
+                                            controls
+                                        >
+                                            <source
+                                                id={`task-video-${file.id}`}
+                                                src={file.media}
+                                            />
+                                            Your browser does not support
+                                            playing videos.
+                                        </video>
+                                    ) : null}
+                                </Fragment>
+                            ))}
+                        {(taskVideosAndImages ?? []).length > 1 ? (
                             <Carousel
                                 withIndicators={hasMultipleVideosOrImages}
                                 withControls={hasMultipleVideosOrImages}
@@ -173,15 +199,17 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                             >
                                 {taskVideosAndImages.map((file, key) => (
                                     <Carousel.Slide key={key}>
-                                        {file.media_type === "image" ? (
+                                        {isImage(file.media_type) ? (
                                             <figure className="thumbnail-img">
                                                 <Image
                                                     src={file.media}
                                                     alt={file.placeholder}
                                                     layout="fill"
+                                                    placeholder="blur"
+                                                    blurDataURL="/service-details/Garden.svg"
                                                 />
                                             </figure>
-                                        ) : file.media_type === "video" ? (
+                                        ) : isVideo(file.media_type) ? (
                                             <video
                                                 className="thumbnail-img"
                                                 width="100%"
@@ -199,16 +227,7 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                                     </Carousel.Slide>
                                 ))}
                             </Carousel>
-                        ) : (
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src="/service-details/Garden.svg"
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt="garden-image"
-                                />
-                            </figure>
-                        )}
+                        ) : null}
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         {taskDetail && (
@@ -286,7 +305,12 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                     activeIndex={activeTabIdx}
                     onTabClick={setActiveTabIdx}
                     items={[
-                        { title: "Taskers", content: <TaskersTab /> },
+                        {
+                            title: "Taskers",
+                            content: (
+                                <TaskersTab taskApplicants={taskApplicants} />
+                            ),
+                        },
                         { title: "Timeline", content: <TimelineTab /> },
                         {
                             title: "Collaboration",

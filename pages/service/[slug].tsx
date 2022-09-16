@@ -44,6 +44,8 @@ const ServicesDetail = ({
                     serviceViews={service?.views_count}
                     serviceId={service?.id}
                     currency={service?.currency?.code}
+                    ProfileImage={service?.created_by?.profile_image}
+                    service={service}
                 />
             </ServiceLayout>
         </>

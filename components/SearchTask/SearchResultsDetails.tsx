@@ -35,33 +35,37 @@ import { useSetBookNowDetails } from "store/use-book-now";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
+import { isImage } from "utils/isImage";
+import { isVideo } from "utils/isVideo";
 
 const SearchResultsDetail = ({
-    image,
     budget_from,
     budget_to,
     budget_type,
     serviceProvider,
     serviceProviderLocation,
     serviceDescription,
-    serviceRating,
     serviceTitle,
-    haveDiscount,
-    discountOn,
-    discount,
     highlights,
     slug,
     serviceId,
-    servicePackage,
     serviceCreated,
     serviceViews,
+    ProfileImage,
     currency,
+    service,
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const setBookNowDetails = useSetBookNowDetails();
     const reviewsContent = getReviews();
     const queryClient = useQueryClient();
+
+    const taskVideosAndImages = [
+        ...(service?.images ?? []),
+        ...(service?.videos ?? []),
+    ];
+    const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
@@ -212,8 +216,41 @@ const SearchResultsDetail = ({
             </Row>
             <Row>
                 <Col md={12} lg={7}>
-                    {Array.isArray(image) && image.length > 1 ? (
+                    {(taskVideosAndImages ?? []).length === 1 &&
+                        taskVideosAndImages.map((file) => (
+                            <>
+                                {isImage(file.media_type) ? (
+                                    <figure className="thumbnail-img">
+                                        <Image
+                                            src={file.media}
+                                            alt={file.name}
+                                            layout="fill"
+                                            placeholder="blur"
+                                            blurDataURL="/service-details/Garden.svg"
+                                        />
+                                    </figure>
+                                ) : isVideo(file.media_type) ? (
+                                    <video
+                                        className="thumbnail-img"
+                                        width="100%"
+                                        height="100%"
+                                        controls
+                                    >
+                                        <source
+                                            id={`task-video-${file.id}`}
+                                            src={file.media}
+                                        />
+                                        Your browser does not support playing
+                                        videos.
+                                    </video>
+                                ) : null}
+                            </>
+                        ))}
+                    {(taskVideosAndImages ?? []).length > 1 ? (
                         <Carousel
+                            withIndicators={hasMultipleVideosOrImages}
+                            withControls={hasMultipleVideosOrImages}
+                            draggable={hasMultipleVideosOrImages}
                             styles={{
                                 control: {
                                     "&[data-inactive]": {
@@ -222,73 +259,55 @@ const SearchResultsDetail = ({
                                     },
                                 },
                             }}
-                            className="rounded"
                         >
-                            {Array.isArray(image) &&
-                                image.map((value, key) => (
-                                    <Carousel.Slide
-                                        key={key}
-                                        className="thumbnail-img "
-                                    >
-                                        {value?.media && (
+                            {taskVideosAndImages.map((file, key) => (
+                                <Carousel.Slide key={key}>
+                                    {isImage(file.media_type) ? (
+                                        <figure className="thumbnail-img">
                                             <Image
-                                                src={
-                                                    value?.media
-                                                        ? value.media
-                                                        : "/service-details/garden-cleaning.png"
-                                                }
+                                                src={file.media}
+                                                alt={file.name}
                                                 layout="fill"
-                                                objectFit="cover"
-                                                alt="garden-image"
                                             />
-                                        )}
-                                    </Carousel.Slide>
-                                ))}
-                            {/* <Carousel.Slide className="thumbnail-img ">
-                                    <Image
-                                        src={"/No_image_available.svg.webp"}
-                                        layout="fill"
-                                        objectFit="cover"
-                                        alt="garden-image"
-                                    />
-                                </Carousel.Slide> */}
+                                        </figure>
+                                    ) : isVideo(file.media_type) ? (
+                                        <video
+                                            className="thumbnail-img"
+                                            width="100%"
+                                            height="100%"
+                                            controls
+                                        >
+                                            <source
+                                                id={`task-video-${file.id}`}
+                                                src={file.media}
+                                            />
+                                            Your browser does not support
+                                            playing videos.
+                                        </video>
+                                    ) : null}
+                                </Carousel.Slide>
+                            ))}
                         </Carousel>
-                    ) : (
-                        Array.isArray(image) &&
-                        image.map((value, key) => (
-                            <figure key={key} className="thumbnail-img">
-                                <Image
-                                    src={
-                                        value?.media
-                                            ? value.media
-                                            : "/service-details/garden-cleaning.png"
-                                    }
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt="garden-image"
-                                />
-                            </figure>
-                        ))
-                    )}
+                    ) : null}
+                    {(taskVideosAndImages ?? []).length <= 0 && "SDSD"}
                 </Col>
                 <Col md={12} lg={5} className="d-flex">
                     <div className="simple-card my-5 my-lg-0 ">
                         <div className="d-flex align-items-center simple-card__profile">
-                            {/* TO BE IMPLEMENTED */}
-                            {/* {image && (
-                                    <figure className="thumbnail-img">
-                                        <Image
-                                            src={
-                                                image
-                                                    ? image
-                                                    : "/service-details/garden-cleaning.png"
-                                            }
-                                            layout="fill"
-                                            objectFit="cover"
-                                            alt="serviceprovider-image"
-                                        />
-                                    </figure>
-                                )} */}
+                            {ProfileImage && (
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src={
+                                            ProfileImage
+                                                ? ProfileImage
+                                                : "/service-details/garden-cleaning.png"
+                                        }
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="serviceprovider-image"
+                                    />
+                                </figure>
+                            )}
                             <div className="intro">
                                 <p className="name">{serviceProvider}</p>
                                 <p className="job">{serviceTitle}</p>

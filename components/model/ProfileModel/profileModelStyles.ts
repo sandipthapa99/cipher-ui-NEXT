@@ -15,7 +15,7 @@ export const useProfileModelStyles = createStyles((_theme) => ({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        gap: "1rem",
+        gap: "0rem",
     },
     username: {
         fontSize: "1.6rem",
