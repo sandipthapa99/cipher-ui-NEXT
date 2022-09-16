@@ -6,7 +6,6 @@ const CommunityGuidelineCard = ({
     cardDescription,
     cardTitle,
 }: CommunityGuidelineCardProps) => {
-    const mapKey = 0;
     return (
         <div className="card-block align-items-center">
             <figure className="thumbnail-img">
