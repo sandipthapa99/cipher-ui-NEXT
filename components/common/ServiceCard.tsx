@@ -18,10 +18,8 @@ import ShareIcon from "./ShareIcon";
 
 const ServiceCard = ({
     serviceCard,
-    isSaved,
 }: {
     serviceCard: ServicesValueProps["result"][0];
-    isSaved?: boolean;
 }) => {
     const router = useRouter();
     const { data: profileDetails } = useGetProfile();
@@ -44,11 +42,16 @@ const ServiceCard = ({
         }
     };
     const queryClient = useQueryClient();
-    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.slug);
+    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.id);
+    console.log(
+        "🚀 ~ file: ServiceCard.tsx ~ line 46 ~ isServiceBookmarked",
+        isServiceBookmarked
+    );
+
     console.log(
         "🚀 ~ file: ServiceCard.tsx ~ line 48 ~ isServiceBookmarked",
-        isServiceBookmarked,
-        serviceCard?.slug
+
+        serviceCard
     );
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
@@ -152,9 +155,9 @@ const ServiceCard = ({
                             ""
                         ) : (
                             <SaveIcon
-                                object_id={serviceCard?.slug}
+                                object_id={serviceCard?.id}
                                 model={"service"}
-                                filled={!isServiceBookmarked}
+                                filled={isServiceBookmarked}
                                 onSuccess={() =>
                                     queryClient.invalidateQueries([
                                         "bookmarks",

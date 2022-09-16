@@ -30,7 +30,6 @@ const SaveIcon = ({
         if (!object_id || !model) return;
         mutate({ object_id, model }, { onSuccess });
     };
-
     return (
         <button
             onClick={withLogin(handleSaveClick)}

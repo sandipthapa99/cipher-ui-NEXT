@@ -1,15 +1,15 @@
 export interface MerchantCardProps {
-    merchantImage: string;
-    merchantName: string;
-    currency?: string;
-    merchantCategory: string;
-    merchantLocation: string;
-    merchantDescription: string;
-    merchantRating: number | string;
-    merchantPrice: string | number;
-    happyClients: number;
-    successRate: number;
+    merchantImage: string | null | undefined;
+    merchantName: string | null | undefined;
+    currency?: string | null | undefined;
+    merchantCategory: string | null | undefined;
+    merchantLocation: string | null | undefined;
+    merchantDescription: string | null | undefined;
+    merchantRating: number | string | null | undefined;
+    merchantPrice: string | null | undefined | number;
+    happyClients: number | undefined | null;
+    successRate: number | undefined | null;
     liked?: boolean;
-    merchantId: string | number;
+    merchantId: string | null | undefined | number;
     onClick?: () => void;
 }

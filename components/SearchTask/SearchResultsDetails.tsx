@@ -145,6 +145,8 @@ const SearchResultsDetail = ({
 
     const isServiceBookmarked = useIsBookmarked("service", serviceId);
 
+    console.log("is service bookmarked", isServiceBookmarked);
+
     // check if current logged in user is the owner of the current service
     const isCurrentUserService = () => {
         const service = servicesData?.data.result.find(
