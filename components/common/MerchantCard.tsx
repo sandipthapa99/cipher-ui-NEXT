@@ -1,5 +1,7 @@
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQueryClient } from "@tanstack/react-query";
+import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import Link from "next/link";
 import type { MerchantCardProps } from "types/merchantCard";
@@ -21,13 +23,17 @@ const MerchantCard = ({
     currency,
     merchantId,
 }: MerchantCardProps) => {
+    const id = merchantId ? merchantId : "";
+    const isTaskerBookmarked = useIsBookmarked("user", id.toString());
+    const queryClient = useQueryClient();
+
     return (
         <div className="merchant-card-block">
             <Link href={`/tasker/${merchantId}`}>
                 <a>
                     <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
                         <figure className="thumbnail-img">
-                            {merchantImage && (
+                            {merchantImage ? (
                                 <Image
                                     src={
                                         merchantImage ??
@@ -37,14 +43,21 @@ const MerchantCard = ({
                                     objectFit="cover"
                                     alt="merchant-image"
                                 />
+                            ) : (
+                                ""
                             )}
                         </figure>
                         <div className="merchant-name">
-                            <h2 className="card-title">{`${
-                                merchantName.length > 17
-                                    ? `${merchantName.substring(0, 17)}...`
-                                    : merchantName
-                            }`}</h2>
+                            {merchantName ? (
+                                <h2 className="card-title">{`${
+                                    merchantName.length > 17
+                                        ? `${merchantName.substring(0, 17)}...`
+                                        : merchantName
+                                }`}</h2>
+                            ) : (
+                                ""
+                            )}
+
                             <h3 className="card-subtitle">
                                 <span>{merchantCategory}</span> |{" "}
                                 {merchantLocation}
@@ -57,16 +70,20 @@ const MerchantCard = ({
                 <Link href={`/tasker/${merchantId}`}>
                     <a>
                         <div className="merchant-description">
-                            <p className="card-description">
-                                {`${
-                                    merchantDescription.length > 100
-                                        ? `${merchantDescription.substring(
-                                              0,
-                                              100
-                                          )}...`
-                                        : merchantDescription
-                                }`}
-                            </p>
+                            {merchantDescription ? (
+                                <p className="card-description">
+                                    {`${
+                                        merchantDescription.length > 100
+                                            ? `${merchantDescription.substring(
+                                                  0,
+                                                  100
+                                              )}...`
+                                            : merchantDescription
+                                    }`}
+                                </p>
+                            ) : (
+                                ""
+                            )}
                         </div>
                         <div className="analytics d-flex justify-content-between">
                             <div className="happy-clients d-flex flex-column">
@@ -108,11 +125,13 @@ const MerchantCard = ({
                                     icon={faStar}
                                     className="svg-icon star"
                                 />
-                                {merchantRating}
+                                {merchantRating && merchantRating > 0
+                                    ? merchantRating
+                                    : 0}
                             </p>
                             <p className="price">
                                 {currency}
-                                {merchantPrice}/hr
+                                &nbsp;{merchantPrice}/hr
                             </p>
                         </div>
                     </a>
@@ -121,7 +140,14 @@ const MerchantCard = ({
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
                         <SaveIcon
                             object_id={String(merchantId)}
-                            model={"Merchant"}
+                            model={"user"}
+                            filled={isTaskerBookmarked}
+                            onSuccess={() =>
+                                queryClient.invalidateQueries([
+                                    "bookmarks",
+                                    "user",
+                                ])
+                            }
                         />
                         <ShareIcon url={""} quote={""} hashtag={""} />
                     </div>
