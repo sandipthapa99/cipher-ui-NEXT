@@ -125,7 +125,9 @@ const MerchantCard = ({
                                     icon={faStar}
                                     className="svg-icon star"
                                 />
-                                {merchantRating}
+                                {merchantRating && merchantRating > 0
+                                    ? merchantRating
+                                    : 0}
                             </p>
                             <p className="price">
                                 {currency}

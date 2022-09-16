@@ -217,8 +217,7 @@ const Gardening = ({
                                                     merchant?.bio
                                                 }
                                                 merchantRating={
-                                                    merchant?.stats
-                                                        ?.user_reviews
+                                                    merchant?.rating?.avg_rating
                                                 }
                                                 merchantPrice={
                                                     merchant?.charge_currency
