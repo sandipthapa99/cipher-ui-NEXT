@@ -102,9 +102,9 @@
                 .thumbnail-img {
                     margin: 0 2rem 0 0;
                     height: 2.5rem;
-                    width: 4.5rem;
-                    object-fit: contain;
-                    @include respond(xs){
+                    width: 2.5rem;
+                    @include respond(xs) {
+                        object-fit: contain;
                         display: none;
                     }
 

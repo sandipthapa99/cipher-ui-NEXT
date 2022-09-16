@@ -18,6 +18,7 @@ interface SearchCategoryProps {
     getSortingByPrice?: any;
     getTaskBySort?: any;
     getTaskerBySort?: any;
+    placeholder?: string;
 }
 
 export const SearchCategory = ({
@@ -27,6 +28,7 @@ export const SearchCategory = ({
     getSortingByPrice,
     getTaskBySort,
     getTaskerBySort,
+    placeholder,
 }: SearchCategoryProps) => {
     const { data: allcategories } = useCategories();
 
@@ -236,7 +238,7 @@ export const SearchCategory = ({
                     <InputGroup className="search-category--input-group">
                         <Form.Control
                             className="search-category--input"
-                            placeholder="Find your Services &amp; Merchants"
+                            placeholder={placeholder}
                             aria-label="Find your Services &amp; Merchants"
                             aria-describedby="basic-addon2"
                             onChange={debounce(
