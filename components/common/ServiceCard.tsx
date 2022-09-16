@@ -4,10 +4,12 @@ import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useIsBookmarked } from "hooks/use-bookmarks";
+import parse from "html-react-parser";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+// import { parse } from "path";
 import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
 
@@ -121,7 +123,7 @@ const ServiceCard = ({
                                 hideLabel={"..."}
                                 showLabel={"..."}
                             >
-                                <p>{serviceCard?.description}</p>
+                                <p>{parse(serviceCard?.description)}</p>
                             </Spoiler>
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
