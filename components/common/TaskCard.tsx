@@ -1,4 +1,3 @@
-import AppliedForm from "@components/AppliedTask/AppliedForm";
 import {
     faCalendar,
     faClockEight,
@@ -8,18 +7,26 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
 import Link from "next/link";
-import { useState } from "react";
-import { BookingDetails } from "staticData/bookNowModalCard";
 import type { ITask } from "types/task";
 
 import CardBtn from "./CardBtn";
 import ShareIcon from "./ShareIcon";
-// css for this file is done in _gettingStartedTask.scss page
 
+type RequiredTaskKeys =
+    | "title"
+    | "charge"
+    | "description"
+    | "location"
+    | "start_date"
+    | "start_time"
+    | "status"
+    | "currency"
+    | "slug";
 interface TaskCardProps {
-    task: ITask;
+    task: Pick<ITask, RequiredTaskKeys>;
+    isSaved?: boolean;
 }
-const TaskCard = ({ task }: TaskCardProps) => {
+const TaskCard = ({ task, isSaved }: TaskCardProps) => {
     const {
         title,
         charge,
@@ -31,7 +38,6 @@ const TaskCard = ({ task }: TaskCardProps) => {
         currency,
         slug,
     } = task;
-    const [showModal, setShowModal] = useState(false);
 
     function getDateFromHours(time: any) {
         time = time ? time?.split(":") : "";
@@ -123,19 +129,6 @@ const TaskCard = ({ task }: TaskCardProps) => {
                     </Link>
                 </div>
             </div>
-
-            {BookingDetails &&
-                BookingDetails.map((detail) => (
-                    <AppliedForm
-                        key={detail.id}
-                        title={detail.title}
-                        price={detail.price}
-                        image={detail.image}
-                        description={detail.description}
-                        show={showModal}
-                        handleClose={() => setShowModal(false)}
-                    />
-                ))}
         </div>
     );
 };

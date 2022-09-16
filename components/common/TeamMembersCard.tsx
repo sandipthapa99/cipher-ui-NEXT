@@ -66,7 +66,7 @@ export const TeamMembersCard = ({
                     <div className="d-flex w-100 image-and-title">
                         <figure className="team-member-card-image">
                             <Image
-                                src={image ?? "/community/gallery2.png"}
+                                src={image ?? "/userprofile/unknownPerson.jpg"}
                                 alt="team-member-card-image"
                                 height={80}
                                 width={80}
@@ -89,8 +89,17 @@ export const TeamMembersCard = ({
                                         className="star"
                                         icon={faStar}
                                     />
-                                    <span> {rating}</span>
+                                    {rating &&
+                                    rating > 0 &&
+                                    Number.isSafeInteger(rating) ? (
+                                        <span>{`${rating}.0`}</span>
+                                    ) : rating === null || 0 ? (
+                                        <span>0</span>
+                                    ) : (
+                                        <span>{`${rating?.toFixed(1)}`}</span>
+                                    )}
                                 </span>
+
                                 <span className="emoji">
                                     <FontAwesomeIcon
                                         className="emoji"

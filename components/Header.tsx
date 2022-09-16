@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faUserHelmetSafety } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Modal } from "@mantine/core";
+import { Indicator } from "@mantine/core";
 import { useClickOutside } from "@mantine/hooks";
 import { format } from "date-fns";
 import { useLocation } from "hooks/location/useLocation";
@@ -18,7 +18,7 @@ import { useWeather } from "hooks/weather/useWeather";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { handleMenuActive } from "utils/helpers";
 
@@ -171,19 +171,29 @@ const Header = () => {
                                     }
                                 >
                                     <div className="bell-icon-header">
-                                        <FontAwesomeIcon
-                                            icon={faBell}
-                                            className="svg-icon"
-                                        />
-                                        {allNotification?.unread_count !==
-                                            0 && (
-                                            <span className="notification-badge">
-                                                {allNotification?.unread_count}
-                                            </span>
+                                        {allNotification &&
+                                        allNotification?.unread_count > 0 ? (
+                                            <Indicator
+                                                color="#e62e04"
+                                                label={
+                                                    allNotification?.unread_count
+                                                }
+                                                inline
+                                                size={15}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faBell}
+                                                    className="svg-icon"
+                                                />
+                                            </Indicator>
+                                        ) : (
+                                            <FontAwesomeIcon
+                                                icon={faBell}
+                                                className="svg-icon"
+                                            />
                                         )}
                                     </div>
                                 </a>
-
                                 {notopen && <NotificationDropdown />}
                             </div>
                         ) : null}

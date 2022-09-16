@@ -1,15 +1,14 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import FullPageLoader from "@components/common/FullPageLoader";
 import { Tab } from "@components/common/Tab";
 import UserProfileCard from "@components/common/UserProfile";
 import Layout from "@components/Layout";
-import AboutProfile from "@components/Profile/AboutProfile";
+import AboutProfile from "@components/Profile/AboutUser";
 import UserActivities from "@components/Profile/Activities";
 import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
-import TasksProfileCard from "@components/Profile/TasksProfile";
-import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
+import TasksProfileCard from "@components/Profile/UserServices";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
@@ -19,9 +18,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const { data: profileDetails, isLoading, error } = useGetProfile();
-    const queryClient = useQueryClient();
-    const data = queryClient.getQueryData(["profile"]);
+    const { data: profileDetails, isLoading } = useGetProfile();
     const router = useRouter();
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
@@ -31,6 +28,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     // const profileDetails = userData?.data;
 
     // if (isLoading || !data) return <FullPageLoader />;
+    // console.log("profileDetails", profileDetails);
 
     const remaining = {
         userRating: 4,
@@ -45,11 +43,10 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         userActiveStatus: true,
     };
     useEffect(() => {
-        if (!profileDetails) {
+        if (!profileDetails && !isLoading) {
             router.push("/settings/account/individual");
-            console.log("test");
         }
-    }, []);
+    }, [profileDetails]);
 
     if (!profileDetails) {
         return (
@@ -61,14 +58,15 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             <Col className="create-profile">
                                 <h1>Your profile is incomplete!</h1>
                                 <p>Redirecting to your Account Settings...</p>
-                                {/* <button className="btn-create-profile">
+
+                                <button className="btn-create-profile">
                                     <Link
                                         href={"settings/account/individual"}
                                         className="text-profile"
                                     >
                                         Complete Profile Now
                                     </Link>
-                                </button> */}
+                                </button>
                             </Col>
                         </Row>
                     </Container>
@@ -109,7 +107,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             active_hour_end={profileDetails?.active_hour_end}
                             bio={profileDetails?.bio}
                             userBadge={remaining.userBadge}
-                            userPoints={remaining.userPoints}
+                            userPoints={profileDetails?.points}
                             pointGoal={remaining.pointGoal}
                             charge_currency={
                                 profileDetails?.charge_currency.code
@@ -175,6 +173,11 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["profile"]),
             queryClient.prefetchQuery(["tasker-rating"]),
             queryClient.prefetchQuery(["tasker-document"]),
+            queryClient.prefetchQuery(["tasker-activities"]),
+            queryClient.prefetchQuery(["all-services"]),
+            queryClient.prefetchQuery(["bookmarks", "user"]),
+            queryClient.prefetchQuery(["bookmarks", "task"]),
+            queryClient.prefetchQuery(["bookmarks", "service"]),
         ]);
         return {
             props: {
@@ -190,6 +193,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 profile: [],
                 ratingData: [],
                 documentData: [],
+                activitiesData: [],
             },
         };
     }

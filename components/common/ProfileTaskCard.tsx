@@ -10,7 +10,7 @@ const ProfileTaskCard = ({
         <div className="about-card-block">
             <figure className="thumbnail-img">
                 <Image
-                    src={cardImage}
+                    src={cardImage ?? "/userprofile/unknownPerson.jpg"}
                     layout="fill"
                     objectFit="cover"
                     alt="about-card-image"

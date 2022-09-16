@@ -2,9 +2,7 @@ import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
 import { FilterReview } from "@components/common/FilterReview";
 import PackageOffersCard from "@components/common/packageCard";
-import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
-import ServiceCard from "@components/common/ServiceCard";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import {
@@ -15,10 +13,11 @@ import {
     faEye,
     faLocationDot,
     faUserGroup,
+    faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { ScrollArea, Spoiler } from "@mantine/core";
+import { Alert, Highlight, Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
@@ -368,6 +367,19 @@ const SearchResultsDetail = ({
             </div>
 
             <h3>Requirements</h3>
+            {highlights && highlights.length <= 0 && (
+                <Alert
+                    icon={<FontAwesomeIcon icon={faWarning} />}
+                    title="No data Available!"
+                    color="orange"
+                    radius="md"
+                    sx={{ minWidth: 100 }}
+                >
+                    <Highlight highlight={"No Requirements"}>
+                        {`There are No Requirements for this service`}
+                    </Highlight>
+                </Alert>
+            )}
             {highlights && (
                 <div className="mt-5">
                     {highlights?.map((highlight, index) => (
@@ -382,6 +394,20 @@ const SearchResultsDetail = ({
                 style={{ margin: "41px 0 0 0" }}
             >
                 <h1>Packages &amp; Offers</h1>
+                {getPackageAccordingService &&
+                    getPackageAccordingService?.length <= 0 && (
+                        <Alert
+                            icon={<FontAwesomeIcon icon={faWarning} />}
+                            title="No data Available!"
+                            color="orange"
+                            radius="md"
+                            sx={{ minWidth: 100 }}
+                        >
+                            <Highlight highlight={"No Packages"}>
+                                {`There are No Packages Available for this service`}
+                            </Highlight>
+                        </Alert>
+                    )}
                 <Carousel
                     slideSize="32%"
                     slideGap="sm"
@@ -443,13 +469,21 @@ const SearchResultsDetail = ({
                 maxHeight={450}
                 hideLabel={"Hide all reviews"}
                 showLabel={"See all reviews"}
+                className={"mb-5"}
             >
-                {reviewsContent.map((reviewContent, index) => (
+                {/* {reviewsContent.map((reviewContent, index) => (
                     <Reviews key={index} {...reviewContent} />
-                ))}
+                ))} */}
+                <Alert
+                    icon={<FontAwesomeIcon icon={faWarning} />}
+                    title="Feature TO-BE Implemented"
+                    color="teal"
+                >
+                    This feature is to be Implemented
+                </Alert>
             </Spoiler>
             <span className="td-divider"></span>
-            <Row className="gx-5">
+            {/* <Row className="gx-5">
                 <h4>Similar Services</h4>
                 <Carousel
                     slideSize="40%"
@@ -481,7 +515,7 @@ const SearchResultsDetail = ({
                             );
                         })}
                 </Carousel>
-            </Row>
+            </Row> */}
             <BookNowModalCard
                 title={serviceTitle}
                 budget_to={budget_to}
@@ -491,6 +525,7 @@ const SearchResultsDetail = ({
                 description={serviceDescription}
                 show={show}
                 handleClose={handleClose}
+                setShow={() => setShow(false)}
             />
         </div>
     );

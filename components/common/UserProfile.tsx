@@ -9,12 +9,12 @@ import {
     faPencil,
     faPhone,
     faSparkles,
-    faStar,
     faTimer,
 } from "@fortawesome/pro-regular-svg-icons";
-import { faCircle, faStar as rated } from "@fortawesome/pro-solid-svg-icons";
+import { faCircle } from "@fortawesome/pro-solid-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Progress } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
 import { useTaskers } from "hooks/tasker/use-tasker";
@@ -31,6 +31,7 @@ import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
 
 import ProfileEditForm from "./ProfileEditForm";
+import { RatingStars } from "./RatingStars";
 import ShareIcon from "./ShareIcon";
 import TooltipMessage from "./Tooltip";
 const UserProfileCard = ({
@@ -62,6 +63,7 @@ const UserProfileCard = ({
     const [image, setImage] = useState();
     const services = skill ? JSON.parse(skill) : [];
     const queryClient = useQueryClient();
+
     // const renderServices: string[] | undefined = services?.map(
     //     (service: string, index: number) => (
     //         <p key={index}>
@@ -94,7 +96,7 @@ const UserProfileCard = ({
                 toast.success(data?.data?.message);
             },
             onError: (error: any) => {
-                toast.error(data?.data?.message);
+                toast.error(error?.data?.message);
             },
         });
     };
@@ -124,21 +126,21 @@ const UserProfileCard = ({
         children?: ReactNode;
     }
 
-    const style = {
-        backgroundColor: "#d9d9d9",
-        height: "1.2rem",
-        width: "100%",
-        borderRadius: "7rem",
+    // const style = {
+    //     backgroundColor: "#d9d9d9",
+    //     height: "1.2rem",
+    //     width: "100%",
+    //     borderRadius: "7rem",
 
-        ":hover": {
-            width: "58vw",
-            content: "",
-            height: "1.2rem",
-            background:
-                "linearGradient(270.06deg,rgba(241, 163, 65, 0.58) 0.06%,e8b873 46.12%,#f79c19 86.42%)",
-            backgroundColor: "#111",
-        },
-    };
+    //     ":hover": {
+    //         width: "58vw",
+    //         content: "",
+    //         height: "1.2rem",
+    //         background:
+    //             "linearGradient(270.06deg,rgba(241, 163, 65, 0.58) 0.06%,e8b873 46.12%,#f79c19 86.42%)",
+    //         backgroundColor: "#111",
+    //     },
+    // };
 
     const router = useRouter();
     const ProfileDropdown = ({ children }: DropdownProps) => {
@@ -249,25 +251,8 @@ const UserProfileCard = ({
                         />
                     </div>
                     {renderType}
-                    <div className="rating">
-                        {Array.from({ length: rating }, (_, i) => (
-                            <span key={i}>
-                                <FontAwesomeIcon
-                                    icon={rated}
-                                    className="svg-icon star rated-star"
-                                />
-                            </span>
-                        ))}
-                        {Array.from({ length: 5 - rating }, (_, i) => (
-                            <span key={i}>
-                                {" "}
-                                <FontAwesomeIcon
-                                    icon={faStar}
-                                    className="svg-icon star unrated"
-                                />
-                            </span>
-                        ))}
-                    </div>
+
+                    <RatingStars value={rating > 0 ? rating : 0} />
                     <div className="price">
                         {charge_currency} {hourly_rate}/hr
                     </div>
@@ -298,19 +283,44 @@ const UserProfileCard = ({
                                         icon={faPhone}
                                         className="thumbnail-img"
                                     />
-
-                                    <p>
-                                        +{countryData?.phone_code}
-                                        {phone}
-                                    </p>
+                                    {user.phone ? (
+                                        <p>
+                                            {countryData?.phone_code}
+                                            {user.phone
+                                                ? user.phone
+                                                : "Add new phone number"}
+                                        </p>
+                                    ) : (
+                                        <Link href="/settings/account/security">
+                                            Add a phone number.
+                                        </Link>
+                                    )}
                                 </div>
+                                {/* {user.email && (
+                                    <div className="type d-flex flex-col">
+                                        <FontAwesomeIcon
+                                            icon={faAt}
+                                            className="thumbnail-img"
+                                        />
+
+                                        <p>{user.email}</p>
+                                    </div>
+                                )} */}
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
                                         icon={faAt}
                                         className="thumbnail-img"
                                     />
-
-                                    <p>{user.email}</p>
+                                    {user.email ? (
+                                        <p>{user.email}</p>
+                                    ) : (
+                                        <Link
+                                            className="text-Link"
+                                            href="/settings/account/security"
+                                        >
+                                            Add an email.
+                                        </Link>
+                                    )}
                                 </div>
                                 <div className="type d-flex flex-col">
                                     <FontAwesomeIcon
@@ -406,10 +416,15 @@ const UserProfileCard = ({
                                     <p className="user-point">
                                         {points} points
                                     </p>
-                                    <div
-                                        className="progress-bar"
-                                        //  style={style}
-                                    ></div>
+                                    <div>
+                                        <Progress
+                                            color="yellow"
+                                            value={points}
+                                        />
+                                    </div>
+                                    {/* <div className="progress-bar">
+                                        <div className="inside-progress-bar"></div>
+                                    </div> */}
                                     <p>
                                         Earn {100 - points} points more to reach
                                         Gold

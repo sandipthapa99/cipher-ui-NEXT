@@ -5,7 +5,6 @@ import {
     faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { faCopy } from "@fortawesome/pro-regular-svg-icons";
-import { faLink } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import {

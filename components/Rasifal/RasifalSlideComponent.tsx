@@ -4,20 +4,68 @@ import { useClickOutside, useScrollLock } from "@mantine/hooks";
 import axios from "axios";
 import cheerio from "cheerio";
 import {} from "date-fns/locale";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { HoroscopeCardData } from "staticData/horoscopeCardData";
+import type { Rasifal } from "types/rasifal";
 
 import { RasifalCard } from "./RasifalCard";
+
+const HoroscopeCardData = [
+    {
+        image: "/horoscope/image1.png",
+        title: "मेष",
+    },
+
+    {
+        image: "/horoscope/image2.png",
+        title: "बृष",
+    },
+
+    {
+        image: "/horoscope/image3.png",
+        title: "मिथुन",
+    },
+    {
+        image: "/horoscope/image4.png",
+        title: "कर्कट",
+    },
+    {
+        image: "/horoscope/image5.png",
+        title: "सिंह",
+    },
+    {
+        image: "/horoscope/image6.png",
+        title: "कन्या",
+    },
+    {
+        image: "/horoscope/image7.png",
+        title: "तुला",
+    },
+    {
+        image: "/horoscope/image8.png",
+        title: "बृश्चिक",
+    },
+    {
+        image: "/horoscope/image9.png",
+        title: "धनु",
+    },
+    {
+        image: "/horoscope/image10.png",
+        title: "मकर",
+    },
+    {
+        image: "/horoscope/image11.png",
+        title: "कुम्भ",
+    },
+    {
+        image: "/horoscope/image12.png",
+        title: "मीन",
+    },
+];
 
 interface RasifalSliderProps {
     rasifal: boolean;
     setRasifal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface Rasifal {
-    title: string;
-    description: string;
-    image: string;
 }
 
 export const RasifalSlideComponent = ({
@@ -74,14 +122,18 @@ export const RasifalSlideComponent = ({
                     </span>
                 </div>
 
-                {dailyRasifal.map((item, index) => (
-                    <RasifalCard
-                        key={index}
-                        title={item.title}
-                        image={item.image}
-                        description={item?.description}
-                    />
-                ))}
+                <Link href="/rasifal">
+                    <a>
+                        {dailyRasifal.map((item, index) => (
+                            <RasifalCard
+                                key={index}
+                                title={item.title}
+                                image={item.image}
+                                description={item?.description}
+                            />
+                        ))}
+                    </a>
+                </Link>
             </div>
         </>
     );

@@ -62,3 +62,48 @@ $sizes: (8, 16, 24, 48, 64, 96, 128, 256);
     width: 36px;
     height: 36px;
 }
+.rated-star {
+    color: #f79c19;
+}
+.unrated {
+    color: #ff9700;
+    // margin-bottom: 1.2rem;
+}
+
+.rr--has-stroke .rr--on .rr--svg {
+    stroke: none !important;
+}
+.rr--has-stroke .rr--on .rr--svg {
+    stroke: none !important;
+}
+.rr--on .rr--svg,
+.rr--off .rr--svg {
+    width: 2.3rem;
+    height: 2.3rem;
+    color: #ff9700 !important;
+    stroke: none !important;
+}
+.rr--on .rr--svg {
+    width: 2.7rem;
+    height: 2.7rem;
+}
+
+.rr--has-stroke .rr--off .rr--svg {
+    fill: #fff;
+    margin-top: 0.19rem;
+}
+.rr--on .rr--svg {
+    fill: #ff9700 !important;
+    stroke: none !important;
+}
+.rr--has-stroke .rr--hf-svg-on {
+    color: #ff9700 !important;
+    stroke: #ff9700 !important;
+}
+.rr--has-stroke .rr--off .rr--svg {
+    stroke: #fab005 !important;
+}
+
+// .rr--hf-svg-off {
+//     stroke: # none  !important;
+// }

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { BookingDetails } from "staticData/bookNowModalCard";
+// import { BookingDetails } from "staticData/bookNowModalCard";
 import type { ServiceNearYouProviderCardProps } from "types/serviceNearYouCards";
 
 import BookNowButton from "./BookNowButton";
@@ -20,7 +20,7 @@ const ServiceNearYouProviderCard = ({
                 <div className="profile">
                     <figure className="thumbnail-img">
                         <Image
-                            src={image}
+                            src={image ?? "/userprofile/unknownPerson.jpg"}
                             layout="fill"
                             objectFit="cover"
                             alt="serviceprovider-image"
@@ -35,7 +35,7 @@ const ServiceNearYouProviderCard = ({
                     <p>Starting price</p>
                     <p className="price">Rs. {price}</p>
                 </div>
-                {BookingDetails &&
+                {/* {BookingDetails &&
                     BookingDetails.map((detail) => (
                         <ModalCard
                             key={detail.id}
@@ -44,10 +44,11 @@ const ServiceNearYouProviderCard = ({
                             image={detail.image}
                             description={detail.description}
                             show={showModal}
+                            setShow={setShowModal}
                             handleClose={() => setShowModal(false)}
                             images={[]}
                         />
-                    ))}
+                    ))} */}
 
                 <BookNowButton
                     btnTitle="Book Now"
