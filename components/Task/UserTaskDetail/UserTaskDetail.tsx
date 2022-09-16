@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import type { HTMLAttributes } from "react";
 import React from "react";
+import type { ServicesValueProps } from "types/serviceCard";
 import type { TaskerProps } from "types/taskerProps";
 
 import { UserTaskDetailTabs } from "./atoms/UserTaskDetailTabs";
@@ -13,11 +14,13 @@ import { UserTaskDetailTabs } from "./atoms/UserTaskDetailTabs";
 interface UserTaskDetailProps extends HTMLAttributes<HTMLDivElement> {
     maxHeaderWidth?: string;
     taskerDetail: TaskerProps["result"][0];
+    taskerService: ServicesValueProps;
 }
 
 const UserTaskDetail = ({
     maxHeaderWidth,
     taskerDetail,
+    taskerService,
 }: UserTaskDetailProps) => {
     return (
         <div className="user-task-detail-container">
@@ -37,7 +40,10 @@ const UserTaskDetail = ({
                 maxHeaderWidth={maxHeaderWidth}
             />
             <UserShortIntro user={taskerDetail} />
-            <UserTaskDetailTabs taskerDetail={taskerDetail} />
+            <UserTaskDetailTabs
+                taskerService={taskerService}
+                taskerDetail={taskerDetail}
+            />
             <UserTaskReviews activeTaskId={taskerDetail?.user?.id} />
         </div>
     );
