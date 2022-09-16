@@ -27,7 +27,7 @@ import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import type { ITask, TaskApplicantsProps } from "types/task";
@@ -154,8 +154,8 @@ const AppliedTaskDetail = ({
                 <Row>
                     <Col md={12} lg={7}>
                         {(taskVideosAndImages ?? []).length === 1 &&
-                            taskVideosAndImages.map((file) => (
-                                <>
+                            taskVideosAndImages.map((file, key) => (
+                                <Fragment key={key}>
                                     {isImage(file.media_type) ? (
                                         <figure className="thumbnail-img">
                                             <Image
@@ -181,7 +181,7 @@ const AppliedTaskDetail = ({
                                             playing videos.
                                         </video>
                                     ) : null}
-                                </>
+                                </Fragment>
                             ))}
                         {(taskVideosAndImages ?? []).length > 1 ? (
                             <Carousel
