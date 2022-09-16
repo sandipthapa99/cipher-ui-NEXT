@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { getPageUrl } from "utils/helpers";
 
 import AddPortfolio from "./AddPortfolio";
 
@@ -59,7 +60,7 @@ const PortfolioDetails = ({
                                 sm={6}
                             >
                                 <ShareIcon
-                                    url={`http://localhost:3005/profile`}
+                                    url={getPageUrl()}
                                     quote={"This is the task from cipher"}
                                     hashtag={"cipher-task"}
                                 />

@@ -7,6 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import type { Task, Tasker } from "types/tasks";
+import { getPageUrl } from "utils/helpers";
 
 interface Props {
     isButton?: boolean;
@@ -74,7 +75,7 @@ export const UserTaskCard = ({
                         }
                     />
                     <ShareIcon
-                        url={`http://localhost:3005/tasker?taskerId=${taskId}`}
+                        url={getPageUrl()}
                         quote={"Tasker from cipher project"}
                         hashtag={"cipher-tasker"}
                     />
