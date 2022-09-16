@@ -78,7 +78,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
         axiosClient
             .get("/task/task-category/nested/")
             .then(({ data }) => {
-                setMenu(data?.slice(0, 7));
+                setMenu(data?.slice(0, 6));
             })
             .catch(() => {
                 setMenu([]);
@@ -302,7 +302,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
 
             <div className={`dropdown ${isMenuOpened ? "arrow" : ""}`}>
                 {isMenuOpened && (
-                    <div className="dropdown-menu-items">
+                    <div className="dropdown-menu-items item-wrapper">
                         <p className="all-category">All Category</p>{" "}
                         {renderMenus}
                         {/*View All  */}

@@ -1,6 +1,5 @@
 import BlogCard from "@components/common/BlogCard";
 import { BreadCrumb } from "@components/common/BreadCrumb";
-import BusinessGoal from "@components/common/BusinessGoal";
 import Layout from "@components/Layout";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +8,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Carousel, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 // import { businessGoal } from "staticData/businessGoal"; //DONOT Remove
 import type { BlogValueProps } from "types/blogs";
 

@@ -1,287 +1,138 @@
-import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
+import { useServiceCategories } from "@components/Task/PostTaskModal/TaskCategory";
+import { faClose, faSearch } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ScrollArea } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
-import { debounce } from "debounce";
-import type { ChangeEvent } from "react";
-import { useCallback, useState } from "react";
-import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
-import type { ServicesValueProps } from "types/serviceCard";
-import { axiosClient } from "utils/axiosClient";
-
-import { useCategories } from "../../hooks/category/useCategories";
+import type { SelectItem } from "@mantine/core";
+import { Button } from "@mantine/core";
+import { Box, createStyles, Select, TextInput } from "@mantine/core";
+import { useCities } from "hooks/use-cities";
+import React, { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
 
 interface SearchCategoryProps {
-    onChange?: (text: string) => void;
-    getOption?: (value: string | undefined) => void;
-    type?: string;
-    getSortingByPrice?: any;
-    getTaskBySort?: any;
-    getTaskerBySort?: any;
-    placeholder?: string;
+    onParamsChange: (params: Record<string, string>) => void;
+    onFilterClear: () => void;
 }
-
 export const SearchCategory = ({
-    onChange,
-    getOption,
-    type,
-    getSortingByPrice,
-    getTaskBySort,
-    getTaskerBySort,
-    placeholder,
+    onParamsChange,
+    onFilterClear,
 }: SearchCategoryProps) => {
-    const { data: allcategories } = useCategories();
+    const [params, setParams] = useState<Record<string, string> | undefined>();
+    const [cityQuery, setCityQuery] = useState("");
 
-    const categoriesValues = allcategories?.map((category: any) => {
-        return {
-            name: category?.name,
-            value: category?.slug,
-        };
-    });
+    const { data: categories = [] } = useServiceCategories();
+    const { data: cities } = useCities(cityQuery);
 
-    // console.log("catgeory", categoriesValues);
-    const DUMMY_DATA = [
+    const categoriesData: SelectItem[] = categories.map((category) => ({
+        id: category.id,
+        label: category.label,
+        value: category.slug,
+    }));
+    const citiesData: SelectItem[] = cities.map((city) => ({
+        id: city.id,
+        label: city.name,
+        value: city.name,
+    }));
+    const pricingData: SelectItem[] = [
         {
-            category: "Category",
-            value: "",
-            nested: categoriesValues ? categoriesValues : [],
+            id: "1",
+            label: "Low to High",
+            value: "budget_to",
         },
         {
-            category: "Distance",
-            value: "",
-            nested: [{ name: "30Km near", value: "" }],
-        },
-
-        {
-            category: "Any price",
-            value: "",
-            nested: [
-                { name: "Low to High", value: "budget_to" },
-                { name: "High to Low", value: "-budget_to" },
-            ],
-        },
-        {
-            category: "Task Type",
-            nested: [
-                { name: "Low to High", value: "budget_from" },
-                { name: "High to Low" },
-            ],
-        },
-        {
-            category: "Other Filters",
-            nested: [
-                { name: "Low to High", value: "budget_from" },
-                { name: "High to Low", value: "budget_from" },
-            ],
-        },
-        {
-            category: "Sort",
-            nested: [
-                { name: "Low to High", value: "budget_from" },
-                { name: "High to Low", value: "budget_from" },
-            ],
+            id: "2",
+            label: "High to Low",
+            value: "-budget_to",
         },
     ];
-    const [priceQuery, setPriceQuery] = useState("");
-    const [categoryName, setCategoryName] = useState("");
-    const [activeIndex, setActiveIndex] = useState<number>();
-    const [selected, setSelected] = useState(false);
-    const checkedIndex = useCallback(
-        (index: number) => {
-            return index === activeIndex;
-        },
-        [activeIndex]
-    );
+    const { classes } = useStyles();
 
-    const useSearchServiceByPrice = (query: string) => {
-        return useQuery(["all-service", query], () =>
-            axiosClient
-                .get<ServicesValueProps>(`/task/service/?ordering=${query}`)
-                .then((response) => getSortingByPrice(response.data.result))
-        );
+    const onSelectChange = (key: string, value: string | null) => {
+        if (!value) return;
+        const url = new URL(window.location.href);
+        url.searchParams.delete(key);
+        url.searchParams.append(key, value);
+        const newParams = Object.fromEntries(new URLSearchParams(url.search));
+        setParams((previousParams) => ({ ...previousParams, ...newParams }));
     };
-    const useSearchServiceByCategory = (query: string) => {
-        return useQuery(
-            ["all-service", query],
-            () =>
-                axiosClient
-                    .get<ServicesValueProps>(`/task/service/?category=${query}`)
-                    .then((response) => {
-                        console.log("response", response.data.result);
-                        getSortingByPrice(response.data.result);
-                    }),
-            {
-                enabled: allcategories ? true : false,
-            }
-        );
+    const handleClearFilters = () => {
+        setParams(undefined);
+        onFilterClear();
     };
+    const search = params ? params.search : "";
+    const city = params ? params.city : "";
+    const category = params ? params.category : "";
+    const pricing = params ? params.ordering : "";
 
-    const useSearchTaskByPrice = (query: string) => {
-        return useQuery(["all-Task", query], () =>
-            axiosClient
-                .get(`/task/?ordering=${query}`)
-                .then((response) => getTaskBySort(response.data.result))
-        );
-    };
-    const useSearchTaskByCategory = (query: string) => {
-        return useQuery(
-            ["all-Task", query],
-            () =>
-                axiosClient.get(`/task/?category=${query}`).then((response) => {
-                    getTaskBySort(response.data.result);
-                }),
-            {
-                enabled: allcategories ? true : false,
-            }
-        );
-    };
-    // const useSearchTaskerByPrice = (query: string) => {
-    //     return useQuery(["all-Tasker", query], () =>
-    //         axiosClient
-    //             .get(`/tasker/?ordering=${query}`)
-    //             .then((response) => getTaskerBySort(response.data.result))
-    //     );
-    // };
-    // const useSearchTaskerByCategory = (query: string) => {
-    //     return useQuery(
-    //         ["all-Tasker", query],
-    //         () =>
-    //             axiosClient
-    //                 .get(`/tasker/?category=${query}`)
-    //                 .then((response) => {
-    //                     getTaskerBySort(response.data.result);
-    //                 }),
-    //         {
-    //             enabled: allcategories ? true : false,
-    //         }
-    //     );
-    // };
-
-    const { data: searchTaskByPrice } = useSearchTaskByPrice(priceQuery);
-    const { data: searchTaskByCategory } =
-        useSearchTaskByCategory(categoryName);
-
-    const { data: searchDataByPrice } = useSearchServiceByPrice(priceQuery);
-    const { data: searchDataByCategory } =
-        useSearchServiceByCategory(categoryName);
-
-    // const { data: searchTaskertByPrice } = useSearchTaskerByPrice(priceQuery);
-    // const { data: searchTaskerByCategory } =
-    //     useSearchTaskerByCategory(categoryName);
-
-    // getSortingByPrice(searchDataByPrice);
-    // console.log("abc", searchDataByCategory);
-    const styles = (index: number) => {
-        return {
-            category: {
-                color: checkedIndex(index) ? "#fff" : "#868e96",
-                borderRadius: "20px",
-                padding: "0.5rem 0.7rem",
-                fontSize: "14px",
-                backgroundColor: checkedIndex(index) ? "#0693e3" : "#fff",
-                outline: "none",
-                boder: "1px solid #ced4da",
-                borderColor: "white",
-            },
-        };
-    };
-    const renderCategory = DUMMY_DATA.map((data, index) => {
-        const renderNested = data.nested.map((nest: any, nestIndex: number) => {
-            return (
-                <option
-                    style={{
-                        background: "#fff",
-                        color: "#000",
-                        marginTop: "2rem",
-                        fontSize: "1.4rem",
-                        padding: "0.5rem 0.7rem",
-                    }}
-                    key={nestIndex}
-                    value={nest.value}
-                >
-                    {nest.name}
-                </option>
-            );
-        });
-
-        return (
-            <select
-                onChange={(e: any) => {
-                    setActiveIndex(index);
-                    if (data.category === "Any price") {
-                        setPriceQuery(e.target.value);
-                    }
-                    if (data.category === "Category") {
-                        console.log("category", e.target.value);
-
-                        setCategoryName(e.target.value);
-                    }
-                }}
-                key={index}
-                style={styles(index).category}
-            >
-                <option
-                    style={{ background: "#fff", color: "#000" }}
-                    value={""}
-                >
-                    {data.category}
-                </option>
-                {renderNested}
-            </select>
-        );
-    });
+    useEffect(() => {
+        if (!params) return;
+        onParamsChange(params);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [params]);
 
     return (
-        <div className="search-category">
-            <Row className="rows d-flex justify-content-center align-items-center">
-                <Col md={4} className="input-col">
-                    <InputGroup className="search-category--input-group">
-                        <Form.Control
-                            className="search-category--input"
-                            placeholder={placeholder}
-                            aria-label="Find your Services &amp; Merchants"
-                            aria-describedby="basic-addon2"
-                            onChange={debounce(
-                                (e: ChangeEvent<HTMLInputElement>) =>
-                                    onChange?.(e.target.value),
-                                400
-                            )}
-                        />
+        <Row className={classes.container}>
+            <Col md={4}>
+                <TextInput
+                    value={search}
+                    icon={<FontAwesomeIcon icon={faSearch} />}
+                    placeholder="Enter a search keyword"
+                    onChange={(event) =>
+                        onSelectChange("search", event.currentTarget.value)
+                    }
+                />
+            </Col>
+            <Col md={8}>
+                <Box className={classes.categoriesContainer}>
+                    {params && (
                         <Button
-                            className="search-category--button"
-                            id="button-addon2"
+                            leftIcon={<FontAwesomeIcon icon={faClose} />}
+                            variant="white"
+                            color="red"
+                            onClick={handleClearFilters}
                         >
-                            <FontAwesomeIcon
-                                className="search-category--icon"
-                                icon={faMagnifyingGlass}
-                            />
+                            Clear filters
                         </Button>
-                    </InputGroup>
-                </Col>
-                <Col md={8}>
-                    <ScrollArea
-                        offsetScrollbars
-                        scrollbarSize={5}
-                        className="mt-3 mt-md-0"
-                    >
-                        <div className="d-flex categories-tab py-3">
-                            {type !== "you may like" && renderCategory}
-                        </div>
-                    </ScrollArea>
-                    {/* {renderCategory} */}
-                </Col>
-            </Row>
-        </div>
+                    )}
+                    <Select
+                        clearable
+                        searchable
+                        placeholder="Filter by Categories"
+                        value={category}
+                        data={categoriesData}
+                        onChange={(value) => onSelectChange("category", value)}
+                    />
+                    <Select
+                        clearable
+                        searchable
+                        placeholder="Filter by City"
+                        value={city}
+                        data={citiesData}
+                        onSearchChange={setCityQuery}
+                        onChange={(value) => onSelectChange("city", value)}
+                    />
+                    <Select
+                        clearable
+                        placeholder="Filter by Pricing"
+                        value={pricing}
+                        data={pricingData}
+                        onChange={(value) => onSelectChange("ordering", value)}
+                    />
+                </Box>
+            </Col>
+        </Row>
     );
 };
-
-// function Category({ text }: { text: string }) {
-//     return (
-//         <div className="d-flex align-items-center gap-5">
-//             <p>{text}</p>
-//             <a>
-//                 <FontAwesomeIcon className="boxes--icon" icon={faAngleDown} />
-//             </a>
-//         </div>
-//     );
-// }
+const useStyles = createStyles(() => ({
+    container: {
+        marginBlock: "2.4rem !important",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    categoriesContainer: {
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "center",
+        gap: "6px",
+    },
+}));

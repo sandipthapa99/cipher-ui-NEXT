@@ -1,6 +1,5 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
-import sCard from "@components/common/packageCard";
 import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
 import SelectInputField from "@components/common/SelectInputField";

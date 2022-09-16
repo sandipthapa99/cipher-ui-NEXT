@@ -29,6 +29,7 @@ import { toast } from "react-toastify";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
 import type { UserProfileInfoProps } from "types/userProfile";
 import { axiosClient } from "utils/axiosClient";
+import { getPageUrl } from "utils/helpers";
 
 import ProfileEditForm from "./ProfileEditForm";
 import { RatingStars } from "./RatingStars";
@@ -77,11 +78,8 @@ const UserProfileCard = ({
     //     )
     // );
 
-    //get tasker ID
-    // const { data: Taskers } = useTaskers();
-    // const tasker = Taskers?.find((tasker) => tasker.user.id === user.id);
-    // const taskerId = tasker?.user.id;
-    console.log("tasker id=", user.id);
+    const newProfileUrl = new URL(window.location.href);
+
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)
     );
@@ -373,7 +371,7 @@ const UserProfileCard = ({
                             <div className="reactions d-flex align-items-center">
                                 <div className="d-flex flex-col share">
                                     <ShareIcon
-                                        url={`http://localhost:8020/tasker/${user.id}`}
+                                        url={`${newProfileUrl.origin}/tasker/${user.id}`}
                                         quote={
                                             "Hi guys checkout my Cipher Profile"
                                         }

@@ -31,6 +31,7 @@ import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import type { ITask, TaskApplicantsProps } from "types/task";
+import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
 import { safeParse } from "utils/safeParse";
@@ -47,6 +48,7 @@ const AppliedTaskDetail = ({
     taskDetail: ITask;
     taskApplicants: TaskApplicantsProps;
 }) => {
+    // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
     const queryClient = useQueryClient();
     const { data: user } = useUser();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
@@ -112,7 +114,7 @@ const AppliedTaskDetail = ({
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
-                                    url={`http://localhost:3005/task/${slug}`}
+                                    url={getPageUrl()}
                                     quote={"This is the task from cipher"}
                                     hashtag={"cipher-task"}
                                 />

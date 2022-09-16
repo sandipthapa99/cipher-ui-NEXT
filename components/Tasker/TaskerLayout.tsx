@@ -25,29 +25,18 @@ export const useSearchTasker = (query: string) => {
 
 const TaskerLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
-    const clearSearchQuery = useClearSearchQuery();
-    const clearSearchedServices = useClearSearchedServices();
     const [sortTaskerPrice, setSortTaskerPrice] = useState([]);
     const searchQuery = useSearchQuery();
 
     const { data: searchData = [], isFetching } = useSearchTasker(query);
-    const handleSearchChange = (query: string) => {
-        clearSearchQuery();
-        clearSearchedServices();
-        setQuery(query);
-    };
-    const getTaskerSortByPrice = (task: any) => {
-        setSortTaskerPrice(task);
-    };
-
     return (
         <Layout title="Find Tasker | Cipher">
             <section className="Tasker-section" id="Tasker-section">
                 <Container fluid="xl">
-                    <SearchCategory
+                    {/* <SearchCategory
                         onChange={handleSearchChange}
                         getTaskerBySort={getTaskerSortByPrice}
-                    />
+                    /> */}
                     {searchQuery?.query && (
                         <Highlight highlight={searchQuery.query}>
                             {`Showing search results for ${searchQuery.query}`}
