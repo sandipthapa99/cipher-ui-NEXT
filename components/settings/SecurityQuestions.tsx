@@ -61,7 +61,7 @@ export const SecurityQuestions = () => {
                     question: "",
                     answer: "",
                 }}
-                onSubmit={async (values, action) => {
+                onSubmit={async (values, actions) => {
                     // console.log(values);
                     sendSecurityQuestions.mutate(values, {
                         onSuccess: () => {
@@ -69,6 +69,7 @@ export const SecurityQuestions = () => {
                             queryClient.invalidateQueries([
                                 "answered-security-questions",
                             ]);
+                            actions.resetForm();
                         },
                         onError: (error: any) => {
                             toast.error(error.message);

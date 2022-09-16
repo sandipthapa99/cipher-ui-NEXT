@@ -26,7 +26,7 @@ const ServiceHighlights = ({
                 icon={faCheck}
                 className="me-3 svg-icon svg-icon-check"
             />
-            {highlight.name}
+            {highlight.name ?? highlight.title}
         </p>
     );
 };

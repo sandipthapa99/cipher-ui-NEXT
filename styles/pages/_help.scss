@@ -5,7 +5,7 @@
 
     &__top-container {
         padding-bottom: 5rem;
-        @include respond(xs){
+        @include respond(xs) {
             padding-bottom: 0;
         }
         h1 {

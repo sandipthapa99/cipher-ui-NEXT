@@ -87,35 +87,36 @@ const UserProfile: NextPage<UserProfileProps> = () => {
 
                     <section className="user-profile__top-container">
                         <UserProfileCard
-                            countryCode={profileDetails?.country}
+                            user={profileDetails?.user}
+                            stats={profileDetails?.stats}
+                            country={profileDetails?.country}
                             key={profileDetails?.id}
-                            userImage={
+                            points={profileDetails?.points}
+                            profile_image={
                                 profileDetails?.profile_image ??
                                 "/userprofile/unknownPerson.jpg"
                             }
-                            userName={profileDetails?.full_name}
-                            userJob={profileDetails?.user_type}
-                            userRating={remaining.userRating}
-                            userPrice={profileDetails?.hourly_rate}
-                            userLocation={profileDetails?.address_line1}
-                            userPhone={profileDetails?.phone}
-                            userEmail={profileDetails?.user?.email}
-                            moreServices={profileDetails?.skill}
-                            activeFrom={profileDetails?.active_hour_start}
-                            activeTo={profileDetails?.active_hour_end}
-                            userBio={profileDetails?.bio}
+                            full_name={profileDetails?.full_name}
+                            user_type={profileDetails?.user_type}
+                            rating={profileDetails.rating.avg_rating}
+                            hourly_rate={profileDetails?.hourly_rate}
+                            phone={profileDetails?.phone}
+                            address_line1={profileDetails?.address_line1}
+                            skill={profileDetails?.skill}
+                            active_hour_start={
+                                profileDetails?.active_hour_start
+                            }
+                            active_hour_end={profileDetails?.active_hour_end}
+                            bio={profileDetails?.bio}
                             userBadge={remaining.userBadge}
                             userPoints={remaining.userPoints}
                             pointGoal={remaining.pointGoal}
-                            happyClients={profileDetails?.stats?.happy_clients}
-                            successRate={profileDetails?.stats?.success_rate}
-                            userReviews={profileDetails?.stats?.user_reviews}
-                            taskCompleted={
-                                profileDetails?.stats?.task_completed
+                            charge_currency={
+                                profileDetails?.charge_currency.code
                             }
                             userActiveStatus={remaining.userActiveStatus}
                             tooltipMessage={remaining.tooltipMessage}
-                            isProfileVerified={
+                            is_profile_verified={
                                 profileDetails?.is_profile_verified
                             }
                         />

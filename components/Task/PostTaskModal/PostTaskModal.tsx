@@ -10,7 +10,7 @@ import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCategory } from "@components/Task/PostTaskModal/TaskCategory";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
-import { Radio } from "@mantine/core";
+import { LoadingOverlay, Radio } from "@mantine/core";
 import {
     Anchor,
     Box,
@@ -65,7 +65,8 @@ export interface PostTaskPayload {
 export const PostTaskModal = () => {
     const [choosedValue, setChoosedValue] = useState("task");
     const queryClient = useQueryClient();
-    const { mutate, data: postTaskResponse } = usePostTask();
+    const { mutate: createTaskMutation, isLoading: createTaskLoading } =
+        usePostTask();
     const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
@@ -80,7 +81,8 @@ export const PostTaskModal = () => {
     ]);
 
     const [termsAccepted, setTermsAccepted] = useState(true);
-    const { mutateAsync: uploadFileMutation } = useUploadFile();
+    const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
+        useUploadFile();
 
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
@@ -91,8 +93,6 @@ export const PostTaskModal = () => {
             city: "",
             location: "remote",
             budget_type: BudgetType.FIXED,
-            // budget_from: 100,
-            // budget_to: 100,
             is_negotiable: false,
             estimated_time: 5,
             is_recursion: false,
@@ -106,7 +106,7 @@ export const PostTaskModal = () => {
             videos: "",
         },
         validationSchema: postTaskSchema,
-        onSubmit: async (values) => {
+        onSubmit: async (values, action) => {
             if (!termsAccepted) {
                 toast.error(
                     "You must accept the terms and conditions before posting a task"
@@ -127,13 +127,14 @@ export const PostTaskModal = () => {
                 videos: videoIds,
                 extra_data: [],
             };
-            mutate(postTaskPayload, {
-                onSuccess: async (payload) => {
-                    toggleShowPostTaskModal();
-                    // toast.success(payload.message);
+            createTaskMutation(postTaskPayload, {
+                onSuccess: async ({ message }) => {
+                    handleCloseModal();
+                    action.resetForm();
+                    toast.success(message);
                     await queryClient.invalidateQueries(["all-tasks"]);
-                    await queryClient.invalidateQueries(["notification"]);
-                    // router.push("/task");
+                    // await queryClient.invalidateQueries(["notification"]);
+                    router.push({ pathname: "/task" });
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -148,13 +149,19 @@ export const PostTaskModal = () => {
 
     const handleCloseModal = () => {
         toggleShowPostTaskModal("CREATE");
+        setChoosedValue("task");
+        formik.resetForm();
     };
-
+    const isCreateTaskLoading = createTaskLoading || uploadFileLoading;
     return (
         <>
+            <LoadingOverlay
+                visible={isCreateTaskLoading}
+                sx={{ position: "fixed", inset: 0 }}
+            />
             <Modal
-                opened={showPostTaskModal}
-                onClose={toggleShowPostTaskModal}
+                opened={!isCreateTaskLoading && showPostTaskModal}
+                onClose={handleCloseModal}
                 overlayColor="rgba(0, 0, 0, 0.25)"
                 title="Post a Task or Service"
                 size="xl"

@@ -6,6 +6,7 @@ import { axiosClient } from "utils/axiosClient";
 
 export type NotificationResponse = {
     result: Array<{
+        id: number;
         user: string;
         type: string;
         title: string;
