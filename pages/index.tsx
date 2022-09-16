@@ -251,7 +251,7 @@ const Home: NextPage<{
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                        {servicesData && servicesData?.result.length > 0 && (
+                        {servicesData && servicesData?.result?.length > 0 && (
                             <>
                                 <h2 className="heading-title">
                                     Trending Verified Services
@@ -690,7 +690,7 @@ const Home: NextPage<{
                         </h1> */}
                         <h3 className="text-center">CIPHER Stories</h3>
                     </div>
-                    {topCategoryData.length <= 0 && (
+                    {topCategoryData?.length <= 0 && (
                         <Alert
                             icon={<FontAwesomeIcon icon={faWarning} />}
                             title="No data Available!"
@@ -746,7 +746,7 @@ const Home: NextPage<{
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
                 <Container fluid="xl" className="px-5">
-                    {blogData && blogData.result.length > 0 && (
+                    {blogData && blogData?.result?.length > 0 && (
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                             <h2 className="heading-title">Our blogs</h2>
                             <Link href="/blogs">
