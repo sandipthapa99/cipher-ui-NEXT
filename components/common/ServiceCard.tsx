@@ -44,7 +44,7 @@ const ServiceCard = ({
         }
     };
     const queryClient = useQueryClient();
-    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.id);
+    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.slug);
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
@@ -66,7 +66,7 @@ const ServiceCard = ({
                         ) : (
                             <figure className="thumbnail-img">
                                 <Image
-                                    src={"/placeholder/taskPlaceholder.png"}
+                                    src={"/service-details/garden-cleaning.png"}
                                     layout="fill"
                                     objectFit="cover"
                                     alt="servicecard-image"
