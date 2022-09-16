@@ -2,16 +2,11 @@
 
 import { QueryClient } from "@tanstack/react-query";
 import { useGetNotification } from "hooks/Notifications/use-notification";
-import { useData } from "hooks/use-data";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 
-import { AcceptedNotification } from "./AcceptedNotification";
-import { ApproveNotify } from "./ApproveNotify";
 import { PostNotifyTask } from "./PostedTask";
-import { ServiceAccept } from "./ServiceAccept";
 
 export default function GetNotifications() {
     // const router = useRouter();
@@ -41,6 +36,7 @@ export default function GetNotifications() {
     //     });
     // }
     const { data: allNotifications } = useGetNotification();
+    const allNotify = allNotifications ? allNotifications.result : [];
     const queryClient = new QueryClient();
 
     queryClient.invalidateQueries(["notification"]);
@@ -81,10 +77,10 @@ export default function GetNotifications() {
                 return (
                     <div key={index}>
                         <PostNotifyTask
-                            taskTitle={notification.title}
-                            taskObject={notification.object}
-                            createdDate={notification.created_date}
-                            slug={notification.object_slug}
+                            taskTitle={notification?.title}
+                            taskObject={notification?.object}
+                            createdDate={notification?.created_date}
+                            slug={notification?.object_slug}
                         />
                     </div>
                 );
@@ -117,13 +113,22 @@ export default function GetNotifications() {
                 <div className="get-notification__body">
                     <div className="header d-flex justify-content-between">
                         <h4>Today</h4>
+
                         <Link href="">
                             <a>Mark all as read</a>
                         </Link>
                     </div>
+                    {allNotifications?.result.length === 0 && (
+                        <p className="text-center">No notifications to show.</p>
+                    )}
                     {renderTodayNotifications}
                     <div className="header">
                         <h4 className="mt-3">Earlier</h4>
+                        {allNotifications?.result.length === 0 && (
+                            <p className="text-center">
+                                No notifications to show.
+                            </p>
+                        )}
                         {renderEarlierNotifications}
                     </div>
 

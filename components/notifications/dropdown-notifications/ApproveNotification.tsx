@@ -18,7 +18,7 @@ export const ApproveNotification = ({
             <figure className="dropdown-notification-image">
                 <Image
                     alt="testimage"
-                    src="/community/blog1.png"
+                    src="/userprofile/unknownPerson.jpg"
                     height={50}
                     width={50}
                 />

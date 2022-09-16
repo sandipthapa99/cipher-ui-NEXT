@@ -1,12 +1,67 @@
 import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useClickOutside, useScrollLock } from "@mantine/hooks";
-// import axios from "axios";
-// import cheerio from "cheerio";
-// import React, { useEffect } from "react";
-import { HoroscopeCardData } from "staticData/horoscopeCardData";
+import axios from "axios";
+import cheerio from "cheerio";
+import {} from "date-fns/locale";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import type { Rasifal } from "types/rasifal";
 
 import { RasifalCard } from "./RasifalCard";
+
+const HoroscopeCardData = [
+    {
+        image: "/horoscope/image1.png",
+        title: "मेष",
+    },
+
+    {
+        image: "/horoscope/image2.png",
+        title: "बृष",
+    },
+
+    {
+        image: "/horoscope/image3.png",
+        title: "मिथुन",
+    },
+    {
+        image: "/horoscope/image4.png",
+        title: "कर्कट",
+    },
+    {
+        image: "/horoscope/image5.png",
+        title: "सिंह",
+    },
+    {
+        image: "/horoscope/image6.png",
+        title: "कन्या",
+    },
+    {
+        image: "/horoscope/image7.png",
+        title: "तुला",
+    },
+    {
+        image: "/horoscope/image8.png",
+        title: "बृश्चिक",
+    },
+    {
+        image: "/horoscope/image9.png",
+        title: "धनु",
+    },
+    {
+        image: "/horoscope/image10.png",
+        title: "मकर",
+    },
+    {
+        image: "/horoscope/image11.png",
+        title: "कुम्भ",
+    },
+    {
+        image: "/horoscope/image12.png",
+        title: "मीन",
+    },
+];
 
 interface RasifalSliderProps {
     rasifal: boolean;
@@ -17,46 +72,36 @@ export const RasifalSlideComponent = ({
     rasifal,
     setRasifal,
 }: RasifalSliderProps) => {
+    const [dailyRasifal, setDailyRasifal] = useState<Rasifal[]>([]);
     const container = useClickOutside(() => setRasifal(false));
+    const [rasifalTitle, setRasifalTitle] = useState("");
     useScrollLock(rasifal);
+    const url = "https://www.hamropatro.com/rashifal";
 
-    // const spaen = ["daily", "weekly", "monthly", "yearly"];
+    useEffect(() => {
+        axios.get(url).then((response) => {
+            const $ = cheerio.load(response.data);
+            const date = $(".articleTitleNew").text();
+            setRasifalTitle(date);
+            $(".item").each(function (index, element) {
+                const title = $(element).children("h3").text();
 
-    // const { span, sign } = "";
-    // const obj1 = {
-    //     message: "/api/:span can only have daily, weekly, monthly or yearly",
-    // };
+                const description = $(element).children(".desc").text();
 
-    // useEffect(() => {
-    //     const url = `https://www.hamropatro.com/rashifal/weekly/mesh`;
-    //     console.log(url);
-    //     axios
-    //         .get(url)
-    //         .then((res) => {
-    //             const $ = cheerio.load(res.data);
-    //             const desc = $(".desc").find("p").text();
-    //             const date = $(".articleTitleNew").find("span").text();
-    //             const dt = date.split(" ");
+                const image =
+                    HoroscopeCardData.find((data) => data?.title === title)
+                        ?.image ?? "";
 
-    //             const sc = desc.replace("\n", "");
-    //             const obj = {
-    //                 date:
-    //                     span === "daily"
-    //                         ? `${dt[2]} ${dt[1]} ${dt[0]} ${dt[3]}`
-    //                         : span === "weekly"
-    //                         ? `${dt[1]} - ${dt[3]} ${dt[0]}`
-    //                         : span === "monthly"
-    //                         ? `${dt[0]} ${dt[1]}`
-    //                         : `${dt[0]} ${dt[1]} ${dt[2]}`,
-    //                 sun_sign: dt[dt.length - 5],
-    //                 prediction: sc,
-    //             };
-    //             console.log(obj);
-    //         })
-    //         .catch((e) => {
-    //             console.log(e);
-    //         });
-    // }, []);
+                setDailyRasifal((pevDailyRasifal) => [
+                    ...pevDailyRasifal,
+                    { title, description, image },
+                ]);
+            });
+        });
+        return () => {
+            setDailyRasifal([]);
+        };
+    }, []);
 
     return (
         <>
@@ -65,7 +110,7 @@ export const RasifalSlideComponent = ({
                 className={`rasifal-slide-wrapper ${rasifal ? "active" : ""}`}
             >
                 <div className="top-section__header">
-                    <h3>दैनिक राशिफल</h3>
+                    <h3>{rasifalTitle}</h3>
                     <span
                         className="icon"
                         onClick={() => {
@@ -77,14 +122,18 @@ export const RasifalSlideComponent = ({
                     </span>
                 </div>
 
-                {HoroscopeCardData.map((item, index) => (
-                    <RasifalCard
-                        key={index}
-                        title={item.title}
-                        image={item.image}
-                        description={item?.description}
-                    />
-                ))}
+                <Link href="/rasifal">
+                    <a>
+                        {dailyRasifal.map((item, index) => (
+                            <RasifalCard
+                                key={index}
+                                title={item.title}
+                                image={item.image}
+                                description={item?.description}
+                            />
+                        ))}
+                    </a>
+                </Link>
             </div>
         </>
     );

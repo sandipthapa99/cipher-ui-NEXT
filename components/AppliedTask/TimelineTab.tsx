@@ -1,3 +1,6 @@
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert } from "@mantine/core";
 import React, { useState } from "react";
 import { TaskDetailTimelineData } from "staticData/taskDetailTimeline";
 
@@ -26,5 +29,11 @@ export const TimelineTab = () => {
                 />
             ))}
         </div>
+        // <Alert
+        //     icon={<FontAwesomeIcon icon={faWarning} />}
+        //     title="Feature Coming soon"
+        // >
+        //     Stay tuned this feature is coming soon!
+        // </Alert>
     );
 };

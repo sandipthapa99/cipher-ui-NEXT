@@ -1,22 +1,14 @@
-import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import { Tab } from "@components/common/Tab";
 import { MyBookings } from "@components/MyTasks/MyBookings";
 import { MyTasks } from "@components/MyTasks/MyTasks";
 import { PaymentHistory } from "@components/MyTasks/PaymentHistory";
 import { TaskYouMayLike } from "@components/MyTasks/TaskYouMayLike";
-import {
-    faFilterList,
-    faMagnifyingGlass,
-} from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Popover } from "@mantine/core";
 import { useMyTasks } from "hooks/task/use-my-tasks";
 import { useData } from "hooks/use-data";
 import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const [_, setShowModal] = useState(false);
     const { data: myTasks } = useMyTasks();
     const RenderInputBox = () => {
         return (
@@ -27,10 +19,6 @@ const SearchBySort = () => {
             />
         );
     };
-    const { data: servicesData } = useData<ServicesValueProps>(
-        ["all-services"],
-        "/task/service/"
-    );
 
     return (
         <>

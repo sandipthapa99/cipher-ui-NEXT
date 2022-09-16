@@ -27,17 +27,16 @@ const PortfolioDetails = ({
     id,
     isTaskerPortfolio,
     handleClose,
-}: // description,
-// image,
-// issued_date,
-// url,
-// name,
-// file,
-PortfolioProps) => {
+}: PortfolioProps) => {
     const [showAddPortfolioModal, setShowAddPortfolioModal] = useState(false);
     const [isEditProfile, setIsEditProfile] = useState(false);
 
     const { data: portfolioDetail } = useGetPortfolioById(id);
+    // console.log(
+    //     "🚀 ~ file: PortfolioDetail.tsx ~ line 41 ~ portfolioDetail",
+    //     portfolioDetail
+    // );
+
     return (
         <div className="portfolio-details">
             {/* Modal component */}
@@ -81,63 +80,29 @@ PortfolioProps) => {
                         >
                             {portfolioDetail?.images.map((image: any) => (
                                 <Carousel.Slide key={image.id}>
-                                    {image.name
-                                        .substring(image.name.indexOf(".") + 1)
-                                        .includes("png") ? (
-                                        <Image
-                                            src={image.media}
-                                            alt="portfolio-img"
-                                            height={500}
-                                            objectFit="contain"
-                                            width={800}
-                                        />
-                                    ) : image.name.substring(
-                                          image.name.indexOf(".") + 1
-                                      ) === "jpg" ? (
-                                        <Image
-                                            src={image.media}
-                                            alt="portfolio-img"
-                                            height={500}
-                                            objectFit="contain"
-                                            width={800}
-                                        />
-                                    ) : image.name.substring(
-                                          image.name.indexOf(".") + 1
-                                      ) === "svg" ? (
-                                        <Image
-                                            src={image.media}
-                                            alt="portfolio-img"
-                                            height={500}
-                                            objectFit="contain"
-                                            width={800}
-                                        />
-                                    ) : image.name.substring(
-                                          image.name.indexOf(".") + 1
-                                      ) === "jpeg" ? (
-                                        <Image
-                                            src={image.media}
-                                            alt="portfolio-img"
-                                            height={500}
-                                            objectFit="contain"
-                                            width={800}
-                                        />
+                                    {image.media_type == "mp4" ? (
+                                        <video
+                                            style={{
+                                                width: "90%",
+                                            }}
+                                            controls
+                                            autoPlay
+                                        >
+                                            <source
+                                                src={image.media}
+                                                type="video/mp4"
+                                            ></source>
+                                            Sorry, your browser doesn&apos;t
+                                            support videos.
+                                        </video>
                                     ) : (
-                                        <div>
-                                            <video
-                                                style={{
-                                                    width: "90%",
-                                                }}
-                                                controls
-                                                autoPlay
-                                            >
-                                                <source
-                                                    src={image.media}
-                                                    type="video/mp4"
-                                                ></source>
-                                                Sorry, your browser doesn&apos;t
-                                                support videos.
-                                            </video>
-                                        </div>
+                                        <Image
+                                            src={image.media}
+                                            alt="portfolio-img"
+                                            height={500}
+                                            objectFit="contain"
+                                            width={800}
+                                        />
                                     )}
                                 </Carousel.Slide>
                             ))}
@@ -156,12 +121,6 @@ PortfolioProps) => {
                             />
                         </figure>
                     )}
-
-                    {/* <img
-                        src="http://54.252.73.240:8014/tmedia/cipher/user/portfolio/womenBuis_ViZsyj2.png"
-                        alt="portfolio-image"
-                        className="portfolio-img"
-                    /> */}
 
                     <div className="description">
                         {portfolioDetail?.description}

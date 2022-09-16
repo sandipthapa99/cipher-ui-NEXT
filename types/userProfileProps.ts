@@ -108,4 +108,18 @@ export interface UserProfileProps {
         is_verified: boolean;
         kyc: number;
     }[];
+    activitiesData: {
+        count: number;
+        next: string;
+        previous: string;
+        result: {
+            id: number;
+            content_type: any;
+            action_time: string;
+            object_id: any;
+            action: string;
+            change_message: string;
+            user: string;
+        }[];
+    };
 }

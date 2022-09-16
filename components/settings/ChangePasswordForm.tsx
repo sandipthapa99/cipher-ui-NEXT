@@ -4,6 +4,7 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Accordion } from "@mantine/core";
 import { Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { useChangePassword } from "hooks/profile/changePassword/useChangePassword";
 import React from "react";
 import Button from "react-bootstrap/Button";
@@ -20,6 +21,7 @@ import { SecurityQuestions } from "./SecurityQuestions";
 const ChangePasswordForm = () => {
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useChangePassword();
+    const { data: userDetails } = useUser();
 
     return (
         <>
@@ -124,7 +126,9 @@ const ChangePasswordForm = () => {
                 <Accordion.Item value="phone-number">
                     <Accordion.Control>
                         <p className="m-0 font-weight-normal">
-                            Change Phone Number
+                            {userDetails?.phone === ""
+                                ? "Add new phone number"
+                                : "Change Phone Number"}
                         </p>
                     </Accordion.Control>
                     <Accordion.Panel>
@@ -135,7 +139,9 @@ const ChangePasswordForm = () => {
                 <Accordion.Item value="email-address">
                     <Accordion.Control>
                         <p className="m-0 font-weight-normal">
-                            Change Email Address
+                            {userDetails?.email === ""
+                                ? "Add new email"
+                                : "Update Email"}
                         </p>
                     </Accordion.Control>
                     <Accordion.Panel>

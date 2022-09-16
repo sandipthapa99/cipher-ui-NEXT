@@ -1,6 +1,5 @@
-import Cookies from "js-cookie";
+import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
-import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
 
 import AnchorButton from "./AnchorButton";
@@ -26,7 +25,8 @@ const LongSquareImageCard = ({
     homeImage,
     descTitle,
 }: CardProps) => {
-    const accessToken = Cookies.get("access");
+    // const accessToken = Cookies.get("access");
+    const { data: user } = useUser();
     return (
         <div className="long-square-image-card">
             <Row className="gx-5 card-content">
@@ -88,10 +88,10 @@ const LongSquareImageCard = ({
                                 </div>
                                 {buttonText && (
                                     <div>
-                                        {accessToken !== undefined ? (
+                                        {user ? (
                                             <AnchorButton
                                                 className={"px-5"}
-                                                href={"/explore-services"}
+                                                href={"/service"}
                                                 varient={"secondary"}
                                             >
                                                 {"Explore Services"}
@@ -157,10 +157,10 @@ const LongSquareImageCard = ({
                                 </div>
                                 {buttonText && (
                                     <div>
-                                        {accessToken !== undefined ? (
+                                        {user ? (
                                             <AnchorButton
                                                 className={"px-5"}
-                                                href={"/explore-services"}
+                                                href={"/service"}
                                                 varient={"secondary"}
                                             >
                                                 {"Explore Services"}

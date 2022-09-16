@@ -2,6 +2,7 @@ import AuthenticationModalCard from "@components/AuthenticationModal";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
+import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Radio } from "@mantine/core";
 import { Form, Formik } from "formik";
@@ -12,7 +13,6 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { ClientSignUpFormData } from "utils/formData";
 import {
-    clientBothSignUpSchema,
     clientEmailSignUpSchema,
     clientPhoneSignUpSchema,
 } from "utils/formValidation/clientSignUpValidation";
@@ -20,24 +20,8 @@ import { isSubmittingClass } from "utils/helpers";
 
 const SignUp = () => {
     const { mutate, isLoading } = useSignup();
-    const [enteredData, setEnteredData] = useState("email");
     const [choosedValue, setChoosedValue] = useState("email");
     const [phoneNumber, setPhoneNumber] = useState<string>("");
-    const getValidationSchema = () => {
-        if (enteredData === "email") return clientEmailSignUpSchema;
-        if (enteredData === "phone") return clientPhoneSignUpSchema;
-        return clientBothSignUpSchema;
-    };
-
-    const handleFieldChange = (
-        e: ChangeEvent<HTMLInputElement>,
-        fieldName: string,
-        setFieldValue: (field: string, value: any) => void
-    ) => {
-        setEnteredData(fieldName);
-        setFieldValue(fieldName, e.currentTarget.value);
-    };
-    const router = useRouter();
 
     //for 2 factor modal
     const [show, setShow] = useState(false);
@@ -55,7 +39,11 @@ const SignUp = () => {
             <div className="cipher modals signup">
                 <Formik
                     initialValues={ClientSignUpFormData}
-                    validationSchema={getValidationSchema()}
+                    validationSchema={
+                        choosedValue === "email"
+                            ? clientEmailSignUpSchema
+                            : clientPhoneSignUpSchema
+                    }
                     onSubmit={async (values) => {
                         const { email, password, confirmPassword, phone } =
                             values;
@@ -99,7 +87,7 @@ const SignUp = () => {
                         );
                     }}
                 >
-                    {({ isSubmitting, errors, touched, setFieldValue }) => (
+                    {({ isSubmitting, errors, touched }) => (
                         <Form className="login-form">
                             <div className="choose-email-or-phone mb-5">
                                 <Radio.Group
@@ -116,34 +104,27 @@ const SignUp = () => {
                                 <InputField
                                     type="email"
                                     name="email"
+                                    fieldRequired={true}
                                     labelName="Email"
-                                    onChange={(e) =>
-                                        handleFieldChange(
-                                            e,
-                                            "email",
-                                            setFieldValue
-                                        )
-                                    }
                                     touch={touched.email}
                                     error={errors.email}
                                     placeHolder="example@example.com"
                                 />
                             ) : (
-                                <InputField
-                                    type="text"
-                                    name="phone"
+                                // <InputField
+                                //     type="text"
+                                //     name="phone"
+                                //     labelName="Phone Number"
+                                //     touch={touched.phone}
+                                //     error={errors.phone}
+                                //     placeHolder="+9779805284906"
+                                // />
+                                <PhoneNumberInput
+                                    name={"phone"}
+                                    fieldRequired={true}
                                     labelName="Phone Number"
-                                    onChange={(e) => {
-                                        // console.log("values=", e.target.value);
-                                        handleFieldChange(
-                                            e,
-                                            "phone",
-                                            setFieldValue
-                                        );
-                                    }}
                                     touch={touched.phone}
                                     error={errors.phone}
-                                    placeHolder="+9779805284906"
                                 />
                             )}
 
@@ -163,61 +144,7 @@ const SignUp = () => {
                                 error={errors.confirmPassword}
                                 placeHolder="Confirm Password"
                             />
-                            {/* <RadioField
-                                type="radio"
-                                name="gender"
-                                labelName="Are You?"
-                                touch={touched.gender}
-                                error={errors.gender}
-                            /> */}
-                            {/* <div className="form-group">
-                                <div className="form-check">
-                                    <Field
-                                        type="checkbox"
-                                        name="addToNewsletter"
-                                        className={
-                                            errors.addToNewsletter &&
-                                            touched.addToNewsletter
-                                                ? "form-check-input is-invalid"
-                                                : "form-check-input"
-                                        }
-                                        id="isAgree"
-                                    />
-                                    <label
-                                        className="form-check-label"
-                                        htmlFor="isAgree"
-                                    >
-                                        Send me emails relevant to me.
-                                    </label>
-                                </div>
-                            </div> */}
-                            {/* <div className="form-group">
-                                <div className="form-check">
-                                    <Field
-                                        type="checkbox"
-                                        name="isAgree"
-                                        className={
-                                            errors.isAgree && touched.isAgree
-                                                ? "form-check-input is-invalid"
-                                                : "form-check-input"
-                                        }
-                                        id="isAgree"
-                                    />
-                                    <label
-                                        className="form-check-label"
-                                        htmlFor="isAgree"
-                                    >
-                                        Yes, I agree to the
-                                        <Link href="/terms-condition">
-                                            <a target="_blank">
-                                                {" "}
-                                                terms and condition{" "}
-                                            </a>
-                                        </Link>
-                                        of Cipher.
-                                    </label>
-                                </div>
-                            </div> */}
+
                             <FormButton
                                 type="submit"
                                 variant="primary"
@@ -243,3 +170,64 @@ const SignUp = () => {
 };
 
 export default SignUp;
+{
+    /* <RadioField
+                                type="radio"
+                                name="gender"
+                                labelName="Are You?"
+                                touch={touched.gender}
+                                error={errors.gender}
+                            /> */
+}
+{
+    /* <div className="form-group">
+                                <div className="form-check">
+                                    <Field
+                                        type="checkbox"
+                                        name="addToNewsletter"
+                                        className={
+                                            errors.addToNewsletter &&
+                                            touched.addToNewsletter
+                                                ? "form-check-input is-invalid"
+                                                : "form-check-input"
+                                        }
+                                        id="isAgree"
+                                    />
+                                    <label
+                                        className="form-check-label"
+                                        htmlFor="isAgree"
+                                    >
+                                        Send me emails relevant to me.
+                                    </label>
+                                </div>
+                            </div> */
+}
+{
+    /* <div className="form-group">
+                                <div className="form-check">
+                                    <Field
+                                        type="checkbox"
+                                        name="isAgree"
+                                        className={
+                                            errors.isAgree && touched.isAgree
+                                                ? "form-check-input is-invalid"
+                                                : "form-check-input"
+                                        }
+                                        id="isAgree"
+                                    />
+                                    <label
+                                        className="form-check-label"
+                                        htmlFor="isAgree"
+                                    >
+                                        Yes, I agree to the
+                                        <Link href="/terms-condition">
+                                            <a target="_blank">
+                                                {" "}
+                                                terms and condition{" "}
+                                            </a>
+                                        </Link>
+                                        of Cipher.
+                                    </label>
+                                </div>
+                            </div> */
+}

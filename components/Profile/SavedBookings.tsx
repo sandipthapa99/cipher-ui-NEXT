@@ -1,39 +1,52 @@
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
-import { useBookmarkTasks } from "hooks/task/use-bookmark-tasks";
-import { useData } from "hooks/use-data";
+import { UserTaskCard } from "@components/Task/UserTaskCard/UserTaskCard";
+import { useBookmarks } from "hooks/use-bookmarks";
 import { Col, Row } from "react-bootstrap";
-import type { ServicesValueProps } from "types/serviceCard";
+
 const SavedBookings = () => {
-    const { data: TasksData } = useBookmarkTasks();
-    const { data: servicesData } = useData<ServicesValueProps>(
-        ["all-services"],
-        "/task/service/"
-    );
-    console.log("saved tasjs=");
+    const { data: serviceBookmarks } = useBookmarks("service");
+    const { data: taskBookmarks } = useBookmarks("task");
+    const { data: userBookmarks } = useBookmarks("user");
+
     return (
         <div className="saved-bookings px-5">
-            {/* <pre>{JSON.stringify(TasksData, null, 4)}</pre> */}
             <Row>
-                {TasksData?.result?.map((task: any, key: any) => (
-                    <Col sm="12" key={key}>
-                        <TaskCard task={task} />
+                <h3>Services ({serviceBookmarks.length})</h3>
+                {serviceBookmarks.map((bookmark) => (
+                    <Col md={3} lg={4} key={bookmark.id}>
+                        <ServiceCard
+                            key={bookmark.id}
+                            serviceCard={bookmark.data as any}
+                            isSaved={true}
+                        />
                     </Col>
                 ))}
             </Row>
-            <Row className="gx-5">
-                {servicesData &&
-                    servicesData?.data?.result?.map((service, key) => (
-                        <Col
-                            className="discover-col"
-                            sm={6}
-                            md={6}
-                            lg={3}
-                            key={key}
-                        >
-                            <ServiceCard serviceCard={service} />
-                        </Col>
-                    ))}
+
+            <Row>
+                <h3>Tasks ({taskBookmarks.length})</h3>
+                {taskBookmarks.map((taskBookmark) => (
+                    <Col md={3} lg={4} key={taskBookmark.id}>
+                        <TaskCard
+                            key={taskBookmark.id}
+                            task={taskBookmark.data as any}
+                        />
+                    </Col>
+                ))}
+            </Row>
+            <Row>
+                <h3>Taskers ({userBookmarks.length})</h3>
+                {userBookmarks.map((userBookmark) => (
+                    <Col md={3} lg={4} key={userBookmark.id}>
+                        <UserTaskCard
+                            key={userBookmark.id}
+                            task={userBookmark.data as any}
+                            onTaskClick={(task) => console.log(task)}
+                            isSaved={true}
+                        />
+                    </Col>
+                ))}
             </Row>
         </div>
     );

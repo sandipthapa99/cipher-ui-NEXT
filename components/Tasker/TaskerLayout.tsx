@@ -27,6 +27,7 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
     const clearSearchQuery = useClearSearchQuery();
     const clearSearchedServices = useClearSearchedServices();
+    const [sortTaskerPrice, setSortTaskerPrice] = useState([]);
     const searchQuery = useSearchQuery();
 
     const { data: searchData = [], isFetching } = useSearchTasker(query);
@@ -35,12 +36,18 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
         clearSearchedServices();
         setQuery(query);
     };
+    const getTaskerSortByPrice = (task: any) => {
+        setSortTaskerPrice(task);
+    };
 
     return (
         <Layout title="Find Tasker | Cipher">
             <section className="Tasker-section" id="Tasker-section">
                 <Container fluid="xl">
-                    <SearchCategory onChange={handleSearchChange} />
+                    <SearchCategory
+                        onChange={handleSearchChange}
+                        getTaskerBySort={getTaskerSortByPrice}
+                    />
                     {searchQuery?.query && (
                         <Highlight highlight={searchQuery.query}>
                             {`Showing search results for ${searchQuery.query}`}
@@ -49,7 +56,11 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
                     <Space h={10} />
                     <TaskerAside
                         query={query}
-                        tasker={searchData}
+                        tasker={
+                            sortTaskerPrice.length > 0
+                                ? sortTaskerPrice
+                                : searchData
+                        }
                         isLoading={isFetching}
                     >
                         {children}

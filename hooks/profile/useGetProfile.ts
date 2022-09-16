@@ -16,6 +16,7 @@ export type ProfileResponse = {
         email: string;
         full_name: string;
         profile_image: string;
+        phone: string;
     };
     portfolio: Array<{
         id: number;
@@ -89,6 +90,7 @@ export type ProfileResponse = {
     profile_visibility: string;
     task_preferences: string;
     address_line1: string;
+    points: number;
     address_line2: string;
     is_profile_verified: boolean;
     designation: any;

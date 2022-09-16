@@ -3,15 +3,24 @@ import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
 import { isSubmittingClass } from "utils/helpers";
 
 export const ChangeNewEmail = () => {
+    const { data: userDetails } = useUser();
+    const url =
+        userDetails?.email === ""
+            ? "/tasker/add-email/"
+            : "/tasker/change-email/";
     const changeEmail = useMutation((values: any) => {
-        return axiosClient.post("/tasker/change-email/", values);
+        return axiosClient.post(url, values);
     });
+
+    // console.log("userDetails", userDetails);
+
     return (
         <div className=" p-0">
             <Formik
@@ -24,7 +33,10 @@ export const ChangeNewEmail = () => {
                 onSubmit={async (values, action) => {
                     changeEmail.mutate(values, {
                         onSuccess: () => {
-                            toast.success("Email changed successfully");
+                            userDetails?.email === ""
+                                ? toast.success(" Email added successfully")
+                                : toast.success("Email changed successfully");
+
                             action.resetForm();
                         },
                         onError: (err: any) => {
@@ -86,7 +98,9 @@ export const ChangeNewEmail = () => {
                             <FormButton
                                 type="submit"
                                 variant="primary"
-                                name="Update"
+                                name={
+                                    userDetails?.email === "" ? "Add" : "Update"
+                                }
                                 className="submit-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(

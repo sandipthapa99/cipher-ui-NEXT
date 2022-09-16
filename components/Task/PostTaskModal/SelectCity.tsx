@@ -1,6 +1,7 @@
 import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { axiosClient } from "utils/axiosClient";
 
 export interface TaskCity {
@@ -10,17 +11,21 @@ export interface TaskCity {
 export interface SelectCityProps extends Omit<SelectProps, "data"> {
     onCitySelect: (cityId: number) => void;
 }
-const useCities = () =>
+const useCities = (searchQuery: string) =>
     useQuery(
-        ["task-cities"],
+        ["task-cities", searchQuery],
         () =>
             axiosClient
-                .get<{ result: TaskCity[] }>("/locale/cms/city/")
-                .then((response) => response.data.result),
-        { initialData: [] }
+                .get<TaskCity[]>(
+                    `/locale/client/city/options?search=${searchQuery}`
+                )
+                .then((response) => response.data),
+        { initialData: [], enabled: !!searchQuery && searchQuery.length >= 3 }
     );
 export const SelectCity = ({ onCitySelect, ...rest }: SelectCityProps) => {
-    const { data: cities } = useCities();
+    const [value, setValue] = useState("");
+    const [query, setQuery] = useState("");
+    const { data: cities } = useCities(query);
     const selectCityData: SelectItem[] = cities.map((city) => ({
         id: city.id.toString(),
         label: city.name,
@@ -29,16 +34,19 @@ export const SelectCity = ({ onCitySelect, ...rest }: SelectCityProps) => {
     const handleCityChange = (value: string | null) => {
         if (!value) return;
         const cityId = parseInt(value, 10);
+        setValue(value);
         onCitySelect(cityId);
     };
     return (
         <Select
             {...rest}
+            value={value}
             searchable
             required
             label="City"
-            placeholder="Select your city"
+            placeholder="Search and select your city"
             data={selectCityData}
+            onSearchChange={(value) => setQuery(value)}
             onChange={handleCityChange}
         />
     );

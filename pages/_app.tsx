@@ -16,7 +16,6 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
@@ -30,10 +29,6 @@ interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
     };
 }
 
-const UserLoadingOverlay = dynamic(
-    () => import("@components/common/FullPageLoader"),
-    { ssr: false }
-);
 function MyApp({ Component, pageProps }: CustomAppProps) {
     const [queryClient] = useState(
         () =>
@@ -59,6 +54,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             }
         };
         const result = setToken();
+        console.log("result", result);
     }, []);
 
     return (

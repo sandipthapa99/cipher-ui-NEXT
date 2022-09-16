@@ -51,7 +51,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         src={
                             task?.assigner?.profile_image
                                 ? task?.assigner?.profile_image
-                                : "/hireinnepal/footer.png"
+                                : "/userprofile/unknownPerson.jpg"
                         }
                         layout="fill"
                         objectFit="cover"
@@ -187,6 +187,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 budget_type={task?.budget_type}
                 description={task?.description}
                 show={showModal}
+                setShow={setShowModal}
                 handleClose={() => setShowModal(false)}
                 images={[]}
             />

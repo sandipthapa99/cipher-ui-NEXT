@@ -1,4 +1,3 @@
-import FullPageLoader from "@components/common/FullPageLoader";
 import {
     useClearSearchedServices,
     useClearSearchQuery,

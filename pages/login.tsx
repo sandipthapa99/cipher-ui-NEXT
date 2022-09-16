@@ -76,7 +76,7 @@ const Login = () => {
                         onSubmit={(values) => {
                             const newValues = {
                                 ...values,
-                                fcm_token: fcmToken,
+                                fcm_token: fcmToken ? fcmToken : null,
                             };
                             console.log(newValues);
 
@@ -92,7 +92,7 @@ const Login = () => {
                                     //         : "/settings/account/individual"
                                     // );
                                     if (profile) {
-                                        router.push(
+                                        await router.push(
                                             typeof next === "string"
                                                 ? next
                                                 : "/home"

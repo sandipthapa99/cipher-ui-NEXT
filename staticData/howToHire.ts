@@ -34,7 +34,7 @@ export const browseTalent = [
     {
         id: "0",
         image: "/howtohire/browse.svg",
-        title: "How does it work?",
+        title: "Post your skills",
         subtitle: "What do you need done?",
         buttonText: "Browse Now",
         imageOnRight: true,

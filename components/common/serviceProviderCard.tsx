@@ -7,11 +7,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
-import { BookingDetails } from "staticData/bookNowModalCard";
+// import { BookingDetails } from "staticData/bookNowModalCard";
 import type { ServiceProviderCardProps } from "types/serviceDetail";
 
 import BookNowButton from "./BookNowButton";
-import ModalCard from "./BookNowModalCard";
 
 const ServiceProviderCard = ({
     image,
@@ -34,7 +33,7 @@ const ServiceProviderCard = ({
                 <div className="profile">
                     <figure className="thumbnail-img">
                         <Image
-                            src={image}
+                            src={image ?? "/userprofile/unknownPerson.jpg"}
                             layout="fill"
                             objectFit="cover"
                             alt="serviceprovider-image"
@@ -102,10 +101,11 @@ const ServiceProviderCard = ({
                     />
                 )}
             </div>
-            {BookingDetails &&
+            {/* {BookingDetails &&
                 BookingDetails.map((detail) => (
                     <ModalCard
                         key={detail.id}
+                        setShow={setShowModal}
                         title={detail.title}
                         price={detail.price}
                         image={detail.image}
@@ -113,7 +113,7 @@ const ServiceProviderCard = ({
                         show={showModal}
                         handleClose={() => setShowModal(false)}
                     />
-                ))}
+                ))} */}
         </>
     );
 };

@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { MyTaskOrderProps } from "types/myTasksProps";
@@ -61,10 +62,9 @@ export const MyTaskOrder = ({
                             <div className="price-section">
                                 <span className="price">Price : </span>
                                 <span className="value">
-                                    {currency}
-                                    {budget_from}
-                                    {budget_to && "-" + budget_to}
-
+                                    {currency + " "}{" "}
+                                    {budget_from && budget_from + "-"}
+                                    {budget_to}
                                     {budget_type === "Hourly"
                                         ? "/hr"
                                         : budget_type === "Monthly"

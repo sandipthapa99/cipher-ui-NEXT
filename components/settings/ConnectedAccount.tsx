@@ -6,8 +6,6 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
 import React from "react";
-import { Button } from "react-bootstrap";
-import { socialConnectionValues } from "staticData/socialConnection";
 import { axiosClient } from "utils/axiosClient";
 
 export type LinkedAccountProps = LinkedAccount[];
@@ -46,8 +44,6 @@ const ConnectedAccount = () => {
         "/user/linked-accounts/list/"
     );
 
-    console.log("linked accounts= hahah", linkedAccounts?.data);
-
     return (
         <div className="account-form">
             <h2>Connected Accounts</h2>
@@ -73,9 +69,15 @@ const ConnectedAccount = () => {
                             {/* </span> */}
                             <p>{values.uid}</p>
                             <div className="d-flex button-wrapper align-items-stretch justify-content-center my-4">
-                                <Button className="btn close-btn px-5">
+                                {/* <Button className="btn close-btn px-5">
                                     Update
-                                </Button>
+                                </Button> */}
+                                <BigButton
+                                    btnTitle={"Update"}
+                                    backgroundColor={"#211d4f"}
+                                    textColor={"#fff"}
+                                    //  handleClick={handleCloseModal}
+                                />
                                 <div className="delete-wrapper">
                                     <FontAwesomeIcon
                                         icon={faTrashCan}

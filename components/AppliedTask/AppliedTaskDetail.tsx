@@ -124,6 +124,7 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                             </button>
                             {isUserTask && (
                                 <EllipsisDropdown
+                                    task={taskDetail}
                                     showModal={true}
                                     handleOnClick={() => setShowModal(true)}
                                 >
@@ -245,14 +246,16 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                             icon={faClockEight}
                             className="svg-icon svg-icon-clock"
                         />
-                        {taskDetail?.start_time}
+                        {taskDetail?.updated_at
+                            ? format(new Date(taskDetail?.updated_at), "p")
+                            : "N/A"}
                     </p>
                     <p>
                         <FontAwesomeIcon
                             icon={faEye}
                             className="svg-icon svg-icon-eye"
                         />
-                        <span> 2500 Views</span>
+                        <span> TOBE-IMP Views</span>
                     </p>
                     <p className="d-flex align-items-center">
                         <FontAwesomeIcon

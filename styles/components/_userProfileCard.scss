@@ -55,13 +55,7 @@
             padding: 1rem 3rem;
         }
     }
-    .rated-star {
-        color: #f79c19;
-    }
-    .unrated {
-        color: #ced4da;
-        margin-bottom: 1.2rem;
-    }
+
     .star {
         width: 2.3rem;
         height: 2.3rem;
@@ -90,6 +84,18 @@
             .type {
                 padding-bottom: 1.3rem;
 
+                a {
+                    color: #495057;
+                    font-size: 1.3rem;
+                    font-weight: 400;
+                    text-decoration: none;
+
+                    .click-here-span {
+                        color: $primary-color;
+                        cursor: pointer;
+                    }
+                }
+
                 .svg-img {
                     height: 2rem;
                     width: 2rem;
@@ -100,11 +106,12 @@
                         width: 1.5rem;
                     }
                 }
-                p {
+                p,
+                span {
                     font-size: 1.3rem;
                     margin-bottom: 0rem;
                     margin-bottom: 0rem;
-
+                    color: #495057;
                     @include respond(xxs) {
                         font-size: 1.1rem;
                     }
@@ -198,18 +205,26 @@
                     height: 1.2rem;
                     width: 100%;
                     border-radius: 7rem;
+
                     //  position: relative;
                     &::after {
                         // position: absolute;
-                        width: 58%;
-                        content: "";
-                        height: 1.2rem;
-                        background: linear-gradient(
-                            270.06deg,
-                            rgba(241, 163, 65, 0.58) 0.06%,
-                            #e8b873 46.12%,
-                            #f79c19 86.42%
-                        );
+                        // width: 58%;
+                        // content: "";
+                        // height: 1.2rem;
+                        // background: linear-gradient(
+                        //     270.06deg,
+                        //     rgba(241, 163, 65, 0.58) 0.06%,
+                        //     #e8b873 46.12%,
+                        //     #f79c19 86.42%
+                        // );
+                        // @include progressBar(0%);
+
+                        .inside-progress-bar {
+                            width: 50%;
+                            height: 100%;
+                            background-color: #f79c19;
+                        }
                     }
                 }
             }
