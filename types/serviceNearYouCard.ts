@@ -1,4 +1,4 @@
-import type { ServicesPackageProps } from "./serviceCard";
+import type { ServicesPackageProps, ServicesValueProps } from "./serviceCard";
 
 export interface ServiceNearYouCardProps {
     image?:
@@ -32,6 +32,7 @@ export interface ServiceNearYouCardProps {
     servicePackage?: ServicesPackageProps["result"];
     serviceCreated?: string;
     serviceViews?: number;
+    service?: ServicesValueProps["result"][0];
 }
 export interface BookNowDetails extends ServiceNearYouCardProps {
     problemDescription?: string;

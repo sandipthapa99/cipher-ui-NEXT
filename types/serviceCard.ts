@@ -56,6 +56,13 @@ export interface ServicesValueProps {
             media_type: string;
             placeholder: string;
         }[];
+        videos: {
+            id: number;
+            name: string;
+            size: string;
+            media_type: string;
+            media: string;
+        }[];
         created_at: string;
         updated_at: string;
         title: string;
