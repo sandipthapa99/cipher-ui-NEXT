@@ -71,12 +71,7 @@ const Support = () => {
                                         });
                                     }}
                                 >
-                                    {({
-                                        isSubmitting,
-                                        errors,
-                                        touched,
-                                        resetForm,
-                                    }) => (
+                                    {({ isSubmitting, errors, touched }) => (
                                         <Form>
                                             <InputField
                                                 type="text"

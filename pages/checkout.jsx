@@ -1,4 +1,3 @@
-import SimpleProfileCard from "@components/common/SimpleProfileCard";
 import Layout from "@components/Layout";
 import {
     faCalendar,
@@ -9,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
-import { useForm } from "hooks/use-form";
 import Image from "next/image";
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
