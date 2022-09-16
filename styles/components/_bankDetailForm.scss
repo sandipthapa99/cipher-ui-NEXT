@@ -1,0 +1,16 @@
+.bank-form {
+    background: #ffffff;
+    margin: 2.5rem 0rem;
+    .checkbox {
+        span {
+            margin-left: 0.9rem;
+            font-weight: 500;
+            color: $secondary-text-color;
+        }
+        margin-bottom: 1.9rem;
+    }
+    a {
+        font-weight: 500;
+        font-size: 1.6rem;
+    }
+}
