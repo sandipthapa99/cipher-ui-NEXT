@@ -1,3 +1,4 @@
+import BigButton from "@components/common/Button";
 import {
     faCircleCheck,
     faCircleQuestion,
@@ -14,7 +15,7 @@ import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 
 interface KYCDocumentType {
     id: number;
@@ -36,15 +37,17 @@ export const KYCStatus = () => {
     const { data: KycData } = useGetKYC();
     const { data: KycDocuments } = useGetKYCDocument();
 
-    console.log("KycDocuments", KycDocuments);
-    console.log("KycData", KycData);
+    // console.log("KycDocuments", KycDocuments);
+    // console.log("KycData", KycData);
     const renderDocuments = KycDocuments?.map((item, index: number) => {
         return (
             <Accordion.Item key={index} value={item?.document_id}>
                 <Accordion.Control className="mt-1 p-3">
                     <div className="d-flex align-items-center gap-3 folder-text-accordian">
                         <FontAwesomeIcon icon={faFolder} />
-                        <p className="m-0 document-kyc">Documents</p>
+                        <p className="m-0 document-kyc">
+                            {item?.document_type}
+                        </p>
                         <Badge color="green">
                             <FontAwesomeIcon icon={faCircleCheck} />
                         </Badge>
@@ -136,7 +139,9 @@ export const KYCStatus = () => {
                                 className="font-icon-kyc"
                             />
                             <p className="m-0 body-kyc">
-                                {profileDetails?.user?.phone}
+                                {profileDetails?.user.phone
+                                    ? profileDetails?.user.phone
+                                    : "Add a Phone Number"}
                             </p>
                         </div>
                     </div>
@@ -151,11 +156,21 @@ export const KYCStatus = () => {
                     </div>
                     <p className="m-0 body-kyc">
                         <span className="body-kyc-span">Submitted On: </span>{" "}
-                        {/* {format(new Date(KycData?.created_at), "do MMM yyyy")} */}
+                        {KycData
+                            ? format(
+                                  new Date(KycData?.created_at),
+                                  "do MMM yyyy"
+                              )
+                            : ""}
                     </p>
                     <p className="m-0 body-kyc">
                         <span className="body-kyc-span">Updated On: </span>{" "}
-                        {/* {format(new Date(KycData?.updated_at), "do MMM yyyy")} */}
+                        {KycData
+                            ? format(
+                                  new Date(KycData?.updated_at),
+                                  "do MMM yyyy"
+                              )
+                            : ""}
                     </p>
                 </Col>
             </Row>
@@ -199,6 +214,12 @@ export const KYCStatus = () => {
                     </Accordion>
                 )}
             </Row>
+
+            {/* <BigButton
+                className="close-btn btn p-2 mt-4 h-25 text-white"
+                btnTitle="Edit KYC"
+                backgroundColor="#211D4F"
+            /> */}
         </Container>
     );
 };

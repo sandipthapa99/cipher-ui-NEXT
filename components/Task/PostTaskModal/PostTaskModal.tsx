@@ -154,7 +154,7 @@ export const PostTaskModal = () => {
                     action.resetForm();
                     // toast.success(message);
                     await queryClient.invalidateQueries(["all-tasks"]);
-                    // await queryClient.invalidateQueries(["notification"]);
+                    await queryClient.invalidateQueries(["notification"]);
                     // router.push({ pathname: "/task" });
                 },
                 onError: (error) => {

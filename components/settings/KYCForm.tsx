@@ -316,8 +316,7 @@ const KYCForm = () => {
                 <IdentityDocument getReadvalue={setShowKYCRead} />
                 {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
-
-            {<KYCStatus />}
+            {!KYCData?.is_kyc_verified && <KYCStatus />}
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"
