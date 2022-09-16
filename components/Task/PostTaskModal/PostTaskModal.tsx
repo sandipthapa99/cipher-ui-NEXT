@@ -75,7 +75,6 @@ export const PostTaskModal = () => {
     const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
-    const { data: profileDetails } = useGetProfile();
     const router = useRouter();
 
     const taskSlug = router.query?.slug;
@@ -153,10 +152,10 @@ export const PostTaskModal = () => {
                 onSuccess: async ({ message }) => {
                     handleCloseModal();
                     action.resetForm();
-                    toast.success(message);
+                    // toast.success(message);
                     await queryClient.invalidateQueries(["all-tasks"]);
-                    // await queryClient.invalidateQueries(["notification"]);
-                    router.push({ pathname: "/task" });
+                    await queryClient.invalidateQueries(["notification"]);
+                    // router.push({ pathname: "/task" });
                 },
                 onError: (error) => {
                     toast.error(error.message);

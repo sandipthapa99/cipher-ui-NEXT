@@ -1,4 +1,3 @@
-import FullPageLoader from "@components/common/FullPageLoader";
 import {
     useClearSearchedServices,
     useClearSearchQuery,
@@ -64,6 +63,7 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
                     <SearchCategory
                         onChange={handleSearchChange}
                         getSortingByPrice={getSortByPrice}
+                        placeholder="Find your Services &amp; Merchants"
                     />
                     {searchQuery?.query && (
                         <Box

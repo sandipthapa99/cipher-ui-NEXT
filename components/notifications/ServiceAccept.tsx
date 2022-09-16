@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
 
-import { AcceptReject } from "./AcceptReject";
-
 export const ServiceAccept = () => {
     return (
         <div className="d-flex align-items-center justify-content-between accepted-notification">

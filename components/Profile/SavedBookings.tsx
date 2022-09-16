@@ -1,9 +1,9 @@
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
 import { UserTaskCard } from "@components/Task/UserTaskCard/UserTaskCard";
-import { SimpleGrid } from "@mantine/core";
 import { useBookmarks } from "hooks/use-bookmarks";
 import { Col, Row } from "react-bootstrap";
+
 const SavedBookings = () => {
     const { data: serviceBookmarks } = useBookmarks("service");
     const { data: taskBookmarks } = useBookmarks("task");
@@ -18,14 +18,14 @@ const SavedBookings = () => {
                         <ServiceCard
                             key={bookmark.id}
                             serviceCard={bookmark.data as any}
-                            // isSaved={true}
+                            isSaved={true}
                         />
                     </Col>
                 ))}
             </Row>
 
             <Row>
-                <h3>Services ({taskBookmarks.length})</h3>
+                <h3>Tasks ({taskBookmarks.length})</h3>
                 {taskBookmarks.map((taskBookmark) => (
                     <Col md={3} lg={4} key={taskBookmark.id}>
                         <TaskCard
@@ -43,6 +43,7 @@ const SavedBookings = () => {
                             key={userBookmark.id}
                             task={userBookmark.data as any}
                             onTaskClick={(task) => console.log(task)}
+                            isSaved={true}
                         />
                     </Col>
                 ))}

@@ -8,7 +8,7 @@ import UserDocument from "@components/Profile/Document";
 import RewardCard from "@components/Profile/RewardCard";
 import SavedBookings from "@components/Profile/SavedBookings";
 import TasksProfileCard from "@components/Profile/UserServices";
-import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
@@ -175,6 +175,9 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["tasker-document"]),
             queryClient.prefetchQuery(["tasker-activities"]),
             queryClient.prefetchQuery(["all-services"]),
+            queryClient.prefetchQuery(["bookmarks", "user"]),
+            queryClient.prefetchQuery(["bookmarks", "task"]),
+            queryClient.prefetchQuery(["bookmarks", "service"]),
         ]);
         return {
             props: {

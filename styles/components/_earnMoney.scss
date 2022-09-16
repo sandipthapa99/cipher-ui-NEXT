@@ -107,6 +107,11 @@
                         object-fit: contain;
                         display: none;
                     }
+
+                    @media screen and (width:1280px),(width:1024px),(width:768px) {
+                        display: none;
+                    }
+                    
                 }
             }
         }

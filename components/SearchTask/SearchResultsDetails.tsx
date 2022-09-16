@@ -2,9 +2,7 @@ import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
 import { FilterReview } from "@components/common/FilterReview";
 import PackageOffersCard from "@components/common/packageCard";
-import Reviews from "@components/common/Reviews";
 import SaveIcon from "@components/common/SaveIcon";
-import ServiceCard from "@components/common/ServiceCard";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import {
@@ -19,7 +17,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Alert, Highlight, ScrollArea, Spoiler } from "@mantine/core";
+import { Alert, Highlight, Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";

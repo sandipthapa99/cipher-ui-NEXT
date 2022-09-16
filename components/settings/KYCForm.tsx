@@ -1,6 +1,5 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import type { SelectItem } from "@mantine/core";
@@ -317,8 +316,7 @@ const KYCForm = () => {
                 <IdentityDocument getReadvalue={setShowKYCRead} />
                 {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
-
-            {showKYCRead && <KYCStatus />}
+            {!KYCData?.is_kyc_verified && <KYCStatus />}
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"
