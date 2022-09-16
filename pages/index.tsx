@@ -22,6 +22,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Highlight } from "@mantine/core";
+import { QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -62,7 +63,6 @@ const Home: NextPage<{
     const [isClient, setIsClient] = useState(false);
 
     //for tasks
-
     useEffect(() => setIsClient(true), []);
     if (!isClient) return null;
     return (
@@ -568,8 +568,7 @@ const Home: NextPage<{
                                                     merchant?.bio
                                                 }
                                                 merchantRating={
-                                                    merchant?.stats
-                                                        ?.user_reviews
+                                                    merchant?.rating?.avg_rating
                                                 }
                                                 merchantPrice={
                                                     merchant?.hourly_rate
@@ -899,6 +898,7 @@ export const getStaticProps: GetStaticProps = async () => {
         );
         const { data: blogData } = await axiosClient.get("/blog/");
         const { data: servicesData } = await axiosClient.get("/task/service/");
+
         return {
             props: {
                 successStoryData,
