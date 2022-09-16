@@ -33,6 +33,9 @@
             font-size: 2.8rem;
             padding-bottom: 2.5rem;
             text-transform: capitalize;
+            @include respond(xs){
+                padding-top: 0;
+            }
         }
     }
     &__calculation {
