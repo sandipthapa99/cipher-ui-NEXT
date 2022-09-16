@@ -129,7 +129,7 @@ const MerchantCard = ({
                             </p>
                             <p className="price">
                                 {currency}
-                                {merchantPrice}/hr
+                                &nbsp;{merchantPrice}/hr
                             </p>
                         </div>
                     </a>

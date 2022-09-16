@@ -39,7 +39,7 @@ const SavedBookings = () => {
             <Row>
                 <h3>Taskers ({userBookmarks.length})</h3>
                 {userBookmarks.map((userBookmark) => (
-                    <Col md={6} lg={4} key={userBookmark.id}>
+                    <Col md={4} sm={6} lg={3} key={userBookmark.id}>
                         {/* <UserTaskCard
                             key={userBookmark.id}
                             tasker={userBookmark.data as any}

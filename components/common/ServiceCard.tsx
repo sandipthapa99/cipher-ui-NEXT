@@ -43,16 +43,7 @@ const ServiceCard = ({
     };
     const queryClient = useQueryClient();
     const isServiceBookmarked = useIsBookmarked("service", serviceCard?.id);
-    console.log(
-        "🚀 ~ file: ServiceCard.tsx ~ line 46 ~ isServiceBookmarked",
-        isServiceBookmarked
-    );
 
-    console.log(
-        "🚀 ~ file: ServiceCard.tsx ~ line 48 ~ isServiceBookmarked",
-
-        serviceCard
-    );
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
         <div className="service-card-block align-items-stretch">
