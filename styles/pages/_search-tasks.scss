@@ -114,7 +114,7 @@
         p {
             color: $sub-title-color;
         }
-        @include respond(xs){
+        @include respond(xs) {
             flex-wrap: wrap;
         }
         @include respond(md) {
