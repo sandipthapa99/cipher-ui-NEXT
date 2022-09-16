@@ -31,6 +31,8 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import type { ITask, TaskApplicantsProps } from "types/task";
+import { isImage } from "utils/isImage";
+import { isVideo } from "utils/isVideo";
 import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
@@ -45,6 +47,10 @@ const AppliedTaskDetail = ({
     taskDetail: ITask;
     taskApplicants: TaskApplicantsProps;
 }) => {
+    console.log(
+        "🚀 ~ file: AppliedTaskDetail.tsx ~ line 50 ~ taskDetail",
+        taskDetail
+    );
     const queryClient = useQueryClient();
     const { data: user } = useUser();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
@@ -167,7 +173,7 @@ const AppliedTaskDetail = ({
                             >
                                 {taskVideosAndImages.map((file, key) => (
                                     <Carousel.Slide key={key}>
-                                        {file.media_type === "image" ? (
+                                        {isImage(file.media_type) ? (
                                             <figure className="thumbnail-img">
                                                 <Image
                                                     src={file.media}
@@ -175,7 +181,7 @@ const AppliedTaskDetail = ({
                                                     layout="fill"
                                                 />
                                             </figure>
-                                        ) : file.media_type === "video" ? (
+                                        ) : isVideo(file.media_type) ? (
                                             <video
                                                 className="thumbnail-img"
                                                 width="100%"
