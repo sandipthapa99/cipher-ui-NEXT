@@ -80,6 +80,7 @@ const AppliedTaskDetail = ({
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
+
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
@@ -152,7 +153,37 @@ const AppliedTaskDetail = ({
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        {(taskVideosAndImages ?? []).length > 0 ? (
+                        {(taskVideosAndImages ?? []).length === 1 &&
+                            taskVideosAndImages.map((file) => (
+                                <>
+                                    {isImage(file.media_type) ? (
+                                        <figure className="thumbnail-img">
+                                            <Image
+                                                src={file.media}
+                                                alt={file.placeholder}
+                                                layout="fill"
+                                                placeholder="blur"
+                                                blurDataURL="/service-details/Garden.svg"
+                                            />
+                                        </figure>
+                                    ) : isVideo(file.media_type) ? (
+                                        <video
+                                            className="thumbnail-img"
+                                            width="100%"
+                                            height="100%"
+                                            controls
+                                        >
+                                            <source
+                                                id={`task-video-${file.id}`}
+                                                src={file.media}
+                                            />
+                                            Your browser does not support
+                                            playing videos.
+                                        </video>
+                                    ) : null}
+                                </>
+                            ))}
+                        {(taskVideosAndImages ?? []).length > 1 ? (
                             <Carousel
                                 withIndicators={hasMultipleVideosOrImages}
                                 withControls={hasMultipleVideosOrImages}
@@ -174,6 +205,8 @@ const AppliedTaskDetail = ({
                                                     src={file.media}
                                                     alt={file.placeholder}
                                                     layout="fill"
+                                                    placeholder="blur"
+                                                    blurDataURL="/service-details/Garden.svg"
                                                 />
                                             </figure>
                                         ) : isVideo(file.media_type) ? (
@@ -194,16 +227,7 @@ const AppliedTaskDetail = ({
                                     </Carousel.Slide>
                                 ))}
                             </Carousel>
-                        ) : (
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src="/service-details/Garden.svg"
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt="garden-image"
-                                />
-                            </figure>
-                        )}
+                        ) : null}
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         {taskDetail && (
