@@ -78,13 +78,14 @@ const UserProfileCard = ({
     // );
 
     //get tasker ID
-    const { data: Taskers } = useTaskers();
-    const tasker = Taskers?.find((tasker) => tasker.user.id === user.id);
-    const taskerId = tasker?.user.id;
-
+    // const { data: Taskers } = useTaskers();
+    // const tasker = Taskers?.find((tasker) => tasker.user.id === user.id);
+    // const taskerId = tasker?.user.id;
+    console.log("tasker id=", user.id);
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)
     );
+
     const onEditProfile = (data: any) => {
         const formData: FormData = new FormData();
         formData.append("profile_image", data);
@@ -372,7 +373,7 @@ const UserProfileCard = ({
                             <div className="reactions d-flex align-items-center">
                                 <div className="d-flex flex-col share">
                                     <ShareIcon
-                                        url={`http://localhost:8020/tasker/${taskerId}`}
+                                        url={`http://localhost:8020/tasker/${user.id}`}
                                         quote={
                                             "Hi guys checkout my Cipher Profile"
                                         }
