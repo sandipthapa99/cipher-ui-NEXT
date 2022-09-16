@@ -179,7 +179,7 @@
 
             /* specific to 900px */
 
-            @media screen and (min-width: 880px) and (max-width:970px) {
+            @media screen and (min-width: 880px) and (max-width: 970px) {
                 display: none !important;
             }
 
@@ -200,7 +200,6 @@
             }
             @include respond(tablet-lanscape) {
                 padding: 0 !important;
-
             }
             &:hover {
                 color: $secondary-color;

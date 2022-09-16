@@ -168,7 +168,7 @@
         padding: 4.2rem 1rem;
         padding-bottom: 1.8rem;
 
-        @include respond(xs){
+        @include respond(xs) {
             padding: 0;
         }
         // width: 13.5rem;
@@ -192,7 +192,7 @@
             font-weight: 400;
             padding-left: 2rem;
             padding-right: 2rem;
-            @include respond(xs){
+            @include respond(xs) {
                 padding-top: 0;
             }
         }
@@ -287,8 +287,8 @@
         margin-bottom: 2.6rem;
         padding: 2.5rem;
         background-color: transparent;
-        @include respond(xs){
-            background-color: #EDF4FF !important;
+        @include respond(xs) {
+            background-color: #edf4ff !important;
         }
         border: 0.1rem solid rgba(0, 0, 0, 0.1);
         border-radius: 0.4rem;
