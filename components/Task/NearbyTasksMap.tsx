@@ -12,11 +12,20 @@ const GoogleMap = dynamic(() => import("@components/GoogleMap"), {
 const NearbyTasksMap = () => {
     const location = useLatLng();
     const { data: nearbyTasks } = useNearbyTasks(location);
+    //! temporary workground for the issue of all tasks being rendered on the same position
+    const nearbyTasksSeparated = nearbyTasks.map((nearbyTask, index) => ({
+        ...nearbyTask,
+        city: {
+            ...nearbyTask.city,
+            longitude: nearbyTask.city.longitude + index * 0.0001,
+            latitude: nearbyTask.city.latitude + index * 0.0001,
+        },
+    }));
     const router = useRouter();
     return (
         <>
             <GoogleMap center={location}>
-                {nearbyTasks.map((task) => (
+                {nearbyTasksSeparated.map((task) => (
                     <OverlayView
                         position={{
                             lat: task.city.latitude,

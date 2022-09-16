@@ -46,6 +46,7 @@ const AppliedLayout = ({
                         type={type}
                         onChange={setQuery}
                         getTaskBySort={getTaskSortByPrice}
+                        placeholder="Find tasks based on your skills"
                     />
                     <TaskAside
                         query={query}
