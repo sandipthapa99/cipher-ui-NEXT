@@ -3,18 +3,18 @@ import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import { useQuery } from "@tanstack/react-query";
 import type { ReactNode } from "react";
+import { useMemo } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import type { ITaskApiResponse } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 
-export const useSearchTask = (query: string, type: string) => {
+export const useSearchTask = (searchQuery: string) => {
+    const url = `/task${searchQuery}`;
     return useQuery(
-        ["all-tasks", query],
+        ["all-tasks", searchQuery],
         async () => {
-            const { data } = await axiosClient.get<ITaskApiResponse>(
-                `/task/?search=${query}&recommendation=${type ?? ""}`
-            );
+            const { data } = await axiosClient.get<ITaskApiResponse>(url);
             return data.result;
         },
         { initialData: [] }
@@ -27,34 +27,32 @@ const AppliedLayout = ({
     children: ReactNode;
     type?: string;
 }) => {
-    const [sortTaskPrice, setSortTaskPrice] = useState([]);
-    const [query, setQuery] = useState("");
+    const [params, setParams] = useState<Record<string, string>>({});
+    const searchQuery = useMemo(() => {
+        const url = new URL("/task", process.env.NEXT_PUBLIC_API_URL);
+        for (const key in params) {
+            url.searchParams.append(key, params[key]);
+        }
+        return url.search;
+    }, [params]);
 
-    const { data: searchData = [], isFetching } = useSearchTask(
-        query,
-        type ?? ""
-    );
-    const getTaskSortByPrice = (task: any) => {
-        setSortTaskPrice(task);
-    };
-
+    const { data: searchData = [], isFetching } = useSearchTask(searchQuery);
     return (
         <Layout title="Find Tasks | Cipher">
             <section className="Tasks-section mb-5" id="Tasks-section">
                 <Container>
                     <SearchCategory
-                        type={type}
-                        onChange={setQuery}
-                        getTaskBySort={getTaskSortByPrice}
-                        placeholder="Find tasks based on your skills"
+                        onFilterClear={() => setParams({})}
+                        onParamsChange={(params) =>
+                            setParams((previousParams) => ({
+                                ...previousParams,
+                                ...params,
+                            }))
+                        }
                     />
                     <TaskAside
-                        query={query}
-                        appliedTasks={
-                            sortTaskPrice.length > 0
-                                ? sortTaskPrice
-                                : searchData
-                        }
+                        query={searchQuery}
+                        appliedTasks={searchData}
                         type={type ?? ""}
                         isFetching={isFetching}
                     >

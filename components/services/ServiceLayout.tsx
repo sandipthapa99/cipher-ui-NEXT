@@ -60,11 +60,11 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
         <Layout title="Find Services | Cipher">
             <section className="service-section mb-5" id="service-section">
                 <Container fluid="xl">
-                    <SearchCategory
+                    {/* <SearchCategory
                         onChange={handleSearchChange}
                         getSortingByPrice={getSortByPrice}
                         placeholder="Find your Services &amp; Merchants"
-                    />
+                    /> */}
                     {searchQuery?.query && (
                         <Box
                             sx={{

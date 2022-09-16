@@ -19,6 +19,7 @@ export const useServiceCategories = () => {
             id: category.id,
             label: category.name,
             value: category.id.toString(),
+            slug: category.slug,
         }));
         return categoryItems;
     });

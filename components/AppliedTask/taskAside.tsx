@@ -49,12 +49,12 @@ const TaskAside = ({
                         )}
                         {query && totalAppliedTasks > 0 ? (
                             <p className="search-results-text">
-                                {`${totalAppliedTasks} service matching ${query} found`}
+                                {`${totalAppliedTasks} service matching your query found`}
                             </p>
                         ) : null}
                         {query && totalAppliedTasks === 0 ? (
                             <p className="search-results-text">
-                                No services matching {query} found
+                                No services matching your query found
                             </p>
                         ) : null}
                         {isFetching ? (

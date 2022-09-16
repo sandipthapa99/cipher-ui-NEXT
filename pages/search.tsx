@@ -31,7 +31,7 @@ const SearchPage: NextPage = () => {
             <SearchHeader />
             <Header />
             <Container fluid="xl">
-                <SearchCategory onChange={setQuery} />
+                {/* <SearchCategory onChange={setQuery} /> */}
                 <SearchResults servicesNearYou={filteredServices} />
             </Container>
             <Footer />
