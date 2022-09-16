@@ -44,7 +44,7 @@ const ServiceCard = ({
         }
     };
     const queryClient = useQueryClient();
-    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.slug);
+    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.id);
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>

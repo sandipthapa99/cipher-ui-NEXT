@@ -878,7 +878,7 @@ const AccountForm = () => {
                                 <div className="d-flex justify-content-end">
                                     <Button
                                         className="me-3 mb-0 cancel-btn"
-                                        onClick={() => resetForm}
+                                        onClick={() => resetForm()}
                                     >
                                         Cancel
                                     </Button>

@@ -97,7 +97,8 @@
     }
 }
 
-.account-form {
+.account-form,
+.bank-form {
     background: #fff;
     padding: 3rem;
     @include respond(md) {
@@ -303,5 +304,13 @@
         font-size: 16px;
         font-weight: 500;
         color: #212529;
+    }
+    .link {
+        cursor: pointer;
+    }
+    .form-label,
+    .mantine-Select-label {
+        font-weight: 500;
+        color: $sub-title-color;
     }
 }
