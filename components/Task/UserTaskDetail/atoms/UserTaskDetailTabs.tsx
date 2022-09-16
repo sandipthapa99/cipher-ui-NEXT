@@ -36,7 +36,7 @@ const ServiceList = () => {
     return (
         <Row className="td-user-services">
             {servicesData?.data?.result?.map((service, key) => (
-                <Col key={key}>
+                <Col md={4} key={key}>
                     <ServiceCard serviceCard={service} />
                 </Col>
             ))}
