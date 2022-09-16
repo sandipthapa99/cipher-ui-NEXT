@@ -33,6 +33,7 @@ export interface ServiceNearYouCardProps {
     serviceCreated?: string;
     serviceViews?: number;
     service?: ServicesValueProps["result"][0];
+    ProfileImage?: string;
 }
 export interface BookNowDetails extends ServiceNearYouCardProps {
     problemDescription?: string;
