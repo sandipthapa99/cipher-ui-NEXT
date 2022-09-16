@@ -91,7 +91,7 @@ const AppliedTaskDetail = ({
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
-                        {taskDetail.created_at && (
+                        {taskDetail?.created_at && (
                             <span className="pb-3 pb-sm-0 provider-name">
                                 {format(new Date(taskDetail?.created_at), "PP")}
                             </span>
