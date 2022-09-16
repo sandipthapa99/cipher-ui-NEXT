@@ -7,8 +7,8 @@
     @include respond(md) {
         margin: 4rem 0 8rem 0;
         background: url("../#{$theme-imgpath}/heroImages/hero-background.svg")
-    no-repeat bottom;
-    background-size: auto;
+            no-repeat bottom;
+        background-size: auto;
     }
 
     .hero-content {

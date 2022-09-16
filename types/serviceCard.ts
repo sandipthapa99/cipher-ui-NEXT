@@ -26,6 +26,7 @@ export interface ServicesValueProps {
             id: string;
             email: string;
             full_name: string;
+            profile_image: string;
         };
         category: {
             id: number;
