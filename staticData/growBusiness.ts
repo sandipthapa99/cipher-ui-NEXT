@@ -56,13 +56,15 @@ export const WinNewClientData = [
         description:
             "With our diverse service categories, get a chance to win new clients and opportunities through us. Post your skills or apply for tasks, the choice is yours.",
         buttonText: "Explore Tasks",
+        redirect: "/task",
     },
     {
         id: "2",
-        title: "Win new clients ",
-        image: "/utility-images/with-new-client.png",
+        title: "Find right service providers",
+        image: "/utility-images/service-provider.jpg",
         description:
-            "With CIPHER, you can showcase your talents, and garner new clients at the ease of your home, and a few clicks. We want  a garden cleaner for our bunglow who can great take care of our plants, includes monitoring the health of all plants and greenscapes.",
-        buttonText: "Explore Tasks",
+            "Start by telling us about your task. Mention when and where (in person or online) you need it done, then suggest a fair budget for the task. Post any task you need from cleaning to web design in only two minutes – for free! There's no obligation to hire. Take a look at profiles and reviews to pick the best Tasker for your task. When you accept an offer, your payment is held securely with CIPHER until the task is complete.",
+        buttonText: "Explore Services",
+        redirect: "/service",
     },
 ];

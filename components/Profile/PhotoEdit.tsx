@@ -1,6 +1,5 @@
-import FormButton from "@components/common/FormButton";
 import type { Dispatch, SetStateAction } from "react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Cropper from "react-easy-crop";
@@ -21,11 +20,12 @@ const PhotoEdit = ({
 }: editProfileProps) => {
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
-    let previewImage;
-
-    if (photo) {
-        previewImage = URL.createObjectURL(photo);
-    }
+    //  const [previewImage, setPreviewImage] = useState("");
+    let previewImage: any;
+    const reactImage = useMemo(() => {
+        photo ? (previewImage = URL.createObjectURL(photo)) : "";
+        return previewImage;
+    }, [photo]);
 
     return (
         <>
@@ -45,7 +45,7 @@ const PhotoEdit = ({
                     /> */}
                     <Modal.Body className="crop-container">
                         <Cropper
-                            image={previewImage}
+                            image={reactImage}
                             crop={crop}
                             zoom={zoom}
                             cropShape="round"

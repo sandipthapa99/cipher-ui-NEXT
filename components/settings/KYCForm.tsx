@@ -1,59 +1,83 @@
-import { CustomDropZone } from "@components/common/CustomDropZone";
-import DatePickerField from "@components/common/DateTimeField";
-import DragDrop from "@components/common/DragDrop";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { format, parseISO } from "date-fns";
+import type { SelectItem } from "@mantine/core";
+import { Select } from "@mantine/core";
+import { QueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useKYC } from "hooks/profile/kyc/useKYC";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import { KYCFormSchema } from "utils/formValidation/kycFormValidationSchema";
 import { isSubmittingClass } from "utils/helpers";
 
 import { IdentityDocument } from "./IdentityDocument";
+import { KYCStatus } from "./KycStatus";
 
-const dropdownCountryOptions = [
-    { id: 1, label: "Citizenship ", value: "citizenship" },
-    { id: 2, label: "Passport", value: "passport" },
-    { id: 3, label: "Pan Card", value: "pancard" },
-];
+// const dropdownCountryOptions = [
+//     { id: 1, label: "Citizenship ", value: "citizenship" },
+//     { id: 2, label: "Passport", value: "passport" },
+//     { id: 3, label: "Pan Card", value: "pancard" },
+// ];
 
 const KYCForm = () => {
-    const toggleSuccessModal = useToggleSuccessModal();
-    const { data: KYCData } = useGetKYC();
+    const { data: KYCData, refetch: refetchKycData } = useGetKYC();
 
     const { mutate } = useKYC();
     const { data: countryName } = useCountry();
     const [showDocument, setShowDocument] = useState(false);
+    // const [showButtons, setShowButtons] = useState(false);
 
-    const countryResults = countryName?.result.map((result) => ({
-        label: result.name,
-        value: result.id,
-        id: result.id,
-    }));
+    const { data: profileDetails } = useGetProfile();
+    const [countryChange, setCountryChange] = useState<string | null>(null);
+
+    const countryResults: SelectItem[] = countryName
+        ? countryName.result.map((result) => ({
+              label: result?.name,
+              value: result?.id.toString(),
+              id: result?.id,
+          }))
+        : ([] as SelectItem[]);
+    //handle country change
+    const handleCountryChanged = (
+        id: string | null,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setCountryChange(id);
+        if (id) setFieldValue("country", parseInt(id));
+    };
+    const country = profileDetails?.country ? profileDetails?.country : "";
+
+    const queryClient = new QueryClient();
+
+    const foundCountry = countryResults.find((item) => item.label === country);
+    const router = useRouter();
+    const [showKYCRead, setShowKYCRead] = useState(false);
 
     return (
         <>
             {/* Modal component */}
-            <div className="account-form mt-5">
+
+            <div
+                className="account-form mt-5"
+                style={
+                    profileDetails ? { display: "block" } : { display: "none" }
+                }
+            >
                 <h3>KYC Details</h3>
                 <Formik
                     enableReinitialize={true}
                     initialValues={{
-                        full_name: KYCData?.full_name ?? "",
-                        address: KYCData?.address ?? "",
-                        country: KYCData?.country ?? "",
-                        company: "",
+                        full_name: KYCData ? KYCData?.full_name : "",
+                        address: KYCData ? KYCData?.address : "",
+                        country: KYCData ? KYCData?.country : "",
+                        company: KYCData ? KYCData?.company : "",
                         // passport_size_photo: "",
                         // personal_address_verification_document: "",
                         // bank_name: KYCData?.bank_name ?? "",
@@ -106,10 +130,13 @@ const KYCForm = () => {
                         // );
 
                         mutate(values, {
-                            onSuccess: () => {
+                            onSuccess: (data) => {
                                 // toggleSuccessModal();
+                                refetchKycData();
                                 toast.success("KYC Details Added Successfully");
                                 setShowDocument(true);
+                                //queryClient.invalidateQueries(["GET_KYC"]);
+                                // setShowButtons(false);
                             },
                             onError: (error) => {
                                 toast.error(error.message);
@@ -134,7 +161,9 @@ const KYCForm = () => {
                                 error={errors.full_name}
                                 touch={touched.full_name}
                                 placeHolder="Enter your Full Name"
-                                disabled={KYCData?.full_name ? true : false}
+                                // disabled={
+                                //     profileDetails?.full_name ? true : false
+                                // }
                             />
                             <InputField
                                 type="text"
@@ -143,9 +172,11 @@ const KYCForm = () => {
                                 error={errors.address}
                                 touch={touched.address}
                                 placeHolder="Enter your Address"
-                                disabled={KYCData?.address ? true : false}
+                                // disabled={
+                                //     profileDetails?.address_line1 ? true : false
+                                // }
                             />
-                            <SelectInputField
+                            {/* <SelectInputField
                                 name="country"
                                 labelName="Country"
                                 touch={touched.country}
@@ -153,7 +184,23 @@ const KYCForm = () => {
                                 placeHolder="Select Identity Type"
                                 options={countryResults}
                                 disabled={KYCData?.country ? true : false}
+                            /> */}
+                            <Select
+                                label="Country"
+                                placeholder="Pick one"
+                                name="country"
+                                // disabled={
+                                //     profileDetails?.country ? true : false
+                                // }
+                                searchable
+                                nothingFound="No result found."
+                                // defaultValue={KYCData?.country}
+                                onChange={(value) =>
+                                    handleCountryChanged(value, setFieldValue)
+                                }
+                                data={countryResults ?? []}
                             />
+
                             {/* <h5>Bank Details (Optional)</h5>
                             <InputField
                                 name="bank_name"
@@ -236,8 +283,8 @@ const KYCForm = () => {
                                     />
                                 </Col>
                             </Row> */}
-
-                            <div className="d-flex justify-content-end">
+                            {/* {showButtons ? ( */}
+                            <div className="d-flex mt-5 justify-content-end">
                                 <Button
                                     className="me-3 mb-0 cancel-btn"
                                     onClick={() => resetForm}
@@ -258,8 +305,10 @@ const KYCForm = () => {
                         </Form>
                     )}
                 </Formik>
-                {(showDocument || KYCData) && <IdentityDocument />}
+                {KYCData && <IdentityDocument getReadvalue={setShowKYCRead} />}
+                {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
+            {!KYCData?.is_kyc_verified && <KYCStatus />}
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"

@@ -34,7 +34,11 @@ export type TaskDetail = typeof taskDetails[0];
 
 export type TaskerDetails = {
     id: number;
-    charge_currency: string;
+    charge_currency: {
+        id: string;
+        name: string;
+        code: string;
+    };
     user: {
         id: string;
         email: string;
@@ -45,11 +49,12 @@ export type TaskerDetails = {
         success_rate: number;
         happy_clients: number;
         task_completed: number;
-        user_reviews: number;
+
         task_assigned: number;
         task_in_progress: number;
         task_cancelled: number;
     };
+    rating?: Rating | any;
     status: string;
     bio: string;
     full_name: string;
@@ -72,3 +77,8 @@ export type TaskerDetails = {
     language: any;
     subscription: Array<any>;
 };
+
+export interface Rating {
+    user_rating_count: number;
+    avg_rating: number;
+}

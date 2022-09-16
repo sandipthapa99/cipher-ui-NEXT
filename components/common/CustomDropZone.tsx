@@ -1,8 +1,19 @@
-import { createStyles, Highlight, Text } from "@mantine/core";
+import { faRemove } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    ActionIcon,
+    Box,
+    createStyles,
+    Grid,
+    Highlight,
+    Stack,
+    Text,
+} from "@mantine/core";
 import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
+import type { Media } from "types/task";
 
 const FILE_PLACEHOLDER_IMAGES = {
     pdf: "/userprofile/pdf.svg",
@@ -14,108 +25,114 @@ export type FileType = keyof typeof FILE_PLACEHOLDER_IMAGES;
 export interface CustomDropZoneProps
     extends Omit<DropzoneProps, "children" | "onDrop"> {
     name: string;
-    label?: string;
     maxSize?: number;
     minSize?: number;
     previewImageWidth?: number;
     previewImageHeight?: number;
     fileType?: FileType;
-    fileLabel?: string;
-    onDrop?: (image: FormData) => void;
-    type: string[];
+    onDrop?: (image: File[]) => void;
+}
+export interface PreviewFilesProps {
+    files: {
+        name: string;
+        size: string;
+        url: string;
+    }[];
+    onFileRemove: (fileIndex: number) => void;
+    isVideo?: boolean;
 }
 
+const convertToMB = (value: number) => {
+    const mbValue = (value / 1024 / 1024).toFixed(2);
+    return `${mbValue} MB`;
+};
 export const CustomDropZone = ({
     name,
-    label,
     maxSize,
     minSize,
     previewImageWidth,
     previewImageHeight,
     fileType,
     onDrop,
-    fileLabel,
     ...rest
 }: CustomDropZoneProps) => {
     const [files, setFiles] = useState<File[]>([]);
-    const file = useMemo(
-        () => (files.length > 0 ? files[0] : undefined),
+    const previewVideos = useMemo(() => {
+        const videoFiles = files.filter((file) => file.type.includes("video"));
+        return videoFiles.map((file) => ({
+            name: file.name,
+            size: convertToMB(file.size),
+            url: URL.createObjectURL(file),
+        }));
+    }, [files]);
+    const previewImages = useMemo(
+        () =>
+            files.map((file) => ({
+                name: file.name,
+                size: convertToMB(file.size),
+                url: URL.createObjectURL(file),
+            })),
         [files]
     );
-    const previewImages = files.map((file) => URL.createObjectURL(file));
-    const [previewVideo, setPreviewVideo] = useState<string | undefined>();
-
     const dropzoneRef = useRef<HTMLDivElement | null>(null);
     const { classes } = useStyles();
 
     const focusDropzone = () => dropzoneRef.current?.focus();
 
-    const readVideo = (file: File) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (e) => {
-            const result = e.target?.result;
-            if (result) setPreviewVideo(result.toString());
-        };
-    };
     const handleOnDrop = (files: File[]) => {
-        const file = files[0];
-        if (fileLabel === "Video") {
-            readVideo(file);
-        }
-        const formData = new FormData();
-        formData.append(name, files[0]);
-        onDrop?.(formData);
+        onDrop?.(files);
         setFiles(files);
     };
-    const getPlaceHolderImage = () => {
-        if (previewImages.length > 0) return previewImages[0];
-        if (fileType) return FILE_PLACEHOLDER_IMAGES[fileType];
-        return "/service-details/file-upload.svg";
+    const handleRemoveFile = (fileIndex: number) => {
+        setFiles((currentFiles) =>
+            currentFiles.filter((_, index) => index !== fileIndex)
+        );
     };
     return (
         <div onClick={focusDropzone} className={classes.dropzoneContainer}>
-            {previewVideo ? (
-                <video width="100%" height="100%" controls>
-                    <source id="video-source" src={previewVideo} />
-                    Your browser does not support the video tag.
-                </video>
+            {previewVideos.length > 0 ? (
+                <PreviewFiles
+                    isVideo
+                    files={previewVideos}
+                    onFileRemove={handleRemoveFile}
+                />
+            ) : previewImages.length > 0 ? (
+                <PreviewFiles
+                    files={previewImages}
+                    onFileRemove={handleRemoveFile}
+                />
             ) : (
                 <Image
-                    src={getPlaceHolderImage()}
+                    src={"/service-details/file-upload.svg"}
                     width={previewImageWidth ?? "100%"}
                     height={previewImageHeight ?? "100%"}
                     alt="file-upload"
-                    objectFit="cover"
+                    objectFit="contain"
                 />
             )}
             <Dropzone
+                name={name}
                 onDrop={handleOnDrop}
                 ref={dropzoneRef}
                 className={classes.dropzone}
                 {...rest}
             >
                 <Highlight
-                    size="sm"
+                    highlight={fileType ?? "Image"}
                     highlightColor="blue"
-                    highlight="Browse"
                     highlightStyles={() => ({
-                        backgroundImage: "#276EFD",
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                     })}
                 >
-                    {file ? file.name : `Drag or Browse ${fileLabel}`}
+                    {`Drag or browse ${fileType ?? "Image"}`}
                 </Highlight>
-                <Text mt="xs" className={classes.text}>
-                    {file ? file.type : label ?? "Image/Video/PDF"}
-                </Text>
             </Dropzone>
-            {file && (
-                <Text className={classes.text}>
-                    Current size : {`${file.size / 1000} kb`}
+            {!minSize && !maxSize ? (
+                <Text size="sm" color="dimmed">
+                    Maximum {fileType} size 20 - 200 MB
                 </Text>
-            )}
+            ) : null}
             {minSize && (
                 <Text mt="xl" className={classes.text}>
                     Minimum image size is {maxSize} MB
@@ -127,6 +144,57 @@ export const CustomDropZone = ({
                 </Text>
             )}
         </div>
+    );
+};
+const PreviewFiles = ({
+    files,
+    onFileRemove,
+    isVideo = false,
+}: PreviewFilesProps) => {
+    const { classes } = useStyles();
+    return (
+        <Grid>
+            {files.map((file, index, currentFiles) => (
+                <Grid.Col
+                    span={isVideo ? 12 : currentFiles.length > 1 ? 4 : 12}
+                    key={index}
+                >
+                    <Stack>
+                        {isVideo ? (
+                            <video
+                                className={classes.preview}
+                                width="100%"
+                                height="100%"
+                                controls
+                            >
+                                <source id="video-source" src={file.url} />
+                                Your browser does not support the video tag.
+                            </video>
+                        ) : (
+                            <Image
+                                src={file.url}
+                                width={"100%"}
+                                height="100%"
+                                objectFit="cover"
+                                className={classes.preview}
+                                alt={`Preview image ${index}`}
+                            />
+                        )}
+                        <Box className={classes.previewHeader}>
+                            <Text size="xs" color="dimmed">
+                                {file.size}
+                            </Text>
+                            <ActionIcon onClick={() => onFileRemove(index)}>
+                                <FontAwesomeIcon icon={faRemove} />
+                            </ActionIcon>
+                        </Box>
+                        <Text align="center" size="xs">
+                            {file.name}
+                        </Text>
+                    </Stack>
+                </Grid.Col>
+            ))}
+        </Grid>
     );
 };
 const useStyles = createStyles({
@@ -151,5 +219,13 @@ const useStyles = createStyles({
         "&:hover": {
             backgroundColor: "transparent",
         },
+    },
+    preview: {
+        borderRadius: "1rem",
+    },
+    previewHeader: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
     },
 });

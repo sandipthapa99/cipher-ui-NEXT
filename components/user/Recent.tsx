@@ -13,17 +13,7 @@ export const Recent = () => {
             <Row>
                 {recentTask?.result?.map((task: any, key: any) => (
                     <Col sm="12" key={key}>
-                        <TaskCard
-                            title={task?.title}
-                            id={task?.id}
-                            charge={task?.charge}
-                            description={task?.description}
-                            location={task?.location}
-                            start_date={task?.start_date}
-                            start_time={task?.start_time}
-                            status={task?.status}
-                            currency={task?.currency}
-                        />
+                        <TaskCard task={task} />
                     </Col>
                 ))}
             </Row>

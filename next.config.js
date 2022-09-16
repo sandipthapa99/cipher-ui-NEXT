@@ -23,6 +23,7 @@ module.exports = {
             "172.16.16.123",
             "openweathermap.org",
             "cipher-media-files.s3.amazonaws.com",
+            "images.unsplash.com",
         ],
     },
 };

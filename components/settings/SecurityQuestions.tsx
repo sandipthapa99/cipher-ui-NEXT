@@ -1,85 +1,105 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import SelectInputField from "@components/common/SelectInputField";
 import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Field, Form, Formik } from "formik";
-import { useChangePassword } from "hooks/profile/changePassword/useChangePassword";
-import { usePostSecurity } from "hooks/security/use-post-security";
+import {
+    dehydrate,
+    QueryClient,
+    useMutation,
+    useQueryClient,
+} from "@tanstack/react-query";
+import { Form, Formik } from "formik";
 import { useData } from "hooks/use-data";
+import { useEditForm } from "hooks/use-edit-form";
+import type { GetStaticProps } from "next";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { ChangePasswordFromData } from "utils/formData";
-import changePasswordFormSchema from "utils/formValidation/changePasswordFormValidation";
+import { axiosClient } from "utils/axiosClient";
 import { isSubmittingClass } from "utils/helpers";
 
 export const SecurityQuestions = () => {
-    const { mutate } = useChangePassword();
-    const { mutate: securityMutate, isLoading } = usePostSecurity();
+    const [openInput, setOpenInput] = useState(false);
+    const [questionId, setQuestionId] = useState<number | undefined>();
 
+    const queryClient = useQueryClient();
     const { data: securityQuestions } = useData<
         Array<{ id: number; question: string }>
     >(["security-questions"], "/tasker/cms/security-question/");
-    console.log(securityQuestions);
 
-    const renderSecurityQuestions = securityQuestions?.data?.map(
-        (question: any, index: number) => {
-            return (
-                <div key={index}>
-                    <InputField
-                        type="text"
-                        name={question.id.toString()}
-                        labelName={question.question}
-                        placeholder="Answer"
-                        required={true}
-                    />
-                </div>
-            );
+    const sendSecurityQuestions = useMutation((data: any) => {
+        return axiosClient.post("/tasker/security-answer/", data);
+    });
+    const { data: answeredSecurityQuestions } = useData<
+        Array<{
+            question: { id: number; question: string };
+            answer: string;
+        }>
+    >(["answered-security-questions"], "/tasker/security-answer/");
+
+    const renderQuestionsOptions = securityQuestions?.data?.map(
+        (item, index) => {
+            return {
+                id: index,
+                label: item?.question,
+                value: item?.id,
+            };
         }
     );
 
+    const [hovered, setHovered] = useState<null | number>(null);
+    const { mutate: editAnswer } = useEditForm(
+        `/tasker/security-answer/${questionId}/`
+    );
+
     return (
-        <>
-            <div className="d-flex justify-content-between security-toggle mt-5">
-                <h2>Security Question</h2>
-                <FontAwesomeIcon icon={faPencil} className="svg-icon" />
-            </div>
-            {/* <p className="mb-3 d-flex align-content-center"> */}
-            {/* <Field
-                    type="checkbox"
-                    name="toggle"
-                    className="checkbox me-2"
-                />{" "} */}
-            {/* Enabled
-            </p> */}
-            <p>Answer a question you choose to confirm it’s you.</p>
+        <div className="security-questions">
+            <p>Answer a question you choose to confirm it&apos;s you.</p>
             <Formik
-                initialValues={{}}
-                onSubmit={async (values, action) => {
-                    Object.entries(values).forEach((value) => {
-                        const [key, keyValue] = value;
-                        const newValues = {
-                            question: parseInt(key) as number,
-                            answer: keyValue as string,
-                        };
-
-                        securityMutate(newValues, {
-                            onSuccess: () => {
-                                toast.success("Security question Added");
-                                action.resetForm();
-                            },
-                            onError: (err) => {
-                                toast.error(err.message);
-                            },
-                        });
+                initialValues={{
+                    question: "",
+                    answer: "",
+                }}
+                onSubmit={async (values, actions) => {
+                    // console.log(values);
+                    sendSecurityQuestions.mutate(values, {
+                        onSuccess: () => {
+                            toast.success("Security questions Answered");
+                            queryClient.invalidateQueries([
+                                "answered-security-questions",
+                            ]);
+                            actions.resetForm();
+                        },
+                        onError: (error: any) => {
+                            toast.error(error.message);
+                        },
                     });
-
-                    // const newValues = { question:, answer };
                 }}
             >
-                {({ isSubmitting, resetForm }) => (
+                {({ isSubmitting, resetForm, touched, errors }) => (
                     <Form autoComplete="off">
-                        {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
-                        {securityQuestions && renderSecurityQuestions}
+                        <SelectInputField
+                            name="question"
+                            labelName="Select questions"
+                            touch={touched.question}
+                            error={errors.question}
+                            placeHolder="Select Question"
+                            options={renderQuestionsOptions}
+                            fieldRequired
+                        />
+
+                        <InputField
+                            type="text"
+                            name="answer"
+                            labelName="Answer"
+                            touch={touched.answer}
+                            error={errors.answer}
+                            placeholder="Answer your security question"
+                            required={true}
+                            fieldRequired
+                        />
+
                         <div className="d-flex justify-content-end ">
                             <Button
                                 className="me-3 mb-0 cancel-btn"
@@ -90,7 +110,7 @@ export const SecurityQuestions = () => {
                             <FormButton
                                 type="submit"
                                 variant="primary"
-                                name="Add"
+                                name="Answer"
                                 className="submit-btn"
                                 isSubmitting={isSubmitting}
                                 isSubmittingClass={isSubmittingClass(
@@ -101,6 +121,133 @@ export const SecurityQuestions = () => {
                     </Form>
                 )}
             </Formik>
-        </>
+            <div>
+                <p className="m-1">Answered Questions</p>
+                {answeredSecurityQuestions?.data?.map((item, index) => {
+                    return (
+                        <>
+                            <li key={index} className="d-flex m-2">
+                                {`${index + 1}.${" "} ${
+                                    item?.question?.question
+                                }`}
+
+                                <FontAwesomeIcon
+                                    className="svg-icon"
+                                    icon={faPencil}
+                                    onClick={() => {
+                                        setOpenInput(!openInput);
+                                        setQuestionId(item.question.id);
+                                        setHovered(item.question.id);
+                                    }}
+                                />
+                            </li>
+                            <Formik
+                                initialValues={{
+                                    answer: item?.answer,
+                                }}
+                                onSubmit={async (values, action) => {
+                                    console.log(values);
+
+                                    editAnswer(values, {
+                                        onSuccess: () => {
+                                            toast.success(
+                                                "Security questions Updated"
+                                            );
+                                            queryClient.invalidateQueries([
+                                                "answered-security-questions",
+                                            ]);
+                                            setOpenInput(false);
+                                        },
+                                        onError: (error: any) => {
+                                            toast.error(error.message);
+                                        },
+                                    });
+                                }}
+                            >
+                                {({
+                                    isSubmitting,
+                                    resetForm,
+                                    touched,
+                                    errors,
+                                }) => (
+                                    <Form autoComplete="off">
+                                        {openInput &&
+                                        hovered === item.question.id ? (
+                                            <>
+                                                <InputField
+                                                    type="text"
+                                                    name="answer"
+                                                    labelName="Answer"
+                                                    touch={touched.answer}
+                                                    error={errors.answer}
+                                                    placeholder="Answer your security question"
+                                                    required={true}
+                                                    fieldRequired
+                                                />
+                                                <div className="d-flex justify-content-end ">
+                                                    <Button
+                                                        className="me-3 mb-0 cancel-btn"
+                                                        onClick={() => {
+                                                            resetForm;
+                                                            setOpenInput(false);
+                                                        }}
+                                                    >
+                                                        Cancel
+                                                    </Button>
+                                                    <FormButton
+                                                        type="submit"
+                                                        variant="primary"
+                                                        name="Update"
+                                                        className="submit-btn"
+                                                        isSubmitting={
+                                                            isSubmitting
+                                                        }
+                                                        isSubmittingClass={isSubmittingClass(
+                                                            isSubmitting
+                                                        )}
+                                                    />
+                                                </div>
+                                            </>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </Form>
+                                )}
+                            </Formik>
+                        </>
+                    );
+                })}
+            </div>
+        </div>
     );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: securityQuestions } = await axiosClient.get(
+            "/tasker/cms/security-question/"
+        );
+        const queryClient = new QueryClient();
+        queryClient.prefetchQuery(["security-questions"]);
+        const { data: answeredSecurityQuestions } = await axiosClient.get(
+            "/tasker/security-answer/"
+        );
+        queryClient.prefetchQuery(["answered-security-questions"]);
+        return {
+            props: {
+                answeredSecurityQuestions,
+                securityQuestions,
+                dehydratedState: dehydrate(queryClient),
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                answeredSecurityQuestions: [],
+                securityQuestions: [],
+            },
+            revalidate: 10,
+        };
+    }
 };

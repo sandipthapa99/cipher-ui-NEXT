@@ -7,6 +7,7 @@ import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
@@ -18,8 +19,23 @@ import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
     const router = useRouter();
+    const [fcmToken, setFcmToken] = useState("");
     const { mutate, isLoading } = useLogin();
     const [isPhoneNumber, setIsPhoneNumber] = useState(false);
+
+    const getFCMTOKEN = async () => {
+        if (typeof window !== "undefined") {
+            const token = await localforage.getItem<string>("fcm_token");
+            return token;
+        }
+        return null;
+    };
+    const token = getFCMTOKEN();
+    token.then((token) => {
+        if (token) {
+            setFcmToken(token);
+        }
+    });
 
     const handleChange = (
         event: ChangeEvent<HTMLInputElement>,
@@ -36,6 +52,9 @@ const Login = () => {
         setIsPhoneNumber(false);
     };
 
+    const { data: profile } = useGetProfile();
+
+    console.log("profile....", profile);
     return (
         <section>
             <OnBoardingLayout
@@ -55,17 +74,35 @@ const Login = () => {
                             password: "",
                         }}
                         onSubmit={(values) => {
-                            mutate(values, {
+                            const newValues = {
+                                ...values,
+                                fcm_token: fcmToken ? fcmToken : null,
+                            };
+                            console.log(newValues);
+
+                            mutate(newValues, {
                                 onError: (error) => {
                                     toast.error(error.message);
                                 },
                                 onSuccess: async () => {
                                     const { next } = router.query;
-                                    await router.push(
-                                        typeof next === "string"
-                                            ? next
-                                            : "/home"
-                                    );
+                                    // await router.push(
+                                    //     typeof next === "string"
+                                    //         ? next
+                                    //         : "/settings/account/individual"
+                                    // );
+                                    if (profile) {
+                                        await router.push(
+                                            typeof next === "string"
+                                                ? next
+                                                : "/home"
+                                        );
+                                    } else {
+                                        await router.push(
+                                            "/settings/account/individual"
+                                        );
+                                    }
+
                                     toast.success("Login Successful!");
                                 },
                             });

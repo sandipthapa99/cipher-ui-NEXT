@@ -1,0 +1,111 @@
+.container-kyc-status {
+    padding-bottom: 2rem;
+    border-radius: 0.6rem;
+
+    .title-kyc-status {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .photo-text-col {
+        .photo-kyc-status {
+            border-radius: 1rem;
+        }
+        .text-cont-kyc {
+            .title-kyc {
+                font-size: 2rem;
+                font-weight: bold;
+            }
+            .body-kyc {
+                font-size: 1.2rem;
+                color: gray;
+            }
+            .font-icon-kyc {
+                color: gray;
+            }
+        }
+    }
+    .location-text-kyc {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        .body-kyc {
+            font-size: 1.2rem;
+            color: gray;
+            .body-kyc-span {
+                font-size: 14px;
+                font-weight: bold;
+                color: black;
+            }
+        }
+        .font-icon-kyc {
+            color: gray;
+        }
+    }
+    .basic-info-cont {
+        .text-title-basic-info {
+            font-size: 14px;
+            font-weight: bold;
+            color: black;
+        }
+        .text-address {
+            color: gray;
+            font-size: 12px;
+        }
+        .text-yes {
+            color: #74d387;
+            background-color: #ebfbee;
+            padding: 0.4rem 1rem;
+            display: inline-block;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .text-pending {
+            color: #ffd800;
+            background-color: #ffffcc;
+            padding: 0.4rem 1rem;
+            display: inline-block;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 1.2rem;
+        }
+    }
+    .folder-text-accordian {
+        margin-left: 1rem;
+        .document-kyc {
+            font-size: 14px;
+        }
+    }
+    .Kyc-documnet-verify {
+        .document-text {
+            font-size: 14px;
+            color: black;
+            font-weight: bold;
+        }
+        .document-text-value {
+            font-size: 12px;
+            color: gray;
+        }
+        .photo-kyc-document-status {
+            border-radius: 0.5rem;
+        }
+    }
+
+    .Kyc-verify {
+        .verify-address-kyc-cont {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .kyc-verify-address {
+                padding: 0.5rem 1rem;
+                color: #74d387;
+                background-color: #ebfbee;
+
+                p {
+                    color: #74d387;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+}

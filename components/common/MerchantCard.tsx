@@ -1,6 +1,7 @@
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import Link from "next/link";
 import type { MerchantCardProps } from "types/merchantCard";
 
 import CardBtn from "./CardBtn";
@@ -17,92 +18,121 @@ const MerchantCard = ({
     merchantPrice,
     happyClients,
     successRate,
-    onClick,
+    currency,
+    merchantId,
 }: MerchantCardProps) => {
     return (
-        <div onClick={onClick} className="merchant-card-block">
-            <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
-                <figure className="thumbnail-img">
-                    {merchantImage && (
-                        <Image
-                            src={merchantImage}
-                            layout="fill"
-                            objectFit="cover"
-                            alt="merchant-image"
-                        />
-                    )}
-                </figure>
-                <div className="merchant-name">
-                    <h2 className="card-title">{`${
-                        merchantName.length > 17
-                            ? `${merchantName.substring(0, 17)}...`
-                            : merchantName
-                    }`}</h2>
-                    <h3 className="card-subtitle">
-                        <span>{merchantCategory}</span> | {merchantLocation}
-                    </h3>
-                </div>
-            </div>
+        <div className="merchant-card-block">
+            <Link href={`/tasker/${merchantId}`}>
+                <a>
+                    <div className="d-flex flex-column flex-sm-row align-items-center merchant-intro">
+                        <figure className="thumbnail-img">
+                            {merchantImage && (
+                                <Image
+                                    src={
+                                        merchantImage ??
+                                        "/userprofile/unknownPerson.jpg"
+                                    }
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="merchant-image"
+                                />
+                            )}
+                        </figure>
+                        <div className="merchant-name">
+                            <h2 className="card-title">{`${
+                                merchantName.length > 17
+                                    ? `${merchantName.substring(0, 17)}...`
+                                    : merchantName
+                            }`}</h2>
+                            <h3 className="card-subtitle">
+                                <span>{merchantCategory}</span> |{" "}
+                                {merchantLocation}
+                            </h3>
+                        </div>
+                    </div>
+                </a>
+            </Link>
             <div className="card-content">
-                <div className="merchant-description">
-                    <p className="card-description">
-                        {`${
-                            merchantDescription.length > 100
-                                ? `${merchantDescription.substring(0, 100)}...`
-                                : merchantDescription
-                        }`}
-                    </p>
-                </div>
-                <div className="analytics d-flex justify-content-between">
-                    <div className="happy-clients d-flex flex-column">
-                        <div className="count d-flex flex-row">
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src="/icons/happy-face.svg"
-                                    layout="fill"
-                                    objectFit="contain"
-                                    alt="Happy Face"
+                <Link href={`/tasker/${merchantId}`}>
+                    <a>
+                        <div className="merchant-description">
+                            <p className="card-description">
+                                {`${
+                                    merchantDescription.length > 100
+                                        ? `${merchantDescription.substring(
+                                              0,
+                                              100
+                                          )}...`
+                                        : merchantDescription
+                                }`}
+                            </p>
+                        </div>
+                        <div className="analytics d-flex justify-content-between">
+                            <div className="happy-clients d-flex flex-column">
+                                <div className="count d-flex flex-row">
+                                    <figure className="thumbnail-img">
+                                        <Image
+                                            src="/icons/happy-face.svg"
+                                            layout="fill"
+                                            objectFit="contain"
+                                            alt="Happy Face"
+                                        />
+                                    </figure>
+                                    <p>{happyClients}</p>
+                                </div>
+                                <div className="analytics-title">
+                                    <p>Happy Clients</p>
+                                </div>
+                            </div>
+                            <div className="success-rate d-flex flex-column">
+                                <div className="count  d-flex flex-row">
+                                    <figure className="thumbnail-img">
+                                        <Image
+                                            src="/icons/badge.svg"
+                                            layout="fill"
+                                            objectFit="contain"
+                                            alt="Happy Face"
+                                        />
+                                    </figure>
+                                    <p>{successRate}%</p>
+                                </div>
+                                <div className="analytics-title">
+                                    <p>Success Rate</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ratings-wrapper d-flex justify-content-between">
+                            <p className="ratings d-flex align-items-center justify-content-sm-center">
+                                <FontAwesomeIcon
+                                    icon={faStar}
+                                    className="svg-icon star"
                                 />
-                            </figure>
-                            <p>{happyClients}</p>
+                                {merchantRating}
+                            </p>
+                            <p className="price">
+                                {currency}
+                                {merchantPrice}/hr
+                            </p>
                         </div>
-                        <div className="analytics-title">
-                            <p>Happy Clients</p>
-                        </div>
-                    </div>
-                    <div className="success-rate d-flex flex-column">
-                        <div className="count  d-flex flex-row">
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src="/icons/badge.svg"
-                                    layout="fill"
-                                    objectFit="contain"
-                                    alt="Happy Face"
-                                />
-                            </figure>
-                            <p>{successRate}%</p>
-                        </div>
-                        <div className="analytics-title">
-                            <p>Success Rate</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="ratings-wrapper d-flex justify-content-between">
-                    <p className="ratings d-flex align-items-center justify-content-sm-center">
-                        <FontAwesomeIcon
-                            icon={faStar}
-                            className="svg-icon star"
-                        />
-                        {merchantRating}
-                    </p>
-                    <p className="price">{merchantPrice}/hr</p>
-                </div>
+                    </a>
+                </Link>
                 <div className="d-flex justify-content-between align-items-md-center">
                     <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
-                        <SaveIcon />
+                        <SaveIcon
+                            object_id={String(merchantId)}
+                            model={"Merchant"}
+                        />
                         <ShareIcon url={""} quote={""} hashtag={""} />
                     </div>
-                    <CardBtn btnTitle="Hire Me" backgroundColor="#211D4F" />
+                    <Link href={`/tasker/${merchantId}`}>
+                        <a>
+                            <CardBtn
+                                btnTitle="Hire Me"
+                                backgroundColor="#211D4F"
+                            />
+                        </a>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -8,21 +8,45 @@ export interface ITaskApiResponse {
     result: ITask[];
 }
 
+export interface Media {
+    id: number;
+    size: number;
+    name: string;
+    media: string;
+    media_type: "image" | "video" | "pdf";
+    placeholder: string;
+}
 export interface ITask {
     id: string;
-    category: any;
-    location: any;
+    title: string;
+    category: {
+        id: number;
+        name: string;
+        slug: string;
+        icon: string | null;
+    };
+    city: {
+        id: number;
+        name: string;
+        latitude: number;
+        longitude: number;
+        country: {
+            id: number;
+            name: string;
+        };
+    };
+    location: string;
     assigner: {
         id: string;
         email: string;
         full_name: string;
         profile_image: string;
     };
-    currency: any;
+    is_negotiable: boolean;
+    currency: { id: number; code: string; name: number };
     created_at: string;
     updated_at: string;
     deleted_at: any;
-    title: string;
     description: string;
     charge?: number;
     requirements: string;
@@ -48,4 +72,89 @@ export interface ITask {
     meta_description?: string;
     meta_keyword: any;
     task_draft: any;
+    date: string;
+    time: string;
+    applicants_count: number;
+    images: Media[];
+    videos: Media[];
+}
+
+export interface TaskApplicantsProps {
+    total_pages: number;
+    count: number;
+    current: number;
+    next: any;
+    previous: any;
+    page_size: number;
+    result: {
+        id: number;
+        task: string;
+        user: {
+            id: number;
+            charge_currency: {
+                id: number;
+                name: string;
+                code: string;
+                symbol: any;
+            };
+            user: {
+                id: string;
+                username: string;
+                email: string;
+                phone: any;
+                full_name: string;
+                profile_image: any;
+            };
+            portfolio: any[];
+            experience: any[];
+            education: any[];
+            certificates: any[];
+            stats: {
+                success_rate: number;
+                happy_clients: number;
+                task_completed: number;
+                user_reviews: number;
+                task_assigned: number;
+                task_in_progress: number;
+                task_cancelled: number;
+            };
+            rating: {
+                user_rating_count: number;
+                avg_rating: any;
+            };
+            country: string;
+            language: string;
+            status: string;
+            bio: string;
+            full_name: string;
+            phone: string;
+            gender: string;
+            profile_image: string;
+            date_of_birth: string;
+            skill: string;
+            active_hour_start: string;
+            active_hour_end: string;
+            experience_level: string;
+            user_type: string;
+            hourly_rate: number;
+            profile_visibility: string;
+            task_preferences: string;
+            address_line1: string;
+            address_line2: string;
+            is_profile_verified: boolean;
+            designation: any;
+            points: number;
+            subscription: any[];
+            security_questions: any[];
+        };
+        created_at: string;
+        updated_at: string;
+        deleted_at: any;
+        status: string;
+        is_active: boolean;
+        remarks: string;
+        charge: number;
+        pre_requisites: string;
+        contract: any;
+    }[];
 }

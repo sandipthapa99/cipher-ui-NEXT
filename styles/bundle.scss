@@ -93,6 +93,11 @@
 @import "components/side-bar";
 @import "components/appliedTaskDetail";
 @import "components/2factorCard";
+@import "components/completeProfileCard.scss";
+@import "components/rasifalDetails";
+@import "components/myTasks";
+@import "components/kycstatus";
+
 // Pages
 @import "pages/privacyPolicy";
 @import "pages/referall";
@@ -105,6 +110,7 @@
 @import "pages/help";
 @import "pages/social";
 @import "pages/search-tasks";
+@import "pages/addService";
 @import "choose";
 @import "components/upper-header";
 @import "components/header";
@@ -178,7 +184,7 @@
 @import "components/socialConnection";
 @import "components/userLoadingOverlay";
 @import "components/squarecarousel";
-
+@import "components/_security.scss";
 @import "components/saveIcon";
 // Pages
 @import "pages/privacyPolicy";

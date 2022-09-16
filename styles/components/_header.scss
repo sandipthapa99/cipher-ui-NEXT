@@ -1,6 +1,22 @@
 .site-header {
     background-color: #211d4f;
     z-index: -1;
+
+    .bell-icon-header {
+        position: relative;
+    }
+
+    .notification-badge {
+        position: absolute;
+        color: white;
+        background: red;
+        border-radius: 50%;
+        padding: 0rem 0.4rem;
+        font-size: 1.1rem;
+        right: -0.6rem;
+        top: -1rem;
+    }
+
     .header-navigation {
         padding: 0;
         .navbar-nav {
@@ -30,7 +46,13 @@
                     display: flex;
                     align-items: center;
                     position: relative;
-
+                    //NestHub
+                    @media screen and (width: 1280px) {
+                        padding: 1.3rem 1.6rem !important;
+                    }
+                    @media screen and (min-width: 1098px) and (max-width: 1400px) {
+                        padding: 1.3rem 1.6rem !important;
+                    }
                     @include respond(lg) {
                         padding: 1.3rem 2.6rem;
                         margin-right: 1rem;
@@ -155,6 +177,12 @@
                 display: none !important;
             }
 
+            /* specific to 900px */
+
+            @media screen and (min-width: 880px) and (max-width: 970px) {
+                display: none !important;
+            }
+
             /* specific to Ipad Mini Only*/
             @media screen and (width: 768px) {
                 display: none !important;
@@ -163,11 +191,15 @@
                 display: none !important;
             }
 
+            @media screen and (min-width: 1098px) and (max-width: 1400px) {
+                padding: 0 !important;
+            }
+
             @include respond(lg) {
                 position: static;
             }
             @include respond(tablet-lanscape) {
-                padding: 1.05rem 2.2rem;
+                padding: 0 !important;
             }
             &:hover {
                 color: $secondary-color;
@@ -178,6 +210,7 @@
                 border: none;
                 box-shadow: none;
             }
+
             .svg-icon {
                 margin: 0 0 0 0.8rem;
                 color: $secondary-color;

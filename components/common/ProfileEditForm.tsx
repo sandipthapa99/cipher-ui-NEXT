@@ -23,6 +23,7 @@ import { axiosClient } from "utils/axiosClient";
 import { profileEditFormSchema } from "utils/formValidation/profileEditFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
+import PhoneNumberInput from "./PhoneNumberInput";
 import TagInputField from "./TagInputField";
 
 interface ProfileEditProps {
@@ -119,8 +120,9 @@ const ProfileEditForm = ({
                             // toggleSuccessModal();
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, errors, touched, values }) => (
                             <Form>
+                                {/* <pre>{JSON.stringify(values, null, 4)}</pre>; */}
                                 <InputField
                                     type="text"
                                     name="full_name"
@@ -139,12 +141,12 @@ const ProfileEditForm = ({
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
-                                        <InputField
-                                            name="phone"
+                                        <PhoneNumberInput
+                                            name={"phone"}
+                                            fieldRequired={true}
                                             labelName="Phone Number"
                                             touch={touched.phone}
                                             error={errors.phone}
-                                            placeHolder="Enter your phone number"
                                         />
                                     </Col>
                                 </Row>
@@ -240,7 +242,6 @@ const ProfileEditForm = ({
                                         Dribble
                                     </span>
                                 </div>
-
                                 <Modal.Footer>
                                     <Button
                                         className="btn close-btn"

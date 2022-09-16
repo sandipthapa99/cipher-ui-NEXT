@@ -162,7 +162,7 @@ section {
     background: #fff;
     border: 0.1rem solid $gray-text-color;
     box-shadow: none;
-    height: 4.8rem;
+    min-height: 4.8rem;
     font-size: 1.6rem;
     padding: 0.6rem 1.8rem;
     position: relative;
@@ -680,4 +680,32 @@ small.text-muted {
 
 .mantine-Select-dropdown.mantine-rynikm {
     font-size: 1000px !important;
+}
+.PhoneInput {
+    .PhoneInputCountry {
+        height: 3.5rem;
+        margin-block: auto;
+        margin-right: 1rem;
+        .PhoneInputCountrySelect {
+            left: -1.5rem;
+            top: 1rem;
+            background: #fff;
+        }
+    }
+    .PhoneInputInput {
+        border: none;
+        outline: none;
+        height: 100%;
+    }
+}
+.mantine-Spoiler-root {
+    .mantine-Spoiler-control {
+        color: $nav-link-color;
+        font: 400 1.4rem $poppins-font;
+        @include transition();
+        &:hover {
+            text-decoration: none;
+            color: $secondary-color;
+        }
+    }
 }

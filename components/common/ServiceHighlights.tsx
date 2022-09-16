@@ -2,10 +2,10 @@ import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ServiceHighlights = ({
-    title,
+    highlight,
 }: // isChecked,
 {
-    title: string;
+    highlight: { id: number; name?: string; title?: string };
     // isChecked: boolean
 }) => {
     return (
@@ -26,7 +26,7 @@ const ServiceHighlights = ({
                 icon={faCheck}
                 className="me-3 svg-icon svg-icon-check"
             />
-            {title}
+            {highlight.name ?? highlight.title}
         </p>
     );
 };

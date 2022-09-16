@@ -5,6 +5,9 @@
 
     &__top-container {
         padding-bottom: 5rem;
+        @include respond(xs) {
+            padding-bottom: 0;
+        }
         h1 {
             font-size: 2.5rem;
             font-weight: 500;

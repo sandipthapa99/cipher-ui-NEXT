@@ -27,7 +27,7 @@ export default function Checkout() {
     const { data: stripeData } = useQuery(["stripe-data"], async () => {
         const response = await axiosClient.post("/payment/intent/stripe/", {
             scope: "task",
-            pk: "5459d5da-96e1-42fa-aeb3-17cc4596406d",
+            pk: "dc3feab3-204c-4bda-b802-8e52e5a83e73",
         });
         return response;
     });
@@ -75,7 +75,7 @@ export default function Checkout() {
                                 <figure className="thumbnail-img">
                                     <Image
                                         src="/hireinnepal/footer.png"
-                                        Layout="fill"
+                                        layout="fill"
                                         objectFit="cover"
                                         height={116}
                                         width={116}

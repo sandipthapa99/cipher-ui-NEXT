@@ -44,7 +44,6 @@ const Layout: FC<MetaDataProps> = ({
     const getSideBar = (side: boolean) => {
         setSideBarOpened(side);
     };
-    console.log(sideBar);
     useEffect(() => {
         if (sideBar) {
             document?.querySelector("body")?.classList?.add("overflow-hidden");

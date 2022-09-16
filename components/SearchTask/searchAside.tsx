@@ -1,13 +1,9 @@
 import { faLocationDot, faUser } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
-import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { axiosClient } from "utils/axiosClient";
 
 import type { ServiceNearYouCardProps } from "../../types/serviceNearYouCard";
 
@@ -26,7 +22,9 @@ export type ServiceProvider = {
 
 const ServiceNearYouCard = ({
     image,
-    servicePrice,
+    budget_from,
+    budget_to,
+    budget_type,
     serviceProvider,
     serviceProviderLocation,
     serviceRating,
@@ -35,6 +33,7 @@ const ServiceNearYouCard = ({
     serviceSlug,
     discountOn,
     discount,
+    currency,
     onServiceClick,
 }: ServiceNearYouCardProps) => {
     // const { data } = useQuery(
@@ -59,7 +58,7 @@ const ServiceNearYouCard = ({
             onClick={() => onServiceClick}
         >
             <Row>
-                <Col md="5">
+                <Col md={5}>
                     {image && Array.isArray(image) ? (
                         <figure className="thumbnail-img">
                             <Image
@@ -88,7 +87,7 @@ const ServiceNearYouCard = ({
                         </figure>
                     )}
                 </Col>
-                <Col md="7">
+                <Col md={7}>
                     <div className="content">
                         <h4>{serviceTitle}</h4>
                         <div className="information">
@@ -119,7 +118,15 @@ const ServiceNearYouCard = ({
                                 </div>
                             </div>
                             <div></div>
-                            <h1 className="price">Rs. {servicePrice}</h1>
+                            <h1 className="price">
+                                {currency} {budget_from}
+                                {budget_to && "-" + budget_to}
+                                {budget_type === "Hourly"
+                                    ? "/hr"
+                                    : budget_type === "Monthly"
+                                    ? "/mn"
+                                    : ""}
+                            </h1>
                         </div>
                     </div>
                 </Col>

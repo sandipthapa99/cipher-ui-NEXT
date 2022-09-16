@@ -1,0 +1,123 @@
+.my-task {
+    background: #fff;
+
+    h3 {
+        font: 500 1.6rem $poppins-font;
+        padding: 2.4rem;
+        margin: 0;
+        border-bottom: 1px solid #ced4da;
+    }
+}
+
+.my-task-order {
+    .order-section {
+        padding: 1.6rem 2.4rem;
+        border-bottom: 1px solid #ced4da;
+
+        .order-id {
+            font: 400 1.2rem $poppins-font;
+            padding: 0.8rem 1.6rem;
+            background: #e9ecef;
+            border-radius: 0.4rem;
+        }
+
+        .ordered-date {
+            font: 400 1.2rem $poppins-font;
+            color: #868e96;
+            margin: 0 0 0 1rem;
+        }
+    }
+
+    .order-detail-section {
+        cursor: pointer;
+        padding: 2.4rem;
+        border-bottom: 1px solid #ced4da;
+
+        &__image {
+            // min-width: 13rem;
+            // min-height: 16rem;
+            img {
+                object-fit: cover;
+                border-radius: 4px;
+            }
+        }
+
+        .title-and-description {
+            margin: 0 0 0 1rem;
+            h4 {
+                font: 500 2rem $poppins-font;
+                margin: 0 0 0.4rem;
+            }
+            p {
+                font: 400 1.2rem $poppins-font;
+                color: #868e96;
+                margin: 0 0 1.6rem;
+            }
+
+            .price-section {
+                margin: 0 0 1rem;
+                .price {
+                    font: 400 1.4rem $poppins-font;
+                }
+                .value {
+                    font: 500 1.6rem $poppins-font;
+                }
+            }
+        }
+
+        .badge-and-status {
+            @include respond(lg) {
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+            }
+
+            .author-image {
+                @include respond(lg) {
+                    justify-content: end;
+                }
+            }
+            .status-section {
+                @include respond(lg) {
+                    margin: 0 0 2rem;
+                }
+
+                .status {
+                    font: 500 1.6rem $poppins-font;
+                }
+
+                .status-value {
+                    &__Paid,
+                    &__Completed,
+                    &__Draft,
+                    &__Pending,
+                    &__Paid,
+                    &__Open {
+                        font: 400 1.2rem $poppins-font;
+                        padding: 0.4rem 0.8rem;
+                        color: white;
+                        border-radius: 5px;
+                        margin: 0 0 0 1rem;
+                    }
+
+                    &__Completed {
+                        background: #3eaeff;
+                    }
+
+                    &__Paid {
+                        background: #38c675;
+                    }
+
+                    &__draft,
+                    &__Pending {
+                        background: #ff9700;
+                    }
+
+                    &__Open {
+                        background: red;
+                    }
+                }
+            }
+        }
+    }
+}

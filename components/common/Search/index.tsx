@@ -1,3 +1,4 @@
+import { AngleDown } from "@components/Icons/AngleDown";
 import {
     faChevronDown,
     faSearch,
@@ -65,6 +66,8 @@ const searchData = [
 ];
 export const Search = () => {
     const [searchError, setSearchError] = useState<string | undefined>();
+
+    const [showArrowBtn, setShowArrowBtn] = useState(false);
     const router = useRouter();
     const setSearchedTaskers = useSetSearchedTaskers();
     const setSearchQuery = useSetSearchQuery();
@@ -135,9 +138,7 @@ export const Search = () => {
                             variant="unstyled"
                             className={classes.selectField}
                             data={searchData}
-                            rightSection={
-                                <FontAwesomeIcon icon={faChevronDown} />
-                            }
+                            rightSection={<AngleDown />}
                             onChange={(value) => setFieldValue("scope", value)}
                             styles={{ dropdown: { marginLeft: `${-1}rem` } }}
                         />

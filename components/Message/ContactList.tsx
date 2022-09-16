@@ -29,7 +29,9 @@ export const ContactList = ({
                 onClick={() => onContactClick(contact)}
             >
                 <Image
-                    src={contact.profileImage}
+                    src={
+                        contact.profileImage ?? "/userprofile/unknownPerson.jpg"
+                    }
                     width="50px"
                     height="50px"
                     alt="Contact profile image"

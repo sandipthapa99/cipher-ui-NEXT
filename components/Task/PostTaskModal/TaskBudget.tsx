@@ -16,6 +16,8 @@ export enum BudgetType {
     VARIABLE = "Variable",
 }
 export interface TaskBudgetProps {
+    initialBudgetFrom?: number;
+    initialBudgetTo?: number;
     setFieldValue: (field: string, value: any) => void;
     setFieldError: (field: string, value: any) => void;
     setFieldTouched: (field: string, value: any) => void;
@@ -39,12 +41,12 @@ const budgetType = [
     },
 ];
 export const TaskBudget = ({
+    initialBudgetFrom,
+    initialBudgetTo,
     setFieldValue,
     setFieldError,
     setFieldTouched,
     getFieldProps,
-    touched,
-    errors,
 }: TaskBudgetProps) => {
     const [value, setValue] = useState<BudgetType>(BudgetType.FIXED);
 
@@ -61,9 +63,6 @@ export const TaskBudget = ({
         setFieldValue("budgetTypeRadio", type);
         setValue(type);
     };
-    const getFieldError = (key: keyof PostTaskPayload) =>
-        touched[key] && errors[key] ? errors[key] : null;
-
     return (
         <Box>
             <Radio.Group
@@ -82,13 +81,10 @@ export const TaskBudget = ({
                 <Group>
                     <NumberInput
                         {...getFieldProps("budget_to")}
-                        error={
-                            value === BudgetType.FIXED &&
-                            getFieldError("budget_to")
-                        }
                         icon="Rs"
                         placeholder="Enter your price"
                         onChange={(value) => setFieldValue("budget_to", value)}
+                        defaultValue={initialBudgetTo}
                     />
                     <Select
                         {...getFieldProps("budget_type")}
@@ -103,23 +99,20 @@ export const TaskBudget = ({
                 <Group>
                     <NumberInput
                         {...getFieldProps("budget_from")}
-                        error={getFieldError("budget_from")}
                         icon="Rs"
                         placeholder="Starting budget"
                         onChange={(value) =>
                             setFieldValue("budget_from", value)
                         }
+                        defaultValue={initialBudgetFrom}
                     />
                     <Text>To</Text>
                     <NumberInput
                         {...getFieldProps("budget_to")}
-                        error={
-                            value === BudgetType.VARIABLE &&
-                            getFieldError("budget_to")
-                        }
                         icon="Rs"
                         placeholder="Final budget"
                         onChange={(value) => setFieldValue("budget_to", value)}
+                        defaultValue={initialBudgetTo}
                     />
                     <Select
                         {...getFieldProps("budget_type")}

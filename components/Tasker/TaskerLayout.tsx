@@ -7,7 +7,6 @@ import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import { Highlight, Space } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { useData } from "hooks/use-data";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -28,38 +27,46 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
     const [query, setQuery] = useState("");
     const clearSearchQuery = useClearSearchQuery();
     const clearSearchedServices = useClearSearchedServices();
+    const [sortTaskerPrice, setSortTaskerPrice] = useState([]);
     const searchQuery = useSearchQuery();
 
-    const { data, isLoading } = useData<TaskerProps>(
-        ["all-tasker"],
-        "/tasker/"
-    );
-
-    const { data: searchData = [] } = useSearchTasker(query);
+    const { data: searchData = [], isFetching } = useSearchTasker(query);
     const handleSearchChange = (query: string) => {
         clearSearchQuery();
         clearSearchedServices();
         setQuery(query);
     };
+    const getTaskerSortByPrice = (task: any) => {
+        setSortTaskerPrice(task);
+    };
 
     return (
         <Layout title="Find Tasker | Cipher">
-            <Container fluid="xl">
-                <SearchCategory onChange={handleSearchChange} />
-                {searchQuery?.query && (
-                    <Highlight highlight={searchQuery.query}>
-                        {`Showing search results for ${searchQuery.query}`}
-                    </Highlight>
-                )}
-                <Space h={10} />
-                <TaskerAside
-                    query={query}
-                    tasker={searchData}
-                    isLoading={isLoading || !data}
-                >
-                    {children}
-                </TaskerAside>
-            </Container>
+            <section className="Tasker-section" id="Tasker-section">
+                <Container fluid="xl">
+                    <SearchCategory
+                        onChange={handleSearchChange}
+                        getTaskerBySort={getTaskerSortByPrice}
+                    />
+                    {searchQuery?.query && (
+                        <Highlight highlight={searchQuery.query}>
+                            {`Showing search results for ${searchQuery.query}`}
+                        </Highlight>
+                    )}
+                    <Space h={10} />
+                    <TaskerAside
+                        query={query}
+                        tasker={
+                            sortTaskerPrice.length > 0
+                                ? sortTaskerPrice
+                                : searchData
+                        }
+                        isLoading={isFetching}
+                    >
+                        {children}
+                    </TaskerAside>
+                </Container>
+            </section>
         </Layout>
     );
 };

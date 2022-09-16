@@ -1,6 +1,5 @@
 import { Collaboration } from "@components/Collaboration/Collaboration";
 import EllipsisDropdown from "@components/common/EllipsisDropdown";
-import UserLoadingOverlay from "@components/common/FullPageLoader";
 import { GoBack } from "@components/common/GoBack";
 import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
@@ -21,22 +20,35 @@ import {
     faMagnifyingGlass,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Carousel } from "@mantine/carousel";
+import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import { axiosClient } from "utils/axiosClient";
+import type { ITask, TaskApplicantsProps } from "types/task";
+import { isImage } from "utils/isImage";
+import { isVideo } from "utils/isVideo";
+import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
-import { TeamMembersSection } from "./TeamMembersSection";
 import { TimelineTab } from "./TimelineTab";
 
-const AppliedTaskDetail = ({ type }: { type?: string }) => {
+const AppliedTaskDetail = ({
+    type,
+    taskDetail,
+    taskApplicants,
+}: {
+    type?: string;
+    taskDetail: ITask;
+    taskApplicants: TaskApplicantsProps;
+}) => {
     const queryClient = useQueryClient();
+    const { data: user } = useUser();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
     const [showModal, setShowModal] = useState(false);
     const [showInput, setShowInput] = useState(false);
@@ -55,18 +67,19 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
 
     const slug = router?.query?.slug as string;
 
-    const { data: taskDetail } = useQuery(["task-detail", slug], async () => {
-        const response = await axiosClient.get(`/task/${slug}`);
-        return response?.data;
-    });
-
-    const requirements = taskDetail?.requirements?.split(",");
-
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
-    if (!taskDetail) {
-        return <UserLoadingOverlay />;
-    }
+    const taskRequirements = safeParse<Array<{ id: number; title: string }>>({
+        rawString: taskDetail?.requirements,
+        initialData: [],
+    });
+    const isUserTask = user ? taskDetail?.assigner?.id === user?.id : false;
+
+    const taskVideosAndImages = [
+        ...(taskDetail?.images ?? []),
+        ...(taskDetail?.videos ?? []),
+    ];
+    const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
@@ -78,12 +91,11 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
-                        <span className="pb-3 pb-sm-0 provider-name">
-                            {format(
-                                new Date(taskDetail?.created_at),
-                                "dd MMM, yyyy - hh:mm a"
-                            )}
-                        </span>
+                        {taskDetail?.created_at && (
+                            <span className="pb-3 pb-sm-0 provider-name">
+                                {format(new Date(taskDetail?.created_at), "PP")}
+                            </span>
+                        )}
                         <div className="d-flex justify-content-between align-items-center">
                             <SaveIcon
                                 object_id={taskDetail?.id}
@@ -105,15 +117,18 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                                 />
                                 <span className="name">Share</span>
                             </button>
-                            <EllipsisDropdown
-                                showModal={true}
-                                handleOnClick={() => setShowModal(true)}
-                            >
-                                <FontAwesomeIcon
-                                    icon={faEllipsisVertical}
-                                    className="svg-icon option"
-                                />
-                            </EllipsisDropdown>
+                            {isUserTask && (
+                                <EllipsisDropdown
+                                    task={taskDetail}
+                                    showModal={true}
+                                    handleOnClick={() => setShowModal(true)}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faEllipsisVertical}
+                                        className="svg-icon option"
+                                    />
+                                </EllipsisDropdown>
+                            )}
                             <Modal
                                 show={showModal}
                                 onHide={() => setShowModal(false)}
@@ -137,14 +152,58 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        <figure className="thumbnail-img">
-                            <Image
-                                src="/service-details/Garden.svg"
-                                layout="fill"
-                                objectFit="cover"
-                                alt="garden-image"
-                            />
-                        </figure>
+                        {(taskVideosAndImages ?? []).length > 0 ? (
+                            <Carousel
+                                withIndicators={hasMultipleVideosOrImages}
+                                withControls={hasMultipleVideosOrImages}
+                                draggable={hasMultipleVideosOrImages}
+                                styles={{
+                                    control: {
+                                        "&[data-inactive]": {
+                                            opacity: 0,
+                                            cursor: "default",
+                                        },
+                                    },
+                                }}
+                            >
+                                {taskVideosAndImages.map((file, key) => (
+                                    <Carousel.Slide key={key}>
+                                        {isImage(file.media_type) ? (
+                                            <figure className="thumbnail-img">
+                                                <Image
+                                                    src={file.media}
+                                                    alt={file.placeholder}
+                                                    layout="fill"
+                                                />
+                                            </figure>
+                                        ) : isVideo(file.media_type) ? (
+                                            <video
+                                                className="thumbnail-img"
+                                                width="100%"
+                                                height="100%"
+                                                controls
+                                            >
+                                                <source
+                                                    id={`task-video-${file.id}`}
+                                                    src={file.media}
+                                                />
+                                                Your browser does not support
+                                                playing videos.
+                                            </video>
+                                        ) : null}
+                                    </Carousel.Slide>
+                                ))}
+                            </Carousel>
+                        ) : (
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src="/service-details/Garden.svg"
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="garden-image"
+                                />
+                            </figure>
+                        )}
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         {taskDetail && (
@@ -153,17 +212,6 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                                 onApply={() => setShowModal(false)}
                             />
                         )}
-                        {/* <SimpleProfileCard
-                            id={taskDetail.id}
-                            image={taskDetail?.assigner?.profile_image}
-                            speciality={taskDetail?.category?.name}
-                            startingPrice={taskDetail?.budget_from}
-                            endPrice={taskDetail?.budget_to}
-                            isApplied={false}
-                            isPermission={false}
-                            currency={taskDetail?.currency}
-                            name={taskDetail?.assigner?.full_name}
-                        /> */}
                     </Col>
                 </Row>
                 <div className="d-flex mt-4 task-detail__loc-time">
@@ -179,37 +227,30 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
                                 : "Buddhanagar, Kathmandu"}
                         </span>
                     </p>
-                    <p className="d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faCalendar}
-                            className="svg-icon svg-icon-calender"
-                        />
-                        <span>
-                            {" "}
-                            {format(
-                                new Date(taskDetail?.start_date),
-                                "dd MMM, yyyy"
-                            )}
-                        </span>
-                    </p>
-
-                    {taskDetail?.start_time ? (
-                        <p className="d-flex align-items-center">
+                    {taskDetail?.created_at && (
+                        <p>
                             <FontAwesomeIcon
-                                icon={faClockEight}
-                                className="svg-icon svg-icon-clock"
+                                icon={faCalendar}
+                                className="svg-icon svg-icon-calender"
                             />
-                            <span>{taskDetail?.start_time}</span>
+                            {format(new Date(taskDetail?.created_at), "PP")}
                         </p>
-                    ) : (
-                        ""
                     )}
-                    <p className="d-flex align-items-center">
+                    <p>
+                        <FontAwesomeIcon
+                            icon={faClockEight}
+                            className="svg-icon svg-icon-clock"
+                        />
+                        {taskDetail?.updated_at
+                            ? format(new Date(taskDetail?.updated_at), "p")
+                            : "N/A"}
+                    </p>
+                    <p>
                         <FontAwesomeIcon
                             icon={faEye}
                             className="svg-icon svg-icon-eye"
                         />
-                        <span> 2500 Views</span>
+                        <span> TOBE-IMP Views</span>
                     </p>
                     <p className="d-flex align-items-center">
                         <FontAwesomeIcon
@@ -227,21 +268,25 @@ const AppliedTaskDetail = ({ type }: { type?: string }) => {
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {requirements &&
-                        requirements.map((name: string, index: number) => (
-                            <div key={index}>
-                                <ServiceHighlights title={name} />
-                            </div>
-                        ))}
+                    {taskRequirements.map((highlight, key) => (
+                        <div key={key}>
+                            <ServiceHighlights highlight={highlight} />
+                        </div>
+                    ))}
                 </div>
 
-                <TeamMembersSection />
+                {/* <TeamMembersSection /> */}
 
                 <Tab
                     activeIndex={activeTabIdx}
                     onTabClick={setActiveTabIdx}
                     items={[
-                        { title: "Taskers", content: <TaskersTab /> },
+                        {
+                            title: "Taskers",
+                            content: (
+                                <TaskersTab taskApplicants={taskApplicants} />
+                            ),
+                        },
                         { title: "Timeline", content: <TimelineTab /> },
                         {
                             title: "Collaboration",

@@ -2,7 +2,6 @@ import TaskAside from "@components/AppliedTask/taskAside";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import { useQuery } from "@tanstack/react-query";
-import { useTasks } from "hooks/apply-task/useTask";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -28,24 +27,41 @@ const AppliedLayout = ({
     children: ReactNode;
     type?: string;
 }) => {
+    const [sortTaskPrice, setSortTaskPrice] = useState([]);
     const [query, setQuery] = useState("");
 
-    const { data, isLoading } = useTasks();
-    const { data: searchData = [] } = useSearchTask(query, type ?? "");
+    const { data: searchData = [], isFetching } = useSearchTask(
+        query,
+        type ?? ""
+    );
+    const getTaskSortByPrice = (task: any) => {
+        setSortTaskPrice(task);
+    };
 
     return (
         <Layout title="Find Tasks | Cipher">
-            <Container>
-                <SearchCategory type={type} onChange={setQuery} />
-                <TaskAside
-                    query={query}
-                    appliedTasks={searchData}
-                    type={type ?? ""}
-                    isLoading={isLoading || !data}
-                >
-                    {children}
-                </TaskAside>
-            </Container>
+            <section className="Tasks-section mb-5" id="Tasks-section">
+                <Container>
+                    <SearchCategory
+                        type={type}
+                        onChange={setQuery}
+                        getTaskBySort={getTaskSortByPrice}
+                        placeholder="Find tasks based on your skills"
+                    />
+                    <TaskAside
+                        query={query}
+                        appliedTasks={
+                            sortTaskPrice.length > 0
+                                ? sortTaskPrice
+                                : searchData
+                        }
+                        type={type ?? ""}
+                        isFetching={isFetching}
+                    >
+                        {children}
+                    </TaskAside>
+                </Container>
+            </section>
         </Layout>
     );
 };

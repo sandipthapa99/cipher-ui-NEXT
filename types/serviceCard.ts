@@ -33,7 +33,21 @@ export interface ServicesValueProps {
             slug: string;
             icon: string;
         };
-        city: any;
+        currency: {
+            id: number;
+            name: string;
+            code: string;
+        };
+        city: {
+            id: number;
+            name: string;
+            latitude: number;
+            longitude: number;
+            country: {
+                id: number;
+                name: string;
+            };
+        };
         images?: {
             id: number;
             name: string;
@@ -41,6 +55,13 @@ export interface ServicesValueProps {
             media: string;
             media_type: string;
             placeholder: string;
+        }[];
+        videos: {
+            id: number;
+            name: string;
+            size: string;
+            media_type: string;
+            media: string;
         }[];
         created_at: string;
         updated_at: string;
@@ -167,6 +188,7 @@ export interface ServicePostProps {
     discount_value: string;
     is_active: boolean;
     category: number;
+    currency: number;
     city: number;
     images: any[];
     imagePreviewUrl: any[];

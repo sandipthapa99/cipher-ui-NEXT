@@ -19,7 +19,10 @@ export const PersonalSuccessCard = ({
                         {successStoryData?.profile_image && (
                             <figure className="d-flex justify-content-center justify-content-md-start success-image">
                                 <Image
-                                    src={successStoryData?.profile_image}
+                                    src={
+                                        successStoryData?.profile_image ??
+                                        "/userprofile/unknownPerson.jpg"
+                                    }
                                     alt="growyourbusiness-image"
                                     height={550}
                                     width={500}

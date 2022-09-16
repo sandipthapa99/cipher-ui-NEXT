@@ -16,7 +16,6 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
-import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
@@ -30,10 +29,6 @@ interface CustomAppProps<P = any> extends Omit<AppProps<P>, "pageProps"> {
     };
 }
 
-const UserLoadingOverlay = dynamic(
-    () => import("@components/common/FullPageLoader"),
-    { ssr: false }
-);
 function MyApp({ Component, pageProps }: CustomAppProps) {
     const [queryClient] = useState(
         () =>
@@ -61,29 +56,6 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
         const result = setToken();
         console.log("result", result);
     }, []);
-    // useEffect(() => {
-    //     setToken();
-
-    //     // Event listener that listens for the push notification event in the background
-    //     if ("serviceWorker" in navigator) {
-    //         navigator.serviceWorker.addEventListener("message", (event) => {
-    //             console.log("event for the service worker", event);
-    //         });
-    //     }
-
-    //     // Calls the getMessage() function if the token is there
-    //     async function setToken() {
-    //         try {
-    //             const token = await firebaseCloudMessaging.init();
-    //             if (token) {
-    //                 console.log("token", token);
-    //                 // getMessage();
-    //             }
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     }
-    // });
 
     return (
         <GoogleOAuthProvider

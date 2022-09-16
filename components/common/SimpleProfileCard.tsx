@@ -21,9 +21,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const { mutate } = useLeaveTask();
 
     const [showModal, setShowModal] = useState(false);
-    const [priceValue, setPriceValue] = useState(25);
-    const [priceChanged, setPriceChanged] = useState(false);
-    const [isWorking, setIsWorking] = useState(false);
 
     const appliedTask = appliedTasks.find(
         (appliedTask) => appliedTask.task === task.id && appliedTask.is_active
@@ -41,19 +38,20 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
             }
         );
     };
-    const isUserTask = task.assigner.id === user?.id;
+    const isUserTask = task?.assigner?.id === user?.id;
 
     const handleViewApplicants = () => {
         toast.success("You have no applicants yet.");
     };
     return (
         <div className="simple-card my-5 my-lg-0 ">
-            <p>{appliedTask ? "Applied" : "Not Applied"}</p>
             <div className="d-flex align-items-center simple-card__profile">
                 <figure className="thumbnail-img">
                     <Image
                         src={
-                            task.image ? task.image : "/hireinnepal/footer.png"
+                            task?.assigner?.profile_image
+                                ? task?.assigner?.profile_image
+                                : "/userprofile/unknownPerson.jpg"
                         }
                         layout="fill"
                         objectFit="cover"
@@ -62,7 +60,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 </figure>
 
                 <div className="intro">
-                    <p className="name">{task.title}</p>
+                    <p className="name">{task?.assigner?.full_name}</p>
                     <p className="job">{task.status}</p>
                 </div>
             </div>
@@ -98,12 +96,30 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
             )} */}
 
             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
-                <span>Budget Range</span>
-                <span className="text-right price">
-                    {task.budget_from} - {task.budget_to}
-                </span>
+                {task?.budget_from && task?.budget_to ? (
+                    <>
+                        <span>Budget Range</span>
+                        <span className="text-right price">
+                            {task?.currency?.code}
+                            {task?.budget_from} - {task?.budget_to}
+                            {task?.budget_type === "Hourly"
+                                ? "/hr"
+                                : task?.budget_type === "Monthly"
+                                ? "/mn"
+                                : ""}
+                        </span>
+                    </>
+                ) : (
+                    <>
+                        <span>Budget</span>
+                        <span className="text-right price">
+                            {`${task?.currency?.code ?? ""} ${
+                                task?.budget_to
+                            } / ${task?.budget_type}`}
+                        </span>
+                    </>
+                )}
             </div>
-
             {!isUserTask ? (
                 appliedTask ? (
                     <BookNowButton
@@ -171,6 +187,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 budget_type={task?.budget_type}
                 description={task?.description}
                 show={showModal}
+                setShow={setShowModal}
                 handleClose={() => setShowModal(false)}
                 images={[]}
             />

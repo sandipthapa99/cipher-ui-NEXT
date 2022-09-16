@@ -1,0 +1,55 @@
+.complete-profile {
+    background-color: #fff;
+    //border-left: 1rem solid #b9e2ff;
+    margin: 0rem 0 2rem 0;
+    padding-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    p {
+        margin: auto;
+        padding-bottom: 2.6rem;
+    }
+    .buttons {
+        justify-content: space-between;
+        //gap: 3rem;
+        padding: 3rem 2.5rem;
+        .big-btn {
+            flex: 0.2 0;
+            padding: 2rem 2rem;
+        }
+    }
+    h1,
+    h3 {
+        color: $sub-title-color;
+    }
+    h1 {
+        font-weight: 600;
+        margin: auto;
+
+        margin-bottom: 1.4rem;
+        font-size: 2rem;
+        text-align: center;
+        padding-bottom: 2.3rem;
+    }
+    h3 {
+        font-size: 1.7rem;
+        padding-top: 2.3rem;
+        font-weight: 500;
+    }
+    p {
+        color: $grayScale6;
+        font-size: 1.4rem;
+    }
+    .profile-wrapper {
+        padding-bottom: 5rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 0.1rem solid $border-color;
+    }
+    .thumbnail-img {
+        height: 17.3rem;
+        width: 16.6rem;
+    }
+}

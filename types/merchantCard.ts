@@ -1,6 +1,7 @@
 export interface MerchantCardProps {
     merchantImage: string;
     merchantName: string;
+    currency?: string;
     merchantCategory: string;
     merchantLocation: string;
     merchantDescription: string;
@@ -9,5 +10,6 @@ export interface MerchantCardProps {
     happyClients: number;
     successRate: number;
     liked?: boolean;
+    merchantId: string | number;
     onClick?: () => void;
 }

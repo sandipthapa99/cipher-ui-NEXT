@@ -40,18 +40,7 @@
             align-items: center;
             gap: 1rem;
             box-shadow: none;
-
-            @include respond(md) {
-                overflow: auto;
-            }
-
-            @include respond(xs) {
-                overflow: scroll;
-                margin: 1rem 0;
-            }
-            @include respond(sm) {
-                margin-top: 0rem;
-            }
+            width: 100%;
 
             // .categories-item{
             //     display: flex;

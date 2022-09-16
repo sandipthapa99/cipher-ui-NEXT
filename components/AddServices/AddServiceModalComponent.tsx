@@ -6,12 +6,16 @@ import AddRequirements from "@components/PostTask/AddRequirements";
 import type { SelectItem } from "@mantine/core";
 import { Checkbox } from "@mantine/core";
 import { Select } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { FormikHelpers } from "formik";
 import { Form, Formik } from "formik";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useCities } from "hooks/use-cities";
 import { useForm } from "hooks/use-form";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { Button, Col, Container, FormCheck, Row } from "react-bootstrap";
+import { Button, Col, FormCheck, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ServicePostProps } from "types/serviceCard";
@@ -20,8 +24,18 @@ import { ServicePostData } from "utils/formData";
 import { addServiceFormSchema } from "utils/formValidation/addServiceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-export const AddServiceModalComponent = () => {
+interface serviceModalProps {
+    handleClose: () => void;
+}
+
+export const AddServiceModalComponent = ({
+    handleClose,
+}: serviceModalProps) => {
+    const { data: profileDetails } = useGetProfile();
     const toogleShowPostTaskModal = useToggleShowPostTaskModal();
+    const router = useRouter();
+    const [value, setValue] = useState("");
+    const [query, setQuery] = useState("");
     const options = [
         {
             id: 1,
@@ -77,6 +91,9 @@ export const AddServiceModalComponent = () => {
 
     const [checked, setChecked] = useState(false);
 
+    //queryclient
+    const queryClient = useQueryClient();
+
     //Authorization cannot be send through get static props. So service category options fetched here
     const { data: serviceCategoryOptions } = useQuery(
         ["service-category"],
@@ -88,18 +105,28 @@ export const AddServiceModalComponent = () => {
         }
     );
 
-    const { data: cityOptionsData } = useQuery(["city-options"], async () => {
-        const response = await axiosClient.get("/locale/client/city/options/");
-        return response.data;
-    });
-
+    const { data: currencyOptionsData } = useQuery(
+        ["currency-options"],
+        async () => {
+            const response = await axiosClient.get("/locale/currency/options/");
+            return response.data;
+        }
+    );
+    const { data: cities } = useCities(query);
     const [serviceCategory, setServiceCategory] = useState<string | null>(null);
 
-    const renderCityOptions = cityOptionsData?.map((item: any) => {
+    const renderCityOptions = cities?.map((item: any) => {
         return {
             id: item?.id,
             value: item?.id,
             label: item?.name,
+        };
+    });
+
+    const renderCurrencyOptions = currencyOptionsData?.map((item: any) => {
+        return {
+            value: item?.id,
+            label: item?.code,
         };
     });
 
@@ -145,8 +172,10 @@ export const AddServiceModalComponent = () => {
                         ? values.discount_value
                         : null,
                     images: Object.values(data.data),
-                    highlights: JSON.stringify(data.highlights),
+                    highlights: JSON.stringify(values.highlights),
                 };
+
+                console.log("data to send", dataToSend);
                 delete dataToSend.imagePreviewUrl;
                 delete dataToSend.highlights_list;
                 delete dataToSend.is_discount_offer;
@@ -167,6 +196,8 @@ export const AddServiceModalComponent = () => {
             onSuccess: (data: any) => {
                 toggleSuccessModal();
                 toogleShowPostTaskModal();
+                queryClient.invalidateQueries(["all-services"]);
+
                 actions.resetForm();
             },
             onError: (error: any) => {
@@ -184,42 +215,51 @@ export const AddServiceModalComponent = () => {
                 initialValues={ServicePostData}
                 validationSchema={addServiceFormSchema}
                 onSubmit={(values, actions) => {
-                    const formData = new FormData();
+                    if (profileDetails) {
+                        const formData = new FormData();
 
-                    if (values.images.some((val) => val?.path)) {
-                        values.images.forEach((file) => {
-                            if (file?.path) formData.append("medias", file);
-                            formData.append("media_type", "image");
-                            formData.append("placeholder", "new image");
-                        });
-                        onCreateThumbnail(formData, values, actions);
+                        if (values.images.some((val) => val?.path)) {
+                            values.images.forEach((file) => {
+                                if (file?.path) formData.append("medias", file);
+                                formData.append("media_type", "image");
+                                formData.append("placeholder", "new image");
+                            });
+                            onCreateThumbnail(formData, values, actions);
+                        } else {
+                            const getImagesId = values?.images.map(
+                                (val) => val?.id
+                            );
+                            const dataToSend = {
+                                ...JSON.parse(JSON.stringify(values)),
+                                budget_to: values.budget_to
+                                    ? values.budget_to
+                                    : null,
+                                discount_value: values.discount_value
+                                    ? values.discount_value
+                                    : null,
+                                images: getImagesId,
+                                highlights: values.highlights
+                                    ? JSON.stringify(values.highlights)
+                                    : null,
+                            };
+                            delete dataToSend.imagePreviewUrl;
+                            delete dataToSend.highlights_list;
+                            delete dataToSend.is_discount_offer;
+                            delete dataToSend.budget_select;
+
+                            onCreateService(dataToSend, actions);
+                            console.log("data to send", dataToSend);
+                        }
                     } else {
-                        const getImagesId = values?.images.map(
-                            (val) => val?.id
+                        toogleShowPostTaskModal();
+                        router.push("/settings/account/individual");
+                        toast.error(
+                            "Please Create a profile to post a service"
                         );
-                        const dataToSend = {
-                            ...JSON.parse(JSON.stringify(values)),
-                            budget_to: values.budget_to
-                                ? values.budget_to
-                                : null,
-                            discount_value: values.discount_value
-                                ? values.discount_value
-                                : null,
-                            images: getImagesId,
-                            highlights: values.highlights
-                                ? JSON.stringify(values.highlights)
-                                : null,
-                        };
-                        delete dataToSend.imagePreviewUrl;
-                        delete dataToSend.highlights_list;
-                        delete dataToSend.is_discount_offer;
-                        delete dataToSend.budget_select;
-
-                        onCreateService(dataToSend, actions);
                     }
                 }}
             >
-                {({ setFieldValue, errors, touched, isSubmitting }) => (
+                {({ setFieldValue, errors, touched, isSubmitting, values }) => (
                     <>
                         <Form>
                             <InputField
@@ -287,6 +327,18 @@ export const AddServiceModalComponent = () => {
                             </span>
                             <Row className="gx-5">
                                 <Col md={4}>
+                                    <Select
+                                        placeholder="choose currency"
+                                        name="currency"
+                                        error={errors.currency}
+                                        searchable
+                                        data={renderCurrencyOptions ?? []}
+                                        onChange={(value) =>
+                                            setFieldValue("currency", value)
+                                        }
+                                    />
+                                </Col>
+                                <Col md={4}>
                                     <InputField
                                         type="text"
                                         name="budget_from"
@@ -294,7 +346,11 @@ export const AddServiceModalComponent = () => {
                                         touch={touched.budget_from}
                                         fieldRequired
                                         className="mb-0"
-                                        placeHolder="Enter your price"
+                                        placeHolder={
+                                            showVariable.showBudget
+                                                ? "Budget From"
+                                                : "Enter your Budget"
+                                        }
                                     />
                                 </Col>
                                 {showVariable.showBudget && (
@@ -306,19 +362,12 @@ export const AddServiceModalComponent = () => {
                                             touch={touched.budget_to}
                                             fieldRequired
                                             className="mb-0"
-                                            placeHolder="Enter your price"
+                                            placeHolder="Budget to"
                                         />
                                     </Col>
                                 )}
 
                                 <Col md={4}>
-                                    {/* <SelectInputField
-                                        name="budget_type"
-                                        placeHolder="Fixed"
-                                        options={BudgetType}
-                                        error={errors.budget_type}
-                                        touch={touched.budget_type}
-                                    /> */}
                                     <Select
                                         placeholder="Fixed"
                                         name="budget_type"
@@ -370,16 +419,21 @@ export const AddServiceModalComponent = () => {
                                 error={errors.location}
                                 touch={touched.location}
                             />
-
-                            <SelectInputField
-                                name={"city"}
-                                labelName="City"
-                                placeHolder="Select city"
-                                error={errors.city}
-                                touch={touched.city}
-                                options={renderCityOptions}
+                            <Select
+                                value={value}
+                                name="city"
+                                label="city"
+                                searchable
+                                onSearchChange={(search) => setQuery(search)}
+                                placeholder="Select City"
+                                data={renderCityOptions ?? []}
+                                onChange={(value) => {
+                                    if (value) {
+                                        setFieldValue("city", value);
+                                        setValue(value);
+                                    }
+                                }}
                             />
-
                             <AddRequirements
                                 onSubmit={(value) =>
                                     setFieldValue("highlights", value)
@@ -400,7 +454,11 @@ export const AddServiceModalComponent = () => {
                                 name="images"
                                 labelName="Upload your images"
                                 textMuted="More than 5 images are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 1MB."
-                                error={errors.images as string}
+                                error={
+                                    values?.images.length > 0
+                                        ? undefined
+                                        : (errors.images as string)
+                                }
                                 touch={touched.images as boolean}
                                 imagePreview="imagePreviewUrl"
                                 maxFiles={5}
@@ -409,7 +467,7 @@ export const AddServiceModalComponent = () => {
                             />
 
                             <Checkbox
-                                label="is active?"
+                                label="is active"
                                 name="is_active"
                                 defaultChecked={true}
                                 onChange={(event) =>
@@ -421,7 +479,10 @@ export const AddServiceModalComponent = () => {
                             />
 
                             <div className="d-flex justify-content-center">
-                                <Button className="btn close-btn p-3 h-25 w-25">
+                                <Button
+                                    className="btn close-btn p-3 h-25 w-25"
+                                    onClick={handleClose}
+                                >
                                     Cancel
                                 </Button>
                                 <FormButton

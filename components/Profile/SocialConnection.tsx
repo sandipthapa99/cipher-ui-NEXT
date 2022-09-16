@@ -3,7 +3,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Button } from "react-bootstrap";
-import type { socialConnectionProps } from "staticData/socialConnection";
+import type { socialConnectionProps } from "types/socialConnectionProps";
 
 const SocialConnection = ({ values }: { values: socialConnectionProps }) => {
     return (
@@ -15,7 +15,11 @@ const SocialConnection = ({ values }: { values: socialConnectionProps }) => {
             <p>Your are signed in as {values.email}</p>
             <span className="d-flex align-items-center justify-content-center my-4">
                 {values.isConnected ? (
-                    <BigButton btnTitle="Connect" backgroundColor={"#211d4f"} />
+                    <BigButton
+                        btnTitle="Connect"
+                        backgroundColor={"#211d4f"}
+                        textColor={"#fff"}
+                    />
                 ) : (
                     <Button className="btn close-btn px-3">Disconnect</Button>
                 )}

@@ -1,4 +1,3 @@
-import AppliedForm from "@components/AppliedTask/AppliedForm";
 import {
     faCalendar,
     faClockEight,
@@ -7,31 +6,41 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format } from "date-fns";
-import { useState } from "react";
-import { BookingDetails } from "staticData/bookNowModalCard";
-import type { RecommendedTaskCardProps } from "types/taskCard";
+import Link from "next/link";
+import type { ITask } from "types/task";
 
 import CardBtn from "./CardBtn";
 import ShareIcon from "./ShareIcon";
-// css for this file is done in _gettingStartedTask.scss page
 
-const TaskCard = ({
-    title,
-    charge,
-    description,
-    location,
-    start_date,
-    start_time,
-    status,
-    currency,
-}: RecommendedTaskCardProps) => {
-    const [showModal, setShowModal] = useState(false);
-
-    const starttime = start_time ? start_time?.split(":") : null;
+type RequiredTaskKeys =
+    | "title"
+    | "charge"
+    | "description"
+    | "location"
+    | "start_date"
+    | "start_time"
+    | "status"
+    | "currency"
+    | "slug";
+interface TaskCardProps {
+    task: Pick<ITask, RequiredTaskKeys>;
+    isSaved?: boolean;
+}
+const TaskCard = ({ task, isSaved }: TaskCardProps) => {
+    const {
+        title,
+        charge,
+        description,
+        location,
+        start_date,
+        start_time,
+        status,
+        currency,
+        slug,
+    } = task;
 
     function getDateFromHours(time: any) {
         time = time ? time?.split(":") : "";
-        console.log("time is", time);
         const now = new Date();
         return new Date(
             now.getFullYear(),
@@ -42,83 +51,84 @@ const TaskCard = ({
     }
 
     const formattedtime = getDateFromHours(start_time);
-    console.log("start time", starttime, formattedtime);
     return (
         <div className="task-card-block p-5">
-            <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
-                <h1 className="title">{title}</h1>
-                <h1 className="charge">
-                    {currency ? currency : "Rs"} {charge}
-                </h1>
-            </div>
-            <div className="task-card-block__body">
-                <p className="task-description">{description}</p>
-                <div className="task-location-time d-flex flex-column flex-sm-row">
-                    <p className="d-flex align-items-center pe-4 location">
-                        <FontAwesomeIcon
-                            icon={faLocationDot}
-                            className="svg-icon"
-                        />
-                        {location}
-                    </p>
-                    <p className="d-flex align-items-center date pe-4 my-3 my-sm-0">
-                        <FontAwesomeIcon
-                            icon={faCalendar}
-                            className="svg-icon"
-                        />
-                        {start_date
-                            ? format(new Date(start_date), "MMMM dd, yyyy")
-                            : ""}
-                    </p>
-                    <div className="d-flex align-items-center pe-4 time">
-                        <FontAwesomeIcon
-                            icon={faClockEight}
-                            className="svg-icon"
-                        />
-                        {format(new Date(formattedtime), "p")}
+            <Link href={`${slug}`}>
+                <a>
+                    <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
+                        <h1 className="title">{title}</h1>
+                        <h2 className="charge">
+                            {currency ? currency.code : "Rs"} {charge}
+                        </h2>
                     </div>
-                </div>
-            </div>
+                    <div className="task-card-block__body">
+                        <p className="task-description">{description}</p>
+                        <div className="task-location-time d-flex flex-column flex-sm-row">
+                            <p className="d-flex align-items-center pe-4 location">
+                                <FontAwesomeIcon
+                                    icon={faLocationDot}
+                                    className="svg-icon"
+                                />
+                                {location}
+                            </p>
+                            <p className="d-flex align-items-center date pe-4 my-3 my-sm-0">
+                                <FontAwesomeIcon
+                                    icon={faCalendar}
+                                    className="svg-icon"
+                                />
+                                {start_date
+                                    ? format(
+                                          new Date(start_date),
+                                          "MMMM dd, yyyy"
+                                      )
+                                    : ""}
+                            </p>
+                            <div className="d-flex align-items-center pe-4 time">
+                                <FontAwesomeIcon
+                                    icon={faClockEight}
+                                    className="svg-icon"
+                                />
+                                {format(new Date(formattedtime), "p")}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </Link>
             <div className="task-card-block__footer d-flex flex-column flex-sm-row justify-content-between">
                 <div className="left d-flex align-items-center">
                     <div className="share d-flex align-items-center">
                         <ShareIcon url={""} quote={""} hashtag={""} />
                         Share
                     </div>
-                    <p className="applicants  d-flex align-items-center">
-                        <FontAwesomeIcon
-                            icon={faUserGroup}
-                            className="svg-icon"
-                        />
-                        100 Applied
-                    </p>
+                    <Link href={`/task/${slug}` ?? "/"}>
+                        <a>
+                            <p className="applicants  d-flex align-items-center">
+                                <FontAwesomeIcon
+                                    icon={faUserGroup}
+                                    className="svg-icon"
+                                />
+                                100 Applied
+                            </p>
+                        </a>
+                    </Link>
                 </div>
                 <div className="right">
-                    <CardBtn
-                        btnTitle={status}
-                        backgroundColor={
-                            status == "Completed"
-                                ? "#FE5050"
-                                : status == "Ongoing"
-                                ? "#0693E3"
-                                : "#38C675"
-                        }
-                    />
+                    <Link href={`/task/${slug}` ?? "/"}>
+                        <a>
+                            <CardBtn
+                                btnTitle={status}
+                                backgroundColor={
+                                    status == "Completed"
+                                        ? "#FE5050"
+                                        : status == "Ongoing"
+                                        ? "#0693E3"
+                                        : "#38C675"
+                                }
+                            />
+                        </a>
+                    </Link>
                 </div>
             </div>
-
-            {BookingDetails &&
-                BookingDetails.map((detail) => (
-                    <AppliedForm
-                        key={detail.id}
-                        title={detail.title}
-                        price={detail.price}
-                        image={detail.image}
-                        description={detail.description}
-                        show={showModal}
-                        handleClose={() => setShowModal(false)}
-                    />
-                ))}
         </div>
     );
 };

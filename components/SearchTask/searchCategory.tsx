@@ -1,7 +1,7 @@
-import { useTopCategories } from "@components/Category/TopCategories";
 import { faMagnifyingGlass } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { ScrollArea } from "@mantine/core";
+import { useQuery } from "@tanstack/react-query";
 import { debounce } from "debounce";
 import type { ChangeEvent } from "react";
 import { useCallback, useState } from "react";
@@ -16,6 +16,9 @@ interface SearchCategoryProps {
     getOption?: (value: string | undefined) => void;
     type?: string;
     getSortingByPrice?: any;
+    getTaskBySort?: any;
+    getTaskerBySort?: any;
+    placeholder?: string;
 }
 
 export const SearchCategory = ({
@@ -23,9 +26,11 @@ export const SearchCategory = ({
     getOption,
     type,
     getSortingByPrice,
+    getTaskBySort,
+    getTaskerBySort,
+    placeholder,
 }: SearchCategoryProps) => {
     const { data: allcategories } = useCategories();
-    // console.log("ser", allcategories);
 
     const categoriesValues = allcategories?.map((category: any) => {
         return {
@@ -34,7 +39,7 @@ export const SearchCategory = ({
         };
     });
 
-    console.log("catgeory", categoriesValues);
+    // console.log("catgeory", categoriesValues);
     const DUMMY_DATA = [
         {
             category: "Category",
@@ -51,8 +56,8 @@ export const SearchCategory = ({
             category: "Any price",
             value: "",
             nested: [
-                { name: "Low to High", value: "budget_from" },
-                { name: "High to Low", value: "-budget_from" },
+                { name: "Low to High", value: "budget_to" },
+                { name: "High to Low", value: "-budget_to" },
             ],
         },
         {
@@ -87,6 +92,7 @@ export const SearchCategory = ({
         },
         [activeIndex]
     );
+
     const useSearchServiceByPrice = (query: string) => {
         return useQuery(["all-service", query], () =>
             axiosClient
@@ -95,18 +101,76 @@ export const SearchCategory = ({
         );
     };
     const useSearchServiceByCategory = (query: string) => {
-        return useQuery(["all-service", query], () =>
-            axiosClient
-                .get<ServicesValueProps>(`/task/service/?category=${query}`)
-                .then((response) => getSortingByPrice(response.data.result))
+        return useQuery(
+            ["all-service", query],
+            () =>
+                axiosClient
+                    .get<ServicesValueProps>(`/task/service/?category=${query}`)
+                    .then((response) => {
+                        console.log("response", response.data.result);
+                        getSortingByPrice(response.data.result);
+                    }),
+            {
+                enabled: allcategories ? true : false,
+            }
         );
     };
+
+    const useSearchTaskByPrice = (query: string) => {
+        return useQuery(["all-Task", query], () =>
+            axiosClient
+                .get(`/task/?ordering=${query}`)
+                .then((response) => getTaskBySort(response.data.result))
+        );
+    };
+    const useSearchTaskByCategory = (query: string) => {
+        return useQuery(
+            ["all-Task", query],
+            () =>
+                axiosClient.get(`/task/?category=${query}`).then((response) => {
+                    getTaskBySort(response.data.result);
+                }),
+            {
+                enabled: allcategories ? true : false,
+            }
+        );
+    };
+    // const useSearchTaskerByPrice = (query: string) => {
+    //     return useQuery(["all-Tasker", query], () =>
+    //         axiosClient
+    //             .get(`/tasker/?ordering=${query}`)
+    //             .then((response) => getTaskerBySort(response.data.result))
+    //     );
+    // };
+    // const useSearchTaskerByCategory = (query: string) => {
+    //     return useQuery(
+    //         ["all-Tasker", query],
+    //         () =>
+    //             axiosClient
+    //                 .get(`/tasker/?category=${query}`)
+    //                 .then((response) => {
+    //                     getTaskerBySort(response.data.result);
+    //                 }),
+    //         {
+    //             enabled: allcategories ? true : false,
+    //         }
+    //     );
+    // };
+
+    const { data: searchTaskByPrice } = useSearchTaskByPrice(priceQuery);
+    const { data: searchTaskByCategory } =
+        useSearchTaskByCategory(categoryName);
 
     const { data: searchDataByPrice } = useSearchServiceByPrice(priceQuery);
     const { data: searchDataByCategory } =
         useSearchServiceByCategory(categoryName);
+
+    // const { data: searchTaskertByPrice } = useSearchTaskerByPrice(priceQuery);
+    // const { data: searchTaskerByCategory } =
+    //     useSearchTaskerByCategory(categoryName);
+
     // getSortingByPrice(searchDataByPrice);
-    console.log("abc", searchDataByCategory);
+    // console.log("abc", searchDataByCategory);
     const styles = (index: number) => {
         return {
             category: {
@@ -117,6 +181,7 @@ export const SearchCategory = ({
                 backgroundColor: checkedIndex(index) ? "#0693e3" : "#fff",
                 outline: "none",
                 boder: "1px solid #ced4da",
+                borderColor: "white",
             },
         };
     };
@@ -147,6 +212,8 @@ export const SearchCategory = ({
                         setPriceQuery(e.target.value);
                     }
                     if (data.category === "Category") {
+                        console.log("category", e.target.value);
+
                         setCategoryName(e.target.value);
                     }
                 }}
@@ -171,7 +238,7 @@ export const SearchCategory = ({
                     <InputGroup className="search-category--input-group">
                         <Form.Control
                             className="search-category--input"
-                            placeholder="Find your Services &amp; Merchants"
+                            placeholder={placeholder}
                             aria-label="Find your Services &amp; Merchants"
                             aria-describedby="basic-addon2"
                             onChange={debounce(
@@ -192,9 +259,15 @@ export const SearchCategory = ({
                     </InputGroup>
                 </Col>
                 <Col md={8}>
-                    <div className="d-flex categories-tab pl-2">
-                        {type !== "you may like" && renderCategory}
-                    </div>
+                    <ScrollArea
+                        offsetScrollbars
+                        scrollbarSize={5}
+                        className="mt-3 mt-md-0"
+                    >
+                        <div className="d-flex categories-tab py-3">
+                            {type !== "you may like" && renderCategory}
+                        </div>
+                    </ScrollArea>
                     {/* {renderCategory} */}
                 </Col>
             </Row>

@@ -1,13 +1,15 @@
 import { CustomDropZone } from "@components/common/CustomDropZone";
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
-import FullPageLoader from "@components/common/FullPageLoader";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
+import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
+import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
 import { useDocumentKYC } from "hooks/profile/kyc/use-Kyc-Document";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
+import { useRouter } from "next/router";
 import { Button, Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { KYCDocumentSchema } from "utils/formValidation/kycDocument";
@@ -22,9 +24,13 @@ export type KYCDocuments = {
     valid_through: Date | string;
 };
 
-export const IdentityDocument = () => {
-    const { data: KYCData, refetch } = useGetKYC();
+export const IdentityDocument = ({ getReadvalue }: { getReadvalue: any }) => {
+    const { data: KYCData } = useGetKYC();
     const { mutate, isLoading } = useDocumentKYC();
+    const { data: KycDocuments, refetch } = useGetKYCDocument();
+    const queryClient = new QueryClient();
+    const router = useRouter();
+
     // if (isLoading) return <FullPageLoader />;
 
     // if (!KYCData || isLoading) {
@@ -58,10 +64,10 @@ export const IdentityDocument = () => {
                 issuer_organization: "",
                 issued_date: "",
                 valid_through: "",
-                kyc: KYCData ? KYCData.id : "",
+                kyc: KYCData ? KYCData?.id : "",
             }}
             validationSchema={KYCDocumentSchema}
-            onSubmit={(val, action) => {
+            onSubmit={async (val, action) => {
                 const formData: FormData = new FormData();
 
                 const newValues = {
@@ -74,7 +80,7 @@ export const IdentityDocument = () => {
                         val.valid_through !== ""
                             ? format(new Date(val.valid_through), "yyyy-MM-dd")
                             : "",
-                    kyc: KYCData ? KYCData.id : "",
+                    kyc: KYCData?.id,
                 };
 
                 Object.entries(newValues).forEach((entry) => {
@@ -86,8 +92,11 @@ export const IdentityDocument = () => {
                 formData.append("file", val.file);
                 mutate(formData, {
                     onSuccess: () => {
+                        refetch();
+                        //queryClient.invalidateQueries(["KYC-document"]);
                         action.resetForm();
-                        toast.success("Document added successfully");
+                        toast.success("Your KYC is pending for approval");
+                        getReadvalue(true);
                     },
                     onError: (error) => {
                         toast.error(error.message);
@@ -169,14 +178,7 @@ export const IdentityDocument = () => {
                             name="file"
                             maxSize={200}
                             minSize={20}
-                            onDrop={
-                                (formData) =>
-                                    setFieldValue("file", formData.get("file"))
-                                // console.log(formData.get("file"))
-                            }
-                            label="Image"
-                            type={["image/jpg", "image/png", "image/jpeg"]}
-                            fileLabel="Image"
+                            onDrop={(files) => setFieldValue("file", files[0])}
                         />
                     </Col>
                     <hr />
@@ -187,10 +189,12 @@ export const IdentityDocument = () => {
                         >
                             Cancel
                         </Button>
+
                         <FormButton
+                            isLoading={isLoading ? true : false}
                             type="submit"
                             variant="primary"
-                            name="Submit"
+                            name={isLoading ? "Loading..." : "Submit"}
                             className="submit-btn"
                             isSubmitting={isSubmitting}
                             isSubmittingClass={isSubmittingClass(isSubmitting)}

@@ -1,4 +1,3 @@
-import FullPageLoader from "@components/common/FullPageLoader";
 import {
     useClearSearchedServices,
     useClearSearchQuery,
@@ -11,7 +10,6 @@ import { faClose } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Box, Highlight, Space } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { useData } from "hooks/use-data";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -23,7 +21,7 @@ import { axiosClient } from "utils/axiosClient";
 import ServiceAside from "./ServiceAside";
 
 export const useSearchService = (query: string) => {
-    return useQuery(["all-service", query], () =>
+    return useQuery(["all-services", query], () =>
         axiosClient
             .get<ServicesValueProps>(`/task/service/list?search=${query}`)
             .then((response) => response.data.result)
@@ -41,12 +39,7 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const checkSpecialOffer = useCheckSpecialOffer();
     // console.log(specialOfferDetails, checkSpecialOffer);
 
-    const { data, isLoading } = useData<ServicesValueProps>(
-        ["all-services"],
-        "/task/service/"
-    );
-
-    const { data: searchData = [] } = useSearchService(query);
+    const { data: searchData = [], isFetching } = useSearchService(query);
 
     const handleClearSearchResults = () => {
         clearSearchedServices();
@@ -59,54 +52,54 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
         setQuery(query);
     };
 
-    if (isLoading || !data) return <FullPageLoader />;
-
     const getSortByPrice = (services: any) => {
         setSortPriceServices(services);
     };
-    console.log("ser", sortPriceServices);
 
     return (
         <Layout title="Find Services | Cipher">
-            <Container fluid="xl">
-                <SearchCategory
-                    onChange={handleSearchChange}
-                    getSortingByPrice={getSortByPrice}
-                />
-                {searchQuery?.query && (
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                        }}
+            <section className="service-section mb-5" id="service-section">
+                <Container fluid="xl">
+                    <SearchCategory
+                        onChange={handleSearchChange}
+                        getSortingByPrice={getSortByPrice}
+                        placeholder="Find your Services &amp; Merchants"
+                    />
+                    {searchQuery?.query && (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Highlight highlight={searchQuery.query}>
+                                {`Showing search results for ${searchQuery.query}`}
+                            </Highlight>
+                            <ActionIcon onClick={handleClearSearchResults}>
+                                <FontAwesomeIcon icon={faClose} />
+                            </ActionIcon>
+                        </Box>
+                    )}
+                    <Space h={10} />
+                    <ServiceAside
+                        query={query}
+                        service={
+                            sortPriceServices.length > 0
+                                ? sortPriceServices
+                                : searchData
+                            // checkSpecialOffer
+                            //     ? specialOfferDetails
+                            //     : searchedServices.length > 0
+                            //     ? searchedServices
+                            //     : searchData
+                        }
+                        isLoading={isFetching}
                     >
-                        <Highlight highlight={searchQuery.query}>
-                            {`Showing search results for ${searchQuery.query}`}
-                        </Highlight>
-                        <ActionIcon onClick={handleClearSearchResults}>
-                            <FontAwesomeIcon icon={faClose} />
-                        </ActionIcon>
-                    </Box>
-                )}
-                <Space h={10} />
-                <ServiceAside
-                    query={query}
-                    service={
-                        sortPriceServices.length > 0
-                            ? sortPriceServices
-                            : searchData
-                        // checkSpecialOffer
-                        //     ? specialOfferDetails
-                        //     : searchedServices.length > 0
-                        //     ? searchedServices
-                        //     : searchData
-                    }
-                    isLoading={isLoading || !data}
-                >
-                    {children}
-                </ServiceAside>
-            </Container>
+                        {children}
+                    </ServiceAside>
+                </Container>
+            </section>
         </Layout>
     );
 };

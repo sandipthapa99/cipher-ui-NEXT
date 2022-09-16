@@ -8,7 +8,6 @@ import type { GetStaticProps } from "next";
 import Image from "next/image";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { careerCardValues } from "staticData/careerCardValues";
 import type { CareerValueProps } from "types/careerValuesProps";
 import { axiosClient } from "utils/axiosClient";
 

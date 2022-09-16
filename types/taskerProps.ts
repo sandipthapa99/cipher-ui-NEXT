@@ -1,13 +1,16 @@
 export interface TaskerProps {
     total_pages: number;
     count: number;
-    current: number;
     next: any;
     previous: any;
     page_size: number;
     result: {
         id: number;
-        charge_currency: string;
+        charge_currency: {
+            id: string;
+            name: string;
+            code: string;
+        };
         user: {
             id: string;
             email: string;
