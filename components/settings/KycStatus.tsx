@@ -48,9 +48,11 @@ export const KYCStatus = () => {
                         <p className="m-0 document-kyc">
                             {item?.document_type}
                         </p>
-                        <Badge color="green">
-                            <FontAwesomeIcon icon={faCircleCheck} />
-                        </Badge>
+                        {item?.is_verified && (
+                            <Badge color="green">
+                                <FontAwesomeIcon icon={faCircleCheck} />
+                            </Badge>
+                        )}
                     </div>
                 </Accordion.Control>
                 <Accordion.Panel>
@@ -200,7 +202,7 @@ export const KYCStatus = () => {
             <Row className="">
                 <h2 className="mt-5 title-kyc-status">KYC Documents</h2>
                 <Divider my="sm" size="xs" variant="dashed" className="mb-4" />
-                {!KycData && KycDocuments?.length === 0 ? (
+                {!KycData || KycDocuments?.length === 0 ? (
                     <Alert
                         icon={<FontAwesomeIcon icon={faCircleQuestion} />}
                         title=""

@@ -5,7 +5,6 @@ import ShareIcon from "@components/common/ShareIcon";
 import { HireMerchantModal } from "@components/Task/UserTaskDetail/atoms/HireMerchantModal";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useToggle } from "@mantine/hooks";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
@@ -14,6 +13,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { TaskerDetails } from "staticData/taskDetail";
+import { getPageUrl } from "utils/helpers";
 import { safeParse } from "utils/safeParse";
 
 import { UserStats } from "./UserStats";
@@ -30,7 +30,6 @@ export const UserTaskDetailHeader = ({
     const router = useRouter();
     const { data: user } = useUser();
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
-    const [showMenu, toggleShowMenu] = useToggle([false, true]);
 
     const userType = safeParse({
         rawString: taskerDetail?.user_type,
@@ -50,27 +49,38 @@ export const UserTaskDetailHeader = ({
             />
             <Row style={{ maxWidth: maxHeaderWidth ?? undefined }}>
                 <Col md={8} className="d-flex">
-                    <div className="td-user-image-container">
-                        <Image
-                            src={
-                                taskerDetail?.profile_image ??
-                                "/userprofile/unknownPerson.jpg"
-                            }
-                            width={148}
-                            height={148}
-                            objectFit="cover"
-                            alt={"profile"}
-                            className="rounded-circle"
-                        />
-                        {taskerDetail?.is_profile_verified && (
-                            <FontAwesomeIcon
-                                size="6x"
-                                color="#3EAEFF"
-                                className="svg-icon td-user-image-container__badge"
-                                icon={faBadgeCheck}
+                    {taskerDetail?.profile_image && (
+                        <div className="td-user-image-container">
+                            <Image
+                                src={taskerDetail?.profile_image}
+                                width={148}
+                                height={148}
+                                objectFit="cover"
+                                alt={"profile"}
+                                className="rounded-circle"
                             />
-                        )}
-                    </div>
+                            {taskerDetail?.is_profile_verified && (
+                                <FontAwesomeIcon
+                                    size="6x"
+                                    color="#3EAEFF"
+                                    className="svg-icon td-user-image-container__badge"
+                                    icon={faBadgeCheck}
+                                />
+                            )}
+                        </div>
+                    )}
+                    {!taskerDetail?.profile_image ||
+                        (taskerDetail?.profile_image?.length <= 0 && (
+                            <div className="td-user-image-container">
+                                <Image
+                                    src={"/placeholder/profilePlaceholder.png"}
+                                    alt="team-member-card-image"
+                                    height={80}
+                                    width={80}
+                                />
+                            </div>
+                        ))}
+
                     <div>
                         <h4
                             className="td-user-name"
@@ -110,7 +120,7 @@ export const UserTaskDetailHeader = ({
                             }
                         />
                         <ShareIcon
-                            url={`http://localhost:3005/tasker?taskerId=${taskerDetail?.user?.id}`}
+                            url={getPageUrl()}
                             quote={"Tasker from cipher project"}
                             hashtag={"cipher-tasker"}
                         />

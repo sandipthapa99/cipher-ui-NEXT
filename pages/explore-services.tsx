@@ -18,6 +18,10 @@ const ExploreServices: NextPage = () => {
         ["all-services"],
         "/task/service/"
     );
+    console.log(
+        "🚀 ~ file: explore-services.tsx ~ line 18 ~ servicesData",
+        servicesData
+    );
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -29,6 +33,7 @@ const ExploreServices: NextPage = () => {
             prevChips.filter((currentChip) => chip !== currentChip)
         );
     };
+
     return (
         <Layout title="Explore Services | Cipher">
             <Container fluid="xl" className="px-0 px-sm-5">

@@ -54,3 +54,7 @@ export const setCaptchaRef = (ref: any) => {
 export const resetCaptcha = () => {
     captcha.reset();
 };
+
+export const getPageUrl = () => {
+    return typeof window != "undefined" ? window.location.href : "";
+};

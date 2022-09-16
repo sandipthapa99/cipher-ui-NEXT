@@ -18,7 +18,7 @@ const HireInNepal: NextPage = () => {
                 <section className="hire-in-nepal">
                     <BreadCrumb currentPage="Hire in Nepal" />
 
-                    <div className="hire-in-nepal__top-container">
+                    <div className="__top-container">
                         {hireInNepalBrowseTalent &&
                             hireInNepalBrowseTalent.map((info) => (
                                 <LongSquareImageCard

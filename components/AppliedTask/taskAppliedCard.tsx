@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { ITask } from "types/task";
+import { getPageUrl } from "utils/helpers";
 // import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
 
@@ -107,7 +108,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
             </Link>
             <div className="task-applied-card-block__footer d-flex mt-4">
                 <ShareIcon
-                    url={`http://localhost:3005/task/${taskId}`}
+                    url={getPageUrl()}
                     quote="Please Share this task for all"
                     hashtag="cipher-task"
                 />

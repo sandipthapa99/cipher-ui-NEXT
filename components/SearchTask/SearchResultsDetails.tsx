@@ -35,6 +35,7 @@ import { useSetBookNowDetails } from "store/use-book-now";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
+import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
 
@@ -51,6 +52,7 @@ const SearchResultsDetail = ({
     serviceId,
     serviceCreated,
     serviceViews,
+    ProfileImage,
     currency,
     service,
 }: ServiceNearYouCardProps) => {
@@ -148,6 +150,8 @@ const SearchResultsDetail = ({
 
     const isServiceBookmarked = useIsBookmarked("service", serviceId);
 
+    console.log("is service bookmarked", isServiceBookmarked);
+
     // check if current logged in user is the owner of the current service
     const isCurrentUserService = () => {
         const service = servicesData?.data.result.find(
@@ -198,7 +202,7 @@ const SearchResultsDetail = ({
                         </div>
                         <div className="d-flex flex-col align-items-center mx-5">
                             <ShareIcon
-                                url={`http://localhost:3005/search/${slug}`}
+                                url={getPageUrl()}
                                 quote={"Service from Cipher Project"}
                                 hashtag={"cipher-services"}
                             />
@@ -213,7 +217,37 @@ const SearchResultsDetail = ({
             </Row>
             <Row>
                 <Col md={12} lg={7}>
-                    {(taskVideosAndImages ?? []).length > 0 ? (
+                    {(taskVideosAndImages ?? []).length === 1 &&
+                        taskVideosAndImages.map((file) => (
+                            <>
+                                {isImage(file.media_type) ? (
+                                    <figure className="thumbnail-img">
+                                        <Image
+                                            src={file.media}
+                                            alt={file.name}
+                                            layout="fill"
+                                            placeholder="blur"
+                                            blurDataURL="/service-details/Garden.svg"
+                                        />
+                                    </figure>
+                                ) : isVideo(file.media_type) ? (
+                                    <video
+                                        className="thumbnail-img"
+                                        width="100%"
+                                        height="100%"
+                                        controls
+                                    >
+                                        <source
+                                            id={`task-video-${file.id}`}
+                                            src={file.media}
+                                        />
+                                        Your browser does not support playing
+                                        videos.
+                                    </video>
+                                ) : null}
+                            </>
+                        ))}
+                    {(taskVideosAndImages ?? []).length > 1 ? (
                         <Carousel
                             withIndicators={hasMultipleVideosOrImages}
                             withControls={hasMultipleVideosOrImages}
@@ -255,13 +289,14 @@ const SearchResultsDetail = ({
                                 </Carousel.Slide>
                             ))}
                         </Carousel>
-                    ) : (
+                    ) : null}
+                    {(taskVideosAndImages ?? []).length <= 0 && (
                         <figure className="thumbnail-img">
                             <Image
-                                src="/service-details/Garden.svg"
+                                src={"/placeholder/taskPlaceholder.png"}
                                 layout="fill"
-                                objectFit="cover"
-                                alt="garden-image"
+                                objectFit="contain"
+                                alt="servicecard-image"
                             />
                         </figure>
                     )}
@@ -269,21 +304,20 @@ const SearchResultsDetail = ({
                 <Col md={12} lg={5} className="d-flex">
                     <div className="simple-card my-5 my-lg-0 ">
                         <div className="d-flex align-items-center simple-card__profile">
-                            {/* TO BE IMPLEMENTED */}
-                            {/* {image && (
-                                    <figure className="thumbnail-img">
-                                        <Image
-                                            src={
-                                                image
-                                                    ? image
-                                                    : "/service-details/garden-cleaning.png"
-                                            }
-                                            layout="fill"
-                                            objectFit="cover"
-                                            alt="serviceprovider-image"
-                                        />
-                                    </figure>
-                                )} */}
+                            {ProfileImage && (
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src={
+                                            ProfileImage
+                                                ? ProfileImage
+                                                : "/placeholder/profilePlaceholder.png"
+                                        }
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="serviceprovider-image"
+                                    />
+                                </figure>
+                            )}
                             <div className="intro">
                                 <p className="name">{serviceProvider}</p>
                                 <p className="job">{serviceTitle}</p>

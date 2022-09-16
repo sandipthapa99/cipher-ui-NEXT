@@ -13,6 +13,7 @@ import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
+import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faAngleRight,
     faArrowLeft,
@@ -22,14 +23,19 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Highlight } from "@mantine/core";
+import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Marquee from "react-fast-marquee";
+import { toast } from "react-toastify";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
+import { useWithLogin } from "store/use-login-prompt-store";
+import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
 import type { CategoryDataProps } from "types/categoryData";
@@ -60,8 +66,25 @@ const Home: NextPage<{
     servicesData,
 }) => {
     const [isClient, setIsClient] = useState(false);
+    const loginPopup = useWithLogin();
 
-    //for tasks
+    const toggleShowPostTaskModal = useToggleShowPostTaskModal();
+    const { data: profile } = useGetProfile();
+    const { data: userData } = useUser();
+
+    const handleShowPostTaskModal = () => {
+        if (!userData) {
+            loginPopup;
+        }
+        if (!profile) {
+            toast.error(<ProfileNotCompleteToast />, {
+                icon: false,
+                autoClose: false,
+            });
+            return;
+        }
+        toggleShowPostTaskModal();
+    };
 
     useEffect(() => setIsClient(true), []);
     if (!isClient) return null;
@@ -97,19 +120,25 @@ const Home: NextPage<{
                                             Earn Money as a Professional
                                         </a>
                                     </Link>
-                                    <Link href="/post-task">
-                                        <a className="hero-cta">Post a Task</a>
-                                    </Link>
+
+                                    <a
+                                        className="hero-cta"
+                                        onClick={() =>
+                                            handleShowPostTaskModal()
+                                        }
+                                    >
+                                        Post a Task
+                                    </a>
                                 </div>
                             </div>
                         </Col>
                         <Col md="6" className="right">
                             <figure className="new-img">
                                 <Image
-                                    src="/hero-img.svg"
+                                    src="/heroImages/hero2.png"
                                     alt="hero-img"
-                                    height={600}
-                                    width={600}
+                                    height={700}
+                                    width={700}
                                     // objectFit="contain"
                                 />
                             </figure>
@@ -222,10 +251,10 @@ const Home: NextPage<{
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                        {servicesData && servicesData?.result.length > 0 && (
+                        {servicesData && servicesData?.result?.length > 0 && (
                             <>
                                 <h2 className="heading-title">
-                                    Popular Verified Services
+                                    Trending Verified Services
                                 </h2>
                                 <Link href="/service">
                                     <a className="view-more">
@@ -568,8 +597,7 @@ const Home: NextPage<{
                                                     merchant?.bio
                                                 }
                                                 merchantRating={
-                                                    merchant?.stats
-                                                        ?.user_reviews
+                                                    merchant?.rating?.avg_rating
                                                 }
                                                 merchantPrice={
                                                     merchant?.hourly_rate
@@ -657,12 +685,12 @@ const Home: NextPage<{
             >
                 <Container fluid="xl" className="px-5">
                     <div className="success-sroties-header">
-                        <h1 className="text-center">
+                        {/* <h1 className="text-center">
                             3003,0330 Taskers have earned an income on Cipher
-                        </h1>
-                        <h3 className="text-center">Some Success Stories</h3>
+                        </h1> */}
+                        <h3 className="text-center">CIPHER Stories</h3>
                     </div>
-                    {topCategoryData.length <= 0 && (
+                    {topCategoryData?.length <= 0 && (
                         <Alert
                             icon={<FontAwesomeIcon icon={faWarning} />}
                             title="No data Available!"
@@ -718,7 +746,7 @@ const Home: NextPage<{
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
                 <Container fluid="xl" className="px-5">
-                    {blogData && blogData.result.length > 0 && (
+                    {blogData && blogData?.result?.length > 0 && (
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                             <h2 className="heading-title">Our blogs</h2>
                             <Link href="/blogs">
@@ -836,7 +864,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">Top Categories</h1>
                     <h2 className="section-sub-title">
-                        See some of our top categories
+                        See some of our top categories in your area
                     </h2>
                     {/* <TopCategories /> */}
                     {topCategoryData?.length <= 0 && (
@@ -875,6 +903,7 @@ const Home: NextPage<{
         </Layout>
     );
 };
+
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -899,6 +928,7 @@ export const getStaticProps: GetStaticProps = async () => {
         );
         const { data: blogData } = await axiosClient.get("/blog/");
         const { data: servicesData } = await axiosClient.get("/task/service/");
+
         return {
             props: {
                 successStoryData,

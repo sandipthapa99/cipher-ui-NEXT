@@ -111,6 +111,8 @@ export const WeeklyRasifal = () => {
                             title={item.title}
                             image={item.image}
                             description={item?.description}
+                            showLimited={false}
+                            slider={false}
                         />
                     </Col>
                 ))}
