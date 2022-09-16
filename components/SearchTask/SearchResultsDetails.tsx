@@ -35,6 +35,7 @@ import { useSetBookNowDetails } from "store/use-book-now";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
+import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
 
@@ -201,7 +202,7 @@ const SearchResultsDetail = ({
                         </div>
                         <div className="d-flex flex-col align-items-center mx-5">
                             <ShareIcon
-                                url={`http://localhost:3005/search/${slug}`}
+                                url={getPageUrl()}
                                 quote={"Service from Cipher Project"}
                                 hashtag={"cipher-services"}
                             />

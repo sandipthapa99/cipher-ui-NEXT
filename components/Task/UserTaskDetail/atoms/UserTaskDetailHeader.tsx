@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { TaskerDetails } from "staticData/taskDetail";
+import { getPageUrl } from "utils/helpers";
 import { safeParse } from "utils/safeParse";
 
 import { UserStats } from "./UserStats";
@@ -119,7 +120,7 @@ export const UserTaskDetailHeader = ({
                             }
                         />
                         <ShareIcon
-                            url={`http://localhost:3005/tasker?taskerId=${taskerDetail?.user?.id}`}
+                            url={getPageUrl()}
                             quote={"Tasker from cipher project"}
                             hashtag={"cipher-tasker"}
                         />
