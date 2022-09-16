@@ -51,13 +51,24 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         src={
                             task?.assigner?.profile_image
                                 ? task?.assigner?.profile_image
-                                : "/userprofile/unknownPerson.jpg"
+                                : "/placeholder/profilePlaceholder.png"
                         }
                         layout="fill"
                         objectFit="cover"
                         alt="serviceprovider-image"
                     />
                 </figure>
+                {!task?.assigner?.profile_image ||
+                    (task?.assigner?.profile_image.length <= 0 && (
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={"/placeholder/profilePlaceholder.png"}
+                                layout="fill"
+                                objectFit="cover"
+                                alt="serviceprovider-image"
+                            />
+                        </figure>
+                    ))}
 
                 <div className="intro">
                     <p className="name">{task?.assigner?.full_name}</p>

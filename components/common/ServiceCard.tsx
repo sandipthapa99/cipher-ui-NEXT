@@ -4,10 +4,12 @@ import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useIsBookmarked } from "hooks/use-bookmarks";
+import parse from "html-react-parser";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+// import { parse } from "path";
 import { useState } from "react";
 import type { ServicesValueProps } from "types/serviceCard";
 
@@ -42,7 +44,7 @@ const ServiceCard = ({
         }
     };
     const queryClient = useQueryClient();
-    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.id);
+    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.slug);
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
@@ -55,16 +57,22 @@ const ServiceCard = ({
                         serviceCard.images.length > 0 ? (
                             <figure className="thumbnail-img">
                                 <Image
-                                    src={
-                                        serviceCard.images[0].media ??
-                                        "/service-details/garden-cleaning.png"
-                                    }
+                                    src={serviceCard.images[0].media}
                                     layout="fill"
                                     objectFit="cover"
                                     alt="servicecard-image"
                                 />
                             </figure>
-                        ) : null}
+                        ) : (
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src={"/service-details/garden-cleaning.png"}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="servicecard-image"
+                                />
+                            </figure>
+                        )}
 
                         {serviceCard?.is_online && (
                             <div className="offer">
@@ -115,7 +123,7 @@ const ServiceCard = ({
                                 hideLabel={"..."}
                                 showLabel={"..."}
                             >
-                                <p>{serviceCard?.description}</p>
+                                <p>{parse(serviceCard?.description)}</p>
                             </Spoiler>
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">

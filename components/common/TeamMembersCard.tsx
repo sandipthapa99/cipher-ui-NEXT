@@ -64,14 +64,30 @@ export const TeamMembersCard = ({
             <Link href={`/tasker/${tasker}/`}>
                 <a>
                     <div className="d-flex w-100 image-and-title">
-                        <figure className="team-member-card-image">
-                            <Image
-                                src={image ?? "/userprofile/unknownPerson.jpg"}
-                                alt="team-member-card-image"
-                                height={80}
-                                width={80}
-                            />
-                        </figure>
+                        {image && (
+                            <figure className="team-member-card-image">
+                                <Image
+                                    src={image}
+                                    alt="team-member-card-image"
+                                    height={80}
+                                    width={80}
+                                />
+                            </figure>
+                        )}
+                        {!image ||
+                            (image.length <= 0 && (
+                                <figure className="team-member-card-image">
+                                    <Image
+                                        src={
+                                            "/placeholder/profilePlaceholder.png"
+                                        }
+                                        alt="team-member-card-image"
+                                        height={80}
+                                        width={80}
+                                    />
+                                </figure>
+                            ))}
+
                         <div className="w-100 name-post-count">
                             <div className="d-flex justify-content-between title-and-dots text-dark">
                                 <h5>{name}</h5>

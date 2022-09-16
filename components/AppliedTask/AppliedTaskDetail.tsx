@@ -228,6 +228,16 @@ const AppliedTaskDetail = ({
                                 ))}
                             </Carousel>
                         ) : null}
+                        {(taskVideosAndImages ?? []).length <= 0 && (
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src={"/placeholder/taskPlaceholder.png"}
+                                    layout="fill"
+                                    objectFit="contain"
+                                    alt="servicecard-image"
+                                />
+                            </figure>
+                        )}
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         {taskDetail && (

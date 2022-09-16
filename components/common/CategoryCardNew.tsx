@@ -1,7 +1,4 @@
-import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import parse from "html-react-parser";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import type { CategoryCardProps } from "types/categoryCard";
 

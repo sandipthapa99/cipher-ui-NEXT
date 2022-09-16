@@ -111,6 +111,8 @@ export const YearlyRasifal = () => {
                             title={item.title}
                             image={item.image}
                             description={item?.description}
+                            showLimited={true}
+                            slider={false}
                         />
                     </Col>
                 ))}
