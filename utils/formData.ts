@@ -290,10 +290,9 @@ export const ServicePostData: ServicePostProps = {
 };
 
 export const BankFormData: BankDetailProps = {
-    name: "NIC ASIA",
-    address: "KTM",
-    account_name: "",
-    account_number: "",
-    swift_code: "",
-    primary_bank: false,
+    bank_account_name: "",
+    address: "",
+    branch_name: "",
+    bank_account_number: "",
+    is_primary: false,
 };
