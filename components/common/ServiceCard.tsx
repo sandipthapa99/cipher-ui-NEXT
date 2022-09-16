@@ -56,16 +56,22 @@ const ServiceCard = ({
                         serviceCard.images.length > 0 ? (
                             <figure className="thumbnail-img">
                                 <Image
-                                    src={
-                                        serviceCard.images[0].media ??
-                                        "/service-details/garden-cleaning.png"
-                                    }
+                                    src={serviceCard.images[0].media}
                                     layout="fill"
                                     objectFit="cover"
                                     alt="servicecard-image"
                                 />
                             </figure>
-                        ) : null}
+                        ) : (
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src={"/placeholder/taskPlaceholder.png"}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="servicecard-image"
+                                />
+                            </figure>
+                        )}
 
                         {serviceCard?.is_online && (
                             <div className="offer">

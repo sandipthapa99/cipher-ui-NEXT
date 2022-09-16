@@ -59,29 +59,26 @@ const ServiceNearYouCard = ({
         >
             <Row>
                 <Col md={5}>
-                    {image && Array.isArray(image) ? (
+                    {image && (
                         <figure className="thumbnail-img">
                             <Image
                                 src={
-                                    image
-                                        ? image[0].media
-                                        : "/service-details/garden-cleaning.png"
+                                    typeof image === "string"
+                                        ? image
+                                        : image[0].media
                                 }
                                 layout="fill"
                                 objectFit="cover"
                                 alt="servicecard-image"
                             />
                         </figure>
-                    ) : (
+                    )}
+                    {!image && (
                         <figure className="thumbnail-img">
                             <Image
-                                src={
-                                    image
-                                        ? image
-                                        : "/service-details/garden-cleaning.png"
-                                }
+                                src={"/placeholder/taskPlaceholder.png"}
                                 layout="fill"
-                                objectFit="cover"
+                                objectFit="contain"
                                 alt="servicecard-image"
                             />
                         </figure>

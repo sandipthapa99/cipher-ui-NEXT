@@ -287,7 +287,16 @@ const SearchResultsDetail = ({
                             ))}
                         </Carousel>
                     ) : null}
-                    {(taskVideosAndImages ?? []).length <= 0 && "SDSD"}
+                    {(taskVideosAndImages ?? []).length <= 0 && (
+                        <figure className="thumbnail-img">
+                            <Image
+                                src={"/placeholder/taskPlaceholder.png"}
+                                layout="fill"
+                                objectFit="contain"
+                                alt="servicecard-image"
+                            />
+                        </figure>
+                    )}
                 </Col>
                 <Col md={12} lg={5} className="d-flex">
                     <div className="simple-card my-5 my-lg-0 ">
@@ -298,7 +307,7 @@ const SearchResultsDetail = ({
                                         src={
                                             ProfileImage
                                                 ? ProfileImage
-                                                : "/service-details/garden-cleaning.png"
+                                                : "/placeholder/profilePlaceholder.png"
                                         }
                                         layout="fill"
                                         objectFit="cover"
