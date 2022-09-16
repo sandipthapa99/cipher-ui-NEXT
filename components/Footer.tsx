@@ -9,6 +9,7 @@ import { faArrowRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
@@ -20,6 +21,8 @@ import { emailValidationSchema } from "utils/formValidation/emailValidation";
 import InputField from "./common/InputField";
 
 const Footer = () => {
+    const { data: userData } = useUser();
+
     const emailSubsMutation = useMutation((data: NewsletterDataTypes) =>
         axiosClient.post("/support/newsletter/subscribe/", data)
     );
@@ -130,7 +133,7 @@ const Footer = () => {
                                         </li>
                                         <li>
                                             <Link href="/feedback">
-                                                <a>Feedback</a>
+                                                <a>Complaints/Feedback</a>
                                             </Link>
                                         </li>
                                     </ul>
@@ -168,11 +171,6 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/account/individual">
-                                                <a>CIPHER KYC</a>
-                                            </Link>
-                                        </li>
-                                        <li>
                                             <Link href="/blogs">
                                                 <a>Blog</a>
                                             </Link>
@@ -196,6 +194,18 @@ const Footer = () => {
                                                 as="social-responsibilities"
                                             >
                                                 <a>Social Responsibilities</a>
+                                            </Link>
+                                        </li>
+
+                                        <li>
+                                            <Link
+                                                href={
+                                                    userData
+                                                        ? "/settings/account/individual"
+                                                        : "/login"
+                                                }
+                                            >
+                                                <a>CIPHER KYC</a>
                                             </Link>
                                         </li>
                                     </ul>

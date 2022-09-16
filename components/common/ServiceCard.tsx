@@ -45,11 +45,7 @@ const ServiceCard = ({
     };
     const queryClient = useQueryClient();
     const isServiceBookmarked = useIsBookmarked("service", serviceCard?.slug);
-    console.log(
-        "🚀 ~ file: ServiceCard.tsx ~ line 48 ~ isServiceBookmarked",
-        isServiceBookmarked,
-        serviceCard?.slug
-    );
+
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
         <div className="service-card-block align-items-stretch">
@@ -61,16 +57,22 @@ const ServiceCard = ({
                         serviceCard.images.length > 0 ? (
                             <figure className="thumbnail-img">
                                 <Image
-                                    src={
-                                        serviceCard.images[0].media ??
-                                        "/service-details/garden-cleaning.png"
-                                    }
+                                    src={serviceCard.images[0].media}
                                     layout="fill"
                                     objectFit="cover"
                                     alt="servicecard-image"
                                 />
                             </figure>
-                        ) : null}
+                        ) : (
+                            <figure className="thumbnail-img">
+                                <Image
+                                    src={"/service-details/garden-cleaning.png"}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    alt="servicecard-image"
+                                />
+                            </figure>
+                        )}
 
                         {serviceCard?.is_online && (
                             <div className="offer">
