@@ -205,7 +205,7 @@ export function UpperHeader() {
         </>
     );
 }
-const ProfileNotCompleteToast = () => {
+export const ProfileNotCompleteToast = () => {
     const router = useRouter();
     return (
         <Stack>

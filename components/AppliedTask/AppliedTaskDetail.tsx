@@ -27,10 +27,11 @@ import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import type { ITask, TaskApplicantsProps } from "types/task";
+import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
 import { safeParse } from "utils/safeParse";
@@ -47,6 +48,7 @@ const AppliedTaskDetail = ({
     taskDetail: ITask;
     taskApplicants: TaskApplicantsProps;
 }) => {
+    // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
     const queryClient = useQueryClient();
     const { data: user } = useUser();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
@@ -80,6 +82,7 @@ const AppliedTaskDetail = ({
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
+
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
@@ -111,7 +114,7 @@ const AppliedTaskDetail = ({
                             />
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
-                                    url={`http://localhost:3005/task/${slug}`}
+                                    url={getPageUrl()}
                                     quote={"This is the task from cipher"}
                                     hashtag={"cipher-task"}
                                 />
@@ -152,7 +155,37 @@ const AppliedTaskDetail = ({
                 </Row>
                 <Row>
                     <Col md={12} lg={7}>
-                        {(taskVideosAndImages ?? []).length > 0 ? (
+                        {(taskVideosAndImages ?? []).length === 1 &&
+                            taskVideosAndImages.map((file, key) => (
+                                <Fragment key={key}>
+                                    {isImage(file.media_type) ? (
+                                        <figure className="thumbnail-img">
+                                            <Image
+                                                src={file.media}
+                                                alt={file.placeholder}
+                                                layout="fill"
+                                                placeholder="blur"
+                                                blurDataURL="/service-details/Garden.svg"
+                                            />
+                                        </figure>
+                                    ) : isVideo(file.media_type) ? (
+                                        <video
+                                            className="thumbnail-img"
+                                            width="100%"
+                                            height="100%"
+                                            controls
+                                        >
+                                            <source
+                                                id={`task-video-${file.id}`}
+                                                src={file.media}
+                                            />
+                                            Your browser does not support
+                                            playing videos.
+                                        </video>
+                                    ) : null}
+                                </Fragment>
+                            ))}
+                        {(taskVideosAndImages ?? []).length > 1 ? (
                             <Carousel
                                 withIndicators={hasMultipleVideosOrImages}
                                 withControls={hasMultipleVideosOrImages}
@@ -174,6 +207,8 @@ const AppliedTaskDetail = ({
                                                     src={file.media}
                                                     alt={file.placeholder}
                                                     layout="fill"
+                                                    placeholder="blur"
+                                                    blurDataURL="/service-details/Garden.svg"
                                                 />
                                             </figure>
                                         ) : isVideo(file.media_type) ? (
@@ -194,13 +229,14 @@ const AppliedTaskDetail = ({
                                     </Carousel.Slide>
                                 ))}
                             </Carousel>
-                        ) : (
+                        ) : null}
+                        {(taskVideosAndImages ?? []).length <= 0 && (
                             <figure className="thumbnail-img">
                                 <Image
-                                    src="/service-details/Garden.svg"
+                                    src={"/placeholder/taskPlaceholder.png"}
                                     layout="fill"
-                                    objectFit="cover"
-                                    alt="garden-image"
+                                    objectFit="contain"
+                                    alt="servicecard-image"
                                 />
                             </figure>
                         )}

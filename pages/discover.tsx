@@ -115,8 +115,7 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
                                                     merchant?.bio
                                                 }
                                                 merchantRating={
-                                                    merchant?.stats
-                                                        ?.user_reviews
+                                                    merchant?.rating?.avg_rating
                                                 }
                                                 merchantPrice={
                                                     merchant?.hourly_rate
