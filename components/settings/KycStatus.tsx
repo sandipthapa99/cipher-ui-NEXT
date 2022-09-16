@@ -1,3 +1,4 @@
+import BigButton from "@components/common/Button";
 import {
     faCircleCheck,
     faCircleQuestion,
@@ -9,11 +10,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Accordion, Alert, Badge, Container, Divider } from "@mantine/core";
 import { format } from "date-fns";
+import { useGetKYCDocument } from "hooks/profile/kyc/use-get-kyc-document";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 
 interface KYCDocumentType {
     id: number;
@@ -33,19 +35,19 @@ interface KYCDocumentType {
 export const KYCStatus = () => {
     const { data: profileDetails } = useGetProfile();
     const { data: KycData } = useGetKYC();
-    const { data: KycDocuments } = useData<KYCDocumentType[]>(
-        ["tasker-document"],
-        "/tasker/kyc-document"
-    );
-    console.log("KycDocuments", KycDocuments);
-    console.log("KycData", KycData);
-    const renderDocuments = KycDocuments?.data?.map((item, index: number) => {
+    const { data: KycDocuments } = useGetKYCDocument();
+
+    // console.log("KycDocuments", KycDocuments);
+    // console.log("KycData", KycData);
+    const renderDocuments = KycDocuments?.map((item, index: number) => {
         return (
             <Accordion.Item key={index} value={item?.document_id}>
                 <Accordion.Control className="mt-1 p-3">
                     <div className="d-flex align-items-center gap-3 folder-text-accordian">
                         <FontAwesomeIcon icon={faFolder} />
-                        <p className="m-0 document-kyc">Documents</p>
+                        <p className="m-0 document-kyc">
+                            {item?.document_type}
+                        </p>
                         <Badge color="green">
                             <FontAwesomeIcon icon={faCircleCheck} />
                         </Badge>
@@ -73,12 +75,14 @@ export const KYCStatus = () => {
                                 {item.issued_date}
                             </p>
                         </Col>
-                        <Col className="Kyc-documnet-verify" md={3}>
-                            <p className="m-0 document-text">Expiry Date</p>
-                            <p className="m-0 document-text-value">
-                                {item.valid_through}
-                            </p>
-                        </Col>
+                        {item.valid_through !== null && (
+                            <Col className="Kyc-documnet-verify" md={3}>
+                                <p className="m-0 document-text">Expiry Date</p>
+                                <p className="m-0 document-text-value">
+                                    {item.valid_through}
+                                </p>
+                            </Col>
+                        )}
                     </Row>
                     <Row className="mt-3">
                         <Col className="Kyc-documnet-verify" md={3}>
@@ -101,7 +105,7 @@ export const KYCStatus = () => {
         <Container fluid className="bg-white mt-5 container-kyc-status">
             <Row>
                 <h3 className="mt-5 title-kyc-status">KYC Form</h3>
-                <Col md={9} className="d-flex gap-4 photo-text-col ">
+                <Col md={8} className="d-flex gap-4 photo-text-col ">
                     <Image
                         src={
                             profileDetails
@@ -135,12 +139,14 @@ export const KYCStatus = () => {
                                 className="font-icon-kyc"
                             />
                             <p className="m-0 body-kyc">
-                                {profileDetails?.user?.phone}
+                                {profileDetails?.user.phone
+                                    ? profileDetails?.user.phone
+                                    : "Add a Phone Number"}
                             </p>
                         </div>
                     </div>
                 </Col>
-                <Col md={3} className="location-text-kyc">
+                <Col md={4} className="location-text-kyc">
                     <div className="d-flex align-items-center gap-2">
                         <FontAwesomeIcon
                             icon={faLocationDot}
@@ -150,13 +156,21 @@ export const KYCStatus = () => {
                     </div>
                     <p className="m-0 body-kyc">
                         <span className="body-kyc-span">Submitted On: </span>{" "}
-                        {/* {format(new Date(), "yyyy-MM-dd")} */}
-                        2022-20-20
+                        {KycData
+                            ? format(
+                                  new Date(KycData?.created_at),
+                                  "do MMM yyyy"
+                              )
+                            : ""}
                     </p>
                     <p className="m-0 body-kyc">
                         <span className="body-kyc-span">Updated On: </span>{" "}
-                        {/* {format(new Date(), "yyyy-MM-dd")} */}
-                        2022-20-20
+                        {KycData
+                            ? format(
+                                  new Date(KycData?.updated_at),
+                                  "do MMM yyyy"
+                              )
+                            : ""}
                     </p>
                 </Col>
             </Row>
@@ -186,7 +200,7 @@ export const KYCStatus = () => {
             <Row className="">
                 <h2 className="mt-5 title-kyc-status">KYC Documents</h2>
                 <Divider my="sm" size="xs" variant="dashed" className="mb-4" />
-                {!KycData && KycDocuments?.data?.length === 0 ? (
+                {!KycData && KycDocuments?.length === 0 ? (
                     <Alert
                         icon={<FontAwesomeIcon icon={faCircleQuestion} />}
                         title=""
@@ -200,6 +214,12 @@ export const KYCStatus = () => {
                     </Accordion>
                 )}
             </Row>
+
+            {/* <BigButton
+                className="close-btn btn p-2 mt-4 h-25 text-white"
+                btnTitle="Edit KYC"
+                backgroundColor="#211D4F"
+            /> */}
         </Container>
     );
 };

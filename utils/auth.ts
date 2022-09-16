@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import localforage from "localforage";
 
 /**
  * @description Stores token received after login into axiosclient and browser cookie
@@ -15,4 +16,5 @@ export const autoLogin = (access: string, refresh: string) => {
 export const autoLogout = () => {
     Cookies.remove("access");
     Cookies.remove("refresh");
+    localforage.removeItem("fcm_token");
 };
