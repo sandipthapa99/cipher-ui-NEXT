@@ -7,4 +7,5 @@ export interface FormButtonProps {
     icon?: any;
     redirectionLink?: string;
     handleClick?: () => void;
+    isLoading?: boolean;
 }

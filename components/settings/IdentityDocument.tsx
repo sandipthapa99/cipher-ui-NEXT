@@ -191,6 +191,7 @@ export const IdentityDocument = ({ getReadvalue }: { getReadvalue: any }) => {
                         </Button>
 
                         <FormButton
+                            isLoading={isLoading ? true : false}
                             type="submit"
                             variant="primary"
                             name={isLoading ? "Loading..." : "Submit"}
