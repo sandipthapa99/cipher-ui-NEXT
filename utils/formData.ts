@@ -72,7 +72,7 @@ interface filterReviewProps {
 }
 //review
 export const reviewSearchData: filterReviewProps = {
-    search_value: "-latest",
+    search_value: "",
 };
 
 export const AddPortfolioFormData: AddPortfolioProps = {
