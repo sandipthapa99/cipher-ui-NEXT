@@ -1,11 +1,18 @@
+import { faLocation } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Box, createStyles, Text } from "@mantine/core";
 import type { GoogleMapProps } from "@react-google-maps/api";
+import { OverlayView } from "@react-google-maps/api";
 import {
     GoogleMap as ReactGoogleMap,
-    Marker,
     useJsApiLoader,
 } from "@react-google-maps/api";
 import { useLatLng } from "hooks/location/useLocation";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
+
+type LatLngLiteral = google.maps.LatLngLiteral;
+type GoogleMapOptions = google.maps.MapOptions;
+type Map = google.maps.Map;
 
 const getGoogleMapsApiKey = () => {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
@@ -14,36 +21,60 @@ const getGoogleMapsApiKey = () => {
 };
 
 const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
+    const { classes } = useStyles();
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
         googleMapsApiKey: getGoogleMapsApiKey(),
     });
-    const [, setMap] = useState<google.maps.Map | undefined>();
+    const mapRef = useRef<Map | null>(null);
 
     const location = useLatLng();
+    const center = useMemo<LatLngLiteral>(() => location, [location]);
+    const options = useMemo<GoogleMapOptions>(
+        () => ({
+            disableDefaultUI: true,
+        }),
+        []
+    );
 
-    const onLoad = useCallback((map: google.maps.Map) => {
+    const onLoad = useCallback((map: Map) => {
+        mapRef.current = map;
         const bounds = new window.google.maps.LatLngBounds();
         map.fitBounds(bounds);
-        setMap(map);
     }, []);
 
     const onUnmount = useCallback(() => {
-        setMap(undefined);
+        mapRef.current = null;
     }, []);
 
     return isLoaded ? (
         <ReactGoogleMap
             {...rest}
+            options={options}
             mapContainerStyle={{ width: "100%", height: "60rem" }}
-            center={location}
-            zoom={16}
+            center={center}
+            zoom={18}
             onLoad={onLoad}
             onUnmount={onUnmount}
         >
-            {location && <Marker position={location} label={"You are here"} />}
+            <OverlayView mapPaneName="floatPane" position={location}>
+                <Box className={classes.currentLocationWindow}>
+                    <FontAwesomeIcon color="red" icon={faLocation} />
+                    <Text>You are here</Text>
+                </Box>
+            </OverlayView>
             {children}
         </ReactGoogleMap>
     ) : null;
 };
+const useStyles = createStyles(() => ({
+    currentLocationWindow: {
+        backgroundColor: "#fff",
+        padding: "1rem",
+        borderRadius: ".4rem",
+        display: "flex",
+        alignItems: "center",
+        gap: "1rem",
+    },
+}));
 export default GoogleMap;
