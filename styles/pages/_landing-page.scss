@@ -1,13 +1,18 @@
 .landing-main-banner {
     position: relative;
     margin: 4rem 0;
+    background: none;
+    min-height: 83vh;
 
     @include respond(md) {
         margin: 4rem 0 8rem 0;
+        background: url("../#{$theme-imgpath}/heroImages/hero-background.svg")
+    no-repeat bottom;
+    background-size: auto;
     }
 
     .hero-content {
-        margin-bottom: 6.4rem;
+        margin-bottom: 3.2rem;
         .left {
             // padding: 0;
 
@@ -278,13 +283,14 @@
 
         .right {
             .hero-img {
-                height: 60.3rem;
-                width: 60rem;
+                height: 70rem;
+                width: 70rem;
             }
         }
     }
 
     .hero-category {
+        padding-bottom: 2.4rem;
         .mantine-Carousel-root {
             .mantine-Carousel-slide {
                 &:nth-child(4n + 1) {

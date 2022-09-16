@@ -106,10 +106,10 @@ const Home: NextPage<{
                         <Col md="6" className="right">
                             <figure className="new-img">
                                 <Image
-                                    src="/hero-img.svg"
+                                    src="/heroImages/hero2.png"
                                     alt="hero-img"
-                                    height={600}
-                                    width={600}
+                                    height={700}
+                                    width={700}
                                     // objectFit="contain"
                                 />
                             </figure>
