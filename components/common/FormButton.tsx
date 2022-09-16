@@ -1,3 +1,4 @@
+import { Loader } from "@mantine/core";
 import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 import type { FormButtonProps } from "types/formButton";
 
@@ -8,6 +9,7 @@ const FormButton = ({
     className,
     variant,
     handleClick,
+    isLoading,
     ...restProps
 }: FormButtonProps &
     Partial<
@@ -22,7 +24,13 @@ const FormButton = ({
             className={`${isSubmittingClass} ${variant} ${className}`}
             onClick={handleClick}
         >
-            <span>{name}</span>
+            {!isLoading ? (
+                <span>{name}</span>
+            ) : (
+                <span>
+                    <Loader size="sm" />
+                </span>
+            )}
         </button>
     );
 };
