@@ -25,6 +25,16 @@ export interface ITask {
         slug: string;
         icon: string | null;
     };
+    city: {
+        id: number;
+        name: string;
+        latitude: number;
+        longitude: number;
+        country: {
+            id: number;
+            name: string;
+        };
+    };
     location: string;
     assigner: {
         id: string;
@@ -43,7 +53,6 @@ export interface ITask {
     status: string;
     no_of_revisions: any;
     start_date: string;
-    no_of_applicants: number;
     start_time: string;
     end_date: string;
     end_time: string;
@@ -69,6 +78,7 @@ export interface ITask {
     images: Media[];
     videos: Media[];
 }
+
 export interface TaskApplicantsProps {
     total_pages: number;
     count: number;

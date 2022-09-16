@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { UserProfileProps } from "types/userProfileProps";
 
@@ -14,9 +14,9 @@ const UserActivities = () => {
     const [id, setId] = useState<number | undefined>(
         activities?.data.result[0].id
     );
-    useEffect(() => {
-        setId(activities?.data.result[0].id);
-    }, []);
+    const [showFirstDate, setShowFirstDate] = useState(true);
+
+    let idFirst = activities?.data.result[0].id;
 
     return (
         <div className="activities">
@@ -27,11 +27,14 @@ const UserActivities = () => {
                         key={activity.id}
                         onClick={() => {
                             setId(activity.id);
+                            setShowFirstDate(false);
+                            idFirst = 0;
                         }}
                     >
                         <Row>
                             <Col md={1} sm={2} xs={2}>
-                                {id === activity.id ? (
+                                {id === activity.id ||
+                                (idFirst === activity.id && showFirstDate) ? (
                                     <div className="date">
                                         <p>
                                             {format(
@@ -48,7 +51,9 @@ const UserActivities = () => {
                                 <div className="content d-flex">
                                     <div
                                         className={
-                                            id === activity.id
+                                            id === activity.id ||
+                                            (idFirst === activity.id &&
+                                                showFirstDate)
                                                 ? "point-active"
                                                 : "point"
                                         }
@@ -99,42 +104,3 @@ const UserActivities = () => {
     );
 };
 export default UserActivities;
-
-{
-    /* <Row>
-<Col md={1} sm={2} xs={2}>
-    {activity.editService ? (
-        <div className="date">
-            <p>{activity.date}</p>
-        </div>
-    ) : (
-        ""
-    )}
-</Col>
-<Col md={10} sm={9} xs={9}>
-    <div className="content d-flex">
-        <div className="point"></div>
-        <div className="desc">
-            <figure className="thumbnail-img">
-                <Image
-                    src={activity.image}
-                    layout="fill"
-                    objectFit="cover"
-                    alt="service-icon"
-                />
-            </figure>
-            <div className="detail">
-                <p>{activity.title}</p>
-                {activity.editService ? (
-                    <Link href="#!">
-                        Edit Service
-                    </Link>
-                ) : (
-                    ""
-                )}
-            </div>
-        </div>
-    </div>
-</Col>
-</Row> */
-}

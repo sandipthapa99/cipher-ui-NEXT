@@ -2,16 +2,11 @@
 
 import { QueryClient } from "@tanstack/react-query";
 import { useGetNotification } from "hooks/Notifications/use-notification";
-import { useData } from "hooks/use-data";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 
-import { AcceptedNotification } from "./AcceptedNotification";
-import { ApproveNotify } from "./ApproveNotify";
 import { PostNotifyTask } from "./PostedTask";
-import { ServiceAccept } from "./ServiceAccept";
 
 export default function GetNotifications() {
     // const router = useRouter();

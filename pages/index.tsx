@@ -90,17 +90,15 @@ const Home: NextPage<{
                             )} */}
 
                             <div className="come-with-us">
-                                <h1>Join CIPHER for</h1>
+                                <h1>Join Cipher To</h1>
                                 <div className="d-flex buttons">
-                                    <Link href="/task">
-                                        <a href="" className="hero-cta">
+                                    <Link href="/earn-money">
+                                        <a className="hero-cta">
                                             Earn Money as a Professional
                                         </a>
                                     </Link>
                                     <Link href="/post-task">
-                                        <a href="" className="hero-cta">
-                                            Post a Task
-                                        </a>
+                                        <a className="hero-cta">Post a Task</a>
                                     </Link>
                                 </div>
                             </div>
@@ -223,22 +221,24 @@ const Home: NextPage<{
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    {servicesData && servicesData?.result.length > 0 && (
-                        <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                            <h2 className="heading-title">
-                                Popular Verified Services
-                            </h2>
-                            <Link href="/service">
-                                <a className="view-more">
-                                    view more{" "}
-                                    <FontAwesomeIcon
-                                        icon={faAngleRight}
-                                        className="svg-icon"
-                                    />
-                                </a>
-                            </Link>
-                        </div>
-                    )}
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                        {servicesData && servicesData?.result.length > 0 && (
+                            <>
+                                <h2 className="heading-title">
+                                    Popular Verified Services
+                                </h2>
+                                <Link href="/service">
+                                    <a className="view-more">
+                                        view more{" "}
+                                        <FontAwesomeIcon
+                                            icon={faAngleRight}
+                                            className="svg-icon"
+                                        />
+                                    </a>
+                                </Link>
+                            </>
+                        )}
+                    </div>
                     {servicesData && servicesData?.result?.length <= 0 && (
                         <Alert
                             icon={<FontAwesomeIcon icon={faWarning} />}
@@ -718,7 +718,7 @@ const Home: NextPage<{
             {/* blog section start */}
             <section id="our-blogs" className="our-blogs">
                 <Container fluid="xl" className="px-5">
-                    {blogData && blogData?.result?.length > 0 && (
+                    {blogData && blogData.result.length > 0 && (
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                             <h2 className="heading-title">Our blogs</h2>
                             <Link href="/blogs">

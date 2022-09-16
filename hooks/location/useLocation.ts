@@ -27,3 +27,9 @@ export const useLocation = () => {
         }
     });
 };
+export const useLatLng = () => {
+    const { data } = useLocation();
+    return data && data.data
+        ? { lat: data.data.latitude, lng: data.data.longitude }
+        : { lat: 84.124, lng: 28.3949 };
+};

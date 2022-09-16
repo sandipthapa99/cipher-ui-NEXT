@@ -37,10 +37,10 @@ const HowItWorks: NextPage = () => {
 
                     <div className="how-it-works__content card-block">
                         <LongSquareImageCard
-                            title="How does it work?"
+                            title="Post your skills"
                             subtitle="What do you need done?"
                             image="/howitworks/howitwork.svg"
-                            description="Start by telling us about your task. Mention when and where (in person or online) you need it done, then suggest a fair budget for the task. Post any task you need from cleaning to web design in only two minutes – for free! There's no obligation to hire. Take a look at profiles and reviews to pick the best Tasker for your task. When you accept an offer, your payment is held securely with Airtasker Pay until the task is complete. Now you can message and call the Tasker to sort out the details."
+                            description="Become a tasker and grab an opportunity to earn as a freelancer or an organisation by posting your skills for services and the desired rate for it. The decision to either accept or reject the task is completely on you. You can also choose to apply for the posted tasks and negotiate the amount quoted. Your payment will be released once you complete the task."
                             imageOnRight={true}
                         />
                     </div>
@@ -52,7 +52,7 @@ const HowItWorks: NextPage = () => {
                                         <h1>Communicate with us</h1>
 
                                         <div className="connect">
-                                            <h4>Connect with us</h4>
+                                            <h4>Reach out to us</h4>
                                             <p>
                                                 Use Cipher to stay in contact
                                                 from the moment your task is
@@ -66,7 +66,7 @@ const HowItWorks: NextPage = () => {
                                                 Once you&apos;ve accepted an
                                                 offer, you can instantly reach
                                                 out to the Tasker via private
-                                                messaging to discuss task
+                                                CIPHER messaging to discuss task
                                                 details, and get your task
                                                 completed.
                                             </p>

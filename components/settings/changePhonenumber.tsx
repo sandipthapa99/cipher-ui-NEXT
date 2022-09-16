@@ -1,9 +1,7 @@
 import FormButton from "@components/common/FormButton";
-import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import { useMutation } from "@tanstack/react-query";
-import urls from "constants/urls";
 import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import { Button } from "react-bootstrap";

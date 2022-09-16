@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "react-bootstrap";
-import { useShowLoginPrompt, useWithLogin } from "store/use-login-prompt-store";
+import { useWithLogin } from "store/use-login-prompt-store";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 const CipherCard = ({
     thumbnailImg,

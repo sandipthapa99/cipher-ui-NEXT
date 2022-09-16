@@ -1,6 +1,5 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import type { SelectItem } from "@mantine/core";
@@ -11,6 +10,7 @@ import { useCountry } from "hooks/dropdown/useCountry";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useKYC } from "hooks/profile/kyc/useKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
@@ -56,10 +56,13 @@ const KYCForm = () => {
     const queryClient = new QueryClient();
 
     const foundCountry = countryResults.find((item) => item.label === country);
+    const router = useRouter();
+    const [showKYCRead, setShowKYCRead] = useState(false);
 
     return (
         <>
             {/* Modal component */}
+
             <div
                 className="account-form mt-5"
                 style={
@@ -126,9 +129,19 @@ const KYCForm = () => {
                         // );
 
                         mutate(values, {
-                            onSuccess: () => {
+                            onSuccess: (data) => {
                                 // toggleSuccessModal();
                                 toast.success("KYC Details Added Successfully");
+                                router.push(
+                                    {
+                                        pathname: router.pathname,
+                                        query: { kycId: data?.id },
+                                    },
+                                    undefined,
+                                    {
+                                        scroll: false,
+                                    }
+                                );
                                 setShowDocument(true);
                                 queryClient.invalidateQueries(["GET_KYC"]);
                                 // setShowButtons(false);
@@ -297,16 +310,14 @@ const KYCForm = () => {
                                     )}
                                 />
                             </div>
-                            {/* ) : (
-                                ""
-                            )} */}
                         </Form>
                     )}
                 </Formik>
-                <IdentityDocument />
+                <IdentityDocument getReadvalue={setShowKYCRead} />
                 {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
-            <KYCStatus />
+
+            {showKYCRead && <KYCStatus />}
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"

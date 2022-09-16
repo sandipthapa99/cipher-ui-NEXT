@@ -12,9 +12,9 @@ const TaskDetail: NextPage<{
         <>
             <AppliedLayout type={"you may like"}>
                 <AppliedTaskDetail
-                    taskApplicants={taskApplicants}
-                    taskDetail={taskDetail}
                     type={"you may like"}
+                    taskDetail={taskDetail}
+                    taskApplicants={taskApplicants}
                 />
             </AppliedLayout>
         </>
