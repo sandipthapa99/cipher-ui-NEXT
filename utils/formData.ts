@@ -291,8 +291,8 @@ export const ServicePostData: ServicePostProps = {
 
 export const BankFormData: BankDetailProps = {
     bank_account_name: "",
-    address: "",
     branch_name: "",
+    bank_name: "",
     bank_account_number: "",
     is_primary: false,
 };

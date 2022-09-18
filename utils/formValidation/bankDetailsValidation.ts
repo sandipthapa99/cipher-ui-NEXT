@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 
 const stringReqOnly = Yup.string().required("Required field");
-const employmentType = Yup.mixed().oneOf(["Full Time", "Part Time"]);
 
 export const bankFormSchema = Yup.object().shape({
     bank_name: stringReqOnly,

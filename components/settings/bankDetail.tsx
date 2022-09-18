@@ -7,55 +7,86 @@ import { Field, Form, Formik } from "formik";
 import { useData } from "hooks/use-data";
 import { useForm } from "hooks/use-form";
 import { useState } from "react";
+import { useEffect } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import type { BankBranchResult, BankNamesResult } from "types/bankDetail";
 import { BankFormData } from "utils/formData";
 import { bankFormSchema } from "utils/formValidation/bankDetailsValidation";
 import { isSubmittingClass } from "utils/helpers";
-
 const BankForm = () => {
-    const { mutate } = useForm(`/tasker/experience/`);
+    const { mutate } = useForm(`/tasker/bank-details/`);
+
+    const [bankId, setBankId] = useState<string>("0");
 
     const queryClient = useQueryClient();
+
     const [bankNameChange, setBankNameChange] = useState<string | null>(null);
     const [branchNameChange, setBranchNameChange] = useState<string | null>(
         null
     );
+    // useEffect(() => {}, [bankId]);
+
     const { data: bankNames } = useData<BankNamesResult>(
         ["all-banks"],
-        "/tasker/cms/bank-name/"
+        "/tasker/cms/bank-name/options"
     );
 
-    const { data: bankBranch } = useData<BankBranchResult>(
-        ["all-banks"],
-        "/tasker/cms/bank-branch/"
-    );
-
-    const bankNamesResults: SelectItem[] = bankNames?.data.results
-        ? bankNames.data.results.map((result) => ({
+    const bankNamesResults: SelectItem[] = bankNames
+        ? bankNames.data.map((result) => ({
               label: result?.name,
               value: result?.id.toString(),
               id: result?.id,
           }))
         : ([] as SelectItem[]);
+
+    // console.log(
+    //     "🚀 ~ file: bankDetail.tsx ~ line 44 ~ BankForm ~ bankNamesResults",
+    //     bankNamesResults
+    // );
+
     //handle bank name change
     const handleBankNameChanged = (
         id: string | null,
         setFieldValue: (field: string, value: any) => void
     ) => {
         setBankNameChange(id);
-        if (id) setFieldValue("name", parseInt(id));
+        if (id) setFieldValue("bank_name", parseInt(id));
     };
+    // const bankParseid = bankId ? parseInt(bankId) : "";
 
-    const bankBranchResults: SelectItem[] = bankBranch?.data.results
-        ? bankBranch.data.results.map((result) => ({
-              label: result?.branch_name,
-              value: result?.id.toString(),
-              id: result?.id,
+    const { data: bankBranch } = useData<BankBranchResult>(
+        ["all-branches", bankId],
+        `/tasker/bank-branch/${parseInt(bankId)}`
+    );
+
+    // console.log(
+    //     "🚀 ~ file: bankDetail.tsx ~ line 35 ~ BankForm ~ bankBranch",
+    //     bankBranch
+    // );
+    const bankBranchResults: SelectItem[] = bankBranch?.data
+        ? bankBranch.data.map((branch) => ({
+              label: branch?.branch_name,
+              value: branch?.id.toString(),
+              id: branch?.id,
           }))
         : ([] as SelectItem[]);
 
+    // console.log(
+    //     "🚀 ~ file: bankDetail.tsx ~ line 61 ~ BankForm ~ bankBranchResults",
+    //     bankBranchResults
+    // );
+
+    //handle branch name change
+    const handleBranchNameChanged = (
+        id: string | null,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setBranchNameChange(id);
+        if (id) setFieldValue("branch_name", parseInt(id));
+    };
+
+    // console.log("bank id===", bankId);
     return (
         <div className="bank-form">
             <h3>Bank Details</h3>
@@ -63,19 +94,19 @@ const BankForm = () => {
                 initialValues={BankFormData}
                 validationSchema={bankFormSchema}
                 onSubmit={async (values, actions) => {
-                    console.log("bank details are", actions, values);
-                    // mutate(values, {
-                    //     onSuccess: async () => {
-                    //         console.log("submitted values", values);
-                    //         toast.success("Bank detail added successfully");
-                    //         queryClient.invalidateQueries(["profile"]);
-                    //         actions.resetForm();
-                    //     },
-                    //     onError: async (error) => {
-                    //         toast.error(error.message);
-                    //         console.log("error=", error);
-                    //     },
-                    // });
+                    // console.log("bank details are", actions, values);
+                    mutate(values, {
+                        onSuccess: async () => {
+                            console.log("submitted values", values);
+                            toast.success("Bank detail added successfully");
+                            queryClient.invalidateQueries(["profile"]);
+                            actions.resetForm();
+                        },
+                        onError: async (error) => {
+                            toast.error(error.message);
+                            console.log("error=", error);
+                        },
+                    });
                 }}
             >
                 {({
@@ -103,9 +134,10 @@ const BankForm = () => {
                             searchable
                             nothingFound="No result found."
                             value={bankNameChange}
-                            onChange={(value) =>
-                                handleBankNameChanged(value, setFieldValue)
-                            }
+                            onChange={(value) => {
+                                handleBankNameChanged(value, setFieldValue);
+                                setBankId(value ? value : "");
+                            }}
                             data={bankNamesResults ?? []}
                             // disabled={
                             //     isEditButtonClicked || !profile ? false : true
@@ -114,16 +146,13 @@ const BankForm = () => {
 
                         <Select
                             label="Branch Address"
-                            placeholder="Default Branch"
                             name="branch_name"
                             searchable
                             nothingFound="No result found."
-                            // value={
-                            //     profile ? foundCountry?.value : countryChange
-                            // }
-                            // onChange={(value) =>
-                            //     handleCountryChanged(value, setFieldValue)
-                            // }
+                            value={branchNameChange}
+                            onChange={(value) =>
+                                handleBranchNameChanged(value, setFieldValue)
+                            }
                             data={bankBranchResults ?? []}
                             // disabled={
                             //     isEditButtonClicked || !profile ? false : true
