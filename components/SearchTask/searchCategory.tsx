@@ -1,26 +1,46 @@
 import { useServiceCategories } from "@components/Task/PostTaskModal/TaskCategory";
-import { faClose, faSearch } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faCity,
+    faClose,
+    faDollarSign,
+    faGlobe,
+    faGrid2,
+    faLanguage,
+    faSearch,
+    faSort,
+} from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { Button } from "@mantine/core";
 import { Box, createStyles, Select, TextInput } from "@mantine/core";
+import { useCountry } from "hooks/dropdown/useCountry";
+import { useLanguage } from "hooks/dropdown/useLanguage";
+import { useTaskers } from "hooks/tasker/use-tasker";
 import { useCities } from "hooks/use-cities";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
+type SearchModal = "task" | "tasker" | "service";
 interface SearchCategoryProps {
-    onParamsChange: (params: Record<string, string>) => void;
+    searchModal: SearchModal;
+    onSearchParamChange: (searchParam: string) => void;
     onFilterClear: () => void;
 }
 export const SearchCategory = ({
-    onParamsChange,
+    searchModal,
+    onSearchParamChange,
     onFilterClear,
 }: SearchCategoryProps) => {
+    const { classes } = useStyles();
+
     const [params, setParams] = useState<Record<string, string> | undefined>();
     const [cityQuery, setCityQuery] = useState("");
 
     const { data: categories = [] } = useServiceCategories();
     const { data: cities } = useCities(cityQuery);
+    const { data: countries } = useCountry();
+    const { data: languages } = useLanguage();
+    const { data: taskers } = useTaskers();
 
     const categoriesData: SelectItem[] = categories.map((category) => ({
         id: category.id,
@@ -32,6 +52,20 @@ export const SearchCategory = ({
         label: city.name,
         value: city.name,
     }));
+    const languagesData: SelectItem[] = languages
+        ? languages.result.map((language) => ({
+              id: language.id,
+              label: language.name,
+              value: language.name,
+          }))
+        : [];
+    const countriesData: SelectItem[] = countries
+        ? countries.result.map((country) => ({
+              id: country.id,
+              label: country.name,
+              value: country.name,
+          }))
+        : [];
     const pricingData: SelectItem[] = [
         {
             id: "1",
@@ -44,7 +78,13 @@ export const SearchCategory = ({
             value: "-budget_to",
         },
     ];
-    const { classes } = useStyles();
+    const taskersData: SelectItem[] = taskers
+        ? Object.keys(taskers[0]).map((key, index) => ({
+              id: index,
+              label: key,
+              value: key,
+          }))
+        : [];
 
     const onSelectChange = (key: string, value: string | null) => {
         if (!value) return;
@@ -54,18 +94,26 @@ export const SearchCategory = ({
         const newParams = Object.fromEntries(new URLSearchParams(url.search));
         setParams((previousParams) => ({ ...previousParams, ...newParams }));
     };
+
+    const search = params ? params.search : "";
+    const city = params ? params.city : "";
+    const country = params ? params.country : "";
+    const language = params ? params.language : "";
+    const category = params ? params.category : "";
+    const ordering = params ? params.ordering : "";
+
     const handleClearFilters = () => {
         setParams(undefined);
         onFilterClear();
     };
-    const search = params ? params.search : "";
-    const city = params ? params.city : "";
-    const category = params ? params.category : "";
-    const pricing = params ? params.ordering : "";
 
     useEffect(() => {
         if (!params) return;
-        onParamsChange(params);
+        const urlSearchParams = new URLSearchParams();
+        for (const key in params) {
+            urlSearchParams.append(key, params[key]);
+        }
+        onSearchParamChange(urlSearchParams.toString());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params]);
 
@@ -93,30 +141,82 @@ export const SearchCategory = ({
                             Clear filters
                         </Button>
                     )}
-                    <Select
-                        clearable
-                        searchable
-                        placeholder="Filter by Categories"
-                        value={category}
-                        data={categoriesData}
-                        onChange={(value) => onSelectChange("category", value)}
-                    />
-                    <Select
-                        clearable
-                        searchable
-                        placeholder="Filter by City"
-                        value={city}
-                        data={citiesData}
-                        onSearchChange={setCityQuery}
-                        onChange={(value) => onSelectChange("city", value)}
-                    />
-                    <Select
-                        clearable
-                        placeholder="Filter by Pricing"
-                        value={pricing}
-                        data={pricingData}
-                        onChange={(value) => onSelectChange("ordering", value)}
-                    />
+                    {(searchModal === "task" || searchModal === "service") && (
+                        <>
+                            <Select
+                                clearable
+                                searchable
+                                icon={<FontAwesomeIcon icon={faGrid2} />}
+                                placeholder="Filter by Categories"
+                                value={category}
+                                data={categoriesData}
+                                onChange={(value) =>
+                                    onSelectChange("category", value)
+                                }
+                            />
+                            <Select
+                                clearable
+                                searchable
+                                icon={<FontAwesomeIcon icon={faCity} />}
+                                placeholder="Filter by City"
+                                value={city}
+                                data={citiesData}
+                                onSearchChange={setCityQuery}
+                                onChange={(value) =>
+                                    onSelectChange("city", value)
+                                }
+                            />
+                            {searchModal === "task" && (
+                                <Select
+                                    clearable
+                                    icon={
+                                        <FontAwesomeIcon icon={faDollarSign} />
+                                    }
+                                    placeholder="Filter by Pricing"
+                                    value={ordering}
+                                    data={pricingData}
+                                    onChange={(value) =>
+                                        onSelectChange("ordering", value)
+                                    }
+                                />
+                            )}
+                        </>
+                    )}
+                    {searchModal === "tasker" && (
+                        <>
+                            <Select
+                                clearable
+                                searchable
+                                icon={<FontAwesomeIcon icon={faGlobe} />}
+                                value={country}
+                                placeholder="Filter by country"
+                                data={countriesData}
+                                onChange={(value) =>
+                                    onSelectChange("country", value)
+                                }
+                            />
+                            <Select
+                                icon={<FontAwesomeIcon icon={faLanguage} />}
+                                value={language}
+                                placeholder="Filter by language"
+                                data={languagesData}
+                                onChange={(value) =>
+                                    onSelectChange("language", value)
+                                }
+                            />
+                            <Select
+                                clearable
+                                searchable
+                                icon={<FontAwesomeIcon icon={faSort} />}
+                                placeholder="Order by"
+                                data={taskersData}
+                                value={ordering}
+                                onChange={(value) =>
+                                    onSelectChange("ordering", value)
+                                }
+                            />
+                        </>
+                    )}
                 </Box>
             </Col>
         </Row>

@@ -97,7 +97,7 @@ class _Document extends Document {
                         rel="stylesheet"
                     ></link>
                 </Head>
-                <body key="">
+                <body>
                     <Main />
                     <NextScript />
                 </body>
