@@ -85,7 +85,12 @@ const BookNowModalCard = ({
                 visible={isBookLoading}
                 sx={{ position: "fixed", inset: 0 }}
             />
-            <Modal show={show} centered onHide={handleClose} backdrop="static">
+            <Modal
+                show={show && !isBookLoading}
+                centered
+                onHide={handleClose}
+                backdrop="static"
+            >
                 <Modal.Header closeButton>
                     <Modal.Title>Booking Details</Modal.Title>
                 </Modal.Header>
@@ -132,8 +137,9 @@ const BookNowModalCard = ({
 
                             mutate(newvalues, {
                                 onSuccess: () => {
+                                    handleClose?.();
                                     toast.success("Task Booked Successfully");
-                                    router.push("task/checkout");
+                                    router.push("/checkout");
                                 },
                                 onError: (error) => {
                                     toast.error(error.message);
