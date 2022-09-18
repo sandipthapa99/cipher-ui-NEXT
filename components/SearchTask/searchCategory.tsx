@@ -41,6 +41,7 @@ export const SearchCategory = ({
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
     const { data: taskers } = useTaskers();
+    console.log("abc", taskers);
 
     const categoriesData: SelectItem[] = categories.map((category) => ({
         id: category.id,
@@ -78,13 +79,14 @@ export const SearchCategory = ({
             value: "-budget_to",
         },
     ];
-    const taskersData: SelectItem[] = taskers
-        ? Object.keys(taskers[0]).map((key, index) => ({
-              id: index,
-              label: key,
-              value: key,
-          }))
-        : [];
+    const taskersData: SelectItem[] =
+        taskers && taskers?.length > 0
+            ? Object.keys(taskers[0]).map((key, index) => ({
+                  id: index,
+                  label: key,
+                  value: key,
+              }))
+            : [];
 
     const onSelectChange = (key: string, value: string | null) => {
         if (!value) return;
