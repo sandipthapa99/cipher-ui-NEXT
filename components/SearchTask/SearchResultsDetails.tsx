@@ -183,7 +183,7 @@ const SearchResultsDetail = ({
             <Row>
                 <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
                     <span className="pb-3 pb-sm-0 provider-name">
-                        By {serviceProvider}
+                        By {service?.created_by?.full_name}
                     </span>
                     <div className="d-flex justify-content-between align-items-center">
                         <div className="d-flex flex-col align-items-center">

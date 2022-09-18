@@ -68,7 +68,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const { data } = await axiosClient.get<ServicesValueProps["result"][0]>(
-            `/task/entity/service/${params?.id}/`
+            `${urls.task.list}${params?.id}/`
         );
         const { data: servicePackage } = await axiosClient.get<
             ServicesPackageProps["result"][0]

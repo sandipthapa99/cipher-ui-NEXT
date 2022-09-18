@@ -42,6 +42,12 @@ export interface ServicesValueProps {
             title: string;
             is_active: boolean;
             is_verified: boolean;
+            category: {
+                id: number;
+                name: string;
+                level: number;
+                slug: string;
+            };
         };
         created_at: string;
         updated_at: string;
