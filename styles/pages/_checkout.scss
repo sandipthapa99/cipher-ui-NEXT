@@ -1,0 +1,84 @@
+.pageName {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 60px;
+    /* identical to box height */
+
+    letter-spacing: 0.001em;
+    text-transform: capitalize;
+
+    /* brand/primary */
+
+    color: #211d4f;
+}
+.payment {
+    cursor: grab;
+    position: relative;
+    .verified {
+        position: absolute;
+        z-index: 2;
+        top: 2rem;
+        right: 7px;
+    }
+}
+.checkout-row {
+    gap: 2rem;
+    .left {
+
+    @media screen and (width:820px),(width:768px)  {
+        width: 100%;
+    }
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: #ffffff;
+        /* Container */
+
+        box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+        border-radius: 4px;
+    }
+    .right{
+        @media screen and (width:820px),(width:768px) {
+            width: 100%;
+        }
+    }
+    h3 {
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        color: #211d4f;
+    }
+    .titles {
+        margin: 0 0 0.2rem 0 !important;
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        /* identical to box height, or 157% */
+
+        /* grayScale/gray[8] */
+
+        color: #343a40;
+        @include respond(xs){
+           text-align: center;
+        }
+    }
+    .digital-wallet {
+        margin-bottom: 3rem;
+        @include respond(xs){
+            justify-content: center;
+        }
+    }
+}
+
+.checkout-btn {
+    margin-top: 4rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    width: 100%;
+    color: #ffffff;
+    background-color: #211d4f;
+}

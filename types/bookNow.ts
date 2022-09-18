@@ -18,9 +18,14 @@ export interface BookNowModalCardProps {
 export interface BookNowFormProps {
     description: string;
     images: any[];
+    videos: any[];
     imagePreviewUrl?: any[];
     time: number;
     start_date: string;
     end_date: string;
     book_image: string;
+    requirements: string;
+    city: string;
+    start_time: string;
+    end_time: string;
 }

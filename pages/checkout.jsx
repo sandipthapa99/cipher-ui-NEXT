@@ -1,3 +1,4 @@
+import BigButton from "@components/common/Button";
 import Layout from "@components/Layout";
 import {
     faCalendar,
@@ -5,11 +6,12 @@ import {
     faLocationDot,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Modal, Text } from "@mantine/core";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
 
@@ -22,6 +24,8 @@ const stripePromise = loadStripe(
 );
 
 export default function Checkout() {
+    const [opened, setOpened] = useState(false);
+    const [paymentType, setPaymentType] = useState("esewa");
     const { data: stripeData } = useQuery(["stripe-data"], async () => {
         const response = await axiosClient.post("/payment/intent/stripe/", {
             scope: "task",
@@ -50,23 +54,167 @@ export default function Checkout() {
         appearance,
     };
 
+    const staticPayments = {
+        wallets: [
+            {
+                partner: "esewa",
+                url: "/payment/esewa.png",
+            },
+            {
+                partner: "khalti",
+                url: "/payment/khalti.png",
+            },
+            {
+                partner: "connect",
+                url: "/payment/connect.png",
+            },
+            {
+                partner: "namaste",
+                url: "/payment/namaste.png",
+            },
+            {
+                partner: "ime",
+                url: "/payment/ime.png",
+            },
+        ],
+
+        credit: [
+            {
+                partner: "visacard",
+                url: "/payment/visacard.png",
+            },
+            {
+                partner: "discover",
+                url: "/payment/discover.png",
+            },
+        ],
+
+        international: [
+            {
+                partner: "paypal",
+                url: "/payment/paypal.png",
+            },
+            {
+                partner: "stripe",
+                url: "/payment/stripe.png",
+            },
+        ],
+    };
+
     return (
         <Layout>
             <Container>
-                <Row className="checkout-row gx-5">
-                    <Col md={8} className="left">
-                        <div className="App mt-5 mb-5">
-                            {options.clientSecret && (
-                                <Elements
-                                    stripe={stripePromise}
-                                    options={options}
-                                >
-                                    <CheckoutForm />
-                                </Elements>
-                            )}
+                <h2 className="pageName">Checkout</h2>
+                <Row className="checkout-row">
+                    <Col md={7} className="left">
+                        <h3>Payment Method</h3>
+                        <p className="titles">Digital Wallets</p>
+                        <div className="digital-wallet d-flex gap-4 flex-wrap">
+                            {staticPayments.wallets.map((item, index) => {
+                                return (
+                                    <figure
+                                        key={index}
+                                        className="payment"
+                                        onClick={(e) => {
+                                            setOpened(true);
+                                            setPaymentType(item.partner);
+                                        }}
+                                    >
+                                        <Image
+                                            src={item.url}
+                                            objectFit="contain"
+                                            width={190}
+                                            height={100}
+                                            alt="oppurtunities-page-main-image"
+                                        />
+                                        {item.partner === paymentType && (
+                                            <figure className="verified">
+                                                <Image
+                                                    src={
+                                                        "/payment/verified.png"
+                                                    }
+                                                    height={24}
+                                                    width={24}
+                                                    alt={"verified"}
+                                                />
+                                            </figure>
+                                        )}
+                                    </figure>
+                                );
+                            })}
+                        </div>
+                        <p className="titles">Cards Debit/Credit</p>
+                        <div className="digital-wallet d-flex gap-4 flex-wrap">
+                            {staticPayments.credit.map((item, index) => {
+                                return (
+                                    <figure
+                                        key={index}
+                                        className="payment"
+                                        onClick={(e) => {
+                                            setOpened(true);
+                                            setPaymentType(item.partner);
+                                        }}
+                                    >
+                                        <Image
+                                            src={item.url}
+                                            objectFit="contain"
+                                            width={190}
+                                            height={100}
+                                            alt="oppurtunities-page-main-image"
+                                        />{" "}
+                                        {item.partner === paymentType && (
+                                            <figure className="verified">
+                                                <Image
+                                                    src={
+                                                        "/payment/verified.png"
+                                                    }
+                                                    height={24}
+                                                    width={24}
+                                                    alt={"verified"}
+                                                />
+                                            </figure>
+                                        )}
+                                    </figure>
+                                );
+                            })}
+                        </div>
+                        <p className="titles">International Payment Method</p>
+                        <div className="digital-wallet d-flex gap-4 flex-wrap">
+                            {staticPayments.international.map((item, index) => {
+                                return (
+                                    <figure
+                                        key={index}
+                                        className="payment"
+                                        onClick={(e) => {
+                                            setOpened(true);
+                                            setPaymentType(item.partner);
+                                        }}
+                                    >
+                                        <Image
+                                            src={item.url}
+                                            objectFit="contain"
+                                            width={190}
+                                            height={100}
+                                            alt="oppurtunities-page-main-image"
+                                        />{" "}
+                                        {item.partner === paymentType && (
+                                            <figure className="verified">
+                                                <Image
+                                                    src={
+                                                        "/payment/verified.png"
+                                                    }
+                                                    height={24}
+                                                    width={24}
+                                                    alt={"verified"}
+                                                />
+                                            </figure>
+                                        )}
+                                    </figure>
+                                );
+                            })}
                         </div>
                     </Col>
-                    <Col md={4} className="right mt-5 mb-5">
+                    <Col md={4} className="right mb-5">
                         <h1>Task List</h1>
                         <Row className="item-detail">
                             <Col md={4} className="left">
@@ -125,9 +273,39 @@ export default function Checkout() {
                             <p>Grand Total</p>
                             <p>Rs 1,400</p>
                         </div>
+                        <Button
+                            className="checkout-btn"
+                            onClick={(e) => {
+                                setOpened(true);
+                            }}
+                        >
+                            Proceed to Confirm
+                        </Button>
                     </Col>
                 </Row>
             </Container>
+            <Modal
+                opened={opened}
+                onClose={() => {
+                    setOpened(false);
+                    setPaymentType("esewa");
+                }}
+            >
+                {paymentType !== "stripe" ? (
+                    <Text>{paymentType} is comming soon</Text>
+                ) : (
+                    ""
+                )}
+                {paymentType === "stripe" && (
+                    <div className="App mt-5 mb-5">
+                        {options.clientSecret && (
+                            <Elements stripe={stripePromise} options={options}>
+                                <CheckoutForm />
+                            </Elements>
+                        )}
+                    </div>
+                )}
+            </Modal>
         </Layout>
     );
 }
