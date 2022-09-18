@@ -84,6 +84,7 @@ const AccountForm = () => {
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
     const { data: KYCData } = useGetKYC();
+
     const [image, setImage] = useState();
     const [file, setFile] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);
@@ -878,7 +879,7 @@ const AccountForm = () => {
                                 <div className="d-flex justify-content-end">
                                     <Button
                                         className="me-3 mb-0 cancel-btn"
-                                        onClick={() => resetForm}
+                                        onClick={() => resetForm()}
                                     >
                                         Cancel
                                     </Button>

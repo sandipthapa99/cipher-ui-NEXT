@@ -9,6 +9,7 @@ import Layout from "@components/Layout";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import { helpCardContent } from "staticData/helpCardContent";
@@ -22,6 +23,7 @@ const Help: NextPage = () => {
         ["all-faq"],
         "/support/faq/"
     );
+    const router = useRouter();
     return (
         <Layout title="Help &amp; Support | Cipher">
             <section className="help-page-header">
@@ -71,13 +73,23 @@ const Help: NextPage = () => {
                                             // lg={4}
                                             key={help.id}
                                         >
-                                            <CommonCard
-                                                cardImage={help.cardImage}
-                                                cardDescription={
-                                                    help.cardDescription
+                                            <div
+                                                className="card-wrapper"
+                                                onClick={() =>
+                                                    router.push({
+                                                        pathname:
+                                                            help?.redirect,
+                                                    })
                                                 }
-                                                cardTitle={help.cardTitle}
-                                            />
+                                            >
+                                                <CommonCard
+                                                    cardImage={help.cardImage}
+                                                    cardDescription={
+                                                        help.cardDescription
+                                                    }
+                                                    cardTitle={help.cardTitle}
+                                                />
+                                            </div>
                                         </Col>
                                     );
                                 })}
@@ -99,6 +111,11 @@ const Help: NextPage = () => {
                                             btnTitle="Contact Us"
                                             backgroundColor="$primary-color"
                                             textColor="#fff"
+                                            handleClick={() =>
+                                                router.push({
+                                                    pathname: "/contact",
+                                                })
+                                            }
                                         />
                                         <figure className="thumbnail-img">
                                             <Image
@@ -122,9 +139,14 @@ const Help: NextPage = () => {
 
                                     <div className="contact-device">
                                         <BigButton
-                                            btnTitle="Ask Us"
+                                            btnTitle="Send Mail"
                                             backgroundColor="$primary-color"
                                             textColor="#fff"
+                                            handleClick={() =>
+                                                router.push({
+                                                    pathname: "/contact",
+                                                })
+                                            }
                                         />
                                         <figure className="thumbnail-img">
                                             <Image

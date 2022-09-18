@@ -2,6 +2,7 @@ import type { CreditCardContent } from "staticData/creditCardContent";
 import type { AccountValueProps } from "types/accountValueProps";
 import type { ApplyFormValueProps } from "types/applyFormValueProps";
 import type { ApplyValueProps } from "types/applyValueProps";
+import type { BankDetailProps } from "types/bankDetail";
 import type { BookNowFormProps } from "types/bookNow";
 import type { CertificationValueProps } from "types/certificationValueProps";
 import type { changePasswordValueProps } from "types/changePasswordValueProps";
@@ -67,11 +68,11 @@ export const ExperienceFormData: ExperienceValueProps = {
 };
 
 interface filterReviewProps {
-    search_value: string;
+    search_value: "";
 }
 //review
 export const reviewSearchData: filterReviewProps = {
-    search_value: "-latest",
+    search_value: "",
 };
 
 export const AddPortfolioFormData: AddPortfolioProps = {
@@ -286,4 +287,12 @@ export const ServicePostData: ServicePostProps = {
     city: 1,
     images: [],
     imagePreviewUrl: [],
+};
+
+export const BankFormData: BankDetailProps = {
+    bank_account_name: "",
+    address: "",
+    branch_name: "",
+    bank_account_number: "",
+    is_primary: false,
 };
