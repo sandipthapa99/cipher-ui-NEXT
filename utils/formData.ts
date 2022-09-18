@@ -2,7 +2,7 @@ import type { CreditCardContent } from "staticData/creditCardContent";
 import type { AccountValueProps } from "types/accountValueProps";
 import type { ApplyFormValueProps } from "types/applyFormValueProps";
 import type { ApplyValueProps } from "types/applyValueProps";
-import type { BankDetailProps } from "types/bankDetail";
+import type { BankPostDetailProps } from "types/bankDetail";
 import type { BookNowFormProps } from "types/bookNow";
 import type { CertificationValueProps } from "types/certificationValueProps";
 import type { changePasswordValueProps } from "types/changePasswordValueProps";
@@ -289,7 +289,7 @@ export const ServicePostData: ServicePostProps = {
     imagePreviewUrl: [],
 };
 
-export const BankFormData: BankDetailProps = {
+export const BankFormData: BankPostDetailProps = {
     bank_account_name: "",
     branch_name: "",
     bank_name: "",
