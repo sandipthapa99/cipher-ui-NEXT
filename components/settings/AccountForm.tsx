@@ -84,6 +84,7 @@ const AccountForm = () => {
     const { data: countryName } = useCountry();
     const { data: profile } = useGetProfile();
     const { data: KYCData } = useGetKYC();
+
     const [image, setImage] = useState();
     const [file, setFile] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);

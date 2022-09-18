@@ -83,6 +83,7 @@ const UserProfileCard = ({
     const editProfile = useMutation((data: ProfileEditValueProps) =>
         axiosClient.patch("/tasker/profile/", data)
     );
+
     const onEditProfile = (data: any) => {
         const formData: FormData = new FormData();
         formData.append("profile_image", data);
