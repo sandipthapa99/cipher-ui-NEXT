@@ -95,10 +95,11 @@ export const BookServiceFormData: BookNowFormProps = {
     description: "",
     start_date: "",
     end_date: "",
-    time: 1,
-    images: [],
-    imagePreviewUrl: [],
-    book_image: "",
+    start_time: 1,
+    images: "",
+    budget_from: 0,
+    budget_to: 0,
+    videos: "",
 };
 
 export const CertificationFormData: CertificationValueProps = {
