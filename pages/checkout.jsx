@@ -25,7 +25,7 @@ export default function Checkout() {
     const { data: stripeData } = useQuery(["stripe-data"], async () => {
         const response = await axiosClient.post("/payment/intent/stripe/", {
             scope: "task",
-            pk: "dc3feab3-204c-4bda-b802-8e52e5a83e73",
+            pk: "4c1dbe76-3c76-4b52-9602-5cf5fbe1f8aa",
         });
         return response;
     });
