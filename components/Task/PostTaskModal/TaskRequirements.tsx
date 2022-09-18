@@ -25,21 +25,17 @@ export interface TaskRequiremnt {
     title: string;
 }
 export interface TaskRequirementsProps extends TextInputProps {
-    initialRequirements: string;
-    onRequirementsChange: (requirements: TaskRequiremnt[]) => void;
+    initialRequirements: Record<string, string>;
+    onRequirementsChange: (requirements: Record<string, string>) => void;
 }
 export const TaskRequirements = ({
     initialRequirements,
     onRequirementsChange,
     ...rest
 }: TaskRequirementsProps) => {
-    const initialTaskRequirementsJSON = safeParse<TaskRequiremnt[]>({
-        rawString: initialRequirements,
-        initialData: [],
-    });
     const { classes } = useStyles();
-    const [requirements, setRequirements] = useState<TaskRequiremnt[]>(
-        () => initialTaskRequirementsJSON
+    const [requirements, setRequirements] = useState<Record<string, string>>(
+        () => initialRequirements
     );
     const [newRequirement, setNewRequirement] = useState("");
 
@@ -47,31 +43,32 @@ export const TaskRequirements = ({
         if (event.key !== "Enter") return;
         event.preventDefault();
         if (!newRequirement) return;
-        const requirementAlreadyExist = requirements.some(
-            (requirement) => requirement.title === newRequirement
+        const requirementAlreadyExist = Object.values(requirements).some(
+            (requirement) => requirement === newRequirement
         );
         if (requirementAlreadyExist) {
             setNewRequirement("");
             return;
         }
-        const newRequirementObj = {
-            id: requirements.length + 1,
-            title: newRequirement,
-        };
+
         setRequirements((currentRequirements) => {
-            const updatedRequirements = [
-                newRequirementObj,
+            const newRequirements = {
                 ...currentRequirements,
-            ];
+                [Object.keys(currentRequirements).length + 1]: newRequirement,
+            };
             setNewRequirement("");
-            return updatedRequirements;
+            return newRequirements;
         });
     };
-    const handleRemoveRequirement = (id: number) => {
+    const handleRemoveRequirement = (id: string) => {
         setRequirements((currentRequirements) => {
-            const updatedRequirements = currentRequirements.filter(
-                (requirement) => requirement.id !== id
-            );
+            const updatedRequirements = Object.entries(
+                currentRequirements
+            ).reduce((acc, curr) => {
+                const [key, value] = curr;
+                if (key != id) acc[key] = value;
+                return acc;
+            }, {} as Record<string, string>);
             return updatedRequirements;
         });
     };
@@ -81,7 +78,7 @@ export const TaskRequirements = ({
     }, [requirements]);
 
     const renderRequirements = () => {
-        return requirements.map(({ id, title }) => (
+        return Object.entries(requirements).map(([id, title]) => (
             <li className={classes.listItem} key={id}>
                 <ActionIcon>
                     <FontAwesomeIcon icon={faCheck} color="#3EAEFF" />
@@ -112,7 +109,7 @@ export const TaskRequirements = ({
                     setNewRequirement(event.currentTarget.value)
                 }
                 onKeyDown={handleKeyDown}
-                placeholder="Add your Requirements"
+                placeholder="Add your requirements"
                 rightSection={
                     <FontAwesomeIcon icon={faCirclePlus} color="#3EAEFF" />
                 }

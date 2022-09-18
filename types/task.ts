@@ -49,7 +49,7 @@ export interface ITask {
     deleted_at: any;
     description: string;
     charge?: number;
-    requirements: string;
+    highlights: Record<string, string>;
     status: string;
     no_of_revisions: any;
     start_date: string;

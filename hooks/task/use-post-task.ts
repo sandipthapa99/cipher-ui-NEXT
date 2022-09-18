@@ -11,7 +11,7 @@ export const usePostTask = () => {
     const { data: profileDetails } = useGetProfile();
     return useMutation<PostTaskResponse, Error, any>((postTaskPayload) =>
         axiosClient
-            .post<PostTaskResponse>("/task/", postTaskPayload)
+            .post<PostTaskResponse>("/task/entity/service/", postTaskPayload)
             .then((res) => res.data)
             .catch((error) => {
                 const message = Object.values(error?.response?.data).join("\n");

@@ -1,4 +1,4 @@
-import { useServiceCategories } from "@components/Task/PostTaskModal/TaskCategory";
+import { useServiceCategories } from "@components/Task/PostTaskModal/ServiceOptions";
 import { faClose, faSearch } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
