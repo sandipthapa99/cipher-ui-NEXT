@@ -11,7 +11,7 @@ export interface BookNowModalCardProps {
     budget_type?: string;
     price?: number | string;
     image?: string;
-
+    entity_service_id: number | undefined;
     images?: any[];
 }
 
@@ -24,5 +24,7 @@ export interface BookNowFormProps {
     end_date: string;
     budget_from: number;
     budget_to: number;
+    requirements: string;
     videos: File | File[] | string;
+    location: string;
 }

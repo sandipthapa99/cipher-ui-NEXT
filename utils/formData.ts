@@ -100,6 +100,9 @@ export const BookServiceFormData: BookNowFormProps = {
     budget_from: 0,
     budget_to: 0,
     videos: "",
+    requirements: "",
+
+    location: "false",
 };
 
 export const CertificationFormData: CertificationValueProps = {

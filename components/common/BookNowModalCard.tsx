@@ -2,15 +2,16 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import AddRequirements from "@components/PostTask/AddRequirements";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
-import { createStyles, LoadingOverlay } from "@mantine/core";
+import { Checkbox, createStyles, LoadingOverlay } from "@mantine/core";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
+import { useBookNowTask } from "hooks/task/use-book--now-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -22,7 +23,7 @@ import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidatio
 import { isSubmittingClass } from "utils/helpers";
 
 import { CustomDropZone } from "./CustomDropZone";
-import MultiImageDropzone from "./MultiImageDropzone";
+import { useStyles } from "./Search";
 
 const useUploadImage = () =>
     useMutation<number[] | null, AxiosError, FormData>((formData) =>
@@ -51,31 +52,39 @@ const BookNowModalCard = ({
     show,
     setShow,
     handleClose,
+    entity_service_id,
 }: BookNowModalCardProps) => {
     const router = useRouter();
     const queryClient = useQueryClient();
     const { classes } = useStyles();
-    const { mutateAsync } = useUploadFile();
-    const { mutate: bookNowServiceMutation, isLoading: bookServiceLoading } =
-        useBookNowService();
-    const { mutate: uploadImageMutation, isLoading: uploadImageLoading } =
-        useUploadImage();
-    const loadingOverlayVisible = useMemo(
-        () => bookServiceLoading || uploadImageLoading,
-        [bookServiceLoading, uploadImageLoading]
-    );
+    const { mutateAsync, isLoading: uploadPhotoLoading } = useUploadFile();
+    const { mutate, isLoading: bookNowLoading } = useBookNowTask();
+    // const { mutate: bookNowServiceMutation, isLoading: bookServiceLoading } =
+    //     useBookNowService();
+    // const { mutate: uploadImageMutation, isLoading: uploadImageLoading } =
+    //     useUploadImage();
+    // const loadingOverlayVisible = useMemo(
+    //     () => bookServiceLoading || uploadImageLoading,
+    //     [bookServiceLoading, uploadImageLoading]
+    // );
 
-    if (loadingOverlayVisible)
-        return (
-            <LoadingOverlay
-                visible={loadingOverlayVisible}
-                className={classes.overlay}
-                overlayBlur={2}
-            />
-        );
+    // if (loadingOverlayVisible)
+    //     return (
+    //         <LoadingOverlay
+    //             visible={loadingOverlayVisible}
+    //             className={classes.overlay}
+    //             overlayBlur={2}
+    //         />
+    //     );
+    const isBookLoading = uploadPhotoLoading || bookNowLoading;
+
     return (
         <>
             {/* Modal component */}
+            <LoadingOverlay
+                visible={isBookLoading}
+                sx={{ position: "fixed", inset: 0 }}
+            />
             <Modal show={show} centered onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton>
                     <Modal.Title>Booking Details</Modal.Title>
@@ -103,7 +112,6 @@ const BookNowModalCard = ({
                         initialValues={BookServiceFormData}
                         validationSchema={bookServiceSchema}
                         onSubmit={async (values) => {
-                            console.log(values);
                             const imageIds = await mutateAsync({
                                 files: values.images,
                             });
@@ -114,8 +122,23 @@ const BookNowModalCard = ({
                                 ...values,
                                 images: imageIds,
                                 videos: videoIds,
+                                entity_service: entity_service_id,
+                                requirements: JSON.stringify(
+                                    values.requirements
+                                ),
                             };
+
                             console.log("abc", newvalues);
+
+                            mutate(newvalues, {
+                                onSuccess: () => {
+                                    toast.success("Task Booked Successfully");
+                                    router.push("task/checkout");
+                                },
+                                onError: (error) => {
+                                    toast.error(error.message);
+                                },
+                            });
 
                             // if (values.images && values.images.length > 0) {
                             //     for (const image of values.images) {
@@ -203,7 +226,13 @@ const BookNowModalCard = ({
                             // }
                         }}
                     >
-                        {({ isSubmitting, errors, touched, setFieldValue }) => (
+                        {({
+                            isSubmitting,
+                            errors,
+                            touched,
+                            setFieldValue,
+                            values,
+                        }) => (
                             <Form encType="multipart/formData">
                                 {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                                 <div className="problem">
@@ -287,6 +316,34 @@ const BookNowModalCard = ({
                                             fieldRequired
                                         />
                                     </Col>
+                                </Row>
+                                <Row className="mt-2 mb-3">
+                                    <Checkbox
+                                        label="Share my location"
+                                        onChange={(e) => {
+                                            setFieldValue(
+                                                "location",
+                                                e.target.checked.toString()
+                                            );
+
+                                            if (
+                                                e.currentTarget.checked === true
+                                            ) {
+                                                navigator.geolocation.getCurrentPosition(
+                                                    (pos) => {
+                                                        const {
+                                                            latitude,
+                                                            longitude,
+                                                        } = pos.coords;
+                                                        console.log(
+                                                            latitude,
+                                                            longitude
+                                                        );
+                                                    }
+                                                );
+                                            }
+                                        }}
+                                    />
                                 </Row>
                                 <SelectCity
                                     onCitySelect={(cityId) =>
@@ -389,11 +446,4 @@ const BookNowModalCard = ({
         </>
     );
 };
-const useStyles = createStyles(() => ({
-    overlay: {
-        postion: "fixed",
-        inset: 0,
-        zIndex: 9999,
-    },
-}));
 export default BookNowModalCard;
