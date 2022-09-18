@@ -6,17 +6,30 @@ import type { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { FacebookShareButton, TwitterShareButton } from "next-share";
 import { Col, Container, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 import type { BlogDetailData, BlogValueProps } from "types/blogs";
 import { axiosClient } from "utils/axiosClient";
-import { formatMonthDate } from "utils/helpers";
+import { formatMonthDate, getPageUrl } from "utils/helpers";
 
 const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
+    const copyToClipBoard = async (copyMe: any) => {
+        try {
+            navigator.clipboard.writeText(copyMe);
+            toast.success("Link copied to clipboard.");
+        } catch (err) {
+            //  console.log(err.message);
+        }
+    };
     // const blogData = blog?.data ?? {};
-    const socialShareURL = `https://cipher.com/blogs/${blog?.slug}`;
+    const socialShareURL = getPageUrl();
     // const category = JSON.parse(blog?.category);
     if (!blog) return null;
     return (
-        <Layout>
+        <Layout
+            title={blog.title}
+            ogImage={blog.image}
+            description={blog.content.slice(0, 100)}
+        >
             <section className="single-blog">
                 <Container fluid="xl" className="px-4">
                     <div className="single-blog__heading-section">
@@ -31,13 +44,9 @@ const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
                             <Col md={6}>
                                 <button>
                                     <p
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(
-                                                `${socialShareURL}`
-                                            );
-
-                                            // successToast("Link Copied")
-                                        }}
+                                        onClick={() =>
+                                            copyToClipBoard(socialShareURL)
+                                        }
                                     >
                                         <FontAwesomeIcon
                                             icon={faLink}
