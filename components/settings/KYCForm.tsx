@@ -63,7 +63,6 @@ const KYCForm = () => {
     return (
         <>
             {/* Modal component */}
-
             <div
                 className="account-form mt-5"
                 style={
