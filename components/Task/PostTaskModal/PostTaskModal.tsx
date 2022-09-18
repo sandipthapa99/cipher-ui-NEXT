@@ -63,6 +63,7 @@ export interface PostTaskPayload {
     start_time: string;
     end_time: string;
     is_active: boolean;
+    share_location: boolean;
 }
 
 export const PostTaskModal = () => {
@@ -111,6 +112,7 @@ export const PostTaskModal = () => {
             images: "",
             videos: "",
             is_active: true,
+            share_location: true,
         },
         enableReinitialize: true,
         validationSchema: postTaskSchema,

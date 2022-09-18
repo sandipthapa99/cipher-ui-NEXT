@@ -304,11 +304,7 @@ const AppliedTaskDetail = ({
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {taskRequirements.map((highlight, key) => (
-                        <div key={key}>
-                            <ServiceHighlights highlight={highlight} />
-                        </div>
-                    ))}
+                    {/* <ServiceHighlights highlight={taskRequirements} /> */}
                 </div>
 
                 {/* <TeamMembersSection /> */}

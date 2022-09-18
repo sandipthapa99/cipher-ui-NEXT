@@ -8,18 +8,22 @@ export interface ServiceOptions {
     id: string;
     title: string;
 }
-export const useServiceOptions = () => {
-    return useQuery(["service-options"], async () => {
-        const { data } = await axiosClient.get<ServiceOptions[]>(
-            "/task/service/list/"
-        );
-        const serviceItems = data.map((service) => ({
-            id: service?.id,
-            label: service?.title,
-            value: service?.id,
-        }));
-        return serviceItems;
-    });
+export const useServiceOptions = (searchQuery: string) => {
+    return useQuery(
+        ["service-options", searchQuery],
+        async () => {
+            const { data } = await axiosClient.get<ServiceOptions[]>(
+                "/task/service/list/"
+            );
+            const serviceItems = data.map((service) => ({
+                id: service?.id,
+                label: service?.title,
+                value: service?.id,
+            }));
+            return serviceItems;
+        },
+        { enabled: !!searchQuery && searchQuery.length > 2 }
+    );
 };
 
 interface TaskCategoryProps extends Omit<SelectProps, "data"> {
@@ -27,10 +31,12 @@ interface TaskCategoryProps extends Omit<SelectProps, "data"> {
 }
 export const ServiceOptions = ({
     value,
+
     onServiceChange,
     ...rest
 }: TaskCategoryProps) => {
-    const { data: serviceOptions = [] } = useServiceOptions();
+    const [query, setQuery] = useState("");
+    const { data: serviceOptions = [] } = useServiceOptions(query);
     const [service, setService] = useState(value);
     const handleServiceChange = (selectedService: string | null) => {
         if (!selectedService) return;
@@ -45,6 +51,7 @@ export const ServiceOptions = ({
             placeholder="Select a service"
             value={service}
             onChange={handleServiceChange}
+            onSearchChange={setQuery}
             data={serviceOptions}
             required
         />

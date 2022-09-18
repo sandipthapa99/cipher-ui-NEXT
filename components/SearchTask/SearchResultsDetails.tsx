@@ -48,7 +48,6 @@ const SearchResultsDetail = ({
     serviceDescription,
     serviceTitle,
     highlights,
-    slug,
     serviceId,
     serviceCreated,
     serviceViews,
@@ -138,17 +137,17 @@ const SearchResultsDetail = ({
     const { data: user } = useUser();
     const withLogin = useWithLogin();
     const router = useRouter();
-    const servSlug = router.query.slug;
+    const servSlug = router.query.id;
     const getSingleService = servicesData?.data?.result.filter(
-        (item) => item.slug === servSlug
+        (item) => String(item.id) === servSlug
     );
 
     const getPackageAccordingService = myServicePackage?.data?.result.filter(
         (servicePackage) =>
-            getSingleService?.[0].id === servicePackage?.service?.id
+            String(getSingleService?.[0].id) === servicePackage?.service?.id
     );
 
-    const isServiceBookmarked = useIsBookmarked("service", serviceId);
+    const isServiceBookmarked = useIsBookmarked("service", String(serviceId));
 
     console.log("is service bookmarked", isServiceBookmarked);
 
@@ -314,6 +313,8 @@ const SearchResultsDetail = ({
                                         }
                                         layout="fill"
                                         objectFit="cover"
+                                        placeholder="blur"
+                                        blurDataURL="/placeholder/profilePlaceholder.png"
                                         alt="serviceprovider-image"
                                     />
                                 </figure>
@@ -398,7 +399,7 @@ const SearchResultsDetail = ({
             </div>
 
             <h3>Requirements</h3>
-            {highlights && highlights.length <= 0 && (
+            {highlights && (
                 <Alert
                     icon={<FontAwesomeIcon icon={faWarning} />}
                     title="No data Available!"
@@ -413,11 +414,7 @@ const SearchResultsDetail = ({
             )}
             {highlights && (
                 <div className="mt-5">
-                    {highlights?.map((highlight, index) => (
-                        <div key={index}>
-                            <ServiceHighlights highlight={highlight} />
-                        </div>
-                    ))}
+                    <ServiceHighlights highlight={highlights} />
                 </div>
             )}
             <section
@@ -552,7 +549,7 @@ const SearchResultsDetail = ({
                 budget_to={budget_to}
                 budget_from={budget_from}
                 budget_type={budget_type}
-                service_id={serviceId}
+                service_id={String(serviceId)}
                 description={serviceDescription}
                 show={show}
                 handleClose={handleClose}
