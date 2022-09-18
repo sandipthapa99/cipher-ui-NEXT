@@ -19,7 +19,7 @@ const BankForm = () => {
 
     const [bankId, setBankId] = useState<string>("0");
     const queryClient = useQueryClient();
-
+    const [isBankChanged, setIsBankChanged] = useState(false);
     const [bankNameChange, setBankNameChange] = useState<string | null>(null);
     const [branchNameChange, setBranchNameChange] = useState<string | null>(
         null
@@ -121,10 +121,15 @@ const BankForm = () => {
                             searchable
                             placeholder={"Select Branch"}
                             nothingFound="No result found."
-                            value={branchNameChange}
-                            onChange={(value) =>
-                                handleBranchNameChanged(value, setFieldValue)
+                            value={
+                                !isBankChanged
+                                    ? bankBranchResults[0]?.value
+                                    : branchNameChange
                             }
+                            onChange={(value) => {
+                                handleBranchNameChanged(value, setFieldValue);
+                                setIsBankChanged(true);
+                            }}
                             data={
                                 !isLoading ? bankBranchResults : [" Loading..."]
                             }
