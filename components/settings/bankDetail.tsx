@@ -24,7 +24,6 @@ const BankForm = () => {
     const [branchNameChange, setBranchNameChange] = useState<string | null>(
         null
     );
-    // useEffect(() => {}, [bankId]);
 
     const { data: bankNames } = useData<BankNamesResult>(
         ["all-banks"],
@@ -80,7 +79,7 @@ const BankForm = () => {
                 validationSchema={bankFormSchema}
                 onSubmit={async (values) => {
                     const withKYC = { ...values, kyc: KYCData?.id };
-                    console.log("bank details are", withKYC);
+
                     mutate(withKYC, {
                         onSuccess: async () => {
                             console.log("submitted values", values);
