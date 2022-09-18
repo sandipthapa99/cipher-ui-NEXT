@@ -42,7 +42,11 @@ const ServiceAside = ({
                                     ? task.images[0]?.media
                                     : task?.images
                             }
-                            serviceProvider={task?.created_by?.full_name}
+                            serviceProvider={
+                                task?.created_by?.full_name === "None None"
+                                    ? "Cipher"
+                                    : task?.created_by?.full_name
+                            }
                         />
                     </a>
                 </Link>

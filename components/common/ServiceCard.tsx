@@ -53,26 +53,28 @@ const ServiceCard = ({
                 <a>
                     <div className="card-img">
                         {serviceCard &&
-                        serviceCard?.images &&
-                        serviceCard.images.length > 0 ? (
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src={serviceCard.images[0].media}
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt="servicecard-image"
-                                />
-                            </figure>
-                        ) : (
-                            <figure className="thumbnail-img">
-                                <Image
-                                    src={"/service-details/garden-cleaning.png"}
-                                    layout="fill"
-                                    objectFit="cover"
-                                    alt="servicecard-image"
-                                />
-                            </figure>
-                        )}
+                            serviceCard?.images &&
+                            serviceCard.images.length > 0 && (
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src={serviceCard.images[0].media}
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="servicecard-image"
+                                    />
+                                </figure>
+                            )}
+                        {!serviceCard?.images ||
+                            (serviceCard?.images?.length <= 0 && (
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src={"/placeholder/taskPlaceholder.png"}
+                                        layout="fill"
+                                        objectFit="cover"
+                                        alt="servicecard-image"
+                                    />
+                                </figure>
+                            ))}
 
                         {serviceCard?.is_online && (
                             <div className="offer">
