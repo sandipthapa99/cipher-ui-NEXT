@@ -1,7 +1,6 @@
 import {
     useClearSearchedServices,
     useClearSearchQuery,
-    useSearchedServices,
     useSearchQuery,
 } from "@components/common/Search/searchStore";
 import Layout from "@components/Layout";
@@ -13,33 +12,27 @@ import { useQuery } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import { useCheckSpecialOffer } from "store/use-check-special-offer";
-import { useSpecialOfferDetails } from "store/use-special-offers";
 import type { ServicesValueProps } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
 import ServiceAside from "./ServiceAside";
 
-export const useSearchService = (query: string) => {
-    return useQuery(["all-services", query], () =>
+export const useSearchService = (searchParam: string) => {
+    return useQuery(["all-services", searchParam], () =>
         axiosClient
-            .get<ServicesValueProps>(`/task/service/list?search=${query}`)
+            .get<ServicesValueProps>(`/task/service/list?${searchParam}`)
             .then((response) => response.data.result)
     );
 };
 
 const ServiceLayout = ({ children }: { children: ReactNode }) => {
-    const [query, setQuery] = useState("");
-    const [sortPriceServices, setSortPriceServices] = useState([]);
-    const searchedServices = useSearchedServices();
+    const [searchParam, setSearchParam] = useState("");
+
     const clearSearchQuery = useClearSearchQuery();
     const clearSearchedServices = useClearSearchedServices();
     const searchQuery = useSearchQuery();
-    const specialOfferDetails = useSpecialOfferDetails();
-    const checkSpecialOffer = useCheckSpecialOffer();
-    // console.log(specialOfferDetails, checkSpecialOffer);
 
-    const { data: searchData = [], isFetching } = useSearchService(query);
+    const { data: searchData = [], isFetching } = useSearchService(searchParam);
 
     const handleClearSearchResults = () => {
         clearSearchedServices();
@@ -49,22 +42,18 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const handleSearchChange = (query: string) => {
         clearSearchQuery();
         clearSearchedServices();
-        setQuery(query);
-    };
-
-    const getSortByPrice = (services: any) => {
-        setSortPriceServices(services);
+        setSearchParam(query);
     };
 
     return (
         <Layout title="Find Services | Cipher">
             <section className="service-section mb-5" id="service-section">
                 <Container fluid="xl">
-                    {/* <SearchCategory
-                        onChange={handleSearchChange}
-                        getSortingByPrice={getSortByPrice}
-                        placeholder="Find your Services &amp; Merchants"
-                    /> */}
+                    <SearchCategory
+                        searchModal="service"
+                        onSearchParamChange={handleSearchChange}
+                        onFilterClear={() => setSearchParam("")}
+                    />
                     {searchQuery?.query && (
                         <Box
                             sx={{
@@ -83,17 +72,8 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
                     )}
                     <Space h={10} />
                     <ServiceAside
-                        query={query}
-                        service={
-                            sortPriceServices.length > 0
-                                ? sortPriceServices
-                                : searchData
-                            // checkSpecialOffer
-                            //     ? specialOfferDetails
-                            //     : searchedServices.length > 0
-                            //     ? searchedServices
-                            //     : searchData
-                        }
+                        query={searchParam}
+                        service={searchData}
                         isLoading={isFetching}
                     >
                         {children}
