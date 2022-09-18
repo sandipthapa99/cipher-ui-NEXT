@@ -10,6 +10,7 @@ import { faClose } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Box, Highlight, Space } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import urls from "constants/urls";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -23,7 +24,7 @@ import ServiceAside from "./ServiceAside";
 export const useSearchService = (query: string) => {
     return useQuery(["all-services", query], () =>
         axiosClient
-            .get<ServicesValueProps>(`/task/service/list?search=${query}`)
+            .get<ServicesValueProps>(`${urls.task.service}&search=${query}`)
             .then((response) => response.data.result)
     );
 };

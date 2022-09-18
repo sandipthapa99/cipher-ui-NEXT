@@ -20,72 +20,64 @@ export interface ServicesValueProps {
     next: any;
     previous: any;
     page_size: number;
-    result: Array<{
-        id: string;
-        created_by: {
-            id: string;
-            email: string;
-            full_name: string;
-            profile_image: string;
-        };
-        category: {
-            id: number;
-            name: string;
-            slug: string;
-            icon: string;
-        };
+    result: {
+        id: number;
         currency: {
             id: number;
             name: string;
             code: string;
+            symbol: any;
         };
-        city: {
-            id: number;
-            name: string;
-            latitude: number;
-            longitude: number;
-            country: {
-                id: number;
-                name: string;
-            };
+        city: any;
+        created_by: {
+            id: string;
+            username: string;
+            email: string;
+            phone: any;
+            full_name: string;
+            profile_image: string;
         };
-        images?: {
-            id: number;
-            name: string;
-            size: number;
-            media: string;
-            media_type: string;
-            placeholder: string;
-        }[];
-        videos: {
-            id: number;
-            name: string;
-            size: string;
-            media_type: string;
-            media: string;
-        }[];
+        service: {
+            id: string;
+            title: string;
+            is_active: boolean;
+            is_verified: boolean;
+        };
         created_at: string;
         updated_at: string;
+        deleted_at: any;
         title: string;
+        description: string;
+        highlights: Record<string, string>;
         budget_type: string;
         budget_from: number;
-        budget_to: number;
-        status: string;
-        description: string;
-        highlights: string;
+        budget_to: any;
+        start_date: any;
+        end_date: any;
+        start_time: any;
+        end_time: any;
+        share_location: boolean;
+        is_negotiable: boolean;
+        revisions: number;
+        recursion_type: string;
         views_count: number;
         location: string;
-        happy_clients: number;
-        success_rate: number;
         is_professional: boolean;
         is_online: boolean;
-        video: any;
-        no_of_revisions: number;
+        is_requested: boolean;
         discount_type: string;
-        discount_value: number;
-        is_active: boolean;
-        slug: string;
-    }>;
+        discount_value: any;
+        extra_data: {
+            additionalProp1: string;
+            additionalProp2: string;
+            additionalProp3: string;
+        };
+        no_of_reservation: number;
+        merchant: any;
+        views: any[];
+        images: any[];
+        videos: any[];
+    }[];
 }
 export interface RecentProps {
     result?: Array<{

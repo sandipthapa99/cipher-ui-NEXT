@@ -5,7 +5,7 @@ const ServiceHighlights = ({
     highlight,
 }: // isChecked,
 {
-    highlight: { id: number; name?: string; title?: string };
+    highlight: Record<string, string>;
     // isChecked: boolean
 }) => {
     return (
@@ -26,7 +26,7 @@ const ServiceHighlights = ({
                 icon={faCheck}
                 className="me-3 svg-icon svg-icon-check"
             />
-            {highlight.name ?? highlight.title}
+            {highlight.name ?? highlight.name}
         </p>
     );
 };
