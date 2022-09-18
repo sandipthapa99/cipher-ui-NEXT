@@ -49,6 +49,15 @@ const ServiceAside = ({
             </div>
         );
     });
+    const renderServiceSkeletons = () => {
+        return (
+            <Fragment>
+                {Array.from({ length: 3 }).map((_, index) => (
+                    <SkeletonServiceCard key={index} />
+                ))}
+            </Fragment>
+        );
+    };
     return (
         <div className="search-results">
             <Row>
@@ -58,20 +67,14 @@ const ServiceAside = ({
                         offsetScrollbars
                         scrollbarSize={5}
                     >
-                        {isLoading && (
-                            <Fragment>
-                                {Array.from({ length: 3 }).map((_, key) => (
-                                    <SkeletonServiceCard key={key} />
-                                ))}
-                            </Fragment>
-                        )}
-                        {query && totalAppliedTasks > 0 ? (
+                        {isLoading && renderServiceSkeletons()}
+                        {!isLoading && query && totalAppliedTasks > 0 ? (
                             <p className="search-results-text">
                                 {`${totalAppliedTasks} service matching ${query} found`}
                             </p>
                         ) : null}
-                        {renderTaskCards}
-                        {query && totalAppliedTasks === 0 ? (
+                        {!isLoading && renderTaskCards}
+                        {!isLoading && query && totalAppliedTasks === 0 ? (
                             <p className="search-results-text">
                                 No services matching {query} found
                             </p>

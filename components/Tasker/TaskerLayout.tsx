@@ -1,8 +1,4 @@
-import {
-    useClearSearchedServices,
-    useClearSearchQuery,
-    useSearchQuery,
-} from "@components/common/Search/searchStore";
+import { useSearchQuery } from "@components/common/Search/searchStore";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import { Highlight, Space } from "@mantine/core";
@@ -15,28 +11,28 @@ import { axiosClient } from "utils/axiosClient";
 
 import TaskerAside from "./TaskerAside";
 
-export const useSearchTasker = (query: string) => {
-    return useQuery(["all-tasker", query], () =>
+export const useSearchTasker = (searchParam: string) => {
+    return useQuery(["all-tasker", searchParam], () =>
         axiosClient
-            .get<TaskerProps>(`/tasker/?search=${query}`)
+            .get<TaskerProps>(`/tasker/?${searchParam}`)
             .then((response) => response.data.result)
     );
 };
 
 const TaskerLayout = ({ children }: { children: ReactNode }) => {
-    const [query, setQuery] = useState("");
-    const [sortTaskerPrice, setSortTaskerPrice] = useState([]);
+    const [searchParam, setSearchParam] = useState("");
     const searchQuery = useSearchQuery();
 
-    const { data: searchData = [], isFetching } = useSearchTasker(query);
+    const { data: searchData = [], isFetching } = useSearchTasker(searchParam);
     return (
         <Layout title="Find Tasker | Cipher">
             <section className="Tasker-section" id="Tasker-section">
                 <Container fluid="xl">
-                    {/* <SearchCategory
-                        onChange={handleSearchChange}
-                        getTaskerBySort={getTaskerSortByPrice}
-                    /> */}
+                    <SearchCategory
+                        searchModal="tasker"
+                        onSearchParamChange={setSearchParam}
+                        onFilterClear={() => setSearchParam("")}
+                    />
                     {searchQuery?.query && (
                         <Highlight highlight={searchQuery.query}>
                             {`Showing search results for ${searchQuery.query}`}
@@ -44,12 +40,8 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
                     )}
                     <Space h={10} />
                     <TaskerAside
-                        query={query}
-                        tasker={
-                            sortTaskerPrice.length > 0
-                                ? sortTaskerPrice
-                                : searchData
-                        }
+                        query={searchParam}
+                        tasker={searchData}
                         isLoading={isFetching}
                     >
                         {children}
