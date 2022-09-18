@@ -78,13 +78,14 @@ export const SearchCategory = ({
             value: "-budget_to",
         },
     ];
-    const taskersData: SelectItem[] = taskers
-        ? Object.keys(taskers[0]).map((key, index) => ({
-              id: index,
-              label: key,
-              value: key,
-          }))
-        : [];
+    const taskersData: SelectItem[] =
+        taskers && taskers.length > 0
+            ? Object.keys(taskers[0]).map((key, index) => ({
+                  id: index,
+                  label: key,
+                  value: key,
+              }))
+            : [];
 
     const onSelectChange = (key: string, value: string | null) => {
         if (!value) return;
