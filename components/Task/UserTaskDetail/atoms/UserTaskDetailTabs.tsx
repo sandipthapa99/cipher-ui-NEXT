@@ -1,6 +1,9 @@
 import ServiceCard from "@components/common/ServiceCard";
 import { Tab } from "@components/common/Tab";
 import { AboutTasker } from "@components/Tasker/AboutTasker";
+import { faWarning } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, Highlight } from "@mantine/core";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
@@ -41,11 +44,26 @@ const ServiceList = ({
 }) => {
     return (
         <Row className="td-user-services">
-            {taskerService?.result?.map((service, key) => (
-                <Col md={4} key={key}>
-                    <ServiceCard serviceCard={service} />
-                </Col>
-            ))}
+            {taskerService?.result &&
+                taskerService?.result?.map((service, key) => (
+                    <Col md={4} key={key}>
+                        <ServiceCard serviceCard={service} />
+                    </Col>
+                ))}
+            {!taskerService ||
+                (taskerService?.result?.length <= 0 && (
+                    <Alert
+                        icon={<FontAwesomeIcon icon={faWarning} />}
+                        title="No data Available!"
+                        color="orange"
+                        radius="md"
+                        sx={{ minWidth: 100 }}
+                    >
+                        <Highlight highlight={["No Services", "user"]}>
+                            {`There are No Services by this user`}
+                        </Highlight>
+                    </Alert>
+                ))}
         </Row>
     );
 };
