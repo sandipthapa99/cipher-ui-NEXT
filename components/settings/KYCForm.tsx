@@ -305,7 +305,7 @@ const KYCForm = () => {
                         </Form>
                     )}
                 </Formik>
-                {KYCData && <IdentityDocument getReadvalue={setShowKYCRead} />}
+                {KYCData && <IdentityDocument />}
                 {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
             {!KYCData?.is_kyc_verified && <KYCStatus />}

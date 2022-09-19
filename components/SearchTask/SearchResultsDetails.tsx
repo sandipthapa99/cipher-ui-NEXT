@@ -545,6 +545,7 @@ const SearchResultsDetail = ({
                 </Carousel>
             </Row> */}
             <BookNowModalCard
+                entity_service_id={serviceId}
                 title={serviceTitle}
                 budget_to={budget_to}
                 budget_from={budget_from}
