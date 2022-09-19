@@ -11,7 +11,7 @@ export interface BookNowModalCardProps {
     budget_type?: string;
     price?: number | string;
     image?: string;
-    entity_service_id: number | undefined;
+    entity_service_id?: number | undefined;
     images?: any[];
 }
 
