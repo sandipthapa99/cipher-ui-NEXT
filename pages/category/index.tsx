@@ -1,5 +1,6 @@
 import { AllCategories } from "@components/AllCategories";
 import Layout from "@components/Layout";
+import urls from "constants/urls";
 import type { GetStaticProps, NextPage } from "next";
 import { Container } from "react-bootstrap";
 import type { NestedCategoriesDataProps } from "types/nestedCategoryProps";
@@ -42,7 +43,7 @@ const CategoriesPage: NextPage<{
 export const getStaticProps: GetStaticProps = async () => {
     try {
         const { data: nestedCategoriesData } = await axiosClient.get(
-            "/task/task-category/nested/"
+            urls.category.list
         );
         return {
             props: {
