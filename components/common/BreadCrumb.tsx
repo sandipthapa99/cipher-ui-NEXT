@@ -25,7 +25,7 @@ export const BreadCrumb = ({ currentPage }: BreadCrumbProps) => {
                     />
                     {breadCrumbRoutes.map((route, key) => (
                         <span key={key}>
-                            <Link href={`/${route.toLowerCase()}`}>
+                            <Link href={`/${route?.toLowerCase()}`}>
                                 <a>{route}</a>
                             </Link>
                             <FontAwesomeIcon
