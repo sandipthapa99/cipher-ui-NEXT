@@ -58,7 +58,7 @@ const ServiceAside = ({
             <Row>
                 <Col md={4}>
                     <ScrollArea.Autosize
-                        maxHeight={700}
+                        maxHeight={750}
                         offsetScrollbars
                         scrollbarSize={5}
                     >
@@ -95,7 +95,7 @@ const ServiceAside = ({
 
                 <Col md={8}>
                     <ScrollArea.Autosize
-                        maxHeight={700}
+                        maxHeight={750}
                         offsetScrollbars
                         scrollbarSize={5}
                     >

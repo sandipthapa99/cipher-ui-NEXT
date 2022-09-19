@@ -1,8 +1,6 @@
 import {
     faArrowRightFromBracket,
-    faBoxOpen,
     faChartSimpleHorizontal,
-    faFileInvoiceDollar,
     faGauge,
     faGear,
     faGift,
@@ -15,6 +13,7 @@ import { useLogout } from "hooks/auth/useLogout";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import defaultProfile from "public/default.png";
 import React from "react";
 
 import { useProfileModelStyles } from "./profileModelStyles";
@@ -25,7 +24,7 @@ const SPECIAL_ICON_COLOR = "#F98900";
 export const ProfileModel = () => {
     const router = useRouter();
     const { classes } = useProfileModelStyles();
-    const { data: profileDetails } = useGetProfile();
+    const { data: profileDetails, isLoading } = useGetProfile();
 
     const logout = useLogout({
         onLogout: () =>
@@ -45,12 +44,14 @@ export const ProfileModel = () => {
                         <li
                             data-is-active={router.pathname === item.href}
                             key={key}
+                            className="menu"
                         >
                             {/* <FontAwesomeIcon icon={faCar} color={item.color} /> */}
                             {item.icon}
                             <NextLink
                                 style={{ color: item.color }}
                                 href={item.href}
+                                className="menu-link"
                             >
                                 {item.title}
                             </NextLink>
@@ -63,12 +64,21 @@ export const ProfileModel = () => {
     return (
         <div className={classes.root}>
             <div className={classes.header}>
-                <Avatar
-                    src={profileDetails?.profile_image}
-                    radius="xl"
-                    size={44}
-                    alt="it's me"
-                />
+                {isLoading ? (
+                    <Avatar
+                        src={defaultProfile.src}
+                        radius="xl"
+                        size={44}
+                        alt="it's me"
+                    />
+                ) : (
+                    <Avatar
+                        src={profileDetails?.profile_image}
+                        radius="xl"
+                        size={44}
+                        alt="it's me"
+                    />
+                )}
                 <div>
                     <Text className={classes.username}>
                         {profileDetails
@@ -113,6 +123,12 @@ export const ProfileModel = () => {
 const PROFILE_LINKS = {
     sectionOne: [
         {
+            title: "My Dashboard",
+            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
+            href: "/home",
+            color: "#495057",
+        },
+        {
             title: "Profile",
             icon: (
                 <FontAwesomeIcon
@@ -123,30 +139,36 @@ const PROFILE_LINKS = {
             href: "/profile",
             color: "#495057",
         },
+        //{
+        //    title: "My Orders",
+        //    icon: (
+        //        <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faBoxOpen} />
+        //    ),
+        //    href: "/myorders",
+        //    color: "#495057",
+        //},
+        //{
+        //    title: "Payment History",
+        //    icon: (
+        //        <FontAwesomeIcon
+        //            color={REGULAR_ICON_COLOR}
+        //            icon={faFileInvoiceDollar}
+        //        />
+        //    ),
+        //    href: "/payment-history",
+        //    color: "#495057",
+        //},
         {
-            title: "My Orders",
-            icon: (
-                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faBoxOpen} />
-            ),
-            href: "/myorders",
-            color: "#495057",
-        },
-        {
-            title: "Payment History",
-            icon: (
-                <FontAwesomeIcon
-                    color={REGULAR_ICON_COLOR}
-                    icon={faFileInvoiceDollar}
-                />
-            ),
-            href: "/payment-history",
-            color: "#495057",
-        },
-        {
-            title: "Redeem",
+            title: "Offers",
             icon: <FontAwesomeIcon color={SPECIAL_ICON_COLOR} icon={faGift} />,
-            href: "/redeem",
+            href: "/offers",
             color: "#F98900",
+        },
+        {
+            title: "Settings",
+            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGear} />,
+            href: "/settings/account/individual",
+            color: "#495057",
         },
     ],
     sectionTwo: [
@@ -161,15 +183,9 @@ const PROFILE_LINKS = {
     ],
     sectionThree: [
         {
-            title: "My Dashboard",
+            title: "Merchant DashBoard",
             icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
             href: "/home",
-            color: "#495057",
-        },
-        {
-            title: "Settings",
-            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGear} />,
-            href: "/settings/account/individual",
             color: "#495057",
         },
     ],

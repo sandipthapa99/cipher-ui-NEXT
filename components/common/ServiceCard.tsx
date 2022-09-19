@@ -57,7 +57,11 @@ const ServiceCard = ({
                             serviceCard.images.length > 0 && (
                                 <figure className="thumbnail-img">
                                     <Image
-                                        src={serviceCard.images[0].media}
+                                        src={
+                                            serviceCard.images[0].media
+                                                ? serviceCard.images[0].media
+                                                : "/placeholder/taskPlaceholder.png"
+                                        }
                                         layout="fill"
                                         objectFit="cover"
                                         alt="servicecard-image"

@@ -156,9 +156,9 @@ const Login = () => {
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/google-oauth2/`}
                                 /> */}
 
-                                <FacebookLogin />
-                                <div className="google-login-btn">
+                                <div className="button-wrapper-social d-flex justify-content-evenly">
                                     <Google />
+                                    <FacebookLogin />
                                 </div>
                             </Form>
                         )}
