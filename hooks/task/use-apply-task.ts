@@ -7,6 +7,7 @@ export interface ApplyTaskPayload {
     remarks: string;
     charge: number;
     pre_requisites: string;
+    recursion: number;
 }
 export interface ApplyTaskResponse {
     task: string;
