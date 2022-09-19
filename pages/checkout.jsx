@@ -276,7 +276,7 @@ export default function Checkout() {
                         <Button
                             className="checkout-btn"
                             onClick={(e) => {
-                                setOpened(true);
+                                alert(paymentType);
                             }}
                         >
                             Proceed to Confirm
@@ -284,7 +284,7 @@ export default function Checkout() {
                     </Col>
                 </Row>
             </Container>
-            <Modal
+            {/*<Modal
                 opened={opened}
                 onClose={() => {
                     setOpened(false);
@@ -305,7 +305,7 @@ export default function Checkout() {
                         )}
                     </div>
                 )}
-            </Modal>
+            </Modal>*/}
         </Layout>
     );
 }
