@@ -71,10 +71,6 @@ const AppliedTaskDetail = ({
 
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
-    const taskRequirements = safeParse<Array<{ id: number; title: string }>>({
-        rawString: taskDetail?.requirements,
-        initialData: [],
-    });
     const isUserTask = user ? taskDetail?.assigner?.id === user?.id : false;
 
     const taskVideosAndImages = [
