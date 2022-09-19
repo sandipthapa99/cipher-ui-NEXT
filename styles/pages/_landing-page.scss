@@ -13,12 +13,12 @@
 
     @include respond(md) {
         margin: 4rem 0 0 0;
-        background: url("../#{$theme-imgpath}/heroImages/hero-background.svg") no-repeat bottom;
+        background: url("../#{$theme-imgpath}/heroImages/hero-background.svg")
+            no-repeat bottom;
         background-size: auto;
     }
 
     .hero-content {
-
         .left {
             // padding: 0;
 
@@ -588,9 +588,11 @@
             position: absolute;
             height: 36.8rem;
             width: 100%;
-            background: linear-gradient(90.3deg,
-                    #ecf7ff 37.14%,
-                    rgba(255, 255, 255, 0) 75.06%);
+            background: linear-gradient(
+                90.3deg,
+                #ecf7ff 37.14%,
+                rgba(255, 255, 255, 0) 75.06%
+            );
             opacity: 0.9;
         }
 
