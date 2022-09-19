@@ -27,6 +27,7 @@ const urls = {
         top_tasker: `${taskerPath}top-tasker/`,
         success_story: `${taskerPath}success-story/`,
     },
+    category: { list: `/task/task-category/nested/` },
     carrer: { list: `${careerPath}list/`, detail: `${careerPath}detail/` },
     blog: { list: blogPath, detail: `${blogPath}detail/` },
     wishlist: {

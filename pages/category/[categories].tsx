@@ -10,6 +10,7 @@ import SkeletonTaskerCard from "@components/Skeletons/SkeletonTaskerCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Grid, Highlight } from "@mantine/core";
+import urls from "constants/urls";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
@@ -285,13 +286,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const { data: serviceData } = await axiosClient.get<ServicesValueProps>(
-            `/task/service/?category=${params?.categories}`
+            `${urls.task.service}&category=${params?.categories}`
         );
         const { data: taskData } = await axiosClient.get<ITaskApiResponse>(
-            `/task/?category=${params?.categories}`
+            `${urls.task.task}&category=${params?.categories}`
         );
         const { data: taskerData } = await axiosClient.get<TaskerProps>(
-            `/tasker/`
+            urls.tasker.list
         );
         const { data: heroCategoryData } =
             await axiosClient.get<HeroCategoryProps>("/task/hero-category/");
@@ -301,7 +302,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
                 serviceData: serviceData.result,
                 taskData: taskData.result,
                 taskerData: taskerData.result,
-                heroCategoryData: heroCategoryData.result,
+                // heroCategoryData: heroCategoryData.result,
             },
             revalidate: 10,
         };
