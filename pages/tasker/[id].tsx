@@ -28,7 +28,7 @@ export default TaskerDetail;
 
 export const getStaticPaths: GetStaticPaths = async () => {
     try {
-        const { data: taskerData } = await axiosClient.get("/tasker/");
+        const { data: taskerData } = await axiosClient.get(urls.tasker.list);
         const paths = taskerData?.result?.map(
             ({ user: { id } }: TaskerProps["result"][0]) => ({
                 params: { id: id },

@@ -2,6 +2,7 @@ import Layout from "@components/Layout";
 import { faFacebookF, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faLink } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import urls from "constants/urls";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { FacebookShareButton, TwitterShareButton } from "next-share";
@@ -94,7 +95,7 @@ export default SingleBlog;
 
 export const getStaticPaths: GetStaticPaths = async () => {
     try {
-        const { data: blogsData } = await axiosClient.get("/blog/");
+        const { data: blogsData } = await axiosClient.get(urls.blog.list);
         if (blogsData.error) throw new Error(blogsData.error.message);
 
         const paths = blogsData?.result?.map(
@@ -118,7 +119,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const { data } = await axiosClient.get<BlogDetailData>(
-            `/blog/detail/${params?.blogID}`
+            `${urls.blog.detail}${params?.blogID}`
         );
 
         // if (blog.error) throw new Error(blog.error.message);
