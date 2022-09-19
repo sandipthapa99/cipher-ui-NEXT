@@ -1,5 +1,6 @@
 import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import urls from "constants/urls";
 import parse from "html-react-parser";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -76,7 +77,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
 
     useEffect(() => {
         axiosClient
-            .get("/task/task-category/nested/")
+            .get(urls.category.list)
             .then(({ data }) => {
                 setMenu(data?.slice(0, 6));
             })
