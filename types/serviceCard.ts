@@ -21,7 +21,7 @@ export interface ServicesValueProps {
     previous: any;
     page_size: number;
     result: {
-        id: number;
+        id: string;
         currency: {
             id: number;
             name: string;
@@ -73,6 +73,7 @@ export interface ServicesValueProps {
         is_requested: boolean;
         discount_type: string;
         discount_value: any;
+        slug: string;
         extra_data: {
             additionalProp1: string;
             additionalProp2: string;
