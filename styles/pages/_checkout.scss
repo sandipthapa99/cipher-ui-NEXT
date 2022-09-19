@@ -26,10 +26,9 @@
 .checkout-row {
     gap: 2rem;
     .left {
-
-    @media screen and (width:820px),(width:768px)  {
-        width: 100%;
-    }
+        @media screen and (width: 820px), (width: 768px) {
+            width: 100%;
+        }
         margin-bottom: 3rem;
         padding: 2rem;
         background: #ffffff;
@@ -38,8 +37,8 @@
         box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
         border-radius: 4px;
     }
-    .right{
-        @media screen and (width:820px),(width:768px) {
+    .right {
+        @media screen and (width: 820px), (width: 768px) {
             width: 100%;
         }
     }
@@ -61,13 +60,13 @@
         /* grayScale/gray[8] */
 
         color: #343a40;
-        @include respond(xs){
-           text-align: center;
+        @include respond(xs) {
+            text-align: center;
         }
     }
     .digital-wallet {
         margin-bottom: 3rem;
-        @include respond(xs){
+        @include respond(xs) {
             justify-content: center;
         }
     }

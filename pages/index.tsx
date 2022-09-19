@@ -153,11 +153,15 @@ const Home: NextPage<{
                                 slideSize="25%"
                                 slideGap="md"
                                 breakpoints={[
-                                    { maxWidth: "md", slideSize: "50%" },
+                                    // {
+                                    //     maxWidth: "md",
+                                    //     slideSize: "50%",
+                                    //     slideGap: "md",
+                                    // },
                                     {
                                         maxWidth: "sm",
-                                        slideSize: "100%",
-                                        slideGap: 3,
+                                        slideSize: "50%",
+                                        slideGap: "md",
                                     },
                                 ]}
                                 loop
