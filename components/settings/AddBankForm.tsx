@@ -8,10 +8,9 @@ import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useData } from "hooks/use-data";
 import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { TRUE } from "sass";
 import type {
     BankBranchResult,
     BankNamesResult,
@@ -29,21 +28,23 @@ const BankForm = ({ id, isEdit }: editProps) => {
     console.log("🚀 id id id", id);
     const { mutate } = useForm(`/tasker/bank-details/`);
 
-    const [bankId, setBankId] = useState<string>(isEdit ? id?.toString() : "0");
+    const [bankId, setBankId] = useState<string>(
+        isEdit ? id?.toString() || "" : ""
+    );
+
+    useEffect(() => {
+        if (id) {
+            setBankId(id.toString());
+        }
+    }, [bankId, id, setBankId]);
+
     console.log("bankId=", bankId);
     const queryClient = useQueryClient();
     const [isBankChanged, setIsBankChanged] = useState(false);
-    console.log("🚀isBankChanged", isBankChanged);
     const [bankNameChange, setBankNameChange] = useState<string | null>(null);
     const [branchNameChange, setBranchNameChange] = useState<string | null>(
         null
     );
-    const [accountNameChange, setAccountNameChange] = useState<string | null>(
-        null
-    );
-    const [accountNumberChange, setAccountNumberChange] = useState<
-        string | null
-    >(null);
 
     const { data: bankNames } = useData<BankNamesResult>(
         ["all-banks"],
@@ -66,15 +67,12 @@ const BankForm = ({ id, isEdit }: editProps) => {
         setBankNameChange(id);
         if (id) setFieldValue("bank_name", parseInt(id));
     };
-    // const bankParseid = bankId ? parseInt(bankId) : "";
-    // const editbankId = useMemo(() => {
-    //     return id && id > 0 ? String(id) : "0";
-    // }, [id]);
-    // const idbranch = parseInt(bankId);
+
     const { data: bankBranch, isLoading } = useData<BankBranchResult>(
         ["all-branches", bankId],
         `/tasker/bank-branch/${parseInt(bankId)}`
     );
+
     const bankBranchResults: SelectItem[] = bankBranch?.data
         ? bankBranch.data.map((branch) => ({
               label: branch?.branch_name,
@@ -92,22 +90,6 @@ const BankForm = ({ id, isEdit }: editProps) => {
         if (id) setFieldValue("branch_name", parseInt(id));
     };
 
-    //handle branch name change
-    const handleAccountNameChanged = (
-        value: string | null,
-        setFieldValue: (field: string, value: any) => void
-    ) => {
-        setAccountNameChange(value);
-        if (value) setFieldValue("bank_account_name", value);
-    };
-
-    const handleAccountNumberChanged = (
-        value: string | null,
-        setFieldValue: (field: string, value: any) => void
-    ) => {
-        setAccountNumberChange(value);
-        if (value) setFieldValue("bank_account_number", value);
-    };
     const { data: KYCData } = useGetKYC();
 
     const { data: BankDetails } = useData<UserBankDetails>(
@@ -117,36 +99,26 @@ const BankForm = ({ id, isEdit }: editProps) => {
     const LinkedBank = BankDetails?.data.result;
 
     const editDetails = LinkedBank?.find((bank) => bank.id === id);
-    console.log(
-        "🚀 ~ file: AddBankForm.tsx ~ line 94 ~ BankForm ~ editDetails",
-        editDetails
-    );
 
     const editBankId = bankNamesResults.find(
         (item) => item.label === editDetails?.bank_name.name
     );
-    console.log(
-        "🚀 ~ file: AddBankForm.tsx ~ line 98 ~ BankForm ~ editBankId",
-        editBankId
-    );
+
     const editBranchId = bankBranchResults.find(
         (item) => item.label === editDetails?.branch_name.branch_name
     );
-    console.log(
-        "🚀 ~ file: AddBankForm.tsx ~ line 110 ~ BankForm ~ editBranchId",
-        editBranchId,
-        editDetails?.branch_name.branch_name
-    );
+
     const { mutate: editBankDetail } = useEditForm(
         `/tasker/bank-details/${id}/`
     );
 
     const accname = editDetails?.bank_account_name;
     const accnumber = editDetails?.bank_account_number;
-    console.log("iedit", isEdit, accname);
+
     return (
         <div className="bank-form">
             <Formik
+                enableReinitialize={true}
                 initialValues={
                     editDetails && isEdit
                         ? {
@@ -167,10 +139,6 @@ const BankForm = ({ id, isEdit }: editProps) => {
                 onSubmit={async (values: any, actions: any) => {
                     const withKYC = { ...values, kyc: KYCData?.id };
 
-                    console.log(
-                        "🚀 ~ file: bankDetail.tsx ~ line 83 ~ onSubmit={ ~ withKYC",
-                        withKYC
-                    );
                     editDetails
                         ? editBankDetail(withKYC, {
                               onSuccess: async () => {
@@ -230,7 +198,6 @@ const BankForm = ({ id, isEdit }: editProps) => {
                             onChange={(value) => {
                                 handleBankNameChanged(value, setFieldValue);
                                 setBankId(value ? value : "");
-                                // bankId == value ? value : "";
                             }}
                             data={bankNamesResults ?? []}
                         />
@@ -265,17 +232,6 @@ const BankForm = ({ id, isEdit }: editProps) => {
                                     touch={touched.bank_account_name}
                                     placeHolder="Enter Account Name"
                                     fieldRequired
-                                    // value={
-                                    //     editDetails?.bank_account_name
-                                    //         ? editDetails?.bank_account_name
-                                    //         : ""
-                                    // }
-                                    // onChange={(e) =>
-                                    //     handleAccountNameChanged(
-                                    //         e.target.value,
-                                    //         setFieldValue
-                                    //     )
-                                    // }
                                 />
                             </Col>
                             <Col md={6}>
@@ -287,17 +243,6 @@ const BankForm = ({ id, isEdit }: editProps) => {
                                     touch={touched.bank_account_number}
                                     placeHolder="Enter Account Number"
                                     fieldRequired
-                                    //value={
-                                    //     editDetails?.bank_account_number
-                                    //         ? editDetails?.bank_account_number
-                                    //         : ""
-                                    // }
-                                    // onChange={(e) =>
-                                    //     handleAccountNumberChanged(
-                                    //         e.target.value,
-                                    //         setFieldValue
-                                    //     )
-                                    // }
                                 />
                             </Col>
                         </Row>
