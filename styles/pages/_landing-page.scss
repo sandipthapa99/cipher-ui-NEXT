@@ -2,17 +2,23 @@
     position: relative;
     margin: 4rem 0;
     background: none;
-    min-height: 83vh;
+
+    @include respond(md) {
+        height: auto;
+    }
+
+    @include respond(xl) {
+        min-height: 83vh;
+    }
 
     @include respond(md) {
         margin: 4rem 0 0 0;
-        background: url("../#{$theme-imgpath}/heroImages/hero-background.svg")
-            no-repeat bottom;
+        background: url("../#{$theme-imgpath}/heroImages/hero-background.svg") no-repeat bottom;
         background-size: auto;
     }
 
     .hero-content {
-        margin-bottom: 3.2rem;
+
         .left {
             // padding: 0;
 
@@ -25,12 +31,26 @@
                     margin-bottom: 4rem;
                     text-align: center;
                     word-wrap: break-word;
+
                     @include respond(sm) {
                         font-size: 3.2rem;
                     }
 
                     @include respond(md) {
                         text-align: left;
+                        font-size: 4rem;
+                        line-height: 6.4rem;
+                        margin-bottom: 4rem;
+                    }
+
+                    @include respond(xl) {
+                        text-align: left;
+                        font-size: 4rem;
+                        line-height: 6rem;
+                        margin-bottom: 4rem;
+                    }
+
+                    @include respond(xxl) {
                         font-size: 6.4rem;
                         line-height: 9.6rem;
                         margin-bottom: 8rem;
@@ -65,6 +85,7 @@
                         @include respond(xxs) {
                             display: none;
                         }
+
                         .form-control {
                             border: none;
                             height: 3.4rem;
@@ -81,25 +102,31 @@
                                 font-size: 1.6rem;
                                 font-weight: 500;
                             }
+
                             @include respond(xs) {
                                 padding-left: 0.7rem;
                                 padding-right: 0.3rem;
                             }
+
                             @include respond(sm) {
                                 padding: 0.6rem;
                                 padding-left: 1.4rem;
                             }
+
                             @include respond(md) {
                                 padding-left: 1.4rem;
                             }
                         }
+
                         .svg-icon {
                             @include respond(sm) {
                                 margin-right: 0rem;
                             }
+
                             @include respond(xs) {
                                 margin-right: 0rem;
                             }
+
                             @include respond(md) {
                                 margin-right: 0rem;
                             }
@@ -110,9 +137,11 @@
                         width: 90%;
                         position: relative;
                         flex: 0.8;
+
                         @include respond(xxs) {
                             flex: 1;
                         }
+
                         &:focus,
                         &:active,
                         &:focus-visible {
@@ -134,14 +163,17 @@
                                 padding-left: 0.4rem;
                                 padding-right: 1rem;
                             }
+
                             @include respond(xs) {
                                 padding-left: 0rem;
                                 padding-right: 0rem;
                             }
+
                             @include respond(xs) {
                                 padding-left: 1rem;
                                 padding-right: 1.4rem;
                             }
+
                             &::placeholder {
                                 color: #adb5bd;
                                 font-weight: 400;
@@ -213,15 +245,19 @@
 
             .come-with-us {
                 margin-bottom: 4rem;
+
                 a {
                     text-align: center;
                 }
+
                 @include respond(md) {
                     width: 200%;
                     margin-bottom: 8rem;
                 }
+
                 .buttons {
                     text-align: center;
+
                     @include respond(xs) {
                         flex-direction: column;
                     }
@@ -262,12 +298,15 @@
                         background: none;
                         border: 1px solid #211d4f;
                         color: $primary-color;
+
                         @include respond(lg) {
                             margin-right: 3rem;
                         }
+
                         @include respond(md) {
                             margin-right: 3rem;
                         }
+
                         @include respond(md) {
                             margin-right: 1.5rem;
                         }
@@ -292,6 +331,7 @@
 
     .hero-category {
         padding-bottom: 4.4rem;
+
         .mantine-Carousel-root {
             .mantine-Carousel-slide {
                 &:nth-child(4n + 1) {
@@ -437,6 +477,7 @@
     margin-top: 5rem;
     /* Container */
     margin: 5rem 0rem;
+
     @include respond(xs) {
         margin: 2rem 0rem;
     }
@@ -468,11 +509,14 @@
             padding-bottom: 3.4rem;
             padding-right: 2.2rem;
             padding-left: 2rem;
+
             @include respond(xxs) {
                 padding: 0rem;
             }
+
             p {
                 color: #fff;
+
                 @include respond(xxs) {
                     font-size: 1.5rem;
                 }
@@ -493,6 +537,7 @@
                 @include respond(md) {
                     padding-right: 16rem;
                 }
+
                 @include respond(xxs) {
                     margin-left: 1rem;
                     line-height: 2.4rem;
@@ -519,11 +564,13 @@
             line-height: 2rem;
             padding-top: 0.5rem;
             color: #fff;
+
             @include respond(xxs) {
                 font-size: 1.2rem;
                 text-align: left;
                 align-items: flex-start;
             }
+
             @include respond(xs) {
                 text-align: left;
                 align-items: flex-start;
@@ -541,11 +588,9 @@
             position: absolute;
             height: 36.8rem;
             width: 100%;
-            background: linear-gradient(
-                90.3deg,
-                #ecf7ff 37.14%,
-                rgba(255, 255, 255, 0) 75.06%
-            );
+            background: linear-gradient(90.3deg,
+                    #ecf7ff 37.14%,
+                    rgba(255, 255, 255, 0) 75.06%);
             opacity: 0.9;
         }
 
@@ -565,9 +610,11 @@
             z-index: 2;
             width: 90%;
             padding: 1rem;
+
             @include respond(xs) {
                 top: 10rem;
             }
+
             @include respond(md) {
                 padding: 5.6rem 0 5.6rem 6.4rem;
                 width: 60%;
@@ -578,9 +625,11 @@
                 font-size: 1.8rem;
                 font-weight: 400;
                 line-height: 2.6rem;
+
                 @include respond(xs) {
                     font-size: 1.8rem;
                 }
+
                 @include respond(md) {
                     font-size: 4rem;
                     line-height: 6rem;
