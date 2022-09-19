@@ -1,6 +1,7 @@
 const taskPath = "/task/entity/service/";
 const blogPath = "/blog/";
 const taskerPath = "/tasker/";
+const careerPath = "/career/vacancy/";
 
 const urls = {
     user: {
@@ -26,7 +27,8 @@ const urls = {
         top_tasker: `${taskerPath}top-tasker/`,
         success_story: `${taskerPath}success-story/`,
     },
-    blog: { list: blogPath },
+    carrer: { list: `${careerPath}list/`, detail: `${careerPath}detail/` },
+    blog: { list: blogPath, detail: `${blogPath}detail/` },
     wishlist: {
         list: "task/wishlist/",
     },
