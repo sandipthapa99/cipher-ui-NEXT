@@ -36,6 +36,18 @@ const ServiceNearYouCard = ({
     currency,
     onServiceClick,
 }: ServiceNearYouCardProps) => {
+    // const { data } = useQuery(
+    //     ["service-provider-user", serviceProvider],
+    //     async () => {
+    //         const { data } = await axiosClient.get<ServiceProvider>(
+    //             `/user/${serviceProvider}`
+    //         );
+    //         return data;
+    //     }
+    // );
+
+    // const providerName = data?.groups[0]?.name;
+
     const router = useRouter();
     const path = router.query.slug;
 
@@ -89,22 +101,17 @@ const ServiceNearYouCard = ({
                                     icon={faLocationDot}
                                     className="location svg-icon"
                                 />
-                                <p>
-                                    {serviceProviderLocation &&
-                                    serviceProviderLocation.length > 1
-                                        ? serviceProviderLocation
-                                        : "Location not available"}
-                                </p>
+                                <p>{serviceProviderLocation}</p>
                             </div>
 
                             <div className="success-rate type d-flex flex-col">
-                                <div className="star d-flex align-items-center flex-row">
+                                <div className="star d-flex flex-row">
                                     <FontAwesomeIcon
                                         icon={faStar}
                                         className="star svg-icon"
                                     />
 
-                                    <p>{serviceRating ?? "0(0)"}</p>
+                                    <p>{serviceRating}</p>
                                 </div>
                             </div>
                             <div></div>

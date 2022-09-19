@@ -2,7 +2,7 @@ import type { CreditCardContent } from "staticData/creditCardContent";
 import type { AccountValueProps } from "types/accountValueProps";
 import type { ApplyFormValueProps } from "types/applyFormValueProps";
 import type { ApplyValueProps } from "types/applyValueProps";
-import type { BankDetailProps } from "types/bankDetail";
+import type { BankPostDetailProps } from "types/bankDetail";
 import type { BookNowFormProps } from "types/bookNow";
 import type { CertificationValueProps } from "types/certificationValueProps";
 import type { changePasswordValueProps } from "types/changePasswordValueProps";
@@ -95,14 +95,15 @@ export const BookServiceFormData: BookNowFormProps = {
     description: "",
     start_date: "",
     end_date: "",
-    start_time: 1,
-    images: "",
-    budget_from: 0,
-    budget_to: 0,
-    videos: "",
+    time: 1,
+    images: [],
+    imagePreviewUrl: [],
+    book_image: "",
+    videos: [],
     requirements: "",
-
-    location: "false",
+    city: "",
+    start_time: "",
+    end_time: "",
 };
 
 export const CertificationFormData: CertificationValueProps = {
@@ -293,10 +294,10 @@ export const ServicePostData: ServicePostProps = {
     imagePreviewUrl: [],
 };
 
-export const BankFormData: BankDetailProps = {
+export const BankFormData: BankPostDetailProps = {
     bank_account_name: "",
-    address: "",
     branch_name: "",
+    bank_name: "",
     bank_account_number: "",
     is_primary: false,
 };

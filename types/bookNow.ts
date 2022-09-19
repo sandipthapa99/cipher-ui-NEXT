@@ -17,6 +17,7 @@ export interface BookNowModalCardProps {
 
 export interface BookNowFormProps {
     description: string;
+<<<<<<< types/bookNow.ts
     images: File | File[] | string;
     // imagePreviewUrl?: any[];
     start_time: number;
@@ -27,4 +28,17 @@ export interface BookNowFormProps {
     requirements: string;
     videos: File | File[] | string;
     location: string;
+=======
+    images: any[];
+    videos: any[];
+    imagePreviewUrl?: any[];
+    time: number;
+    start_date: string;
+    end_date: string;
+    book_image: string;
+    requirements: string;
+    city: string;
+    start_time: string;
+    end_time: string;
+>>>>>>> types/bookNow.ts
 }

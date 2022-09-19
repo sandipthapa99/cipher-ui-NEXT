@@ -22,8 +22,8 @@ export interface TaskBudgetProps {
     setFieldError: (field: string, value: any) => void;
     setFieldTouched: (field: string, value: any) => void;
     getFieldProps: (field: string) => any;
-    touched: FormikTouched<PostTaskPayload>;
-    errors: FormikErrors<PostTaskPayload>;
+    touched?: FormikTouched<PostTaskPayload>;
+    errors?: FormikErrors<PostTaskPayload>;
 }
 
 const budgetType = [
