@@ -12,7 +12,6 @@ import type { AddPortfolioProps, AddSkills } from "types/editProfile";
 import type { EducationValueProps } from "types/educationValueProps";
 import type { EquipmentValueProps } from "types/equipmentValueProps";
 import type { ExperienceValueProps } from "types/experienceValueProps";
-import type { KYCFormProps } from "types/kycFormProps";
 import type { LoginValuesProps } from "types/login";
 import type { PostTaskProps } from "types/postTaskData";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
@@ -45,6 +44,7 @@ export const ApplyFormData: ApplyValueProps = {
     price: "",
     remarks: "",
     prerequesties: [],
+    recursion: "",
 };
 
 //Equipment form data
