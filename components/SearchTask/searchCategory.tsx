@@ -56,6 +56,7 @@ export const SearchCategory = ({
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
     const { data: taskers } = useTaskers();
+    console.log("abc", taskers);
 
     const categoriesData: SelectItem[] = categories.map((category: any) => ({
         id: category.id,
@@ -94,7 +95,7 @@ export const SearchCategory = ({
         },
     ];
     const taskersData: SelectItem[] =
-        taskers && taskers.length > 0
+        taskers && taskers?.length > 0
             ? Object.keys(taskers[0]).map((key, index) => ({
                   id: index,
                   label: key,

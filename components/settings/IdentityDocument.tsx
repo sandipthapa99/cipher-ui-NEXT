@@ -24,7 +24,7 @@ export type KYCDocuments = {
     valid_through: Date | string;
 };
 
-export const IdentityDocument = ({ getReadvalue }: { getReadvalue: any }) => {
+export const IdentityDocument = () => {
     const { data: KYCData } = useGetKYC();
     const { mutate, isLoading } = useDocumentKYC();
     const { data: KycDocuments, refetch } = useGetKYCDocument();
@@ -96,7 +96,6 @@ export const IdentityDocument = ({ getReadvalue }: { getReadvalue: any }) => {
                         //queryClient.invalidateQueries(["KYC-document"]);
                         action.resetForm();
                         toast.success("Your KYC is pending for approval");
-                        getReadvalue(true);
                     },
                     onError: (error) => {
                         toast.error(error.message);

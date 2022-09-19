@@ -11,16 +11,20 @@ export interface BookNowModalCardProps {
     budget_type?: string;
     price?: number | string;
     image?: string;
-
+    entity_service_id?: number | undefined;
     images?: any[];
 }
 
 export interface BookNowFormProps {
     description: string;
-    images: any[];
-    imagePreviewUrl?: any[];
-    time: number;
+    images: File | File[] | string;
+    // imagePreviewUrl?: any[];
+    start_time: number;
     start_date: string;
     end_date: string;
-    book_image: string;
+    budget_from: number;
+    budget_to: number;
+    requirements: string;
+    videos: File | File[] | string;
+    location: string;
 }
