@@ -5,9 +5,9 @@ import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
+import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { BudgetType } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
-import { TaskCategory } from "@components/Task/PostTaskModal/TaskCategory";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import { LoadingOverlay, Radio } from "@mantine/core";
@@ -38,34 +38,38 @@ import {
     useShowPostTaskModal,
     useToggleShowPostTaskModal,
 } from "store/use-show-post-task";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ITask } from "types/task";
 
 export interface PostTaskPayload {
     title: string;
     description: string;
-    requirements: string;
-    category: string;
+    highlights: Record<string, string>;
+    service: string;
     city: string;
     location: TaskType;
     currency: string;
     budget_type: BudgetType;
-    // budget_from: number;
-    // budget_to: number;
+    budget_from: number;
+    budget_to: number;
     is_negotiable: boolean;
     images: string;
     videos: string;
     estimated_time: number;
     is_recursion: boolean;
+    is_requested: boolean;
     is_everyday: boolean;
     start_date: string;
     end_date: string;
     start_time: string;
     end_time: string;
     is_active: boolean;
+    share_location: boolean;
 }
 
 export const PostTaskModal = () => {
     const [choosedValue, setChoosedValue] = useState("task");
+    const toggleSuccessModal = useToggleSuccessModal();
     const queryClient = useQueryClient();
     const { mutate: createTaskMutation, isLoading: createTaskLoading } =
         usePostTask();
@@ -90,14 +94,17 @@ export const PostTaskModal = () => {
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
             description: taskDetail ? taskDetail.description : "",
-            requirements: taskDetail ? taskDetail.requirements : "",
-            category: "",
+            highlights: taskDetail ? taskDetail.highlights : {},
             city: "",
             location: "remote",
             budget_type: BudgetType.FIXED,
+            budget_from: 0,
+            budget_to: 0,
+            service: "",
             is_negotiable: false,
             estimated_time: 5,
             is_recursion: false,
+            is_requested: true,
             is_everyday: false,
             start_date: "2022-12-01",
             end_date: "2023-01-04",
@@ -107,6 +114,7 @@ export const PostTaskModal = () => {
             images: "",
             videos: "",
             is_active: true,
+            share_location: true,
         },
         enableReinitialize: true,
         validationSchema: postTaskSchema,
@@ -131,6 +139,7 @@ export const PostTaskModal = () => {
                 videos: videoIds,
                 extra_data: [],
             };
+
             if (showPostTaskModalType === "EDIT" && taskDetail) {
                 editTaskMutation(
                     { id: taskDetail.id, data: postTaskPayload },
@@ -151,6 +160,7 @@ export const PostTaskModal = () => {
                 onSuccess: async ({ message }) => {
                     handleCloseModal();
                     action.resetForm();
+                    toggleSuccessModal();
                     // toast.success(message);
                     await queryClient.invalidateQueries(["all-tasks"]);
                     await queryClient.invalidateQueries(["notification"]);
@@ -162,10 +172,17 @@ export const PostTaskModal = () => {
             });
         },
     });
-    const { getFieldProps, handleSubmit, touched, errors, setFieldValue } =
-        formik;
+
+    const {
+        getFieldProps,
+        handleSubmit,
+        touched,
+        errors,
+        values,
+        setFieldValue,
+    } = formik;
     const getFieldError = (key: keyof PostTaskPayload) =>
-        touched[key] && errors[key] ? errors[key] : null;
+        touched[key] && errors[key] ? (errors[key] as string) : null;
 
     const handleCloseModal = () => {
         formik.resetForm();
@@ -220,16 +237,15 @@ export const PostTaskModal = () => {
                             />
                             <TaskRequirements
                                 initialRequirements={
-                                    taskDetail?.requirements ?? ""
+                                    taskDetail?.highlights ?? {}
                                 }
                                 onRequirementsChange={(requirements) =>
-                                    setFieldValue(
-                                        "requirements",
-                                        JSON.stringify(requirements)
-                                    )
+                                    setFieldValue("highlights", requirements)
                                 }
-                                error={getFieldError("requirements")}
-                                {...getFieldProps("requirements")}
+                                error={getFieldError("highlights")}
+                                {...getFieldProps("highlights")}
+                                labelName="Requirements"
+                                description="This helps tasker to find about your requirements better."
                             />
                             <TaskCurrency
                                 value={
@@ -247,12 +263,13 @@ export const PostTaskModal = () => {
                                     setFieldValue("city", cityId)
                                 }
                             />
-                            <TaskCategory
-                                {...getFieldProps("category")}
-                                onCategoryChange={(category) =>
-                                    setFieldValue("category", category)
+
+                            <ServiceOptions
+                                {...getFieldProps("service")}
+                                onServiceChange={(service) =>
+                                    setFieldValue("service", service)
                                 }
-                                error={getFieldError("category")}
+                                error={getFieldError("service")}
                                 value={
                                     taskDetail
                                         ? taskDetail?.category?.id?.toString()
@@ -362,7 +379,7 @@ export const PostTaskModal = () => {
                         </Stack>
                     </form>
                 ) : (
-                    <AddServiceModalComponent handleClose={handleCloseModal} />
+                    <AddServiceModalComponent />
                 )}
             </Modal>
         </>
