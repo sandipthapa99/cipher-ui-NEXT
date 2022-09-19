@@ -259,7 +259,7 @@ const BookNowModalCard = ({
                                     }
                                     title="Highligits"
                                     placeHolder="e.g.Bring something"
-                                    description="Add services which you Offer"
+                                    description="Add requirements"
                                 />
                                 <div className="completion">
                                     <Row>
@@ -271,7 +271,6 @@ const BookNowModalCard = ({
                                                 error={errors.start_date}
                                                 touch={touched.start_date}
                                                 placeHolder="dd/mm/yyy"
-                                                fieldRequired
                                             />
                                         </Col>
                                         <Col md={6}>
@@ -282,6 +281,7 @@ const BookNowModalCard = ({
                                                 error={errors.end_date}
                                                 touch={touched.end_date}
                                                 placeHolder="dd/mm/yyy"
+                                                fieldRequired
                                             />
                                         </Col>
                                     </Row>
@@ -294,7 +294,6 @@ const BookNowModalCard = ({
                                                 error={errors.budget_from}
                                                 touch={touched.budget_from}
                                                 placeHolder="0"
-                                                fieldRequired
                                             />
                                         </Col>
                                         <Col md={6}>
@@ -305,6 +304,7 @@ const BookNowModalCard = ({
                                                 error={errors.budget_to}
                                                 touch={touched.budget_to}
                                                 placeHolder="0"
+                                                fieldRequired
                                             />
                                         </Col>
                                     </Row>
