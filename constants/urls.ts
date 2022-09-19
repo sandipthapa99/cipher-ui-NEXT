@@ -11,6 +11,7 @@ const urls = {
     task: {
         list: taskPath,
         service: `${taskPath}?is_requested=false`,
+        service_per_user: `${taskPath}?is_requested=false&user=`,
         task: `${taskPath}?is_requested=true`,
         application: "task/application/",
         cancelApplication: "task/application/",
@@ -21,6 +22,7 @@ const urls = {
     },
     tasker: {
         list: taskerPath,
+        profile: `${taskerPath}profile/`,
         top_tasker: `${taskerPath}top-tasker/`,
         success_story: `${taskerPath}success-story/`,
     },
