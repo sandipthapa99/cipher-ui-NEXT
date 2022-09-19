@@ -58,9 +58,9 @@ export const SearchCategory = ({
     const { data: taskers } = useTaskers();
     console.log("abc", taskers);
 
-    const categoriesData: SelectItem[] = categories.map((category: any) => ({
+    const categoriesData: SelectItem[] = categories.map((category) => ({
         id: category.id,
-        label: category.label,
+        label: category.name,
         value: category.slug,
     }));
     const citiesData: SelectItem[] = cities.map((city) => ({
