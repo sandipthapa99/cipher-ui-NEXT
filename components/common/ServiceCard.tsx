@@ -39,20 +39,17 @@ const ServiceCard = ({
             setShowModal(true);
         } else {
             router.push({
-                pathname: `/service/${serviceCard?.id}`,
+                pathname: `/service/${serviceCard?.slug}`,
             });
         }
     };
     const queryClient = useQueryClient();
-    const isServiceBookmarked = useIsBookmarked(
-        "service",
-        String(serviceCard?.id)
-    );
+    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.id);
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
         <div className="service-card-block align-items-stretch">
-            <Link href={`/service/${serviceCard?.id}`}>
+            <Link href={`/service/${serviceCard?.slug}`}>
                 <a>
                     <div className="card-img">
                         {serviceCard &&
@@ -89,7 +86,7 @@ const ServiceCard = ({
                 </a>
             </Link>
             <div className="card-content">
-                <Link href={`/service/${serviceCard?.id}`}>
+                <Link href={`/service/${serviceCard?.slug}`}>
                     <a>
                         <div className="d-flex pro-title-wrapper justify-content-between">
                             <h2 className="card-title">{serviceCard?.title}</h2>
@@ -113,14 +110,17 @@ const ServiceCard = ({
                         <Link href={`/tasker/${serviceCard?.created_by?.id}`}>
                             <a>
                                 <span>
-                                    {serviceCard?.created_by?.full_name}
+                                    {serviceCard?.created_by?.full_name ===
+                                    "None None"
+                                        ? "Cipher"
+                                        : serviceCard?.created_by?.full_name}
                                 </span>{" "}
                             </a>
                         </Link>
                         <span> | {serviceCard?.location}</span>
                     </Spoiler>
                 </h3>
-                <Link href={`/service/${serviceCard?.id}`}>
+                <Link href={`/service/${serviceCard?.slug}`}>
                     <a>
                         <div className="card-description d-inline">
                             <Spoiler
@@ -138,6 +138,7 @@ const ServiceCard = ({
                                     className="svg-icon star"
                                 />
                                 {/* {serviceCard?.happy_clients} */}
+                                TOBE_IMP
                             </p>
                             <p className="price">
                                 {serviceCard?.currency?.code + " "}
@@ -159,7 +160,7 @@ const ServiceCard = ({
                             ""
                         ) : (
                             <SaveIcon
-                                object_id={String(serviceCard?.id)}
+                                object_id={serviceCard?.id}
                                 model={"service"}
                                 filled={isServiceBookmarked}
                                 onSuccess={() =>
@@ -207,7 +208,7 @@ const ServiceCard = ({
                 budget_to={serviceCard?.budget_to}
                 budget_type={serviceCard?.budget_type}
                 description={serviceCard?.description}
-                service_id={String(serviceCard?.id)}
+                service_id={serviceCard?.id}
                 show={showModal}
                 setShow={setShowModal}
                 handleClose={() => setShowModal(false)}

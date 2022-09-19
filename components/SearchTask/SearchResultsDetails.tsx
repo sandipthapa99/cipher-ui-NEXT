@@ -137,9 +137,9 @@ const SearchResultsDetail = ({
     const { data: user } = useUser();
     const withLogin = useWithLogin();
     const router = useRouter();
-    const servSlug = router.query.id;
+    const servSlug = router.query.slug;
     const getSingleService = servicesData?.data?.result.filter(
-        (item) => String(item.id) === servSlug
+        (item) => item.slug === servSlug
     );
 
     const getPackageAccordingService = myServicePackage?.data?.result.filter(
@@ -156,7 +156,7 @@ const SearchResultsDetail = ({
         const service = servicesData?.data.result.find(
             (service) => service.id === serviceId
         );
-        return service?.created_by.id === user?.id;
+        return service?.created_by?.id === user?.id;
     };
 
     const handleViewApplicants = () => {

@@ -99,7 +99,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
                                 highlights={JSON.parse(
                                     activeService?.highlights
                                 )}
-                                serviceId={activeService?.id}
+                                serviceId={String(activeService?.id)}
                             />
                         ) : (
                             <iframe

@@ -52,8 +52,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     try {
         const { data: serviceData } = await axiosClient.get(urls.task.service);
         const paths = serviceData?.result?.map(
-            ({ id }: ServicesValueProps["result"][0]) => ({
-                params: { id: String(id) },
+            ({ slug }: ServicesValueProps["result"][0]) => ({
+                params: { slug: slug },
             })
         );
         return { paths, fallback: true };
