@@ -138,7 +138,7 @@ export const Search = () => {
                             variant="unstyled"
                             className={classes.selectField}
                             data={searchData}
-                            rightSection={<AngleDown />}
+                            // rightSection={<AngleDown />}
                             onChange={(value) => setFieldValue("scope", value)}
                             styles={{ dropdown: { marginLeft: `${-1}rem` } }}
                         />
