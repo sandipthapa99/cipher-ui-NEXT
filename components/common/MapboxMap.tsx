@@ -60,7 +60,7 @@ export const MapboxMap = ({
         ));
     };
     return (
-        <ScrollArea.Autosize maxHeight={750} offsetScrollbars scrollbarSize={5}>
+        <ScrollArea.Autosize maxHeight={700} offsetScrollbars scrollbarSize={5}>
             <div {...rest}>
                 <Map
                     mapboxAccessToken={getMapBoxToken()}

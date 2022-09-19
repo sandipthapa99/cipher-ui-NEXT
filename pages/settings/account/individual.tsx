@@ -8,8 +8,8 @@ const Individual = () => {
     return (
         <SettingsLayout>
             <AccountForm />
-            <KYCForm />
             <BankForm />
+            <KYCForm />
         </SettingsLayout>
     );
 };

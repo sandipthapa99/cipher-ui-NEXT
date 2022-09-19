@@ -39,7 +39,6 @@ const AboutProfile = () => {
     const [isEditProfile, setIsEditProfile] = useState(false);
     const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
-
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
         `/task/rating?ordering=${search}`

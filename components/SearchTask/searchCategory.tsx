@@ -56,7 +56,7 @@ export const SearchCategory = ({
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
     const { data: taskers } = useTaskers();
-    // console.log("abc", taskers);
+    console.log("abc", taskers);
 
     const categoriesData: SelectItem[] = categories.map((category) => ({
         id: category.id,
@@ -123,6 +123,17 @@ export const SearchCategory = ({
         setParams(undefined);
         onFilterClear();
     };
+    const handleSearchChange = (search: string) => {
+        if (params && !search && Object.keys(params).length === 1) {
+            setParams(undefined);
+            onFilterClear();
+            return;
+        }
+        setParams((previousParams) => ({
+            ...previousParams,
+            search,
+        }));
+    };
 
     useEffect(() => {
         if (!params) return;
@@ -142,7 +153,7 @@ export const SearchCategory = ({
                     icon={<FontAwesomeIcon icon={faSearch} />}
                     placeholder="Enter a search keyword"
                     onChange={(event) =>
-                        onSelectChange("search", event.currentTarget.value)
+                        handleSearchChange(event.currentTarget.value)
                     }
                 />
             </Col>
