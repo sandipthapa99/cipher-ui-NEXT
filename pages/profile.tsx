@@ -46,7 +46,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
         if (!profileDetails && !isLoading) {
             router.push("/settings/account/individual");
         }
-    }, [profileDetails]);
+    }, [isLoading, profileDetails, router]);
 
     if (!profileDetails) {
         return (

@@ -8,8 +8,10 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const locationString = req.query.location;
-    const location = JSON.parse(locationString as string);
+    const locationString = req.query?.location;
+    const location = locationString
+        ? JSON.parse(locationString as string)
+        : undefined;
 
     const config = {
         url: PLACES_AUTOCOMPLETE_URL,
@@ -17,7 +19,7 @@ export default async function handler(
         params: {
             key: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
             input: req.query.input,
-            point: `${location.lat},${location.lng}`,
+            point: location ? `${location.lat},${location.lng}` : undefined,
             language: "en",
         },
     };

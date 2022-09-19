@@ -10,7 +10,10 @@ import { useLatLng } from "hooks/location/useLocation";
 import React, { useState } from "react";
 import type { GooglePlacesResponse } from "types/googlePlacesResponse";
 
-type PlacesAutocompleteProps = Omit<AutocompleteProps, "data">;
+interface PlacesAutocompleteProps extends Omit<AutocompleteProps, "data"> {
+    initialValue?: string;
+    onPlaceChange: (place: string) => void;
+}
 
 const usePlaces = (input: string, location: string) =>
     useQuery(
@@ -26,8 +29,12 @@ const usePlaces = (input: string, location: string) =>
             initialData: [],
         }
     );
-export const PlacesAutocomplete = (props: PlacesAutocompleteProps) => {
-    const [input, setInput] = useState("");
+export const PlacesAutocomplete = ({
+    initialValue,
+    onPlaceChange,
+    ...props
+}: PlacesAutocompleteProps) => {
+    const [input, setInput] = useState(initialValue ?? "");
 
     const location = useLatLng();
     const { data: predictions, isFetching: isLoading } = usePlaces(
@@ -39,6 +46,10 @@ export const PlacesAutocomplete = (props: PlacesAutocompleteProps) => {
         value: prediction.description,
     }));
 
+    const handleChange = (value: string) => {
+        setInput(value);
+        onPlaceChange(value);
+    };
     const clearSearchQuery = () => setInput("");
 
     return (
@@ -56,7 +67,7 @@ export const PlacesAutocomplete = (props: PlacesAutocompleteProps) => {
             }
             data={autocompleteData}
             value={input}
-            onChange={setInput}
+            onChange={handleChange}
         />
     );
 };
