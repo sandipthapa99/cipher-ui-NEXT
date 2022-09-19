@@ -37,6 +37,7 @@ const Gardening = ({
     const category = (
         (serviceData?.length > 0 ? serviceData : taskData) as any[]
     )?.find((item) => item?.category?.slug === categories);
+
     const categoryName = category ? category.category.name : categories;
 
     return (
@@ -302,7 +303,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
                 serviceData: serviceData.result,
                 taskData: taskData.result,
                 taskerData: taskerData.result,
-                // heroCategoryData: heroCategoryData.result,
+                heroCategoryData: heroCategoryData.result,
             },
             revalidate: 10,
         };
