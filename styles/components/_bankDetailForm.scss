@@ -1,6 +1,4 @@
 .bank-form {
-    background: #ffffff;
-    margin: 2.5rem 0rem;
     .checkbox {
         span {
             margin-left: 0.9rem;
@@ -12,5 +10,26 @@
     a {
         font-weight: 500;
         font-size: 1.6rem;
+    }
+}
+
+.bank-details {
+    background: #ffffff;
+    margin: 2.5rem 0rem;
+    h3 {
+        margin: 0 0 3.2rem 0;
+        font-size: 2rem;
+        font-weight: 500;
+        padding-top: 7rem;
+        padding-left: 3rem;
+        @include respond(md) {
+            padding-left: 5rem;
+        }
+        @include respond(lg) {
+            padding-left: 8rem;
+        }
+    }
+    .bank-form {
+        padding-top: 0rem;
     }
 }

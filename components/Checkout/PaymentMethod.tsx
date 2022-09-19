@@ -1,15 +1,20 @@
+import BigButton from "@components/common/Button";
 import EditProfileButton from "@components/Profile/EditProfileButton";
 import AddCardForm from "@components/settings/AddCardForm";
-import { faCircleDot } from "@fortawesome/pro-regular-svg-icons";
+import BankDetailModal from "@components/settings/BankDetailModal";
+import { faCircleDot, faHome } from "@fortawesome/pro-regular-svg-icons";
+import { faLinkHorizontal } from "@fortawesome/pro-regular-svg-icons";
 import {
+    faBuildingColumns,
     faCircleDot as circleDot,
-    faLink,
 } from "@fortawesome/pro-solid-svg-icons";
+import { faLinkSimple } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import React, { useContext } from "react";
@@ -72,9 +77,15 @@ const PaymentMethod = () => {
         ["tasker-bank-account"],
         "/tasker/bank-details/"
     );
-    console.log("bank details", BankDetails);
     const LinkedBank = BankDetails?.data.result;
+    console.log(
+        "🚀 ~ file: PaymentMethod.tsx ~ line 76 ~ PaymentMethod ~ LinkedBank",
+        LinkedBank
+    );
 
+    //for bank details modal
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
     //capitalise words
 
     const capitalise = (str: string) => {
@@ -84,7 +95,7 @@ const PaymentMethod = () => {
             arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
         }
         const result = arr.join(" ");
-        console.log("result=", result);
+
         return result;
     };
 
@@ -134,7 +145,48 @@ const PaymentMethod = () => {
                             </ContextAwareToggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="1">
-                            <Card.Body>Test</Card.Body>
+                            <Card.Body>
+                                {/* <div className="d-flex account-wrapper">
+                                    <div className="account-info">
+                                        <figure className="thumbnail-img">
+                                            <Image
+                                                src="/settings/digital-wallet/khalti.svg"
+                                                layout="fill"
+                                                // height={45}
+                                                // width={45}
+                                                objectFit="contain"
+                                                alt="bank-icon"
+                                            />
+                                        </figure>
+                                        <p>
+                                            {capitalise(
+                                                `${bank.bank_name.name.toLowerCase()}`
+                                            )}
+                                        </p>
+                                    </div>
+                                    <div className="linked">
+                                        {bank.is_primary ? (
+                                            <div className="primary">
+                                                <FontAwesomeIcon
+                                                    icon={faBuildingColumns}
+                                                    className="svg-icon"
+                                                />
+                                            </div>
+                                        ) : (
+                                            ""
+                                        )}
+                                        <div className="linked-icons">
+                                            <FontAwesomeIcon
+                                                icon={faLinkSimple}
+                                                className="svg-icon"
+                                            />
+                                            <a href="" className="link">
+                                                Linked
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div> */}
+                            </Card.Body>
                         </Accordion.Collapse>
                     </Card>
                     <Card>
@@ -173,18 +225,49 @@ const PaymentMethod = () => {
                                                     </p>
                                                 </div>
                                                 <div className="linked">
-                                                    <FontAwesomeIcon
-                                                        icon={faLink}
-                                                        className="svg-icon"
-                                                    />
-                                                    <a href="" className="link">
-                                                        Linked
-                                                    </a>
+                                                    {bank.is_primary ? (
+                                                        <div className="primary">
+                                                            <FontAwesomeIcon
+                                                                icon={
+                                                                    faBuildingColumns
+                                                                }
+                                                                className="svg-icon"
+                                                            />
+                                                        </div>
+                                                    ) : (
+                                                        ""
+                                                    )}
+                                                    <div className="linked-icons">
+                                                        <FontAwesomeIcon
+                                                            icon={faLinkSimple}
+                                                            className="svg-icon"
+                                                        />
+                                                        <a
+                                                            href=""
+                                                            className="link"
+                                                        >
+                                                            Linked
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </Col>
                                     ))}
                                 </Row>
+                                {/* <Link
+                                    href="/settings/account/individual"
+                                    className="text-profile"
+                                >
+                                    <a href=""> */}
+                                <BigButton
+                                    btnTitle={"Link Bank"}
+                                    backgroundColor={"#211D4F"}
+                                    textColor="#fff"
+                                    handleClick={() => setShow(true)}
+                                />
+                                {/* </a>
+                                </Link> */}
+
                                 {/* Bank Account details */}
                             </Card.Body>
                         </Accordion.Collapse>
@@ -201,10 +284,14 @@ const PaymentMethod = () => {
                     </Card>
                 </Accordion>
             </div>
+            <BankDetailModal
+                show={show}
+                handleClose={handleClose}
+                setShowForm={setShow}
+            />
         </div>
     );
 };
-
 export default PaymentMethod;
 
 export const getStaticProps: GetStaticProps = async () => {

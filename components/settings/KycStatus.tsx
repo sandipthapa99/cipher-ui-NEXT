@@ -43,7 +43,7 @@ export const KYCStatus = () => {
         return (
             <Accordion.Item key={index} value={item?.document_id}>
                 <Accordion.Control className="mt-1 p-3">
-                    <div className="d-flex align-items-center gap-3 folder-text-accordian">
+                    <div className="d-flex align-items-center gap-3 folder-text-accordian account-form">
                         <FontAwesomeIcon icon={faFolder} />
                         <p className="m-0 document-kyc">
                             {item?.document_type}
