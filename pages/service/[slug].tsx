@@ -52,8 +52,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     try {
         const { data: serviceData } = await axiosClient.get(urls.task.service);
         const paths = serviceData?.result?.map(
-            ({ id }: ServicesValueProps["result"][0]) => ({
-                params: { id: String(id) },
+            ({ slug }: ServicesValueProps["result"][0]) => ({
+                params: { slug: slug },
             })
         );
         return { paths, fallback: true };
@@ -68,16 +68,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const { data } = await axiosClient.get<ServicesValueProps["result"][0]>(
-            `${urls.task.list}${params?.id}/`
+            `${urls.task.list}${params?.slug}/`
         );
-        const { data: servicePackage } = await axiosClient.get<
-            ServicesPackageProps["result"][0]
-        >(`/task/service-package/`);
+        // const { data: servicePackage } = await axiosClient.get<
+        //     ServicesPackageProps["result"][0]
+        // >(`/task/service-package/`);
 
         return {
             props: {
                 service: data,
-                servicePackage: servicePackage,
+                // servicePackage: servicePackage,
             },
             revalidate: 10,
         };

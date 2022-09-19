@@ -25,7 +25,7 @@ const ServiceAside = ({
     const renderTaskCards = service?.map((task, key) => {
         return (
             <div key={key} className="pe-1">
-                <Link href={`/service/${task.id}`}>
+                <Link href={`/service/${task.slug}`}>
                     <a>
                         <ServiceNearYouCard
                             budget_from={task?.budget_from}
@@ -35,7 +35,7 @@ const ServiceAside = ({
                             serviceTitle={task?.title}
                             serviceRating={task?.id}
                             serviceProviderLocation={task?.location}
-                            serviceSlug={String(task?.id)}
+                            serviceSlug={task?.slug}
                             discount={20} // To do form api
                             image={
                                 Array.isArray(task.images)
