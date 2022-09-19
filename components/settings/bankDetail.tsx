@@ -73,7 +73,9 @@ const AddBank = () => {
                                                 className="svg-icon"
                                             />
                                             <a href="" className="link">
-                                                Linked
+                                                {primaryBank.is_verified
+                                                    ? "Linked"
+                                                    : "Pending"}
                                             </a>
                                         </div>
                                     </div>

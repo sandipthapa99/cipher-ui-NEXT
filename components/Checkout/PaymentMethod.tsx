@@ -199,7 +199,7 @@ const PaymentMethod = () => {
                                             md={6}
                                             sm={12}
                                             key={bank.id}
-                                            className="accounts card-block gx-5 mx-"
+                                            className="accounts card-block gx-5"
                                         >
                                             <div className="d-flex account-wrapper">
                                                 <div className="account-info">
@@ -241,7 +241,9 @@ const PaymentMethod = () => {
                                                             href=""
                                                             className="link"
                                                         >
-                                                            Linked
+                                                            {bank.is_verified
+                                                                ? "Linked"
+                                                                : "Pending"}
                                                         </a>
                                                     </div>
                                                 </div>

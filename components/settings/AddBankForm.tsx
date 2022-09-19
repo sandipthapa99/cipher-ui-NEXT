@@ -25,7 +25,6 @@ interface editProps {
     isEdit?: boolean;
 }
 const BankForm = ({ id, isEdit }: editProps) => {
-    console.log("🚀 id id id", id);
     const { mutate } = useForm(`/tasker/bank-details/`);
 
     const [bankId, setBankId] = useState<string>(
@@ -38,7 +37,6 @@ const BankForm = ({ id, isEdit }: editProps) => {
         }
     }, [bankId, id, setBankId]);
 
-    console.log("bankId=", bankId);
     const queryClient = useQueryClient();
     const [isBankChanged, setIsBankChanged] = useState(false);
     const [bankNameChange, setBankNameChange] = useState<string | null>(null);
@@ -125,12 +123,10 @@ const BankForm = ({ id, isEdit }: editProps) => {
                               bank_account_name: accname,
                               bank_account_number: accnumber,
                               bank_name:
-                                  (editBankId && parseInt(editBankId?.value)) ??
-                                  "",
+                                  editBankId && parseInt(editBankId?.value),
+
                               branch_name:
-                                  (editBranchId &&
-                                      parseInt(editBranchId?.value)) ??
-                                  "",
+                                  editBranchId && parseInt(editBranchId?.value),
                               is_primary: editDetails.is_primary,
                           }
                         : BankFormData
@@ -142,9 +138,10 @@ const BankForm = ({ id, isEdit }: editProps) => {
                     editDetails
                         ? editBankDetail(withKYC, {
                               onSuccess: async () => {
-                                  console.log("submitted values", withKYC);
-
                                   queryClient.invalidateQueries(["profile"]);
+                                  queryClient.invalidateQueries([
+                                      "tasker-bank-account",
+                                  ]);
                                   toast.success(
                                       "Bank detail updated successfully!"
                                   );
@@ -153,7 +150,6 @@ const BankForm = ({ id, isEdit }: editProps) => {
 
                               onError: async (error: any) => {
                                   toast.error(error.message);
-                                  console.log("error=", error);
                               },
                           })
                         : mutate(withKYC, {
@@ -182,8 +178,6 @@ const BankForm = ({ id, isEdit }: editProps) => {
                     setFieldValue,
                 }) => (
                     <Form>
-                        <pre>{JSON.stringify(errors, null, 4)}</pre>
-                        <pre>{JSON.stringify(values, null, 4)}</pre>
                         <Select
                             label="Bank Name"
                             placeholder={"Select Bank"}
@@ -200,6 +194,7 @@ const BankForm = ({ id, isEdit }: editProps) => {
                                 setBankId(value ? value : "");
                             }}
                             data={bankNamesResults ?? []}
+                            required
                         />
                         <Select
                             label="Branch Address"
@@ -214,6 +209,7 @@ const BankForm = ({ id, isEdit }: editProps) => {
                                     ? bankBranchResults[0]?.value
                                     : branchNameChange
                             }
+                            required
                             onChange={(value) => {
                                 handleBranchNameChanged(value, setFieldValue);
                                 setIsBankChanged(true);

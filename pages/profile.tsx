@@ -19,6 +19,10 @@ import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails, isLoading } = useGetProfile();
+    console.log(
+        "🚀 ~ file: profile.tsx ~ line 22 ~ profileDetails",
+        profileDetails
+    );
     const router = useRouter();
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
@@ -104,6 +108,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             active_hour_start={
                                 profileDetails?.active_hour_start
                             }
+                            address_line2={profileDetails?.address_line2}
                             active_hour_end={profileDetails?.active_hour_end}
                             bio={profileDetails?.bio}
                             userBadge={remaining.userBadge}
