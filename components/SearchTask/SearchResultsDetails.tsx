@@ -5,6 +5,8 @@ import PackageOffersCard from "@components/common/packageCard";
 import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
+import { Tab } from "@components/common/Tab";
+import UserActivities from "@components/Profile/Activities";
 import {
     faCalendar,
     faChevronLeft,
@@ -22,6 +24,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
+import { useGetMyBookings } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
@@ -40,6 +43,8 @@ import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
 
+import { MyBookingsCard } from "./MyBookings";
+
 const SearchResultsDetail = ({
     budget_from,
     budget_to,
@@ -57,6 +62,7 @@ const SearchResultsDetail = ({
 }: ServiceNearYouCardProps) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
+    const [activeTabIdx, setActiveTabIdx] = useState(0);
     const setBookNowDetails = useSetBookNowDetails();
     const reviewsContent = getReviews();
     const queryClient = useQueryClient();
@@ -136,6 +142,7 @@ const SearchResultsDetail = ({
     const { data: user } = useUser();
     const withLogin = useWithLogin();
     const router = useRouter();
+    const { data: myBookings } = useGetMyBookings();
     const servSlug = router.query.slug;
     const getSingleService = servicesData?.data?.result.filter(
         (item) => item.slug === servSlug
@@ -148,7 +155,28 @@ const SearchResultsDetail = ({
 
     const isServiceBookmarked = useIsBookmarked("service", String(serviceId));
 
-    console.log("is service bookmarked", isServiceBookmarked);
+    // console.log("is service booked", myBookings);
+
+    const renderBookedClients = myBookings?.result.map((item, index) => {
+        return (
+            <Col md={6} key={index}>
+                <MyBookingsCard
+                    collabButton={false}
+                    image={item?.entity_service?.created_by?.profile_image}
+                    name={item?.entity_service?.created_by?.full_name}
+                    speciality={item?.entity_service?.title}
+                    rating={10}
+                    happyClients={item?.entity_service?.views_count}
+                    awardPercentage={10}
+                    location={item?.entity_service?.created_by?.username}
+                    distance={"10"}
+                    bio={item?.entity_service?.description}
+                    charge={item?.entity_service?.discount_value}
+                    tasker={""}
+                />
+            </Col>
+        );
+    });
 
     // check if current logged in user is the owner of the current service
     const isCurrentUserService = () => {
@@ -506,6 +534,18 @@ const SearchResultsDetail = ({
                                         )
                                 )}
                     </Carousel>
+                </section>
+                <section>
+                    <Tab
+                        activeIndex={activeTabIdx}
+                        onTabClick={setActiveTabIdx}
+                        items={[
+                            {
+                                title: "Applicants",
+                                content: <Row>{renderBookedClients}</Row>,
+                            },
+                        ]}
+                    />
                 </section>
                 <FilterReview totalReviews={reviewsContent.length} />
                 <Spoiler

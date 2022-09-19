@@ -7,7 +7,7 @@ export const useBookNowTask = () => {
     return useMutation<BookNowFormProps, Error, any>(async (bookNowPayload) => {
         try {
             const { data } = await axiosClient.post(
-                "/task/entity/service/booking/",
+                "/task/entity/service-booking/",
                 bookNowPayload
             );
             return data;
