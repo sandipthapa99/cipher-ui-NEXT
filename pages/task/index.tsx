@@ -11,11 +11,9 @@ const NearbyTasksMap = dynamic(
 );
 const AppliedTask = () => {
     return (
-        <>
-            <AppliedLayout>
-                <NearbyTasksMap />
-            </AppliedLayout>
-        </>
+        <AppliedLayout>
+            <NearbyTasksMap />
+        </AppliedLayout>
     );
 };
 export const getStaticProps: GetStaticProps = async () => {
