@@ -1,5 +1,6 @@
 import UserTaskDetail from "@components/Task/UserTaskDetail/UserTaskDetail";
 import TaskerLayout from "@components/Tasker/TaskerLayout";
+import urls from "constants/urls";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { TaskerProps } from "types/taskerProps";
@@ -45,11 +46,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const { data } = await axiosClient.get<TaskerProps["result"][0]>(
-            `/tasker/profile/${params?.id}/`
+            `${urls.tasker.profile}${params?.id}/`
         );
         const { data: taskerService } =
             await axiosClient.get<ServicesValueProps>(
-                `/task/service/list/${params?.id}`
+                `${urls.task.service_per_user}${params?.id}`
             );
 
         return {
