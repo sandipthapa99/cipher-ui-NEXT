@@ -36,6 +36,7 @@ import {
     useShowPostTaskModal,
     useToggleShowPostTaskModal,
 } from "store/use-show-post-task";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ITask } from "types/task";
 
 export interface PostTaskPayload {
@@ -66,6 +67,7 @@ export interface PostTaskPayload {
 
 export const AddServiceModalComponent = () => {
     const [choosedValue, setChoosedValue] = useState("task");
+    const toggleSuccessModal = useToggleSuccessModal();
     const queryClient = useQueryClient();
     const { mutate: createTaskMutation, isLoading: createTaskLoading } =
         usePostTask();
@@ -146,7 +148,8 @@ export const AddServiceModalComponent = () => {
                                 "task-detail",
                                 taskSlug,
                             ]);
-                            toast.success(message);
+                            // toast.success(message);
+                            toggleSuccessModal();
                         },
                     }
                 );
@@ -156,6 +159,7 @@ export const AddServiceModalComponent = () => {
                 onSuccess: async ({ message }) => {
                     handleCloseModal();
                     action.resetForm();
+                    toggleSuccessModal();
                     // toast.success(message);
                     await queryClient.invalidateQueries(["all-tasks"]);
                     await queryClient.invalidateQueries(["notification"]);
@@ -197,7 +201,7 @@ export const AddServiceModalComponent = () => {
                     error={getFieldError("title")}
                 />
                 <Textarea
-                    label="Task Description"
+                    label="Service Description"
                     placeholder="Enter your description"
                     minRows={5}
                     required
@@ -211,6 +215,8 @@ export const AddServiceModalComponent = () => {
                     }
                     error={getFieldError("highlights")}
                     {...getFieldProps("highlights")}
+                    labelName="Highlights"
+                    description="This helps clients to find about your service highlights"
                 />
                 <TaskCurrency
                     value={

@@ -36,6 +36,6 @@ export const isVideo = (file: string) => {
         "yuv",
     ];
     return !!isVideoTypes.find(
-        (fileType) => fileType.toLowerCase() === file.toLowerCase()
+        (fileType) => fileType?.toLowerCase() === file?.toLowerCase()
     );
 };

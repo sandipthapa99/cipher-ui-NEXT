@@ -86,7 +86,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
     }, []);
 
     const renderNestedSubMenus = nestedMenu.map((sub: any, index) => {
-        const menu = sub.name.replaceAll(" ", "").toLowerCase();
+        const menu = sub.name.replaceAll(" ", "")?.toLowerCase();
         if (sub?.child.length > 0) {
             return (
                 <li
@@ -151,7 +151,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
     });
 
     const renderSubMenus = subMenu.map((sub: any, index: any) => {
-        const menu = sub.name.replaceAll(" ", "").toLowerCase();
+        const menu = sub.name.replaceAll(" ", "")?.toLowerCase();
 
         if (sub?.child.length > 0) {
             const onHandleDropdown = () => {

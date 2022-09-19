@@ -23,7 +23,7 @@ const HelpSettings = () => {
         return {
             id: item.id,
             label: item.topic,
-            value: item.topic.split(" ").join("").toLowerCase(),
+            value: item.topic.split(" ").join("")?.toLowerCase(),
         };
     });
 
@@ -43,8 +43,10 @@ const HelpSettings = () => {
                         reason: val.topic !== "other" ? val.topic : "other",
                         topic: data?.data.find(
                             (item) =>
-                                item.topic.split(" ").join("").toLowerCase() ===
-                                val.topic
+                                item.topic
+                                    .split(" ")
+                                    .join("")
+                                    ?.toLowerCase() === val.topic
                         )?.id,
                     };
                     console.log(newValues);

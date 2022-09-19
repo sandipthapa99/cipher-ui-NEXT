@@ -125,6 +125,6 @@ export const isImage = (file: string) => {
         "heif",
     ];
     return !!imageFileTypes.find(
-        (fileType) => fileType.toLowerCase() === file.toLowerCase()
+        (fileType) => fileType?.toLowerCase() === file?.toLowerCase()
     );
 };

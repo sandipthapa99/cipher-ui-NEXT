@@ -18,7 +18,6 @@ import {
 import type { KeyboardEvent } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { safeParse } from "utils/safeParse";
 
 export interface TaskRequiremnt {
     id: number;
@@ -27,10 +26,14 @@ export interface TaskRequiremnt {
 export interface TaskRequirementsProps extends TextInputProps {
     initialRequirements: Record<string, string>;
     onRequirementsChange: (requirements: Record<string, string>) => void;
+    labelName: string;
+    description: string;
 }
 export const TaskRequirements = ({
     initialRequirements,
     onRequirementsChange,
+    labelName,
+    description,
     ...rest
 }: TaskRequirementsProps) => {
     const { classes } = useStyles();
@@ -93,12 +96,12 @@ export const TaskRequirements = ({
     return (
         <Box>
             <Box className={classes.requirement}>
-                <Text>Requirements</Text>
+                <Text>{labelName}</Text>
                 <FontAwesomeIcon icon={faCircleExclamation} color="#FF9700" />
             </Box>
             <Space h={5} />
             <Text color="dimmed" size="sm">
-                This helps tasker to find about your requirements better.
+                {description}
             </Text>
             <Space h={10} />
             <List>{renderRequirements()}</List>

@@ -38,6 +38,7 @@ import {
     useShowPostTaskModal,
     useToggleShowPostTaskModal,
 } from "store/use-show-post-task";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ITask } from "types/task";
 
 export interface PostTaskPayload {
@@ -68,6 +69,7 @@ export interface PostTaskPayload {
 
 export const PostTaskModal = () => {
     const [choosedValue, setChoosedValue] = useState("task");
+    const toggleSuccessModal = useToggleSuccessModal();
     const queryClient = useQueryClient();
     const { mutate: createTaskMutation, isLoading: createTaskLoading } =
         usePostTask();
@@ -158,6 +160,7 @@ export const PostTaskModal = () => {
                 onSuccess: async ({ message }) => {
                     handleCloseModal();
                     action.resetForm();
+                    toggleSuccessModal();
                     // toast.success(message);
                     await queryClient.invalidateQueries(["all-tasks"]);
                     await queryClient.invalidateQueries(["notification"]);
@@ -241,6 +244,8 @@ export const PostTaskModal = () => {
                                 }
                                 error={getFieldError("highlights")}
                                 {...getFieldProps("highlights")}
+                                labelName="Requirements"
+                                description="This helps tasker to find about your requirements better."
                             />
                             <TaskCurrency
                                 value={
