@@ -1,6 +1,7 @@
 const taskPath = "/task/entity/service/";
 const blogPath = "/blog/";
 const taskerPath = "/tasker/";
+const careerPath = "/career/vacancy/";
 
 const urls = {
     user: {
@@ -11,6 +12,7 @@ const urls = {
     task: {
         list: taskPath,
         service: `${taskPath}?is_requested=false`,
+        service_per_user: `${taskPath}?is_requested=false&user=`,
         task: `${taskPath}?is_requested=true`,
         application: "task/application/",
         cancelApplication: "task/application/",
@@ -21,10 +23,12 @@ const urls = {
     },
     tasker: {
         list: taskerPath,
+        profile: `${taskerPath}profile/`,
         top_tasker: `${taskerPath}top-tasker/`,
         success_story: `${taskerPath}success-story/`,
     },
-    blog: { list: blogPath },
+    carrer: { list: `${careerPath}list/`, detail: `${careerPath}detail/` },
+    blog: { list: blogPath, detail: `${blogPath}detail/` },
     wishlist: {
         list: "task/wishlist/",
     },

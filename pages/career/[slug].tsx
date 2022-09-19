@@ -3,9 +3,9 @@ import LeaveYourCV from "@components/Career/LeaveYourCV";
 import AnchorButton from "@components/common/AnchorButton";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
+import urls from "constants/urls";
 import parse from "html-react-parser";
 import type { GetStaticPaths, GetStaticProps } from "next";
-import Image from "next/image";
 import React from "react";
 import { Container } from "react-bootstrap";
 import type {
@@ -69,9 +69,7 @@ export default CareerDeatils;
 
 export const getStaticPaths: GetStaticPaths = async () => {
     try {
-        const { data: careerData } = await axiosClient.get(
-            "/career/vacancy/list/"
-        );
+        const { data: careerData } = await axiosClient.get(urls.carrer.list);
         const paths = careerData?.result?.map(
             ({ slug }: CareerValueProps["result"][0]) => ({
                 params: { slug: slug },
@@ -89,7 +87,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const { data } = await axiosClient.get<CareerDetailsData>(
-            `/career/vacancy/detail/${params?.slug}`
+            `${urls.carrer.detail}${params?.slug}`
         );
 
         return {
