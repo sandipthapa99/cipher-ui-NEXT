@@ -11,6 +11,7 @@ const urls = {
     task: {
         list: taskPath,
         service: `${taskPath}?is_requested=false`,
+        task: `${taskPath}?is_requested=true`,
         application: "task/application/",
         cancelApplication: "task/application/",
         assigneeDetail: "task/asignee-task-detail/",

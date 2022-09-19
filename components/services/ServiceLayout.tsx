@@ -21,9 +21,7 @@ import ServiceAside from "./ServiceAside";
 export const useSearchService = (searchParam: string) => {
     return useQuery(["all-services", searchParam], () =>
         axiosClient
-            .get<ServicesValueProps>(
-                `${urls.task.service}&search=${searchParam}`
-            )
+            .get<ServicesValueProps>(`${urls.task.service}&${searchParam}`)
             .then((response) => response.data.result)
     );
 };
