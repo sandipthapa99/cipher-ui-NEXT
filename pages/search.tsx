@@ -20,7 +20,9 @@ const SearchPage: NextPage = () => {
         () =>
             query
                 ? data?.data?.result?.filter((service: any) =>
-                      service?.title.toLowerCase().includes(query.toLowerCase())
+                      service?.title
+                          ?.toLowerCase()
+                          .includes(query.toLowerCase())
                   )
                 : data?.data?.result,
         [query, data?.data?.result]
