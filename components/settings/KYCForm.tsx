@@ -63,7 +63,6 @@ const KYCForm = () => {
     return (
         <>
             {/* Modal component */}
-
             <div
                 className="account-form mt-5"
                 style={
@@ -308,7 +307,7 @@ const KYCForm = () => {
                 {KYCData && <IdentityDocument />}
                 {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
-            {!KYCData?.is_kyc_verified && <KYCStatus />}
+            {KYCData && <KYCStatus />}
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"

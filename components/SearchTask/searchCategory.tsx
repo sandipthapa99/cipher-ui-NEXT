@@ -123,17 +123,6 @@ export const SearchCategory = ({
         setParams(undefined);
         onFilterClear();
     };
-    const handleSearchChange = (search: string) => {
-        if (params && !search && Object.keys(params).length === 1) {
-            setParams(undefined);
-            onFilterClear();
-            return;
-        }
-        setParams((previousParams) => ({
-            ...previousParams,
-            search,
-        }));
-    };
 
     useEffect(() => {
         if (!params) return;
@@ -153,7 +142,7 @@ export const SearchCategory = ({
                     icon={<FontAwesomeIcon icon={faSearch} />}
                     placeholder="Enter a search keyword"
                     onChange={(event) =>
-                        handleSearchChange(event.currentTarget.value)
+                        onSelectChange("search", event.currentTarget.value)
                     }
                 />
             </Col>

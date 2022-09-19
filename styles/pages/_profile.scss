@@ -79,3 +79,14 @@
         }
     }
 }
+
+.menu {
+    &:hover {
+        svg {
+            color: #f98900 !important;
+        }
+        .menu-link {
+            color: #f98900 !important;
+        }
+    }
+}
