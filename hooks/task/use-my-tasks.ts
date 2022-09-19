@@ -3,11 +3,11 @@ import { AxiosError } from "axios";
 import type { RecentProps } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
-export const useMyTasks = () => {
+export const useMyTasks = (taskerId: string) => {
     return useQuery<RecentProps>(["my-tasks"], async () => {
         try {
             const { data } = await axiosClient.get<RecentProps>(
-                `/task/my-task/`
+                `/task/entity/my-entity-services/?is_requested=true&tasker=${taskerId}`
             );
             return data;
         } catch (error) {
