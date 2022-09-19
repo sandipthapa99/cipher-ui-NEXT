@@ -25,28 +25,18 @@ export const LoginPrompt = () => {
         };
     }, [hideLoginPrompt, router.events]);
     return (
-        <Modal
-            centered
-            show={showLoginPrompt}
-            onHide={hideLoginPrompt}
-            className="not-login-prompt"
-        >
+        <Modal centered show={showLoginPrompt} onHide={hideLoginPrompt}>
             <Modal.Header closeButton />
-            <Modal.Body className="d-flex align-items-center justify-content-center">
-                <p>
-                    Please
-                    <span>
-                        <Link
-                            href={{
-                                pathname: "/login",
-                                query: { next: router.asPath },
-                            }}
-                        >
-                            <a> Login </a>
-                        </Link>
-                    </span>
-                    to continue.
-                </p>
+            <Modal.Body>
+                <p>Not logged in ?</p>
+                <Link
+                    href={{
+                        pathname: "/login",
+                        query: { next: router.asPath },
+                    }}
+                >
+                    <a>Login</a>
+                </Link>
             </Modal.Body>
         </Modal>
     );

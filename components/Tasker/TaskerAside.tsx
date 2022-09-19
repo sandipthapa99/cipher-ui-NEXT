@@ -53,7 +53,7 @@ const TaskerAside = ({
             <Row>
                 <Col md={4}>
                     <ScrollArea.Autosize
-                        maxHeight={750}
+                        maxHeight={700}
                         offsetScrollbars
                         scrollbarSize={5}
                     >
@@ -92,7 +92,7 @@ const TaskerAside = ({
                 </Col>
                 <Col md={8} className="right">
                     <ScrollArea.Autosize
-                        maxHeight={750}
+                        maxHeight={700}
                         offsetScrollbars
                         scrollbarSize={5}
                     >

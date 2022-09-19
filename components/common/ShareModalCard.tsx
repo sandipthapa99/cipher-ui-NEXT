@@ -86,12 +86,10 @@ const ShareModal = ({
                                 />
                             </LinkedinShareButton>
                         </div>
-                        <div
-                            className="social-media copy"
-                            onClick={() => copyToClipBoard(url)}
-                        >
+                        <div className="social-media copy">
                             <FontAwesomeIcon
                                 icon={faCopy}
+                                onClick={() => copyToClipBoard(url)}
                                 className="svg-icon copy-icon"
                             />
                         </div>

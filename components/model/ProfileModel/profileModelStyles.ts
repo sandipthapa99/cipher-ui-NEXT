@@ -41,6 +41,7 @@ export const useProfileModelStyles = createStyles((_theme) => ({
             alignItems: "center",
             gap: "1rem",
             transition: "all 0.2s ease-in-out",
+
             "&::before": {
                 position: "absolute",
                 content: "''",

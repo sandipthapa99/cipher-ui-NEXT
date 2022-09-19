@@ -188,23 +188,15 @@ export const KYCStatus = () => {
                 </Col>
                 <Col className="basic-info-cont" md={3}>
                     <p className="m-0 text-title-basic-info">Kyc Verified</p>
-
-                    {KycData?.is_kyc_verified && (
-                        <Badge color="green">
-                            <FontAwesomeIcon icon={faCircleCheck} />
-                        </Badge>
-                    )}
+                    {/* <p className="m-0 text-yes">Yes</p> */}
+                    <p className="m-0 text-pending">Pending</p>
                 </Col>
                 <Col className="basic-info-cont" md={3}>
                     <p className="m-0 text-title-basic-info">
                         Address Verified
                     </p>
-
-                    {KycData?.is_address_verified && (
-                        <Badge color="green">
-                            <FontAwesomeIcon icon={faCircleCheck} />
-                        </Badge>
-                    )}
+                    {/* <p className="m-0 text-yes">Yes</p> */}
+                    <p className="m-0 text-pending">Pending</p>
                 </Col>
             </Row>
             <Row className="">

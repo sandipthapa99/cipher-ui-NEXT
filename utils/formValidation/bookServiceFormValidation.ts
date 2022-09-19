@@ -6,17 +6,9 @@ const dateValidation = Yup.date().nullable().required("Required field");
 
 export const bookServiceSchema = Yup.object().shape({
     description: stringReqOnly,
-<<<<<<< utils/formValidation/bookServiceFormValidation.ts
     // start_time: numReqOnly,
     start_date: dateValidation,
     end_date: dateValidation,
     budget_from: numReqOnly,
     // requirements: Yup.string().required("Requirements is required"),
-=======
-    time: numReqOnly,
-    requirements: Yup.string().required("Requirements is required"),
-    start_date: dateValidation,
-    end_date: dateValidation,
-    city: Yup.string().required("city is required"),
->>>>>>> utils/formValidation/bookServiceFormValidation.ts
 });
