@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Highlight, Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
@@ -51,7 +52,6 @@ const SearchResultsDetail = ({
     serviceId,
     serviceCreated,
     serviceViews,
-    ProfileImage,
     currency,
     service,
 }: ServiceNearYouCardProps) => {
@@ -69,9 +69,8 @@ const SearchResultsDetail = ({
 
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
-        "/task/service/"
+        urls.task.service
     );
-
     const { data: myServicePackage } = useData<{
         result: Array<{
             id: number;
@@ -156,7 +155,7 @@ const SearchResultsDetail = ({
         const service = servicesData?.data.result.find(
             (service) => service.id === serviceId
         );
-        return service?.created_by?.id === user?.id;
+        return service && user ? service?.created_by?.id === user?.id : false;
     };
 
     const handleViewApplicants = () => {
@@ -303,13 +302,23 @@ const SearchResultsDetail = ({
                 <Col md={12} lg={5} className="d-flex">
                     <div className="simple-card my-5 my-lg-0 ">
                         <div className="d-flex align-items-center simple-card__profile">
-                            {ProfileImage && (
+                            {service?.created_by?.profile_image && (
+                                <figure className="thumbnail-img">
+                                    <Image
+                                        src={service?.created_by?.profile_image}
+                                        layout="fill"
+                                        objectFit="cover"
+                                        placeholder="blur"
+                                        blurDataURL="/placeholder/profilePlaceholder.png"
+                                        alt="serviceprovider-image"
+                                    />
+                                </figure>
+                            )}
+                            {!service?.created_by?.profile_image && (
                                 <figure className="thumbnail-img">
                                     <Image
                                         src={
-                                            ProfileImage
-                                                ? ProfileImage
-                                                : "/placeholder/profilePlaceholder.png"
+                                            "/placeholder/profilePlaceholder.png"
                                         }
                                         layout="fill"
                                         objectFit="cover"
@@ -355,7 +364,7 @@ const SearchResultsDetail = ({
                         icon={faLocationDot}
                         className="svg-icon svg-icon-location"
                     />
-                    {serviceProviderLocation}
+                    {serviceProviderLocation ? serviceProviderLocation : "N/A"}
                 </p>
                 <p>
                     <FontAwesomeIcon
@@ -387,7 +396,7 @@ const SearchResultsDetail = ({
                         icon={faUserGroup}
                         className="svg-icon svg-icon-user-group"
                     />
-                    100 Applied
+                    TOBE-IMP Applied
                 </p>
             </div>
 
@@ -399,7 +408,7 @@ const SearchResultsDetail = ({
             </div>
 
             <h3>Requirements</h3>
-            {highlights && (
+            {!highlights && (
                 <Alert
                     icon={<FontAwesomeIcon icon={faWarning} />}
                     title="No data Available!"

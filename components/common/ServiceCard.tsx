@@ -54,10 +54,14 @@ const ServiceCard = ({
                     <div className="card-img">
                         {serviceCard &&
                             serviceCard?.images &&
-                            serviceCard.images.length > 0 && (
+                            serviceCard?.images?.length > 0 && (
                                 <figure className="thumbnail-img">
                                     <Image
-                                        src={serviceCard.images[0].media}
+                                        src={
+                                            serviceCard.images[0].media
+                                                ? serviceCard.images[0].media
+                                                : "/placeholder/taskPlaceholder.png"
+                                        }
                                         layout="fill"
                                         objectFit="cover"
                                         alt="servicecard-image"
@@ -79,7 +83,6 @@ const ServiceCard = ({
                         {serviceCard?.is_online && (
                             <div className="offer">
                                 <p className="discount-rate">{20}% OFF</p>
-                                {/* <p className="discount-on">{discountOn}</p> */}
                             </div>
                         )}
                     </div>
@@ -144,9 +147,9 @@ const ServiceCard = ({
                                 {serviceCard?.currency?.code + " "}
                                 {serviceCard?.budget_from}
                                 {serviceCard?.budget_to &&
-                                    "-" + serviceCard?.budget_to}
+                                    " - " + serviceCard?.budget_to}
                                 {serviceCard?.budget_type === "Hourly"
-                                    ? "/hr"
+                                    ? " /hr"
                                     : serviceCard?.budget_type === "Monthly"
                                     ? "/mn"
                                     : ""}
