@@ -6,25 +6,44 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Field, Form, Formik } from "formik";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useData } from "hooks/use-data";
+import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
-import type { BankBranchResult, BankNamesResult } from "types/bankDetail";
+import { TRUE } from "sass";
+import type {
+    BankBranchResult,
+    BankNamesResult,
+    UserBankDetails,
+} from "types/bankDetail";
 import { BankFormData } from "utils/formData";
 import { bankFormSchema } from "utils/formValidation/bankDetailsValidation";
 import { isSubmittingClass } from "utils/helpers";
 
-const BankForm = () => {
+interface editProps {
+    id?: number;
+    isEdit?: boolean;
+}
+const BankForm = ({ id, isEdit }: editProps) => {
+    console.log("🚀 id id id", id);
     const { mutate } = useForm(`/tasker/bank-details/`);
 
-    const [bankId, setBankId] = useState<string>("0");
+    const [bankId, setBankId] = useState<string>(isEdit ? id?.toString() : "0");
+    console.log("bankId=", bankId);
     const queryClient = useQueryClient();
     const [isBankChanged, setIsBankChanged] = useState(false);
+    console.log("🚀isBankChanged", isBankChanged);
     const [bankNameChange, setBankNameChange] = useState<string | null>(null);
     const [branchNameChange, setBranchNameChange] = useState<string | null>(
         null
     );
+    const [accountNameChange, setAccountNameChange] = useState<string | null>(
+        null
+    );
+    const [accountNumberChange, setAccountNumberChange] = useState<
+        string | null
+    >(null);
 
     const { data: bankNames } = useData<BankNamesResult>(
         ["all-banks"],
@@ -48,12 +67,14 @@ const BankForm = () => {
         if (id) setFieldValue("bank_name", parseInt(id));
     };
     // const bankParseid = bankId ? parseInt(bankId) : "";
-
+    // const editbankId = useMemo(() => {
+    //     return id && id > 0 ? String(id) : "0";
+    // }, [id]);
+    // const idbranch = parseInt(bankId);
     const { data: bankBranch, isLoading } = useData<BankBranchResult>(
         ["all-branches", bankId],
         `/tasker/bank-branch/${parseInt(bankId)}`
     );
-
     const bankBranchResults: SelectItem[] = bankBranch?.data
         ? bankBranch.data.map((branch) => ({
               label: branch?.branch_name,
@@ -70,30 +91,118 @@ const BankForm = () => {
         setBranchNameChange(id);
         if (id) setFieldValue("branch_name", parseInt(id));
     };
+
+    //handle branch name change
+    const handleAccountNameChanged = (
+        value: string | null,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setAccountNameChange(value);
+        if (value) setFieldValue("bank_account_name", value);
+    };
+
+    const handleAccountNumberChanged = (
+        value: string | null,
+        setFieldValue: (field: string, value: any) => void
+    ) => {
+        setAccountNumberChange(value);
+        if (value) setFieldValue("bank_account_number", value);
+    };
     const { data: KYCData } = useGetKYC();
 
+    const { data: BankDetails } = useData<UserBankDetails>(
+        ["tasker-bank-account"],
+        "/tasker/bank-details/"
+    );
+    const LinkedBank = BankDetails?.data.result;
+
+    const editDetails = LinkedBank?.find((bank) => bank.id === id);
+    console.log(
+        "🚀 ~ file: AddBankForm.tsx ~ line 94 ~ BankForm ~ editDetails",
+        editDetails
+    );
+
+    const editBankId = bankNamesResults.find(
+        (item) => item.label === editDetails?.bank_name.name
+    );
+    console.log(
+        "🚀 ~ file: AddBankForm.tsx ~ line 98 ~ BankForm ~ editBankId",
+        editBankId
+    );
+    const editBranchId = bankBranchResults.find(
+        (item) => item.label === editDetails?.branch_name.branch_name
+    );
+    console.log(
+        "🚀 ~ file: AddBankForm.tsx ~ line 110 ~ BankForm ~ editBranchId",
+        editBranchId,
+        editDetails?.branch_name.branch_name
+    );
+    const { mutate: editBankDetail } = useEditForm(
+        `/tasker/bank-details/${id}/`
+    );
+
+    const accname = editDetails?.bank_account_name;
+    const accnumber = editDetails?.bank_account_number;
+    console.log("iedit", isEdit, accname);
     return (
         <div className="bank-form">
             <Formik
-                initialValues={BankFormData}
+                initialValues={
+                    editDetails && isEdit
+                        ? {
+                              bank_account_name: accname,
+                              bank_account_number: accnumber,
+                              bank_name:
+                                  (editBankId && parseInt(editBankId?.value)) ??
+                                  "",
+                              branch_name:
+                                  (editBranchId &&
+                                      parseInt(editBranchId?.value)) ??
+                                  "",
+                              is_primary: editDetails.is_primary,
+                          }
+                        : BankFormData
+                }
                 validationSchema={bankFormSchema}
-                onSubmit={async (values, actions) => {
+                onSubmit={async (values: any, actions: any) => {
                     const withKYC = { ...values, kyc: KYCData?.id };
 
                     console.log(
                         "🚀 ~ file: bankDetail.tsx ~ line 83 ~ onSubmit={ ~ withKYC",
                         withKYC
                     );
-                    mutate(withKYC, {
-                        onSuccess: async () => {
-                            actions.resetForm();
-                            toast.success("Bank detail added successfully");
-                            queryClient.invalidateQueries(["profile"]);
-                        },
-                        onError: async (error) => {
-                            toast.error(error.message);
-                        },
-                    });
+                    editDetails
+                        ? editBankDetail(withKYC, {
+                              onSuccess: async () => {
+                                  console.log("submitted values", withKYC);
+
+                                  queryClient.invalidateQueries(["profile"]);
+                                  toast.success(
+                                      "Bank detail updated successfully!"
+                                  );
+                                  actions.resetForm();
+                              },
+
+                              onError: async (error: any) => {
+                                  toast.error(error.message);
+                                  console.log("error=", error);
+                              },
+                          })
+                        : mutate(withKYC, {
+                              onSuccess: async () => {
+                                  actions.resetForm();
+                                  toast.success(
+                                      "Bank detail added successfully"
+                                  );
+                                  queryClient.invalidateQueries([
+                                      "tasker-bank-account",
+                                  ]);
+                                  queryClient.invalidateQueries(["profile"]);
+                              },
+                              onError: async (error) => {
+                                  toast.error(error.message);
+                              },
+                          });
                 }}
             >
                 {({
@@ -101,23 +210,30 @@ const BankForm = () => {
                     errors,
                     touched,
                     resetForm,
+                    values,
                     setFieldValue,
                 }) => (
                     <Form>
+                        <pre>{JSON.stringify(errors, null, 4)}</pre>
+                        <pre>{JSON.stringify(values, null, 4)}</pre>
                         <Select
                             label="Bank Name"
                             placeholder={"Select Bank"}
-                            name="bank_name"
+                            name="ban_name"
                             searchable
                             nothingFound="No result found."
-                            value={bankNameChange}
+                            value={
+                                editDetails && editBankId
+                                    ? editBankId.value
+                                    : bankNameChange
+                            }
                             onChange={(value) => {
                                 handleBankNameChanged(value, setFieldValue);
                                 setBankId(value ? value : "");
+                                // bankId == value ? value : "";
                             }}
                             data={bankNamesResults ?? []}
                         />
-
                         <Select
                             label="Branch Address"
                             name="branch_name"
@@ -125,7 +241,9 @@ const BankForm = () => {
                             placeholder={"Select Branch"}
                             nothingFound="No result found."
                             value={
-                                !isBankChanged
+                                editDetails && editBranchId
+                                    ? editBranchId.value
+                                    : !isBankChanged
                                     ? bankBranchResults[0]?.value
                                     : branchNameChange
                             }
@@ -137,7 +255,6 @@ const BankForm = () => {
                                 !isLoading ? bankBranchResults : [" Loading..."]
                             }
                         />
-
                         <Row>
                             <Col md={6}>
                                 <InputField
@@ -148,6 +265,17 @@ const BankForm = () => {
                                     touch={touched.bank_account_name}
                                     placeHolder="Enter Account Name"
                                     fieldRequired
+                                    // value={
+                                    //     editDetails?.bank_account_name
+                                    //         ? editDetails?.bank_account_name
+                                    //         : ""
+                                    // }
+                                    // onChange={(e) =>
+                                    //     handleAccountNameChanged(
+                                    //         e.target.value,
+                                    //         setFieldValue
+                                    //     )
+                                    // }
                                 />
                             </Col>
                             <Col md={6}>
@@ -159,10 +287,20 @@ const BankForm = () => {
                                     touch={touched.bank_account_number}
                                     placeHolder="Enter Account Number"
                                     fieldRequired
+                                    //value={
+                                    //     editDetails?.bank_account_number
+                                    //         ? editDetails?.bank_account_number
+                                    //         : ""
+                                    // }
+                                    // onChange={(e) =>
+                                    //     handleAccountNumberChanged(
+                                    //         e.target.value,
+                                    //         setFieldValue
+                                    //     )
+                                    // }
                                 />
                             </Col>
                         </Row>
-
                         <div className="checkbox">
                             <label className="me-3">
                                 <Field
@@ -173,7 +311,6 @@ const BankForm = () => {
                                 <span>Primary Bank</span>
                             </label>
                         </div>
-
                         {/* <a className="link" onClick={() => resetForm()}>
                             +Add More Bank
                         </a> */}

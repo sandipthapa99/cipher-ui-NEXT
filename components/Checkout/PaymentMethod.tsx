@@ -2,8 +2,7 @@ import BigButton from "@components/common/Button";
 import EditProfileButton from "@components/Profile/EditProfileButton";
 import AddCardForm from "@components/settings/AddCardForm";
 import BankDetailModal from "@components/settings/BankDetailModal";
-import { faCircleDot, faHome } from "@fortawesome/pro-regular-svg-icons";
-import { faLinkHorizontal } from "@fortawesome/pro-regular-svg-icons";
+import { faCircleDot } from "@fortawesome/pro-regular-svg-icons";
 import {
     faBuildingColumns,
     faCircleDot as circleDot,
@@ -14,7 +13,6 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import React, { useContext } from "react";
@@ -29,6 +27,7 @@ import {
 import { creditCardContent } from "staticData/creditCardContent";
 import type { UserBankDetails } from "types/bankDetail";
 import { axiosClient } from "utils/axiosClient";
+import { capitalise } from "utils/capitalise";
 
 import CreditCard from "./CreditCard";
 
@@ -71,33 +70,29 @@ function ContextAwareToggle({
 }
 
 const PaymentMethod = () => {
-    const [showAddCardForm, setShowAddCardForm] = useState(false);
+    // const [showAddCardForm, setShowAddCardForm] = useState(false);
 
     const { data: BankDetails } = useData<UserBankDetails>(
         ["tasker-bank-account"],
         "/tasker/bank-details/"
     );
     const LinkedBank = BankDetails?.data.result;
-    console.log(
-        "🚀 ~ file: PaymentMethod.tsx ~ line 76 ~ PaymentMethod ~ LinkedBank",
-        LinkedBank
-    );
 
     //for bank details modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     //capitalise words
 
-    const capitalise = (str: string) => {
-        const arr = str.split(" ");
+    // const capitalise = (str: string) => {
+    //     const arr = str.split(" ");
 
-        for (let i = 0; i < arr.length; i++) {
-            arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-        }
-        const result = arr.join(" ");
+    //     for (let i = 0; i < arr.length; i++) {
+    //         arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+    //     }
+    //     const result = arr.join(" ");
 
-        return result;
-    };
+    //     return result;
+    // };
 
     return (
         <div className="payment-method mt-5">

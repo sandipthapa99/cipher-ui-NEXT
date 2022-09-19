@@ -60,6 +60,16 @@ export interface BankPostDetailProps {
     is_primary: boolean;
 }
 
+export interface BankDetailProps {
+    id: number;
+    bank_account_name: string;
+    bank_account_number: string;
+    is_primary: boolean;
+    kyc: number;
+    bank_name: number;
+    branch_name: number;
+}
+
 export type BankNamesResult = BankNames[];
 
 export interface BankNames {
