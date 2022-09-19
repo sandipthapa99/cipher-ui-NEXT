@@ -52,9 +52,9 @@ const Login = () => {
         setIsPhoneNumber(false);
     };
 
-    const { data: profile } = useGetProfile();
+    const { data: profile, isLoading: isProfileLoading } = useGetProfile();
 
-    console.log("profile....", profile);
+    // console.log("profile....", profile);
     return (
         <section>
             <OnBoardingLayout
@@ -91,15 +91,15 @@ const Login = () => {
                                     //         ? next
                                     //         : "/settings/account/individual"
                                     // );
-                                    if (profile) {
+                                    if (!profile && !isProfileLoading) {
+                                        await router.push(
+                                            "/settings/account/individual"
+                                        );
+                                    } else {
                                         await router.push(
                                             typeof next === "string"
                                                 ? next
                                                 : "/home"
-                                        );
-                                    } else {
-                                        await router.push(
-                                            "/settings/account/individual"
                                         );
                                     }
 

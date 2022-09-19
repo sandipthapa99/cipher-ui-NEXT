@@ -95,12 +95,8 @@ const AccountForm = () => {
     const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
-    const [skills, setSkills] = useState(() => []);
 
-    useEffect(() => {
-        setSkills(JSON.parse(profile?.skill ?? "[]"));
-    }, [profile]);
-    const isInputDisabled = !isEditButtonClicked && profile ? true : false;
+    const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
 
     // console.log(
     //     "🚀 ~ file: AccountForm.tsx ~ line 94 ~ AccountForm ~ skills",
