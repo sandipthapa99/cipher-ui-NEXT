@@ -97,7 +97,7 @@ const Layout: FC<MetaDataProps> = ({
 
             {children}
             <Footer />
-            <MobileNav getSide={getSideBar} />
+            <MobileNav side={sideBar} getSide={getSideBar} />
             {sideBar && (
                 <div className="sidebar-nav">
                     <Navbar height={"100vh"} p="xs" width={{ base: 270 }}>

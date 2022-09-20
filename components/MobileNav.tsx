@@ -13,8 +13,9 @@ import { handleMenuActive } from "utils/helpers";
 
 interface MobileProps {
     getSide: any;
+    side?: any;
 }
-const MobileNav = ({ getSide }: MobileProps) => {
+const MobileNav = ({ getSide, side }: MobileProps) => {
     const [sideBarOpened, setSideBarOpened] = useState(false);
     const router = useRouter();
 
@@ -89,7 +90,7 @@ const MobileNav = ({ getSide }: MobileProps) => {
                         className={`nav-link ${handleMenuActive("", router)}`}
                         onClick={() => {
                             setSideBarOpened(() => !sideBarOpened);
-                            getSide(sideBarOpened);
+                            getSide(!side);
                         }}
                     >
                         <FontAwesomeIcon icon={faBars} className="nav-icon" />

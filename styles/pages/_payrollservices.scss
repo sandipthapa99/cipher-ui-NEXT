@@ -80,6 +80,7 @@
                         font-weight: 500;
                         font-size: 1.4rem;
                         text-align: justify;
+                        word-break: break-all;
                         @include respond(xs) {
                             font-weight: 400;
                             font-size: 1.4rem;
