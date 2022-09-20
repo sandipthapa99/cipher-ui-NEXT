@@ -71,7 +71,7 @@ const AppliedTaskDetail = ({
 
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
-    const isUserTask = user ? taskDetail?.assigner?.id === user?.id : false;
+    const isUserTask = user ? taskDetail?.created_by?.id === user?.id : false;
 
     const taskVideosAndImages = [
         ...(taskDetail?.images ?? []),

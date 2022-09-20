@@ -22,6 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const queryClient = new QueryClient();
     try {
         await queryClient.prefetchQuery(["all-tasks"]);
+        await queryClient.prefetchQuery(["get-my-bookings"]);
         return {
             props: {
                 dehydratedState: dehydrate(queryClient),
