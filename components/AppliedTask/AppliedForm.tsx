@@ -3,9 +3,10 @@ import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { createStyles, LoadingOverlay } from "@mantine/core";
+import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import type { ApplyTaskPayload } from "hooks/task/use-apply-task";
 import { useApplyTask } from "hooks/task/use-apply-task";
+import { useBookNowTask } from "hooks/task/use-book--now-task";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 import Button from "react-bootstrap/Button";
@@ -25,12 +26,12 @@ const AppliedForm = ({
     budget_type,
     description,
     show,
+    currency,
     setShow,
     handleClose,
 }: BookNowModalCardProps) => {
-    const toggleSuccessModal = useToggleSuccessModal();
     const router = useRouter();
-    const { mutate, isLoading: applyTaskLoading } = useApplyTask();
+    const { mutate, isLoading: applyTaskLoading } = useBookNowTask();
     const { classes } = useStyles();
 
     // const loadingOverlayVisible = useMemo(
@@ -46,6 +47,12 @@ const AppliedForm = ({
     //             overlayBlur={2}
     //         />
     //     );
+    interface ApplyTaskPayload {
+        entity_service: string;
+        description: string;
+        budget_to: number;
+    }
+    const queryClient = useQueryClient();
     return (
         <>
             {/* Modal component */}
@@ -61,8 +68,9 @@ const AppliedForm = ({
                         <h4>
                             Price:{" "}
                             <span>
-                                {budget_from}
-                                {budget_to && "-" + budget_to}
+                                {currency?.code} &nbsp;
+                                {budget_from}&nbsp;
+                                {budget_to && "-" + budget_to}&nbsp;
                                 {budget_type}
                             </span>
                         </h4>
@@ -80,29 +88,33 @@ const AppliedForm = ({
                             }
 
                             const applyTaskPayload: ApplyTaskPayload = {
-                                task: service_id,
-                                charge: price,
-                                pre_requisites: JSON.stringify(
-                                    values.prerequesties
-                                ),
-                                remarks: values.remarks,
+                                entity_service: service_id,
+                                budget_to: price,
+                                description: values.remarks,
+                                // pre_requisites: JSON.stringify(
+                                //     values.prerequesties
+                                // ),
                             };
                             mutate(applyTaskPayload, {
                                 onSuccess: (data) => {
                                     toast.success(
                                         "You have successfully applied for task"
                                     );
+                                    queryClient.invalidateQueries([
+                                        "get-my-bookings",
+                                    ]);
                                     //toggleSuccessModal();
                                     setShow(false);
-                                    router.push("/task/checkout");
+                                    //     router.push("/task/checkout");
                                 },
                                 onError: (error) => {
-                                    const errors = Object.values(
-                                        error.response?.data.task ?? []
-                                    ).join("\n");
-                                    toast.error(errors);
+                                    // const errors = Object.values(
+                                    //     error.response?.data.task ?? []
+                                    // ).join("\n");
+                                    toast.error(error.message);
+                                    // toast.error(errors);
                                     setShow(false);
-                                    console.log("error", errors);
+                                    // console.log("error", errors);
                                 },
                             });
                         }}

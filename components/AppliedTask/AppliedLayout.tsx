@@ -11,6 +11,7 @@ import { axiosClient } from "utils/axiosClient";
 
 export const useSearchTask = (searchQuery: string) => {
     const url = `${urls.task.task}&${searchQuery}`;
+
     return useQuery(
         ["all-tasks", searchQuery],
         async () => {
@@ -30,6 +31,7 @@ const AppliedLayout = ({
     const [searchParam, setSearchParam] = useState("");
 
     const { data: searchData = [], isFetching } = useSearchTask(searchParam);
+
     return (
         <Layout title="Find Tasks | Cipher">
             <section className="Tasks-section mb-5" id="Tasks-section">
