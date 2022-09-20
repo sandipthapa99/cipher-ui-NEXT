@@ -50,7 +50,7 @@
                         margin-right: -0.6rem !important;
                     }
 
-                    @include respond(xs){
+                    @include respond(xs) {
                         margin-right: 0.4rem;
                     }
                     //NestHub
@@ -135,7 +135,7 @@
             - Iphone 4
         */
 
-        @media screen and (width: 360px),(width: 320px) {
+        @media screen and (width: 360px), (width: 320px) {
             .weather-container {
                 display: none !important;
             }
@@ -186,9 +186,9 @@
             font-family: $inter-font;
       
             //ipad 5
-            @media screen and (width:320px) {
+            @media screen and (width: 320px) {
                 display: none !important;
-               }
+            }
             /* specific to Ipad Air Only*/
             @media screen and (width: 820px) {
                 display: none !important;
@@ -329,4 +329,3 @@
         }
     }
 }
-
