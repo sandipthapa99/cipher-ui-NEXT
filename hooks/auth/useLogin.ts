@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import localforage from "localforage";
+import urls from "constants/urls";
 import { autoLogin } from "utils/auth";
 import { axiosClient } from "utils/axiosClient";
 
@@ -19,7 +19,7 @@ export const useLogin = () => {
         async (loginPayload) => {
             try {
                 const { data } = await axiosClient.post<LoginSuccessResponse>(
-                    "/user/login/",
+                    urls.user.login,
                     loginPayload
                 );
                 autoLogin(data.access, data.refresh);

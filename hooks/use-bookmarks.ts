@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import urls from "constants/urls";
 import type { Bookmark, BookMarkApiResponse } from "types/bookmarks";
 import { axiosClient } from "utils/axiosClient";
 
@@ -12,7 +13,7 @@ export const useBookmarks = (type: BookmarkType) => {
         ["bookmarks", type],
         () =>
             axiosClient
-                .get<BookMarkApiResponse>("/task/bookmark")
+                .get<BookMarkApiResponse>(urls.bookmark)
                 .then((response) =>
                     response.data.result.filter((item) => item.type === type)
                 ),
