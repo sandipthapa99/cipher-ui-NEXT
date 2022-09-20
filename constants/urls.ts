@@ -14,6 +14,7 @@ const urls = {
         service: `${taskPath}?is_requested=false`,
         service_per_user: `${taskPath}?is_requested=false&user=`,
         task: `${taskPath}?is_requested=true`,
+        my_task: `/task/entity/my-entity-services/?is_requested=true`,
         application: "task/application/",
         cancelApplication: "task/application/",
         assigneeDetail: "task/asignee-task-detail/",
