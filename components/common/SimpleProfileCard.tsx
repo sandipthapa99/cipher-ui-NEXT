@@ -111,7 +111,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                     <>
                         <span>Budget Range</span>
                         <span className="text-right price">
-                            {task?.currency?.code}
+                            {task?.currency?.symbol}
                             {task?.budget_from} - {task?.budget_to}
                             {task?.budget_type === "Hourly"
                                 ? "/hr"
@@ -124,7 +124,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                     <>
                         <span>Budget</span>
                         <span className="text-right price">
-                            {`${task?.currency?.code ?? ""} ${
+                            {`${task?.currency?.symbol ?? ""} ${
                                 task?.budget_to
                             } / ${task?.budget_type}`}
                         </span>

@@ -43,7 +43,7 @@ export interface ITask {
         profile_image: string;
     };
     is_negotiable: boolean;
-    currency: { id: number; code: string; name: number };
+    currency: { id: number; code: string; name: number; symbol: string };
     created_at: string;
     updated_at: string;
     deleted_at: any;

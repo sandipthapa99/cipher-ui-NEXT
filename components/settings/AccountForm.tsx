@@ -98,10 +98,7 @@ const AccountForm = () => {
 
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
 
-    // console.log(
-    //     "🚀 ~ file: AccountForm.tsx ~ line 94 ~ AccountForm ~ skills",
-    //     skills
-    // );
+    const isInputDisabled = !isEditButtonClicked && profile ? true : false;
 
     const onButtonClick = () => {
         // `current` points to the mounted file input element

@@ -8,6 +8,7 @@ export interface Currency {
     id: number;
     name: string;
     code: string;
+    symbol: any;
 }
 export interface TaskCurrencyProps extends Omit<SelectProps, "data"> {
     onCurrencyChange: (currencyId: number) => void;
@@ -28,7 +29,7 @@ export const TaskCurrency = ({
     const { data: currencies = [] } = useCurrencies();
     const currencyData = currencies.map((currency) => ({
         id: currency,
-        label: currency.code,
+        label: currency.code + ` (${currency.symbol})`,
         value: currency.id.toString(),
     }));
     const handleCurrencyChange = (currencyId: number) => {

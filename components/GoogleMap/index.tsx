@@ -1,6 +1,7 @@
 import { faLocation } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, createStyles, Text } from "@mantine/core";
+import { useInterval } from "@mantine/hooks";
 import type { GoogleMapProps } from "@react-google-maps/api";
 import { OverlayView } from "@react-google-maps/api";
 import {
@@ -8,7 +9,13 @@ import {
     useJsApiLoader,
 } from "@react-google-maps/api";
 import { useLatLng } from "hooks/location/useLocation";
-import React, { useCallback, useMemo, useRef } from "react";
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type GoogleMapOptions = google.maps.MapOptions;
@@ -26,6 +33,9 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
         id: "google-map-script",
         googleMapsApiKey: getGoogleMapsApiKey(),
     });
+
+    const [zoom, setZoom] = useState(6);
+
     const mapRef = useRef<Map | null>(null);
 
     const location = useLatLng();
@@ -47,13 +57,26 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
         mapRef.current = null;
     }, []);
 
+    const interval = useInterval(
+        () =>
+            setZoom((previousZoom) =>
+                previousZoom < 18 ? previousZoom + 1 : previousZoom
+            ),
+        100
+    );
+    useEffect(() => {
+        interval.start();
+        return interval.stop;
+    }, [interval]);
+
     return isLoaded ? (
         <ReactGoogleMap
             {...rest}
             options={options}
             mapContainerStyle={{ width: "100%", height: "60rem" }}
             center={center}
-            zoom={18}
+            zoom={zoom}
+            onZoomChanged={() => setZoom(mapRef.current?.getZoom() ?? 0)}
             onLoad={onLoad}
             onUnmount={onUnmount}
         >
@@ -69,7 +92,8 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
 };
 const useStyles = createStyles(() => ({
     currentLocationWindow: {
-        backgroundColor: "#fff",
+        backgroundColor: "#F9CA6A",
+        color: "#000",
         padding: "1rem",
         borderRadius: ".4rem",
         display: "flex",

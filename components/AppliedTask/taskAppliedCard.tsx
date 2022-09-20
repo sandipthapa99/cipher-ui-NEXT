@@ -61,7 +61,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                             </span>
                         ) : (
                             <span className="charge">
-                                {currency.code} {budget_to}
+                                {currency.symbol} {budget_to}
                             </span>
                         )}
                     </div>

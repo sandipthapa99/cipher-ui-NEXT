@@ -38,6 +38,7 @@ export interface ServicesValueProps {
             id: number;
             name: string;
             code: string;
+            symbol: string;
         };
         city: {
             id: number;

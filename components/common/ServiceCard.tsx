@@ -144,7 +144,7 @@ const ServiceCard = ({
                                 {serviceCard?.happy_clients}
                             </p>
                             <p className="price">
-                                {serviceCard?.currency?.code + " "}
+                                {serviceCard?.currency?.symbol + " "}
                                 {serviceCard?.budget_from}
                                 {serviceCard?.budget_to &&
                                     "-" + serviceCard?.budget_to}
