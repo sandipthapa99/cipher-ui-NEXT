@@ -161,7 +161,7 @@ export const useGetMyBookings = (service_id: string | undefined) => {
     return useQuery<MyBookings>(["get-my-bookings", service_id], async () => {
         try {
             const { data } = await axiosClient.get<MyBookings>(
-                `/task/entity/service-booking/?entity_service=${service_id}&is_requested=false`
+                `/task/entity/service-booking/?entity_service=${service_id}&is_active=true&is_requested=false`
             );
             return data;
         } catch (error) {

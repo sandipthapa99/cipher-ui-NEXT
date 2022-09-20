@@ -159,7 +159,10 @@ const SearchResultsDetail = ({
     //     (item) => item?.entity_service?.id === serviceId
     // );
     // console.log("is servic", serviceId);
-    console.log("is service booked", error);
+    console.log("is service booked", myBookings);
+    // const activeBookings = myBookings?.result.filter(
+    //     (item) => item?.is_active === true
+    // );
 
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
@@ -542,35 +545,44 @@ const SearchResultsDetail = ({
                     </Carousel>
                 </section>
                 <section>
-                    <Tab
-                        activeIndex={activeTabIdx}
-                        onTabClick={setActiveTabIdx}
-                        items={[
-                            {
-                                title: "Applicants",
+                    {!error && (
+                        <Tab
+                            activeIndex={activeTabIdx}
+                            onTabClick={setActiveTabIdx}
+                            items={[
+                                {
+                                    title: "Applicants",
 
-                                content: (
-                                    <Row>
-                                        {!error ? (
-                                            renderBookedClients
-                                        ) : (
+                                    content: (
+                                        <Row>
+                                            {renderBookedClients}
                                             <Alert
                                                 icon={
                                                     <FontAwesomeIcon
                                                         icon={faWarning}
                                                     />
                                                 }
-                                                title="No data Available!"
-                                                color="red"
+                                                title={
+                                                    myBookings?.result
+                                                        .length === 0
+                                                        ? "No Applicants Available!"
+                                                        : "No data Available!"
+                                                }
+                                                color={
+                                                    myBookings?.result
+                                                        .length === 0
+                                                        ? "orange"
+                                                        : "red"
+                                                }
                                             >
                                                 {""}
                                             </Alert>
-                                        )}
-                                    </Row>
-                                ),
-                            },
-                        ]}
-                    />
+                                        </Row>
+                                    ),
+                                },
+                            ]}
+                        />
+                    )}
                 </section>
                 <FilterReview totalReviews={reviewsContent.length} />
                 <Spoiler
