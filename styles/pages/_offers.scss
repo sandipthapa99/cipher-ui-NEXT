@@ -4,10 +4,10 @@
             gap: 1rem;
         }
     }
-    
-    .offer-wrapper{
-       @include respond(xs){
-        flex-direction: column;
-       }
+
+    .offer-wrapper {
+        @include respond(xs) {
+            flex-direction: column;
+        }
     }
 }

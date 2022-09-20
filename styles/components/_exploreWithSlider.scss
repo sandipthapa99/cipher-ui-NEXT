@@ -46,8 +46,8 @@
                 width: 100%;
                 padding: 4rem 8rem;
 
-                @media screen  and (width:320px){
-                    align-items: flex-start !important; 
+                @media screen and (width: 320px) {
+                    align-items: flex-start !important;
                 }
                 @include respond(xs) {
                     padding: 2rem 4rem;
@@ -64,7 +64,7 @@
                 p {
                     font: 500 1.6rem $poppins-font;
                     color: #495057;
-                    @media screen  and (width:320px){
+                    @media screen and (width: 320px) {
                         padding-left: 0px !important;
                     }
                     @include respond(xs) {
