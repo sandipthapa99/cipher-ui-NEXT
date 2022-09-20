@@ -12,10 +12,9 @@ import { useEffect, useState } from "react";
 import { handleMenuActive } from "utils/helpers";
 
 interface MobileProps {
-    getSide: any;
+    getSide?: any;
 }
 const MobileNav = ({ getSide }: MobileProps) => {
-    const [sideBarOpened, setSideBarOpened] = useState(false);
     const router = useRouter();
 
     const [show, setShow] = useState(true);
@@ -88,8 +87,8 @@ const MobileNav = ({ getSide }: MobileProps) => {
                     <a
                         className={`nav-link ${handleMenuActive("", router)}`}
                         onClick={() => {
-                            setSideBarOpened(() => !sideBarOpened);
-                            getSide(sideBarOpened);
+                            // setSideBarOpened(() => !sideBarOpened);
+                            getSide((prev: boolean) => !prev);
                         }}
                     >
                         <FontAwesomeIcon icon={faBars} className="nav-icon" />
