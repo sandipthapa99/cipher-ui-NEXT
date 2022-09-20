@@ -12,6 +12,11 @@ export type ProfileResponse = {
         id: number;
         name: string;
     };
+    city: {
+        id: number;
+        name: string;
+        country: number;
+    };
     user: {
         id: string;
         email: string;
