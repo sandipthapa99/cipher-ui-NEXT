@@ -56,7 +56,6 @@ export const SearchCategory = ({
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
     const { data: taskers } = useTaskers();
-    console.log("abc", taskers);
 
     const categoriesData: SelectItem[] = categories.map((category) => ({
         id: category.id,

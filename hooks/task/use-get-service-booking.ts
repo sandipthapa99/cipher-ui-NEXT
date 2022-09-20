@@ -6,15 +6,65 @@ export type MyBookings = {
     result: Array<{
         id: number;
         created_by: {
-            id: string;
-            username: string;
-            email: string;
-            phone: any;
+            id: number;
+            charge_currency: {
+                id: number;
+                name: string;
+                code: string;
+                symbol: string;
+            };
+            user: {
+                id: string;
+                username: string;
+                email: string;
+                phone: any;
+                full_name: string;
+                profile_image: any;
+            };
+            portfolio: Array<any>;
+            experience: Array<any>;
+            education: Array<any>;
+            certificates: Array<any>;
+            stats: {
+                success_rate: number;
+                happy_clients: number;
+                task_completed: number;
+                user_reviews: number;
+                task_assigned: number;
+                task_in_progress: number;
+                task_cancelled: number;
+            };
+            rating: {
+                user_rating_count: number;
+                avg_rating: any;
+            };
+            country: string;
+            language: string;
+            status: string;
+            bio: string;
             full_name: string;
-            profile_image: any;
+            phone: string;
+            gender: string;
+            profile_image: string;
+            date_of_birth: string;
+            skill: string;
+            active_hour_start: string;
+            active_hour_end: string;
+            experience_level: string;
+            user_type: string;
+            hourly_rate: number;
+            profile_visibility: string;
+            task_preferences: string;
+            address_line1: string;
+            address_line2: string;
+            is_profile_verified: boolean;
+            designation: any;
+            points: number;
+            subscription: Array<any>;
+            security_questions: Array<any>;
         };
         entity_service: {
-            id: number;
+            id: string;
             created_by: {
                 id: string;
                 username: string;
@@ -108,16 +158,17 @@ export type MyBookings = {
     }>;
 };
 
-export const useGetMyBookings = () => {
-    return useQuery<MyBookings>(["get-my-bookings"], async () => {
+export const useGetMyBookings = (service_id: string | undefined) => {
+    return useQuery<MyBookings>(["get-my-bookings", service_id], async () => {
         try {
             const { data } = await axiosClient.get<MyBookings>(
-                `/task/entity/service-booking/?is_requested=false`
+                `/task/entity/service-booking/?entity_service=${service_id}&is_active=true&is_requested=false`
             );
             return data;
         } catch (error) {
             if (error instanceof AxiosError) {
-                throw new Error(error?.response?.data?.message);
+                const errors = Object.values(error.response?.data).join("\n");
+                throw new Error(errors);
             }
             throw new Error("Something went wrong");
         }

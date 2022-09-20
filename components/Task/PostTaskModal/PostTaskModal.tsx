@@ -262,6 +262,7 @@ export const PostTaskModal = () => {
                                 onCitySelect={(cityId) =>
                                     setFieldValue("city", cityId)
                                 }
+                                value={taskDetail ? taskDetail?.city : ""}
                             />
 
                             <ServiceOptions

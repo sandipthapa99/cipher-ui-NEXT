@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { axiosClient } from "utils/axiosClient";
 
 export interface TaskCity {
@@ -10,9 +11,7 @@ export const useCities = (searchQuery: string) =>
         ["cities"],
         () =>
             axiosClient
-                .get<TaskCity[]>(
-                    `/locale/client/city/options?search=${searchQuery}`
-                )
+                .get<TaskCity[]>(`${urls.locale.city}${searchQuery}`)
                 .then((response) => response.data),
         {
             initialData: [],

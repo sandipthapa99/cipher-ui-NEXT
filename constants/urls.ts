@@ -2,12 +2,14 @@ const taskPath = "/task/entity/service/";
 const blogPath = "/blog/";
 const taskerPath = "/tasker/";
 const careerPath = "/career/vacancy/";
+const localePath = "/locale/client/";
 const bookings = "/task/entity/service-booking/";
 const urls = {
     user: {
         login: "user/login/",
         signup: "user/signup/",
         changePassword: "user/password/change/",
+        google: "/user/register/social/google-oauth2/",
     },
     task: {
         list: taskPath,
@@ -33,6 +35,11 @@ const urls = {
     blog: { list: blogPath, detail: `${blogPath}detail/` },
     wishlist: {
         list: "task/wishlist/",
+    },
+    bookmark: "/task/bookmark",
+    locale: {
+        localePath,
+        city: `${localePath}city/options?search=`,
     },
 };
 
