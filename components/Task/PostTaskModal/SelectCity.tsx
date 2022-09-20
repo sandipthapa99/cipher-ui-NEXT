@@ -1,8 +1,7 @@
 import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
+import { useCities } from "hooks/use-cities";
 import { useState } from "react";
-import { axiosClient } from "utils/axiosClient";
 
 export interface TaskCity {
     id: number;
@@ -11,17 +10,6 @@ export interface TaskCity {
 export interface SelectCityProps extends Omit<SelectProps, "data"> {
     onCitySelect: (cityId: number) => void;
 }
-const useCities = (searchQuery: string) =>
-    useQuery(
-        ["task-cities", searchQuery],
-        () =>
-            axiosClient
-                .get<TaskCity[]>(
-                    `/locale/client/city/options?search=${searchQuery}`
-                )
-                .then((response) => response.data),
-        { initialData: [], enabled: !!searchQuery && searchQuery.length >= 3 }
-    );
 export const SelectCity = ({ onCitySelect, ...rest }: SelectCityProps) => {
     const [value, setValue] = useState("");
     const [query, setQuery] = useState("");
