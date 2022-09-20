@@ -11,6 +11,7 @@ export const useSupport = () => {
                     "/support/support-ticket/",
                     supportDetails
                 );
+                return data;
             } catch (error) {
                 if (error instanceof AxiosError) {
                     throw new Error(error?.response?.data?.message);
