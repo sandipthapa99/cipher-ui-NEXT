@@ -555,7 +555,7 @@ const SearchResultsDetail = ({
 
                                     content: (
                                         <Row>
-                                            <Col>
+                                            <>
                                                 {renderBookedClients}
                                                 {(myBookings?.result.length ===
                                                     0 ||
@@ -578,9 +578,11 @@ const SearchResultsDetail = ({
                                                                 ? "orange"
                                                                 : "red"
                                                         }
-                                                    ></Alert>
+                                                    >
+                                                        {" "}
+                                                    </Alert>
                                                 )}
-                                            </Col>{" "}
+                                            </>
                                         </Row>
                                     ),
                                 },
