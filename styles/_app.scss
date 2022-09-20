@@ -660,6 +660,7 @@ small.text-muted {
     position: relative;
     @include respond(md) {
         position: sticky;
+        right: 0;
         top: 15rem;
     }
 }

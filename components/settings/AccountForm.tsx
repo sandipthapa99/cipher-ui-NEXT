@@ -32,6 +32,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import Headroom from "react-headroom";
 import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
@@ -86,7 +87,7 @@ const AccountForm = () => {
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
-    const { data: profile } = useGetProfile();
+    const { data: profile, isLoading } = useGetProfile();
     const { data: KYCData } = useGetKYC();
 
     const [image, setImage] = useState();
@@ -225,6 +226,22 @@ const AccountForm = () => {
     };
     //parse user_type
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
+
+    //for city select field
+    const cityData = profile
+        ? {
+              initialId: profile?.city?.id?.toString() ?? "",
+              initialData: profile?.city
+                  ? [
+                        {
+                            id: profile?.city?.id,
+                            label: profile?.city?.name,
+                            value: profile?.city?.id?.toString(),
+                        },
+                    ]
+                  : [],
+          }
+        : {};
 
     const queryClient = useQueryClient();
 
@@ -515,6 +532,7 @@ const AccountForm = () => {
                                             />
                                         ) : (
                                             <BigButton
+                                                className="sticky-wrapper"
                                                 btnTitle={"Edit Profile"}
                                                 backgroundColor={"#FFCA6A"}
                                                 textColor={"#212529"}
@@ -528,7 +546,6 @@ const AccountForm = () => {
                                     ""
                                 )}
                             </div>
-
                             <PhotoEdit
                                 photo={image}
                                 show={showEditForm}
@@ -723,7 +740,11 @@ const AccountForm = () => {
                                 disabled={isInputDisabled}
                                 label="City"
                                 placeholder="Select your city"
-                                onChange={(city) => setFieldValue("city", city)}
+                                onCityChange={(city) =>
+                                    setFieldValue("city", city)
+                                }
+                                value={cityData.initialId}
+                                data={cityData.initialData}
                             />
                             <InputField
                                 type="text"
@@ -746,7 +767,7 @@ const AccountForm = () => {
                                         : undefined
                                 }
                                 {...getFieldProps("address_line2")}
-                                initialValue={values.address_line2}
+                                value={values.address_line2}
                                 onPlaceChange={(value) =>
                                     setFieldValue("address_line2", value)
                                 }

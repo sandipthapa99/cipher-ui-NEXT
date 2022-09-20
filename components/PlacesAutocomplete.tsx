@@ -7,11 +7,10 @@ import { Autocomplete } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useLatLng } from "hooks/location/useLocation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { GooglePlacesResponse } from "types/googlePlacesResponse";
 
 interface PlacesAutocompleteProps extends Omit<AutocompleteProps, "data"> {
-    initialValue?: string;
     onPlaceChange: (place: string) => void;
 }
 
@@ -30,11 +29,11 @@ const usePlaces = (input: string, location: string) =>
         }
     );
 export const PlacesAutocomplete = ({
-    initialValue,
+    value,
     onPlaceChange,
     ...props
 }: PlacesAutocompleteProps) => {
-    const [input, setInput] = useState(initialValue ?? "");
+    const [input, setInput] = useState(value ?? "");
 
     const location = useLatLng();
     const { data: predictions, isFetching: isLoading } = usePlaces(
@@ -52,13 +51,18 @@ export const PlacesAutocomplete = ({
     };
     const clearSearchQuery = () => setInput("");
 
+    useEffect(() => setInput(value ?? ""), [value]);
+
     return (
         <Autocomplete
             {...props}
             icon={<FontAwesomeIcon icon={faLocation} />}
             rightSection={
                 input && !isLoading ? (
-                    <ActionIcon onClick={clearSearchQuery}>
+                    <ActionIcon
+                        disabled={props.disabled}
+                        onClick={clearSearchQuery}
+                    >
                         <FontAwesomeIcon icon={faClose} />
                     </ActionIcon>
                 ) : isLoading ? (
