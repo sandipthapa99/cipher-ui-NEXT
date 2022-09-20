@@ -24,6 +24,7 @@ const ServicesDetail = ({
                     budget_to={service?.budget_to}
                     budget_type={service?.budget_type}
                     serviceProvider={service?.created_by?.full_name ?? ""}
+                    serviceProviderId={service?.created_by?.id ?? ""}
                     serviceProviderLocation={service?.location ?? ""}
                     serviceDescription={service?.description ?? ""}
                     serviceRating={"service?.success_rate ?? 0"}
