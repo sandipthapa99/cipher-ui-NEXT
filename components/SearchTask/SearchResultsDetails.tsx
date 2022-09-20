@@ -1,5 +1,7 @@
 import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
+import EllipsisDropdown from "@components/common/EllipsisDropdown";
+import EllipsisDropdownService from "@components/common/EllipsisDropdownService";
 import { FilterReview } from "@components/common/FilterReview";
 import PackageOffersCard from "@components/common/packageCard";
 import SaveIcon from "@components/common/SaveIcon";
@@ -55,6 +57,7 @@ const SearchResultsDetail = ({
     serviceTitle,
     highlights,
     serviceId,
+    serviceProviderId,
     serviceCreated,
     serviceViews,
     currency,
@@ -155,14 +158,7 @@ const SearchResultsDetail = ({
 
     const isServiceBookmarked = useIsBookmarked("service", String(serviceId));
 
-    // const myServiceBookings = myBookings?.result.filter(
-    //     (item) => item?.entity_service?.id === serviceId
-    // );
-    // console.log("is servic", serviceId);
-    console.log("is service booked", myBookings);
-    // const activeBookings = myBookings?.result.filter(
-    //     (item) => item?.is_active === true
-    // );
+    const isUserService = user ? serviceProviderId === user?.id : false;
 
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
@@ -200,6 +196,18 @@ const SearchResultsDetail = ({
         toast.success(
             "You have 100 Morbillion applicants for this service.Congrats!!"
         );
+    };
+
+    const handleEdit = () => {
+        console.log("edit button clicked");
+    };
+
+    const handleDelete = () => {
+        console.log("delete button clicked");
+    };
+
+    const handleInactive = () => {
+        console.log("Inactive button clicked");
     };
 
     return (
@@ -244,10 +252,19 @@ const SearchResultsDetail = ({
                                 />
                                 <span className="name">Share</span>
                             </div>
-                            <FontAwesomeIcon
-                                icon={faEllipsisVertical}
-                                className="svg-icon option"
-                            />
+
+                            {isUserService && (
+                                <EllipsisDropdownService
+                                    handleEdit={handleEdit}
+                                    handleDelete={handleDelete}
+                                    handleInactive={handleInactive}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faEllipsisVertical}
+                                        className="svg-icon option"
+                                    />
+                                </EllipsisDropdownService>
+                            )}
                         </div>
                     </div>
                 </Row>
