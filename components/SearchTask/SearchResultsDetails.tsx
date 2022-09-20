@@ -166,8 +166,8 @@ const SearchResultsDetail = ({
                 <MyBookingsCard
                     bookingId={item?.id}
                     collabButton={false}
-                    image={item?.entity_service?.created_by?.profile_image}
-                    name={item?.entity_service?.created_by?.full_name}
+                    image={item?.created_by?.profile_image}
+                    name={item?.created_by?.full_name}
                     speciality={item?.created_by?.user_type}
                     rating={item?.created_by?.rating?.user_rating_count}
                     happyClients={item?.created_by?.stats?.happy_clients}
@@ -572,28 +572,34 @@ const SearchResultsDetail = ({
 
                                     content: (
                                         <Row>
-                                            {renderBookedClients}
-                                            <Alert
-                                                icon={
-                                                    <FontAwesomeIcon
-                                                        icon={faWarning}
-                                                    />
-                                                }
-                                                title={
-                                                    myBookings?.result
-                                                        .length === 0
-                                                        ? "No Applicants Available!"
-                                                        : "No data Available!"
-                                                }
-                                                color={
-                                                    myBookings?.result
-                                                        .length === 0
-                                                        ? "orange"
-                                                        : "red"
-                                                }
-                                            >
-                                                {""}
-                                            </Alert>
+                                            <>
+                                                {renderBookedClients}
+                                                {(myBookings?.result.length ===
+                                                    0 ||
+                                                    error) && (
+                                                    <Alert
+                                                        icon={
+                                                            <FontAwesomeIcon
+                                                                icon={faWarning}
+                                                            />
+                                                        }
+                                                        title={
+                                                            myBookings?.result
+                                                                .length === 0
+                                                                ? "No Applicants Available!"
+                                                                : "No data Available!"
+                                                        }
+                                                        color={
+                                                            myBookings?.result
+                                                                .length === 0
+                                                                ? "orange"
+                                                                : "red"
+                                                        }
+                                                    >
+                                                        {" "}
+                                                    </Alert>
+                                                )}
+                                            </>
                                         </Row>
                                     ),
                                 },

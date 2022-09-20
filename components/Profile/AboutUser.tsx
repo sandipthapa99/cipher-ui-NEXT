@@ -293,7 +293,7 @@ const AboutProfile = () => {
                             <div className="content">
                                 {experienceData?.data?.result
                                     ? experienceData?.data?.result?.map(
-                                          (value) => {
+                                          (value: any) => {
                                               return (
                                                   <div
                                                       className="experience__type"
