@@ -70,6 +70,7 @@ export interface ServicesValueProps {
         location: string;
         is_professional: boolean;
         is_online: boolean;
+        is_active: boolean;
         is_requested: boolean;
         discount_type: string;
         discount_value: any;

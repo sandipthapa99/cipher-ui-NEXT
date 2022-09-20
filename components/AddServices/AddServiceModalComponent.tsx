@@ -13,6 +13,7 @@ import {
     Anchor,
     Box,
     Checkbox,
+    LoadingOverlay,
     Modal,
     Stack,
     Text,
@@ -71,8 +72,6 @@ export const AddServiceModalComponent = () => {
     const queryClient = useQueryClient();
     const { mutate: createTaskMutation, isLoading: createTaskLoading } =
         usePostTask();
-    const { mutate: editTaskMutation, isLoading: editTaskLoading } =
-        useEditTask();
     const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
@@ -87,6 +86,8 @@ export const AddServiceModalComponent = () => {
     const [termsAccepted, setTermsAccepted] = useState(true);
     const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
+
+    const createServiceLoading = createTaskLoading || uploadFileLoading;
 
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
@@ -138,23 +139,6 @@ export const AddServiceModalComponent = () => {
                 extra_data: [],
             };
 
-            if (showPostTaskModalType === "EDIT" && taskDetail) {
-                editTaskMutation(
-                    { id: taskDetail.id, data: postTaskPayload },
-                    {
-                        onSuccess: async (message) => {
-                            handleCloseModal();
-                            await queryClient.invalidateQueries([
-                                "task-detail",
-                                taskSlug,
-                            ]);
-                            // toast.success(message);
-                            toggleSuccessModal();
-                        },
-                    }
-                );
-                return;
-            }
             createTaskMutation(postTaskPayload, {
                 onSuccess: async ({ message }) => {
                     handleCloseModal();
@@ -188,145 +172,160 @@ export const AddServiceModalComponent = () => {
         toggleShowPostTaskModal("CREATE");
         setChoosedValue("task");
     };
-    const isCreateTaskLoading =
-        createTaskLoading || uploadFileLoading || editTaskLoading;
+    const isCreateTaskLoading = createTaskLoading || uploadFileLoading;
     return (
-        <form encType="multipart/formData" onSubmit={handleSubmit}>
-            <Stack spacing="md">
-                <TextInput
-                    placeholder="Enter your title"
-                    label="Title"
-                    required
-                    {...getFieldProps("title")}
-                    error={getFieldError("title")}
-                />
-                <Textarea
-                    label="Service Description"
-                    placeholder="Enter your description"
-                    minRows={5}
-                    required
-                    {...getFieldProps("description")}
-                    error={getFieldError("description")}
-                />
-                <TaskRequirements
-                    initialRequirements={taskDetail?.highlights ?? {}}
-                    onRequirementsChange={(requirements) =>
-                        setFieldValue("highlights", requirements)
-                    }
-                    error={getFieldError("highlights")}
-                    {...getFieldProps("highlights")}
-                    labelName="Highlights"
-                    description="This helps clients to find about your service highlights"
-                />
-                <TaskCurrency
-                    value={
-                        taskDetail ? taskDetail?.currency?.id?.toString() : ""
-                    }
-                    onCurrencyChange={(currencyId) =>
-                        setFieldValue("currency", currencyId)
-                    }
-                    error={getFieldError("currency")}
-                />
-                <SelectCity
-                    onCitySelect={(cityId) => setFieldValue("city", cityId)}
-                />
+        <>
+            <LoadingOverlay
+                visible={isCreateTaskLoading}
+                sx={{ position: "fixed", inset: 0 }}
+            />
 
-                <ServiceOptions
-                    {...getFieldProps("service")}
-                    onServiceChange={(service) =>
-                        setFieldValue("service", service)
-                    }
-                    error={getFieldError("service")}
-                    value={
-                        taskDetail ? taskDetail?.category?.id?.toString() : ""
-                    }
-                />
-                <SelectTaskType
-                    setFieldValue={setFieldValue}
-                    onTypeChange={(type) => setFieldValue("location", type)}
-                    {...getFieldProps("location")}
-                    error={getFieldError("location")}
-                />
-                <TaskBudget
-                    initialBudgetFrom={taskDetail?.budget_from}
-                    initialBudgetTo={taskDetail?.budget_to}
-                    {...formik}
-                />
-                <Checkbox
-                    defaultChecked={taskDetail?.is_negotiable}
-                    label="Yes, it is negotiable."
-                    {...getFieldProps("is_negotiable")}
-                />
-                <Stack sx={{ maxWidth: "40rem" }}>
-                    <Title order={6}>Images</Title>
-                    <Text color="dimmed" size="sm">
-                        Including images helps you find best merchant for your
-                        task.
-                    </Text>
-                    <CustomDropZone
-                        accept={IMAGE_MIME_TYPE}
-                        fileType="image"
-                        sx={{ maxWidth: "30rem" }}
-                        name="task-image"
-                        onDrop={(images) => setFieldValue("images", images)}
+            <form encType="multipart/formData" onSubmit={handleSubmit}>
+                <Stack spacing="md">
+                    <TextInput
+                        placeholder="Enter your title"
+                        label="Title"
+                        required
+                        {...getFieldProps("title")}
+                        error={getFieldError("title")}
                     />
-                </Stack>
-                <Stack sx={{ maxWidth: "40rem" }}>
-                    <Title order={6}>Videos</Title>
-                    <Text color="dimmed" size="sm">
-                        Including images or videos helps you find best merchant
-                        for your task.
-                    </Text>
-                    <CustomDropZone
-                        accept={[MIME_TYPES.mp4]}
-                        fileType="video"
-                        name="task-video"
-                        onDrop={(videos) => setFieldValue("videos", videos)}
+                    <Textarea
+                        label="Service Description"
+                        placeholder="Enter your description"
+                        minRows={5}
+                        required
+                        {...getFieldProps("description")}
+                        error={getFieldError("description")}
                     />
-                </Stack>
-                <Checkbox
-                    label="is active"
-                    name="is_active"
-                    defaultChecked={true}
-                    onChange={(event) =>
-                        setFieldValue("is_active", event.currentTarget.checked)
-                    }
-                />
-                {/* <TaskDate setFieldValue={setFieldValue} /> */}
-                <Checkbox
-                    checked={termsAccepted}
-                    onChange={(event) => setTermsAccepted(event.target.checked)}
-                    label={
-                        <Text>
-                            Accept all{" "}
-                            <Link passHref href="/terms-and-conditions">
-                                <Anchor>Terms and Conditions</Anchor>
-                            </Link>
+                    <TaskRequirements
+                        initialRequirements={taskDetail?.highlights ?? {}}
+                        onRequirementsChange={(requirements) =>
+                            setFieldValue("highlights", requirements)
+                        }
+                        error={getFieldError("highlights")}
+                        {...getFieldProps("highlights")}
+                        labelName="Highlights"
+                        description="This helps clients to find about your service highlights"
+                    />
+                    <TaskCurrency
+                        value={
+                            taskDetail
+                                ? taskDetail?.currency?.id?.toString()
+                                : ""
+                        }
+                        onCurrencyChange={(currencyId) =>
+                            setFieldValue("currency", currencyId)
+                        }
+                        error={getFieldError("currency")}
+                    />
+                    <SelectCity
+                        onCitySelect={(cityId) => setFieldValue("city", cityId)}
+                    />
+
+                    <ServiceOptions
+                        {...getFieldProps("service")}
+                        onServiceChange={(service) =>
+                            setFieldValue("service", service)
+                        }
+                        error={getFieldError("service")}
+                        value={
+                            taskDetail
+                                ? taskDetail?.category?.id?.toString()
+                                : ""
+                        }
+                    />
+                    <SelectTaskType
+                        setFieldValue={setFieldValue}
+                        onTypeChange={(type) => setFieldValue("location", type)}
+                        {...getFieldProps("location")}
+                        error={getFieldError("location")}
+                    />
+                    <TaskBudget
+                        initialBudgetFrom={taskDetail?.budget_from}
+                        initialBudgetTo={taskDetail?.budget_to}
+                        {...formik}
+                    />
+                    <Checkbox
+                        defaultChecked={taskDetail?.is_negotiable}
+                        label="Yes, it is negotiable."
+                        {...getFieldProps("is_negotiable")}
+                    />
+                    <Stack sx={{ maxWidth: "40rem" }}>
+                        <Title order={6}>Images</Title>
+                        <Text color="dimmed" size="sm">
+                            Including images helps you find best merchant for
+                            your task.
                         </Text>
-                    }
-                />
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        gap: "1rem",
-                    }}
-                >
-                    <Button
-                        onClick={handleCloseModal}
-                        className="close-btn close-btn-mod btn p-3 h-25"
-                    >
-                        Cancel
-                    </Button>
-                    <BigButton
-                        type="submit"
-                        className="close-btn btn p-3 h-25 text-white"
-                        btnTitle="Post Service"
-                        backgroundColor="#211D4F"
+                        <CustomDropZone
+                            accept={IMAGE_MIME_TYPE}
+                            fileType="image"
+                            sx={{ maxWidth: "30rem" }}
+                            name="task-image"
+                            onDrop={(images) => setFieldValue("images", images)}
+                        />
+                    </Stack>
+                    <Stack sx={{ maxWidth: "40rem" }}>
+                        <Title order={6}>Videos</Title>
+                        <Text color="dimmed" size="sm">
+                            Including images or videos helps you find best
+                            merchant for your task.
+                        </Text>
+                        <CustomDropZone
+                            accept={[MIME_TYPES.mp4]}
+                            fileType="video"
+                            name="task-video"
+                            onDrop={(videos) => setFieldValue("videos", videos)}
+                        />
+                    </Stack>
+                    <Checkbox
+                        label="is active"
+                        name="is_active"
+                        defaultChecked={true}
+                        onChange={(event) =>
+                            setFieldValue(
+                                "is_active",
+                                event.currentTarget.checked
+                            )
+                        }
                     />
-                </Box>
-            </Stack>
-        </form>
+                    {/* <TaskDate setFieldValue={setFieldValue} /> */}
+                    <Checkbox
+                        checked={termsAccepted}
+                        onChange={(event) =>
+                            setTermsAccepted(event.target.checked)
+                        }
+                        label={
+                            <Text>
+                                Accept all{" "}
+                                <Link passHref href="/terms-and-conditions">
+                                    <Anchor>Terms and Conditions</Anchor>
+                                </Link>
+                            </Text>
+                        }
+                    />
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: "1rem",
+                        }}
+                    >
+                        <Button
+                            onClick={handleCloseModal}
+                            className="close-btn close-btn-mod btn p-3 h-25"
+                        >
+                            Cancel
+                        </Button>
+                        <BigButton
+                            type="submit"
+                            className="close-btn btn p-3 h-25 text-white"
+                            btnTitle="Post Service"
+                            backgroundColor="#211D4F"
+                        />
+                    </Box>
+                </Stack>
+            </form>
+        </>
     );
 };
 

@@ -1,4 +1,4 @@
-import type { SelectProps } from "@mantine/core";
+import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -8,9 +8,9 @@ export interface ServiceOptions {
     id: string;
     title: string;
 }
-export const useServiceOptions = (searchQuery: string) => {
+export const useServiceOptions = () => {
     return useQuery(
-        ["service-options", searchQuery],
+        ["service-options"],
         async () => {
             const { data } = await axiosClient.get<ServiceOptions[]>(
                 "/task/service/list/"
@@ -21,23 +21,30 @@ export const useServiceOptions = (searchQuery: string) => {
                 value: service?.id,
             }));
             return serviceItems;
-        },
-        { enabled: !!searchQuery && searchQuery.length > 2 }
+        }
+        // { enabled: !!searchQuery && searchQuery.length > 2 }
     );
 };
 
 interface TaskCategoryProps extends Omit<SelectProps, "data"> {
     onServiceChange: (service: string) => void;
+    data?: SelectItem[];
 }
 export const ServiceOptions = ({
     value,
-
     onServiceChange,
     ...rest
 }: TaskCategoryProps) => {
-    const [query, setQuery] = useState("");
-    const { data: serviceOptions = [] } = useServiceOptions(query);
-    const [service, setService] = useState(value);
+    // const [query, setQuery] = useState("");
+
+    console.log("adfhjdfd rest", rest.data);
+    const { data: serviceOptions = [] } = useServiceOptions();
+    console.log(
+        "🚀 ~ file: ServiceOptions.tsx ~ line 44 ~ serviceOptions",
+        serviceOptions
+    );
+
+    const [service, setService] = useState(() => value);
     const handleServiceChange = (selectedService: string | null) => {
         if (!selectedService) return;
         onServiceChange(selectedService);
@@ -51,7 +58,7 @@ export const ServiceOptions = ({
             placeholder="Select a service"
             value={service}
             onChange={handleServiceChange}
-            onSearchChange={setQuery}
+            // onSearchChange={setQuery}
             data={serviceOptions}
             required
         />
