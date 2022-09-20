@@ -7,6 +7,7 @@ interface BigButtonProps extends ButtonProps {
     textColor?: string;
     handleClick?: () => void;
     className?: string;
+    border?: string;
 }
 
 const BigButton = ({
@@ -15,6 +16,7 @@ const BigButton = ({
     textColor,
     handleClick,
     className,
+    border,
     ...rest
 }: BigButtonProps) => {
     return (
@@ -25,6 +27,7 @@ const BigButton = ({
                 style={{
                     backgroundColor: `${backgroundColor}`,
                     color: `${textColor}`,
+                    border: `${border}`,
                 }}
                 onClick={handleClick}
             >
