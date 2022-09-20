@@ -19,7 +19,7 @@ export const HireMerchantModal = ({
     onHide,
     taskerDetail,
 }: HireMerchantModalProps) => {
-    const UserTask = useMyTasks();
+    const UserTask = useMyTasks(String(taskerDetail?.user?.id));
     const renderClientProjects = () => {
         return (
             UserTask.data?.result &&
