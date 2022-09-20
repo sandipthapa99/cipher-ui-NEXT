@@ -35,12 +35,12 @@ const useUploadImage = () =>
             })
     );
 
-const useBookNowService = () =>
-    useMutation<string, AxiosError, any>((payload) =>
-        axiosClient
-            .post<{ message: string }>("/task/service/booking/", payload)
-            .then((res) => res.data.message)
-    );
+// const useBookNowService = () =>
+//     useMutation<string, AxiosError, any>((payload) =>
+//         axiosClient
+//             .post<{ message: string }>("/task/service/booking/", payload)
+//             .then((res) => res.data.message)
+//     );
 
 const BookNowModalCard = ({
     title,
