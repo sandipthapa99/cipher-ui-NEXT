@@ -66,6 +66,10 @@ export const MyBookingsCard = ({
         (data: { booking: number | undefined }) =>
             axiosClient.post("/task/entity/service-booking/approval/", data)
     );
+    const sendBookReject = useMutation(
+        (data: { booking: number | undefined }) =>
+            axiosClient.post("/task/entity/service-booking/reject/", data)
+    );
     // console.log("bookibgid", bookingId);
 
     return (
@@ -176,7 +180,26 @@ export const MyBookingsCard = ({
                         <BigButton
                             btnTitle={"Decline"}
                             backgroundColor={"#fff"}
-                            handleClick={handleButtonClick}
+                            handleClick={() => {
+                                sendBookReject.mutate(
+                                    { booking: bookingId },
+                                    {
+                                        onSuccess: () => {
+                                            toast.success("Booking Rejected");
+                                            queryClient.invalidateQueries([
+                                                "get-my-bookings",
+                                            ]);
+                                        },
+                                        onError: (error: any) => {
+                                            console.log(error);
+                                            toast.error(
+                                                error.response.data.booking
+                                                    .message
+                                            );
+                                        },
+                                    }
+                                );
+                            }}
                             textColor={"#211D4F"}
                             border="1px solid #211D4F"
                         />
