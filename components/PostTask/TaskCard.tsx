@@ -6,7 +6,6 @@ import { Col, Row } from "react-bootstrap";
 
 export const Recommended = () => {
     const { data: recommendedTasks, isLoading } = useTasks();
-    console.log("tasks data=", recommendedTasks);
     if (isLoading || !recommendedTasks) return <FullPageLoader />;
     return (
         <div className="recommended-tab">
