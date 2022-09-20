@@ -6,13 +6,15 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Button } from "react-bootstrap";
+import { toast } from "react-toastify";
 import type { Tasker } from "types/tasks";
+import { axiosClient } from "utils/axiosClient";
 
 import BigButton from "../common/Button";
 import ShareIcon from "../common/ShareIcon";
@@ -33,6 +35,8 @@ interface Props {
     distance?: string;
     bio?: string;
     charge?: string;
+    bookingId?: number | undefined;
+    isApproved: boolean | undefined;
 }
 
 export const MyBookingsCard = ({
@@ -49,6 +53,8 @@ export const MyBookingsCard = ({
     distance,
     bio,
     charge,
+    bookingId,
+    isApproved,
 }: Props) => {
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
@@ -56,6 +62,11 @@ export const MyBookingsCard = ({
 
     const router = useRouter();
     const path = router.query.id;
+    const sendBookApproval = useMutation(
+        (data: { booking: number | undefined }) =>
+            axiosClient.post("/task/entity/service-booking/approval/", data)
+    );
+    // console.log("bookibgid", bookingId);
 
     return (
         <div
@@ -98,7 +109,10 @@ export const MyBookingsCard = ({
                         /> */}
                             </div>
                             <h6 className="text-dark">
-                                <span>{speciality} </span>| {location}
+                                <span>
+                                    {speciality ? JSON.parse(speciality) : ""}{" "}
+                                </span>
+                                | {location}
                             </h6>
                             <div className="d-flex icon-wrapper-member gap-5 align-items-center emoji-section text-dark">
                                 <span className="star">
@@ -158,17 +172,38 @@ export const MyBookingsCard = ({
                     <ShareIcon url={""} quote={""} hashtag={""} />
                 </div>
                 <div className="d-flex align-items-center gap-3">
+                    {isApproved === false && (
+                        <BigButton
+                            btnTitle={"Decline"}
+                            backgroundColor={"#fff"}
+                            handleClick={handleButtonClick}
+                            textColor={"#211D4F"}
+                            border="1px solid #211D4F"
+                        />
+                    )}
                     <BigButton
-                        btnTitle={"Decline"}
-                        backgroundColor={"#fff"}
-                        handleClick={handleButtonClick}
-                        textColor={"#211D4F"}
-                        border="1px solid #211D4F"
-                    />
-                    <BigButton
-                        btnTitle={"Approve"}
-                        backgroundColor={"#211D4F"}
-                        handleClick={handleButtonClick}
+                        btnTitle={isApproved ? "Approved" : "Approve"}
+                        backgroundColor={isApproved ? "#32cd32" : "#211D4F"}
+                        disabled={isApproved ? true : false}
+                        handleClick={() => {
+                            sendBookApproval.mutate(
+                                { booking: bookingId },
+                                {
+                                    onSuccess: () => {
+                                        toast.success("Booking Approved");
+                                        queryClient.invalidateQueries([
+                                            "get-my-bookings",
+                                        ]);
+                                    },
+                                    onError: (error: any) => {
+                                        console.log(error);
+                                        toast.error(
+                                            error.response.data.booking.message
+                                        );
+                                    },
+                                }
+                            );
+                        }}
                         textColor={"#fff"}
                     />
                 </div>
