@@ -1,8 +1,7 @@
 import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
+import { useCities } from "hooks/use-cities";
 import { useState } from "react";
-import { axiosClient } from "utils/axiosClient";
 
 export interface TaskCity {
     id: number;

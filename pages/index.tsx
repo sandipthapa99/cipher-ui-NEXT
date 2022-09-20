@@ -249,7 +249,7 @@ const Home: NextPage<{
             </section>
 
             {/* Popular verified services section start */}
-            {/* <section id="services-near-you" className="services-near-you">
+            <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
                     <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
                         {servicesData && servicesData?.result?.length > 0 && (
@@ -293,7 +293,7 @@ const Home: NextPage<{
                         <Advertisement />
                     </Row>
                 </Container>
-            </section> */}
+            </section>
             {/* Popular verified services section end */}
 
             {/* Services near you section start */}
