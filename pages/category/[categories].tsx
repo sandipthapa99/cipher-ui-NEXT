@@ -43,10 +43,10 @@ const Gardening = ({
             title={`${categoryName ? categoryName : "Loading..."} | Cipher`}
         >
             <div className="gardening -page">
-                <BreadCrumb
-                    currentPage={categoryName ? categoryName : "Loading..."}
-                />
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
+                    <BreadCrumb
+                        currentPage={categoryName ? categoryName : "Loading..."}
+                    />
                     <h1 className="section-title m-0">{categoryName}</h1>
                     <section className="services-near-you">
                         <h1 className="heading-title mt-3">

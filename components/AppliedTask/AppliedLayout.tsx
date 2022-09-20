@@ -32,7 +32,7 @@ const AppliedLayout = ({
     return (
         <Layout title="Find Tasks | Cipher">
             <section className="Tasks-section mb-5" id="Tasks-section">
-                <Container>
+                <Container fluid="xl" className="px-5">
                     <SearchCategory
                         searchModal="task"
                         onFilterClear={() => setSearchParam("")}

@@ -27,7 +27,7 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
     return (
         <Layout title="Find Tasker | Cipher">
             <section className="Tasker-section" id="Tasker-section">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <SearchCategory
                         searchModal="tasker"
                         onSearchParamChange={setSearchParam}

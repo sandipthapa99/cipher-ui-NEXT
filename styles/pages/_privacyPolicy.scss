@@ -34,7 +34,7 @@
         color: #495057;
         margin: 0 0 1.8rem 0;
         text-align: justify;
-
+        word-break: break-word;
         @include respond(xs) {
             font-size: 1.5rem;
         }

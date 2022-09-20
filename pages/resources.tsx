@@ -50,7 +50,7 @@ const Resources: NextPage = () => {
                     </Container>
                 </section>
                 <div className="resource-page__content">
-                    <Container fluid="xl">
+                    <Container fluid="xl" className="px-5">
                         <div className="carousel">
                             <Carousel>
                                 {resourceCarouselContent &&

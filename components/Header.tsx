@@ -97,7 +97,7 @@ const Header = () => {
                                     )}
                                 >
                                     <Link href="">
-                                        <a className="nav-link d-none d-md-inline-block">
+                                        <a className="nav-link d-none d-md-inline-block categories-menu">
                                             <FontAwesomeIcon
                                                 icon={faObjectsColumn}
                                                 className="svg-icon"

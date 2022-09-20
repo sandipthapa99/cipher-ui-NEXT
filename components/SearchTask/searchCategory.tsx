@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { Button } from "@mantine/core";
 import { Box, createStyles, Select, TextInput } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useTaskers } from "hooks/tasker/use-tasker";
@@ -32,10 +33,8 @@ export const SearchCategory = ({
     onFilterClear,
 }: SearchCategoryProps) => {
     const { classes } = useStyles();
-
     const [params, setParams] = useState<Record<string, string> | undefined>();
     const [cityQuery, setCityQuery] = useState("");
-
     const { data: categories = [] } = useServiceCategories();
     const { data: cities } = useCities(cityQuery);
     const { data: countries } = useCountry();
@@ -130,7 +129,11 @@ export const SearchCategory = ({
                 />
             </Col>
             <Col md={8}>
-                <Box className={classes.categoriesContainer}>
+                <Box
+                    className={
+                        classes.categoriesContainer + " " + "box-modifier"
+                    }
+                >
                     {params && (
                         <Button
                             leftIcon={<FontAwesomeIcon icon={faClose} />}
