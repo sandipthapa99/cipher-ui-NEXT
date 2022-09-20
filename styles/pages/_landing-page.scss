@@ -331,7 +331,7 @@
 
     .hero-category {
         padding-bottom: 4.4rem;
-        @include respond(xs){
+        @include respond(xs) {
             padding-bottom: 2.2rem;
         }
 

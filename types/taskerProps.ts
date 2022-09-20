@@ -10,6 +10,7 @@ export interface TaskerProps {
             id: string;
             name: string;
             code: string;
+            symbol: any;
         };
         user: {
             id: string;

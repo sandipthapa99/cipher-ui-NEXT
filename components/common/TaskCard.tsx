@@ -47,7 +47,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
                     <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                         <h1 className="title">{title}</h1>
                         <h2 className="charge">
-                            {currency ? currency?.code : "Rs"}{" "}
+                            {currency ? currency?.symbol : "Rs"}{" "}
                             {task?.budget_from && `${task?.budget_from} -`}
                             {task?.budget_to}
                         </h2>

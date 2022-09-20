@@ -45,7 +45,7 @@ export const MyBookings = () => {
                                     budget_to={item?.service?.budget_to}
                                     budget_type={item?.service?.budget_type}
                                     status={item?.status}
-                                    currency={item?.service?.currency?.code}
+                                    currency={item?.service?.currency?.symbol}
                                 />
                             </div>
                         )
