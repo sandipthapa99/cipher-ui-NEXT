@@ -142,7 +142,7 @@ const SearchResultsDetail = ({
     const { data: user } = useUser();
     const withLogin = useWithLogin();
     const router = useRouter();
-    const { data: myBookings } = useGetMyBookings();
+    const { data: myBookings, error } = useGetMyBookings(serviceId);
     const servSlug = router.query.slug;
     const getSingleService = servicesData?.data?.result.filter(
         (item) => item.slug === servSlug
@@ -155,24 +155,30 @@ const SearchResultsDetail = ({
 
     const isServiceBookmarked = useIsBookmarked("service", String(serviceId));
 
-    // console.log("is service booked", myBookings);
+    // const myServiceBookings = myBookings?.result.filter(
+    //     (item) => item?.entity_service?.id === serviceId
+    // );
+    // console.log("is servic", serviceId);
+    console.log("is service booked", error);
 
-    const renderBookedClients = myBookings?.result.map((item, index) => {
+    const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
             <Col md={6} key={index}>
                 <MyBookingsCard
+                    bookingId={item?.id}
                     collabButton={false}
                     image={item?.entity_service?.created_by?.profile_image}
                     name={item?.entity_service?.created_by?.full_name}
-                    speciality={item?.entity_service?.title}
-                    rating={10}
-                    happyClients={item?.entity_service?.views_count}
+                    speciality={item?.created_by?.user_type}
+                    rating={item?.created_by?.rating?.user_rating_count}
+                    happyClients={item?.created_by?.stats?.happy_clients}
                     awardPercentage={10}
-                    location={item?.entity_service?.created_by?.username}
-                    distance={"10"}
-                    bio={item?.entity_service?.description}
+                    location={item?.created_by?.address_line1}
+                    distance={""}
+                    bio={item?.created_by?.bio}
                     charge={item?.entity_service?.discount_value}
                     tasker={""}
+                    isApproved={item?.is_accepted}
                 />
             </Col>
         );
@@ -542,7 +548,26 @@ const SearchResultsDetail = ({
                         items={[
                             {
                                 title: "Applicants",
-                                content: <Row>{renderBookedClients}</Row>,
+
+                                content: (
+                                    <Row>
+                                        {!error ? (
+                                            renderBookedClients
+                                        ) : (
+                                            <Alert
+                                                icon={
+                                                    <FontAwesomeIcon
+                                                        icon={faWarning}
+                                                    />
+                                                }
+                                                title="No data Available!"
+                                                color="red"
+                                            >
+                                                {""}
+                                            </Alert>
+                                        )}
+                                    </Row>
+                                ),
                             },
                         ]}
                     />

@@ -8,6 +8,7 @@ interface BigButtonProps extends ButtonProps {
     handleClick?: () => void;
     className?: string;
     border?: string;
+    disabled?: boolean;
 }
 
 const BigButton = ({
@@ -17,6 +18,7 @@ const BigButton = ({
     handleClick,
     className,
     border,
+    disabled,
     ...rest
 }: BigButtonProps) => {
     return (
@@ -30,6 +32,7 @@ const BigButton = ({
                     border: `${border}`,
                 }}
                 onClick={handleClick}
+                disabled={disabled}
             >
                 <span>{btnTitle}</span>
             </Button>
