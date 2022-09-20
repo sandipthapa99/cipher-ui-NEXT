@@ -171,16 +171,16 @@ const PROFILE_LINKS = {
             color: "#495057",
         },
     ],
-    sectionTwo: [
-        {
-            title: "Switch to i am the...",
-            icon: (
-                <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faRepeat} />
-            ),
-            href: "/switch",
-            color: "#495057",
-        },
-    ],
+    //sectionTwo: [
+    //    {
+    //        title: "Switch to i am the...",
+    //        icon: (
+    //            <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faRepeat} />
+    //        ),
+    //        href: "/switch",
+    //        color: "#495057",
+    //    },
+    //],
     sectionThree: [
         {
             title: "Merchant DashBoard",
