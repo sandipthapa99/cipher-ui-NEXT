@@ -1,4 +1,4 @@
-import type { SelectProps } from "@mantine/core";
+import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -28,6 +28,7 @@ export const useServiceOptions = () => {
 
 interface TaskCategoryProps extends Omit<SelectProps, "data"> {
     onServiceChange: (service: string) => void;
+    data?: SelectItem[];
 }
 export const ServiceOptions = ({
     value,
@@ -35,8 +36,15 @@ export const ServiceOptions = ({
     ...rest
 }: TaskCategoryProps) => {
     // const [query, setQuery] = useState("");
+
+    console.log("adfhjdfd rest", rest.data);
     const { data: serviceOptions = [] } = useServiceOptions();
-    const [service, setService] = useState(value);
+    console.log(
+        "🚀 ~ file: ServiceOptions.tsx ~ line 44 ~ serviceOptions",
+        serviceOptions
+    );
+
+    const [service, setService] = useState(() => value);
     const handleServiceChange = (selectedService: string | null) => {
         if (!selectedService) return;
         onServiceChange(selectedService);

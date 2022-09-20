@@ -12,6 +12,7 @@ export interface SelectCityProps extends Omit<SelectProps, "data" | "value"> {
     value?: { id: number; name: string } | string;
     onCitySelect: (cityId: number) => void;
 }
+
 const useCities = (searchQuery: string) =>
     useQuery(
         ["task-cities", searchQuery],
@@ -33,6 +34,7 @@ export const SelectCity = ({ onCitySelect, ...rest }: SelectCityProps) => {
               }
             : undefined;
     const [value, setValue] = useState(initialCity?.value ?? "");
+
     const [query, setQuery] = useState("");
     const { data: cities } = useCities(query);
     const selectCityData: SelectItem[] = cities.map((city) => ({

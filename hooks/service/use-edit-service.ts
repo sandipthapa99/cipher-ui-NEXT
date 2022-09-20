@@ -1,22 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
 export interface EditServiceResponse {
-    status: "success" | "error";
+    status: string;
     message: string;
-    service_id: string;
 }
+
+export interface EditServicePayload {
+    id: string;
+    data: any;
+}
+
 export const useEditService = () => {
-    return useMutation<EditServiceResponse, Error, any>((editServicePayload) =>
+    return useMutation<string, AxiosError, EditServicePayload>(({ id, data }) =>
         axiosClient
-            .patch<EditServiceResponse>(
-                "/task/entity/service/",
-                editServicePayload
-            )
-            .then((res) => res.data)
-            .catch((error) => {
-                const message = Object.values(error?.response?.data).join("\n");
-                throw new Error(message ?? "Failed to edit service");
-            })
+            .patch<EditServiceResponse>(`/task/entity/service/${id}/`, data)
+            .then(() => "Successfully edited service")
     );
 };

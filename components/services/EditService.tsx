@@ -13,6 +13,7 @@ import {
     Anchor,
     Box,
     Checkbox,
+    LoadingOverlay,
     Modal,
     Stack,
     Text,
@@ -21,19 +22,16 @@ import {
     Title,
 } from "@mantine/core";
 import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
-import { useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import { useEditService } from "hooks/service/use-edit-service";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ServicesValueProps } from "types/serviceCard";
-import type { ITask } from "types/task";
 
 interface EditServiceProps {
     showEditModal: boolean;
@@ -45,10 +43,10 @@ export interface EditServicePayload {
     title: string;
     description: string;
     highlights: Record<string, string>;
-    service: Record<string, any>;
+    service: string;
     city: string;
     location: TaskType;
-    currency: Record<string, any>;
+    currency: number;
     budget_type: BudgetType;
     budget_from: number;
     budget_to: number;
@@ -68,33 +66,35 @@ export const EditService = ({
     handleClose,
     serviceDetail,
 }: EditServiceProps) => {
+    console.log("serviceDetail", serviceDetail);
     const toggleSuccessModal = useToggleSuccessModal();
-    const { mutate: editServiceMutation, isLoading: createTaskLoading } =
+    const { mutate: editServiceMutation, isLoading: editServiceLoading } =
         useEditService();
-    const queryClient = useQueryClient();
+
     const [termsAccepted, setTermsAccepted] = useState(true);
     const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
-    const router = useRouter();
+
+    const loading = editServiceLoading || uploadFileLoading;
 
     const formik = useFormik<EditServicePayload>({
         initialValues: {
             title: serviceDetail?.title ?? "",
             description: serviceDetail?.description ?? "",
             highlights: serviceDetail?.highlights ?? {},
-            city: serviceDetail?.city ?? "",
+            city: serviceDetail?.city?.id ?? "",
             location: (serviceDetail?.location as TaskType) ?? "remote",
             budget_type:
                 (serviceDetail?.budget_type as BudgetType) ?? BudgetType.FIXED,
             budget_from: serviceDetail?.budget_from ?? 0,
             budget_to: serviceDetail?.budget_to ?? 0,
-            service: serviceDetail?.service ?? ({} as any),
+            service: serviceDetail?.service?.id ?? ({} as any),
             is_negotiable: serviceDetail?.is_negotiable ?? false,
             estimated_time: 5,
             is_recursion: false,
             is_requested: false,
             is_everyday: false,
-            currency: serviceDetail?.currency ?? "",
+            currency: serviceDetail?.currency?.id ?? "",
             images: "",
             videos: "",
             is_active: serviceDetail?.is_active ?? true,
@@ -125,16 +125,19 @@ export const EditService = ({
                 extra_data: [],
             };
 
-            editServiceMutation(editServicePayload, {
-                onSuccess: async ({ message }) => {
-                    handleClose();
-                    action.resetForm();
-                    toggleSuccessModal();
-                },
-                onError: (error: any) => {
-                    toast.error(error.message);
-                },
-            });
+            editServiceMutation(
+                { id: serviceDetail?.id, data: editServicePayload },
+                {
+                    onSuccess: async () => {
+                        handleClose();
+                        action.resetForm();
+                        toggleSuccessModal();
+                    },
+                    onError: (error: any) => {
+                        toast.error(error.message);
+                    },
+                }
+            );
         },
     });
 
@@ -150,8 +153,14 @@ export const EditService = ({
     const getFieldError = (key: keyof EditServicePayload) =>
         touched[key] && errors[key] ? (errors[key] as string) : null;
 
+    console.log("sakjkajskldjfkljalksj", serviceDetail?.service);
+
     return (
         <div className="edit-service-wrapper">
+            <LoadingOverlay
+                visible={loading}
+                sx={{ position: "fixed", inset: 0 }}
+            />
             <Modal
                 opened={showEditModal}
                 onClose={handleClose}
@@ -193,6 +202,18 @@ export const EditService = ({
                                     ? serviceDetail?.currency?.id?.toString()
                                     : ""
                             }
+                            data={
+                                serviceDetail?.currency
+                                    ? [
+                                          {
+                                              id: serviceDetail?.currency?.id,
+                                              label: serviceDetail?.currency
+                                                  ?.name,
+                                              value: serviceDetail?.currency?.id.toString(),
+                                          },
+                                      ]
+                                    : []
+                            }
                             onCurrencyChange={(currencyId) =>
                                 setFieldValue("currency", currencyId)
                             }
@@ -211,10 +232,20 @@ export const EditService = ({
                                 setFieldValue("service", service)
                             }
                             error={getFieldError("service")}
+                            data={
+                                serviceDetail?.service
+                                    ? [
+                                          {
+                                              id: serviceDetail?.service?.id,
+                                              label: serviceDetail?.service
+                                                  ?.title,
+                                              value: serviceDetail?.service?.id,
+                                          },
+                                      ]
+                                    : []
+                            }
                             value={
-                                serviceDetail
-                                    ? serviceDetail?.service?.title?.toString()
-                                    : ""
+                                serviceDetail ? serviceDetail?.service?.id : ""
                             }
                         />
                         <SelectTaskType
