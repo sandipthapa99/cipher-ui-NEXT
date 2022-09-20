@@ -21,6 +21,9 @@ type LatLngLiteral = google.maps.LatLngLiteral;
 type GoogleMapOptions = google.maps.MapOptions;
 type Map = google.maps.Map;
 
+const MIN_ZOOM_LEVEL = 6;
+const MAX_ZOOM_LEVEL = 18;
+
 const getGoogleMapsApiKey = () => {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
     if (!apiKey) throw new Error("Google Maps API key is not defined");
@@ -43,6 +46,8 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
     const options = useMemo<GoogleMapOptions>(
         () => ({
             disableDefaultUI: true,
+            minZoom: MIN_ZOOM_LEVEL,
+            maxZoom: MAX_ZOOM_LEVEL,
         }),
         []
     );
@@ -60,10 +65,16 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
     const interval = useInterval(
         () =>
             setZoom((previousZoom) =>
-                previousZoom < 18 ? previousZoom + 1 : previousZoom
+                previousZoom < MAX_ZOOM_LEVEL ? previousZoom + 1 : previousZoom
             ),
-        100
+        50
     );
+
+    useEffect(() => {
+        if (!mapRef.current) return;
+        mapRef.current.setZoom(zoom);
+    }, [zoom, mapRef]);
+
     useEffect(() => {
         interval.start();
         return interval.stop;
@@ -75,8 +86,6 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
             options={options}
             mapContainerStyle={{ width: "100%", height: "60rem" }}
             center={center}
-            zoom={zoom}
-            onZoomChanged={() => setZoom(mapRef.current?.getZoom() ?? 0)}
             onLoad={onLoad}
             onUnmount={onUnmount}
         >
