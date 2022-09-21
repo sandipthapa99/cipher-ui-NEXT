@@ -36,6 +36,20 @@ export const AllOffers = () => {
         "/offers/scratch2.png",
         "/offers/scratch3.png",
     ];
+
+    const gifts = [
+        "/offers/purple.png",
+        "/offers/brown.png",
+        "/offers/blackgift.png",
+        "/offers/bluegift.png",
+    ];
+
+    const anothergift = [
+        "/offers/gift2.png",
+        "/offers/gift2.png",
+        "/offers/giftwithribon.png",
+        "/offers/giftwithcherr.png",
+    ];
     return (
         <div className="alloffers">
             <Row className="alloffers__container">
@@ -76,6 +90,49 @@ export const AllOffers = () => {
                     </Col>
                 ))}
             </Row>
+            <div className="recommend">
+                <Row className="recommend__container mt-5">
+                    {gifts.map((item, index) => (
+                        <Col key={index} md={3} sm={12} xs={12} lg={3}>
+                            <figure className="offer-img">
+                                <Image
+                                    src={item}
+                                    height={400}
+                                    width={648}
+                                    alt={"voucher"}
+                                />
+                            </figure>
+                        </Col>
+                    ))}
+                </Row>
+            </div>
+            <div className="dashain mb-5">
+                <figure className="offer-img">
+                    <Image
+                        src={"/offers/dashainoffer.png"}
+                        height={400}
+                        width={1300}
+                        alt={"voucher"}
+                        objectFit="cover"
+                    />
+                </figure>
+            </div>
+            <div className="recommend">
+                <Row className="recommend__container mt-5">
+                    {anothergift.map((item, index) => (
+                        <Col key={index} md={3} sm={12} xs={12} lg={3}>
+                            <figure className="offer-img">
+                                <Image
+                                    src={item}
+                                    height={400}
+                                    width={648}
+                                    alt={"voucher"}
+                                />
+                            </figure>
+                        </Col>
+                    ))}
+                </Row>
+            </div>
         </div>
     );
 };
