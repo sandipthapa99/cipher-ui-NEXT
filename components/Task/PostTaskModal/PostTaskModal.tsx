@@ -108,12 +108,12 @@ export const PostTaskModal = () => {
             title: taskDetail ? taskDetail.title : "",
             description: taskDetail ? taskDetail.description : "",
             highlights: taskDetail ? taskDetail.highlights : {},
-            city: "",
-            location: "remote",
+            city: taskDetail ? String(taskDetail?.city?.id) : "",
+            location: taskDetail ? (taskDetail.location as TaskType) : "remote",
             budget_type: BudgetType.FIXED,
-            budget_from: 0,
-            budget_to: 0,
-            service: "",
+            budget_from: taskDetail ? taskDetail.budget_from : 0,
+            budget_to: taskDetail ? taskDetail.budget_to : 0,
+            service: taskDetail ? taskDetail.service.id ?? ({} as any) : "",
             is_negotiable: false,
             estimated_time: 5,
             is_recursion: false,
@@ -123,7 +123,7 @@ export const PostTaskModal = () => {
             end_date: "2023-01-04",
             start_time: "01:00",
             end_time: "03:00",
-            currency: "",
+            currency: taskDetail ? String(taskDetail?.currency?.id) : "",
             images: "",
             videos: "",
             is_active: true,
@@ -189,8 +189,14 @@ export const PostTaskModal = () => {
         },
     });
 
-    const { getFieldProps, handleSubmit, touched, errors, setFieldValue } =
-        formik;
+    const {
+        getFieldProps,
+        handleSubmit,
+        touched,
+        errors,
+        setFieldValue,
+        values,
+    } = formik;
     const getFieldError = (key: keyof PostTaskPayload) =>
         touched[key] && errors[key] ? (errors[key] as string) : null;
 
@@ -263,6 +269,18 @@ export const PostTaskModal = () => {
                                         ? taskDetail?.currency?.id?.toString()
                                         : ""
                                 }
+                                data={
+                                    taskDetail?.currency
+                                        ? [
+                                              {
+                                                  id: taskDetail?.currency?.id,
+                                                  label: taskDetail?.currency
+                                                      ?.name,
+                                                  value: taskDetail?.currency?.id.toString(),
+                                              },
+                                          ]
+                                        : []
+                                }
                                 onCurrencyChange={(currencyId) =>
                                     setFieldValue("currency", currencyId)
                                 }
@@ -274,17 +292,27 @@ export const PostTaskModal = () => {
                                 }
                                 value={taskDetail ? taskDetail?.city : ""}
                             />
-
                             <ServiceOptions
                                 {...getFieldProps("service")}
                                 onServiceChange={(service) =>
                                     setFieldValue("service", service)
                                 }
                                 error={getFieldError("service")}
+                                data={
+                                    taskDetail?.service
+                                        ? [
+                                              {
+                                                  id: taskDetail?.service?.id,
+                                                  label: taskDetail?.service
+                                                      ?.title,
+                                                  value: taskDetail?.service
+                                                      ?.id,
+                                              },
+                                          ]
+                                        : []
+                                }
                                 value={
-                                    taskDetail
-                                        ? taskDetail?.category?.id?.toString()
-                                        : ""
+                                    taskDetail ? taskDetail?.service?.id : ""
                                 }
                             />
                             <SelectTaskType
@@ -293,6 +321,7 @@ export const PostTaskModal = () => {
                                     setFieldValue("location", type)
                                 }
                                 {...getFieldProps("location")}
+                                location={values.location}
                                 error={getFieldError("location")}
                             />
                             <TaskBudget

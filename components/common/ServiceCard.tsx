@@ -154,9 +154,9 @@ const ServiceCard = ({
                             </p>
                             <p className="price">
                                 {serviceCard?.currency?.symbol + " "}
-                                {serviceCard?.budget_from}
-                                {serviceCard?.budget_to &&
-                                    " - " + serviceCard?.budget_to}
+                                {serviceCard?.budget_to}
+                                {serviceCard?.budget_from !== 0 &&
+                                    " - " + serviceCard?.budget_from}
                                 {serviceCard?.budget_type === "Hourly"
                                     ? " /hr"
                                     : serviceCard?.budget_type === "Monthly"
