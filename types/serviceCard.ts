@@ -34,7 +34,9 @@ export interface ServicesValueProps {
             username: string;
             email: string;
             phone: any;
-            full_name: string;
+            first_name: string;
+            middle_name: string;
+            last_name: string;
             profile_image: string;
         };
         service: {

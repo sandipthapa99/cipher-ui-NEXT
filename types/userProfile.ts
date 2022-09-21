@@ -47,38 +47,49 @@
 
 export interface UserProfileInfoProps {
     id?: number;
-    charge_currency?: ChargeCurrency | any;
-    user?: User | any;
-    rating?: Rating | any;
-    country?: string | number;
-    language?: string;
-    status?: string;
-    bio?: string;
-    full_name?: string;
-    phone?: User | any;
-    gender?: string;
-    profile_image?: string;
-    date_of_birth?: string;
-    skill?: string;
-    active_hour_start?: string;
-    active_hour_end?: string;
-    experience_level?: string;
-    user_type?: string;
-    hourly_rate?: number;
-    profile_visibility?: string;
-    task_preferences?: string;
-    address_line1?: string;
-    address_line2?: string;
-    is_profile_verified?: boolean;
-    designation?: string;
+    user: {
+        id: string;
+        username: string;
+        email: string;
+        draft_email: any;
+        phone: any;
+        draft_phone: any;
+        first_name: string;
+        middle_name: string;
+        last_name: string;
+        profile_image: string;
+    };
+    stats: {
+        success_rate: number;
+        happy_clients: number;
+        task_completed: number;
+        user_reviews: number;
+        task_assigned: number;
+        task_in_progress: number;
+        task_cancelled: number;
+    };
+    country: string;
+    key: number;
     points: number;
-    stats?: Stats;
-    //remaining from API
-    userBadge?: string | undefined;
-    pointGoal?: number | undefined;
-    userPoints?: number | undefined;
-    userActiveStatus?: boolean | undefined;
-    tooltipMessage?: string | undefined;
+    profile_image: string;
+    full_name: string;
+    user_type: string;
+    rating: number;
+    hourly_rate: number;
+    phone: string;
+    address_line1: string;
+    skill: string;
+    active_hour_start: string;
+    active_hour_end: string;
+    bio: string;
+    userBadge: string;
+    userPoints: number;
+    pointGoal: number;
+    charge_currency: string;
+    userActiveStatus: boolean;
+    tooltipMessage: string;
+    is_profile_verified: boolean;
+
     //
     field?: (name?: string, file?: any) => void;
 }

@@ -127,10 +127,9 @@ const ServiceCard = ({
                         <Link href={`/tasker/${serviceCard?.created_by?.id}`}>
                             <a>
                                 <span>
-                                    {serviceCard?.created_by?.full_name ===
-                                    "None None"
+                                    {serviceCard?.created_by?.first_name === ""
                                         ? "Cipher"
-                                        : serviceCard?.created_by?.full_name}
+                                        : ` ${serviceCard?.created_by?.first_name} ${serviceCard?.created_by?.last_name}`}
                                 </span>{" "}
                             </a>
                         </Link>

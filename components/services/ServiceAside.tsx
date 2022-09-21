@@ -33,7 +33,7 @@ const ServiceAside = ({
                             budget_type={task?.budget_type}
                             currency={task?.currency?.symbol}
                             serviceTitle={task?.title}
-                            serviceRating={task?.id}
+                            serviceRating={task?.views_count}
                             serviceProviderLocation={task?.location}
                             serviceSlug={task?.slug}
                             discount={20} // To do form api
@@ -42,7 +42,7 @@ const ServiceAside = ({
                                     ? task.images[0]?.media
                                     : task?.images
                             }
-                            serviceProvider={task?.created_by?.full_name}
+                            serviceProvider={`${task?.created_by?.first_name} ${task?.created_by?.last_name}`}
                         />
                     </a>
                 </Link>

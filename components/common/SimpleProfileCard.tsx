@@ -1,7 +1,9 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
+import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useAppliedTasks } from "hooks/task/use-applied-tasks";
 import { useGetMyAppliedTasks } from "hooks/task/use-get-service-booking";
 import { useLeaveTask } from "hooks/task/use-leave-task";
@@ -23,8 +25,11 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const { data: user } = useUser();
     const { data: appliedTasks } = useGetMyAppliedTasks();
 
+    const { data: profile } = useGetProfile();
+
     const appliedTask = appliedTasks?.result.find(
-        (appliedTask) => appliedTask.entity_service.id.toString() === task.id
+        (appliedTask: any) =>
+            appliedTask?.task === task.id && appliedTask.is_active
     );
 
     const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}`;
@@ -51,6 +56,19 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
 
     const handleViewApplicants = () => {
         toast.success("You have no applicants yet.");
+    };
+    const handleShowApplyModal = () => {
+        if (!profile) {
+            toast.error(
+                <ProfileNotCompleteToast text="Please complete your profile before applying a task." />,
+                {
+                    icon: false,
+                    autoClose: false,
+                }
+            );
+            return;
+        }
+        withLogin(() => setShowModal(true));
     };
     return (
         <div className="simple-card my-5 my-lg-0 ">
