@@ -39,7 +39,7 @@ const ServicesDetail = ({
                     serviceCreated={service?.created_at}
                     serviceViews={service?.views_count}
                     serviceId={service?.id}
-                    currency={service?.currency?.code}
+                    currency={service?.currency?.symbol}
                     ProfileImage={service?.created_by?.profile_image}
                     service={service}
                 />

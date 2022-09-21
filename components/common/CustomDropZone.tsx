@@ -13,7 +13,6 @@ import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
-import type { Media } from "types/task";
 
 const FILE_PLACEHOLDER_IMAGES = {
     pdf: "/userprofile/pdf.svg",
@@ -38,7 +37,7 @@ export interface PreviewFilesProps {
         size: string;
         url: string;
     }[];
-    onFileRemove: (fileIndex: number) => void;
+    onFileRemove: (fileName: string) => void;
     isVideo?: boolean;
 }
 
@@ -79,13 +78,20 @@ export const CustomDropZone = ({
 
     const focusDropzone = () => dropzoneRef.current?.focus();
 
-    const handleOnDrop = (files: File[]) => {
-        onDrop?.(files);
-        setFiles(files);
+    const handleOnDrop = (droppedFiles: File[]) => {
+        const fileAlreadyExist = droppedFiles.some((droppedFile) =>
+            files.some((file) => file.name === droppedFile.name)
+        );
+        if (fileAlreadyExist) return;
+        setFiles((previousFiles) => {
+            const newFiles = [...droppedFiles, ...previousFiles];
+            onDrop?.(newFiles);
+            return newFiles;
+        });
     };
-    const handleRemoveFile = (fileIndex: number) => {
+    const handleRemoveFile = (fileName: string) => {
         setFiles((currentFiles) =>
-            currentFiles.filter((_, index) => index !== fileIndex)
+            currentFiles.filter((file) => file.name !== fileName)
         );
     };
     return (
@@ -154,12 +160,9 @@ const PreviewFiles = ({
     const { classes } = useStyles();
     return (
         <Grid>
-            {files.map((file, index, currentFiles) => (
-                <Grid.Col
-                    span={isVideo ? 12 : currentFiles.length > 1 ? 4 : 12}
-                    key={index}
-                >
-                    <Stack>
+            {files.map((file, index) => (
+                <Grid.Col span={files.length > 1 ? 4 : 12} key={file.name}>
+                    <Stack key={file.name}>
                         {isVideo ? (
                             <video
                                 className={classes.preview}
@@ -184,7 +187,7 @@ const PreviewFiles = ({
                             <Text size="xs" color="dimmed">
                                 {file.size}
                             </Text>
-                            <ActionIcon onClick={() => onFileRemove(index)}>
+                            <ActionIcon onClick={() => onFileRemove(file.name)}>
                                 <FontAwesomeIcon icon={faRemove} />
                             </ActionIcon>
                         </Box>

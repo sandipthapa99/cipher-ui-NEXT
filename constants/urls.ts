@@ -3,12 +3,12 @@ const blogPath = "/blog/";
 const taskerPath = "/tasker/";
 const careerPath = "/career/vacancy/";
 const localePath = "/locale/client/";
-
+const bookings = "/task/entity/service-booking/";
 const urls = {
     user: {
-        login: "user/login/",
-        signup: "user/signup/",
-        changePassword: "user/password/change/",
+        login: "/user/login/",
+        signup: "/user/signup/",
+        changePassword: "/user/password/change/",
         google: "/user/register/social/google-oauth2/",
     },
     task: {
@@ -16,12 +16,12 @@ const urls = {
         service: `${taskPath}?is_requested=false`,
         service_per_user: `${taskPath}?is_requested=false&user=`,
         task: `${taskPath}?is_requested=true`,
-        my_task: `/task/entity/my-entity-services/?is_requested=true`,
-        application: "task/application/",
-        cancelApplication: "task/application/",
+        my_task: `${bookings}?is_requested=true`,
+        application: "/task/application",
+        cancelApplication: `task/entity/service-booking/cancel`,
         assigneeDetail: "task/asignee-task-detail/",
         assignerDetail: "task/assigner-task-detail/",
-        assignerApplication: "task/assigner/application",
+        assignerApplication: "task",
         heroCategory: "task/hero-category",
     },
     tasker: {

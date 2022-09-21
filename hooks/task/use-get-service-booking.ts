@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import urls from "constants/urls";
 import { axiosClient } from "utils/axiosClient";
 export type MyBookings = {
     result: Array<{
@@ -168,6 +169,22 @@ export const useGetMyBookings = (service_id: string | undefined) => {
             if (error instanceof AxiosError) {
                 const errors = Object.values(error.response?.data).join("\n");
                 throw new Error(errors);
+            }
+            throw new Error("Something went wrong");
+        }
+    });
+};
+
+export const useGetMyAppliedTasks = () => {
+    const url = `${urls.task.my_task}`;
+
+    return useQuery<MyBookings>(["get-my-bookings"], async () => {
+        try {
+            const { data } = await axiosClient.get<MyBookings>(url);
+            return data;
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                throw new Error(error?.response?.data?.message);
             }
             throw new Error("Something went wrong");
         }

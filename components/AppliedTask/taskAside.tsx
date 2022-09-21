@@ -24,6 +24,7 @@ const TaskAside = ({
     isFetching,
 }: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
+
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
             <div key={task?.slug}>
@@ -31,6 +32,7 @@ const TaskAside = ({
             </div>
         );
     });
+
     return (
         <div className="search-results">
             <Row>

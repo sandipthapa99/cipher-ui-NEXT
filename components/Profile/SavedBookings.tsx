@@ -9,10 +9,6 @@ const SavedBookings = () => {
     const { data: serviceBookmarks } = useBookmarks("service");
     const { data: taskBookmarks } = useBookmarks("task");
     const { data: userBookmarks } = useBookmarks("user");
-    console.log(
-        "🚀 ~ file: SavedBookings.tsx ~ line 12 ~ SavedBookings ~ userBookmarks",
-        userBookmarks
-    );
 
     return (
         <div className="saved-bookings px-5">
@@ -76,7 +72,7 @@ const SavedBookings = () => {
                                 }
                                 merchantPrice={userBookmark.data?.hourly_rate}
                                 currency={
-                                    userBookmark.data?.charge_currency?.code
+                                    userBookmark.data?.charge_currency?.symbol
                                 }
                                 happyClients={
                                     userBookmark.data?.stats?.happy_clients

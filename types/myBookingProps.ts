@@ -28,6 +28,7 @@ export type MyBookingProps = {
             id: number;
             name: string;
             code: string;
+            symbol: any;
         };
         city: {
             id: number;

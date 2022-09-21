@@ -24,8 +24,8 @@ const AffiliateProgram: NextPage<{
     return (
         <Layout title="Affiliate Program | Cipher">
             <section className="affiliate-hero-section">
-                <BreadCrumb currentPage="Affiliate Program" />
                 <Container className="px-5" fluid="xl">
+                    <BreadCrumb currentPage="Affiliate Program" />
                     <Row className="gx-5">
                         <Col
                             md={5}

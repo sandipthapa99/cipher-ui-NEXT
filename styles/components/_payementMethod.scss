@@ -23,6 +23,78 @@
             }
         }
     }
+    .linked-account {
+        .accounts {
+            background: #ffffff;
+            /* Container */
+            justify-content: center;
+            box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
+            border-radius: 0.4rem;
+            margin-right: 0.8rem;
+            .account-wrapper {
+                flex-direction: column;
+                .account-info {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    p {
+                        margin-left: 2rem;
+                        margin-bottom: 0rem;
+                        color: #211d4f;
+                        font-size: 1.3rem;
+                        font-weight: 400;
+                    }
+                }
+                .linked {
+                    margin-left: auto;
+                    width: 11rem;
+                    text-align: right;
+                    display: flex;
+                    justify-content: center;
+                    /* justify-content: flex-end; */
+                    margin-top: 1rem;
+                    color: #3eaeff;
+
+                    a {
+                        color: #3eaeff;
+                        padding-top: 0rem;
+                        margin: 0rem;
+                        text-decoration: none;
+                    }
+                    a,
+                    .svg-icon {
+                        padding: 0.5rem;
+                    }
+                    .primary,
+                    .linked-icons {
+                        background: #ecf7ff;
+                        border-radius: 0.5rem;
+                        .svg-icon {
+                            margin: auto;
+                            padding: 0.5rem 0.7rem;
+                        }
+                    }
+                    .linked-icons {
+                        display: flex;
+                        background: #ecf7ff;
+                        margin-left: 1rem;
+                        padding-left: 1.9rem;
+                        padding-right: 1.4rem;
+                    }
+                }
+            }
+        }
+        .card-block {
+            padding: 0rem;
+            padding: 2rem 1.6rem;
+            padding-bottom: 0.8rem;
+            .thumbnail-img {
+                height: 4rem;
+                width: 4rem;
+            }
+        }
+    }
+
     .accordion {
         .card {
             border: none;

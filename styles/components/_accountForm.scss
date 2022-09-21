@@ -314,3 +314,20 @@
         color: $sub-title-color;
     }
 }
+.bank-modal {
+    .account-form,
+    .bank-form {
+        padding: 0rem;
+        margin: 0rem;
+
+        @include respond(md) {
+            padding: 0rem;
+        }
+        @include respond(lg) {
+            padding: 0rem;
+        }
+    }
+    .account-form {
+        padding: 0rem;
+    }
+}

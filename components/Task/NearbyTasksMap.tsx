@@ -24,7 +24,7 @@ const NearbyTasksMap = () => {
     const router = useRouter();
     return (
         <>
-            <GoogleMap center={location}>
+            <GoogleMap>
                 {nearbyTasksSeparated.map((task) => (
                     <OverlayView
                         position={{
@@ -37,7 +37,7 @@ const NearbyTasksMap = () => {
                         <Avatar
                             onClick={() => router.push(`/task/${task.slug}`)}
                             radius="xl"
-                            src={task.assigner.profile_image}
+                            src={task.created_by.profile_image}
                         />
                     </OverlayView>
                 ))}

@@ -17,8 +17,7 @@ const TagInputField = ({
     disabled,
     fieldRequired = false,
 }: InputFieldProps & Partial<HTMLInputElement>) => {
-    const { data: profile } = useGetProfile();
-
+    const { data: profile, isLoading } = useGetProfile();
     return (
         <div className={checkFormGroup(error)}>
             {labelName && (

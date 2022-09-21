@@ -11,6 +11,7 @@ import { useToggle } from "@mantine/hooks";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
+import { useSetEditTaskDetail } from "store/use-edit-task";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { ITask } from "types/task";
 interface Menu {
@@ -40,6 +41,8 @@ const EllipsisDropdown = ({
         false,
         true,
     ]);
+    const setEditTaskDetail = useSetEditTaskDetail();
+
     return (
         <>
             {task && (
@@ -113,9 +116,10 @@ const EllipsisDropdown = ({
                         ) : (
                             <>
                                 <Dropdown.Item
-                                    onClick={() =>
-                                        toggleShowPostTaskModal("EDIT")
-                                    }
+                                    onClick={() => {
+                                        toggleShowPostTaskModal("EDIT");
+                                        setEditTaskDetail(task);
+                                    }}
                                     className="d-flex align-items-center"
                                 >
                                     <FontAwesomeIcon

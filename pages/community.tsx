@@ -13,8 +13,9 @@ const Community: NextPage = () => {
     return (
         <Layout title="Community | Cipher">
             <section className="community-page">
-                <BreadCrumb currentPage="Community" />
                 <Container fluid="xl" className="px-5">
+                    <BreadCrumb currentPage="Community" />
+
                     <div className="community-page__top-container">
                         <Row className="top-row gx-5">
                             <Col

@@ -45,6 +45,10 @@ export const TaskRequirements = ({
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key !== "Enter") return;
         event.preventDefault();
+        handleAddRequirement();
+    };
+
+    const handleAddRequirement = () => {
         if (!newRequirement) return;
         const requirementAlreadyExist = Object.values(requirements).some(
             (requirement) => requirement === newRequirement
@@ -114,7 +118,9 @@ export const TaskRequirements = ({
                 onKeyDown={handleKeyDown}
                 placeholder="Add your requirements"
                 rightSection={
-                    <FontAwesomeIcon icon={faCirclePlus} color="#3EAEFF" />
+                    <ActionIcon onClick={handleAddRequirement}>
+                        <FontAwesomeIcon icon={faCirclePlus} color="#3EAEFF" />
+                    </ActionIcon>
                 }
             />
         </Box>
