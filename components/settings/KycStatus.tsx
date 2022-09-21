@@ -122,7 +122,8 @@ export const KYCStatus = () => {
                     <div className="text-cont-kyc">
                         <p className="m-0 title-kyc">{KycData?.full_name}</p>
                         <p className="m-0 body-kyc">
-                            @{profileDetails?.user.full_name}
+                            @
+                            {`${profileDetails?.user?.first_name} ${profileDetails?.user?.last_name}`}
                         </p>
                         <div className="d-flex align-items-center gap-2">
                             <FontAwesomeIcon
@@ -188,23 +189,15 @@ export const KYCStatus = () => {
                 </Col>
                 <Col className="basic-info-cont" md={3}>
                     <p className="m-0 text-title-basic-info">Kyc Verified</p>
-
-                    {KycData?.is_kyc_verified && (
-                        <Badge color="green">
-                            <FontAwesomeIcon icon={faCircleCheck} />
-                        </Badge>
-                    )}
+                    {/* <p className="m-0 text-yes">Yes</p> */}
+                    <p className="m-0 text-pending">Pending</p>
                 </Col>
                 <Col className="basic-info-cont" md={3}>
                     <p className="m-0 text-title-basic-info">
                         Address Verified
                     </p>
-
-                    {KycData?.is_address_verified && (
-                        <Badge color="green">
-                            <FontAwesomeIcon icon={faCircleCheck} />
-                        </Badge>
-                    )}
+                    {/* <p className="m-0 text-yes">Yes</p> */}
+                    <p className="m-0 text-pending">Pending</p>
                 </Col>
             </Row>
             <Row className="">

@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
-import { useTaskers } from "hooks/tasker/use-tasker";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";

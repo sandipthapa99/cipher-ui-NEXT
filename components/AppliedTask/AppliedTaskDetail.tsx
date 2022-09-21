@@ -71,11 +71,7 @@ const AppliedTaskDetail = ({
 
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
-    const taskRequirements = safeParse<Array<{ id: number; title: string }>>({
-        rawString: taskDetail?.requirements,
-        initialData: [],
-    });
-    const isUserTask = user ? taskDetail?.assigner?.id === user?.id : false;
+    const isUserTask = user ? taskDetail?.created_by?.id === user?.id : false;
 
     const taskVideosAndImages = [
         ...(taskDetail?.images ?? []),
@@ -245,7 +241,11 @@ const AppliedTaskDetail = ({
                         {taskDetail && (
                             <SimpleProfileCard
                                 task={taskDetail}
-                                onApply={() => setShowModal(false)}
+                                onApply={() => {
+                                    console.log("onApply");
+
+                                    //setShowModal(false);
+                                }}
                             />
                         )}
                     </Col>
@@ -304,11 +304,7 @@ const AppliedTaskDetail = ({
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {taskRequirements.map((highlight, key) => (
-                        <div key={key}>
-                            <ServiceHighlights highlight={highlight} />
-                        </div>
-                    ))}
+                    {/* <ServiceHighlights highlight={taskRequirements} /> */}
                 </div>
 
                 {/* <TeamMembersSection /> */}

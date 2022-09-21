@@ -3,11 +3,9 @@ import type { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
 export interface ApplyTaskPayload {
-    task: string;
-    remarks: string;
-    charge: number;
-    pre_requisites: string;
-    recursion: number;
+    entity_service: string;
+    description: string;
+    budget_to: number;
 }
 export interface ApplyTaskResponse {
     task: string;

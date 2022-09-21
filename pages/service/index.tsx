@@ -2,8 +2,8 @@ import {
     useClearSearchedServices,
     useClearSearchQuery,
 } from "@components/common/Search/searchStore";
+import GoogleMap from "@components/GoogleMap";
 import ServiceLayout from "@components/services/ServiceLayout";
-import { ServicesMap } from "@components/services/ServicesMap";
 import { usePageExit } from "hooks/use-page-exit";
 import type { NextPage } from "next";
 
@@ -17,7 +17,7 @@ const ServicePage: NextPage = () => {
     return (
         <>
             <ServiceLayout>
-                <ServicesMap />
+                <GoogleMap />
             </ServiceLayout>
         </>
     );

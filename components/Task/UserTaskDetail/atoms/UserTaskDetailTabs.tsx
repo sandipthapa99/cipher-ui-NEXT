@@ -3,9 +3,9 @@ import { Tab } from "@components/common/Tab";
 import { AboutTasker } from "@components/Tasker/AboutTasker";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Carousel } from "@mantine/carousel";
 import { Alert, Highlight } from "@mantine/core";
 import { useState } from "react";
-import { Col, Row } from "react-bootstrap";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { TaskerProps } from "types/taskerProps";
 
@@ -43,13 +43,26 @@ const ServiceList = ({
     taskerService: ServicesValueProps;
 }) => {
     return (
-        <Row className="td-user-services">
-            {taskerService?.result &&
-                taskerService?.result?.map((service, key) => (
-                    <Col md={4} key={key}>
-                        <ServiceCard serviceCard={service} />
-                    </Col>
-                ))}
+        <>
+            <Carousel
+                withIndicators
+                slideSize="40%"
+                slideGap="md"
+                className="mt-5"
+                dragFree
+                breakpoints={[
+                    { maxWidth: "md", slideSize: "50%" },
+                    { maxWidth: "xs", slideSize: "80%", slideGap: 0 },
+                ]}
+                align="start"
+            >
+                {taskerService?.result &&
+                    taskerService?.result?.map((service, key) => (
+                        <Carousel.Slide key={key}>
+                            <ServiceCard serviceCard={service} />
+                        </Carousel.Slide>
+                    ))}
+            </Carousel>
             {!taskerService ||
                 (taskerService?.result?.length <= 0 && (
                     <Alert
@@ -64,6 +77,6 @@ const ServiceList = ({
                         </Highlight>
                     </Alert>
                 ))}
-        </Row>
+        </>
     );
 };

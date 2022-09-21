@@ -1,9 +1,16 @@
 .sidebar-nav {
     position: fixed;
     top: 0;
-    left: 0;
+    left: -45rem;
     height: 100vh;
     z-index: 100;
+    transition: all 600ms ease;
+    opacity: 0;
+
+    &.active {
+        left: 0;
+        opacity: 1;
+    }
     .all-sidebar-items {
         display: flex;
         align-items: flex-start;

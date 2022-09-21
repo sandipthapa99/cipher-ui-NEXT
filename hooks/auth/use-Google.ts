@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import urls from "constants/urls";
 import { axiosClient } from "utils/axiosClient";
 
 export const useGoogle = () => {
@@ -7,7 +8,7 @@ export const useGoogle = () => {
         async (googlePayload) => {
             try {
                 const { data } = await axiosClient.post(
-                    "/user/register/social/google-oauth2/",
+                    urls.user.google,
                     googlePayload
                 );
                 return data;

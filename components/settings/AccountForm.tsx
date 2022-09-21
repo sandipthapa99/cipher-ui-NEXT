@@ -32,7 +32,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Headroom from "react-headroom";
 import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
@@ -82,8 +81,7 @@ const AccountForm = () => {
     //profile success modal
     const [show, setShow] = useState(false);
     //hooks call
-    const { mutate } = useProfile();
-
+    const { mutate, isLoading: postProfileLoading } = useProfile();
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
@@ -284,6 +282,10 @@ const AccountForm = () => {
     return (
         <>
             {!KYCData && profile ? <FillKyc onClick={scrollToKyc} /> : ""}
+            <LoadingOverlay
+                visible={postProfileLoading}
+                sx={{ position: "fixed", inset: 0 }}
+            />
             <ProfileSuccessModalCard
                 show={show}
                 setShowForm={setShow}
@@ -307,8 +309,10 @@ const AccountForm = () => {
                 <Formik
                     enableReinitialize={true}
                     initialValues={{
-                        full_name: profile?.full_name ?? "",
-                        phone: profile?.phone ?? "",
+                        first_name: profile?.user.first_name ?? "",
+                        middle_name: profile?.user.middle_name ?? "",
+                        last_name: profile?.user.last_name ?? "",
+
                         email: "",
                         bio: profile?.bio ?? "",
                         gender: profile?.gender ?? "",
@@ -361,6 +365,7 @@ const AccountForm = () => {
                                 "yyyy-MM-dd"
                             ),
                         };
+                        console.log("profile", newValidatedValues);
 
                         Object.entries(newValidatedValues).forEach((entry) => {
                             const [key, value] = entry;
@@ -426,6 +431,7 @@ const AccountForm = () => {
                         getFieldProps,
                     }) => (
                         <Form autoComplete="off">
+                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                             <div className="d-flex justify-content-between align-items-center mb-3">
                                 <figure className="profile-img">
                                     {profile?.is_profile_verified ? (
@@ -550,16 +556,54 @@ const AccountForm = () => {
                                         : setShowEditForm(false);
                                 }}
                             />
+                            <Row className="mt-3">
+                                <Col md={4}>
+                                    <InputField
+                                        type="text"
+                                        name="first_name"
+                                        labelName="First Name"
+                                        error={errors.first_name}
+                                        touch={touched.first_name}
+                                        placeHolder="First Name"
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
+                                    />
+                                </Col>
+                                <Col md={4}>
+                                    <InputField
+                                        type="text"
+                                        name="middle_name"
+                                        labelName="Middle Name"
+                                        error={errors.middle_name}
+                                        touch={touched.middle_name}
+                                        placeHolder="Middle Name"
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
+                                    />
+                                </Col>
+                                <Col md={4}>
+                                    <InputField
+                                        type="text"
+                                        name="last_name"
+                                        labelName="Last Name"
+                                        error={errors.last_name}
+                                        touch={touched.last_name}
+                                        placeHolder="Last Name"
+                                        disabled={
+                                            isEditButtonClicked || !profile
+                                                ? false
+                                                : true
+                                        }
+                                    />
+                                </Col>
+                            </Row>
 
-                            <InputField
-                                type="text"
-                                name="full_name"
-                                labelName="Full Name"
-                                error={errors.full_name}
-                                touch={touched.full_name}
-                                placeHolder="Full Name"
-                                disabled={isInputDisabled}
-                            />
                             {/* <InputField
                                 type="email"
                                 name="email"
@@ -577,7 +621,7 @@ const AccountForm = () => {
                                 as="textarea"
                                 disabled={isInputDisabled}
                             />
-                            <Row className="g-5">
+                            {/* <Row className="g-5">
                                 <Col md={6}>
                                     {isEditButtonClicked || !profile ? (
                                         <PhoneNumberInput
@@ -596,7 +640,7 @@ const AccountForm = () => {
                                         />
                                     )}
                                 </Col>
-                            </Row>
+                            </Row> */}
                             <RadioField
                                 type="radio"
                                 name="gender"

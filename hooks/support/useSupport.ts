@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { SupportValuesProps } from "types/contact";
+import type { SupportValuesProps } from "types/contact";
 import { axiosClient } from "utils/axiosClient";
 
 export const useSupport = () => {
@@ -11,6 +11,7 @@ export const useSupport = () => {
                     "/support/support-ticket/",
                     supportDetails
                 );
+                return data;
             } catch (error) {
                 if (error instanceof AxiosError) {
                     throw new Error(error?.response?.data?.message);

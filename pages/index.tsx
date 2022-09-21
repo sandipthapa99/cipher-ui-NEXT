@@ -23,6 +23,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Highlight } from "@mantine/core";
+import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
@@ -77,10 +78,13 @@ const Home: NextPage<{
             loginPopup;
         }
         if (!profile) {
-            toast.error(<ProfileNotCompleteToast />, {
-                icon: false,
-                autoClose: false,
-            });
+            toast.error(
+                <ProfileNotCompleteToast text="Please create your profile to go on further." />,
+                {
+                    icon: false,
+                    autoClose: false,
+                }
+            );
             return;
         }
         toggleShowPostTaskModal();
@@ -153,15 +157,11 @@ const Home: NextPage<{
                                 slideSize="25%"
                                 slideGap="md"
                                 breakpoints={[
-                                    // {
-                                    //     maxWidth: "md",
-                                    //     slideSize: "50%",
-                                    //     slideGap: "md",
-                                    // },
+                                    { maxWidth: "md", slideSize: "50%" },
                                     {
                                         maxWidth: "sm",
-                                        slideSize: "50%",
-                                        slideGap: "md",
+                                        slideSize: "100%",
+                                        slideGap: 3,
                                     },
                                 ]}
                                 loop
@@ -272,19 +272,6 @@ const Home: NextPage<{
                             </>
                         )}
                     </div>
-                    {servicesData && servicesData?.result?.length <= 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No Popular Services"}>
-                                {`There are No Popular Services available`}
-                            </Highlight>
-                        </Alert>
-                    )}
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.result
@@ -315,10 +302,9 @@ const Home: NextPage<{
             {/* Services near you section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                        <h2 className="heading-title">Services near you</h2>
-
-                        {servicesData && servicesData?.result?.length > 0 && (
+                    {servicesData && servicesData?.result?.length > 0 && (
+                        <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                            <h2 className="heading-title">Services near you</h2>
                             <Link href="/service">
                                 <a className="view-more">
                                     view more{" "}
@@ -328,20 +314,7 @@ const Home: NextPage<{
                                     />
                                 </a>
                             </Link>
-                        )}
-                    </div>
-                    {servicesData && servicesData?.result?.length <= 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No Services Near you"}>
-                                {`There are No Services Near you available`}
-                            </Highlight>
-                        </Alert>
+                        </div>
                     )}
                     <Row className="gx-5">
                         {servicesData &&
@@ -387,19 +360,6 @@ const Home: NextPage<{
                                 </Link>
                             </div>
                         )}
-                    {servicesData && servicesData?.result?.length <= 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No Professional Services"}>
-                                {`There are No Professional Services available`}
-                            </Highlight>
-                        </Alert>
-                    )}
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.result
@@ -914,35 +874,35 @@ export default Home;
 export const getStaticProps: GetStaticProps = async () => {
     try {
         const { data: successStoryData } = await axiosClient.get(
-            "/tasker/success-story/"
+            urls.tasker.success_story
         );
-        const { data: trustedPartnerData } = await axiosClient.get(
-            "/landingpage/trusted-partner/"
-        );
-        const { data: heroCategoryData } = await axiosClient.get(
-            "/task/hero-category/"
-        );
-        const { data: topCategoryData } = await axiosClient.get(
-            "/task/top-categories/"
-        );
+        // const { data: trustedPartnerData } = await axiosClient.get(
+        //     "/landingpage/trusted-partner/"
+        // );
+        // const { data: heroCategoryData } = await axiosClient.get(
+        //     "/task/hero-category/"
+        // );
+        // const { data: topCategoryData } = await axiosClient.get(
+        //     "/task/top-categories/"
+        // );
         const { data: topTaskerData } = await axiosClient.get(
-            "/tasker/top-tasker/"
+            urls.tasker.top_tasker
         );
-        const { data: recommendedTasksData } = await axiosClient.get(
-            "/task/?recommendation=you may like"
-        );
-        const { data: blogData } = await axiosClient.get("/blog/");
-        const { data: servicesData } = await axiosClient.get("/task/service/");
+        // const { data: recommendedTasksData } = await axiosClient.get(
+        //     "/task/?recommendation=you may like"
+        // );
+        const { data: blogData } = await axiosClient.get(urls.blog.list);
+        const { data: servicesData } = await axiosClient.get(urls.task.service);
 
         return {
             props: {
                 successStoryData,
-                trustedPartnerData,
-                recommendedTasksData,
-                heroCategoryData,
+                // trustedPartnerData,
+                // recommendedTasksData,
+                // heroCategoryData,
                 topTaskerData,
                 blogData,
-                topCategoryData,
+                // topCategoryData,
                 servicesData,
             },
             revalidate: 10,
@@ -953,7 +913,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 successStoryData: [],
                 trustedPartnerData: [],
                 blogData: [],
-                servicesData: [],
+                servicesData: ["sdsd"],
                 topTaskerData: [],
                 recommendedTasksData: [],
                 heroCategoryData: [],

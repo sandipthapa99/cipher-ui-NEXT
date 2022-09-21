@@ -8,9 +8,11 @@ export interface TaskCity {
     id: number;
     name: string;
 }
-export interface SelectCityProps extends Omit<SelectProps, "data"> {
+export interface SelectCityProps extends Omit<SelectProps, "data" | "value"> {
+    value?: { id: number; name: string } | string;
     onCitySelect: (cityId: number) => void;
 }
+
 const useCities = (searchQuery: string) =>
     useQuery(
         ["task-cities", searchQuery],
@@ -23,7 +25,16 @@ const useCities = (searchQuery: string) =>
         { initialData: [], enabled: !!searchQuery && searchQuery.length >= 3 }
     );
 export const SelectCity = ({ onCitySelect, ...rest }: SelectCityProps) => {
-    const [value, setValue] = useState("");
+    const initialCity =
+        typeof rest.value !== "string"
+            ? {
+                  id: rest?.value?.id ? rest?.value?.id : "",
+                  label: rest?.value?.name ? rest?.value?.name : "",
+                  value: rest?.value?.id ? rest?.value?.id.toString() : "",
+              }
+            : undefined;
+    const [value, setValue] = useState(initialCity?.value ?? "");
+
     const [query, setQuery] = useState("");
     const { data: cities } = useCities(query);
     const selectCityData: SelectItem[] = cities.map((city) => ({
@@ -37,6 +48,7 @@ export const SelectCity = ({ onCitySelect, ...rest }: SelectCityProps) => {
         setValue(value);
         onCitySelect(cityId);
     };
+
     return (
         <Select
             {...rest}
@@ -45,7 +57,7 @@ export const SelectCity = ({ onCitySelect, ...rest }: SelectCityProps) => {
             required
             label="City"
             placeholder="Search and select your city"
-            data={selectCityData}
+            data={query ? selectCityData : initialCity ? [initialCity] : []}
             onSearchChange={(value) => setQuery(value)}
             onChange={handleCityChange}
         />
