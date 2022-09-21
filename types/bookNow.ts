@@ -1,4 +1,10 @@
 import type { Dispatch, SetStateAction } from "react";
+interface Currency {
+    code: string;
+    id: number;
+    name: string;
+    symbol: string;
+}
 export interface BookNowModalCardProps {
     service_id?: string | undefined;
     title: string | undefined;
@@ -13,6 +19,7 @@ export interface BookNowModalCardProps {
     image?: string;
     entity_service_id?: number | undefined | string;
     images?: any[];
+    currency?: Currency;
 }
 
 export interface BookNowFormProps {
