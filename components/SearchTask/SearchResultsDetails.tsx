@@ -9,6 +9,7 @@ import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
 import UserActivities from "@components/Profile/Activities";
+import { EditService } from "@components/services/EditService";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faCalendar,
@@ -22,7 +23,9 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { Button, Text } from "@mantine/core";
 import { Alert, Highlight, Spoiler } from "@mantine/core";
+import { openConfirmModal } from "@mantine/modals";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
@@ -31,6 +34,7 @@ import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useGetMyBookings } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
+import { useDeleteData } from "hooks/use-delete";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
@@ -43,6 +47,7 @@ import { useSetBookNowDetails } from "store/use-book-now";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
+import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
@@ -68,7 +73,7 @@ const SearchResultsDetail = ({
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const setBookNowDetails = useSetBookNowDetails();
+    // const setBookNowDetails = useSetBookNowDetails();
     const reviewsContent = getReviews();
     const queryClient = useQueryClient();
     const { data: profile } = useGetProfile();
@@ -146,6 +151,8 @@ const SearchResultsDetail = ({
     }>(["my-service-packages"], "/task/service-package/");
 
     const { data: user } = useUser();
+
+    const { mutate } = useDeleteData(`/task/entity/service/${serviceId}/`);
     const withLogin = useWithLogin();
     const router = useRouter();
     const { data: myBookings, error } = useGetMyBookings(serviceId);
@@ -158,6 +165,8 @@ const SearchResultsDetail = ({
         (servicePackage) =>
             String(getSingleService?.[0].id) === servicePackage?.service?.id
     );
+
+    const [editModal, setEditModal] = useState(false);
 
     const isServiceBookmarked = useIsBookmarked("service", String(serviceId));
 
@@ -202,16 +211,62 @@ const SearchResultsDetail = ({
     };
 
     const handleEdit = () => {
-        console.log("edit button clicked");
+        setEditModal(true);
     };
 
-    const handleDelete = () => {
-        console.log("delete button clicked");
+    const confirmDelete = () => {
+        mutate(serviceId, {
+            onSuccess: async () => {
+                toast.success("service deleted successfully");
+                router.push({ pathname: "/service" });
+            },
+            onError: (error) => {
+                toast.error(error?.message);
+            },
+        });
     };
 
-    const handleInactive = () => {
-        console.log("Inactive button clicked");
-    };
+    // const confirmInactive = () => {
+    //     editServiceMutation({ id: serviceId, data: { is_active: false } }),
+    //         {
+    //             onSuccess: async () => {
+    //                 toast.success("Successfully inactivated service");
+    //                 router.push({ pathname: "/service" });
+    //             },
+    //             onError: (error: any) => {
+    //                 toast.error(error.message);
+    //             },
+    //         };
+    // };
+
+    const handleDelete = () =>
+        openConfirmModal({
+            title: "Delete this service",
+            centered: true,
+            children: (
+                <Text size="sm">
+                    Are you sure you want to delete this service?
+                </Text>
+            ),
+            labels: { confirm: "Delete", cancel: "Cancel" },
+            confirmProps: { color: "red" },
+            onConfirm: () => confirmDelete(),
+        });
+
+    // const handleInactive = () => {
+    //     openConfirmModal({
+    //         title: "Inactive this service",
+    //         centered: true,
+    //         children: (
+    //             <Text size="sm">
+    //                 Are you sure you want to inactive this service?
+    //             </Text>
+    //         ),
+    //         labels: { confirm: "Inactive", cancel: "Cancel" },
+    //         confirmProps: { color: "red" },
+    //         onConfirm: () => confirmInactive(),
+    //     });
+    // };
     const handleClickBookNow = () => {
         if (!profile) {
             toast.error(
@@ -273,7 +328,6 @@ const SearchResultsDetail = ({
                                 <EllipsisDropdownService
                                     handleEdit={handleEdit}
                                     handleDelete={handleDelete}
-                                    handleInactive={handleInactive}
                                 >
                                     <FontAwesomeIcon
                                         icon={faEllipsisVertical}
@@ -687,6 +741,13 @@ const SearchResultsDetail = ({
                     handleClose={handleClose}
                     setShow={() => setShow(false)}
                 />
+                {service && (
+                    <EditService
+                        showEditModal={editModal}
+                        handleClose={() => setEditModal(false)}
+                        serviceDetail={service}
+                    />
+                )}
             </div>
         </div>
     );

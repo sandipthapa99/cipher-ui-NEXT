@@ -45,7 +45,7 @@ const EllipsisDropdownService = ({
                         />
                         Remove
                     </Dropdown.Item>
-                    <Dropdown.Item
+                    {/* <Dropdown.Item
                         className="d-flex align-items-center"
                         onClick={handleInactive}
                     >
@@ -54,7 +54,7 @@ const EllipsisDropdownService = ({
                             icon={faEyeSlash}
                         />
                         Inactive
-                    </Dropdown.Item>
+                    </Dropdown.Item> */}
                 </Dropdown.Menu>
             </Dropdown>
         </div>
