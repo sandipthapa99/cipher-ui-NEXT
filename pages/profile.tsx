@@ -91,14 +91,14 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             key={profileDetails?.id}
                             points={profileDetails?.points}
                             profile_image={
-                                profileDetails?.profile_image ??
+                                profileDetails?.user?.profile_image ??
                                 "/userprofile/unknownPerson.jpg"
                             }
-                            full_name={profileDetails?.full_name}
+                            full_name={`${profileDetails?.user?.first_name} ${profileDetails?.user?.last_name}`}
                             user_type={profileDetails?.user_type}
-                            rating={profileDetails.rating.avg_rating}
+                            rating={profileDetails?.rating?.user_rating_count}
                             hourly_rate={profileDetails?.hourly_rate}
-                            phone={profileDetails?.phone}
+                            phone={profileDetails?.user?.phone}
                             address_line1={profileDetails?.address_line1}
                             skill={profileDetails?.skill}
                             active_hour_start={
@@ -110,7 +110,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             userPoints={profileDetails?.points}
                             pointGoal={remaining.pointGoal}
                             charge_currency={
-                                profileDetails?.charge_currency.code
+                                profileDetails?.charge_currency?.code
                             }
                             userActiveStatus={remaining.userActiveStatus}
                             tooltipMessage={remaining.tooltipMessage}

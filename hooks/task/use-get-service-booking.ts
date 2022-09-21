@@ -10,14 +10,16 @@ export type MyBookings = {
                 id: number;
                 name: string;
                 code: string;
-                symbol: string;
+                symbol: any;
             };
             user: {
                 id: string;
                 username: string;
                 email: string;
                 phone: any;
-                full_name: string;
+                first_name: string;
+                middle_name: string;
+                last_name: string;
                 profile_image: any;
             };
             portfolio: Array<any>;
@@ -39,10 +41,9 @@ export type MyBookings = {
             };
             country: string;
             language: string;
+            city: any;
             status: string;
             bio: string;
-            full_name: string;
-            phone: string;
             gender: string;
             profile_image: string;
             date_of_birth: string;
@@ -69,7 +70,9 @@ export type MyBookings = {
                 username: string;
                 email: string;
                 phone: any;
-                full_name: string;
+                first_name: string;
+                middle_name: string;
+                last_name: string;
                 profile_image: string;
             };
             currency: {
@@ -88,13 +91,7 @@ export type MyBookings = {
                     name: string;
                 };
             };
-            images: Array<{
-                id: number;
-                name: string;
-                size: string;
-                media_type: string;
-                media: string;
-            }>;
+            images: Array<any>;
             videos: Array<any>;
             service: {
                 id: string;
@@ -113,7 +110,9 @@ export type MyBookings = {
             title: string;
             description: string;
             highlights: {
-                "1": string;
+                additionalProp1: string;
+                additionalProp2: string;
+                additionalProp3: string;
             };
             budget_type: string;
             budget_from: number;
@@ -138,6 +137,14 @@ export type MyBookings = {
             slug: string;
             merchant: any;
         };
+        images: Array<{
+            id: number;
+            name: string;
+            size: string;
+            media_type: string;
+            media: string;
+        }>;
+        videos: Array<any>;
         created_at: string;
         updated_at: string;
         budget_from: number;
@@ -152,8 +159,6 @@ export type MyBookings = {
         extra_data: any;
         is_accepted: boolean;
         city: number;
-        images: Array<number>;
-        videos: Array<any>;
     }>;
 };
 

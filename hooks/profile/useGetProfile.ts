@@ -7,58 +7,27 @@ import { axiosClient } from "utils/axiosClient";
 export type ProfileResponse = {
     id: number;
     charge_currency: {
-        code: string;
         id: number;
         name: string;
+        code: string;
+        symbol: string;
     };
     user: {
         id: string;
+        username: string;
         email: string;
-        full_name: string;
+        draft_email: any;
+        phone: any;
+        draft_phone: any;
+        first_name: string;
+        middle_name: string;
+        last_name: string;
         profile_image: string;
-        phone: string;
     };
-    portfolio: Array<{
-        id: number;
-        title: string;
-        description: string;
-        issued_date: string;
-        credential_url: string;
-        image: string;
-        file: string;
-    }>;
-    experience: Array<{
-        id: number;
-        title: string;
-        description: string;
-        employment_type: string;
-        company_name: string;
-        location: string;
-        currently_working: boolean;
-        start_date: string;
-        end_date: any;
-    }>;
-    education: Array<{
-        id: number;
-        school: string;
-        description: string;
-        degree: string;
-        field_of_study: string;
-        location: string;
-        start_date: string;
-        end_date: string;
-    }>;
-    certificates: Array<{
-        id: number;
-        name: string;
-        issuing_organization: string;
-        description: string;
-        does_expire: boolean;
-        credential_id: string;
-        certificate_url: string;
-        issued_date: string;
-        expire_date?: string;
-    }>;
+    portfolio: Array<any>;
+    experience: Array<any>;
+    education: Array<any>;
+    certificates: Array<any>;
     stats: {
         success_rate: number;
         happy_clients: number;
@@ -70,14 +39,13 @@ export type ProfileResponse = {
     };
     rating: {
         user_rating_count: number;
-        avg_rating: number;
+        avg_rating: any;
     };
-    country: string | number;
+    country: string;
     language: string;
+    city: any;
     status: string;
     bio: string;
-    full_name: string;
-    phone: string;
     gender: string;
     profile_image: string;
     date_of_birth: string;
@@ -90,11 +58,12 @@ export type ProfileResponse = {
     profile_visibility: string;
     task_preferences: string;
     address_line1: string;
-    points: number;
     address_line2: string;
     is_profile_verified: boolean;
     designation: any;
+    points: number;
     subscription: Array<any>;
+    security_questions: Array<any>;
 };
 
 export const useGetProfile = () => {

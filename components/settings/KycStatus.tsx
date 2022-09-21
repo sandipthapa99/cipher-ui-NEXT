@@ -122,7 +122,8 @@ export const KYCStatus = () => {
                     <div className="text-cont-kyc">
                         <p className="m-0 title-kyc">{KycData?.full_name}</p>
                         <p className="m-0 body-kyc">
-                            @{profileDetails?.user.full_name}
+                            @
+                            {`${profileDetails?.user?.first_name} ${profileDetails?.user?.last_name}`}
                         </p>
                         <div className="d-flex align-items-center gap-2">
                             <FontAwesomeIcon

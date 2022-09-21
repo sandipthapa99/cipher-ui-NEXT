@@ -1,5 +1,7 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
+import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useAppliedTasks } from "hooks/task/use-applied-tasks";
 import { useLeaveTask } from "hooks/task/use-leave-task";
 import Image from "next/image";
@@ -21,6 +23,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const { mutate } = useLeaveTask();
 
     const [showModal, setShowModal] = useState(false);
+    const { data: profile } = useGetProfile();
 
     const appliedTask = appliedTasks.find(
         (appliedTask) => appliedTask.task === task.id && appliedTask.is_active
@@ -42,6 +45,19 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
 
     const handleViewApplicants = () => {
         toast.success("You have no applicants yet.");
+    };
+    const handleShowApplyModal = () => {
+        if (!profile) {
+            toast.error(
+                <ProfileNotCompleteToast text="Please complete your profile before applying a task." />,
+                {
+                    icon: false,
+                    autoClose: false,
+                }
+            );
+            return;
+        }
+        withLogin(() => setShowModal(true));
     };
     return (
         <div className="simple-card my-5 my-lg-0 ">
@@ -143,7 +159,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         btnTitle={"Apply Now"}
                         backgroundColor={"#38C675"}
                         showModal={true}
-                        handleOnClick={withLogin(() => setShowModal(true))}
+                        handleOnClick={() => handleShowApplyModal()}
                     />
                 )
             ) : (

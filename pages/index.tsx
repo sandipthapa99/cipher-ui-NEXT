@@ -78,10 +78,13 @@ const Home: NextPage<{
             loginPopup;
         }
         if (!profile) {
-            toast.error(<ProfileNotCompleteToast />, {
-                icon: false,
-                autoClose: false,
-            });
+            toast.error(
+                <ProfileNotCompleteToast text="Please create your profile to go on further." />,
+                {
+                    icon: false,
+                    autoClose: false,
+                }
+            );
             return;
         }
         toggleShowPostTaskModal();

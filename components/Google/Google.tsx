@@ -34,6 +34,8 @@ const Google = () => {
             theme="outline"
             // width="1200px"
             onSuccess={(credentialResponse) => {
+                console.log("credential", credentialResponse);
+
                 const newData = { ...credentialResponse, FCM_TOKEN };
                 mutate(newData, {
                     onSuccess: (data) => {
@@ -45,7 +47,7 @@ const Google = () => {
                         toast.error(err.message);
                     },
                 });
-                console.log(newData);
+                // console.log(newData);
             }}
             onError={() => {
                 console.log("Login Failed");
