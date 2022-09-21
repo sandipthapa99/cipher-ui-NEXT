@@ -78,6 +78,7 @@ export interface UserProfileInfoProps {
     hourly_rate: number;
     phone: string;
     address_line1: string;
+    address_line2: string;
     skill: string;
     active_hour_start: string;
     active_hour_end: string;
