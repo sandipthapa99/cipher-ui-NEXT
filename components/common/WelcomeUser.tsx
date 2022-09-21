@@ -13,7 +13,7 @@ const WelcomeUser = () => {
                             Hi{" "}
                             <span>
                                 {profileDetails
-                                    ? profileDetails?.full_name
+                                    ? profileDetails?.user?.first_name
                                     : "user"}
                             </span>
                             ,

@@ -10,6 +10,7 @@ import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
 import UserActivities from "@components/Profile/Activities";
 import { EditService } from "@components/services/EditService";
+import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faCalendar,
     faChevronLeft,
@@ -29,6 +30,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useGetMyBookings } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
@@ -74,6 +76,7 @@ const SearchResultsDetail = ({
     // const setBookNowDetails = useSetBookNowDetails();
     const reviewsContent = getReviews();
     const queryClient = useQueryClient();
+    const { data: profile } = useGetProfile();
 
     const taskVideosAndImages = [
         ...(service?.images ?? []),
@@ -176,7 +179,7 @@ const SearchResultsDetail = ({
                     bookingId={item?.id}
                     collabButton={false}
                     image={item?.created_by?.profile_image}
-                    name={item?.created_by?.full_name}
+                    name={`${item?.created_by?.user?.first_name} ${item?.created_by?.user?.last_name}`}
                     speciality={item?.created_by?.user_type}
                     rating={item?.created_by?.rating?.user_rating_count}
                     happyClients={item?.created_by?.stats?.happy_clients}
@@ -264,6 +267,19 @@ const SearchResultsDetail = ({
     //         onConfirm: () => confirmInactive(),
     //     });
     // };
+    const handleClickBookNow = () => {
+        if (!profile) {
+            toast.error(
+                <ProfileNotCompleteToast text="Please complete your profile before booking a service." />,
+                {
+                    icon: false,
+                    autoClose: false,
+                }
+            );
+            return;
+        }
+        withLogin(() => setShow(true));
+    };
 
     return (
         <div className="aside-detail-wrapper">
@@ -464,7 +480,7 @@ const SearchResultsDetail = ({
                                 <CardBtn
                                     btnTitle="Book Now"
                                     backgroundColor="#211D4F"
-                                    handleClick={withLogin(() => setShow(true))}
+                                    handleClick={() => handleClickBookNow()}
                                 />
                             )}
                         </div>

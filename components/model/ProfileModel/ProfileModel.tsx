@@ -72,7 +72,7 @@ export const ProfileModel = () => {
                 <div>
                     <Text className={classes.username}>
                         {profileDetails
-                            ? `${profileDetails.full_name}`
+                            ? `${profileDetails.user?.first_name} ${profileDetails.user?.last_name}`
                             : "Howdy User"}
                     </Text>
                     <Text className={classes.profileType}>
