@@ -44,7 +44,7 @@ export const MyTasks = () => {
                                 budget-to={item?.budget_to}
                                 budget_type={item?.budget_type}
                                 status={item?.status}
-                                currency={item?.currency?.code}
+                                currency={item?.currency?.symbol}
                                 budget_to={item?.budget_to}
                             />
                         </div>

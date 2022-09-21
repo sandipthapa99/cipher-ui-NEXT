@@ -1,3 +1,4 @@
+import { EditService } from "@components/services/EditService";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
@@ -23,25 +24,38 @@ const ServiceCard = ({
 }: {
     serviceCard: ServicesValueProps["result"][0];
 }) => {
+    console.log(
+        "🚀 ~ file: ServiceCard.tsx ~ line 27 ~ serviceCard",
+        serviceCard
+    );
     const router = useRouter();
     const { data: profileDetails } = useGetProfile();
 
     const loggedIn = Cookies.get("access");
 
     const userId = profileDetails?.user.id;
+
     const serviceProviderId = serviceCard?.created_by?.id;
+    const canEdit = userId == serviceProviderId;
 
     //modal card
     const [showModal, setShowModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
 
     const handleShowModal = () => {
-        if (loggedIn) {
+        if (loggedIn && !canEdit) {
             setShowModal(true);
+        } else if (loggedIn && canEdit) {
+            setShowEditModal(true);
         } else {
             router.push({
                 pathname: `/service/${serviceCard?.slug}`,
             });
         }
+    };
+
+    const handleCloseEditModal = () => {
+        setShowEditModal(false);
     };
     const queryClient = useQueryClient();
     const isServiceBookmarked = useIsBookmarked("service", serviceCard?.id);
@@ -54,10 +68,14 @@ const ServiceCard = ({
                     <div className="card-img">
                         {serviceCard &&
                             serviceCard?.images &&
-                            serviceCard.images.length > 0 && (
+                            serviceCard?.images?.length > 0 && (
                                 <figure className="thumbnail-img">
                                     <Image
-                                        src={serviceCard.images[0].media}
+                                        src={
+                                            serviceCard.images[0].media
+                                                ? serviceCard.images[0].media
+                                                : "/placeholder/taskPlaceholder.png"
+                                        }
                                         layout="fill"
                                         objectFit="cover"
                                         alt="servicecard-image"
@@ -79,7 +97,6 @@ const ServiceCard = ({
                         {serviceCard?.is_online && (
                             <div className="offer">
                                 <p className="discount-rate">{20}% OFF</p>
-                                {/* <p className="discount-on">{discountOn}</p> */}
                             </div>
                         )}
                     </div>
@@ -137,15 +154,16 @@ const ServiceCard = ({
                                     icon={faStar}
                                     className="svg-icon star"
                                 />
-                                {serviceCard?.happy_clients}
+                                {/* {serviceCard?.happy_clients} */}
+                                TOBE_IMP
                             </p>
                             <p className="price">
-                                {serviceCard?.currency?.code + " "}
+                                {serviceCard?.currency?.symbol + " "}
                                 {serviceCard?.budget_from}
                                 {serviceCard?.budget_to &&
-                                    "-" + serviceCard?.budget_to}
+                                    " - " + serviceCard?.budget_to}
                                 {serviceCard?.budget_type === "Hourly"
-                                    ? "/hr"
+                                    ? " /hr"
                                     : serviceCard?.budget_type === "Monthly"
                                     ? "/mn"
                                     : ""}
@@ -192,15 +210,7 @@ const ServiceCard = ({
                     />
                 </div>
             </div>
-            {/* <ModalCard
-                key={detail.id}
-                title={detail.title}
-                price={detail.price}
-                image={detail.image}
-                description={detail.description}
-                show={showModal}
-                handleClose={() => setShowModal(false)}
-            /> */}
+
             <ModalCard
                 title={serviceCard?.title}
                 budget_from={serviceCard?.budget_from}
@@ -212,6 +222,11 @@ const ServiceCard = ({
                 setShow={setShowModal}
                 handleClose={() => setShowModal(false)}
                 images={[]}
+            />
+            <EditService
+                showEditModal={showEditModal}
+                handleClose={handleCloseEditModal}
+                serviceDetail={serviceCard}
             />
         </div>
         // </Link>

@@ -1,5 +1,6 @@
 import { AllCategories } from "@components/AllCategories";
 import Layout from "@components/Layout";
+import urls from "constants/urls";
 import type { GetStaticProps, NextPage } from "next";
 import { Container } from "react-bootstrap";
 import type { NestedCategoriesDataProps } from "types/nestedCategoryProps";
@@ -13,7 +14,7 @@ const CategoriesPage: NextPage<{
 }> = ({ nestedCategoriesData }) => {
     return (
         <Layout title="Categories | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <h2 className="all-categories-title">Cipher Categories</h2>
                 {/* <div className="d-flex justify-content-center all-categories">
                     {categories.map((category, index) => (
@@ -42,7 +43,7 @@ const CategoriesPage: NextPage<{
 export const getStaticProps: GetStaticProps = async () => {
     try {
         const { data: nestedCategoriesData } = await axiosClient.get(
-            "/task/task-category/nested/"
+            urls.category.list
         );
         return {
             props: {

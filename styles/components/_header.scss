@@ -46,6 +46,13 @@
                     display: flex;
                     align-items: center;
                     position: relative;
+                    @media screen and (width: 280px) {
+                        margin-right: -0.6rem !important;
+                    }
+
+                    @include respond(xs) {
+                        margin-right: 0.4rem;
+                    }
                     //NestHub
                     @media screen and (width: 1280px) {
                         padding: 1.3rem 1.6rem !important;
@@ -125,9 +132,10 @@
         /* breakpoint specific to certain predefined screens
             - Galaxy S8+
             - Ipad Air only
+            - Iphone 4
         */
 
-        @media screen and (width: 360px) {
+        @media screen and (width: 360px), (width: 320px) {
             .weather-container {
                 display: none !important;
             }
@@ -144,18 +152,23 @@
             .weather-container {
                 display: none !important;
             }
-            .dropdown-menu-container {
-                display: none !important;
-            }
+            //.dropdown-menu-container {
+            //    display: none !important;
+            //}
         }
 
         /* specific to Ipad Mini Only*/
         @media screen and (width: 768px) {
-            .dropdown-menu-container {
+            //.dropdown-menu-container {
+            //    display: none !important;
+            //}
+        }
+
+        @media screen and (width: 280px) {
+            .weather-container {
                 display: none !important;
             }
         }
-
         @media screen and (min-width: 770px) and (max-width: 820px) {
             .weather-container {
                 display: none !important;
@@ -171,7 +184,11 @@
             padding: 1.2rem 0;
             border: none;
             font-family: $inter-font;
-
+      
+            //ipad 5
+            @media screen and (width: 320px) {
+                display: none !important;
+            }
             /* specific to Ipad Air Only*/
             @media screen and (width: 820px) {
                 display: none !important;

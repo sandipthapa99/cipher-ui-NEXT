@@ -4,6 +4,7 @@ import LeaveYourCV from "@components/Career/LeaveYourCV";
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import { Tab } from "@components/common/Tab";
 import Layout from "@components/Layout";
+import urls from "constants/urls";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -184,9 +185,7 @@ export default Career;
 
 export const getStaticProps: GetStaticProps = async () => {
     try {
-        const { data: careerData } = await axiosClient.get(
-            "/career/vacancy/list/"
-        );
+        const { data: careerData } = await axiosClient.get(urls.carrer.list);
         if (careerData.error) throw new Error(careerData.error.message);
         return {
             props: {

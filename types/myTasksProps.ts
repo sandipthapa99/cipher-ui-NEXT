@@ -28,6 +28,7 @@ export type MyTaskProps = {
         id: number;
         name: string;
         code: string;
+        symbol: any;
     };
     no_of_applicants: number;
     images: Array<{

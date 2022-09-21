@@ -23,6 +23,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
 import { Alert, Highlight } from "@mantine/core";
+import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { GetStaticProps, NextPage } from "next";
@@ -250,7 +251,7 @@ const Home: NextPage<{
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline mt-5">
                         {servicesData && servicesData?.result?.length > 0 && (
                             <>
                                 <h2 className="heading-title">
@@ -268,19 +269,6 @@ const Home: NextPage<{
                             </>
                         )}
                     </div>
-                    {servicesData && servicesData?.result?.length <= 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No Popular Services"}>
-                                {`There are No Popular Services available`}
-                            </Highlight>
-                        </Alert>
-                    )}
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.result
@@ -311,10 +299,9 @@ const Home: NextPage<{
             {/* Services near you section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                        <h2 className="heading-title">Services near you</h2>
-
-                        {servicesData && servicesData?.result?.length > 0 && (
+                    {servicesData && servicesData?.result?.length > 0 && (
+                        <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                            <h2 className="heading-title">Services near you</h2>
                             <Link href="/service">
                                 <a className="view-more">
                                     view more{" "}
@@ -324,20 +311,7 @@ const Home: NextPage<{
                                     />
                                 </a>
                             </Link>
-                        )}
-                    </div>
-                    {servicesData && servicesData?.result?.length <= 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No Services Near you"}>
-                                {`There are No Services Near you available`}
-                            </Highlight>
-                        </Alert>
+                        </div>
                     )}
                     <Row className="gx-5">
                         {servicesData &&
@@ -383,19 +357,6 @@ const Home: NextPage<{
                                 </Link>
                             </div>
                         )}
-                    {servicesData && servicesData?.result?.length <= 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No Professional Services"}>
-                                {`There are No Professional Services available`}
-                            </Highlight>
-                        </Alert>
-                    )}
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.result
@@ -504,7 +465,7 @@ const Home: NextPage<{
             {/* Get services section end */}
 
             {/* Find & Hire section start */}
-            <section id="find-hire" className="find-hire">
+            <section id="find-hire" className="find-hire mt-4">
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">Find &amp; Hire</h1>
                     <h2 className="section-sub-title">Get those work done.</h2>
@@ -679,15 +640,16 @@ const Home: NextPage<{
             {/* Tasks you may like section end */}
 
             {/* some success stories sectioin start */}
-            <section
+
+            {/*<section
                 id="some-success-stories-section"
                 className="some-success-stories-section"
             >
                 <Container fluid="xl" className="px-5">
                     <div className="success-sroties-header">
-                        {/* <h1 className="text-center">
+                        <h1 className="text-center">
                             3003,0330 Taskers have earned an income on Cipher
-                        </h1> */}
+                        </h1>
                         <h3 className="text-center">CIPHER Stories</h3>
                     </div>
                     {topCategoryData?.length <= 0 && (
@@ -726,7 +688,7 @@ const Home: NextPage<{
                             ))}
                     </Carousel>
                 </Container>
-            </section>
+            </section>*/}
 
             {/* Notable quality section starts  */}
             <section id="notable-quality" className="notable-quality">
@@ -909,35 +871,35 @@ export default Home;
 export const getStaticProps: GetStaticProps = async () => {
     try {
         const { data: successStoryData } = await axiosClient.get(
-            "/tasker/success-story/"
+            urls.tasker.success_story
         );
-        const { data: trustedPartnerData } = await axiosClient.get(
-            "/landingpage/trusted-partner/"
-        );
-        const { data: heroCategoryData } = await axiosClient.get(
-            "/task/hero-category/"
-        );
-        const { data: topCategoryData } = await axiosClient.get(
-            "/task/top-categories/"
-        );
+        // const { data: trustedPartnerData } = await axiosClient.get(
+        //     "/landingpage/trusted-partner/"
+        // );
+        // const { data: heroCategoryData } = await axiosClient.get(
+        //     "/task/hero-category/"
+        // );
+        // const { data: topCategoryData } = await axiosClient.get(
+        //     "/task/top-categories/"
+        // );
         const { data: topTaskerData } = await axiosClient.get(
-            "/tasker/top-tasker/"
+            urls.tasker.top_tasker
         );
-        const { data: recommendedTasksData } = await axiosClient.get(
-            "/task/?recommendation=you may like"
-        );
-        const { data: blogData } = await axiosClient.get("/blog/");
-        const { data: servicesData } = await axiosClient.get("/task/service/");
+        // const { data: recommendedTasksData } = await axiosClient.get(
+        //     "/task/?recommendation=you may like"
+        // );
+        const { data: blogData } = await axiosClient.get(urls.blog.list);
+        const { data: servicesData } = await axiosClient.get(urls.task.service);
 
         return {
             props: {
                 successStoryData,
-                trustedPartnerData,
-                recommendedTasksData,
-                heroCategoryData,
+                // trustedPartnerData,
+                // recommendedTasksData,
+                // heroCategoryData,
                 topTaskerData,
                 blogData,
-                topCategoryData,
+                // topCategoryData,
                 servicesData,
             },
             revalidate: 10,
@@ -948,7 +910,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 successStoryData: [],
                 trustedPartnerData: [],
                 blogData: [],
-                servicesData: [],
+                servicesData: ["sdsd"],
                 topTaskerData: [],
                 recommendedTasksData: [],
                 heroCategoryData: [],

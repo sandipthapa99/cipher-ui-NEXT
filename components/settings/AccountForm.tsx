@@ -32,7 +32,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Headroom from "react-headroom";
 import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
@@ -96,17 +95,10 @@ const AccountForm = () => {
     const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
-    const [skills, setSkills] = useState(() => []);
 
-    useEffect(() => {
-        setSkills(JSON.parse(profile?.skill ?? "[]"));
-    }, [profile]);
+    const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
+
     const isInputDisabled = !isEditButtonClicked && profile ? true : false;
-
-    // console.log(
-    //     "🚀 ~ file: AccountForm.tsx ~ line 94 ~ AccountForm ~ skills",
-    //     skills
-    // );
 
     const onButtonClick = () => {
         // `current` points to the mounted file input element

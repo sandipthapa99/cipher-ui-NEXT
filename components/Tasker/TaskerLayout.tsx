@@ -3,6 +3,7 @@ import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
 import { Highlight, Space } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import urls from "constants/urls";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -14,7 +15,7 @@ import TaskerAside from "./TaskerAside";
 export const useSearchTasker = (searchParam: string) => {
     return useQuery(["all-tasker", searchParam], () =>
         axiosClient
-            .get<TaskerProps>(`/tasker/?${searchParam}`)
+            .get<TaskerProps>(`${urls.tasker.list}?${searchParam}`)
             .then((response) => response.data.result)
     );
 };
@@ -27,7 +28,7 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
     return (
         <Layout title="Find Tasker | Cipher">
             <section className="Tasker-section" id="Tasker-section">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <SearchCategory
                         searchModal="tasker"
                         onSearchParamChange={setSearchParam}

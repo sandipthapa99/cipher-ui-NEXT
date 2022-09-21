@@ -6,13 +6,13 @@ import { Spoiler } from "@mantine/core";
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import type { RatingResponse } from "hooks/rating/getRating";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
+import type { RatingResponse } from "types/ratingProps";
 import type { UserProfileProps } from "types/userProfileProps";
 import { reviewSearchData } from "utils/formData";
 import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
@@ -39,7 +39,6 @@ const AboutProfile = () => {
     const [isEditProfile, setIsEditProfile] = useState(false);
     const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
-
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
         `/task/rating?ordering=${search}`
@@ -294,7 +293,7 @@ const AboutProfile = () => {
                             <div className="content">
                                 {experienceData?.data?.result
                                     ? experienceData?.data?.result?.map(
-                                          (value) => {
+                                          (value: any) => {
                                               return (
                                                   <div
                                                       className="experience__type"

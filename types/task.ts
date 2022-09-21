@@ -36,20 +36,20 @@ export interface ITask {
         };
     };
     location: string;
-    assigner: {
+    created_by: {
         id: string;
         email: string;
         full_name: string;
         profile_image: string;
     };
     is_negotiable: boolean;
-    currency: { id: number; code: string; name: number };
+    currency: { id: number; code: string; name: string; symbol: string };
     created_at: string;
     updated_at: string;
     deleted_at: any;
     description: string;
     charge?: number;
-    requirements: string;
+    highlights: Record<string, string>;
     status: string;
     no_of_revisions: any;
     start_date: string;

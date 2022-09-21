@@ -56,6 +56,8 @@ export const UserTaskDetailHeader = ({
                                 width={148}
                                 height={148}
                                 objectFit="cover"
+                                placeholder="blur"
+                                blurDataURL="/placeholder/profilePlaceholder.png"
                                 alt={"profile"}
                                 className="rounded-circle"
                             />
@@ -135,7 +137,7 @@ export const UserTaskDetailHeader = ({
                         </EllipsisDropdown> */}
                     </div>
                     <p className="td-task-charge my-4">
-                        {taskerDetail?.charge_currency?.code}{" "}
+                        {taskerDetail?.charge_currency?.symbol}{" "}
                         {taskerDetail?.hourly_rate}/hr
                     </p>
                     {isSelf ? (

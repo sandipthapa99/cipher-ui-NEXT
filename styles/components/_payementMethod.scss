@@ -53,8 +53,6 @@
                     justify-content: center;
                     /* justify-content: flex-end; */
                     margin-top: 1rem;
-                    background: #ecf7ff;
-                    border-radius: 0.5rem;
                     color: #3eaeff;
 
                     a {
@@ -66,6 +64,22 @@
                     a,
                     .svg-icon {
                         padding: 0.5rem;
+                    }
+                    .primary,
+                    .linked-icons {
+                        background: #ecf7ff;
+                        border-radius: 0.5rem;
+                        .svg-icon {
+                            margin: auto;
+                            padding: 0.5rem 0.7rem;
+                        }
+                    }
+                    .linked-icons {
+                        display: flex;
+                        background: #ecf7ff;
+                        margin-left: 1rem;
+                        padding-left: 1.9rem;
+                        padding-right: 1.4rem;
                     }
                 }
             }
