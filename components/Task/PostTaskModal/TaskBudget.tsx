@@ -53,7 +53,11 @@ export const TaskBudget = ({
     setFieldTouched,
     getFieldProps,
 }: TaskBudgetProps) => {
-    const [value, setValue] = useState<BudgetType>(BudgetType.FIXED);
+    const [value, setValue] = useState<BudgetType>(() =>
+        initialBudgetFrom && initialBudgetTo
+            ? BudgetType.VARIABLE
+            : BudgetType.FIXED
+    );
 
     const resetFields = () => {
         setFieldValue("budget_from", "");

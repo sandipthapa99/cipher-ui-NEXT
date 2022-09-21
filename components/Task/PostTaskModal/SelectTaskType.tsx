@@ -10,13 +10,17 @@ interface SelectTaskTypeProps extends TextInputProps {
         value: any,
         shouldValidate?: boolean
     ) => void;
+    location: string;
 }
 export const SelectTaskType = ({
     setFieldValue,
     onTypeChange,
+    location,
     ...rest
 }: SelectTaskTypeProps) => {
-    const [taskType, setTaskType] = useState<TaskType>("remote");
+    const [taskType, setTaskType] = useState<TaskType>(() =>
+        location === "remote" ? "remote" : "onPremise"
+    );
 
     const handleTaskTypeChange = (value: TaskType) => {
         setFieldValue("taskTypeRadio", value);
