@@ -2,9 +2,22 @@
     padding-bottom: 2rem;
     border-radius: 0.6rem;
 
+    padding: 3rem;
+    @include respond(md) {
+        padding: 5rem;
+    }
+    @include respond(lg) {
+        padding: 8rem;
+    }
+    .account-form {
+        padding: 0rem;
+    }
+    h3 {
+        font-weight: 500;
+    }
     .title-kyc-status {
         font-size: 18px;
-        font-weight: bold;
+        font-weight: 500;
     }
     .photo-text-col {
         .photo-kyc-status {
@@ -13,7 +26,7 @@
         .text-cont-kyc {
             .title-kyc {
                 font-size: 2rem;
-                font-weight: bold;
+                font-weight: 500;
             }
             .body-kyc {
                 font-size: 1.2rem;
@@ -33,7 +46,7 @@
             color: gray;
             .body-kyc-span {
                 font-size: 14px;
-                font-weight: bold;
+                font-weight: 400;
                 color: black;
             }
         }
@@ -44,30 +57,30 @@
     .basic-info-cont {
         .text-title-basic-info {
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 400;
             color: black;
         }
         .text-address {
             color: gray;
             font-size: 12px;
         }
-        .text-yes {
-            color: #74d387;
-            background-color: #ebfbee;
-            padding: 0.4rem 1rem;
-            display: inline-block;
-            text-align: center;
-            border-radius: 5px;
-        }
-        .text-pending {
-            color: #ffd800;
-            background-color: #ffffcc;
-            padding: 0.4rem 1rem;
-            display: inline-block;
-            text-align: center;
-            border-radius: 5px;
-            font-size: 1.2rem;
-        }
+        // .text-yes {
+        //     color: #74d387;
+        //     background-color: #ebfbee;
+        //     padding: 0.4rem 1rem;
+        //     display: inline-block;
+        //     text-align: center;
+        //     border-radius: 5px;
+        // }
+        // .text-pending {
+        //     color: #ffd800;
+        //     background-color: #ffffcc;
+        //     padding: 0.4rem 1rem;
+        //     display: inline-block;
+        //     text-align: center;
+        //     border-radius: 5px;
+        //     font-size: 1.2rem;
+        // }
     }
     .folder-text-accordian {
         margin-left: 1rem;
@@ -75,11 +88,11 @@
             font-size: 14px;
         }
     }
-    .Kyc-documnet-verify {
+    .Kyc-document-verify {
         .document-text {
             font-size: 14px;
             color: black;
-            font-weight: bold;
+            font-weight: 500;
         }
         .document-text-value {
             font-size: 12px;

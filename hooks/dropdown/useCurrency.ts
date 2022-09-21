@@ -14,6 +14,7 @@ export type Currency = {
         id: number;
         name: string;
         code: string;
+        symbol: any;
         is_active: boolean;
         current_value: number;
         is_default: boolean;

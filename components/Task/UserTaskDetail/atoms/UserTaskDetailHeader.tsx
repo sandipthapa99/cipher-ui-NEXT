@@ -137,7 +137,7 @@ export const UserTaskDetailHeader = ({
                         </EllipsisDropdown> */}
                     </div>
                     <p className="td-task-charge my-4">
-                        {taskerDetail?.charge_currency?.code}{" "}
+                        {taskerDetail?.charge_currency?.symbol}{" "}
                         {taskerDetail?.hourly_rate}/hr
                     </p>
                     {isSelf ? (

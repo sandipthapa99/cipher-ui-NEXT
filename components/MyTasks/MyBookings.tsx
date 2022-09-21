@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useData } from "hooks/use-data";
 import { useRouter } from "next/router";
 import React from "react";
+import { axiosClient } from "utils/axiosClient";
 
 import { MyTaskOrder } from "./MyTaskOrder";
 
@@ -165,52 +166,53 @@ interface MyBookingProps {
 }
 
 export const MyBookings = () => {
-    const router = useRouter();
-    const { data: myBookingData } = useData<MyBookingProps>(
-        ["myBookings"],
-        "/task/entity/service-booking/?is_accepted=true&is_active=true&is_requested=false"
-    );
-    console.log(myBookingData?.data.result);
-    const renderMyBookings = myBookingData?.data.result.map((item, index) => {
-        return (
-            <div
-                className="booking-wrapper"
-                key={index}
-                onClick={() =>
-                    router.push({
-                        pathname: `/service/${item?.entity_service?.service?.category?.slug}`,
-                    })
-                }
-            >
-                <MyTaskOrder
-                    task_id={item?.id.toString()}
-                    assigner_id={item?.created_by.id.toString()}
-                    created_at={item?.created_at}
-                    image={item.images[0].media ?? "/logo/logo.svg"}
-                    title={item?.entity_service?.title}
-                    assigner_name={item?.created_by?.full_name}
-                    budget_from={item?.budget_from}
-                    budget_to={item?.budget_to}
-                    budget_type={item?.entity_service?.budget_type}
-                    status={item?.status}
-                    currency={item?.entity_service?.currency?.code}
-                />
-            </div>
-        );
+    const { data: myBookingData } = useQuery(["my-booking"], async () => {
+        const response = await axiosClient.get("/task/service/my-booking/");
+        return response.data.result;
     });
+    const router = useRouter();
 
     return (
         <div className="my-task">
             <h3>My Bookings</h3>
-            <div className="my-task__each-orders">
-                {myBookingData && myBookingData?.data?.result?.length > 0 ? (
-                    renderMyBookings
+
+            {/* <div className="my-task__each-orders">
+                {myBookingData?.length ? (
+                    myBookingData?.map(
+                        (item: MyBookingProps, index: number) => (
+                            <div
+                                className="booking-wrapper"
+                                key={index}
+                                onClick={() =>
+                                    router.push({
+                                        pathname: `/service/${item?.service?.slug}`,
+                                    })
+                                }
+                            >
+                                <MyTaskOrder
+                                    task_id={item?. service?.id}
+                                    assigner_id={item?.service?.created_by?.id}
+                                    created_at={item?.created_at}
+                                    image={item?.service?.images[0]?.media}
+                                    title={item?.service?.title}
+                                    assigner_name={
+                                        item?.service?.created_by?.full_name
+                                    }
+                                    budget_from={item?.service?.budget_from}
+                                    budget_to={item?.service?.budget_to}
+                                    budget_type={item?.service?.budget_type}
+                                    status={item?.status}
+                                    currency={item?.service?.currency?.symbol}
+                                />
+                            </div>
+                        )
+                    )
                 ) : (
                     <Alert title="NO DATA AVAILABLE !!!" color="orange">
                         Sorrry, You have no booking data to show
                     </Alert>
                 )}
-            </div>
+            </div> */}
         </div>
     );
 };

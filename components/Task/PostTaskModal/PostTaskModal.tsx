@@ -33,6 +33,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
+import { useEditTaskDetail } from "store/use-edit-task";
 import {
     usePostTaskModalType,
     useShowPostTaskModal,
@@ -80,11 +81,11 @@ export const PostTaskModal = () => {
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const router = useRouter();
 
+    const editTaskDetail = useEditTaskDetail();
+
     const taskSlug = router.query?.slug;
     const taskDetail =
-        showPostTaskModalType === "EDIT"
-            ? queryClient.getQueryData<ITask>(["task-detail", taskSlug])
-            : undefined;
+        showPostTaskModalType === "EDIT" ? editTaskDetail : undefined;
 
     const [termsAccepted, setTermsAccepted] = useState(true);
     const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =

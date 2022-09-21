@@ -12,24 +12,13 @@ import type { ITask } from "types/task";
 import CardBtn from "./CardBtn";
 import ShareIcon from "./ShareIcon";
 
-type RequiredTaskKeys =
-    | "title"
-    | "charge"
-    | "description"
-    | "location"
-    | "start_date"
-    | "start_time"
-    | "status"
-    | "currency"
-    | "slug";
 interface TaskCardProps {
-    task: Pick<ITask, RequiredTaskKeys>;
+    task: ITask;
     isSaved?: boolean;
 }
 const TaskCard = ({ task, isSaved }: TaskCardProps) => {
     const {
         title,
-        charge,
         description,
         location,
         start_date,
@@ -58,7 +47,9 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
                     <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                         <h1 className="title">{title}</h1>
                         <h2 className="charge">
-                            {currency ? currency.code : "Rs"} {charge}
+                            {currency ? currency?.symbol : "Rs"}{" "}
+                            {task?.budget_from && `${task?.budget_from} -`}
+                            {task?.budget_to}
                         </h2>
                     </div>
                     <div className="task-card-block__body">

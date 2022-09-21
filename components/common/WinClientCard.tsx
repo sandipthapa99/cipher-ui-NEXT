@@ -20,7 +20,7 @@ export const WinClientCard = ({
     return (
         <div className="win-client-card">
             <Row>
-                <Col md={5} sm={12}>
+                <Col md={5} sm={12} className="win-client-card__left">
                     <figure className="win-client-image">
                         <Image
                             src={image}
@@ -30,7 +30,7 @@ export const WinClientCard = ({
                         />
                     </figure>
                 </Col>
-                <Col md={7} sm={12}>
+                <Col md={7} sm={12} className="win-client-card__left">
                     <div className="d-flex flex-column justify-content-center  win-client-card-content">
                         <h1>{title}</h1>
                         <p>{description}</p>

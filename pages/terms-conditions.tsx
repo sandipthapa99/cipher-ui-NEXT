@@ -5,8 +5,8 @@ import { Container } from "react-bootstrap";
 const TermsConditions = () => {
     return (
         <Layout title="Terms &amp; Conditions | Cipher">
-            <BreadCrumb currentPage="Terms &amp; Conditions" />
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
+                <BreadCrumb currentPage="Terms &amp; Conditions" />
                 <section className="privacy-policy">
                     <section className="privacy-policy__intro inner-section">
                         <h1>Terms &amp; Conditions</h1>

@@ -178,7 +178,7 @@ export const Search = () => {
 };
 export const useStyles = createStyles(() => ({
     selectField: {
-        maxWidth: useMediaQuery("(max-width:572px)") ? "12rem" : "12rem",
+        maxWidth: useMediaQuery("(max-width:572px)") ? "10rem" : "12rem",
         marginLeft: "1rem",
     },
     loadingOverlay: {

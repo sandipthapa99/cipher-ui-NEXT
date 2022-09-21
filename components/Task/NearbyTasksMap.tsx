@@ -24,7 +24,7 @@ const NearbyTasksMap = () => {
     const router = useRouter();
     return (
         <>
-            <GoogleMap center={location}>
+            <GoogleMap>
                 {nearbyTasksSeparated.map((task) => (
                     <OverlayView
                         position={{

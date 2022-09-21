@@ -1,5 +1,6 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import type { SelectItem } from "@mantine/core";
@@ -151,6 +152,7 @@ const KYCForm = () => {
                         touched,
                         resetForm,
                         setFieldValue,
+                        getFieldProps,
                     }) => (
                         <Form autoComplete="off">
                             {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
@@ -165,16 +167,19 @@ const KYCForm = () => {
                                 //     profileDetails?.full_name ? true : false
                                 // }
                             />
-                            <InputField
-                                type="text"
-                                name="address"
-                                labelName="Address"
-                                error={errors.address}
-                                touch={touched.address}
-                                placeHolder="Enter your Address"
-                                // disabled={
-                                //     profileDetails?.address_line1 ? true : false
-                                // }
+                            <PlacesAutocomplete
+                                {...getFieldProps("address")}
+                                error={
+                                    touched.address && errors.address
+                                        ? errors.address
+                                        : ""
+                                }
+                                size="md"
+                                label="Address"
+                                placeholder="Enter your address"
+                                onPlaceChange={(place) =>
+                                    setFieldValue("address", place)
+                                }
                             />
                             {/* <SelectInputField
                                 name="country"

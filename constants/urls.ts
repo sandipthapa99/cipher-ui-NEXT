@@ -6,9 +6,9 @@ const localePath = "/locale/client/";
 const bookings = "/task/entity/service-booking/";
 const urls = {
     user: {
-        login: "user/login/",
-        signup: "user/signup/",
-        changePassword: "user/password/change/",
+        login: "/user/login/",
+        signup: "/user/signup/",
+        changePassword: "/user/password/change/",
         google: "/user/register/social/google-oauth2/",
     },
     task: {

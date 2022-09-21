@@ -1,3 +1,4 @@
+// import { useServiceCategories } from "@components/Task/PostTaskModal/TaskCategory";
 import {
     faCity,
     faClose,
@@ -15,8 +16,8 @@ import { Box, createStyles, Select, TextInput } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useLanguage } from "hooks/dropdown/useLanguage";
-import { useTaskers } from "hooks/tasker/use-tasker";
 import { useCities } from "hooks/use-cities";
+import type { ChangeEvent } from "react";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
@@ -42,26 +43,19 @@ export const SearchCategory = ({
 }: SearchCategoryProps) => {
     const { classes } = useStyles();
 
+    const [search, setSearch] = useState("");
     const [params, setParams] = useState<Record<string, string> | undefined>();
     const [cityQuery, setCityQuery] = useState("");
-
-    const { data: categories = [] } = useQuery(["category-options"], () => {
-        return axiosClient
-            .get<ServiceCategory[]>("/task/cms/task-category/list/")
-            .then((response) => {
-                return response.data;
-            });
-    });
+    // const { data: categories = [] } = useServiceCategories();
     const { data: cities } = useCities(cityQuery);
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
-    const { data: taskers } = useTaskers();
 
-    const categoriesData: SelectItem[] = categories.map((category) => ({
-        id: category.id,
-        label: category.name,
-        value: category.slug,
-    }));
+    // const categoriesData: SelectItem[] = categories.map((category) => ({
+    //     id: category.id,
+    //     label: category.name,
+    //     value: category.slug,
+    // }));
     const citiesData: SelectItem[] = cities.map((city) => ({
         id: city.id,
         label: city.name,
@@ -93,14 +87,51 @@ export const SearchCategory = ({
             value: "-budget_to",
         },
     ];
-    const taskersData: SelectItem[] =
-        taskers && taskers?.length > 0
-            ? Object.keys(taskers[0]).map((key, index) => ({
-                  id: index,
-                  label: key,
-                  value: key,
-              }))
-            : [];
+    const orderTaskersData: SelectItem[] = [
+        {
+            id: 1,
+            label: "Rating (Low to high)",
+            value: "rating",
+        },
+        {
+            id: 2,
+            label: "Rating (High to low)",
+            value: "-rating",
+        },
+        {
+            id: 3,
+            label: "Hourly rate (Low to high)",
+            value: "hourly_rate",
+        },
+        {
+            id: 4,
+            label: "Hourly rate (High to low)",
+            value: "-hourly_rate",
+        },
+    ];
+
+    const orderServiceData: SelectItem[] = [
+        {
+            id: 1,
+            label: "Newest services",
+            value: "created_at",
+        },
+        {
+            id: 2,
+            label: "Oldest services",
+            value: "-created_at",
+        },
+        {
+            id: 3,
+            label: "Budget (Low to High)",
+            value: "budget_to",
+        },
+        {
+            id: 4,
+            label: "Budget (High to Low)",
+            value: "-budget_to",
+        },
+    ];
 
     const onSelectChange = (key: string, value: string | null) => {
         if (!value) return;
@@ -111,7 +142,6 @@ export const SearchCategory = ({
         setParams((previousParams) => ({ ...previousParams, ...newParams }));
     };
 
-    const search = params ? params.search : "";
     const city = params ? params.city : "";
     const country = params ? params.country : "";
     const language = params ? params.language : "";
@@ -122,15 +152,27 @@ export const SearchCategory = ({
         setParams(undefined);
         onFilterClear();
     };
-    const handleSearchChange = (search: string) => {
-        if (params && !search && Object.keys(params).length === 1) {
-            setParams(undefined);
-            onFilterClear();
+    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const searchText = event.currentTarget.value;
+        if (searchText.length === 0) {
+            const newParams = Object.entries(params ?? {}).reduce(
+                (acc, curr) => {
+                    const [key, value] = curr;
+                    if (key !== "search") acc[key] = value;
+                    return acc;
+                },
+                {} as Record<string, string>
+            );
+            if (Object.keys(newParams).length === 0) {
+                handleClearFilters();
+                setSearch("");
+            }
             return;
         }
+        setSearch(searchText);
         setParams((previousParams) => ({
             ...previousParams,
-            search,
+            search: searchText,
         }));
     };
 
@@ -151,13 +193,15 @@ export const SearchCategory = ({
                     value={search}
                     icon={<FontAwesomeIcon icon={faSearch} />}
                     placeholder="Enter a search keyword"
-                    onChange={(event) =>
-                        handleSearchChange(event.currentTarget.value)
-                    }
+                    onChange={handleSearchChange}
                 />
             </Col>
             <Col md={8}>
-                <Box className={classes.categoriesContainer}>
+                <Box
+                    className={
+                        classes.categoriesContainer + " " + "box-modifier"
+                    }
+                >
                     {params && (
                         <Button
                             leftIcon={<FontAwesomeIcon icon={faClose} />}
@@ -168,9 +212,10 @@ export const SearchCategory = ({
                             Clear filters
                         </Button>
                     )}
+
                     {(searchModal === "task" || searchModal === "service") && (
                         <>
-                            <Select
+                            {/* <Select
                                 clearable
                                 searchable
                                 icon={<FontAwesomeIcon icon={faGrid2} />}
@@ -180,7 +225,7 @@ export const SearchCategory = ({
                                 onChange={(value) =>
                                     onSelectChange("category", value)
                                 }
-                            />
+                            /> */}
                             <Select
                                 clearable
                                 searchable
@@ -236,13 +281,23 @@ export const SearchCategory = ({
                                 searchable
                                 icon={<FontAwesomeIcon icon={faSort} />}
                                 placeholder="Order by"
-                                data={taskersData}
+                                data={orderTaskersData}
                                 value={ordering}
                                 onChange={(value) =>
                                     onSelectChange("ordering", value)
                                 }
                             />
                         </>
+                    )}
+                    {searchModal === "service" && (
+                        <Select
+                            placeholder="Order by"
+                            value={ordering}
+                            onChange={(value) =>
+                                onSelectChange("ordering", value)
+                            }
+                            data={orderServiceData}
+                        />
                     )}
                 </Box>
             </Col>

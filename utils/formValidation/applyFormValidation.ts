@@ -1,11 +1,8 @@
 import * as Yup from "yup";
 
-let priceValidate, stringReqOnly;
-
-stringReqOnly = Yup.string().required("Required field");
-priceValidate = Yup.string().required("Required field");
-
 export const applyFormSchema = Yup.object().shape({
-    price: priceValidate,
-    remarks: stringReqOnly,
+    price: Yup.number()
+        .required("Price is required")
+        .min(0, "Price must be greater than 0"),
+    remarks: Yup.string().required("Remarks is required"),
 });

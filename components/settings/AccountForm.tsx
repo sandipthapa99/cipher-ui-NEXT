@@ -6,8 +6,10 @@ import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
+import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import PhotoEdit from "@components/Profile/PhotoEdit";
+import { SelectCity } from "@components/SelectCity";
 import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
@@ -35,6 +37,7 @@ import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { safeParse } from "utils/safeParse";
 
 import { FillKyc } from "./FillKyc";
 import { CompleteProfile } from "./ProfileForm";
@@ -82,7 +85,7 @@ const AccountForm = () => {
     const { data: currency } = useCurrency();
     const { data: language } = useLanguage();
     const { data: countryName } = useCountry();
-    const { data: profile } = useGetProfile();
+    const { data: profile, isLoading } = useGetProfile();
     const { data: KYCData } = useGetKYC();
 
     const [image, setImage] = useState();
@@ -91,12 +94,10 @@ const AccountForm = () => {
     const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
+
     const skills = profile && profile.skill ? JSON.parse(profile.skill) : [];
 
-    // console.log(
-    //     "🚀 ~ file: AccountForm.tsx ~ line 94 ~ AccountForm ~ skills",
-    //     skills
-    // );
+    const isInputDisabled = !isEditButtonClicked && profile ? true : false;
 
     const onButtonClick = () => {
         // `current` points to the mounted file input element
@@ -216,6 +217,22 @@ const AccountForm = () => {
     };
     //parse user_type
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
+
+    //for city select field
+    const cityData = profile
+        ? {
+              initialId: profile?.city?.id?.toString() ?? "",
+              initialData: profile?.city
+                  ? [
+                        {
+                            id: profile?.city?.id,
+                            label: profile?.city?.name,
+                            value: profile?.city?.id?.toString(),
+                        },
+                    ]
+                  : [],
+          }
+        : {};
 
     const queryClient = useQueryClient();
 
@@ -411,6 +428,7 @@ const AccountForm = () => {
                         values,
                         resetForm,
                         setFieldValue,
+                        getFieldProps,
                     }) => (
                         <Form autoComplete="off">
                             {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
@@ -513,6 +531,7 @@ const AccountForm = () => {
                                             />
                                         ) : (
                                             <BigButton
+                                                className="sticky-wrapper"
                                                 btnTitle={"Edit Profile"}
                                                 backgroundColor={"#FFCA6A"}
                                                 textColor={"#212529"}
@@ -526,7 +545,6 @@ const AccountForm = () => {
                                     ""
                                 )}
                             </div>
-
                             <PhotoEdit
                                 photo={image}
                                 show={showEditForm}
@@ -601,11 +619,7 @@ const AccountForm = () => {
                                 error={errors.bio}
                                 placeHolder="Enter your Bio"
                                 as="textarea"
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
-                                }
+                                disabled={isInputDisabled}
                             />
                             {/* <Row className="g-5">
                                 <Col md={6}>
@@ -634,11 +648,7 @@ const AccountForm = () => {
                                 labelName="Please specify your gender"
                                 touch={touched.gender}
                                 error={errors.gender}
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
-                                }
+                                disabled={isInputDisabled}
                             />
                             <DatePickerField
                                 name="date_of_birth"
@@ -647,11 +657,7 @@ const AccountForm = () => {
                                 placeHolder="dd/mm/yy"
                                 touch={touched.date_of_birth}
                                 error={errors.date_of_birth}
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
-                                }
+                                disabled={isInputDisabled}
                             />
                             <hr />
                             <h3>Profession Information</h3>
@@ -667,11 +673,7 @@ const AccountForm = () => {
                                         name="user_type"
                                         value="Client"
                                         className="me-2"
-                                        disabled={
-                                            isEditButtonClicked || !profile
-                                                ? false
-                                                : true
-                                        }
+                                        disabled={isInputDisabled}
                                     />
                                     Client
                                 </label>
@@ -680,11 +682,7 @@ const AccountForm = () => {
                                         type="checkbox"
                                         name="user_type"
                                         className="me-2"
-                                        disabled={
-                                            isEditButtonClicked || !profile
-                                                ? false
-                                                : true
-                                        }
+                                        disabled={isInputDisabled}
                                         value="Tasker"
                                     />
                                     Tasker
@@ -697,11 +695,7 @@ const AccountForm = () => {
                                 // touch={!profile && touched.skill}
                                 labelName="Specialities"
                                 placeHolder="Enter your skills"
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
-                                }
+                                disabled={isInputDisabled}
                             />
                             <RadioField
                                 type="radio"
@@ -710,11 +704,7 @@ const AccountForm = () => {
                                 labelName="Experience Level"
                                 touch={touched.experience_level}
                                 error={errors.experience_level}
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
-                                }
+                                disabled={isInputDisabled}
                             />
                             <h4>Active Hours</h4>
                             <Row className="g-5">
@@ -726,11 +716,7 @@ const AccountForm = () => {
                                         dateFormat="HH:mm aa"
                                         touch={touched.active_hour_start}
                                         error={errors.active_hour_start}
-                                        disabled={
-                                            isEditButtonClicked || !profile
-                                                ? false
-                                                : true
-                                        }
+                                        disabled={isInputDisabled}
                                         timeOnly
                                     />
                                 </Col>
@@ -743,11 +729,7 @@ const AccountForm = () => {
                                         touch={touched.active_hour_end}
                                         error={errors.active_hour_end}
                                         timeOnly
-                                        disabled={
-                                            isEditButtonClicked || !profile
-                                                ? false
-                                                : true
-                                        }
+                                        disabled={isInputDisabled}
                                     />
                                 </Col>
                             </Row>
@@ -759,11 +741,7 @@ const AccountForm = () => {
                                         labelName="Base Rate Per Hour"
                                         error={errors.hourly_rate}
                                         touch={touched.hourly_rate}
-                                        disabled={
-                                            isEditButtonClicked || !profile
-                                                ? false
-                                                : true
-                                        }
+                                        disabled={isInputDisabled}
                                         placeHolder="Base Rate Per Hour"
                                     />
                                 </Col>
@@ -793,11 +771,17 @@ const AccountForm = () => {
                                     handleCountryChanged(value, setFieldValue)
                                 }
                                 data={countryResults ?? []}
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
+                                disabled={isInputDisabled}
+                            />
+                            <SelectCity
+                                disabled={isInputDisabled}
+                                label="City"
+                                placeholder="Select your city"
+                                onCityChange={(city) =>
+                                    setFieldValue("city", city)
                                 }
+                                value={cityData.initialId}
+                                data={cityData.initialData}
                             />
                             <InputField
                                 type="text"
@@ -805,45 +789,32 @@ const AccountForm = () => {
                                 labelName="Address Line 1"
                                 error={errors.address_line1}
                                 touch={touched.address_line1}
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
-                                }
+                                disabled={isInputDisabled}
                                 placeHolder="Enter your permanent address"
                             />
-                            <InputField
-                                type="text"
-                                name="address_line2"
-                                labelName="Address Line 2"
-                                error={errors.address_line2}
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
+                            <PlacesAutocomplete
+                                size="md"
+                                label="Address Line 2"
+                                placeholder="Enter your temporary address"
+                                disabled={isInputDisabled}
+                                error={
+                                    touched.address_line2 &&
+                                    errors.address_line2
+                                        ? errors.address_line2
+                                        : undefined
                                 }
-                                touch={touched.address_line2}
-                                placeHolder="Enter your temporary address"
+                                {...getFieldProps("address_line2")}
+                                value={values.address_line2}
+                                onPlaceChange={(value) =>
+                                    setFieldValue("address_line2", value)
+                                }
                             />
-                            {/* <SelectInputField
-                                name="language"
-                                labelName="Language"
-                                touch={touched.language}
-                                error={errors.language}
-                                placeHolder="Select your language"
-                                options={languageResults}
-                               
-                            /> */}
                             <Select
                                 label="Language"
                                 placeholder="Select your language"
                                 name="language"
                                 searchable
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
-                                }
+                                disabled={isInputDisabled}
                                 nothingFound="No result found."
                                 value={
                                     profile
@@ -853,9 +824,6 @@ const AccountForm = () => {
                                 onChange={(value) =>
                                     handleLanguageChanged(value, setFieldValue)
                                 }
-                                // sx={{
-                                //     height: "4.8rem",
-                                // }}
                                 data={languageResults ?? []}
                             />
                             {/* <SelectInputField
@@ -873,11 +841,7 @@ const AccountForm = () => {
                                 name="charge_currency"
                                 searchable
                                 nothingFound="No result found."
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
-                                }
+                                disabled={isInputDisabled}
                                 value={
                                     profile
                                         ? profile.charge_currency?.id.toString()
@@ -896,11 +860,7 @@ const AccountForm = () => {
                                 labelName="Visibility"
                                 touch={touched.profile_visibility}
                                 error={errors.profile_visibility}
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
-                                }
+                                disabled={isInputDisabled}
                                 placeHolder="Select your visibility"
                                 options={profile_visibility}
                             />
@@ -911,11 +871,7 @@ const AccountForm = () => {
                                 error={errors.task_preferences}
                                 placeHolder="Select your preferences"
                                 options={task_preferences}
-                                disabled={
-                                    isEditButtonClicked || !profile
-                                        ? false
-                                        : true
-                                }
+                                disabled={isInputDisabled}
                             />
                             {profile ? null : (
                                 <div className="d-flex justify-content-end">

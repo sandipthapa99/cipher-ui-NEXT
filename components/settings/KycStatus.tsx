@@ -43,7 +43,7 @@ export const KYCStatus = () => {
         return (
             <Accordion.Item key={index} value={item?.document_id}>
                 <Accordion.Control className="mt-1 p-3">
-                    <div className="d-flex align-items-center gap-3 folder-text-accordian">
+                    <div className="d-flex align-items-center gap-3 folder-text-accordian account-form">
                         <FontAwesomeIcon icon={faFolder} />
                         <p className="m-0 document-kyc">
                             {item?.document_type}
@@ -57,13 +57,13 @@ export const KYCStatus = () => {
                 </Accordion.Control>
                 <Accordion.Panel>
                     <Row>
-                        <Col className="Kyc-documnet-verify" md={3}>
+                        <Col className="Kyc-document-verify" md={3}>
                             <p className="m-0 document-text">Document Id</p>
                             <p className="m-0 document-text-value">
                                 {item?.document_id}
                             </p>
                         </Col>
-                        <Col className="Kyc-documnet-verify" md={3}>
+                        <Col className="Kyc-document-verify" md={3}>
                             <p className="m-0 document-text">
                                 Issuer Organization
                             </p>
@@ -71,14 +71,14 @@ export const KYCStatus = () => {
                                 {item.issuer_organization}
                             </p>
                         </Col>
-                        <Col className="Kyc-documnet-verify" md={3}>
+                        <Col className="Kyc-document-verify" md={3}>
                             <p className="m-0 document-text">Issued Date</p>
                             <p className="m-0 document-text-value">
                                 {item.issued_date}
                             </p>
                         </Col>
                         {item.valid_through !== null && (
-                            <Col className="Kyc-documnet-verify" md={3}>
+                            <Col className="Kyc-document-verify" md={3}>
                                 <p className="m-0 document-text">Expiry Date</p>
                                 <p className="m-0 document-text-value">
                                     {item.valid_through}
@@ -87,7 +87,7 @@ export const KYCStatus = () => {
                         )}
                     </Row>
                     <Row className="mt-3">
-                        <Col className="Kyc-documnet-verify" md={3}>
+                        <Col className="Kyc-document-verify" md={3}>
                             <p className="m-0 document-text">Documents</p>
                             <Image
                                 src={item.file}
