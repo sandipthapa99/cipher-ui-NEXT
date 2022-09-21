@@ -5,6 +5,7 @@ import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { useEditForm } from "hooks/use-edit-form";
@@ -40,8 +41,10 @@ const ExperienceForm = ({
     setShowExpForm,
     id,
 }: ExperienceProps) => {
-    const { mutate } = useForm(`/tasker/experience/`);
-    const { mutate: editMutation } = useEditForm(`/tasker/experience/${id}/`);
+    const { mutate } = useForm(`${urls.profile.experience}`);
+    const { mutate: editMutation } = useEditForm(
+        `${urls.profile.experience}${id}/`
+    );
 
     const queryClient = useQueryClient();
     const data = queryClient.getQueryData<EditDetailProps>([

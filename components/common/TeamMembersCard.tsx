@@ -6,11 +6,14 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { useIsBookmarked } from "hooks/use-bookmarks";
+import { useForm } from "hooks/use-form";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import type { Tasker } from "types/tasks";
 
 import BigButton from "./Button";
@@ -32,6 +35,7 @@ interface Props {
     distance?: string;
     bio?: string;
     charge?: string;
+    id: number;
 }
 
 export const TeamMembersCard = ({
@@ -48,13 +52,27 @@ export const TeamMembersCard = ({
     distance,
     bio,
     charge,
+    id,
 }: Props) => {
+    console.log("🚀 ~ file: TeamMembersCard.tsx ~ line 56 ~ id", id);
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
     const queryClient = useQueryClient();
 
     const router = useRouter();
     const path = router.query.id;
+
+    // const sendBookApproval = useMutation(
+    //     (data: { booking: number | undefined }) =>
+    //         axiosClient.post(`${urls.task}`, data)
+    // );
+
+    // const sendBookReject = useMutation(
+    //     (data: { booking: number | undefined }) =>
+    //         axiosClient.post("/task/entity/service-booking/reject/", data)
+    // );
+    const { mutate: bookingApproval } = useForm(`${urls.task.approval}`);
+    const { mutate: bookingDecline } = useForm(`${urls.task.decline}`);
 
     return (
         <div
@@ -171,6 +189,58 @@ export const TeamMembersCard = ({
                         )}
                     </a>
                 </Link>
+            </div>
+            <div className="d-flex align-items-center gap-3 pt-3">
+                <BigButton
+                    btnTitle={"Approve"}
+                    backgroundColor={"#fff"}
+                    handleClick={() => {
+                        bookingApproval(
+                            { booking: id },
+                            {
+                                onSuccess: () => {
+                                    toast.success("Booking Approved");
+                                    queryClient.invalidateQueries([
+                                        "get-my-applicants",
+                                    ]);
+                                },
+                                onError: (error: any) => {
+                                    console.log(error);
+                                    toast.error(
+                                        error.response.data.booking.message
+                                    );
+                                },
+                            }
+                        );
+                    }}
+                    textColor={"#211D4F"}
+                    border="1px solid #211D4F"
+                />
+
+                <BigButton
+                    btnTitle={"Decline"}
+                    backgroundColor={"#211D4F"}
+                    handleClick={() => {
+                        bookingDecline(
+                            { booking: id },
+                            {
+                                onSuccess: () => {
+                                    toast.success("Booking Rejected");
+                                    queryClient.invalidateQueries([
+                                        "get-my-applicants",
+                                    ]);
+                                },
+                                onError: (error: any) => {
+                                    console.log(error);
+                                    toast.error(
+                                        error.response.data.booking.message
+                                    );
+                                },
+                            }
+                        );
+                    }}
+                    textColor={"#fff"}
+                />
             </div>
         </div>
     );

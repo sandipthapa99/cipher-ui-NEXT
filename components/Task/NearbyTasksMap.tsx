@@ -37,7 +37,7 @@ const NearbyTasksMap = () => {
                         <Avatar
                             onClick={() => router.push(`/task/${task.slug}`)}
                             radius="xl"
-                            src={task.created_by.profile_image}
+                            src={task?.created_by?.profile_image}
                         />
                     </OverlayView>
                 ))}

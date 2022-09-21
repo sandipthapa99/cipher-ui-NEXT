@@ -1,5 +1,6 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import type { ITask, TaskApplicantsProps } from "types/task";
@@ -7,13 +8,13 @@ import { axiosClient } from "utils/axiosClient";
 
 const TaskDetail: NextPage<{
     taskDetail: ITask;
-    taskApplicants: TaskApplicantsProps;
-}> = ({ taskDetail, taskApplicants }) => {
+    // taskApplicants: TaskApplicantsProps;
+}> = ({ taskDetail }) => {
     return (
         <>
             <AppliedLayout>
                 <AppliedTaskDetail
-                    taskApplicants={taskApplicants}
+                    // taskApplicants={taskApplicants}
                     taskDetail={taskDetail}
                 />
             </AppliedLayout>
@@ -25,6 +26,7 @@ export default TaskDetail;
 export const getStaticPaths: GetStaticPaths = async () => {
     try {
         const { data: taskDetail } = await axiosClient.get(urls.task.task);
+
         const paths = taskDetail?.result?.map(({ slug }: ITask) => ({
             params: { slug: slug },
         }));
@@ -42,15 +44,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const { data: taskDetail } = await axiosClient.get<ITask>(
             `${urls.task.list}${params?.slug}/`
         );
-        // const { data: taskApplicants } =
-        //     await axiosClient.get<TaskApplicantsProps>(
-        //         `/task/${params?.slug}/applicants/`
-        //     );
+
+        // queryClient.prefetchQuery(["my-bookings"]);
 
         return {
             props: {
                 taskDetail,
-                // taskApplicants,
+                //   taskApplicants,
             },
             revalidate: 10,
         };
@@ -58,7 +58,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         return {
             props: {
                 taskDetail: {},
-                taskApplicants: {},
+                //taskApplicants: [],
             },
             revalidate: 10,
         };
