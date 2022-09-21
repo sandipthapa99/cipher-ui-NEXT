@@ -1,3 +1,4 @@
+import type { EditServicePayload } from "@components/services/EditService";
 import type { PostTaskPayload } from "@components/Task/PostTaskModal/PostTaskModal";
 import {
     Box,
@@ -22,8 +23,8 @@ export interface TaskBudgetProps {
     setFieldError: (field: string, value: any) => void;
     setFieldTouched: (field: string, value: any) => void;
     getFieldProps: (field: string) => any;
-    touched?: FormikTouched<PostTaskPayload>;
-    errors?: FormikErrors<PostTaskPayload>;
+    touched: FormikTouched<PostTaskPayload | EditServicePayload>;
+    errors: FormikErrors<PostTaskPayload | EditServicePayload>;
 }
 
 const budgetType = [
@@ -34,6 +35,10 @@ const budgetType = [
     {
         label: "Hourly",
         value: "Hourly",
+    },
+    {
+        label: "Monthly",
+        value: "Monthly",
     },
     {
         label: "Fixed",

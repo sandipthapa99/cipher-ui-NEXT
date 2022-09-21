@@ -2,11 +2,11 @@
 .modal-show .modal-dialog {
     justify-content: center;
     .modal-dialog .modal-content {
-        max-width: 60rem;
+        width: 76rem;
         justify-content: center;
     }
     .modal-header {
-        padding-top: 2rem;
+        padding: 2rem 0rem;
         border-bottom: none;
     }
     &__modal-body-content {
@@ -25,7 +25,7 @@
         .media-wrapper {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-between;
             padding-top: 2rem;
         }
         .social-media {

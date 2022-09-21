@@ -1,13 +1,6 @@
 import parse from "html-react-parser";
 import Link from "next/link";
 import type { HeroCategoryProps } from "types/heroCategory";
-
-interface CategoryCardProps {
-    name: string;
-    icon: string;
-    slug: string;
-}
-
 const CategoryCard = ({
     category,
 }: {

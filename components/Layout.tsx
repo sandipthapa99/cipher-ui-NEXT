@@ -33,26 +33,24 @@ const Layout: FC<MetaDataProps> = ({
     ogUrl,
     children,
 }) => {
-    const [sideBar, setSideBarOpened] = useState(false);
     const cipherOgImage = "";
+    const [sidebar, setSidebarOpened] = useState(false);
     // const router = useRouter();
     // const checkPolicyPage =
     //     router.pathname !== "/privacy-policy" &&
     //     router.pathname !== "/terms-and-conditions" &&
     //     router.pathname !== "/cookies-policy";
     // ("");
-    const getSideBar = (side: boolean) => {
-        setSideBarOpened(side);
-    };
+
     useEffect(() => {
-        if (sideBar) {
+        if (sidebar) {
             document?.querySelector("body")?.classList?.add("overflow-hidden");
         } else {
             document
                 ?.querySelector("body")
                 ?.classList?.remove("overflow-hidden");
         }
-    }, [sideBar]);
+    }, [sidebar]);
 
     return (
         <>
@@ -91,15 +89,16 @@ const Layout: FC<MetaDataProps> = ({
                 <meta name="robots" content="index, follow" />
             </Head>
             <section id="header-section" className="sticky-wrapper-header">
-                {!sideBar && <UpperHeader />}
+                {<UpperHeader />}
                 <Header />
             </section>
 
             {children}
             <Footer />
-            <MobileNav side={sideBar} getSide={getSideBar} />
-            {sideBar && (
-                <div className="sidebar-nav">
+            {<MobileNav getSide={setSidebarOpened} />}
+
+            <div className={`sidebar-nav ${sidebar ? "active" : ""}`}>
+                {sidebar && (
                     <Navbar height={"100vh"} p="xs" width={{ base: 270 }}>
                         <Navbar.Section>
                             <Box
@@ -197,8 +196,8 @@ const Layout: FC<MetaDataProps> = ({
                             <p className="m-0">Copyrights CIPHER</p>
                         </Navbar.Section> */}
                     </Navbar>
-                </div>
-            )}
+                )}
+            </div>
         </>
     );
 };

@@ -5,6 +5,7 @@ import { useGetNotification } from "hooks/Notifications/use-notification";
 import Link from "next/link";
 import React from "react";
 import { Container } from "react-bootstrap";
+import { axiosClient } from "utils/axiosClient";
 
 import { PostNotifyTask } from "./PostedTask";
 
@@ -35,7 +36,7 @@ export default function GetNotifications() {
     //         );
     //     });
     // }
-    const { data: allNotifications } = useGetNotification();
+    const { data: allNotifications, refetch } = useGetNotification();
     const allNotify = allNotifications ? allNotifications.result : [];
     const queryClient = new QueryClient();
 
@@ -115,7 +116,22 @@ export default function GetNotifications() {
                         <h4>Today</h4>
 
                         <Link href="">
-                            <a>Mark all as read</a>
+                            <a
+                                onClick={async () => {
+                                    const response = await axiosClient.get(
+                                        "/notification/read/"
+                                    );
+                                    if (response.status === 200) {
+                                        refetch();
+                                        // await queryClient.invalidateQueries([
+                                        //     "notification",
+                                        // ]);
+                                    }
+                                    // queryClient.invalidateQueries(["notification"]);
+                                }}
+                            >
+                                Mark all as read
+                            </a>
                         </Link>
                     </div>
                     {allNotifications?.result.length === 0 && (

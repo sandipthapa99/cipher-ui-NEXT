@@ -32,7 +32,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import Headroom from "react-headroom";
 import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";

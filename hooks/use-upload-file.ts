@@ -4,7 +4,7 @@ import { axiosClient } from "utils/axiosClient";
 
 export interface UploadFilePayload {
     files: File | File[] | string;
-    media_type: "image" | "video" | "pdf";
+    media_type?: "image" | "video" | "pdf";
     url?: string;
     placeholder?: string;
 }

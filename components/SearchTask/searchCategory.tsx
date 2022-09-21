@@ -1,4 +1,4 @@
-import { useServiceCategories } from "@components/Task/PostTaskModal/TaskCategory";
+// import { useServiceCategories } from "@components/Task/PostTaskModal/TaskCategory";
 import {
     faCity,
     faClose,
@@ -13,13 +13,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { Button } from "@mantine/core";
 import { Box, createStyles, Select, TextInput } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import { useQuery } from "@tanstack/react-query";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useTaskers } from "hooks/tasker/use-tasker";
 import { useCities } from "hooks/use-cities";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { axiosClient } from "utils/axiosClient";
 
 type SearchModal = "task" | "tasker" | "service";
 interface SearchCategoryProps {
@@ -27,6 +28,14 @@ interface SearchCategoryProps {
     onSearchParamChange: (searchParam: string) => void;
     onFilterClear: () => void;
 }
+
+export interface ServiceCategory {
+    id: number;
+    name: string;
+    slug: string;
+    icon: string;
+}
+
 export const SearchCategory = ({
     searchModal,
     onSearchParamChange,
@@ -35,17 +44,17 @@ export const SearchCategory = ({
     const { classes } = useStyles();
     const [params, setParams] = useState<Record<string, string> | undefined>();
     const [cityQuery, setCityQuery] = useState("");
-    const { data: categories = [] } = useServiceCategories();
+    // const { data: categories = [] } = useServiceCategories();
     const { data: cities } = useCities(cityQuery);
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
     const { data: taskers } = useTaskers();
 
-    const categoriesData: SelectItem[] = categories.map((category) => ({
-        id: category.id,
-        label: category.label,
-        value: category.slug,
-    }));
+    // const categoriesData: SelectItem[] = categories.map((category) => ({
+    //     id: category.id,
+    //     label: category.name,
+    //     value: category.slug,
+    // }));
     const citiesData: SelectItem[] = cities.map((city) => ({
         id: city.id,
         label: city.name,
@@ -77,13 +86,14 @@ export const SearchCategory = ({
             value: "-budget_to",
         },
     ];
-    const taskersData: SelectItem[] = taskers
-        ? Object.keys(taskers[0]).map((key, index) => ({
-              id: index,
-              label: key,
-              value: key,
-          }))
-        : [];
+    const taskersData: SelectItem[] =
+        taskers && taskers?.length > 0
+            ? Object.keys(taskers[0]).map((key, index) => ({
+                  id: index,
+                  label: key,
+                  value: key,
+              }))
+            : [];
 
     const onSelectChange = (key: string, value: string | null) => {
         if (!value) return;
@@ -105,6 +115,17 @@ export const SearchCategory = ({
         setParams(undefined);
         onFilterClear();
     };
+    const handleSearchChange = (search: string) => {
+        if (params && !search && Object.keys(params).length === 1) {
+            setParams(undefined);
+            onFilterClear();
+            return;
+        }
+        setParams((previousParams) => ({
+            ...previousParams,
+            search,
+        }));
+    };
 
     useEffect(() => {
         if (!params) return;
@@ -124,7 +145,7 @@ export const SearchCategory = ({
                     icon={<FontAwesomeIcon icon={faSearch} />}
                     placeholder="Enter a search keyword"
                     onChange={(event) =>
-                        onSelectChange("search", event.currentTarget.value)
+                        handleSearchChange(event.currentTarget.value)
                     }
                 />
             </Col>
@@ -146,7 +167,7 @@ export const SearchCategory = ({
                     )}
                     {(searchModal === "task" || searchModal === "service") && (
                         <>
-                            <Select
+                            {/* <Select
                                 clearable
                                 searchable
                                 icon={<FontAwesomeIcon icon={faGrid2} />}
@@ -156,7 +177,7 @@ export const SearchCategory = ({
                                 onChange={(value) =>
                                     onSelectChange("category", value)
                                 }
-                            />
+                            /> */}
                             <Select
                                 clearable
                                 searchable
