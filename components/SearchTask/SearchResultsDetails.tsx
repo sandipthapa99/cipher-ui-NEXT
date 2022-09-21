@@ -45,6 +45,7 @@ import { useSetBookNowDetails } from "store/use-book-now";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
+import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
@@ -70,7 +71,7 @@ const SearchResultsDetail = ({
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const setBookNowDetails = useSetBookNowDetails();
+    // const setBookNowDetails = useSetBookNowDetails();
     const reviewsContent = getReviews();
     const queryClient = useQueryClient();
 
@@ -163,8 +164,6 @@ const SearchResultsDetail = ({
     );
 
     const [editModal, setEditModal] = useState(false);
-    const [deleteModal, setDeleteModal] = useState(false);
-    const [inactiveModal, setInactiveModal] = useState(false);
 
     const isServiceBookmarked = useIsBookmarked("service", String(serviceId));
 
@@ -224,6 +223,19 @@ const SearchResultsDetail = ({
         });
     };
 
+    // const confirmInactive = () => {
+    //     editServiceMutation({ id: serviceId, data: { is_active: false } }),
+    //         {
+    //             onSuccess: async () => {
+    //                 toast.success("Successfully inactivated service");
+    //                 router.push({ pathname: "/service" });
+    //             },
+    //             onError: (error: any) => {
+    //                 toast.error(error.message);
+    //             },
+    //         };
+    // };
+
     const handleDelete = () =>
         openConfirmModal({
             title: "Delete this service",
@@ -238,9 +250,20 @@ const SearchResultsDetail = ({
             onConfirm: () => confirmDelete(),
         });
 
-    const handleInactive = () => {
-        console.log("Inactive button clicked");
-    };
+    // const handleInactive = () => {
+    //     openConfirmModal({
+    //         title: "Inactive this service",
+    //         centered: true,
+    //         children: (
+    //             <Text size="sm">
+    //                 Are you sure you want to inactive this service?
+    //             </Text>
+    //         ),
+    //         labels: { confirm: "Inactive", cancel: "Cancel" },
+    //         confirmProps: { color: "red" },
+    //         onConfirm: () => confirmInactive(),
+    //     });
+    // };
 
     return (
         <div className="aside-detail-wrapper">
@@ -289,7 +312,6 @@ const SearchResultsDetail = ({
                                 <EllipsisDropdownService
                                     handleEdit={handleEdit}
                                     handleDelete={handleDelete}
-                                    handleInactive={handleInactive}
                                 >
                                     <FontAwesomeIcon
                                         icon={faEllipsisVertical}
@@ -703,11 +725,13 @@ const SearchResultsDetail = ({
                     handleClose={handleClose}
                     setShow={() => setShow(false)}
                 />
-                <EditService
-                    showEditModal={editModal}
-                    handleClose={() => setEditModal(false)}
-                    serviceDetail={service}
-                />
+                {service && (
+                    <EditService
+                        showEditModal={editModal}
+                        handleClose={() => setEditModal(false)}
+                        serviceDetail={service}
+                    />
+                )}
             </div>
         </div>
     );
