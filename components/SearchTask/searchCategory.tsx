@@ -4,7 +4,6 @@ import {
     faClose,
     faDollarSign,
     faGlobe,
-    faGrid2,
     faLanguage,
     faSearch,
     faSort,
@@ -13,14 +12,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { Button } from "@mantine/core";
 import { Box, createStyles, Select, TextInput } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useCities } from "hooks/use-cities";
 import type { ChangeEvent } from "react";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { axiosClient } from "utils/axiosClient";
 
 type SearchModal = "task" | "tasker" | "service";
 interface SearchCategoryProps {

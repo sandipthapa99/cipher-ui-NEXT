@@ -13,6 +13,9 @@ import type { DropzoneProps } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
+import type { Media } from "types/task";
+import { isImage } from "utils/isImage";
+import { isVideo } from "utils/isVideo";
 
 const FILE_PLACEHOLDER_IMAGES = {
     pdf: "/userprofile/pdf.svg",
@@ -30,6 +33,8 @@ export interface CustomDropZoneProps
     previewImageHeight?: number;
     fileType?: FileType;
     onDrop?: (image: File[]) => void;
+    uploadedFiles?: Media[];
+    onRemoveUploadedFiles?: (remainingFileIds: number[]) => void;
 }
 export interface PreviewFilesProps {
     files: {
@@ -39,6 +44,7 @@ export interface PreviewFilesProps {
     }[];
     onFileRemove: (fileName: string) => void;
     isVideo?: boolean;
+    uploadedFiles?: [];
 }
 
 const convertToMB = (value: number) => {
@@ -53,9 +59,12 @@ export const CustomDropZone = ({
     previewImageHeight,
     fileType,
     onDrop,
+    uploadedFiles,
+    onRemoveUploadedFiles,
     ...rest
 }: CustomDropZoneProps) => {
     const [files, setFiles] = useState<File[]>([]);
+    const [previewFiles, setPreviewFiles] = useState(() => uploadedFiles ?? []);
     const previewVideos = useMemo(() => {
         const videoFiles = files.filter((file) => file.type.includes("video"));
         return videoFiles.map((file) => ({
@@ -73,6 +82,22 @@ export const CustomDropZone = ({
             })),
         [files]
     );
+
+    const previewUploadedImages = (previewFiles ?? [])
+        .filter((file) => isImage(file.media_type))
+        .map((file) => ({
+            name: file.name,
+            size: convertToMB(file.size),
+            url: file.media,
+        }));
+    const previewUploadedVideos = (previewFiles ?? [])
+        .filter((file) => isVideo(file.media_type))
+        .map((file) => ({
+            name: file.name,
+            size: convertToMB(file.size),
+            url: file.media,
+        }));
+
     const dropzoneRef = useRef<HTMLDivElement | null>(null);
     const { classes } = useStyles();
 
@@ -94,9 +119,26 @@ export const CustomDropZone = ({
             currentFiles.filter((file) => file.name !== fileName)
         );
     };
+    const handleRemoveUploadedFile = (fileName: string) => {
+        setPreviewFiles((previousPreviewFiles) => {
+            const updatedPreviewFiles = previousPreviewFiles.filter(
+                (file) => file.name !== fileName
+            );
+            const remainingFileIds = updatedPreviewFiles.map((file) => file.id);
+            onRemoveUploadedFiles?.(remainingFileIds);
+            return updatedPreviewFiles;
+        });
+    };
+
     return (
         <div onClick={focusDropzone} className={classes.dropzoneContainer}>
-            {previewVideos.length > 0 ? (
+            {previewUploadedImages && (
+                <PreviewFiles
+                    files={previewUploadedImages}
+                    onFileRemove={handleRemoveUploadedFile}
+                />
+            )}
+            {previewVideos.length > 0 || previewUploadedVideos.length > 0 ? (
                 <PreviewFiles
                     isVideo
                     files={previewVideos}
@@ -176,8 +218,8 @@ const PreviewFiles = ({
                         ) : (
                             <Image
                                 src={file.url}
-                                width={"100%"}
-                                height="100%"
+                                width={"80%"}
+                                height="80%"
                                 objectFit="cover"
                                 className={classes.preview}
                                 alt={`Preview image ${index}`}

@@ -30,7 +30,7 @@ import { usePostTask } from "hooks/task/use-post-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useEditTaskDetail } from "store/use-edit-task";
@@ -40,7 +40,6 @@ import {
     useToggleShowPostTaskModal,
 } from "store/use-show-post-task";
 import { useToggleSuccessModal } from "store/use-success-modal";
-import type { ITask } from "types/task";
 
 export interface PostTaskPayload {
     title: string;
@@ -88,8 +87,21 @@ export const PostTaskModal = () => {
         showPostTaskModalType === "EDIT" ? editTaskDetail : undefined;
 
     const [termsAccepted, setTermsAccepted] = useState(true);
+
+    const getInitialImageIds = useCallback(
+        () => (editTaskDetail?.images ?? []).map((image) => image.id),
+        [editTaskDetail?.images]
+    );
+
+    const [initialImageIds, setInitialImageIds] = useState<number[]>(() =>
+        getInitialImageIds()
+    );
     const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
+
+    useEffect(() => {
+        setInitialImageIds(getInitialImageIds());
+    }, [editTaskDetail, getInitialImageIds, taskDetail]);
 
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
@@ -126,14 +138,17 @@ export const PostTaskModal = () => {
                 );
                 return;
             }
-            const imageIds = await uploadFileMutation({
+            const uploadedImageIds = await uploadFileMutation({
                 files: values.images,
                 media_type: "image",
             });
-            const videoIds = await uploadFileMutation({
+            const uploadedVideoIds = await uploadFileMutation({
                 files: values.videos,
                 media_type: "video",
             });
+            const imageIds = [...uploadedImageIds, ...initialImageIds];
+            const videoIds = [...uploadedVideoIds];
+
             const postTaskPayload = {
                 ...values,
                 images: imageIds,
@@ -158,7 +173,7 @@ export const PostTaskModal = () => {
                 return;
             }
             createTaskMutation(postTaskPayload, {
-                onSuccess: async ({ message }) => {
+                onSuccess: async () => {
                     handleCloseModal();
                     action.resetForm();
                     toggleSuccessModal();
@@ -174,14 +189,8 @@ export const PostTaskModal = () => {
         },
     });
 
-    const {
-        getFieldProps,
-        handleSubmit,
-        touched,
-        errors,
-        values,
-        setFieldValue,
-    } = formik;
+    const { getFieldProps, handleSubmit, touched, errors, setFieldValue } =
+        formik;
     const getFieldError = (key: keyof PostTaskPayload) =>
         touched[key] && errors[key] ? (errors[key] as string) : null;
 
@@ -304,6 +313,7 @@ export const PostTaskModal = () => {
                                 </Text>
                                 <CustomDropZone
                                     accept={IMAGE_MIME_TYPE}
+                                    uploadedFiles={taskDetail?.images ?? []}
                                     fileType="image"
                                     sx={{ maxWidth: "30rem" }}
                                     name="task-image"
@@ -320,8 +330,10 @@ export const PostTaskModal = () => {
                                 </Text>
                                 <CustomDropZone
                                     accept={[MIME_TYPES.mp4]}
+                                    uploadedFiles={taskDetail?.videos ?? []}
                                     fileType="video"
                                     name="task-video"
+                                    onRemoveUploadedFiles={setInitialImageIds}
                                     onDrop={(videos) =>
                                         setFieldValue("videos", videos)
                                     }
