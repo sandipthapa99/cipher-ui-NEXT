@@ -1,5 +1,7 @@
 import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
+import EllipsisDropdown from "@components/common/EllipsisDropdown";
+import EllipsisDropdownService from "@components/common/EllipsisDropdownService";
 import { FilterReview } from "@components/common/FilterReview";
 import PackageOffersCard from "@components/common/packageCard";
 import SaveIcon from "@components/common/SaveIcon";
@@ -7,6 +9,8 @@ import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
 import UserActivities from "@components/Profile/Activities";
+import { EditService } from "@components/services/EditService";
+import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faCalendar,
     faChevronLeft,
@@ -19,14 +23,18 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
+import { Button, Text } from "@mantine/core";
 import { Alert, Highlight, Spoiler } from "@mantine/core";
+import { openConfirmModal } from "@mantine/modals";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useGetMyBookings } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
+import { useDeleteData } from "hooks/use-delete";
 import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,6 +47,7 @@ import { useSetBookNowDetails } from "store/use-book-now";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
+import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
@@ -55,6 +64,7 @@ const SearchResultsDetail = ({
     serviceTitle,
     highlights,
     serviceId,
+    serviceProviderId,
     serviceCreated,
     serviceViews,
     currency,
@@ -63,9 +73,10 @@ const SearchResultsDetail = ({
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
-    const setBookNowDetails = useSetBookNowDetails();
+    // const setBookNowDetails = useSetBookNowDetails();
     const reviewsContent = getReviews();
     const queryClient = useQueryClient();
+    const { data: profile } = useGetProfile();
 
     const taskVideosAndImages = [
         ...(service?.images ?? []),
@@ -140,6 +151,8 @@ const SearchResultsDetail = ({
     }>(["my-service-packages"], "/task/service-package/");
 
     const { data: user } = useUser();
+
+    const { mutate } = useDeleteData(`/task/entity/service/${serviceId}/`);
     const withLogin = useWithLogin();
     const router = useRouter();
     const { data: myBookings, error } = useGetMyBookings(serviceId);
@@ -153,16 +166,11 @@ const SearchResultsDetail = ({
             String(getSingleService?.[0].id) === servicePackage?.service?.id
     );
 
+    const [editModal, setEditModal] = useState(false);
+
     const isServiceBookmarked = useIsBookmarked("service", String(serviceId));
 
-    // const myServiceBookings = myBookings?.result.filter(
-    //     (item) => item?.entity_service?.id === serviceId
-    // );
-    // console.log("is servic", serviceId);
-    console.log("is service booked", myBookings);
-    // const activeBookings = myBookings?.result.filter(
-    //     (item) => item?.is_active === true
-    // );
+    const isUserService = user ? serviceProviderId === user?.id : false;
 
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
@@ -170,8 +178,8 @@ const SearchResultsDetail = ({
                 <MyBookingsCard
                     bookingId={item?.id}
                     collabButton={false}
-                    image={item?.entity_service?.created_by?.profile_image}
-                    name={item?.entity_service?.created_by?.full_name}
+                    image={item?.created_by?.profile_image}
+                    name={`${item?.created_by?.user?.first_name} ${item?.created_by?.user?.last_name}`}
                     speciality={item?.created_by?.user_type}
                     rating={item?.created_by?.rating?.user_rating_count}
                     happyClients={item?.created_by?.stats?.happy_clients}
@@ -200,6 +208,77 @@ const SearchResultsDetail = ({
         toast.success(
             "You have 100 Morbillion applicants for this service.Congrats!!"
         );
+    };
+
+    const handleEdit = () => {
+        setEditModal(true);
+    };
+
+    const confirmDelete = () => {
+        mutate(serviceId, {
+            onSuccess: async () => {
+                toast.success("service deleted successfully");
+                router.push({ pathname: "/service" });
+            },
+            onError: (error) => {
+                toast.error(error?.message);
+            },
+        });
+    };
+
+    // const confirmInactive = () => {
+    //     editServiceMutation({ id: serviceId, data: { is_active: false } }),
+    //         {
+    //             onSuccess: async () => {
+    //                 toast.success("Successfully inactivated service");
+    //                 router.push({ pathname: "/service" });
+    //             },
+    //             onError: (error: any) => {
+    //                 toast.error(error.message);
+    //             },
+    //         };
+    // };
+
+    const handleDelete = () =>
+        openConfirmModal({
+            title: "Delete this service",
+            centered: true,
+            children: (
+                <Text size="sm">
+                    Are you sure you want to delete this service?
+                </Text>
+            ),
+            labels: { confirm: "Delete", cancel: "Cancel" },
+            confirmProps: { color: "red" },
+            onConfirm: () => confirmDelete(),
+        });
+
+    // const handleInactive = () => {
+    //     openConfirmModal({
+    //         title: "Inactive this service",
+    //         centered: true,
+    //         children: (
+    //             <Text size="sm">
+    //                 Are you sure you want to inactive this service?
+    //             </Text>
+    //         ),
+    //         labels: { confirm: "Inactive", cancel: "Cancel" },
+    //         confirmProps: { color: "red" },
+    //         onConfirm: () => confirmInactive(),
+    //     });
+    // };
+    const handleClickBookNow = () => {
+        if (!profile) {
+            toast.error(
+                <ProfileNotCompleteToast text="Please complete your profile before booking a service." />,
+                {
+                    icon: false,
+                    autoClose: false,
+                }
+            );
+            return;
+        }
+        withLogin(() => setShow(true));
     };
 
     return (
@@ -244,10 +323,18 @@ const SearchResultsDetail = ({
                                 />
                                 <span className="name">Share</span>
                             </div>
-                            <FontAwesomeIcon
-                                icon={faEllipsisVertical}
-                                className="svg-icon option"
-                            />
+
+                            {isUserService && (
+                                <EllipsisDropdownService
+                                    handleEdit={handleEdit}
+                                    handleDelete={handleDelete}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faEllipsisVertical}
+                                        className="svg-icon option"
+                                    />
+                                </EllipsisDropdownService>
+                            )}
                         </div>
                     </div>
                 </Row>
@@ -393,7 +480,7 @@ const SearchResultsDetail = ({
                                 <CardBtn
                                     btnTitle="Book Now"
                                     backgroundColor="#211D4F"
-                                    handleClick={withLogin(() => setShow(true))}
+                                    handleClick={() => handleClickBookNow()}
                                 />
                             )}
                         </div>
@@ -555,28 +642,34 @@ const SearchResultsDetail = ({
 
                                     content: (
                                         <Row>
-                                            {renderBookedClients}
-                                            <Alert
-                                                icon={
-                                                    <FontAwesomeIcon
-                                                        icon={faWarning}
-                                                    />
-                                                }
-                                                title={
-                                                    myBookings?.result
-                                                        .length === 0
-                                                        ? "No Applicants Available!"
-                                                        : "No data Available!"
-                                                }
-                                                color={
-                                                    myBookings?.result
-                                                        .length === 0
-                                                        ? "orange"
-                                                        : "red"
-                                                }
-                                            >
-                                                {""}
-                                            </Alert>
+                                            <>
+                                                {renderBookedClients}
+                                                {(myBookings?.result.length ===
+                                                    0 ||
+                                                    error) && (
+                                                    <Alert
+                                                        icon={
+                                                            <FontAwesomeIcon
+                                                                icon={faWarning}
+                                                            />
+                                                        }
+                                                        title={
+                                                            myBookings?.result
+                                                                .length === 0
+                                                                ? "No Applicants Available!"
+                                                                : "No data Available!"
+                                                        }
+                                                        color={
+                                                            myBookings?.result
+                                                                .length === 0
+                                                                ? "orange"
+                                                                : "red"
+                                                        }
+                                                    >
+                                                        {" "}
+                                                    </Alert>
+                                                )}
+                                            </>
                                         </Row>
                                     ),
                                 },
@@ -648,6 +741,13 @@ const SearchResultsDetail = ({
                     handleClose={handleClose}
                     setShow={() => setShow(false)}
                 />
+                {service && (
+                    <EditService
+                        showEditModal={editModal}
+                        handleClose={() => setEditModal(false)}
+                        serviceDetail={service}
+                    />
+                )}
             </div>
         </div>
     );

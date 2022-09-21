@@ -1,0 +1,58 @@
+.alloffers {
+    &__container {
+        @include respond(xs) {
+            gap: 2rem;
+        }
+    }
+}
+
+.offer-card {
+    &__title {
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        /* identical to box height, or 150% */
+
+        color: #2d2d66;
+        span {
+            color: #fbc640;
+        }
+    }
+
+    .coupon-wrapper {
+        p {
+            text-align: center;
+            font-weight: 400;
+            font-size: 14px;
+            /* identical to box height, or 171% */
+            color: #f8faff;
+        }
+    }
+
+    .description {
+        /* Body2 (Regular)_SubTitle */
+
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        margin: 0 !important;
+        /* identical to box height, or 157% */
+
+        color: #495057;
+    }
+
+    .footer {
+        .view {
+            font-family: "Poppins";
+            font-style: normal;
+            font-weight: 400;
+            font-size: 10px;
+            line-height: 22px;
+            /* identical to box height, or 220% */
+
+            color: #3eaeff;
+        }
+    }
+}

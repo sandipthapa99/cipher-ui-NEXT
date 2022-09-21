@@ -421,13 +421,13 @@ small.text-muted {
 
 .section-main-title {
     font-size: 2.4rem;
-    margin: 0 0 2rem;
+    margin: 0 0 1.4rem;
     display: flex;
     justify-content: center;
     font-weight: 500;
     @include respond(md) {
         font-size: 4rem;
-        margin: 0 0 2.4rem;
+        margin: 0 0 1.4rem;
     }
 }
 .section-sub-title {
@@ -660,6 +660,7 @@ small.text-muted {
     position: relative;
     @include respond(md) {
         position: sticky;
+        right: 0;
         top: 15rem;
     }
 }

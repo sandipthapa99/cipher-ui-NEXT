@@ -14,7 +14,7 @@ const CategoriesPage: NextPage<{
 }> = ({ nestedCategoriesData }) => {
     return (
         <Layout title="Categories | Cipher">
-            <Container fluid="xl">
+            <Container fluid="xl" className="px-5">
                 <h2 className="all-categories-title">Cipher Categories</h2>
                 {/* <div className="d-flex justify-content-center all-categories">
                     {categories.map((category, index) => (

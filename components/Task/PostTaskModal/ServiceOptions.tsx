@@ -37,12 +37,7 @@ export const ServiceOptions = ({
 }: TaskCategoryProps) => {
     // const [query, setQuery] = useState("");
 
-    console.log("adfhjdfd rest", rest.data);
     const { data: serviceOptions = [] } = useServiceOptions();
-    console.log(
-        "🚀 ~ file: ServiceOptions.tsx ~ line 44 ~ serviceOptions",
-        serviceOptions
-    );
 
     const [service, setService] = useState(() => value);
     const handleServiceChange = (selectedService: string | null) => {

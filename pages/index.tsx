@@ -78,10 +78,13 @@ const Home: NextPage<{
             loginPopup;
         }
         if (!profile) {
-            toast.error(<ProfileNotCompleteToast />, {
-                icon: false,
-                autoClose: false,
-            });
+            toast.error(
+                <ProfileNotCompleteToast text="Please create your profile to go on further." />,
+                {
+                    icon: false,
+                    autoClose: false,
+                }
+            );
             return;
         }
         toggleShowPostTaskModal();
@@ -251,7 +254,7 @@ const Home: NextPage<{
             {/* Popular verified services section start */}
             <section id="services-near-you" className="services-near-you">
                 <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline mt-5">
                         {servicesData && servicesData?.result?.length > 0 && (
                             <>
                                 <h2 className="heading-title">
@@ -465,7 +468,7 @@ const Home: NextPage<{
             {/* Get services section end */}
 
             {/* Find & Hire section start */}
-            <section id="find-hire" className="find-hire">
+            <section id="find-hire" className="find-hire mt-4">
                 <Container fluid="xl" className="px-5">
                     <h1 className="section-main-title">Find &amp; Hire</h1>
                     <h2 className="section-sub-title">Get those work done.</h2>
@@ -640,15 +643,16 @@ const Home: NextPage<{
             {/* Tasks you may like section end */}
 
             {/* some success stories sectioin start */}
-            <section
+
+            {/*<section
                 id="some-success-stories-section"
                 className="some-success-stories-section"
             >
                 <Container fluid="xl" className="px-5">
                     <div className="success-sroties-header">
-                        {/* <h1 className="text-center">
+                        <h1 className="text-center">
                             3003,0330 Taskers have earned an income on Cipher
-                        </h1> */}
+                        </h1>
                         <h3 className="text-center">CIPHER Stories</h3>
                     </div>
                     {topCategoryData?.length <= 0 && (
@@ -687,7 +691,7 @@ const Home: NextPage<{
                             ))}
                     </Carousel>
                 </Container>
-            </section>
+            </section>*/}
 
             {/* Notable quality section starts  */}
             <section id="notable-quality" className="notable-quality">

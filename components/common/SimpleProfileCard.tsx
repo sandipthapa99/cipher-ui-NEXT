@@ -1,7 +1,9 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
+import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useAppliedTasks } from "hooks/task/use-applied-tasks";
 import { useGetMyAppliedTasks } from "hooks/task/use-get-service-booking";
 import { useLeaveTask } from "hooks/task/use-leave-task";
@@ -27,8 +29,11 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     //     appliedTasks
     // );
 
+    const { data: profile } = useGetProfile();
+
     const appliedTask = appliedTasks?.result.find(
-        (appliedTask) => appliedTask.entity_service.id.toString() === task.id
+        (appliedTask: any) =>
+            appliedTask?.task === task.id && appliedTask.is_active
     );
     // console.log(
     //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 29 ~ SimpleProfileCard ~ appliedTask",
@@ -69,6 +74,19 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
 
     const handleViewApplicants = () => {
         toast.success("You have no applicants yet.");
+    };
+    const handleShowApplyModal = () => {
+        if (!profile) {
+            toast.error(
+                <ProfileNotCompleteToast text="Please complete your profile before applying a task." />,
+                {
+                    icon: false,
+                    autoClose: false,
+                }
+            );
+            return;
+        }
+        withLogin(() => setShowModal(true));
     };
     return (
         <div className="simple-card my-5 my-lg-0 ">
@@ -138,7 +156,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                     <>
                         <span>Budget Range</span>
                         <span className="text-right price">
-                            {task?.currency?.code}
+                            {task?.currency?.symbol}
                             {task?.budget_from} - {task?.budget_to}
                             {task?.budget_type === "Hourly"
                                 ? "/hr"
@@ -151,7 +169,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                     <>
                         <span>Budget</span>
                         <span className="text-right price">
-                            {`${task?.currency?.code ?? ""} ${
+                            {`${task?.currency?.symbol ?? ""} ${
                                 task?.budget_to
                             } / ${task?.budget_type}`}
                         </span>

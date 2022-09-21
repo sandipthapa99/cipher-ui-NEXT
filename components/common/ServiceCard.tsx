@@ -24,10 +24,6 @@ const ServiceCard = ({
 }: {
     serviceCard: ServicesValueProps["result"][0];
 }) => {
-    console.log(
-        "🚀 ~ file: ServiceCard.tsx ~ line 27 ~ serviceCard",
-        serviceCard
-    );
     const router = useRouter();
     const { data: profileDetails } = useGetProfile();
 
@@ -127,10 +123,9 @@ const ServiceCard = ({
                         <Link href={`/tasker/${serviceCard?.created_by?.id}`}>
                             <a>
                                 <span>
-                                    {serviceCard?.created_by?.full_name ===
-                                    "None None"
+                                    {serviceCard?.created_by?.first_name === ""
                                         ? "Cipher"
-                                        : serviceCard?.created_by?.full_name}
+                                        : ` ${serviceCard?.created_by?.first_name} ${serviceCard?.created_by?.last_name}`}
                                 </span>{" "}
                             </a>
                         </Link>
@@ -158,7 +153,7 @@ const ServiceCard = ({
                                 TOBE_IMP
                             </p>
                             <p className="price">
-                                {serviceCard?.currency?.code + " "}
+                                {serviceCard?.currency?.symbol + " "}
                                 {serviceCard?.budget_from}
                                 {serviceCard?.budget_to &&
                                     " - " + serviceCard?.budget_to}

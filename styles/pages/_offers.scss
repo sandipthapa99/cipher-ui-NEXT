@@ -1,0 +1,47 @@
+.offers {
+    .breadcrumb-section {
+        .breadcrumb {
+            gap: 1rem;
+        }
+    }
+
+    .dashain {
+        .offer-img {
+        }
+    }
+
+    .offer-wrapper {
+        @include respond(xs) {
+            flex-direction: column;
+        }
+    }
+    .recommend {
+        h2 {
+            font-family: "Poppins";
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 30px;
+            color: #000000;
+        }
+
+        &__container {
+            @include respond(xs) {
+                gap: 1rem;
+            }
+        }
+    }
+
+    .tab-wrapper {
+        margin-top: 2rem;
+        .custom-tab__headers {
+            width: 68%;
+            @include respond(xs) {
+                width: 100%;
+            }
+        }
+        .custom-tab__headers::before {
+            display: none;
+        }
+    }
+}

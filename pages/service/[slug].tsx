@@ -23,7 +23,11 @@ const ServicesDetail = ({
                     budget_from={service?.budget_from}
                     budget_to={service?.budget_to}
                     budget_type={service?.budget_type}
-                    serviceProvider={service?.created_by?.full_name ?? ""}
+                    serviceProvider={
+                        `${service?.created_by?.first_name} ${service?.created_by?.last_name}` ??
+                        ""
+                    }
+                    serviceProviderId={service?.created_by?.id ?? ""}
                     serviceProviderLocation={service?.location ?? ""}
                     serviceDescription={service?.description ?? ""}
                     serviceRating={"service?.success_rate ?? 0"}
@@ -38,7 +42,7 @@ const ServicesDetail = ({
                     serviceCreated={service?.created_at}
                     serviceViews={service?.views_count}
                     serviceId={service?.id}
-                    currency={service?.currency?.code}
+                    currency={service?.currency?.symbol}
                     ProfileImage={service?.created_by?.profile_image}
                     service={service}
                 />

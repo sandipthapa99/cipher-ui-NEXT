@@ -87,11 +87,13 @@ const ProfileEditForm = ({
                     <h3>Edit Profile</h3>
                     <Formik
                         initialValues={{
-                            full_name: profile?.full_name ?? "",
+                            first_name: profile?.user?.first_name ?? "",
+                            middle_name: profile?.user?.middle_name ?? "",
+                            last_name: profile?.user?.last_name ?? "",
                             bio: profile?.bio ?? "",
-                            phone:
-                                profile?.phone ??
-                                Math.floor(Math.random() * 1000000000),
+                            // phone:
+                            //     profile?.phone ??
+                            //     Math.floor(Math.random() * 1000000000),
                             address_line1: profile?.address_line1 ?? "",
                             address_line2: profile?.address_line2 ?? "",
                             active_hour_start:
@@ -123,12 +125,44 @@ const ProfileEditForm = ({
                         {({ isSubmitting, errors, touched, values }) => (
                             <Form>
                                 {/* <pre>{JSON.stringify(values, null, 4)}</pre>; */}
+                                <Row>
+                                    <Col md={4}>
+                                        <InputField
+                                            type="text"
+                                            name="first_name"
+                                            labelName=" First Name"
+                                            error={errors.first_name}
+                                            touch={touched.first_name}
+                                            placeHolder="Enter your first name"
+                                        />
+                                    </Col>
+                                    <Col md={4}>
+                                        <InputField
+                                            type="text"
+                                            name="middle_name"
+                                            labelName="Middle Name"
+                                            error={errors.middle_name}
+                                            touch={touched.middle_name}
+                                            placeHolder="Enter your middle name"
+                                        />
+                                    </Col>
+                                    <Col md={4}>
+                                        <InputField
+                                            type="text"
+                                            name="last_name"
+                                            labelName="Last Name"
+                                            error={errors.last_name}
+                                            touch={touched.last_name}
+                                            placeHolder="Enter your last name"
+                                        />
+                                    </Col>
+                                </Row>
                                 <InputField
                                     type="text"
-                                    name="full_name"
+                                    name="first_name"
                                     labelName="Name"
-                                    error={errors.full_name}
-                                    touch={touched.full_name}
+                                    error={errors.first_name}
+                                    touch={touched.first_name}
                                     placeHolder="Enter your name"
                                 />
                                 <InputField
@@ -139,7 +173,7 @@ const ProfileEditForm = ({
                                     placeHolder="Enter your bio"
                                     as="textarea"
                                 />
-                                <Row className="g-5">
+                                {/* <Row className="g-5">
                                     <Col md={6}>
                                         <PhoneNumberInput
                                             name={"phone"}
@@ -149,7 +183,7 @@ const ProfileEditForm = ({
                                             error={errors.phone}
                                         />
                                     </Col>
-                                </Row>
+                                </Row> */}
                                 <InputField
                                     type="text"
                                     name="address_line1"

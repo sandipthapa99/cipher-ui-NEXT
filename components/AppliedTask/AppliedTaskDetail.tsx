@@ -256,7 +256,11 @@ const AppliedTaskDetail = ({
                         {taskDetail && (
                             <SimpleProfileCard
                                 task={taskDetail}
-                                onApply={() => setShowModal(false)}
+                                onApply={() => {
+                                    console.log("onApply");
+
+                                    //setShowModal(false);
+                                }}
                             />
                         )}
                     </Col>

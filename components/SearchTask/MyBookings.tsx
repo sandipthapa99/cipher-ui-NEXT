@@ -189,6 +189,7 @@ export const MyBookingsCard = ({
                                             queryClient.invalidateQueries([
                                                 "get-my-bookings",
                                             ]);
+                                            router.push("/home");
                                         },
                                         onError: (error: any) => {
                                             console.log(error);

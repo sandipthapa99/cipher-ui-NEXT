@@ -2,7 +2,7 @@ import type { CreditCardContent } from "staticData/creditCardContent";
 import type { AccountValueProps } from "types/accountValueProps";
 import type { ApplyFormValueProps } from "types/applyFormValueProps";
 import type { ApplyValueProps } from "types/applyValueProps";
-import type { BankDetailProps } from "types/bankDetail";
+import type { BankDetailProps, BankPostDetailProps } from "types/bankDetail";
 import type { BookNowFormProps } from "types/bookNow";
 import type { CertificationValueProps } from "types/certificationValueProps";
 import type { changePasswordValueProps } from "types/changePasswordValueProps";
@@ -12,7 +12,6 @@ import type { AddPortfolioProps, AddSkills } from "types/editProfile";
 import type { EducationValueProps } from "types/educationValueProps";
 import type { EquipmentValueProps } from "types/equipmentValueProps";
 import type { ExperienceValueProps } from "types/experienceValueProps";
-import type { KYCFormProps } from "types/kycFormProps";
 import type { LoginValuesProps } from "types/login";
 import type { PostTaskProps } from "types/postTaskData";
 import type { ProfileEditValueProps } from "types/ProfileEditValueProps";
@@ -45,6 +44,7 @@ export const ApplyFormData: ApplyValueProps = {
     price: "",
     remarks: "",
     prerequesties: [],
+    recursion: "",
 };
 
 //Equipment form data
@@ -293,10 +293,10 @@ export const ServicePostData: ServicePostProps = {
     imagePreviewUrl: [],
 };
 
-export const BankFormData: BankDetailProps = {
+export const BankFormData: BankPostDetailProps = {
     bank_account_name: "",
-    address: "",
     branch_name: "",
+    bank_name: "",
     bank_account_number: "",
     is_primary: false,
 };

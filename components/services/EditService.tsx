@@ -66,7 +66,6 @@ export const EditService = ({
     handleClose,
     serviceDetail,
 }: EditServiceProps) => {
-    console.log("serviceDetail", serviceDetail);
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate: editServiceMutation, isLoading: editServiceLoading } =
         useEditService();
@@ -152,8 +151,6 @@ export const EditService = ({
 
     const getFieldError = (key: keyof EditServicePayload) =>
         touched[key] && errors[key] ? (errors[key] as string) : null;
-
-    console.log("sakjkajskldjfkljalksj", serviceDetail?.service);
 
     return (
         <div className="edit-service-wrapper">

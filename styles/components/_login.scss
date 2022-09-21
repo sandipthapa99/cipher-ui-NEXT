@@ -1,3 +1,37 @@
+.button-wrapper-social {
+    @include respond(xs) {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    @media screen and (width: 1024px), (width: 1280px) {
+        gap: 1rem;
+    }
+}
+.custom-facebook {
+    font-size: 1.4rem;
+    font-weight: 500;
+    border-radius: 0.4rem;
+    font-family: $poppins-font;
+    box-shadow: none;
+    position: relative;
+    border: none;
+    display: flex;
+    align-items: center;
+
+    @include transition();
+    // background-color: #1877f2;
+    background-color: transparent;
+    color: #3c4043;
+    border: 1px solid #dadce0;
+    cursor: pointer;
+    padding: 3px 6px;
+    &:hover {
+        border: 0.1rem solid #d2e3fc;
+        background-color: #4285f40a;
+    }
+}
 .login-layout-wrapper {
     min-height: 100vh;
     display: flex;
@@ -65,8 +99,6 @@
         }
     }
 }
-
-//login component
 
 .form-wrapper {
     width: 45rem;

@@ -1,3 +1,14 @@
+.box-modifier {
+    //device specific:hardcode
+    @media screen and (width: 320px),
+        (width: 414px),
+        (width: 390px),
+        (width: 280px) {
+        margin-top: 1rem;
+        align-items: inherit;
+        flex-direction: column !important;
+    }
+}
 .search-category {
     padding: 3rem 0;
 
