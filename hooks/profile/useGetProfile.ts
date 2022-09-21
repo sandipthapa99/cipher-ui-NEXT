@@ -48,6 +48,7 @@ export type ProfileResponse = {
     };
     country: string;
     language: string;
+    city: any;
     status: string;
     bio: string;
     gender: string;

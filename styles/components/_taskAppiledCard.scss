@@ -4,7 +4,7 @@
     border-radius: 0.4rem;
     margin-bottom: 2.4rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    @media screen and (width: 280px) {
+    @media screen and (width:280px){
         padding: 2.4rem 3rem;
     }
     //specific to NestHub
@@ -102,9 +102,7 @@
             @media screen and (width: 820px),
                 (width: 768px),
                 (width: 912px),
-                (width: 280px),
-                (width: 320px),
-                (width: 390px) {
+                (width: 280px),(width:320px),(width:390px) {
                 flex-direction: column;
                 gap: 1.2rem;
             }
