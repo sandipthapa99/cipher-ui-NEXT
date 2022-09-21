@@ -100,7 +100,7 @@ export default function Checkout() {
             },
         ],
     };
-
+    //here is the checkout page
     return (
         <Layout>
             <Container>
