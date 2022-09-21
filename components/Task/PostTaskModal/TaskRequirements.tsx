@@ -15,7 +15,6 @@ import {
     Text,
     TextInput,
 } from "@mantine/core";
-import { ErrorMessage } from "formik";
 import type { KeyboardEvent } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -47,6 +46,10 @@ export const TaskRequirements = ({
     const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key !== "Enter") return;
         event.preventDefault();
+        handleAddRequirement();
+    };
+
+    const handleAddRequirement = () => {
         if (!newRequirement) return;
         const requirementAlreadyExist = requirements.some(
             (requirement) => requirement.title === newRequirement
@@ -68,6 +71,7 @@ export const TaskRequirements = ({
             return updatedRequirements;
         });
     };
+
     const handleRemoveRequirement = (id: number) => {
         setRequirements((currentRequirements) => {
             const updatedRequirements = currentRequirements.filter(
@@ -115,7 +119,9 @@ export const TaskRequirements = ({
                 onKeyDown={handleKeyDown}
                 placeholder="Add your Requirements"
                 rightSection={
-                    <FontAwesomeIcon icon={faCirclePlus} color="#3EAEFF" />
+                    <ActionIcon onClick={handleAddRequirement}>
+                        <FontAwesomeIcon icon={faCirclePlus} color="#3EAEFF" />
+                    </ActionIcon>
                 }
             />
         </Box>
