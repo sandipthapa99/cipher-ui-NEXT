@@ -24,10 +24,6 @@ const ServiceCard = ({
 }: {
     serviceCard: ServicesValueProps["result"][0];
 }) => {
-    console.log(
-        "🚀 ~ file: ServiceCard.tsx ~ line 27 ~ serviceCard",
-        serviceCard
-    );
     const router = useRouter();
     const { data: profileDetails } = useGetProfile();
 
