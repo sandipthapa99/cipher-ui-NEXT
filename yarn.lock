@@ -1236,6 +1236,13 @@
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.0.2.tgz#78fc9e2289fa5f176c23ec6a3a00012e55a0e2ae"
   integrity sha512-TZsHUmsuPnl+hX6Jt5z8aPU0TWCUC2kuvr1CUBMUbQ2ff0UldcYeuOYmgb7pHlX79BXsGaRKIThLTcLHToYxbA==
 
+"@mantine/modals@^5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-5.4.0.tgz#2bba1ab468af00c1683d7c44378d207aa615d983"
+  integrity sha512-97/QRk6naClKPXIkQ7JbvCM6CRZuPy/+kj6LbskQOklSvDRMsPmvR4C87gapbwqdWfhskhUi6HDkBiaoMjG1SQ==
+  dependencies:
+    "@mantine/utils" "5.4.0"
+
 "@mantine/next@^5.1.6":
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/@mantine/next/-/next-5.1.6.tgz#fecc2090fec65bd133b58ed07cef4154cb634e47"
@@ -1294,6 +1301,11 @@
   version "5.2.4"
   resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.2.4.tgz#77e6f5073ab7f2b4b7727334be3698d8001091b4"
   integrity sha512-U+3+OpGRb7GbmhLUZcWhGvZelaMJ42MW88bZXH3Cej5VpLRdx3UgLTP6EhbQBIFGTW7S53Xq7K7eCx2xdUFfhg==
+
+"@mantine/utils@5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.4.0.tgz#af60d6034833c26ac3c1e92e57c844bd468a8760"
+  integrity sha512-XZE168OhQxrNz9wrFYFOdGDVxDH3wP0uZ5apBezHvf0D74qyUZjGzndkfXbvAq+/mVnMZA/fKju9ydo/IXMftg==
 
 "@mapbox/geojson-rewind@^0.5.1":
   version "0.5.2"

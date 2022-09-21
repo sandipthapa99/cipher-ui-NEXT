@@ -66,7 +66,6 @@ export const EditService = ({
     handleClose,
     serviceDetail,
 }: EditServiceProps) => {
-    console.log("serviceDetail", serviceDetail);
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate: editServiceMutation, isLoading: editServiceLoading } =
         useEditService();
