@@ -22,10 +22,18 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const withLogin = useWithLogin();
     const { data: user } = useUser();
     const { data: appliedTasks } = useGetMyAppliedTasks();
+    // console.log(
+    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 25 ~ SimpleProfileCard ~ appliedTasks",
+    //     appliedTasks
+    // );
 
     const appliedTask = appliedTasks?.result.find(
         (appliedTask) => appliedTask.entity_service.id.toString() === task.id
     );
+    // console.log(
+    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 29 ~ SimpleProfileCard ~ appliedTask",
+    //     appliedTask
+    // );
 
     const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}`;
     const { mutate } = useForm(cancelTaskUrl);
@@ -48,6 +56,16 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     };
 
     const isUserTask = task?.created_by?.id === user?.id;
+    // console.log(
+    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 51 ~ SimpleProfileCard ~ task",
+    //     task
+    // );
+    // console.log(
+    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 51 ~ SimpleProfileCard ~ isUserTask",
+    //     isUserTask,
+    //     task?.created_by?.id,
+    //     user?.id
+    // );
 
     const handleViewApplicants = () => {
         toast.success("You have no applicants yet.");
@@ -141,37 +159,35 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 )}
             </div>
             {!isUserTask ? (
-                appliedTask?.is_active ? (
-                    <BookNowButton
-                        btnTitle="Leave Task"
-                        backgroundColor="#bf2419"
-                        handleOnClick={withLogin(() => setShowModal(true))}
-                    />
-                ) : !appliedTask?.is_active ? (
+                appliedTask?.status === "Cancelled" ? (
                     <BookNowButton
                         btnTitle="Apply Now"
                         backgroundColor="#38C675"
                         handleOnClick={withLogin(() => setShowModal(true))}
                     />
-                ) : (
-                    // ) : appliedTask?.status === "On Progress" ? (
-                    //     <BookNowButton
-                    //         btnTitle={"On Progress"}
-                    //         backgroundColor={"#38C675"}
-                    //         showModal={true}
-                    //         //handleOnClick={withLogin(() => setShowModal(true))}
-                    //     />
-                    // ) : appliedTask?.status === "Completed" ? (
-                    //     <BookNowButton
-                    //         btnTitle={"Completed"}
-                    //         backgroundColor={"#3776db"}
-                    //         showModal={true}
-                    //         //handleOnClick={withLogin(() => setShowModal(true))}
-                    //     />
+                ) : appliedTask?.status === "On Progress" ? (
                     <BookNowButton
-                        btnTitle={"Leave Task"}
-                        backgroundColor={"#bf2419"}
+                        btnTitle={"On Progress"}
+                        backgroundColor={"#38C675"}
                         showModal={true}
+                        //handleOnClick={withLogin(() => setShowModal(true))}
+                    />
+                ) : appliedTask?.status === "Completed" ? (
+                    <BookNowButton
+                        btnTitle={"Completed"}
+                        backgroundColor={"#3776db"}
+                        showModal={true}
+                        //handleOnClick={withLogin(() => setShowModal(true))}
+                    />
+                ) : !appliedTask ? (
+                    <BookNowButton
+                        btnTitle="Rejected"
+                        backgroundColor="#5e5d6b"
+                    />
+                ) : (
+                    <BookNowButton
+                        btnTitle="Leave Task"
+                        backgroundColor="#FE5050"
                         handleOnClick={handleLeaveTask}
                     />
                 )

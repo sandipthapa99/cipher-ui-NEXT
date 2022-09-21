@@ -31,7 +31,11 @@ const AppliedForm = ({
     handleClose,
 }: BookNowModalCardProps) => {
     const router = useRouter();
-    const { mutate, isLoading: applyTaskLoading } = useBookNowTask();
+    const {
+        mutate,
+        isLoading: applyTaskLoading,
+        data: BookingData,
+    } = useBookNowTask();
     const { classes } = useStyles();
 
     // const loadingOverlayVisible = useMemo(
@@ -53,6 +57,7 @@ const AppliedForm = ({
         budget_to: number;
     }
     const queryClient = useQueryClient();
+
     return (
         <>
             {/* Modal component */}
@@ -100,6 +105,7 @@ const AppliedForm = ({
                                     toast.success(
                                         "You have successfully applied for task"
                                     );
+
                                     queryClient.invalidateQueries([
                                         "get-my-bookings",
                                     ]);
@@ -113,7 +119,7 @@ const AppliedForm = ({
                                     // ).join("\n");
                                     toast.error(error.message);
                                     // toast.error(errors);
-                                    setShow(false);
+                                    // setShow(false);
                                     // console.log("error", errors);
                                 },
                             });
