@@ -37,19 +37,20 @@
             background: rgba(255, 255, 255, 0.4);
             border-radius: 4px;
 
-            @media screen and (width: 1024px), (width: 768px) {
-                &__left {
+            @media screen  and (width:1024px),(width:768px){
+                &__left{
                     width: 100% !important;
-                    .win-client-image {
+                    .win-client-image{
                         display: none !important;
                     }
                 }
-
-                &__right {
+    
+                &__right{
                     width: 100% !important;
-                }
-            }
 
+                }
+                }
+         
             @include respond(xs) {
                 height: 761.562px;
             }
@@ -79,12 +80,12 @@
                     font: 500 1.6rem $poppins-font;
                     color: #495057;
 
-                    @media screen and (width: 1024px), (width: 768px) {
-                        height: 105px;
-                        overflow: hidden;
-                        word-break: break-word;
+                    @media screen  and (width:1024px),(width:768px){
+                    height: 105px;
+                    overflow: hidden;
+                    word-break: break-word;
                     }
-                    @media screen and (width: 320px) {
+                    @media screen  and (width:320px){
                         padding-left: 0px !important;
                     }
                     @include respond(xs) {
