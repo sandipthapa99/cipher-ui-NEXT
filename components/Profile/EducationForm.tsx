@@ -4,6 +4,7 @@ import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { useEditForm } from "hooks/use-edit-form";
@@ -36,8 +37,10 @@ const EducationForm = ({
     id,
 }: EducationProps) => {
     const queryClient = useQueryClient();
-    const { mutate } = useForm(`/tasker/education/`);
-    const { mutate: editMutation } = useEditForm(`/tasker/education/${id}/`);
+    const { mutate } = useForm(`${urls.profile.education}`);
+    const { mutate: editMutation } = useEditForm(
+        `${urls.profile.education}${id}/`
+    );
 
     const data = queryClient.getQueryData<EditDetailProps>([
         "tasker-education",

@@ -21,16 +21,21 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { useQueryClient } from "@tanstack/react-query";
+import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
+import { useGetMyAppliedTasks } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
+import { useData } from "hooks/use-data";
+import type { GetStaticProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import type { ITask, TaskApplicantsProps } from "types/task";
+import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
@@ -42,11 +47,11 @@ import { TimelineTab } from "./TimelineTab";
 const AppliedTaskDetail = ({
     type,
     taskDetail,
-    taskApplicants,
-}: {
+}: // taskApplicants,
+{
     type?: string;
     taskDetail: ITask;
-    taskApplicants: TaskApplicantsProps;
+    // taskApplicants: TaskApplicantsProps;
 }) => {
     // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
     const queryClient = useQueryClient();
@@ -79,6 +84,16 @@ const AppliedTaskDetail = ({
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
+    // const { data: applicants } = useData<TaskApplicantsProps>(
+    //     ["get-my-applicants"],
+    //     `${urls.task.my_task}`
+    // );
+    const { data: taskDetails } = useGetMyAppliedTasks();
+
+    // const task = taskDetails?.result.find(
+    //     (appliedTask) => appliedTask.entity_service.id.toString() === task.id
+    // );
+    // const applicants = taskApplicants ? taskApplicants.data?.result : [];
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
@@ -315,9 +330,7 @@ const AppliedTaskDetail = ({
                     items={[
                         {
                             title: "Taskers",
-                            content: (
-                                <TaskersTab taskApplicants={taskApplicants} />
-                            ),
+                            content: <TaskersTab />,
                         },
                         { title: "Timeline", content: <TimelineTab /> },
                         {
@@ -359,3 +372,29 @@ const AppliedTaskDetail = ({
 };
 
 export default AppliedTaskDetail;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: applicants } = await axiosClient.get<TaskApplicantsProps>(
+            `${urls.task.my_task}`
+        );
+
+        const queryClient = new QueryClient();
+        await queryClient.prefetchQuery(["get-my-applicants"]);
+
+        return {
+            props: {
+                applicants,
+                dehydratedState: dehydrate(queryClient),
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                applicants: [],
+            },
+            revalidate: 10,
+        };
+    }
+};

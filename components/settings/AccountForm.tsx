@@ -18,6 +18,7 @@ import type { SelectItem } from "@mantine/core";
 import { createStyles } from "@mantine/core";
 import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
+import { DatePicker } from "@mantine/dates";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
@@ -518,18 +519,8 @@ const AccountForm = () => {
                                 </figure>
                                 {profile ? (
                                     <div>
-                                        {isEditButtonClicked || !profile ? (
-                                            <FormButton
-                                                type="submit"
-                                                variant="primary"
-                                                name="Update Profile"
-                                                className="submit-btn"
-                                                isSubmitting={isSubmitting}
-                                                isSubmittingClass={isSubmittingClass(
-                                                    isSubmitting
-                                                )}
-                                            />
-                                        ) : (
+                                        {isEditButtonClicked ||
+                                        !profile ? null : ( // /> //     )} //         isSubmitting //     isSubmittingClass={isSubmittingClass( //     isSubmitting={isSubmitting} //     className="submit-btn" //     name="Update Profile" //     variant="primary" //     type="submit" // <FormButton
                                             <BigButton
                                                 className="sticky-wrapper"
                                                 btnTitle={"Edit Profile"}
@@ -893,7 +884,36 @@ const AccountForm = () => {
                                     />
                                 </div>
                             )}
-
+                            {profile ? (
+                                <div>
+                                    {
+                                        isEditButtonClicked || !profile ? (
+                                            <FormButton
+                                                type="submit"
+                                                variant="primary"
+                                                name="Save"
+                                                className="submit-btn"
+                                                isSubmitting={isSubmitting}
+                                                isSubmittingClass={isSubmittingClass(
+                                                    isSubmitting
+                                                )}
+                                            />
+                                        ) : null
+                                        // (
+                                        //     <BigButton
+                                        //         btnTitle={"Edit Profile"}
+                                        //         backgroundColor={"#FFCA6A"}
+                                        //         textColor={"#212529"}
+                                        //         handleClick={() =>
+                                        //             setIsEditButtonClicked(true)
+                                        //         }
+                                        //     />
+                                        // )
+                                    }
+                                </div>
+                            ) : (
+                                ""
+                            )}
                             {/* {isEditButtonClicked ? (
                                 <div className="d-flex justify-content-end">
                                     <Button
