@@ -35,7 +35,7 @@ interface Props {
     distance?: string;
     bio?: string;
     charge?: string;
-    id: number;
+    id?: number;
 }
 
 export const TeamMembersCard = ({
