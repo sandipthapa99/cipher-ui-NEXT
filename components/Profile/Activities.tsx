@@ -12,11 +12,11 @@ const UserActivities = () => {
         "/history/my-activities/"
     );
     const [id, setId] = useState<number | undefined>(
-        activities?.data?.result[0]?.id
+        activities?.data.result[0].id
     );
     const [showFirstDate, setShowFirstDate] = useState(true);
 
-    let idFirst = activities?.data?.result[0]?.id;
+    let idFirst = activities?.data.result[0].id;
 
     return (
         <div className="activities">

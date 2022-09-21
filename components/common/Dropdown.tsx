@@ -1,5 +1,6 @@
 import { faChevronRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import urls from "constants/urls";
 import parse from "html-react-parser";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -76,7 +77,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
 
     useEffect(() => {
         axiosClient
-            .get("/task/task-category/nested/")
+            .get(urls.category.list)
             .then(({ data }) => {
                 setMenu(data?.slice(0, 6));
             })
@@ -86,7 +87,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
     }, []);
 
     const renderNestedSubMenus = nestedMenu.map((sub: any, index) => {
-        const menu = sub.name.replaceAll(" ", "").toLowerCase();
+        const menu = sub.name.replaceAll(" ", "")?.toLowerCase();
         if (sub?.child.length > 0) {
             return (
                 <li
@@ -151,7 +152,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
     });
 
     const renderSubMenus = subMenu.map((sub: any, index: any) => {
-        const menu = sub.name.replaceAll(" ", "").toLowerCase();
+        const menu = sub.name.replaceAll(" ", "")?.toLowerCase();
 
         if (sub?.child.length > 0) {
             const onHandleDropdown = () => {

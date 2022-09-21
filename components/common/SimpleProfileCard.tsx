@@ -1,7 +1,11 @@
 import AppliedForm from "@components/AppliedTask/AppliedForm";
+import { useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useAppliedTasks } from "hooks/task/use-applied-tasks";
+import { useGetMyAppliedTasks } from "hooks/task/use-get-service-booking";
 import { useLeaveTask } from "hooks/task/use-leave-task";
+import { useForm } from "hooks/use-form";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -17,28 +21,33 @@ interface SimpleProfileCardProps {
 const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const withLogin = useWithLogin();
     const { data: user } = useUser();
-    const { data: appliedTasks } = useAppliedTasks();
-    const { mutate } = useLeaveTask();
+    const { data: appliedTasks } = useGetMyAppliedTasks();
+
+    const appliedTask = appliedTasks?.result.find(
+        (appliedTask) => appliedTask.entity_service.id.toString() === task.id
+    );
+
+    const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}`;
+    const { mutate } = useForm(cancelTaskUrl);
 
     const [showModal, setShowModal] = useState(false);
-
-    const appliedTask = appliedTasks.find(
-        (appliedTask) => appliedTask.task === task.id && appliedTask.is_active
-    );
+    const queryClient = useQueryClient();
 
     const handleLeaveTask = () => {
         if (!appliedTask) return;
-        mutate(
-            { id: appliedTask.id },
-            {
-                onSuccess: (message) => {
-                    toast.success(message);
-                    onApply?.();
-                },
-            }
-        );
+        mutate(appliedTask?.id, {
+            onSuccess: (message) => {
+                queryClient.invalidateQueries(["get-my-bookings"]);
+                toast.success("Booking successfully cancelled.");
+                onApply?.();
+            },
+            onError: async (error: any) => {
+                toast.error("Already cancellerd");
+            },
+        });
     };
-    const isUserTask = task?.assigner?.id === user?.id;
+
+    const isUserTask = task?.created_by?.id === user?.id;
 
     const handleViewApplicants = () => {
         toast.success("You have no applicants yet.");
@@ -49,8 +58,8 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 <figure className="thumbnail-img">
                     <Image
                         src={
-                            task?.assigner?.profile_image
-                                ? task?.assigner?.profile_image
+                            task?.created_by?.profile_image
+                                ? task?.created_by?.profile_image
                                 : "/placeholder/profilePlaceholder.png"
                         }
                         layout="fill"
@@ -58,8 +67,8 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         alt="serviceprovider-image"
                     />
                 </figure>
-                {!task?.assigner?.profile_image ||
-                    (task?.assigner?.profile_image.length <= 0 && (
+                {!task?.created_by?.profile_image ||
+                    (task?.created_by?.profile_image.length <= 0 && (
                         <figure className="thumbnail-img">
                             <Image
                                 src={"/placeholder/profilePlaceholder.png"}
@@ -69,9 +78,9 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                             />
                         </figure>
                     ))}
-
+                {/* <span>{task.created_by.bio}</span> */}
                 <div className="intro">
-                    <p className="name">{task?.assigner?.full_name}</p>
+                    <p className="name">{task?.created_by?.full_name}</p>
                     <p className="job">{task.status}</p>
                 </div>
             </div>
@@ -132,18 +141,38 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 )}
             </div>
             {!isUserTask ? (
-                appliedTask ? (
+                appliedTask?.is_active ? (
                     <BookNowButton
                         btnTitle="Leave Task"
-                        backgroundColor="#FE5050"
-                        handleOnClick={handleLeaveTask}
+                        backgroundColor="#bf2419"
+                        handleOnClick={withLogin(() => setShowModal(true))}
+                    />
+                ) : !appliedTask?.is_active ? (
+                    <BookNowButton
+                        btnTitle="Apply Now"
+                        backgroundColor="#38C675"
+                        handleOnClick={withLogin(() => setShowModal(true))}
                     />
                 ) : (
+                    // ) : appliedTask?.status === "On Progress" ? (
+                    //     <BookNowButton
+                    //         btnTitle={"On Progress"}
+                    //         backgroundColor={"#38C675"}
+                    //         showModal={true}
+                    //         //handleOnClick={withLogin(() => setShowModal(true))}
+                    //     />
+                    // ) : appliedTask?.status === "Completed" ? (
+                    //     <BookNowButton
+                    //         btnTitle={"Completed"}
+                    //         backgroundColor={"#3776db"}
+                    //         showModal={true}
+                    //         //handleOnClick={withLogin(() => setShowModal(true))}
+                    //     />
                     <BookNowButton
-                        btnTitle={"Apply Now"}
-                        backgroundColor={"#38C675"}
+                        btnTitle={"Leave Task"}
+                        backgroundColor={"#bf2419"}
                         showModal={true}
-                        handleOnClick={withLogin(() => setShowModal(true))}
+                        handleOnClick={handleLeaveTask}
                     />
                 )
             ) : (
@@ -200,7 +229,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 show={showModal}
                 setShow={setShowModal}
                 handleClose={() => setShowModal(false)}
-                images={[]}
+                currency={task.currency}
             />
         </div>
     );

@@ -24,6 +24,7 @@ const TaskAside = ({
     isFetching,
 }: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
+
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
             <div key={task?.slug}>
@@ -31,12 +32,13 @@ const TaskAside = ({
             </div>
         );
     });
+
     return (
         <div className="search-results">
             <Row>
                 <Col md={4} className="left">
                     <ScrollArea.Autosize
-                        maxHeight={750}
+                        maxHeight={700}
                         offsetScrollbars
                         scrollbarSize={5}
                     >
@@ -81,7 +83,7 @@ const TaskAside = ({
 
                 <Col md={8} className="right">
                     <ScrollArea.Autosize
-                        maxHeight={750}
+                        maxHeight={700}
                         offsetScrollbars
                         scrollbarSize={5}
                     >

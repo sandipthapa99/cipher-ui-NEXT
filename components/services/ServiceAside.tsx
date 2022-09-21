@@ -33,7 +33,7 @@ const ServiceAside = ({
                             budget_type={task?.budget_type}
                             currency={task?.currency?.symbol}
                             serviceTitle={task?.title}
-                            serviceRating={task?.success_rate}
+                            serviceRating={task?.id}
                             serviceProviderLocation={task?.location}
                             serviceSlug={task?.slug}
                             discount={20} // To do form api
@@ -42,40 +42,39 @@ const ServiceAside = ({
                                     ? task.images[0]?.media
                                     : task?.images
                             }
-                            serviceProvider={
-                                task?.created_by?.full_name === "None None"
-                                    ? "Cipher"
-                                    : task?.created_by?.full_name
-                            }
+                            serviceProvider={task?.created_by?.full_name}
                         />
                     </a>
                 </Link>
             </div>
         );
     });
+    const renderServiceSkeletons = () => {
+        return (
+            <Fragment>
+                {Array.from({ length: 3 }).map((_, index) => (
+                    <SkeletonServiceCard key={index} />
+                ))}
+            </Fragment>
+        );
+    };
     return (
         <div className="search-results">
             <Row>
                 <Col md={4}>
                     <ScrollArea.Autosize
-                        maxHeight={750}
+                        maxHeight={700}
                         offsetScrollbars
                         scrollbarSize={5}
                     >
-                        {isLoading && (
-                            <Fragment>
-                                {Array.from({ length: 3 }).map((_, key) => (
-                                    <SkeletonServiceCard key={key} />
-                                ))}
-                            </Fragment>
-                        )}
-                        {query && totalAppliedTasks > 0 ? (
+                        {isLoading && renderServiceSkeletons()}
+                        {!isLoading && query && totalAppliedTasks > 0 ? (
                             <p className="search-results-text">
                                 {`${totalAppliedTasks} service matching ${query} found`}
                             </p>
                         ) : null}
-                        {renderTaskCards}
-                        {query && totalAppliedTasks === 0 ? (
+                        {!isLoading && renderTaskCards}
+                        {!isLoading && query && totalAppliedTasks === 0 ? (
                             <p className="search-results-text">
                                 No services matching {query} found
                             </p>
@@ -95,7 +94,7 @@ const ServiceAside = ({
 
                 <Col md={8}>
                     <ScrollArea.Autosize
-                        maxHeight={750}
+                        maxHeight={700}
                         offsetScrollbars
                         scrollbarSize={5}
                     >

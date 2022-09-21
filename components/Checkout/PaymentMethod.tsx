@@ -136,7 +136,7 @@ const PaymentMethod = () => {
                     <Card>
                         <Card.Header>
                             <ContextAwareToggle eventKey="1" callback={""}>
-                                Digital Wallet (5)
+                                Digital Wallet (3)
                             </ContextAwareToggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="1">
@@ -272,7 +272,7 @@ const PaymentMethod = () => {
                     <Card>
                         <Card.Header>
                             <ContextAwareToggle eventKey="3" callback={""}>
-                                International Payments (1)
+                                Other Methods (3)
                             </ContextAwareToggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="3">
@@ -290,27 +290,3 @@ const PaymentMethod = () => {
     );
 };
 export default PaymentMethod;
-
-export const getStaticProps: GetStaticProps = async () => {
-    const queryClient = new QueryClient();
-    try {
-        const { data: linkedBankAccount } = await axiosClient.get(
-            "/tasker/bank-details/"
-        );
-
-        await Promise.all([queryClient.prefetchQuery(["tasker-bank-account"])]);
-        return {
-            props: {
-                linkedBankAccount,
-                dehydratedState: dehydrate(queryClient),
-            },
-        };
-    } catch (err) {
-        return {
-            props: {
-                linkedBankAccount: [],
-            },
-            revalidate: 10,
-        };
-    }
-};

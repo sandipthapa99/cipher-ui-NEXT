@@ -56,6 +56,8 @@ export const UserTaskDetailHeader = ({
                                 width={148}
                                 height={148}
                                 objectFit="cover"
+                                placeholder="blur"
+                                blurDataURL="/placeholder/profilePlaceholder.png"
                                 alt={"profile"}
                                 className="rounded-circle"
                             />

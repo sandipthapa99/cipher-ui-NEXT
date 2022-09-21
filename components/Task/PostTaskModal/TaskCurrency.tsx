@@ -1,4 +1,4 @@
-import type { SelectProps } from "@mantine/core";
+import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -12,6 +12,7 @@ export interface Currency {
 }
 export interface TaskCurrencyProps extends Omit<SelectProps, "data"> {
     onCurrencyChange: (currencyId: number) => void;
+    data?: SelectItem[];
 }
 export const useCurrencies = () => {
     return useQuery(["currencies"], () =>
@@ -25,8 +26,9 @@ export const TaskCurrency = ({
     onCurrencyChange,
     ...rest
 }: TaskCurrencyProps) => {
-    const [currency, setCurrency] = useState(value);
+    const [currency, setCurrency] = useState(() => value);
     const { data: currencies = [] } = useCurrencies();
+
     const currencyData = currencies.map((currency) => ({
         id: currency,
         label: currency.code + ` (${currency.symbol})`,
