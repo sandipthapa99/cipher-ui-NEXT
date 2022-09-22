@@ -90,7 +90,7 @@ export const TaskBudget = ({
                 <Group>
                     <NumberInput
                         {...getFieldProps("budget_to")}
-                        icon="Rs"
+                        // icon="Rs"
                         placeholder="Enter your price"
                         onChange={(value) => setFieldValue("budget_to", value)}
                         defaultValue={initialBudgetTo}
@@ -108,7 +108,7 @@ export const TaskBudget = ({
                 <Group>
                     <NumberInput
                         {...getFieldProps("budget_from")}
-                        icon="Rs"
+                        // icon="Rs"
                         placeholder="Starting budget"
                         onChange={(value) =>
                             setFieldValue("budget_from", value)
@@ -118,7 +118,7 @@ export const TaskBudget = ({
                     <Text>To</Text>
                     <NumberInput
                         {...getFieldProps("budget_to")}
-                        icon="Rs"
+                        // icon="Rs"
                         placeholder="Final budget"
                         onChange={(value) => setFieldValue("budget_to", value)}
                         defaultValue={initialBudgetTo}
