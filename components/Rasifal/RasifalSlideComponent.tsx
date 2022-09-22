@@ -1,5 +1,6 @@
 import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Skeleton } from "@mantine/core";
 import { useClickOutside, useScrollLock } from "@mantine/hooks";
 import axios from "axios";
 import cheerio from "cheerio";
@@ -121,6 +122,27 @@ export const RasifalSlideComponent = ({
                         <FontAwesomeIcon icon={faXmark} />
                     </span>
                 </div>
+
+                {dailyRasifal.length <= 1 &&
+                    Array.from({ length: 12 }).map((_, key) => (
+                        <div className="p-5 my-2" key={key}>
+                            <Skeleton
+                                height={80}
+                                width={"100%"}
+                                className="my-2"
+                            />
+                            <Skeleton
+                                height={20}
+                                width={"100%"}
+                                className="my-3"
+                            />
+                            <Skeleton
+                                height={10}
+                                width={"100%"}
+                                className="my-3"
+                            />
+                        </div>
+                    ))}
 
                 <Link href="/rasifal">
                     <a>
