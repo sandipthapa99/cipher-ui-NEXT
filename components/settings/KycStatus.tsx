@@ -110,9 +110,8 @@ export const KYCStatus = () => {
                 <Col md={8} className="d-flex gap-4 photo-text-col ">
                     <Image
                         src={
-                            profileDetails
-                                ? profileDetails?.profile_image
-                                : "/userprofile/unknownPerson.jpg"
+                            profileDetails?.profile_image ??
+                            "/userprofile/unknownPerson.jpg"
                         }
                         alt="pic"
                         height={100}

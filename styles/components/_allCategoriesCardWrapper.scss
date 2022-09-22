@@ -1,0 +1,31 @@
+//related to category page
+.all-categories{
+    .category-wrapper {
+        row-gap: 2rem;
+        &__isolated {
+            .title {
+                font-weight: 500;
+                font-size: 1.8rem;
+                margin: 0 !important;
+                &:visited,&:hover {
+                    color: black !important;
+                }
+
+                @include respond(xs){
+                    font-size: 1.4rem;
+                }
+            }
+            .list {
+                margin-top: 0.4rem;
+                li {
+                    color: #868e96;
+                    font-weight: 400;
+                   a{
+                    color: #868e96;
+                    font-weight: 400;
+                   }
+                }
+            }
+        }
+    }
+}

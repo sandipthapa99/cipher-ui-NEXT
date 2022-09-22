@@ -1,6 +1,10 @@
 import { AllCategories } from "@components/AllCategories";
+import { AllCategoriesCard } from "@components/AllCategoriesCard";
+import { BreadCrumb } from "@components/common/BreadCrumb";
 import Layout from "@components/Layout";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import urls from "constants/urls";
+import parse from "html-react-parser";
 import type { GetStaticProps, NextPage } from "next";
 import { Container } from "react-bootstrap";
 import type { NestedCategoriesDataProps } from "types/nestedCategoryProps";
@@ -12,29 +16,21 @@ interface CategoriesPageProps {
 const CategoriesPage: NextPage<{
     nestedCategoriesData: CategoriesPageProps["nestedCategoriesData"];
 }> = ({ nestedCategoriesData }) => {
+    //console.log(nestedCategoriesData);
+
     return (
         <Layout title="Categories | Cipher">
             <Container fluid="xl" className="px-5">
-                <h2 className="all-categories-title">Cipher Categories</h2>
-                {/* <div className="d-flex justify-content-center all-categories">
-                    {categories.map((category, index) => (
-                        <div key={index} className="category-item">
-                            <h4 className="category-item__title title">
-                                {category.title}
-                            </h4>
-                            <div className="category-item__subitems">
-                                {category.subItems.map((subItem, index) => (
-                                    <Link key={index} href={subItem.href}>
-                                        <a className="category-item__subitems--title">
-                                            {subItem.title}
-                                        </a>
-                                    </Link>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div> */}
-                <AllCategories nestedCategoriesData={nestedCategoriesData} />
+                <BreadCrumb currentPage={"Categories"} />
+
+                <h2 className="all-categories-title">
+                    Browse all cipher Categories
+                </h2>
+
+                <AllCategoriesCard
+                    nestedCategoriesData={nestedCategoriesData}
+                />
+                {/*<AllCategories nestedCategoriesData={nestedCategoriesData} />*/}
             </Container>
         </Layout>
     );

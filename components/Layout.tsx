@@ -1,5 +1,6 @@
 import {
     faBell,
+    faObjectsColumn,
     faRightToBracket,
     faUser,
     faUserPlus,
@@ -187,6 +188,15 @@ const Layout: FC<MetaDataProps> = ({
                                     />
                                     <Link href="/resources">
                                         <p>Resources</p>
+                                    </Link>
+                                </div>
+                                <div className="d-flex align-items-center gap-4 text-icon">
+                                    <FontAwesomeIcon
+                                        icon={faObjectsColumn}
+                                        className="side-bar-icon"
+                                    />
+                                    <Link href="/category">
+                                        <p>Categories</p>
                                     </Link>
                                 </div>
                             </div>

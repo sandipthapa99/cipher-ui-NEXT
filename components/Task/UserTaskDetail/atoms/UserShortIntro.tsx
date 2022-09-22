@@ -31,13 +31,11 @@ export const UserShortIntro = ({ user }: UserShortIntroProps) => {
                         className="svg-icon"
                     />
 
-                    <span>
-                        &nbsp;{user?.address_line1 + " " + user?.address_line2}
-                    </span>
+                    <span>{user?.address_line2}</span>
                 </p>
                 <p className="td-user-short-intro-text">
                     <FontAwesomeIcon className="svg-icon" icon={faUser} />
-                    <span>Member Since {"no data"}</span>
+                    <span>Member Since --TOBE-IMP--</span>
                 </p>
 
                 <p className="td-user-short-intro-text">
