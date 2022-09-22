@@ -496,96 +496,103 @@ const Home: NextPage<{
             {/* Find & Hire section end */}
 
             {/* Top Taksers Section Start */}
-            <section id="top-merchants" className="top-merchants">
-                <Container fluid="xl" className="px-5">
-                    <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
-                        <h2 className="heading-title">Top Taskers</h2>
-                        {topTaskerData?.result &&
-                            topTaskerData?.result?.length > 0 && (
-                                <Link href="/service">
-                                    <a className="view-more">
-                                        view more{" "}
-                                        <FontAwesomeIcon
-                                            icon={faAngleRight}
-                                            className="svg-icon"
-                                        />
-                                    </a>
-                                </Link>
-                            )}
-                    </div>
-                    {topTaskerData?.result &&
-                        topTaskerData?.result?.length <= 0 && (
-                            <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No data Available!"
-                                color="orange"
-                                radius="md"
-                                sx={{ minWidth: 100 }}
-                            >
-                                <Highlight highlight={"No Top Taskers"}>
-                                    {`There are No Top Taskers available`}
-                                </Highlight>
-                            </Alert>
-                        )}
-                    <Row className="gx-5">
-                        {topTaskerData &&
-                            topTaskerData?.result
-                                ?.slice(0, 4)
-                                ?.map((merchant, index) => {
-                                    return (
-                                        <Col
-                                            md={6}
-                                            lg={3}
-                                            sm={6}
-                                            xl={3}
-                                            key={index}
-                                            className="d-flex"
-                                        >
-                                            <MerchantCard
-                                                merchantImage={
-                                                    merchant?.user
-                                                        ?.profile_image
-                                                }
-                                                merchantName={
-                                                    merchant?.user?.first_name
-                                                }
-                                                merchantCategory={
-                                                    merchant?.designation
-                                                }
-                                                merchantLocation={
-                                                    merchant?.address_line1 +
-                                                    " " +
-                                                    merchant?.address_line2
-                                                }
-                                                merchantDescription={
-                                                    merchant?.bio
-                                                }
-                                                merchantRating={
-                                                    merchant?.rating?.avg_rating
-                                                }
-                                                merchantPrice={
-                                                    merchant?.hourly_rate
-                                                }
-                                                currency={
-                                                    merchant?.charge_currency
-                                                        ?.code
-                                                }
-                                                happyClients={
-                                                    merchant?.stats
-                                                        ?.happy_clients
-                                                }
-                                                successRate={
-                                                    merchant?.stats
-                                                        ?.success_rate
-                                                }
-                                                merchantId={merchant?.user?.id}
+            {topTaskerData?.result?.length <= 0 && (
+                <section id="top-merchants" className="top-merchants">
+                    <Container fluid="xl" className="px-5">
+                        <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
+                            <h2 className="heading-title">Top Taskers</h2>
+                            {topTaskerData?.result &&
+                                topTaskerData?.result?.length > 0 && (
+                                    <Link href="/service">
+                                        <a className="view-more">
+                                            view more{" "}
+                                            <FontAwesomeIcon
+                                                icon={faAngleRight}
+                                                className="svg-icon"
                                             />
-                                        </Col>
-                                    );
-                                })}
-                    </Row>
-                </Container>
-            </section>
+                                        </a>
+                                    </Link>
+                                )}
+                        </div>
+                        {topTaskerData?.result &&
+                            topTaskerData?.result?.length <= 0 && (
+                                <Alert
+                                    icon={<FontAwesomeIcon icon={faWarning} />}
+                                    title="No data Available!"
+                                    color="orange"
+                                    radius="md"
+                                    sx={{ minWidth: 100 }}
+                                >
+                                    <Highlight highlight={"No Top Taskers"}>
+                                        {`There are No Top Taskers available`}
+                                    </Highlight>
+                                </Alert>
+                            )}
+                        <Row className="gx-5">
+                            {topTaskerData &&
+                                topTaskerData?.result
+                                    ?.slice(0, 4)
+                                    ?.map((merchant, index) => {
+                                        return (
+                                            <Col
+                                                md={6}
+                                                lg={3}
+                                                sm={6}
+                                                xl={3}
+                                                key={index}
+                                                className="d-flex"
+                                            >
+                                                <MerchantCard
+                                                    merchantImage={
+                                                        merchant?.user
+                                                            ?.profile_image
+                                                    }
+                                                    merchantName={
+                                                        merchant?.user
+                                                            ?.first_name
+                                                    }
+                                                    merchantCategory={
+                                                        merchant?.designation
+                                                    }
+                                                    merchantLocation={
+                                                        merchant?.address_line1 +
+                                                        " " +
+                                                        merchant?.address_line2
+                                                    }
+                                                    merchantDescription={
+                                                        merchant?.bio
+                                                    }
+                                                    merchantRating={
+                                                        merchant?.rating
+                                                            ?.avg_rating
+                                                    }
+                                                    merchantPrice={
+                                                        merchant?.hourly_rate
+                                                    }
+                                                    currency={
+                                                        merchant
+                                                            ?.charge_currency
+                                                            ?.code
+                                                    }
+                                                    happyClients={
+                                                        merchant?.stats
+                                                            ?.happy_clients
+                                                    }
+                                                    successRate={
+                                                        merchant?.stats
+                                                            ?.success_rate
+                                                    }
+                                                    merchantId={
+                                                        merchant?.user?.id
+                                                    }
+                                                />
+                                            </Col>
+                                        );
+                                    })}
+                        </Row>
+                    </Container>
+                </section>
+            )}
             {/* Top Taskers Section End */}
 
             {/* Gradient Banner section Start */}
@@ -825,46 +832,48 @@ const Home: NextPage<{
             </section>
             {/* Expore marketplace section end */}
 
-            <section className="top-categories-section">
-                <Container fluid="xl" className="px-5">
-                    <h1 className="section-main-title">Top Categories</h1>
-                    <h2 className="section-sub-title">
-                        See some of our top categories in your area
-                    </h2>
-                    {/* <TopCategories /> */}
-                    {topCategoryData?.length <= 0 && (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title="No data Available!"
-                            color="orange"
-                            radius="md"
-                            sx={{ minWidth: 100 }}
-                        >
-                            <Highlight highlight={"No top Categorys"}>
-                                {`There are No top Categorys available`}
-                            </Highlight>
-                        </Alert>
-                    )}
-                    <Row className="g-5">
-                        {topCategoryData &&
-                            topCategoryData.map((category, key) => (
-                                <Col md={2} key={key}>
-                                    <div className="d-flex justify-content-center top-categories">
-                                        <Link
-                                            href={`/category/${category?.slug}`}
-                                        >
-                                            <a>
-                                                <span>
-                                                    {category?.category}
-                                                </span>
-                                            </a>
-                                        </Link>
-                                    </div>
-                                </Col>
-                            ))}
-                    </Row>
-                </Container>
-            </section>
+            {topCategoryData && (
+                <section className="top-categories-section">
+                    <Container fluid="xl" className="px-5">
+                        <h1 className="section-main-title">Top Categories</h1>
+                        <h2 className="section-sub-title">
+                            See some of our top categories in your area
+                        </h2>
+                        {/* <TopCategories /> */}
+                        {topCategoryData?.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No data Available!"
+                                color="orange"
+                                radius="md"
+                                sx={{ minWidth: 100 }}
+                            >
+                                <Highlight highlight={"No top Categorys"}>
+                                    {`There are No top Categorys available`}
+                                </Highlight>
+                            </Alert>
+                        )}
+                        <Row className="g-5">
+                            {topCategoryData &&
+                                topCategoryData.map((category, key) => (
+                                    <Col md={2} key={key}>
+                                        <div className="d-flex justify-content-center top-categories">
+                                            <Link
+                                                href={`/category/${category?.slug}`}
+                                            >
+                                                <a>
+                                                    <span>
+                                                        {category?.category}
+                                                    </span>
+                                                </a>
+                                            </Link>
+                                        </div>
+                                    </Col>
+                                ))}
+                        </Row>
+                    </Container>
+                </section>
+            )}
         </Layout>
     );
 };
