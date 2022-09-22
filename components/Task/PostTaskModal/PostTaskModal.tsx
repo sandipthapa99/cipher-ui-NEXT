@@ -92,16 +92,28 @@ export const PostTaskModal = () => {
         () => (editTaskDetail?.images ?? []).map((image) => image.id),
         [editTaskDetail?.images]
     );
+    const getInitialVideoIds = useCallback(
+        () => (editTaskDetail?.videos ?? []).map((video) => video.id),
+        [editTaskDetail?.videos]
+    );
 
     const [initialImageIds, setInitialImageIds] = useState<number[]>(() =>
         getInitialImageIds()
     );
+    const [initialVideoIds, setInitialVideoIds] = useState<number[]>(() =>
+        getInitialVideoIds()
+    );
+
     const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
 
     useEffect(() => {
         setInitialImageIds(getInitialImageIds());
-    }, [editTaskDetail, getInitialImageIds, taskDetail]);
+    }, [getInitialImageIds]);
+
+    useEffect(() => {
+        setInitialVideoIds(getInitialVideoIds());
+    }, [getInitialVideoIds]);
 
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
@@ -147,7 +159,7 @@ export const PostTaskModal = () => {
                 media_type: "video",
             });
             const imageIds = [...uploadedImageIds, ...initialImageIds];
-            const videoIds = [...uploadedVideoIds];
+            const videoIds = [...uploadedVideoIds, ...initialVideoIds];
 
             const postTaskPayload = {
                 ...values,
@@ -363,7 +375,7 @@ export const PostTaskModal = () => {
                                     uploadedFiles={taskDetail?.videos ?? []}
                                     fileType="video"
                                     name="task-video"
-                                    onRemoveUploadedFiles={setInitialImageIds}
+                                    onRemoveUploadedFiles={setInitialVideoIds}
                                     onDrop={(videos) =>
                                         setFieldValue("videos", videos)
                                     }
