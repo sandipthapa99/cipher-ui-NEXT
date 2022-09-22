@@ -89,6 +89,22 @@ const Header = () => {
                                     </a>
                                 </Link>
                             </li>
+                            <li
+                                className={handleMenuActive(
+                                    "/category",
+                                    router
+                                )}
+                            >
+                                <Link href="/category">
+                                    <a className="nav-link d-none responsive-category">
+                                        <FontAwesomeIcon
+                                            icon={faObjectsColumn}
+                                            className="svg-icon d-none d-sm-inline-block"
+                                        />
+                                        Category
+                                    </a>
+                                </Link>
+                            </li>
                             <Dropdown>
                                 <li
                                     className={handleMenuActive(
