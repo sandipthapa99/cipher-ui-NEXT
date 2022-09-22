@@ -5,14 +5,18 @@ import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useAppliedTasks } from "hooks/task/use-applied-tasks";
-import { useGetMyAppliedTasks } from "hooks/task/use-get-service-booking";
+import type { MyBookings } from "hooks/task/use-get-service-booking";
+import { useGetTasks } from "hooks/task/use-get-service-booking";
 import { useLeaveTask } from "hooks/task/use-leave-task";
+import { useData } from "hooks/use-data";
 import { useForm } from "hooks/use-form";
+import type { GetStaticProps } from "next";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ITask } from "types/task";
+import { axiosClient } from "utils/axiosClient";
 
 import BookNowButton from "./BookNowButton";
 
@@ -23,20 +27,28 @@ interface SimpleProfileCardProps {
 const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const withLogin = useWithLogin();
     const { data: user } = useUser();
-    const { data: appliedTasks } = useGetMyAppliedTasks();
-    // console.log(
-    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 25 ~ SimpleProfileCard ~ appliedTasks",
-    //     appliedTasks
-    // );
+    const { data: appliedTasks } = useGetTasks();
+
+    const { data: myRequestedTask } = useData<MyBookings>(
+        ["my-requested-task"],
+        `${urls.task.requested_task}`
+    );
+    console.log(
+        "🚀 ~ file: SimpleProfileCard.tsx ~ line 30 ~ SimpleProfileCard ~ myRequestedTask",
+        myRequestedTask
+    );
+
+    const requestedTask = myRequestedTask?.data.result.find(
+        (requestedTask: any) => requestedTask?.entity_service.id === task.id
+    );
 
     const { data: profile } = useGetProfile();
 
     const appliedTask = appliedTasks?.result.find(
-        (appliedTask: any) =>
-            appliedTask?.task === task.id && appliedTask.is_active
+        (appliedTask: any) => appliedTask?.id !== task.id
     );
     // console.log(
-    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 29 ~ SimpleProfileCard ~ appliedTask",
+    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 54 ~ SimpleProfileCard ~ appliedTask",
     //     appliedTask
     // );
 
@@ -47,10 +59,10 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const queryClient = useQueryClient();
 
     const handleLeaveTask = () => {
-        if (!appliedTask) return;
-        mutate(appliedTask?.id, {
+        if (!requestedTask) return;
+        mutate(requestedTask?.id, {
             onSuccess: (message) => {
-                queryClient.invalidateQueries(["get-my-bookings"]);
+                queryClient.invalidateQueries(["my-requested-task"]);
                 toast.success("Booking successfully cancelled.");
                 onApply?.();
             },
@@ -61,16 +73,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     };
 
     const isUserTask = task?.created_by?.id === user?.id;
-    // console.log(
-    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 51 ~ SimpleProfileCard ~ task",
-    //     task
-    // );
-    // console.log(
-    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 51 ~ SimpleProfileCard ~ isUserTask",
-    //     isUserTask,
-    //     task?.created_by?.id,
-    //     user?.id
-    // );
 
     const handleViewApplicants = () => {
         toast.success("You have no applicants yet.");
@@ -116,7 +118,11 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                     ))}
                 {/* <span>{task.created_by.bio}</span> */}
                 <div className="intro">
-                    <p className="name">{task?.created_by?.full_name}</p>
+                    <p className="name">
+                        {task?.created_by?.first_name}{" "}
+                        {task?.created_by?.middle_name}{" "}
+                        {task?.created_by?.last_name}
+                    </p>
                     <p className="job">{task.status}</p>
                 </div>
             </div>
@@ -177,42 +183,44 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 )}
             </div>
             {!isUserTask ? (
-                appliedTask?.status === "Cancelled" ? (
+                requestedTask?.status === "Cancelled" ? (
                     <BookNowButton
                         btnTitle="Apply Now"
                         backgroundColor="#38C675"
                         handleOnClick={withLogin(() => setShowModal(true))}
                     />
-                ) : appliedTask?.status === "On Progress" ? (
+                ) : requestedTask?.status === "On Progress" ? (
                     <BookNowButton
                         btnTitle={"On Progress"}
                         backgroundColor={"#38C675"}
                         showModal={true}
                         //handleOnClick={withLogin(() => setShowModal(true))}
                     />
-                ) : appliedTask?.status === "Completed" ? (
+                ) : requestedTask?.status === "Completed" ? (
                     <BookNowButton
                         btnTitle={"Completed"}
                         backgroundColor={"#3776db"}
                         showModal={true}
                         //handleOnClick={withLogin(() => setShowModal(true))}
                     />
-                ) : !appliedTask ? (
+                ) : !requestedTask ? (
                     <BookNowButton
-                        btnTitle="Rejected"
-                        backgroundColor="#5e5d6b"
+                        btnTitle="Apply Now"
+                        // backgroundColor="#5e5d6b"
+                        backgroundColor="#38C675"
+                        handleOnClick={withLogin(() => setShowModal(true))}
                     />
-                ) : (
+                ) : appliedTask?.status === "Open" ? (
                     <BookNowButton
                         btnTitle="Leave Task"
                         backgroundColor="#FE5050"
                         handleOnClick={handleLeaveTask}
                     />
-                )
+                ) : null
             ) : (
                 <BookNowButton
-                    btnTitle="View Applicants"
-                    backgroundColor="#FE5050"
+                    btnTitle="Disabled"
+                    backgroundColor="#5e5d6b"
                     handleOnClick={handleViewApplicants}
                 />
             )}
@@ -269,3 +277,26 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     );
 };
 export default SimpleProfileCard;
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+    try {
+        const { data: taskDetail } = await axiosClient.get<ITask>(
+            `${urls.task.list}${params?.slug}/`
+        );
+
+        return {
+            props: {
+                taskDetail,
+                //   taskApplicants,
+            },
+            revalidate: 10,
+        };
+    } catch (error: any) {
+        return {
+            props: {
+                taskDetail: {},
+            },
+            revalidate: 10,
+        };
+    }
+};

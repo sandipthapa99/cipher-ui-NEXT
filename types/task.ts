@@ -40,7 +40,10 @@ export interface ITask {
     created_by: {
         id: string;
         email: string;
-        full_name: string;
+        first_name: string;
+        middle_name: string;
+        bio: string;
+        last_name: string;
         profile_image: string;
     };
     is_negotiable: boolean;

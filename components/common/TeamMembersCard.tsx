@@ -54,7 +54,6 @@ export const TeamMembersCard = ({
     charge,
     id,
 }: Props) => {
-    console.log("🚀 ~ file: TeamMembersCard.tsx ~ line 56 ~ id", id);
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
     const queryClient = useQueryClient();

@@ -10,7 +10,7 @@ import type { ITaskApiResponse } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 
 export const useSearchTask = (searchQuery: string) => {
-    const url = `${urls.task.task}&${searchQuery}`;
+    const url = `${urls.task.my_task}&${searchQuery}`;
 
     return useQuery(
         ["all-tasks", searchQuery],

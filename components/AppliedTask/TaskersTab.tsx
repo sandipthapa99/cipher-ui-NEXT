@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert } from "@mantine/core";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import type { MyBookings } from "hooks/task/use-get-service-booking";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
 import React from "react";
@@ -16,68 +18,94 @@ export const TaskersTab = () => {
         ["get-my-applicants"],
         `${urls.task.my_applicants}`
     );
-    // console.log(
-    //     "🚀 ~ file: AppliedTaskDetail.tsx ~ line 87 ~ taskApplicants",
-    //     taskApplicants?.data?.result
-    // );
+    console.log(
+        "🚀 ~ file: TaskersTab.tsx ~ line 18 ~ TaskersTab ~ taskApplicants",
+        taskApplicants
+    );
+
+    const { data: profileDetails } = useGetProfile();
+
+    const requestedTask = taskApplicants?.data.result.find(
+        (requestedTask: any) =>
+            requestedTask?.entity_service.created_by.id ===
+            profileDetails?.user.id
+    );
 
     return (
         <div className="tasker-tab-taskdetail">
-            <Row className="g-5">
-                {taskApplicants && taskApplicants?.data.result?.length <= 0 && (
-                    <Alert
-                        icon={<FontAwesomeIcon icon={faWarning} />}
-                        title="No Applicants!"
-                        color="orange"
-                    >
-                        There are no applicants yet!
-                    </Alert>
-                )}
-                {taskApplicants?.data.result &&
-                    taskApplicants.data.result.map((item: any) => (
-                        <Col md={12} lg={6} key={item.id}>
-                            <TeamMembersCard
-                                collabButton={false}
-                                id={item.id}
-                                image={
-                                    item ? item.created_by.profile_image : ""
-                                }
-                                name={
-                                    item ? item.created_by.user.full_name : ""
-                                }
-                                speciality={"curry"}
-                                rating={
-                                    item
-                                        ? item.created_by?.rating.avg_rating
-                                        : 0
-                                }
-                                happyClients={
-                                    item
-                                        ? item.created_by?.stats?.happy_clients
-                                        : ""
-                                }
-                                awardPercentage={
-                                    item
-                                        ? item.created_by?.stats?.task_completed
-                                        : ""
-                                }
-                                location={
-                                    item
-                                        ? `${item?.created_by?.address_line1}, ${item?.created_by?.address_line2}`
-                                        : ""
-                                }
-                                distance={"2 km"}
-                                bio={item ? item?.created_by?.bio : ""}
-                                charge={
-                                    item
-                                        ? `${item?.created_by?.charge_currency.code} ${item?.created_by?.hourly_rate}`
-                                        : ""
-                                }
-                                tasker={""}
-                            />
-                        </Col>
-                    ))}
-            </Row>
+            {!requestedTask ? (
+                <Alert
+                    icon={<FontAwesomeIcon icon={faWarning} />}
+                    title="No Applicants!"
+                    color="orange"
+                >
+                    You can&apos;t view the applicants
+                </Alert>
+            ) : (
+                <Row className="g-5">
+                    {taskApplicants &&
+                        taskApplicants?.data.result?.length <= 0 && (
+                            <Alert
+                                icon={<FontAwesomeIcon icon={faWarning} />}
+                                title="No Applicants!"
+                                color="orange"
+                            >
+                                There are no applicants yet!
+                            </Alert>
+                        )}
+
+                    {taskApplicants?.data.result &&
+                        taskApplicants.data.result.map((item: any) => (
+                            <Col md={12} lg={6} key={item.id}>
+                                <TeamMembersCard
+                                    collabButton={false}
+                                    id={item.id}
+                                    image={
+                                        item
+                                            ? item.created_by.profile_image
+                                            : ""
+                                    }
+                                    name={
+                                        item
+                                            ? item.created_by.user.full_name
+                                            : ""
+                                    }
+                                    speciality={"curry"}
+                                    rating={
+                                        item
+                                            ? item.created_by?.rating.avg_rating
+                                            : 0
+                                    }
+                                    happyClients={
+                                        item
+                                            ? item.created_by?.stats
+                                                  ?.happy_clients
+                                            : ""
+                                    }
+                                    awardPercentage={
+                                        item
+                                            ? item.created_by?.stats
+                                                  ?.task_completed
+                                            : ""
+                                    }
+                                    location={
+                                        item
+                                            ? `${item?.created_by?.address_line1}, ${item?.created_by?.address_line2}`
+                                            : ""
+                                    }
+                                    distance={"2 km"}
+                                    bio={item ? item?.created_by?.bio : ""}
+                                    charge={
+                                        item
+                                            ? `${item?.created_by?.charge_currency.code} ${item?.created_by?.hourly_rate}`
+                                            : ""
+                                    }
+                                    tasker={""}
+                                />
+                            </Col>
+                        ))}
+                </Row>
+            )}
         </div>
     );
 };

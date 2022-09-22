@@ -7,7 +7,7 @@ import { axiosClient } from "utils/axiosClient";
 
 import { MyTaskOrder } from "./MyTaskOrder";
 
-interface MyBookingProps {
+export interface MyBookingProps {
     result: Array<{
         id: number;
         created_by: {
