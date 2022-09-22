@@ -98,6 +98,7 @@ export const BookServiceFormData: BookNowFormProps = {
     start_time: 1,
     images: "",
     budget_from: 0,
+    entity_service: "",
     budget_to: 0,
     videos: "",
     requirements: "",

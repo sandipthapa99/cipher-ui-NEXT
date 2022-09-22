@@ -2,16 +2,20 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import AddRequirements from "@components/PostTask/AddRequirements";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
+import { ServiceEntityOptions } from "@components/Task/PostTaskModal/ServiceEntityOptions";
+import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { Checkbox, createStyles, LoadingOverlay } from "@mantine/core";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
+import { useSerivceEntity } from "hooks/service/use-service-entity";
+import { useServiceOptions } from "hooks/service/use-service-options";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import { useRouter } from "next/router";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -78,6 +82,10 @@ const BookNowModalCard = ({
     //     );
     const isBookLoading = uploadPhotoLoading || bookNowLoading;
 
+    const [serviceCategory, setserviceCategory] = useState("");
+
+    const useServiceEnetity = useSerivceEntity();
+
     return (
         <>
             {/* Modal component */}
@@ -127,13 +135,11 @@ const BookNowModalCard = ({
                                 ...values,
                                 images: imageIds,
                                 videos: videoIds,
-                                entity_service: entity_service_id,
+                                entity_service: serviceCategory,
                                 requirements: JSON.stringify(
                                     values.requirements
                                 ),
                             };
-
-                            console.log("abc", newvalues);
 
                             mutate(newvalues, {
                                 onSuccess: () => {
@@ -238,6 +244,7 @@ const BookNowModalCard = ({
                             touched,
                             setFieldValue,
                             values,
+                            getFieldProps,
                         }) => (
                             <Form encType="multipart/formData">
                                 {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
@@ -355,6 +362,18 @@ const BookNowModalCard = ({
                                     onCitySelect={(cityId) =>
                                         setFieldValue("city", cityId)
                                     }
+                                />
+                                <ServiceEntityOptions
+                                    {...getFieldProps("entity_service")}
+                                    onServiceChange={(service) => {
+                                        setFieldValue(
+                                            "entity_service",
+                                            service
+                                        );
+                                        setserviceCategory(service);
+                                    }}
+                                    error={errors.entity_service}
+                                    value={serviceCategory}
                                 />
 
                                 <div className="book-now-gallery">
