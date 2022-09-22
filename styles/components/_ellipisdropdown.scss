@@ -4,16 +4,20 @@
         box-shadow: 0px 4px 14px rgba(33, 29, 79, 0.1);
         border: none;
         background: #fff;
-        padding: 2rem 2rem;
-        padding-right: 4rem;
+        padding: 1rem;
+        width: 15rem;
 
         .dropdown-item {
             display: flex;
+            gap: .5rem;
             color: $secondary-text-color;
             font-weight: 400;
             font-size: 1.6rem;
-            width: 115%;
-            margin: 0 0 1rem;
+            width: 100%;
+            margin: 0 0 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+
             &:active {
                 color: #fff;
                 text-decoration: none;

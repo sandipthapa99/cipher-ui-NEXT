@@ -1,5 +1,3 @@
-import { ConfirmDeactiveTaskModal } from "@components/Task/ConfirmDeactiveTaskModal";
-import { ConfirmDeleteTaskModal } from "@components/Task/ConfirmDeleteTaskModal";
 import {
     faEyeSlash,
     faGear,
@@ -8,9 +6,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Text } from "@mantine/core";
-import { useToggle } from "@mantine/hooks";
 import { useModals } from "@mantine/modals";
-import { useDeactivateTask } from "hooks/task/use-deactivate-task";
 import { useDeleteTask } from "hooks/task/use-delete-task";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -42,22 +38,10 @@ const EllipsisDropdown = ({
     const setEditTaskDetail = useSetEditTaskDetail();
 
     const { mutate: deleteTaskMutation } = useDeleteTask();
-    const { mutate: deactivateTaskMutation } = useDeactivateTask();
 
     const handleDeleteTask = () => {
         if (!task) return;
         deleteTaskMutation(
-            { id: task.id },
-            {
-                onSuccess: (message) => {
-                    toast.success(message);
-                },
-            }
-        );
-    };
-    const handleDeactivateTask = () => {
-        if (!task) return;
-        deactivateTaskMutation(
             { id: task.id },
             {
                 onSuccess: (message) => {
@@ -75,16 +59,6 @@ const EllipsisDropdown = ({
             confirmProps: { color: "red" },
             children: <Text>Are you sure you want to delete this task ?</Text>,
             onConfirm: handleDeleteTask,
-        });
-    const openDeactiveTaskModal = () =>
-        modals.openConfirmModal({
-            title: "Deactivate task",
-            centered: true,
-            children: (
-                <Text>Are you sure you want to deactivate this task ?</Text>
-            ),
-            labels: { confirm: `Delete`, cancel: "Cancel" },
-            confirmProps: { color: "red" },
         });
 
     return (
@@ -167,16 +141,6 @@ const EllipsisDropdown = ({
                                         icon={faTrashCan}
                                     />
                                     Remove
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                    onClick={openDeactiveTaskModal}
-                                    className="d-flex align-items-center"
-                                >
-                                    <FontAwesomeIcon
-                                        className="svg-icon"
-                                        icon={faEyeSlash}
-                                    />
-                                    Inactive
                                 </Dropdown.Item>
                             </>
                         )}
