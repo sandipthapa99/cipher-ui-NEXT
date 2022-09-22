@@ -59,7 +59,10 @@ const ServiceList = ({
                 {taskerService?.result &&
                     taskerService?.result?.map((service, key) => (
                         <Carousel.Slide key={key}>
-                            <ServiceCard serviceCard={service} />
+                            <ServiceCard
+                                className="border-1"
+                                serviceCard={service}
+                            />
                         </Carousel.Slide>
                     ))}
             </Carousel>
