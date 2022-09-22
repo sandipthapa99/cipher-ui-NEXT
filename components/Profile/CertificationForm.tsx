@@ -4,6 +4,7 @@ import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { useEditForm } from "hooks/use-edit-form";
@@ -37,10 +38,10 @@ const CertificationForm = ({
     setShowCertificationModal,
 }: CertificationProps) => {
     const queryClient = useQueryClient();
-    const { mutate } = useForm(`/tasker/certification/`);
+    const { mutate } = useForm(`${urls.profile.certifications}`);
 
     const { mutate: editMutation } = useEditForm(
-        `/tasker/certification/${id}/`
+        `${urls.profile.certifications}${id}/`
     );
 
     const data = queryClient.getQueryData<EditDetailProps>([

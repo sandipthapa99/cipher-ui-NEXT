@@ -12,7 +12,6 @@ import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
-import { Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -78,7 +77,6 @@ const Login = () => {
                                 ...values,
                                 fcm_token: fcmToken ? fcmToken : null,
                             };
-                            console.log(newValues);
 
                             mutate(newValues, {
                                 onError: (error) => {

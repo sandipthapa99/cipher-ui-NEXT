@@ -235,6 +235,7 @@ export const AddServiceModalComponent = () => {
                         }
                     />
                     <SelectTaskType
+                        location={values.location}
                         setFieldValue={setFieldValue}
                         onTypeChange={(type) => setFieldValue("location", type)}
                         {...getFieldProps("location")}

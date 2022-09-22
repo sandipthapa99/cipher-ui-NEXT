@@ -15,7 +15,7 @@ const TaskDetail: NextPage<{
                 <AppliedTaskDetail
                     type={"you may like"}
                     taskDetail={taskDetail}
-                    taskApplicants={taskApplicants}
+                    // taskApplicants={taskApplicants}
                 />
             </AppliedLayout>
         </>
