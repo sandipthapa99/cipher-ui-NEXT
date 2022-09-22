@@ -317,6 +317,7 @@ export const PostTaskModal = () => {
                                     fileType="image"
                                     sx={{ maxWidth: "30rem" }}
                                     name="task-image"
+                                    onRemoveUploadedFiles={setInitialImageIds}
                                     onDrop={(images) =>
                                         setFieldValue("images", images)
                                     }
