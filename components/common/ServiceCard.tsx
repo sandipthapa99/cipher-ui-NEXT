@@ -102,7 +102,16 @@ const ServiceCard = ({
                 <Link href={`/service/${serviceCard?.slug}`}>
                     <a>
                         <div className="d-flex pro-title-wrapper justify-content-between">
-                            <h2 className="card-title">{serviceCard?.title}</h2>
+                            <Spoiler
+                                maxHeight={30}
+                                hideLabel={"..."}
+                                showLabel={"..."}
+                            >
+                                <h2 className="card-title">
+                                    {serviceCard?.title}
+                                </h2>
+                            </Spoiler>
+                            {/* <h2 className="card-title">{serviceCard?.title}</h2> */}
                             {serviceCard?.is_professional ? (
                                 <div className="pro-service">
                                     <p>PRO</p>
