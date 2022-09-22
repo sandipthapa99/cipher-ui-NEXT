@@ -7,10 +7,15 @@ import {
     faTrashCan,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Text } from "@mantine/core";
 import { useToggle } from "@mantine/hooks";
+import { useModals } from "@mantine/modals";
+import { useDeactivateTask } from "hooks/task/use-deactivate-task";
+import { useDeleteTask } from "hooks/task/use-delete-task";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
+import { toast } from "react-toastify";
 import { useSetEditTaskDetail } from "store/use-edit-task";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { ITask } from "types/task";
@@ -32,33 +37,58 @@ const EllipsisDropdown = ({
     menu,
     task,
 }: DropdownProps) => {
+    const modals = useModals();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
-    const [deleteModalOpened, toggleDeleteModalOpened] = useToggle([
-        false,
-        true,
-    ]);
-    const [deactiveModalOpened, toggleDeactiveModalOpened] = useToggle([
-        false,
-        true,
-    ]);
     const setEditTaskDetail = useSetEditTaskDetail();
+
+    const { mutate: deleteTaskMutation } = useDeleteTask();
+    const { mutate: deactivateTaskMutation } = useDeactivateTask();
+
+    const handleDeleteTask = () => {
+        if (!task) return;
+        deleteTaskMutation(
+            { id: task.id },
+            {
+                onSuccess: (message) => {
+                    toast.success(message);
+                },
+            }
+        );
+    };
+    const handleDeactivateTask = () => {
+        if (!task) return;
+        deactivateTaskMutation(
+            { id: task.id },
+            {
+                onSuccess: (message) => {
+                    toast.success(message);
+                },
+            }
+        );
+    };
+
+    const openConfirmDeleteTaskModal = () =>
+        modals.openConfirmModal({
+            title: `Delete`,
+            centered: true,
+            labels: { confirm: `Delete`, cancel: "Cancel" },
+            confirmProps: { color: "red" },
+            children: <Text>Are you sure you want to delete this task ?</Text>,
+            onConfirm: handleDeleteTask,
+        });
+    const openDeactiveTaskModal = () =>
+        modals.openConfirmModal({
+            title: "Deactivate task",
+            centered: true,
+            children: (
+                <Text>Are you sure you want to deactivate this task ?</Text>
+            ),
+            labels: { confirm: `Delete`, cancel: "Cancel" },
+            confirmProps: { color: "red" },
+        });
 
     return (
         <>
-            {task && (
-                <>
-                    <ConfirmDeleteTaskModal
-                        task={task}
-                        opened={deleteModalOpened}
-                        onClose={toggleDeleteModalOpened}
-                    />
-                    <ConfirmDeactiveTaskModal
-                        task={task}
-                        opened={deactiveModalOpened}
-                        onClose={toggleDeactiveModalOpened}
-                    />
-                </>
-            )}
             <div className="ellipsis">
                 <Dropdown>
                     <Dropdown.Toggle>
@@ -130,7 +160,7 @@ const EllipsisDropdown = ({
                                 </Dropdown.Item>
                                 <Dropdown.Item
                                     className="d-flex align-items-center"
-                                    onClick={() => toggleDeleteModalOpened()}
+                                    onClick={openConfirmDeleteTaskModal}
                                 >
                                     <FontAwesomeIcon
                                         className="svg-icon"
@@ -139,7 +169,7 @@ const EllipsisDropdown = ({
                                     Remove
                                 </Dropdown.Item>
                                 <Dropdown.Item
-                                    onClick={() => toggleDeactiveModalOpened()}
+                                    onClick={openDeactiveTaskModal}
                                     className="d-flex align-items-center"
                                 >
                                     <FontAwesomeIcon

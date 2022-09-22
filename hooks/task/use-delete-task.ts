@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { axiosClient } from "utils/axiosClient";
 
@@ -9,16 +9,11 @@ export interface DeleteTaskResponse {
     message: string;
 }
 export const useDeleteTask = () => {
-    const queryClient = useQueryClient();
     return useMutation<string, AxiosError, DeleteTaskPayload>(
         ({ id }) =>
             axiosClient
-                .delete<DeleteTaskResponse>(`/task/uuid/${id}`)
+                .delete<DeleteTaskResponse>(`/task/entity/service/${id}`)
                 .then((response) => response.data.message),
-        {
-            onSuccess: () => {
-                queryClient.invalidateQueries(["all-tasks"]);
-            },
-        }
+        {}
     );
 };
