@@ -14,7 +14,6 @@ import { Button } from "@mantine/core";
 import { Box, createStyles, Select, TextInput } from "@mantine/core";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useLanguage } from "hooks/dropdown/useLanguage";
-import { useServiceOptions } from "hooks/service/use-service-options";
 import { useCities } from "hooks/use-cities";
 import type { ChangeEvent } from "react";
 import React, { useEffect, useState } from "react";
@@ -49,7 +48,11 @@ export const SearchCategory = ({
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
 
-    const { data: servicesData = [] } = useServiceOptions();
+    // const categoriesData: SelectItem[] = categories.map((category) => ({
+    //     id: category.id,
+    //     label: category.name,
+    //     value: category.slug,
+    // }));
     const citiesData: SelectItem[] = cities.map((city) => ({
         id: city.id,
         label: city.name,
@@ -139,7 +142,7 @@ export const SearchCategory = ({
     const city = params ? params.city : "";
     const country = params ? params.country : "";
     const language = params ? params.language : "";
-    const service = params ? params.service : "";
+    const category = params ? params.category : "";
     const ordering = params ? params.ordering : "";
 
     const handleClearFilters = () => {
@@ -185,7 +188,12 @@ export const SearchCategory = ({
             <Col md={4}>
                 <TextInput
                     value={search}
-                    icon={<FontAwesomeIcon icon={faSearch} />}
+                    icon={
+                        <FontAwesomeIcon
+                            icon={faSearch}
+                            className="me-0 svg-icon"
+                        />
+                    }
                     placeholder="Enter a search keyword"
                     onChange={handleSearchChange}
                 />
@@ -198,7 +206,12 @@ export const SearchCategory = ({
                 >
                     {params && (
                         <Button
-                            leftIcon={<FontAwesomeIcon icon={faClose} />}
+                            leftIcon={
+                                <FontAwesomeIcon
+                                    icon={faClose}
+                                    className="me-0 svg-icon"
+                                />
+                            }
                             variant="white"
                             color="red"
                             onClick={handleClearFilters}
@@ -209,19 +222,26 @@ export const SearchCategory = ({
 
                     {(searchModal === "task" || searchModal === "service") && (
                         <>
-                            <Select
+                            {/* <Select
                                 clearable
-                                placeholder="Filter by services"
-                                data={servicesData}
-                                value={service}
+                                searchable
+                                icon={<FontAwesomeIcon icon={faGrid2} />}
+                                placeholder="Filter by Categories"
+                                value={category}
+                                data={categoriesData}
                                 onChange={(value) =>
-                                    onSelectChange("service", value)
+                                    onSelectChange("category", value)
                                 }
-                            />
+                            /> */}
                             <Select
                                 clearable
                                 searchable
-                                icon={<FontAwesomeIcon icon={faCity} />}
+                                icon={
+                                    <FontAwesomeIcon
+                                        icon={faCity}
+                                        className="me-0 svg-icon"
+                                    />
+                                }
                                 placeholder="Filter by City"
                                 value={city}
                                 data={citiesData}
@@ -234,7 +254,10 @@ export const SearchCategory = ({
                                 <Select
                                     clearable
                                     icon={
-                                        <FontAwesomeIcon icon={faDollarSign} />
+                                        <FontAwesomeIcon
+                                            icon={faDollarSign}
+                                            className="me-0 svg-icon"
+                                        />
                                     }
                                     placeholder="Filter by Pricing"
                                     value={ordering}
@@ -251,7 +274,12 @@ export const SearchCategory = ({
                             <Select
                                 clearable
                                 searchable
-                                icon={<FontAwesomeIcon icon={faGlobe} />}
+                                icon={
+                                    <FontAwesomeIcon
+                                        icon={faGlobe}
+                                        className="me-0 svg-icon"
+                                    />
+                                }
                                 value={country}
                                 placeholder="Filter by country"
                                 data={countriesData}
@@ -260,7 +288,12 @@ export const SearchCategory = ({
                                 }
                             />
                             <Select
-                                icon={<FontAwesomeIcon icon={faLanguage} />}
+                                icon={
+                                    <FontAwesomeIcon
+                                        icon={faLanguage}
+                                        className="me-0 svg-icon"
+                                    />
+                                }
                                 value={language}
                                 placeholder="Filter by language"
                                 data={languagesData}
@@ -271,7 +304,12 @@ export const SearchCategory = ({
                             <Select
                                 clearable
                                 searchable
-                                icon={<FontAwesomeIcon icon={faSort} />}
+                                icon={
+                                    <FontAwesomeIcon
+                                        icon={faSort}
+                                        className="me-0 svg-icon"
+                                    />
+                                }
                                 placeholder="Order by"
                                 data={orderTaskersData}
                                 value={ordering}
