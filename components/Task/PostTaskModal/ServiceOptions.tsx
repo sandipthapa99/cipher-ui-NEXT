@@ -24,7 +24,7 @@ export const ServiceOptions = ({
         <Select
             {...rest}
             searchable
-            label="Service"
+            label="Category"
             placeholder="Select a service"
             value={service}
             onChange={handleServiceChange}
