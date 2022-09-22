@@ -2,6 +2,7 @@ import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
+import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import type { ITask, TaskApplicantsProps } from "types/task";
 import { axiosClient } from "utils/axiosClient";
@@ -10,6 +11,9 @@ const TaskDetail: NextPage<{
     taskDetail: ITask;
     // taskApplicants: TaskApplicantsProps;
 }> = ({ taskDetail }) => {
+    // const { data: TaskDetail } = useData(urls.task.list);
+    console.log("🚀 ~ file: [slug].tsx ~ line 13 ~ taskDetail", taskDetail);
+
     return (
         <>
             <AppliedLayout>
@@ -44,6 +48,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const { data: taskDetail } = await axiosClient.get<ITask>(
             `${urls.task.list}${params?.slug}/`
         );
+        console.log(
+            "🚀 ~ file: [slug].tsx ~ line 49 ~ constgetStaticProps:GetStaticProps= ~ taskDetail",
+            taskDetail
+        );
 
         // queryClient.prefetchQuery(["my-bookings"]);
 
@@ -58,7 +66,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         return {
             props: {
                 taskDetail: {},
-                //taskApplicants: [],
             },
             revalidate: 10,
         };

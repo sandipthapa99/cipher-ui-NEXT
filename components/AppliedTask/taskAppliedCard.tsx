@@ -35,6 +35,10 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
         applicants_count,
         slug,
     } = task;
+    console.log(
+        "🚀 ~ file: taskAppliedCard.tsx ~ line 24 ~ TaskCard ~ task",
+        task
+    );
     return (
         <div
             data-active={JSON.stringify(query === slug)}

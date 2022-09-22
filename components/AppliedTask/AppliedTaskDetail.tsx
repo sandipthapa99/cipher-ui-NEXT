@@ -25,7 +25,9 @@ import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
-import { useGetMyAppliedTasks } from "hooks/task/use-get-service-booking";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import type { MyBookings } from "hooks/task/use-get-service-booking";
+import { useGetTasks } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
@@ -53,6 +55,16 @@ const AppliedTaskDetail = ({
     taskDetail: ITask;
     // taskApplicants: TaskApplicantsProps;
 }) => {
+    const { data: myRequestedTask } = useData<MyBookings>(
+        ["my-requested-task"],
+        `${urls.task.requested_task}`
+    );
+
+    const { data: taskApplicants } = useData<TaskApplicantsProps>(
+        ["get-my-applicants"],
+        `${urls.task.my_applicants}`
+    );
+
     // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
     const queryClient = useQueryClient();
     const { data: user } = useUser();
@@ -84,16 +96,6 @@ const AppliedTaskDetail = ({
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
-    // const { data: applicants } = useData<TaskApplicantsProps>(
-    //     ["get-my-applicants"],
-    //     `${urls.task.my_task}`
-    // );
-    const { data: taskDetails } = useGetMyAppliedTasks();
-
-    // const task = taskDetails?.result.find(
-    //     (appliedTask) => appliedTask.entity_service.id.toString() === task.id
-    // );
-    // const applicants = taskApplicants ? taskApplicants.data?.result : [];
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
@@ -102,6 +104,7 @@ const AppliedTaskDetail = ({
                         type === "you may like" ? `/task-you-may-like` : `/task`
                     }
                 />
+
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
@@ -319,7 +322,7 @@ const AppliedTaskDetail = ({
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {/* <ServiceHighlights highlight={taskRequirements} /> */}
+                    <ServiceHighlights highlight={taskDetail?.highlights} />
                 </div>
 
                 {/* <TeamMembersSection /> */}
@@ -329,7 +332,7 @@ const AppliedTaskDetail = ({
                     onTabClick={setActiveTabIdx}
                     items={[
                         {
-                            title: "Taskers",
+                            title: `Taskers (${taskApplicants?.data.result.length})`,
                             content: <TaskersTab />,
                         },
                         { title: "Timeline", content: <TimelineTab /> },

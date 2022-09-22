@@ -180,7 +180,7 @@ export const useGetMyBookings = (service_id: string | undefined) => {
     });
 };
 
-export const useGetMyAppliedTasks = () => {
+export const useGetTasks = () => {
     const url = `${urls.task.my_task}`;
 
     return useQuery<MyBookings>(["get-my-bookings"], async () => {
