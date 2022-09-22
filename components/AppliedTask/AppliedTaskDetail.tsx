@@ -61,7 +61,7 @@ const AppliedTaskDetail = ({
 
     const { data: taskApplicants } = useData<TaskApplicantsProps>(
         ["get-my-applicants"],
-        `${urls.task.my_applicants}`
+        `${urls.task.taskApplicants}`
     );
 
     // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
@@ -112,19 +112,22 @@ const AppliedTaskDetail = ({
                                 {format(new Date(taskDetail?.created_at), "PP")}
                             </span>
                         )}
+
                         <div className="d-flex justify-content-between align-items-center">
-                            <SaveIcon
-                                object_id={taskDetail?.id}
-                                model="task"
-                                filled={isTaskBookmarked}
-                                showText
-                                onSuccess={() =>
-                                    queryClient.invalidateQueries([
-                                        "bookmarks",
-                                        "task",
-                                    ])
-                                }
-                            />
+                            {isUserTask ? null : (
+                                <SaveIcon
+                                    object_id={taskDetail?.id}
+                                    model="task"
+                                    filled={isTaskBookmarked}
+                                    showText
+                                    onSuccess={() =>
+                                        queryClient.invalidateQueries([
+                                            "bookmarks",
+                                            "task",
+                                        ])
+                                    }
+                                />
+                            )}
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
                                     url={getPageUrl()}

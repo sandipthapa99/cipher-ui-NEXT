@@ -41,6 +41,8 @@ export interface ITask {
         id: string;
         email: string;
         first_name: string;
+        middle_name: string;
+        bio: string;
         last_name: string;
         profile_image: string;
     };

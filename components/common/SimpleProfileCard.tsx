@@ -120,6 +120,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 <div className="intro">
                     <p className="name">
                         {task?.created_by?.first_name}{" "}
+                        {task?.created_by?.middle_name}{" "}
                         {task?.created_by?.last_name}
                     </p>
                     <p className="job">{task.status}</p>
@@ -218,8 +219,8 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 ) : null
             ) : (
                 <BookNowButton
-                    btnTitle="View Applicants"
-                    backgroundColor="#FE5050"
+                    btnTitle="Disabled"
+                    backgroundColor="#5e5d6b"
                     handleOnClick={handleViewApplicants}
                 />
             )}

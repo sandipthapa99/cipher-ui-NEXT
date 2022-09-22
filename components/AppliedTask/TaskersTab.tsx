@@ -18,6 +18,10 @@ export const TaskersTab = () => {
         ["get-my-applicants"],
         `${urls.task.my_applicants}`
     );
+    console.log(
+        "🚀 ~ file: TaskersTab.tsx ~ line 18 ~ TaskersTab ~ taskApplicants",
+        taskApplicants
+    );
 
     const { data: profileDetails } = useGetProfile();
 
