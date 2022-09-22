@@ -347,6 +347,7 @@ const AccountForm = () => {
                         profile_visibility: profile?.profile_visibility ?? "",
                         task_preferences: profile?.task_preferences ?? "",
                         profile_image: profile?.profile_image ?? "",
+                        designation: profile?.designation ?? "",
                     }}
                     validationSchema={accountFormSchema}
                     onSubmit={async (values, action) => {
@@ -611,6 +612,19 @@ const AccountForm = () => {
                                 placeHolder="Enter your Bio"
                                 as="textarea"
                                 disabled={isInputDisabled}
+                            />
+
+                            <InputField
+                                name="designation"
+                                labelName="Designation"
+                                touch={touched.designation as boolean}
+                                error={errors.designation as string}
+                                placeHolder="Enter your designation"
+                                disabled={
+                                    isEditButtonClicked || !profile
+                                        ? false
+                                        : true
+                                }
                             />
                             {/* <Row className="g-5">
                                 <Col md={6}>
