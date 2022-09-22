@@ -246,6 +246,7 @@ export const EditService = ({
                             }
                         />
                         <SelectTaskType
+                            location={values.location}
                             setFieldValue={setFieldValue}
                             onTypeChange={(type) =>
                                 setFieldValue("location", type)

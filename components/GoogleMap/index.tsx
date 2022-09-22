@@ -1,3 +1,4 @@
+import FullPageLoader from "@components/common/FullPageLoader";
 import { faLocation } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, createStyles, Text } from "@mantine/core";
@@ -36,7 +37,6 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
         id: "google-map-script",
         googleMapsApiKey: getGoogleMapsApiKey(),
     });
-
     const [zoom, setZoom] = useState(6);
 
     const mapRef = useRef<Map | null>(null);
@@ -79,6 +79,8 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
         interval.start();
         return interval.stop;
     }, [interval]);
+
+    if (!isLoaded) return <FullPageLoader />;
 
     return isLoaded ? (
         <ReactGoogleMap
