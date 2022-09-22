@@ -181,7 +181,7 @@ export const useGetMyBookings = (service_id: string | undefined) => {
 };
 
 export const useGetTasks = () => {
-    const url = `${urls.task.my_task}`;
+    const url = `${urls.task.requested_task}`;
 
     return useQuery<MyBookings>(["get-my-bookings"], async () => {
         try {

@@ -27,7 +27,6 @@ import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { MyBookings } from "hooks/task/use-get-service-booking";
-import { useGetTasks } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
@@ -322,7 +321,11 @@ const AppliedTaskDetail = ({
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    <ServiceHighlights highlight={taskDetail?.highlights} />
+                    {taskDetail?.highlights ? (
+                        <ServiceHighlights highlight={taskDetail?.highlights} />
+                    ) : (
+                        ""
+                    )}
                 </div>
 
                 {/* <TeamMembersSection /> */}

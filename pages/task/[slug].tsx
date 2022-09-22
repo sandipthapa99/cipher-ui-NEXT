@@ -48,12 +48,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         const { data: taskDetail } = await axiosClient.get<ITask>(
             `${urls.task.list}${params?.slug}/`
         );
-        console.log(
-            "🚀 ~ file: [slug].tsx ~ line 49 ~ constgetStaticProps:GetStaticProps= ~ taskDetail",
-            taskDetail
-        );
-
-        // queryClient.prefetchQuery(["my-bookings"]);
 
         return {
             props: {
