@@ -21,8 +21,10 @@ import ShareIcon from "./ShareIcon";
 
 const ServiceCard = ({
     serviceCard,
+    className,
 }: {
     serviceCard: ServicesValueProps["result"][0];
+    className?: string;
 }) => {
     const router = useRouter();
     const { data: profileDetails } = useGetProfile();
@@ -58,7 +60,7 @@ const ServiceCard = ({
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
-        <div className="service-card-block align-items-stretch">
+        <div className="service-card-block align-items-stretch border border-secondary">
             <Link href={`/service/${serviceCard?.slug}`}>
                 <a>
                     <div className="card-img">

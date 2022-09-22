@@ -54,7 +54,6 @@ export const TeamMembersCard = ({
     charge,
     id,
 }: Props) => {
-    console.log("🚀 ~ file: TeamMembersCard.tsx ~ line 56 ~ id", id);
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
     const queryClient = useQueryClient();
@@ -190,7 +189,7 @@ export const TeamMembersCard = ({
                     </a>
                 </Link>
             </div>
-            <div className="d-flex align-items-center gap-3 pt-3">
+            {/* <div className="d-flex align-items-center gap-3 pt-3">
                 <BigButton
                     btnTitle={"Approve"}
                     backgroundColor={"#fff"}
@@ -241,7 +240,7 @@ export const TeamMembersCard = ({
                     }}
                     textColor={"#fff"}
                 />
-            </div>
+            </div> */}
         </div>
     );
 };

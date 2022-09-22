@@ -35,6 +35,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
         applicants_count,
         slug,
     } = task;
+
     return (
         <div
             data-active={JSON.stringify(query === slug)}

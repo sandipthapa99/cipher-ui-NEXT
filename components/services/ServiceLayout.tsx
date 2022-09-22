@@ -55,6 +55,7 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
                         onSearchParamChange={handleSearchChange}
                         onFilterClear={() => setSearchParam("")}
                     />
+
                     {searchQuery?.query && (
                         <Box
                             sx={{

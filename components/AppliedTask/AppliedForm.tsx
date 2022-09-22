@@ -107,7 +107,7 @@ const AppliedForm = ({
                                     );
 
                                     queryClient.invalidateQueries([
-                                        "get-my-bookings",
+                                        "my-requested-task",
                                     ]);
                                     //toggleSuccessModal();
                                     setShow(false);
