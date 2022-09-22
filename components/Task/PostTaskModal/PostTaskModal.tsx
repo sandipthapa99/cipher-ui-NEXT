@@ -28,9 +28,10 @@ import { useFormik } from "formik";
 import { useEditTask } from "hooks/task/use-edit-task";
 import { usePostTask } from "hooks/task/use-post-task";
 import { useUploadFile } from "hooks/use-upload-file";
+import { key } from "localforage";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useEditTaskDetail } from "store/use-edit-task";
@@ -40,7 +41,6 @@ import {
     useToggleShowPostTaskModal,
 } from "store/use-show-post-task";
 import { useToggleSuccessModal } from "store/use-success-modal";
-import type { ITask } from "types/task";
 
 export interface PostTaskPayload {
     title: string;
@@ -51,8 +51,8 @@ export interface PostTaskPayload {
     location: TaskType;
     currency: string;
     budget_type: BudgetType;
-    budget_from: number;
-    budget_to: number;
+    budget_from: number | string;
+    budget_to: number | string;
     is_negotiable: boolean;
     images: string;
     videos: string;
@@ -88,20 +88,45 @@ export const PostTaskModal = () => {
         showPostTaskModalType === "EDIT" ? editTaskDetail : undefined;
 
     const [termsAccepted, setTermsAccepted] = useState(true);
+
+    const getInitialImageIds = useCallback(
+        () => (editTaskDetail?.images ?? []).map((image) => image.id),
+        [editTaskDetail?.images]
+    );
+    const getInitialVideoIds = useCallback(
+        () => (editTaskDetail?.videos ?? []).map((video) => video.id),
+        [editTaskDetail?.videos]
+    );
+
+    const [initialImageIds, setInitialImageIds] = useState<number[]>(() =>
+        getInitialImageIds()
+    );
+    const [initialVideoIds, setInitialVideoIds] = useState<number[]>(() =>
+        getInitialVideoIds()
+    );
+
     const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
         useUploadFile();
+
+    useEffect(() => {
+        setInitialImageIds(getInitialImageIds());
+    }, [getInitialImageIds]);
+
+    useEffect(() => {
+        setInitialVideoIds(getInitialVideoIds());
+    }, [getInitialVideoIds]);
 
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
             description: taskDetail ? taskDetail.description : "",
             highlights: taskDetail ? taskDetail.highlights : {},
-            city: "",
-            location: "remote",
+            city: taskDetail ? String(taskDetail?.city?.id) : "",
+            location: taskDetail ? (taskDetail.location as TaskType) : "remote",
             budget_type: BudgetType.FIXED,
-            budget_from: 0,
-            budget_to: 0,
-            service: "",
+            budget_from: taskDetail ? taskDetail.budget_from : "",
+            budget_to: taskDetail ? taskDetail.budget_to : "",
+            service: taskDetail ? taskDetail.service.id ?? ({} as any) : "",
             is_negotiable: false,
             estimated_time: 5,
             is_recursion: false,
@@ -111,7 +136,7 @@ export const PostTaskModal = () => {
             end_date: "2023-01-04",
             start_time: "01:00",
             end_time: "03:00",
-            currency: "",
+            currency: taskDetail ? String(taskDetail?.currency?.id) : "",
             images: "",
             videos: "",
             is_active: true,
@@ -126,14 +151,17 @@ export const PostTaskModal = () => {
                 );
                 return;
             }
-            const imageIds = await uploadFileMutation({
+            const uploadedImageIds = await uploadFileMutation({
                 files: values.images,
                 media_type: "image",
             });
-            const videoIds = await uploadFileMutation({
+            const uploadedVideoIds = await uploadFileMutation({
                 files: values.videos,
                 media_type: "video",
             });
+            const imageIds = [...uploadedImageIds, ...initialImageIds];
+            const videoIds = [...uploadedVideoIds, ...initialVideoIds];
+
             const postTaskPayload = {
                 ...values,
                 images: imageIds,
@@ -141,9 +169,18 @@ export const PostTaskModal = () => {
                 extra_data: [],
             };
 
+            const updatedPayload = Object.entries(postTaskPayload).reduce(
+                (acc, curr) => {
+                    const [key, value] = curr;
+                    if (value) acc[key] = value;
+                    return acc;
+                },
+                {} as Record<string, unknown>
+            );
+
             if (showPostTaskModalType === "EDIT" && taskDetail) {
                 editTaskMutation(
-                    { id: taskDetail.id, data: postTaskPayload },
+                    { id: taskDetail.id, data: updatedPayload },
                     {
                         onSuccess: async (message) => {
                             handleCloseModal();
@@ -157,11 +194,11 @@ export const PostTaskModal = () => {
                 );
                 return;
             }
-            createTaskMutation(postTaskPayload, {
-                onSuccess: async ({ message }) => {
+            createTaskMutation(updatedPayload, {
+                onSuccess: async () => {
                     handleCloseModal();
                     action.resetForm();
-                    toggleSuccessModal();
+                    toggleSuccessModal("Task Posted Successfully");
                     // toast.success(message);
                     await queryClient.invalidateQueries(["all-tasks"]);
                     await queryClient.invalidateQueries(["notification"]);
@@ -179,8 +216,8 @@ export const PostTaskModal = () => {
         handleSubmit,
         touched,
         errors,
-        values,
         setFieldValue,
+        values,
     } = formik;
     const getFieldError = (key: keyof PostTaskPayload) =>
         touched[key] && errors[key] ? (errors[key] as string) : null;
@@ -248,34 +285,34 @@ export const PostTaskModal = () => {
                                 labelName="Requirements"
                                 description="This helps tasker to find about your requirements better."
                             />
-                            <TaskCurrency
-                                value={
-                                    taskDetail
-                                        ? taskDetail?.currency?.id?.toString()
-                                        : ""
-                                }
-                                onCurrencyChange={(currencyId) =>
-                                    setFieldValue("currency", currencyId)
-                                }
-                                error={getFieldError("currency")}
-                            />
+
                             <SelectCity
                                 onCitySelect={(cityId) =>
                                     setFieldValue("city", cityId)
                                 }
                                 value={taskDetail ? taskDetail?.city : ""}
                             />
-
                             <ServiceOptions
                                 {...getFieldProps("service")}
                                 onServiceChange={(service) =>
                                     setFieldValue("service", service)
                                 }
                                 error={getFieldError("service")}
+                                data={
+                                    taskDetail?.service
+                                        ? [
+                                              {
+                                                  id: taskDetail?.service?.id,
+                                                  label: taskDetail?.service
+                                                      ?.title,
+                                                  value: taskDetail?.service
+                                                      ?.id,
+                                              },
+                                          ]
+                                        : []
+                                }
                                 value={
-                                    taskDetail
-                                        ? taskDetail?.category?.id?.toString()
-                                        : ""
+                                    taskDetail ? taskDetail?.service?.id : ""
                                 }
                             />
                             <SelectTaskType
@@ -284,7 +321,31 @@ export const PostTaskModal = () => {
                                     setFieldValue("location", type)
                                 }
                                 {...getFieldProps("location")}
+                                location={values.location}
                                 error={getFieldError("location")}
+                            />
+                            <TaskCurrency
+                                value={
+                                    taskDetail
+                                        ? taskDetail?.currency?.id?.toString()
+                                        : ""
+                                }
+                                data={
+                                    taskDetail?.currency
+                                        ? [
+                                              {
+                                                  id: taskDetail?.currency?.id,
+                                                  label: taskDetail?.currency
+                                                      ?.name,
+                                                  value: taskDetail?.currency?.id.toString(),
+                                              },
+                                          ]
+                                        : []
+                                }
+                                onCurrencyChange={(currencyId) =>
+                                    setFieldValue("currency", currencyId)
+                                }
+                                error={getFieldError("currency")}
                             />
                             <TaskBudget
                                 initialBudgetFrom={taskDetail?.budget_from}
@@ -304,9 +365,11 @@ export const PostTaskModal = () => {
                                 </Text>
                                 <CustomDropZone
                                     accept={IMAGE_MIME_TYPE}
+                                    uploadedFiles={taskDetail?.images ?? []}
                                     fileType="image"
                                     sx={{ maxWidth: "30rem" }}
                                     name="task-image"
+                                    onRemoveUploadedFiles={setInitialImageIds}
                                     onDrop={(images) =>
                                         setFieldValue("images", images)
                                     }
@@ -320,8 +383,10 @@ export const PostTaskModal = () => {
                                 </Text>
                                 <CustomDropZone
                                     accept={[MIME_TYPES.mp4]}
+                                    uploadedFiles={taskDetail?.videos ?? []}
                                     fileType="video"
                                     name="task-video"
+                                    onRemoveUploadedFiles={setInitialVideoIds}
                                     onDrop={(videos) =>
                                         setFieldValue("videos", videos)
                                     }

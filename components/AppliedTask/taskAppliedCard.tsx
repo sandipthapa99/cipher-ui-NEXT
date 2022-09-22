@@ -97,15 +97,23 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                                     icon={faCalendar}
                                     className="svg-icon"
                                 />
-                                <span> {date}</span>
+                                <span>
+                                    {" "}
+                                    {task?.created_at
+                                        ? format(
+                                              new Date(task?.created_at),
+                                              "PP"
+                                          )
+                                        : "N/A"}
+                                </span>
                             </span>
-                            <span className="date d-flex align-items-center">
+                            {/* <span className="date d-flex align-items-center">
                                 <FontAwesomeIcon
                                     icon={faLocationArrow}
                                     className="svg-icon"
                                 />
                                 <span> 2 Km away</span>
-                            </span>
+                            </span> */}
                         </div>
                     </div>
                 </a>

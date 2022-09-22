@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Modal } from "react-bootstrap";
 import {
     useShowSuccessModal,
+    useShowSuccessModalMessage,
     useToggleSuccessModal,
 } from "store/use-success-modal";
 
@@ -15,6 +16,7 @@ interface Props {
 export const PostCard = ({ text, buttonName, iconName, type }: Props) => {
     const showSuccessModal = useShowSuccessModal();
     const toggleSuccessModal = useToggleSuccessModal();
+    const toggleSuccessModalMessage = useShowSuccessModalMessage();
 
     return (
         <Modal
@@ -27,14 +29,14 @@ export const PostCard = ({ text, buttonName, iconName, type }: Props) => {
                 <FontAwesomeIcon icon={iconName} className="svg-icon" />
                 <div className="success-text">
                     <h4>{type}</h4>
-                    <p>{text}</p>
+                    <p>{toggleSuccessModalMessage}</p>
                 </div>
 
                 <div className="btn-continue">
                     <Button
                         variant="light"
                         className="cont-btn"
-                        onClick={toggleSuccessModal}
+                        onClick={() => toggleSuccessModal()}
                     >
                         {buttonName}
                     </Button>

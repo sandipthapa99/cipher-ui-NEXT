@@ -13,7 +13,7 @@ export interface EditTaskResponse {
 export const useEditTask = () => {
     return useMutation<string, AxiosError, EditTaskPayload>(({ id, data }) =>
         axiosClient
-            .put<EditTaskResponse>(`/task/uuid/${id}/`, data)
+            .patch<EditTaskResponse>(`/task/entity/service/${id}/`, data)
             .then((response) => response.data.message)
     );
 };

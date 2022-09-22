@@ -17,6 +17,7 @@ export interface Media {
     placeholder: string;
 }
 export interface ITask {
+    service: { id: string; title: string };
     id: string;
     title: string;
     category: {
