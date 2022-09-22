@@ -43,7 +43,9 @@ export type TaskerDetails = {
     user: {
         id: string;
         email: string;
-        full_name: string;
+        first_name: string;
+        middle_name: string;
+        last_name: string;
     };
     portfolio: Array<any>;
     stats: {
