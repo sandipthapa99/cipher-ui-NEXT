@@ -148,20 +148,20 @@
             }
         }
         /* specific to Ipad Air Only*/
-        @media screen and (width: 820px) {
+        @media screen and (width: 820px),(width:1024px) {
             .weather-container {
                 display: none !important;
             }
-            //.dropdown-menu-container {
-            //    display: none !important;
-            //}
+            .dropdown-menu-container {
+                display: none !important;
+            }
         }
 
         /* specific to Ipad Mini Only*/
         @media screen and (width: 768px) {
-            //.dropdown-menu-container {
-            //    display: none !important;
-            //}
+            .dropdown-menu-container {
+                display: none !important;
+            }
         }
 
         @media screen and (width: 280px) {

@@ -43,14 +43,17 @@
     }
 
     .dropdown-menu-items {
-        min-width: 11rem;
-        padding: 1.4rem 1rem;
+        //min-width: 11rem;
+        min-width: 38rem;
+        padding: 1rem 2rem;
         background-color: $white;
         align-items: center;
         /* Container */
         border-bottom: 0.1rem solid #e9ecef;
         margin-top: 1rem;
-
+        .angle-right{
+            color: #ADB5BD;
+        }
         /* specific to Nest Hub */
 
         @media screen and (width: 1024px) {
@@ -60,14 +63,19 @@
         /* till here */
 
         @include respond(lg) {
-            min-width: 18rem;
+            //min-width: 18rem;
+        min-width: 38rem;
+
         }
         @include respond(xl) {
-            min-width: 20rem;
+            min-width: 38rem;
+
         }
         :last-child {
             border-bottom: none;
+            
         }
+        
         .image-wrapper {
             height: 25px;
             width: 25px;
@@ -77,10 +85,11 @@
                 svg {
                     height: 3.8rem;
                     width: 3.2rem;
-                    fill: #495057;
+                    fill: #868E96 !important;
                 }
             }
         }
+        
     }
     //.item-wrapper{
     //    max-height: 50rem;
@@ -125,7 +134,7 @@
                 svg {
                     height: 3.8rem;
                     width: 3.2rem;
-                    fill: #495057;
+                    fill: #868E96;
                 }
             }
         }
@@ -168,14 +177,21 @@
     .dropdown-menu-item-link {
         flex: 1;
         color: #868e96;
+        .image-wrapper {
+            .thumbnail-icon {
+                svg {
+                    fill: #868E96 !important;
 
+                }
+            }
+        }
         &:hover {
             transition: 0.3s;
             color: #0693e3;
             .image-wrapper {
                 .thumbnail-icon {
                     svg {
-                        fill: #0693e3;
+                        fill: #3EAEFF !important;
                     }
                 }
             }
