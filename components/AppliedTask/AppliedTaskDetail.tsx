@@ -27,6 +27,7 @@ import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { MyBookings } from "hooks/task/use-get-service-booking";
+import { useGetTasks } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
@@ -35,7 +36,7 @@ import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import type { ITask, TaskApplicantsProps } from "types/task";
+import type { ITask, TaskApplicantsProps, TaskerCount } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
@@ -59,10 +60,17 @@ const AppliedTaskDetail = ({
         `${urls.task.requested_task}`
     );
 
-    const { data: taskApplicants } = useData<TaskApplicantsProps>(
-        ["get-my-applicants"],
-        `${urls.task.taskApplicants}`
+    const requestedTask = myRequestedTask?.data.result.find(
+        (requestedTask: any) =>
+            requestedTask?.entity_service.id === taskDetail.id
     );
+    const taskId = taskDetail ? requestedTask?.entity_service.id : "";
+
+    const { data: taskApplicants } = useData<TaskerCount>(
+        ["get-task-applicants"],
+        `${urls.task.taskApplicants}/${taskId}`
+    );
+    console.log("🚀 ---->>>>>>>>.", taskApplicants, taskId);
 
     // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
     const queryClient = useQueryClient();
@@ -173,7 +181,7 @@ const AppliedTaskDetail = ({
                     <Col md={12} lg={7}>
                         {(taskVideosAndImages ?? []).length === 1 &&
                             taskVideosAndImages.map((file, key) => (
-                                <Fragment key={key}>
+                                <Fragment key={file.id}>
                                     {isImage(file.media_type) ? (
                                         <figure className="thumbnail-img">
                                             <Image
@@ -216,7 +224,7 @@ const AppliedTaskDetail = ({
                                 }}
                             >
                                 {taskVideosAndImages.map((file, key) => (
-                                    <Carousel.Slide key={key}>
+                                    <Carousel.Slide key={file.id}>
                                         {isImage(file.media_type) ? (
                                             <figure className="thumbnail-img">
                                                 <Image
@@ -306,14 +314,17 @@ const AppliedTaskDetail = ({
                             icon={faEye}
                             className="svg-icon svg-icon-eye"
                         />
-                        <span> TOBE-IMP Views</span>
+                        <span> 200 Views</span>
                     </p>
                     <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                        <span> {taskDetail?.applicants_count} Applied</span>
+                        <span>
+                            {" "}
+                            {taskApplicants?.data.count[0].tasker_count} Applied
+                        </span>
                     </p>
                 </div>
 
@@ -338,7 +349,7 @@ const AppliedTaskDetail = ({
                     onTabClick={setActiveTabIdx}
                     items={[
                         {
-                            title: `Taskers (${taskApplicants?.data.result.length})`,
+                            title: `Taskers (${taskApplicants?.data.count[0].tasker_count})`,
                             content: <TaskersTab />,
                         },
                         { title: "Timeline", content: <TimelineTab /> },
@@ -390,6 +401,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
         const queryClient = new QueryClient();
         await queryClient.prefetchQuery(["get-my-applicants"]);
+        await queryClient.prefetchQuery(["get-task-applicants"]);
 
         return {
             props: {
