@@ -47,7 +47,7 @@ const urls = {
     wishlist: {
         list: "task/wishlist/",
     },
-    bookmark: "/task/bookmark",
+    bookmark: "/task/bookmark/",
     locale: {
         localePath,
         city: `${localePath}city/options?search=`,
