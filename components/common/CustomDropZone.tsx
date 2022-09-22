@@ -41,8 +41,9 @@ export interface PreviewFilesProps {
         name: string;
         size: string;
         url: string;
+        isUploaded?: boolean;
     }[];
-    onFileRemove: (fileName: string) => void;
+    onFileRemove: (isUploaded: boolean, fileName: string) => void;
     isVideo?: boolean;
     uploadedFiles?: [];
 }
@@ -65,6 +66,7 @@ export const CustomDropZone = ({
 }: CustomDropZoneProps) => {
     const [files, setFiles] = useState<File[]>([]);
     const [previewFiles, setPreviewFiles] = useState(() => uploadedFiles ?? []);
+
     const previewVideos = useMemo(() => {
         const videoFiles = files.filter((file) => file.type.includes("video"));
         return videoFiles.map((file) => ({
@@ -73,6 +75,7 @@ export const CustomDropZone = ({
             url: URL.createObjectURL(file),
         }));
     }, [files]);
+
     const previewImages = useMemo(
         () =>
             files.map((file) => ({
@@ -90,6 +93,7 @@ export const CustomDropZone = ({
             size: convertToMB(file.size),
             url: file.media,
         }));
+
     const previewUploadedVideos = (previewFiles ?? [])
         .filter((file) => isVideo(file.media_type))
         .map((file) => ({
@@ -114,40 +118,61 @@ export const CustomDropZone = ({
             return newFiles;
         });
     };
+
     const handleRemoveFile = (fileName: string) => {
         setFiles((currentFiles) =>
             currentFiles.filter((file) => file.name !== fileName)
         );
     };
+
     const handleRemoveUploadedFile = (fileName: string) => {
-        setPreviewFiles((previousPreviewFiles) => {
-            const updatedPreviewFiles = previousPreviewFiles.filter(
-                (file) => file.name !== fileName
-            );
-            const remainingFileIds = updatedPreviewFiles.map((file) => file.id);
-            onRemoveUploadedFiles?.(remainingFileIds);
-            return updatedPreviewFiles;
-        });
+        const updatedPreviewFiles = previewFiles.filter(
+            (file) => file.name !== fileName
+        );
+        const remainingFileIds = updatedPreviewFiles.map((file) => file.id);
+        console.log(
+            "🚀 ~ file: CustomDropZone.tsx ~ line 133 ~ handleRemoveUploadedFile ~ remainingFileIds",
+            remainingFileIds
+        );
+        onRemoveUploadedFiles?.(remainingFileIds);
+        setPreviewFiles(updatedPreviewFiles);
     };
+
+    const combinedPreviewImages = [
+        ...previewUploadedImages.map((image) => ({
+            ...image,
+            isUploaded: true,
+        })),
+        ...previewImages.map((image) => ({ ...image, isUploaded: false })),
+    ];
+    const combinedPreviewVideos = [
+        ...previewUploadedVideos.map((video) => ({
+            ...video,
+            isUploaded: true,
+        })),
+        ...previewVideos.map((video) => ({ ...video, isUploaded: false })),
+    ];
 
     return (
         <div onClick={focusDropzone} className={classes.dropzoneContainer}>
-            {previewUploadedImages && (
-                <PreviewFiles
-                    files={previewUploadedImages}
-                    onFileRemove={handleRemoveUploadedFile}
-                />
-            )}
-            {previewVideos.length > 0 || previewUploadedVideos.length > 0 ? (
+            {combinedPreviewVideos.length > 0 ? (
                 <PreviewFiles
                     isVideo
-                    files={previewVideos}
-                    onFileRemove={handleRemoveFile}
+                    files={combinedPreviewVideos}
+                    onFileRemove={(isUploaded, filename) =>
+                        isUploaded
+                            ? handleRemoveUploadedFile(filename)
+                            : handleRemoveFile(filename)
+                    }
                 />
-            ) : previewImages.length > 0 ? (
+            ) : combinedPreviewImages.length > 0 ? (
                 <PreviewFiles
-                    files={previewImages}
-                    onFileRemove={handleRemoveFile}
+                    files={combinedPreviewImages}
+                    onFileRemove={(isUploaded, filename) =>
+                        isUploaded
+                            ? handleRemoveUploadedFile(filename)
+                            : handleRemoveFile(filename)
+                    }
                 />
             ) : (
                 <Image
@@ -203,7 +228,10 @@ const PreviewFiles = ({
     return (
         <Grid>
             {files.map((file, index) => (
-                <Grid.Col span={files.length > 1 ? 4 : 12} key={file.name}>
+                <Grid.Col
+                    span={files.length > 1 ? (isVideo ? 12 : 4) : 12}
+                    key={file.name}
+                >
                     <Stack key={file.name}>
                         {isVideo ? (
                             <video
@@ -229,7 +257,11 @@ const PreviewFiles = ({
                             <Text size="xs" color="dimmed">
                                 {file.size}
                             </Text>
-                            <ActionIcon onClick={() => onFileRemove(file.name)}>
+                            <ActionIcon
+                                onClick={() =>
+                                    onFileRemove(!!file.isUploaded, file.name)
+                                }
+                            >
                                 <FontAwesomeIcon icon={faRemove} />
                             </ActionIcon>
                         </Box>

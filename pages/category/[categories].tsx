@@ -205,7 +205,7 @@ const Gardening = ({
                                                         ?.profile_image
                                                 }
                                                 merchantName={
-                                                    merchant?.user?.full_name
+                                                    merchant?.user?.first_name
                                                 }
                                                 merchantCategory={
                                                     merchant?.designation
