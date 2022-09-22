@@ -29,5 +29,6 @@ export const accountFormSchema = Yup.object().shape({
     charge_currency: stringReqOnly,
     profile_visibility: stringReqOnly,
     task_preferences: stringReqOnly,
+    designation: stringReqOnly,
     // profile_image: stringReqOnly,
 });

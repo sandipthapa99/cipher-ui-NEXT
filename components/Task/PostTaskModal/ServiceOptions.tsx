@@ -25,7 +25,7 @@ export const ServiceOptions = ({
             {...rest}
             searchable
             label="Category"
-            placeholder="Select a service"
+            placeholder="Select a category"
             value={service}
             onChange={handleServiceChange}
             // onSearchChange={setQuery}
