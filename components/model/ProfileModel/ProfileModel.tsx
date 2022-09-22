@@ -143,9 +143,9 @@ const PROFILE_LINKS = {
             color: "#495057",
         },
         {
-            title: "Redeem",
+            title: "Offers",
             icon: <FontAwesomeIcon color={SPECIAL_ICON_COLOR} icon={faGift} />,
-            href: "/redeem",
+            href: "/offers",
             color: "#F98900",
         },
     ],
