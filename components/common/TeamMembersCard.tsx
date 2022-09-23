@@ -305,7 +305,7 @@ export const TeamMembersCard = ({
                     ) : (
                         <BigButton
                             btnTitle={"Approved"}
-                            backgroundColor={"#32cd32"}
+                            backgroundColor={"#30b32c"}
                             // handleClick={() => {
                             //     bookingApproval(
                             //         { booking: id },
@@ -331,7 +331,6 @@ export const TeamMembersCard = ({
                             //     );
                             //}}
                             textColor={"#fff"}
-                            border="1px solid #211D4F"
                         />
                     )}
                 </div>

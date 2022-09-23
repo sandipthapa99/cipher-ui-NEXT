@@ -22,6 +22,7 @@ import BookNowButton from "./BookNowButton";
 
 interface SimpleProfileCardProps {
     task: ITask;
+    onClick?: () => void;
     onApply?: () => void;
 }
 const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
@@ -54,9 +55,10 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
         `${urls.task.approvedTaskList}`
     );
 
-    console.log(
-        "🚀 ~ file: SimpleProfileCard.tsx ~ line 53 ~ SimpleProfileCard ~ approvedTasks",
-        approvedTasks
+    const approvedTask = approvedTasks?.data.result.find(
+        (appliedTask: any) =>
+            appliedTask.assignee.id === profile?.user.id &&
+            appliedTask?.entity_service === task.id
     );
 
     const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}`;
@@ -219,6 +221,12 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         backgroundColor="#38C675"
                         handleOnClick={withLogin(() => setShowModal(true))}
                     />
+                ) : approvedTask ? (
+                    <BookNowButton
+                        btnTitle="Approved"
+                        backgroundColor={"#30b32c"}
+                        //handleOnClick={handleLeaveTask}
+                    />
                 ) : appliedTask?.status === "Open" ? (
                     <BookNowButton
                         btnTitle="Leave Task"
@@ -239,42 +247,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                     handleOnClick={handleViewApplicants}
                 />
             )}
-
-            {/* {isApplied &&
-                isWorking &&
-                (!priceChanged ? (
-                    <BookNowButton
-                        btnTitle="Leave Task"
-                        backgroundColor="#FE5050"
-                    />
-                ) : (
-                    <BookNowButton
-                        btnTitle={"Save"}
-                        backgroundColor={"#211D4F"}
-                        handleOnClick={handlePriceSave}
-                    />
-                ))} */}
-
-            {/* {isApplied && !isWorking && (
-                <>
-                    {!priceChanged ? (
-                        <BookNowButton
-                            btnTitle={"Apply Now"}
-                            backgroundColor={"#38C675"}
-                            showModal={true}
-                            handleOnClick={withLogin(() =>
-                                setShowModal(!showModal)
-                            )}
-                        />
-                    ) : (
-                        <BookNowButton
-                            btnTitle={"Save"}
-                            backgroundColor={"#211D4F"}
-                            handleOnClick={() => setPriceChanged(false)}
-                        />
-                    )}
-                </>
-            )} */}
 
             <AppliedForm
                 service_id={task.id}
@@ -315,3 +287,43 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
     }
 };
+
+{
+    /* {isApplied &&
+                isWorking &&
+                (!priceChanged ? (
+                    <BookNowButton
+                        btnTitle="Leave Task"
+                        backgroundColor="#FE5050"
+                    />
+                ) : (
+                    <BookNowButton
+                        btnTitle={"Save"}
+                        backgroundColor={"#211D4F"}
+                        handleOnClick={handlePriceSave}
+                    />
+                ))} */
+}
+
+{
+    /* {isApplied && !isWorking && (
+                <>
+                    {!priceChanged ? (
+                        <BookNowButton
+                            btnTitle={"Apply Now"}
+                            backgroundColor={"#38C675"}
+                            showModal={true}
+                            handleOnClick={withLogin(() =>
+                                setShowModal(!showModal)
+                            )}
+                        />
+                    ) : (
+                        <BookNowButton
+                            btnTitle={"Save"}
+                            backgroundColor={"#211D4F"}
+                            handleOnClick={() => setPriceChanged(false)}
+                        />
+                    )}
+                </>
+            )} */
+}

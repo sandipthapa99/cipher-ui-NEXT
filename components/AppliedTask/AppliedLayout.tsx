@@ -6,10 +6,11 @@ import urls from "constants/urls";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
+import type { ITaskApiResponse } from "types/task";
+import { axiosClient } from "utils/axiosClient";
 
 export const useSearchTask = (searchQuery: string) => {
     const url = `${urls.task.my_task}&${searchQuery}`;
-    const queryClient = useQueryClient();
 
     return useQuery(
         ["all-tasks", searchQuery],

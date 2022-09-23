@@ -1,4 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { ReactQueryKeys } from "types/queryKeys";
 import type { ITaskApiResponse } from "types/task";
 import { axiosClient } from "utils/axiosClient";
@@ -9,7 +10,7 @@ export const useTasks = (searchParam?: string) => {
         ({ pageParam = 1 }) =>
             axiosClient
                 .get<ITaskApiResponse>(
-                    `/task/entity/service?page=${pageParam}&${searchParam}`
+                    `${urls.task.task}&page=${pageParam}&${searchParam}`
                 )
                 .then((response) => response.data),
         {
