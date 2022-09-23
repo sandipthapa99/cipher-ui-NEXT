@@ -148,11 +148,11 @@
             }
         }
         /* specific to Ipad Only*/
-        @media screen and (width: 820px),(width:768px),(width:1024px) {
+        @media screen and (width: 820px), (width: 768px), (width: 1024px) {
             .weather-container {
                 display: none !important;
             }
-            .responsive-category{
+            .responsive-category {
                 display: block !important;
             }
             .dropdown-menu-container {

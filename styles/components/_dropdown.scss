@@ -51,8 +51,8 @@
         /* Container */
         border-bottom: 0.1rem solid #e9ecef;
         margin-top: 1rem;
-        .angle-right{
-            color: #ADB5BD;
+        .angle-right {
+            color: #adb5bd;
         }
         /* specific to Nest Hub */
 
@@ -64,18 +64,15 @@
 
         @include respond(lg) {
             //min-width: 18rem;
-        min-width: 38rem;
-
+            min-width: 38rem;
         }
         @include respond(xl) {
             min-width: 38rem;
-
         }
         :last-child {
             border-bottom: none;
-            
         }
-        
+
         .image-wrapper {
             height: 25px;
             width: 25px;
@@ -85,11 +82,10 @@
                 svg {
                     height: 3.8rem;
                     width: 3.2rem;
-                    fill: #868E96 !important;
+                    fill: #868e96 !important;
                 }
             }
         }
-        
     }
     //.item-wrapper{
     //    max-height: 50rem;
@@ -134,7 +130,7 @@
                 svg {
                     height: 3.8rem;
                     width: 3.2rem;
-                    fill: #868E96;
+                    fill: #868e96;
                 }
             }
         }
@@ -180,8 +176,7 @@
         .image-wrapper {
             .thumbnail-icon {
                 svg {
-                    fill: #868E96 !important;
-
+                    fill: #868e96 !important;
                 }
             }
         }
@@ -191,7 +186,7 @@
             .image-wrapper {
                 .thumbnail-icon {
                     svg {
-                        fill: #3EAEFF !important;
+                        fill: #3eaeff !important;
                     }
                 }
             }
