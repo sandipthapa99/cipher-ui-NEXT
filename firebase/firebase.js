@@ -23,24 +23,21 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const firebaseCloudMessaging = {
     tokenInlocalforage: async () => {
         const token = await localforage.getItem("fcm_token");
-        console.log("fcm_token tokenInlocalforage", token);
+        //console.log("fcm_token tokenInlocalforage", token);
         return token;
     },
     onMessage: async () => {
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {
             console.log("Message received. ", payload);
-            toast.success(
-                `Successfully ${payload?.data?.title} a ${payload?.data?.object}`,
-                {
-                    onClick: () => {
-                        window.open(
-                            `/task/${payload?.data?.object_slug}`,
-                            "_blank"
-                        );
-                    },
-                }
-            );
+            toast.success(`Successfully ${payload?.data?.title} `, {
+                onClick: () => {
+                    window.open(
+                        `/task/${payload?.data?.object_slug}`,
+                        "_blank"
+                    );
+                },
+            });
 
             // alert("Notificacion");
         });
@@ -49,7 +46,7 @@ const firebaseCloudMessaging = {
     init: async function () {
         try {
             if ((await this.tokenInlocalforage()) !== null) {
-                console.log("it already exists");
+                //console.log("it already exists");
                 return false;
             }
             // console.log("it is creating it.");
@@ -68,16 +65,16 @@ const firebaseCloudMessaging = {
                         // console.log("fcm_token", currentToken);
                     } else {
                         // Show permission request UI
-                        console.log(
-                            "NOTIFICACION, No registration token available. Request permission to generate one."
-                        );
+                        //    console.log(
+                        //         "NOTIFICACION, No registration token available. Request permission to generate one."
+                        //     );
                         // ...
                     }
                 })
                 .catch((err) => {
-                    console.log(
-                        "NOTIFICACIONAn error occurred while retrieving token . "
-                    );
+                    // console.log(
+                    //     "NOTIFICACIONAn error occurred while retrieving token . "
+                    // );
                     console.log(err);
                 });
         } catch (error) {

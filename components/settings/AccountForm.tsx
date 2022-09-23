@@ -217,8 +217,8 @@ const AccountForm = () => {
         if (id) setFieldValue("charge_currency", parseInt(id));
     };
     //parse user_type
-    const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
-
+    //const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
+    const userType = "";
     //for city select field
     const cityData = profile
         ? {

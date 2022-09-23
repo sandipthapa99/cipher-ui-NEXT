@@ -31,8 +31,9 @@ export const PostNotifyTask = ({
                     <Image
                         alt="testimage"
                         src={
-                            profile?.profile_image ??
-                            "/userprofile/unknownPerson.jpg"
+                            profile
+                                ? profile?.profile_image
+                                : "/userprofile/unknownPerson.jpg"
                         }
                         height={50}
                         width={50}
@@ -41,7 +42,7 @@ export const PostNotifyTask = ({
                 <div className="description-section">
                     <p>
                         <span className="span-name">You </span>
-                        {taskTitle}
+                        {taskTitle} a
                         <span
                             className="span-name"
                             onClick={() => {
