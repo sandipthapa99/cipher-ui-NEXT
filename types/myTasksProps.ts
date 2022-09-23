@@ -20,10 +20,14 @@ export type MyTaskProps = {
         id: string;
         username: string;
         email: string;
-        phone: any;
-        full_name: string;
+        phone: string;
+        first_name: string;
+        middle_name: string;
+        last_name: string;
         profile_image: string;
+        bio: string;
     };
+
     currency: {
         id: number;
         name: string;
