@@ -10,6 +10,7 @@ import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import PhotoEdit from "@components/Profile/PhotoEdit";
 import { SelectCity } from "@components/SelectCity";
+// import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { faCamera } from "@fortawesome/pro-light-svg-icons";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
@@ -29,6 +30,7 @@ import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -112,7 +114,10 @@ const AccountForm = () => {
             setIsNoProfileImage(true);
         }
     }, []);
+
+    const router = useRouter();
     //  !profile?.profile_image ?? setIsEditButtonClicked(true);\
+    const [city, setCity] = useState(profile?.city?.id);
     const country = profile?.country ? profile?.country : "";
 
     const user_language = profile?.language ? profile?.language : "";
@@ -217,8 +222,8 @@ const AccountForm = () => {
         if (id) setFieldValue("charge_currency", parseInt(id));
     };
     //parse user_type
-    const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
-
+    //const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
+    const userType = "";
     //for city select field
     const cityData = profile
         ? {
@@ -313,6 +318,7 @@ const AccountForm = () => {
                         first_name: profile?.user.first_name ?? "",
                         middle_name: profile?.user.middle_name ?? "",
                         last_name: profile?.user.last_name ?? "",
+                        city: profile?.city?.id ?? "",
 
                         email: "",
                         bio: profile?.bio ?? "",
@@ -366,7 +372,6 @@ const AccountForm = () => {
                                 "yyyy-MM-dd"
                             ),
                         };
-                        console.log("profile", newValidatedValues);
 
                         Object.entries(newValidatedValues).forEach((entry) => {
                             const [key, value] = entry;
@@ -778,6 +783,7 @@ const AccountForm = () => {
                                 disabled={isInputDisabled}
                             />
                             <SelectCity
+                                onBlur={console.log}
                                 disabled={isInputDisabled}
                                 label="City"
                                 placeholder="Select your city"
@@ -786,7 +792,19 @@ const AccountForm = () => {
                                 }
                                 value={cityData.initialId}
                                 data={cityData.initialData}
+                                nothingFound={"nothing found"}
                             />
+
+                            {/* <SelectCity
+                                key={city}
+                                onCitySelect={(cityId) => {
+                                    setCity(cityId);
+                                    setFieldValue("city", cityId);
+                                }}
+                                value={city?.toString() ?? ""}
+                                disabled={isInputDisabled}
+                            /> */}
+
                             <InputField
                                 type="text"
                                 name="address_line1"
