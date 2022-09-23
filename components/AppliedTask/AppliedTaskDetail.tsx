@@ -84,7 +84,7 @@ const AppliedTaskDetail = ({
     // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
     const queryClient = useQueryClient();
     const { data: user } = useUser();
-    const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
+    const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
     const [showModal, setShowModal] = useState(false);
     const [showInput, setShowInput] = useState(false);
 

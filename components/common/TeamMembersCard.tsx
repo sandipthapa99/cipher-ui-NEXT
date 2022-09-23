@@ -100,6 +100,7 @@ export const TeamMembersCard = ({
     const approvedTasker = taskApplicants?.data.result.find(
         (applicants: any) => applicants.id === id
     );
+
     // console.log(
     //     "🚀 ~ file: TeamMembersCard.tsx ~ line 97 ~ approvedTasker",
     //     approvedTasker
@@ -304,7 +305,7 @@ export const TeamMembersCard = ({
                     ) : (
                         <BigButton
                             btnTitle={"Approved"}
-                            backgroundColor={"#211D4F"}
+                            backgroundColor={"#32cd32"}
                             // handleClick={() => {
                             //     bookingApproval(
                             //         { booking: id },

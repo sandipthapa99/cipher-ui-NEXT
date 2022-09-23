@@ -54,6 +54,11 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
         `${urls.task.approvedTaskList}`
     );
 
+    console.log(
+        "🚀 ~ file: SimpleProfileCard.tsx ~ line 53 ~ SimpleProfileCard ~ approvedTasks",
+        approvedTasks
+    );
+
     const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}`;
     const { mutate } = useForm(cancelTaskUrl);
 

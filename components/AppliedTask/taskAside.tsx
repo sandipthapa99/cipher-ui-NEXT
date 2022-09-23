@@ -1,8 +1,7 @@
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
-import { faWarning } from "@fortawesome/pro-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, ScrollArea } from "@mantine/core";
-import { useQueryClient } from "@tanstack/react-query";
+import { Loader, ScrollArea, Space } from "@mantine/core";
+import { useTasks } from "hooks/task/use-tasks";
+import { useInViewPort } from "hooks/use-in-viewport";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
 import { useMemo } from "react";
@@ -15,22 +14,51 @@ interface TaskAsideProps {
     query: string;
     type?: string;
 }
-const TaskAside = ({
-    appliedTasks,
-    query,
-    children,
-    type,
-    isFetching,
-}: TaskAsideProps) => {
-    const totalAppliedTasks = appliedTasks?.length;
-    const queryClient = useQueryClient();
-    const renderTaskCards = appliedTasks?.map((task) => {
-        return (
-            <div key={task?.slug}>
-                <TaskAppliedCard task={task} type={type} />
-            </div>
-        );
+const TaskAside = ({ query, children }: TaskAsideProps) => {
+    const {
+        data: appliedTaskPages,
+        isLoading,
+        hasNextPage,
+        isFetchingNextPage,
+        fetchNextPage,
+    } = useTasks(query);
+
+    const appliedTasks = useMemo(
+        () => appliedTaskPages?.pages.map((page) => page.result).flat() ?? [],
+        [appliedTaskPages?.pages]
+    );
+    const totalAppliedTasks = appliedTasks.length;
+
+    const isLastTaskOnPage = (taskIndex: number) =>
+        taskIndex === totalAppliedTasks - 1;
+
+    const { ref } = useInViewPort<HTMLDivElement>(() => {
+        if (hasNextPage && !isFetchingNextPage) {
+            console.log("FETCHING MORE TASKS");
+            fetchNextPage();
+        }
     });
+
+    const renderTasks = () =>
+        appliedTasks.map((task, taskIndex) => {
+            return (
+                <div
+                    ref={isLastTaskOnPage(taskIndex) ? ref : null}
+                    key={task.id}
+                >
+                    <TaskAppliedCard task={task} />
+                </div>
+            );
+        });
+    const renderLoadingSkeletons = () => {
+        return (
+            <Fragment>
+                {Array.from({ length: 4 }).map((_, index) => (
+                    <SkeletonTaskCard key={index} />
+                ))}
+            </Fragment>
+        );
+    };
 
     return (
         <div className="search-results">
