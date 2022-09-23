@@ -148,7 +148,7 @@
             }
         }
         /* specific to Ipad Air Only*/
-        @media screen and (width: 820px),(width:1024px) {
+        @media screen and (width: 820px), (width: 1024px) {
             .weather-container {
                 display: none !important;
             }
