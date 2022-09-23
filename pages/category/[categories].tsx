@@ -6,7 +6,7 @@ import TaskCard from "@components/common/TaskCard";
 import Layout from "@components/Layout";
 import SkeletonServiceCard from "@components/Skeletons/SkeletonServiceCard";
 import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
-import SkeletonTaskerCard from "@components/Skeletons/SkeletonTaskerCard";
+import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Grid, Highlight } from "@mantine/core";
@@ -165,15 +165,7 @@ const Gardening = ({
                                 </Highlight>
                             )}
                         </h1>
-                        {!taskerData && (
-                            <Grid>
-                                {Array.from({ length: 4 }).map((_, key) => (
-                                    <Grid.Col span={3} key={key}>
-                                        <SkeletonTaskerCard />
-                                    </Grid.Col>
-                                ))}
-                            </Grid>
-                        )}
+                        {!taskerData && <TaskerSkeleton direction="row" />}
                         {taskerData && taskerData?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
