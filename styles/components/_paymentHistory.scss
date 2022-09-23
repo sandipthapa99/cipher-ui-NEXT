@@ -61,3 +61,31 @@
         }
     }
 }
+.payment-history {
+    .mantine-Menu-dropdown {
+        padding: 1rem;
+    }
+    table {
+        thead {
+            tr {
+                th {
+                    padding: 1rem 3rem 1rem 3rem;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    font-size: 1.2rem;
+                    color: $sub-title-color;
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    padding: 2rem 3rem;
+                    font-weight: 400;
+                    font-size: 1.4rem;
+                    color: $sub-title-color;
+                }
+            }
+        }
+    }
+}
