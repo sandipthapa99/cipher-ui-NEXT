@@ -80,7 +80,7 @@ const profile_visibility = [
 ];
 
 const AccountForm = () => {
-    // const [scrollPosition, setScrollPosition] = useState(0);
+    const [scrollPosition, setScrollPosition] = useState(0);
     //profile success modal
     const [show, setShow] = useState(false);
     //hooks call
@@ -122,23 +122,21 @@ const AccountForm = () => {
 
     const user_language = profile?.language ? profile?.language : "";
 
-    // const handleScroll = () => {
-    //     const position = window.pageYOffset;
-    //     setScrollPosition(position);
-    // };
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
 
-    // useEffect(() => {
-    //     window.addEventListener("scroll", handleScroll);
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
 
-    //     return () => {
-    //         window.removeEventListener("scroll", handleScroll);
-    //     };
-    // }, []);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     const scrollToKyc = () => {
-        // scroll.scrollTo(2660);
-        // router.push({ pathname: router.pathname, hash: "kycform" });
-        console.log("scroll works");
+        scroll.scrollTo(2660);
     };
 
     //converting string time value to datetime time value
