@@ -144,7 +144,7 @@ export const AddServiceModalComponent = () => {
                 onSuccess: async (task) => {
                     handleCloseModal();
                     action.resetForm();
-                    toggleSuccessModal();
+                    // toggleSuccessModal();
                     // toast.success(message);
                     await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
                     await queryClient.invalidateQueries(["notification"]);

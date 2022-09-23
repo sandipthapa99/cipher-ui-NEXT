@@ -1,34 +1,48 @@
 import { faXmark } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "date-fns";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import Image from "next/image";
 import React from "react";
 
 import { AcceptReject } from "./AcceptReject";
+interface Approve {
+    date: string;
+    title: string;
+    body: string;
+}
 
-export const ApproveNotify = () => {
+export const ApproveNotify = ({ date, title, body }: Approve) => {
+    const { data: profile } = useGetProfile();
     return (
         <div className="d-flex align-items-center justify-content-between accepted-notification">
             <div className="d-flex notification-wrapper">
                 <figure className="d-flex flex-column justify-content-center notification-image">
                     <Image
                         alt="testimage"
-                        src="/userprofile/unknownPerson.jpg"
+                        src={
+                            profile
+                                ? profile?.profile_image
+                                : "/userprofile/unknownPerson.jpg"
+                        }
                         height={50}
                         width={50}
                     />
                 </figure>
                 <div className="description-section">
                     <p>
-                        <span className="span-name"> Sristi Sharma</span> has
-                        approved your task{" "}
-                        <span className="span-name"> Need a Gardener.</span>
+                        <span className="span-name"> Your</span> booking detail
+                        was {title} for {body} .
+                        {/* <span className="span-name"> Need a Gardener.</span> */}
                     </p>
 
-                    <p className="date">Yesterday 03:30 PM</p>
+                    <p className="date">
+                        {format(new Date(date), "EEEE, do LLLL yyyy")}
+                    </p>
                 </div>
             </div>
 
-            <FontAwesomeIcon icon={faXmark} />
+            {/* <FontAwesomeIcon icon={faXmark} /> */}
         </div>
     );
 };

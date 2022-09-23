@@ -135,7 +135,7 @@ const BookNowModalCard = ({
                                 ...values,
                                 images: imageIds,
                                 videos: videoIds,
-                                entity_service: serviceCategory,
+                                entity_service: entity_service_id,
                                 requirements: JSON.stringify(
                                     values.requirements
                                 ),
@@ -144,7 +144,7 @@ const BookNowModalCard = ({
                             mutate(newvalues, {
                                 onSuccess: () => {
                                     handleClose?.();
-                                    toast.success("Task Booked Successfully");
+                                    // toast.success("Task Booked Successfully");
                                     router.push("/checkout");
                                 },
                                 onError: (error) => {
@@ -363,7 +363,7 @@ const BookNowModalCard = ({
                                         setFieldValue("city", cityId)
                                     }
                                 />
-                                <ServiceEntityOptions
+                                {/* <ServiceEntityOptions
                                     {...getFieldProps("entity_service")}
                                     onServiceChange={(service) => {
                                         setFieldValue(
@@ -374,7 +374,7 @@ const BookNowModalCard = ({
                                     }}
                                     error={errors.entity_service}
                                     value={serviceCategory}
-                                />
+                                /> */}
 
                                 <div className="book-now-gallery">
                                     <h4>Gallery</h4>
