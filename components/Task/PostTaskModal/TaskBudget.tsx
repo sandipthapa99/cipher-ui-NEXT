@@ -49,26 +49,16 @@ export const TaskBudget = ({
     initialBudgetFrom,
     initialBudgetTo,
     setFieldValue,
-    setFieldError,
-    setFieldTouched,
     getFieldProps,
 }: TaskBudgetProps) => {
+    console.log(initialBudgetTo);
     const [value, setValue] = useState<BudgetType>(() =>
         initialBudgetFrom && initialBudgetTo
             ? BudgetType.VARIABLE
             : BudgetType.FIXED
     );
 
-    const resetFields = () => {
-        setFieldValue("budget_from", "");
-        setFieldValue("budget_to", "");
-        setFieldTouched("budget_from", false);
-        setFieldTouched("budget_to", false);
-        setFieldError("budget_from", "");
-        setFieldError("budget_to", "");
-    };
     const handleBudgetTypeChange = (type: BudgetType) => {
-        resetFields();
         setFieldValue("budgetTypeRadio", type);
         setValue(type);
     };
