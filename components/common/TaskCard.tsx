@@ -107,7 +107,7 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
                     <Link href={`/task/${slug}` ?? "/"}>
                         <a>
                             <CardBtn
-                                btnTitle={status}
+                                btnTitle={status ?? "open"}
                                 backgroundColor={
                                     status == "Completed"
                                         ? "#FE5050"

@@ -58,7 +58,7 @@ export const MyTaskOrder = ({
                     <Col md={6} sm={12}>
                         <div className="title-and-description">
                             <h4>{title}</h4>
-                            <p>By {assigner_name}</p>
+                            {/* <p>By {assigner_name}</p> */}
                             <div className="price-section">
                                 <span className="price">Price : </span>
                                 <span className="value">
@@ -102,8 +102,8 @@ export const MyTaskOrder = ({
                             </figure>
                             <div className="d-flex justify-content-end align-items-center status-section">
                                 <span className="status">Status</span>
-                                <span className={`status-value__${status}`}>
-                                    {status}
+                                <span className={`status-value__${"Open"}`}>
+                                    {"Open"}
                                 </span>
                             </div>
                         </div>

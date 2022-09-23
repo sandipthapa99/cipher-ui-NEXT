@@ -67,6 +67,7 @@ const KYCForm = () => {
 
             <div
                 className="account-form mt-5"
+                id="kycform"
                 style={
                     profileDetails ? { display: "block" } : { display: "none" }
                 }

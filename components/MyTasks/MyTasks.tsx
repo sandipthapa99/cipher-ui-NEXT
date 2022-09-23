@@ -1,5 +1,6 @@
-import { Alert } from "@mantine/core";
+import { Alert, Loader } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import { useUser } from "hooks/auth/useUser";
 import { useRouter } from "next/router";
 import React from "react";
 import type { MyTaskProps } from "types/myTasksProps";
@@ -8,8 +9,12 @@ import { axiosClient } from "utils/axiosClient";
 import { MyTaskOrder } from "./MyTaskOrder";
 
 export const MyTasks = () => {
-    const { data: mytaskData } = useQuery(["my-task"], async () => {
-        const response = await axiosClient.get("/task/my-task/");
+    const { data: userData } = useUser();
+    const userId = userData?.id ?? "";
+    const { data: mytaskData, isLoading } = useQuery(["my-task"], async () => {
+        const response = await axiosClient.get(
+            `/task/entity/service/?user=${userId}`
+        );
         return response.data.result;
     });
 
@@ -22,7 +27,9 @@ export const MyTasks = () => {
             <h3>My Tasks</h3>
 
             <div className="my-task__each-orders">
-                {mytaskData?.length ? (
+                {isLoading ? (
+                    <Loader />
+                ) : mytaskData?.length ? (
                     mytaskData?.map((item: MyTaskProps, index: number) => (
                         <div
                             className="task-wrapper"
@@ -39,7 +46,7 @@ export const MyTasks = () => {
                                 created_at={item?.created_at}
                                 image={item?.images[0]?.media}
                                 title={item?.title}
-                                assigner_name={item?.assigner?.full_name}
+                                assigner_name={item?.assigner?.first_name}
                                 budget_from={item?.budget_from}
                                 budget-to={item?.budget_to}
                                 budget_type={item?.budget_type}
