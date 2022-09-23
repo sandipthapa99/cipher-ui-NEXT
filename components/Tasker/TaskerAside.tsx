@@ -2,7 +2,7 @@ import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, ScrollArea } from "@mantine/core";
+import { Alert, Loader, ScrollArea } from "@mantine/core";
 import { useTaskers } from "hooks/tasker/use-taskers";
 import { useInViewPort } from "hooks/use-in-viewport";
 import type { ReactNode } from "react";
@@ -96,6 +96,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                                     No services matching {searchParam} found
                                 </p>
                             ) : null}
+                            {isFetchingNextPage && <Loader />}
                         </>
                     </ScrollArea.Autosize>
                 </Col>
