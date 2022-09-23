@@ -7,7 +7,9 @@ import { useState } from "react";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
 
+import { ApproveNotify } from "./ApproveNotify";
 import { PostNotifyTask } from "./PostedTask";
+import { ServiceAccept } from "./ServiceAccept";
 
 export const NotificationDropdown = () => {
     const { data: allNotifications, refetch } = useGetNotification();
@@ -41,31 +43,71 @@ export const NotificationDropdown = () => {
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification: any, index: number) => {
+            // if (notification.type === "entityservice") {
+            //     return (
+            //         <div
+            //             key={index}
+            //             onClick={async () => {
+            //                 router.push(`/task/${notification.object_slug}`);
+            //                 await axiosClient.get(
+            //                     `/notification/read/?id=${notification.id}`
+            //                 );
+
+            //                 // // await queryClient.invalidateQueries([
+            //                 // //     "notification",
+            //                 // // ]);
+            //             }}
+            //         >
+            //             {/* <ApproveNotify date={notification.created_date} /> */}
+            //             <PostNotifyTask
+            //                 taskTitle={`${notification.title} a service`}
+            //                 taskObject={notification.object}
+            //                 createdDate={notification.created_date}
+            //                 slug={notification.object_slug}
+            //             />
+            //         </div>
+            //     );
+            // }
             if (notification.type === "task") {
                 return (
-                    <div
-                        key={index}
-                        onClick={async () => {
-                            router.push(`/task/${notification.object_slug}`);
-                            await axiosClient.get(
-                                `/notification/read/?id=${notification.id}`
-                            );
-
-                            // // await queryClient.invalidateQueries([
-                            // //     "notification",
-                            // // ]);
-                        }}
-                    >
+                    <div key={index}>
                         <PostNotifyTask
-                            taskTitle={notification.title}
-                            taskObject={notification.object}
-                            createdDate={notification.created_date}
-                            slug={notification.object_slug}
+                            taskTitle={notification?.title}
+                            taskObject={notification?.object}
+                            createdDate={notification?.created_date}
+                            slug={notification?.object_slug}
                         />
                     </div>
                 );
             }
-            return null;
+            if (notification.type === "entityservice") {
+                return (
+                    <div key={index}>
+                        <PostNotifyTask
+                            taskTitle={notification?.title}
+                            taskObject={notification?.object}
+                            createdDate={notification?.created_date}
+                            slug={notification?.object_slug}
+                        />
+                    </div>
+                );
+            } else if (notification.type === "service") {
+                return (
+                    <div key={index}>
+                        <ServiceAccept />
+                    </div>
+                );
+            } else if (notification.type === "booking") {
+                return (
+                    <div key={index}>
+                        <ApproveNotify
+                            body={notification?.object}
+                            date={notification?.created_date}
+                            title={notification?.title}
+                        />
+                    </div>
+                );
+            }
         }
     );
 
@@ -102,8 +144,10 @@ export const NotificationDropdown = () => {
                     Mark all as read
                 </p>
             </div>
-            {allNotifications?.result.length === 0 && (
-                <p className="text-center">No notifications to show.</p>
+            {todayNotifications.length === 0 && (
+                <p className="text-center">
+                    No today&apos;s notifications to show.
+                </p>
             )}
             {renderTodayNotifications}
             {/* <ApproveNotification accept={true} />

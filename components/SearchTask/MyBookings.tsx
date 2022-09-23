@@ -70,7 +70,7 @@ export const MyBookingsCard = ({
         (data: { booking: number | undefined }) =>
             axiosClient.post("/task/entity/service-booking/reject/", data)
     );
-    // console.log("bookibgid", bookingId);
+    console.log("bookibgid", sendBookApproval.isLoading);
 
     return (
         <div
@@ -114,7 +114,7 @@ export const MyBookingsCard = ({
                             </div>
                             <h6 className="text-dark">
                                 <span>
-                                    {speciality ? JSON.parse(speciality) : ""}{" "}
+                                    {/* {speciality ? JSON.parse(speciality) : ""}{" "} */}
                                 </span>
                                 | {location}
                             </h6>
@@ -209,6 +209,7 @@ export const MyBookingsCard = ({
                         btnTitle={isApproved ? "Approved" : "Approve"}
                         backgroundColor={isApproved ? "#32cd32" : "#211D4F"}
                         disabled={isApproved ? true : false}
+                        loading={sendBookApproval.isLoading}
                         handleClick={() => {
                             sendBookApproval.mutate(
                                 { booking: bookingId },

@@ -7,40 +7,18 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { axiosClient } from "utils/axiosClient";
 
+import { AcceptedNotification } from "./AcceptedNotification";
+import { ApproveNotify } from "./ApproveNotify";
 import { PostNotifyTask } from "./PostedTask";
+import { ServiceAccept } from "./ServiceAccept";
 
 export default function GetNotifications() {
     // const router = useRouter();
 
-    // Handles the click function on the toast showing push notification
-    // const handleClickPushNotification = (url) => {
-    //     router.push(url);
-    // };
-
-    // Get the push notification message and triggers a toast to display it
-    // function getMessage() {
-    //     const messaging = firebase.messaging();
-    //     messaging.onMessage((message) => {
-    //         toast(
-    //             <div
-    //                 onClick={() =>
-    //                     handleClickPushNotification(message?.data?.url)
-    //                 }
-    //             >
-    //                 <h5>{message?.notification?.title}</h5>
-    //                 <h6>{message?.notification?.body}</h6>
-    //             </div>,
-    //             {
-    //                 closeOnClick: false,
-    //             }
-    //         );
-    //     });
-    // }
     const { data: allNotifications, refetch } = useGetNotification();
     const allNotify = allNotifications ? allNotifications.result : [];
     const queryClient = new QueryClient();
 
-    queryClient.invalidateQueries(["notification"]);
     console.log("notifications", allNotifications);
     const todayNotifications = allNotifications?.result.filter((notify) => {
         const date = new Date(notify.created_date);
@@ -70,7 +48,7 @@ export default function GetNotifications() {
 
         return date.getDate() !== today.getDate();
     });
-    console.log("earlier", earlierNotifications);
+    console.log("today", todayNotifications);
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification, index: number) => {
@@ -86,19 +64,62 @@ export default function GetNotifications() {
                     </div>
                 );
             }
+            if (notification.type === "entityservice") {
+                return (
+                    <div key={index}>
+                        <PostNotifyTask
+                            taskTitle={notification?.title}
+                            taskObject={notification?.object}
+                            createdDate={notification?.created_date}
+                            slug={notification?.object_slug}
+                        />
+                    </div>
+                );
+            } else if (notification.type === "service") {
+                return (
+                    <div key={index}>
+                        <ServiceAccept />
+                    </div>
+                );
+            } else if (notification.type === "booking") {
+                return (
+                    <div key={index}>
+                        <ApproveNotify
+                            body={notification?.object}
+                            date={notification?.created_date}
+                            title={notification?.title}
+                        />
+                    </div>
+                );
+            }
             return;
         }
     );
     const renderEarlierNotifications = earlierNotifications?.map(
         (notification, index: number) => {
-            if (notification.type === "task") {
+            if (notification.type === "entityservice") {
                 return (
                     <div key={index}>
-                        <PostNotifyTask
-                            taskTitle={notification.title}
-                            taskObject={notification.object}
-                            createdDate={notification.created_date}
-                            slug={notification.object_slug}
+                        <ApproveNotify
+                            body={notification?.object}
+                            date={notification?.created_date}
+                            title={notification?.title}
+                        />
+                    </div>
+                );
+            } else if (notification.type === "service") {
+                return (
+                    <div key={index}>
+                        <ServiceAccept />
+                    </div>
+                );
+            } else if (notification.type === "booking") {
+                return (
+                    <div key={index}>
+                        <ApproveNotify
+                            body={notification?.object}
+                            date={notification?.created_date}
+                            title={notification?.title}
                         />
                     </div>
                 );
@@ -134,10 +155,13 @@ export default function GetNotifications() {
                             </a>
                         </Link>
                     </div>
-                    {allNotifications?.result.length === 0 && (
-                        <p className="text-center">No notifications to show.</p>
+                    {todayNotifications?.length === 0 ? (
+                        <p className="text-center">
+                            No today&apos;s notifications to show.
+                        </p>
+                    ) : (
+                        renderTodayNotifications
                     )}
-                    {renderTodayNotifications}
                     <div className="header">
                         <h4 className="mt-3">Earlier</h4>
                         {allNotifications?.result.length === 0 && (
@@ -148,10 +172,9 @@ export default function GetNotifications() {
                         {renderEarlierNotifications}
                     </div>
 
-                    {/* <AcceptedNotification />
-                    <AcceptedNotification />
-                    <ApproveNotify />
-                    <ServiceAccept /> */}
+                    {/* <AcceptedNotification /> */}
+                    {/* <AcceptedNotification /> */}
+                    {/* <ApproveNotify /> */}
                 </div>
             </Container>
         </section>
