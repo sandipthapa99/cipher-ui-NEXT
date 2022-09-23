@@ -1,9 +1,9 @@
-// import { useServiceCategories } from "@components/Task/PostTaskModal/TaskCategory";
 import {
     faCity,
     faClose,
     faDollarSign,
     faGlobe,
+    faGrid2,
     faLanguage,
     faSearch,
     faSort,
@@ -14,6 +14,7 @@ import { Button } from "@mantine/core";
 import { Box, createStyles, Select, TextInput } from "@mantine/core";
 import { useCountry } from "hooks/dropdown/useCountry";
 import { useLanguage } from "hooks/dropdown/useLanguage";
+import { useServiceOptions } from "hooks/service/use-service-options";
 import { useCities } from "hooks/use-cities";
 import type { ChangeEvent } from "react";
 import React, { useEffect, useState } from "react";
@@ -43,16 +44,11 @@ export const SearchCategory = ({
     const [search, setSearch] = useState("");
     const [params, setParams] = useState<Record<string, string> | undefined>();
     const [cityQuery, setCityQuery] = useState("");
-    // const { data: categories = [] } = useServiceCategories();
     const { data: cities } = useCities(cityQuery);
     const { data: countries } = useCountry();
     const { data: languages } = useLanguage();
 
-    // const categoriesData: SelectItem[] = categories.map((category) => ({
-    //     id: category.id,
-    //     label: category.name,
-    //     value: category.slug,
-    // }));
+    const { data: servicesOptionsData = [] } = useServiceOptions();
     const citiesData: SelectItem[] = cities.map((city) => ({
         id: city.id,
         label: city.name,
@@ -142,7 +138,7 @@ export const SearchCategory = ({
     const city = params ? params.city : "";
     const country = params ? params.country : "";
     const language = params ? params.language : "";
-    const category = params ? params.category : "";
+    const service = params ? params.service : "";
     const ordering = params ? params.ordering : "";
 
     const handleClearFilters = () => {
@@ -222,17 +218,17 @@ export const SearchCategory = ({
 
                     {(searchModal === "task" || searchModal === "service") && (
                         <>
-                            {/* <Select
+                            <Select
                                 clearable
                                 searchable
                                 icon={<FontAwesomeIcon icon={faGrid2} />}
-                                placeholder="Filter by Categories"
-                                value={category}
-                                data={categoriesData}
+                                placeholder="Filter by service"
+                                value={service}
+                                data={servicesOptionsData}
                                 onChange={(value) =>
-                                    onSelectChange("category", value)
+                                    onSelectChange("service", value)
                                 }
-                            /> */}
+                            />
                             <Select
                                 clearable
                                 searchable
