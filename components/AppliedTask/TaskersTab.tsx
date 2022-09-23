@@ -13,6 +13,10 @@ import { Col, Row } from "react-bootstrap";
 import type { TaskApplicantsProps } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 
+interface TaskersInfo {
+    taskApplicants?: any;
+}
+
 export const TaskersTab = () => {
     const { data: taskApplicants } = useData<TaskApplicantsProps>(
         ["get-my-applicants"],
@@ -36,7 +40,7 @@ export const TaskersTab = () => {
             {!requestedTask ? (
                 <Alert
                     icon={<FontAwesomeIcon icon={faWarning} />}
-                    title="No Applicants!"
+                    title={""}
                     color="orange"
                 >
                     You can&apos;t view the applicants
@@ -47,7 +51,7 @@ export const TaskersTab = () => {
                         taskApplicants?.data.result?.length <= 0 && (
                             <Alert
                                 icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="No Applicants!"
+                                title={"No Applicants!"}
                                 color="orange"
                             >
                                 There are no applicants yet!

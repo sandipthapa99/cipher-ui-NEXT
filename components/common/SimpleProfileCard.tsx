@@ -15,7 +15,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useWithLogin } from "store/use-login-prompt-store";
-import type { ITask } from "types/task";
+import type { ITask, TaskApprovedList } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 
 import BookNowButton from "./BookNowButton";
@@ -33,10 +33,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
         ["my-requested-task"],
         `${urls.task.requested_task}`
     );
-    console.log(
-        "🚀 ~ file: SimpleProfileCard.tsx ~ line 30 ~ SimpleProfileCard ~ myRequestedTask",
-        myRequestedTask
-    );
 
     const requestedTask = myRequestedTask?.data.result.find(
         (requestedTask: any) => requestedTask?.entity_service.id === task.id
@@ -47,10 +43,15 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const appliedTask = appliedTasks?.result.find(
         (appliedTask: any) => appliedTask?.id !== task.id
     );
-    // console.log(
-    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 54 ~ SimpleProfileCard ~ appliedTask",
-    //     appliedTask
-    // );
+
+    const { data: approvedTasks } = useData<TaskApprovedList>(
+        ["approved-task"],
+        `${urls.task.approvedTaskList}`
+    );
+    console.log(
+        "🚀 ~ file: SimpleProfileCard.tsx ~ line 48 ~ SimpleProfileCard ~ approvedTasks",
+        approvedTasks
+    );
 
     const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}`;
     const { mutate } = useForm(cancelTaskUrl);
@@ -64,6 +65,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
             onSuccess: (message) => {
                 queryClient.invalidateQueries(["my-requested-task"]);
                 toast.success("Booking successfully cancelled.");
+                queryClient.invalidateQueries(["get-task-applicants"]);
                 onApply?.();
             },
             onError: async (error: any) => {
@@ -123,6 +125,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         {task?.created_by?.middle_name}{" "}
                         {task?.created_by?.last_name}
                     </p>
+                    <p className="job">{task?.created_by?.bio}</p>
                     <p className="job">{task.status}</p>
                 </div>
             </div>
@@ -216,14 +219,19 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         backgroundColor="#FE5050"
                         handleOnClick={handleLeaveTask}
                     />
-                ) : null
-            ) : (
-                <BookNowButton
-                    btnTitle="Disabled"
-                    backgroundColor="#5e5d6b"
-                    handleOnClick={handleViewApplicants}
-                />
-            )}
+                ) : (
+                    <BookNowButton
+                        btnTitle="Leave Task"
+                        backgroundColor="#FE5050"
+                        handleOnClick={handleLeaveTask}
+                    />
+                )
+            ) : // <BookNowButton
+            //     btnTitle="Disabled"
+            //     backgroundColor="#5e5d6b"
+            //     handleOnClick={handleViewApplicants}
+            // />
+            null}
 
             {/* {isApplied &&
                 isWorking &&

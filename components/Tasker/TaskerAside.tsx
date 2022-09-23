@@ -27,6 +27,7 @@ const TaskerAside = ({
             <div key={key} className="pe-1">
                 <TeamMembersCard
                     // taskers={tasker?.user}
+                    isTasker={true}
                     tasker={tasker?.user?.id}
                     image={tasker?.profile_image}
                     name={`${tasker?.user.first_name} ${tasker?.user.middle_name} ${tasker?.user.last_name}`}
