@@ -22,9 +22,21 @@ import BookNowButton from "./BookNowButton";
 
 interface SimpleProfileCardProps {
     task: ITask;
+    handleScroll?: () => void;
     onApply?: () => void;
 }
-const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
+const SimpleProfileCard = ({
+    task,
+    onApply,
+    handleScroll,
+}: SimpleProfileCardProps) => {
+    const { data: profile } = useGetProfile();
+    // const created_by = task?.created_by.id === profile?.user.id;
+    // console.log(
+    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 34 ~ SimpleProfileCard ~ created_by",
+    //     created_by
+    // );
+
     const withLogin = useWithLogin();
     const { data: user } = useUser();
     const { data: appliedTasks } = useGetTasks();
@@ -38,8 +50,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
         (requestedTask: any) => requestedTask?.entity_service.id === task.id
     );
 
-    const { data: profile } = useGetProfile();
-
     const appliedTask = appliedTasks?.result.find(
         (appliedTask: any) => appliedTask?.id !== task.id
     );
@@ -47,6 +57,12 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const { data: approvedTasks } = useData<TaskApprovedList>(
         ["approved-task"],
         `${urls.task.approvedTaskList}`
+    );
+
+    const approvedTask = approvedTasks?.data.result.find(
+        (appliedTask: any) =>
+            appliedTask.assignee.id === profile?.user.id &&
+            appliedTask?.entity_service === task.id
     );
 
     const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}`;
@@ -72,9 +88,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
 
     const isUserTask = task?.created_by?.id === user?.id;
 
-    const handleViewApplicants = () => {
-        toast.success("You have no applicants yet.");
-    };
     const handleShowApplyModal = () => {
         if (!profile) {
             toast.error(
@@ -209,6 +222,19 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         backgroundColor="#38C675"
                         handleOnClick={withLogin(() => setShowModal(true))}
                     />
+                ) : !approvedTask ? (
+                    <BookNowButton
+                        btnTitle="Declined"
+                        backgroundColor="#FE5050"
+
+                        //handleOnClick={handleLeaveTask}
+                    />
+                ) : approvedTask ? (
+                    <BookNowButton
+                        btnTitle="Approved"
+                        backgroundColor={"#30b32c"}
+                        //handleOnClick={handleLeaveTask}
+                    />
                 ) : appliedTask?.status === "Open" ? (
                     <BookNowButton
                         btnTitle="Leave Task"
@@ -222,48 +248,13 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         handleOnClick={handleLeaveTask}
                     />
                 )
-            ) : // <BookNowButton
-            //     btnTitle="Disabled"
-            //     backgroundColor="#5e5d6b"
-            //     handleOnClick={handleViewApplicants}
-            // />
-            null}
-
-            {/* {isApplied &&
-                isWorking &&
-                (!priceChanged ? (
-                    <BookNowButton
-                        btnTitle="Leave Task"
-                        backgroundColor="#FE5050"
-                    />
-                ) : (
-                    <BookNowButton
-                        btnTitle={"Save"}
-                        backgroundColor={"#211D4F"}
-                        handleOnClick={handlePriceSave}
-                    />
-                ))} */}
-
-            {/* {isApplied && !isWorking && (
-                <>
-                    {!priceChanged ? (
-                        <BookNowButton
-                            btnTitle={"Apply Now"}
-                            backgroundColor={"#38C675"}
-                            showModal={true}
-                            handleOnClick={withLogin(() =>
-                                setShowModal(!showModal)
-                            )}
-                        />
-                    ) : (
-                        <BookNowButton
-                            btnTitle={"Save"}
-                            backgroundColor={"#211D4F"}
-                            handleOnClick={() => setPriceChanged(false)}
-                        />
-                    )}
-                </>
-            )} */}
+            ) : (
+                <BookNowButton
+                    btnTitle="View Applicants"
+                    backgroundColor="#FE5050"
+                    handleOnClick={handleScroll}
+                />
+            )}
 
             <AppliedForm
                 service_id={task.id}
@@ -304,3 +295,43 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         };
     }
 };
+
+{
+    /* {isApplied &&
+                isWorking &&
+                (!priceChanged ? (
+                    <BookNowButton
+                        btnTitle="Leave Task"
+                        backgroundColor="#FE5050"
+                    />
+                ) : (
+                    <BookNowButton
+                        btnTitle={"Save"}
+                        backgroundColor={"#211D4F"}
+                        handleOnClick={handlePriceSave}
+                    />
+                ))} */
+}
+
+{
+    /* {isApplied && !isWorking && (
+                <>
+                    {!priceChanged ? (
+                        <BookNowButton
+                            btnTitle={"Apply Now"}
+                            backgroundColor={"#38C675"}
+                            showModal={true}
+                            handleOnClick={withLogin(() =>
+                                setShowModal(!showModal)
+                            )}
+                        />
+                    ) : (
+                        <BookNowButton
+                            btnTitle={"Save"}
+                            backgroundColor={"#211D4F"}
+                            handleOnClick={() => setPriceChanged(false)}
+                        />
+                    )}
+                </>
+            )} */
+}
