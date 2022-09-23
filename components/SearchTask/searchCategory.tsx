@@ -221,7 +221,12 @@ export const SearchCategory = ({
                             <Select
                                 clearable
                                 searchable
-                                icon={<FontAwesomeIcon icon={faGrid2} />}
+                                icon={
+                                    <FontAwesomeIcon
+                                        className="me-0 svg-icon"
+                                        icon={faGrid2}
+                                    />
+                                }
                                 placeholder="Filter by service"
                                 value={service}
                                 data={servicesOptionsData}

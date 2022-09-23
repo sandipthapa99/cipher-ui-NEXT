@@ -1,32 +1,48 @@
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
-import SkeletonTaskerCard from "@components/Skeletons/SkeletonTaskerCard";
+import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, ScrollArea } from "@mantine/core";
-import Link from "next/link";
+import { Alert, Loader, ScrollArea } from "@mantine/core";
+import { useTaskers } from "hooks/tasker/use-taskers";
+import { useInViewPort } from "hooks/use-in-viewport";
 import type { ReactNode } from "react";
-import { Fragment } from "react";
+import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { TaskerProps } from "types/taskerProps";
 
 interface TaskerAsideProps {
     children: ReactNode;
-    tasker: TaskerProps["result"];
-    query: string;
-    isLoading: boolean;
+    searchParam: string;
 }
-const TaskerAside = ({
-    tasker,
-    query,
-    children,
-    isLoading,
-}: TaskerAsideProps) => {
-    const totalAppliedTasks = tasker?.length;
-    const renderTaskCards = tasker?.map((tasker, key) => {
+const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
+    const {
+        data: taskersPage,
+        isLoading,
+        hasNextPage,
+        isFetchingNextPage,
+        fetchNextPage,
+    } = useTaskers(searchParam);
+    const taskers = useMemo(
+        () => taskersPage?.pages.map((page) => page.result).flat() ?? [],
+        [taskersPage?.pages]
+    );
+    const totalTaskers = taskers.length;
+
+    const isLastTaskerOnPage = (index: number) => index === totalTaskers - 1;
+
+    const { ref } = useInViewPort<HTMLDivElement>(() => {
+        if (hasNextPage && !isFetchingNextPage) {
+            fetchNextPage();
+        }
+    });
+
+    const renderTaskCards = taskers.map((tasker, index) => {
         return (
-            <div key={key} className="pe-1">
+            <div
+                ref={isLastTaskerOnPage(index) ? ref : null}
+                key={`${tasker.id}-${index}`}
+                className="pe-1"
+            >
                 <TeamMembersCard
-                    // taskers={tasker?.user}
                     isTasker={true}
                     tasker={tasker?.user?.id}
                     image={tasker?.profile_image}
@@ -57,21 +73,15 @@ const TaskerAside = ({
                         scrollbarSize={5}
                     >
                         <>
-                            {isLoading && (
-                                <Fragment>
-                                    {Array.from({ length: 3 }).map((_, key) => (
-                                        <SkeletonTaskerCard key={key} />
-                                    ))}
-                                </Fragment>
-                            )}
-                            {query && totalAppliedTasks > 0 ? (
+                            {isLoading && <TaskerSkeleton />}
+                            {searchParam && totalTaskers > 0 ? (
                                 <p className="search-results-text">
-                                    {`${totalAppliedTasks} service matching ${query} found`}
+                                    {`${totalTaskers} service matching ${searchParam} found`}
                                 </p>
                             ) : null}
 
                             {renderTaskCards}
-                            {!isLoading && !query && totalAppliedTasks === 0 && (
+                            {!isLoading && !searchParam && totalTaskers === 0 && (
                                 <Alert
                                     icon={<FontAwesomeIcon icon={faWarning} />}
                                     title="Taskers Unavailable"
@@ -81,11 +91,12 @@ const TaskerAside = ({
                                     No tasks available at the moment{""}
                                 </Alert>
                             )}
-                            {query && totalAppliedTasks === 0 ? (
+                            {searchParam && totalTaskers === 0 ? (
                                 <p className="search-results-text">
-                                    No services matching {query} found
+                                    No services matching {searchParam} found
                                 </p>
                             ) : null}
+                            {isFetchingNextPage && <Loader />}
                         </>
                     </ScrollArea.Autosize>
                 </Col>

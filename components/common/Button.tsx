@@ -1,3 +1,4 @@
+import { Loader } from "@mantine/core";
 import type { ButtonProps } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 
@@ -9,6 +10,7 @@ interface BigButtonProps extends ButtonProps {
     className?: string;
     border?: string;
     disabled?: boolean;
+    loading?: boolean;
 }
 
 const BigButton = ({
@@ -19,6 +21,7 @@ const BigButton = ({
     className,
     border,
     disabled,
+    loading,
     ...rest
 }: BigButtonProps) => {
     return (
@@ -34,7 +37,7 @@ const BigButton = ({
                 onClick={handleClick}
                 disabled={disabled}
             >
-                <span>{btnTitle}</span>
+                <span>{loading ? <Loader size="sm" /> : btnTitle}</span>
             </Button>
         </>
     );

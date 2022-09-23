@@ -52,7 +52,7 @@ export const ServiceAccept = () => {
             {/* <AcceptReject /> */}
             <div className="d-flex confirm-cross ">
                 <span className="text-confirm">Confirmed</span>
-                <FontAwesomeIcon icon={faXmark} />
+                {/* <FontAwesomeIcon icon={faXmark} /> */}
             </div>
         </div>
     );

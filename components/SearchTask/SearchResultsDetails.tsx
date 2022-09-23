@@ -26,7 +26,7 @@ import { Carousel } from "@mantine/carousel";
 import { Button, Text } from "@mantine/core";
 import { Alert, Highlight, Spoiler } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
@@ -70,7 +70,7 @@ const SearchResultsDetail = ({
     currency,
     service,
 }: ServiceNearYouCardProps) => {
-    console.log("service inside seach result details", service);
+    // console.log("service inside seach result details", service);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -152,6 +152,15 @@ const SearchResultsDetail = ({
     }>(["my-service-packages"], "/task/service-package/");
 
     const { data: user } = useUser();
+    const { data: taskerCount } = useData<{
+        count: Array<{
+            applicants_count: number;
+        }>;
+    }>(
+        ["tasker-count", serviceId],
+        `/task/entity/service/tasker-count/${serviceId}`
+    );
+    // console.log(applicantsCount, "servapplicantsCounticeId");
 
     const { mutate } = useDeleteData(`/task/entity/service/${serviceId}/`);
     const withLogin = useWithLogin();
@@ -172,6 +181,8 @@ const SearchResultsDetail = ({
     const isServiceBookmarked = useIsBookmarked("service", String(serviceId));
 
     const isUserService = user ? serviceProviderId === user?.id : false;
+
+    console.log(myBookings, "my bookings");
 
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
@@ -204,12 +215,12 @@ const SearchResultsDetail = ({
         return service && user ? service?.created_by?.id === user?.id : false;
     };
 
-    const handleViewApplicants = () => {
-        // @TODO : REPLACE WITH SOMETHING MEANINGFUL
-        toast.success(
-            "You have 100 Morbillion applicants for this service.Congrats!!"
-        );
-    };
+    // const handleViewApplicants = () => {
+    //     // @TODO : REPLACE WITH SOMETHING MEANINGFUL
+    //     toast.success(
+    //         "You have 100 Morbillion applicants for this service.Congrats!!"
+    //     );
+    // };
 
     const handleEdit = () => {
         setEditModal(true);
@@ -279,6 +290,7 @@ const SearchResultsDetail = ({
             );
             return;
         }
+        setShow(true);
         withLogin(() => setShow(true));
     };
 
@@ -486,7 +498,7 @@ const SearchResultsDetail = ({
                                 <CardBtn
                                     btnTitle="View Applicants"
                                     backgroundColor="#211D4F"
-                                    handleClick={handleViewApplicants}
+                                    id="#tab"
                                 />
                             ) : (
                                 <CardBtn
@@ -644,21 +656,19 @@ const SearchResultsDetail = ({
                     </Carousel>
                 </section>
                 <section>
-                    {!error && (
+                    {isCurrentUserService() && (
                         <Tab
                             activeIndex={activeTabIdx}
                             onTabClick={setActiveTabIdx}
                             items={[
                                 {
-                                    title: "Applicants",
+                                    title: `Applicants (${taskerCount?.data?.count[0].applicants_count})`,
 
                                     content: (
                                         <Row>
                                             <>
                                                 {renderBookedClients}
-                                                {(myBookings?.result.length ===
-                                                    0 ||
-                                                    error) && (
+                                                {myBookings === undefined && (
                                                     <Alert
                                                         icon={
                                                             <FontAwesomeIcon
@@ -666,17 +676,9 @@ const SearchResultsDetail = ({
                                                             />
                                                         }
                                                         title={
-                                                            myBookings?.result
-                                                                .length === 0
-                                                                ? "No Applicants Available!"
-                                                                : "No data Available!"
+                                                            "No data Available!"
                                                         }
-                                                        color={
-                                                            myBookings?.result
-                                                                .length === 0
-                                                                ? "orange"
-                                                                : "red"
-                                                        }
+                                                        color={"red"}
                                                     >
                                                         {" "}
                                                     </Alert>

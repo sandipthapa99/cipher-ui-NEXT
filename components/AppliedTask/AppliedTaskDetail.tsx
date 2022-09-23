@@ -25,14 +25,12 @@ import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { MyBookings } from "hooks/task/use-get-service-booking";
-import { useGetTasks } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
+import parse from "html-react-parser";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
@@ -41,7 +39,6 @@ import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
-import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
 import { TimelineTab } from "./TimelineTab";
@@ -53,7 +50,6 @@ const AppliedTaskDetail = ({
 {
     type?: string;
     taskDetail: ITask;
-    // taskApplicants: TaskApplicantsProps;
 }) => {
     const { data: myRequestedTask } = useData<MyBookings>(
         ["my-requested-task"],
@@ -70,9 +66,7 @@ const AppliedTaskDetail = ({
         ["get-task-applicants"],
         `${urls.task.taskApplicants}/${taskId}`
     );
-    console.log("🚀 ---->>>>>>>>.", taskApplicants, taskId);
 
-    // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
     const queryClient = useQueryClient();
     const { data: user } = useUser();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
@@ -89,9 +83,6 @@ const AppliedTaskDetail = ({
             />
         );
     };
-    const router = useRouter();
-
-    const slug = router?.query?.slug as string;
 
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
@@ -180,13 +171,14 @@ const AppliedTaskDetail = ({
                 <Row>
                     <Col md={12} lg={7}>
                         {(taskVideosAndImages ?? []).length === 1 &&
-                            taskVideosAndImages.map((file, key) => (
+                            taskVideosAndImages.map((file) => (
                                 <Fragment key={file.id}>
                                     {isImage(file.media_type) ? (
                                         <figure className="thumbnail-img">
                                             <Image
                                                 src={file.media}
                                                 alt={file.placeholder}
+                                                objectFit="cover"
                                                 layout="fill"
                                                 placeholder="blur"
                                                 blurDataURL="/service-details/Garden.svg"
@@ -223,7 +215,7 @@ const AppliedTaskDetail = ({
                                     },
                                 }}
                             >
-                                {taskVideosAndImages.map((file, key) => (
+                                {taskVideosAndImages.map((file) => (
                                     <Carousel.Slide key={file.id}>
                                         {isImage(file.media_type) ? (
                                             <figure className="thumbnail-img">
@@ -231,6 +223,7 @@ const AppliedTaskDetail = ({
                                                     src={file.media}
                                                     alt={file.placeholder}
                                                     layout="fill"
+                                                    objectFit="cover"
                                                     placeholder="blur"
                                                     blurDataURL="/service-details/Garden.svg"
                                                 />
@@ -330,7 +323,9 @@ const AppliedTaskDetail = ({
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    <p>{taskDetail?.description}</p>
+                    {taskDetail?.description
+                        ? parse(taskDetail.description)
+                        : ""}
                 </div>
 
                 <h3>Requirements</h3>

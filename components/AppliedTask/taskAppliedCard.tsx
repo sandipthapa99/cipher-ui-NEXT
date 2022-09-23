@@ -53,7 +53,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                 href={
                     type === "you may like"
                         ? `/task-you-may-like/${task?.slug}`
-                        : `/task/${task?.slug}`
+                        : `/task/${task?.id}`
                 }
             >
                 <a>
