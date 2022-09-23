@@ -113,6 +113,12 @@ export const ProfileModel = () => {
 const PROFILE_LINKS = {
     sectionOne: [
         {
+            title: "My Dashboard",
+            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
+            href: "/home",
+            color: "#495057",
+        },
+        {
             title: "Profile",
             icon: (
                 <FontAwesomeIcon
@@ -160,12 +166,6 @@ const PROFILE_LINKS = {
     //    },
     //],
     sectionThree: [
-        {
-            title: "My Dashboard",
-            icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGauge} />,
-            href: "/home",
-            color: "#495057",
-        },
         {
             title: "Settings",
             icon: <FontAwesomeIcon color={REGULAR_ICON_COLOR} icon={faGear} />,

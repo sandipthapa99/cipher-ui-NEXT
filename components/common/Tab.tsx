@@ -35,7 +35,7 @@ export const Tab = ({ items, activeIndex, onTabClick, icons }: TabProps) => {
 
     const renderTabItems = () => {
         return (
-            <div className="d-flex flex-wrap flex-sm-row tab-wrapper">
+            <div id="tab" className="d-flex flex-wrap flex-sm-row tab-wrapper">
                 {items.map((item, index) => (
                     <button
                         data-is-active={JSON.stringify(

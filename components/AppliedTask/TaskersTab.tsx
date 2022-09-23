@@ -69,8 +69,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                 >
                     {`You can't view the applicants`}
                 </Alert>
-            ) : (taskApplicants && taskApplicants?.data.count < 1) ||
-              !TaskApplicantLoading ? (
+            ) : taskApplicants && taskApplicants?.data.count < 1 ? (
                 <Alert
                     icon={<FontAwesomeIcon icon={faWarning} />}
                     title={""}

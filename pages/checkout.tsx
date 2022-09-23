@@ -1,4 +1,3 @@
-import BigButton from "@components/common/Button";
 import Layout from "@components/Layout";
 import {
     faCalendar,
@@ -8,34 +7,58 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Modal, Text } from "@mantine/core";
 import { Elements } from "@stripe/react-stripe-js";
+import type { Stripe } from "@stripe/stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useQuery } from "@tanstack/react-query";
+import urls from "constants/urls";
+import { format } from "date-fns";
+import { useData } from "hooks/use-data";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import type { ServicesValueProps } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
 import CheckoutForm from "../components/CheckoutForm";
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
-const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
+
+const getStripeApiKey = () => {
+    const url = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+    if (url === undefined)
+        throw new Error(
+            "Please specify an Stripe API key in the environment variable NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY"
+        );
+    return url;
+};
+
+const stripePromise = loadStripe(getStripeApiKey());
 
 export default function Checkout() {
+    const router = useRouter();
+    const query = router.query.id;
+
     const [opened, setOpened] = useState(false);
     const [paymentType, setPaymentType] = useState("esewa");
-    const { data: stripeData } = useQuery(["stripe-data"], async () => {
-        const response = await axiosClient.post("/payment/intent/stripe/", {
-            scope: "entityservice",
-            pk: "f7ec63ef-3a6b-40d4-a059-48266f6b4399",
-        });
-        return response;
-    });
+    const { data: stripeData } = useQuery(
+        ["stripe-data", query],
+        async () => {
+            const response = await axiosClient.post("/payment/intent/stripe/", {
+                scope: "entityservice",
+                pk: query,
+            });
+            return response;
+        },
+        { enabled: !!query }
+    );
 
+    const { data: servicesCheckoutData } = useData<
+        ServicesValueProps["result"][0]
+    >(["all-services-checkout"], `${urls.task.list}${query}/`, !!query);
     const appearance = {
-        theme: "stripe",
+        theme: "stripe" as const,
         // labels: "floating",
 
         variables: {
@@ -143,7 +166,7 @@ export default function Checkout() {
                                 );
                             })}
                         </div>
-                        <p className="titles">Cards Debit/Credit</p>
+                        {/* <p className="titles">Cards Debit/Credit</p>
                         <div className="digital-wallet d-flex gap-4 flex-wrap">
                             {staticPayments.credit.map((item, index) => {
                                 return (
@@ -177,7 +200,7 @@ export default function Checkout() {
                                     </figure>
                                 );
                             })}
-                        </div>
+                        </div> */}
                         <p className="titles">International Payment Method</p>
                         <div className="digital-wallet d-flex gap-4 flex-wrap">
                             {staticPayments.international.map((item, index) => {
@@ -216,46 +239,88 @@ export default function Checkout() {
                     </Col>
                     <Col md={4} className="right mb-5">
                         <h1>Task List</h1>
-                        <Row className="item-detail">
-                            <Col md={4} className="left">
-                                <figure className="thumbnail-img">
-                                    <Image
-                                        src="/hireinnepal/footer.png"
-                                        layout="fill"
-                                        objectFit="cover"
-                                        height={116}
-                                        width={116}
-                                        alt="img"
-                                    />
-                                </figure>
-                            </Col>
-                            <Col md={8} className="inner-right">
-                                <h2>Need a garden cleaner</h2>
-                                <p>
-                                    <span className="icon location-icon">
-                                        <FontAwesomeIcon icon={faLocationDot} />
-                                    </span>{" "}
-                                    Bagbazzar, Kathmandu
-                                </p>
-                                <div className="d-flex">
+                        {servicesCheckoutData?.data && (
+                            <Row className="item-detail">
+                                <Col md={4} className="left">
+                                    {servicesCheckoutData?.data?.images
+                                        .length <= 0 && (
+                                        <>
+                                            <figure className="position-relative">
+                                                <Image
+                                                    src="/placeholder/taskPlaceholder.png"
+                                                    height={116}
+                                                    width={116}
+                                                    alt="img"
+                                                />
+                                            </figure>
+                                        </>
+                                    )}
+                                    {servicesCheckoutData?.data?.images.length >
+                                        0 && (
+                                        <>
+                                            <figure className="thumbnail-img">
+                                                <Image
+                                                    src={
+                                                        servicesCheckoutData
+                                                            ?.data?.images[0]
+                                                            .media
+                                                    }
+                                                    height={116}
+                                                    width={116}
+                                                    alt="img"
+                                                />
+                                            </figure>
+                                        </>
+                                    )}
+                                </Col>
+                                <Col md={8} className="inner-right">
+                                    <h2>{servicesCheckoutData?.data?.title}</h2>
                                     <p>
-                                        <span className="icon calendar-icon">
+                                        <span className="icon location-icon">
                                             <FontAwesomeIcon
-                                                icon={faCalendar}
+                                                icon={faLocationDot}
                                             />
                                         </span>{" "}
-                                        June 02, 2022
+                                        {servicesCheckoutData?.data?.location}
                                     </p>
-                                    <p className="mx-5">
-                                        <span className="icon clock-icon">
-                                            <FontAwesomeIcon icon={faClock} />
-                                        </span>{" "}
-                                        03:30 AM
-                                    </p>
-                                </div>
-                                <h3>Rs 1,200</h3>
-                            </Col>
-                        </Row>
+                                    <div className="d-flex">
+                                        <p>
+                                            <span className="icon calendar-icon">
+                                                <FontAwesomeIcon
+                                                    icon={faCalendar}
+                                                />
+                                            </span>{" "}
+                                            {format(
+                                                new Date(
+                                                    servicesCheckoutData?.data?.created_at
+                                                ),
+                                                "PP"
+                                            )}
+                                        </p>
+                                        <p className="mx-5">
+                                            <span className="icon clock-icon">
+                                                <FontAwesomeIcon
+                                                    icon={faClock}
+                                                />
+                                            </span>{" "}
+                                            {format(
+                                                new Date(
+                                                    servicesCheckoutData?.data?.created_at
+                                                ),
+                                                "p"
+                                            )}
+                                        </p>
+                                    </div>
+                                    <h3>
+                                        {
+                                            servicesCheckoutData?.data?.currency
+                                                .symbol
+                                        }
+                                        {servicesCheckoutData?.data?.budget_to}
+                                    </h3>
+                                </Col>
+                            </Row>
+                        )}
 
                         <div className="sub-total fee d-flex justify-content-between">
                             <p>Sub Total</p>
@@ -275,7 +340,7 @@ export default function Checkout() {
                         </div>
                         <Button
                             className="checkout-btn"
-                            onClick={(e) => {
+                            onClick={() => {
                                 setOpened(true);
                             }}
                         >

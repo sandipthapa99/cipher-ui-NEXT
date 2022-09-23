@@ -33,8 +33,6 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     const clearSearchedServices = useClearSearchedServices();
     const searchQuery = useSearchQuery();
 
-    const { data: searchData = [], isFetching } = useSearchService(searchParam);
-
     const handleClearSearchResults = () => {
         clearSearchedServices();
         clearSearchQuery();
@@ -73,11 +71,7 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
                         </Box>
                     )}
                     <Space h={10} />
-                    <ServiceAside
-                        query={searchParam}
-                        service={searchData}
-                        isLoading={isFetching}
-                    >
+                    <ServiceAside searchParam={searchParam}>
                         {children}
                     </ServiceAside>
                 </Container>

@@ -28,6 +28,7 @@ import { useUser } from "hooks/auth/useUser";
 import type { MyBookings } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
+import parse from "html-react-parser";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -68,7 +69,6 @@ const AppliedTaskDetail = ({
         `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`
     );
 
-    // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
     const queryClient = useQueryClient();
     const { data: user } = useUser();
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
@@ -184,13 +184,14 @@ const AppliedTaskDetail = ({
                 <Row>
                     <Col md={12} lg={7}>
                         {(taskVideosAndImages ?? []).length === 1 &&
-                            taskVideosAndImages.map((file, key) => (
+                            taskVideosAndImages.map((file) => (
                                 <Fragment key={file.id}>
                                     {isImage(file.media_type) ? (
                                         <figure className="thumbnail-img">
                                             <Image
                                                 src={file.media}
                                                 alt={file.placeholder}
+                                                objectFit="cover"
                                                 layout="fill"
                                                 placeholder="blur"
                                                 blurDataURL="/service-details/Garden.svg"
@@ -227,7 +228,7 @@ const AppliedTaskDetail = ({
                                     },
                                 }}
                             >
-                                {taskVideosAndImages.map((file, key) => (
+                                {taskVideosAndImages.map((file) => (
                                     <Carousel.Slide key={file.id}>
                                         {isImage(file.media_type) ? (
                                             <figure className="thumbnail-img">
@@ -235,6 +236,7 @@ const AppliedTaskDetail = ({
                                                     src={file.media}
                                                     alt={file.placeholder}
                                                     layout="fill"
+                                                    objectFit="cover"
                                                     placeholder="blur"
                                                     blurDataURL="/service-details/Garden.svg"
                                                 />
@@ -335,7 +337,9 @@ const AppliedTaskDetail = ({
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    <p>{taskDetail?.description}</p>
+                    {taskDetail?.description
+                        ? parse(taskDetail.description)
+                        : ""}
                 </div>
 
                 <h3>Requirements</h3>

@@ -30,11 +30,17 @@ const firebaseCloudMessaging = {
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {
             console.log("Message received. ", payload);
-            toast.success(payload?.data?.title, {
-                onClick: () => {
-                    window.open(`/task/${payload?.data?.task_slug}`, "_blank");
-                },
-            });
+            toast.success(
+                `Successfully ${payload?.data?.title} a ${payload?.data?.object}`,
+                {
+                    onClick: () => {
+                        window.open(
+                            `/task/${payload?.data?.object_slug}`,
+                            "_blank"
+                        );
+                    },
+                }
+            );
 
             // alert("Notificacion");
         });

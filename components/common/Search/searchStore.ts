@@ -1,4 +1,4 @@
-import type { Tasker } from "hooks/tasker/use-tasker";
+import type { ITasker } from "types/tasker";
 import create from "zustand";
 
 import type { SearchContext } from "./index";
@@ -8,8 +8,8 @@ export interface SearchQuery {
     query: string;
 }
 export interface SearchStore {
-    searchedTaskers: Tasker[];
-    setSearchedTaskers: (taskers: Tasker[]) => void;
+    searchedTaskers: ITasker[];
+    setSearchedTaskers: (taskers: ITasker[]) => void;
     clearSearchedTaskers: () => void;
     searchedServices: any[];
     setSearchedServices: (services: any[]) => void;

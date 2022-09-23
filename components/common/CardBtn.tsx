@@ -5,24 +5,28 @@ const CardBtn = ({
     backgroundColor,
     color,
     handleClick,
+    id,
 }: {
     btnTitle: string;
     backgroundColor: string;
     color?: string;
     handleClick?: () => void;
+    id?: string;
 }) => {
     return (
         <>
-            <Button
-                onClick={handleClick}
-                className="card-btn"
-                style={{
-                    backgroundColor: `${backgroundColor}`,
-                    color: `${color}`,
-                }}
-            >
-                <span>{btnTitle}</span>
-            </Button>
+            <a href={id ? id : "#"}>
+                <Button
+                    onClick={handleClick}
+                    className="card-btn"
+                    style={{
+                        backgroundColor: `${backgroundColor}`,
+                        color: `${color}`,
+                    }}
+                >
+                    <span>{btnTitle}</span>
+                </Button>
+            </a>
         </>
     );
 };
