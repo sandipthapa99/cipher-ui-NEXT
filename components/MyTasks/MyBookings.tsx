@@ -14,10 +14,6 @@ export const MyBookings = () => {
         );
         return response.data.result;
     });
-    console.log(
-        "🚀 ~ file: MyBookings.tsx ~ line 17 ~ const{data:myBookingData}=useQuery ~ myBookingData",
-        myBookingData
-    );
 
     return (
         <div className="my-task">

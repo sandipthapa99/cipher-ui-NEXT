@@ -31,7 +31,7 @@ export const MyTaskOrder = ({
     }, [assigner_id, userData]);
 
     return (
-        <div className="my-task-order">
+        <div className="my-task-order text-black-50">
             <div className="d-flex justify-content-between align-items-center order-section">
                 <span className="order-id">
                     Order ID: #{task_id?.slice(0, 8)}
