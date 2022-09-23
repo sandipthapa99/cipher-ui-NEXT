@@ -27,6 +27,7 @@ const TaskerAside = ({
             <div key={key} className="pe-1">
                 <TeamMembersCard
                     // taskers={tasker?.user}
+                    isTasker={true}
                     tasker={tasker?.user?.id}
                     image={tasker?.profile_image}
                     name={`${tasker?.user.first_name} ${tasker?.user.middle_name} ${tasker?.user.last_name}`}
@@ -34,9 +35,7 @@ const TaskerAside = ({
                     rating={tasker?.rating.avg_rating}
                     happyClients={tasker?.stats?.happy_clients}
                     awardPercentage={tasker?.stats?.success_rate}
-                    location={
-                        tasker?.address_line1 + " " + tasker?.address_line2
-                    }
+                    location={tasker?.address_line2}
                     distance={"2 km"}
                     bio={tasker?.bio}
                     charge={

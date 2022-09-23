@@ -188,7 +188,8 @@ export const PostTaskModal = () => {
                                 "task-detail",
                                 taskSlug,
                             ]);
-                            toast.success(message);
+                            toggleSuccessModal("Task Edited Successfully");
+                            router.reload();
                         },
                     }
                 );

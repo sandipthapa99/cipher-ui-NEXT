@@ -1,18 +1,18 @@
 import type { SelectItem, SelectProps } from "@mantine/core";
 import { Select } from "@mantine/core";
-import { useServiceOptions } from "hooks/service/use-service-options";
+import { useSerivceEntity } from "hooks/service/use-service-entity";
 import { useState } from "react";
 
 interface TaskCategoryProps extends Omit<SelectProps, "data"> {
     onServiceChange: (service: string) => void;
     data?: SelectItem[];
 }
-export const ServiceOptions = ({
+export const ServiceEntityOptions = ({
     value,
     onServiceChange,
     ...rest
 }: TaskCategoryProps) => {
-    const { data: serviceOptions = [] } = useServiceOptions();
+    const { data: serviceEntityOptions = [] } = useSerivceEntity();
 
     const [service, setService] = useState(() => value);
     const handleServiceChange = (selectedService: string | null) => {
@@ -25,11 +25,11 @@ export const ServiceOptions = ({
             {...rest}
             searchable
             label="Category"
-            placeholder="Select a category"
+            placeholder="Select a service"
             value={service}
             onChange={handleServiceChange}
             // onSearchChange={setQuery}
-            data={serviceOptions}
+            data={serviceEntityOptions}
             required
         />
     );

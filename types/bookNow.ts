@@ -30,6 +30,7 @@ export interface BookNowFormProps {
     start_date: string;
     end_date: string;
     budget_from: number;
+    entity_service?: string;
     budget_to: number;
     requirements: string;
     videos: File | File[] | string;

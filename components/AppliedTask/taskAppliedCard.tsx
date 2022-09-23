@@ -7,10 +7,12 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import urls from "constants/urls";
 import { format } from "date-fns";
+import { useData } from "hooks/use-data";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import type { ITask } from "types/task";
+import type { ITask, TaskerCount } from "types/task";
 import { getPageUrl } from "utils/helpers";
 // import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
@@ -32,9 +34,17 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
         currency,
         start_time: time,
         start_date: date,
-        applicants_count,
+
         slug,
     } = task;
+    console.log("🚀 ~ oooooo task", taskId);
+
+    const { data: taskApplicants } = useData<TaskerCount>(
+        ["get-task-applicants"],
+        `${urls.task.taskApplicants}/${taskId}`
+    );
+
+    const applicants_count = taskApplicants?.data.count[0].tasker_count;
     return (
         <div
             data-active={JSON.stringify(query === slug)}
