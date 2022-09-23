@@ -1,6 +1,7 @@
 import { AddServiceModalComponent } from "@components/AddServices/AddServiceModalComponent";
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
+import { RichText } from "@components/RichText";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
@@ -28,9 +29,7 @@ import { useFormik } from "formik";
 import { useEditTask } from "hooks/task/use-edit-task";
 import { usePostTask } from "hooks/task/use-post-task";
 import { useUploadFile } from "hooks/use-upload-file";
-import { key } from "localforage";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -41,6 +40,7 @@ import {
     useToggleShowPostTaskModal,
 } from "store/use-show-post-task";
 import { useToggleSuccessModal } from "store/use-success-modal";
+import { ReactQueryKeys } from "types/queryKeys";
 
 export interface PostTaskPayload {
     title: string;
@@ -79,11 +79,9 @@ export const PostTaskModal = () => {
     const showPostTaskModalType = usePostTaskModalType();
     const showPostTaskModal = useShowPostTaskModal();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
-    const router = useRouter();
 
     const editTaskDetail = useEditTaskDetail();
 
-    const taskSlug = router.query?.slug;
     const taskDetail =
         showPostTaskModalType === "EDIT" ? editTaskDetail : undefined;
 
@@ -187,11 +185,11 @@ export const PostTaskModal = () => {
                 editTaskMutation(
                     { id: taskDetail.id, data: updatedPayload },
                     {
-                        onSuccess: async (message) => {
+                        onSuccess: async () => {
                             handleCloseModal();
                             await queryClient.invalidateQueries([
-                                "task-detail",
-                                taskSlug,
+                                ReactQueryKeys.TASK_DETAIL,
+                                taskDetail.id,
                             ]);
                             toggleSuccessModal("Task Edited Successfully");
                         },
@@ -204,10 +202,8 @@ export const PostTaskModal = () => {
                     handleCloseModal();
                     action.resetForm();
                     toggleSuccessModal("Task Posted Successfully");
-                    // toast.success(message);
-                    await queryClient.invalidateQueries(["all-tasks"]);
+                    await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
                     await queryClient.invalidateQueries(["notification"]);
-                    // router.push({ pathname: "/task" });
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -270,13 +266,15 @@ export const PostTaskModal = () => {
                                 {...getFieldProps("title")}
                                 error={getFieldError("title")}
                             />
-                            <Textarea
-                                label="Task Description"
-                                placeholder="Enter your description"
-                                minRows={5}
-                                required
+
+                            <RichText
                                 {...getFieldProps("description")}
-                                error={getFieldError("description")}
+                                value={values.description ?? ""}
+                                onChange={(value) =>
+                                    setFieldValue("description", value)
+                                }
+                                placeholder="Enter your description"
+                                aria-errormessage="123"
                             />
                             <TaskRequirements
                                 initialRequirements={

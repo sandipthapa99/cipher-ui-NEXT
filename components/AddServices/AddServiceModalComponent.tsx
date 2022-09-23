@@ -140,7 +140,7 @@ export const AddServiceModalComponent = () => {
             };
 
             createTaskMutation(postTaskPayload, {
-                onSuccess: async ({ message }) => {
+                onSuccess: async () => {
                     handleCloseModal();
                     action.resetForm();
                     toggleSuccessModal();
