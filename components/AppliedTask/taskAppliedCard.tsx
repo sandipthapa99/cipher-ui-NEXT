@@ -37,24 +37,14 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
 
         slug,
     } = task;
-    console.log(
-        "🚀 ~ file: taskAppliedCard.tsx ~ line 44 ~ TaskCard ~ taskId",
-        taskId
-    );
+
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", taskId],
         `${urls.task.taskApplicantsNumber}/${taskId}`
     );
-    console.log(
-        "🚀 ~ file: taskAppliedCard.tsx ~ line 42 ~ TaskCard ~ taskApplicants",
-        taskApplicants
-    );
 
     const applicants_count = taskApplicants?.data.count[0].tasker_count;
-    console.log(
-        "🚀 ~ file: taskAppliedCard.tsx ~ line 54 ~ TaskCard ~ applicants_count",
-        applicants_count
-    );
+
     return (
         <div
             data-active={JSON.stringify(query === slug)}

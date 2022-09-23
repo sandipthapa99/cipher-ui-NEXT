@@ -124,8 +124,8 @@ export const PostTaskModal = () => {
             city: taskDetail ? String(taskDetail?.city?.id) : "",
             location: taskDetail ? (taskDetail.location as TaskType) : "remote",
             budget_type: BudgetType.FIXED,
-            budget_from: taskDetail ? taskDetail.budget_from : "",
-            budget_to: taskDetail ? taskDetail.budget_to : "",
+            budget_from: taskDetail ? Number(taskDetail.budget_from) : "",
+            budget_to: taskDetail ? Number(taskDetail.budget_to) : "",
             service: taskDetail ? taskDetail.service.id ?? ({} as any) : "",
             is_negotiable: false,
             estimated_time: 5,
@@ -189,7 +189,6 @@ export const PostTaskModal = () => {
                                 taskSlug,
                             ]);
                             toggleSuccessModal("Task Edited Successfully");
-                            router.reload();
                         },
                     }
                 );

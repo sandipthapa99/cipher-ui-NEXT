@@ -5,17 +5,15 @@ import { Alert, ScrollArea } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
+import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
-import type { ITask } from "types/task";
 
 import TaskAppliedCard from "./taskAppliedCard";
 
 interface TaskAsideProps {
     children: ReactNode;
-    appliedTasks: ITask[];
     query: string;
     type?: string;
-    isFetching: boolean;
 }
 const TaskAside = ({
     appliedTasks,
@@ -43,42 +41,14 @@ const TaskAside = ({
                         offsetScrollbars
                         scrollbarSize={5}
                     >
-                        {isFetching && (
-                            <Fragment>
-                                {Array.from({ length: 4 }).map((_, key) => (
-                                    <SkeletonTaskCard key={key} />
-                                ))}
-                            </Fragment>
-                        )}
                         {query && totalAppliedTasks > 0 ? (
-                            <p className="search-results-text">
-                                {`${totalAppliedTasks} service matching your query found`}
-                            </p>
+                            <p>{`${totalAppliedTasks} task matching ${query} found`}</p>
+                        ) : query && totalAppliedTasks === 0 ? (
+                            <p>{`No tasks matching ${query} found`}</p>
                         ) : null}
-                        {query && totalAppliedTasks === 0 ? (
-                            <p className="search-results-text">
-                                No services matching your query found
-                            </p>
-                        ) : null}
-                        {isFetching ? (
-                            <Fragment>
-                                {Array.from({ length: 4 }).map((_, key) => (
-                                    <SkeletonTaskCard key={key} />
-                                ))}
-                            </Fragment>
-                        ) : (
-                            renderTaskCards
-                        )}
-                        {!query && appliedTasks?.length === 0 && (
-                            <Alert
-                                icon={<FontAwesomeIcon icon={faWarning} />}
-                                title="Tasks Unavailable"
-                                variant="filled"
-                                color="yellow"
-                            >
-                                No tasks available at the moment{""}
-                            </Alert>
-                        )}
+                        {isLoading ? renderLoadingSkeletons() : renderTasks()}
+                        <Space h="md" />
+                        {isFetchingNextPage ? <Loader /> : null}
                     </ScrollArea.Autosize>
                 </Col>
 

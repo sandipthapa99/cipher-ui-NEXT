@@ -325,9 +325,8 @@ const AccountForm = () => {
                         experience_level: profile?.experience_level ?? "",
                         active_hour_start:
                             new Date(`2022-09-24 ${startTime}`) ?? "",
-                        active_hour_end: endTime
-                            ? new Date(`2022-09-24 ${endTime}`)
-                            : "",
+                        active_hour_end:
+                            new Date(`2022-09-24 ${endTime}`) ?? "",
                         hourly_rate: profile?.hourly_rate ?? "",
                         user_type: userType ?? "",
                         country:

@@ -6,8 +6,6 @@ import urls from "constants/urls";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import type { ITaskApiResponse } from "types/task";
-import { axiosClient } from "utils/axiosClient";
 
 export const useSearchTask = (searchQuery: string) => {
     const url = `${urls.task.my_task}&${searchQuery}`;
@@ -31,8 +29,6 @@ const AppliedLayout = ({
 }) => {
     const [searchParam, setSearchParam] = useState("");
 
-    const { data: searchData = [], isFetching } = useSearchTask(searchParam);
-
     return (
         <Layout title="Find Tasks | Cipher">
             <section className="Tasks-section mb-5" id="Tasks-section">
@@ -42,12 +38,7 @@ const AppliedLayout = ({
                         onFilterClear={() => setSearchParam("")}
                         onSearchParamChange={setSearchParam}
                     />
-                    <TaskAside
-                        query={searchParam}
-                        appliedTasks={searchData}
-                        type={type ?? ""}
-                        isFetching={isFetching}
-                    >
+                    <TaskAside query={searchParam} type={type ?? ""}>
                         {children}
                     </TaskAside>
                 </Container>
