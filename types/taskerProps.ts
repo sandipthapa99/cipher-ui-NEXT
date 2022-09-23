@@ -10,11 +10,14 @@ export interface TaskerProps {
             id: string;
             name: string;
             code: string;
+            symbol: any;
         };
         user: {
             id: string;
             email: string;
-            full_name: string;
+            first_name: string;
+            middle_name: string;
+            last_name: string;
             profile_image: string;
         };
         portfolio: {

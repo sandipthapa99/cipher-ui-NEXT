@@ -10,8 +10,9 @@ const tagValidate = Yup.array(Yup.string()).required("Required field");
 
 export const accountFormSchema = Yup.object().shape({
     // full_name: stringReqOnly,
-    phone: Yup.number().nullable().required("Required field"),
-    full_name: stringReqOnly,
+    // phone: Yup.number().nullable().required("Required field"),
+    first_name: stringReqOnly,
+    last_name: stringReqOnly,
     profile_image: stringUnReq,
     bio: stringReqOnly,
     gender: stringReqOnly,
@@ -28,5 +29,6 @@ export const accountFormSchema = Yup.object().shape({
     charge_currency: stringReqOnly,
     profile_visibility: stringReqOnly,
     task_preferences: stringReqOnly,
+    designation: stringReqOnly,
     // profile_image: stringReqOnly,
 });

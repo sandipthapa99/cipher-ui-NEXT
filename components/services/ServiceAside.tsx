@@ -31,9 +31,9 @@ const ServiceAside = ({
                             budget_from={task?.budget_from}
                             budget_to={task?.budget_to}
                             budget_type={task?.budget_type}
-                            currency={task?.currency?.code}
+                            currency={task?.currency?.symbol}
                             serviceTitle={task?.title}
-                            serviceRating={task?.success_rate}
+                            serviceRating={"TOBE-IMP"}
                             serviceProviderLocation={task?.location}
                             serviceSlug={task?.slug}
                             discount={20} // To do form api
@@ -42,17 +42,22 @@ const ServiceAside = ({
                                     ? task.images[0]?.media
                                     : task?.images
                             }
-                            serviceProvider={
-                                task?.created_by?.full_name === "None None"
-                                    ? "Cipher"
-                                    : task?.created_by?.full_name
-                            }
+                            serviceProvider={`${task?.created_by?.first_name} ${task?.created_by?.last_name}`}
                         />
                     </a>
                 </Link>
             </div>
         );
     });
+    const renderServiceSkeletons = () => {
+        return (
+            <Fragment>
+                {Array.from({ length: 3 }).map((_, index) => (
+                    <SkeletonServiceCard key={index} />
+                ))}
+            </Fragment>
+        );
+    };
     return (
         <div className="search-results">
             <Row>
@@ -62,20 +67,14 @@ const ServiceAside = ({
                         offsetScrollbars
                         scrollbarSize={5}
                     >
-                        {isLoading && (
-                            <Fragment>
-                                {Array.from({ length: 3 }).map((_, key) => (
-                                    <SkeletonServiceCard key={key} />
-                                ))}
-                            </Fragment>
-                        )}
-                        {query && totalAppliedTasks > 0 ? (
+                        {isLoading && renderServiceSkeletons()}
+                        {!isLoading && query && totalAppliedTasks > 0 ? (
                             <p className="search-results-text">
                                 {`${totalAppliedTasks} service matching ${query} found`}
                             </p>
                         ) : null}
-                        {renderTaskCards}
-                        {query && totalAppliedTasks === 0 ? (
+                        {!isLoading && renderTaskCards}
+                        {!isLoading && query && totalAppliedTasks === 0 ? (
                             <p className="search-results-text">
                                 No services matching {query} found
                             </p>

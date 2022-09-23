@@ -3,16 +3,17 @@ import Reviews from "@components/common/Reviews";
 import { faPencil, faTrashCan } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
+import urls from "constants/urls";
 import { format } from "date-fns";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import type { RatingResponse } from "hooks/rating/getRating";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
+import type { RatingResponse } from "types/ratingProps";
 import type { UserProfileProps } from "types/userProfileProps";
 import { reviewSearchData } from "utils/formData";
 import ReviewSearchSchema from "utils/formValidation/reviewSearchSchema";
@@ -39,10 +40,9 @@ const AboutProfile = () => {
     const [isEditProfile, setIsEditProfile] = useState(false);
     const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
-
     const { data: taskerRating } = useData<RatingResponse>(
         ["tasker-rating", search],
-        `/task/rating?ordering=${search}`
+        `${urls.profile.rating}?ordering=${search}`
     );
 
     // const { mutate: searchMutation, data: filteredData } =
@@ -52,23 +52,23 @@ const AboutProfile = () => {
     //user profile certification data
     const { data: certificationData } = useData<
         UserProfileProps["certificationData"]
-    >(["tasker-certification"], "/tasker/certification/");
+    >(["tasker-certification"], `${urls.profile.certifications}`);
 
     //user profile education data
     const { data: educationData } = useData<UserProfileProps["educationData"]>(
         ["tasker-education"],
-        "/tasker/education/"
+        `${urls.profile.education}`
     );
 
     //user profile experience data
     const { data: experienceData } = useData<
         UserProfileProps["experienceData"]
-    >(["tasker-experience"], "/tasker/experience/");
+    >(["tasker-experience"], `${urls.profile.experience}`);
 
     //user profile experience data
     const { data: portfolioData } = useData<UserProfileProps["portfolioData"]>(
         ["tasker-portfolio"],
-        "/tasker/portfolio/"
+        `${urls.profile.portfolio}`
     );
 
     const handleEdit = (id: any) => {
@@ -294,7 +294,7 @@ const AboutProfile = () => {
                             <div className="content">
                                 {experienceData?.data?.result
                                     ? experienceData?.data?.result?.map(
-                                          (value) => {
+                                          (value: any) => {
                                               return (
                                                   <div
                                                       className="experience__type"

@@ -64,6 +64,7 @@ const KYCForm = () => {
     return (
         <>
             {/* Modal component */}
+
             <div
                 className="account-form mt-5"
                 style={
@@ -309,10 +310,10 @@ const KYCForm = () => {
                         </Form>
                     )}
                 </Formik>
-                {KYCData && <IdentityDocument getReadvalue={setShowKYCRead} />}
+                {KYCData && <IdentityDocument />}
                 {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
-            {KYCData && <KYCStatus />}
+            {!KYCData?.is_kyc_verified && <KYCStatus />}
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"

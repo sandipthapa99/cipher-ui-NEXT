@@ -1,4 +1,3 @@
-import { AngleDown } from "@components/Icons/AngleDown";
 import {
     faChevronDown,
     faSearch,
@@ -138,7 +137,7 @@ export const Search = () => {
                             variant="unstyled"
                             className={classes.selectField}
                             data={searchData}
-                            rightSection={<AngleDown />}
+                            // rightSection={<AngleDown />}
                             onChange={(value) => setFieldValue("scope", value)}
                             styles={{ dropdown: { marginLeft: `${-1}rem` } }}
                         />
@@ -178,7 +177,7 @@ export const Search = () => {
 };
 export const useStyles = createStyles(() => ({
     selectField: {
-        maxWidth: useMediaQuery("(max-width:572px)") ? "12rem" : "12rem",
+        maxWidth: useMediaQuery("(max-width:572px)") ? "10rem" : "12rem",
         marginLeft: "1rem",
     },
     loadingOverlay: {

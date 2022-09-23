@@ -6,11 +6,16 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { useIsBookmarked } from "hooks/use-bookmarks";
+import { useData } from "hooks/use-data";
+import { useForm } from "hooks/use-form";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import type { TaskApprovedList } from "types/task";
 import type { Tasker } from "types/tasks";
 
 import BigButton from "./Button";
@@ -32,6 +37,8 @@ interface Props {
     distance?: string;
     bio?: string;
     charge?: string;
+    id?: number;
+    isTasker?: boolean;
 }
 
 export const TeamMembersCard = ({
@@ -48,13 +55,45 @@ export const TeamMembersCard = ({
     distance,
     bio,
     charge,
+    id,
+    isTasker,
 }: Props) => {
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
+    console.log("🚀 ~ file: TeamMembersCard.tsx ~ line 63 ~ userId", userId);
     const queryClient = useQueryClient();
 
     const router = useRouter();
     const path = router.query.id;
+
+    const { data: approvedTasks } = useData<TaskApprovedList>(
+        ["approved-task"],
+        `${urls.task.approvedTaskList}`
+    );
+    const approvedTask = approvedTasks?.data.result.find(
+        (appliedTask: any) => appliedTask.assignee.id === userId
+    );
+    console.log(
+        "🚀 ~ file: TeamMembersCard.tsx ~ line 75 ~ approvedTask",
+        approvedTask
+    );
+    // console.log(
+    //     "🚀 ~ file: TeamMembersCard.tsx ~ line 74 ~ userId",
+    //     userId,
+    //     approvedTask?.assignee.id
+    // );
+
+    // const sendBookApproval = useMutation(
+    //     (data: { booking: number | undefined }) =>
+    //         axiosClient.post(`${urls.task}`, data)
+    // );
+
+    // const sendBookReject = useMutation(
+    //     (data: { booking: number | undefined }) =>
+    //         axiosClient.post("/task/entity/service-booking/reject/", data)
+    // );
+    const { mutate: bookingApproval } = useForm(`${urls.task.approval}`);
+    const { mutate: bookingDecline } = useForm(`${urls.task.decline}`);
 
     return (
         <div
@@ -172,6 +211,65 @@ export const TeamMembersCard = ({
                     </a>
                 </Link>
             </div>
+            {isTasker ? null : (
+                <div className="d-flex align-items-center gap-3 pt-3">
+                    <BigButton
+                        btnTitle={"Approve"}
+                        backgroundColor={"#fff"}
+                        handleClick={() => {
+                            bookingApproval(
+                                { booking: id },
+                                {
+                                    onSuccess: () => {
+                                        toast.success(
+                                            "Booking Approved and Task Created"
+                                        );
+                                        queryClient.invalidateQueries([
+                                            "get-my-applicants",
+                                        ]);
+                                    },
+                                    onError: (error: any) => {
+                                        // console.log(
+                                        //     "Booking is approved",
+                                        //     error.booking.message
+                                        // );
+                                        toast.error(
+                                            "This booking is already approved."
+                                        );
+                                    },
+                                }
+                            );
+                        }}
+                        textColor={"#211D4F"}
+                        border="1px solid #211D4F"
+                    />
+
+                    <BigButton
+                        btnTitle={"Decline"}
+                        backgroundColor={"#211D4F"}
+                        handleClick={() => {
+                            bookingDecline(
+                                { booking: id },
+                                {
+                                    onSuccess: () => {
+                                        toast.success("Booking Rejected");
+                                        queryClient.invalidateQueries([
+                                            "get-my-applicants",
+                                        ]);
+                                    },
+                                    onError: (error: any) => {
+                                        console.log(error);
+                                        toast.error(
+                                            error.response.data.booking.message
+                                        );
+                                    },
+                                }
+                            );
+                        }}
+                        textColor={"#fff"}
+                    />
+                </div>
+            )}
         </div>
     );
 };

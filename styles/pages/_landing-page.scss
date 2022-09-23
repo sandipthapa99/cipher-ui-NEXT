@@ -291,6 +291,10 @@
 
     .hero-category {
         padding-bottom: 4.4rem;
+        @include respond(xs) {
+            padding-bottom: 2.2rem;
+        }
+
         .mantine-Carousel-root {
             .mantine-Carousel-slide {
                 &:nth-child(4n + 1) {

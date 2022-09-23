@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Progress } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetCountryBYId } from "hooks/profile/getCountryById";
-import { useTaskers } from "hooks/tasker/use-tasker";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -50,6 +49,7 @@ const UserProfileCard = ({
     bio,
     phone,
     userBadge,
+    address_line2,
     full_name,
     points,
     country,
@@ -327,7 +327,10 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
 
-                                    <p>{address_line1}</p>
+                                    <p>
+                                        {address_line1}, {address_line2},{" "}
+                                        {country}
+                                    </p>
                                 </div>
 
                                 <div className="type d-flex flex-col">

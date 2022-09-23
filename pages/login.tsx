@@ -12,7 +12,6 @@ import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
 import { useState } from "react";
-import { Col } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -52,9 +51,9 @@ const Login = () => {
         setIsPhoneNumber(false);
     };
 
-    const { data: profile } = useGetProfile();
+    const { data: profile, isLoading: isProfileLoading } = useGetProfile();
 
-    console.log("profile....", profile);
+    // console.log("profile....", profile);
     return (
         <section>
             <OnBoardingLayout
@@ -78,7 +77,6 @@ const Login = () => {
                                 ...values,
                                 fcm_token: fcmToken ? fcmToken : null,
                             };
-                            console.log(newValues);
 
                             mutate(newValues, {
                                 onError: (error) => {
@@ -91,15 +89,15 @@ const Login = () => {
                                     //         ? next
                                     //         : "/settings/account/individual"
                                     // );
-                                    if (profile) {
+                                    if (!profile && !isProfileLoading) {
+                                        await router.push(
+                                            "/settings/account/individual"
+                                        );
+                                    } else {
                                         await router.push(
                                             typeof next === "string"
                                                 ? next
                                                 : "/home"
-                                        );
-                                    } else {
-                                        await router.push(
-                                            "/settings/account/individual"
                                         );
                                     }
 
@@ -156,9 +154,9 @@ const Login = () => {
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/google-oauth2/`}
                                 /> */}
 
-                                <FacebookLogin />
-                                <div className="google-login-btn">
+                                <div className="button-wrapper-social d-flex justify-content-evenly">
                                     <Google />
+                                    <FacebookLogin />
                                 </div>
                             </Form>
                         )}

@@ -24,7 +24,7 @@ const SearchResults = ({ servicesNearYou }: SearchResultsProps) => {
             const service = servicesNearYou?.find(
                 (item) => item?.id === parseInt(serviceId as string)
             );
-            console.log("serviceId ......", service);
+
             setActiveService(service);
         }
     }, [router?.query, router?.query?.serviceId, servicesNearYou]);

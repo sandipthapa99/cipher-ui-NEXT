@@ -1,18 +1,24 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
+import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import type { ITask, TaskApplicantsProps } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 
 const TaskDetail: NextPage<{
     taskDetail: ITask;
-    taskApplicants: TaskApplicantsProps;
-}> = ({ taskDetail, taskApplicants }) => {
+    // taskApplicants: TaskApplicantsProps;
+}> = ({ taskDetail }) => {
+    // const { data: TaskDetail } = useData(urls.task.list);
+    console.log("🚀 ~ file: [slug].tsx ~ line 13 ~ taskDetail", taskDetail);
+
     return (
         <>
             <AppliedLayout>
                 <AppliedTaskDetail
-                    taskApplicants={taskApplicants}
+                    // taskApplicants={taskApplicants}
                     taskDetail={taskDetail}
                 />
             </AppliedLayout>
@@ -23,7 +29,8 @@ export default TaskDetail;
 
 export const getStaticPaths: GetStaticPaths = async () => {
     try {
-        const { data: taskDetail } = await axiosClient.get("/task/");
+        const { data: taskDetail } = await axiosClient.get(urls.task.task);
+
         const paths = taskDetail?.result?.map(({ slug }: ITask) => ({
             params: { slug: slug },
         }));
@@ -39,17 +46,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const { data: taskDetail } = await axiosClient.get<ITask>(
-            `/task/${params?.slug}/`
+            `${urls.task.list}${params?.slug}/`
         );
-        const { data: taskApplicants } =
-            await axiosClient.get<TaskApplicantsProps>(
-                `/task/${params?.slug}/applicants/`
-            );
 
         return {
             props: {
                 taskDetail,
-                taskApplicants,
+                //   taskApplicants,
             },
             revalidate: 10,
         };
@@ -57,7 +60,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         return {
             props: {
                 taskDetail: {},
-                taskApplicants: {},
             },
             revalidate: 10,
         };

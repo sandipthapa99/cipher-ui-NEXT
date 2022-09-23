@@ -1,3 +1,4 @@
+import type { EditServicePayload } from "@components/services/EditService";
 import type { PostTaskPayload } from "@components/Task/PostTaskModal/PostTaskModal";
 import {
     Box,
@@ -22,8 +23,8 @@ export interface TaskBudgetProps {
     setFieldError: (field: string, value: any) => void;
     setFieldTouched: (field: string, value: any) => void;
     getFieldProps: (field: string) => any;
-    touched?: FormikTouched<PostTaskPayload>;
-    errors?: FormikErrors<PostTaskPayload>;
+    touched: FormikTouched<PostTaskPayload | EditServicePayload>;
+    errors: FormikErrors<PostTaskPayload | EditServicePayload>;
 }
 
 const budgetType = [
@@ -36,6 +37,10 @@ const budgetType = [
         value: "Hourly",
     },
     {
+        label: "Monthly",
+        value: "Monthly",
+    },
+    {
         label: "Fixed",
         value: "Fixed",
     },
@@ -44,22 +49,16 @@ export const TaskBudget = ({
     initialBudgetFrom,
     initialBudgetTo,
     setFieldValue,
-    setFieldError,
-    setFieldTouched,
     getFieldProps,
 }: TaskBudgetProps) => {
-    const [value, setValue] = useState<BudgetType>(BudgetType.FIXED);
+    console.log(initialBudgetTo);
+    const [value, setValue] = useState<BudgetType>(() =>
+        initialBudgetFrom && initialBudgetTo
+            ? BudgetType.VARIABLE
+            : BudgetType.FIXED
+    );
 
-    const resetFields = () => {
-        setFieldValue("budget_from", "");
-        setFieldValue("budget_to", "");
-        setFieldTouched("budget_from", false);
-        setFieldTouched("budget_to", false);
-        setFieldError("budget_from", "");
-        setFieldError("budget_to", "");
-    };
     const handleBudgetTypeChange = (type: BudgetType) => {
-        resetFields();
         setFieldValue("budgetTypeRadio", type);
         setValue(type);
     };
@@ -81,7 +80,7 @@ export const TaskBudget = ({
                 <Group>
                     <NumberInput
                         {...getFieldProps("budget_to")}
-                        icon="Rs"
+                        // icon="Rs"
                         placeholder="Enter your price"
                         onChange={(value) => setFieldValue("budget_to", value)}
                         defaultValue={initialBudgetTo}
@@ -99,7 +98,7 @@ export const TaskBudget = ({
                 <Group>
                     <NumberInput
                         {...getFieldProps("budget_from")}
-                        icon="Rs"
+                        // icon="Rs"
                         placeholder="Starting budget"
                         onChange={(value) =>
                             setFieldValue("budget_from", value)
@@ -109,7 +108,7 @@ export const TaskBudget = ({
                     <Text>To</Text>
                     <NumberInput
                         {...getFieldProps("budget_to")}
-                        icon="Rs"
+                        // icon="Rs"
                         placeholder="Final budget"
                         onChange={(value) => setFieldValue("budget_to", value)}
                         defaultValue={initialBudgetTo}

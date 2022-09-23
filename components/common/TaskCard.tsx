@@ -16,7 +16,7 @@ interface TaskCardProps {
     task: ITask;
     isSaved?: boolean;
 }
-const TaskCard = ({ task }: TaskCardProps) => {
+const TaskCard = ({ task, isSaved }: TaskCardProps) => {
     const {
         title,
         description,
@@ -42,12 +42,12 @@ const TaskCard = ({ task }: TaskCardProps) => {
     const formattedtime = getDateFromHours(start_time);
     return (
         <div className="task-card-block p-5">
-            <Link href={`/task/${slug}` ?? "/"}>
+            <Link href={`${slug}`}>
                 <a>
                     <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                         <h1 className="title">{title}</h1>
                         <h2 className="charge">
-                            {currency ? currency?.code : "Rs"}{" "}
+                            {currency ? currency?.symbol : "Rs"}{" "}
                             {task?.budget_from && `${task?.budget_from} -`}
                             {task?.budget_to}
                         </h2>

@@ -9,6 +9,7 @@ import { faClose } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Box, Highlight, Space } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import urls from "constants/urls";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Container } from "react-bootstrap";
@@ -20,7 +21,7 @@ import ServiceAside from "./ServiceAside";
 export const useSearchService = (searchParam: string) => {
     return useQuery(["all-services", searchParam], () =>
         axiosClient
-            .get<ServicesValueProps>(`/task/service/list?${searchParam}`)
+            .get<ServicesValueProps>(`${urls.task.service}&${searchParam}`)
             .then((response) => response.data.result)
     );
 };
@@ -48,12 +49,13 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     return (
         <Layout title="Find Services | Cipher">
             <section className="service-section mb-5" id="service-section">
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
                     <SearchCategory
                         searchModal="service"
                         onSearchParamChange={handleSearchChange}
                         onFilterClear={() => setSearchParam("")}
                     />
+
                     {searchQuery?.query && (
                         <Box
                             sx={{

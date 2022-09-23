@@ -21,16 +21,23 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { useQueryClient } from "@tanstack/react-query";
+import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import type { MyBookings } from "hooks/task/use-get-service-booking";
+import { useGetTasks } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
+import { useData } from "hooks/use-data";
+import type { GetStaticProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import type { ITask, TaskApplicantsProps } from "types/task";
+import type { ITask, TaskApplicantsProps, TaskerCount } from "types/task";
+import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
@@ -42,12 +49,29 @@ import { TimelineTab } from "./TimelineTab";
 const AppliedTaskDetail = ({
     type,
     taskDetail,
-    taskApplicants,
-}: {
+}: // taskApplicants,
+{
     type?: string;
     taskDetail: ITask;
-    taskApplicants: TaskApplicantsProps;
+    // taskApplicants: TaskApplicantsProps;
 }) => {
+    const { data: myRequestedTask } = useData<MyBookings>(
+        ["my-requested-task"],
+        `${urls.task.requested_task}`
+    );
+
+    const requestedTask = myRequestedTask?.data.result.find(
+        (requestedTask: any) =>
+            requestedTask?.entity_service.id === taskDetail.id
+    );
+    const taskId = taskDetail ? requestedTask?.entity_service.id : "";
+
+    const { data: taskApplicants } = useData<TaskerCount>(
+        ["get-task-applicants"],
+        `${urls.task.taskApplicants}/${taskId}`
+    );
+    console.log("🚀 ---->>>>>>>>.", taskApplicants, taskId);
+
     // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
     const queryClient = useQueryClient();
     const { data: user } = useUser();
@@ -71,11 +95,7 @@ const AppliedTaskDetail = ({
 
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
-    const taskRequirements = safeParse<Array<{ id: number; title: string }>>({
-        rawString: taskDetail?.requirements,
-        initialData: [],
-    });
-    const isUserTask = user ? taskDetail?.assigner?.id === user?.id : false;
+    const isUserTask = user ? taskDetail?.created_by?.id === user?.id : false;
 
     const taskVideosAndImages = [
         ...(taskDetail?.images ?? []),
@@ -91,6 +111,7 @@ const AppliedTaskDetail = ({
                         type === "you may like" ? `/task-you-may-like` : `/task`
                     }
                 />
+
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
@@ -99,19 +120,22 @@ const AppliedTaskDetail = ({
                                 {format(new Date(taskDetail?.created_at), "PP")}
                             </span>
                         )}
+
                         <div className="d-flex justify-content-between align-items-center">
-                            <SaveIcon
-                                object_id={taskDetail?.id}
-                                model="task"
-                                filled={isTaskBookmarked}
-                                showText
-                                onSuccess={() =>
-                                    queryClient.invalidateQueries([
-                                        "bookmarks",
-                                        "task",
-                                    ])
-                                }
-                            />
+                            {isUserTask ? null : (
+                                <SaveIcon
+                                    object_id={taskDetail?.id}
+                                    model="task"
+                                    filled={isTaskBookmarked}
+                                    showText
+                                    onSuccess={() =>
+                                        queryClient.invalidateQueries([
+                                            "bookmarks",
+                                            "task",
+                                        ])
+                                    }
+                                />
+                            )}
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
                                     url={getPageUrl()}
@@ -157,7 +181,7 @@ const AppliedTaskDetail = ({
                     <Col md={12} lg={7}>
                         {(taskVideosAndImages ?? []).length === 1 &&
                             taskVideosAndImages.map((file, key) => (
-                                <Fragment key={key}>
+                                <Fragment key={file.id}>
                                     {isImage(file.media_type) ? (
                                         <figure className="thumbnail-img">
                                             <Image
@@ -200,7 +224,7 @@ const AppliedTaskDetail = ({
                                 }}
                             >
                                 {taskVideosAndImages.map((file, key) => (
-                                    <Carousel.Slide key={key}>
+                                    <Carousel.Slide key={file.id}>
                                         {isImage(file.media_type) ? (
                                             <figure className="thumbnail-img">
                                                 <Image
@@ -245,7 +269,11 @@ const AppliedTaskDetail = ({
                         {taskDetail && (
                             <SimpleProfileCard
                                 task={taskDetail}
-                                onApply={() => setShowModal(false)}
+                                onApply={() => {
+                                    console.log("onApply");
+
+                                    //setShowModal(false);
+                                }}
                             />
                         )}
                     </Col>
@@ -286,14 +314,17 @@ const AppliedTaskDetail = ({
                             icon={faEye}
                             className="svg-icon svg-icon-eye"
                         />
-                        <span> TOBE-IMP Views</span>
+                        <span> 200 Views</span>
                     </p>
                     <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                        <span> {taskDetail?.applicants_count} Applied</span>
+                        <span>
+                            {" "}
+                            {taskApplicants?.data.count[0].tasker_count} Applied
+                        </span>
                     </p>
                 </div>
 
@@ -304,11 +335,11 @@ const AppliedTaskDetail = ({
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {taskRequirements.map((highlight, key) => (
-                        <div key={key}>
-                            <ServiceHighlights highlight={highlight} />
-                        </div>
-                    ))}
+                    {taskDetail?.highlights ? (
+                        <ServiceHighlights highlight={taskDetail?.highlights} />
+                    ) : (
+                        ""
+                    )}
                 </div>
 
                 {/* <TeamMembersSection /> */}
@@ -318,10 +349,8 @@ const AppliedTaskDetail = ({
                     onTabClick={setActiveTabIdx}
                     items={[
                         {
-                            title: "Taskers",
-                            content: (
-                                <TaskersTab taskApplicants={taskApplicants} />
-                            ),
+                            title: `Taskers (${taskApplicants?.data.count[0].tasker_count})`,
+                            content: <TaskersTab />,
                         },
                         { title: "Timeline", content: <TimelineTab /> },
                         {
@@ -363,3 +392,30 @@ const AppliedTaskDetail = ({
 };
 
 export default AppliedTaskDetail;
+
+export const getStaticProps: GetStaticProps = async () => {
+    try {
+        const { data: applicants } = await axiosClient.get<TaskApplicantsProps>(
+            `${urls.task.my_task}`
+        );
+
+        const queryClient = new QueryClient();
+        await queryClient.prefetchQuery(["get-my-applicants"]);
+        await queryClient.prefetchQuery(["get-task-applicants"]);
+
+        return {
+            props: {
+                applicants,
+                dehydratedState: dehydrate(queryClient),
+            },
+            revalidate: 10,
+        };
+    } catch (err: any) {
+        return {
+            props: {
+                applicants: [],
+            },
+            revalidate: 10,
+        };
+    }
+};

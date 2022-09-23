@@ -10,6 +10,7 @@ import SkeletonTaskerCard from "@components/Skeletons/SkeletonTaskerCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Grid, Highlight } from "@mantine/core";
+import urls from "constants/urls";
 import type { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import { Col, Container, Row } from "react-bootstrap";
@@ -36,6 +37,7 @@ const Gardening = ({
     const category = (
         (serviceData?.length > 0 ? serviceData : taskData) as any[]
     )?.find((item) => item?.category?.slug === categories);
+
     const categoryName = category ? category.category.name : categories;
 
     return (
@@ -43,10 +45,10 @@ const Gardening = ({
             title={`${categoryName ? categoryName : "Loading..."} | Cipher`}
         >
             <div className="gardening -page">
-                <BreadCrumb
-                    currentPage={categoryName ? categoryName : "Loading..."}
-                />
-                <Container fluid="xl">
+                <Container fluid="xl" className="px-5">
+                    <BreadCrumb
+                        currentPage={categoryName ? categoryName : "Loading..."}
+                    />
                     <h1 className="section-title m-0">{categoryName}</h1>
                     <section className="services-near-you">
                         <h1 className="heading-title mt-3">
@@ -203,7 +205,7 @@ const Gardening = ({
                                                         ?.profile_image
                                                 }
                                                 merchantName={
-                                                    merchant?.user?.full_name
+                                                    merchant?.user?.first_name
                                                 }
                                                 merchantCategory={
                                                     merchant?.designation
@@ -267,7 +269,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     try {
         const { data: serviceData } = await axiosClient.get("/task/service/");
         const paths = serviceData?.result?.map(
-            ({ category: { slug } }: ServicesValueProps["result"][0]) => ({
+            ({
+                service: { category: slug },
+            }: ServicesValueProps["result"][0]) => ({
                 params: { categories: slug },
             })
         );
@@ -283,13 +287,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const { data: serviceData } = await axiosClient.get<ServicesValueProps>(
-            `/task/service/?category=${params?.categories}`
+            `${urls.task.service}&category=${params?.categories}`
         );
         const { data: taskData } = await axiosClient.get<ITaskApiResponse>(
-            `/task/?category=${params?.categories}`
+            `${urls.task.task}&category=${params?.categories}`
         );
         const { data: taskerData } = await axiosClient.get<TaskerProps>(
-            `/tasker/`
+            urls.tasker.list
         );
         const { data: heroCategoryData } =
             await axiosClient.get<HeroCategoryProps>("/task/hero-category/");

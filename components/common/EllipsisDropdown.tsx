@@ -1,5 +1,3 @@
-import { ConfirmDeactiveTaskModal } from "@components/Task/ConfirmDeactiveTaskModal";
-import { ConfirmDeleteTaskModal } from "@components/Task/ConfirmDeleteTaskModal";
 import {
     faEyeSlash,
     faGear,
@@ -7,10 +5,14 @@ import {
     faTrashCan,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useToggle } from "@mantine/hooks";
+import { Text } from "@mantine/core";
+import { useModals } from "@mantine/modals";
+import { useDeleteTask } from "hooks/task/use-delete-task";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
+import { toast } from "react-toastify";
+import { useSetEditTaskDetail } from "store/use-edit-task";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { ITask } from "types/task";
 interface Menu {
@@ -31,31 +33,36 @@ const EllipsisDropdown = ({
     menu,
     task,
 }: DropdownProps) => {
+    const modals = useModals();
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
-    const [deleteModalOpened, toggleDeleteModalOpened] = useToggle([
-        false,
-        true,
-    ]);
-    const [deactiveModalOpened, toggleDeactiveModalOpened] = useToggle([
-        false,
-        true,
-    ]);
+    const setEditTaskDetail = useSetEditTaskDetail();
+
+    const { mutate: deleteTaskMutation } = useDeleteTask();
+
+    const handleDeleteTask = () => {
+        if (!task) return;
+        deleteTaskMutation(
+            { id: task.id },
+            {
+                onSuccess: (message) => {
+                    toast.success(message);
+                },
+            }
+        );
+    };
+
+    const openConfirmDeleteTaskModal = () =>
+        modals.openConfirmModal({
+            title: `Delete`,
+            centered: true,
+            labels: { confirm: `Delete`, cancel: "Cancel" },
+            confirmProps: { color: "red" },
+            children: <Text>Are you sure you want to delete this task ?</Text>,
+            onConfirm: handleDeleteTask,
+        });
+
     return (
         <>
-            {task && (
-                <>
-                    <ConfirmDeleteTaskModal
-                        task={task}
-                        opened={deleteModalOpened}
-                        onClose={toggleDeleteModalOpened}
-                    />
-                    <ConfirmDeactiveTaskModal
-                        task={task}
-                        opened={deactiveModalOpened}
-                        onClose={toggleDeactiveModalOpened}
-                    />
-                </>
-            )}
             <div className="ellipsis">
                 <Dropdown>
                     <Dropdown.Toggle>
@@ -113,9 +120,10 @@ const EllipsisDropdown = ({
                         ) : (
                             <>
                                 <Dropdown.Item
-                                    onClick={() =>
-                                        toggleShowPostTaskModal("EDIT")
-                                    }
+                                    onClick={() => {
+                                        toggleShowPostTaskModal("EDIT");
+                                        setEditTaskDetail(task);
+                                    }}
                                     className="d-flex align-items-center"
                                 >
                                     <FontAwesomeIcon
@@ -126,23 +134,13 @@ const EllipsisDropdown = ({
                                 </Dropdown.Item>
                                 <Dropdown.Item
                                     className="d-flex align-items-center"
-                                    onClick={() => toggleDeleteModalOpened()}
+                                    onClick={openConfirmDeleteTaskModal}
                                 >
                                     <FontAwesomeIcon
                                         className="svg-icon"
                                         icon={faTrashCan}
                                     />
                                     Remove
-                                </Dropdown.Item>
-                                <Dropdown.Item
-                                    onClick={() => toggleDeactiveModalOpened()}
-                                    className="d-flex align-items-center"
-                                >
-                                    <FontAwesomeIcon
-                                        className="svg-icon"
-                                        icon={faEyeSlash}
-                                    />
-                                    Inactive
                                 </Dropdown.Item>
                             </>
                         )}

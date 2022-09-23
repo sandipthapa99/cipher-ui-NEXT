@@ -1,5 +1,6 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
+import urls from "constants/urls";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import type { ITask, TaskApplicantsProps } from "types/task";
 import { axiosClient } from "utils/axiosClient";
@@ -14,7 +15,7 @@ const TaskDetail: NextPage<{
                 <AppliedTaskDetail
                     type={"you may like"}
                     taskDetail={taskDetail}
-                    taskApplicants={taskApplicants}
+                    // taskApplicants={taskApplicants}
                 />
             </AppliedLayout>
         </>
@@ -24,7 +25,7 @@ export default TaskDetail;
 
 export const getStaticPaths: GetStaticPaths = async () => {
     try {
-        const { data: taskDetail } = await axiosClient.get("/task/");
+        const { data: taskDetail } = await axiosClient.get(urls.task.task);
         const paths = taskDetail?.result?.map(({ slug }: ITask) => ({
             params: { slug: slug },
         }));
@@ -40,17 +41,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const { data: taskDetail } = await axiosClient.get<ITask>(
-            `/task/${params?.slug}/`
+            `${urls.task.list}${params?.slug}/`
         );
-        const { data: taskApplicants } =
-            await axiosClient.get<TaskApplicantsProps>(
-                `/task/${params?.slug}/applicants/`
-            );
+        // const { data: taskApplicants } =
+        //     await axiosClient.get<TaskApplicantsProps>(
+        //         `/task/${params?.slug}/applicants/`
+        //     );
 
         return {
             props: {
                 taskDetail,
-                taskApplicants,
+                // taskApplicants,
             },
             revalidate: 10,
         };

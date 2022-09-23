@@ -6,7 +6,8 @@ import "@smastrom/react-rating/style.css";
 // import "../public/firebase-messaging-sw";
 import { RouterTransition } from "@components/common/RouterTransition";
 import { LoginPrompt } from "@components/model/LoginPrompt";
-import { MantineProvider } from "@mantine/core";
+import { createEmotionCache, MantineProvider } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import type { DehydratedState } from "@tanstack/react-query";
 import {
@@ -72,10 +73,14 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                 />
                 <Hydrate state={pageProps.dehydratedState}>
                     <MantineProvider>
-                        <RouterTransition />
-                        {/* <UserLoadingOverlay /> */}
-                        <LoginPrompt />
-                        <Component {...pageProps} />
+                        <ModalsProvider
+                            labels={{ confirm: "Submit", cancel: "Cancel" }}
+                        >
+                            <RouterTransition />
+                            {/* <UserLoadingOverlay /> */}
+                            <LoginPrompt />
+                            <Component {...pageProps} />
+                        </ModalsProvider>
                     </MantineProvider>
                 </Hydrate>
             </QueryClientProvider>

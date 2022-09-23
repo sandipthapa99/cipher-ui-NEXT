@@ -56,6 +56,8 @@ export const UserTaskDetailHeader = ({
                                 width={148}
                                 height={148}
                                 objectFit="cover"
+                                placeholder="blur"
+                                blurDataURL="/placeholder/profilePlaceholder.png"
                                 alt={"profile"}
                                 className="rounded-circle"
                             />
@@ -86,7 +88,7 @@ export const UserTaskDetailHeader = ({
                             className="td-user-name"
                             data-is-online={JSON.stringify(true)}
                         >
-                            {taskerDetail?.full_name}
+                            {`${taskerDetail?.user.first_name} ${taskerDetail?.user.middle_name} ${taskerDetail?.user.last_name}`}
                         </h4>
                         <p className="td-text mb-4">{userType}</p>
 
@@ -135,7 +137,7 @@ export const UserTaskDetailHeader = ({
                         </EllipsisDropdown> */}
                     </div>
                     <p className="td-task-charge my-4">
-                        {taskerDetail?.charge_currency?.code}{" "}
+                        {taskerDetail?.charge_currency?.symbol}{" "}
                         {taskerDetail?.hourly_rate}/hr
                     </p>
                     {isSelf ? (

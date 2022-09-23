@@ -50,10 +50,13 @@ export function UpperHeader() {
 
     const handleShowPostTaskModal = () => {
         if (!profile) {
-            toast.error(<ProfileNotCompleteToast />, {
-                icon: false,
-                autoClose: false,
-            });
+            toast.error(
+                <ProfileNotCompleteToast text="Please complete your profile before posting a task." />,
+                {
+                    icon: false,
+                    autoClose: false,
+                }
+            );
             return;
         }
         toggleShowPostTaskModal();
@@ -205,11 +208,14 @@ export function UpperHeader() {
         </>
     );
 }
-export const ProfileNotCompleteToast = () => {
+interface ProfileNotComplete {
+    text: string;
+}
+export const ProfileNotCompleteToast = ({ text }: ProfileNotComplete) => {
     const router = useRouter();
     return (
         <Stack>
-            <Text>Please complete your profile before posting a task.</Text>
+            <Text>{text}</Text>
             <Group>
                 <MantineButton variant="white" color="gray">
                     Cancel

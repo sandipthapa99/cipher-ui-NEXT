@@ -19,6 +19,7 @@ import {
 import { isSubmittingClass } from "utils/helpers";
 
 const SignUp = () => {
+    const router = useRouter();
     const { mutate, isLoading } = useSignup();
     const [choosedValue, setChoosedValue] = useState("email");
     const [phoneNumber, setPhoneNumber] = useState<string>("");
@@ -67,10 +68,9 @@ const SignUp = () => {
                             { ...payloadValue() },
                             {
                                 onSuccess: async () => {
-                                    // await router.push("/login");
-                                    choosedValue === "phone"
-                                        ? setShow(true)
-                                        : null;
+                                    if (choosedValue === "phone") {
+                                        setShow(true);
+                                    }
 
                                     choosedValue === "email"
                                         ? toast.success(

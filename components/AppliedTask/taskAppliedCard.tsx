@@ -7,10 +7,12 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import urls from "constants/urls";
 import { format } from "date-fns";
+import { useData } from "hooks/use-data";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import type { ITask } from "types/task";
+import type { ITask, TaskerCount } from "types/task";
 import { getPageUrl } from "utils/helpers";
 // import type { TaskCardProps } from "types/taskCard";
 // css for this file is done in _gettingStartedTask.scss page
@@ -32,9 +34,16 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
         currency,
         start_time: time,
         start_date: date,
-        applicants_count,
+
         slug,
     } = task;
+
+    const { data: taskApplicants } = useData<TaskerCount>(
+        ["get-task-applicants"],
+        `${urls.task.taskApplicants}/${taskId}`
+    );
+
+    const applicants_count = taskApplicants?.data.count[0].tasker_count;
     return (
         <div
             data-active={JSON.stringify(query === slug)}
@@ -61,7 +70,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                             </span>
                         ) : (
                             <span className="charge">
-                                {currency.code} {budget_to}
+                                {currency.symbol} {budget_to}
                             </span>
                         )}
                     </div>
@@ -93,15 +102,23 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                                     icon={faCalendar}
                                     className="svg-icon"
                                 />
-                                <span> {date}</span>
+                                <span>
+                                    {" "}
+                                    {task?.created_at
+                                        ? format(
+                                              new Date(task?.created_at),
+                                              "PP"
+                                          )
+                                        : "N/A"}
+                                </span>
                             </span>
-                            <span className="date d-flex align-items-center">
+                            {/* <span className="date d-flex align-items-center">
                                 <FontAwesomeIcon
                                     icon={faLocationArrow}
                                     className="svg-icon"
                                 />
                                 <span> 2 Km away</span>
-                            </span>
+                            </span> */}
                         </div>
                     </div>
                 </a>
