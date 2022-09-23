@@ -19,7 +19,6 @@ import {
     Modal,
     Stack,
     Text,
-    Textarea,
     TextInput,
     Title,
 } from "@mantine/core";
@@ -41,11 +40,12 @@ import {
 } from "store/use-show-post-task";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { ReactQueryKeys } from "types/queryKeys";
+import { safeParse } from "utils/safeParse";
 
 export interface PostTaskPayload {
     title: string;
     description: string;
-    highlights: Record<string, string>;
+    highlights: string[];
     service: string;
     city: string;
     location: TaskType;
@@ -114,11 +114,15 @@ export const PostTaskModal = () => {
         setInitialVideoIds(getInitialVideoIds());
     }, [getInitialVideoIds]);
 
+    const initialHighlights = safeParse<string[]>({
+        rawString: taskDetail?.highlights ?? "[]",
+        initialData: [],
+    });
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
             description: taskDetail ? taskDetail.description : "",
-            highlights: taskDetail ? taskDetail.highlights : {},
+            highlights: taskDetail ? initialHighlights : [],
             city: taskDetail ? String(taskDetail?.city?.id) : "",
             location: taskDetail ? (taskDetail.location as TaskType) : "remote",
             budget_type: BudgetType.FIXED,
@@ -162,6 +166,7 @@ export const PostTaskModal = () => {
 
             const postTaskPayload = {
                 ...values,
+                highlights: JSON.stringify(values.highlights),
                 images: imageIds,
                 videos: videoIds,
                 extra_data: [],
@@ -272,9 +277,7 @@ export const PostTaskModal = () => {
                                 aria-errormessage="123"
                             />
                             <TaskRequirements
-                                initialRequirements={
-                                    taskDetail?.highlights ?? {}
-                                }
+                                initialRequirements={[]}
                                 onRequirementsChange={(requirements) =>
                                     setFieldValue("highlights", requirements)
                                 }

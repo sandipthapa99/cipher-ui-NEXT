@@ -166,7 +166,7 @@ export default function Checkout() {
                                 );
                             })}
                         </div>
-                        <p className="titles">Cards Debit/Credit</p>
+                        {/* <p className="titles">Cards Debit/Credit</p>
                         <div className="digital-wallet d-flex gap-4 flex-wrap">
                             {staticPayments.credit.map((item, index) => {
                                 return (
@@ -200,7 +200,7 @@ export default function Checkout() {
                                     </figure>
                                 );
                             })}
-                        </div>
+                        </div> */}
                         <p className="titles">International Payment Method</p>
                         <div className="digital-wallet d-flex gap-4 flex-wrap">
                             {staticPayments.international.map((item, index) => {

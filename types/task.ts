@@ -53,7 +53,7 @@ export interface ITask {
     deleted_at: any;
     description: string;
     charge?: number;
-    highlights: Record<string, string>;
+    highlights: string;
     status: string;
     no_of_revisions: any;
     start_date: string;
