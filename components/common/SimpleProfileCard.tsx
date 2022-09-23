@@ -25,6 +25,13 @@ interface SimpleProfileCardProps {
     onApply?: () => void;
 }
 const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
+    const { data: profile } = useGetProfile();
+    // const created_by = task?.created_by.id === profile?.user.id;
+    // console.log(
+    //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 34 ~ SimpleProfileCard ~ created_by",
+    //     created_by
+    // );
+
     const withLogin = useWithLogin();
     const { data: user } = useUser();
     const { data: appliedTasks } = useGetTasks();
@@ -38,8 +45,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
         (requestedTask: any) => requestedTask?.entity_service.id === task.id
     );
 
-    const { data: profile } = useGetProfile();
-
     const appliedTask = appliedTasks?.result.find(
         (appliedTask: any) => appliedTask?.id !== task.id
     );
@@ -47,10 +52,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
     const { data: approvedTasks } = useData<TaskApprovedList>(
         ["approved-task"],
         `${urls.task.approvedTaskList}`
-    );
-    console.log(
-        "🚀 ~ file: SimpleProfileCard.tsx ~ line 48 ~ SimpleProfileCard ~ approvedTasks",
-        approvedTasks
     );
 
     const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}`;
@@ -226,12 +227,13 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         handleOnClick={handleLeaveTask}
                     />
                 )
-            ) : // <BookNowButton
-            //     btnTitle="Disabled"
-            //     backgroundColor="#5e5d6b"
-            //     handleOnClick={handleViewApplicants}
-            // />
-            null}
+            ) : (
+                <BookNowButton
+                    btnTitle="View Applicants"
+                    backgroundColor="#FE5050"
+                    handleOnClick={handleViewApplicants}
+                />
+            )}
 
             {/* {isApplied &&
                 isWorking &&

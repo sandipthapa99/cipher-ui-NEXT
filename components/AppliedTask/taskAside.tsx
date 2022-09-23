@@ -2,6 +2,7 @@ import SkeletonTaskCard from "@components/Skeletons/SkeletonTaskCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, ScrollArea } from "@mantine/core";
+import { useQueryClient } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { Fragment } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -24,7 +25,7 @@ const TaskAside = ({
     isFetching,
 }: TaskAsideProps) => {
     const totalAppliedTasks = appliedTasks?.length;
-
+    const queryClient = useQueryClient();
     const renderTaskCards = appliedTasks?.map((task) => {
         return (
             <div key={task?.slug}>

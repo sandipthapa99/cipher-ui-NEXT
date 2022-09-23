@@ -1,10 +1,9 @@
 import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import AppliedTaskDetail from "@components/AppliedTask/AppliedTaskDetail";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
-import { useData } from "hooks/use-data";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import type { ITask, TaskApplicantsProps } from "types/task";
+import type { ITask } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 
 const TaskDetail: NextPage<{
@@ -12,7 +11,7 @@ const TaskDetail: NextPage<{
     // taskApplicants: TaskApplicantsProps;
 }> = ({ taskDetail }) => {
     // const { data: TaskDetail } = useData(urls.task.list);
-    console.log("🚀 ~ file: [slug].tsx ~ line 13 ~ taskDetail", taskDetail);
+    const queryClient = useQueryClient();
 
     return (
         <>

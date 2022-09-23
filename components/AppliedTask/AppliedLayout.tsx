@@ -1,7 +1,7 @@
 import TaskAside from "@components/AppliedTask/taskAside";
 import Layout from "@components/Layout";
 import { SearchCategory } from "@components/SearchTask/searchCategory";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import type { ReactNode } from "react";
 import { useState } from "react";
@@ -11,6 +11,7 @@ import { axiosClient } from "utils/axiosClient";
 
 export const useSearchTask = (searchQuery: string) => {
     const url = `${urls.task.my_task}&${searchQuery}`;
+    const queryClient = useQueryClient();
 
     return useQuery(
         ["all-tasks", searchQuery],

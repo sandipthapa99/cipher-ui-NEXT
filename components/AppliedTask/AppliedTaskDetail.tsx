@@ -41,7 +41,6 @@ import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
-import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
 import { TimelineTab } from "./TimelineTab";
@@ -55,6 +54,10 @@ const AppliedTaskDetail = ({
     taskDetail: ITask;
     // taskApplicants: TaskApplicantsProps;
 }) => {
+    // console.log(
+    //     "🚀 ~ file: AppliedTaskDetail.tsx ~ line 58 ~ taskDetail",
+    //     taskDetail.id
+    // );
     const { data: myRequestedTask } = useData<MyBookings>(
         ["my-requested-task"],
         `${urls.task.requested_task}`
@@ -64,13 +67,19 @@ const AppliedTaskDetail = ({
         (requestedTask: any) =>
             requestedTask?.entity_service.id === taskDetail.id
     );
+
+    // console.log(
+    //     "🚀 ~ file: AppliedTaskDetail.tsx ~ line 71 ~ requestedTask",
+    //     requestedTask
+    // );
+
     const taskId = taskDetail ? requestedTask?.entity_service.id : "";
+    //  console.log("🚀 ~ file: AppliedTaskDetail.tsx ~ line 72 ~ taskId", taskId);
 
     const { data: taskApplicants } = useData<TaskerCount>(
-        ["get-task-applicants"],
-        `${urls.task.taskApplicants}/${taskId}`
+        ["get-task-applicants", taskDetail?.id],
+        `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`
     );
-    console.log("🚀 ---->>>>>>>>.", taskApplicants, taskId);
 
     // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
     const queryClient = useQueryClient();
@@ -349,8 +358,16 @@ const AppliedTaskDetail = ({
                     onTabClick={setActiveTabIdx}
                     items={[
                         {
-                            title: `Taskers (${taskApplicants?.data.count[0].tasker_count})`,
-                            content: <TaskersTab />,
+                            title: `Taskers (${
+                                taskApplicants
+                                    ? taskApplicants?.data.count[0].tasker_count
+                                    : 0
+                            })`,
+                            content: (
+                                <TaskersTab
+                                    taskId={taskDetail ? taskDetail.id : ""}
+                                />
+                            ),
                         },
                         { title: "Timeline", content: <TimelineTab /> },
                         {
@@ -400,8 +417,8 @@ export const getStaticProps: GetStaticProps = async () => {
         );
 
         const queryClient = new QueryClient();
-        await queryClient.prefetchQuery(["get-my-applicants"]);
-        await queryClient.prefetchQuery(["get-task-applicants"]);
+        queryClient.prefetchQuery(["get-my-applicants"]);
+        queryClient.prefetchQuery(["get-task-applicants"]);
 
         return {
             props: {
