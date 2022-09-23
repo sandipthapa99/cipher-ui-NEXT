@@ -60,7 +60,7 @@ const ServiceCard = ({
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
-        <div className="service-card-block align-items-stretch border border-secondary">
+        <div className={`service-card-block align-items-stretch ${className}`}>
             <Link href={`/service/${serviceCard?.slug}`}>
                 <a>
                     <div className="card-img">

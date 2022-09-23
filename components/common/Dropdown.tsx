@@ -104,7 +104,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                             className="dropdown-menu-item-link d-flex gap-4"
                         >
                             {" "}
-                            <div className="image-wrapper">
+                            {/*<div className="image-wrapper">
                                 <figure className="d-flex align-items-center justify-content-center thumbnail-icon">
                                     {sub?.icon
                                         ? parse(sub?.icon)
@@ -114,7 +114,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                       </svg>`
                                           )}
                                 </figure>
-                            </div>
+                            </div>*/}
                             {`${sub.name}`}{" "}
                         </a>
                     </Link>
@@ -133,7 +133,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                         className="dropdown-menu-item-link d-flex gap-4"
                     >
                         {" "}
-                        <div className="image-wrapper">
+                        {/*<div className="image-wrapper">
                             <figure className="d-flex align-items-center justify-content-center thumbnail-icon">
                                 {sub?.icon
                                     ? parse(sub?.icon)
@@ -143,7 +143,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                   </svg>`
                                       )}
                             </figure>
-                        </div>
+                        </div>*/}
                         {`${sub.name}`}{" "}
                     </a>
                 </Link>
@@ -183,7 +183,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                             className="dropdown-menu-item-link d-flex gap-4"
                         >
                             {" "}
-                            <div className="image-wrapper">
+                            {/*<div className="image-wrapper">
                                 <figure className="d-flex align-items-center justify-content-center thumbnail-icon">
                                     {sub?.icon
                                         ? parse(sub?.icon)
@@ -193,7 +193,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                       </svg>`
                                           )}
                                 </figure>
-                            </div>
+                            </div>*/}
                             {`${sub.name}`}{" "}
                             {sub?.child?.length > 0
                                 ? `(${sub?.child?.length})`
@@ -219,7 +219,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                         className="dropdown-menu-item-link d-flex gap-4"
                     >
                         {" "}
-                        <div className="image-wrapper">
+                        {/*<div className="image-wrapper">
                             <figure className="d-flex align-items-center justify-content-center thumbnail-icon">
                                 {sub?.icon
                                     ? parse(sub?.icon)
@@ -229,7 +229,7 @@ export const Dropdown = ({ children }: DropdownProps) => {
                           </svg>`
                                       )}
                             </figure>
-                        </div>
+                        </div>*/}
                         {`${sub.name}`}
                         {sub?.child?.length > 0
                             ? `(${sub?.child?.length})`

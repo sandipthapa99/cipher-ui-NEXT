@@ -109,6 +109,9 @@ const AppliedForm = ({
                                     queryClient.invalidateQueries([
                                         "my-requested-task",
                                     ]);
+                                    queryClient.invalidateQueries([
+                                        "get-task-applicants",
+                                    ]);
                                     //toggleSuccessModal();
                                     setShow(false);
                                     //     router.push("/task/checkout");
