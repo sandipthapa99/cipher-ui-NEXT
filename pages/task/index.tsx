@@ -2,6 +2,7 @@ import AppliedLayout from "@components/AppliedTask/AppliedLayout";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import type { GetStaticProps } from "next";
 import dynamic from "next/dynamic";
+import { ReactQueryKeys } from "types/queryKeys";
 
 const NearbyTasksMap = dynamic(
     () => import("@components/Task/NearbyTasksMap"),
@@ -19,7 +20,7 @@ const AppliedTask = () => {
 export const getStaticProps: GetStaticProps = async () => {
     const queryClient = new QueryClient();
     try {
-        await queryClient.prefetchQuery(["all-tasks"]);
+        await queryClient.prefetchQuery([ReactQueryKeys.TASKS]);
         await queryClient.prefetchQuery(["get-my-bookings"]);
         await queryClient.prefetchQuery(["my-requested-task"]);
         return {
