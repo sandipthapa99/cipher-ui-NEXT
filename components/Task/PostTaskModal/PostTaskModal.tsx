@@ -188,6 +188,8 @@ export const PostTaskModal = () => {
                                 "task-detail",
                                 taskSlug,
                             ]);
+                            queryClient.invalidateQueries(["all-tasks"]);
+
                             toggleSuccessModal("Task Edited Successfully");
                         },
                     }
@@ -200,8 +202,10 @@ export const PostTaskModal = () => {
                     action.resetForm();
                     toggleSuccessModal("Task Posted Successfully");
                     // toast.success(message);
-                    await queryClient.invalidateQueries(["all-tasks"]);
-                    await queryClient.invalidateQueries(["notification"]);
+
+                    queryClient.invalidateQueries(["all-tasks"]);
+
+                    queryClient.invalidateQueries(["notification"]);
                     // router.push({ pathname: "/task" });
                 },
                 onError: (error) => {

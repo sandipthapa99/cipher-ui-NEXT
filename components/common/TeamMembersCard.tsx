@@ -102,11 +102,6 @@ export const TeamMembersCard = ({
     );
 
     // console.log(
-    //     "🚀 ~ file: TeamMembersCard.tsx ~ line 97 ~ approvedTasker",
-    //     approvedTasker
-    // );
-
-    // console.log(
     //     "🚀 ~ file: TeamMembersCard.tsx ~ line 74 ~ userId",
     //     userId,
     //     approvedTask?.assignee.id
@@ -270,6 +265,7 @@ export const TeamMembersCard = ({
                                     );
                                 }}
                                 backgroundColor={"#fff"}
+                                border={"1px solid #211D4F"}
                             />{" "}
                             <BigButton
                                 btnTitle={"Approve"}

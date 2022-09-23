@@ -22,10 +22,14 @@ import BookNowButton from "./BookNowButton";
 
 interface SimpleProfileCardProps {
     task: ITask;
-    onClick?: () => void;
+    handleScroll?: () => void;
     onApply?: () => void;
 }
-const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
+const SimpleProfileCard = ({
+    task,
+    onApply,
+    handleScroll,
+}: SimpleProfileCardProps) => {
     const { data: profile } = useGetProfile();
     // const created_by = task?.created_by.id === profile?.user.id;
     // console.log(
@@ -84,9 +88,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
 
     const isUserTask = task?.created_by?.id === user?.id;
 
-    const handleViewApplicants = () => {
-        toast.success("You have no applicants yet.");
-    };
     const handleShowApplyModal = () => {
         if (!profile) {
             toast.error(
@@ -221,6 +222,13 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                         backgroundColor="#38C675"
                         handleOnClick={withLogin(() => setShowModal(true))}
                     />
+                ) : !approvedTask ? (
+                    <BookNowButton
+                        btnTitle="Declined"
+                        backgroundColor="#FE5050"
+
+                        //handleOnClick={handleLeaveTask}
+                    />
                 ) : approvedTask ? (
                     <BookNowButton
                         btnTitle="Approved"
@@ -244,7 +252,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 <BookNowButton
                     btnTitle="View Applicants"
                     backgroundColor="#FE5050"
-                    handleOnClick={handleViewApplicants}
+                    handleOnClick={handleScroll}
                 />
             )}
 

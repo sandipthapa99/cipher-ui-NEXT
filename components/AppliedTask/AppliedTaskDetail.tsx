@@ -25,14 +25,13 @@ import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import type { MyBookings } from "hooks/task/use-get-service-booking";
-import { useGetTasks } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useRef } from "react";
 import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
@@ -48,16 +47,10 @@ import { TimelineTab } from "./TimelineTab";
 const AppliedTaskDetail = ({
     type,
     taskDetail,
-}: // taskApplicants,
-{
+}: {
     type?: string;
     taskDetail: ITask;
-    // taskApplicants: TaskApplicantsProps;
 }) => {
-    // console.log(
-    //     "🚀 ~ file: AppliedTaskDetail.tsx ~ line 58 ~ taskDetail",
-    //     taskDetail.id
-    // );
     const { data: myRequestedTask } = useData<MyBookings>(
         ["my-requested-task"],
         `${urls.task.requested_task}`
@@ -68,13 +61,7 @@ const AppliedTaskDetail = ({
             requestedTask?.entity_service.id === taskDetail.id
     );
 
-    // console.log(
-    //     "🚀 ~ file: AppliedTaskDetail.tsx ~ line 71 ~ requestedTask",
-    //     requestedTask
-    // );
-
-    const taskId = taskDetail ? requestedTask?.entity_service.id : "";
-    //  console.log("🚀 ~ file: AppliedTaskDetail.tsx ~ line 72 ~ taskId", taskId);
+    // const taskId = taskDetail ? requestedTask?.entity_service.id : "";
 
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", taskDetail?.id],
@@ -98,9 +85,9 @@ const AppliedTaskDetail = ({
             />
         );
     };
-    const router = useRouter();
+    // const router = useRouter();
 
-    const slug = router?.query?.slug as string;
+    // const slug = router?.query?.slug as string;
 
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
@@ -111,6 +98,14 @@ const AppliedTaskDetail = ({
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
+
+    //for scroll
+
+    const ref = useRef<HTMLDivElement>(null);
+
+    const handleClick = () => {
+        ref.current?.scrollIntoView({ behavior: "smooth" });
+    };
 
     return (
         <div className="aside-detail-wrapper">
@@ -283,6 +278,7 @@ const AppliedTaskDetail = ({
 
                                     //setShowModal(false);
                                 }}
+                                handleScroll={handleClick}
                             />
                         )}
                     </Col>
@@ -352,57 +348,61 @@ const AppliedTaskDetail = ({
                 </div>
 
                 {/* <TeamMembersSection /> */}
-
-                <Tab
-                    activeIndex={activeTabIdx}
-                    onTabClick={setActiveTabIdx}
-                    items={[
-                        {
-                            title: `Taskers (${
-                                taskApplicants
-                                    ? taskApplicants?.data.count[0].tasker_count
-                                    : 0
-                            })`,
-                            content: (
-                                <TaskersTab
-                                    taskId={taskDetail ? taskDetail.id : ""}
-                                />
-                            ),
-                        },
-                        { title: "Timeline", content: <TimelineTab /> },
-                        {
-                            title: "Collaboration",
-                            content: <Collaboration />,
-                        },
-                    ]}
-                    icons={[
-                        {
-                            index: 0,
-                            type: (
-                                <FontAwesomeIcon
-                                    icon={faMagnifyingGlass}
-                                    className="svg-icon"
-                                    onClick={() => setShowInput(!showInput)}
-                                />
-                            ),
-                            iconContent: showInput ? <RenderInputBox /> : null,
-                        },
-                        {
-                            index: 1,
-                            type: (
-                                <EllipsisDropdown
-                                    showModal={true}
-                                    handleOnClick={() => setShowModal(true)}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faFilterList}
-                                        className="svg-icon"
+                <div ref={ref}>
+                    <Tab
+                        activeIndex={activeTabIdx}
+                        onTabClick={setActiveTabIdx}
+                        items={[
+                            {
+                                title: `Taskers (${
+                                    taskApplicants
+                                        ? taskApplicants?.data.count[0]
+                                              .tasker_count
+                                        : 0
+                                })`,
+                                content: (
+                                    <TaskersTab
+                                        taskId={taskDetail ? taskDetail.id : ""}
                                     />
-                                </EllipsisDropdown>
-                            ),
-                        },
-                    ]}
-                />
+                                ),
+                            },
+                            { title: "Timeline", content: <TimelineTab /> },
+                            {
+                                title: "Collaboration",
+                                content: <Collaboration />,
+                            },
+                        ]}
+                        icons={[
+                            {
+                                index: 0,
+                                type: (
+                                    <FontAwesomeIcon
+                                        icon={faMagnifyingGlass}
+                                        className="svg-icon"
+                                        onClick={() => setShowInput(!showInput)}
+                                    />
+                                ),
+                                iconContent: showInput ? (
+                                    <RenderInputBox />
+                                ) : null,
+                            },
+                            {
+                                index: 1,
+                                type: (
+                                    <EllipsisDropdown
+                                        showModal={true}
+                                        handleOnClick={() => setShowModal(true)}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faFilterList}
+                                            className="svg-icon"
+                                        />
+                                    </EllipsisDropdown>
+                                ),
+                            },
+                        ]}
+                    />
+                </div>
             </div>
         </div>
     );
