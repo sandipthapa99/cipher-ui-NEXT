@@ -28,6 +28,7 @@ import { useUser } from "hooks/auth/useUser";
 import type { MyBookings } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
+import parse from "html-react-parser";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import { Fragment, useState } from "react";
@@ -92,9 +93,6 @@ const AppliedTaskDetail = ({
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
-    const formattedTaskDescriptions = (taskDetail?.description ?? "").split(
-        "\n"
-    );
 
     return (
         <div className="aside-detail-wrapper">
@@ -325,9 +323,9 @@ const AppliedTaskDetail = ({
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    {formattedTaskDescriptions.map((description, index) => (
-                        <p key={index}>{description}</p>
-                    ))}
+                    {taskDetail?.description
+                        ? parse(taskDetail.description)
+                        : ""}
                 </div>
 
                 <h3>Requirements</h3>
