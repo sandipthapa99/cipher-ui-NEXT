@@ -87,6 +87,11 @@ export const PostTaskModal = () => {
     const taskDetail =
         showPostTaskModalType === "EDIT" ? editTaskDetail : undefined;
 
+    console.log(
+        "🚀 ~ file: PostTaskModal.tsx ~ line 88 ~ PostTaskModal ~ taskDetail",
+        taskDetail
+    );
+
     const [termsAccepted, setTermsAccepted] = useState(true);
 
     const getInitialImageIds = useCallback(
@@ -189,7 +194,6 @@ export const PostTaskModal = () => {
                                 taskSlug,
                             ]);
                             toggleSuccessModal("Task Edited Successfully");
-                            router.reload();
                         },
                     }
                 );

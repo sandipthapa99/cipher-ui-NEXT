@@ -51,7 +51,8 @@ export const UserTaskCard = ({
                     <p className="user-info__username">{tasker.full_name}</p>
 
                     <div className="work-address">
-                        <span>Teacher</span> |{tasker.address_line1}
+                        <span>{tasker?.designation ?? "Homaale employee"}</span>{" "}
+                        |{tasker.address_line1}
                     </div>
                     <span>{tasker.bio ? tasker.bio : "hsadfasdjkfashdf"}</span>
                 </div>

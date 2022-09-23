@@ -36,6 +36,7 @@ export interface Tasker {
     stats: Stats;
     status: string;
     bio: string;
+    designation: string;
     full_name: string;
     phone: string;
     gender: string;

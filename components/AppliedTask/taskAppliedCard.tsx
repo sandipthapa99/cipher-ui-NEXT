@@ -37,7 +37,6 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
 
         slug,
     } = task;
-    console.log("🚀 ~ oooooo task", taskId);
 
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants"],
