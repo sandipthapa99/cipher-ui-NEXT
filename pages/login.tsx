@@ -82,26 +82,18 @@ const Login = () => {
                                 onError: (error) => {
                                     toast.error(error.message);
                                 },
-                                onSuccess: async () => {
+                                onSuccess: () => {
                                     const { next } = router.query;
-                                    // await router.push(
-                                    //     typeof next === "string"
-                                    //         ? next
-                                    //         : "/settings/account/individual"
-                                    // );
-                                    if (!profile && !isProfileLoading) {
-                                        await router.push(
-                                            "/settings/account/individual"
-                                        );
-                                    } else {
-                                        await router.push(
-                                            typeof next === "string"
+                                    toast.success("Login Successful!");
+                                    if (profile) {
+                                        router.push(
+                                            next && typeof next === "string"
                                                 ? next
                                                 : "/home"
                                         );
+                                        return;
                                     }
-
-                                    toast.success("Login Successful!");
+                                    router.push("/settings/account/individual");
                                 },
                             });
                         }}

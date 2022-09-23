@@ -2,6 +2,7 @@ import { Alert } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import React from "react";
+import type { MyBookingServiceProps } from "types/myBookingProps";
 import { axiosClient } from "utils/axiosClient";
 
 import { MyTaskOrder } from "./MyTaskOrder";
@@ -181,7 +182,6 @@ export const MyBookings = () => {
             return response.data.result;
         }
     );
-    console.log("data", myBookingData);
 
     const router = useRouter();
     const renderMyBookings = myBookingData?.map((item, index) => {

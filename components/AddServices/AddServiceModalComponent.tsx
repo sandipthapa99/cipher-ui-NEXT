@@ -38,6 +38,7 @@ import {
     useToggleShowPostTaskModal,
 } from "store/use-show-post-task";
 import { useToggleSuccessModal } from "store/use-success-modal";
+import { ReactQueryKeys } from "types/queryKeys";
 import type { ITask } from "types/task";
 
 export interface PostTaskPayload {
@@ -140,14 +141,14 @@ export const AddServiceModalComponent = () => {
             };
 
             createTaskMutation(postTaskPayload, {
-                onSuccess: async ({ message }) => {
+                onSuccess: async (task) => {
                     handleCloseModal();
                     action.resetForm();
                     // toggleSuccessModal();
                     // toast.success(message);
-                    await queryClient.invalidateQueries(["all-tasks"]);
+                    await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
                     await queryClient.invalidateQueries(["notification"]);
-                    // router.push({ pathname: "/task" });
+                    router.push(`/task/${task.id}`);
                 },
                 onError: (error) => {
                     toast.error(error.message);

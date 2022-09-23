@@ -147,8 +147,8 @@
                 display: none !important;
             }
         }
-        /* specific to Ipad Only*/
-        @media screen and (width: 820px), (width: 768px), (width: 1024px) {
+        /* specific to Ipad Air Only*/
+        @media screen and (width: 820px), (width: 1024px) {
             .weather-container {
                 display: none !important;
             }
