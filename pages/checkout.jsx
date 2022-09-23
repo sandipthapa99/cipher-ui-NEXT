@@ -28,8 +28,8 @@ export default function Checkout() {
     const [paymentType, setPaymentType] = useState("esewa");
     const { data: stripeData } = useQuery(["stripe-data"], async () => {
         const response = await axiosClient.post("/payment/intent/stripe/", {
-            scope: "task",
-            pk: "4c1dbe76-3c76-4b52-9602-5cf5fbe1f8aa",
+            scope: "entityservice",
+            pk: "f7ec63ef-3a6b-40d4-a059-48266f6b4399",
         });
         return response;
     });
@@ -116,7 +116,7 @@ export default function Checkout() {
                                         key={index}
                                         className="payment"
                                         onClick={(e) => {
-                                            setOpened(true);
+                                            // setOpened(true);
                                             setPaymentType(item.partner);
                                         }}
                                     >
@@ -151,7 +151,7 @@ export default function Checkout() {
                                         key={index}
                                         className="payment"
                                         onClick={(e) => {
-                                            setOpened(true);
+                                            // setOpened(true);
                                             setPaymentType(item.partner);
                                         }}
                                     >
@@ -186,7 +186,7 @@ export default function Checkout() {
                                         key={index}
                                         className="payment"
                                         onClick={(e) => {
-                                            setOpened(true);
+                                            // setOpened(true);
                                             setPaymentType(item.partner);
                                         }}
                                     >
@@ -276,7 +276,7 @@ export default function Checkout() {
                         <Button
                             className="checkout-btn"
                             onClick={(e) => {
-                                alert(paymentType);
+                                setOpened(true);
                             }}
                         >
                             Proceed to Confirm
@@ -284,7 +284,7 @@ export default function Checkout() {
                     </Col>
                 </Row>
             </Container>
-            {/*<Modal
+            <Modal
                 opened={opened}
                 onClose={() => {
                     setOpened(false);
@@ -305,7 +305,7 @@ export default function Checkout() {
                         )}
                     </div>
                 )}
-            </Modal>*/}
+            </Modal>
         </Layout>
     );
 }

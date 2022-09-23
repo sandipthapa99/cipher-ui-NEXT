@@ -25,7 +25,9 @@ import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
-import { useGetMyAppliedTasks } from "hooks/task/use-get-service-booking";
+import { useGetProfile } from "hooks/profile/useGetProfile";
+import type { MyBookings } from "hooks/task/use-get-service-booking";
+import { useGetTasks } from "hooks/task/use-get-service-booking";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
@@ -34,7 +36,7 @@ import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
-import type { ITask, TaskApplicantsProps } from "types/task";
+import type { ITask, TaskApplicantsProps, TaskerCount } from "types/task";
 import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
@@ -53,6 +55,23 @@ const AppliedTaskDetail = ({
     taskDetail: ITask;
     // taskApplicants: TaskApplicantsProps;
 }) => {
+    const { data: myRequestedTask } = useData<MyBookings>(
+        ["my-requested-task"],
+        `${urls.task.requested_task}`
+    );
+
+    const requestedTask = myRequestedTask?.data.result.find(
+        (requestedTask: any) =>
+            requestedTask?.entity_service.id === taskDetail.id
+    );
+    const taskId = taskDetail ? requestedTask?.entity_service.id : "";
+
+    const { data: taskApplicants } = useData<TaskerCount>(
+        ["get-task-applicants"],
+        `${urls.task.taskApplicants}/${taskId}`
+    );
+    console.log("🚀 ---->>>>>>>>.", taskApplicants, taskId);
+
     // const newPageUrl = typeof window != "undefined" ? window.location.href : "";
     const queryClient = useQueryClient();
     const { data: user } = useUser();
@@ -84,16 +103,6 @@ const AppliedTaskDetail = ({
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
-    // const { data: applicants } = useData<TaskApplicantsProps>(
-    //     ["get-my-applicants"],
-    //     `${urls.task.my_task}`
-    // );
-    const { data: taskDetails } = useGetMyAppliedTasks();
-
-    // const task = taskDetails?.result.find(
-    //     (appliedTask) => appliedTask.entity_service.id.toString() === task.id
-    // );
-    // const applicants = taskApplicants ? taskApplicants.data?.result : [];
     return (
         <div className="aside-detail-wrapper">
             <div className="task-detail mb-5 p-5">
@@ -102,6 +111,7 @@ const AppliedTaskDetail = ({
                         type === "you may like" ? `/task-you-may-like` : `/task`
                     }
                 />
+
                 <h3>{taskDetail?.title}</h3>
                 <Row>
                     <div className="d-flex flex-sm-row flex-column justify-content-between mb-5">
@@ -110,19 +120,22 @@ const AppliedTaskDetail = ({
                                 {format(new Date(taskDetail?.created_at), "PP")}
                             </span>
                         )}
+
                         <div className="d-flex justify-content-between align-items-center">
-                            <SaveIcon
-                                object_id={taskDetail?.id}
-                                model="task"
-                                filled={isTaskBookmarked}
-                                showText
-                                onSuccess={() =>
-                                    queryClient.invalidateQueries([
-                                        "bookmarks",
-                                        "task",
-                                    ])
-                                }
-                            />
+                            {isUserTask ? null : (
+                                <SaveIcon
+                                    object_id={taskDetail?.id}
+                                    model="task"
+                                    filled={isTaskBookmarked}
+                                    showText
+                                    onSuccess={() =>
+                                        queryClient.invalidateQueries([
+                                            "bookmarks",
+                                            "task",
+                                        ])
+                                    }
+                                />
+                            )}
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
                                     url={getPageUrl()}
@@ -168,7 +181,7 @@ const AppliedTaskDetail = ({
                     <Col md={12} lg={7}>
                         {(taskVideosAndImages ?? []).length === 1 &&
                             taskVideosAndImages.map((file, key) => (
-                                <Fragment key={key}>
+                                <Fragment key={file.id}>
                                     {isImage(file.media_type) ? (
                                         <figure className="thumbnail-img">
                                             <Image
@@ -211,7 +224,7 @@ const AppliedTaskDetail = ({
                                 }}
                             >
                                 {taskVideosAndImages.map((file, key) => (
-                                    <Carousel.Slide key={key}>
+                                    <Carousel.Slide key={file.id}>
                                         {isImage(file.media_type) ? (
                                             <figure className="thumbnail-img">
                                                 <Image
@@ -301,14 +314,17 @@ const AppliedTaskDetail = ({
                             icon={faEye}
                             className="svg-icon svg-icon-eye"
                         />
-                        <span> TOBE-IMP Views</span>
+                        <span> 200 Views</span>
                     </p>
                     <p className="d-flex align-items-center">
                         <FontAwesomeIcon
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                        <span> {taskDetail?.applicants_count} Applied</span>
+                        <span>
+                            {" "}
+                            {taskApplicants?.data.count[0].tasker_count} Applied
+                        </span>
                     </p>
                 </div>
 
@@ -319,7 +335,11 @@ const AppliedTaskDetail = ({
 
                 <h3>Requirements</h3>
                 <div className="mt-5">
-                    {/* <ServiceHighlights highlight={taskRequirements} /> */}
+                    {taskDetail?.highlights ? (
+                        <ServiceHighlights highlight={taskDetail?.highlights} />
+                    ) : (
+                        ""
+                    )}
                 </div>
 
                 {/* <TeamMembersSection /> */}
@@ -329,7 +349,7 @@ const AppliedTaskDetail = ({
                     onTabClick={setActiveTabIdx}
                     items={[
                         {
-                            title: "Taskers",
+                            title: `Taskers (${taskApplicants?.data.count[0].tasker_count})`,
                             content: <TaskersTab />,
                         },
                         { title: "Timeline", content: <TimelineTab /> },
@@ -381,6 +401,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
         const queryClient = new QueryClient();
         await queryClient.prefetchQuery(["get-my-applicants"]);
+        await queryClient.prefetchQuery(["get-task-applicants"]);
 
         return {
             props: {

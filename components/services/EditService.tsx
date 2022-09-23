@@ -26,7 +26,7 @@ import { useFormik } from "formik";
 import { useEditService } from "hooks/service/use-edit-service";
 import { useUploadFile } from "hooks/use-upload-file";
 import Link from "next/link";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
@@ -69,6 +69,30 @@ export const EditService = ({
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate: editServiceMutation, isLoading: editServiceLoading } =
         useEditService();
+
+    const getInitialImageIds = useCallback(
+        () => (serviceDetail?.images ?? []).map((image) => image.id),
+        [serviceDetail?.images]
+    );
+    const getInitialVideoIds = useCallback(
+        () => (serviceDetail?.videos ?? []).map((video) => video.id),
+        [serviceDetail?.videos]
+    );
+
+    const [initialImageIds, setInitialImageIds] = useState<number[]>(() =>
+        getInitialImageIds()
+    );
+    const [initialVideoIds, setInitialVideoIds] = useState<number[]>(() =>
+        getInitialVideoIds()
+    );
+
+    useEffect(() => {
+        setInitialImageIds(getInitialImageIds());
+    }, [getInitialImageIds]);
+
+    useEffect(() => {
+        setInitialVideoIds(getInitialVideoIds());
+    }, [getInitialVideoIds]);
 
     const [termsAccepted, setTermsAccepted] = useState(true);
     const { mutateAsync: uploadFileMutation, isLoading: uploadFileLoading } =
@@ -130,7 +154,7 @@ export const EditService = ({
                     onSuccess: async () => {
                         handleClose();
                         action.resetForm();
-                        toggleSuccessModal();
+                        toggleSuccessModal("Successfully edited service");
                     },
                     onError: (error: any) => {
                         toast.error(error.message);
@@ -272,9 +296,11 @@ export const EditService = ({
                             </Text>
                             <CustomDropZone
                                 accept={IMAGE_MIME_TYPE}
+                                uploadedFiles={serviceDetail?.images ?? []}
                                 fileType="image"
                                 sx={{ maxWidth: "30rem" }}
                                 name="task-image"
+                                onRemoveUploadedFiles={setInitialImageIds}
                                 onDrop={(images) =>
                                     setFieldValue("images", images)
                                 }
@@ -288,8 +314,10 @@ export const EditService = ({
                             </Text>
                             <CustomDropZone
                                 accept={[MIME_TYPES.mp4]}
+                                uploadedFiles={serviceDetail?.videos ?? []}
                                 fileType="video"
                                 name="task-video"
+                                onRemoveUploadedFiles={setInitialVideoIds}
                                 onDrop={(videos) =>
                                     setFieldValue("videos", videos)
                                 }

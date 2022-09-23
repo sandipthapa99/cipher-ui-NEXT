@@ -70,6 +70,7 @@ const SearchResultsDetail = ({
     currency,
     service,
 }: ServiceNearYouCardProps) => {
+    console.log("service inside seach result details", service);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -426,48 +427,59 @@ const SearchResultsDetail = ({
                     </Col>
                     <Col md={12} lg={5} className="d-flex">
                         <div className="simple-card my-5 my-lg-0 ">
-                            <div className="d-flex align-items-center simple-card__profile">
-                                {service?.created_by?.profile_image && (
-                                    <figure className="thumbnail-img">
-                                        <Image
-                                            src={
-                                                service?.created_by
-                                                    ?.profile_image
-                                            }
-                                            layout="fill"
-                                            objectFit="cover"
-                                            placeholder="blur"
-                                            blurDataURL="/placeholder/profilePlaceholder.png"
-                                            alt="serviceprovider-image"
-                                        />
-                                    </figure>
-                                )}
-                                {!service?.created_by?.profile_image && (
-                                    <figure className="thumbnail-img">
-                                        <Image
-                                            src={
-                                                "/placeholder/profilePlaceholder.png"
-                                            }
-                                            layout="fill"
-                                            objectFit="cover"
-                                            placeholder="blur"
-                                            blurDataURL="/placeholder/profilePlaceholder.png"
-                                            alt="serviceprovider-image"
-                                        />
-                                    </figure>
-                                )}
-                                <div className="intro">
-                                    <p className="name">{serviceProvider}</p>
-                                    <p className="job">{serviceTitle}</p>
-                                </div>
-                            </div>
+                            <Link href={`/tasker/${serviceProviderId}`}>
+                                <a>
+                                    <div className="d-flex align-items-center simple-card__profile">
+                                        {service?.created_by?.profile_image && (
+                                            <figure className="thumbnail-img">
+                                                <Image
+                                                    src={
+                                                        service?.created_by
+                                                            ?.profile_image
+                                                    }
+                                                    layout="fill"
+                                                    objectFit="cover"
+                                                    placeholder="blur"
+                                                    blurDataURL="/placeholder/profilePlaceholder.png"
+                                                    alt="serviceprovider-image"
+                                                />
+                                            </figure>
+                                        )}
+                                        {!service?.created_by
+                                            ?.profile_image && (
+                                            <figure className="thumbnail-img">
+                                                <Image
+                                                    src={
+                                                        "/placeholder/profilePlaceholder.png"
+                                                    }
+                                                    layout="fill"
+                                                    objectFit="cover"
+                                                    placeholder="blur"
+                                                    blurDataURL="/placeholder/profilePlaceholder.png"
+                                                    alt="serviceprovider-image"
+                                                />
+                                            </figure>
+                                        )}
+                                        <div className="intro">
+                                            <p className="name">
+                                                {serviceProvider}
+                                            </p>
+                                            <p className="job">
+                                                {serviceTitle}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </Link>
 
                             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
-                                <span>Starting Price</span>
+                                <span> Price</span>
                                 <span className="price">
                                     {currency}
-                                    {budget_from} {budget_to && "-" + budget_to}
-                                    {budget_type}
+                                    {budget_from && budget_from > 0
+                                        ? budget_from + "-"
+                                        : ""}{" "}
+                                    {budget_to} {budget_type}
                                 </span>
                             </div>
                             {isCurrentUserService() ? (
@@ -521,13 +533,13 @@ const SearchResultsDetail = ({
                         />
                         {serviceViews} Views
                     </p>
-                    <p>
+                    {/* <p>
                         <FontAwesomeIcon
                             icon={faUserGroup}
                             className="svg-icon svg-icon-user-group"
                         />
-                        TOBE-IMP Applied
-                    </p>
+                         Applied
+                    </p> */}
                 </div>
 
                 <div className="task-detail__desc">

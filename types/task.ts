@@ -40,7 +40,10 @@ export interface ITask {
     created_by: {
         id: string;
         email: string;
-        full_name: string;
+        first_name: string;
+        middle_name: string;
+        bio: string;
+        last_name: string;
         profile_image: string;
     };
     is_negotiable: boolean;
@@ -78,6 +81,76 @@ export interface ITask {
     applicants_count: number;
     images: Media[];
     videos: Media[];
+}
+
+export interface TaskerCount {
+    count: Count[];
+}
+
+export interface Count {
+    tasker_count: number;
+}
+
+//tasker approved .........
+
+export interface TaskApprovedList {
+    total_pages: number;
+    count: number;
+    current: number;
+    next: any;
+    previous: any;
+    page_size: number;
+    result: TaskApproved[];
+}
+
+export interface TaskApproved {
+    id: string;
+    assigner: Assigner;
+    assignee: Assignee;
+    created_at: string;
+    updated_at: string;
+    is_active: boolean;
+    status: string;
+    title: string;
+    description: string;
+    requirements: string;
+    charge: number;
+    location: string;
+    estimated_time: number;
+    slug: string;
+    start_date: string;
+    end_date: string;
+    start_time: string;
+    end_time: string;
+    extra_data: any[];
+    entity_service: string;
+    booking: number;
+    currency: number;
+    city: number;
+    images: any[];
+    videos: any[];
+}
+
+export interface Assigner {
+    id: string;
+    username: string;
+    email: string;
+    phone: any;
+    first_name: string;
+    middle_name: string;
+    last_name: string;
+    profile_image: string;
+}
+
+export interface Assignee {
+    id: string;
+    username: string;
+    email: string;
+    phone: any;
+    first_name: string;
+    middle_name: any;
+    last_name: string;
+    profile_image: string;
 }
 
 // export interface TaskApplicantsProps {
