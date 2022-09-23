@@ -48,10 +48,6 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
         ["approved-task"],
         `${urls.task.approvedTaskList}`
     );
-    console.log(
-        "🚀 ~ file: SimpleProfileCard.tsx ~ line 48 ~ SimpleProfileCard ~ approvedTasks",
-        approvedTasks
-    );
 
     const cancelTaskUrl = `${urls.task.cancelApplication}/${appliedTask?.id}`;
     const { mutate } = useForm(cancelTaskUrl);
@@ -164,7 +160,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 {task?.budget_from && task?.budget_to ? (
                     <>
                         <span>Budget Range</span>
-                        <span className="text-right price">
+                        <span>
                             {task?.currency?.symbol}
                             {task?.budget_from} - {task?.budget_to}
                             {task?.budget_type === "Hourly"
@@ -177,7 +173,7 @@ const SimpleProfileCard = ({ task, onApply }: SimpleProfileCardProps) => {
                 ) : (
                     <>
                         <span>Budget</span>
-                        <span className="text-right price">
+                        <span>
                             {`${task?.currency?.symbol ?? ""} ${
                                 task?.budget_to
                             } / ${task?.budget_type}`}
