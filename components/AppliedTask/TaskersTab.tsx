@@ -1,7 +1,7 @@
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert } from "@mantine/core";
+import { Alert, Loader } from "@mantine/core";
 import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -61,7 +61,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
     // );
     return (
         <div className="tasker-tab-taskdetail">
-            {!requestedTask && !TaskApplicantLoading ? (
+            {!requestedTask ? (
                 <Alert
                     icon={<FontAwesomeIcon icon={faWarning} />}
                     title={""}
@@ -69,7 +69,9 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                 >
                     {`You can't view the applicants`}
                 </Alert>
-            ) : taskApplicants && taskApplicants?.data.count < 1 ? (
+            ) : TaskApplicantLoading ? (
+                <Loader />
+            ) : Error ? (
                 <Alert
                     icon={<FontAwesomeIcon icon={faWarning} />}
                     title={""}
@@ -89,56 +91,59 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                         </Alert>
                     ) : ( */}
                     {taskApplicants &&
-                        taskApplicants.data.result.map((item: any) => (
-                            <Col md={12} lg={6} key={item.id}>
-                                <TeamMembersCard
-                                    collabButton={false}
-                                    id={item.id}
-                                    image={
-                                        item
-                                            ? item.created_by.profile_image
-                                            : ""
-                                    }
-                                    name={
-                                        item
-                                            ? item.created_by.user.full_name
-                                            : ""
-                                    }
-                                    speciality={"curry"}
-                                    rating={
-                                        item
-                                            ? item.created_by?.rating.avg_rating
-                                            : 0
-                                    }
-                                    happyClients={
-                                        item
-                                            ? item.created_by?.stats
-                                                  ?.happy_clients
-                                            : ""
-                                    }
-                                    awardPercentage={
-                                        item
-                                            ? item.created_by?.stats
-                                                  ?.task_completed
-                                            : ""
-                                    }
-                                    location={
-                                        item
-                                            ? `${item?.created_by?.address_line1}, ${item?.created_by?.address_line2}`
-                                            : ""
-                                    }
-                                    distance={"2 km"}
-                                    bio={item ? item?.created_by?.bio : ""}
-                                    charge={
-                                        item
-                                            ? `${item?.created_by?.charge_currency.code} ${item?.created_by?.hourly_rate}`
-                                            : ""
-                                    }
-                                    taskId={taskId}
-                                    tasker={""}
-                                />
-                            </Col>
-                        ))}
+                        taskApplicants.data.result.map((item: any) =>
+                            item.is_active ? (
+                                <Col md={12} lg={6} key={item.id}>
+                                    <TeamMembersCard
+                                        collabButton={false}
+                                        id={item.id}
+                                        image={
+                                            item
+                                                ? item.created_by.profile_image
+                                                : ""
+                                        }
+                                        name={
+                                            item
+                                                ? item.created_by.user.full_name
+                                                : ""
+                                        }
+                                        speciality={"curry"}
+                                        rating={
+                                            item
+                                                ? item.created_by?.rating
+                                                      .avg_rating
+                                                : 0
+                                        }
+                                        happyClients={
+                                            item
+                                                ? item.created_by?.stats
+                                                      ?.happy_clients
+                                                : ""
+                                        }
+                                        awardPercentage={
+                                            item
+                                                ? item.created_by?.stats
+                                                      ?.task_completed
+                                                : ""
+                                        }
+                                        location={
+                                            item
+                                                ? `${item?.created_by?.address_line1}, ${item?.created_by?.address_line2}`
+                                                : ""
+                                        }
+                                        distance={"2 km"}
+                                        bio={item ? item?.created_by?.bio : ""}
+                                        charge={
+                                            item
+                                                ? `${item?.created_by?.charge_currency.code} ${item?.created_by?.hourly_rate}`
+                                                : ""
+                                        }
+                                        taskId={taskId}
+                                        tasker={""}
+                                    />
+                                </Col>
+                            ) : null
+                        )}
                 </Row>
             )}
         </div>

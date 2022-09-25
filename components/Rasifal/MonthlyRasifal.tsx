@@ -1,3 +1,4 @@
+import { Loader } from "@mantine/core";
 import axios from "axios";
 import cheerio from "cheerio";
 import React, { useEffect, useState } from "react";
@@ -62,7 +63,7 @@ const HoroscopeCardData = [
 export const MonthlyRasifal = () => {
     const [monthlyRasifal, setMonthlyRasifal] = useState<Rasifal[]>([]);
     const [heading, setHeading] = useState("");
-
+    const [loading, setLoading] = useState(true);
     const url = "https://www.hamropatro.com/rashifal/monthly";
 
     useEffect(() => {
@@ -100,23 +101,39 @@ export const MonthlyRasifal = () => {
             setMonthlyRasifal([]);
         };
     }, []);
+    console.log(
+        "🚀 ~ file: MonthlyRasifal.tsx ~ line 64 ~ MonthlyRasifal ~ monthlyRasifal",
+        monthlyRasifal
+    );
+    useEffect(() => {
+        if (monthlyRasifal.length < 9) {
+            setLoading(true);
+        } else {
+            setLoading(false);
+        }
+    }, [monthlyRasifal, loading]);
 
     return (
         <div className="daily-rasifal-details">
             <h3>{heading}</h3>
-            <Row>
-                {monthlyRasifal?.map((item, index) => (
-                    <Col md={6} key={index} className="d-flex">
-                        <RasifalCard
-                            title={item.title}
-                            image={item.image}
-                            description={item?.description}
-                            showLimited={false}
-                            slider={false}
-                        />
-                    </Col>
-                ))}
-            </Row>
+
+            {loading ? (
+                <Loader />
+            ) : (
+                <Row>
+                    {monthlyRasifal?.map((item, index) => (
+                        <Col md={6} key={index} className="d-flex">
+                            <RasifalCard
+                                title={item.title}
+                                image={item.image}
+                                description={item?.description}
+                                showLimited={false}
+                                slider={false}
+                            />
+                        </Col>
+                    ))}
+                </Row>
+            )}
         </div>
     );
 };

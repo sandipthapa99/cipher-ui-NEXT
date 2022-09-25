@@ -16,6 +16,7 @@ const urls = {
     },
     task: {
         list: taskPath,
+        myBookings: `${myBookings}?is_requested=false`,
         service: `${taskPath}?is_requested=false`,
         service_per_user: `${taskPath}?is_requested=false&user=`,
         task: `${taskPath}?is_requested=true`,
@@ -39,6 +40,7 @@ const urls = {
         experience: `${taskerPath}experience/`,
         certifications: `${taskerPath}certification/`,
         rating: `/task/rating`,
+        my_bookings: `/task/entity/service-mybooking/?is_requested=false`,
     },
     tasker: {
         list: taskerPath,
