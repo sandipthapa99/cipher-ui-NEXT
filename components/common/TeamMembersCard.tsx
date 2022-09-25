@@ -60,7 +60,6 @@ export const TeamMembersCard = ({
     isTasker,
     taskId,
 }: Props) => {
-    console.log("🚀 ~ file: TeamMembersCard.tsx ~ line 61 ~ id", id);
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
 
@@ -82,19 +81,10 @@ export const TeamMembersCard = ({
     const approvedTask = approvedTasks?.data.result.find(
         (appliedTask: any) => appliedTask.assignee.id === userId
     );
-    console.log(
-        "🚀 ~ file: TeamMembersCard.tsx ~ line 75 ~ approvedTask",
-        approvedTask
-    );
 
     const { data: taskApplicants } = useData<TaskApplicantsProps>(
         ["get-my-applicants"],
         `${urls.task.my_applicants}?entity_service=${taskId}&is_requested=true`
-    );
-
-    console.log(
-        "🚀 ~ file: TeamMembersCard.tsx ~ line 86 ~ taskApplicants",
-        taskApplicants
     );
 
     const approvedTasker = taskApplicants?.data.result.find(
@@ -230,7 +220,7 @@ export const TeamMembersCard = ({
                                 />
                             </div>
                         ) : (
-                            <span className="task-price"> {charge}</span>
+                            <span className="task-price">{charge}</span>
                         )}
                     </a>
                 </Link>
