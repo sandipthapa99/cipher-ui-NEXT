@@ -1300,10 +1300,10 @@
   dependencies:
     "@mantine/utils" "5.2.3"
 
-"@mantine/rte@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@mantine/rte/-/rte-5.4.0.tgz#3996f78d50ee1445b3cb5a1d2a3bebdff1224a62"
-  integrity sha512-9gjL8sBmlCCl8x0LSwt+YpX36LiL9T+U5lnAgWJGjKDnW9w1Pfm5oUfsjQRCh+YXyiq/SH4d72V6LhhF593PkA==
+"@mantine/rte@^5.4.1":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@mantine/rte/-/rte-5.4.1.tgz#0b67606e97c28ef8e23fd9431b0d0eb16663afa5"
+  integrity sha512-3bqIcgVf7Hzj3zRZNILyp94SqRT44c6iUzVjy885rIS95YV1ndaIjGTxG54p5xzL0YcpVSB+ebRSd9AZh8cSEg==
   dependencies:
     "@tabler/icons" "^1.68.0"
     quill-mention "^3.0.8"

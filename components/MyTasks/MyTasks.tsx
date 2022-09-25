@@ -1,4 +1,4 @@
-import { Alert, Loader } from "@mantine/core";
+import { Alert, Col, Grid, Loader, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useUser } from "hooks/auth/useUser";
 import { useRouter } from "next/router";
@@ -28,7 +28,19 @@ export const MyTasks = () => {
 
             <div className="my-task__each-orders">
                 {isLoading ? (
-                    <Loader />
+                    <Grid className="p-5">
+                        <Col span={3}>
+                            <Skeleton height={150} mb="xl" />
+                        </Col>
+                        <Col span={9}>
+                            <Skeleton
+                                height={50}
+                                radius="sm"
+                                className="mb-4"
+                            />
+                            <Skeleton height={50} radius="sm" />
+                        </Col>
+                    </Grid>
                 ) : mytaskData?.length ? (
                     mytaskData?.map((item: MyTaskProps, index: number) => (
                         <div

@@ -1,5 +1,6 @@
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
+import { RichText } from "@components/RichText";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
@@ -32,6 +33,7 @@ import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ServicesValueProps } from "types/serviceCard";
+import { safeParse } from "utils/safeParse";
 
 interface EditServiceProps {
     showEditModal: boolean;
@@ -42,7 +44,7 @@ interface EditServiceProps {
 export interface EditServicePayload {
     title: string;
     description: string;
-    highlights: Record<string, string>;
+    highlights: string[];
     service: string;
     city: string;
     location: TaskType;
@@ -100,11 +102,16 @@ export const EditService = ({
 
     const loading = editServiceLoading || uploadFileLoading;
 
+    const initialHighlights = safeParse<string[]>({
+        rawString: serviceDetail?.highlights ?? "",
+        initialData: [],
+    });
+
     const formik = useFormik<EditServicePayload>({
         initialValues: {
             title: serviceDetail?.title ?? "",
             description: serviceDetail?.description ?? "",
-            highlights: serviceDetail?.highlights ?? {},
+            highlights: initialHighlights,
             city: serviceDetail?.city?.id ?? "",
             location: (serviceDetail?.location as TaskType) ?? "remote",
             budget_type:
@@ -197,18 +204,16 @@ export const EditService = ({
                             {...getFieldProps("title")}
                             error={getFieldError("title")}
                         />
-                        <Textarea
-                            label="Service Description"
-                            placeholder="Enter your description"
-                            minRows={5}
-                            required
+                        <RichText
                             {...getFieldProps("description")}
-                            error={getFieldError("description")}
+                            placeholder="Enter your description"
+                            value={values?.description ?? ""}
+                            onChange={(value) =>
+                                setFieldValue("description", value)
+                            }
                         />
                         <TaskRequirements
-                            initialRequirements={
-                                serviceDetail?.highlights ?? {}
-                            }
+                            initialRequirements={initialHighlights}
                             onRequirementsChange={(requirements) =>
                                 setFieldValue("highlights", requirements)
                             }

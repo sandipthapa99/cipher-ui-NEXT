@@ -40,6 +40,7 @@ const urls = {
         experience: `${taskerPath}experience/`,
         certifications: `${taskerPath}certification/`,
         rating: `/task/rating`,
+        my_bookings: `/task/entity/service-mybooking/?is_requested=false`,
     },
     tasker: {
         list: taskerPath,
@@ -58,6 +59,8 @@ const urls = {
         localePath,
         city: `${localePath}city/options?search=`,
     },
+    trusted_partners: "/landingpage/trusted-partner/",
+    hero_category: "/task/hero-category/",
 };
 
 export default urls;
