@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { createStore, useStore } from "zustand";
 
-type CustomFunction = (...args: unknown[]) => unknown;
+type CustomFunction = (...args: any[]) => unknown;
 
 interface LoginPromptStore {
     pausedFunction?: CustomFunction;
