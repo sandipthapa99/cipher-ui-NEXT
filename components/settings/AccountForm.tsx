@@ -115,12 +115,18 @@ const AccountForm = () => {
         }
     }, []);
 
-    const router = useRouter();
+    // const router = useRouter();
     //  !profile?.profile_image ?? setIsEditButtonClicked(true);\
-    const [city, setCity] = useState(profile?.city?.id);
-    const country = profile?.country ? profile?.country : "";
+    // const [city, setCity] = useState(profile?.city?.id);
 
-    const user_language = profile?.language ? profile?.language : "";
+    const country = profile?.country ? profile?.country.name : "";
+
+    // console.log(
+    //     "🚀 ~ file: AccountForm.tsx ~ line 122 ~ AccountForm ~ profile",
+    //     profile
+    // );
+
+    const user_language = profile?.language ? profile?.language.name : "";
 
     const handleScroll = () => {
         const position = window.pageYOffset;
@@ -157,9 +163,20 @@ const AccountForm = () => {
 
     const endTime = finalend.toString();
     const startTime = start.toString();
-    const [countryChange, setCountryChange] = useState<string | null>(null);
-    const [languageChange, setLanguageChange] = useState<string | null>(null);
-    const [currencyChange, setCurrencyChange] = useState<string | null>(null);
+    const [countryChange, setCountryChange] = useState<string | null>(country);
+    const [languageChange, setLanguageChange] = useState<string | null>(
+        user_language
+    );
+
+    const [currencyChange, setCurrencyChange] = useState<string | null>(
+        profile ? profile.charge_currency.code : ""
+    );
+    useEffect(() => {
+        setCurrencyChange(profile ? profile.charge_currency.id.toString() : "");
+        setLanguageChange(profile ? profile.language.id.toString() : "");
+        setCountryChange(profile ? profile.country.id.toString() : "");
+    }, [profile]);
+
     const [showEditForm, setShowEditForm] = useState(false);
 
     const currencyResults: SelectItem[] = currency
@@ -189,11 +206,11 @@ const AccountForm = () => {
         : ([] as SelectItem[]);
 
     //find the country
-    const foundCountry = countryResults.find((item) => item.label === country);
+    // const foundCountry = countryResults.find((item) => item.label === country);
 
-    const foundLanguage = languageResults.find(
-        (item) => item.label === user_language
-    );
+    // const foundLanguage = languageResults.find(
+    //     (item) => item.label === user_language
+    // );
 
     //handle country change
     const handleCountryChanged = (
@@ -222,9 +239,10 @@ const AccountForm = () => {
         if (id) setFieldValue("charge_currency", parseInt(id));
     };
     //parse user_type
-    //const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
-    const userType = "";
+    const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
+    // const userType = "";
     //for city select field
+
     const cityData = profile
         ? {
               initialId: profile?.city?.id?.toString() ?? "",
@@ -319,7 +337,6 @@ const AccountForm = () => {
                         middle_name: profile?.user.middle_name ?? "",
                         last_name: profile?.user.last_name ?? "",
                         city: profile?.city?.id ?? "",
-
                         email: "",
                         bio: profile?.bio ?? "",
                         gender: profile?.gender ?? "",
@@ -335,20 +352,12 @@ const AccountForm = () => {
                             new Date(`2022-09-24 ${endTime}`) ?? "",
                         hourly_rate: profile?.hourly_rate ?? "",
                         user_type: userType ?? "",
-                        country:
-                            foundCountry && profile
-                                ? parseInt(foundCountry.value)
-                                : "",
+                        country: profile ? countryChange : "",
                         education: "abc",
                         address_line1: profile?.address_line1 ?? "",
                         address_line2: profile?.address_line2 ?? "",
-                        language:
-                            profile && foundLanguage
-                                ? parseInt(foundLanguage.value)
-                                : "",
-                        charge_currency: profile
-                            ? profile.charge_currency?.id
-                            : "",
+                        language: profile ? languageChange : "",
+                        charge_currency: profile ? currencyChange : "",
                         profile_visibility: profile?.profile_visibility ?? "",
                         task_preferences: profile?.task_preferences ?? "",
                         profile_image: profile?.profile_image ?? "",
@@ -771,14 +780,12 @@ const AccountForm = () => {
                                 name="country"
                                 searchable
                                 nothingFound="No result found."
-                                value={
-                                    profile
-                                        ? foundCountry?.value
-                                        : countryChange
-                                }
-                                onChange={(value) =>
-                                    handleCountryChanged(value, setFieldValue)
-                                }
+                                value={countryChange}
+                                // key={countryChange}
+                                onChange={(value) => {
+                                    setCountryChange(value ? value : "");
+                                    handleCountryChanged(value, setFieldValue);
+                                }}
                                 data={countryResults ?? []}
                                 disabled={isInputDisabled}
                             />
@@ -838,14 +845,12 @@ const AccountForm = () => {
                                 searchable
                                 disabled={isInputDisabled}
                                 nothingFound="No result found."
-                                value={
-                                    profile
-                                        ? foundLanguage?.value
-                                        : languageChange
-                                }
-                                onChange={(value) =>
-                                    handleLanguageChanged(value, setFieldValue)
-                                }
+                                value={languageChange}
+                                //   key={languageChange}
+                                onChange={(value) => {
+                                    setLanguageChange(value ? value : "");
+                                    handleLanguageChanged(value, setFieldValue);
+                                }}
                                 data={languageResults ?? []}
                             />
                             {/* <SelectInputField
@@ -864,15 +869,13 @@ const AccountForm = () => {
                                 searchable
                                 nothingFound="No result found."
                                 disabled={isInputDisabled}
-                                value={
-                                    profile
-                                        ? profile.charge_currency?.id.toString()
-                                        : currencyChange
-                                }
+                                value={currencyChange}
+                                key={currencyChange}
                                 //value={currencyChange}
-                                onChange={(value) =>
-                                    handleCurrencyChanged(value, setFieldValue)
-                                }
+                                onChange={(value) => {
+                                    setCurrencyChange(value ? value : "");
+                                    handleCurrencyChanged(value, setFieldValue);
+                                }}
                                 data={currencyResults ?? []}
                             />
                             <hr />

@@ -60,7 +60,11 @@ const UserProfileCard = ({
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
+<<<<<<< components/common/UserProfile.tsx
+    const { data: countryData } = useGetCountryBYId(country.id);
+=======
     const { data: countryData } = useGetCountryBYId(country?.name);
+>>>>>>> components/common/UserProfile.tsx
     const [image, setImage] = useState();
     const services = skill ? JSON.parse(skill) : [];
     const queryClient = useQueryClient();
@@ -327,7 +331,14 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
 
+<<<<<<< components/common/UserProfile.tsx
+                                    <p>
+                                        {address_line1}, {address_line2},{" "}
+                                        {country.name}
+                                    </p>
+=======
                                     <p>{address_line2}</p>
+>>>>>>> components/common/UserProfile.tsx
                                 </div>
 
                                 <div className="type d-flex flex-col">
