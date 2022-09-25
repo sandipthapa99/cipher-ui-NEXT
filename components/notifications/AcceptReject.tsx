@@ -8,7 +8,7 @@ export const AcceptReject = ({
     accepted,
 }: {
     slug?: string;
-    accepted: boolean | undefined;
+    accepted?: boolean | undefined;
 }) => {
     const router = useRouter();
     const query = router.query;
