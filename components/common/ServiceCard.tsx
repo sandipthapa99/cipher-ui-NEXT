@@ -104,16 +104,7 @@ const ServiceCard = ({
                 <Link href={`/service/${serviceCard?.slug}`}>
                     <a>
                         <div className="d-flex pro-title-wrapper justify-content-between">
-                            <Spoiler
-                                maxHeight={30}
-                                hideLabel={"..."}
-                                showLabel={"..."}
-                            >
-                                <h2 className="card-title">
-                                    {serviceCard?.title}
-                                </h2>
-                            </Spoiler>
-                            {/* <h2 className="card-title">{serviceCard?.title}</h2> */}
+                            <h2 className="card-title">{serviceCard?.title}</h2>
                             {serviceCard?.is_professional ? (
                                 <div className="pro-service">
                                     <p>PRO</p>
@@ -146,13 +137,14 @@ const ServiceCard = ({
                 <Link href={`/service/${serviceCard?.slug}`}>
                     <a>
                         <div className="card-description d-inline">
-                            <Spoiler
+                            {/* <Spoiler
                                 maxHeight={50}
                                 hideLabel={"..."}
                                 showLabel={"..."}
                             >
                                 <p>{parse(serviceCard?.description)}</p>
-                            </Spoiler>
+                            </Spoiler> */}
+                            <p>{parse(serviceCard?.description)}</p>
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
@@ -160,8 +152,7 @@ const ServiceCard = ({
                                     icon={faStar}
                                     className="svg-icon star"
                                 />
-                                {/* {serviceCard?.happy_clients} */}
-                                TOBE_IMP
+                                {/* {serviceCard?.happy_clients} */}0
                             </p>
                             <p className="price">
                                 {serviceCard?.currency?.symbol + " "}

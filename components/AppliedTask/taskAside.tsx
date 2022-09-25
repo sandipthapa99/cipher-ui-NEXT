@@ -27,6 +27,7 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
         () => appliedTaskPages?.pages.map((page) => page.result).flat() ?? [],
         [appliedTaskPages?.pages]
     );
+
     const totalAppliedTasks = appliedTasks.length;
 
     const isLastTaskOnPage = (taskIndex: number) =>

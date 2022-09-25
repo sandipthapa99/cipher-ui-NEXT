@@ -11,6 +11,7 @@ export interface TaskCity {
 export interface SelectCityProps extends Omit<SelectProps, "data" | "value"> {
     value?: { id: number; name: string } | string;
     onCitySelect: (cityId: number) => void;
+    data?: SelectItem[];
 }
 
 const useCities = (searchQuery: string) =>

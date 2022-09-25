@@ -51,7 +51,6 @@ export const TaskBudget = ({
     setFieldValue,
     getFieldProps,
 }: TaskBudgetProps) => {
-    console.log(initialBudgetTo);
     const [value, setValue] = useState<BudgetType>(() =>
         initialBudgetFrom && initialBudgetTo
             ? BudgetType.VARIABLE

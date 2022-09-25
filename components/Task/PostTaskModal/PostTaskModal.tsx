@@ -191,6 +191,8 @@ export const PostTaskModal = () => {
                                 ReactQueryKeys.TASK_DETAIL,
                                 taskDetail.id,
                             ]);
+                            queryClient.invalidateQueries(["all-tasks"]);
+
                             toggleSuccessModal("Task Edited Successfully");
                         },
                     }
