@@ -85,6 +85,10 @@
     background: #f8f9fa;
 
     .description-section {
+        .service-name-notify {
+            font-size: 14px;
+            font-weight: 500;
+        }
         h4 {
             font: 500 1.6rem $poppins-font;
             color: #212529;

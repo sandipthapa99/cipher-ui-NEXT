@@ -142,13 +142,13 @@ const ServiceCard = ({
                                 hideLabel={""}
                                 showLabel={"..."}
                             >
-                                <p>
+                                <>
                                     {parse(
                                         serviceCard?.description
                                             ? serviceCard?.description
                                             : "No description for this service avialble"
                                     )}
-                                </p>
+                                </>
                             </Spoiler>
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">

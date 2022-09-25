@@ -13,13 +13,19 @@ interface PostedNotifyProps {
     taskObject: string;
     createdDate: string;
     slug: string;
+    handleClick?: any;
+    name?: string;
+    type?: string;
 }
 
 export const PostNotifyTask = ({
     taskTitle,
     taskObject,
     createdDate,
+    handleClick,
+    name,
     slug,
+    type,
 }: PostedNotifyProps) => {
     const { data: profile } = useGetProfile();
     const router = useRouter();
@@ -41,12 +47,14 @@ export const PostNotifyTask = ({
                 </figure>
                 <div className="description-section">
                     <p>
-                        <span className="span-name">You </span>
-                        {taskTitle} a
+                        <span className="span-name" onClick={handleClick}>
+                            You{" "}
+                        </span>
+                        {type} a service
                         <span
                             className="span-name"
                             onClick={() => {
-                                router.push(`/task/${slug}`);
+                                router.push(`/service/${slug}`);
                             }}
                         >
                             {" "}
