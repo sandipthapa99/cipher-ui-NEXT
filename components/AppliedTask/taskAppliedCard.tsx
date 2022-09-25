@@ -81,7 +81,11 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                                 icon={faLocationDot}
                                 className="svg-icon"
                             />
-                            <span>{task?.location}</span>
+                            <span>
+                                {task?.location
+                                    ? task.location
+                                    : "Not Provided"}
+                            </span>
                         </p>
                         <div className="task-location-time d-flex justify-content-between">
                             <span className="time me-4 d-flex align-items-center">

@@ -46,8 +46,14 @@ export type ProfileResponse = {
         user_rating_count: number;
         avg_rating: any;
     };
-    country: string;
-    language: string;
+    country: {
+        id: number;
+        name: string;
+    };
+    language: {
+        id: number;
+        name: string;
+    };
     status: string;
     bio: string;
     gender: string;
