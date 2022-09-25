@@ -109,7 +109,7 @@ const AppliedTaskDetail = ({
 
     return (
         <div className="aside-detail-wrapper">
-            <div className="task-detail mb-5 p-5">
+            <div className="task-detail">
                 <GoBack
                     href={
                         type === "you may like" ? `/task-you-may-like` : `/task`

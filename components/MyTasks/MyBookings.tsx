@@ -1,5 +1,6 @@
 import { Alert } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { useRouter } from "next/router";
 import React from "react";
 import type { MyBookingServiceProps } from "types/myBookingProps";
@@ -176,9 +177,7 @@ export const MyBookings = () => {
     const { data: myBookingData } = useQuery<MyBookingProps[]>(
         ["my-booking"],
         async () => {
-            const response = await axiosClient.get(
-                "/task/entity/service-mybooking/"
-            );
+            const response = await axiosClient.get(`${urls.task.myBookings}`);
             return response.data.result;
         }
     );
@@ -221,7 +220,7 @@ export const MyBookings = () => {
                     renderMyBookings
                 ) : (
                     <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                        Sorrry, You have no booking data to show
+                        Sorry, You have no booking to show.
                     </Alert>
                 )}
                 {/* {myBookingData?.length ? (
