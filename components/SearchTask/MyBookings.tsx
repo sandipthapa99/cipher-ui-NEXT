@@ -11,6 +11,7 @@ import { useIsBookmarked } from "hooks/use-bookmarks";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import type { Tasker } from "types/tasks";
@@ -215,7 +216,7 @@ export const MyBookingsCard = ({
                                 { booking: bookingId },
                                 {
                                     onSuccess: () => {
-                                        toast.success("Booking Approved");
+                                        // toast.success("Booking Approved");
                                         queryClient.invalidateQueries([
                                             "get-my-bookings",
                                         ]);

@@ -294,7 +294,12 @@ const AccountForm = () => {
                 handleClose={scrollToKyc}
             />{" "}
             {!profile ? (
-                <CompleteProfile onClick={() => setShowAccountForm(true)} />
+                <CompleteProfile
+                    onClick={() => {
+                        scroll.scrollTo(628);
+                        setShowAccountForm(true);
+                    }}
+                />
             ) : (
                 ""
             )}
