@@ -11,6 +11,8 @@ import {
     Button,
     Checkbox,
     Menu,
+    Pagination,
+    ScrollArea,
     Select,
     Table,
     TextInput,
@@ -125,14 +127,9 @@ export const PaymentHistory = () => {
         </tr>
     ));
 
-    const [value, setValue] = useState<DateRangePickerValue>([
-        new Date(2021, 11, 1),
-        new Date(2021, 11, 5),
-    ]);
-
     return (
         <div className="bg-white pt-5 payment-history">
-            <div className="d-flex justify-content-between px-5 mb-5">
+            <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
                 <TextInput
                     icon={
                         <FontAwesomeIcon
@@ -142,8 +139,8 @@ export const PaymentHistory = () => {
                     }
                     placeholder="Enter a search keyword"
                 />
-                <div className="d-flex">
-                    <Menu shadow="md" width={500}>
+                <div className="d-flex mt-3 mt-sm-0">
+                    <Menu shadow="md" width={350}>
                         <Menu.Target>
                             <Button
                                 color="gray"
@@ -159,13 +156,11 @@ export const PaymentHistory = () => {
 
                         <Menu.Dropdown>
                             <h3>Filter Options</h3>
-                            {/* <DateRangePicker
+                            <DateRangePicker
                                 label="Date"
                                 placeholder="Pick dates range"
-                                value={value}
-                                onChange={setValue}
                                 className="py-3"
-                            /> */}
+                            />
                             <Select
                                 data={["React", "Angular", "Svelte", "Vue"]}
                                 placeholder="Pick one"
@@ -180,40 +175,66 @@ export const PaymentHistory = () => {
                             />
                         </Menu.Dropdown>
                     </Menu>
-                    <Button color="gray" className="d-flex align-items-center">
-                        <FontAwesomeIcon icon={faPrint} className="svg-icon" />
-                        Export
-                    </Button>
+
+                    <Menu shadow="md" width={160}>
+                        <Menu.Target>
+                            <Button
+                                color="gray"
+                                className="d-flex align-items-center"
+                            >
+                                <FontAwesomeIcon
+                                    icon={faPrint}
+                                    className="svg-icon"
+                                />
+                                Export
+                            </Button>
+                        </Menu.Target>
+
+                        <Menu.Dropdown>
+                            <Button className="bg-white text-black">
+                                Export to Excel
+                            </Button>
+                            <Button className="bg-white text-black">
+                                Export to CSV
+                            </Button>
+                        </Menu.Dropdown>
+                    </Menu>
                 </div>
             </div>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>
-                            <Checkbox
-                                checked={allChecked}
-                                onChange={(event) => {
-                                    setAllChecked(event.target.checked);
-                                    if (event.target.checked) {
-                                        setCheckedIds(allIds);
-                                    } else {
-                                        setCheckedIds([]);
-                                    }
-                                }}
-                            />
-                        </th>
-                        <th>Date</th>
-                        <th>Invoice Id</th>
-                        <th>User</th>
-                        <th>task</th>
-                        <th>Methods</th>
-                        <th className="text-center">Status</th>
-                        <th>Amount</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-            </Table>
+            <ScrollArea>
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <Checkbox
+                                    checked={allChecked}
+                                    onChange={(event) => {
+                                        setAllChecked(event.target.checked);
+                                        if (event.target.checked) {
+                                            setCheckedIds(allIds);
+                                        } else {
+                                            setCheckedIds([]);
+                                        }
+                                    }}
+                                />
+                            </th>
+                            <th>Date</th>
+                            <th>Invoice Id</th>
+                            <th>User</th>
+                            <th>task</th>
+                            <th>Methods</th>
+                            <th className="text-center">Status</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                </Table>
+            </ScrollArea>
+            <div className="d-flex flex-column flex-sm-row justify-content-between px-2 px-md-5 mb-5">
+                <Select data={["10", "20"]} placeholder="10" className="py-3" />
+                <Pagination total={10} color="yellow" />
+            </div>
         </div>
     );
 };
