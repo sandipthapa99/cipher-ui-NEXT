@@ -295,7 +295,7 @@ const AppliedTaskDetail = ({
                             {" "}
                             {taskDetail?.location
                                 ? taskDetail?.location
-                                : "Buddhanagar, Kathmandu"}
+                                : "Not Provided"}
                         </span>
                     </p>
                     {taskDetail?.created_at && (

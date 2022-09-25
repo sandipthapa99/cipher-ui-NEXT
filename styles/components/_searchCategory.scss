@@ -11,7 +11,12 @@
 }
 .search-category {
     padding: 3rem 0;
-
+    .filter {
+        padding-top: 1rem;
+        @include respond(lg) {
+            padding-top: 0rem;
+        }
+    }
     .rows {
         align-items: center;
         display: flex;
