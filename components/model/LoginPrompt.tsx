@@ -31,6 +31,7 @@ export const LoginPrompt = () => {
     }, [hideLoginPrompt, router.events]);
     return (
         <Modal
+            centered
             opened={showLoginPrompt}
             onClose={hideLoginPrompt}
             title="Login to continue"
