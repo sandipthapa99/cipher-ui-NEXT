@@ -35,7 +35,7 @@
         "@mantine/modals": "^5.4.0",
         "@mantine/next": "^5.1.6",
         "@mantine/nprogress": "^5.2.3",
-        "@mantine/rte": "^5.4.0",
+        "@mantine/rte": "^5.4.1",
         "@ngneat/falso": "^6.1.0",
         "@react-google-maps/api": "^2.12.2",
         "@react-oauth/google": "^0.2.6",
