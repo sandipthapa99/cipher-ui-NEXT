@@ -89,6 +89,7 @@ const SearchResultsDetail = ({
         ["all-services"],
         urls.task.service
     );
+    const parsedDescription = parse(serviceDescription ?? "");
     const { data: myServicePackage } = useData<{
         result: Array<{
             id: number;
@@ -556,9 +557,7 @@ const SearchResultsDetail = ({
 
                 <div className="task-detail__desc">
                     <h3>Description</h3>
-                    {serviceDescription && (
-                        <div>{parse(serviceDescription ?? "")}</div>
-                    )}
+                    {parsedDescription}
                 </div>
 
                 <h3>Requirements</h3>
