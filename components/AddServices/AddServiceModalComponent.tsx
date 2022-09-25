@@ -1,5 +1,6 @@
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
+import { RichText } from "@components/RichText";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
@@ -40,11 +41,12 @@ import {
 import { useToggleSuccessModal } from "store/use-success-modal";
 import { ReactQueryKeys } from "types/queryKeys";
 import type { ITask } from "types/task";
+import { safeParse } from "utils/safeParse";
 
 export interface PostTaskPayload {
     title: string;
     description: string;
-    highlights: Record<string, string>;
+    highlights: string[];
     service: string;
     city: string;
     location: TaskType;
@@ -90,11 +92,15 @@ export const AddServiceModalComponent = () => {
 
     const createServiceLoading = createTaskLoading || uploadFileLoading;
 
+    const initialHighlights = safeParse({
+        rawString: taskDetail?.highlights ?? "",
+        initialData: [],
+    });
     const formik = useFormik<PostTaskPayload>({
         initialValues: {
             title: taskDetail ? taskDetail.title : "",
             description: taskDetail ? taskDetail.description : "",
-            highlights: taskDetail ? taskDetail.highlights : {},
+            highlights: initialHighlights,
             city: "",
             location: "remote",
             budget_type: BudgetType.FIXED,
@@ -135,6 +141,7 @@ export const AddServiceModalComponent = () => {
             });
             const postTaskPayload = {
                 ...values,
+                highlights: JSON.stringify(values.highlights),
                 images: imageIds,
                 videos: videoIds,
                 extra_data: [],
@@ -190,16 +197,16 @@ export const AddServiceModalComponent = () => {
                         {...getFieldProps("title")}
                         error={getFieldError("title")}
                     />
-                    <Textarea
-                        label="Service Description"
-                        placeholder="Enter your description"
-                        minRows={5}
-                        required
+                    <RichText
                         {...getFieldProps("description")}
-                        error={getFieldError("description")}
+                        value={values?.description ?? ""}
+                        onChange={(value) =>
+                            setFieldValue("description", value)
+                        }
+                        placeholder="Enter your description"
                     />
                     <TaskRequirements
-                        initialRequirements={taskDetail?.highlights ?? {}}
+                        initialRequirements={initialHighlights}
                         onRequirementsChange={(requirements) =>
                             setFieldValue("highlights", requirements)
                         }

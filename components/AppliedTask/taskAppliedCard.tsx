@@ -39,11 +39,12 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
     } = task;
 
     const { data: taskApplicants } = useData<TaskerCount>(
-        ["get-task-applicants"],
-        `${urls.task.taskApplicants}/${taskId}`
+        ["get-task-applicants", taskId],
+        `${urls.task.taskApplicantsNumber}/${taskId}`
     );
 
     const applicants_count = taskApplicants?.data.count[0].tasker_count;
+
     return (
         <div
             data-active={JSON.stringify(query === slug)}

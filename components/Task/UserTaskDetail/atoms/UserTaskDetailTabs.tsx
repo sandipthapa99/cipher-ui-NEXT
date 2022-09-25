@@ -60,7 +60,7 @@ const ServiceList = ({
                     taskerService?.result?.map((service, key) => (
                         <Carousel.Slide key={key}>
                             <ServiceCard
-                                className="border border border-secondary"
+                                className="border border border-light"
                                 serviceCard={service}
                             />
                         </Carousel.Slide>

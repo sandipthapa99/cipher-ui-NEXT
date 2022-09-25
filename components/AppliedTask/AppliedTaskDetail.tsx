@@ -31,6 +31,8 @@ import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import type { GetStaticProps } from "next";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useRef } from "react";
 import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
@@ -39,6 +41,7 @@ import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
+import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
 import { TimelineTab } from "./TimelineTab";
@@ -46,8 +49,7 @@ import { TimelineTab } from "./TimelineTab";
 const AppliedTaskDetail = ({
     type,
     taskDetail,
-}: // taskApplicants,
-{
+}: {
     type?: string;
     taskDetail: ITask;
 }) => {
@@ -60,16 +62,17 @@ const AppliedTaskDetail = ({
         (requestedTask: any) =>
             requestedTask?.entity_service.id === taskDetail.id
     );
-    const taskId = taskDetail ? requestedTask?.entity_service.id : "";
+
+    // const taskId = taskDetail ? requestedTask?.entity_service.id : "";
 
     const { data: taskApplicants } = useData<TaskerCount>(
-        ["get-task-applicants"],
-        `${urls.task.taskApplicants}/${taskId}`
+        ["get-task-applicants", taskDetail?.id],
+        `${urls.task.taskApplicantsNumber}/${taskDetail?.id}`
     );
 
     const queryClient = useQueryClient();
     const { data: user } = useUser();
-    const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>();
+    const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
     const [showModal, setShowModal] = useState(false);
     const [showInput, setShowInput] = useState(false);
 
@@ -83,6 +86,9 @@ const AppliedTaskDetail = ({
             />
         );
     };
+    // const router = useRouter();
+
+    // const slug = router?.query?.slug as string;
 
     const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
 
@@ -93,10 +99,22 @@ const AppliedTaskDetail = ({
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
+    const highlights = safeParse<string[]>({
+        rawString: taskDetail?.highlights,
+        initialData: [],
+    });
+
+    //for scroll
+
+    const ref = useRef<HTMLDivElement>(null);
+
+    const handleClick = () => {
+        ref.current?.scrollIntoView({ behavior: "smooth" });
+    };
 
     return (
         <div className="aside-detail-wrapper">
-            <div className="task-detail mb-5 p-5">
+            <div className="task-detail">
                 <GoBack
                     href={
                         type === "you may like" ? `/task-you-may-like` : `/task`
@@ -267,6 +285,7 @@ const AppliedTaskDetail = ({
 
                                     //setShowModal(false);
                                 }}
+                                handleScroll={handleClick}
                             />
                         )}
                     </Col>
@@ -327,60 +346,73 @@ const AppliedTaskDetail = ({
                         ? parse(taskDetail.description)
                         : ""}
                 </div>
-
-                <h3>Requirements</h3>
-                <div className="mt-5">
-                    {taskDetail?.highlights ? (
-                        <ServiceHighlights highlight={taskDetail?.highlights} />
-                    ) : (
-                        ""
-                    )}
-                </div>
+                {highlights.length > 0 && (
+                    <>
+                        <h3>Requirements</h3>
+                        <div className="mt-5">
+                            {taskDetail?.highlights && (
+                                <ServiceHighlights highlights={highlights} />
+                            )}
+                        </div>
+                    </>
+                )}
 
                 {/* <TeamMembersSection /> */}
-
-                <Tab
-                    activeIndex={activeTabIdx}
-                    onTabClick={setActiveTabIdx}
-                    items={[
-                        {
-                            title: `Taskers (${taskApplicants?.data.count[0].tasker_count})`,
-                            content: <TaskersTab />,
-                        },
-                        { title: "Timeline", content: <TimelineTab /> },
-                        {
-                            title: "Collaboration",
-                            content: <Collaboration />,
-                        },
-                    ]}
-                    icons={[
-                        {
-                            index: 0,
-                            type: (
-                                <FontAwesomeIcon
-                                    icon={faMagnifyingGlass}
-                                    className="svg-icon"
-                                    onClick={() => setShowInput(!showInput)}
-                                />
-                            ),
-                            iconContent: showInput ? <RenderInputBox /> : null,
-                        },
-                        {
-                            index: 1,
-                            type: (
-                                <EllipsisDropdown
-                                    showModal={true}
-                                    handleOnClick={() => setShowModal(true)}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faFilterList}
-                                        className="svg-icon"
+                <div ref={ref}>
+                    <Tab
+                        activeIndex={activeTabIdx}
+                        onTabClick={setActiveTabIdx}
+                        items={[
+                            {
+                                title: `Taskers (${
+                                    taskApplicants
+                                        ? taskApplicants?.data.count[0]
+                                              .tasker_count
+                                        : 0
+                                })`,
+                                content: (
+                                    <TaskersTab
+                                        taskId={taskDetail ? taskDetail.id : ""}
                                     />
-                                </EllipsisDropdown>
-                            ),
-                        },
-                    ]}
-                />
+                                ),
+                            },
+                            { title: "Timeline", content: <TimelineTab /> },
+                            {
+                                title: "Collaboration",
+                                content: <Collaboration />,
+                            },
+                        ]}
+                        icons={[
+                            {
+                                index: 0,
+                                type: (
+                                    <FontAwesomeIcon
+                                        icon={faMagnifyingGlass}
+                                        className="svg-icon"
+                                        onClick={() => setShowInput(!showInput)}
+                                    />
+                                ),
+                                iconContent: showInput ? (
+                                    <RenderInputBox />
+                                ) : null,
+                            },
+                            {
+                                index: 1,
+                                type: (
+                                    <EllipsisDropdown
+                                        showModal={true}
+                                        handleOnClick={() => setShowModal(true)}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faFilterList}
+                                            className="svg-icon"
+                                        />
+                                    </EllipsisDropdown>
+                                ),
+                            },
+                        ]}
+                    />
+                </div>
             </div>
         </div>
     );
@@ -395,8 +427,8 @@ export const getStaticProps: GetStaticProps = async () => {
         );
 
         const queryClient = new QueryClient();
-        await queryClient.prefetchQuery(["get-my-applicants"]);
-        await queryClient.prefetchQuery(["get-task-applicants"]);
+        queryClient.prefetchQuery(["get-my-applicants"]);
+        queryClient.prefetchQuery(["get-task-applicants"]);
 
         return {
             props: {

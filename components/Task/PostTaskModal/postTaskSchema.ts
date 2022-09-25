@@ -5,7 +5,7 @@ export const postTaskSchema = Yup.object().shape({
     description: Yup.string()
         .required("Description is required")
         .min(10, "Description must be at least 10 characters"),
-    highlights: Yup.object().required("Requirements is required"),
+    highlights: Yup.array().required("Requirements is required"),
     currency: Yup.string().required("Currency is required"),
     // category: Yup.string().required("Category is required"),
     location: Yup.string().when("taskTypeRadio", {

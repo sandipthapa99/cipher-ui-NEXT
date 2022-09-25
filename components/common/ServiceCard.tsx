@@ -104,16 +104,7 @@ const ServiceCard = ({
                 <Link href={`/service/${serviceCard?.slug}`}>
                     <a>
                         <div className="d-flex pro-title-wrapper justify-content-between">
-                            <Spoiler
-                                maxHeight={30}
-                                hideLabel={"..."}
-                                showLabel={"..."}
-                            >
-                                <h2 className="card-title">
-                                    {serviceCard?.title}
-                                </h2>
-                            </Spoiler>
-                            {/* <h2 className="card-title">{serviceCard?.title}</h2> */}
+                            <h2 className="card-title">{serviceCard?.title}</h2>
                             {serviceCard?.is_professional ? (
                                 <div className="pro-service">
                                     <p>PRO</p>
@@ -147,11 +138,17 @@ const ServiceCard = ({
                     <a>
                         <div className="card-description d-inline">
                             <Spoiler
-                                maxHeight={50}
-                                hideLabel={"..."}
+                                maxHeight={48}
+                                hideLabel={""}
                                 showLabel={"..."}
                             >
-                                <p>{parse(serviceCard?.description)}</p>
+                                <p>
+                                    {parse(
+                                        serviceCard?.description
+                                            ? serviceCard?.description
+                                            : "No description for this service avialble"
+                                    )}
+                                </p>
                             </Spoiler>
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
@@ -160,8 +157,7 @@ const ServiceCard = ({
                                     icon={faStar}
                                     className="svg-icon star"
                                 />
-                                {/* {serviceCard?.happy_clients} */}
-                                TOBE_IMP
+                                {/* {serviceCard?.happy_clients} */}0
                             </p>
                             <p className="price">
                                 {serviceCard?.currency?.symbol + " "}

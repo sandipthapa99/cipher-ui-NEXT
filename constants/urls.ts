@@ -16,13 +16,14 @@ const urls = {
     },
     task: {
         list: taskPath,
+        myBookings: `${myBookings}?is_requested=false`,
         service: `${taskPath}?is_requested=false`,
         service_per_user: `${taskPath}?is_requested=false&user=`,
         task: `${taskPath}?is_requested=true`,
         my_task: `${tasks}?is_requested=true`,
         requested_task: `${myBookings}?is_requested=true`,
-        my_applicants: `${bookings}?is_active=true&is_requested=true`,
-        taskApplicants: `${tasks}tasker-count`,
+        my_applicants: `${bookings}`,
+        taskApplicantsNumber: `${tasks}tasker-count`,
         approvedTaskList: `${tasks}task/list`,
         application: "/task/application",
         cancelApplication: `task/entity/service-booking/cancel`,
@@ -39,6 +40,7 @@ const urls = {
         experience: `${taskerPath}experience/`,
         certifications: `${taskerPath}certification/`,
         rating: `/task/rating`,
+        my_bookings: `/task/entity/service-mybooking/?is_requested=false`,
     },
     tasker: {
         list: taskerPath,
@@ -57,6 +59,8 @@ const urls = {
         localePath,
         city: `${localePath}city/options?search=`,
     },
+    trusted_partners: "/landingpage/trusted-partner/",
+    hero_category: "/task/hero-category/",
 };
 
 export default urls;
