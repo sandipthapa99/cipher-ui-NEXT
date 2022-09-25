@@ -24,8 +24,8 @@ export interface TaskRequiremnt {
     title: string;
 }
 export interface TaskRequirementsProps extends TextInputProps {
-    initialRequirements: Record<string, string>;
-    onRequirementsChange: (requirements: Record<string, string>) => void;
+    initialRequirements: string[];
+    onRequirementsChange: (requirements: string[]) => void;
     labelName: string;
     description: string;
 }
@@ -37,7 +37,7 @@ export const TaskRequirements = ({
     ...rest
 }: TaskRequirementsProps) => {
     const { classes } = useStyles();
-    const [requirements, setRequirements] = useState<Record<string, string>>(
+    const [requirements, setRequirements] = useState<string[]>(
         () => initialRequirements
     );
     const [newRequirement, setNewRequirement] = useState("");
@@ -50,34 +50,23 @@ export const TaskRequirements = ({
 
     const handleAddRequirement = () => {
         if (!newRequirement) return;
-        const requirementAlreadyExist = Object.values(requirements).some(
+        const requirementAlreadyExist = requirements.find(
             (requirement) => requirement === newRequirement
         );
         if (requirementAlreadyExist) {
             setNewRequirement("");
             return;
         }
-
-        setRequirements((currentRequirements) => {
-            const newRequirements = {
-                ...currentRequirements,
-                [Object.keys(currentRequirements).length + 1]: newRequirement,
-            };
-            setNewRequirement("");
-            return newRequirements;
-        });
+        setRequirements((previousRequirements) => [
+            newRequirement,
+            ...previousRequirements,
+        ]);
+        setNewRequirement("");
     };
-    const handleRemoveRequirement = (id: string) => {
-        setRequirements((currentRequirements) => {
-            const updatedRequirements = Object.entries(
-                currentRequirements
-            ).reduce((acc, curr) => {
-                const [key, value] = curr;
-                if (key != id) acc[key] = value;
-                return acc;
-            }, {} as Record<string, string>);
-            return updatedRequirements;
-        });
+    const handleRemoveRequirement = (name: string) => {
+        setRequirements((previousRequirements) =>
+            previousRequirements.filter((requirement) => requirement !== name)
+        );
     };
     useEffect(() => {
         onRequirementsChange(requirements);
@@ -85,13 +74,15 @@ export const TaskRequirements = ({
     }, [requirements]);
 
     const renderRequirements = () => {
-        return Object.entries(requirements).map(([id, title]) => (
-            <li className={classes.listItem} key={id}>
+        return requirements.map((requirement, index) => (
+            <li className={classes.listItem} key={index}>
                 <ActionIcon>
                     <FontAwesomeIcon icon={faCheck} color="#3EAEFF" />
                 </ActionIcon>
-                <Text className={classes.listItemTitle}>{title}</Text>
-                <ActionIcon onClick={() => handleRemoveRequirement(id)}>
+                <Text className={classes.listItemTitle}>{requirement}</Text>
+                <ActionIcon
+                    onClick={() => handleRemoveRequirement(requirement)}
+                >
                     <FontAwesomeIcon icon={faXmark} color="#CED4DA" />
                 </ActionIcon>
             </li>

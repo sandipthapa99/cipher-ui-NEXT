@@ -32,6 +32,7 @@ import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { ServicesValueProps } from "types/serviceCard";
+import { safeParse } from "utils/safeParse";
 
 interface EditServiceProps {
     showEditModal: boolean;
@@ -42,7 +43,7 @@ interface EditServiceProps {
 export interface EditServicePayload {
     title: string;
     description: string;
-    highlights: Record<string, string>;
+    highlights: string[];
     service: string;
     city: string;
     location: TaskType;
@@ -100,11 +101,16 @@ export const EditService = ({
 
     const loading = editServiceLoading || uploadFileLoading;
 
+    const initialHighlights = safeParse<string[]>({
+        rawString: serviceDetail?.highlights ?? "",
+        initialData: [],
+    });
+
     const formik = useFormik<EditServicePayload>({
         initialValues: {
             title: serviceDetail?.title ?? "",
             description: serviceDetail?.description ?? "",
-            highlights: serviceDetail?.highlights ?? {},
+            highlights: initialHighlights,
             city: serviceDetail?.city?.id ?? "",
             location: (serviceDetail?.location as TaskType) ?? "remote",
             budget_type:
@@ -206,9 +212,7 @@ export const EditService = ({
                             error={getFieldError("description")}
                         />
                         <TaskRequirements
-                            initialRequirements={
-                                serviceDetail?.highlights ?? {}
-                            }
+                            initialRequirements={initialHighlights}
                             onRequirementsChange={(requirements) =>
                                 setFieldValue("highlights", requirements)
                             }

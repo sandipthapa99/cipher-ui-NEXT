@@ -57,7 +57,7 @@ export interface ServicesValueProps {
         deleted_at: any;
         title: string;
         description: string;
-        highlights: Record<string, string>;
+        highlights: string;
         budget_type: string;
         budget_from: number;
         budget_to: any;

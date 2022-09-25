@@ -577,7 +577,7 @@ const SearchResultsDetail = ({
                 )}
                 {highlights && (
                     <div className="mt-5">
-                        <ServiceHighlights highlight={highlights} />
+                        <ServiceHighlights highlights={highlights} />
                     </div>
                 )}
                 <section
