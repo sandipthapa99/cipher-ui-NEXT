@@ -50,7 +50,6 @@ export const useSearchDashboard = () => {
         const services = data.result
             .filter((item) => item.c_type === "task.EntityService")
             .map((item) => item.result);
-        console.log("🚀 ~ file: index.tsx ~ line 53 ~ > ~ services", services);
         return { taskers, services };
         // return data.result;
     });
@@ -93,6 +92,10 @@ export const Search = () => {
                     }
                     if (taskers.length > 0) {
                         setSearchedTaskers(taskers);
+                        console.log(
+                            "🚀 ~ file: index.tsx ~ line 95 ~ Search ~ taskers",
+                            taskers
+                        );
                         setSearchQuery({
                             context: "tasker.Profile",
                             query: values.q,
