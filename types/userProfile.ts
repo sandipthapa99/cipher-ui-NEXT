@@ -68,7 +68,15 @@ export interface UserProfileInfoProps {
         task_in_progress: number;
         task_cancelled: number;
     };
-    country: string;
+    country: {
+<<<<<<< types/userProfile.ts
+        name: string;
+        id: number;
+=======
+        id: number;
+        name?: string;
+>>>>>>> types/userProfile.ts
+    };
     key: number;
     points: number;
     profile_image: string;
