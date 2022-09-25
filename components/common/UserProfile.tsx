@@ -60,7 +60,7 @@ const UserProfileCard = ({
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
-    const { data: countryData } = useGetCountryBYId(country);
+    const { data: countryData } = useGetCountryBYId(country?.name);
     const [image, setImage] = useState();
     const services = skill ? JSON.parse(skill) : [];
     const queryClient = useQueryClient();
@@ -327,10 +327,7 @@ const UserProfileCard = ({
                                         className="thumbnail-img"
                                     />
 
-                                    <p>
-                                        {address_line1}, {address_line2},{" "}
-                                        {country}
-                                    </p>
+                                    <p>{address_line2}</p>
                                 </div>
 
                                 <div className="type d-flex flex-col">
