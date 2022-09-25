@@ -91,7 +91,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                         <UserProfileCard
                             user={profileDetails?.user}
                             stats={profileDetails?.stats}
-                            country={profileDetails?.country}
+                            country={profileDetails?.country?.name}
                             key={profileDetails?.id}
                             points={profileDetails?.points}
                             profile_image={

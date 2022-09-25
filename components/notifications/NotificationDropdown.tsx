@@ -51,6 +51,7 @@ export const NotificationDropdown = () => {
 
         refetch();
     };
+    console.log("today", todayNotifications);
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification: any, index: number) => {
@@ -173,7 +174,7 @@ export const NotificationDropdown = () => {
                         }
                     >
                         <ApproveNotification
-                            bookingId={notification?.id}
+                            bookingId={notification?.object_id}
                             title="booked"
                             body={notification?.object}
                             user={notification?.created_for}

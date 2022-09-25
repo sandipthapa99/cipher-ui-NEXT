@@ -220,6 +220,10 @@ export const MyBookingsCard = ({
                                         queryClient.invalidateQueries([
                                             "get-my-bookings",
                                         ]);
+                                        queryClient.invalidateQueries([
+                                            "booking",
+                                            bookingId,
+                                        ]);
                                     },
                                     onError: (error: any) => {
                                         console.log(error);
