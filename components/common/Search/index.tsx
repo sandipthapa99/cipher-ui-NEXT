@@ -17,7 +17,7 @@ import {
     useSetSearchQuery,
 } from "./searchStore";
 
-export type SearchContext = "tasker.Profile" | "task.Service";
+export type SearchContext = "tasker.Profile" | "task.EntityService";
 export enum SearchScope {
     ALL = "all",
     TALENT = "talent",
@@ -48,8 +48,9 @@ export const useSearchDashboard = () => {
             .filter((item) => item.c_type === "tasker.Profile")
             .map((item) => item.result) as ITasker[];
         const services = data.result
-            .filter((item) => item.c_type === "task.Service")
+            .filter((item) => item.c_type === "task.EntityService")
             .map((item) => item.result);
+        console.log("🚀 ~ file: index.tsx ~ line 53 ~ > ~ services", services);
         return { taskers, services };
         // return data.result;
     });
@@ -101,7 +102,7 @@ export const Search = () => {
                     }
                     if (services.length > 0) {
                         setSearchQuery({
-                            context: "task.Service",
+                            context: "task.EntityService",
                             query: values.q,
                         });
                         setSearchedServices(services);
