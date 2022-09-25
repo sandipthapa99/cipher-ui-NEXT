@@ -60,7 +60,7 @@ const UserProfileCard = ({
 }: UserProfileInfoProps) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false);
-    const { data: countryData } = useGetCountryBYId(country);
+    const { data: countryData } = useGetCountryBYId(country.id);
     const [image, setImage] = useState();
     const services = skill ? JSON.parse(skill) : [];
     const queryClient = useQueryClient();
@@ -329,7 +329,7 @@ const UserProfileCard = ({
 
                                     <p>
                                         {address_line1}, {address_line2},{" "}
-                                        {country}
+                                        {country.name}
                                     </p>
                                 </div>
 
