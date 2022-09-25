@@ -83,21 +83,17 @@ const Login = () => {
                                     toast.error(error.message);
                                 },
                                 onSuccess: () => {
-                                    const { next } = router.query;
-                                    console.log(
-                                        "🚀 ~ file: login.tsx ~ line 87 ~ Login ~ next",
-                                        next
-                                    );
+                                    // const { next } = router.query;
                                     toast.success("Login Successful!");
-                                    if (profile) {
-                                        router.push(
-                                            next && typeof next === "string"
-                                                ? next
-                                                : "/home"
-                                        );
-                                        return;
-                                    }
-                                    router.push("/settings/account/individual");
+                                    // if (profile) {
+                                    //     router.push(
+                                    //         next && typeof next === "string"
+                                    //             ? next
+                                    //             : "/home"
+                                    //     );
+                                    //     return;
+                                    // }
+                                    router.push("/home");
                                 },
                             });
                         }}
