@@ -30,7 +30,7 @@ const Home: NextPage = () => {
                         <WelcomeUser />
                     </Container>
                 </div>
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-3 px-sm-5">
                     <ApplyPost />
 
                     <div className="post-task__discount-card">
