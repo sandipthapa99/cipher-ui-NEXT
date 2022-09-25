@@ -16,26 +16,27 @@ import type {
     BankNamesResult,
     UserBankDetails,
 } from "types/bankDetail";
-import { BankFormData } from "utils/formData";
+// import { BankFormData } from "utils/formData";
 import { bankFormSchema } from "utils/formValidation/bankDetailsValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 interface editProps {
     id?: number;
+    bankDetail?: any;
     isEdit?: boolean;
 }
-const BankForm = ({ id, isEdit }: editProps) => {
+const BankForm = ({ id, isEdit, bankDetail }: editProps) => {
     const { mutate } = useForm(`/tasker/bank-details/`);
 
     const [bankId, setBankId] = useState<string>(
-        isEdit ? id?.toString() || "" : ""
+        isEdit ? bankDetail.bank_name.id?.toString() || "" : ""
     );
 
     useEffect(() => {
         if (id) {
-            setBankId(id.toString());
+            setBankId(bankDetail.bank_name.id.toString());
         }
-    }, [bankId, id, setBankId]);
+    }, [bankDetail?.bank_name.id, id, setBankId]);
 
     const queryClient = useQueryClient();
     const [isBankChanged, setIsBankChanged] = useState(false);
@@ -94,6 +95,7 @@ const BankForm = ({ id, isEdit }: editProps) => {
         ["tasker-bank-account"],
         "/tasker/bank-details/"
     );
+
     const LinkedBank = BankDetails?.data.result;
 
     const editDetails = LinkedBank?.find((bank) => bank.id === id);
@@ -109,6 +111,15 @@ const BankForm = ({ id, isEdit }: editProps) => {
     const { mutate: editBankDetail } = useEditForm(
         `/tasker/bank-details/${id}/`
     );
+    const [changeBranch, setChangeBranch] = useState(
+        editBranchId ? editBranchId?.value : ""
+    );
+
+    useEffect(() => {
+        setChangeBranch(
+            changeBranch ? changeBranch : editBranchId?.value ?? ""
+        );
+    }, [changeBranch, editBranchId?.value]);
 
     const accname = editDetails?.bank_account_name;
     const accnumber = editDetails?.bank_account_number;
@@ -126,10 +137,20 @@ const BankForm = ({ id, isEdit }: editProps) => {
                                   editBankId && parseInt(editBankId?.value),
 
                               branch_name:
-                                  editBranchId && parseInt(editBranchId?.value),
+                                  editBranchId && parseInt(changeBranch),
                               is_primary: editDetails.is_primary,
                           }
-                        : BankFormData
+                        : {
+                              bank_account_name: "",
+                              branch_name: bankBranchResults
+                                  ? bankBranchResults[0]?.value
+                                  : "",
+                              bank_name: bankNamesResults
+                                  ? bankNamesResults[0]?.value
+                                  : "",
+                              bank_account_number: "",
+                              is_primary: false,
+                          }
                 }
                 validationSchema={bankFormSchema}
                 onSubmit={async (values: any, actions: any) => {
@@ -181,7 +202,7 @@ const BankForm = ({ id, isEdit }: editProps) => {
                         <Select
                             label="Bank Name"
                             placeholder={"Select Bank"}
-                            name="ban_name"
+                            name="bank_name"
                             searchable
                             nothingFound="No result found."
                             value={
@@ -202,15 +223,22 @@ const BankForm = ({ id, isEdit }: editProps) => {
                             searchable
                             placeholder={"Select Branch"}
                             nothingFound="No result found."
-                            value={
-                                editDetails && editBranchId
-                                    ? editBranchId.value
-                                    : !isBankChanged
-                                    ? bankBranchResults[0]?.value
-                                    : branchNameChange
-                            }
+                            key={changeBranch}
+                            // value={
+                            //     editDetails && editBranchId
+                            //         ? editBranchId.value
+                            //         : !isBankChanged
+                            //         ? bankBranchResults[0]?.value
+                            //         : branchNameChange
+                            // }
+                            value={changeBranch}
                             required
                             onChange={(value) => {
+                                console.log(
+                                    "🚀 ~ file: AddBankForm.tsx ~ line 248 ~ BankForm ~ value",
+                                    value
+                                );
+                                setChangeBranch(value ? value : "");
                                 handleBranchNameChanged(value, setFieldValue);
                                 setIsBankChanged(true);
                             }}

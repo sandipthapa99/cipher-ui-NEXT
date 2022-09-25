@@ -194,7 +194,8 @@ export const SearchCategory = ({
                     onChange={handleSearchChange}
                 />
             </Col>
-            <Col md={8}>
+
+            <Col md={8} className="filter">
                 <Box
                     className={
                         classes.categoriesContainer + " " + "box-modifier"

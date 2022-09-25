@@ -69,8 +69,13 @@ export interface UserProfileInfoProps {
         task_cancelled: number;
     };
     country: {
+<<<<<<< types/userProfile.ts
+        name: string;
+        id: number;
+=======
         id: number;
         name?: string;
+>>>>>>> types/userProfile.ts
     };
     key: number;
     points: number;

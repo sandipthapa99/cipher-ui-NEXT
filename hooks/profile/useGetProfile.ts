@@ -50,7 +50,10 @@ export type ProfileResponse = {
         id: number;
         name: string;
     };
-    language: string;
+    language: {
+        id: number;
+        name: string;
+    };
     status: string;
     bio: string;
     gender: string;
