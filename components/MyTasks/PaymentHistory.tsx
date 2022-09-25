@@ -1,6 +1,4 @@
-import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import {
-    faEllipsis,
     faEllipsisVertical,
     faFilter,
     faPrint,
@@ -17,7 +15,6 @@ import {
     Table,
     TextInput,
 } from "@mantine/core";
-import type { DateRangePickerValue } from "@mantine/dates";
 import { DateRangePicker } from "@mantine/dates";
 import { useState } from "react";
 
