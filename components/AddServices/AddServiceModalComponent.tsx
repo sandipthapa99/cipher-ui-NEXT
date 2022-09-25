@@ -1,5 +1,6 @@
 import BigButton from "@components/common/Button";
 import { CustomDropZone } from "@components/common/CustomDropZone";
+import { RichText } from "@components/RichText";
 import { postTaskSchema } from "@components/Task/PostTaskModal/postTaskSchema";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
@@ -196,13 +197,13 @@ export const AddServiceModalComponent = () => {
                         {...getFieldProps("title")}
                         error={getFieldError("title")}
                     />
-                    <Textarea
-                        label="Service Description"
-                        placeholder="Enter your description"
-                        minRows={5}
-                        required
+                    <RichText
                         {...getFieldProps("description")}
-                        error={getFieldError("description")}
+                        value={values?.description ?? ""}
+                        onChange={(value) =>
+                            setFieldValue("description", value)
+                        }
+                        placeholder="Enter your description"
                     />
                     <TaskRequirements
                         initialRequirements={initialHighlights}
