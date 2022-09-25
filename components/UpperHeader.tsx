@@ -107,14 +107,14 @@ export function UpperHeader() {
                                 </li>
                             </div>
                         </div>
-                        {checkPageForHeader && (
+                        {/* {checkPageForHeader && (
                             <div className="upper-navigation__center d-none d-md-block">
                                 <div className="search-input d-md-flex">
-                                    {/* <Form.Control
+                                     <Form.Control
                                         placeholder="Find your Services"
                                         aria-label="Find your Services &amp; Taskers"
                                         aria-describedby="basic-addon2"
-                                    /> */}
+                                    />
                                     <Button
                                         className="search-btn"
                                         id="button-addon2"
@@ -126,7 +126,7 @@ export function UpperHeader() {
                                     </Button>
                                 </div>
                             </div>
-                        )}
+                        )} */}
                         <div className="upper-navigation__right d-flex">
                             {!user && (
                                 <>
