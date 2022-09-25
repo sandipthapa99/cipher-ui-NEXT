@@ -75,9 +75,9 @@ export function UpperHeader() {
                                 <a>
                                     <Navbar.Brand>
                                         <Image
-                                            src="/logo/logo.svg"
+                                            src="/logo/homaale.png"
                                             alt="Logo"
-                                            width={95}
+                                            width={164}
                                             height={48}
                                             priority
                                         />
@@ -110,11 +110,11 @@ export function UpperHeader() {
                         {checkPageForHeader && (
                             <div className="upper-navigation__center d-none d-md-block">
                                 <div className="search-input d-md-flex">
-                                    <Form.Control
+                                    {/* <Form.Control
                                         placeholder="Find your Services"
                                         aria-label="Find your Services &amp; Taskers"
                                         aria-describedby="basic-addon2"
-                                    />
+                                    /> */}
                                     <Button
                                         className="search-btn"
                                         id="button-addon2"
