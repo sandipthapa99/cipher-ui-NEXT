@@ -7,7 +7,9 @@ import localforage from "localforage";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import {
+    useClearPausedFunction,
     useHideLoginPrompt,
+    usePausedFunction,
     useShowLoginPrompt,
 } from "store/use-login-prompt-store";
 
@@ -18,6 +20,8 @@ export const LoginPrompt = () => {
     const { mutate: loginMutation, isLoading } = useLogin();
     const showLoginPrompt = useShowLoginPrompt();
     const hideLoginPrompt = useHideLoginPrompt();
+    const pausedFunction = usePausedFunction();
+    const clearPausedFunction = useClearPausedFunction();
 
     const router = useRouter();
 
@@ -47,6 +51,10 @@ export const LoginPrompt = () => {
                         {
                             onSuccess: () => {
                                 hideLoginPrompt();
+                                if (pausedFunction) {
+                                    pausedFunction();
+                                    clearPausedFunction();
+                                }
                             },
                         }
                     );
