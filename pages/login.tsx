@@ -84,6 +84,10 @@ const Login = () => {
                                 },
                                 onSuccess: () => {
                                     const { next } = router.query;
+                                    console.log(
+                                        "🚀 ~ file: login.tsx ~ line 87 ~ Login ~ next",
+                                        next
+                                    );
                                     toast.success("Login Successful!");
                                     if (profile) {
                                         router.push(

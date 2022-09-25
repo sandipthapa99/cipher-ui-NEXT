@@ -86,7 +86,7 @@ export const MyBookings = () => {
                     ))
                 ) : (
                     <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                        Sorrry, You have no booking data to show
+                        Sorry, You have no booking to show.
                     </Alert>
                 )}
             </div>

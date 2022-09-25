@@ -41,6 +41,7 @@ import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
+import { safeParse } from "utils/safeParse";
 
 import { TaskersTab } from "./TaskersTab";
 import { TimelineTab } from "./TimelineTab";
@@ -98,6 +99,10 @@ const AppliedTaskDetail = ({
         ...(taskDetail?.videos ?? []),
     ];
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
+    const highlights = safeParse<string[]>({
+        rawString: taskDetail?.highlights,
+        initialData: [],
+    });
 
     //for scroll
 
@@ -109,7 +114,7 @@ const AppliedTaskDetail = ({
 
     return (
         <div className="aside-detail-wrapper">
-            <div className="task-detail mb-5 p-5">
+            <div className="task-detail">
                 <GoBack
                     href={
                         type === "you may like" ? `/task-you-may-like` : `/task`
@@ -341,15 +346,16 @@ const AppliedTaskDetail = ({
                         ? parse(taskDetail.description)
                         : ""}
                 </div>
-
-                <h3>Requirements</h3>
-                <div className="mt-5">
-                    {taskDetail?.highlights ? (
-                        <ServiceHighlights highlight={taskDetail?.highlights} />
-                    ) : (
-                        ""
-                    )}
-                </div>
+                {highlights.length > 0 && (
+                    <>
+                        <h3>Requirements</h3>
+                        <div className="mt-5">
+                            {taskDetail?.highlights && (
+                                <ServiceHighlights highlights={highlights} />
+                            )}
+                        </div>
+                    </>
+                )}
 
                 {/* <TeamMembersSection /> */}
                 <div ref={ref}>

@@ -70,7 +70,7 @@ export const MyTasks = () => {
                     ))
                 ) : (
                     <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                        Sorrry, You have no task data to show
+                        Sorry, You have no task data to show
                     </Alert>
                 )}
             </div>

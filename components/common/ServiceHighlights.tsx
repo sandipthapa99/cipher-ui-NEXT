@@ -2,15 +2,13 @@ import { faCheck } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment } from "react";
 
-const ServiceHighlights = ({
-    highlight,
-}: // isChecked,
-{
-    highlight: Record<string, string>;
-}) => {
+interface ServiceHighlightsProps {
+    highlights: string[];
+}
+const ServiceHighlights = ({ highlights = [] }: ServiceHighlightsProps) => {
     return (
         <>
-            {Object.values(highlight).map((value, key) => (
+            {highlights.map((value, key) => (
                 <p className="mb-4" key={key}>
                     <FontAwesomeIcon
                         icon={faCheck}
