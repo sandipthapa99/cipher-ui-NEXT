@@ -111,7 +111,10 @@ const ServiceNearYouCard = ({
                             <h1 className="price">
                                 {currency + " "}
                                 {budget_to}
-                                {budget_from !== 0 && " - " + budget_from}
+                                {(budget_from !== 0 && budget_from) ??
+                                " - " + (budget_from !== 0 && budget_from)
+                                    ? budget_from
+                                    : ""}
                                 {budget_type === "Hourly"
                                     ? "/hr"
                                     : budget_type === "Monthly"

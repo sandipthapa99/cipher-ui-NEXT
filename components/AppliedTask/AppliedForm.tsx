@@ -105,12 +105,17 @@ const AppliedForm = ({
                                     toast.success(
                                         "You have successfully applied for task"
                                     );
-
+                                    queryClient.invalidateQueries([
+                                        "get-my-applicants",
+                                    ]);
                                     queryClient.invalidateQueries([
                                         "my-requested-task",
                                     ]);
                                     queryClient.invalidateQueries([
                                         "get-task-applicants",
+                                    ]);
+                                    queryClient.invalidateQueries([
+                                        "approved-task",
                                     ]);
                                     //toggleSuccessModal();
                                     setShow(false);

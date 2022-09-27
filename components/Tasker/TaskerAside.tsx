@@ -59,9 +59,12 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                     distance={"2 km"}
                     bio={tasker?.bio}
                     charge={
-                        tasker?.charge_currency
-                            ? `${tasker?.charge_currency.symbol} ${tasker?.hourly_rate}`
-                            : `N/A`
+                        `${
+                            tasker?.charge_currency.symbol
+                                ? tasker?.charge_currency.symbol
+                                : ""
+                        }` +
+                        ` ${tasker?.hourly_rate ? tasker?.hourly_rate : ""}`
                     }
                 />
             </div>
