@@ -174,7 +174,10 @@ const SearchResultsDetail = ({
 
     const [editModal, setEditModal] = useState(false);
 
-    const isServiceBookmarked = useIsBookmarked("service", String(serviceId));
+    const isServiceBookmarked = useIsBookmarked(
+        "entityservice",
+        String(serviceId)
+    );
 
     const isUserService = user ? serviceProviderId === user?.id : false;
 
@@ -311,7 +314,7 @@ const SearchResultsDetail = ({
                             <div className="d-flex flex-col align-items-center">
                                 <SaveIcon
                                     object_id={String(serviceId)}
-                                    model={"service"}
+                                    model={"entityservice"}
                                     showText
                                     filled={isServiceBookmarked}
                                     onSuccess={() =>

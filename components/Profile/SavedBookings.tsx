@@ -1,14 +1,19 @@
 import MerchantCard from "@components/common/MerchantCard";
 import ServiceCard from "@components/common/ServiceCard";
 import TaskCard from "@components/common/TaskCard";
-import { UserTaskCard } from "@components/Task/UserTaskCard/UserTaskCard";
 import { useBookmarks } from "hooks/use-bookmarks";
 import { Col, Row } from "react-bootstrap";
 
 const SavedBookings = () => {
-    const { data: serviceBookmarks } = useBookmarks("service");
-    const { data: taskBookmarks } = useBookmarks("task");
+    const { data: serviceOrTaskBookmarks } = useBookmarks("entityservice");
     const { data: userBookmarks } = useBookmarks("user");
+
+    const serviceBookmarks = serviceOrTaskBookmarks.filter(
+        (bookmark) => !bookmark.is_requested
+    );
+    const taskBookmarks = serviceOrTaskBookmarks.filter(
+        (bookmark) => bookmark.is_requested
+    );
 
     return (
         <div className="saved-bookings px-5">
