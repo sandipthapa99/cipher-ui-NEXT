@@ -888,7 +888,9 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: trustedPartnerData } = await axiosClient.get(
             urls.trusted_partners
         );
-        // const { data: heroCategoryData } = await axiosClient.get(urls.hero);
+        const { data: heroCategoryData } = await axiosClient.get(
+            urls.hero_category
+        );
         // const { data: topCategoryData } = await axiosClient.get(
         //     "/task/top-categories/"
         // );
@@ -906,7 +908,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 successStoryData,
                 trustedPartnerData,
                 // recommendedTasksData,
-                // heroCategoryData,
+                heroCategoryData,
                 topTaskerData,
                 blogData,
                 // topCategoryData,
