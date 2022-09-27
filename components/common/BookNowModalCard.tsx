@@ -2,43 +2,23 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import AddRequirements from "@components/PostTask/AddRequirements";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
-import { ServiceEntityOptions } from "@components/Task/PostTaskModal/ServiceEntityOptions";
-import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
-import { Checkbox, createStyles, LoadingOverlay } from "@mantine/core";
+import { Checkbox, LoadingOverlay } from "@mantine/core";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { AxiosError } from "axios";
-import { format } from "date-fns";
 import { Form, Formik } from "formik";
-import { useSerivceEntity } from "hooks/service/use-service-entity";
-import { useServiceOptions } from "hooks/service/use-service-options";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
 import { useUploadFile } from "hooks/use-upload-file";
 import parse from "html-react-parser";
 import { useRouter } from "next/router";
-import { useEffect, useMemo, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import type { BookNowModalCardProps } from "types/bookNow";
-import { axiosClient } from "utils/axiosClient";
 import { BookServiceFormData } from "utils/formData";
 import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 import { CustomDropZone } from "./CustomDropZone";
-import { useStyles } from "./Search";
-
-const useUploadImage = () =>
-    useMutation<number[] | null, AxiosError, FormData>((formData) =>
-        axiosClient
-            .post<{ data: number[] }>("/task/filestore/", formData)
-            .then((res) => {
-                if (res.data.data) return res.data.data;
-                return null;
-            })
-    );
 
 // const useBookNowService = () =>
 //     useMutation<string, AxiosError, any>((payload) =>
@@ -52,40 +32,17 @@ const BookNowModalCard = ({
     budget_from,
     budget_to,
     budget_type,
-    service_id,
     description,
+    currencySymbol,
     show,
-    setShow,
     handleClose,
     entity_service_id,
 }: BookNowModalCardProps) => {
     const router = useRouter();
-    const queryClient = useQueryClient();
-    const { classes } = useStyles();
     const { mutateAsync, isLoading: uploadPhotoLoading } = useUploadFile();
     const { mutate, isLoading: bookNowLoading } = useBookNowTask();
-    // const { mutate: bookNowServiceMutation, isLoading: bookServiceLoading } =
-    //     useBookNowService();
-    // const { mutate: uploadImageMutation, isLoading: uploadImageLoading } =
-    //     useUploadImage();
-    // const loadingOverlayVisible = useMemo(
-    //     () => bookServiceLoading || uploadImageLoading,
-    //     [bookServiceLoading, uploadImageLoading]
-    // );
-
-    // if (loadingOverlayVisible)
-    //     return (
-    //         <LoadingOverlay
-    //             visible={loadingOverlayVisible}
-    //             className={classes.overlay}
-    //             overlayBlur={2}
-    //         />
-    //     );
     const isBookLoading = uploadPhotoLoading || bookNowLoading;
 
-    const [serviceCategory, setserviceCategory] = useState("");
-
-    const useServiceEnetity = useSerivceEntity();
     const parsedDescription = parse(description ?? "");
 
     return (
@@ -114,10 +71,16 @@ const BookNowModalCard = ({
                         </div>
                         <div className="price d-flex">
                             <h4 className="title-name">
-                                Price:{" "}
+                                Price:
                                 <span>
-                                    {budget_from} {budget_to && "-" + budget_to}
-                                    {budget_type}
+                                    {currencySymbol + " "}
+                                    {budget_from ? budget_from + " - " : ""}
+                                    {budget_to}
+                                    {budget_type === "Hourly"
+                                        ? "/hr"
+                                        : budget_type === "Monthly"
+                                        ? "/mn"
+                                        : "/Project"}
                                 </span>
                             </h4>
                         </div>
@@ -153,101 +116,9 @@ const BookNowModalCard = ({
                                     toast.error(error.message);
                                 },
                             });
-
-                            // if (values.images && values.images.length > 0) {
-                            //     for (const image of values.images) {
-                            //         imageFormData.append("medias", image);
-                            //         imageFormData.append("media_type", "image");
-                            //         imageFormData.append(
-                            //             "placeholder",
-                            //             "image"
-                            //         );
-                            //     }
-
-                            //     uploadImageMutation(imageFormData, {
-                            //         onSuccess: (imageIds) => {
-                            //             const start_date = format(
-                            //                 new Date(values.start_date),
-                            //                 "yyyy-MM-dd"
-                            //             );
-                            //             const end_date = format(
-                            //                 new Date(values.end_date),
-                            //                 "yyyy-MM-dd"
-                            //             );
-
-                            //             const bookNowPayload = {
-                            //                 ...values,
-                            //                 start_date: start_date,
-                            //                 end_date: end_date,
-                            //                 service: service_id,
-                            //             };
-
-                            //             delete bookNowPayload.imagePreviewUrl;
-
-                            //             if (imageIds && imageIds?.length > 0)
-                            //                 bookNowPayload.images = imageIds;
-
-                            //             bookNowServiceMutation(bookNowPayload, {
-                            //                 onSuccess: (message) => {
-                            //                     toast.success(
-                            //                         "Successfully booked a service"
-                            //                     );
-                            //                     setShow(false);
-                            //                     queryClient.invalidateQueries([
-                            //                         "book-now",
-                            //                     ]);
-
-                            //                     router.push({
-                            //                         pathname: "task/checkout",
-                            //                     });
-                            //                 },
-                            //             });
-                            //         },
-                            //     });
-                            // } else {
-                            //     const start_date = format(
-                            //         new Date(values.start_date),
-                            //         "yyyy-MM-dd"
-                            //     );
-                            //     const end_date = format(
-                            //         new Date(values.end_date),
-                            //         "yyyy-MM-dd"
-                            //     );
-
-                            //     const bookNowPayload = {
-                            //         ...values,
-                            //         start_date: start_date,
-                            //         end_date: end_date,
-                            //         service: service_id,
-                            //     };
-
-                            //     delete bookNowPayload.imagePreviewUrl;
-
-                            //     // bookNowServiceMutation(bookNowPayload, {
-                            //     //     onSuccess: (message) => {
-                            //     //         toast.success(
-                            //     //             "Successfully booked a service"
-                            //     //         );
-                            //     //         queryClient.invalidateQueries([
-                            //     //             "book-now",
-                            //     //         ]);
-
-                            //     //         router.push({
-                            //     //             pathname: "/task/checkout",
-                            //     //         });
-                            //     //     },
-                            //     // });
-                            // }
                         }}
                     >
-                        {({
-                            isSubmitting,
-                            errors,
-                            touched,
-                            setFieldValue,
-                            values,
-                            getFieldProps,
-                        }) => (
+                        {({ isSubmitting, errors, touched, setFieldValue }) => (
                             <Form encType="multipart/formData">
                                 {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                                 <div className="problem">
@@ -294,29 +165,23 @@ const BookNowModalCard = ({
                                             />
                                         </Col>
                                     </Row>
-                                    <Row>
-                                        <Col md={6}>
-                                            <InputField
-                                                labelName="Budget From"
-                                                type="number"
-                                                name="budget_from"
-                                                error={errors.budget_from}
-                                                touch={touched.budget_from}
-                                                placeHolder="0"
-                                            />
-                                        </Col>
-                                        <Col md={6}>
-                                            <InputField
-                                                labelName="Budget To"
-                                                type="number"
-                                                name="budget_to"
-                                                error={errors.budget_to}
-                                                touch={touched.budget_to}
-                                                placeHolder="0"
-                                                fieldRequired
-                                            />
-                                        </Col>
-                                    </Row>
+                                    {!budget_from ? (
+                                        ""
+                                    ) : (
+                                        <Row>
+                                            <Col md={6}>
+                                                <InputField
+                                                    labelName="Budget To"
+                                                    type="number"
+                                                    name="budget_to"
+                                                    error={errors.budget_to}
+                                                    touch={touched.budget_to}
+                                                    placeHolder="0"
+                                                    fieldRequired
+                                                />
+                                            </Col>
+                                        </Row>
+                                    )}
                                 </div>
                                 <Row>
                                     <Col md={6} className="estimated-time">
@@ -365,18 +230,6 @@ const BookNowModalCard = ({
                                         setFieldValue("city", cityId)
                                     }
                                 />
-                                {/* <ServiceEntityOptions
-                                    {...getFieldProps("entity_service")}
-                                    onServiceChange={(service) => {
-                                        setFieldValue(
-                                            "entity_service",
-                                            service
-                                        );
-                                        setserviceCategory(service);
-                                    }}
-                                    error={errors.entity_service}
-                                    value={serviceCategory}
-                                /> */}
 
                                 <div className="book-now-gallery">
                                     <h4>Gallery</h4>
@@ -396,26 +249,6 @@ const BookNowModalCard = ({
                                                     )
                                                 }
                                             />
-                                            {/* <DragDrop
-                                                name="gallery"
-                                                image="/service-details/file-upload.svg"
-                                                fileType="Image/Video"
-                                                maxImageSize={20}
-                                                field={setFieldValue}
-                                            /> */}
-
-                                            {/* <MultiImageDropzone
-                                                name="images"
-                                                labelName="Upload your image"
-                                                textMuted="More than 5 image are not allowed to upload. File supported: .jpeg, .jpg, .png. Maximum size 1MB."
-                                                imagePreview="imagePreviewUrl"
-                                                maxFiles={5}
-                                                multiple
-                                                maxSize={200}
-                                                minSize={20}
-                                                showFileDetail
-                                                type="Image/Video"
-                                            /> */}
                                         </Col>
                                     </Row>
                                     <Row className="mt-4">
