@@ -56,7 +56,10 @@ const ServiceCard = ({
         setShowEditModal(false);
     };
     const queryClient = useQueryClient();
-    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.id);
+    const isServiceBookmarked = useIsBookmarked(
+        "entityservice",
+        serviceCard?.id
+    );
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
@@ -137,19 +140,19 @@ const ServiceCard = ({
                 <Link href={`/service/${serviceCard?.slug}`}>
                     <a>
                         <div className="card-description d-inline">
-                            <Spoiler
+                            {/*<Spoiler
                                 maxHeight={48}
                                 hideLabel={""}
                                 showLabel={"..."}
-                            >
-                                <p>
-                                    {parse(
-                                        serviceCard?.description
-                                            ? serviceCard?.description
-                                            : "No description for this service avialble"
-                                    )}
-                                </p>
-                            </Spoiler>
+                            >*/}
+                            <p>
+                                {parse(
+                                    serviceCard?.description
+                                        ? serviceCard?.description
+                                        : "No description for this service avialble"
+                                )}
+                            </p>
+                            {/*</Spoiler>*/}
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
@@ -180,7 +183,7 @@ const ServiceCard = ({
                         ) : (
                             <SaveIcon
                                 object_id={serviceCard?.id}
-                                model={"service"}
+                                model={"entityservice"}
                                 filled={isServiceBookmarked}
                                 onSuccess={() =>
                                     queryClient.invalidateQueries([
@@ -214,6 +217,7 @@ const ServiceCard = ({
             </div>
 
             <ModalCard
+                entity_service_id={serviceCard?.id}
                 title={serviceCard?.title}
                 budget_from={serviceCard?.budget_from}
                 budget_to={serviceCard?.budget_to}

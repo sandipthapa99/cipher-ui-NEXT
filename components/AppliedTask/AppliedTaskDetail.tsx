@@ -90,7 +90,7 @@ const AppliedTaskDetail = ({
 
     // const slug = router?.query?.slug as string;
 
-    const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
+    const isTaskBookmarked = useIsBookmarked("entityservice", taskDetail?.id);
 
     const isUserTask = user ? taskDetail?.created_by?.id === user?.id : false;
 
@@ -134,7 +134,7 @@ const AppliedTaskDetail = ({
                             {isUserTask ? null : (
                                 <SaveIcon
                                     object_id={taskDetail?.id}
-                                    model="task"
+                                    model="entityservice"
                                     filled={isTaskBookmarked}
                                     showText
                                     onSuccess={() =>
@@ -148,7 +148,7 @@ const AppliedTaskDetail = ({
                             <button className="btn d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
                                     url={getPageUrl()}
-                                    quote={"This is the task from cipher"}
+                                    quote={"This is the task from Homaale"}
                                     hashtag={"cipher-task"}
                                 />
                                 <span className="name">Share</span>
@@ -300,7 +300,7 @@ const AppliedTaskDetail = ({
                             {" "}
                             {taskDetail?.location
                                 ? taskDetail?.location
-                                : "Buddhanagar, Kathmandu"}
+                                : "Not Provided"}
                         </span>
                     </p>
                     {taskDetail?.created_at && (

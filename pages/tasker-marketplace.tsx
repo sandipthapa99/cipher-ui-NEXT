@@ -38,7 +38,7 @@ const TaskerMarketPlace: NextPage<{
     faqData: FAQValueProps;
 }> = ({ trustedPartnerData, faqData }) => {
     return (
-        <Layout title="Tasker Marketplace | Cipher">
+        <Layout title="Tasker Marketplace | Homaale">
             <BreadCrumb currentPage="Tasker Marketplace" />
             <section className="tasker-marketplace">
                 <Container fluid="xl" className="px-5">

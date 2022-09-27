@@ -15,6 +15,8 @@ export type NotificationResponse = {
         read_date: any;
         content: any;
         object_slug: string;
+        object_id: string;
+        created_for: string;
     }>;
     unread_count: number;
 };

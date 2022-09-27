@@ -74,8 +74,8 @@ const AppliedForm = ({
                             Price:{" "}
                             <span>
                                 {currency?.code} &nbsp;
-                                {budget_from}&nbsp;
-                                {budget_to && "-" + budget_to}&nbsp;
+                                {budget_from}
+                                {budget_to && "- " + budget_to}&nbsp;
                                 {budget_type}
                             </span>
                         </h4>
@@ -105,12 +105,17 @@ const AppliedForm = ({
                                     toast.success(
                                         "You have successfully applied for task"
                                     );
-
+                                    queryClient.invalidateQueries([
+                                        "get-my-applicants",
+                                    ]);
                                     queryClient.invalidateQueries([
                                         "my-requested-task",
                                     ]);
                                     queryClient.invalidateQueries([
                                         "get-task-applicants",
+                                    ]);
+                                    queryClient.invalidateQueries([
+                                        "approved-task",
                                     ]);
                                     //toggleSuccessModal();
                                     setShow(false);

@@ -23,6 +23,7 @@ const AddBank = () => {
     //     primaryBank
     // );
     const [primaryBankId, setPrimaryBankId] = useState<number>();
+    const [bankDetail, setBankDetail] = useState<any>();
     const [edit, setEdit] = useState(false);
     return (
         <div className="bank-details">
@@ -39,13 +40,14 @@ const AddBank = () => {
                                         className="svg-icon edit-icon"
                                         onClick={() => {
                                             setPrimaryBankId(primaryBank?.id);
+                                            setBankDetail(primaryBank);
                                             setEdit(true);
                                         }}
                                     />
                                     <div className="account-info">
                                         <figure className="thumbnail-img">
                                             <Image
-                                                src="/settings/digital-wallet/khalti.svg"
+                                                src="/settings/bank.svg"
                                                 layout="fill"
                                                 height={45}
                                                 width={45}
@@ -87,7 +89,11 @@ const AddBank = () => {
                     ""
                 )}
             </div>
-            <BankForm id={primaryBankId} isEdit={edit} />
+            <BankForm
+                id={primaryBankId}
+                isEdit={edit}
+                bankDetail={bankDetail}
+            />
         </div>
     );
 };

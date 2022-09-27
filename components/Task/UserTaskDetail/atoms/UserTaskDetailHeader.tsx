@@ -110,22 +110,28 @@ export const UserTaskDetailHeader = ({
                 </Col>
                 <Col md={4} className="d-flex flex-column">
                     <div className="td-task-detail-header-icons">
-                        <SaveIcon
-                            model="user"
-                            object_id={taskerDetail?.user?.id}
-                            filled={isBookmarked}
-                            onSuccess={() =>
-                                queryClient.invalidateQueries([
-                                    "bookmarks",
-                                    "user",
-                                ])
-                            }
-                        />
-                        <ShareIcon
-                            url={getPageUrl()}
-                            quote={"Tasker from cipher project"}
-                            hashtag={"cipher-tasker"}
-                        />
+                        <div className="btn d-flex flex-col align-items-center">
+                            <SaveIcon
+                                model="user"
+                                object_id={taskerDetail?.user?.id}
+                                filled={isBookmarked}
+                                onSuccess={() =>
+                                    queryClient.invalidateQueries([
+                                        "bookmarks",
+                                        "user",
+                                    ])
+                                }
+                            />{" "}
+                            <span className="name">Save</span>
+                        </div>
+                        <div className="btn d-flex flex-col align-items-center">
+                            <ShareIcon
+                                url={getPageUrl()}
+                                quote={"Tasker from cipher project"}
+                                hashtag={"cipher-tasker"}
+                            />
+                            <span className="name pl-2">Share</span>
+                        </div>
                         {/* <EllipsisDropdown
                             showModal={showMenu}
                             handleOnClick={() => toggleShowMenu()}

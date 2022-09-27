@@ -19,7 +19,7 @@ const Popular = () => {
             <Container fluid="xl">
                 <div className="title-wrapper d-flex justify-content-between">
                     {/* <h2 className="heading-title">Community activity</h2> */}
-                    <h2>Popular on Cipher</h2>
+                    <h2>Popular on Homaale</h2>
                     <Link href="/service">
                         <a className="view-more">
                             view more{" "}

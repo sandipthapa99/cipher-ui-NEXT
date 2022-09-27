@@ -8,6 +8,7 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
+import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import { useForm } from "hooks/use-form";
@@ -60,7 +61,7 @@ export const TeamMembersCard = ({
     isTasker,
     taskId,
 }: Props) => {
-    console.log("🚀 ~ file: TeamMembersCard.tsx ~ line 61 ~ id", id);
+    const { data: user } = useUser();
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
 
@@ -79,22 +80,13 @@ export const TeamMembersCard = ({
         ["approved-task"],
         `${urls.task.approvedTaskList}`
     );
-    const approvedTask = approvedTasks?.data.result.find(
-        (appliedTask: any) => appliedTask.assignee.id === userId
-    );
-    console.log(
-        "🚀 ~ file: TeamMembersCard.tsx ~ line 75 ~ approvedTask",
-        approvedTask
-    );
+    // const approvedTask = approvedTasks?.data.result.find(
+    //     (appliedTask: any) => appliedTask.assignee.id === userId
+    // );
 
     const { data: taskApplicants } = useData<TaskApplicantsProps>(
         ["get-my-applicants"],
         `${urls.task.my_applicants}?entity_service=${taskId}&is_requested=true`
-    );
-
-    console.log(
-        "🚀 ~ file: TeamMembersCard.tsx ~ line 86 ~ taskApplicants",
-        taskApplicants
     );
 
     const approvedTasker = taskApplicants?.data.result.find(
@@ -127,7 +119,7 @@ export const TeamMembersCard = ({
             <Link href={`/tasker/${tasker}/`}>
                 <a>
                     <div className="d-flex w-100 image-and-title">
-                        {image && (
+                        {image ? (
                             <figure className="team-member-card-image">
                                 <Image
                                     src={image}
@@ -136,20 +128,16 @@ export const TeamMembersCard = ({
                                     width={80}
                                 />
                             </figure>
+                        ) : (
+                            <figure className="team-member-card-image">
+                                <Image
+                                    src={"/userprofile/unknownPerson.jpg"}
+                                    alt="team-member-card-image"
+                                    height={80}
+                                    width={80}
+                                />
+                            </figure>
                         )}
-                        {!image ||
-                            (image.length <= 0 && (
-                                <figure className="team-member-card-image">
-                                    <Image
-                                        src={
-                                            "/placeholder/profilePlaceholder.png"
-                                        }
-                                        alt="team-member-card-image"
-                                        height={80}
-                                        width={80}
-                                    />
-                                </figure>
-                            ))}
 
                         <div className="w-100 name-post-count">
                             <div className="d-flex justify-content-between title-and-dots text-dark">
@@ -208,15 +196,20 @@ export const TeamMembersCard = ({
             </Link>
             <div className="d-flex justify-content-between footer-section">
                 <div className="d-flex share-and-like">
-                    <SaveIcon
-                        model="user"
-                        object_id={userId}
-                        filled={isBookmarked}
-                        onSuccess={() =>
-                            queryClient.invalidateQueries(["bookmarks", "user"])
-                        }
-                        className={"me-3"}
-                    />
+                    {user && user.id !== tasker ? (
+                        <SaveIcon
+                            model="user"
+                            object_id={userId}
+                            filled={isBookmarked}
+                            onSuccess={() =>
+                                queryClient.invalidateQueries([
+                                    "bookmarks",
+                                    "user",
+                                ])
+                            }
+                            className={"me-3"}
+                        />
+                    ) : null}
                     <ShareIcon url={""} quote={""} hashtag={""} />
                 </div>
                 <Link href={`/tasker/${tasker}/`}>
@@ -230,7 +223,7 @@ export const TeamMembersCard = ({
                                 />
                             </div>
                         ) : (
-                            <span className="task-price"> {charge}</span>
+                            <span className="task-price">{charge}</span>
                         )}
                     </a>
                 </Link>
@@ -252,6 +245,15 @@ export const TeamMembersCard = ({
                                                 );
                                                 queryClient.invalidateQueries([
                                                     "get-my-applicants",
+                                                ]);
+                                                queryClient.invalidateQueries([
+                                                    "get-task-applicants",
+                                                ]);
+                                                queryClient.invalidateQueries([
+                                                    "my-requested-task",
+                                                ]);
+                                                queryClient.invalidateQueries([
+                                                    "approved-task",
                                                 ]);
                                             },
                                             onError: (error: any) => {
@@ -281,6 +283,15 @@ export const TeamMembersCard = ({
                                                 queryClient.invalidateQueries([
                                                     "get-my-applicants",
                                                 ]);
+                                                queryClient.invalidateQueries([
+                                                    "get-task-applicants",
+                                                ]);
+                                                queryClient.invalidateQueries([
+                                                    "my-requested-task",
+                                                ]);
+                                                queryClient.invalidateQueries([
+                                                    "approved-task",
+                                                ]);
                                             },
                                             onError: (error: any) => {
                                                 // console.log(
@@ -295,7 +306,7 @@ export const TeamMembersCard = ({
                                     );
                                 }}
                                 backgroundColor={"#211D4F"}
-                                border="1px solid #211D4F"
+                                // border="1px solid #211D4F"
                             />
                         </>
                     ) : (

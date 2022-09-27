@@ -14,21 +14,26 @@ const OnBoardingLayout = ({
 }: OnBoardingLayoutProps) => {
     return (
         <div className="login-layout-wrapper">
-            <div className="login-layout-wrapper__left">
+            <div
+                className="login-layout-wrapper__left"
+                style={{
+                    backgroundImage: `url(${mainImg})`,
+                }}
+            >
                 <div className="brand-logo">
                     <Link href="/">
                         <a>
                             <Image
-                                src="/logo/logo.svg"
+                                src="/logo/homaale.png"
                                 alt="Logo"
-                                width={95}
-                                height={48}
+                                width={160}
+                                height={55}
                                 priority
                             />
                         </a>
                     </Link>
                 </div>
-                <div className="main-img">
+                {/* <div className="main-img">
                     <Image
                         src={mainImg}
                         alt="Logo"
@@ -36,7 +41,7 @@ const OnBoardingLayout = ({
                         height={530}
                         priority
                     />
-                </div>
+                </div> */}
             </div>
 
             <div className="login-layout-wrapper__right">

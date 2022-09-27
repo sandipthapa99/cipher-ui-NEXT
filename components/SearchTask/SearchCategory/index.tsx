@@ -17,8 +17,12 @@ import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useServiceOptions } from "hooks/service/use-service-options";
 import { useCities } from "hooks/use-cities";
 import type { ChangeEvent } from "react";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useReducer } from "react";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
+
+import { ActionKind, searchReducer } from "./reducers/searchReducer";
 
 type SearchModal = "task" | "tasker" | "service";
 interface SearchCategoryProps {
@@ -41,8 +45,7 @@ export const SearchCategory = ({
 }: SearchCategoryProps) => {
     const { classes } = useStyles();
 
-    const [search, setSearch] = useState("");
-    const [params, setParams] = useState<Record<string, string> | undefined>();
+    const [params, dispatch] = useReducer(searchReducer, {});
     const [cityQuery, setCityQuery] = useState("");
     const { data: cities } = useCities(cityQuery);
     const { data: countries } = useCountry();
@@ -126,64 +129,48 @@ export const SearchCategory = ({
         },
     ];
 
+    const hasParams = Object.keys(params).length > 0;
+
     const onSelectChange = (key: string, value: string | null) => {
-        if (!value) return;
-        const url = new URL(window.location.href);
-        url.searchParams.delete(key);
-        url.searchParams.append(key, value);
-        const newParams = Object.fromEntries(new URLSearchParams(url.search));
-        setParams((previousParams) => ({ ...previousParams, ...newParams }));
+        if (!value) {
+            dispatch({ type: ActionKind.REMOVE, payload: { key } });
+            return;
+        }
+        dispatch({ type: ActionKind.ADD, payload: { key, value } });
     };
 
-    const city = params ? params.city : "";
-    const country = params ? params.country : "";
-    const language = params ? params.language : "";
-    const service = params ? params.service : "";
-    const ordering = params ? params.ordering : "";
-
     const handleClearFilters = () => {
-        setParams(undefined);
+        dispatch({ type: ActionKind.CLEAR });
         onFilterClear();
     };
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
         const searchText = event.currentTarget.value;
         if (searchText.length === 0) {
-            const newParams = Object.entries(params ?? {}).reduce(
-                (acc, curr) => {
-                    const [key, value] = curr;
-                    if (key !== "search") acc[key] = value;
-                    return acc;
-                },
-                {} as Record<string, string>
-            );
-            if (Object.keys(newParams).length === 0) {
+            dispatch({ type: ActionKind.REMOVE, payload: { key: "search" } });
+            if (Object.keys(params).length === 0) {
                 handleClearFilters();
-                setSearch("");
             }
             return;
         }
-        setSearch(searchText);
-        setParams((previousParams) => ({
-            ...previousParams,
-            search: searchText,
-        }));
+        dispatch({
+            type: ActionKind.ADD,
+            payload: { key: "search", value: searchText },
+        });
     };
 
     useEffect(() => {
-        if (!params) return;
         const urlSearchParams = new URLSearchParams();
         for (const key in params) {
             urlSearchParams.append(key, params[key]);
         }
-        onSearchParamChange(urlSearchParams.toString());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params]);
-
+        const searchParams = urlSearchParams.toString();
+        onSearchParamChange(searchParams);
+    }, [onSearchParamChange, params]);
     return (
         <Row className={classes.container}>
             <Col md={4}>
                 <TextInput
-                    value={search}
+                    value={params.search ?? ""}
                     icon={
                         <FontAwesomeIcon
                             icon={faSearch}
@@ -194,13 +181,14 @@ export const SearchCategory = ({
                     onChange={handleSearchChange}
                 />
             </Col>
-            <Col md={8}>
+
+            <Col md={8} className="filter">
                 <Box
                     className={
                         classes.categoriesContainer + " " + "box-modifier"
                     }
                 >
-                    {params && (
+                    {hasParams && (
                         <Button
                             leftIcon={
                                 <FontAwesomeIcon
@@ -228,7 +216,7 @@ export const SearchCategory = ({
                                     />
                                 }
                                 placeholder="Filter by service"
-                                value={service}
+                                value={params.service ?? ""}
                                 data={servicesOptionsData}
                                 onChange={(value) =>
                                     onSelectChange("service", value)
@@ -244,7 +232,7 @@ export const SearchCategory = ({
                                     />
                                 }
                                 placeholder="Filter by City"
-                                value={city}
+                                value={params.city ?? ""}
                                 data={citiesData}
                                 onSearchChange={setCityQuery}
                                 onChange={(value) =>
@@ -261,7 +249,7 @@ export const SearchCategory = ({
                                         />
                                     }
                                     placeholder="Filter by Pricing"
-                                    value={ordering}
+                                    value={params.ordering ?? ""}
                                     data={pricingData}
                                     onChange={(value) =>
                                         onSelectChange("ordering", value)
@@ -281,7 +269,7 @@ export const SearchCategory = ({
                                         className="me-0 svg-icon"
                                     />
                                 }
-                                value={country}
+                                value={params.country ?? ""}
                                 placeholder="Filter by country"
                                 data={countriesData}
                                 onChange={(value) =>
@@ -289,13 +277,14 @@ export const SearchCategory = ({
                                 }
                             />
                             <Select
+                                clearable
                                 icon={
                                     <FontAwesomeIcon
                                         icon={faLanguage}
                                         className="me-0 svg-icon"
                                     />
                                 }
-                                value={language}
+                                value={params.language ?? ""}
                                 placeholder="Filter by language"
                                 data={languagesData}
                                 onChange={(value) =>
@@ -313,7 +302,7 @@ export const SearchCategory = ({
                                 }
                                 placeholder="Order by"
                                 data={orderTaskersData}
-                                value={ordering}
+                                value={params.ordering ?? ""}
                                 onChange={(value) =>
                                     onSelectChange("ordering", value)
                                 }
@@ -322,8 +311,9 @@ export const SearchCategory = ({
                     )}
                     {searchModal === "service" && (
                         <Select
+                            clearable
                             placeholder="Order by"
-                            value={ordering}
+                            value={params.ordering ?? ""}
                             onChange={(value) =>
                                 onSelectChange("ordering", value)
                             }

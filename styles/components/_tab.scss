@@ -24,10 +24,20 @@
         .tab-wrapper {
             display: flex;
             justify-content: space-between;
-            .custom-tab__headers--btn {
+            flex-wrap: wrap;
+
+            .tabs {
                 display: flex;
-                flex-wrap: wrap;
                 justify-content: space-between;
+                .custom-tab__headers--btn {
+                    display: flex;
+                    margin-right: 3.8rem;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                }
+            }
+            @include respond(sm) {
+                flex-direction: column;
             }
 
             .tab-icons {
@@ -67,6 +77,7 @@
             padding: 0.6rem 1.8rem;
             position: relative;
             border-radius: 0.4rem;
+            margin-right: 1rem;
             font-family: "Inter";
             @include transition();
             @include respond(xs) {

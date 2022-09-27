@@ -53,90 +53,82 @@ const Login = () => {
 
     const { data: profile, isLoading: isProfileLoading } = useGetProfile();
 
-    // console.log("profile....", profile);
     return (
-        <section>
-            <OnBoardingLayout
-                topLeftText="Don't have an account ?"
-                topRightText="Create an account"
-                welcomeText="Welcome Back!   👋"
-                headerText="Login to your account"
-                mainImg="/illustrations/login.svg"
-                redirectionLink="/signup"
-                currentPage="login"
-            >
-                <div>
-                    <Formik
-                        validationSchema={() => getLoginSchema(isPhoneNumber)}
-                        initialValues={{
-                            username: "",
-                            password: "",
-                        }}
-                        onSubmit={(values) => {
-                            const newValues = {
-                                ...values,
-                                fcm_token: fcmToken ? fcmToken : null,
-                            };
+        <OnBoardingLayout
+            topLeftText="Don't have an account ?"
+            topRightText="Create an account"
+            welcomeText="Welcome Back!   👋"
+            headerText="Login to your account"
+            mainImg="/illustrations/login.svg"
+            redirectionLink="/signup"
+            currentPage="login"
+        >
+            <div>
+                <Formik
+                    validationSchema={() => getLoginSchema(isPhoneNumber)}
+                    initialValues={{
+                        username: "",
+                        password: "",
+                    }}
+                    onSubmit={(values) => {
+                        const newValues = {
+                            ...values,
+                            fcm_token: fcmToken ? fcmToken : null,
+                        };
 
-                            mutate(newValues, {
-                                onError: (error) => {
-                                    toast.error(error.message);
-                                },
-                                onSuccess: () => {
-                                    const { next } = router.query;
-                                    console.log(
-                                        "🚀 ~ file: login.tsx ~ line 87 ~ Login ~ next",
-                                        next
-                                    );
-                                    toast.success("Login Successful!");
-                                    if (profile) {
-                                        router.push(
-                                            next && typeof next === "string"
-                                                ? next
-                                                : "/home"
-                                        );
-                                        return;
-                                    }
-                                    router.push("/settings/account/individual");
-                                },
-                            });
-                        }}
-                    >
-                        {({ errors, touched, setFieldValue }) => (
-                            <Form className="login-form">
-                                <InputField
-                                    name="username"
-                                    labelName="Username"
-                                    touch={touched.username}
-                                    error={errors.username}
-                                    placeHolder="Enter your username"
-                                    onChange={(event) =>
-                                        handleChange(event, setFieldValue)
-                                    }
-                                />
-                                <PasswordField
-                                    type="password"
-                                    name="password"
-                                    labelName="Password"
-                                    touch={touched.password}
-                                    error={errors.password}
-                                    placeHolder="Password"
-                                    forgotPassword="Forgot Password?"
-                                />
-                                <FormButton
-                                    type="submit"
-                                    variant="primary"
-                                    name={isLoading ? "Loading" : "Login"}
-                                    className="login-btn"
-                                    isSubmitting={isLoading}
-                                    isSubmittingClass={isSubmittingClass(
-                                        isLoading
-                                    )}
-                                />
-                                <div className="horizontal-line">
-                                    <span className="or">OR</span>
-                                </div>
-                                {/* <SocialLoginBtn
+                        mutate(newValues, {
+                            onError: (error) => {
+                                toast.error(error.message);
+                            },
+                            onSuccess: () => {
+                                // const { next } = router.query;
+                                toast.success("Login Successful!");
+                                // if (profile) {
+                                //     router.push(
+                                //         next && typeof next === "string"
+                                //             ? next
+                                //             : "/home"
+                                //     );
+                                //     return;
+                                // }
+                                router.push("/home");
+                            },
+                        });
+                    }}
+                >
+                    {({ errors, touched, setFieldValue }) => (
+                        <Form className="login-form">
+                            <InputField
+                                name="username"
+                                labelName="Username"
+                                touch={touched.username}
+                                error={errors.username}
+                                placeHolder="Enter your username"
+                                onChange={(event) =>
+                                    handleChange(event, setFieldValue)
+                                }
+                            />
+                            <PasswordField
+                                type="password"
+                                name="password"
+                                labelName="Password"
+                                touch={touched.password}
+                                error={errors.password}
+                                placeHolder="Password"
+                                forgotPassword="Forgot Password?"
+                            />
+                            <FormButton
+                                type="submit"
+                                variant="primary"
+                                name={isLoading ? "Loading" : "Login"}
+                                className="login-btn"
+                                isSubmitting={isLoading}
+                                isSubmittingClass={isSubmittingClass(isLoading)}
+                            />
+                            <div className="horizontal-line">
+                                <span className="or">OR</span>
+                            </div>
+                            {/* <SocialLoginBtn
                                     name={"Continue with Facebook"}
                                     icon="/illustrations/fb.svg"
                                     className="facebook"
@@ -150,16 +142,15 @@ const Login = () => {
                                     redirectionLink={`${process.env.NEXT_PUBLIC_API_URL}/social-auth/login/google-oauth2/`}
                                 /> */}
 
-                                <div className="button-wrapper-social d-flex justify-content-evenly">
-                                    <Google />
-                                    <FacebookLogin />
-                                </div>
-                            </Form>
-                        )}
-                    </Formik>
-                </div>
-            </OnBoardingLayout>
-        </section>
+                            <div className="button-wrapper-social d-flex justify-content-evenly">
+                                <Google />
+                                <FacebookLogin />
+                            </div>
+                        </Form>
+                    )}
+                </Formik>
+            </div>
+        </OnBoardingLayout>
     );
 };
 

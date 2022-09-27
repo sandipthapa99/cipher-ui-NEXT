@@ -14,6 +14,7 @@ export type BookMarkApiResponse = {
         updated_at: string;
         object_id: string;
         content_type: number;
+        is_requested?: boolean;
     }>;
 };
 export type Bookmark = BookMarkApiResponse["result"][0];

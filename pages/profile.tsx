@@ -19,10 +19,6 @@ import type { UserProfileProps } from "types/userProfileProps";
 const UserProfile: NextPage<UserProfileProps> = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     const { data: profileDetails, isLoading } = useGetProfile();
-    console.log(
-        "🚀 ~ file: profile.tsx ~ line 22 ~ profileDetails",
-        profileDetails
-    );
     const router = useRouter();
 
     // const { data: userData } = useData<UserProfileProps["profileDetails"]>(
@@ -55,7 +51,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     if (!profileDetails) {
         return (
             <>
-                <Layout title="Profile | Cipher">
+                <Layout title="Profile | Homaale">
                     <Container fluid="xl" className="px-5">
                         <BreadCrumb currentPage="Profile" />
                         <Row className="row-create-profile">
@@ -80,7 +76,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     }
 
     return (
-        <Layout title="Profile | Cipher">
+        <Layout title="Profile | Homaale">
             <Container fluid="xl" className="px-5">
                 <section className="user-profile">
                     <BreadCrumb currentPage="Profile" />
