@@ -21,7 +21,11 @@ export const useToggleBookmarkTask = () => {
                     urls.bookmark,
                     payload
                 );
-                await queryClient.invalidateQueries(["bookmarked-tasks"]);
+                await queryClient.invalidateQueries(["bookmarks", "user"]);
+                await queryClient.invalidateQueries([
+                    "bookmarks",
+                    "entityservice",
+                ]);
                 return data;
             } catch (error) {
                 if (error instanceof AxiosError) {

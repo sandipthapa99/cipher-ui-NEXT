@@ -90,7 +90,7 @@ const AppliedTaskDetail = ({
 
     // const slug = router?.query?.slug as string;
 
-    const isTaskBookmarked = useIsBookmarked("task", taskDetail?.id);
+    const isTaskBookmarked = useIsBookmarked("entityservice", taskDetail?.id);
 
     const isUserTask = user ? taskDetail?.created_by?.id === user?.id : false;
 
@@ -134,7 +134,7 @@ const AppliedTaskDetail = ({
                             {isUserTask ? null : (
                                 <SaveIcon
                                     object_id={taskDetail?.id}
-                                    model="task"
+                                    model="entityservice"
                                     filled={isTaskBookmarked}
                                     showText
                                     onSuccess={() =>
