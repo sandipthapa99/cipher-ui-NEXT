@@ -57,7 +57,7 @@ export type ProfileResponse = {
     status: string;
     bio: string;
     gender: string;
-    profile_image: string;
+    profile_image: any;
     date_of_birth: string;
     skill: string;
     active_hour_start: string;

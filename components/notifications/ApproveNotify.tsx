@@ -38,7 +38,7 @@ export const ApproveNotify = ({ date, title, body, handleClick }: Approve) => {
                     </p>
 
                     <p className="date">
-                        {format(new Date(date), "EEEE, do LLLL yyyy")}
+                        {format(new Date(date), "EEEE, do LLL, hh:mm a")}
                     </p>
                 </div>
             </div>
