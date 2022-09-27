@@ -56,11 +56,10 @@ const ServiceCard = ({
         setShowEditModal(false);
     };
     const queryClient = useQueryClient();
-    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.id);
-    // console.log(
-    //     "🚀 ~ file: ServiceCard.tsx ~ line 60 ~ isServiceBookmarked",
-    //     isServiceBookmarked
-    // );
+    const isServiceBookmarked = useIsBookmarked(
+        "entityservice",
+        serviceCard?.id
+    );
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
@@ -191,7 +190,7 @@ const ServiceCard = ({
                         ) : (
                             <SaveIcon
                                 object_id={serviceCard?.id}
-                                model={"service"}
+                                model={"entityservice"}
                                 filled={isServiceBookmarked}
                                 onSuccess={() =>
                                     queryClient.invalidateQueries([

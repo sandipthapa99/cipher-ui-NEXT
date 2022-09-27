@@ -5,7 +5,7 @@ import { axiosClient } from "utils/axiosClient";
 
 import { useUser } from "./auth/useUser";
 
-export type BookmarkType = "user" | "task" | "service";
+export type BookmarkType = "user" | "entityservice";
 
 export const useBookmarks = (type: BookmarkType) => {
     const { data: user } = useUser();
