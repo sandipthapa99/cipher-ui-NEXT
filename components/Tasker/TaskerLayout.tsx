@@ -1,6 +1,6 @@
 import { useSearchQuery } from "@components/common/Search/searchStore";
 import Layout from "@components/Layout";
-import { SearchCategory } from "@components/SearchTask/searchCategory";
+import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import { Highlight, Space } from "@mantine/core";
 import type { ReactNode } from "react";
 import { useState } from "react";
