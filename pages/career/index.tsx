@@ -16,7 +16,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
     const { result } = careerData ?? [];
     const [tabIndex, setTabIndex] = useState(0);
     return (
-        <Layout title="Hoomale | Careers">
+        <Layout title="Homaale | Careers">
             <section id="careers-section" className="careers-section">
                 <BreadCrumb currentPage="Career" />
                 <Container fluid="xl">
@@ -77,7 +77,7 @@ const Career = ({ careerData }: { careerData: CareerValueProps }) => {
                     </Row>
                     <div className="d-flex justify-content-between align-items-lg-center pe-0 part-wrapper">
                         <div className="part-wrapper__details">
-                            Become a part of <span>Hoomale</span>
+                            Become a part of <span>Homaale</span>
                             <p>Boost your skills and excel with us.</p>
                         </div>
                         <figure>

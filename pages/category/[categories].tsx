@@ -42,7 +42,7 @@ const Gardening = ({
 
     return (
         <Layout
-            title={`${categoryName ? categoryName : "Loading..."} | Hoomale`}
+            title={`${categoryName ? categoryName : "Loading..."} | Homaale`}
         >
             <div className="gardening -page">
                 <Container fluid="xl" className="px-5">

@@ -14,8 +14,8 @@ const Blog = ({ blogsData }: { blogsData: BlogValueProps }) => {
 
     return (
         <Layout
-            title="Blogs | Hoomale"
-            description="Explore the insights provided by Hoomale"
+            title="Blogs | Homaale"
+            description="Explore the insights provided by Homaale"
         >
             {/* Recent Blogs Section Start */}
             <section id="recent-blogs" className="recent-blogs">

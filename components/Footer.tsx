@@ -56,7 +56,7 @@ const Footer = () => {
                                 <h5>Subscribe to HOMAALE</h5>
                                 <p>
                                     Get the newsletters and technical guides
-                                    directly on your email from HOOMALE.
+                                    directly on your email from HOMAALE.
                                 </p>
                             </Col>
                             <Col sm={6} className="newsletter-form">
