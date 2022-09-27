@@ -100,7 +100,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             }
                             full_name={`${profileDetails?.user?.first_name} ${profileDetails?.user?.middle_name} ${profileDetails?.user?.last_name}`}
                             user_type={profileDetails?.user_type}
-                            rating={profileDetails?.rating?.user_rating_count}
+                            rating={profileDetails?.rating?.avg_rating}
                             hourly_rate={profileDetails?.hourly_rate}
                             phone={profileDetails?.user?.phone}
                             address_line1={profileDetails?.address_line1}

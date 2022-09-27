@@ -44,8 +44,6 @@
                 }
                 p {
                     margin: 0;
-                    margin-top: 0.3rem;
-                    font-size: 1.4rem;
                 }
             }
             p {
@@ -65,6 +63,10 @@
             }
             .star {
                 color: orange;
+                p {
+                    margin-top: 0.3rem;
+                    font-size: 1.4rem;
+                }
             }
             .price {
                 font-size: 2rem;

@@ -1,4 +1,5 @@
 import SaveIcon from "@components/common/SaveIcon";
+import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import {
     faAward,
     faFaceGrinBeam,
@@ -152,10 +153,14 @@ export const TeamMembersCard = ({
                                 {location ? `| ${location}` : ""}
                             </h6>
                             <div className="d-flex icon-wrapper-member gap-5 align-items-center emoji-section text-dark">
-                                <span className="star">
+                                <span className="star d-flex align-items-center">
                                     <FontAwesomeIcon
                                         className="star"
-                                        icon={faStar}
+                                        icon={
+                                            rating && rating > 0
+                                                ? faStar
+                                                : HollowStar
+                                        }
                                     />
                                     {rating &&
                                     rating > 0 &&
@@ -168,21 +173,21 @@ export const TeamMembersCard = ({
                                     )}
                                 </span>
 
-                                <span className="emoji">
+                                <span className="emoji d-flex align-items-center">
                                     <FontAwesomeIcon
                                         className="emoji"
                                         icon={faFaceGrinBeam}
                                     />
                                     <span>{happyClients}</span>
                                 </span>
-                                <span className="award">
+                                <span className="award d-flex align-items-center">
                                     <FontAwesomeIcon
                                         className="award"
                                         icon={faAward}
                                     />
                                     <span> {awardPercentage}</span>
                                 </span>
-                                <span className="location">
+                                <span className="location d-flex align-items-center">
                                     <FontAwesomeIcon
                                         className="location"
                                         icon={faLocationArrow}
