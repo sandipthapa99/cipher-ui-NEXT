@@ -167,6 +167,13 @@ const AccountForm = () => {
     const [languageChange, setLanguageChange] = useState<string | null>(
         user_language
     );
+    const [value, onChange] = useState(new Date());
+    const userDateOfBirth = profile
+        ? profile.date_of_birth
+        : new Date("2022-09-09");
+    // const [dateOfBirth, setDateOfBirth] = useState<string | null>(
+    //     userDateOfBirth
+    // );
 
     const [currencyChange, setCurrencyChange] = useState<string | null>(
         profile ? profile.charge_currency.code : ""
@@ -682,6 +689,25 @@ const AccountForm = () => {
                                 error={errors.date_of_birth}
                                 disabled={isInputDisabled}
                             />
+
+                            {/* <DatePicker
+                                label="Date of birth"
+                                // value={
+                                //     (profile && profile?.date_of_birth) ??
+                                //     parseISO(profile.date_of_birth)
+                                // }
+                                // defaultValue={
+                                //     (profile && profile?.date_of_birth) ??
+                                //     parseISO(profile.date_of_birth)
+                                // }
+                                inputFormat="yyyy-MM-dd"
+                                value={value}
+                                //onChange={onChange}
+                                placeholder="dd/mm/yy"
+                                firstDayOfWeek="sunday"
+                                name="date_of_birth"
+                                disabled={isInputDisabled}
+                            /> */}
                             <hr />
                             <h3>Profession Information</h3>
                             <h4>Select User Type</h4>

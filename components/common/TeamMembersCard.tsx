@@ -1,4 +1,5 @@
 import SaveIcon from "@components/common/SaveIcon";
+import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import {
     faAward,
     faFaceGrinBeam,
@@ -6,8 +7,9 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
+import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import { useForm } from "hooks/use-form";
@@ -60,6 +62,7 @@ export const TeamMembersCard = ({
     isTasker,
     taskId,
 }: Props) => {
+    const { data: user } = useUser();
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
 
@@ -146,13 +149,19 @@ export const TeamMembersCard = ({
                         /> */}
                             </div>
                             <h6 className="text-dark">
-                                <span>{speciality} </span>| {location}
+                                <span>{speciality} </span>{" "}
+                                {speciality && location ? " | " : ""}
+                                {location ? `${location}` : ""}
                             </h6>
                             <div className="d-flex icon-wrapper-member gap-5 align-items-center emoji-section text-dark">
-                                <span className="star">
+                                <span className="star d-flex align-items-center">
                                     <FontAwesomeIcon
                                         className="star"
-                                        icon={faStar}
+                                        icon={
+                                            rating && rating > 0
+                                                ? faStar
+                                                : HollowStar
+                                        }
                                     />
                                     {rating &&
                                     rating > 0 &&
@@ -165,21 +174,21 @@ export const TeamMembersCard = ({
                                     )}
                                 </span>
 
-                                <span className="emoji">
+                                <span className="emoji d-flex align-items-center">
                                     <FontAwesomeIcon
                                         className="emoji"
                                         icon={faFaceGrinBeam}
                                     />
                                     <span>{happyClients}</span>
                                 </span>
-                                <span className="award">
+                                <span className="award d-flex align-items-center">
                                     <FontAwesomeIcon
                                         className="award"
                                         icon={faAward}
                                     />
                                     <span> {awardPercentage}</span>
                                 </span>
-                                <span className="location">
+                                <span className="location d-flex align-items-center">
                                     <FontAwesomeIcon
                                         className="location"
                                         icon={faLocationArrow}
@@ -194,15 +203,20 @@ export const TeamMembersCard = ({
             </Link>
             <div className="d-flex justify-content-between footer-section">
                 <div className="d-flex share-and-like">
-                    <SaveIcon
-                        model="user"
-                        object_id={userId}
-                        filled={isBookmarked}
-                        onSuccess={() =>
-                            queryClient.invalidateQueries(["bookmarks", "user"])
-                        }
-                        className={"me-3"}
-                    />
+                    {user && user.id !== tasker ? (
+                        <SaveIcon
+                            model="user"
+                            object_id={userId}
+                            filled={isBookmarked}
+                            onSuccess={() =>
+                                queryClient.invalidateQueries([
+                                    "bookmarks",
+                                    "user",
+                                ])
+                            }
+                            className={"me-3"}
+                        />
+                    ) : null}
                     <ShareIcon url={""} quote={""} hashtag={""} />
                 </div>
                 <Link href={`/tasker/${tasker}/`}>

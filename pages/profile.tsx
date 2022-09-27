@@ -47,6 +47,10 @@ const UserProfile: NextPage<UserProfileProps> = () => {
             router.push("/settings/account/individual");
         }
     }, [isLoading, profileDetails, router]);
+    console.log(
+        "🚀 ~ file: profile.tsx ~ line 50 ~ profileDetails",
+        profileDetails
+    );
 
     if (!profileDetails) {
         return (
@@ -96,7 +100,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
                             }
                             full_name={`${profileDetails?.user?.first_name} ${profileDetails?.user?.middle_name} ${profileDetails?.user?.last_name}`}
                             user_type={profileDetails?.user_type}
-                            rating={profileDetails?.rating?.user_rating_count}
+                            rating={profileDetails?.rating?.avg_rating}
                             hourly_rate={profileDetails?.hourly_rate}
                             phone={profileDetails?.user?.phone}
                             address_line1={profileDetails?.address_line1}
@@ -177,8 +181,7 @@ export const getStaticProps: GetStaticProps = async () => {
             queryClient.prefetchQuery(["tasker-activities"]),
             queryClient.prefetchQuery(["all-services"]),
             queryClient.prefetchQuery(["bookmarks", "user"]),
-            queryClient.prefetchQuery(["bookmarks", "task"]),
-            queryClient.prefetchQuery(["bookmarks", "service"]),
+            queryClient.prefetchQuery(["bookmarks", "entityservice"]),
         ]);
         return {
             props: {

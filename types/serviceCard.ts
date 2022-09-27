@@ -88,6 +88,9 @@ export interface ServicesValueProps {
         views: any[];
         images: any[];
         videos: any[];
+        rating: {
+            rating: number;
+        }[];
     }[];
 }
 export interface RecentProps {

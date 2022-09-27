@@ -1,4 +1,5 @@
 import { EditService } from "@components/services/EditService";
+import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
@@ -56,7 +57,15 @@ const ServiceCard = ({
         setShowEditModal(false);
     };
     const queryClient = useQueryClient();
-    const isServiceBookmarked = useIsBookmarked("service", serviceCard?.id);
+    const isServiceBookmarked = useIsBookmarked(
+        "entityservice",
+        serviceCard?.id
+    );
+    console.log(
+        "🚀 ~ file: ServiceCard.tsx ~ line 249 ~ serviceCard",
+        serviceCard
+    );
+    const serviceRating = serviceCard.rating[0].rating;
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
@@ -131,7 +140,12 @@ const ServiceCard = ({
                                 </span>{" "}
                             </a>
                         </Link>
-                        <span> | {serviceCard?.location}</span>
+                        <span>
+                            {" "}
+                            {serviceCard?.location
+                                ? `| ${serviceCard.location}`
+                                : ""}
+                        </span>
                     </Spoiler>
                 </h3>
                 <Link href={`/service/${serviceCard?.slug}`}>
@@ -146,7 +160,7 @@ const ServiceCard = ({
                                 {parse(
                                     serviceCard?.description
                                         ? serviceCard?.description
-                                        : "No description for this service avialble"
+                                        : "Description for this service is not available."
                                 )}
                             </p>
                             {/*</Spoiler>*/}
@@ -154,13 +168,19 @@ const ServiceCard = ({
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
                                 <FontAwesomeIcon
-                                    icon={faStar}
+                                    icon={
+                                        serviceRating && serviceRating > 0
+                                            ? faStar
+                                            : HollowStar
+                                    }
                                     className="svg-icon star"
                                 />
-                                {/* {serviceCard?.happy_clients} */}0
+                                <span> {serviceRating}</span>
                             </p>
                             <p className="price">
-                                {serviceCard?.currency?.symbol + " "}
+                                {serviceCard?.currency?.symbol
+                                    ? serviceCard?.currency?.symbol
+                                    : "" + " "}{" "}
                                 {serviceCard?.budget_from &&
                                     serviceCard?.budget_from + "-"}
                                 {serviceCard?.budget_to}
@@ -180,7 +200,7 @@ const ServiceCard = ({
                         ) : (
                             <SaveIcon
                                 object_id={serviceCard?.id}
-                                model={"service"}
+                                model={"entityservice"}
                                 filled={isServiceBookmarked}
                                 onSuccess={() =>
                                     queryClient.invalidateQueries([

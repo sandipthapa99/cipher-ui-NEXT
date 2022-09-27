@@ -12,7 +12,7 @@ import {
 
 const TaxDeduction: NextPage = () => {
     return (
-        <Layout title="Tax-Deduction | Hoomale">
+        <Layout title="Tax-Deduction | Homaale">
             <section className="tax-deduction">
                 <Container fluid="xl" className="px-5">
                     <BreadCrumb currentPage="Tax Deduction" />

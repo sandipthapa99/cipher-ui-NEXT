@@ -65,7 +65,11 @@ const MerchantCard = ({
                             )}
 
                             <h3 className="card-subtitle">
-                                <span>{merchantCategory}</span> |{" "}
+                                <span>
+                                    {merchantCategory
+                                        ? `${merchantCategory} | `
+                                        : ""}
+                                </span>{" "}
                                 {merchantLocation}
                             </h3>
                         </div>

@@ -1,4 +1,5 @@
 import { faLocationDot, faUser } from "@fortawesome/pro-regular-svg-icons";
+import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -42,7 +43,7 @@ const ServiceNearYouCard = ({
     return (
         <div
             data-active={JSON.stringify(path === serviceSlug)}
-            className="service-card-block service-near-you-card-block active"
+            className="service-card-block service-near-you-card-block active pe-2"
             onClick={() => onServiceClick}
         >
             <Row>
@@ -76,7 +77,7 @@ const ServiceNearYouCard = ({
                     <div className="content">
                         <h4>{serviceTitle}</h4>
                         <div className="information">
-                            <div className="type d-flex flex-col">
+                            <div className="type d-flex flex-col align-items-center">
                                 <FontAwesomeIcon
                                     icon={faUser}
                                     className="user svg-icon"
@@ -84,7 +85,7 @@ const ServiceNearYouCard = ({
 
                                 <p>{serviceProvider}</p>
                             </div>
-                            <div className="type d-flex flex-col">
+                            <div className="type d-flex flex-col align-items-center">
                                 <FontAwesomeIcon
                                     icon={faLocationDot}
                                     className="location svg-icon"
@@ -100,7 +101,11 @@ const ServiceNearYouCard = ({
                             <div className="success-rate type d-flex flex-col">
                                 <div className="star d-flex align-items-center flex-row">
                                     <FontAwesomeIcon
-                                        icon={faStar}
+                                        icon={
+                                            serviceRating && serviceRating > 0
+                                                ? faStar
+                                                : HollowStar
+                                        }
                                         className="star svg-icon"
                                     />
 
@@ -110,13 +115,13 @@ const ServiceNearYouCard = ({
                             <div></div>
                             <h1 className="price">
                                 {currency + " "}
+                                {budget_from ? budget_from + " - " : ""}
                                 {budget_to}
-                                {budget_from !== 0 && " - " + budget_from}
                                 {budget_type === "Hourly"
                                     ? "/hr"
                                     : budget_type === "Monthly"
                                     ? "/mn"
-                                    : ""}
+                                    : "/Project"}
                             </h1>
                             {/* 
                             {currency + " "}

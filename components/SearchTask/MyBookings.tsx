@@ -1,21 +1,18 @@
 import SaveIcon from "@components/common/SaveIcon";
-import ServiceHighlights from "@components/common/ServiceHighlights";
 import {
     faAward,
+    faCircleInfo,
     faFaceGrinBeam,
     faLocationArrow,
-    faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Highlight, Modal } from "@mantine/core";
+import { ActionIcon } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useIsBookmarked } from "hooks/use-bookmarks";
-import { useData } from "hooks/use-data";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import type { Tasker } from "types/tasks";
 import { axiosClient } from "utils/axiosClient";
@@ -95,25 +92,26 @@ export const MyBookingsCard = ({
                             />
                         </figure>
                     )}
-                    {!image ||
-                        (image.length <= 0 && (
-                            <figure className="team-member-card-image">
-                                <Image
-                                    src={"/placeholder/profilePlaceholder.png"}
-                                    alt="team-member-card-image"
-                                    height={80}
-                                    width={80}
-                                />
-                            </figure>
-                        ))}
+                    {!image && (
+                        <figure className="team-member-card-image">
+                            <Image
+                                src={"/placeholder/profilePlaceholder.png"}
+                                alt="team-member-card-image"
+                                height={80}
+                                width={80}
+                            />
+                        </figure>
+                    )}
 
                     <div className="w-100 name-post-count">
-                        <div className="d-flex justify-content-between title-and-dots text-dark">
+                        <div className="d-flex align-items-start justify-content-between title-and-dots text-dark">
                             <h5>{name}</h5>
-                            {/* <FontAwesomeIcon
-        className="ellipsis-vertical"
-        icon={faEllipsisVertical}
-    /> */}
+                            <ActionIcon color="yellow">
+                                <FontAwesomeIcon
+                                    icon={faCircleInfo}
+                                    className="svg-icon me-0"
+                                />
+                            </ActionIcon>
                         </div>
                         <h6 className="text-dark">
                             <span>

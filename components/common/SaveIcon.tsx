@@ -2,6 +2,7 @@ import { faHeart } from "@fortawesome/pro-regular-svg-icons";
 import { faHeart as FilledHeart } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles } from "@mantine/styles";
+import { useQueryClient } from "@tanstack/react-query";
 import { useToggleBookmarkTask } from "hooks/task/use-toggle-bookmark-task";
 import { useWithLogin } from "store/use-login-prompt-store";
 
@@ -25,10 +26,10 @@ const SaveIcon = ({
     const { classes } = useStyles();
     const withLogin = useWithLogin();
     const { mutate, isLoading } = useToggleBookmarkTask();
-
+    const queryClient = useQueryClient();
     const handleSaveClick = () => {
         if (!object_id || !model) return;
-        mutate({ object_id, model }, { onSuccess });
+        mutate({ object_id, model });
     };
     return (
         <button
