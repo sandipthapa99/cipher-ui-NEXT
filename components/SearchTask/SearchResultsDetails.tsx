@@ -183,8 +183,6 @@ const SearchResultsDetail = ({
 
     const isUserService = user ? serviceProviderId === user?.id : false;
 
-    console.log(myBookings, "my bookings");
-
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
             <Col md={6} key={index}>
