@@ -27,9 +27,9 @@ export const NotificationDropdown = () => {
                 const today = new Date();
 
                 return (
-                    date.getDate() === today.getDate() &&
-                    date.getMonth() === today.getMonth() &&
-                    date.getFullYear() === today.getFullYear()
+                    date?.getDate() === today.getDate() &&
+                    date?.getMonth() === today.getMonth() &&
+                    date?.getFullYear() === today.getFullYear()
                 );
             }) ?? []
     );
@@ -41,11 +41,13 @@ export const NotificationDropdown = () => {
     //         prev.filter((notification) => notification.id !== id)
     //     );
 
-    if (todayNotifications.length > 5) {
+    if (todayNotifications?.length > 5) {
         settodayNotifications((prev) => prev.slice(0, 5));
     }
     const readSingleNotification = async (slug: string, id: number) => {
-        router.push(`/service/${slug}`);
+        if (slug) {
+            router.push(`/service/${slug}`);
+        }
 
         await axiosClient.get(`/notification/read/?id=${id}`);
 

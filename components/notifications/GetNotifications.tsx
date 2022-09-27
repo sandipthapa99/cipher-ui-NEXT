@@ -285,7 +285,15 @@ export default function GetNotifications() {
             // }
             else if (notification.title === "booking") {
                 return (
-                    <div key={index}>
+                    <div
+                        key={index}
+                        onClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id
+                            )
+                        }
+                    >
                         {/* <ApproveNotify
                             body={notification?.object}
                             date={notification?.created_date}
@@ -302,12 +310,6 @@ export default function GetNotifications() {
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
                             slug={notification?.object_slug}
-                            handleClick={() =>
-                                readSingleNotification(
-                                    notification?.object_slug,
-                                    notification?.id
-                                )
-                            }
                         />
                     </div>
                 );
@@ -326,7 +328,7 @@ export default function GetNotifications() {
                             title="booked"
                             body={notification?.object}
                             user={notification?.created_for}
-                            accept={true}
+                            // accept={true}
                             date={notification?.created_date}
                             type="service"
                         />
