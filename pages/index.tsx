@@ -319,6 +319,9 @@ const Home: NextPage<{
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.result
+                                ?.filter(
+                                    (result) => result?.share_location === true
+                                )
                                 ?.slice(0, 4)
                                 .map((service, key) => {
                                     return (
@@ -658,7 +661,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="success-sroties-header">
                         <h1 className="text-center">
-                            3003,0330 Taskers have earned an income on Homaale
+                            Find the best people for your job
                         </h1>
                         <h3 className="text-center">HOMAALE Stories</h3>
                     </div>
@@ -888,7 +891,9 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: trustedPartnerData } = await axiosClient.get(
             urls.trusted_partners
         );
-        // const { data: heroCategoryData } = await axiosClient.get(urls.hero);
+        const { data: heroCategoryData } = await axiosClient.get(
+            urls.hero_category
+        );
         // const { data: topCategoryData } = await axiosClient.get(
         //     "/task/top-categories/"
         // );
@@ -906,7 +911,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 successStoryData,
                 trustedPartnerData,
                 // recommendedTasksData,
-                // heroCategoryData,
+                heroCategoryData,
                 topTaskerData,
                 blogData,
                 // topCategoryData,

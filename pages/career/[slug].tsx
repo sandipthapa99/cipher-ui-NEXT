@@ -20,7 +20,7 @@ const CareerDeatils = ({
     career: CareerValueProps["result"][0];
 }) => {
     return (
-        <Layout title="Hoomale | Careers">
+        <Layout title="Homaale | Careers">
             <section id="careers-details-section" className="careers-section">
                 <BreadCrumb currentPage={career?.title} />
                 <Container fluid="xl">
