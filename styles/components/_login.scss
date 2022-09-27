@@ -92,6 +92,25 @@
             padding-left: 8rem;
         }
 
+        .backarrow {
+            position: absolute;
+            left: 5rem;
+            top: 5rem;
+            cursor: pointer;
+            color: black;
+
+            &:hover {
+                color: rgb(102, 104, 104);
+            }
+
+            @include respond(md) {
+                display: none;
+            }
+            @include respond(lg) {
+                display: none;
+            }
+        }
+
         .redirection-text {
             position: absolute;
             bottom: 0;
