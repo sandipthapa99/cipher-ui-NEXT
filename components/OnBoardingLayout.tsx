@@ -1,3 +1,5 @@
+import { faArrowLeft } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import type { OnBoardingLayoutProps } from "types/OnBoardingLayoutProps";
@@ -14,26 +16,21 @@ const OnBoardingLayout = ({
 }: OnBoardingLayoutProps) => {
     return (
         <div className="login-layout-wrapper">
-            <div
-                className="login-layout-wrapper__left"
-                style={{
-                    backgroundImage: `url(${mainImg})`,
-                }}
-            >
+            <div className="login-layout-wrapper__left">
                 <div className="brand-logo">
                     <Link href="/">
                         <a>
                             <Image
                                 src="/logo/homaale.png"
                                 alt="Logo"
-                                width={160}
+                                width={190}
                                 height={55}
                                 priority
                             />
                         </a>
                     </Link>
                 </div>
-                {/* <div className="main-img">
+                <div className="main-img d-flex w-100 h-100 justify-content-center align-items-center">
                     <Image
                         src={mainImg}
                         alt="Logo"
@@ -41,10 +38,11 @@ const OnBoardingLayout = ({
                         height={530}
                         priority
                     />
-                </div> */}
+                </div>
             </div>
 
             <div className="login-layout-wrapper__right">
+                {/* <FontAwesomeIcon icon={faArrowLeft} /> */}
                 <div className="redirection-text">
                     <p>
                         {topLeftText}
