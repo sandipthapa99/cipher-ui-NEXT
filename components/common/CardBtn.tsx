@@ -15,18 +15,16 @@ const CardBtn = ({
 }) => {
     return (
         <>
-            <a href={id ? id : "#"}>
-                <Button
-                    onClick={handleClick}
-                    className="card-btn"
-                    style={{
-                        backgroundColor: `${backgroundColor}`,
-                        color: `${color}`,
-                    }}
-                >
-                    <span>{btnTitle}</span>
-                </Button>
-            </a>
+            <Button
+                onClick={handleClick}
+                className="card-btn"
+                style={{
+                    backgroundColor: `${backgroundColor}`,
+                    color: `${color}`,
+                }}
+            >
+                <span>{btnTitle}</span>
+            </Button>
         </>
     );
 };

@@ -29,6 +29,7 @@
     border-style: solid;
     border-color: #edf4ff;
     flex-direction: column;
+    cursor: pointer;
 
     @include respond(md) {
         flex-direction: row;
@@ -48,11 +49,21 @@
     }
 
     .description-section {
+        .service-name-notify {
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
         h4 {
             margin: 0 0 0.8rem;
             font: 500 1.6rem $poppins-font;
             span {
                 font: 400 1.2rem $poppins-font;
+            }
+            span {
+                font-weight: 500;
+                font-size: 16px;
+                cursor: pointer;
             }
         }
         p {

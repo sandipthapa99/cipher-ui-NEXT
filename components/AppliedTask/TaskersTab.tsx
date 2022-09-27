@@ -104,10 +104,13 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                         }
                                         name={
                                             item
-                                                ? item.created_by.user.full_name
+                                                ? item.created_by.user
+                                                      .first_name +
+                                                  " " +
+                                                  item.created_by.user.last_name
                                                 : ""
                                         }
-                                        speciality={"curry"}
+                                        speciality={item.created_by.designation}
                                         rating={
                                             item
                                                 ? item.created_by?.rating
@@ -128,16 +131,19 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                         }
                                         location={
                                             item
-                                                ? `${item?.created_by?.address_line1}, ${item?.created_by?.address_line2}`
+                                                ? `${item?.created_by?.address_line1}, ${item?.created_by?.country.name}`
                                                 : ""
                                         }
                                         distance={"2 km"}
                                         bio={item ? item?.created_by?.bio : ""}
                                         charge={
                                             item
-                                                ? `${item?.created_by?.charge_currency.code} ${item?.created_by?.hourly_rate}`
+                                                ? `${item?.created_by?.charge_currency?.code} ${item?.created_by?.hourly_rate}`
                                                 : ""
                                         }
+                                        // charge={
+                                        //     item ? `${item?.budget_to}` : ""
+                                        // }
                                         taskId={taskId}
                                         tasker={""}
                                     />

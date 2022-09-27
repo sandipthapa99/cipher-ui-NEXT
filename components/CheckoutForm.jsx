@@ -62,7 +62,7 @@ export default function CheckoutForm() {
             elements,
             confirmParams: {
                 // payment completion page
-                return_url: "http://localhost:3005/home",
+                return_url: "http://localhost:3005/payment-success",
             },
         });
 

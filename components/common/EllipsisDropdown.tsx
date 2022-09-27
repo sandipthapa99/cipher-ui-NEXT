@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Text } from "@mantine/core";
 import { useModals } from "@mantine/modals";
+import { useQueryClient } from "@tanstack/react-query";
 import { useDeleteTask } from "hooks/task/use-delete-task";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -14,6 +15,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { toast } from "react-toastify";
 import { useSetEditTaskDetail } from "store/use-edit-task";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
+import { ReactQueryKeys } from "types/queryKeys";
 import type { ITask } from "types/task";
 interface Menu {
     item: string;
@@ -37,6 +39,7 @@ const EllipsisDropdown = ({
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const setEditTaskDetail = useSetEditTaskDetail();
 
+    const queryClient = useQueryClient();
     const { mutate: deleteTaskMutation } = useDeleteTask();
 
     const handleDeleteTask = () => {
@@ -46,6 +49,7 @@ const EllipsisDropdown = ({
             {
                 onSuccess: (message) => {
                     toast.success(message);
+                    queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
                 },
             }
         );

@@ -205,7 +205,7 @@ const PaymentMethod = () => {
                                                 <div className="account-info">
                                                     <figure className="thumbnail-img">
                                                         <Image
-                                                            src="/settings/digital-wallet/khalti.svg"
+                                                            src="/settings/bank.svg"
                                                             layout="fill"
                                                             // height={45}
                                                             // width={45}

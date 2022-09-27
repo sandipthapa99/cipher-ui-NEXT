@@ -3,6 +3,7 @@ import { TaskerSkeleton } from "@components/Skeletons/TaskerSkeleton";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Loader, ScrollArea } from "@mantine/core";
+import { useSearchedTaskers } from "components/common/Search/searchStore";
 import { useTaskers } from "hooks/tasker/use-taskers";
 import { useInViewPort } from "hooks/use-in-viewport";
 import type { ReactNode } from "react";
@@ -14,6 +15,8 @@ interface TaskerAsideProps {
     searchParam: string;
 }
 const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
+    const searchedTaskers = useSearchedTaskers();
+
     const {
         data: taskersPage,
         isLoading,
@@ -26,6 +29,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
         [taskersPage?.pages]
     );
     const totalTaskers = taskers.length;
+    const allTaskers = searchedTaskers.length > 0 ? searchedTaskers : taskers;
 
     const isLastTaskerOnPage = (index: number) => index === totalTaskers - 1;
 
@@ -35,7 +39,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
         }
     });
 
-    const renderTaskCards = taskers.map((tasker, index) => {
+    const renderTaskCards = allTaskers.map((tasker, index) => {
         return (
             <div
                 ref={isLastTaskerOnPage(index) ? ref : null}

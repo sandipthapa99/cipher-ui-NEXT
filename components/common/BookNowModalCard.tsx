@@ -14,6 +14,7 @@ import { useSerivceEntity } from "hooks/service/use-service-entity";
 import { useServiceOptions } from "hooks/service/use-service-options";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
 import { useUploadFile } from "hooks/use-upload-file";
+import parse from "html-react-parser";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -85,6 +86,7 @@ const BookNowModalCard = ({
     const [serviceCategory, setserviceCategory] = useState("");
 
     const useServiceEnetity = useSerivceEntity();
+    const parsedDescription = parse(description ?? "");
 
     return (
         <>
@@ -119,7 +121,7 @@ const BookNowModalCard = ({
                                 </span>
                             </h4>
                         </div>
-                        <p className="description">{description}</p>
+                        <p className="description">{parsedDescription}</p>
                     </div>
                     <Formik
                         initialValues={BookServiceFormData}

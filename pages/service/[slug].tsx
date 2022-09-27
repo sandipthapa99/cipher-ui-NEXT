@@ -20,6 +20,7 @@ const ServicesDetail = ({
         rawString: service?.highlights ?? "",
         initialData: [],
     });
+
     return (
         <>
             <ServiceLayout>
