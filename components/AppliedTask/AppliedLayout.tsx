@@ -1,7 +1,7 @@
 import TaskAside from "@components/AppliedTask/taskAside";
 import Layout from "@components/Layout";
-import { SearchCategory } from "@components/SearchTask/searchCategory";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { SearchCategory } from "@components/SearchTask/SearchCategory";
+import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
 import type { ReactNode } from "react";
 import { useState } from "react";
@@ -29,7 +29,6 @@ const AppliedLayout = ({
     type?: string;
 }) => {
     const [searchParam, setSearchParam] = useState("");
-
     return (
         <Layout title="Find Tasks | Homaale">
             <section className="Tasks-section mb-5" id="Tasks-section">
