@@ -188,15 +188,15 @@ export const ChangePasswordFromData: changePasswordValueProps = {
 export const TaxCalculatorFormData: TaxCalculatorValueProps = {
     marital_status: "Unmarried",
     gender: "Female",
-    salary: 0,
+    salary: "",
     income_time: "Yearly",
-    festival_bonus: 0,
-    allowance: 0,
-    others: 0,
-    pf: 0,
-    cit: 0,
-    life_insurance: 0,
-    medical_insurance: 0,
+    festival_bonus: "",
+    allowance: "",
+    others: "",
+    pf: "",
+    cit: "",
+    life_insurance: "",
+    medical_insurance: "",
 };
 
 export const DeactivateFromData: deactivateValueProps = {
