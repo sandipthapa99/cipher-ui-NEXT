@@ -14,7 +14,6 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import type { BookNowModalCardProps } from "types/bookNow";
-import { BookServiceFormData } from "utils/formData";
 import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -87,8 +86,24 @@ const BookNowModalCard = ({
                         <p className="description">{parsedDescription}</p>
                     </div>
                     <Formik
-                        initialValues={BookServiceFormData}
-                        validationSchema={bookServiceSchema}
+                        initialValues={{
+                            description: "",
+                            start_date: "",
+                            end_date: "",
+                            start_time: 1,
+                            images: "",
+                            entity_service: "",
+                            budget_to: budget_to,
+                            videos: "",
+                            requirements: "",
+                            location: "false",
+                        }}
+                        validationSchema={() =>
+                            bookServiceSchema({
+                                budget_from: budget_from ?? 0,
+                                budget_to: budget_to ?? 100000000,
+                            })
+                        }
                         onSubmit={async (values) => {
                             const imageIds = await mutateAsync({
                                 files: values.images,
@@ -120,7 +135,6 @@ const BookNowModalCard = ({
                     >
                         {({ isSubmitting, errors, touched, setFieldValue }) => (
                             <Form encType="multipart/formData">
-                                {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
                                 <div className="problem">
                                     <InputField
                                         labelName="Description"
@@ -171,12 +185,14 @@ const BookNowModalCard = ({
                                         <Row>
                                             <Col md={6}>
                                                 <InputField
-                                                    labelName="Budget To"
+                                                    labelName="Budget"
                                                     type="number"
                                                     name="budget_to"
                                                     error={errors.budget_to}
                                                     touch={touched.budget_to}
-                                                    placeHolder="0"
+                                                    min={budget_from}
+                                                    max={budget_to}
+                                                    placeHolder="Your Price"
                                                     fieldRequired
                                                 />
                                             </Col>
