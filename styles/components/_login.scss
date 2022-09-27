@@ -33,20 +33,27 @@
     }
 }
 .login-layout-wrapper {
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
+    width: 100%;
 
     &__left {
-        width: 44%;
-        min-height: 100%;
+        // width: 44%;
+        // min-height: 100%;
+        // background-size: cover;
+        // position: fixed;
+        // left: 0;
+        // top: 0;
+        // position: relative;
+        // justify-content: center;
+        // align-items: center;
+        // display: none;
+        width: 45%;
+        height: 100%;
         background-size: cover;
         position: fixed;
         left: 0;
         top: 0;
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        display: none;
 
         @include respond(lg) {
             display: flex;
@@ -62,14 +69,27 @@
     &__right {
         width: 100%;
         background: white;
-        position: relative;
         display: flex;
-        align-items: center;
         padding: 0 4rem;
+        position: absolute;
+        right: 0;
+        top: 0;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
 
         @include respond(lg) {
             width: 56%;
             padding-left: 14rem;
+        }
+
+        @include respond(md) {
+            width: 56%;
+            padding-left: 14rem;
+        }
+
+        @include respond(sm) {
+            padding-left: 8rem;
         }
 
         .redirection-text {
