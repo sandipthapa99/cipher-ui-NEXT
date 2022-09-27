@@ -175,7 +175,7 @@ const ServiceCard = ({
                                     }
                                     className="svg-icon star"
                                 />
-                                {serviceRating}
+                                <span> {serviceRating}</span>
                             </p>
                             <p className="price">
                                 {serviceCard?.currency?.symbol
