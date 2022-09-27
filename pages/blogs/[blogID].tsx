@@ -9,11 +9,10 @@ import { FacebookShareButton, TwitterShareButton } from "next-share";
 import { Col, Container, Row } from "react-bootstrap";
 import type { BlogDetailData, BlogValueProps } from "types/blogs";
 import { axiosClient } from "utils/axiosClient";
-import { formatMonthDate } from "utils/helpers";
+import { formatMonthDate, getPageUrl } from "utils/helpers";
 
 const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
     // const blogData = blog?.data ?? {};
-    const socialShareURL = `https://cipher.com/blogs/${blog?.slug}`;
     // const category = JSON.parse(blog?.category);
     if (!blog) return null;
     return (
@@ -34,7 +33,7 @@ const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
                                     <p
                                         onClick={() => {
                                             navigator.clipboard.writeText(
-                                                `${socialShareURL}`
+                                                `${getPageUrl()}`
                                             );
 
                                             // successToast("Link Copied")
@@ -47,7 +46,7 @@ const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
                                         Copy Link
                                     </p>
                                 </button>
-                                <FacebookShareButton url={socialShareURL}>
+                                <FacebookShareButton url={getPageUrl()}>
                                     <p>
                                         <FontAwesomeIcon
                                             icon={faFacebookF}
@@ -56,7 +55,7 @@ const SingleBlog = ({ blog }: { blog: BlogValueProps["result"][0] }) => {
                                         Facebook
                                     </p>
                                 </FacebookShareButton>
-                                <TwitterShareButton url={socialShareURL}>
+                                <TwitterShareButton url={getPageUrl()}>
                                     <p>
                                         <FontAwesomeIcon
                                             icon={faTwitter}

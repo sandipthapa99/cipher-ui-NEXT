@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 
 const TermsConditions = () => {
     return (
-        <Layout title="Terms &amp; Conditions | Cipher">
+        <Layout title="Terms &amp; Conditions | Homaale">
             <Container fluid="xl" className="px-5">
                 <BreadCrumb currentPage="Terms &amp; Conditions" />
                 <section className="privacy-policy">
@@ -15,10 +15,10 @@ const TermsConditions = () => {
 
                         <p>
                             The terms and conditions surrounding your access to
-                            and use of the CIPHER Site are outlined in the Terms
-                            of Use. Before using our website, please carefully
-                            read our Terms of Use. Some users of our site
-                            (referred to as &quot;you&quot; or &quot;Site
+                            and use of the HOMAALE Site are outlined in the
+                            Terms of Use. Before using our website, please
+                            carefully read our Terms of Use. Some users of our
+                            site (referred to as &quot;you&quot; or &quot;Site
                             Visitors&quot;) only access the parts of it that are
                             open to the public or use the Public Site Services.
                             You accept these site terms of use by accessing
@@ -30,11 +30,11 @@ const TermsConditions = () => {
                             Site if you do not agree to these Site Terms of Use.
                         </p>
                         <p>
-                            Thank you for visiting CIPHER, commonly known as
+                            Thank you for visiting HOMAALE, commonly known as
                             &quot;we,&quot; &quot;us,&quot; or
-                            &quot;CIPHER.com.&quot; These are the terms and
+                            &quot;HOMAALE.com.&quot; These are the terms and
                             conditions regulating your access to and use of
-                            CIPHER, as well as its connected sub-domains,
+                            HOMAALE, as well as its connected sub-domains,
                             websites, mobile application, services, and tools.
                             We are an online marketplace (the &quot;Site&quot;).
                             You agree to abide by these terms and conditions by
@@ -45,7 +45,7 @@ const TermsConditions = () => {
                             of the Site constitutes your agreement to its terms.
                             Please do not access, register with, or use this
                             Site if you do not wish to be bound by the terms of
-                            this User Agreement. CIPHER Private Limited is the
+                            this User Agreement. HOMAALE Private Limited is the
                             owner and operator of this website.
                         </p>
                         <p>
@@ -193,7 +193,7 @@ const TermsConditions = () => {
                             otherwise harmful to third parties; or that relates
                             (&quot; objectionable content &quot;).Please contact
                             us right away by sending an email to
-                            legal@CIPHER.com. We shall do every reasonable
+                            legal@HOMAALE.com. We shall do every reasonable
                             effort to look into and remove any legitimately
                             objectionable content that has been reported within
                             a fair amount of time
@@ -202,9 +202,9 @@ const TermsConditions = () => {
                         <h4>1.9. Claims Against Infringing Content</h4>
                         <p>
                             We value other people&apos;s intellectual property.
-                            Please contact us at legal@CIPHER.com if you suspect
-                            that your intellectual property rights have been
-                            violated in any way. We will use all reasonable
+                            Please contact us at legal@HOMAALE.com if you
+                            suspect that your intellectual property rights have
+                            been violated in any way. We will use all reasonable
                             efforts to resolve your issue within a reasonable
                             amount of time. Please be sure to include your name,
                             address, and contact information as well as all
@@ -221,7 +221,7 @@ const TermsConditions = () => {
                         <h4>1.10. Trademarks and Copyrights</h4>
                         <p>
                             The trademarks or registered trademarks of
-                            CIPHER.np, CIPHER logo, CIPHER, and other brands
+                            HOMAALE.np, HOMAALE logo, HOMAALE, and other brands
                             mentioned on our site are owned by their respective
                             companies (s). Our trademarks or trade dress include
                             our graphics, logos, page headers, button icons,
@@ -252,8 +252,8 @@ const TermsConditions = () => {
 
                         <h4>1.12. Indemnity</h4>
                         <p>
-                            You agree to defend and indemnify CIPHER as owned by
-                            CIPHER Private Limited, its subsidiaries,
+                            You agree to defend and indemnify HOMAALE as owned
+                            by HOMAALE Private Limited, its subsidiaries,
                             affiliates, and each of their officers, directors,
                             agents, and employees from any claim or demand made
                             by a third party or action brought against you as a
@@ -267,7 +267,7 @@ const TermsConditions = () => {
 
                         <h4>1.13. Third Party Business</h4>
                         <p>
-                            On the Site, businesses other than CIPHER and its
+                            On the Site, businesses other than HOMAALE and its
                             affiliates may run storefronts, offer services, or
                             sell product lines. Businesses and individuals, for
                             instance, advertise things on the Marketplace. We
@@ -450,7 +450,7 @@ const TermsConditions = () => {
                             mode of delivery, warranties connected to products
                             and services, and after-sale services associated
                             with products and services are only a few examples
-                            of the commercial/contractual terms. CIPHER has no
+                            of the commercial/contractual terms. HOMAALE has no
                             influence over, doesn&apos;t choose, doesn&apos;t
                             counsel, doesn&apos;t become involved in any way in
                             the offering or acceptance of these

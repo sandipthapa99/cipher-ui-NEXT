@@ -30,7 +30,7 @@ const AppliedLayout = ({
 }) => {
     const [searchParam, setSearchParam] = useState("");
     return (
-        <Layout title="Find Tasks | Cipher">
+        <Layout title="Find Tasks | Homaale">
             <section className="Tasks-section mb-5" id="Tasks-section">
                 <Container fluid="xl" className="px-5">
                     <SearchCategory

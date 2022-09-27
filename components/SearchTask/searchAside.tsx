@@ -110,13 +110,13 @@ const ServiceNearYouCard = ({
                             <div></div>
                             <h1 className="price">
                                 {currency + " "}
+                                {budget_from ? budget_from + " - " : ""}
                                 {budget_to}
-                                {budget_from !== 0 && " - " + budget_from}
                                 {budget_type === "Hourly"
                                     ? "/hr"
                                     : budget_type === "Monthly"
                                     ? "/mn"
-                                    : ""}
+                                    : "/Project"}
                             </h1>
                             {/* 
                             {currency + " "}

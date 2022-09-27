@@ -9,7 +9,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import searchValidationSchema from "utils/formValidation/searchValidation";
 const Saved: NextPage = () => {
     return (
-        <Layout title="Saved | Cipher">
+        <Layout title="Saved | Homaale">
             <section className="saved-page">
                 <section className="saved-page__header">
                     <Container fluid="xl" className="px-5">

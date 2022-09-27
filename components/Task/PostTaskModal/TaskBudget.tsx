@@ -40,10 +40,6 @@ const budgetType = [
         label: "Monthly",
         value: "Monthly",
     },
-    {
-        label: "Fixed",
-        value: "Fixed",
-    },
 ];
 export const TaskBudget = ({
     initialBudgetFrom,

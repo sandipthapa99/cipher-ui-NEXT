@@ -1,6 +1,5 @@
 import BookNowModalCard from "@components/common/BookNowModalCard";
 import CardBtn from "@components/common/CardBtn";
-import EllipsisDropdown from "@components/common/EllipsisDropdown";
 import EllipsisDropdownService from "@components/common/EllipsisDropdownService";
 import { FilterReview } from "@components/common/FilterReview";
 import PackageOffersCard from "@components/common/packageCard";
@@ -8,7 +7,6 @@ import SaveIcon from "@components/common/SaveIcon";
 import ServiceHighlights from "@components/common/ServiceHighlights";
 import ShareIcon from "@components/common/ShareIcon";
 import { Tab } from "@components/common/Tab";
-import UserActivities from "@components/Profile/Activities";
 import { EditService } from "@components/services/EditService";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
@@ -18,15 +16,14 @@ import {
     faEllipsisVertical,
     faEye,
     faLocationDot,
-    faUserGroup,
     faWarning,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Button, Text } from "@mantine/core";
+import { Text } from "@mantine/core";
 import { Alert, Highlight, Spoiler } from "@mantine/core";
 import { openConfirmModal } from "@mantine/modals";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useUser } from "hooks/auth/useUser";
@@ -43,11 +40,9 @@ import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { getReviews } from "services/commonServices";
-import { useSetBookNowDetails } from "store/use-book-now";
 import { useWithLogin } from "store/use-login-prompt-store";
 import type { ServicesValueProps } from "types/serviceCard";
 import type { ServiceNearYouCardProps } from "types/serviceNearYouCard";
-import { axiosClient } from "utils/axiosClient";
 import { getPageUrl } from "utils/helpers";
 import { isImage } from "utils/isImage";
 import { isVideo } from "utils/isVideo";
@@ -166,7 +161,7 @@ const SearchResultsDetail = ({
     const { mutate } = useDeleteData(`/task/entity/service/${serviceId}/`);
     const withLogin = useWithLogin();
     const router = useRouter();
-    const { data: myBookings, error } = useGetMyBookings(serviceId);
+    const { data: myBookings } = useGetMyBookings(serviceId);
     const servSlug = router.query.slug;
     const getSingleService = servicesData?.data?.result.filter(
         (item) => item.slug === servSlug
@@ -750,8 +745,10 @@ const SearchResultsDetail = ({
                     description={serviceDescription}
                     show={show}
                     handleClose={handleClose}
+                    currencySymbol={currency}
                     setShow={() => setShow(false)}
                 />
+
                 {service && (
                     <EditService
                         showEditModal={editModal}

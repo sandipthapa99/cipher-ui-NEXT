@@ -20,6 +20,7 @@ export interface BookNowModalCardProps {
     entity_service_id?: number | undefined | string;
     images?: any[];
     currency?: Currency;
+    currencySymbol?: string;
 }
 
 export interface BookNowFormProps {

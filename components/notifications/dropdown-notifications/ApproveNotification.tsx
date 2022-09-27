@@ -182,7 +182,7 @@ export const ApproveNotification = ({
                 <h4>
                     {user}{" "}
                     <span>
-                        has {title} your {type}{" "}
+                        has {title} your {type} for{" "}
                         <span className="service-name-notify">{body}.</span>
                     </span>
                 </h4>
@@ -194,7 +194,7 @@ export const ApproveNotification = ({
                 <div className="d-flex mt-1 align-items-center justify-content-between date-approve-section">
                     <p className="date m-0">
                         {date
-                            ? format(new Date(date), "EEEE, do LLLL yyyy")
+                            ? format(new Date(date), "EEEE, do LLL, hh:mm a")
                             : ""}
                     </p>
                     {accept && (
