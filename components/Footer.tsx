@@ -171,11 +171,11 @@ const Footer = () => {
                                                 <a>Help and Support</a>
                                             </Link>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <Link href="/community">
                                                 <a>Community</a>
                                             </Link>
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <Link href="/blogs">
                                                 <a>Blog</a>
@@ -186,14 +186,14 @@ const Footer = () => {
                                                 <a>Discover</a>
                                             </Link>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <Link
                                                 href="/referral"
                                                 as="affiliate-program"
                                             >
                                                 <a>Affiliate Program</a>
                                             </Link>
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <Link
                                                 href="/social"
@@ -370,7 +370,7 @@ const Footer = () => {
                         </Row>
                     </div>
                     <p className="copyright">
-                        © 2022 - 2026 Cipher® Global Inc. All Rights Reserved
+                        © 2022 Homaale®. All Rights Reserved
                     </p>
                     {/* Cipher footer social links section end */}
                 </Container>
