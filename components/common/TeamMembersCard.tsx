@@ -148,7 +148,8 @@ export const TeamMembersCard = ({
                         /> */}
                             </div>
                             <h6 className="text-dark">
-                                <span>{speciality} </span>| {location}
+                                <span>{speciality} </span>
+                                {location ? `| ${location}` : ""}
                             </h6>
                             <div className="d-flex icon-wrapper-member gap-5 align-items-center emoji-section text-dark">
                                 <span className="star">
