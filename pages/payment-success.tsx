@@ -6,7 +6,7 @@ import { Button, Container } from "react-bootstrap";
 
 const PaymentSuccess = () => {
     return (
-        <Layout title="Payment Success | Cipher">
+        <Layout title="Payment Success | Homaale">
             <Container fluid="xl" className="px-5">
                 <div className="py-5 text-center bg-white success-content">
                     <FontAwesomeIcon icon={faThumbsUp} className="svg-icon" />

@@ -156,7 +156,7 @@ const TaxCalculator: NextPage = () => {
         },
     ];
     return (
-        <Layout title="Tax-Calculator | Cipher">
+        <Layout title="Tax-Calculator | Homaale">
             <section className="tax-calculator ">
                 <Container fluid="xl" className="px-5">
                     <BreadCrumb currentPage="Tax Calculator" />

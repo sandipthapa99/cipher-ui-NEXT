@@ -2,10 +2,10 @@ import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Loader } from "@mantine/core";
-import { dehydrate, QueryClient, useQueryClient } from "@tanstack/react-query";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useGetProfile } from "hooks/profile/useGetProfile";
-import type { MyBookings } from "hooks/task/use-get-service-booking";
+// import type { MyBookings } from "hooks/task/use-get-service-booking";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
 import React, { useEffect, useState } from "react";
@@ -81,15 +81,6 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                 </Alert>
             ) : (
                 <Row className="g-5">
-                    {/* {taskApplicants && taskApplicants.data.count < 1 ? (
-                        <Alert
-                            icon={<FontAwesomeIcon icon={faWarning} />}
-                            title={"No Applicants!"}
-                            color="orange"
-                        >
-                            There are no applicants yet!
-                        </Alert>
-                    ) : ( */}
                     {taskApplicants &&
                         taskApplicants.data.result.map((item: any) =>
                             item.is_active ? (
@@ -112,7 +103,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                         }
                                         speciality={item.created_by.designation}
                                         rating={
-                                            item
+                                            item.created_by?.rating
                                                 ? item.created_by?.rating
                                                       .avg_rating
                                                 : 0
@@ -130,7 +121,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                                 : ""
                                         }
                                         location={
-                                            item
+                                            item.created_by?.address_line1
                                                 ? `${item?.created_by?.address_line1}, ${item?.created_by?.country.name}`
                                                 : ""
                                         }

@@ -1,6 +1,6 @@
 import Footer from "@components/Footer";
 import Header from "@components/Header";
-import { SearchCategory } from "@components/SearchTask/searchCategory";
+import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import SearchResults from "@components/SearchTask/SearchResults";
 import { useQuery } from "@tanstack/react-query";
 import type { NextPage } from "next";

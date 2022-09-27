@@ -49,6 +49,10 @@ const SimpleProfileCard = ({
     const requestedTask = myRequestedTask?.data.result.find(
         (requestedTask: any) => requestedTask?.entity_service.id === task.id
     );
+    console.log(
+        "🚀 ~ file: SimpleProfileCard.tsx ~ line 52 ~ requestedTask",
+        requestedTask
+    );
 
     const appliedTask = appliedTasks?.result.find(
         (appliedTask: any) => appliedTask?.id !== task.id
@@ -76,6 +80,7 @@ const SimpleProfileCard = ({
         mutate(requestedTask?.id, {
             onSuccess: (message) => {
                 queryClient.invalidateQueries(["my-requested-task"]);
+                queryClient.invalidateQueries(["approved-task"]);
                 toast.success("Booking successfully cancelled.");
                 queryClient.invalidateQueries(["get-task-applicants"]);
                 onApply?.();
@@ -228,7 +233,7 @@ const SimpleProfileCard = ({
                         backgroundColor={"#30b32c"}
                         //handleOnClick={handleLeaveTask}
                     />
-                ) : !requestedTask.is_accepted ? (
+                ) : !requestedTask.is_accepted && !requestedTask.is_active ? (
                     <BookNowButton
                         btnTitle="Declined"
                         backgroundColor="#FE5050"

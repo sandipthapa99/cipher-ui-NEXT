@@ -31,7 +31,7 @@ const ServiceDetail: NextPage = () => {
     );
 
     return (
-        <Layout title="Service Details | Cipher">
+        <Layout title="Service Details | Homaale">
             <BreadCrumb currentPage="Service Details" />
             <Container fluid="xl" className="px-0 px-sm-5">
                 <section className="service-details">
@@ -220,7 +220,7 @@ const ServiceDetail: NextPage = () => {
                     >
                         <div className="title-wrapper d-flex justify-content-between">
                             {/* <h2 className="heading-title">Community activity</h2> */}
-                            <h1>Popular on Cipher</h1>
+                            <h1>Popular on Homaale</h1>
                             <Link href="/service">
                                 <a className="view-more">
                                     view more{" "}

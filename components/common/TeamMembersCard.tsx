@@ -78,9 +78,9 @@ export const TeamMembersCard = ({
         ["approved-task"],
         `${urls.task.approvedTaskList}`
     );
-    const approvedTask = approvedTasks?.data.result.find(
-        (appliedTask: any) => appliedTask.assignee.id === userId
-    );
+    // const approvedTask = approvedTasks?.data.result.find(
+    //     (appliedTask: any) => appliedTask.assignee.id === userId
+    // );
 
     const { data: taskApplicants } = useData<TaskApplicantsProps>(
         ["get-my-applicants"],
@@ -117,7 +117,7 @@ export const TeamMembersCard = ({
             <Link href={`/tasker/${tasker}/`}>
                 <a>
                     <div className="d-flex w-100 image-and-title">
-                        {image && (
+                        {image ? (
                             <figure className="team-member-card-image">
                                 <Image
                                     src={image}
@@ -126,20 +126,16 @@ export const TeamMembersCard = ({
                                     width={80}
                                 />
                             </figure>
+                        ) : (
+                            <figure className="team-member-card-image">
+                                <Image
+                                    src={"/userprofile/unknownPerson.jpg"}
+                                    alt="team-member-card-image"
+                                    height={80}
+                                    width={80}
+                                />
+                            </figure>
                         )}
-                        {!image ||
-                            (image.length <= 0 && (
-                                <figure className="team-member-card-image">
-                                    <Image
-                                        src={
-                                            "/placeholder/profilePlaceholder.png"
-                                        }
-                                        alt="team-member-card-image"
-                                        height={80}
-                                        width={80}
-                                    />
-                                </figure>
-                            ))}
 
                         <div className="w-100 name-post-count">
                             <div className="d-flex justify-content-between title-and-dots text-dark">
@@ -243,6 +239,15 @@ export const TeamMembersCard = ({
                                                 queryClient.invalidateQueries([
                                                     "get-my-applicants",
                                                 ]);
+                                                queryClient.invalidateQueries([
+                                                    "get-task-applicants",
+                                                ]);
+                                                queryClient.invalidateQueries([
+                                                    "my-requested-task",
+                                                ]);
+                                                queryClient.invalidateQueries([
+                                                    "approved-task",
+                                                ]);
                                             },
                                             onError: (error: any) => {
                                                 console.log(error);
@@ -271,6 +276,15 @@ export const TeamMembersCard = ({
                                                 queryClient.invalidateQueries([
                                                     "get-my-applicants",
                                                 ]);
+                                                queryClient.invalidateQueries([
+                                                    "get-task-applicants",
+                                                ]);
+                                                queryClient.invalidateQueries([
+                                                    "my-requested-task",
+                                                ]);
+                                                queryClient.invalidateQueries([
+                                                    "approved-task",
+                                                ]);
                                             },
                                             onError: (error: any) => {
                                                 // console.log(
@@ -285,7 +299,7 @@ export const TeamMembersCard = ({
                                     );
                                 }}
                                 backgroundColor={"#211D4F"}
-                                border="1px solid #211D4F"
+                                // border="1px solid #211D4F"
                             />
                         </>
                     ) : (
