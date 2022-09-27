@@ -74,8 +74,8 @@ const AppliedForm = ({
                             Price:{" "}
                             <span>
                                 {currency?.code} &nbsp;
-                                {budget_from}&nbsp;
-                                {budget_to && "-" + budget_to}&nbsp;
+                                {budget_from}
+                                {budget_to && "- " + budget_to}&nbsp;
                                 {budget_type}
                             </span>
                         </h4>
