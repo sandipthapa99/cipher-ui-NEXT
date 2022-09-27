@@ -43,7 +43,7 @@ const ServiceNearYouCard = ({
     return (
         <div
             data-active={JSON.stringify(path === serviceSlug)}
-            className="service-card-block service-near-you-card-block active"
+            className="service-card-block service-near-you-card-block active pe-2"
             onClick={() => onServiceClick}
         >
             <Row>
