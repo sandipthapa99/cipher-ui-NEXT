@@ -8,6 +8,7 @@ import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
+import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
 import { useForm } from "hooks/use-form";
@@ -60,6 +61,7 @@ export const TeamMembersCard = ({
     isTasker,
     taskId,
 }: Props) => {
+    const { data: user } = useUser();
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
 
@@ -194,15 +196,20 @@ export const TeamMembersCard = ({
             </Link>
             <div className="d-flex justify-content-between footer-section">
                 <div className="d-flex share-and-like">
-                    <SaveIcon
-                        model="user"
-                        object_id={userId}
-                        filled={isBookmarked}
-                        onSuccess={() =>
-                            queryClient.invalidateQueries(["bookmarks", "user"])
-                        }
-                        className={"me-3"}
-                    />
+                    {user && user.id !== tasker ? (
+                        <SaveIcon
+                            model="user"
+                            object_id={userId}
+                            filled={isBookmarked}
+                            onSuccess={() =>
+                                queryClient.invalidateQueries([
+                                    "bookmarks",
+                                    "user",
+                                ])
+                            }
+                            className={"me-3"}
+                        />
+                    ) : null}
                     <ShareIcon url={""} quote={""} hashtag={""} />
                 </div>
                 <Link href={`/tasker/${tasker}/`}>
