@@ -1,7 +1,7 @@
 import FullPageLoader from "@components/common/FullPageLoader";
-import { faLocation } from "@fortawesome/pro-regular-svg-icons";
+import { faLocationCrosshairs } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, createStyles, Text } from "@mantine/core";
+import { createStyles } from "@mantine/core";
 import { useInterval } from "@mantine/hooks";
 import type { GoogleMapProps } from "@react-google-maps/api";
 import { OverlayView } from "@react-google-maps/api";
@@ -32,7 +32,6 @@ const getGoogleMapsApiKey = () => {
 };
 
 const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
-    const { classes } = useStyles();
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
         googleMapsApiKey: getGoogleMapsApiKey(),
@@ -92,24 +91,14 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
             onUnmount={onUnmount}
         >
             <OverlayView mapPaneName="floatPane" position={location}>
-                <Box className={classes.currentLocationWindow}>
-                    <FontAwesomeIcon color="red" icon={faLocation} />
-                    <Text>You are here</Text>
-                </Box>
+                <FontAwesomeIcon
+                    color="#EEBC68"
+                    size="3x"
+                    icon={faLocationCrosshairs}
+                />
             </OverlayView>
             {children}
         </ReactGoogleMap>
     ) : null;
 };
-const useStyles = createStyles(() => ({
-    currentLocationWindow: {
-        backgroundColor: "#F9CA6A",
-        color: "#000",
-        padding: "1rem",
-        borderRadius: ".4rem",
-        display: "flex",
-        alignItems: "center",
-        gap: "1rem",
-    },
-}));
 export default GoogleMap;

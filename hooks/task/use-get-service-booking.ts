@@ -164,20 +164,28 @@ export type MyBookings = {
 };
 
 export const useGetMyBookings = (service_id: string | undefined) => {
-    return useQuery<MyBookings>(["get-my-bookings", service_id], async () => {
-        try {
-            const { data } = await axiosClient.get<MyBookings>(
-                `/task/entity/service-booking/?entity_service=${service_id}&is_active=true&is_requested=false`
-            );
-            return data;
-        } catch (error) {
-            if (error instanceof AxiosError) {
-                const errors = Object.values(error.response?.data).join("\n");
-                throw new Error(errors);
+    return useQuery<MyBookings>(
+        ["get-my-bookings", service_id],
+        async () => {
+            try {
+                const { data } = await axiosClient.get<MyBookings>(
+                    `/task/entity/service-booking/?entity_service=${service_id}&is_active=true&is_requested=false`
+                );
+                return data;
+            } catch (error) {
+                if (error instanceof AxiosError) {
+                    const errors = Object.values(error.response?.data).join(
+                        "\n"
+                    );
+                    throw new Error(errors);
+                }
+                throw new Error("Something went wrong");
             }
-            throw new Error("Something went wrong");
+        },
+        {
+            enabled: !!service_id,
         }
-    });
+    );
 };
 
 export const useGetTasks = () => {

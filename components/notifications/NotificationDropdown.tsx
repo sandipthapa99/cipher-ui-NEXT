@@ -1,5 +1,6 @@
 import { faBell } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { QueryClient } from "@tanstack/react-query";
 import { useGetNotification } from "hooks/Notifications/use-notification";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -8,6 +9,8 @@ import React from "react";
 import { axiosClient } from "utils/axiosClient";
 
 import { ApproveNotify } from "./ApproveNotify";
+import { ApproveNotification } from "./dropdown-notifications/ApproveNotification";
+import { CreatedTask } from "./dropdown-notifications/CreatedTask";
 import { PostNotifyTask } from "./PostedTask";
 import { ServiceAccept } from "./ServiceAccept";
 
@@ -15,6 +18,7 @@ export const NotificationDropdown = () => {
     const { data: allNotifications, refetch } = useGetNotification();
     // console.log("all", allNotifications);
     const router = useRouter();
+    const queryClient = new QueryClient();
 
     const [todayNotifications, settodayNotifications] = useState<any[]>(
         () =>
@@ -40,35 +44,49 @@ export const NotificationDropdown = () => {
     if (todayNotifications.length > 5) {
         settodayNotifications((prev) => prev.slice(0, 5));
     }
+    const readSingleNotification = async (slug: string, id: number) => {
+        router.push(`/service/${slug}`);
+
+        await axiosClient.get(`/notification/read/?id=${id}`);
+
+        refetch();
+    };
+    console.log("today", todayNotifications);
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification: any, index: number) => {
-            // if (notification.type === "entityservice") {
-            //     return (
-            //         <div
-            //             key={index}
-            //             onClick={async () => {
-            //                 router.push(`/task/${notification.object_slug}`);
-            //                 await axiosClient.get(
-            //                     `/notification/read/?id=${notification.id}`
-            //                 );
+            if (notification.title === "created") {
+                return (
+                    <div
+                        key={index}
+                        onClick={async () => {
+                            router.push(`/task/${notification.object_slug}`);
+                            await axiosClient.get(
+                                `/notification/read/?id=${notification.id}`
+                            );
 
-            //                 // // await queryClient.invalidateQueries([
-            //                 // //     "notification",
-            //                 // // ]);
-            //             }}
-            //         >
-            //             {/* <ApproveNotify date={notification.created_date} /> */}
-            //             <PostNotifyTask
-            //                 taskTitle={`${notification.title} a service`}
-            //                 taskObject={notification.object}
-            //                 createdDate={notification.created_date}
-            //                 slug={notification.object_slug}
-            //             />
-            //         </div>
-            //     );
-            // }
-            if (notification.type === "task") {
+                            await queryClient.invalidateQueries([
+                                "notification",
+                            ]);
+                        }}
+                    >
+                        {/* <ApproveNotify date={notification.created_date} /> */}
+                        <PostNotifyTask
+                            taskTitle={`${notification.title} a service`}
+                            taskObject={notification.object}
+                            createdDate={notification.created_date}
+                            slug={notification.object_slug}
+                            type={"created"}
+                            handleClick={() =>
+                                readSingleNotification(
+                                    notification?.object_slug,
+                                    notification?.id
+                                )
+                            }
+                        />
+                    </div>
+                );
+            } else if (notification.type === "task") {
                 return (
                     <div key={index}>
                         <PostNotifyTask
@@ -76,34 +94,114 @@ export const NotificationDropdown = () => {
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
                             slug={notification?.object_slug}
+                            handleClick={() =>
+                                readSingleNotification(
+                                    notification?.object_slug,
+                                    notification?.id
+                                )
+                            }
                         />
                     </div>
                 );
             }
-            if (notification.type === "entityservice") {
+            // if (notification.type === "entityservice") {
+            //     return (
+            //         <div key={index}>
+            //             <PostNotifyTask
+            //                 taskTitle={notification?.title}
+            //                 taskObject={notification?.object}
+            //                 createdDate={notification?.created_date}
+            //                 slug={notification?.object_slug}
+            //                 handleClick={() =>
+            //                     readSingleNotification(
+            //                         notification?.object_slug,
+            //                         notification?.id
+            //                     )
+            //                 }
+            //             />
+            //         </div>
+            //     );
+            // }
+            // else if (notification.type === "service") {
+            //     return (
+            //         <div key={index}>
+            //             <ServiceAccept />
+            //         </div>
+            //     );
+            // }
+            else if (notification.title === "booking") {
                 return (
-                    <div key={index}>
+                    <div
+                        key={index}
+                        onClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id
+                            )
+                        }
+                    >
+                        {/* <ApproveNotify
+                            body={notification?.object}
+                            date={notification?.created_date}
+                            title={notification?.title}
+                            handleClick={() =>
+                                readSingleNotification(
+                                    notification?.object_slug,
+                                    notification?.id
+                                )
+                            }
+                        /> */}
                         <PostNotifyTask
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
                             slug={notification?.object_slug}
+                            type={"booked"}
                         />
                     </div>
                 );
-            } else if (notification.type === "service") {
+            } else if (notification.title === "approval") {
+                console.log("approval", notification);
+
                 return (
-                    <div key={index}>
-                        <ServiceAccept />
+                    <div
+                        key={index}
+                        onClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id
+                            )
+                        }
+                    >
+                        <ApproveNotification
+                            bookingId={notification?.object_id}
+                            title="booked"
+                            body={notification?.object}
+                            user={notification?.created_for}
+                            accept={true}
+                            date={notification?.created_date}
+                            type="service"
+                        />
                     </div>
                 );
-            } else if (notification.type === "booking") {
+            } else if (notification.title === "Approved") {
                 return (
-                    <div key={index}>
-                        <ApproveNotify
+                    <div
+                        key={index}
+                        onClick={() =>
+                            readSingleNotification(
+                                notification?.object_slug,
+                                notification?.id
+                            )
+                        }
+                    >
+                        <ApproveNotification
+                            title="Approved"
                             body={notification?.object}
+                            user={notification?.created_for}
                             date={notification?.created_date}
-                            title={notification?.title}
+                            type="booking"
+                            slug={notification?.object_slug}
                         />
                     </div>
                 );
@@ -131,7 +229,7 @@ export const NotificationDropdown = () => {
                         const response = await axiosClient.get(
                             "/notification/read/"
                         );
-                        console.log(response);
+
                         if (response.status === 200) {
                             refetch();
                             // await queryClient.invalidateQueries([
@@ -150,8 +248,9 @@ export const NotificationDropdown = () => {
                 </p>
             )}
             {renderTodayNotifications}
-            {/* <ApproveNotification accept={true} />
-            <ApproveNotification pay={true} />
+            {/* <ServiceAccept /> */}
+
+            {/* <ApproveNotification pay={true} />
             <CreatedTask />
             <CreatedTask text_after="for Bathroom" /> */}
 

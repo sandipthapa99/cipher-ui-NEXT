@@ -496,7 +496,7 @@ const Home: NextPage<{
             {/* Find & Hire section end */}
 
             {/* Top Taksers Section Start */}
-            {topTaskerData?.result?.length <= 0 && (
+            {topTaskerData?.result?.length != 0 && (
                 <section id="top-merchants" className="top-merchants">
                     <Container fluid="xl" className="px-5">
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between align-items-baseline">
@@ -651,7 +651,7 @@ const Home: NextPage<{
 
             {/* some success stories sectioin start */}
 
-            {/*<section
+            <section
                 id="some-success-stories-section"
                 className="some-success-stories-section"
             >
@@ -698,7 +698,7 @@ const Home: NextPage<{
                             ))}
                     </Carousel>
                 </Container>
-            </section>*/}
+            </section>
 
             {/* Notable quality section starts  */}
             <section id="notable-quality" className="notable-quality">
@@ -885,12 +885,10 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: successStoryData } = await axiosClient.get(
             urls.tasker.success_story
         );
-        // const { data: trustedPartnerData } = await axiosClient.get(
-        //     "/landingpage/trusted-partner/"
-        // );
-        // const { data: heroCategoryData } = await axiosClient.get(
-        //     "/task/hero-category/"
-        // );
+        const { data: trustedPartnerData } = await axiosClient.get(
+            urls.trusted_partners
+        );
+        // const { data: heroCategoryData } = await axiosClient.get(urls.hero);
         // const { data: topCategoryData } = await axiosClient.get(
         //     "/task/top-categories/"
         // );
@@ -906,7 +904,7 @@ export const getStaticProps: GetStaticProps = async () => {
         return {
             props: {
                 successStoryData,
-                // trustedPartnerData,
+                trustedPartnerData,
                 // recommendedTasksData,
                 // heroCategoryData,
                 topTaskerData,

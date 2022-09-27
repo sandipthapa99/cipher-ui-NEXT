@@ -55,7 +55,6 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             }
         };
         const result = setToken();
-        console.log("result", result);
     }, []);
 
     return (

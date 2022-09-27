@@ -222,17 +222,17 @@ const SimpleProfileCard = ({
                         backgroundColor="#38C675"
                         handleOnClick={withLogin(() => setShowModal(true))}
                     />
-                ) : !approvedTask ? (
+                ) : requestedTask.is_accepted ? (
+                    <BookNowButton
+                        btnTitle="Approved"
+                        backgroundColor={"#30b32c"}
+                        //handleOnClick={handleLeaveTask}
+                    />
+                ) : !requestedTask.is_accepted ? (
                     <BookNowButton
                         btnTitle="Declined"
                         backgroundColor="#FE5050"
 
-                        //handleOnClick={handleLeaveTask}
-                    />
-                ) : approvedTask ? (
-                    <BookNowButton
-                        btnTitle="Approved"
-                        backgroundColor={"#30b32c"}
                         //handleOnClick={handleLeaveTask}
                     />
                 ) : appliedTask?.status === "Open" ? (

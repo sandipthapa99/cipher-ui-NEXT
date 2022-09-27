@@ -10,9 +10,10 @@ interface Approve {
     date: string;
     title: string;
     body: string;
+    handleClick?: any;
 }
 
-export const ApproveNotify = ({ date, title, body }: Approve) => {
+export const ApproveNotify = ({ date, title, body, handleClick }: Approve) => {
     const { data: profile } = useGetProfile();
     return (
         <div className="d-flex align-items-center justify-content-between accepted-notification">
