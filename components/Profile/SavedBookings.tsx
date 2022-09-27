@@ -8,6 +8,10 @@ import { Col, Row } from "react-bootstrap";
 const SavedBookings = () => {
     const { data: serviceBookmarks } = useBookmarks("service");
     const { data: taskBookmarks } = useBookmarks("task");
+    // console.log(
+    //     "🚀 ~ file: SavedBookings.tsx ~ line 11 ~ SavedBookings ~ taskBookmarks",
+    //     taskBookmarks
+    // );
     const { data: userBookmarks } = useBookmarks("user");
 
     return (

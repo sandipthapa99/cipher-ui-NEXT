@@ -57,6 +57,10 @@ const ServiceCard = ({
     };
     const queryClient = useQueryClient();
     const isServiceBookmarked = useIsBookmarked("service", serviceCard?.id);
+    // console.log(
+    //     "🚀 ~ file: ServiceCard.tsx ~ line 60 ~ isServiceBookmarked",
+    //     isServiceBookmarked
+    // );
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
@@ -131,7 +135,12 @@ const ServiceCard = ({
                                 </span>{" "}
                             </a>
                         </Link>
-                        <span> | {serviceCard?.location}</span>
+                        <span>
+                            {" "}
+                            {serviceCard?.location
+                                ? `| ${serviceCard.location}`
+                                : ""}
+                        </span>
                     </Spoiler>
                 </h3>
                 <Link href={`/service/${serviceCard?.slug}`}>
@@ -146,7 +155,7 @@ const ServiceCard = ({
                                 {parse(
                                     serviceCard?.description
                                         ? serviceCard?.description
-                                        : "No description for this service avialble"
+                                        : "Description for this service is not available."
                                 )}
                             </p>
                             {/*</Spoiler>*/}
@@ -160,7 +169,9 @@ const ServiceCard = ({
                                 {/* {serviceCard?.happy_clients} */}0
                             </p>
                             <p className="price">
-                                {serviceCard?.currency?.symbol + " "}
+                                {serviceCard?.currency?.symbol
+                                    ? serviceCard?.currency?.symbol
+                                    : "" + " "}{" "}
                                 {serviceCard?.budget_from &&
                                     serviceCard?.budget_from + "-"}
                                 {serviceCard?.budget_to}
