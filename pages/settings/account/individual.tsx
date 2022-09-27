@@ -3,10 +3,13 @@ import AddBank from "@components/settings/bankDetail";
 import KYCForm from "@components/settings/KYCForm";
 import SettingsLayout from "@components/SettingsLayout";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import type { GetStaticProps } from "next";
+
 // import React from "react";
 
 const Individual = () => {
+    const { data: KycData } = useGetKYC();
     return (
         <SettingsLayout>
             <AccountForm />

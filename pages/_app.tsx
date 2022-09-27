@@ -7,6 +7,7 @@ import "@smastrom/react-rating/style.css";
 import { RouterTransition } from "@components/common/RouterTransition";
 import { LoginPrompt } from "@components/model/LoginPrompt";
 import { MantineProvider } from "@mantine/core";
+import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import type { DehydratedState } from "@tanstack/react-query";
@@ -42,9 +43,11 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             })
     );
     const [mounted, setMounted] = useState(false);
+    const [opened, setOpened] = useState(true);
     if (mounted) {
         firebaseCloudMessaging.onMessage();
     }
+
     useEffect(() => {
         firebaseCloudMessaging.init();
         const setToken = async () => {
@@ -56,34 +59,85 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
         };
         const result = setToken();
     }, []);
+    useEffect(() => {
+        if (Notification.permission === "denied") {
+            const timer = setTimeout(async () => {
+                setOpened(true);
+            }, 10000);
+            clearTimeout(timer);
+        }
+    });
 
     return (
-        <GoogleOAuthProvider
-            clientId={
-                "245846975950-vucoc2e1cmeielq5f5neoca7880n0u2i.apps.googleusercontent.com"
-            }
-        >
-            <QueryClientProvider client={queryClient}>
-                <ReactQueryDevtools />
-                <ToastContainer
-                    position="top-center"
-                    hideProgressBar={true}
-                    autoClose={1000}
-                />
-                <Hydrate state={pageProps.dehydratedState}>
-                    <MantineProvider>
-                        <ModalsProvider
-                            labels={{ confirm: "Submit", cancel: "Cancel" }}
-                        >
-                            <RouterTransition />
-                            {/* <UserLoadingOverlay /> */}
-                            <LoginPrompt />
-                            <Component {...pageProps} />
-                        </ModalsProvider>
-                    </MantineProvider>
-                </Hydrate>
-            </QueryClientProvider>
-        </GoogleOAuthProvider>
+        <>
+            <GoogleOAuthProvider
+                clientId={
+                    "245846975950-vucoc2e1cmeielq5f5neoca7880n0u2i.apps.googleusercontent.com"
+                }
+            >
+                <QueryClientProvider client={queryClient}>
+                    <ReactQueryDevtools />
+                    <ToastContainer
+                        position="top-center"
+                        hideProgressBar={true}
+                        autoClose={1000}
+                    />
+                    <Hydrate state={pageProps.dehydratedState}>
+                        <MantineProvider>
+                            <ModalsProvider
+                                labels={{
+                                    confirm: "Submit",
+                                    cancel: "Cancel",
+                                }}
+                            >
+                                <RouterTransition />
+                                {/* <UserLoadingOverlay /> */}
+                                <LoginPrompt />
+                                <Component {...pageProps} />
+                            </ModalsProvider>
+                        </MantineProvider>
+                    </Hydrate>
+                </QueryClientProvider>
+            </GoogleOAuthProvider>
+            <Dialog
+                opened={opened}
+                onClose={() => setOpened(false)}
+                size="lg"
+                radius="md"
+                className="d-flex gap-3"
+            >
+                <Text
+                    size="sm"
+                    className="m-0"
+                    style={{ marginBottom: 10 }}
+                    weight={500}
+                >
+                    Allow notification for push notifications.
+                </Text>
+                <Text
+                    size="sm"
+                    className="m-0"
+                    style={{ marginBottom: 10, cursor: "pointer" }}
+                    weight={500}
+                    onClick={() => {
+                        Notification.requestPermission();
+                        setOpened(false);
+                    }}
+                >
+                    Ok.
+                </Text>
+                <Text
+                    size="sm"
+                    className="m-0"
+                    style={{ marginBottom: 10, cursor: "pointer" }}
+                    weight={500}
+                    onClick={() => setOpened(false)}
+                >
+                    No Thanks
+                </Text>
+            </Dialog>
+        </>
     );
 }
+
 export default MyApp;
