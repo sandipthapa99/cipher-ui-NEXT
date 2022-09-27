@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
             })
     );
     const [mounted, setMounted] = useState(false);
-    const [opened, setOpened] = useState(true);
+    const [opened, setOpened] = useState(false);
     if (mounted) {
         firebaseCloudMessaging.onMessage();
     }
@@ -59,14 +59,12 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
         };
         const result = setToken();
     }, []);
-    useEffect(() => {
-        if (Notification.permission === "denied") {
-            const timer = setTimeout(async () => {
-                setOpened(true);
-            }, 10000);
-            clearTimeout(timer);
-        }
-    });
+    // useEffect(() => {
+    //     setTimeout(async () => {
+    //         setOpened(true);
+    //         console.log("abc");
+    //     }, 10000);
+    // });
 
     return (
         <>
