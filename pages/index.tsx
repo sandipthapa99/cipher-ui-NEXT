@@ -319,6 +319,9 @@ const Home: NextPage<{
                     <Row className="gx-5">
                         {servicesData &&
                             servicesData?.result
+                                ?.filter(
+                                    (result) => result?.share_location === true
+                                )
                                 ?.slice(0, 4)
                                 .map((service, key) => {
                                     return (
