@@ -62,7 +62,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     // useEffect(() => {
     //     setTimeout(async () => {
     //         setOpened(true);
-    //         console.log("abc");
+
     //     }, 10000);
     // });
 
