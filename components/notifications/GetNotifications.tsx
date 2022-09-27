@@ -22,7 +22,7 @@ export default function GetNotifications() {
     const queryClient = new QueryClient();
     const router = useRouter();
 
-    console.log("notifications", allNotifications);
+    // console.log("notifications", allNotifications);
     const todayNotifications = allNotifications?.result.filter((notify) => {
         const date = new Date(notify.created_date);
         const today = new Date();
@@ -56,7 +56,7 @@ export default function GetNotifications() {
         await axiosClient.post(`/notification/read/?id=${id}`);
         await queryClient.invalidateQueries(["notifications"]);
     };
-    console.log("today", todayNotifications);
+    // console.log("today", todayNotifications);
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification, index: number) => {
