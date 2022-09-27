@@ -1,4 +1,5 @@
 import { faLocationDot, faUser } from "@fortawesome/pro-regular-svg-icons";
+import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
@@ -76,7 +77,7 @@ const ServiceNearYouCard = ({
                     <div className="content">
                         <h4>{serviceTitle}</h4>
                         <div className="information">
-                            <div className="type d-flex flex-col">
+                            <div className="type d-flex flex-col align-items-center">
                                 <FontAwesomeIcon
                                     icon={faUser}
                                     className="user svg-icon"
@@ -84,7 +85,7 @@ const ServiceNearYouCard = ({
 
                                 <p>{serviceProvider}</p>
                             </div>
-                            <div className="type d-flex flex-col">
+                            <div className="type d-flex flex-col align-items-center">
                                 <FontAwesomeIcon
                                     icon={faLocationDot}
                                     className="location svg-icon"
@@ -100,7 +101,11 @@ const ServiceNearYouCard = ({
                             <div className="success-rate type d-flex flex-col">
                                 <div className="star d-flex align-items-center flex-row">
                                     <FontAwesomeIcon
-                                        icon={faStar}
+                                        icon={
+                                            serviceRating && serviceRating > 0
+                                                ? faStar
+                                                : HollowStar
+                                        }
                                         className="star svg-icon"
                                     />
 

@@ -49,10 +49,6 @@ const SimpleProfileCard = ({
     const requestedTask = myRequestedTask?.data.result.find(
         (requestedTask: any) => requestedTask?.entity_service.id === task.id
     );
-    console.log(
-        "🚀 ~ file: SimpleProfileCard.tsx ~ line 52 ~ requestedTask",
-        requestedTask
-    );
 
     const appliedTask = appliedTasks?.result.find(
         (appliedTask: any) => appliedTask?.id !== task.id

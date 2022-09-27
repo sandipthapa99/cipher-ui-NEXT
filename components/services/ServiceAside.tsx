@@ -31,10 +31,7 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                 .flat() ?? [],
         [servicePages?.pages]
     );
-    console.log(
-        "🚀 ~ file: ServiceAside.tsx ~ line 34 ~ ServiceAside ~ services",
-        services
-    );
+
     const totalServices = services?.length;
     const isLastServiceOnPage = (index: number) => index === totalServices - 1;
 

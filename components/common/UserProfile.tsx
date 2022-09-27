@@ -191,7 +191,7 @@ const UserProfileCard = ({
                             />
                         )}
 
-                        <div className="img-dragdrop d-flex align-items-center justify-content-center">
+                        {/* <div className="img-dragdrop d-flex align-items-center justify-content-center">
                             <label
                                 htmlFor="choosefile"
                                 className="browse text-primary"
@@ -217,7 +217,7 @@ const UserProfileCard = ({
                                     setShowEditForm(!showEditForm);
                                 }}
                             />
-                        </div>
+                        </div> */}
 
                         <Image
                             src={

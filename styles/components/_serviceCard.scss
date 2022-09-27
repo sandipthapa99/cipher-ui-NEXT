@@ -124,8 +124,13 @@
                 margin: 0;
 
                 .star {
-                    color: $secondary-color;
+                    color: #fab005;
                     margin-right: 0.8rem;
+                    height: 1.9rem;
+                    width: 1.9rem;
+                }
+                span {
+                    margin-top: 0.6rem;
                 }
             }
 
