@@ -91,21 +91,6 @@ export const AddSkillFormData: AddSkills = {
     name: "",
 };
 
-export const BookServiceFormData: BookNowFormProps = {
-    description: "",
-    start_date: "",
-    end_date: "",
-    start_time: 1,
-    images: "",
-    budget_from: 0,
-    entity_service: "",
-    budget_to: 0,
-    videos: "",
-    requirements: "",
-
-    location: "false",
-};
-
 export const CertificationFormData: CertificationValueProps = {
     name: "",
     issuing_organization: "",
