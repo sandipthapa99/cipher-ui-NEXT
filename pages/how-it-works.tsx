@@ -8,16 +8,16 @@ import { messageCard } from "staticData/messageCard";
 
 const HowItWorks: NextPage = () => {
     return (
-        <Layout title="How it Works | Cipher">
+        <Layout title="How it Works | Homaale">
             <Container fluid="xl" className="px-5">
                 <section className="how-it-works">
                     <BreadCrumb currentPage="How it Works" />
 
                     <div className="how-it-works__top-container">
-                        <h1>See how things work in Cipher</h1>
+                        <h1>See how things work in Homaale</h1>
                         <p>
                             Here is the video that can be very helpful to know
-                            about Cipher
+                            about Homaale
                         </p>
 
                         <figure className="thumbnail-img footer-img">
@@ -54,7 +54,7 @@ const HowItWorks: NextPage = () => {
                                         <div className="connect">
                                             <h4>Reach out to us</h4>
                                             <p>
-                                                Use Cipher to stay in contact
+                                                Use Homaale to stay in contact
                                                 from the moment your task is
                                                 posted until it&apos;s
                                                 completed.
@@ -66,8 +66,8 @@ const HowItWorks: NextPage = () => {
                                                 Once you&apos;ve accepted an
                                                 offer, you can instantly reach
                                                 out to the Tasker via private
-                                                CIPHER messaging to discuss task
-                                                details, and get your task
+                                                Homaale messaging to discuss
+                                                task details, and get your task
                                                 completed.
                                             </p>
                                         </div>

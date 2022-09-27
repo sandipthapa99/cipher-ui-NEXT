@@ -15,7 +15,7 @@ import type { BlogValueProps } from "types/blogs";
 const SocialResponsibilities: NextPage = () => {
     const { data: blogData } = useData<BlogValueProps>(["all-blogs"], "/blog/");
     return (
-        <Layout title="Social Responsibilities | Cipher">
+        <Layout title="Social Responsibilities | Homaale">
             <section className="social-page">
                 <Container fluid="xl" className="px-5">
                     <BreadCrumb currentPage="Social responsibilities" />

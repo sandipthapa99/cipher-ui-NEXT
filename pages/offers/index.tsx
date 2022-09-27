@@ -12,7 +12,7 @@ const Offers = () => {
     const [activeTabIdx, setActiveTabIdx] = useState<number | undefined>(0);
 
     return (
-        <Layout title="Cipher -offers">
+        <Layout title="homaale-offers">
             <section className="offers">
                 <Container fluid="xl" className="px-5">
                     <BreadCrumb currentPage={"Offers"} />

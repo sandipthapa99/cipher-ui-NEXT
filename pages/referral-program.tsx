@@ -14,7 +14,7 @@ import referralFormValidationSchema from "utils/formValidation/referralFormValid
 
 const About: NextPage = () => {
     return (
-        <Layout title="Referral Programs | Cipher">
+        <Layout title="Referral Programs | Homaale">
             <div className="referral-page">
                 <Container fluid="xl" className="px-5">
                     <BreadCrumb currentPage="Referral programs" />
@@ -27,7 +27,7 @@ const About: NextPage = () => {
                                 {" "}
                                 <h6>
                                     Get 20 credits for every person you refer to
-                                    Cipher
+                                    Homaale
                                 </h6>
                                 <p>
                                     {" "}

@@ -214,6 +214,7 @@ const ServiceCard = ({
             </div>
 
             <ModalCard
+                entity_service_id={serviceCard?.id}
                 title={serviceCard?.title}
                 budget_from={serviceCard?.budget_from}
                 budget_to={serviceCard?.budget_to}

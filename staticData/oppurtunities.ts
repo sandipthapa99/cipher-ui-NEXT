@@ -11,13 +11,13 @@ export const oppurtunitiesCardContent = [
         cardTitle: "Cashless payments",
         cardImage: "/aboutus/scope-3.svg",
         cardDescription:
-            "Cipher promises to provide secure and easy way for payments.",
+            "Homaale promises to provide secure and easy way for payments.",
     },
     {
         id: "2",
         cardTitle: "Easy communication",
         cardImage: "/aboutus/scope-2.png",
         cardDescription:
-            "Use Cipher to connect with clients for understanding the requirements better.",
+            "Use Homaale to connect with clients for understanding the requirements better.",
     },
 ];

@@ -92,7 +92,7 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
         >
             <OverlayView mapPaneName="floatPane" position={location}>
                 <FontAwesomeIcon
-                    color="#EEBC68"
+                    color="rgba(255,0,0)"
                     size="3x"
                     icon={faLocationCrosshairs}
                 />

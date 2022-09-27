@@ -4,18 +4,18 @@ import { Container } from "react-bootstrap";
 
 const PrivacyPolicy = () => {
     return (
-        <Layout title="Privacy Policy | Cipher">
+        <Layout title="Privacy Policy | Homaale">
             <BreadCrumb currentPage="Privacy Policy" />
             <Container fluid="xl">
                 <section className="privacy-policy">
                     <section className="privacy-policy__intro inner-section">
                         <h1>Privacy Policy</h1>
 
-                        <p>Welcome to Cipher</p>
+                        <p>Welcome to Homaale</p>
                         <p>
                             These terms and conditions outline the rules and
-                            regulations for the use of Cipher&apos;s Website,
-                            located at Cipher.com.
+                            regulations for the use of Homaale&apos;s Website,
+                            located at Homaale.com.
                         </p>
                         <p>
                             By accessing this website we assume you accept these

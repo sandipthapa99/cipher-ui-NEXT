@@ -4,7 +4,7 @@ import { Col, Row } from "react-bootstrap";
 const HiringStage = () => {
     return (
         <div className="hiring-stage mt-5">
-            <h1>Cipher Hiring Stages</h1>
+            <h1>Hommale Hiring Stages</h1>
             <Row>
                 <Col md={6} sm={12}>
                     <ol>
