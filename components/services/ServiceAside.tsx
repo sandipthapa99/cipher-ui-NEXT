@@ -31,6 +31,10 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                 .flat() ?? [],
         [servicePages?.pages]
     );
+    console.log(
+        "🚀 ~ file: ServiceAside.tsx ~ line 34 ~ ServiceAside ~ services",
+        services
+    );
     const totalServices = services?.length;
     const isLastServiceOnPage = (index: number) => index === totalServices - 1;
 
@@ -55,9 +59,13 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
                                 budget_from={task?.budget_from}
                                 budget_to={task?.budget_to}
                                 budget_type={task?.budget_type}
-                                currency={task?.currency?.symbol}
+                                currency={
+                                    task?.currency?.symbol
+                                        ? task.currency.symbol
+                                        : " "
+                                }
                                 serviceTitle={task?.title}
-                                serviceRating={"TOBE-IMP"}
+                                serviceRating={task?.rating[0].rating}
                                 serviceProviderLocation={task?.location}
                                 serviceSlug={task?.slug}
                                 discount={20} // To do form api

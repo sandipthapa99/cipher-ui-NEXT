@@ -19,7 +19,7 @@ const Checkout = () => {
 
     return (
         <Fragment>
-            <Layout title="Cipher | checkout">
+            <Layout title="Homaale | checkout">
                 <section
                     id="task-checkout-section"
                     className="task-checkout-section"

@@ -4,7 +4,7 @@ import {
     useSearchQuery,
 } from "@components/common/Search/searchStore";
 import Layout from "@components/Layout";
-import { SearchCategory } from "@components/SearchTask/searchCategory";
+import { SearchCategory } from "@components/SearchTask/SearchCategory";
 import { faClose } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Box, Highlight, Space } from "@mantine/core";

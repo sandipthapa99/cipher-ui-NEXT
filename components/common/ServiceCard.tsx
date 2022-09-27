@@ -137,19 +137,19 @@ const ServiceCard = ({
                 <Link href={`/service/${serviceCard?.slug}`}>
                     <a>
                         <div className="card-description d-inline">
-                            <Spoiler
+                            {/*<Spoiler
                                 maxHeight={48}
                                 hideLabel={""}
                                 showLabel={"..."}
-                            >
-                                <>
-                                    {parse(
-                                        serviceCard?.description
-                                            ? serviceCard?.description
-                                            : "No description for this service avialble"
-                                    )}
-                                </>
-                            </Spoiler>
+                            >*/}
+                            <p>
+                                {parse(
+                                    serviceCard?.description
+                                        ? serviceCard?.description
+                                        : "No description for this service avialble"
+                                )}
+                            </p>
+                            {/*</Spoiler>*/}
                         </div>
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
