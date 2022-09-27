@@ -27,7 +27,7 @@ const CommingSoonModal = ({ handleClose, show }: CommingSoonModalProps) => {
                 <div className="information">
                     <FontAwesomeIcon className="svg-icon" icon={faCircleInfo} />{" "}
                     <h4>
-                        Mobile Application is comming soon. Please be with us!
+                        Mobile Application is coming soon. Please be with us!
                     </h4>
                 </div>
 
