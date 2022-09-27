@@ -1,4 +1,4 @@
-import { faArrowLeft } from "@fortawesome/pro-regular-svg-icons";
+import { faArrowLeftLong } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
@@ -42,7 +42,14 @@ const OnBoardingLayout = ({
             </div>
 
             <div className="login-layout-wrapper__right">
-                {/* <FontAwesomeIcon icon={faArrowLeft} /> */}
+                <Link href="/">
+                    <a>
+                        <FontAwesomeIcon
+                            icon={faArrowLeftLong}
+                            className="backarrow"
+                        />
+                    </a>
+                </Link>
                 <div className="redirection-text">
                     <p>
                         {topLeftText}
