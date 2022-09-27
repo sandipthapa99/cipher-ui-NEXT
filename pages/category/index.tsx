@@ -19,12 +19,12 @@ const CategoriesPage: NextPage<{
     //console.log(nestedCategoriesData);
 
     return (
-        <Layout title="Categories | Cipher">
+        <Layout title="Categories | Hoomale">
             <Container fluid="xl" className="px-5">
                 <BreadCrumb currentPage={"Categories"} />
 
                 <h2 className="all-categories-title">
-                    Browse all cipher Categories
+                    Browse all Hoomale Categories
                 </h2>
 
                 <AllCategoriesCard

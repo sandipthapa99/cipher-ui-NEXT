@@ -6,7 +6,7 @@ import { Container } from "react-bootstrap";
 
 const rasifal = () => {
     return (
-        <Layout title="Rasifal Cipher">
+        <Layout title="Rasifal Homaale">
             <BreadCrumb currentPage="Rasifal" />
             <section
                 id="rasifal-details-section"

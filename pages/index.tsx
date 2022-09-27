@@ -117,7 +117,7 @@ const Home: NextPage<{
                             )} */}
 
                             <div className="come-with-us">
-                                <h1>Join Cipher To</h1>
+                                <h1>Join Homaale To</h1>
                                 <div className="d-flex buttons">
                                     <Link href="/earn-money">
                                         <a className="hero-cta">
@@ -658,9 +658,9 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="success-sroties-header">
                         <h1 className="text-center">
-                            3003,0330 Taskers have earned an income on Cipher
+                            3003,0330 Taskers have earned an income on Homaale
                         </h1>
-                        <h3 className="text-center">CIPHER Stories</h3>
+                        <h3 className="text-center">HOMAALE Stories</h3>
                     </div>
                     {topCategoryData?.length <= 0 && (
                         <Alert

@@ -5,7 +5,7 @@ import type { NextPage } from "next";
 
 const AddServices: NextPage = () => {
     return (
-        <Layout title="Add Services &amp; Cipher">
+        <Layout title="Add Services &amp; Hoomale">
             <BreadCrumb currentPage={"Add Service"} />
             <MainStep />
         </Layout>

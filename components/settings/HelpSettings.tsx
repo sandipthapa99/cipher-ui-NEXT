@@ -118,7 +118,7 @@ const HelpSettings = () => {
             <div className="help-support">
                 <p className="help-support-text">Terms and Policies Link</p>
                 <Link href={"#"} className="help-support-link">
-                    Privacy Policy for CIPHER
+                    Privacy Policy for HOMAALE
                 </Link>
                 <Link href={"#"} className="help-support-link">
                     Other Privcy Policies link

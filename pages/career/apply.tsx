@@ -22,7 +22,7 @@ const Apply = () => {
     const { id } = router.query;
     const { mutate } = useForm(`/career/candidate/apply/${id}/`);
     return (
-        <Layout title="Cipher | Apply">
+        <Layout title="Hoomale | Apply">
             <BreadCrumb currentPage="Apply" />
             <section id="career-apply-section" className="career-apply-section">
                 <Container fluid="xl">
