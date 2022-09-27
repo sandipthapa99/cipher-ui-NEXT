@@ -12,12 +12,14 @@ import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import type { NewsletterDataTypes } from "types/newsletter";
 import { axiosClient } from "utils/axiosClient";
 import { emailValidationSchema } from "utils/formValidation/emailValidation";
 
+import CommingSoonModal from "./common/CommingSoonModal";
 import InputField from "./common/InputField";
 
 const Footer = () => {
@@ -44,6 +46,9 @@ const Footer = () => {
             },
         });
     };
+    //for feature comming sonn modal
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
 
     return (
         <>
@@ -327,37 +332,37 @@ const Footer = () => {
                                             md="6"
                                             xs="6"
                                             className="d-flex justify-content-start
-                                            align-items-center
-                                            "
+                                            align-items-center"
+                                            onClick={() => setShow(true)}
                                         >
-                                            <Link href="">
-                                                <a>
-                                                    <Image
-                                                        src="/logo/playstore.png"
-                                                        alt="qr"
-                                                        height={36}
-                                                        width={104}
-                                                    />
-                                                </a>
-                                            </Link>
+                                            {/* <Link href="">
+                                                <a> */}
+                                            <Image
+                                                src="/logo/playstore.png"
+                                                alt="qr"
+                                                height={36}
+                                                width={104}
+                                            />
+                                            {/* </a>
+                                            </Link> */}
                                         </Col>
                                         <Col
                                             md="6"
                                             xs="6"
                                             className="d-flex justify-content-start
-                                            align-items-center
-                                            "
+                                            align-items-center"
+                                            onClick={() => setShow(true)}
                                         >
-                                            <Link href="">
-                                                <a>
-                                                    <Image
-                                                        src="/logo/appstore.png"
-                                                        alt="qr"
-                                                        height={36}
-                                                        width={104}
-                                                    />
-                                                </a>
-                                            </Link>
+                                            {/* <Link href="">
+                                                <a> */}
+                                            <Image
+                                                src="/logo/appstore.png"
+                                                alt="qr"
+                                                height={36}
+                                                width={104}
+                                            />
+                                            {/* </a>
+                                            </Link> */}
                                         </Col>
                                     </Row>
                                 </div>
@@ -369,6 +374,7 @@ const Footer = () => {
                     </p>
                     {/* Cipher footer social links section end */}
                 </Container>
+                <CommingSoonModal show={show} handleClose={handleClose} />
             </footer>
         </>
     );

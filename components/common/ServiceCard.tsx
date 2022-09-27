@@ -1,4 +1,5 @@
 import { EditService } from "@components/services/EditService";
+import { faStar as HollowStar } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
@@ -60,6 +61,11 @@ const ServiceCard = ({
         "entityservice",
         serviceCard?.id
     );
+    console.log(
+        "🚀 ~ file: ServiceCard.tsx ~ line 249 ~ serviceCard",
+        serviceCard
+    );
+    const serviceRating = serviceCard.rating[0].rating;
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>
@@ -162,10 +168,14 @@ const ServiceCard = ({
                         <div className="ratings-wrapper d-flex align-items-center justify-content-between">
                             <p className="ratings d-flex align-items-sm-center justify-content-sm-center">
                                 <FontAwesomeIcon
-                                    icon={faStar}
+                                    icon={
+                                        serviceRating && serviceRating > 0
+                                            ? faStar
+                                            : HollowStar
+                                    }
                                     className="svg-icon star"
                                 />
-                                {/* {serviceCard?.happy_clients} */}0
+                                {serviceRating}
                             </p>
                             <p className="price">
                                 {serviceCard?.currency?.symbol

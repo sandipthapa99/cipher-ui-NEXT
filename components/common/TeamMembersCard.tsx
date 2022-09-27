@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { faStar } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useIsBookmarked } from "hooks/use-bookmarks";
@@ -149,8 +149,9 @@ export const TeamMembersCard = ({
                         /> */}
                             </div>
                             <h6 className="text-dark">
-                                <span>{speciality} </span>
-                                {location ? `| ${location}` : ""}
+                                <span>{speciality} </span>{" "}
+                                {speciality && location ? " | " : ""}
+                                {location ? `${location}` : ""}
                             </h6>
                             <div className="d-flex icon-wrapper-member gap-5 align-items-center emoji-section text-dark">
                                 <span className="star d-flex align-items-center">
