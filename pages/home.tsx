@@ -5,6 +5,7 @@ import Layout from "@components/Layout";
 import { ServiceCategories } from "@components/services/ServiceCategories";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import urls from "constants/urls";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
@@ -19,7 +20,7 @@ const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
 const Home: NextPage = () => {
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
-        "/task/service/"
+        urls.task.service
     );
 
     return (
