@@ -101,10 +101,7 @@ export const MonthlyRasifal = () => {
             setMonthlyRasifal([]);
         };
     }, []);
-    console.log(
-        "🚀 ~ file: MonthlyRasifal.tsx ~ line 64 ~ MonthlyRasifal ~ monthlyRasifal",
-        monthlyRasifal
-    );
+
     useEffect(() => {
         if (monthlyRasifal.length < 9) {
             setLoading(true);

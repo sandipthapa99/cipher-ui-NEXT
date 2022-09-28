@@ -20,8 +20,6 @@ export const MyTasks = () => {
 
     const router = useRouter();
 
-    console.log("task data", mytaskData);
-
     return (
         <div className="my-task">
             <h3>My Tasks</h3>

@@ -93,7 +93,6 @@ const KYCForm = () => {
                             onSubmit={async (values, action) => {
                                 // const formData = new FormData();
 
-                                console.log(values);
                                 // const newvalidatedValue = {
                                 //     ...values,
                                 //     identity_issued_date: format(
@@ -271,7 +270,7 @@ const KYCForm = () => {
                                                         "passport_size_photo"
                                                     )
                                                 )
-                                            // console.log(formData.get("file"))
+                                            // 
                                         }
                                     />
                                 </Col>
@@ -291,7 +290,7 @@ const KYCForm = () => {
                                                         "personal_address"
                                                     )
                                                 )
-                                            // console.log(formData.get("file"))
+                                            // 
                                         }
                                     />
                                 </Col>

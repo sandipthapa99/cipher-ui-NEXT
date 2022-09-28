@@ -73,7 +73,6 @@ export const ReportRevisionForm = ({
                             initialValues={initialValues}
                             validationSchema={reportRevisionFormSchema}
                             onSubmit={async (values) => {
-                                console.log(values);
                                 setRevisionText?.(values?.revision_reason);
                                 toggleSuccessModal();
                             }}

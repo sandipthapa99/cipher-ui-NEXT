@@ -60,7 +60,7 @@ export const MembershipPackage = () => {
                     {!membership.isactive ? (
                         <CardBtn
                             handleClick={() => {
-                                console.log(membership);
+                                console.log("clicked");
                             }}
                             btnTitle={membership.buttonName}
                             backgroundColor="primary-color"

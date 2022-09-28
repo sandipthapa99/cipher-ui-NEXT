@@ -213,7 +213,7 @@ const UserProfileCard = ({
                                     const files = event.target.files;
                                     field?.("image", (files ?? [])[0]);
                                     setImage(files[0]);
-                                    console.log("image=", image);
+                                    
                                     setShowEditForm(!showEditForm);
                                 }}
                             />

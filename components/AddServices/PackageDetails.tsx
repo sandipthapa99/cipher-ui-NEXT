@@ -75,7 +75,7 @@ export const PackageDetails = ({
             videos: Array<any>;
         }>;
     }>(["all-my-services"], "/task/my-services");
-    console.log("serviceccce", myService);
+
     const serviceOptions = myService?.data?.result?.map((item) => {
         return { label: item.title, value: item.id, id: item.id };
     });
@@ -157,7 +157,6 @@ export const PackageDetails = ({
                                     initialValues={packageDetailsData}
                                     // validationSchema={addServiceFormSchema}
                                     onSubmit={(values) => {
-                                        console.log(values);
                                         setPackageArray((prev) => {
                                             return prev.length < 3
                                                 ? [...prev, values]

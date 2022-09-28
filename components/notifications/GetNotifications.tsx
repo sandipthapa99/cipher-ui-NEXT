@@ -22,7 +22,7 @@ export default function GetNotifications() {
     const queryClient = new QueryClient();
     const router = useRouter();
 
-    // console.log("notifications", allNotifications);
+    //
     const todayNotifications = allNotifications?.result.filter((notify) => {
         const date = new Date(notify.created_date);
         const today = new Date();
@@ -33,7 +33,7 @@ export default function GetNotifications() {
             date.getFullYear() === today.getFullYear()
         );
     });
-    // console.log("today", todayNotifications);
+    //
     // if (allNotifications?.data?.result.length === 0) {
     //     return (
     //         <Container fluid>
@@ -56,7 +56,7 @@ export default function GetNotifications() {
         await axiosClient.post(`/notification/read/?id=${id}`);
         await queryClient.invalidateQueries(["notifications"]);
     };
-    // console.log("today", todayNotifications);
+    //
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification, index: number) => {
@@ -134,7 +134,7 @@ export default function GetNotifications() {
             //         </div>
             //     );
             // }
-            else if (notification.title === "booking") {
+            else if (notification.title === "booked") {
                 return (
                     <div
                         key={index}
@@ -166,8 +166,6 @@ export default function GetNotifications() {
                     </div>
                 );
             } else if (notification.title === "approval") {
-                console.log("approval", notification);
-
                 return (
                     <div
                         key={index}
@@ -214,7 +212,6 @@ export default function GetNotifications() {
             return;
         }
     );
-    console.log("earlier", earlierNotifications);
 
     const renderEarlierNotifications = earlierNotifications?.map(
         (notification, index: number) => {
@@ -292,7 +289,7 @@ export default function GetNotifications() {
             //         </div>
             //     );
             // }
-            else if (notification.title === "booking") {
+            else if (notification.title === "booked") {
                 return (
                     <div
                         key={index}
@@ -324,8 +321,6 @@ export default function GetNotifications() {
                     </div>
                 );
             } else if (notification.title === "approval") {
-                console.log("approval", notification);
-
                 return (
                     <div
                         key={index}

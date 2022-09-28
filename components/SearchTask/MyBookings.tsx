@@ -196,7 +196,6 @@ export const MyBookingsCard = ({
                                                 router.push("/home");
                                             },
                                             onError: (error: any) => {
-                                                console.log(error);
                                                 toast.error(
                                                     error.response.data.booking
                                                         .message
@@ -225,7 +224,6 @@ export const MyBookingsCard = ({
                                             ]);
                                         },
                                         onError: (error: any) => {
-                                            console.log(error);
                                             toast.error(
                                                 error.response.data.booking
                                                     .message

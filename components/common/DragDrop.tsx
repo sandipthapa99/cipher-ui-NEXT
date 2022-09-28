@@ -60,7 +60,7 @@ const DragDrop = ({
 
                     field?.(name, (files ?? [])[0]);
 
-                    // console.log("field", field?.files);
+                    //
                 }}
                 name={name}
             />

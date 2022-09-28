@@ -183,7 +183,7 @@ const ServiceDetail: NextPage = () => {
                                 initialValues={HomeSearchdata}
                                 validationSchema={HomeSearchSchema}
                                 onSubmit={async (values) => {
-                                    console.log(values);
+                                    return values;
                                 }}
                             >
                                 <SelectInputField

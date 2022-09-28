@@ -37,8 +37,8 @@ export const KYCStatus = () => {
     const { data: KycData } = useGetKYC();
     const { data: KycDocuments } = useGetKYCDocument();
 
-    // console.log("KycDocuments", KycDocuments);
-    // console.log("KycData", KycData);
+    //
+    //
     const renderDocuments = KycDocuments?.map((item, index: number) => {
         return (
             <Accordion.Item key={index} value={item?.document_id}>
