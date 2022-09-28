@@ -906,9 +906,9 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: topTaskerData } = await axiosClient.get(
             urls.tasker.top_tasker
         );
-        // const { data: recommendedTasksData } = await axiosClient.get(
-        //     "/task/?recommendation=you may like"
-        // );
+        const { data: recommendedTasksData } = await axiosClient.get(
+            `${urls.task.service}&recommendation=Task You May Like`
+        );
         const { data: blogData } = await axiosClient.get(urls.blog.list);
         const { data: servicesData } = await axiosClient.get(urls.task.service);
 
@@ -916,7 +916,7 @@ export const getStaticProps: GetStaticProps = async () => {
             props: {
                 successStoryData,
                 trustedPartnerData,
-                // recommendedTasksData,
+                recommendedTasksData,
                 heroCategoryData,
                 topTaskerData,
                 blogData,
