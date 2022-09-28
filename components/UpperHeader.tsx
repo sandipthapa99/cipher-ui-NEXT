@@ -105,6 +105,19 @@ export function UpperHeader() {
                                         <a className="nav-link">Resources</a>
                                     </Link>
                                 </li>
+
+                                <li
+                                    className={`d-none d-md-block ${handleMenuActive(
+                                        "/hire-in-nepal",
+                                        router
+                                    )}`}
+                                >
+                                    <Link href="/hire-in-nepal">
+                                        <a className="nav-link">
+                                            Hire In Nepal
+                                        </a>
+                                    </Link>
+                                </li>
                             </div>
                         </div>
                         {/* {checkPageForHeader && (

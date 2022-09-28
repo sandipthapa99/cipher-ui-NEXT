@@ -5,7 +5,7 @@ import React from "react";
 
 const EarnMoney = () => {
     return (
-        <Layout title="Earn Money | Cipher">
+        <Layout title="Earn Money | Homaale">
             <div className="earn-money-page">
                 <BreadCrumb currentPage={"Earn money as professional"} />
                 <EarnMoneyProfessional />

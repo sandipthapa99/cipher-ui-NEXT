@@ -83,7 +83,7 @@ export const UserClient = () => {
                     <Row className="gx-5">
                         <Row>
                             <Col>
-                                <h4>Popular on Cipher</h4>
+                                <h4>Popular on Homeaale</h4>
                             </Col>
                             <Col md={1}>
                                 <Link href="/service">view more</Link>
@@ -125,7 +125,7 @@ export const UserClient = () => {
                     <Row className="gx-5">
                         <Row>
                             <Col md={11}>
-                                <h4>Popular on Cipher</h4>
+                                <h4>Popular on Homeaale</h4>
                             </Col>
                             <Col md={1}>
                                 <Link href="/service">view more</Link>

@@ -101,7 +101,7 @@ const Home: NextPage<{
     useEffect(() => setIsClient(true), []);
     if (!isClient) return null;
     return (
-        <Layout title="Cipher - Catering to Your Requirements">
+        <Layout title="Homaale - Catering to Your Requirements">
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-5">
                     <Row className="gx-5 hero-content">
@@ -713,7 +713,7 @@ const Home: NextPage<{
             <section id="notable-quality" className="notable-quality">
                 <Container fluid="xl" className="px-5">
                     <LongSquareImageCard
-                        title="Cipher Notable quality"
+                        title="Homaale Notable quality"
                         image="/groupB.png"
                         imageOnRight={true}
                         description={quality}
@@ -906,9 +906,9 @@ export const getStaticProps: GetStaticProps = async () => {
         const { data: topTaskerData } = await axiosClient.get(
             urls.tasker.top_tasker
         );
-        // const { data: recommendedTasksData } = await axiosClient.get(
-        //     "/task/?recommendation=you may like"
-        // );
+        const { data: recommendedTasksData } = await axiosClient.get(
+            `${urls.task.service}&recommendation=Task You May Like`
+        );
         const { data: blogData } = await axiosClient.get(urls.blog.list);
         const { data: servicesData } = await axiosClient.get(urls.task.service);
 
@@ -916,7 +916,7 @@ export const getStaticProps: GetStaticProps = async () => {
             props: {
                 successStoryData,
                 trustedPartnerData,
-                // recommendedTasksData,
+                recommendedTasksData,
                 heroCategoryData,
                 topTaskerData,
                 blogData,

@@ -47,7 +47,7 @@ const AffiliateProgram: NextPage<{
                             <div className="affiliate-hero-section__text-wrapper">
                                 <h1>Welcome to our affilate program</h1>
                                 <p>
-                                    Become a Cipher affiliate and earn a 20%
+                                    Become a Homaale affiliate and earn a 20%
                                     monthly commission. Join today to get a
                                     signup bonus and boost your earnings with
                                     one of the top affiliate software platforms.
@@ -189,7 +189,7 @@ const AffiliateProgram: NextPage<{
 
                 <section className="why-cipher">
                     <LongSquareImageCard
-                        title="Why Cipher"
+                        title="Why Homaale"
                         subtitle="The world's work marketplace"
                         image="/affiliate/why-cipher.png"
                         description="Businesses and independent professionals from

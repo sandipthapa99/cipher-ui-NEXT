@@ -25,7 +25,7 @@ const Help: NextPage = () => {
     );
     const router = useRouter();
     return (
-        <Layout title="Help &amp; Support | Cipher">
+        <Layout title="Help &amp; Support | Homaale">
             <section className="help-page-header">
                 <Container fluid="xl" className="px-5">
                     <BreadCrumb currentPage="Help &amp; Support" />
@@ -133,8 +133,8 @@ const Help: NextPage = () => {
                                     <h1>Ask In Community</h1>
                                     <p>
                                         The community is basically a group of
-                                        CIPHER members who can anonymously reply
-                                        to the queries asked.
+                                        Homaale members who can anonymously
+                                        reply to the queries asked.
                                     </p>
 
                                     <div className="contact-device">
