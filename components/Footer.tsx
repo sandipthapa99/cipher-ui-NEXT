@@ -142,6 +142,11 @@ const Footer = () => {
                                                 <a>Complaints/Feedback</a>
                                             </Link>
                                         </li>
+                                        <li>
+                                            <Link href="/hire-in-nepal">
+                                                <a>Hire In Nepal</a>
+                                            </Link>
+                                        </li>
                                     </ul>
                                 </div>
                             </Col>

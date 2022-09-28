@@ -1,9 +1,14 @@
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import MantineDateField from "@components/common/MantineDateField";
 import SelectInputField from "@components/common/SelectInputField";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faCalendarDays,
+    faSquareCheck,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
@@ -77,7 +82,18 @@ const ExperienceForm = ({
                                           ? parseISO(editDetails.end_date)
                                           : "",
                                   }
-                                : ExperienceFormData
+                                : {
+                                      title: "",
+                                      description: "",
+                                      employment_type: "Full Time",
+                                      company_name: "",
+                                      location: "",
+                                      start_date: "",
+                                      end_date: "",
+                                      currently_working: false,
+                                      id: 0,
+                                  }
+                            //ExperienceFormData
                         }
                         validationSchema={experienceFormSchema}
                         onSubmit={async (values) => {
@@ -140,7 +156,13 @@ const ExperienceForm = ({
                             }
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({
+                            isSubmitting,
+                            errors,
+                            touched,
+                            setFieldValue,
+                            getFieldProps,
+                        }) => (
                             <Form>
                                 <InputField
                                     type="text"
@@ -192,17 +214,41 @@ const ExperienceForm = ({
 
                                 <Row className="g-5">
                                     <Col md={6}>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="start_date"
                                             labelName="Start Date"
                                             placeHolder="1999-06-03"
                                             touch={touched.start_date}
                                             error={errors.start_date}
                                             dateFormat="yyyy-MM-dd"
+                                        /> */}
+
+                                        <MantineDateField
+                                            name="start_date"
+                                            labelName="Start Date"
+                                            placeHolder="1999-06-03"
+                                            touch={Boolean(touched.start_date)}
+                                            error={String(errors.start_date)}
+                                            //fieldRequired={true}
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "start_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                     <Col md={6}>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="end_date"
                                             labelName="End Date"
                                             placeHolder="2022-03-06"
@@ -210,6 +256,29 @@ const ExperienceForm = ({
                                             error={errors.end_date}
                                             dateFormat="yyyy-MM-dd"
                                             disabled={toggle ? true : false}
+                                        /> */}
+
+                                        <MantineDateField
+                                            name="end_date"
+                                            labelName="End Date"
+                                            placeHolder="2022-03-06"
+                                            touch={touched.end_date}
+                                            error={errors.end_date}
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "end_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                 </Row>

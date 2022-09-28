@@ -2,6 +2,7 @@ import BigButton from "@components/common/Button";
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import MantineDateField from "@components/common/MantineDateField";
 import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
@@ -12,7 +13,10 @@ import PhotoEdit from "@components/Profile/PhotoEdit";
 import { SelectCity } from "@components/SelectCity";
 // import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { faCamera } from "@fortawesome/pro-light-svg-icons";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faCalendarDays,
+    faSquareCheck,
+} from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
@@ -679,7 +683,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 error={errors.gender}
                                 disabled={isInputDisabled}
                             />
-                            <DatePickerField
+                            {/* <DatePickerField
                                 name="date_of_birth"
                                 labelName="Date of birth"
                                 dateFormat="yyyy-MM-dd"
@@ -687,8 +691,28 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 touch={touched.date_of_birth}
                                 error={errors.date_of_birth}
                                 disabled={isInputDisabled}
+                            /> */}
+                            <MantineDateField
+                                name="date_of_birth"
+                                labelName="Date of birth"
+                                placeHolder="dd/mm/yy"
+                                error={errors.date_of_birth}
+                                touch={touched.date_of_birth}
+                                icon={
+                                    <FontAwesomeIcon
+                                        icon={faCalendarDays}
+                                        className="svg-icons"
+                                    />
+                                }
+                                disabled={isInputDisabled}
+                                // minDate={new Date()}
+                                handleChange={(value) => {
+                                    setFieldValue(
+                                        "date_of_birth",
+                                        format(new Date(value), "yyyy-MM-dd")
+                                    );
+                                }}
                             />
-
                             {/* <DatePicker
                                 label="Date of birth"
                                 // value={
@@ -841,16 +865,24 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 disabled={isInputDisabled}
                             /> */}
 
-                            <InputField
-                                type="text"
-                                name="address_line1"
-                                labelName="Address Line 1"
-                                error={errors.address_line1}
-                                touch={touched.address_line1}
-                                disabled={isInputDisabled}
-                                placeHolder="Enter your permanent address"
-                            />
                             <PlacesAutocomplete
+                                size="md"
+                                label="Address Line 1"
+                                placeholder="Enter your available address"
+                                disabled={isInputDisabled}
+                                error={
+                                    touched.address_line1 &&
+                                    errors.address_line1
+                                        ? errors.address_line1
+                                        : undefined
+                                }
+                                {...getFieldProps("address_line1")}
+                                value={values.address_line1}
+                                onPlaceChange={(value) =>
+                                    setFieldValue("address_line1", value)
+                                }
+                            />
+                            {/* <PlacesAutocomplete
                                 size="md"
                                 label="Address Line 2"
                                 placeholder="Enter your temporary address"
@@ -866,6 +898,15 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 onPlaceChange={(value) =>
                                     setFieldValue("address_line2", value)
                                 }
+                            /> */}
+                            <InputField
+                                type="text"
+                                name="address_line2"
+                                labelName="Address Line 2"
+                                error={errors.address_line2}
+                                touch={touched.address_line2}
+                                disabled={isInputDisabled}
+                                placeHolder="Enter your secondary address"
                             />
                             <Select
                                 label="Language"

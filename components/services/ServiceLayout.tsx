@@ -45,7 +45,7 @@ const ServiceLayout = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <Layout title="Find Services | Cipher">
+        <Layout title="Find Services | Homaale">
             <section className="service-section mb-5" id="service-section">
                 <Container fluid="xl" className="px-5">
                     <SearchCategory

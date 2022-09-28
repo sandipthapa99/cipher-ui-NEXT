@@ -15,7 +15,7 @@ export const FillKyc = ({ onClick }: FillKycProps) => {
                 </div>
                 <p className="detail-kyc">
                     Fill up the KYC form to enjoy several benefits becoming a
-                    part of Cipher.
+                    part of Homaale.
                 </p>
             </Col>
             <Col md={{ span: 3, offset: 3 }}>
@@ -38,7 +38,7 @@ export const FillKyc = ({ onClick }: FillKycProps) => {
                     />
                 </figure>
                 <h3>Fill Your KYC to Get Verified.</h3>
-                <p>Fill up your KYC detail to be verifued Cipher User.</p>
+                <p>Fill up your KYC detail to be verified Homaale User.</p>
             </div>
             <div className="d-flex buttons">
                 <Link href={"/home"} className="text-profile">

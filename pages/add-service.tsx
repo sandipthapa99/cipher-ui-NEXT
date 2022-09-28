@@ -219,7 +219,7 @@ const AddService: NextPage<{
 
     const toggleSuccessModal = useToggleSuccessModal();
     return (
-        <Layout title="Add-service | Cipher">
+        <Layout title="Add-service | Homaale">
             <BreadCrumb currentPage="add-service" />
             <section id="service-details-section" className="service-details">
                 <Container>

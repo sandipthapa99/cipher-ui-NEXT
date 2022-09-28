@@ -23,7 +23,7 @@ const Home: NextPage = () => {
     );
 
     return (
-        <Layout title="Home | Cipher">
+        <Layout title="Home | Homaale">
             <section className="post-task">
                 <div className="post-task__search-header">
                     <Container fluid="xl">
@@ -40,7 +40,9 @@ const Home: NextPage = () => {
                     </div>
                     <div className="post-task__popular-services">
                         <div className="title-wrapper d-flex justify-content-between">
-                            <h1 className="heading-title">Popular on Cipher</h1>
+                            <h1 className="heading-title">
+                                Popular on Homaale
+                            </h1>
                             <Link href="/service">
                                 <a className="view-more">
                                     view more{" "}

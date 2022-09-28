@@ -2,7 +2,10 @@ import { CustomDropZone } from "@components/common/CustomDropZone";
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import MantineDateField from "@components/common/MantineDateField";
 import SelectInputField from "@components/common/SelectInputField";
+import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
@@ -151,21 +154,64 @@ export const IdentityDocument = () => {
                     </Row>
                     <Row>
                         <Col md={6}>
-                            <DatePickerField
+                            {/* <DatePickerField
                                 name="issued_date"
                                 labelName="Issued Date"
                                 placeHolder="dd/mm/yy"
                                 touch={touched.issued_date}
                                 error={errors.issued_date}
+                            /> */}
+                            <MantineDateField
+                                name="issued_date"
+                                labelName="Issued Date"
+                                placeHolder="dd/mm/yy"
+                                touch={touched.issued_date}
+                                error={errors.issued_date}
+                                icon={
+                                    <FontAwesomeIcon
+                                        icon={faCalendarDays}
+                                        className="svg-icons"
+                                    />
+                                }
+                                // minDate={new Date()}
+                                handleChange={(value) => {
+                                    setFieldValue(
+                                        "issued_date",
+                                        format(new Date(value), "yyyy-MM-dd")
+                                    );
+                                }}
                             />
                         </Col>
                         {values.document_type === "passport" ? (
                             <Col md={6}>
-                                <DatePickerField
+                                {/* <DatePickerField
                                     name="valid_through"
                                     dateFormat="yyyy-MM-dd"
                                     labelName="Valid through"
                                     placeHolder="dd/mm/yy"
+                                /> */}
+                                <MantineDateField
+                                    name="valid_through"
+                                    labelName="Valid through"
+                                    placeHolder="dd/mm/yy"
+                                    touch={touched.issued_date}
+                                    error={errors.issued_date}
+                                    icon={
+                                        <FontAwesomeIcon
+                                            icon={faCalendarDays}
+                                            className="svg-icons"
+                                        />
+                                    }
+                                    // minDate={new Date()}
+                                    handleChange={(value) => {
+                                        setFieldValue(
+                                            "valid_through",
+                                            format(
+                                                new Date(value),
+                                                "yyyy-MM-dd"
+                                            )
+                                        );
+                                    }}
                                 />
                             </Col>
                         ) : (

@@ -32,7 +32,7 @@ const Support = () => {
 
     return (
         <>
-            <Layout title="Feedback | Cipher">
+            <Layout title="Feedback | Homaale">
                 <BreadCrumb currentPage="Feedback" />
 
                 <section className="site-feedback">

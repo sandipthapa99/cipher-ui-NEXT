@@ -17,8 +17,8 @@ export interface TaskCurrencyProps extends Omit<SelectProps, "data"> {
 export const useCurrencies = () => {
     return useQuery(["currencies"], () =>
         axiosClient
-            .get<{ result: Currency[] }>("/locale/cms/currency/?page_size=1000")
-            .then((response) => response.data.result)
+            .get<Currency[]>("/locale/currency/options/")
+            .then((response) => response.data)
     );
 };
 export const TaskCurrency = ({
@@ -26,8 +26,11 @@ export const TaskCurrency = ({
     onCurrencyChange,
     ...rest
 }: TaskCurrencyProps) => {
-    const [currency, setCurrency] = useState(() => value);
     const { data: currencies = [] } = useCurrencies();
+
+    const defaultCurrency = currencies.find((value) => value.code === "NPR");
+
+    const [currency, setCurrency] = useState(() => value);
 
     const currencyData = currencies.map((currency) => ({
         id: currency,
@@ -41,7 +44,13 @@ export const TaskCurrency = ({
     return (
         <Select
             {...rest}
-            value={currency}
+            value={
+                currency
+                    ? currency
+                    : defaultCurrency
+                    ? String(defaultCurrency.id)
+                    : ""
+            }
             required
             searchable
             label="Currency"

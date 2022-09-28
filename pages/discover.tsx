@@ -23,7 +23,7 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
         "/task/service/"
     );
     return (
-        <Layout title="Discover | Cipher">
+        <Layout title="Discover | Homaale">
             <Container fluid="xl" className="px-5">
                 <section className="discover-page">
                     <BreadCrumb currentPage="Discover" />
@@ -43,7 +43,7 @@ const Discover: NextPage<{ taskerData: TaskerProps }> = ({ taskerData }) => {
                         className="discover-page__services-section"
                     >
                         <div className="title-wrapper d-flex flex-column flex-sm-row justify-content-between">
-                            <h1>Popular On Cipher</h1>
+                            <h1>Popular On Homaale</h1>
 
                             <Link href="/service">
                                 <a className="view-more">

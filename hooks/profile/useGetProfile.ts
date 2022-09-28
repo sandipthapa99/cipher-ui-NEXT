@@ -1,4 +1,3 @@
-import { NumberInputProps } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useUser } from "hooks/auth/useUser";

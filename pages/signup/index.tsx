@@ -226,7 +226,7 @@ export default SignUp;
                                                 terms and condition{" "}
                                             </a>
                                         </Link>
-                                        of Cipher.
+                                        of Homaale.
                                     </label>
                                 </div>
                             </div> */
