@@ -18,7 +18,10 @@ export interface ITasker {
     certificates: Certificate[];
     stats: Stats;
     rating: Rating;
-    country: string;
+    country: {
+        id: number;
+        name: string;
+    };
     language: string;
     city: City;
     status: string;
