@@ -332,8 +332,8 @@ const SearchResultsDetail = ({
                             <div className="d-flex flex-col align-items-center mx-5">
                                 <ShareIcon
                                     url={getPageUrl()}
-                                    quote={"Service from Cipher Project"}
-                                    hashtag={"cipher-services"}
+                                    quote={"Service from Homaale Project"}
+                                    hashtag={"Homaale-services"}
                                 />
                                 <span className="name">Share</span>
                             </div>

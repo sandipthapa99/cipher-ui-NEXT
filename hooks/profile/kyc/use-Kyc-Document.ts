@@ -9,7 +9,6 @@ export const useDocumentKYC = () => {
                 "/tasker/kyc-document/",
                 kycDocumnetPayload
             );
-            
         } catch (error) {
             if (error instanceof AxiosError) {
                 throw new Error(error?.response?.data?.message);

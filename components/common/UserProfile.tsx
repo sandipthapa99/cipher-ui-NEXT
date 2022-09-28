@@ -373,9 +373,9 @@ const UserProfileCard = ({
                                     <ShareIcon
                                         url={`${newProfileUrl.origin}/tasker/${user.id}`}
                                         quote={
-                                            "Hi guys checkout my Cipher Profile"
+                                            "Hi guys checkout my Homaale Profile"
                                         }
-                                        hashtag={"cipher-profile"}
+                                        hashtag={"Homaale-profile"}
                                     />
                                 </div>
                                 <ProfileDropdown>

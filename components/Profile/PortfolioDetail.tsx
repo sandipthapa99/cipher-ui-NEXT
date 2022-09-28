@@ -62,8 +62,8 @@ const PortfolioDetails = ({
                             >
                                 <ShareIcon
                                     url={getPageUrl()}
-                                    quote={"This is the task from cipher"}
-                                    hashtag={"cipher-task"}
+                                    quote={"This is the task from Homaale"}
+                                    hashtag={"Homaale-task"}
                                 />
                                 <p>Share</p>
                             </Col>

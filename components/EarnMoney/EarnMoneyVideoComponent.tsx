@@ -23,7 +23,7 @@ export const EarnMoneyVideoComponent = () => {
                     <div className="description">
                         <h1>what are the tasks I can pursue?</h1>
                         <p>
-                            Whatever the job, you can find it on Cipher.
+                            Whatever the job, you can find it on Homeaale.
                             Complete your profile so that we can find right
                             tasks for you.
                         </p>

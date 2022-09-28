@@ -76,8 +76,8 @@ export const UserTaskCard = ({
                     />
                     <ShareIcon
                         url={getPageUrl()}
-                        quote={"Tasker from cipher project"}
-                        hashtag={"cipher-tasker"}
+                        quote={"Tasker from Homaale project"}
+                        hashtag={"Homaale-tasker"}
                     />
                 </div>
 

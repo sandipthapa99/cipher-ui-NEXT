@@ -32,7 +32,7 @@ const FAQ = ({ faqTopicData }: FAQData) => {
     const toggleSuccessModal = useToggleSuccessModal();
     return (
         <Fragment>
-            <Layout title="FAQs | Cipher">
+            <Layout title="FAQs | Homaale">
                 <section className="faq-page-header">
                     <BreadCrumb currentPage="FAQs" />
                     <Container fluid="xl">

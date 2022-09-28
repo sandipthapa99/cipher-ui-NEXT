@@ -9,7 +9,6 @@ export const usePostHelp = () => {
                 "/support/help/",
                 helpPayload
             );
-            
         } catch (error) {
             if (error instanceof AxiosError) {
                 throw new Error(error?.response?.data?.message);
