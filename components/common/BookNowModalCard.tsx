@@ -128,9 +128,9 @@ const BookNowModalCard = ({
                             mutate(newvalues, {
                                 onSuccess: () => {
                                     handleClose?.();
-                                    // toast.success(
-                                    //     "Your Booking was sent for approval"
-                                    // );
+                                    toast.success(
+                                        "Your Booking was sent for approval"
+                                    );
                                     router.push("/home");
                                 },
                                 onError: (error) => {

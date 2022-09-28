@@ -53,7 +53,7 @@ export const NotificationDropdown = () => {
 
         refetch();
     };
-    console.log("today", todayNotifications);
+    // console.log("today", todayNotifications);
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification: any, index: number) => {
