@@ -17,9 +17,7 @@ import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useServiceOptions } from "hooks/service/use-service-options";
 import { useCities } from "hooks/use-cities";
 import type { ChangeEvent } from "react";
-import { useEffect } from "react";
-import { useReducer } from "react";
-import { useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 import { ActionKind, searchReducer } from "./reducers/searchReducer";
