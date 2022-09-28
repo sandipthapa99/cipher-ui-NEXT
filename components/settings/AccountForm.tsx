@@ -865,7 +865,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 value={city?.toString() ?? ""}
                                 disabled={isInputDisabled}
                             /> */}
-
+                            {/* 
                             <InputField
                                 type="text"
                                 name="address_line1"
@@ -874,6 +874,23 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 touch={touched.address_line1}
                                 disabled={isInputDisabled}
                                 placeHolder="Enter your permanent address"
+                            /> */}
+                            <PlacesAutocomplete
+                                size="md"
+                                label="Address Line 1"
+                                placeholder="Enter your available address"
+                                disabled={isInputDisabled}
+                                error={
+                                    touched.address_line1 &&
+                                    errors.address_line1
+                                        ? errors.address_line1
+                                        : undefined
+                                }
+                                {...getFieldProps("address_line1")}
+                                value={values.address_line1}
+                                onPlaceChange={(value) =>
+                                    setFieldValue("address_line1", value)
+                                }
                             />
                             <PlacesAutocomplete
                                 size="md"

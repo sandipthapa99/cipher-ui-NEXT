@@ -73,7 +73,17 @@ const EducationForm = ({
                                           ? parseISO(editDetails.end_date)
                                           : "",
                                   }
-                                : EducationFormData
+                                : {
+                                      school: "",
+                                      description: "",
+                                      degree: "",
+                                      field_of_study: "",
+                                      location: "",
+                                      start_date: "",
+                                      end_date: "",
+                                      id: 0,
+                                  }
+                            //educationFormData
                         }
                         validationSchema={educationFormSchema}
                         onSubmit={async (values) => {
@@ -130,7 +140,7 @@ const EducationForm = ({
                             }
                         }}
                     >
-                        {({ isSubmitting, setFieldValue, errors, touched }) => (
+                        {({ isSubmitting, errors, setFieldValue, touched }) => (
                             <Form autoComplete="off">
                                 <InputField
                                     type="text"
@@ -183,15 +193,15 @@ const EducationForm = ({
                                             name="start_date"
                                             labelName="Start Date"
                                             placeHolder="1999-06-03"
-                                            error={errors.start_date}
-                                            touch={touched.start_date}
+                                            touch={Boolean(touched.start_date)}
+                                            error={String(errors.start_date)}
+                                            //fieldRequired={true}
                                             icon={
                                                 <FontAwesomeIcon
                                                     icon={faCalendarDays}
                                                     className="svg-icons"
                                                 />
                                             }
-                                            // minDate={new Date()}
                                             handleChange={(value) => {
                                                 setFieldValue(
                                                     "start_date",
@@ -204,13 +214,27 @@ const EducationForm = ({
                                         />
                                     </Col>
                                     <Col md={6}>
-                                        <DatePickerField
+                                        <MantineDateField
                                             name="end_date"
                                             labelName="End Date (Expected)"
                                             placeHolder="2022-03-06"
                                             touch={touched.end_date}
                                             error={errors.end_date}
-                                            dateFormat="yyyy-MM-dd"
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "end_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                 </Row>

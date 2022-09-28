@@ -76,7 +76,17 @@ const CertificationForm = ({
                                           ? parseISO(editDetails.expire_date)
                                           : "",
                                   }
-                                : CertificationFormData
+                                : {
+                                      name: "",
+                                      issuing_organization: "",
+                                      description: "",
+                                      does_expire: false,
+                                      credential_id: "",
+                                      certificate_url: "",
+                                      issued_date: "",
+                                      expire_date: "",
+                                      id: 0,
+                                  }
                         }
                         validationSchema={certificateFormSchema}
                         onSubmit={async (values, action) => {
@@ -208,39 +218,16 @@ const CertificationForm = ({
                                         <MantineDateField
                                             name="issued_date"
                                             labelName="Issued Date"
-                                            placeHolder="2022-03-06"
-                                            touch={touched.issued_date}
-                                            error={errors.issued_date}
+                                            placeHolder="1999-06-03"
+                                            touch={Boolean(touched.issued_date)}
+                                            error={String(errors.issued_date)}
+                                            //fieldRequired={true}
                                             icon={
                                                 <FontAwesomeIcon
                                                     icon={faCalendarDays}
                                                     className="svg-icons"
                                                 />
                                             }
-                                            // minDate={new Date()}
-                                            handleChange={(value) => {
-                                                setFieldValue(
-                                                    "issued_date",
-                                                    format(
-                                                        new Date(value),
-                                                        "yyyy-MM-dd"
-                                                    )
-                                                );
-                                            }}
-                                        />
-                                        <MantineDateField
-                                            labelName="Expiration Date"
-                                            name="issued_date"
-                                            error={errors.issued_date}
-                                            touch={touched.issued_date}
-                                            disabled={toggle ? true : false}
-                                            icon={
-                                                <FontAwesomeIcon
-                                                    icon={faCalendarDays}
-                                                    className="svg-icons"
-                                                />
-                                            }
-                                            // minDate={new Date()}
                                             handleChange={(value) => {
                                                 setFieldValue(
                                                     "issued_date",
@@ -266,25 +253,23 @@ const CertificationForm = ({
                                             error={errors.expire_date}
                                             disabled={toggle ? true : false}
                                         /> */}
-
                                         <MantineDateField
-                                            labelName="Expiration Date"
                                             name="expire_date"
+                                            labelName="Expiration Date"
+                                            touch={Boolean(touched.expire_date)}
+                                            error={String(errors.expire_date)}
+                                            //fieldRequired={true}
                                             placeHolder={
                                                 toggle
                                                     ? "No Expiration Date"
                                                     : "2022-03-06"
                                             }
-                                            touch={touched.expire_date}
-                                            error={errors.expire_date}
-                                            disabled={toggle ? true : false}
                                             icon={
                                                 <FontAwesomeIcon
                                                     icon={faCalendarDays}
                                                     className="svg-icons"
                                                 />
                                             }
-                                            // minDate={new Date()}
                                             handleChange={(value) => {
                                                 setFieldValue(
                                                     "expire_date",
