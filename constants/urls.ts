@@ -61,6 +61,8 @@ const urls = {
     },
     trusted_partners: "/landingpage/trusted-partner/",
     hero_category: "/task/hero-category/",
+    privacyPolicy: "/landingpage/content/privacy-policy/",
+    termsandconditions: "/landingpage/content/terms-conditions/",
 };
 
 export default urls;
