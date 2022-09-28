@@ -1,10 +1,6 @@
 import FullPageLoader from "@components/common/FullPageLoader";
-import { faLocationCrosshairs } from "@fortawesome/pro-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createStyles } from "@mantine/core";
 import { useInterval } from "@mantine/hooks";
 import type { GoogleMapProps } from "@react-google-maps/api";
-import { OverlayView } from "@react-google-maps/api";
 import {
     GoogleMap as ReactGoogleMap,
     useJsApiLoader,
@@ -22,8 +18,7 @@ type LatLngLiteral = google.maps.LatLngLiteral;
 type GoogleMapOptions = google.maps.MapOptions;
 type Map = google.maps.Map;
 
-const MIN_ZOOM_LEVEL = 6;
-const MAX_ZOOM_LEVEL = 18;
+const MAX_ZOOM_LEVEL = 12;
 
 const getGoogleMapsApiKey = () => {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
@@ -45,7 +40,6 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
     const options = useMemo<GoogleMapOptions>(
         () => ({
             disableDefaultUI: true,
-            minZoom: MIN_ZOOM_LEVEL,
             maxZoom: MAX_ZOOM_LEVEL,
         }),
         []
@@ -90,13 +84,6 @@ const GoogleMap = ({ children, ...rest }: GoogleMapProps) => {
             onLoad={onLoad}
             onUnmount={onUnmount}
         >
-            <OverlayView mapPaneName="floatPane" position={location}>
-                <FontAwesomeIcon
-                    color="rgba(255,0,0)"
-                    size="3x"
-                    icon={faLocationCrosshairs}
-                />
-            </OverlayView>
             {children}
         </ReactGoogleMap>
     ) : null;

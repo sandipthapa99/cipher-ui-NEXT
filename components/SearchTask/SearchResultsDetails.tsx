@@ -36,7 +36,7 @@ import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { getReviews } from "services/commonServices";
@@ -178,6 +178,10 @@ const SearchResultsDetail = ({
         "entityservice",
         String(serviceId)
     );
+    const tabRef = useRef<HTMLDivElement>(null);
+    const handleScroll = () => {
+        tabRef?.current?.scrollIntoView({ behavior: "smooth" });
+    };
 
     const isUserService = user ? serviceProviderId === user?.id : false;
 
@@ -495,7 +499,7 @@ const SearchResultsDetail = ({
                                 <CardBtn
                                     btnTitle="View Applicants"
                                     backgroundColor="#211D4F"
-                                    id="#tab"
+                                    handleClick={() => handleScroll()}
                                 />
                             ) : (
                                 <CardBtn
@@ -652,38 +656,43 @@ const SearchResultsDetail = ({
                 </section>
                 <section>
                     {isCurrentUserService() && (
-                        <Tab
-                            activeIndex={activeTabIdx}
-                            onTabClick={setActiveTabIdx}
-                            items={[
-                                {
-                                    title: `Applicants (${taskerCount?.data?.count[0].applicants_count})`,
+                        <div ref={tabRef}>
+                            <Tab
+                                activeIndex={activeTabIdx}
+                                onTabClick={setActiveTabIdx}
+                                items={[
+                                    {
+                                        title: `Applicants (${taskerCount?.data?.count[0].applicants_count})`,
 
-                                    content: (
-                                        <Row>
-                                            <>
-                                                {renderBookedClients}
-                                                {myBookings === undefined && (
-                                                    <Alert
-                                                        icon={
-                                                            <FontAwesomeIcon
-                                                                icon={faWarning}
-                                                            />
-                                                        }
-                                                        title={
-                                                            "No data Available!"
-                                                        }
-                                                        color={"red"}
-                                                    >
-                                                        {" "}
-                                                    </Alert>
-                                                )}
-                                            </>
-                                        </Row>
-                                    ),
-                                },
-                            ]}
-                        />
+                                        content: (
+                                            <Row>
+                                                <>
+                                                    {renderBookedClients}
+                                                    {myBookings ===
+                                                        undefined && (
+                                                        <Alert
+                                                            icon={
+                                                                <FontAwesomeIcon
+                                                                    icon={
+                                                                        faWarning
+                                                                    }
+                                                                />
+                                                            }
+                                                            title={
+                                                                "No data Available!"
+                                                            }
+                                                            color={"red"}
+                                                        >
+                                                            {" "}
+                                                        </Alert>
+                                                    )}
+                                                </>
+                                            </Row>
+                                        ),
+                                    },
+                                ]}
+                            />
+                        </div>
                     )}
                 </section>
                 <FilterReview totalReviews={reviewsContent.length} />

@@ -1,4 +1,5 @@
 import type { FormikTouched } from "formik";
+import type { ReactNode } from "react";
 
 export interface DatePickerProps {
     name: string;
@@ -12,4 +13,15 @@ export interface DatePickerProps {
     as?: string;
     fieldRequired?: boolean;
     forgotPassword?: string;
+}
+
+export interface DatePickerFieldProps {
+    name: string;
+    labelName?: ReactNode;
+    placeHolder?: string;
+    error?: string;
+    touch?: boolean;
+    fieldRequired?: boolean;
+    textMuted?: ReactNode;
+    handleChange: (value: Date) => void;
 }
