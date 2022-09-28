@@ -17,6 +17,9 @@ import {
     QueryClientProvider,
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { clear } from "console";
+import { useUser } from "hooks/auth/useUser";
+import Cookies from "js-cookie";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
@@ -44,6 +47,9 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
     );
     const [mounted, setMounted] = useState(false);
     const [opened, setOpened] = useState(false);
+    const cookies = Cookies.get("access");
+    const cookiesProvided = cookies ? true : false;
+
     if (mounted) {
         firebaseCloudMessaging.onMessage();
     }
@@ -59,12 +65,18 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
         };
         const result = setToken();
     }, []);
-    // useEffect(() => {
-    //     setTimeout(async () => {
-    //         setOpened(true);
-
-    //     }, 10000);
-    // });
+    useEffect(() => {
+        if (
+            (Notification.permission === "default" ||
+                Notification.permission === "denied") &&
+            cookiesProvided
+        ) {
+            const timer = setTimeout(() => {
+                setOpened(true);
+            }, 500000);
+            return () => clearTimeout(timer);
+        }
+    });
 
     return (
         <>
