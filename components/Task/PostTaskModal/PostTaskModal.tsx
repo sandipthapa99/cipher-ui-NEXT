@@ -205,6 +205,7 @@ export const PostTaskModal = () => {
                     toggleSuccessModal("Task Posted Successfully");
                     await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
                     await queryClient.invalidateQueries(["notification"]);
+                    await queryClient.invalidateQueries(["my-task"]);
                 },
                 onError: (error) => {
                     toast.error(error.message);
