@@ -19,7 +19,6 @@ import type { SelectItem } from "@mantine/core";
 import { createStyles } from "@mantine/core";
 import { LoadingOverlay } from "@mantine/core";
 import { Select } from "@mantine/core";
-import { DatePicker } from "@mantine/dates";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format, parseISO } from "date-fns";
 import { Field, Form, Formik } from "formik";
@@ -31,7 +30,6 @@ import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -81,7 +79,11 @@ const profile_visibility = [
     },
 ];
 
-const AccountForm = () => {
+interface Display {
+    showAccountForm: boolean;
+}
+
+const AccountForm = ({ showAccountForm }: Display) => {
     const [scrollPosition, setScrollPosition] = useState(0);
     //profile success modal
     const [show, setShow] = useState(false);
@@ -96,7 +98,7 @@ const AccountForm = () => {
     const [image, setImage] = useState();
     const [file, setFile] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);
-    const [showAccountForm, setShowAccountForm] = useState(false);
+    // const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
     const [isNoProfileImage, setIsNoProfileImage] = useState(false);
 
@@ -330,16 +332,6 @@ const AccountForm = () => {
                 onClick={scrollToKyc}
                 handleClose={scrollToKyc}
             />{" "}
-            {!profile ? (
-                <CompleteProfile
-                    onClick={() => {
-                        scroll.scrollTo(628);
-                        setShowAccountForm(true);
-                    }}
-                />
-            ) : (
-                ""
-            )}
             {/* Modal component */}
             <div
                 className={"account-form"}
