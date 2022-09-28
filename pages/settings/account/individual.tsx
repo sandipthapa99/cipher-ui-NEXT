@@ -42,7 +42,10 @@ const Individual = () => {
                 )}{" "}
                 <AccountForm showAccountForm={showAccountForm} />
                 <KYCForm />
-                <AddBank showBankForm={!profile ? false : true} />
+                <AddBank
+                    showBankForm={!profile ? false : true}
+                    showPrimaryBank={true}
+                />
             </SettingsLayout>
         </>
     );
