@@ -15,7 +15,7 @@ const TermsConditions: NextPage<
                 <BreadCrumb currentPage="Terms &amp; Conditions" />
                 <section className="privacy-policy">
                     <section className="privacy-policy__intro inner-section">
-                        {parse(content)}
+                        {content && parse(content)}
                     </section>
                 </section>
             </Container>
@@ -23,11 +23,15 @@ const TermsConditions: NextPage<
     );
 };
 export const getStaticProps: GetStaticProps<{ content: string }> = async () => {
-    const { data } = await axiosClient.get<{ content: string }>(
-        urls.termsandconditions
-    );
-    return {
-        props: data,
-    };
+    try {
+        const { data } = await axiosClient.get<{ content: string }>(
+            urls.termsandconditions
+        );
+        return {
+            props: data,
+        };
+    } catch {
+        return { props: { content: "" } };
+    }
 };
 export default TermsConditions;
