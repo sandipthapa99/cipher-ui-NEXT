@@ -33,7 +33,7 @@ export const AcceptReject = ({
                         backgroundColor={"#211D4F"}
                         textColor={"white"}
                         handleClick={() => {
-                            //console.log("qury", query.slug);
+                            //
                             router.push(`/service/${slug}`);
                             if (query.slug?.includes("service")) {
                                 scroll.scrollTo(1500);

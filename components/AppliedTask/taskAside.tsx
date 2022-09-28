@@ -35,7 +35,6 @@ const TaskAside = ({ query, children }: TaskAsideProps) => {
 
     const { ref } = useInViewPort<HTMLDivElement>(() => {
         if (hasNextPage && !isFetchingNextPage) {
-            console.log("FETCHING MORE TASKS");
             fetchNextPage();
         }
     });

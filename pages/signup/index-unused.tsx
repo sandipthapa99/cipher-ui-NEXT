@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Signup = () => {
     const login = useGoogleLogin({
-        onSuccess: (codeResponse) => console.log(codeResponse),
+        onSuccess: (codeResponse) => codeResponse,
         flow: "auth-code",
     });
     return (

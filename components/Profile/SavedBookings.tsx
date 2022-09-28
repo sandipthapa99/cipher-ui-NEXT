@@ -48,7 +48,7 @@ const SavedBookings = () => {
                         {/* <UserTaskCard
                             key={userBookmark.id}
                             tasker={userBookmark.data as any}
-                            onTaskClick={(task) => console.log(task)}
+                            onTaskClick={(task) => 
                             isSaved={true}
                         /> */}
                         {userBookmark.data ? (

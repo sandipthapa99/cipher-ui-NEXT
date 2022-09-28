@@ -33,7 +33,7 @@ const PortfolioDetails = ({
     const [isEditProfile, setIsEditProfile] = useState(false);
 
     const { data: portfolioDetail } = useGetPortfolioById(id);
-    // console.log(
+    //
     //     "🚀 ~ file: PortfolioDetail.tsx ~ line 41 ~ portfolioDetail",
     //     portfolioDetail
     // );

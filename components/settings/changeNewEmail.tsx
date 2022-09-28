@@ -19,7 +19,7 @@ export const ChangeNewEmail = () => {
         return axiosClient.post(url, values);
     });
 
-    // console.log("userDetails", userDetails);
+    //
 
     return (
         <div className=" p-0">

@@ -10,8 +10,6 @@ export const MainStep = () => {
     const [step, setStep] = useState(1);
     const [allData, setAllData] = useState({});
 
-    console.log("all data..........", allData);
-
     const handleNext = (data?: unknown) => {
         setStep(step + 1);
         window.scrollTo({ top: 100 });

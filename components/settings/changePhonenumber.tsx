@@ -11,7 +11,6 @@ import { isSubmittingClass } from "utils/helpers";
 
 export const ChangePhoneNumber = () => {
     const { data: userDetails } = useUser();
-    console.log("user-details", userDetails);
 
     const url =
         userDetails?.phone === ""
@@ -45,7 +44,7 @@ export const ChangePhoneNumber = () => {
                             toast.error(err.message);
                         },
                     });
-                    console.log(values);
+
                     action.resetForm();
                 }}
             >

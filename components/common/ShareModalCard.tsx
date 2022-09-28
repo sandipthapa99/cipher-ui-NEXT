@@ -29,7 +29,7 @@ const ShareModal = ({
             navigator.clipboard.writeText(copyMe);
             toast.success("Link copied to clipboard.");
         } catch (err) {
-            //  console.log(err.message);
+            //
         }
     };
 

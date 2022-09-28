@@ -828,7 +828,6 @@ const AccountForm = () => {
                                 disabled={isInputDisabled}
                             />
                             <SelectCity
-                                onBlur={console.log}
                                 disabled={isInputDisabled}
                                 label="City"
                                 placeholder="Select your city"

@@ -115,14 +115,14 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
 // };
 // Object.entries(newData).forEach((entry) => {
 //     const [key, value] = entry;
-//     console.log("entry=", entry, key, value);
+//
 
 //     formData.append(key, value);
 // });
-// console.log("submitted values new", formData);
+//
 // fileStore(formData, {
 //     onSuccess: async () => {
-//         console.log(
+//
 //             "submitted values new",
 //             formData
 //         );

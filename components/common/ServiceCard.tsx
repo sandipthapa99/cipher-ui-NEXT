@@ -61,10 +61,7 @@ const ServiceCard = ({
         "entityservice",
         serviceCard?.id
     );
-    console.log(
-        "🚀 ~ file: ServiceCard.tsx ~ line 249 ~ serviceCard",
-        serviceCard
-    );
+
     const serviceRating = serviceCard.rating[0].rating;
 
     return (

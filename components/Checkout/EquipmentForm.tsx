@@ -43,7 +43,6 @@ const EquipmentForm = ({
                             // } catch (error: any) {
                             //     error.response.data.message;
                             // }
-                            console.log(values);
                         }}
                     >
                         {({ isSubmitting, errors, touched }) => (

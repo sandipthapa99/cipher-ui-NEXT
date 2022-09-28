@@ -28,7 +28,7 @@ const UserProfile: NextPage<UserProfileProps> = () => {
     // const profileDetails = userData?.data;
 
     // if (isLoading || !data) return <FullPageLoader />;
-    // console.log("profileDetails", profileDetails);
+    //
 
     const remaining = {
         userRating: 4,
@@ -47,10 +47,6 @@ const UserProfile: NextPage<UserProfileProps> = () => {
             router.push("/settings/account/individual");
         }
     }, [isLoading, profileDetails, router]);
-    console.log(
-        "🚀 ~ file: profile.tsx ~ line 50 ~ profileDetails",
-        profileDetails
-    );
 
     if (!profileDetails) {
         return (

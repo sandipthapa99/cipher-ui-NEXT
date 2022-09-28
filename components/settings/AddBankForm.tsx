@@ -257,10 +257,6 @@ const BankForm = ({ id, isEdit, bankDetail }: editProps) => {
                             value={changeBranch}
                             required
                             onChange={(value) => {
-                                console.log(
-                                    "🚀 ~ file: AddBankForm.tsx ~ line 248 ~ BankForm ~ value",
-                                    value
-                                );
                                 setChangeBranch(value ? value : "");
                                 handleBranchNameChanged(value, setFieldValue);
                                 setIsBankChanged(true);

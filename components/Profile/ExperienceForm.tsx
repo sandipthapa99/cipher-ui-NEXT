@@ -111,10 +111,6 @@ const ExperienceForm = ({
                                 editDetails
                                     ? editMutation(newValue, {
                                           onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
                                               setShowExpForm(false);
                                               queryClient.invalidateQueries([
                                                   "tasker-experience",
@@ -125,15 +121,10 @@ const ExperienceForm = ({
                                           },
                                           onError: async (error) => {
                                               toast.error(error.message);
-                                              console.log("error=", error);
                                           },
                                       })
                                     : mutate(newValue, {
                                           onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
                                               setShowExpForm(false);
                                               queryClient.invalidateQueries([
                                                   "tasker-experience",
@@ -144,7 +135,6 @@ const ExperienceForm = ({
                                           },
                                           onError: async (error) => {
                                               toast.error(error.message);
-                                              console.log("error=", error);
                                           },
                                       });
                             }
