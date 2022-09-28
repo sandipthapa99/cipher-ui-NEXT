@@ -37,12 +37,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        .comming-soon-icon {
+            color: #f79e1a;
+            height: 4.5rem;
+            width: 4.5rem;
+            margin-right: 1rem;
+        }
     }
-    .svg-icon {
-        color: #f79e1a;
-        height: 4.5rem;
-        width: 4.5rem;
-    }
+
     h3,
     h4 {
         font-weight: 500;

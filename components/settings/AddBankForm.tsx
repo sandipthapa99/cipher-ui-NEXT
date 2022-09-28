@@ -5,10 +5,11 @@ import { Select } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import { Field, Form, Formik } from "formik";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
+import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import { useEditForm } from "hooks/use-edit-form";
 import { useForm } from "hooks/use-form";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import type {
@@ -20,12 +21,28 @@ import type {
 import { bankFormSchema } from "utils/formValidation/bankDetailsValidation";
 import { isSubmittingClass } from "utils/helpers";
 
+import { CompleteProfile } from "./ProfileForm";
+
 interface editProps {
     id?: number;
     bankDetail?: any;
     isEdit?: boolean;
 }
 const BankForm = ({ id, isEdit, bankDetail }: editProps) => {
+    const { data: profile } = useGetProfile();
+
+    const { data: BankDetails } = useData<UserBankDetails>(
+        ["tasker-bank-account"],
+        "/tasker/bank-details/"
+    );
+
+    const LinkedBank = BankDetails?.data.result;
+
+    const [showBankForm, setShowBankForm] = useState(!profile ? true : false);
+    const [showCompleteProfile, setShowCompleteProfile] = useState(
+        LinkedBank && LinkedBank?.length < 0 ? false : true
+    );
+
     const { mutate } = useForm(`/tasker/bank-details/`);
 
     const [bankId, setBankId] = useState<string>(
@@ -91,13 +108,6 @@ const BankForm = ({ id, isEdit, bankDetail }: editProps) => {
 
     const { data: KYCData } = useGetKYC();
 
-    const { data: BankDetails } = useData<UserBankDetails>(
-        ["tasker-bank-account"],
-        "/tasker/bank-details/"
-    );
-
-    const LinkedBank = BankDetails?.data.result;
-
     const editDetails = LinkedBank?.find((bank) => bank.id === id);
 
     const editBankId = bankNamesResults.find(
@@ -124,8 +134,21 @@ const BankForm = ({ id, isEdit, bankDetail }: editProps) => {
     const accname = editDetails?.bank_account_name;
     const accnumber = editDetails?.bank_account_number;
 
+    const ref = useRef<HTMLDivElement>(null);
+
+    const handleClick = () => {
+        // ref.current?.scrollIntoView({ behavior: "smooth" });
+        setShowBankForm(true);
+        setShowCompleteProfile(false);
+    };
     return (
-        <div className="bank-form">
+        <div
+            //ref={ref}
+            className="bank-form"
+            style={
+                showCompleteProfile ? { display: "block" } : { display: "none" }
+            }
+        >
             <Formik
                 enableReinitialize={true}
                 initialValues={
@@ -305,6 +328,13 @@ const BankForm = ({ id, isEdit, bankDetail }: editProps) => {
                     </Form>
                 )}
             </Formik>
+            {LinkedBank ? (
+                LinkedBank.length <= 0 ? (
+                    <CompleteProfile onClick={handleClick} />
+                ) : (
+                    ""
+                )
+            ) : null}
         </div>
     );
 };

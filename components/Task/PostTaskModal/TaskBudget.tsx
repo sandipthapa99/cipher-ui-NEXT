@@ -37,6 +37,10 @@ const budgetType = [
         value: "Hourly",
     },
     {
+        label: "Daily",
+        value: "Daily",
+    },
+    {
         label: "Monthly",
         value: "Monthly",
     },
