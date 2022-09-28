@@ -41,10 +41,6 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                   requestedTask?.entity_service.created_by.id ===
                   profileDetails?.user.id
           );
-    console.log(
-        "🚀 ~ file: TaskersTab.tsx ~ line 44 ~ TaskersTab ~ taskApplicants",
-        taskApplicants
-    );
 
     // const { data: myRequestedTask } = useData<MyBookings>(
     //     ["my-requested-task"],

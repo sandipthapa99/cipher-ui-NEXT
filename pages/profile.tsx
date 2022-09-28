@@ -47,10 +47,6 @@ const UserProfile: NextPage<UserProfileProps> = () => {
             router.push("/settings/account/individual");
         }
     }, [isLoading, profileDetails, router]);
-    console.log(
-        "🚀 ~ file: profile.tsx ~ line 50 ~ profileDetails",
-        profileDetails
-    );
 
     if (!profileDetails) {
         return (
