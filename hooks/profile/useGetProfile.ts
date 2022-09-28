@@ -79,7 +79,7 @@ export type ProfileResponse = {
 export const useGetProfile = () => {
     const { data: user } = useUser();
     return useQuery<ProfileResponse>(
-        ["profile"],
+        ["profile", user?.id],
         async () => {
             try {
                 const { data } = await axiosClient.get<ProfileResponse>(
