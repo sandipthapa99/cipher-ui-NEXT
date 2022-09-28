@@ -89,7 +89,7 @@ const MultiFileDropzone = ({
                                     },
                                 }}
                                 onDrop={(files) => {
-                                    // console.log("files are", files);
+                                    //
                                     const multipleFiles = files.map(
                                         (file, index) => {
                                             const src =

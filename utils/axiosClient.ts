@@ -24,7 +24,7 @@ const isTokenExpired = (token: string) => {
 };
 
 const requestRefreshToken = async (refreshToken: string) => {
-    console.log("REFRESH TOKEN EXPIRED, REQUESTING A NEW ONE");
+    
     const url = new URL("/api/v1/user/token/refresh/", getApiEndpoint());
     const response = await fetch(url.href, {
         method: "POST",

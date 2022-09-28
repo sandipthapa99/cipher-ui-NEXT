@@ -13,8 +13,8 @@ const GoogleLogin = () => {
             isSignedIn={true}
             autoLoad={false}
             clientId={getGoogleClientId()}
-            onFailure={(err) => console.log(err)}
-            onSuccess={(response) => console.log(response)}
+            onFailure={(err) => err}
+            onSuccess={(response) => response}
             cookiePolicy={"single_host_origin"}
             render={(renderProps) => (
                 <SocialLoginBtn

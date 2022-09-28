@@ -27,8 +27,7 @@ export const UserTaskCard = ({
 }: Props) => {
     const isBookmarked = useIsBookmarked("user", tasker.user.id);
     const queryClient = useQueryClient();
-    console.log("taskerdfasdfasd", tasker);
-    console.log("tasker area", tasker);
+
     return (
         <div className="user-task-card">
             <div className="user-task-card__header">

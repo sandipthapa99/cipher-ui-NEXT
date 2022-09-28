@@ -47,7 +47,7 @@ const AboutProfile = () => {
 
     // const { mutate: searchMutation, data: filteredData } =
     //     useSearchRating<RatingResponse>(`/task/rating/?ordering=${search}`);
-    // console.log("filterd reviw", filteredData?.result);
+    //
 
     //user profile certification data
     const { data: certificationData } = useData<

@@ -60,13 +60,9 @@ const AddSkills = ({
                                 ...values,
                                 skill: newSkills,
                             };
-                            console.log("new skills=", finalSKills);
+
                             mutate(finalSKills, {
                                 onSuccess: async () => {
-                                    console.log(
-                                        "submitted values",
-                                        finalSKills
-                                    );
                                     setShowAddSkillsForm(false);
                                     queryClient.invalidateQueries(["profile"]);
                                     toast.success(
@@ -75,7 +71,6 @@ const AddSkills = ({
                                 },
                                 onError: async (error) => {
                                     toast.error(error.message);
-                                    console.log("error=", error);
                                 },
                             });
 

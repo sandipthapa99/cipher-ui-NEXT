@@ -87,10 +87,6 @@ const EducationForm = ({
                                 editDetails
                                     ? editMutation(newvalidatedValue, {
                                           onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
                                               setShowEducationForm(false);
                                               queryClient.invalidateQueries([
                                                   "tasker-education",
@@ -101,15 +97,10 @@ const EducationForm = ({
                                           },
                                           onError: async (error) => {
                                               toast.error(error.message);
-                                              console.log("error=", error);
                                           },
                                       })
                                     : mutate(newvalidatedValue, {
                                           onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
                                               setShowEducationForm(false);
                                               queryClient.invalidateQueries([
                                                   "tasker-education",

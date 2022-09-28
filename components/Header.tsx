@@ -29,10 +29,10 @@ import { RasifalSlideComponent } from "./Rasifal/RasifalSlideComponent";
 const Header = () => {
     const date = format(new Date(), "MMMM d");
     const { data: location } = useLocation();
-    // console.log(weather?.data);
+    //
 
     const { data: weather } = useWeather();
-    // console.log("weather", weather);
+    //
 
     const getIcon = weather?.weather[0].icon;
 

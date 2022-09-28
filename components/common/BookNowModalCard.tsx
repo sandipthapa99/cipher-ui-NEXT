@@ -266,10 +266,6 @@ const BookNowModalCard = ({
                                                             latitude,
                                                             longitude,
                                                         } = pos.coords;
-                                                        console.log(
-                                                            latitude,
-                                                            longitude
-                                                        );
                                                     }
                                                 );
                                             }

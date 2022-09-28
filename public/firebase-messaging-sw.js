@@ -6,7 +6,7 @@ firebase.initializeApp({
     apiKey: "AIzaSyBSPPQD4M1anH8uT7Ldh-zevS2lgWoL-9Q",
     projectId: "notification-cipher-61823",
     authDomain: "notification-cipher-61823.firebaseapp.com",
-    storageBucket: "gs://notification-cipher-61823.appspot.com",
+    storageBucket: "gs://cipher-bucket",
     messagingSenderId: "185572736284",
     appId: "1:185572736284:web:54928d1587844ac5fc0ed9",
     measurementId: "G-XBZJZJR69",
@@ -17,10 +17,6 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function (payload) {
-    console.log(
-        "[firebase-messaging-sw.js] Received background message ",
-        payload
-    );
     const notificationTitle = payload.data.title;
     const notificationOptions = {
         body: payload.data.body,

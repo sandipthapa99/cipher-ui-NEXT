@@ -12,7 +12,7 @@ const Advertisement = () => {
             video_url: string;
         }>;
     }>(["Advertisement"], "marketing/advertisement/");
-    // console.log(Advertisement?.data?.result);
+    //
     const landscapedImages = Advertisement?.data?.result.filter(
         (ad: any) => ad.mode === "Landscape"
     );

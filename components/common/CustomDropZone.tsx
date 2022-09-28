@@ -130,10 +130,7 @@ export const CustomDropZone = ({
             (file) => file.name !== fileName
         );
         const remainingFileIds = updatedPreviewFiles.map((file) => file.id);
-        console.log(
-            "🚀 ~ file: CustomDropZone.tsx ~ line 133 ~ handleRemoveUploadedFile ~ remainingFileIds",
-            remainingFileIds
-        );
+
         onRemoveUploadedFiles?.(remainingFileIds);
         setPreviewFiles(updatedPreviewFiles);
     };

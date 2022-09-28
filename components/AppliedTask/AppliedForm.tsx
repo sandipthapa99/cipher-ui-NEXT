@@ -128,7 +128,7 @@ const AppliedForm = ({
                                     toast.error(error.message);
                                     // toast.error(errors);
                                     // setShow(false);
-                                    // console.log("error", errors);
+                                    //
                                 },
                             });
                         }}

@@ -65,7 +65,7 @@ const SearchResultsDetail = ({
     currency,
     service,
 }: ServiceNearYouCardProps) => {
-    // console.log("service inside seach result details", service);
+    //
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -156,7 +156,7 @@ const SearchResultsDetail = ({
         ["tasker-count", serviceId],
         `/task/entity/service/tasker-count/${serviceId}`
     );
-    // console.log(applicantsCount, "servapplicantsCounticeId");
+    //
 
     const { mutate } = useDeleteData(`/task/entity/service/${serviceId}/`);
     const withLogin = useWithLogin();

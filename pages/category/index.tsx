@@ -16,7 +16,7 @@ interface CategoriesPageProps {
 const CategoriesPage: NextPage<{
     nestedCategoriesData: CategoriesPageProps["nestedCategoriesData"];
 }> = ({ nestedCategoriesData }) => {
-    //console.log(nestedCategoriesData);
+    //
 
     return (
         <Layout title="Categories | Homaale">

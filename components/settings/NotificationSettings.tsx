@@ -17,7 +17,6 @@ const NotificationSettings = () => {
             <Formik
                 initialValues={AccountFromData}
                 onSubmit={async (values, action) => {
-                    console.log(values);
                     action.resetForm();
                 }}
             >
