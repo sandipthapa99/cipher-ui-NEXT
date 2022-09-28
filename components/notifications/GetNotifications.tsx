@@ -81,6 +81,7 @@ export default function GetNotifications() {
                             taskObject={notification.object}
                             createdDate={notification.created_date}
                             slug={notification.object_slug}
+                            type={"created"}
                             handleClick={() =>
                                 readSingleNotification(
                                     notification?.object_slug,
@@ -160,10 +161,13 @@ export default function GetNotifications() {
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
                             slug={notification?.object_slug}
+                            type={"booked"}
                         />
                     </div>
                 );
             } else if (notification.title === "approval") {
+                console.log("approval", notification);
+
                 return (
                     <div
                         key={index}
@@ -175,10 +179,11 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            bookingId={notification?.object_id}
                             title="booked"
                             body={notification?.object}
                             user={notification?.created_for}
-                            // accept={true}
+                            accept={true}
                             date={notification?.created_date}
                             type="service"
                         />
@@ -201,6 +206,7 @@ export default function GetNotifications() {
                             user={notification?.created_for}
                             date={notification?.created_date}
                             type="booking"
+                            slug={notification?.object_slug}
                         />
                     </div>
                 );
@@ -208,6 +214,8 @@ export default function GetNotifications() {
             return;
         }
     );
+    console.log("earlier", earlierNotifications);
+
     const renderEarlierNotifications = earlierNotifications?.map(
         (notification, index: number) => {
             if (notification.title === "created") {
@@ -231,6 +239,7 @@ export default function GetNotifications() {
                             taskObject={notification.object}
                             createdDate={notification.created_date}
                             slug={notification.object_slug}
+                            type={"created"}
                             handleClick={() =>
                                 readSingleNotification(
                                     notification?.object_slug,
@@ -310,10 +319,13 @@ export default function GetNotifications() {
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
                             slug={notification?.object_slug}
+                            type={"booked"}
                         />
                     </div>
                 );
             } else if (notification.title === "approval") {
+                console.log("approval", notification);
+
                 return (
                     <div
                         key={index}
@@ -325,10 +337,11 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            bookingId={notification?.object_id}
                             title="booked"
                             body={notification?.object}
                             user={notification?.created_for}
-                            // accept={true}
+                            accept={true}
                             date={notification?.created_date}
                             type="service"
                         />
@@ -351,6 +364,7 @@ export default function GetNotifications() {
                             user={notification?.created_for}
                             date={notification?.created_date}
                             type="booking"
+                            slug={notification?.object_slug}
                         />
                     </div>
                 );
