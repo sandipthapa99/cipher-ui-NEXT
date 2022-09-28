@@ -23,7 +23,9 @@ const useTopSkills = () => {
         ["top-skills"],
         () =>
             axiosClient
-                .get<{ result: TopSkill[] }>("/task/top-skills")
+                .get<{ result: TopSkill[] }>(
+                    "/task/cms/top-skills/?country=Nepal"
+                )
                 .then((response) => response.data.result),
         { initialData: [] }
     );
@@ -109,7 +111,7 @@ const FreelanceTasks: NextPage = () => {
                             <Row>
                                 {topSkillsInNepal.map((skill) => (
                                     <Col md={3} sm={6} xs={6} key={skill.id}>
-                                        <p>{skill.skills}</p>
+                                        {skill.skills}
                                     </Col>
                                 ))}
                             </Row>
