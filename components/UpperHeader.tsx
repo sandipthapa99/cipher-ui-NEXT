@@ -77,7 +77,7 @@ export function UpperHeader() {
                                         <Image
                                             src="/logo/homaale.png"
                                             alt="Logo"
-                                            width={164}
+                                            width={172}
                                             height={48}
                                             priority
                                         />

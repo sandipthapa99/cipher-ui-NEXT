@@ -1,6 +1,7 @@
 import Reviews from "@components/common/Reviews";
 import ServiceCard from "@components/common/ServiceCard";
 import { Spoiler } from "@mantine/core";
+import urls from "constants/urls";
 import { Formik } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
@@ -82,7 +83,7 @@ const TasksProfileCard = () => {
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
-        "/task/service/"
+        `${urls.task.service}`
     );
 
     const { data: profileDetails } = useGetProfile();

@@ -9,9 +9,11 @@ interface LoginPromptStore {
     hidePrompt: () => void;
     withLogin: (
         _function: CustomFunction,
+        validator?: boolean,
         notLoggedInFunction?: CustomFunction
     ) => CustomFunction;
     clearPausedFunction: () => void;
+    openLoginPrompt: () => void;
 }
 
 export const loginPromptStore = createStore<LoginPromptStore>((set) => {
@@ -22,10 +24,13 @@ export const loginPromptStore = createStore<LoginPromptStore>((set) => {
         pausedFunction: undefined,
         showPrompt: false,
         hidePrompt: () => set((state) => ({ ...state, showPrompt: false })),
-        withLogin: (_function, notLoggedInFunction) => {
+        openLoginPrompt: () => {
+            set((state) => ({ ...state, showPrompt: true }));
+        },
+        withLogin: (_function, validator, notLoggedInFunction) => {
             //! temporary workground untill zustand@4 releases proper docs
             const user = Cookies.get("access");
-            return user
+            return (validator ? validator : user)
                 ? _function
                 : notLoggedInFunction ?? showLoginPrompt(_function);
         },
@@ -33,6 +38,10 @@ export const loginPromptStore = createStore<LoginPromptStore>((set) => {
             set((state) => ({ ...state, pausedFunction: undefined })),
     };
 });
+
+export const useOpenLoginPrompt = () =>
+    useStore(loginPromptStore).openLoginPrompt;
+
 export const useShowLoginPrompt = () => useStore(loginPromptStore).showPrompt;
 export const useHideLoginPrompt = () => useStore(loginPromptStore).hidePrompt;
 export const useWithLogin = () => useStore(loginPromptStore).withLogin;

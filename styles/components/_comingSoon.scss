@@ -37,22 +37,17 @@
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-    .svg-icon {
-        color: #f79e1a;
-        height: 4.5rem;
-        width: 4.5rem;
-    }
-    h3,
-    h4 {
-        font-weight: 500;
-    }
-    h3 {
-        font-size: 2.4rem;
-        color: $primary-color;
-    }
-    h4 {
-        font-size: 2rem;
-        margin-bottom: 0rem;
+        .comming-soon-icon {
+            color: #f79e1a;
+            height: 4.5rem;
+            width: 4.5rem;
+            margin-right: 1rem;
+        }
+
+        h4 {
+            font-size: 2rem;
+            margin-bottom: 0rem;
+            font-weight: 500;
+        }
     }
 }

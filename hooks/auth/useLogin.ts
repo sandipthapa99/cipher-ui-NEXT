@@ -27,6 +27,10 @@ export const useLogin = () => {
                 throw new Error("Invalid email or password");
             }
         },
-        { onSuccess: () => queryClient.invalidateQueries(["user"]) }
+        {
+            onSuccess: async () => {
+                await queryClient.invalidateQueries(["user"]);
+            },
+        }
     );
 };

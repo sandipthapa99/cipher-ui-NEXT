@@ -61,11 +61,8 @@ const ServiceCard = ({
         "entityservice",
         serviceCard?.id
     );
-    console.log(
-        "🚀 ~ file: ServiceCard.tsx ~ line 249 ~ serviceCard",
-        serviceCard
-    );
-    const serviceRating = serviceCard.rating[0].rating;
+
+    const serviceRating = serviceCard.rating ? serviceCard.rating[0].rating : 0;
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>

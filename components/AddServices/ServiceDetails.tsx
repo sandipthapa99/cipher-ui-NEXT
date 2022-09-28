@@ -45,7 +45,7 @@ export const ServiceDetails = ({ handleNext }: ServiceDetailsProps) => {
                                     initialValues={serviceDetailsData}
                                     validationSchema={addServiceFormSchema}
                                     onSubmit={(values) => {
-                                        console.log(values);
+                                        //  console.log(values);
                                     }}
                                 >
                                     {({

@@ -5,17 +5,7 @@ export type BookMarkApiResponse = {
     next: any;
     previous: any;
     page_size: number;
-    result: Array<{
-        id: number;
-        user: string;
-        type: string;
-        data: Data;
-        created_at: string;
-        updated_at: string;
-        object_id: string;
-        content_type: number;
-        is_requested?: boolean;
-    }>;
+    result: Result[];
 };
 export type Bookmark = BookMarkApiResponse["result"][0];
 
@@ -67,6 +57,7 @@ export interface Data {
     discount_value: any;
     slug?: string;
     meta_title?: string;
+    is_requested: boolean;
     meta_description?: string;
     meta_keyword?: string;
     assigner?: Assigner;

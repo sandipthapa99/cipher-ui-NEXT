@@ -16,5 +16,5 @@ export const autoLogin = (access: string, refresh: string) => {
 export const autoLogout = () => {
     Cookies.remove("access");
     Cookies.remove("refresh");
-    localforage.removeItem("fcm_token");
+    // localforage.removeItem("fcm_token");
 };

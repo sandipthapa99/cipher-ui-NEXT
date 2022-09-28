@@ -3,8 +3,11 @@ import InputField from "@components/common/InputField";
 import AddRequirements from "@components/PostTask/AddRequirements";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
+import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Checkbox, LoadingOverlay } from "@mantine/core";
 import { IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
 import { useUploadFile } from "hooks/use-upload-file";
@@ -20,6 +23,7 @@ import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidatio
 import { isSubmittingClass } from "utils/helpers";
 
 import { CustomDropZone } from "./CustomDropZone";
+import MantineDateField from "./MantineDateField";
 
 // const useBookNowService = () =>
 //     useMutation<string, AxiosError, any>((payload) =>
@@ -171,24 +175,53 @@ const BookNowModalCard = ({
                                 <div className="completion">
                                     <Row>
                                         <Col md={6}>
-                                            <InputField
-                                                labelName="Start Date"
-                                                type="date"
+                                            <MantineDateField
                                                 name="start_date"
+                                                labelName="Start Date"
+                                                placeHolder="Select Start Date"
                                                 error={errors.start_date}
                                                 touch={touched.start_date}
-                                                placeHolder="dd/mm/yyy"
+                                                icon={
+                                                    <FontAwesomeIcon
+                                                        icon={faCalendarDays}
+                                                        className="svg-icons"
+                                                    />
+                                                }
+                                                minDate={new Date()}
+                                                handleChange={(value) => {
+                                                    setFieldValue(
+                                                        "start_date",
+                                                        format(
+                                                            new Date(value),
+                                                            "yyyy-MM-dd"
+                                                        )
+                                                    );
+                                                }}
                                             />
                                         </Col>
                                         <Col md={6}>
-                                            <InputField
-                                                labelName="End Date"
-                                                type="date"
+                                            <MantineDateField
                                                 name="end_date"
+                                                labelName="End Date"
+                                                placeHolder="Select End Date"
                                                 error={errors.end_date}
                                                 touch={touched.end_date}
-                                                placeHolder="dd/mm/yyy"
-                                                fieldRequired
+                                                icon={
+                                                    <FontAwesomeIcon
+                                                        icon={faCalendarDays}
+                                                    />
+                                                }
+                                                minDate={new Date()}
+                                                handleChange={(value) =>
+                                                    setFieldValue(
+                                                        "end_date",
+                                                        format(
+                                                            new Date(value),
+                                                            "yyyy-MM-dd"
+                                                        )
+                                                    )
+                                                }
+                                                fieldRequired={true}
                                             />
                                         </Col>
                                     </Row>

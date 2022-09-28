@@ -141,7 +141,7 @@ export const AddServiceModalComponent = () => {
             });
             const postTaskPayload = {
                 ...values,
-                highlights: JSON.stringify(values.highlights),
+                highlights: values.highlights,
                 images: imageIds,
                 videos: videoIds,
                 extra_data: [],

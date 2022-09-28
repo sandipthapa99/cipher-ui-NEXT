@@ -8,10 +8,6 @@ const ApplyPost = () => {
     const router = useRouter();
 
     const query = router.query;
-    // console.log(
-    //     "🚀 ~ file: ApplyPost.tsx ~ line 11 ~ ApplyPost ~ query",
-    //     query.activeTab
-    // );
     return (
         <div className="post-task__apply-post">
             <Row>
