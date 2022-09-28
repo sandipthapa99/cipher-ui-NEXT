@@ -107,3 +107,10 @@ $sizes: (8, 16, 24, 48, 64, 96, 128, 256);
 // .rr--hf-svg-off {
 //     stroke: # none  !important;
 // }
+.mantine-1psi5rc:disabled,
+.mantine-16vfvdi:disabled {
+    background-color: #e9ecef;
+    opacity: 1;
+    color: #212529;
+    border: 0.1rem solid #afafaf;
+}
