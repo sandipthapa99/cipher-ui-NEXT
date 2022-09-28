@@ -35,6 +35,7 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
 
     const isTaskBookmarked = useIsBookmarked("entityservice", id);
     const queryClient = useQueryClient();
+    console.log("currency", task);
     return (
         <div className="task-card-block p-5">
             <Link href={`${slug}`}>
@@ -42,7 +43,7 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
                     <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                         <h1 className="title">{title}</h1>
                         <h2 className="charge">
-                            {currency ? currency?.symbol : "Rs"}{" "}
+                            {currency ? currency?.symbol : ""}{" "}
                             {task?.budget_from && `${task?.budget_from} -`}
                             {task?.budget_to}
                         </h2>
