@@ -2,6 +2,7 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import AddRequirements from "@components/PostTask/AddRequirements";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
+import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Checkbox, LoadingOverlay } from "@mantine/core";
@@ -16,6 +17,7 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
+import { useToggleSuccessModal } from "store/use-success-modal";
 import type { BookNowModalCardProps } from "types/bookNow";
 import { bookServiceSchema } from "utils/formValidation/bookServiceFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -45,6 +47,7 @@ const BookNowModalCard = ({
     const { mutateAsync, isLoading: uploadPhotoLoading } = useUploadFile();
     const { mutate, isLoading: bookNowLoading } = useBookNowTask();
     const isBookLoading = uploadPhotoLoading || bookNowLoading;
+    const toggleSuccessModal = useToggleSuccessModal();
 
     const parsedDescription = parse(description ?? "");
 
@@ -120,15 +123,12 @@ const BookNowModalCard = ({
                                 images: imageIds,
                                 videos: videoIds,
                                 entity_service: entity_service_id,
-                                requirements: JSON.stringify(
-                                    values.requirements
-                                ),
                             };
 
                             mutate(newvalues, {
                                 onSuccess: () => {
                                     handleClose?.();
-                                    toast.success(
+                                    toggleSuccessModal(
                                         "Your Booking was sent for approval"
                                     );
                                     router.push("/home");
@@ -153,13 +153,24 @@ const BookNowModalCard = ({
                                         fieldRequired
                                     />
                                 </div>
-                                <AddRequirements
+                                {/* <AddRequirements
                                     onSubmit={(value) =>
                                         setFieldValue("requirements", value)
                                     }
                                     title="Highligits"
                                     placeHolder="e.g.Bring something"
                                     description="Add requirements"
+                                /> */}
+                                <TaskRequirements
+                                    initialRequirements={[]}
+                                    onRequirementsChange={(requirements) =>
+                                        setFieldValue(
+                                            "requirements",
+                                            requirements
+                                        )
+                                    }
+                                    labelName="Requirements"
+                                    description="Add your requirements"
                                 />
                                 <div className="completion">
                                     <Row>
