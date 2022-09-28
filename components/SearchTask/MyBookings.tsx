@@ -177,7 +177,7 @@ export const MyBookingsCard = ({
                         />
                         <ShareIcon url={""} quote={""} hashtag={""} />
                     </div>
-                    <div className="d-flex align-items-center gap-3">
+                    <div className="d-flex align-items-center gap-3 approve-reject-buttons">
                         {isApproved === false && (
                             <BigButton
                                 btnTitle={"Decline"}

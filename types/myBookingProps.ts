@@ -288,11 +288,7 @@ export type BookingDetailProps = {
         updated_at: string;
         title: string;
         description: string;
-        highlights: {
-            "1": string;
-            "2": string;
-            "3": string;
-        };
+        highlights: string[];
         budget_type: string;
         budget_from: number;
         budget_to: number;
@@ -338,7 +334,7 @@ export type BookingDetailProps = {
     status: string;
     extra_data: string;
     description: string;
-    requirements: string;
+    requirements: string[];
     is_accepted: boolean;
     city: number;
 };
