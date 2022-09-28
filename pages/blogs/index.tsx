@@ -144,7 +144,6 @@ export default Blog;
 export const getStaticProps: GetStaticProps = async () => {
     try {
         const { data: blogsData } = await axiosClient.get("/blog/");
-        if (blogsData.error) throw new Error(blogsData.error.message);
         return {
             props: {
                 blogsData,
@@ -152,6 +151,10 @@ export const getStaticProps: GetStaticProps = async () => {
             revalidate: 10,
         };
     } catch (err: any) {
+        console.log(
+            "🚀 ~ file: index.tsx ~ line 154 ~ constgetStaticProps:GetStaticProps= ~ err",
+            err
+        );
         return {
             props: {
                 blogsData: [],
