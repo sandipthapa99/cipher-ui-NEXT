@@ -29,6 +29,7 @@ import { useLanguage } from "hooks/dropdown/useLanguage";
 import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useProfile } from "hooks/profile/profile";
 import { useGetProfile } from "hooks/profile/useGetProfile";
+import { useData } from "hooks/use-data";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
@@ -37,6 +38,7 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
+import type { UserBankDetails } from "types/bankDetail";
 import { axiosClient } from "utils/axiosClient";
 import { accountFormSchema } from "utils/formValidation/accountFormValidation";
 import { isSubmittingClass } from "utils/helpers";
@@ -249,7 +251,11 @@ const AccountForm = () => {
     const userType = profile?.user_type ? JSON.parse(profile?.user_type) : "";
     // const userType = "";
     //for city select field
-
+    const { data: BankDetails } = useData<UserBankDetails>(
+        ["tasker-bank-account"],
+        "/tasker/bank-details/"
+    );
+    const LinkedBank = BankDetails?.data.result;
     const cityData = profile
         ? {
               initialId: profile?.city?.id?.toString() ?? "",
@@ -310,6 +316,7 @@ const AccountForm = () => {
             return true;
         }
     }
+
     return (
         <>
             {!KYCData && profile ? <FillKyc onClick={scrollToKyc} /> : ""}

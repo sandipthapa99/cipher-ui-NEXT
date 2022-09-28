@@ -19,7 +19,7 @@ import type { NewsletterDataTypes } from "types/newsletter";
 import { axiosClient } from "utils/axiosClient";
 import { emailValidationSchema } from "utils/formValidation/emailValidation";
 
-import CommingSoonModal from "./common/CommingSoonModal";
+import CommingSoonModal from "./common/ComingSoonModal";
 import InputField from "./common/InputField";
 
 const Footer = () => {
