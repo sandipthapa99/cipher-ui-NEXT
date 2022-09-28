@@ -3,10 +3,7 @@ import { MyBookings } from "@components/MyTasks/MyBookings";
 import { MyTasks } from "@components/MyTasks/MyTasks";
 import { PaymentHistory } from "@components/MyTasks/PaymentHistory";
 import { TaskYouMayLike } from "@components/MyTasks/TaskYouMayLike";
-import { useMyTasks } from "hooks/task/use-my-tasks";
-import { useData } from "hooks/use-data";
 import { useState } from "react";
-import type { ServicesValueProps } from "types/serviceCard";
 const SearchBySort = () => {
     const [activeTabIdx, setActiveTabIdx] = useState(0);
     // my task is not used for some reason IDK...
@@ -41,10 +38,6 @@ const SearchBySort = () => {
                     },
                     {
                         title: "Payment History",
-                        content: <PaymentHistory />,
-                    },
-                    {
-                        title: "Help",
                         content: <PaymentHistory />,
                     },
                 ]}
