@@ -37,6 +37,10 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
 
         slug,
     } = task;
+    console.log(
+        "🚀 ~ file: taskAppliedCard.tsx ~ line 40 ~ TaskCard ~ task",
+        task
+    );
 
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", taskId],
@@ -62,7 +66,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                         <span className="title">{title}</span>
                         {budget_from && budget_to ? (
                             <span className="charge">
-                                {currency.code} {budget_from} - {budget_to}
+                                {currency.symbol} {budget_from} - {budget_to}
                                 {budget_type === "Hourly"
                                     ? "/hr"
                                     : budget_type === "Monthly"
