@@ -36,10 +36,6 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
         ...(BookingDetail?.images ?? []),
         ...(BookingDetail?.videos ?? []),
     ];
-    console.log(
-        "🚀 ~ file: BookingDetails.tsx ~ line 37 ~ BookingDetails ~ taskVideosAndImages",
-        taskVideosAndImages
-    );
     const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
     return (

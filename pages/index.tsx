@@ -22,7 +22,7 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "@mantine/carousel";
-import { Alert, Highlight } from "@mantine/core";
+import { Alert, Button, Dialog, Group, Highlight, Text } from "@mantine/core";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
@@ -67,6 +67,7 @@ const Home: NextPage<{
     servicesData,
 }) => {
     const [isClient, setIsClient] = useState(false);
+
     const loginPopup = useWithLogin();
 
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();

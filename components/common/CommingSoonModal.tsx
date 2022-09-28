@@ -26,12 +26,14 @@ const CommingSoonModal = ({ handleClose, show }: CommingSoonModalProps) => {
 
                 <div className="information">
                     <FontAwesomeIcon className="svg-icon" icon={faCircleInfo} />{" "}
-                    <h4>This feature is comming soon. Please be with us!</h4>
+                    <h4>
+                        Mobile Application is coming soon. Please be with us!
+                    </h4>
                 </div>
 
                 <Modal.Footer>
                     <Button className="btn close-btn" onClick={handleClose}>
-                        Cancel
+                        Ok
                     </Button>
                 </Modal.Footer>
             </Modal>

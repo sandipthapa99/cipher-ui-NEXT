@@ -72,117 +72,121 @@ const KYCForm = () => {
                     profileDetails ? { display: "block" } : { display: "none" }
                 }
             >
-                <h3>KYC Details</h3>
-                <Formik
-                    enableReinitialize={true}
-                    initialValues={{
-                        full_name: KYCData ? KYCData?.full_name : "",
-                        address: KYCData ? KYCData?.address : "",
-                        country: KYCData ? KYCData?.country : "",
-                        company: KYCData ? KYCData?.company : "",
-                        // passport_size_photo: "",
-                        // personal_address_verification_document: "",
-                        // bank_name: KYCData?.bank_name ?? "",
-                        // bank_account_name: KYCData?.bank_account_name ?? "",
-                        // bank_account_number: KYCData?.bank_account_number ?? "",
-                        // bank_address: KYCData?.bank_address ?? "",
-                    }}
-                    validationSchema={KYCFormSchema}
-                    onSubmit={async (values, action) => {
-                        // const formData = new FormData();
+                {!KYCData?.is_kyc_verified && (
+                    <>
+                        <h3>KYC Details</h3>
+                        <Formik
+                            enableReinitialize={true}
+                            initialValues={{
+                                full_name: KYCData ? KYCData?.full_name : "",
+                                address: KYCData ? KYCData?.address : "",
+                                country: KYCData ? KYCData?.country : "",
+                                company: KYCData ? KYCData?.company : "",
+                                // passport_size_photo: "",
+                                // personal_address_verification_document: "",
+                                // bank_name: KYCData?.bank_name ?? "",
+                                // bank_account_name: KYCData?.bank_account_name ?? "",
+                                // bank_account_number: KYCData?.bank_account_number ?? "",
+                                // bank_address: KYCData?.bank_address ?? "",
+                            }}
+                            validationSchema={KYCFormSchema}
+                            onSubmit={async (values, action) => {
+                                // const formData = new FormData();
 
-                        console.log(values);
-                        // const newvalidatedValue = {
-                        //     ...values,
-                        //     identity_issued_date: format(
-                        //         new Date(values.identity_issued_date),
-                        //         "yyyy-MM-dd"
-                        //     ),
-                        //     identity_valid_through: format(
-                        //         new Date(values.identity_valid_through),
-                        //         "yyyy-MM-dd"
-                        //     ),
-                        //     pan_issued_date: format(
-                        //         new Date(values.pan_issued_date),
-                        //         "yyyy-MM-dd"
-                        //     ),
-                        // };
-                        // Object.entries(values).forEach((entry) => {
-                        //     const [key, value] = entry;
-                        //     if (value && key !== "passport_size_photo") {
-                        //         formData.append(key, value.toString());
-                        //     }
-                        // });
-                        // formData.append(
-                        //     "passport_size_photo",
-                        //     values.passport_size_photo
-                        // );
-                        // Object.entries(values).forEach((entry) => {
-                        //     const [key, value] = entry;
-                        //     if (
-                        //         value &&
-                        //         key !== "personal_address_verification_document"
-                        //     ) {
-                        //         formData.append(key, value.toString());
-                        //     }
-                        // });
-                        // formData.append(
-                        //     "personal_address_verification_document",
-                        //     values.personal_address_verification_document
-                        // );
+                                console.log(values);
+                                // const newvalidatedValue = {
+                                //     ...values,
+                                //     identity_issued_date: format(
+                                //         new Date(values.identity_issued_date),
+                                //         "yyyy-MM-dd"
+                                //     ),
+                                //     identity_valid_through: format(
+                                //         new Date(values.identity_valid_through),
+                                //         "yyyy-MM-dd"
+                                //     ),
+                                //     pan_issued_date: format(
+                                //         new Date(values.pan_issued_date),
+                                //         "yyyy-MM-dd"
+                                //     ),
+                                // };
+                                // Object.entries(values).forEach((entry) => {
+                                //     const [key, value] = entry;
+                                //     if (value && key !== "passport_size_photo") {
+                                //         formData.append(key, value.toString());
+                                //     }
+                                // });
+                                // formData.append(
+                                //     "passport_size_photo",
+                                //     values.passport_size_photo
+                                // );
+                                // Object.entries(values).forEach((entry) => {
+                                //     const [key, value] = entry;
+                                //     if (
+                                //         value &&
+                                //         key !== "personal_address_verification_document"
+                                //     ) {
+                                //         formData.append(key, value.toString());
+                                //     }
+                                // });
+                                // formData.append(
+                                //     "personal_address_verification_document",
+                                //     values.personal_address_verification_document
+                                // );
 
-                        mutate(values, {
-                            onSuccess: (data) => {
-                                // toggleSuccessModal();
-                                refetchKycData();
-                                toast.success("KYC Details Added Successfully");
-                                setShowDocument(true);
-                                //queryClient.invalidateQueries(["GET_KYC"]);
-                                // setShowButtons(false);
-                            },
-                            onError: (error) => {
-                                toast.error(error.message);
-                            },
-                        });
-                        action.resetForm();
-                    }}
-                >
-                    {({
-                        isSubmitting,
-                        errors,
-                        touched,
-                        resetForm,
-                        setFieldValue,
-                        getFieldProps,
-                    }) => (
-                        <Form autoComplete="off">
-                            {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
-                            <InputField
-                                type="text"
-                                name="full_name"
-                                labelName="Name"
-                                error={errors.full_name}
-                                touch={touched.full_name}
-                                placeHolder="Enter your Full Name"
-                                // disabled={
-                                //     profileDetails?.full_name ? true : false
-                                // }
-                            />
-                            <PlacesAutocomplete
-                                {...getFieldProps("address")}
-                                error={
-                                    touched.address && errors.address
-                                        ? errors.address
-                                        : ""
-                                }
-                                size="md"
-                                label="Address"
-                                placeholder="Enter your address"
-                                onPlaceChange={(place) =>
-                                    setFieldValue("address", place)
-                                }
-                            />
-                            {/* <SelectInputField
+                                mutate(values, {
+                                    onSuccess: (data) => {
+                                        // toggleSuccessModal();
+                                        refetchKycData();
+                                        toast.success(
+                                            "KYC Details Added Successfully"
+                                        );
+                                        setShowDocument(true);
+                                        //queryClient.invalidateQueries(["GET_KYC"]);
+                                        // setShowButtons(false);
+                                    },
+                                    onError: (error) => {
+                                        toast.error(error.message);
+                                    },
+                                });
+                                action.resetForm();
+                            }}
+                        >
+                            {({
+                                isSubmitting,
+                                errors,
+                                touched,
+                                resetForm,
+                                setFieldValue,
+                                getFieldProps,
+                            }) => (
+                                <Form autoComplete="off">
+                                    {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
+                                    <InputField
+                                        type="text"
+                                        name="full_name"
+                                        labelName="Name"
+                                        error={errors.full_name}
+                                        touch={touched.full_name}
+                                        placeHolder="Enter your Full Name"
+                                        // disabled={
+                                        //     profileDetails?.full_name ? true : false
+                                        // }
+                                    />
+                                    <PlacesAutocomplete
+                                        {...getFieldProps("address")}
+                                        error={
+                                            touched.address && errors.address
+                                                ? errors.address
+                                                : ""
+                                        }
+                                        size="md"
+                                        label="Address"
+                                        placeholder="Enter your address"
+                                        onPlaceChange={(place) =>
+                                            setFieldValue("address", place)
+                                        }
+                                    />
+                                    {/* <SelectInputField
                                 name="country"
                                 labelName="Country"
                                 touch={touched.country}
@@ -191,23 +195,26 @@ const KYCForm = () => {
                                 options={countryResults}
                                 disabled={KYCData?.country ? true : false}
                             /> */}
-                            <Select
-                                label="Country"
-                                placeholder="Pick one"
-                                name="country"
-                                // disabled={
-                                //     profileDetails?.country ? true : false
-                                // }
-                                searchable
-                                nothingFound="No result found."
-                                // defaultValue={KYCData?.country}
-                                onChange={(value) =>
-                                    handleCountryChanged(value, setFieldValue)
-                                }
-                                data={countryResults ?? []}
-                            />
+                                    <Select
+                                        label="Country"
+                                        placeholder="Pick one"
+                                        name="country"
+                                        // disabled={
+                                        //     profileDetails?.country ? true : false
+                                        // }
+                                        searchable
+                                        nothingFound="No result found."
+                                        // defaultValue={KYCData?.country}
+                                        onChange={(value) =>
+                                            handleCountryChanged(
+                                                value,
+                                                setFieldValue
+                                            )
+                                        }
+                                        data={countryResults ?? []}
+                                    />
 
-                            {/* <h5>Bank Details (Optional)</h5>
+                                    {/* <h5>Bank Details (Optional)</h5>
                             <InputField
                                 name="bank_name"
                                 labelName="Bank Name"
@@ -245,7 +252,7 @@ const KYCForm = () => {
                                 </Col>
                             </Row> */}
 
-                            {/* <Row>
+                                    {/* <Row>
                                 <Col lg={5} md={6}>
                                     <h5>Passport Size Photo</h5>
                                     <p>
@@ -289,29 +296,32 @@ const KYCForm = () => {
                                     />
                                 </Col>
                             </Row> */}
-                            {/* {showButtons ? ( */}
-                            <div className="d-flex mt-5 justify-content-end">
-                                <Button
-                                    className="me-3 mb-0 cancel-btn"
-                                    onClick={() => resetForm}
-                                >
-                                    Cancel
-                                </Button>
-                                <FormButton
-                                    type="submit"
-                                    variant="primary"
-                                    name="Continue"
-                                    className="submit-btn"
-                                    isSubmitting={isSubmitting}
-                                    isSubmittingClass={isSubmittingClass(
-                                        isSubmitting
-                                    )}
-                                />
-                            </div>
-                        </Form>
-                    )}
-                </Formik>
-                {KYCData && <IdentityDocument />}
+                                    {/* {showButtons ? ( */}
+                                    <div className="d-flex mt-5 justify-content-end">
+                                        <Button
+                                            className="me-3 mb-0 cancel-btn"
+                                            onClick={() => resetForm}
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <FormButton
+                                            type="submit"
+                                            variant="primary"
+                                            name="Continue"
+                                            className="submit-btn"
+                                            isSubmitting={isSubmitting}
+                                            isSubmittingClass={isSubmittingClass(
+                                                isSubmitting
+                                            )}
+                                        />
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
+                        <IdentityDocument />
+                    </>
+                )}
+
                 {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
             {KYCData && <KYCStatus />}
