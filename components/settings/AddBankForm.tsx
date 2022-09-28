@@ -29,7 +29,7 @@ interface editProps {
     isEdit?: boolean;
 }
 interface Display {
-    showBankForm: boolean;
+    showBankForm?: boolean;
 }
 const BankForm = ({
     id,

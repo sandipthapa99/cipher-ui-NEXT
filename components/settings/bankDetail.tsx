@@ -12,7 +12,7 @@ import { capitalise } from "utils/capitalise";
 import BankForm from "./AddBankForm";
 
 interface Display {
-    showBankForm: boolean;
+    showBankForm?: boolean;
 }
 const AddBank = ({ showBankForm }: Display) => {
     const { data: BankDetails } = useData<UserBankDetails>(
