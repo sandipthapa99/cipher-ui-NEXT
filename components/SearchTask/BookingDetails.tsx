@@ -32,6 +32,12 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
 
     const BookingDetail = data?.data;
 
+    BookingDetail &&
+        console.log(
+            "🚀 ~ file: BookingDetails.tsx ~ line 36 ~ BookingDetails ~ BookingDetail",
+            BookingDetail?.requirements
+        );
+
     const taskVideosAndImages = [
         ...(BookingDetail?.images ?? []),
         ...(BookingDetail?.videos ?? []),
@@ -212,14 +218,7 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                     hideLabel="Hide"
                     className="p-0"
                 >
-                    {BookingDetail?.description} Lorem ipsum, dolor sit amet
-                    consectetur adipisicing elit. Quibusdam, placeat itaque
-                    deleniti repellendus sequi aliquam provident assumenda unde
-                    cum laudantium enim tempora. Facilis quibusdam inventore
-                    iste iure quo molestiae debitis? Lorem ipsum dolor sit amet
-                    consectetur adipisicing elit. Velit odit ipsum neque ipsam,
-                    iusto, dolorem cum optio repellat, numquam architecto
-                    pariatur vero ex dicta dolorum ut itaque tenetur qui dolore.
+                    {BookingDetail?.description}
                 </Spoiler>
                 <h3>Requirements</h3>
                 {!BookingDetail?.requirements && (
@@ -235,13 +234,13 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                         </Highlight>
                     </Alert>
                 )}
-                {/* {BookingDetail?.requirements && (
+                {BookingDetail?.requirements && (
                     <div className="mt-5">
                         <ServiceHighlights
                             highlights={BookingDetail?.requirements}
                         />
                     </div>
-                )} */}
+                )}
             </div>
         </Modal>
     );

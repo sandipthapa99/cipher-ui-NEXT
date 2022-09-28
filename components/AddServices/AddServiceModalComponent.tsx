@@ -151,11 +151,11 @@ export const AddServiceModalComponent = () => {
                 onSuccess: async (task) => {
                     handleCloseModal();
                     action.resetForm();
-                    // toggleSuccessModal();
+                    toggleSuccessModal("Service successfully posted");
                     // toast.success(message);
                     await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
                     await queryClient.invalidateQueries(["notification"]);
-                    router.push(`/task/${task.id}`);
+                    router.push(`/service/${task.id}`);
                 },
                 onError: (error) => {
                     toast.error(error.message);
