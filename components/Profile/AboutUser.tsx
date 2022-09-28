@@ -70,6 +70,10 @@ const AboutProfile = () => {
         ["tasker-portfolio"],
         `${urls.profile.portfolio}`
     );
+    console.log(
+        "🚀 ~ file: AboutUser.tsx ~ line 70 ~ AboutProfile ~ portfolioData",
+        portfolioData
+    );
 
     const handleEdit = (id: any) => {
         setShowExpForm(!showExpForm);
