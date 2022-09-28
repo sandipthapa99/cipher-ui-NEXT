@@ -117,7 +117,7 @@ const FreelanceTasks: NextPage = () => {
                                 {/* {!topSkillsInNepal && } */}
                                 {topSkillsInNepal.map((skill) => (
                                     <Col md={3} sm={6} xs={6} key={skill.id}>
-                                        {/* {skill.skills} */}
+                                        {skill.skills}
                                     </Col>
                                 ))}
                             </Row>
