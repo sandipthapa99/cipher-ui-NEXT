@@ -91,7 +91,7 @@ const HowToHire: NextPage = () => {
                                 width="100%"
                                 height="100%"
                                 src={
-                                    "https://www.youtube.com/embed/Ke90Tje7VS0"
+                                    "https://www.youtube.com/embed/QIKZaRYg5bA"
                                 }
                                 title="YouTube video player"
                                 frameBorder="0"

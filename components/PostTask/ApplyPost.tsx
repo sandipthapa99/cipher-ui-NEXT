@@ -8,7 +8,6 @@ const ApplyPost = () => {
     const router = useRouter();
 
     const query = router.query;
-
     return (
         <div className="post-task__apply-post">
             <Row>

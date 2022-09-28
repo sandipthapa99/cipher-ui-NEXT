@@ -9,10 +9,14 @@ const SavedBookings = () => {
     const { data: userBookmarks } = useBookmarks("user");
 
     const serviceBookmarks = serviceOrTaskBookmarks.filter(
-        (bookmark) => !bookmark.is_requested
+        (bookmark) => !bookmark.data.is_requested
     );
     const taskBookmarks = serviceOrTaskBookmarks.filter(
-        (bookmark) => bookmark.is_requested
+        (bookmark) => bookmark.data.is_requested
+    );
+    console.log(
+        "🚀 ~ file: SavedBookings.tsx ~ line 17 ~ SavedBookings ~ taskBookmarks",
+        taskBookmarks
     );
 
     return (
@@ -33,7 +37,7 @@ const SavedBookings = () => {
             <Row>
                 <h3>Tasks ({taskBookmarks.length})</h3>
                 {taskBookmarks.map((taskBookmark) => (
-                    <Col md={3} lg={4} key={taskBookmark.id}>
+                    <Col md={6} lg={6} key={taskBookmark.id}>
                         <TaskCard
                             key={taskBookmark.id}
                             task={taskBookmark.data as any}

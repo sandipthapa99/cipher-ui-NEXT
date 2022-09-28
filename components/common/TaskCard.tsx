@@ -5,11 +5,16 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { format } from "date-fns";
+import { useIsBookmarked } from "hooks/use-bookmarks";
+import { useData } from "hooks/use-data";
 import Link from "next/link";
-import type { ITask } from "types/task";
+import type { ITask, TaskerCount } from "types/task";
 
 import CardBtn from "./CardBtn";
+import SaveIcon from "./SaveIcon";
 import ShareIcon from "./ShareIcon";
 
 interface TaskCardProps {
@@ -26,6 +31,8 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
         status,
         currency,
         slug,
+        images,
+        id,
     } = task;
 
     function getDateFromHours(time: any) {
@@ -38,8 +45,16 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
             ...time
         );
     }
+    const { data: taskApplicants } = useData<TaskerCount>(
+        ["get-task-applicants", id],
+        `${urls.task.taskApplicantsNumber}/${id}`
+    );
+    const applicants_count = taskApplicants?.data.count[0].tasker_count;
 
     const formattedtime = getDateFromHours(start_time);
+
+    const isTaskBookmarked = useIsBookmarked("entityservice", id);
+    const queryClient = useQueryClient();
     return (
         <div className="task-card-block p-5">
             <Link href={`${slug}`}>
@@ -87,10 +102,33 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
             </Link>
             <div className="task-card-block__footer d-flex flex-column flex-sm-row justify-content-between">
                 <div className="left d-flex align-items-center">
-                    <div className="share d-flex align-items-center">
+                    {/* <SaveIcon
+                        filled={isBookmarked}
+                        object_id={tasker.user.id.toString()}
+                        model={"user"}
+                        onSuccess={() =>
+                            queryClient.invalidateQueries(["bookmarks", "user"])
+                        }
+                    /> */}
+                    <div className="d-flex align-items-center justify-content-around justify-content-md-between mb-3 mb-sm-0">
+                        <SaveIcon
+                            object_id={id}
+                            model={"entityservice"}
+                            filled={isTaskBookmarked}
+                            onSuccess={() =>
+                                queryClient.invalidateQueries([
+                                    "bookmarks",
+                                    "entityservice",
+                                ])
+                            }
+                        />
+
+                        <ShareIcon url={""} quote={""} hashtag={""} />
+                    </div>
+                    {/* <div className="share d-flex align-items-center">
                         <ShareIcon url={""} quote={""} hashtag={""} />
                         Share
-                    </div>
+                    </div> */}
                     <Link href={`/task/${slug}` ?? "/"}>
                         <a>
                             <p className="applicants  d-flex align-items-center">
@@ -98,7 +136,7 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
                                     icon={faUserGroup}
                                     className="svg-icon"
                                 />
-                                100 Applied
+                                {applicants_count} Applied
                             </p>
                         </a>
                     </Link>

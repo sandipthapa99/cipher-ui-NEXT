@@ -62,7 +62,7 @@ const ServiceCard = ({
         serviceCard?.id
     );
 
-    const serviceRating = serviceCard.rating[0].rating;
+    const serviceRating = serviceCard.rating ? serviceCard.rating[0].rating : 0;
 
     return (
         // <Link href={`/service/${serviceCard?.slug}`}>

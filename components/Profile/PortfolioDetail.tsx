@@ -4,6 +4,7 @@ import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Carousel } from "@mantine/carousel";
 import { useGetPortfolioById } from "hooks/profile/getProfileById";
 import Image from "next/image";
+import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -87,7 +88,7 @@ const PortfolioDetails = ({
                                                 width: "90%",
                                             }}
                                             controls
-                                            autoPlay
+                                            //    autoPlay
                                         >
                                             <source
                                                 src={image.media}
@@ -128,7 +129,15 @@ const PortfolioDetails = ({
                     </div>
                     <div className="url">
                         URL here:{" "}
-                        <a href={portfolioDetail?.credential_url}>
+                        <a
+                            href={
+                                portfolioDetail?.credential_url
+                                    ? portfolioDetail?.credential_url
+                                    : "/"
+                            }
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             {portfolioDetail?.credential_url}
                         </a>
                     </div>

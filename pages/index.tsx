@@ -13,6 +13,7 @@ import TaskCard from "@components/common/TaskCard";
 import { ExploreWithSlider } from "@components/ExploreWithSlider";
 import GradientBanner from "@components/GradientBanner";
 import Layout from "@components/Layout";
+import { LoginPrompt } from "@components/model/LoginPrompt";
 import { ProfileNotCompleteToast } from "@components/UpperHeader";
 import {
     faAngleRight,
@@ -35,7 +36,11 @@ import Marquee from "react-fast-marquee";
 import { toast } from "react-toastify";
 import { quality } from "staticData/cipherNotableQuality";
 import { findHire } from "staticData/findHire";
-import { useWithLogin } from "store/use-login-prompt-store";
+import {
+    useOpenLoginPrompt,
+    useShowLoginPrompt,
+    useWithLogin,
+} from "store/use-login-prompt-store";
 import { useToggleShowPostTaskModal } from "store/use-show-post-task";
 import type { BlogValueProps } from "types/blogs";
 import type { BrandValueProps } from "types/brandValueProps";
@@ -73,10 +78,12 @@ const Home: NextPage<{
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: profile } = useGetProfile();
     const { data: userData } = useUser();
+    const showLoginPrompt = useOpenLoginPrompt();
 
     const handleShowPostTaskModal = () => {
         if (!userData) {
-            loginPopup;
+            showLoginPrompt();
+            return;
         }
         if (!profile) {
             toast.error(
@@ -128,9 +135,7 @@ const Home: NextPage<{
 
                                     <a
                                         className="hero-cta"
-                                        onClick={() =>
-                                            handleShowPostTaskModal()
-                                        }
+                                        onClick={handleShowPostTaskModal}
                                     >
                                         Post a Task
                                     </a>
@@ -662,7 +667,7 @@ const Home: NextPage<{
                 <Container fluid="xl" className="px-5">
                     <div className="success-sroties-header">
                         <h1 className="text-center">
-                            Find the best people for your job
+                            Bridging the gap between individuals
                         </h1>
                         <h3 className="text-center">HOMAALE Stories</h3>
                     </div>
