@@ -131,7 +131,7 @@ export const NotificationDropdown = () => {
             //         </div>
             //     );
             // }
-            else if (notification.title === "booking") {
+            else if (notification.title === "booked") {
                 return (
                     <div
                         key={index}

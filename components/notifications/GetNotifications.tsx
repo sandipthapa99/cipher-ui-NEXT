@@ -134,7 +134,7 @@ export default function GetNotifications() {
             //         </div>
             //     );
             // }
-            else if (notification.title === "booking") {
+            else if (notification.title === "booked") {
                 return (
                     <div
                         key={index}
@@ -289,7 +289,7 @@ export default function GetNotifications() {
             //         </div>
             //     );
             // }
-            else if (notification.title === "booking") {
+            else if (notification.title === "booked") {
                 return (
                     <div
                         key={index}
