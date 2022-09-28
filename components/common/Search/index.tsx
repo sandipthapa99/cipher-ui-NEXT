@@ -85,17 +85,11 @@ export const Search = () => {
                         );
                     }
                     if (services.length > 0 && taskers.length > 0) {
-                        console.log(
-                            "TODO: REDIRECT TO SEARCH TASK AND SERVICE PAGE"
-                        );
                         return;
                     }
                     if (taskers.length > 0) {
                         setSearchedTaskers(taskers);
-                        console.log(
-                            "🚀 ~ file: index.tsx ~ line 95 ~ Search ~ taskers",
-                            taskers
-                        );
+
                         setSearchQuery({
                             context: "tasker.Profile",
                             query: values.q,

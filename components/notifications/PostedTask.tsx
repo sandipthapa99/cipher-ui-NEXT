@@ -37,9 +37,8 @@ export const PostNotifyTask = ({
                     <Image
                         alt="testimage"
                         src={
-                            profile
-                                ? profile?.profile_image
-                                : "/userprofile/unknownPerson.jpg"
+                            profile?.profile_image ??
+                            "/userprofile/unknownPerson.jpg"
                         }
                         height={50}
                         width={50}

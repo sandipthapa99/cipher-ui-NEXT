@@ -10,7 +10,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyBSPPQD4M1anH8uT7Ldh-zevS2lgWoL-9Q",
     authDomain: "notification-cipher-61823.firebaseapp.com",
     projectId: "notification-cipher-61823",
-    storageBucket: "notification-cipher-61823.appspot.com",
+    storageBucket: "gs://cipher-bucket",
     messagingSenderId: "185572736284",
     appId: "1:185572736284:web:54928d1587844ac5fc0ed9",
     measurementId: "G-XBZJZJR692",
@@ -23,13 +23,12 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const firebaseCloudMessaging = {
     tokenInlocalforage: async () => {
         const token = await localforage.getItem("fcm_token");
-        //console.log("fcm_token tokenInlocalforage", token);
+        //
         return token;
     },
     onMessage: async () => {
         const messaging = getMessaging();
         onMessage(messaging, (payload) => {
-            console.log("Message received. ", payload);
             toast.success(`Successfully ${payload?.data?.title} `, {
                 onClick: () => {
                     window.open(
@@ -46,10 +45,10 @@ const firebaseCloudMessaging = {
     init: async function () {
         try {
             if ((await this.tokenInlocalforage()) !== null) {
-                //console.log("it already exists");
+                //
                 return false;
             }
-            // console.log("it is creating it.");
+            //
             const messaging = getMessaging(app);
             await Notification.requestPermission();
             getToken(messaging, {
@@ -57,25 +56,24 @@ const firebaseCloudMessaging = {
                     "BG4z48E68RIMUoaxLCJULmW54cCFCRZizpKCvrlnFNnk67wfN-pooKw6dVFqHJHdO_jSpROK5mAOatF7gl6ezI4",
             })
                 .then((currentToken) => {
-                    // console.log("current Token", currentToken);
+                    //
                     if (currentToken) {
                         // Send the token to your server and update the UI if necessary
                         // save the token in your database
                         localforage.setItem("fcm_token", currentToken);
-                        // console.log("fcm_token", currentToken);
+                        //
                     } else {
                         // Show permission request UI
-                        //    console.log(
+                        //
                         //         "NOTIFICACION, No registration token available. Request permission to generate one."
                         //     );
                         // ...
                     }
                 })
                 .catch((err) => {
-                    // console.log(
+                    //
                     //     "NOTIFICACIONAn error occurred while retrieving token . "
                     // );
-                    console.log(err);
                 });
         } catch (error) {
             console.error(error);

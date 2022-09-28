@@ -280,10 +280,6 @@ const AppliedTaskDetail = ({
                         {taskDetail && (
                             <SimpleProfileCard
                                 task={taskDetail}
-                                onApply={() => {
-                                    // console.log("onApply");
-                                    //setShowModal(false);
-                                }}
                                 handleScroll={handleClick}
                             />
                         )}

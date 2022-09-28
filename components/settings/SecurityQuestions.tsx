@@ -62,7 +62,7 @@ export const SecurityQuestions = () => {
                     answer: "",
                 }}
                 onSubmit={async (values, actions) => {
-                    // console.log(values);
+                    //
                     sendSecurityQuestions.mutate(values, {
                         onSuccess: () => {
                             toast.success("Security questions Answered");
@@ -146,8 +146,6 @@ export const SecurityQuestions = () => {
                                     answer: item?.answer,
                                 }}
                                 onSubmit={async (values, action) => {
-                                    console.log(values);
-
                                     editAnswer(values, {
                                         onSuccess: () => {
                                             toast.success(

@@ -27,7 +27,7 @@ export const GalleryFrom = ({ handlePrev, handleNext }: GalleryFormProps) => {
                                 <Formik
                                     initialValues={initialValues}
                                     onSubmit={(values) => {
-                                        console.log(values);
+                                        return;
                                     }}
                                 >
                                     {({

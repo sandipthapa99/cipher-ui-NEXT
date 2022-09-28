@@ -151,11 +151,11 @@ export const AddServiceModalComponent = () => {
                 onSuccess: async (task) => {
                     handleCloseModal();
                     action.resetForm();
-                    // toggleSuccessModal();
+                    toggleSuccessModal("Service successfully posted");
                     // toast.success(message);
                     await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
                     await queryClient.invalidateQueries(["notification"]);
-                    router.push(`/task/${task.id}`);
+                    router.push(`/service/${task.id}`);
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -515,7 +515,7 @@ export const AddServiceModalComponent = () => {
 //                     highlights: JSON.stringify(values.highlights),
 //                 };
 
-//                 console.log("data to send", dataToSend);
+//
 //                 delete dataToSend.imagePreviewUrl;
 //                 delete dataToSend.highlights_list;
 //                 delete dataToSend.is_discount_offer;
@@ -588,7 +588,7 @@ export const AddServiceModalComponent = () => {
 //                             delete dataToSend.budget_select;
 
 //                             onCreateService(dataToSend, actions);
-//                             console.log("data to send", dataToSend);
+//
 //                         }
 //                     } else {
 //                         toogleShowPostTaskModal();

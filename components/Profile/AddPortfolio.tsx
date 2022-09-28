@@ -141,7 +141,6 @@ const AddPortfolio = ({
     const editPortfolio = <T,>(data: T) => {
         editMutation(data, {
             onSuccess: async () => {
-                console.log("submitted values", data);
                 setShowAddPortfolioModal(false);
                 queryClient.invalidateQueries(["tasker-portfolio"]);
                 toast.success("Portfolio updated successfully.");
@@ -186,8 +185,6 @@ const AddPortfolio = ({
                         onSubmit={async (values) => {
                             delete values.imagePreviewUrl;
                             delete values.pdfPreviewUrl;
-
-                            console.log("values videos", values.images);
 
                             {
                                 values.images ??
@@ -277,10 +274,7 @@ const AddPortfolio = ({
                                 };
 
                                 editData = newPayloadWithoutImageAndFile;
-                                console.log("we have no files");
                             }
-
-                            console.log("editedd=", editData);
 
                             // delete addPortfolioPayload.files;
                             // delete addPortfolioPayload.images;

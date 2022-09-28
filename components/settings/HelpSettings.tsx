@@ -49,7 +49,6 @@ const HelpSettings = () => {
                                     ?.toLowerCase() === val.topic
                         )?.id,
                     };
-                    console.log(newValues);
 
                     mutate(newValues, {
                         onSuccess: () => {

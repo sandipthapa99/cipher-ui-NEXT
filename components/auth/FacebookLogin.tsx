@@ -16,6 +16,7 @@ export const FacebookLogin = () => {
 
     return (
         <ReactFacebookLogin
+            callback={(response) => console.log(response)}
             autoLoad={false}
             appId={getFacebookAppId()}
             render={(renderProps) => (
@@ -40,7 +41,6 @@ export const FacebookLogin = () => {
                     </span>
                 </div>
             )}
-            callback={(response) => console.log(response)}
         />
     );
 };

@@ -17,16 +17,14 @@ export const AddReviewForm = () => {
                 rating: 0,
             },
             onSubmit: (values) => {
-                // console.log("rating values=", values);
+                //
                 mutate(values, {
                     onSuccess: async () => {
-                        console.log("submitted values", values);
                         // queryClient.invalidateQueries(["tasker-experience"]);
                         // toast.success("Experience detail added successfully");
                     },
                     onError: async (error) => {
                         // toast.error(error.message);
-                        console.log("error=", error);
                     },
                 });
             },

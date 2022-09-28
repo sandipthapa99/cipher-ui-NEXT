@@ -64,18 +64,18 @@ const AddService: NextPage<{
         },
     ];
 
-    const ActiveType = [
-        {
-            id: 1,
-            value: true,
-            label: "true",
-        },
-        {
-            id: 2,
-            value: false,
-            label: "false",
-        },
-    ];
+    // const ActiveType = [
+    //     {
+    //         id: 1,
+    //         value: true,
+    //         label: "true",
+    //     },
+    //     {
+    //         id: 2,
+    //         value: false,
+    //         label: "false",
+    //     },
+    // ];
 
     const [showVariable, setShowVariable] = useState({
         showBudget: false,

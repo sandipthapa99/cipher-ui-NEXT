@@ -21,7 +21,7 @@ const AddBank = ({ showBankForm }: Display) => {
     );
     const LinkedBank = BankDetails?.data.result;
     const primaryBank = LinkedBank?.find((bank) => bank.is_primary === true);
-    // console.log(
+    //
     //     "🚀 ~ file: bankDetail.tsx ~ line 21 ~ AddBank ~ primaryBank",
     //     primaryBank
     // );

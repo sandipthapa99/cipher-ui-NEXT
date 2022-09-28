@@ -32,7 +32,7 @@ const SimpleProfileCard = ({
 }: SimpleProfileCardProps) => {
     const { data: profile } = useGetProfile();
     // const created_by = task?.created_by.id === profile?.user.id;
-    // console.log(
+    //
     //     "🚀 ~ file: SimpleProfileCard.tsx ~ line 34 ~ SimpleProfileCard ~ created_by",
     //     created_by
     // );

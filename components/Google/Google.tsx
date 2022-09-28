@@ -45,7 +45,7 @@ const Google = () => {
                         toast.error(err.message);
                     },
                 });
-                // console.log(newData);
+                //
             }}
             onError={() => {
                 toast.error("Error logging in");

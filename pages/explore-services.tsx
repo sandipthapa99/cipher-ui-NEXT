@@ -18,10 +18,7 @@ const ExploreServices: NextPage = () => {
         ["all-services"],
         "/task/service/"
     );
-    console.log(
-        "🚀 ~ file: explore-services.tsx ~ line 18 ~ servicesData",
-        servicesData
-    );
+
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",

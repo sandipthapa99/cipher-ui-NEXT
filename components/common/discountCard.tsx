@@ -36,7 +36,7 @@ const DiscountCard = () => {
         }>;
     }>(["special-offers"], "/offer/serviceoffer/all");
 
-    // console.log(specialOffer?.data?.result);
+    //
     const filteredOffers = specialOffer?.data?.result?.filter(
         (item) => item.is_active === true
     );
@@ -85,9 +85,9 @@ const DiscountCard = () => {
                                     `/task/service?offer=${item.title}`
                                 );
                                 // if (response.status === 200) {
-                                //     console.log("success");
+                                //
                                 // } else {
-                                //     console.log("failure");
+                                //
                                 // }
                                 const responseData = response?.data?.result;
 
