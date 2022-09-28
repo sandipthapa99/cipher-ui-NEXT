@@ -42,7 +42,7 @@ interface Props {
     id?: number;
     isTasker?: boolean;
     taskId?: string;
-    currency: string;
+    currency?: string;
 }
 
 export const TeamMembersCard = ({
