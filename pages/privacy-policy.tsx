@@ -15,7 +15,7 @@ const PrivacyPolicy: NextPage<
             <Container fluid="xl">
                 <section className="privacy-policy">
                     <section className="privacy-policy__intro inner-section">
-                        {parse(content)}
+                        {content && parse(content)}
                     </section>
                 </section>
             </Container>
@@ -23,11 +23,15 @@ const PrivacyPolicy: NextPage<
     );
 };
 export const getStaticProps: GetStaticProps<{ content: string }> = async () => {
-    const { data } = await axiosClient.get<{ content: string }>(
-        urls.privacyPolicy
-    );
-    return {
-        props: data,
-    };
+    try {
+        const { data } = await axiosClient.get<{ content: string }>(
+            urls.privacyPolicy
+        );
+        return {
+            props: data,
+        };
+    } catch {
+        return { props: { content: "" } };
+    }
 };
 export default PrivacyPolicy;
