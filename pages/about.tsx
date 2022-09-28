@@ -8,7 +8,7 @@ import { aboutCardContent } from "staticData/aboutCardContent";
 
 const About: NextPage = () => {
     return (
-        <Layout title="About Us | Cipher">
+        <Layout title="About Us | Homaale">
             <div className="about-page">
                 <BreadCrumb currentPage="About Us" />
                 <Container fluid="xl" className="px-5">
@@ -44,7 +44,7 @@ const About: NextPage = () => {
                             </Col>
                             <Col md={6}>
                                 <div className="about-information">
-                                    <h1>About Cipher</h1>
+                                    <h1>About Homaale</h1>
                                     <h4>
                                         We are an on demand app that connects
                                         customers with about providers.{" "}
@@ -56,7 +56,7 @@ const About: NextPage = () => {
                                         Finding services at an instant has been
                                         quite a hassle, therefore, Mr. Suman
                                         Parajuli and Mrs. Sikha Parajuli,
-                                        respectively CEO and Founder of CIPHER,
+                                        respectively CEO and Founder of Homaale,
                                         created a team with a vision to provide
                                         a digital platform where you can easily
                                         post your tasks and services and get it
@@ -68,7 +68,7 @@ const About: NextPage = () => {
                         <Row className="purpose-container gx-5">
                             <Col md={6}>
                                 <div className="about-information purpose">
-                                    <h1>Story Behind CIPHER</h1>
+                                    <h1>Story Behind Homaale</h1>
                                     <p>
                                         Serve the community by providing
                                         everyone the platform to showcase their
@@ -85,8 +85,8 @@ const About: NextPage = () => {
                                         they might want to, or you might be an
                                         entrepreneur wanting to finish your
                                         project on a deadline, and this is
-                                        exactly where CIPHER is going to be your
-                                        trusted partner for everything. Go
+                                        exactly where Homaale is going to be
+                                        your trusted partner for everything. Go
                                         through the app, search for the abouts
                                         you want to avail, and in a few clicks,
                                         your task will be completed within your

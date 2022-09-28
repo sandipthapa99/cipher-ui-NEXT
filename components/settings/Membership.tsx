@@ -67,7 +67,7 @@ const Membership = () => {
 //             >
 //                 <p className="m-0">
 //                     FREE <br></br>
-//                     <span>Cipher Free Plan</span>
+//                     <span>Homaale Free Plan</span>
 //                 </p>
 //                 <ContextAwareToggle eventKey="0" callback={""}>
 //                     {""}
@@ -101,7 +101,7 @@ const Membership = () => {
 //             <Card.Header className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between bg-transparent py-4 px-0">
 //                 <p className="m-0">
 //                     BASIC <br></br>
-//                     <span>Cipher Basic Plan</span>
+//                     <span>Homaale Basic Plan</span>
 //                 </p>
 //                 <ContextAwareToggle eventKey="1" callback={""}>
 //                     {""}
@@ -135,7 +135,7 @@ const Membership = () => {
 //             <Card.Header className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between bg-transparent py-4 px-0">
 //                 <p className="m-0">
 //                     SILVER <br></br>
-//                     <span>Cipher Silver Plan</span>
+//                     <span>Homaale Silver Plan</span>
 //                 </p>
 //                 <ContextAwareToggle eventKey="2" callback={""}>
 //                     {""}
@@ -169,7 +169,7 @@ const Membership = () => {
 //             <Card.Header className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between bg-transparent py-4 px-0">
 //                 <p className="m-0">
 //                     PREMIUM <br></br>
-//                     <span>Cipher Premium Plan</span>
+//                     <span>Homaale Premium Plan</span>
 //                 </p>
 //                 <ContextAwareToggle eventKey="3" callback={""}>
 //                     {""}

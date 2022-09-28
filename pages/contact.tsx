@@ -22,7 +22,7 @@ const Contact = () => {
     const { mutate } = useContact();
 
     return (
-        <Layout title="Contact Us | Cipher">
+        <Layout title="Contact Us | Homaale">
             <section className="contact-page-header">
                 <BreadCrumb currentPage="Contact Us" />
                 <Container fluid="xl">

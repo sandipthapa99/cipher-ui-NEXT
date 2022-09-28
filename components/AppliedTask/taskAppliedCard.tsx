@@ -132,7 +132,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                 <ShareIcon
                     url={getPageUrl()}
                     quote="Please Share this task for all"
-                    hashtag="cipher-task"
+                    hashtag="Homaale-task"
                 />
                 <span className="share-label">Share</span>
 

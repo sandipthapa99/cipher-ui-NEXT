@@ -49,7 +49,7 @@ export const EarnMoneyProfessional = () => {
                     <LongSquareImageCard
                         title={"Manage your Career"}
                         subtitle={
-                            "Stay up to date on the Cipher marketplace and keep in touch with your clients."
+                            "Stay up to date on the Homeaale marketplace and keep in touch with your clients."
                         }
                         description={ManageYourCareerData}
                         image={"/earn-money/earnmoney5.png"}
@@ -67,7 +67,7 @@ export const EarnMoneyProfessional = () => {
                         title={"Safe and Secure"}
                         description={SafeAndSecureData}
                         subtitle={
-                            "Cipher is a community that values your trust and safety as our number one priority. Our representatives are available 24/7 to assist you with any issues."
+                            "Homeaale is a community that values your trust and safety as our number one priority. Our representatives are available 24/7 to assist you with any issues."
                         }
                         image={"/earn-money/earnmoney6.png"}
                     />

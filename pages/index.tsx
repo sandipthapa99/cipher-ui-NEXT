@@ -101,7 +101,7 @@ const Home: NextPage<{
     useEffect(() => setIsClient(true), []);
     if (!isClient) return null;
     return (
-        <Layout title="Cipher - Catering to Your Requirements">
+        <Layout title="Homaale - Catering to Your Requirements">
             <section className="landing-main-banner">
                 <Container fluid="xl" className="px-5">
                     <Row className="gx-5 hero-content">
@@ -713,7 +713,7 @@ const Home: NextPage<{
             <section id="notable-quality" className="notable-quality">
                 <Container fluid="xl" className="px-5">
                     <LongSquareImageCard
-                        title="Cipher Notable quality"
+                        title="Homaale Notable quality"
                         image="/groupB.png"
                         imageOnRight={true}
                         description={quality}

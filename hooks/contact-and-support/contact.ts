@@ -10,7 +10,6 @@ export const useContact = () => {
                     "/support/contactus/",
                     contactPayload
                 );
-                
             } catch (error) {
                 throw new Error("Contact failed");
             }

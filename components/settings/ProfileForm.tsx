@@ -44,7 +44,7 @@ export const CompleteProfile = ({ onClick }: CompleteProfileProps) => {
                 <h3>Please complete your Profile.</h3>
                 <p>
                     Fill up your remaining detail to become an expertise in
-                    Cipher.
+                    Homeaale.
                 </p>
             </div>
             <div className="d-flex buttons">

@@ -20,18 +20,18 @@ const DeactivationOptions = [
     },
     {
         id: 2,
-        label: "I did not find CIPHER helpful for me.",
-        value: "I did not find CIPHER helpful for me.",
+        label: "I did not find Homeaale helpful for me.",
+        value: "I did not find Homeaale helpful for me.",
     },
     {
         id: 3,
-        label: "I have another CIPHER account.",
-        value: "I have another CIPHER account.",
+        label: "I have another Homeaale account.",
+        value: "I have another Homeaale account.",
     },
     {
         id: 4,
-        label: "I am not satisfied with the services of CIPHER.",
-        value: "I am not satisfied with the services of CIPHER.",
+        label: "I am not satisfied with the services of Homeaale.",
+        value: "I am not satisfied with the services of Homeaale.",
     },
     { id: 5, label: "Other", value: "Other" },
 ];
