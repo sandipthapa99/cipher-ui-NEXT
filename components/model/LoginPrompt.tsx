@@ -45,7 +45,6 @@ export const LoginPrompt = () => {
                     const fcmToken = await localforage.getItem<string>(
                         "fcm_token"
                     );
-                    if (!fcmToken) return;
                     loginMutation(
                         { ...values, fcm_token: fcmToken },
                         {
