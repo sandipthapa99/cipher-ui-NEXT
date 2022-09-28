@@ -864,16 +864,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 value={city?.toString() ?? ""}
                                 disabled={isInputDisabled}
                             /> */}
-                            {/* 
-                            <InputField
-                                type="text"
-                                name="address_line1"
-                                labelName="Address Line 1"
-                                error={errors.address_line1}
-                                touch={touched.address_line1}
-                                disabled={isInputDisabled}
-                                placeHolder="Enter your permanent address"
-                            /> */}
+
                             <PlacesAutocomplete
                                 size="md"
                                 label="Address Line 1"
@@ -891,7 +882,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     setFieldValue("address_line1", value)
                                 }
                             />
-                            <PlacesAutocomplete
+                            {/* <PlacesAutocomplete
                                 size="md"
                                 label="Address Line 2"
                                 placeholder="Enter your temporary address"
@@ -907,6 +898,15 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 onPlaceChange={(value) =>
                                     setFieldValue("address_line2", value)
                                 }
+                            /> */}
+                            <InputField
+                                type="text"
+                                name="address_line2"
+                                labelName="Address Line 2"
+                                error={errors.address_line2}
+                                touch={touched.address_line2}
+                                disabled={isInputDisabled}
+                                placeHolder="Enter your secondary address"
                             />
                             <Select
                                 label="Language"
