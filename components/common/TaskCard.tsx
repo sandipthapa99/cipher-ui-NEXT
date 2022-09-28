@@ -38,7 +38,7 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
     console.log("currency", task);
     return (
         <div className="task-card-block p-5">
-            <Link href={`${slug}`}>
+            <Link href={`/task/${id}`}>
                 <a>
                     <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                         <h1 className="title">{title}</h1>

@@ -11,12 +11,16 @@ import { MyTaskOrder } from "./MyTaskOrder";
 export const MyTasks = () => {
     const { data: userData } = useUser();
     const userId = userData?.id ?? "";
-    const { data: mytaskData, isLoading } = useQuery(["my-task"], async () => {
-        const response = await axiosClient.get(
-            `/task/entity/service/?user=${userId}`
-        );
-        return response.data.result;
-    });
+    const { data: mytaskData, isLoading } = useQuery(
+        ["my-task"],
+        async () => {
+            const response = await axiosClient.get(
+                `/task/entity/service/?user=${userId}`
+            );
+            return response.data.result;
+        },
+        { enabled: !!userId }
+    );
 
     const router = useRouter();
 
