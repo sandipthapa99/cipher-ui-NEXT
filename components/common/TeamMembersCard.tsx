@@ -38,10 +38,11 @@ interface Props {
     location?: string;
     distance?: string;
     bio?: string;
-    charge?: string;
+    charge?: string | number;
     id?: number;
     isTasker?: boolean;
     taskId?: string;
+    currency?: string;
 }
 
 export const TeamMembersCard = ({
@@ -61,6 +62,7 @@ export const TeamMembersCard = ({
     id,
     isTasker,
     taskId,
+    currency,
 }: Props) => {
     const { data: user } = useUser();
     const userId = tasker;
@@ -188,13 +190,13 @@ export const TeamMembersCard = ({
                                     />
                                     <span> {awardPercentage}</span>
                                 </span>
-                                <span className="location d-flex align-items-center">
+                                {/* <span className="location d-flex align-items-center">
                                     <FontAwesomeIcon
                                         className="location"
                                         icon={faLocationArrow}
                                     />
                                     <span> {distance}</span>
-                                </span>
+                                </span> */}
                             </div>
                         </div>
                     </div>
@@ -230,14 +232,16 @@ export const TeamMembersCard = ({
                                 />
                             </div>
                         ) : (
-                            <span className="task-price">{charge}</span>
+                            <span className="task-price">
+                                {currency} {charge}
+                            </span>
                         )}
                     </a>
                 </Link>
             </div>
             {isTasker ? null : (
                 <div className="d-flex align-items-center gap-3 pt-3">
-                    {approvedTasker && !approvedTasker.is_accepted ? (
+                    {/* {approvedTasker && !approvedTasker.is_accepted ? (
                         <>
                             <BigButton
                                 btnTitle={"Decline"}
@@ -345,7 +349,7 @@ export const TeamMembersCard = ({
                             //}}
                             textColor={"#fff"}
                         />
-                    )}
+                    )} */}
                 </div>
             )}
         </div>
