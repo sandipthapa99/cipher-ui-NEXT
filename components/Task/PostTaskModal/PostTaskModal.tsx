@@ -165,7 +165,7 @@ export const PostTaskModal = () => {
 
             const postTaskPayload = {
                 ...values,
-                highlights: values.highlights),
+                highlights: values.highlights,
                 images: imageIds,
                 videos: videoIds,
                 extra_data: [],
