@@ -34,7 +34,7 @@ const PortfolioDetails = ({
     const [isEditProfile, setIsEditProfile] = useState(false);
 
     const { data: portfolioDetail } = useGetPortfolioById(id);
-    // console.log(
+    //
     //     "🚀 ~ file: PortfolioDetail.tsx ~ line 41 ~ portfolioDetail",
     //     portfolioDetail
     // );
@@ -62,8 +62,8 @@ const PortfolioDetails = ({
                             >
                                 <ShareIcon
                                     url={getPageUrl()}
-                                    quote={"This is the task from cipher"}
-                                    hashtag={"cipher-task"}
+                                    quote={"This is the task from Homaale"}
+                                    hashtag={"Homaale-task"}
                                 />
                                 <p>Share</p>
                             </Col>

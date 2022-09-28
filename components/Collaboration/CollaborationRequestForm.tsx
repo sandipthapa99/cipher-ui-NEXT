@@ -59,7 +59,6 @@ export const CollaborationRequestForm = ({
                             initialValues={initialValues}
                             validationSchema={collaborationRequestFormSchema}
                             onSubmit={async (values) => {
-                                console.log(values);
                                 toggleSuccessModal();
                             }}
                         >

@@ -16,7 +16,7 @@ import { ServiceAccept } from "./ServiceAccept";
 
 export const NotificationDropdown = () => {
     const { data: allNotifications, refetch } = useGetNotification();
-    // console.log("all", allNotifications);
+    //
     const router = useRouter();
     const queryClient = new QueryClient();
 
@@ -53,7 +53,7 @@ export const NotificationDropdown = () => {
 
         refetch();
     };
-    // console.log("today", todayNotifications);
+    //
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification: any, index: number) => {
@@ -131,7 +131,7 @@ export const NotificationDropdown = () => {
             //         </div>
             //     );
             // }
-            else if (notification.title === "booking") {
+            else if (notification.title === "booked") {
                 return (
                     <div
                         key={index}
@@ -163,8 +163,6 @@ export const NotificationDropdown = () => {
                     </div>
                 );
             } else if (notification.title === "approval") {
-                console.log("approval", notification);
-
                 return (
                     <div
                         key={index}

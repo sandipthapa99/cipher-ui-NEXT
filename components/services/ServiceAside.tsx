@@ -37,7 +37,6 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
 
     const { ref } = useInViewPort<HTMLDivElement>(() => {
         if (hasNextPage && !isFetchingNextPage) {
-            console.log("Fetching next page");
             fetchNextPage();
         }
     });

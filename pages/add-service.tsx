@@ -64,18 +64,18 @@ const AddService: NextPage<{
         },
     ];
 
-    const ActiveType = [
-        {
-            id: 1,
-            value: true,
-            label: "true",
-        },
-        {
-            id: 2,
-            value: false,
-            label: "false",
-        },
-    ];
+    // const ActiveType = [
+    //     {
+    //         id: 1,
+    //         value: true,
+    //         label: "true",
+    //     },
+    //     {
+    //         id: 2,
+    //         value: false,
+    //         label: "false",
+    //     },
+    // ];
 
     const [showVariable, setShowVariable] = useState({
         showBudget: false,
@@ -219,7 +219,7 @@ const AddService: NextPage<{
 
     const toggleSuccessModal = useToggleSuccessModal();
     return (
-        <Layout title="Add-service | Cipher">
+        <Layout title="Add-service | Homaale">
             <BreadCrumb currentPage="add-service" />
             <section id="service-details-section" className="service-details">
                 <Container>

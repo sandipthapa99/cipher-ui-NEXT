@@ -65,7 +65,7 @@ const ProfileEditForm = ({
         editProfile.mutate(data, {
             onSuccess: (data) => {
                 if (data?.data?.status === "failure") {
-                    console.log("Error", data);
+                    toast.error(data?.data?.message);
                 } else {
                     toast.success(data?.data?.message);
                     queryClient.invalidateQueries(["profile"]);

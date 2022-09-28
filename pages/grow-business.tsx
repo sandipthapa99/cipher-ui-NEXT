@@ -23,7 +23,7 @@ const GrowYourBusiness: NextPage = () => {
         "/task/service/"
     );
     return (
-        <Layout title="Grow Your Business | Cipher">
+        <Layout title="Grow Your Business | Homaale">
             <Container fluid="xl" className="px-5">
                 <section className="grow-business">
                     <BreadCrumb currentPage="Grow Your Business" />

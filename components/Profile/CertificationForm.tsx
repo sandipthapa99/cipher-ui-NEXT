@@ -120,10 +120,6 @@ const CertificationForm = ({
                                 editDetails
                                     ? editMutation(newValue, {
                                           onSuccess: async () => {
-                                              console.log(
-                                                  "submitted values",
-                                                  values
-                                              );
                                               setShowCertificationModal(false);
                                               queryClient.invalidateQueries([
                                                   "tasker-certification",
@@ -134,7 +130,6 @@ const CertificationForm = ({
                                           },
                                           onError: async (error: any) => {
                                               toast.error(error.message);
-                                              console.log("error=", error);
                                           },
                                       })
                                     : mutate(newValue, {

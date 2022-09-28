@@ -34,7 +34,7 @@ const Feedback = () => {
         feedbackMutation.mutate(data, {
             onSuccess: (data) => {
                 if (data?.data?.status === "failure") {
-                    console.log("Error", data);
+                    toast.error(data?.data?.message);
                 } else {
                     toast.success(data?.data?.message);
                     actions.resetForm();
@@ -49,7 +49,7 @@ const Feedback = () => {
     };
     return (
         <>
-            <Layout title="Feedback | Cipher">
+            <Layout title="Feedback | Homaale">
                 <Container fluid="xl" className="px-5">
                     <section className="site-feedback">
                         <Row className="gx-5">
@@ -66,7 +66,7 @@ const Feedback = () => {
                             <Col md={6}>
                                 <h1>Feedback</h1>
                                 <p>
-                                    Are you enjoying Cipher ? Send us your
+                                    Are you enjoying Homaale ? Send us your
                                     Feedbacks
                                 </p>
                                 <Formik

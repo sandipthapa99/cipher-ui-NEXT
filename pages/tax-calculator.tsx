@@ -228,10 +228,6 @@ const TaxCalculator: NextPage = () => {
                                                             error.message
                                                         );
                                                         actions.resetForm();
-                                                        console.log(
-                                                            "fvalues",
-                                                            newValue
-                                                        );
                                                     },
                                                 });
                                             }}

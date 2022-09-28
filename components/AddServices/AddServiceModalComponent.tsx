@@ -6,7 +6,7 @@ import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
-import { BudgetType } from "@components/Task/PostTaskModal/TaskBudget";
+import type { BudgetType } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
 import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
@@ -51,9 +51,9 @@ export interface PostTaskPayload {
     city: string;
     location: TaskType;
     currency: string;
-    budget_type: BudgetType;
-    budget_from: number;
-    budget_to: number;
+    budget_type: string;
+    budget_from: number | string;
+    budget_to: number | string;
     is_negotiable: boolean;
     images: string;
     videos: string;
@@ -103,9 +103,9 @@ export const AddServiceModalComponent = () => {
             highlights: initialHighlights,
             city: "",
             location: "remote",
-            budget_type: BudgetType.FIXED,
-            budget_from: 0.0,
-            budget_to: 0.0,
+            budget_type: "Project",
+            budget_from: "",
+            budget_to: "",
             service: "",
             is_negotiable: false,
             estimated_time: 5,
@@ -151,11 +151,11 @@ export const AddServiceModalComponent = () => {
                 onSuccess: async (task) => {
                     handleCloseModal();
                     action.resetForm();
-                    // toggleSuccessModal();
+                    toggleSuccessModal("Service successfully posted");
                     // toast.success(message);
                     await queryClient.invalidateQueries([ReactQueryKeys.TASKS]);
                     await queryClient.invalidateQueries(["notification"]);
-                    router.push(`/task/${task.id}`);
+                    router.push(`/service/${task.id}`);
                 },
                 onError: (error) => {
                     toast.error(error.message);
@@ -515,7 +515,7 @@ export const AddServiceModalComponent = () => {
 //                     highlights: JSON.stringify(values.highlights),
 //                 };
 
-//                 console.log("data to send", dataToSend);
+//
 //                 delete dataToSend.imagePreviewUrl;
 //                 delete dataToSend.highlights_list;
 //                 delete dataToSend.is_discount_offer;
@@ -588,7 +588,7 @@ export const AddServiceModalComponent = () => {
 //                             delete dataToSend.budget_select;
 
 //                             onCreateService(dataToSend, actions);
-//                             console.log("data to send", dataToSend);
+//
 //                         }
 //                     } else {
 //                         toogleShowPostTaskModal();

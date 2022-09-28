@@ -32,7 +32,7 @@ const Footer = () => {
         emailSubsMutation.mutate(data, {
             onSuccess: (data) => {
                 if (data?.data?.status === "failure") {
-                    console.log("Error", data);
+                    toast.error(data?.data?.message);
                 } else {
                     toast.success(data?.data?.message);
                     actions.resetForm();
@@ -140,6 +140,11 @@ const Footer = () => {
                                         <li>
                                             <Link href="/feedback">
                                                 <a>Complaints/Feedback</a>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/hire-in-nepal">
+                                                <a>Hire In Nepal</a>
                                             </Link>
                                         </li>
                                     </ul>

@@ -58,8 +58,8 @@ export const TaskRequirements = ({
             return;
         }
         setRequirements((previousRequirements) => [
-            newRequirement,
             ...previousRequirements,
+            newRequirement,
         ]);
         setNewRequirement("");
     };

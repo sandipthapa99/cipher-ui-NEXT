@@ -46,7 +46,7 @@ const About: NextPage = () => {
                                                 emailValidationSchema
                                             }
                                             onSubmit={async (values) => {
-                                                console.log(values);
+                                                return;
                                             }}
                                         >
                                             {({ errors, touched }) => (
@@ -85,7 +85,7 @@ const About: NextPage = () => {
                                                 referralFormValidationSchema
                                             }
                                             onSubmit={async (values) => {
-                                                console.log(values);
+                                                return;
                                             }}
                                         >
                                             {({ errors, touched }) => (

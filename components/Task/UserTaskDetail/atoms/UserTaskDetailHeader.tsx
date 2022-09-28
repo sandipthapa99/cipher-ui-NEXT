@@ -127,8 +127,8 @@ export const UserTaskDetailHeader = ({
                         <div className="btn d-flex flex-col align-items-center">
                             <ShareIcon
                                 url={getPageUrl()}
-                                quote={"Tasker from cipher project"}
-                                hashtag={"cipher-tasker"}
+                                quote={"Tasker from Homaale project"}
+                                hashtag={"Homaale-tasker"}
                             />
                             <span className="name pl-2">Share</span>
                         </div>

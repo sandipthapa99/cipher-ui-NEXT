@@ -72,7 +72,7 @@ export const TeamMembersCard = ({
     const path = router.query.id;
 
     // const { data: taskDetail } = useData(["task-detail"], `${urls.task}/${id}`);
-    // console.log(
+    //
     //     "🚀 ~ file: TeamMembersCard.tsx ~ line 71 ~ taskDetail",
     //     taskDetail
     // );
@@ -94,7 +94,7 @@ export const TeamMembersCard = ({
         (applicants: any) => applicants.id === id
     );
 
-    // console.log(
+    //
     //     "🚀 ~ file: TeamMembersCard.tsx ~ line 74 ~ userId",
     //     userId,
     //     approvedTask?.assignee.id
@@ -264,7 +264,6 @@ export const TeamMembersCard = ({
                                                 ]);
                                             },
                                             onError: (error: any) => {
-                                                console.log(error);
                                                 toast.error(
                                                     error.response.data.booking
                                                         .message
@@ -301,7 +300,7 @@ export const TeamMembersCard = ({
                                                 ]);
                                             },
                                             onError: (error: any) => {
-                                                // console.log(
+                                                //
                                                 //     "Booking is approved",
                                                 //     error.booking.message
                                                 // );
@@ -333,7 +332,7 @@ export const TeamMembersCard = ({
                             //                 ]);
                             //             },
                             //             onError: (error: any) => {
-                            //                 // console.log(
+                            //                 //
                             //                 //     "Booking is approved",
                             //                 //     error.booking.message
                             //                 // );

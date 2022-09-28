@@ -60,7 +60,6 @@ const ChangePasswordForm = () => {
                                         }
                                     );
 
-                                    console.log(values);
                                     action.resetForm();
                                 }}
                             >

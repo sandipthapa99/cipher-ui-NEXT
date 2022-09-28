@@ -18,10 +18,7 @@ const ExploreServices: NextPage = () => {
         ["all-services"],
         "/task/service/"
     );
-    console.log(
-        "🚀 ~ file: explore-services.tsx ~ line 18 ~ servicesData",
-        servicesData
-    );
+
     const [chips, setChips] = useState([
         "Garden Cleaner",
         "Plumber",
@@ -35,7 +32,7 @@ const ExploreServices: NextPage = () => {
     };
 
     return (
-        <Layout title="Explore Services | Cipher">
+        <Layout title="Explore Services | Homaale">
             <Container fluid="xl" className="px-0 px-sm-5">
                 <section className="explore-services">
                     <BreadCrumb currentPage="Explore Services" />
