@@ -187,14 +187,14 @@ const KYCForm = () => {
                                         }
                                     />
                                     {/* <SelectInputField
-                                name="country"
-                                labelName="Country"
-                                touch={touched.country}
-                                error={errors.country}
-                                placeHolder="Select Identity Type"
-                                options={countryResults}
-                                disabled={KYCData?.country ? true : false}
-                            /> */}
+                                        name="country"
+                                        labelName="Country"
+                                        touch={touched.country}
+                                        error={errors.country}
+                                        placeHolder="Select Identity Type"
+                                        options={countryResults}
+                                        disabled={KYCData?.country ? true : false}
+                                    /> */}
                                     <Select
                                         label="Country"
                                         placeholder="Pick one"

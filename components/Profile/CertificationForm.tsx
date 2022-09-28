@@ -1,8 +1,13 @@
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import MantineDateField from "@components/common/MantineDateField";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faCalendarDays,
+    faSquareCheck,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
@@ -141,7 +146,7 @@ const CertificationForm = ({
                             action.resetForm();
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, setFieldValue, errors, touched }) => (
                             <Form autoComplete="off">
                                 <InputField
                                     type="text"
@@ -191,17 +196,64 @@ const CertificationForm = ({
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="issued_date"
                                             labelName="Issued Date"
                                             placeHolder="2022-03-06"
                                             touch={touched.issued_date}
                                             error={errors.issued_date}
                                             dateFormat="yyyy-MM-dd"
+                                        /> */}
+
+                                        <MantineDateField
+                                            name="issued_date"
+                                            labelName="Issued Date"
+                                            placeHolder="2022-03-06"
+                                            touch={touched.issued_date}
+                                            error={errors.issued_date}
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            // minDate={new Date()}
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "issued_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
+                                        />
+                                        <MantineDateField
+                                            labelName="Expiration Date"
+                                            name="issued_date"
+                                            error={errors.issued_date}
+                                            touch={touched.issued_date}
+                                            disabled={toggle ? true : false}
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            // minDate={new Date()}
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "issued_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                     <Col md={6}>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="expire_date"
                                             labelName="Expiration Date"
                                             placeHolder={
@@ -213,6 +265,35 @@ const CertificationForm = ({
                                             touch={touched.expire_date}
                                             error={errors.expire_date}
                                             disabled={toggle ? true : false}
+                                        /> */}
+
+                                        <MantineDateField
+                                            labelName="Expiration Date"
+                                            name="expire_date"
+                                            placeHolder={
+                                                toggle
+                                                    ? "No Expiration Date"
+                                                    : "2022-03-06"
+                                            }
+                                            touch={touched.expire_date}
+                                            error={errors.expire_date}
+                                            disabled={toggle ? true : false}
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            // minDate={new Date()}
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "expire_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                 </Row>

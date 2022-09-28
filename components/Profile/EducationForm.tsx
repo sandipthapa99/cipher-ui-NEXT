@@ -1,8 +1,13 @@
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import MantineDateField from "@components/common/MantineDateField";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faCalendarDays,
+    faSquareCheck,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
@@ -125,7 +130,7 @@ const EducationForm = ({
                             }
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, setFieldValue, errors, touched }) => (
                             <Form autoComplete="off">
                                 <InputField
                                     type="text"
@@ -166,13 +171,36 @@ const EducationForm = ({
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="start_date"
                                             labelName="Start Date"
                                             placeHolder="1999-06-03"
                                             touch={touched.start_date}
                                             error={errors.start_date}
                                             dateFormat="yyyy-MM-dd"
+                                        /> */}
+                                        <MantineDateField
+                                            name="start_date"
+                                            labelName="Start Date"
+                                            placeHolder="1999-06-03"
+                                            error={errors.start_date}
+                                            touch={touched.start_date}
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            // minDate={new Date()}
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "start_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                     <Col md={6}>

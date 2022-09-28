@@ -11,6 +11,7 @@ const MantineDateField = ({
     error,
     touch,
     fieldRequired,
+    disabled,
     textMuted,
     handleChange,
     ...restProps
@@ -31,6 +32,7 @@ const MantineDateField = ({
                     radius="sm"
                     onChange={handleChange}
                     mb={20}
+                    disabled={disabled}
                     styles={{
                         input: { height: 44 },
                         error: { fontSize: 13, fontWeight: 500 },
