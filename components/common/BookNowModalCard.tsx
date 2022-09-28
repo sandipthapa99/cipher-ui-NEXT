@@ -186,7 +186,6 @@ const BookNowModalCard = ({
                                                         )
                                                     );
                                                 }}
-                                                fieldRequired={true}
                                             />
                                         </Col>
                                         <Col md={6}>
