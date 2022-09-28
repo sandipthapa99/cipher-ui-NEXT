@@ -45,7 +45,7 @@ export const ChangePhoneNumber = () => {
                             toast.error(err.message);
                         },
                     });
-                    console.log(values);
+
                     action.resetForm();
                 }}
             >

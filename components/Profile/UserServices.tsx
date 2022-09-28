@@ -85,10 +85,6 @@ const TasksProfileCard = () => {
         ["all-services"],
         `${urls.task.service}`
     );
-    console.log(
-        "🚀 ~ file: UserServices.tsx ~ line 84 ~ TasksProfileCard ~ useData",
-        useData
-    );
 
     const { data: profileDetails } = useGetProfile();
     const userId = profileDetails?.user.id;
