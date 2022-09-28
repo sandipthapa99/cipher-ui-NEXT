@@ -139,13 +139,7 @@ const BookNowModalCard = ({
                             });
                         }}
                     >
-                        {({
-                            isSubmitting,
-                            errors,
-                            touched,
-                            setFieldValue,
-                            handleBlur,
-                        }) => (
+                        {({ isSubmitting, errors, touched, setFieldValue }) => (
                             <Form encType="multipart/formData">
                                 <pre>{JSON.stringify(errors, null, 4)}</pre>
                                 <div className="problem">
@@ -188,12 +182,11 @@ const BookNowModalCard = ({
                                                     setFieldValue(
                                                         "start_date",
                                                         format(
-                                                            value,
+                                                            new Date(value),
                                                             "yyyy-MM-dd"
                                                         )
                                                     );
                                                 }}
-                                                onBlur={handleBlur}
                                                 fieldRequired={true}
                                             />
                                         </Col>
@@ -214,7 +207,7 @@ const BookNowModalCard = ({
                                                     setFieldValue(
                                                         "end_date",
                                                         format(
-                                                            value,
+                                                            new Date(value),
                                                             "yyyy-MM-dd"
                                                         )
                                                     )
