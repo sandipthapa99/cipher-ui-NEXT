@@ -29,8 +29,19 @@ interface editProps {
     isEdit?: boolean;
 }
 const BankForm = ({ id, isEdit, bankDetail }: editProps) => {
-    const [showBankForm, setShowBankForm] = useState(false);
-    const [showCompleteProfile, setShowCompleteProfile] = useState(true);
+    const { data: profile } = useGetProfile();
+
+    const { data: BankDetails } = useData<UserBankDetails>(
+        ["tasker-bank-account"],
+        "/tasker/bank-details/"
+    );
+
+    const LinkedBank = BankDetails?.data.result;
+
+    const [showBankForm, setShowBankForm] = useState(!profile ? true : false);
+    const [showCompleteProfile, setShowCompleteProfile] = useState(
+        LinkedBank && LinkedBank?.length < 0 ? false : true
+    );
 
     const { mutate } = useForm(`/tasker/bank-details/`);
 
@@ -97,13 +108,6 @@ const BankForm = ({ id, isEdit, bankDetail }: editProps) => {
 
     const { data: KYCData } = useGetKYC();
 
-    const { data: BankDetails } = useData<UserBankDetails>(
-        ["tasker-bank-account"],
-        "/tasker/bank-details/"
-    );
-
-    const LinkedBank = BankDetails?.data.result;
-
     const editDetails = LinkedBank?.find((bank) => bank.id === id);
 
     const editBankId = bankNamesResults.find(
@@ -129,22 +133,20 @@ const BankForm = ({ id, isEdit, bankDetail }: editProps) => {
 
     const accname = editDetails?.bank_account_name;
     const accnumber = editDetails?.bank_account_number;
-    const { data: profile } = useGetProfile();
 
     const ref = useRef<HTMLDivElement>(null);
 
     const handleClick = () => {
         // ref.current?.scrollIntoView({ behavior: "smooth" });
         setShowBankForm(true);
+        setShowCompleteProfile(false);
     };
     return (
         <div
             //ref={ref}
             className="bank-form"
             style={
-                showBankForm || profile
-                    ? { display: "block" }
-                    : { display: "none" }
+                showCompleteProfile ? { display: "block" } : { display: "none" }
             }
         >
             <Formik
@@ -326,7 +328,13 @@ const BankForm = ({ id, isEdit, bankDetail }: editProps) => {
                     </Form>
                 )}
             </Formik>
-            {LinkedBank ? <CompleteProfile onClick={handleClick} /> : ""}
+            {LinkedBank ? (
+                LinkedBank.length <= 0 ? (
+                    <CompleteProfile onClick={handleClick} />
+                ) : (
+                    ""
+                )
+            ) : null}
         </div>
     );
 };
