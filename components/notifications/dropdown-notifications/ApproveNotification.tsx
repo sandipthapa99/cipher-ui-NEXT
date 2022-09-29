@@ -146,6 +146,7 @@ interface ApproveNotificationProps {
     slug?: string;
     bookingId?: string;
     is_requested?: boolean;
+    read?: string;
 }
 
 export const ApproveNotification = ({
@@ -159,6 +160,7 @@ export const ApproveNotification = ({
     slug,
     bookingId,
     is_requested,
+    read,
 }: ApproveNotificationProps) => {
     const { data: bookingData } = useQuery<BookingDetails>(
         ["booking", bookingId],
@@ -171,42 +173,53 @@ export const ApproveNotification = ({
     );
 
     return (
-        <div className="d-flex approve-notification-dropdown">
-            <figure className="dropdown-notification-image">
-                <Image
-                    alt="testimage"
-                    src="/userprofile/unknownPerson.jpg"
-                    height={50}
-                    width={50}
-                />
-            </figure>
-            <div className="description-section">
-                <h4>
-                    {user}{" "}
-                    <span>
-                        has {title} your {type} for{" "}
-                        <span className="service-name-notify">{body}.</span>
-                    </span>
-                </h4>
-                {/* <p>
+        <div
+            className="d-flex approve-notification-dropdown"
+            style={{ backgroundColor: read === null ? "#ecf7ff" : "#ebf9f1" }}
+        >
+            <div className="d-flex">
+                <figure className="dropdown-notification-image">
+                    <Image
+                        alt="testimage"
+                        src="/userprofile/unknownPerson.jpg"
+                        height={50}
+                        width={50}
+                    />
+                </figure>
+                <div className="description-section">
+                    <h4>
+                        {user}{" "}
+                        <span>
+                            has {title} your {type} for{" "}
+                            <span className="service-name-notify">{body}.</span>
+                        </span>
+                    </h4>
+                    {/* <p>
                     I want to revise task from last week for our bunglow who can
                     gre at take care of our plants, includes monitoring and
                     overall.
                 </p> */}
-                <div className="d-flex mt-1 align-items-center justify-content-between date-approve-section">
-                    <p className="date m-0">
-                        {date
-                            ? format(new Date(date), "EEEE, do LLL, hh:mm a")
-                            : ""}
-                    </p>
-                    {accept && (
-                        <AcceptReject
-                            accepted={bookingData?.is_accepted}
-                            slug={slug}
-                        />
-                    )}
-                    {/* {pay && <Pay />} */}
+                    <div className=" mt-1 date-approve-section">
+                        <p className="date m-0">
+                            {date
+                                ? format(
+                                      new Date(date),
+                                      "EEEE, do LLL, hh:mm a"
+                                  )
+                                : ""}
+                        </p>
+
+                        {/* {pay && <Pay />} */}
+                    </div>
                 </div>
+            </div>
+            <div>
+                {accept && (
+                    <AcceptReject
+                        accepted={bookingData?.is_accepted}
+                        slug={slug}
+                    />
+                )}
             </div>
         </div>
     );

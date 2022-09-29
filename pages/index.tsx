@@ -814,7 +814,7 @@ const Home: NextPage<{
                                 description="It is always convenient to be connected to the clients and the tasks 
                                 closer to you. With us, you can view who or which tasks are closer to you or your 
                                     preferred location."
-                                redirectionTo=""
+                                redirectionTo="/service"
                                 iconBackground="#CDE9F9"
                             />
                         </Col>
@@ -823,7 +823,7 @@ const Home: NextPage<{
                                 icon="/icons/category.svg"
                                 title="Category"
                                 description="Looking for a particular service or variety of them? Or do you provide services and are looking for clients? We have made it easier for you to filter and sort out categories as per your preference."
-                                redirectionTo=""
+                                redirectionTo="/category"
                                 iconBackground="#E3D5FA"
                             />
                         </Col>
@@ -832,7 +832,7 @@ const Home: NextPage<{
                                 icon="/icons/recommendation-badge.svg"
                                 title="Recommended by us"
                                 description="We know the preferences and choices of each of our users. Therefore, you can always rely on our recommendations for a customised search feed."
-                                redirectionTo=""
+                                redirectionTo="/hire-in-nepal"
                                 iconBackground="#CCF6E6"
                             />
                         </Col>
