@@ -200,7 +200,13 @@ export const TeamMembersCard = ({
                             </div>
                         </div>
                     </div>
-                    <p>{bio}</p>
+                    {bio && (
+                        <p className="bio-description">
+                            {bio?.length > 50
+                                ? bio?.substring(0, 50) + "..."
+                                : bio}
+                        </p>
+                    )}
                 </a>
             </Link>
             <div className="d-flex justify-content-between footer-section">

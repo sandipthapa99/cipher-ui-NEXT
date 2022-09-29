@@ -108,7 +108,7 @@ export const UserTaskDetailHeader = ({
                         />
                     </div>
                 </Col>
-                <Col md={4} className="d-flex flex-column">
+                <Col md={4} className="d-flex flex-column align-items-end">
                     <div className="td-task-detail-header-icons">
                         <div className="btn d-flex flex-col align-items-center">
                             <SaveIcon
