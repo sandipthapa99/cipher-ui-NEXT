@@ -488,7 +488,7 @@ const SearchResultsDetail = ({
                             <div className="d-flex justify-content-between align-items-center flex-column flex-sm-row p-4 simple-card__price">
                                 <span> Price</span>
                                 <span className="price">
-                                    {currency}
+                                    {currency}{" "}
                                     {budget_from && budget_from > 0
                                         ? budget_from + "-"
                                         : ""}{" "}

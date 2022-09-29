@@ -27,6 +27,10 @@ export const UserTaskDetailHeader = ({
     taskerDetail,
     maxHeaderWidth,
 }: UserTaskDetailHeaderProps) => {
+    console.log(
+        "🚀 ~ file: UserTaskDetailHeader.tsx ~ line 30 ~ taskerDetail",
+        taskerDetail
+    );
     const router = useRouter();
     const { data: user } = useUser();
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
@@ -49,15 +53,19 @@ export const UserTaskDetailHeader = ({
             />
             <Row style={{ maxWidth: maxHeaderWidth ?? undefined }}>
                 <Col md={8} className="d-flex">
-                    {taskerDetail?.profile_image && (
+                    {/* {taskerDetail?.profile_image && (
                         <div className="td-user-image-container">
                             <Image
-                                src={taskerDetail?.profile_image}
+                                src={
+                                    taskerDetail?.profile_image
+                                        ? taskerDetail?.profile_image
+                                        : "/placeholder/profilePlaceholder.png"
+                                }
                                 width={148}
                                 height={148}
                                 objectFit="cover"
                                 placeholder="blur"
-                                blurDataURL="/placeholder/profilePlaceholder.png"
+                                // blurDataURL="/placeholder/profilePlaceholder.png"
                                 alt={"profile"}
                                 className="rounded-circle"
                             />
@@ -81,7 +89,57 @@ export const UserTaskDetailHeader = ({
                                     width={80}
                                 />
                             </div>
-                        ))}
+                        ))} */}
+                    <figure className="td-user-image-container">
+                        {taskerDetail.is_profile_verified ?? (
+                            <FontAwesomeIcon
+                                icon={faBadgeCheck}
+                                className="badge-icon"
+                            />
+                        )}
+
+                        {/* <div className="img-dragdrop d-flex align-items-center justify-content-center">
+                            <label
+                                htmlFor="choosefile"
+                                className="browse text-primary"
+                                role="button"
+                            >
+                                <FontAwesomeIcon
+                                    icon={faCamera}
+                                    className="camera-icon"
+                                />
+                            </label>
+
+                            <input
+                                hidden
+                                id="choosefile"
+                                type="file"
+                                ref={inputRef}
+                                name="image"
+                                onChange={(event: any) => {
+                                    const files = event.target.files;
+                                    field?.("image", (files ?? [])[0]);
+                                    setImage(files[0]);
+                                    
+                                    setShowEditForm(!showEditForm);
+                                }}
+                            />
+                        </div> */}
+
+                        <Image
+                            src={
+                                taskerDetail.profile_image
+                                    ? taskerDetail.profile_image
+                                    : "/userprofile/unknownPerson.jpg"
+                            }
+                            alt="profile-pic"
+                            className="rounded-circle"
+                            objectFit="cover"
+                            height={150}
+                            width={150}
+                            priority={true}
+                        />
+                    </figure>
 
                     <div>
                         <h4

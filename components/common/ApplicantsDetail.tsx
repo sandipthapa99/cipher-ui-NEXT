@@ -9,12 +9,9 @@ import { useData } from "hooks/use-data";
 import parse from "html-react-parser";
 import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
-import { Fragment } from "react";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import type { BookingDetailProps } from "types/myBookingProps";
-import { isImage } from "utils/isImage";
-import { isVideo } from "utils/isVideo";
 
 interface ApplicantsDetailProps {
     show: boolean;
@@ -34,12 +31,15 @@ const ApplicantsDetail = ({
     );
 
     const BookingDetail = data?.data;
+    console.log(
+        "🚀 ~ file: ApplicantsDetail.tsx ~ line 34 ~ BookingDetail",
+        BookingDetail
+    );
 
     const taskVideosAndImages = [
         ...(BookingDetail?.images ?? []),
         ...(BookingDetail?.videos ?? []),
     ];
-    const hasMultipleVideosOrImages = taskVideosAndImages.length > 1;
 
     return (
         <Modal
@@ -98,8 +98,8 @@ const ApplicantsDetail = ({
                     <Col md={12} lg={7}>
                         <h3>Description</h3>
                         {BookingDetail?.description}
-
                         <h3>Budget</h3>
+                        {BookingDetail?.created_by.charge_currency.symbol}{" "}
                         {BookingDetail?.budget_from
                             ? `${BookingDetail?.budget_from + " - "}`
                             : ""}
