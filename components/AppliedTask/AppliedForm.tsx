@@ -94,14 +94,20 @@ const AppliedForm = ({
                         initialValues={ApplyFormData}
                         validationSchema={applyTaskSchema}
                         onSubmit={async (values) => {
+                            console.log("values are=", values);
                             const applyTaskPayload: ApplyTaskPayload = {
                                 entity_service: service_id ?? "",
-                                budget_to: budget_to ?? parseInt(""),
+                                budget_to:
+                                    parseInt(values.price) ?? parseInt(""),
                                 description: values.remarks,
                                 // pre_requisites: JSON.stringify(
                                 //     values.prerequesties
                                 // ),
                             };
+                            console.log(
+                                "🚀 ~ file: AppliedForm.tsx ~ line 107 ~ onSubmit={ ~ applyTaskPayload",
+                                applyTaskPayload
+                            );
                             mutate(applyTaskPayload, {
                                 onSuccess: (data) => {
                                     toast.success(
