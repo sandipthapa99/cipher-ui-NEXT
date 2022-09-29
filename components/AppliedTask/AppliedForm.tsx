@@ -7,14 +7,15 @@ import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useApplyTask } from "hooks/task/use-apply-task";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
+import parse from "html-react-parser";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
+import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import { useToggleSuccessModal } from "store/use-success-modal";
 import type { BookNowModalCardProps } from "types/bookNow";
-import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -74,16 +75,31 @@ const AppliedForm = ({
                             Price:{" "}
                             <span>
                                 {currency?.code} &nbsp;
-                                {budget_from}
-                                {budget_to && "- " + budget_to}&nbsp;
-                                {budget_type}
+                                {budget_from ? budget_from + " - " : ""}
+                                {budget_to}{" "}
+                                {budget_type === "Hourly"
+                                    ? "/hr"
+                                    : budget_type === "Monthly"
+                                    ? "/mn"
+                                    : "/Project"}
                             </span>
                         </h4>
-                        <p>{description}</p>
+                        {description && parse(description)}
                     </div>
                     <Formik
-                        initialValues={ApplyFormData}
-                        validationSchema={applyFormSchema}
+                        initialValues={{
+                            price: "",
+                            remarks: "",
+                            prerequesties: [],
+                            recursion: "",
+                            budget_to: budget_to,
+                        }}
+                        validationSchema={() =>
+                            applyFormSchema({
+                                budget_from: budget_from ?? 0,
+                                budget_to: budget_to ?? 100000000,
+                            })
+                        }
                         onSubmit={async (values) => {
                             const price = parseInt(values.price, 10);
                             if (isNaN(price) || !service_id) {
@@ -119,7 +135,7 @@ const AppliedForm = ({
                                     ]);
                                     //toggleSuccessModal();
                                     setShow(false);
-                                    //     router.push("/task/checkout");
+                                    router.push("/home");
                                 },
                                 onError: (error) => {
                                     // const errors = Object.values(
@@ -135,17 +151,25 @@ const AppliedForm = ({
                     >
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
-                                <div className="w-25">
-                                    <InputField
-                                        type="number"
-                                        name="price"
-                                        labelName="Your Price"
-                                        min="1"
-                                        error={errors.price}
-                                        touch={touched.price}
-                                        placeHolder="Enter your price"
-                                    />
-                                </div>
+                                {!budget_from ? (
+                                    ""
+                                ) : (
+                                    <Row>
+                                        <Col md={6}>
+                                            <InputField
+                                                labelName="Budget"
+                                                type="number"
+                                                name="budget_to"
+                                                error={errors.budget_to}
+                                                touch={touched.budget_to}
+                                                min={budget_from}
+                                                max={budget_to}
+                                                placeHolder="Your Price"
+                                                fieldRequired
+                                            />
+                                        </Col>
+                                    </Row>
+                                )}
                                 <InputField
                                     name="remarks"
                                     labelName="Remarks"

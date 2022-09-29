@@ -125,6 +125,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                     Allow notification for push notifications.
                 </Text>
                 <Text
+                    color="green"
                     size="sm"
                     className="m-0"
                     style={{ marginBottom: 10, cursor: "pointer" }}
@@ -137,6 +138,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                     Ok.
                 </Text>
                 <Text
+                    color="red"
                     size="sm"
                     className="m-0"
                     style={{ marginBottom: 10, cursor: "pointer" }}

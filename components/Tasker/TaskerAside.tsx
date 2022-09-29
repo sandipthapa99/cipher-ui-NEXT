@@ -51,7 +51,7 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                     tasker={tasker?.user?.id}
                     image={tasker?.profile_image}
                     name={`${tasker?.user.first_name} ${tasker?.user.middle_name} ${tasker?.user.last_name}`}
-                    speciality={"Teacher"} //doesnt come from api
+                    speciality={tasker?.designation} //doesnt come from api
                     rating={tasker?.rating.avg_rating}
                     happyClients={tasker?.stats?.happy_clients}
                     awardPercentage={tasker?.stats?.success_rate}

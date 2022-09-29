@@ -43,6 +43,7 @@ export const UserTaskCardList = ({ taskers, onTaskClick }: Props) => {
                     bio={item?.bio}
                     charge={item?.charge_currency + " " + item?.hourly_rate}
                     tasker={""}
+                    isTasker={true}
                 />
             </div>
         ));

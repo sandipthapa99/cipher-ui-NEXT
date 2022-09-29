@@ -42,23 +42,6 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                   profileDetails?.user.id
           );
 
-    // const { data: myRequestedTask } = useData<MyBookings>(
-    //     ["my-requested-task"],
-    //     `${urls.task.requested_task}`
-    // );
-
-    // const isrequestedTask = myRequestedTask?.data.result.find(
-    //     (requestedTask: any) => requestedTask?.entity_service.id === taskId
-    // );
-    // console.log(
-    //     "🚀 ~ file: TaskersTab.tsx ~ line 55 ~ TaskersTab ~ isrequestedTask",
-    //     isrequestedTask
-    // );
-    // const isUserTask = task?.created_by?.id === user?.id;
-    // console.log(
-    //     "🚀 ~ file: TaskersTab.tsx ~ line 60 ~ TaskersTab ~ isUserTask",
-    //     isUserTask
-    // );
     return (
         <div className="tasker-tab-taskdetail">
             {!requestedTask ? (
@@ -129,7 +112,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                         bio={item ? item?.description : ""}
                                         charge={
                                             item
-                                                ? `${item?.created_by?.charge_currency?.code} ${item?.created_by?.hourly_rate}`
+                                                ? `${item?.created_by?.charge_currency?.symbol} ${item?.created_by?.hourly_rate}`
                                                 : ""
                                         }
                                         // charge={
@@ -137,6 +120,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                         // }
                                         taskId={taskId}
                                         tasker={""}
+                                        isTasker={false}
                                     />
                                 </Col>
                             ) : null
