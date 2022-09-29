@@ -44,9 +44,13 @@ export const NotificationDropdown = () => {
     // if (todayNotifications?.length > 5) {
     //     settodayNotifications((prev) => prev.slice(0, 5));
     // }
-    const readSingleNotification = async (slug: string, id: number) => {
-        if (slug) {
-            router.push(`/service/${slug}`);
+    const readSingleNotification = async (
+        slug: string,
+        id: number,
+        type: string
+    ) => {
+        if (slug !== null) {
+            router.push(`/${type}/${slug}`);
         }
 
         await axiosClient.get(`/notification/read/?id=${id}`);
@@ -84,7 +88,10 @@ export const NotificationDropdown = () => {
                             handleClick={() =>
                                 readSingleNotification(
                                     notification?.object_slug,
-                                    notification?.id
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
                                 )
                             }
                         />
@@ -103,7 +110,10 @@ export const NotificationDropdown = () => {
                             handleClick={() =>
                                 readSingleNotification(
                                     notification?.object_slug,
-                                    notification?.id
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
                                 )
                             }
                         />
@@ -135,14 +145,15 @@ export const NotificationDropdown = () => {
             //         </div>
             //     );
             // }
-            else if (notification.title === "booked") {
+            else if (notification.title === "booking") {
                 return (
                     <div
                         key={index}
                         onClick={() =>
                             readSingleNotification(
                                 notification?.object_slug,
-                                notification?.id
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
                             )
                         }
                     >
@@ -175,7 +186,8 @@ export const NotificationDropdown = () => {
                         onClick={() =>
                             readSingleNotification(
                                 notification?.object_slug,
-                                notification?.id
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
                             )
                         }
                     >
@@ -200,7 +212,8 @@ export const NotificationDropdown = () => {
                         onClick={() =>
                             readSingleNotification(
                                 notification?.object_slug,
-                                notification?.id
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
                             )
                         }
                     >
