@@ -1,5 +1,5 @@
 import { Alert, Col, Grid, Loader, Skeleton } from "@mantine/core";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useRouter } from "next/router";
@@ -10,21 +10,17 @@ import { axiosClient } from "utils/axiosClient";
 import { MyTaskOrder } from "./MyTaskOrder";
 
 export const MyTasks = () => {
-    const queryClient = useQueryClient();
     const { data: userData } = useUser();
     const userId = userData?.id ?? "";
     const { data: mytaskData, isLoading } = useQuery(
         ["my-task", userId],
         async () => {
             const response = await axiosClient.get(
-                `${urls.task.task}?user=${userId}`
+                `${urls.task.task}&user=${userId}`
             );
             return response.data.result;
         },
         {
-            onSuccess: () => {
-                queryClient.invalidateQueries(["my-task", userId]);
-            },
             enabled: !!userId,
         }
     );

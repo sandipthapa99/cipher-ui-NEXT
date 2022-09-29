@@ -13,12 +13,14 @@ export const postTaskSchema = Yup.object().shape({
         then: Yup.string().required("Location is required"),
     }),
     budget_type: Yup.string().required("Budget type is required"),
-    budget_from: Yup.number().when("budgetTypeRadio", {
-        is: "Variable",
-        then: Yup.number()
-            .required("Budget from is required")
-            .min(0, "Budget from must be greater than 0"),
-    }),
+    budget_from: Yup.number()
+        .when("budgetTypeRadio", {
+            is: "Variable",
+            then: Yup.number()
+                .required("Budget from is required")
+                .min(0, "Budget from must be greater than 0"),
+        })
+        .nullable(true),
     budget_to: Yup.number().when("budgetTypeRadio", {
         is: (value: string) => value === "Variable" || value === "Fixed",
         then: Yup.number()

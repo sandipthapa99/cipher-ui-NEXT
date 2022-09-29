@@ -5,15 +5,16 @@ import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
+import parse from "html-react-parser";
 import { useRouter } from "next/router";
 import React from "react";
+import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import type { BookNowModalCardProps } from "types/bookNow";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
-import { applyTaskSchema } from "utils/formValidation/applyTaskFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const AppliedForm = ({
@@ -28,6 +29,7 @@ const AppliedForm = ({
     setShow,
     handleClose,
 }: BookNowModalCardProps) => {
+    console.log("🚀 ~ file: AppliedForm.tsx ~ line 32 ~ budget_to", budget_to);
     const router = useRouter();
     const {
         mutate,
@@ -86,28 +88,31 @@ const AppliedForm = ({
                                     : "/project"}
                             </span>
                         </h4>
-                        <h4>
-                            Description: <span> {taskDescription}</span>{" "}
-                        </h4>
+                        <h4>{description && parse(description)}</h4>
                     </div>
                     <Formik
-                        initialValues={ApplyFormData}
-                        validationSchema={applyTaskSchema}
+                        initialValues={{
+                            price: "",
+                            remarks: "",
+                            prerequesties: [],
+                            recursion: "",
+                            budget_to: budget_to,
+                        }}
+                        validationSchema={() =>
+                            applyFormSchema({
+                                budget_from: budget_from ?? 0,
+                                budget_to: budget_to ?? 100000000,
+                            })
+                        }
                         onSubmit={async (values) => {
-                            console.log("values are=", values);
                             const applyTaskPayload: ApplyTaskPayload = {
                                 entity_service: service_id ?? "",
-                                budget_to:
-                                    parseInt(values.price) ?? parseInt(""),
+                                budget_to: values.budget_to ?? parseInt(""),
                                 description: values.remarks,
                                 // pre_requisites: JSON.stringify(
                                 //     values.prerequesties
                                 // ),
                             };
-                            console.log(
-                                "🚀 ~ file: AppliedForm.tsx ~ line 107 ~ onSubmit={ ~ applyTaskPayload",
-                                applyTaskPayload
-                            );
                             mutate(applyTaskPayload, {
                                 onSuccess: (data) => {
                                     toast.success(
@@ -143,17 +148,26 @@ const AppliedForm = ({
                     >
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
-                                <div className="w-25">
-                                    <InputField
-                                        type="number"
-                                        name="price"
-                                        labelName="Your Price"
-                                        min="1"
-                                        error={errors.price}
-                                        touch={touched.price}
-                                        placeHolder="Enter your price"
-                                    />
-                                </div>
+                                {!budget_from ? (
+                                    ""
+                                ) : (
+                                    <Row>
+                                        <Col md={6}>
+                                            <InputField
+                                                labelName="Budget"
+                                                type="number"
+                                                name="budget_to"
+                                                error={errors.budget_to}
+                                                touch={touched.budget_to}
+                                                min={budget_from}
+                                                max={budget_to}
+                                                placeHolder="Your Price"
+                                                fieldRequired
+                                            />
+                                        </Col>
+                                    </Row>
+                                )}
+
                                 <InputField
                                     name="remarks"
                                     labelName="Remarks"

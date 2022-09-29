@@ -27,10 +27,6 @@ export const UserTaskDetailHeader = ({
     taskerDetail,
     maxHeaderWidth,
 }: UserTaskDetailHeaderProps) => {
-    console.log(
-        "🚀 ~ file: UserTaskDetailHeader.tsx ~ line 30 ~ taskerDetail",
-        taskerDetail
-    );
     const router = useRouter();
     const { data: user } = useUser();
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
@@ -91,7 +87,7 @@ export const UserTaskDetailHeader = ({
                             </div>
                         ))} */}
                     <figure className="td-user-image-container">
-                        {taskerDetail.is_profile_verified ? (
+                        {taskerDetail?.is_profile_verified ? (
                             <FontAwesomeIcon
                                 icon={faBadgeCheck}
                                 className="badge-icon"
@@ -130,8 +126,8 @@ export const UserTaskDetailHeader = ({
 
                         <Image
                             src={
-                                taskerDetail.profile_image
-                                    ? taskerDetail.profile_image
+                                taskerDetail?.profile_image
+                                    ? taskerDetail?.profile_image
                                     : "/userprofile/unknownPerson.jpg"
                             }
                             alt="profile-pic"
