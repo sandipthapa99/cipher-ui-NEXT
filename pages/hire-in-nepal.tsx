@@ -90,7 +90,9 @@ const HireInNepal: NextPage = () => {
                                         image={item?.profile_image}
                                         name={
                                             item?.user?.first_name +
+                                            " " +
                                             item?.user?.middle_name +
+                                            " " +
                                             item?.user?.last_name
                                         }
                                         speciality={item?.designation}
