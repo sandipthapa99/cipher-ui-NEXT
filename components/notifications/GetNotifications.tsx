@@ -77,6 +77,7 @@ export default function GetNotifications() {
                     >
                         {/* <ApproveNotify date={notification.created_date} /> */}
                         <PostNotifyTask
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             taskTitle={`${notification.title} a service`}
                             taskObject={notification.object}
@@ -96,6 +97,7 @@ export default function GetNotifications() {
                 return (
                     <div key={index}>
                         <PostNotifyTask
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
@@ -159,6 +161,7 @@ export default function GetNotifications() {
                             }
                         /> */}
                         <PostNotifyTask
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
@@ -180,6 +183,7 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            read={notification.read_date}
                             bookingId={notification?.object_id}
                             title="booked"
                             body={notification?.object}
@@ -204,6 +208,7 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             title="Approved"
                             body={notification?.object}
@@ -238,6 +243,7 @@ export default function GetNotifications() {
                     >
                         {/* <ApproveNotify date={notification.created_date} /> */}
                         <PostNotifyTask
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             taskTitle={`${notification.title} a service`}
                             taskObject={notification.object}
@@ -257,6 +263,7 @@ export default function GetNotifications() {
                 return (
                     <div key={index}>
                         <PostNotifyTask
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
@@ -320,6 +327,7 @@ export default function GetNotifications() {
                             }
                         /> */}
                         <PostNotifyTask
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
@@ -341,6 +349,7 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            read={notification.read_date}
                             bookingId={notification?.object_id}
                             title="booked"
                             body={notification?.object}
@@ -365,6 +374,7 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             title="Approved"
                             body={notification?.object}

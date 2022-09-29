@@ -41,9 +41,9 @@ export const NotificationDropdown = () => {
     //         prev.filter((notification) => notification.id !== id)
     //     );
 
-    if (todayNotifications?.length > 5) {
-        settodayNotifications((prev) => prev.slice(0, 5));
-    }
+    // if (todayNotifications?.length > 5) {
+    //     settodayNotifications((prev) => prev.slice(0, 5));
+    // }
     const readSingleNotification = async (slug: string, id: number) => {
         if (slug) {
             router.push(`/service/${slug}`);
@@ -53,7 +53,7 @@ export const NotificationDropdown = () => {
 
         refetch();
     };
-    // console.log("todayNotifications", todayNotifications);
+    console.log("todayNotifications", todayNotifications);
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification: any, index: number) => {
@@ -74,6 +74,7 @@ export const NotificationDropdown = () => {
                     >
                         {/* <ApproveNotify date={notification.created_date} /> */}
                         <PostNotifyTask
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             taskTitle={`${notification.title} a service`}
                             taskObject={notification.object}
@@ -93,6 +94,7 @@ export const NotificationDropdown = () => {
                 return (
                     <div key={index}>
                         <PostNotifyTask
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
@@ -156,6 +158,7 @@ export const NotificationDropdown = () => {
                             }
                         /> */}
                         <PostNotifyTask
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
@@ -177,6 +180,7 @@ export const NotificationDropdown = () => {
                         }
                     >
                         <ApproveNotification
+                            read={notification.read_date}
                             bookingId={notification?.object_id}
                             title="booked"
                             body={notification?.object}
@@ -201,6 +205,7 @@ export const NotificationDropdown = () => {
                         }
                     >
                         <ApproveNotification
+                            read={notification?.read_date}
                             is_requested={notification.is_requested}
                             title="Approved"
                             body={notification?.object}
