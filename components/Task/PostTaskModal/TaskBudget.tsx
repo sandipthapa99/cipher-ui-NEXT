@@ -83,11 +83,15 @@ export const TaskBudget = ({
                         placeholder="Enter your price"
                         onChange={(value) => setFieldValue("budget_to", value)}
                         defaultValue={initialBudgetTo}
+                        min={1}
+                        max={100000}
                     />
                     <Select
                         {...getFieldProps("budget_type")}
                         placeholder="Per Project"
                         data={budgetType}
+                        min={1}
+                        max={100000}
                         onChange={(value) =>
                             setFieldValue("budget_type", value)
                         }
@@ -102,6 +106,8 @@ export const TaskBudget = ({
                         onChange={(value) =>
                             setFieldValue("budget_from", value)
                         }
+                        min={1}
+                        max={100000}
                         defaultValue={initialBudgetFrom}
                     />
                     <Text>To</Text>
@@ -110,6 +116,8 @@ export const TaskBudget = ({
                         // icon="Rs"
                         placeholder="Final budget"
                         onChange={(value) => setFieldValue("budget_to", value)}
+                        min={1}
+                        max={100000}
                         defaultValue={initialBudgetTo}
                     />
                     <Select

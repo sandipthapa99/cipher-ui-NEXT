@@ -5,6 +5,7 @@ import Layout from "@components/Layout";
 import { ServiceCategories } from "@components/services/ServiceCategories";
 import { faAngleRight } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import urls from "constants/urls";
 import { useData } from "hooks/use-data";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
@@ -19,11 +20,11 @@ const ApplyPost = dynamic(() => import("../components/PostTask/ApplyPost"), {
 const Home: NextPage = () => {
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
-        "/task/service/"
+        urls.task.service
     );
 
     return (
-        <Layout title="Home | Cipher">
+        <Layout title="Home | Homaale">
             <section className="post-task">
                 <div className="post-task__search-header">
                     <Container fluid="xl">
@@ -40,7 +41,9 @@ const Home: NextPage = () => {
                     </div>
                     <div className="post-task__popular-services">
                         <div className="title-wrapper d-flex justify-content-between">
-                            <h1 className="heading-title">Popular on Cipher</h1>
+                            <h1 className="heading-title">
+                                Popular on Homaale
+                            </h1>
                             <Link href="/service">
                                 <a className="view-more">
                                     view more{" "}

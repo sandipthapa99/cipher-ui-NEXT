@@ -13,7 +13,7 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
     const searchQuery = useSearchQuery();
 
     return (
-        <Layout title="Find Tasker | Cipher">
+        <Layout title="Find Tasker | Homeaale">
             <section className="Tasker-section" id="Tasker-section">
                 <Container fluid="xl" className="px-5">
                     <SearchCategory

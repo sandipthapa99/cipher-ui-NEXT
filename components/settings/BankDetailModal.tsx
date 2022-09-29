@@ -37,7 +37,7 @@ const BankDetailModal = ({
                     {/* <Modal.Title>Bank Details</Modal.Title> */}
                 </Modal.Header>
                 <div className="modal-body-cntent">
-                    <BankForm />
+                    <BankForm showBankForm={true} showPrimaryBank={false} />
                     <Modal.Footer>
                         <Button className="btn close-btn" onClick={handleClose}>
                             Cancel

@@ -88,7 +88,10 @@ export interface TaskerProps {
             user_rating_count: number;
             avg_rating: number;
         };
-        country: string;
+        country: {
+            id: number;
+            name: string;
+        };
         language: string;
         status: string;
         bio: string;

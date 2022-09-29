@@ -180,12 +180,12 @@ const LongSquareImageCard = ({
                         </Col>
                         <Col md={homeImage ? 6 : 5}>
                             <figure className="thumbnail-img">
-                                <Image
+                                {/* <Image
                                     src={image}
                                     layout="fill"
                                     objectFit="cover"
                                     alt="man-image"
-                                />
+                                /> */}
                             </figure>
                         </Col>
                     </>

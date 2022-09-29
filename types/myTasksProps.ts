@@ -16,7 +16,7 @@ export type MyTaskProps = {
             name: string;
         };
     };
-    assigner: {
+    created_by: {
         id: string;
         username: string;
         email: string;

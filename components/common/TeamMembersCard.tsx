@@ -38,10 +38,11 @@ interface Props {
     location?: string;
     distance?: string;
     bio?: string;
-    charge?: string;
+    charge?: string | number;
     id?: number;
     isTasker?: boolean;
     taskId?: string;
+    currency?: string;
 }
 
 export const TeamMembersCard = ({
@@ -61,6 +62,7 @@ export const TeamMembersCard = ({
     id,
     isTasker,
     taskId,
+    currency,
 }: Props) => {
     const { data: user } = useUser();
     const userId = tasker;
@@ -188,13 +190,13 @@ export const TeamMembersCard = ({
                                     />
                                     <span> {awardPercentage}</span>
                                 </span>
-                                <span className="location d-flex align-items-center">
+                                {/* <span className="location d-flex align-items-center">
                                     <FontAwesomeIcon
                                         className="location"
                                         icon={faLocationArrow}
                                     />
                                     <span> {distance}</span>
-                                </span>
+                                </span> */}
                             </div>
                         </div>
                     </div>
@@ -230,7 +232,9 @@ export const TeamMembersCard = ({
                                 />
                             </div>
                         ) : (
-                            <span className="task-price">{charge}</span>
+                            <span className="task-price">
+                                {currency} {charge}
+                            </span>
                         )}
                     </a>
                 </Link>
@@ -319,30 +323,30 @@ export const TeamMembersCard = ({
                         <BigButton
                             btnTitle={"Approved"}
                             backgroundColor={"#30b32c"}
-                            // handleClick={() => {
-                            //     bookingApproval(
-                            //         { booking: id },
-                            //         {
-                            //             onSuccess: () => {
-                            //                 toast.success(
-                            //                     "Booking Approved and Task Created"
-                            //                 );
-                            //                 queryClient.invalidateQueries([
-                            //                     "get-my-applicants",
-                            //                 ]);
-                            //             },
-                            //             onError: (error: any) => {
-                            //                 //
-                            //                 //     "Booking is approved",
-                            //                 //     error.booking.message
-                            //                 // );
-                            //                 toast.error(
-                            //                     "This booking is already approved."
-                            //                 );
-                            //             },
-                            //         }
-                            //     );
-                            //}}
+                            handleClick={() => {
+                                bookingApproval(
+                                    { booking: id },
+                                    {
+                                        onSuccess: () => {
+                                            toast.success(
+                                                "Booking Approved and Task Created"
+                                            );
+                                            queryClient.invalidateQueries([
+                                                "get-my-applicants",
+                                            ]);
+                                        },
+                                        onError: (error: any) => {
+                                            //
+                                            //     "Booking is approved",
+                                            //     error.booking.message
+                                            // );
+                                            toast.error(
+                                                "This booking is already approved."
+                                            );
+                                        },
+                                    }
+                                );
+                            }}
                             textColor={"#fff"}
                         />
                     )}

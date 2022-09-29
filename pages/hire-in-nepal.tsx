@@ -3,17 +3,29 @@ import LongSquareImageCard from "@components/common/LongSquareImageCard";
 import { SearchInputField } from "@components/common/SearchInputField";
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import Layout from "@components/Layout";
-import type { NextPage } from "next";
+import { TextInput } from "@mantine/core";
+import { useQuery } from "@tanstack/react-query";
+import urls from "constants/urls";
+import { useTaskers } from "hooks/tasker/use-taskers";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import {
     hireInNepalBrowseTalent,
     topSkillsInNepal,
 } from "staticData/hireInNepal";
-import { DUMMY_TASKS } from "types/tasks";
-import searchValidationSchema from "utils/formValidation/searchValidation";
+
 const HireInNepal: NextPage = () => {
+    const [search, setSearch] = useState("");
+    const searchQuery = `search=${search}&country=Nepal`;
+
+    const { data: taskerPages } = useTaskers(searchQuery);
+
+    const taskersInNepal = taskerPages?.pages.map((page) => page.result).flat();
+
+    console.log("taskers in nepal", taskersInNepal);
     return (
-        <Layout title="Hire in Nepal | Cipher">
+        <Layout title="Hire in Nepal | Homaale">
             <Container fluid="xl" className="px-5">
                 <section className="hire-in-nepal">
                     <BreadCrumb currentPage="Hire in Nepal" />
@@ -37,14 +49,22 @@ const HireInNepal: NextPage = () => {
                         <p>Connect with a freelancer from Nepal</p>
                         <Row>
                             <Col md={4}>
-                                <SearchInputField
+                                {/* <SearchInputField
                                     validationSchema={searchValidationSchema}
                                     placeholder="Search for a Tasker"
+                                
+                                /> */}
+                                <TextInput
+                                    placeholder="Search for a Tasker"
+                                    value={search}
+                                    onChange={(e) =>
+                                        setSearch(e.currentTarget.value)
+                                    }
                                 />
                             </Col>
                         </Row>
 
-                        <Row className="g-5">
+                        {/* <Row className="g-5">
                             {DUMMY_TASKS.map((item, index) => (
                                 <Col lg={4} md={6} sm={12} key={index}>
                                     <TeamMembersCard
@@ -62,22 +82,32 @@ const HireInNepal: NextPage = () => {
                                     />
                                 </Col>
                             ))}
-                        </Row>
+                        </Row> */}
                         <Row className="g-5 pt-5">
-                            {DUMMY_TASKS.map((item, index) => (
+                            {taskersInNepal?.map((item, index: number) => (
                                 <Col lg={4} md={6} sm={12} key={index}>
                                     <TeamMembersCard
-                                        image={item?.user?.profileImage}
-                                        name={item?.user?.username}
-                                        speciality={item?.user?.category}
-                                        rating={item?.rating?.average}
-                                        happyClients={item?.likes}
-                                        awardPercentage={item?.rewardPercentage}
-                                        location={item?.user?.location}
-                                        distance={"2 km"}
-                                        bio={item?.user?.bio}
-                                        charge={item?.price}
-                                        tasker={""}
+                                        image={item?.profile_image}
+                                        name={
+                                            item?.user?.first_name +
+                                            item?.user?.middle_name +
+                                            item?.user?.last_name
+                                        }
+                                        speciality={item?.designation}
+                                        rating={item?.rating?.user_rating_count}
+                                        happyClients={
+                                            item?.stats?.happy_clients
+                                        }
+                                        awardPercentage={
+                                            item?.stats?.success_rate
+                                        }
+                                        location={item?.country.name}
+                                        distance={""}
+                                        bio={item?.bio}
+                                        charge={item?.hourly_rate}
+                                        tasker={item?.user?.id}
+                                        isTasker={true}
+                                        currency={item?.charge_currency?.symbol}
                                     />
                                 </Col>
                             ))}
@@ -96,10 +126,10 @@ const HireInNepal: NextPage = () => {
                     </div>
                     <div className="hire-in-nepal__bottom-container">
                         <LongSquareImageCard
-                            title="An employee takes home 10% more with Cipher Payroll"
+                            title="An employee takes home 10% more with Homaale Payroll"
                             image="/hireinnepal/plant.svg"
                             imageOnRight={true}
-                            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500."
+                            description="Choosing Homaale as your single provider of HR, payroll, recruitment and learning solutions will help you attract, engage and retain workers more effectively"
                         />
                     </div>
                 </section>

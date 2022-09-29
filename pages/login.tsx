@@ -11,6 +11,8 @@ import { useGetProfile } from "hooks/profile/useGetProfile";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
+import { useCallback } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
@@ -19,8 +21,9 @@ import { isSubmittingClass } from "utils/helpers";
 const Login = () => {
     const router = useRouter();
     const [fcmToken, setFcmToken] = useState("");
-    const { mutate, isLoading } = useLogin();
+    const { mutate: loginMutation, isLoading } = useLogin();
     const [isPhoneNumber, setIsPhoneNumber] = useState(false);
+    const [isLoginSuccess, setIsLoginSuccess] = useState(false);
 
     const getFCMTOKEN = async () => {
         if (typeof window !== "undefined") {
@@ -51,7 +54,21 @@ const Login = () => {
         setIsPhoneNumber(false);
     };
 
-    const { data: profile, isLoading: isProfileLoading } = useGetProfile();
+    const { data: profile, fetchStatus: profileFetchStatus } = useGetProfile();
+
+    const handleRedirectAfterLogin = useCallback(() => {
+        if (!isLoginSuccess || profileFetchStatus === "fetching") return;
+        const { next } = router.query;
+        const redirectLink = !profile
+            ? "/settings/account/individual"
+            : next
+            ? next
+            : "/home";
+        router.push(redirectLink.toString());
+        toast.success("Login successful");
+    }, [isLoginSuccess, profileFetchStatus, router, profile]);
+
+    useEffect(handleRedirectAfterLogin, [handleRedirectAfterLogin]);
 
     return (
         <OnBoardingLayout
@@ -76,22 +93,12 @@ const Login = () => {
                             fcm_token: fcmToken ? fcmToken : null,
                         };
 
-                        mutate(newValues, {
+                        loginMutation(newValues, {
                             onError: (error) => {
                                 toast.error(error.message);
                             },
                             onSuccess: () => {
-                                // const { next } = router.query;
-                                toast.success("Login Successful!");
-                                // if (profile) {
-                                //     router.push(
-                                //         next && typeof next === "string"
-                                //             ? next
-                                //             : "/home"
-                                //     );
-                                //     return;
-                                // }
-                                router.push("/home");
+                                setIsLoginSuccess(true);
                             },
                         });
                     }}
@@ -144,7 +151,7 @@ const Login = () => {
 
                             <div className="button-wrapper-social d-flex justify-content-evenly">
                                 <Google />
-                                <FacebookLogin />
+                                {/* <FacebookLogin /> */}
                             </div>
                         </Form>
                     )}

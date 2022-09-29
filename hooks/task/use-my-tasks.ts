@@ -5,7 +5,7 @@ import type { RecentProps } from "types/serviceCard";
 import { axiosClient } from "utils/axiosClient";
 
 export const useMyTasks = (taskerId: string) => {
-    return useQuery<RecentProps>(["my-tasks"], async () => {
+    return useQuery<RecentProps>(["my-tasks", taskerId], async () => {
         try {
             const { data } = await axiosClient.get<RecentProps>(
                 `${urls.task.my_task}&tasker=${taskerId}`

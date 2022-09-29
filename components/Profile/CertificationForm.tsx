@@ -1,8 +1,13 @@
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import MantineDateField from "@components/common/MantineDateField";
 import { PostCard } from "@components/PostTask/PostCard";
-import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
+import {
+    faCalendarDays,
+    faSquareCheck,
+} from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
@@ -71,7 +76,17 @@ const CertificationForm = ({
                                           ? parseISO(editDetails.expire_date)
                                           : "",
                                   }
-                                : CertificationFormData
+                                : {
+                                      name: "",
+                                      issuing_organization: "",
+                                      description: "",
+                                      does_expire: false,
+                                      credential_id: "",
+                                      certificate_url: "",
+                                      issued_date: "",
+                                      expire_date: "",
+                                      id: 0,
+                                  }
                         }
                         validationSchema={certificateFormSchema}
                         onSubmit={async (values, action) => {
@@ -136,7 +151,7 @@ const CertificationForm = ({
                             action.resetForm();
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, setFieldValue, errors, touched }) => (
                             <Form autoComplete="off">
                                 <InputField
                                     type="text"
@@ -186,17 +201,41 @@ const CertificationForm = ({
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="issued_date"
                                             labelName="Issued Date"
                                             placeHolder="2022-03-06"
                                             touch={touched.issued_date}
                                             error={errors.issued_date}
                                             dateFormat="yyyy-MM-dd"
+                                        /> */}
+
+                                        <MantineDateField
+                                            name="issued_date"
+                                            labelName="Issued Date"
+                                            placeHolder="1999-06-03"
+                                            touch={Boolean(touched.issued_date)}
+                                            error={String(errors.issued_date)}
+                                            //fieldRequired={true}
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "issued_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                     <Col md={6}>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="expire_date"
                                             labelName="Expiration Date"
                                             placeHolder={
@@ -208,6 +247,33 @@ const CertificationForm = ({
                                             touch={touched.expire_date}
                                             error={errors.expire_date}
                                             disabled={toggle ? true : false}
+                                        /> */}
+                                        <MantineDateField
+                                            name="expire_date"
+                                            labelName="Expiration Date"
+                                            touch={Boolean(touched.expire_date)}
+                                            error={String(errors.expire_date)}
+                                            //fieldRequired={true}
+                                            placeHolder={
+                                                toggle
+                                                    ? "No Expiration Date"
+                                                    : "2022-03-06"
+                                            }
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "expire_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                     </Col>
                                 </Row>

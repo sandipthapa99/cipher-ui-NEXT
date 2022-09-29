@@ -5,11 +5,13 @@ import {
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Spoiler } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format } from "date-fns";
 import { useIsBookmarked } from "hooks/use-bookmarks";
 import { useData } from "hooks/use-data";
+import parser from "html-react-parser";
 import Link from "next/link";
 import type { ITask, TaskerCount } from "types/task";
 
@@ -22,53 +24,34 @@ interface TaskCardProps {
     isSaved?: boolean;
 }
 const TaskCard = ({ task, isSaved }: TaskCardProps) => {
-    const {
-        title,
-        description,
-        location,
-        start_date,
-        start_time,
-        status,
-        currency,
-        slug,
-        images,
-        id,
-    } = task;
+    const { title, description, location, status, currency, slug, images, id } =
+        task;
 
-    function getDateFromHours(time: any) {
-        time = time ? time?.split(":") : "";
-        const now = new Date();
-        return new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate(),
-            ...time
-        );
-    }
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", id],
         `${urls.task.taskApplicantsNumber}/${id}`
     );
     const applicants_count = taskApplicants?.data.count[0].tasker_count;
 
-    const formattedtime = getDateFromHours(start_time);
-
     const isTaskBookmarked = useIsBookmarked("entityservice", id);
     const queryClient = useQueryClient();
+    console.log("currency", task);
     return (
         <div className="task-card-block p-5">
-            <Link href={`${slug}`}>
+            <Link href={`/task/${id}`}>
                 <a>
                     <div className="task-card-block__header d-flex flex-column flex-sm-row justify-content-between">
                         <h1 className="title">{title}</h1>
                         <h2 className="charge">
-                            {currency ? currency?.symbol : "Rs"}{" "}
+                            {currency ? currency?.symbol : ""}{" "}
                             {task?.budget_from && `${task?.budget_from} -`}
                             {task?.budget_to}
                         </h2>
                     </div>
                     <div className="task-card-block__body">
-                        <p className="task-description">{description}</p>
+                        <p className="task-description">
+                            {parser(description)}
+                        </p>
                         <div className="task-location-time d-flex flex-column flex-sm-row">
                             <p className="d-flex align-items-center pe-4 location">
                                 <FontAwesomeIcon
@@ -82,9 +65,9 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
                                     icon={faCalendar}
                                     className="svg-icon"
                                 />
-                                {start_date
+                                {task.created_at
                                     ? format(
-                                          new Date(start_date),
+                                          new Date(task.created_at),
                                           "MMMM dd, yyyy"
                                       )
                                     : ""}
@@ -94,7 +77,9 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
                                     icon={faClockEight}
                                     className="svg-icon"
                                 />
-                                {format(new Date(formattedtime), "p")}
+                                {task.created_at
+                                    ? format(new Date(task.created_at), "p")
+                                    : ""}
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,6 @@ import {
     faGauge,
     faGear,
     faGift,
-    faRepeat,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Button, Divider, Text } from "@mantine/core";
@@ -28,11 +27,13 @@ export const ProfileModel = () => {
     const { data: profileDetails } = useGetProfile();
 
     const logout = useLogout({
-        onLogout: () =>
+        onLogout: () => {
+            if (router.pathname === "/") return;
             router.push({
                 pathname: "/login",
                 query: { next: router.pathname },
-            }),
+            });
+        },
     });
 
     const renderProfileSections = () => {

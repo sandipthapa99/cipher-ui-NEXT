@@ -13,8 +13,9 @@ import BankForm from "./AddBankForm";
 
 interface Display {
     showBankForm?: boolean;
+    showPrimaryBank?: boolean;
 }
-const AddBank = ({ showBankForm }: Display) => {
+const AddBank = ({ showBankForm, showPrimaryBank }: Display) => {
     const { data: BankDetails } = useData<UserBankDetails>(
         ["tasker-bank-account"],
         "/tasker/bank-details/"
@@ -35,65 +36,75 @@ const AddBank = ({ showBankForm }: Display) => {
         >
             <div className="content">
                 <h3>Bank Details</h3>
-                {primaryBank ? (
-                    <>
-                        <h5>Your Primary Bank</h5>
-                        <Row>
-                            <Col md={4}>
-                                <div className="d-flex account-wrapper card-block">
-                                    <FontAwesomeIcon
-                                        icon={faPencil}
-                                        className="svg-icon edit-icon"
-                                        onClick={() => {
-                                            setPrimaryBankId(primaryBank?.id);
-                                            setBankDetail(primaryBank);
-                                            setEdit(true);
-                                        }}
-                                    />
-                                    <div className="account-info">
-                                        <figure className="thumbnail-img">
-                                            <Image
-                                                src="/settings/bank.svg"
-                                                layout="fill"
-                                                height={45}
-                                                width={45}
-                                                objectFit="contain"
-                                                alt="bank-icon"
-                                            />
-                                        </figure>
-                                        <p>
-                                            {capitalise(
-                                                `${primaryBank?.bank_name.name.toLowerCase()}`
-                                            )}
-                                        </p>
-                                    </div>
-                                    <div className="linked">
-                                        <div className="primary">
-                                            <FontAwesomeIcon
-                                                icon={faBuildingColumns}
-                                                className="svg-icon"
-                                            />
+                <div
+                    style={
+                        showPrimaryBank
+                            ? { display: "block" }
+                            : { display: "none" }
+                    }
+                >
+                    {primaryBank ? (
+                        <>
+                            <h5>Your Primary Bank</h5>
+                            <Row>
+                                <Col md={4}>
+                                    <div className="d-flex account-wrapper card-block">
+                                        <FontAwesomeIcon
+                                            icon={faPencil}
+                                            className="svg-icon edit-icon"
+                                            onClick={() => {
+                                                setPrimaryBankId(
+                                                    primaryBank?.id
+                                                );
+                                                setBankDetail(primaryBank);
+                                                setEdit(true);
+                                            }}
+                                        />
+                                        <div className="account-info">
+                                            <figure className="thumbnail-img">
+                                                <Image
+                                                    src="/settings/bank.svg"
+                                                    layout="fill"
+                                                    height={45}
+                                                    width={45}
+                                                    objectFit="contain"
+                                                    alt="bank-icon"
+                                                />
+                                            </figure>
+                                            <p>
+                                                {capitalise(
+                                                    `${primaryBank?.bank_name.name.toLowerCase()}`
+                                                )}
+                                            </p>
                                         </div>
+                                        <div className="linked">
+                                            <div className="primary">
+                                                <FontAwesomeIcon
+                                                    icon={faBuildingColumns}
+                                                    className="svg-icon"
+                                                />
+                                            </div>
 
-                                        <div className="linked-icons">
-                                            <FontAwesomeIcon
-                                                icon={faLinkSimple}
-                                                className="svg-icon"
-                                            />
-                                            <a href="" className="link">
-                                                {primaryBank.is_verified
-                                                    ? "Linked"
-                                                    : "Pending"}
-                                            </a>
+                                            <div className="linked-icons">
+                                                <FontAwesomeIcon
+                                                    icon={faLinkSimple}
+                                                    className="svg-icon"
+                                                />
+                                                <a href="" className="link">
+                                                    {primaryBank.is_verified
+                                                        ? "Linked"
+                                                        : "Pending"}
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </Col>
-                        </Row>
-                    </>
-                ) : (
-                    ""
-                )}
+                                </Col>
+                            </Row>
+                        </>
+                    ) : (
+                        ""
+                    )}
+                </div>
             </div>
             <BankForm
                 id={primaryBankId}
