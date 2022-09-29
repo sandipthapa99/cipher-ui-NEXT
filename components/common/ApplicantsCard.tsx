@@ -68,6 +68,7 @@ export const ApplicantsCard = ({
 }: Props) => {
     const { data: user } = useUser();
     const userId = tasker;
+    console.log("🚀 ~ file: ApplicantsCard.tsx ~ line 71 ~ userId", userId);
     const isBookmarked = useIsBookmarked("user", userId);
 
     const queryClient = useQueryClient();

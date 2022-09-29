@@ -128,7 +128,9 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                         //     item ? `${item?.budget_to}` : ""
                                         // }
                                         taskId={taskId}
-                                        tasker={""}
+                                        tasker={
+                                            item ? item.created_by?.user.id : ""
+                                        }
                                         isTasker={false}
                                     />
                                 </Col>
