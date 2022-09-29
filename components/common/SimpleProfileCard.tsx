@@ -227,6 +227,7 @@ const SimpleProfileCard = ({
                     <BookNowButton
                         btnTitle="Approved"
                         backgroundColor={"#30b32c"}
+                        disabled={true}
                         //handleOnClick={handleLeaveTask}
                     />
                 ) : !requestedTask.is_accepted && !requestedTask.is_active ? (

@@ -1,4 +1,6 @@
+import { ApplicantsCard } from "@components/common/ApplicantsCard";
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
+import { MyBookingsCard } from "@components/SearchTask/MyBookings";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Loader } from "@mantine/core";
@@ -67,10 +69,17 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                     {taskApplicants &&
                         taskApplicants.data.result.map((item: any) =>
                             item.is_active ? (
-                                <Col md={12} lg={6} key={item.id}>
-                                    <TeamMembersCard
+                                <Col
+                                    md={12}
+                                    lg={12}
+                                    xl={12}
+                                    xxl={6}
+                                    key={item.id}
+                                >
+                                    <ApplicantsCard
                                         collabButton={false}
                                         id={item.id}
+                                        //  bookingId={}
                                         image={
                                             item
                                                 ? item.created_by.profile_image
@@ -109,7 +118,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                                 : ""
                                         }
                                         distance={"2 km"}
-                                        bio={item ? item?.description : ""}
+                                        bio={item ? item?.created_by.bio : ""}
                                         charge={
                                             item
                                                 ? `${item?.created_by?.charge_currency?.symbol} ${item?.created_by?.hourly_rate}`
@@ -119,7 +128,9 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                         //     item ? `${item?.budget_to}` : ""
                                         // }
                                         taskId={taskId}
-                                        tasker={""}
+                                        tasker={
+                                            item ? item.created_by?.user.id : ""
+                                        }
                                         isTasker={false}
                                     />
                                 </Col>

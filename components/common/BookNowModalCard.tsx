@@ -86,7 +86,9 @@ const BookNowModalCard = ({
                                         ? "/hr"
                                         : budget_type === "Monthly"
                                         ? "/mn"
-                                        : "/Project"}
+                                        : budget_type === "Daily"
+                                        ? "/daily"
+                                        : "/project"}
                                 </span>
                             </h4>
                         </div>
