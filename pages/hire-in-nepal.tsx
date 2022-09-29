@@ -10,10 +10,7 @@ import { useTaskers } from "hooks/tasker/use-taskers";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import {
-    hireInNepalBrowseTalent,
-    topSkillsInNepal,
-} from "staticData/hireInNepal";
+import { hireInNepalBrowseTalent } from "staticData/hireInNepal";
 
 import { useTopSkills } from "./freelance-tasks";
 
