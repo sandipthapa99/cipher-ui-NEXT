@@ -241,7 +241,7 @@ export const TeamMembersCard = ({
             </div>
             {isTasker ? null : (
                 <div className="d-flex align-items-center gap-3 pt-3">
-                    {/* {approvedTasker && !approvedTasker.is_accepted ? (
+                    {approvedTasker && !approvedTasker.is_accepted ? (
                         <>
                             <BigButton
                                 btnTitle={"Decline"}
@@ -323,33 +323,33 @@ export const TeamMembersCard = ({
                         <BigButton
                             btnTitle={"Approved"}
                             backgroundColor={"#30b32c"}
-                            // handleClick={() => {
-                            //     bookingApproval(
-                            //         { booking: id },
-                            //         {
-                            //             onSuccess: () => {
-                            //                 toast.success(
-                            //                     "Booking Approved and Task Created"
-                            //                 );
-                            //                 queryClient.invalidateQueries([
-                            //                     "get-my-applicants",
-                            //                 ]);
-                            //             },
-                            //             onError: (error: any) => {
-                            //                 //
-                            //                 //     "Booking is approved",
-                            //                 //     error.booking.message
-                            //                 // );
-                            //                 toast.error(
-                            //                     "This booking is already approved."
-                            //                 );
-                            //             },
-                            //         }
-                            //     );
-                            //}}
+                            handleClick={() => {
+                                bookingApproval(
+                                    { booking: id },
+                                    {
+                                        onSuccess: () => {
+                                            toast.success(
+                                                "Booking Approved and Task Created"
+                                            );
+                                            queryClient.invalidateQueries([
+                                                "get-my-applicants",
+                                            ]);
+                                        },
+                                        onError: (error: any) => {
+                                            //
+                                            //     "Booking is approved",
+                                            //     error.booking.message
+                                            // );
+                                            toast.error(
+                                                "This booking is already approved."
+                                            );
+                                        },
+                                    }
+                                );
+                            }}
                             textColor={"#fff"}
                         />
-                    )} */}
+                    )}
                 </div>
             )}
         </div>

@@ -106,6 +106,7 @@ const HireInNepal: NextPage = () => {
                                         bio={item?.bio}
                                         charge={item?.hourly_rate}
                                         tasker={item?.user?.id}
+                                        isTasker={true}
                                         currency={item?.charge_currency?.symbol}
                                     />
                                 </Col>

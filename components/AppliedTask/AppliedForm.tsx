@@ -124,7 +124,7 @@ const AppliedForm = ({
                                     ]);
                                     //toggleSuccessModal();
                                     setShow(false);
-                                    //     router.push("/task/checkout");
+                                    router.push("/home");
                                 },
                                 onError: (error) => {
                                     // const errors = Object.values(
