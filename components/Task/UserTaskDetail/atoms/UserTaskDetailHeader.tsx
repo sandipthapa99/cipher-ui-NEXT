@@ -87,7 +87,7 @@ export const UserTaskDetailHeader = ({
                             </div>
                         ))} */}
                     <figure className="td-user-image-container">
-                        {taskerDetail.is_profile_verified ? (
+                        {taskerDetail?.is_profile_verified ? (
                             <FontAwesomeIcon
                                 icon={faBadgeCheck}
                                 className="badge-icon"
@@ -126,8 +126,8 @@ export const UserTaskDetailHeader = ({
 
                         <Image
                             src={
-                                taskerDetail.profile_image
-                                    ? taskerDetail.profile_image
+                                taskerDetail?.profile_image
+                                    ? taskerDetail?.profile_image
                                     : "/userprofile/unknownPerson.jpg"
                             }
                             alt="profile-pic"
