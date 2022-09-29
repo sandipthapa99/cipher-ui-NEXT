@@ -1,7 +1,9 @@
 import { Rating } from "@smastrom/react-rating";
 import { Formik, useFormik } from "formik";
+import { useUser } from "hooks/auth/useUser";
 import { useForm } from "hooks/use-form";
 import { Col, Form, Row } from "react-bootstrap";
+import { useWithLogin } from "store/use-login-prompt-store";
 
 interface ReviewData {
     review: string;
@@ -9,6 +11,8 @@ interface ReviewData {
 }
 export const AddReviewForm = () => {
     const { mutate } = useForm(`/task/rating/`);
+    const { data: userDetails } = useUser();
+    const withLogin = useWithLogin();
 
     const { handleSubmit, getFieldProps, values, setFieldValue } =
         useFormik<ReviewData>({
@@ -57,6 +61,7 @@ export const AddReviewForm = () => {
                     <button
                         className="td-mt-24 td-submit-review-btn"
                         type="submit"
+                        onClick={withLogin(handleSubmit)}
                     >
                         Submit review
                     </button>
