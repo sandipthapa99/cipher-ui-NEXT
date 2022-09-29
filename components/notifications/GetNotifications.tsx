@@ -77,6 +77,7 @@ export default function GetNotifications() {
                     >
                         {/* <ApproveNotify date={notification.created_date} /> */}
                         <PostNotifyTask
+                            is_requested={notification.is_requested}
                             taskTitle={`${notification.title} a service`}
                             taskObject={notification.object}
                             createdDate={notification.created_date}
@@ -95,6 +96,7 @@ export default function GetNotifications() {
                 return (
                     <div key={index}>
                         <PostNotifyTask
+                            is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
@@ -157,6 +159,7 @@ export default function GetNotifications() {
                             }
                         /> */}
                         <PostNotifyTask
+                            is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
@@ -183,7 +186,9 @@ export default function GetNotifications() {
                             user={notification?.created_for}
                             accept={true}
                             date={notification?.created_date}
-                            type="service"
+                            type={
+                                notification.is_requested ? "task" : "service"
+                            }
                         />
                     </div>
                 );
@@ -199,6 +204,7 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            is_requested={notification.is_requested}
                             title="Approved"
                             body={notification?.object}
                             user={notification?.created_for}
@@ -232,6 +238,7 @@ export default function GetNotifications() {
                     >
                         {/* <ApproveNotify date={notification.created_date} /> */}
                         <PostNotifyTask
+                            is_requested={notification.is_requested}
                             taskTitle={`${notification.title} a service`}
                             taskObject={notification.object}
                             createdDate={notification.created_date}
@@ -250,6 +257,7 @@ export default function GetNotifications() {
                 return (
                     <div key={index}>
                         <PostNotifyTask
+                            is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
@@ -312,6 +320,7 @@ export default function GetNotifications() {
                             }
                         /> */}
                         <PostNotifyTask
+                            is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
@@ -338,7 +347,9 @@ export default function GetNotifications() {
                             user={notification?.created_for}
                             accept={true}
                             date={notification?.created_date}
-                            type="service"
+                            type={
+                                notification.is_requested ? "task" : "service"
+                            }
                         />
                     </div>
                 );
@@ -354,6 +365,7 @@ export default function GetNotifications() {
                         }
                     >
                         <ApproveNotification
+                            is_requested={notification.is_requested}
                             title="Approved"
                             body={notification?.object}
                             user={notification?.created_for}

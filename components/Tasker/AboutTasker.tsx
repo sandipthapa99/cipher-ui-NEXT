@@ -107,7 +107,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                         id={id}
                                     />
 
-                                    <p className="text-center">{info.title}</p>
+                                    {/* <p className="text-center">{info.title}</p> */}
                                 </div>
                             ))}
                     </div>
