@@ -2,23 +2,18 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { createStyles, LoadingOverlay } from "@mantine/core";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import { useApplyTask } from "hooks/task/use-apply-task";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
 import { useRouter } from "next/router";
-import { parse } from "path";
-import React, { useMemo } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import type { BookNowModalCardProps } from "types/bookNow";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
-import { safeParse } from "utils/safeParse";
 
 const AppliedForm = ({
     service_id,

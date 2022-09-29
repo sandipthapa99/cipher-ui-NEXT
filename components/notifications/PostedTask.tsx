@@ -16,6 +16,7 @@ interface PostedNotifyProps {
     handleClick?: any;
     name?: string;
     type?: string;
+    is_requested: boolean;
 }
 
 export const PostNotifyTask = ({
@@ -25,6 +26,7 @@ export const PostNotifyTask = ({
     handleClick,
     name,
     slug,
+    is_requested,
     type,
 }: PostedNotifyProps) => {
     const { data: profile } = useGetProfile();
@@ -49,7 +51,7 @@ export const PostNotifyTask = ({
                         <span className="span-name" onClick={handleClick}>
                             You{" "}
                         </span>
-                        {type} a service
+                        {type} a {is_requested ? "task" : "service"}
                         <span
                             className="span-name"
                             onClick={() => {

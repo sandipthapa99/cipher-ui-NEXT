@@ -53,7 +53,7 @@ export const NotificationDropdown = () => {
 
         refetch();
     };
-    //
+    // console.log("todayNotifications", todayNotifications);
 
     const renderTodayNotifications = todayNotifications?.map(
         (notification: any, index: number) => {
@@ -74,6 +74,7 @@ export const NotificationDropdown = () => {
                     >
                         {/* <ApproveNotify date={notification.created_date} /> */}
                         <PostNotifyTask
+                            is_requested={notification.is_requested}
                             taskTitle={`${notification.title} a service`}
                             taskObject={notification.object}
                             createdDate={notification.created_date}
@@ -92,6 +93,7 @@ export const NotificationDropdown = () => {
                 return (
                     <div key={index}>
                         <PostNotifyTask
+                            is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
@@ -154,6 +156,7 @@ export const NotificationDropdown = () => {
                             }
                         /> */}
                         <PostNotifyTask
+                            is_requested={notification.is_requested}
                             taskTitle={notification?.title}
                             taskObject={notification?.object}
                             createdDate={notification?.created_date}
@@ -180,7 +183,9 @@ export const NotificationDropdown = () => {
                             user={notification?.created_for}
                             accept={true}
                             date={notification?.created_date}
-                            type="service"
+                            type={
+                                notification.is_requested ? "task" : "service"
+                            }
                         />
                     </div>
                 );
@@ -196,6 +201,7 @@ export const NotificationDropdown = () => {
                         }
                     >
                         <ApproveNotification
+                            is_requested={notification.is_requested}
                             title="Approved"
                             body={notification?.object}
                             user={notification?.created_for}

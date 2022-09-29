@@ -45,6 +45,7 @@ export const ApplyFormData: ApplyValueProps = {
     remarks: "",
     prerequesties: [],
     recursion: "",
+    budget_to: parseInt(""),
 };
 
 //Equipment form data

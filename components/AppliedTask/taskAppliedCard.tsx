@@ -24,7 +24,7 @@ interface TaskCardProps {
 }
 const TaskCard = ({ task, type }: TaskCardProps) => {
     const router = useRouter();
-    const query = router.query.slug;
+    const { id } = router.query;
     const {
         id: taskId,
         title,
@@ -34,7 +34,6 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
         currency,
         start_time: time,
         start_date: date,
-
         slug,
     } = task;
 
@@ -47,7 +46,7 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
 
     return (
         <div
-            data-active={JSON.stringify(query === slug)}
+            data-active={JSON.stringify(String(id) === taskId)}
             className="task-applied-card-block"
         >
             <Link
