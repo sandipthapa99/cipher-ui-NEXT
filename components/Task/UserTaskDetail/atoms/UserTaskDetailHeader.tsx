@@ -27,10 +27,6 @@ export const UserTaskDetailHeader = ({
     taskerDetail,
     maxHeaderWidth,
 }: UserTaskDetailHeaderProps) => {
-    console.log(
-        "🚀 ~ file: UserTaskDetailHeader.tsx ~ line 30 ~ taskerDetail",
-        taskerDetail
-    );
     const router = useRouter();
     const { data: user } = useUser();
     const [showHireMerchantModal, setShowHireMerchantModal] = useState(false);
