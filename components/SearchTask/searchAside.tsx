@@ -121,7 +121,9 @@ const ServiceNearYouCard = ({
                                     ? "/hr"
                                     : budget_type === "Monthly"
                                     ? "/mn"
-                                    : "/Project"}
+                                    : budget_type === "Daily"
+                                    ? "/daily"
+                                    : "/project"}
                             </h1>
                             {/* 
                             {currency + " "}
