@@ -8,6 +8,7 @@ import { Form, Formik } from "formik";
 import { useApplyTask } from "hooks/task/use-apply-task";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
 import { useRouter } from "next/router";
+import { parse } from "path";
 import React, { useMemo } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -17,6 +18,7 @@ import type { BookNowModalCardProps } from "types/bookNow";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import { safeParse } from "utils/safeParse";
 
 const AppliedForm = ({
     service_id,
@@ -36,7 +38,6 @@ const AppliedForm = ({
         isLoading: applyTaskLoading,
         data: BookingData,
     } = useBookNowTask();
-    const { classes } = useStyles();
 
     // const loadingOverlayVisible = useMemo(
     //     () => applyTaskLoading,
@@ -57,6 +58,10 @@ const AppliedForm = ({
         budget_to: number;
     }
     const queryClient = useQueryClient();
+
+    const taskDescription = description
+        ? description.replace(/<[^>]+>/g, "")
+        : "";
 
     return (
         <>
@@ -79,7 +84,9 @@ const AppliedForm = ({
                                 {budget_type}
                             </span>
                         </h4>
-                        <p>{description}</p>
+                        <h4>
+                            Description: <span> {taskDescription}</span>{" "}
+                        </h4>
                     </div>
                     <Formik
                         initialValues={ApplyFormData}
@@ -151,7 +158,7 @@ const AppliedForm = ({
                                     labelName="Remarks"
                                     touch={touched.remarks}
                                     error={errors.remarks}
-                                    placeHolder="Applying (Remark)"
+                                    placeHolder="Remarks ..."
                                     as="textarea"
                                 />
 
@@ -191,11 +198,4 @@ const AppliedForm = ({
         </>
     );
 };
-const useStyles = createStyles(() => ({
-    overlay: {
-        postion: "fixed",
-        inset: 0,
-        zIndex: 9999,
-    },
-}));
 export default AppliedForm;

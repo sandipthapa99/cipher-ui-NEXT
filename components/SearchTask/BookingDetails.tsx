@@ -32,12 +32,6 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
 
     const BookingDetail = data?.data;
 
-    BookingDetail &&
-        console.log(
-            "🚀 ~ file: BookingDetails.tsx ~ line 36 ~ BookingDetails ~ BookingDetail",
-            BookingDetail?.requirements
-        );
-
     const taskVideosAndImages = [
         ...(BookingDetail?.images ?? []),
         ...(BookingDetail?.videos ?? []),
