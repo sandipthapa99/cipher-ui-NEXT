@@ -49,12 +49,21 @@ export const MyTaskOrder = ({
                 <Row>
                     <Col lg={2} md={6} sm={6} xs={12}>
                         <figure className="d-flex align-items-center justify-content-start h-100 w-100 order-detail-section__image">
+                            {!image && (
+                                <Image
+                                    src={"/placeholder/taskPlaceholder.png"}
+                                    alt="order-detail-image"
+                                    objectFit="contain"
+                                    height={160}
+                                    width={140}
+                                />
+                            )}
                             {image && (
                                 <Image
                                     src={image}
                                     alt="order-detail-image"
                                     height={160}
-                                    width={130}
+                                    width={140}
                                 />
                             )}
                         </figure>
