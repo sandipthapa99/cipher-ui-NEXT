@@ -10,6 +10,12 @@
             height: 100%;
             border-radius: 0.4rem;
         }
+
+        .anchor-button {
+            &:hover {
+                color: $secondary-color;
+            }
+        }
         .description {
             padding-top: 0rem;
 
