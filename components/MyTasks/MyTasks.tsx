@@ -1,5 +1,6 @@
 import { Alert, Col, Grid, Loader, Skeleton } from "@mantine/core";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import urls from "constants/urls";
 import { useUser } from "hooks/auth/useUser";
 import { useRouter } from "next/router";
 import React from "react";
@@ -16,7 +17,7 @@ export const MyTasks = () => {
         ["my-task", userId],
         async () => {
             const response = await axiosClient.get(
-                `/task/entity/service/?user=${userId}`
+                `${urls.task.task}?user=${userId}`
             );
             return response.data.result;
         },
@@ -62,11 +63,11 @@ export const MyTasks = () => {
                         >
                             <MyTaskOrder
                                 task_id={item?.id}
-                                assigner_id={item?.assigner?.id}
+                                assigner_id={item?.created_by?.id}
                                 created_at={item?.created_at}
                                 image={item?.images[0]?.media}
                                 title={item?.title}
-                                assigner_name={item?.assigner?.first_name}
+                                assigner_name={item?.created_by?.first_name}
                                 budget_from={item?.budget_from}
                                 budget-to={item?.budget_to}
                                 budget_type={item?.budget_type}

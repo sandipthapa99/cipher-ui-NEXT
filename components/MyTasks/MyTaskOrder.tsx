@@ -19,6 +19,10 @@ export const MyTaskOrder = ({
     budget_type,
     status,
 }: MyTaskOrderProps) => {
+    console.log(
+        "🚀 ~ file: MyTaskOrder.tsx ~ line 22 ~ assigner_id",
+        assigner_id
+    );
     const [isAuthor, setIsAuthor] = useState(false);
     const { data: userData } = useUser();
 
@@ -90,13 +94,13 @@ export const MyTaskOrder = ({
                     </Col>
                     <Col md={12} lg={4}>
                         <div className="badge-and-status w-100 d-flex">
-                            <figure className="d-flex w-100 author-image">
+                            <figure className="d-flex w-100 author-image mb-5">
                                 {isAuthor && (
                                     <Image
                                         src="/userprofile/author.png"
                                         alt="author-image"
-                                        height={62}
-                                        width={40}
+                                        height={50}
+                                        width={30}
                                     />
                                 )}
                             </figure>
