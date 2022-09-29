@@ -129,7 +129,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                         bio={item ? item?.description : ""}
                                         charge={
                                             item
-                                                ? `${item?.created_by?.charge_currency?.code} ${item?.created_by?.hourly_rate}`
+                                                ? `${item?.created_by?.charge_currency?.symbol} ${item?.created_by?.hourly_rate}`
                                                 : ""
                                         }
                                         // charge={
@@ -137,6 +137,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                         // }
                                         taskId={taskId}
                                         tasker={""}
+                                        isTasker={false}
                                     />
                                 </Col>
                             ) : null
