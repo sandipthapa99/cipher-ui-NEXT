@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import type { BookNowModalCardProps } from "types/bookNow";
 import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
+import { applyTaskSchema } from "utils/formValidation/applyTaskFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const AppliedForm = ({
@@ -85,7 +86,7 @@ const AppliedForm = ({
                     </div>
                     <Formik
                         initialValues={ApplyFormData}
-                        validationSchema={applyFormSchema}
+                        validationSchema={applyTaskSchema}
                         onSubmit={async (values) => {
                             const price = parseInt(values.price, 10);
                             if (isNaN(price) || !service_id) {
