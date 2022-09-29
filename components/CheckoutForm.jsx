@@ -4,11 +4,14 @@ import {
     useElements,
     useStripe,
 } from "@stripe/react-stripe-js";
+import { useRouter } from "next/router";
 import React from "react";
 
 export default function CheckoutForm() {
     const stripe = useStripe();
     const elements = useElements();
+    const router = useRouter();
+    console.log(router.pathname);
 
     const [message, setMessage] = React.useState(null);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -61,7 +64,11 @@ export default function CheckoutForm() {
             elements,
             confirmParams: {
                 // payment completion page
-                return_url: "http://localhost:3005/payment-success",
+                return_url: `${
+                    window != "undefined"
+                        ? window.location.origin
+                        : "http://localhost:3005/"
+                }/payment-success`,
             },
         });
 
