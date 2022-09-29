@@ -12,7 +12,7 @@ export const MyTasks = () => {
     const { data: userData } = useUser();
     const userId = userData?.id ?? "";
     const { data: mytaskData, isLoading } = useQuery(
-        ["my-task"],
+        ["my-task", userId],
         async () => {
             const response = await axiosClient.get(
                 `/task/entity/service/?user=${userId}`

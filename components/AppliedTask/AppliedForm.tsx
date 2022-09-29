@@ -7,6 +7,7 @@ import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useApplyTask } from "hooks/task/use-apply-task";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
+import parse from "html-react-parser";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 import Button from "react-bootstrap/Button";
@@ -74,12 +75,16 @@ const AppliedForm = ({
                             Price:{" "}
                             <span>
                                 {currency?.code} &nbsp;
-                                {budget_from}
-                                {budget_to && "- " + budget_to}&nbsp;
-                                {budget_type}
+                                {budget_from ? budget_from + " - " : ""}
+                                {budget_to}{" "}
+                                {budget_type === "Hourly"
+                                    ? "/hr"
+                                    : budget_type === "Monthly"
+                                    ? "/mn"
+                                    : "/Project"}
                             </span>
                         </h4>
-                        <p>{description}</p>
+                        {description && parse(description)}
                     </div>
                     <Formik
                         initialValues={ApplyFormData}
