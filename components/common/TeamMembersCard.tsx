@@ -239,7 +239,7 @@ export const TeamMembersCard = ({
                     </a>
                 </Link>
             </div>
-            {isTasker ? null : (
+            {/* {isTasker ? null : (
                 <div className="d-flex align-items-center gap-3 pt-3">
                     {approvedTasker && !approvedTasker.is_accepted ? (
                         <>
@@ -351,7 +351,7 @@ export const TeamMembersCard = ({
                         />
                     )}
                 </div>
-            )}
+            )} */}
         </div>
     );
 };
