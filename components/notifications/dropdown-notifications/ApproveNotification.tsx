@@ -145,6 +145,7 @@ interface ApproveNotificationProps {
     type?: string;
     slug?: string;
     bookingId?: string;
+    is_requested?: boolean;
 }
 
 export const ApproveNotification = ({
@@ -157,6 +158,7 @@ export const ApproveNotification = ({
     type,
     slug,
     bookingId,
+    is_requested,
 }: ApproveNotificationProps) => {
     const { data: bookingData } = useQuery<BookingDetails>(
         ["booking", bookingId],
