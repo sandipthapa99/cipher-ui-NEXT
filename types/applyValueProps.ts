@@ -3,4 +3,5 @@ export interface ApplyValueProps {
     remarks: string;
     prerequesties: string[];
     recursion: string;
+    budget_to: number;
 }
