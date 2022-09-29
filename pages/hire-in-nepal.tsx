@@ -1,13 +1,10 @@
 import { BreadCrumb } from "@components/common/BreadCrumb";
 import LongSquareImageCard from "@components/common/LongSquareImageCard";
-import { SearchInputField } from "@components/common/SearchInputField";
 import { TeamMembersCard } from "@components/common/TeamMembersCard";
 import Layout from "@components/Layout";
 import { TextInput } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
-import urls from "constants/urls";
 import { useTaskers } from "hooks/tasker/use-taskers";
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type { NextPage } from "next";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { hireInNepalBrowseTalent } from "staticData/hireInNepal";
@@ -49,11 +46,6 @@ const HireInNepal: NextPage = () => {
                         <p>Connect with a freelancer from Nepal</p>
                         <Row>
                             <Col md={4}>
-                                {/* <SearchInputField
-                                    validationSchema={searchValidationSchema}
-                                    placeholder="Search for a Tasker"
-                                
-                                /> */}
                                 <TextInput
                                     placeholder="Search for a Tasker"
                                     value={search}
