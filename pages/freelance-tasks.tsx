@@ -33,10 +33,6 @@ const useTopSkills = () => {
 
 const FreelanceTasks: NextPage = () => {
     const { data: topSkillsInNepal } = useTopSkills();
-    console.log(
-        "🚀 ~ file: freelance-tasks.tsx ~ line 33 ~ topSkillsInNepal",
-        topSkillsInNepal
-    );
     const { data: servicesData } = useData<ServicesValueProps>(
         ["all-services"],
         "/task/service/"

@@ -8,9 +8,6 @@ export const applyFormSchema = ({
     budget_to: number;
 }) =>
     Yup.object().shape({
-        price: Yup.number()
-            .required("Price is required")
-            .min(0, "Price must be greater than 0"),
         remarks: Yup.string().required("Remarks is required"),
         budget_to: Yup.number()
             .required("Required field")
