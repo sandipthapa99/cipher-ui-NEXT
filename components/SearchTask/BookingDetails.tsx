@@ -205,6 +205,9 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                     <li>Start Date: {BookingDetail?.start_date}</li>
                     <li>Task Days: {BookingDetail?.start_time}</li>
                 </ul>
+                <h3>Budget</h3>
+                {BookingDetail?.entity_service?.currency?.symbol}{" "}
+                {BookingDetail?.budget_to}
                 <h3>Problem Description</h3>
                 <Spoiler
                     maxHeight={100}
