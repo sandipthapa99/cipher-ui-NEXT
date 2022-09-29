@@ -36,10 +36,6 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
         start_date: date,
         slug,
     } = task;
-    console.log(
-        "🚀 ~ file: taskAppliedCard.tsx ~ line 40 ~ TaskCard ~ task",
-        task
-    );
 
     const { data: taskApplicants } = useData<TaskerCount>(
         ["get-task-applicants", taskId],

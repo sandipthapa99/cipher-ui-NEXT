@@ -2,20 +2,16 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
-import { createStyles, LoadingOverlay } from "@mantine/core";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import { useApplyTask } from "hooks/task/use-apply-task";
 import { useBookNowTask } from "hooks/task/use-book--now-task";
-import parse from "html-react-parser";
 import { useRouter } from "next/router";
-import React, { useMemo } from "react";
-import { Col, Row } from "react-bootstrap";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import { useToggleSuccessModal } from "store/use-success-modal";
 import type { BookNowModalCardProps } from "types/bookNow";
+import { ApplyFormData } from "utils/formData";
 import { applyFormSchema } from "utils/formValidation/applyFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
@@ -37,7 +33,6 @@ const AppliedForm = ({
         isLoading: applyTaskLoading,
         data: BookingData,
     } = useBookNowTask();
-    const { classes } = useStyles();
 
     // const loadingOverlayVisible = useMemo(
     //     () => applyTaskLoading,
@@ -58,6 +53,10 @@ const AppliedForm = ({
         budget_to: number;
     }
     const queryClient = useQueryClient();
+
+    const taskDescription = description
+        ? description.replace(/<[^>]+>/g, "")
+        : "";
 
     return (
         <>
@@ -86,22 +85,13 @@ const AppliedForm = ({
                                     : "/project"}
                             </span>
                         </h4>
-                        {description && parse(description)}
+                        <h4>
+                            Description: <span> {taskDescription}</span>{" "}
+                        </h4>
                     </div>
                     <Formik
-                        initialValues={{
-                            price: "",
-                            remarks: "",
-                            prerequesties: [],
-                            recursion: "",
-                            budget_to: budget_to,
-                        }}
-                        validationSchema={() =>
-                            applyFormSchema({
-                                budget_from: budget_from ?? 0,
-                                budget_to: budget_to ?? 100000000,
-                            })
-                        }
+                        initialValues={ApplyFormData}
+                        validationSchema={applyFormSchema}
                         onSubmit={async (values) => {
                             const applyTaskPayload: ApplyTaskPayload = {
                                 entity_service: service_id ?? "",
@@ -146,31 +136,23 @@ const AppliedForm = ({
                     >
                         {({ isSubmitting, errors, touched }) => (
                             <Form>
-                                {!budget_from ? (
-                                    ""
-                                ) : (
-                                    <Row>
-                                        <Col md={6}>
-                                            <InputField
-                                                labelName="Budget"
-                                                type="number"
-                                                name="budget_to"
-                                                error={errors.budget_to}
-                                                touch={touched.budget_to}
-                                                min={budget_from}
-                                                max={budget_to}
-                                                placeHolder="Your Price"
-                                                fieldRequired
-                                            />
-                                        </Col>
-                                    </Row>
-                                )}
+                                <div className="w-25">
+                                    <InputField
+                                        type="number"
+                                        name="price"
+                                        labelName="Your Price"
+                                        min="1"
+                                        error={errors.price}
+                                        touch={touched.price}
+                                        placeHolder="Enter your price"
+                                    />
+                                </div>
                                 <InputField
                                     name="remarks"
                                     labelName="Remarks"
                                     touch={touched.remarks}
                                     error={errors.remarks}
-                                    placeHolder="Applying (Remark)"
+                                    placeHolder="Remarks ..."
                                     as="textarea"
                                 />
 
@@ -210,11 +192,4 @@ const AppliedForm = ({
         </>
     );
 };
-const useStyles = createStyles(() => ({
-    overlay: {
-        postion: "fixed",
-        inset: 0,
-        zIndex: 9999,
-    },
-}));
 export default AppliedForm;

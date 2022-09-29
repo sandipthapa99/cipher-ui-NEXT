@@ -15,7 +15,7 @@ const TaskerLayout = ({ children }: { children: ReactNode }) => {
     return (
         <Layout title="Find Tasker | Homeaale">
             <section className="Tasker-section" id="Tasker-section">
-                <Container fluid="xl" className="px-5">
+                <Container fluid="xl" className="px-5 pb-5">
                     <SearchCategory
                         searchModal="tasker"
                         onSearchParamChange={setSearchParam}
