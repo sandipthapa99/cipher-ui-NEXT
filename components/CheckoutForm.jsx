@@ -51,7 +51,6 @@ export default function CheckoutForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (!stripe || !elements) {
             // Stripe.js has not yet loaded.
             // Make sure to disable form submission until Stripe.js has loaded.
