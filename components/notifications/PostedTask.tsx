@@ -17,6 +17,7 @@ interface PostedNotifyProps {
     name?: string;
     type?: string;
     is_requested: boolean;
+    read?: string | null;
 }
 
 export const PostNotifyTask = ({
@@ -28,12 +29,16 @@ export const PostNotifyTask = ({
     slug,
     is_requested,
     type,
+    read,
 }: PostedNotifyProps) => {
     const { data: profile } = useGetProfile();
     const router = useRouter();
 
     return (
-        <div className="d-flex align-items-center justify-content-between accepted-notification">
+        <div
+            className="d-flex align-items-center justify-content-between accepted-notification"
+            style={{ backgroundColor: read === null ? "#ecf7ff" : "#ebf9f1" }}
+        >
             <div className="d-flex notification-wrapper">
                 <figure className="d-flex flex-column justify-content-center notification-image">
                     <Image

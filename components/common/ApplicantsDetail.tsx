@@ -99,7 +99,7 @@ const ApplicantsDetail = ({
                         <h3>Description</h3>
                         {BookingDetail?.description}
                         <h3>Budget</h3>
-                        {BookingDetail?.created_by.charge_currency.symbol}{" "}
+                        {BookingDetail?.entity_service.currency.symbol}{" "}
                         {BookingDetail?.budget_from
                             ? `${BookingDetail?.budget_from + " - "}`
                             : ""}
