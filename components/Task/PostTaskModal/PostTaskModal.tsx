@@ -8,7 +8,10 @@ import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
-import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
+import {
+    TaskCurrency,
+    useCurrencies,
+} from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import { LoadingOverlay, Radio } from "@mantine/core";
 import {
@@ -137,7 +140,7 @@ export const PostTaskModal = () => {
             end_date: "2023-01-04",
             start_time: "01:00",
             end_time: "03:00",
-            currency: taskDetail ? String(taskDetail?.currency?.id) : "",
+            currency: taskDetail ? String(taskDetail?.currency?.id) : "113",
             images: "",
             videos: "",
             is_active: true,

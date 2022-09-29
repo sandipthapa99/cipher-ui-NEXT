@@ -81,7 +81,9 @@ const AppliedForm = ({
                                     ? "/hr"
                                     : budget_type === "Monthly"
                                     ? "/mn"
-                                    : "/Project"}
+                                    : budget_type === "Daily"
+                                    ? "/daily"
+                                    : "/project"}
                             </span>
                         </h4>
                         {description && parse(description)}
@@ -101,16 +103,9 @@ const AppliedForm = ({
                             })
                         }
                         onSubmit={async (values) => {
-                            const price = parseInt(values.price, 10);
-                            if (isNaN(price) || !service_id) {
-                                return toast.error(
-                                    "Price must be a number and task id must be provided"
-                                );
-                            }
-
                             const applyTaskPayload: ApplyTaskPayload = {
-                                entity_service: service_id,
-                                budget_to: price,
+                                entity_service: service_id ?? "",
+                                budget_to: budget_to ?? parseInt(""),
                                 description: values.remarks,
                                 // pre_requisites: JSON.stringify(
                                 //     values.prerequesties
