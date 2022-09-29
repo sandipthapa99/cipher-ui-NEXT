@@ -51,8 +51,15 @@ export default function GetNotifications() {
 
         return date.getDate() !== today.getDate();
     });
-    const readSingleNotification = async (slug: string, id: number) => {
-        router.push(`/service/${slug}`);
+    const readSingleNotification = async (
+        slug: string,
+        id: number,
+        type: string
+    ) => {
+        if (slug !== null) {
+            router.push(`/${type}/${slug}`);
+        }
+
         await axiosClient.post(`/notification/read/?id=${id}`);
         await queryClient.invalidateQueries(["notifications"]);
     };
@@ -87,7 +94,10 @@ export default function GetNotifications() {
                             handleClick={() =>
                                 readSingleNotification(
                                     notification?.object_slug,
-                                    notification?.id
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
                                 )
                             }
                         />
@@ -106,7 +116,10 @@ export default function GetNotifications() {
                             handleClick={() =>
                                 readSingleNotification(
                                     notification?.object_slug,
-                                    notification?.id
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
                                 )
                             }
                         />
@@ -138,14 +151,15 @@ export default function GetNotifications() {
             //         </div>
             //     );
             // }
-            else if (notification.title === "booked") {
+            else if (notification.title === "booking") {
                 return (
                     <div
                         key={index}
                         onClick={() =>
                             readSingleNotification(
                                 notification?.object_slug,
-                                notification?.id
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
                             )
                         }
                     >
@@ -178,7 +192,8 @@ export default function GetNotifications() {
                         onClick={() =>
                             readSingleNotification(
                                 notification?.object_slug,
-                                notification?.id
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
                             )
                         }
                     >
@@ -203,7 +218,8 @@ export default function GetNotifications() {
                         onClick={() =>
                             readSingleNotification(
                                 notification?.object_slug,
-                                notification?.id
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
                             )
                         }
                     >
@@ -253,7 +269,10 @@ export default function GetNotifications() {
                             handleClick={() =>
                                 readSingleNotification(
                                     notification?.object_slug,
-                                    notification?.id
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
                                 )
                             }
                         />
@@ -272,7 +291,10 @@ export default function GetNotifications() {
                             handleClick={() =>
                                 readSingleNotification(
                                     notification?.object_slug,
-                                    notification?.id
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
                                 )
                             }
                         />
@@ -304,14 +326,15 @@ export default function GetNotifications() {
             //         </div>
             //     );
             // }
-            else if (notification.title === "booked") {
+            else if (notification.title === "booking") {
                 return (
                     <div
                         key={index}
                         onClick={() =>
                             readSingleNotification(
                                 notification?.object_slug,
-                                notification?.id
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
                             )
                         }
                     >
@@ -344,7 +367,8 @@ export default function GetNotifications() {
                         onClick={() =>
                             readSingleNotification(
                                 notification?.object_slug,
-                                notification?.id
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
                             )
                         }
                     >
@@ -369,7 +393,8 @@ export default function GetNotifications() {
                         onClick={() =>
                             readSingleNotification(
                                 notification?.object_slug,
-                                notification?.id
+                                notification?.id,
+                                notification?.is_requested ? "task" : "service"
                             )
                         }
                     >
