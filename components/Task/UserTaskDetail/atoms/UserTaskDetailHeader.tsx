@@ -126,8 +126,8 @@ export const UserTaskDetailHeader = ({
 
                         <Image
                             src={
-                                taskerDetail.profile_image
-                                    ? taskerDetail.profile_image
+                                taskerDetail?.profile_image
+                                    ? taskerDetail?.profile_image
                                     : "/userprofile/unknownPerson.jpg"
                             }
                             alt="profile-pic"
