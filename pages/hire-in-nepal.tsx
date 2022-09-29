@@ -15,6 +15,8 @@ import {
     topSkillsInNepal,
 } from "staticData/hireInNepal";
 
+import { useTopSkills } from "./freelance-tasks";
+
 const HireInNepal: NextPage = () => {
     const [search, setSearch] = useState("");
     const searchQuery = `search=${search}&country=Nepal`;
@@ -23,7 +25,8 @@ const HireInNepal: NextPage = () => {
 
     const taskersInNepal = taskerPages?.pages.map((page) => page.result).flat();
 
-    console.log("taskers in nepal", taskersInNepal);
+    const { data: topSkillsInNepal } = useTopSkills();
+
     return (
         <Layout title="Hire in Nepal | Homaale">
             <Container fluid="xl" className="px-5">
@@ -118,10 +121,12 @@ const HireInNepal: NextPage = () => {
                     <div className="hire-in-nepal__top-skills">
                         <h1>Top skills in Nepal</h1>
                         <Row className="gx-5">
-                            {topSkillsInNepal &&
-                                topSkillsInNepal.map((skill) => (
-                                    <Col md={3} sm={6} xs={6} key={skill.id}>
-                                        <p>{skill.name}</p>
+                            {topSkillsInNepal[0]?.skills &&
+                                JSON.parse(
+                                    topSkillsInNepal[0]?.skills ?? []
+                                ).map((skill: string, index: number) => (
+                                    <Col md={3} sm={6} xs={6} key={index}>
+                                        <p>{skill}</p>
                                     </Col>
                                 ))}
                         </Row>

@@ -18,7 +18,7 @@ export interface TopSkill {
     skills: string;
     country: string;
 }
-const useTopSkills = () => {
+export const useTopSkills = () => {
     return useQuery(
         ["top-skills"],
         () =>
@@ -111,11 +111,13 @@ const FreelanceTasks: NextPage = () => {
                             <h1>Top skills in Nepal</h1>
                             <Row>
                                 {/* {!topSkillsInNepal && } */}
-                                {topSkillsInNepal.map((skill) => (
-                                    <Col md={3} sm={6} xs={6} key={skill.id}>
-                                        {skill.skills}
-                                    </Col>
-                                ))}
+                                {JSON.parse(topSkillsInNepal[0].skills).map(
+                                    (skill: string, index: number) => (
+                                        <Col md={3} sm={6} xs={6} key={index}>
+                                            {skill}
+                                        </Col>
+                                    )
+                                )}
                             </Row>
                         </div>
                     )}
