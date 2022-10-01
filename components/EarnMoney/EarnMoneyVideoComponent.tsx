@@ -9,7 +9,7 @@ export const EarnMoneyVideoComponent = () => {
                 <Col md={7} sm={12}>
                     <div className="video">
                         <iframe
-                            src="https://www.youtube.com/embed/E7wJTI-1dvQ"
+                            src="https://www.youtube.com/embed/dxhzAqQsqAo"
                             frameBorder="0"
                             allow="autoplay; encrypted-media"
                             allowFullScreen
