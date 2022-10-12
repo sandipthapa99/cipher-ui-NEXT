@@ -82,11 +82,9 @@
 }
 .approve-notification-dropdown {
     justify-content: space-between;
-    
+
     padding: 1.6rem;
     background: #f8f9fa;
-    
-  
 
     .description-section {
         .service-name-notify {
@@ -109,7 +107,6 @@
             margin: 0 0 0.6rem;
         }
         .date-approve-section {
-           
             .date {
                 font: 400 1rem $poppins-font;
                 color: $gray-text-color;
