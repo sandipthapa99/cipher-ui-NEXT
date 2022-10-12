@@ -38,9 +38,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                 radius="md"
                                 sx={{ minWidth: 100 }}
                             >
-                                <Highlight highlight={"no Portfolio"}>
-                                    {`The User has no Portfolio data`}
-                                </Highlight>
+                                The User has no Portfolio data
                             </Alert>
                         ))}
                     <div className="content">
@@ -128,9 +126,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                 className="mb-4"
                                 sx={{ minWidth: 100 }}
                             >
-                                <Highlight highlight={"no Experience"}>
-                                    {`The User has no Experience data`}
-                                </Highlight>
+                                The User has no Experience data
                             </Alert>
                         ))}
                     <Row>
@@ -201,9 +197,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                 className="mb-4"
                                 sx={{ minWidth: 100 }}
                             >
-                                <Highlight highlight={"no Skill"}>
-                                    {`The User has no Skill data`}
-                                </Highlight>
+                                The User has no Skill data
                             </Alert>
                         ))}
                     <Row>
@@ -235,9 +229,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                 className="mb-4"
                                 sx={{ minWidth: 100 }}
                             >
-                                <Highlight highlight={"no Education"}>
-                                    {`The User has no Education data`}
-                                </Highlight>
+                                The User has no Education data
                             </Alert>
                         ))}
                     <Row>
@@ -301,9 +293,7 @@ export const AboutTasker = ({ taskerDetail }: AboutTasker) => {
                                 className="mb-4"
                                 sx={{ minWidth: 100 }}
                             >
-                                <Highlight highlight={"no Certification"}>
-                                    {`The User has no Certification data`}
-                                </Highlight>
+                                The User has no Certification data
                             </Alert>
                         ))}
                     <Row>

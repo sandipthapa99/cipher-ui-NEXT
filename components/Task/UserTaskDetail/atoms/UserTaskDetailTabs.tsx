@@ -75,9 +75,7 @@ const ServiceList = ({
                         radius="md"
                         sx={{ minWidth: 100 }}
                     >
-                        <Highlight highlight={["No Services", "user"]}>
-                            {`There are No Services by this user`}
-                        </Highlight>
+                        There are No Services by this user
                     </Alert>
                 ))}
         </>

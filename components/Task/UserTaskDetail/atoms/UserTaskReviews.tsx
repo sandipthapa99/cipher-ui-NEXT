@@ -84,9 +84,7 @@ export const UserTaskReviews = ({ activeTaskId }: { activeTaskId: string }) => {
                             className="mt-5"
                             sx={{ minWidth: 100 }}
                         >
-                            <Highlight highlight={"not reviewed"}>
-                                {`Product not reviewed yet`}
-                            </Highlight>
+                            Product not reviewed yet
                         </Alert>
                     ))}
                 {ratingData?.map((review: any, index: any) => (
