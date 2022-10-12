@@ -1,4 +1,3 @@
-import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
@@ -20,6 +19,7 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
+import { TRUE } from "sass";
 import type { EducationValueProps } from "types/educationValueProps";
 import { EducationFormData } from "utils/formData";
 import { educationFormSchema } from "utils/formValidation/educationFormValidation";
@@ -30,6 +30,7 @@ interface EducationProps {
     handleClose?: () => void;
     setShowEducationForm: Dispatch<SetStateAction<boolean>>;
     id?: number;
+    isEditProfile: boolean;
 }
 interface EditDetailProps {
     data: { result: EducationValueProps[] };
@@ -40,6 +41,7 @@ const EducationForm = ({
     handleClose,
     setShowEducationForm,
     id,
+    isEditProfile,
 }: EducationProps) => {
     const queryClient = useQueryClient();
     const { mutate } = useForm(`${urls.profile.education}`);
@@ -62,7 +64,7 @@ const EducationForm = ({
                     <h3>Add Education</h3>
                     <Formik
                         initialValues={
-                            editDetails
+                            editDetails && isEditProfile === true
                                 ? {
                                       ...editDetails,
                                       start_date: parseISO(
@@ -185,7 +187,11 @@ const EducationForm = ({
                                             labelName="Start Date"
                                             placeHolder="1999-06-03"
                                             touch={Boolean(touched.start_date)}
-                                            error={String(errors.start_date)}
+                                            error={String(
+                                                errors.start_date
+                                                    ? errors.start_date
+                                                    : ""
+                                            )}
                                             //fieldRequired={true}
                                             icon={
                                                 <FontAwesomeIcon
@@ -210,7 +216,11 @@ const EducationForm = ({
                                             labelName="End Date (Expected)"
                                             placeHolder="2022-03-06"
                                             touch={touched.end_date}
-                                            error={errors.end_date}
+                                            error={
+                                                errors.end_date
+                                                    ? errors.end_date
+                                                    : ""
+                                            }
                                             icon={
                                                 <FontAwesomeIcon
                                                     icon={faCalendarDays}

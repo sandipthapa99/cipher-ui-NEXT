@@ -32,6 +32,7 @@ interface ExperienceProps {
     handleClose?: () => void;
     setShowExpForm: Dispatch<SetStateAction<boolean>>;
     id?: number;
+    isEditExperience?: boolean;
 }
 
 interface EditDetailProps {
@@ -45,6 +46,7 @@ const ExperienceForm = ({
     handleClose,
     setShowExpForm,
     id,
+    isEditExperience,
 }: ExperienceProps) => {
     const { mutate } = useForm(`${urls.profile.experience}`);
     const { mutate: editMutation } = useEditForm(
@@ -71,7 +73,7 @@ const ExperienceForm = ({
                     <h3>Add Experience</h3>
                     <Formik
                         initialValues={
-                            editDetails
+                            editDetails && isEditExperience === true
                                 ? {
                                       ...editDetails,
                                       start_date: parseISO(
@@ -228,7 +230,11 @@ const ExperienceForm = ({
                                             labelName="Start Date"
                                             placeHolder="1999-06-03"
                                             touch={Boolean(touched.start_date)}
-                                            error={String(errors.start_date)}
+                                            error={String(
+                                                errors.start_date
+                                                    ? errors.start_date
+                                                    : ""
+                                            )}
                                             //fieldRequired={true}
                                             icon={
                                                 <FontAwesomeIcon

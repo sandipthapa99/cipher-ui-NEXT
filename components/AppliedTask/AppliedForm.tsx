@@ -134,13 +134,7 @@ const AppliedForm = ({
                                     router.push("/home");
                                 },
                                 onError: (error) => {
-                                    // const errors = Object.values(
-                                    //     error.response?.data.task ?? []
-                                    // ).join("\n");
                                     toast.error(error.message);
-                                    // toast.error(errors);
-                                    // setShow(false);
-                                    //
                                 },
                             });
                         }}

@@ -49,6 +49,7 @@
         }
         .btn {
             border-radius: 0.4rem;
+
             box-shadow: none;
             @include respond(xs) {
                 margin-bottom: 1rem;

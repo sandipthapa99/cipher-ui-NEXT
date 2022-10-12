@@ -1,8 +1,11 @@
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
+import MantineDateField from "@components/common/MantineDateField";
 import MultiImageDropzone from "@components/common/MultiImageDropzone";
 import MultiPdfFileDropzone from "@components/common/MultiPdfFileDropzone";
+import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, LoadingOverlay } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
@@ -285,7 +288,7 @@ const AddPortfolio = ({
                             // uploadPortfolio(addPortfolioPayload);
                         }}
                     >
-                        {({ isSubmitting, errors, touched }) => (
+                        {({ isSubmitting, setFieldValue, errors, touched }) => (
                             <Form>
                                 <div className="d-flex add-portfolio justify-content-between align-items-end flex-column flex-md-row">
                                     <Row>
@@ -308,13 +311,39 @@ const AddPortfolio = ({
                                             placeHolder="Portfolio Description"
                                         />
                                         <h4>Issued Date</h4>
-                                        <DatePickerField
+                                        {/* <DatePickerField
                                             name="issued_date"
                                             min="1"
                                             error={errors.issued_date}
                                             touch={touched.issued_date}
                                             dateFormat="yyyy-MM-dd"
                                             placeHolder="2022-03-06"
+                                        /> */}
+                                        <MantineDateField
+                                            name="issued_date"
+                                            min="1"
+                                            error={String(
+                                                errors.issued_date
+                                                    ? errors.issued_date
+                                                    : ""
+                                            )}
+                                            touch={Boolean(touched.issued_date)}
+                                            placeHolder="2022-03-06"
+                                            icon={
+                                                <FontAwesomeIcon
+                                                    icon={faCalendarDays}
+                                                    className="svg-icons"
+                                                />
+                                            }
+                                            handleChange={(value) => {
+                                                setFieldValue(
+                                                    "issued_date",
+                                                    format(
+                                                        new Date(value),
+                                                        "yyyy-MM-dd"
+                                                    )
+                                                );
+                                            }}
                                         />
                                         <h4>Portfolio URL</h4>
                                         <InputField
