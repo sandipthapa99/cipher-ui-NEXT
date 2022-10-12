@@ -31,10 +31,6 @@ const ApplicantsDetail = ({
     );
 
     const BookingDetail = data?.data;
-    console.log(
-        "🚀 ~ file: ApplicantsDetail.tsx ~ line 34 ~ BookingDetail",
-        BookingDetail
-    );
 
     const taskVideosAndImages = [
         ...(BookingDetail?.images ?? []),

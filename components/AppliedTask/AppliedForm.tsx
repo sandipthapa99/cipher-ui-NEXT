@@ -29,7 +29,6 @@ const AppliedForm = ({
     setShow,
     handleClose,
 }: BookNowModalCardProps) => {
-    console.log("🚀 ~ file: AppliedForm.tsx ~ line 32 ~ budget_to", budget_to);
     const router = useRouter();
     const {
         mutate,
@@ -135,13 +134,7 @@ const AppliedForm = ({
                                     router.push("/home");
                                 },
                                 onError: (error) => {
-                                    // const errors = Object.values(
-                                    //     error.response?.data.task ?? []
-                                    // ).join("\n");
                                     toast.error(error.message);
-                                    // toast.error(errors);
-                                    // setShow(false);
-                                    //
                                 },
                             });
                         }}

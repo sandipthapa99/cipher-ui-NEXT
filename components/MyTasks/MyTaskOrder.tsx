@@ -19,10 +19,6 @@ export const MyTaskOrder = ({
     budget_type,
     status,
 }: MyTaskOrderProps) => {
-    console.log(
-        "🚀 ~ file: MyTaskOrder.tsx ~ line 22 ~ assigner_id",
-        assigner_id
-    );
     const [isAuthor, setIsAuthor] = useState(false);
     const { data: userData } = useUser();
 

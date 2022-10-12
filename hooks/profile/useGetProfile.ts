@@ -92,6 +92,6 @@ export const useGetProfile = () => {
                 throw new Error("Something went wrong");
             }
         },
-        { enabled: !!user }
+        { enabled: !!user?.id }
     );
 };

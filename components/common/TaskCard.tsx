@@ -35,7 +35,6 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
 
     const isTaskBookmarked = useIsBookmarked("entityservice", id);
     const queryClient = useQueryClient();
-    console.log("currency", task);
     return (
         <div className="task-card-block p-5">
             <Link href={`/task/${id}`}>

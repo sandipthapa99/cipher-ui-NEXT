@@ -11,7 +11,6 @@ export default function CheckoutForm() {
     const stripe = useStripe();
     const elements = useElements();
     const router = useRouter();
-    console.log(router.pathname);
 
     const [message, setMessage] = React.useState(null);
     const [isLoading, setIsLoading] = React.useState(false);

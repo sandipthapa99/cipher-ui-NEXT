@@ -31,6 +31,7 @@ interface CertificationProps {
     handleClose?: () => void;
     setShowCertificationModal: Dispatch<SetStateAction<boolean>>;
     id?: number;
+    isEditProfile: boolean;
 }
 interface EditDetailProps {
     data: { result: CertificationValueProps[] };
@@ -41,6 +42,7 @@ const CertificationForm = ({
     handleClose,
     id,
     setShowCertificationModal,
+    isEditProfile,
 }: CertificationProps) => {
     const queryClient = useQueryClient();
     const { mutate } = useForm(`${urls.profile.certifications}`);
@@ -65,7 +67,7 @@ const CertificationForm = ({
                     <h3>Add Certifications</h3>
                     <Formik
                         initialValues={
-                            editDetails
+                            editDetails && isEditProfile === true
                                 ? {
                                       ...editDetails,
                                       issued_date: parseISO(
@@ -215,7 +217,11 @@ const CertificationForm = ({
                                             labelName="Issued Date"
                                             placeHolder="1999-06-03"
                                             touch={Boolean(touched.issued_date)}
-                                            error={String(errors.issued_date)}
+                                            error={String(
+                                                errors.issued_date
+                                                    ? errors.issued_date
+                                                    : ""
+                                            )}
                                             //fieldRequired={true}
                                             icon={
                                                 <FontAwesomeIcon
