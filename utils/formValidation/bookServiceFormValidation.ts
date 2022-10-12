@@ -17,7 +17,6 @@ export const bookServiceSchema = ({
             .moreThan(budget_from - 1, `Must not be less than ${budget_from}`),
 
         start_date: Yup.date().nullable(true),
-
         end_date: Yup.date()
             .when("start_date", (start_date, schema) => {
                 if (start_date) {

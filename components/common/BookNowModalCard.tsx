@@ -1,6 +1,5 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
-import AddRequirements from "@components/PostTask/AddRequirements";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";

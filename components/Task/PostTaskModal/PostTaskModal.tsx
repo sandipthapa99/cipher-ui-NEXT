@@ -8,10 +8,7 @@ import type { TaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { SelectTaskType } from "@components/Task/PostTaskModal/SelectTaskType";
 import { ServiceOptions } from "@components/Task/PostTaskModal/ServiceOptions";
 import { TaskBudget } from "@components/Task/PostTaskModal/TaskBudget";
-import {
-    TaskCurrency,
-    useCurrencies,
-} from "@components/Task/PostTaskModal/TaskCurrency";
+import { TaskCurrency } from "@components/Task/PostTaskModal/TaskCurrency";
 import { TaskRequirements } from "@components/Task/PostTaskModal/TaskRequirements";
 import { LoadingOverlay, Radio } from "@mantine/core";
 import {
