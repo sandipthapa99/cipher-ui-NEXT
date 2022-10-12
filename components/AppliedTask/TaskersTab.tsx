@@ -1,6 +1,4 @@
 import { ApplicantsCard } from "@components/common/ApplicantsCard";
-import { TeamMembersCard } from "@components/common/TeamMembersCard";
-import { MyBookingsCard } from "@components/SearchTask/MyBookings";
 import { faWarning } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Loader } from "@mantine/core";

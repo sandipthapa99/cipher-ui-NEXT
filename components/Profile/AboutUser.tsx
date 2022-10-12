@@ -38,6 +38,9 @@ const AboutProfile = () => {
     const [id, setId] = useState<number | undefined>();
     const [search, setSearch] = useState("-rating");
     const [isEditProfile, setIsEditProfile] = useState(false);
+    const [isEditExperience, setIsEditExperience] = useState(false);
+    // const [isEditExperience, setIsEditExperience] = useState(false);
+
     const [isOnlyPortfolioText, setIsOnlyPortfolioText] = useState(false);
     const toggleShowPostTaskModal = useToggleShowPostTaskModal();
     const { data: taskerRating } = useData<RatingResponse>(
@@ -279,13 +282,20 @@ const AboutProfile = () => {
                         <EditProfileButton
                             text="Add New"
                             showModal={true}
-                            handleOnClick={() => setShowExpForm(!showExpForm)}
+                            handleOnClick={() => {
+                                setShowExpForm(!showExpForm);
+                                setIsEditExperience(false);
+                            }}
                         />
                         <ExperienceForm
                             show={showExpForm}
                             setShowExpForm={setShowExpForm}
-                            handleClose={() => setShowExpForm(false)}
+                            handleClose={() => {
+                                setShowExpForm(false);
+                                setIsEditExperience(false);
+                            }}
                             id={id}
+                            isEditExperience={isEditExperience}
                         />
                     </div>
 
@@ -323,11 +333,14 @@ const AboutProfile = () => {
                                                                           faPencil
                                                                       }
                                                                       className="svg-icon"
-                                                                      onClick={() =>
+                                                                      onClick={() => {
                                                                           handleEdit(
                                                                               value?.id
-                                                                          )
-                                                                      }
+                                                                          );
+                                                                          setIsEditExperience(
+                                                                              true
+                                                                          );
+                                                                      }}
                                                                   />
                                                                   <FontAwesomeIcon
                                                                       icon={
@@ -431,15 +444,17 @@ const AboutProfile = () => {
                         <EditProfileButton
                             text="Add New"
                             showModal={true}
-                            handleOnClick={() =>
-                                setShowEducationForm(!showEducationForm)
-                            }
+                            handleOnClick={() => {
+                                setShowEducationForm(!showEducationForm);
+                                setIsEditProfile(false);
+                            }}
                         />
                         <EducationForm
                             show={showEducationForm}
                             setShowEducationForm={setShowEducationForm}
                             handleClose={() => setShowEducationForm(false)}
                             id={id}
+                            isEditProfile={isEditProfile}
                         />
                     </div>
                     <Row>
@@ -479,6 +494,9 @@ const AboutProfile = () => {
                                                                       );
                                                                       setId(
                                                                           value?.id
+                                                                      );
+                                                                      setIsEditProfile(
+                                                                          true
                                                                       );
                                                                   }}
                                                               />
@@ -536,11 +554,12 @@ const AboutProfile = () => {
                         <EditProfileButton
                             text="Add New"
                             showModal={true}
-                            handleOnClick={() =>
+                            handleOnClick={() => {
                                 setShowCertificationModal(
                                     !showCertificationModal
-                                )
-                            }
+                                );
+                                setIsEditProfile(false);
+                            }}
                         />
                         <CertificationForm
                             show={showCertificationModal}
@@ -549,6 +568,7 @@ const AboutProfile = () => {
                             }
                             handleClose={() => setShowCertificationModal(false)}
                             id={id}
+                            isEditProfile={isEditProfile}
                         />
                     </div>
                     <Row>
@@ -599,6 +619,9 @@ const AboutProfile = () => {
                                                                       );
                                                                       setId(
                                                                           value?.id
+                                                                      );
+                                                                      setIsEditProfile(
+                                                                          true
                                                                       );
                                                                   }}
                                                               />

@@ -184,7 +184,13 @@ const BankForm = ({
                               },
 
                               onError: async (error: any) => {
-                                  toast.error(error.message);
+                                  if (!KYCData?.id) {
+                                      toast.error(
+                                          "Please fill a KYC Form first to add bank details."
+                                      );
+                                  }
+
+                                  toast.error(error);
                               },
                           })
                         : mutate(withKYC, {
@@ -199,7 +205,13 @@ const BankForm = ({
                                   queryClient.invalidateQueries(["profile"]);
                               },
                               onError: async (error) => {
-                                  toast.error(error.message);
+                                  if (!KYCData?.id) {
+                                      toast.error(
+                                          "Please fill a KYC Form first to add bank details."
+                                      );
+                                  } else {
+                                      toast.error(error.message);
+                                  }
                               },
                           });
                 }}

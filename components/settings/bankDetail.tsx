@@ -47,8 +47,8 @@ const AddBank = ({ showBankForm, showPrimaryBank }: Display) => {
                         <>
                             <h5>Your Primary Bank</h5>
                             <Row>
-                                <Col md={4}>
-                                    <div className="d-flex account-wrapper card-block">
+                                <Col md={6} lg={4}>
+                                    <div className="d-flex account-wrapper bank card-block">
                                         <FontAwesomeIcon
                                             icon={faPencil}
                                             className="svg-icon edit-icon"

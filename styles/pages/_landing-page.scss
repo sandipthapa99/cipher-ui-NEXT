@@ -254,6 +254,7 @@
                     &:hover {
                         background: $secondary-color;
                         color: $primary-color;
+                        cursor: pointer;
                     }
 
                     &:first-child {

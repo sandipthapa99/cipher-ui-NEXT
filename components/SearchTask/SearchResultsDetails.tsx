@@ -193,7 +193,7 @@ const SearchResultsDetail = ({
                     collabButton={false}
                     image={item?.created_by?.profile_image}
                     name={`${item?.created_by?.user?.first_name} ${item?.created_by?.user?.last_name}`}
-                    speciality={item?.created_by?.user_type}
+                    // speciality={item?.created_by?.user_type}
                     rating={item?.created_by?.rating?.user_rating_count}
                     happyClients={item?.created_by?.stats?.happy_clients}
                     awardPercentage={10}
@@ -203,6 +203,7 @@ const SearchResultsDetail = ({
                     charge={item?.entity_service?.discount_value}
                     tasker={""}
                     isApproved={item?.is_accepted}
+                    designation={item?.created_by.designation}
                 />
             </Col>
         );
@@ -297,7 +298,7 @@ const SearchResultsDetail = ({
 
     return (
         <div className="aside-detail-wrapper">
-            <div className="task-detail mb-5 p-5">
+            <div className="task-detail p-5">
                 <Link href="/service">
                     <a>
                         <FontAwesomeIcon

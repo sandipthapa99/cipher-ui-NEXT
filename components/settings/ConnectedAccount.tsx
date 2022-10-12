@@ -8,6 +8,8 @@ import type { GetStaticProps } from "next";
 import React from "react";
 import { axiosClient } from "utils/axiosClient";
 
+import ConnectAccount from "./ConnectAccount";
+
 export type LinkedAccountProps = LinkedAccount[];
 
 export interface LinkedAccount {
@@ -55,7 +57,11 @@ const ConnectedAccount = () => {
                             {/* <span className="d-flex flex-col align-items-center justify-content-center my-4"> */}
                             <div className="d-flex align-items-center justify-content-center">
                                 <FontAwesomeIcon
-                                    icon={faGoogle}
+                                    icon={
+                                        values.provider === "google-oauth2"
+                                            ? faGoogle
+                                            : faFacebookF
+                                    }
                                     className="svg-icon google"
                                 />
                             </div>
@@ -87,27 +93,14 @@ const ConnectedAccount = () => {
                             </div>
                         </div>
                     ))}
-                <div className="social-connection  me-4">
-                    {/* <span className="d-flex flex-col align-items-center justify-content-center my-4"> */}
-                    <div className="d-flex align-items-center justify-content-center">
-                        <FontAwesomeIcon
-                            icon={faFacebookF}
-                            className="svg-icon facebook-icon"
-                        />
-                    </div>
-
-                    <h4 className="text-center">Facebook</h4>
-                    {/* </span> */}
-                    <p>You are not signed in through Facebook.</p>
-                    <div className="d-flex button-wrapper align-items-stretch justify-content-center my-4">
-                        <BigButton
-                            btnTitle={"Connect"}
-                            backgroundColor={"#211d4f"}
-                            textColor={"#fff"}
-                            //  handleClick={handleCloseModal}
-                        />
-                    </div>
-                </div>
+                {linkedAccounts?.data &&
+                    linkedAccounts.data.map((values, key) =>
+                        values.provider !== "facebook-oauth2" ? (
+                            <ConnectAccount name={"Facebook"} />
+                        ) : (
+                            ""
+                        )
+                    )}
             </div>
         </div>
     );

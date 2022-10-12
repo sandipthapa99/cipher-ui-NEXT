@@ -52,7 +52,7 @@ export interface PostTaskPayload {
     location: TaskType;
     currency: string;
     budget_type: string;
-    budget_from: number | string;
+    budget_from: number | string | null;
     budget_to: number | string;
     is_negotiable: boolean;
     images: string;
@@ -104,7 +104,7 @@ export const AddServiceModalComponent = () => {
             city: "",
             location: "remote",
             budget_type: "Project",
-            budget_from: Number(""),
+            budget_from: null,
             budget_to: "",
             service: "",
             is_negotiable: false,
