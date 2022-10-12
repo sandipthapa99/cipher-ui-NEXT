@@ -29,7 +29,6 @@ const AppliedForm = ({
     setShow,
     handleClose,
 }: BookNowModalCardProps) => {
-    console.log("🚀 ~ file: AppliedForm.tsx ~ line 32 ~ budget_to", budget_to);
     const router = useRouter();
     const {
         mutate,

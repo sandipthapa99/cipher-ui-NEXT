@@ -14,10 +14,6 @@ const SavedBookings = () => {
     const taskBookmarks = serviceOrTaskBookmarks.filter(
         (bookmark) => bookmark.data.is_requested
     );
-    console.log(
-        "🚀 ~ file: SavedBookings.tsx ~ line 17 ~ SavedBookings ~ taskBookmarks",
-        taskBookmarks
-    );
 
     return (
         <div className="saved-bookings px-5">
