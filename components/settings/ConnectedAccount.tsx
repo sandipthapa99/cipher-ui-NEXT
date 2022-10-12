@@ -45,10 +45,6 @@ const ConnectedAccount = () => {
         ["linked-accounts"],
         "/user/linked-accounts/list/"
     );
-    console.log(
-        "🚀 ~ file: ConnectedAccount.tsx ~ line 43 ~ ConnectedAccount ~ linkedAccounts",
-        linkedAccounts
-    );
 
     return (
         <div className="account-form">
