@@ -79,11 +79,10 @@ const Gardening = ({
                                 radius="md"
                                 sx={{ minWidth: 100 }}
                             >
-                                <Highlight highlight={[categoryName, "No"]}>
-                                    {`There are No services in ${
-                                        categoryName ? categoryName : "this"
-                                    } category`}
-                                </Highlight>
+                                {/* <Highlight highlight={[categoryName, "No"]}> */}
+                                There are No services in{" "}
+                                {categoryName ? categoryName : "this"} category
+                                {/* </Highlight> */}
                             </Alert>
                         )}
                         <Row className="gx-5">
@@ -136,11 +135,10 @@ const Gardening = ({
                                 radius="md"
                                 sx={{ minWidth: 100 }}
                             >
-                                <Highlight highlight={[categoryName, "No"]}>
-                                    {`There are No task in ${
-                                        categoryName ? categoryName : "this"
-                                    } category`}
-                                </Highlight>
+                                {/* <Highlight highlight={[categoryName, "No"]}> */}
+                                There are No task in{" "}
+                                {categoryName ? categoryName : "this"} category
+                                {/* </Highlight> */}
                             </Alert>
                         )}
                         <Row className="gx-5">
@@ -174,11 +172,10 @@ const Gardening = ({
                                 radius="md"
                                 sx={{ minWidth: 100 }}
                             >
-                                <Highlight highlight={[categoryName, "No"]}>
-                                    {`There are No tasker in ${
-                                        categoryName ? categoryName : "this"
-                                    } category`}
-                                </Highlight>
+                                {/* <Highlight highlight={[categoryName, "No"]}> */}
+                                There are No tasker in{" "}
+                                {categoryName ? categoryName : "this"} category
+                                {/* </Highlight> */}
                             </Alert>
                         )}
                         <Row className="gx-5">

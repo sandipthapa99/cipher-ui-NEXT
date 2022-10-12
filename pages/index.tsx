@@ -213,9 +213,7 @@ const Home: NextPage<{
                                 radius="md"
                                 sx={{ minWidth: 100 }}
                             >
-                                <Highlight highlight={"No Data"}>
-                                    {`There are No Data available`}
-                                </Highlight>
+                                There are No Data available
                             </Alert>
                         )}
                     </Row>
@@ -532,9 +530,7 @@ const Home: NextPage<{
                                     radius="md"
                                     sx={{ minWidth: 100 }}
                                 >
-                                    <Highlight highlight={"No Top Taskers"}>
-                                        {`There are No Top Taskers available`}
-                                    </Highlight>
+                                    There are No Top Taskers available
                                 </Alert>
                             )}
                         <Row className="gx-5">
@@ -679,9 +675,7 @@ const Home: NextPage<{
                             radius="md"
                             sx={{ minWidth: 100 }}
                         >
-                            <Highlight highlight={"No Success Story"}>
-                                {`There are No Success Story available`}
-                            </Highlight>
+                            There are No Success Stories available
                         </Alert>
                     )}
                     <Carousel
@@ -857,9 +851,7 @@ const Home: NextPage<{
                                 radius="md"
                                 sx={{ minWidth: 100 }}
                             >
-                                <Highlight highlight={"No top Categorys"}>
-                                    {`There are No top Categorys available`}
-                                </Highlight>
+                                There are No top Categorys available
                             </Alert>
                         )}
                         <Row className="g-5">
