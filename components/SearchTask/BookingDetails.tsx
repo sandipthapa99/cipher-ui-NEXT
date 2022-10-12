@@ -25,9 +25,8 @@ interface BookingDetailsProps {
 
 const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
     const { data } = useData<BookingDetailProps>(
-        ["booking-deatil"],
-        `/task/entity/service-booking/${bookingId}`,
-        !!bookingId
+        ["booking-deatil", bookingId],
+        `/task/entity/service-booking/${bookingId}`
     );
 
     const BookingDetail = data?.data;
