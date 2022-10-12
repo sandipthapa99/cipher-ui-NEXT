@@ -225,9 +225,9 @@ const BookingDetails = ({ show, setShow, bookingId }: BookingDetailsProps) => {
                         radius="md"
                         sx={{ minWidth: 100 }}
                     >
-                        <Highlight highlight={"No Requirements"}>
-                            {`There are No Requirements for this service`}
-                        </Highlight>
+                        {/* <Highlight highlight={"No Requirements"}> */}
+                        There are No Requirements for this service
+                        {/* </Highlight> */}
                     </Alert>
                 )}
                 {BookingDetail?.requirements && (
