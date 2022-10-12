@@ -175,7 +175,7 @@ const SimpleProfileCard = ({
                     <>
                         <span>Budget Range</span>
                         <span>
-                            {task?.currency?.symbol}
+                            {task?.currency?.symbol} &nbsp;
                             {task?.budget_from} - {task?.budget_to}
                             {task?.budget_type === "Hourly"
                                 ? "/hr"
