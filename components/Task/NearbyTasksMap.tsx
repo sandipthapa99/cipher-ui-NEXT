@@ -17,8 +17,8 @@ const NearbyTasksMap = () => {
         ...nearbyTask,
         city: {
             ...nearbyTask.city,
-            longitude: nearbyTask.city.longitude + index * 0.0001,
-            latitude: nearbyTask.city.latitude + index * 0.0001,
+            longitude: nearbyTask?.city?.longitude + index * 0.0001,
+            latitude: nearbyTask?.city?.latitude + index * 0.0001,
         },
     }));
     const router = useRouter();
@@ -28,8 +28,8 @@ const NearbyTasksMap = () => {
                 {nearbyTasksSeparated.map((task) => (
                     <OverlayView
                         position={{
-                            lat: task.city.latitude,
-                            lng: task.city.longitude,
+                            lat: task?.city?.latitude,
+                            lng: task?.city?.longitude,
                         }}
                         mapPaneName="overlayMouseTarget"
                         key={task.id}
