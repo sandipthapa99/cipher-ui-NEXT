@@ -298,7 +298,7 @@ const SearchResultsDetail = ({
 
     return (
         <div className="aside-detail-wrapper">
-            <div className="task-detail mb-5 p-5">
+            <div className="task-detail p-5">
                 <Link href="/service">
                     <a>
                         <FontAwesomeIcon
