@@ -104,7 +104,7 @@ export const AddServiceModalComponent = () => {
             city: "",
             location: "remote",
             budget_type: "Project",
-            budget_from: Number(""),
+            budget_from: "",
             budget_to: "",
             service: "",
             is_negotiable: false,
