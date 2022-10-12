@@ -8,9 +8,11 @@ import { getNextPageParam } from "utils/getNextPageParam";
 export const useServices = (searchParam?: string) => {
     return useInfiniteQuery(
         [ReactQueryKeys.SERVICES, searchParam],
-        () =>
+        ({ pageParam = 1 }) =>
             axiosClient
-                .get<ServiceApiResponse>(`${urls.task.service}&${searchParam}`)
+                .get<ServiceApiResponse>(
+                    `${urls.task.service}&${searchParam}page=${pageParam}`
+                )
                 .then((response) => response.data),
         { getNextPageParam }
     );
