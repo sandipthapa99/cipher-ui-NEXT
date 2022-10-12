@@ -178,8 +178,9 @@ const ServiceCard = ({
                                 {serviceCard?.currency?.symbol
                                     ? serviceCard?.currency?.symbol
                                     : "" + " "}{" "}
-                                {serviceCard?.budget_from &&
-                                    serviceCard?.budget_from + "-"}
+                                {serviceCard?.budget_from
+                                    ? serviceCard?.budget_from + "-"
+                                    : ""}
                                 {serviceCard?.budget_to}
                                 {serviceCard?.budget_type === "Hourly"
                                     ? " /hr"
