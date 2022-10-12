@@ -89,7 +89,10 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                             {isLoading && <TaskerSkeleton />}
                             {searchParam && totalTaskers > 0 ? (
                                 <p className="search-results-text">
-                                    {`${totalTaskers} service matching ${searchParam} found`}
+                                    {`${totalTaskers} taskers matching "${searchParam.substring(
+                                        searchParam.indexOf("=") + 1,
+                                        searchParam.length
+                                    )}" found`}
                                 </p>
                             ) : null}
 
@@ -101,12 +104,15 @@ const TaskerAside = ({ searchParam, children }: TaskerAsideProps) => {
                                     variant="filled"
                                     color="yellow"
                                 >
-                                    No tasks available at the moment{""}
+                                    No taskers available.{""}
                                 </Alert>
                             )}
                             {searchParam && totalTaskers === 0 ? (
                                 <p className="search-results-text">
-                                    No services matching {searchParam} found
+                                    {`No taskers matching "${searchParam.substring(
+                                        searchParam.indexOf("=") + 1,
+                                        searchParam.length
+                                    )}" found.`}
                                 </p>
                             ) : null}
                             {isFetchingNextPage && <Loader />}
