@@ -29,7 +29,7 @@ interface Props {
     handleButtonClick?: () => void;
     image?: string;
     name?: string;
-    speciality?: string;
+    designation?: string;
     rating?: number;
     happyClients?: number;
     awardPercentage?: string | number;
@@ -53,6 +53,7 @@ export const MyBookingsCard = ({
     bio,
     bookingId,
     isApproved,
+    designation,
 }: Props) => {
     const userId = tasker;
     const isBookmarked = useIsBookmarked("user", userId);
@@ -114,10 +115,9 @@ export const MyBookingsCard = ({
                             </ActionIcon>
                         </div>
                         <h6 className="text-dark">
-                            <span>
-                                {/* {speciality ? JSON.parse(speciality) : ""}{" "} */}
-                            </span>
-                            | {location}
+                            <span>{designation} </span>{" "}
+                            {designation && location ? " | " : ""}
+                            {location ? `${location}` : ""}
                         </h6>
                         <div className="d-flex icon-wrapper-member gap-5 align-items-center emoji-section text-dark">
                             <span className="star">

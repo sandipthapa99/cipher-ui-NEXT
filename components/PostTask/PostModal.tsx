@@ -31,6 +31,7 @@ const PostModal = ({
         showBudget: false,
         showTime: false,
     });
+
     return (
         <>
             {/* Modal component */}
