@@ -23,10 +23,6 @@ const ServiceAside = ({ searchParam, children }: ServiceAside) => {
         isFetchingNextPage,
         fetchNextPage,
     } = useServices(searchParam);
-    console.log(
-        "🚀 ~ file: ServiceAside.tsx ~ line 26 ~ ServiceAside ~ servicePages",
-        servicePages
-    );
 
     const services = useMemo(
         () =>
