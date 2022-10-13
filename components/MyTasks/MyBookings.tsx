@@ -55,8 +55,10 @@ export const MyBookings = () => {
                                         )}
                                         created_at={item?.created_at}
                                         image={
-                                            item?.images[0]?.media
-                                                ? item?.images[0]?.media
+                                            item?.entity_service?.images[0]
+                                                ?.media
+                                                ? item?.entity_service
+                                                      ?.images[0]?.media
                                                 : "/placeholder/taskPlaceholder.png"
                                         }
                                         title={item?.entity_service?.title}
