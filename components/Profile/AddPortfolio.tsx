@@ -19,7 +19,10 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import type { AddPortfolioProps } from "types/editProfile";
+import type {
+    AddPortfolioProps,
+    EditPortfolioDetailProps,
+} from "types/editProfile";
 import { axiosClient } from "utils/axiosClient";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
@@ -91,6 +94,12 @@ const AddPortfolio = ({
     ]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
+
+    const imageId: number[] = [];
+    const fileId: number[] = [];
+
+    editDetails?.images.map((image) => imageId.push(image.id));
+    editDetails?.files.map((file) => fileId.push(file.id));
 
     const uploadImage = (images: any[]) => {
         return new Promise<number[]>((resolve, reject) => {
@@ -204,19 +213,31 @@ const AddPortfolio = ({
                                 ...values,
                                 issued_date,
                             };
+                            console.log(
+                                "🚀 ~ file: AddPortfolio.tsx ~ line 217 ~ onSubmit={ ~ isEditProfile",
+                                isEditProfile
+                            );
+
                             if (
-                                values.files.length > 0 &&
-                                values.images.length > 0
+                                (values.files.length > 0 || isEditProfile) &&
+                                (values.images.length > 0 || isEditProfile)
                             ) {
-                                const imageIds = await uploadImage(
-                                    values.images
-                                );
-                                const fileIds = await uploadFile(values.files);
+                                console.log("yesss", isEditProfile);
+                                const imageIds =
+                                    isEditProfile && values.images.length < 1
+                                        ? imageId
+                                        : await uploadImage(values.images);
+                                const fileIds =
+                                    isEditProfile && values.files.length < 1
+                                        ? fileId
+                                        : await uploadFile(values.files);
+
                                 const portfolioPayloadWithImageAndFile = {
                                     ...addPortfolioPayload,
                                     images: imageIds,
                                     files: fileIds,
                                 };
+
                                 {
                                     !isEditProfile
                                         ? uploadPortfolio(
@@ -239,8 +260,13 @@ const AddPortfolio = ({
 
                                 const portfolioPayloadWithImage = {
                                     ...addPortfolioPayload,
-                                    images: imageIds,
+                                    images:
+                                        isEditProfile &&
+                                        values.images.length < 1
+                                            ? imageId
+                                            : imageIds,
                                 };
+
                                 {
                                     !isEditProfile
                                         ? uploadPortfolio(
@@ -257,8 +283,12 @@ const AddPortfolio = ({
                                 // delete addPortfolioPayload.images;
                                 const portfolioPayloadWithFile = {
                                     ...addPortfolioPayload,
-                                    files: fileIds,
+                                    files:
+                                        isEditProfile && values.files.length < 1
+                                            ? fileId
+                                            : fileIds,
                                 };
+
                                 {
                                     !isEditProfile
                                         ? uploadPortfolio(
@@ -272,17 +302,26 @@ const AddPortfolio = ({
                             } else {
                                 // delete addPortfolioPayload.files;
                                 // delete addPortfolioPayload.images;
+
                                 const newPayloadWithoutImageAndFile = {
                                     ...addPortfolioPayload,
+                                    images:
+                                        values.images.length < 1 ? imageId : [],
+                                    files:
+                                        values.files.length < 1 ? fileId : [],
                                 };
 
                                 editData = newPayloadWithoutImageAndFile;
                             }
+                            console.log(
+                                "🚀 ~ file: AddPortfolio.tsx ~ line 285 ~ onSubmit={ ~ editData",
+                                editData
+                            );
 
                             // delete addPortfolioPayload.files;
                             // delete addPortfolioPayload.images;
 
-                            editDetails && isEditProfile == true
+                            editDetails
                                 ? editPortfolio(editData)
                                 : uploadPortfolio(addPortfolioPayload);
                             // uploadPortfolio(addPortfolioPayload);
