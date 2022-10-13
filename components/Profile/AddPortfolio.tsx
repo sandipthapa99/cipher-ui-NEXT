@@ -1,3 +1,4 @@
+import { CustomDropZone } from "@components/common/CustomDropZone";
 import DatePickerField from "@components/common/DateTimeField";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
@@ -7,6 +8,7 @@ import MultiPdfFileDropzone from "@components/common/MultiPdfFileDropzone";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, LoadingOverlay } from "@mantine/core";
+import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format, parseISO } from "date-fns";
@@ -392,7 +394,19 @@ const AddPortfolio = ({
                                                 <p>
                                                     Add relevant image or video
                                                 </p>
-
+                                                <CustomDropZone
+                                                    // accept={IMAGE_MIME_TYPE}
+                                                    fileType="image"
+                                                    sx={{ maxWidth: "30rem" }}
+                                                    name="images"
+                                                    onDrop={(images) =>
+                                                        setFieldValue(
+                                                            "images",
+                                                            images
+                                                        )
+                                                    }
+                                                />
+                                                {/* 
                                                 <MultiImageDropzone
                                                     name="images"
                                                     labelName="Upload your image"
@@ -404,14 +418,20 @@ const AddPortfolio = ({
                                                     minSize={20}
                                                     showFileDetail
                                                     type="Image/Video"
-                                                />
+                                                    onDrop={(images) =>
+                                                        setFieldValue(
+                                                            "images",
+                                                            images
+                                                        )
+                                                    }
+                                                /> */}
                                             </Col>
                                         </Row>
                                         <Row>
                                             <Col md={5}>
                                                 <h4>Pdf</h4>
                                                 <p>Add relevant pdf</p>
-                                                <MultiPdfFileDropzone
+                                                {/* <MultiPdfFileDropzone
                                                     name="files"
                                                     pdfPreview="pdfPreviewUrl"
                                                     labelName="Upload your files"
@@ -422,6 +442,23 @@ const AddPortfolio = ({
                                                     minSize={20}
                                                     showFileDetail
                                                     type="pdf"
+                                                    onDrop={(files) =>
+                                                        setFieldValue(
+                                                            "files",
+                                                            files
+                                                        )
+                                                    }
+                                                /> */}
+                                                <CustomDropZone
+                                                    accept={[MIME_TYPES.pdf]}
+                                                    fileType="pdf"
+                                                    name="files"
+                                                    onDrop={(files) =>
+                                                        setFieldValue(
+                                                            "files",
+                                                            files
+                                                        )
+                                                    }
                                                 />
                                             </Col>
                                         </Row>

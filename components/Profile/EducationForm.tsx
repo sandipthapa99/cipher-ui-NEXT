@@ -1,7 +1,9 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
+import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
+import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import {
     faCalendarDays,
     faSquareCheck,
@@ -133,7 +135,14 @@ const EducationForm = ({
                             }
                         }}
                     >
-                        {({ isSubmitting, errors, setFieldValue, touched }) => (
+                        {({
+                            isSubmitting,
+                            errors,
+                            getFieldProps,
+                            setFieldValue,
+                            touched,
+                            values,
+                        }) => (
                             <Form autoComplete="off">
                                 <InputField
                                     type="text"
@@ -165,12 +174,27 @@ const EducationForm = ({
                                     error={errors.field_of_study}
                                     placeHolder="Eg: Business"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="location"
                                     labelName="Location"
                                     touch={touched.location}
                                     error={errors.location}
                                     placeHolder="Eg: New Baneshwor, Kathmandu"
+                                /> */}
+                                <PlacesAutocomplete
+                                    size="md"
+                                    label="Location"
+                                    placeholder="Eg: New Baneshwor, Kathmandu"
+                                    error={
+                                        touched.location && errors.location
+                                            ? errors.location
+                                            : undefined
+                                    }
+                                    {...getFieldProps("location")}
+                                    value={values.location}
+                                    onPlaceChange={(value) =>
+                                        setFieldValue("location", value)
+                                    }
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>

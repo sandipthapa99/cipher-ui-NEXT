@@ -85,6 +85,10 @@ export const CustomDropZone = ({
             })),
         [files]
     );
+    console.log(
+        "🚀 ~ file: CustomDropZone.tsx ~ line 88 ~ previewImages",
+        previewImages
+    );
 
     const previewUploadedImages = (previewFiles ?? [])
         .filter((file) => isImage(file.media_type))
@@ -93,6 +97,14 @@ export const CustomDropZone = ({
             size: convertToMB(file.size),
             url: file.media,
         }));
+
+    // const previewUploadedFiles = (previewFiles ?? [])
+    //     .filter((file) => !isImage(file.media_type))
+    //     .map((file) => ({
+    //         name: file.name,
+    //         size: convertToMB(file.size),
+    //         url: file.media,
+    //     }));
 
     const previewUploadedVideos = (previewFiles ?? [])
         .filter((file) => isVideo(file.media_type))

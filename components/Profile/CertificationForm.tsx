@@ -8,6 +8,7 @@ import {
     faSquareCheck,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Checkbox } from "@mantine/core";
 import { useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
@@ -56,7 +57,9 @@ const CertificationForm = ({
     ]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
-    const [toggle, setToggled] = useState(editDetails?.does_expire ?? false);
+    const [toggle, setToggled] = useState(
+        editDetails?.does_expire ? editDetails?.does_expire : false
+    );
 
     return (
         <Fragment>
@@ -119,7 +122,7 @@ const CertificationForm = ({
                                 newValue = newvalidatedValue;
                             }
                             {
-                                editDetails
+                                editDetails && isEditProfile
                                     ? editMutation(newValue, {
                                           onSuccess: async () => {
                                               setShowCertificationModal(false);
@@ -153,7 +156,13 @@ const CertificationForm = ({
                             action.resetForm();
                         }}
                     >
-                        {({ isSubmitting, setFieldValue, errors, touched }) => (
+                        {({
+                            isSubmitting,
+                            getFieldProps,
+                            setFieldValue,
+                            errors,
+                            touched,
+                        }) => (
                             <Form autoComplete="off">
                                 <InputField
                                     type="text"
@@ -179,13 +188,25 @@ const CertificationForm = ({
                                     as="textarea"
                                 />
                                 <p className="mb-3 d-flex checkbox">
-                                    <input
+                                    {/* <input
                                         type="checkbox"
                                         name="does_expire"
                                         checked={toggle ? true : false}
                                         onChange={() => setToggled(!toggle)}
+                                    /> */}
+                                    <Checkbox
+                                        label="This certifate does not expire"
+                                        name="does_expire"
+                                        defaultChecked={toggle}
+                                        onChange={(event) => {
+                                            setToggled(!toggle);
+                                            setFieldValue(
+                                                "does_expire",
+                                                toggle
+                                            );
+                                        }}
                                     />
-                                    &nbsp; This certifate does not expire
+                                    {/* &nbsp; This certifate does not expire */}
                                 </p>
                                 <InputField
                                     name="credential_id"
@@ -258,13 +279,18 @@ const CertificationForm = ({
                                             name="expire_date"
                                             labelName="Expiration Date"
                                             touch={Boolean(touched.expire_date)}
-                                            error={String(errors.expire_date)}
+                                            error={String(
+                                                errors.expire_date
+                                                    ? errors.expire_date
+                                                    : ""
+                                            )}
                                             //fieldRequired={true}
                                             placeHolder={
                                                 toggle
                                                     ? "No Expiration Date"
                                                     : "2022-03-06"
                                             }
+                                            disabled={toggle ? true : false}
                                             icon={
                                                 <FontAwesomeIcon
                                                     icon={faCalendarDays}

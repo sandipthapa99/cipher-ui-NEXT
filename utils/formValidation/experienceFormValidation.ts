@@ -11,6 +11,6 @@ export const experienceFormSchema = Yup.object().shape({
     employment_type: employmentType,
     company_name: stringReqOnly,
     location: stringReqOnly,
-    end_date: dateValidation,
+    end_date: endDateValidation,
     start_date: dateValidation,
 });
