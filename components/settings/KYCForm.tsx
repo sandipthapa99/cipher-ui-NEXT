@@ -323,7 +323,7 @@ const KYCForm = () => {
 
                 {/* {(showDocument || KYCData) && <IdentityDocument />} */}
             </div>
-            {KYCData && <KYCStatus />}
+            {/* {KYCData && <KYCStatus />} */}
             <PostCard
                 text="You are good to continue."
                 buttonName="Continue"
