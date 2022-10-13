@@ -1,12 +1,14 @@
-import DatePickerField from "@components/common/DateTimeField";
+import { CustomDropZone } from "@components/common/CustomDropZone";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
-import MultiImageDropzone from "@components/common/MultiImageDropzone";
-import MultiPdfFileDropzone from "@components/common/MultiPdfFileDropzone";
+// import MultiImageDropzone from "@components/common/MultiImageDropzone";
+// import MultiPdfFileDropzone from "@components/common/MultiPdfFileDropzone";
+import { RichText } from "@components/RichText";
 import { faCalendarDays } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createStyles, LoadingOverlay } from "@mantine/core";
+import { IMAGE_MIME_TYPE, MIME_TYPES } from "@mantine/dropzone";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { format, parseISO } from "date-fns";
@@ -91,6 +93,12 @@ const AddPortfolio = ({
     ]);
 
     const editDetails = data?.data?.result.find((item) => item.id === id);
+
+    const imageId: number[] = [];
+    const fileId: number[] = [];
+
+    editDetails?.images.map((image: any) => imageId.push(image.id));
+    editDetails?.files.map((file: any) => fileId.push(file.id));
 
     const uploadImage = (images: any[]) => {
         return new Promise<number[]>((resolve, reject) => {
@@ -204,19 +212,26 @@ const AddPortfolio = ({
                                 ...values,
                                 issued_date,
                             };
+
                             if (
-                                values.files.length > 0 &&
-                                values.images.length > 0
+                                (values.files.length > 0 || isEditProfile) &&
+                                (values.images.length > 0 || isEditProfile)
                             ) {
-                                const imageIds = await uploadImage(
-                                    values.images
-                                );
-                                const fileIds = await uploadFile(values.files);
+                                const imageIds =
+                                    isEditProfile && values.images.length < 1
+                                        ? imageId
+                                        : await uploadImage(values.images);
+                                const fileIds =
+                                    isEditProfile && values.files.length < 1
+                                        ? fileId
+                                        : await uploadFile(values.files);
+
                                 const portfolioPayloadWithImageAndFile = {
                                     ...addPortfolioPayload,
                                     images: imageIds,
                                     files: fileIds,
                                 };
+
                                 {
                                     !isEditProfile
                                         ? uploadPortfolio(
@@ -239,8 +254,13 @@ const AddPortfolio = ({
 
                                 const portfolioPayloadWithImage = {
                                     ...addPortfolioPayload,
-                                    images: imageIds,
+                                    images:
+                                        isEditProfile &&
+                                        values.images.length < 1
+                                            ? imageId
+                                            : imageIds,
                                 };
+
                                 {
                                     !isEditProfile
                                         ? uploadPortfolio(
@@ -257,8 +277,12 @@ const AddPortfolio = ({
                                 // delete addPortfolioPayload.images;
                                 const portfolioPayloadWithFile = {
                                     ...addPortfolioPayload,
-                                    files: fileIds,
+                                    files:
+                                        isEditProfile && values.files.length < 1
+                                            ? fileId
+                                            : fileIds,
                                 };
+
                                 {
                                     !isEditProfile
                                         ? uploadPortfolio(
@@ -272,23 +296,39 @@ const AddPortfolio = ({
                             } else {
                                 // delete addPortfolioPayload.files;
                                 // delete addPortfolioPayload.images;
+
                                 const newPayloadWithoutImageAndFile = {
                                     ...addPortfolioPayload,
+                                    images:
+                                        values.images.length < 1 ? imageId : [],
+                                    files:
+                                        values.files.length < 1 ? fileId : [],
                                 };
 
                                 editData = newPayloadWithoutImageAndFile;
                             }
+                            console.log(
+                                "🚀 ~ file: AddPortfolio.tsx ~ line 285 ~ onSubmit={ ~ editData",
+                                editData
+                            );
 
                             // delete addPortfolioPayload.files;
                             // delete addPortfolioPayload.images;
 
-                            editDetails && isEditProfile == true
+                            editDetails
                                 ? editPortfolio(editData)
                                 : uploadPortfolio(addPortfolioPayload);
                             // uploadPortfolio(addPortfolioPayload);
                         }}
                     >
-                        {({ isSubmitting, setFieldValue, errors, touched }) => (
+                        {({
+                            isSubmitting,
+                            getFieldProps,
+                            setFieldValue,
+                            errors,
+                            values,
+                            touched,
+                        }) => (
                             <Form>
                                 <div className="d-flex add-portfolio justify-content-between align-items-end flex-column flex-md-row">
                                     <Row>
@@ -302,13 +342,24 @@ const AddPortfolio = ({
                                             placeHolder="Portfolio Title"
                                         />
                                         <h4>Description</h4>
-                                        <InputField
+                                        {/* <InputField
                                             as="textarea"
                                             name="description"
                                             min="1"
                                             error={errors.description}
                                             touch={touched.description}
                                             placeHolder="Portfolio Description"
+                                        /> */}
+                                        <RichText
+                                            {...getFieldProps("description")}
+                                            value={values?.description ?? ""}
+                                            onChange={(value) =>
+                                                setFieldValue(
+                                                    "description",
+                                                    value
+                                                )
+                                            }
+                                            placeholder="Portfolio Description"
                                         />
                                         <h4>Issued Date</h4>
                                         {/* <DatePickerField
@@ -361,7 +412,23 @@ const AddPortfolio = ({
                                                 <p>
                                                     Add relevant image or video
                                                 </p>
-
+                                                <CustomDropZone
+                                                    // accept={IMAGE_MIME_TYPE}
+                                                    uploadedFiles={
+                                                        editDetails?.images ??
+                                                        []
+                                                    }
+                                                    fileType="image"
+                                                    sx={{ maxWidth: "30rem" }}
+                                                    name="images"
+                                                    onDrop={(images) =>
+                                                        setFieldValue(
+                                                            "images",
+                                                            images
+                                                        )
+                                                    }
+                                                />
+                                                {/* 
                                                 <MultiImageDropzone
                                                     name="images"
                                                     labelName="Upload your image"
@@ -373,14 +440,20 @@ const AddPortfolio = ({
                                                     minSize={20}
                                                     showFileDetail
                                                     type="Image/Video"
-                                                />
+                                                    onDrop={(images) =>
+                                                        setFieldValue(
+                                                            "images",
+                                                            images
+                                                        )
+                                                    }
+                                                /> */}
                                             </Col>
                                         </Row>
                                         <Row>
                                             <Col md={5}>
                                                 <h4>Pdf</h4>
                                                 <p>Add relevant pdf</p>
-                                                <MultiPdfFileDropzone
+                                                {/* <MultiPdfFileDropzone
                                                     name="files"
                                                     pdfPreview="pdfPreviewUrl"
                                                     labelName="Upload your files"
@@ -391,6 +464,26 @@ const AddPortfolio = ({
                                                     minSize={20}
                                                     showFileDetail
                                                     type="pdf"
+                                                    onDrop={(files) =>
+                                                        setFieldValue(
+                                                            "files",
+                                                            files
+                                                        )
+                                                    }
+                                                /> */}
+                                                <CustomDropZone
+                                                    accept={[MIME_TYPES.pdf]}
+                                                    fileType="pdf"
+                                                    name="files"
+                                                    onDrop={(files) =>
+                                                        setFieldValue(
+                                                            "files",
+                                                            files
+                                                        )
+                                                    }
+                                                    // uploadedFiles={
+                                                    //     editDetails?.files ?? []
+                                                    // }
                                                 />
                                             </Col>
                                         </Row>

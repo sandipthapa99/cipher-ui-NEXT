@@ -14,7 +14,7 @@ export const certificateFormSchema = Yup.object().shape({
     description: stringReqOnly,
     credential_id: stringReqOnly,
     certificate_url: urlValidation,
-    issued_date: Yup.date().nullable(true),
+    issued_date: Yup.date().required().nullable(true),
     expire_date: Yup.date()
         .when("start_date", (start_date, schema) => {
             if (start_date) {
@@ -23,7 +23,7 @@ export const certificateFormSchema = Yup.object().shape({
                     .min(dayAfter, "End date has to be after than start date")
                     .nullable(true);
             }
-            return Yup.date().required("Required field").nullable(true);
+            return Yup.date().nullable(true);
         })
         .nullable(true),
 });

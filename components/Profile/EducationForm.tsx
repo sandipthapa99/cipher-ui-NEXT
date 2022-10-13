@@ -1,7 +1,10 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
+import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
+import { RichText } from "@components/RichText";
+import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import {
     faCalendarDays,
     faSquareCheck,
@@ -60,7 +63,7 @@ const EducationForm = ({
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
-                <div className="applied-modal">
+                <div className="applied-modal add-portfolio">
                     <h3>Add Education</h3>
                     <Formik
                         initialValues={
@@ -133,7 +136,14 @@ const EducationForm = ({
                             }
                         }}
                     >
-                        {({ isSubmitting, errors, setFieldValue, touched }) => (
+                        {({
+                            isSubmitting,
+                            errors,
+                            getFieldProps,
+                            setFieldValue,
+                            touched,
+                            values,
+                        }) => (
                             <Form autoComplete="off">
                                 <InputField
                                     type="text"
@@ -143,13 +153,22 @@ const EducationForm = ({
                                     touch={touched.school}
                                     placeHolder="Eg: Tribhuvan University"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
+                                /> */}
+                                <h4>Description</h4>
+                                <RichText
+                                    {...getFieldProps("description")}
+                                    value={values?.description ?? ""}
+                                    onChange={(value) =>
+                                        setFieldValue("description", value)
+                                    }
+                                    placeholder="Description"
                                 />
                                 <InputField
                                     name="degree"
@@ -165,12 +184,27 @@ const EducationForm = ({
                                     error={errors.field_of_study}
                                     placeHolder="Eg: Business"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="location"
                                     labelName="Location"
                                     touch={touched.location}
                                     error={errors.location}
                                     placeHolder="Eg: New Baneshwor, Kathmandu"
+                                /> */}
+                                <PlacesAutocomplete
+                                    size="md"
+                                    label="Location"
+                                    placeholder="Eg: New Baneshwor, Kathmandu"
+                                    error={
+                                        touched.location && errors.location
+                                            ? errors.location
+                                            : undefined
+                                    }
+                                    {...getFieldProps("location")}
+                                    value={values.location}
+                                    onPlaceChange={(value) =>
+                                        setFieldValue("location", value)
+                                    }
                                 />
                                 <Row className="g-5">
                                     <Col md={6}>
