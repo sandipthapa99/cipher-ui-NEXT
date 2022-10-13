@@ -206,6 +206,9 @@ const AboutProfile = () => {
                                                   setIsOnlyPortfolioText(true);
                                                   setHovered(info?.id);
                                               }}
+                                              onClick={() =>
+                                                  setShowPortfolioDetails(true)
+                                              }
                                           >
                                               <p className="text-center">
                                                   {info.title}
