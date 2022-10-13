@@ -1,9 +1,11 @@
 import AccountForm from "@components/settings/AccountForm";
 import AddBank from "@components/settings/bankDetail";
 import KYCForm from "@components/settings/KYCForm";
+import { KYCStatus } from "@components/settings/KycStatus";
 import { CompleteProfile } from "@components/settings/ProfileForm";
 import SettingsLayout from "@components/SettingsLayout";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { useGetKYC } from "hooks/profile/kyc/useGetKYC";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
 import type { GetStaticProps } from "next";
@@ -25,6 +27,7 @@ const Individual = () => {
     const [showAccountForm, setShowAccountForm] = useState(
         !profile ? false : true
     );
+    const { data: KycData } = useGetKYC();
 
     return (
         <>
@@ -32,7 +35,7 @@ const Individual = () => {
                 {!showBankForm || (!showAccountForm && !profile) ? (
                     <CompleteProfile
                         onClick={() => {
-                            scroll.scrollTo(628);
+                            scroll.scrollTo(400);
                             //setShowBankForm(true);
                             setShowAccountForm(true);
                         }}
@@ -41,7 +44,8 @@ const Individual = () => {
                     ""
                 )}{" "}
                 <AccountForm showAccountForm={showAccountForm} />
-                <KYCForm />
+                {!KycData && <KYCForm />}
+                {KycData && <KYCStatus />}
                 <AddBank
                     showBankForm={!profile ? false : true}
                     showPrimaryBank={true}
