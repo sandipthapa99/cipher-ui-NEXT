@@ -13,8 +13,8 @@ export interface AddPortfolioProps {
     credential_url: string;
     issued_date: string;
     id: number;
-    files: File[];
-    images: File[];
+    files: File[] | any;
+    images: File[] | any;
     imagePreviewUrl?: any[];
     pdfPreviewUrl?: any[];
 }

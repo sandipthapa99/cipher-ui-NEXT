@@ -5,6 +5,7 @@ import MantineDateField from "@components/common/MantineDateField";
 import SelectInputField from "@components/common/SelectInputField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
+import { RichText } from "@components/RichText";
 import {
     faCalendarDays,
     faSquareCheck,
@@ -70,7 +71,7 @@ const ExperienceForm = ({
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
-                <div className="applied-modal">
+                <div className="applied-modal  add-portfolio">
                     <h3>Add Experience</h3>
                     <Formik
                         initialValues={
@@ -176,13 +177,22 @@ const ExperienceForm = ({
                                     touch={touched.title}
                                     placeHolder="Experience Title"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
+                                /> */}
+                                <h4>Description</h4>
+                                <RichText
+                                    {...getFieldProps("description")}
+                                    value={values?.description ?? ""}
+                                    onChange={(value) =>
+                                        setFieldValue("description", value)
+                                    }
+                                    placeholder="Your Experience"
                                 />
                                 <SelectInputField
                                     name="employment_type"

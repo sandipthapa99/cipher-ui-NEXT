@@ -3,6 +3,7 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
 import { PostCard } from "@components/PostTask/PostCard";
+import { RichText } from "@components/RichText";
 import {
     faCalendarDays,
     faSquareCheck,
@@ -66,7 +67,7 @@ const CertificationForm = ({
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
-                <div className="applied-modal">
+                <div className="applied-modal  add-portfolio">
                     <h3>Add Certifications</h3>
                     <Formik
                         initialValues={
@@ -162,6 +163,7 @@ const CertificationForm = ({
                             setFieldValue,
                             errors,
                             touched,
+                            values,
                         }) => (
                             <Form autoComplete="off">
                                 <InputField
@@ -179,13 +181,22 @@ const CertificationForm = ({
                                     error={errors.issuing_organization}
                                     placeHolder="Eg: Cagtu"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
+                                /> */}
+                                <h4>Description</h4>
+                                <RichText
+                                    {...getFieldProps("description")}
+                                    value={values?.description ?? ""}
+                                    onChange={(value) =>
+                                        setFieldValue("description", value)
+                                    }
+                                    placeholder="Description"
                                 />
                                 <p className="mb-3 d-flex checkbox">
                                     {/* <input

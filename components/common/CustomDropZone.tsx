@@ -85,10 +85,6 @@ export const CustomDropZone = ({
             })),
         [files]
     );
-    console.log(
-        "🚀 ~ file: CustomDropZone.tsx ~ line 88 ~ previewImages",
-        previewImages
-    );
 
     const previewUploadedImages = (previewFiles ?? [])
         .filter((file) => isImage(file.media_type))

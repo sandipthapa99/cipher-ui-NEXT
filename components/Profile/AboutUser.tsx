@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { Formik, validateYupSchema } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
+import parse from "html-react-parser";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -374,7 +375,11 @@ const AboutProfile = () => {
                                                           </p>
                                                       </div>
                                                       <p className="description">
-                                                          {value?.description}
+                                                          {value?.description
+                                                              ? parse(
+                                                                    value.description
+                                                                )
+                                                              : ""}
                                                       </p>
                                                       <p className="date">
                                                           {format(
@@ -646,7 +651,11 @@ const AboutProfile = () => {
                                                       )}
                                                   </div>
                                                   <h3 className="program">
-                                                      {value?.description}
+                                                      {value?.description
+                                                          ? parse(
+                                                                value.description
+                                                            )
+                                                          : ""}
                                                   </h3>
                                                   <p className="date">
                                                       {format(

@@ -3,6 +3,7 @@ import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
+import { RichText } from "@components/RichText";
 import { SelectCity } from "@components/Task/PostTaskModal/SelectCity";
 import {
     faCalendarDays,
@@ -62,7 +63,7 @@ const EducationForm = ({
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
-                <div className="applied-modal">
+                <div className="applied-modal add-portfolio">
                     <h3>Add Education</h3>
                     <Formik
                         initialValues={
@@ -152,13 +153,22 @@ const EducationForm = ({
                                     touch={touched.school}
                                     placeHolder="Eg: Tribhuvan University"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
+                                /> */}
+                                <h4>Description</h4>
+                                <RichText
+                                    {...getFieldProps("description")}
+                                    value={values?.description ?? ""}
+                                    onChange={(value) =>
+                                        setFieldValue("description", value)
+                                    }
+                                    placeholder="Description"
                                 />
                                 <InputField
                                     name="degree"
