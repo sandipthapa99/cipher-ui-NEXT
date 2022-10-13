@@ -19,10 +19,7 @@ import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
-import type {
-    AddPortfolioProps,
-    EditPortfolioDetailProps,
-} from "types/editProfile";
+import type { AddPortfolioProps } from "types/editProfile";
 import { axiosClient } from "utils/axiosClient";
 import { AddPortfolioFormData } from "utils/formData";
 import { addPortfolioSchema } from "utils/formValidation/AddPortFolioFormValidation";
@@ -213,16 +210,11 @@ const AddPortfolio = ({
                                 ...values,
                                 issued_date,
                             };
-                            console.log(
-                                "🚀 ~ file: AddPortfolio.tsx ~ line 217 ~ onSubmit={ ~ isEditProfile",
-                                isEditProfile
-                            );
 
                             if (
                                 (values.files.length > 0 || isEditProfile) &&
                                 (values.images.length > 0 || isEditProfile)
                             ) {
-                                console.log("yesss", isEditProfile);
                                 const imageIds =
                                     isEditProfile && values.images.length < 1
                                         ? imageId
