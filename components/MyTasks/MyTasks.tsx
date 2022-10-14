@@ -1,3 +1,4 @@
+import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import { Alert, Col, Grid, Loader, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
@@ -29,7 +30,7 @@ export const MyTasks = () => {
 
     return (
         <div className="my-task">
-            <h3>My Tasks</h3>
+            {/* <h3>My Tasks</h3> */}
 
             <div className="my-task__each-orders">
                 {isLoading ? (
@@ -74,9 +75,14 @@ export const MyTasks = () => {
                         </div>
                     ))
                 ) : (
-                    <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                        Sorry, You have no task data to show
-                    </Alert>
+                    <ApplyPostComponent
+                        title="No Tasks Available"
+                        subtitle="Post a task to the marketplace and let merchant come to you."
+                        buttonText="Post a Task"
+                    />
+                    // <Alert title="NO DATA AVAILABLE !!!" color="orange">
+                    //     Sorry, You have no task data to show
+                    // </Alert>
                 )}
             </div>
         </div>

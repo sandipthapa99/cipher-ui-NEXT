@@ -210,7 +210,7 @@ export const TeamMembersCard = ({
                 </a>
             </Link>
             <div className="d-flex justify-content-between footer-section">
-                <div className="d-flex share-and-like">
+                <div className="share-and-like">
                     {user && user.id !== tasker ? (
                         <SaveIcon
                             model="user"

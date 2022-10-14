@@ -77,21 +77,18 @@ export type ProfileResponse = {
 
 export const useGetProfile = () => {
     const { data: user } = useUser();
-    return useQuery<ProfileResponse>(
+    return useQuery<ProfileResponse | undefined>(
         ["profile", user?.id],
         async () => {
+            if (!user) return undefined;
             try {
                 const { data } = await axiosClient.get<ProfileResponse>(
                     "/tasker/profile/"
                 );
                 return data;
             } catch (error) {
-                if (error instanceof AxiosError) {
-                    throw new Error(error?.response?.data?.message);
-                }
-                throw new Error("Something went wrong");
+                return undefined;
             }
-        },
-        { enabled: !!user?.id }
+        }
     );
 };

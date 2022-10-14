@@ -1,3 +1,4 @@
+import { ApplyPostComponent } from "@components/common/ApplyPostComponent";
 import { Alert, Col, Grid, Skeleton } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import urls from "constants/urls";
@@ -21,7 +22,7 @@ export const MyBookings = () => {
 
     return (
         <div className="my-task">
-            <h3>My Bookings</h3>
+            {/* <h3>My Bookings</h3> */}
             <div className="my-task__each-orders">
                 {isLoading && (
                     <Grid className="p-5">
@@ -38,7 +39,7 @@ export const MyBookings = () => {
                         </Col>
                     </Grid>
                 )}
-                {myBookingData?.length ? (
+                {!isLoading && myBookingData?.length ? (
                     myBookingData?.map((item, index) => (
                         <div className="booking-wrapper" key={index}>
                             <Link
@@ -87,9 +88,14 @@ export const MyBookings = () => {
                         </div>
                     ))
                 ) : (
-                    <Alert title="NO DATA AVAILABLE !!!" color="orange">
-                        Sorry, You have no booking to show.
-                    </Alert>
+                    <ApplyPostComponent
+                        title="No Bookings Available"
+                        subtitle="Book a service to the marketplace and let merchant come to you."
+                        buttonText="Book a service"
+                    />
+                    // <Alert title="NO DATA AVAILABLE !!!" color="orange">
+                    //     Sorry, You have no booking to show.
+                    // </Alert>
                 )}
             </div>
         </div>
