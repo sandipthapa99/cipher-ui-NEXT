@@ -330,15 +330,12 @@ const SearchResultsDetail = ({
                                     }
                                 />
                             </div>
-                            <div className="d-flex flex-col align-items-center mx-5">
-                                <ShareIcon
-                                    url={getPageUrl()}
-                                    quote={"Service from Homaale Project"}
-                                    hashtag={"Homaale-services"}
-                                />
-                                <span className="name">Share</span>
-                            </div>
-
+                            <ShareIcon
+                                showText
+                                url={getPageUrl()}
+                                quote={"Service from Homaale Project"}
+                                hashtag={"Homaale-services"}
+                            />
                             {isUserService && (
                                 <EllipsisDropdownService
                                     handleEdit={handleEdit}
