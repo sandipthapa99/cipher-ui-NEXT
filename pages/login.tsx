@@ -1,17 +1,16 @@
-import { FacebookLogin } from "@components/auth/FacebookLogin";
-// import GoogleLogin from "@components/auth/GoogleLogin";
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import PasswordField from "@components/common/PasswordField";
 import Google from "@components/Google/Google";
 import OnBoardingLayout from "@components/OnBoardingLayout";
+import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
+import { useUser } from "hooks/auth/useUser";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
-import { useCallback } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -19,11 +18,18 @@ import { getLoginSchema } from "utils/formValidation/loginFormValidation";
 import { isSubmittingClass } from "utils/helpers";
 
 const Login = () => {
+    const queryClient = useQueryClient();
+
     const router = useRouter();
-    const [fcmToken, setFcmToken] = useState("");
+
     const { mutate: loginMutation, isLoading } = useLogin();
+    const { data: user } = useUser();
+
+    const [loginSuccess, setLoginSuccess] = useState(false);
     const [isPhoneNumber, setIsPhoneNumber] = useState(false);
-    const [isLoginSuccess, setIsLoginSuccess] = useState(false);
+    const [fcmToken, setFcmToken] = useState("");
+
+    const { next } = router.query;
 
     const getFCMTOKEN = async () => {
         if (typeof window !== "undefined") {
@@ -54,22 +60,19 @@ const Login = () => {
         setIsPhoneNumber(false);
     };
 
-    const { data: profile, fetchStatus: profileFetchStatus } = useGetProfile();
+    const { data: profile } = useGetProfile();
 
-    const handleRedirectAfterLogin = useCallback(() => {
-        if (!isLoginSuccess || profileFetchStatus === "fetching") return;
-        const { next } = router.query;
-        const redirectLink = !profile
+    useEffect(() => {
+        if (!loginSuccess) return;
+        const loginRedirectURL = !profile
             ? "/settings/account/individual"
             : next
             ? next
             : "/home";
-        router.push(redirectLink.toString());
-        toast.success("Login successful");
-    }, [isLoginSuccess, profileFetchStatus, router, profile]);
-
-    useEffect(handleRedirectAfterLogin, [handleRedirectAfterLogin]);
-
+        router.push(loginRedirectURL.toString());
+        toast.success("Successfully logged in");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loginSuccess, next, profile, user]);
     return (
         <OnBoardingLayout
             topLeftText="Don't have an account ?"
@@ -97,8 +100,13 @@ const Login = () => {
                             onError: (error) => {
                                 toast.error(error.message);
                             },
-                            onSuccess: () => {
-                                setIsLoginSuccess(true);
+                            onSuccess: async () => {
+                                await queryClient.invalidateQueries(["user"]);
+                                await queryClient.invalidateQueries([
+                                    "profile",
+                                    user?.id,
+                                ]);
+                                setLoginSuccess(true);
                             },
                         });
                     }}
