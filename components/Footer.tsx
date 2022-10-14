@@ -138,7 +138,13 @@ const Footer = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link href="/feedback">
+                                            <Link
+                                                href={
+                                                    userData
+                                                        ? `/feedback`
+                                                        : `/login?next=/feedback`
+                                                }
+                                            >
                                                 <a>Complaints/Feedback</a>
                                             </Link>
                                         </li>

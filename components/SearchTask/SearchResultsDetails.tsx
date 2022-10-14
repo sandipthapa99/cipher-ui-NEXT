@@ -65,7 +65,6 @@ const SearchResultsDetail = ({
     currency,
     service,
 }: ServiceNearYouCardProps) => {
-    //
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -184,6 +183,7 @@ const SearchResultsDetail = ({
     };
 
     const isUserService = user ? serviceProviderId === user?.id : false;
+    console.log(myBookings, "myBookings");
 
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
@@ -330,15 +330,12 @@ const SearchResultsDetail = ({
                                     }
                                 />
                             </div>
-                            <div className="d-flex flex-col align-items-center mx-5">
-                                <ShareIcon
-                                    url={getPageUrl()}
-                                    quote={"Service from Homaale Project"}
-                                    hashtag={"Homaale-services"}
-                                />
-                                <span className="name">Share</span>
-                            </div>
-
+                            <ShareIcon
+                                showText
+                                url={getPageUrl()}
+                                quote={"Service from Homaale Project"}
+                                hashtag={"Homaale-services"}
+                            />
                             {isUserService && (
                                 <EllipsisDropdownService
                                     handleEdit={handleEdit}
@@ -561,7 +558,7 @@ const SearchResultsDetail = ({
                     {parsedDescription}
                 </div>
 
-                <h3>Requirements</h3>
+                <h3>Highlights</h3>
                 {!highlights && (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
@@ -571,7 +568,7 @@ const SearchResultsDetail = ({
                         sx={{ minWidth: 100 }}
                     >
                         {/* <Highlight highlight={"No Requirements"}> */}
-                        There are No Requirements for this service
+                        There are no highlights for this service
                         {/* </Highlight> */}
                     </Alert>
                 )}
@@ -678,7 +675,7 @@ const SearchResultsDetail = ({
                                                                 />
                                                             }
                                                             title={
-                                                                "No data Available!"
+                                                                "No Applicants Available!"
                                                             }
                                                             color={"red"}
                                                         >

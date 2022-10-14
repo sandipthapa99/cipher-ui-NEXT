@@ -64,23 +64,24 @@
             color: gray;
             font-size: 12px;
         }
-        // .text-yes {
-        //     color: #74d387;
-        //     background-color: #ebfbee;
-        //     padding: 0.4rem 1rem;
-        //     display: inline-block;
-        //     text-align: center;
-        //     border-radius: 5px;
-        // }
-        // .text-pending {
-        //     color: #ffd800;
-        //     background-color: #ffffcc;
-        //     padding: 0.4rem 1rem;
-        //     display: inline-block;
-        //     text-align: center;
-        //     border-radius: 5px;
-        //     font-size: 1.2rem;
-        // }
+        .text-yes {
+            color: #74d387;
+            background-color: #ebfbee;
+            padding: 0.4rem 1rem;
+            display: inline-block;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 1.2rem;
+        }
+        .text-pending {
+            color: #ffd800;
+            background-color: #ffffcc;
+            padding: 0.4rem 1rem;
+            display: inline-block;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 1.2rem;
+        }
     }
     .folder-text-accordian {
         margin-left: 1rem;

@@ -112,7 +112,7 @@ export const TaskersTab = ({ taskId }: { taskId: string }) => {
                                         }
                                         location={
                                             item.created_by?.address_line1
-                                                ? `${item?.created_by?.address_line1}, ${item?.created_by?.country.name}`
+                                                ? `${item?.created_by?.address_line1}, ${item?.created_by?.country?.name}`
                                                 : ""
                                         }
                                         distance={"2 km"}

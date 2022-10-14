@@ -1,6 +1,7 @@
 import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import SelectInputField from "@components/common/SelectInputField";
+import urls from "constants/urls";
 import { Form, Formik } from "formik";
 import { usePostHelp } from "hooks/help/use-post-help";
 import { useData } from "hooks/use-data";
@@ -18,7 +19,7 @@ const HelpSettings = () => {
             id: number;
             topic: string;
         }>
-    >(["topic-help"], "/support/help/topic/");
+    >(["topic-help"], urls.support.helpTopics);
     const dropdownReportOptions = data?.data.map((item) => {
         return {
             id: item.id,
@@ -61,15 +62,13 @@ const HelpSettings = () => {
                     });
                 }}
             >
-                {({ isSubmitting, errors, touched, resetForm, values }) => (
+                {({ isSubmitting, errors, touched, values }) => (
                     <Form>
-                        {/* {<pre>{JSON.stringify(values, null, 4)}</pre>} */}
-                        {/* <pre>{JSON.stringify(errors, null, 4)}</pre> */}
-
                         <Row>
                             <SelectInputField
                                 name="topic"
                                 labelName="Report a problem"
+                                fieldRequired={true}
                                 touch={touched.topic}
                                 error={errors.topic}
                                 placeHolder="Select Report Type"

@@ -43,7 +43,9 @@ const TaskCard = ({ task, isSaved }: TaskCardProps) => {
                         <h1 className="title">{title}</h1>
                         <h2 className="charge">
                             {currency ? currency?.symbol : ""}{" "}
-                            {task?.budget_from && `${task?.budget_from} -`}
+                            {task?.budget_from
+                                ? `${task?.budget_from} -`
+                                : undefined}
                             {task?.budget_to}
                         </h2>
                     </div>

@@ -38,6 +38,12 @@ export const PostNotifyTask = ({
         <div
             className="d-flex align-items-center justify-content-between accepted-notification"
             style={{ backgroundColor: read === null ? "#ecf7ff" : "#ebf9f1" }}
+            // onClick={() => {
+            //     is_requested
+            //         ? router.push(`/task/${slug}`)
+            //         : router.push(`/task/${slug}`);
+
+            // }}
         >
             <div className="d-flex notification-wrapper">
                 <figure className="d-flex flex-column justify-content-center notification-image">
@@ -60,7 +66,11 @@ export const PostNotifyTask = ({
                         <span
                             className="span-name"
                             onClick={() => {
-                                router.push(`/service/${slug}`);
+                                {
+                                    is_requested
+                                        ? router.push(`/task/${slug}`)
+                                        : router.push(`/service/${slug}`);
+                                }
                             }}
                         >
                             {" "}

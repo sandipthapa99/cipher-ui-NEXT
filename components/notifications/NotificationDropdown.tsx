@@ -58,6 +58,8 @@ export const NotificationDropdown = () => {
         refetch();
     };
 
+    console.log("todayNotifications", todayNotifications);
+
     const renderTodayNotifications = todayNotifications?.map(
         (notification: any, index: number) => {
             if (notification.title === "created") {
@@ -175,6 +177,15 @@ export const NotificationDropdown = () => {
                             createdDate={notification?.created_date}
                             slug={notification?.object_slug}
                             type={"booked"}
+                            handleClick={() =>
+                                readSingleNotification(
+                                    notification?.object_slug,
+                                    notification?.id,
+                                    notification?.is_requested
+                                        ? "task"
+                                        : "service"
+                                )
+                            }
                         />
                     </div>
                 );
@@ -197,6 +208,7 @@ export const NotificationDropdown = () => {
                             body={notification?.object}
                             user={notification?.created_for}
                             accept={true}
+                            slug={notification?.object_slug}
                             date={notification?.created_date}
                             type={
                                 notification.is_requested ? "task" : "service"

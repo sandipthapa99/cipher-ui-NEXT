@@ -3,7 +3,13 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import type { User } from "types/user";
 
-const PROTECTED_ROUTES = ["/profile", "/home", "/settings/*", "/add-service"];
+const PROTECTED_ROUTES = [
+    "/profile",
+    "/home",
+    "/settings/*",
+    "/add-service",
+    "/feedback",
+];
 const RESTRICTED_ROUTES_ON_LOGGED_IN = ["/login"];
 
 const fetchUser = async (access?: string) => {

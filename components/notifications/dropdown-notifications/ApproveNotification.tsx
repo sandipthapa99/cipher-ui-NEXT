@@ -218,6 +218,7 @@ export const ApproveNotification = ({
                     <AcceptReject
                         accepted={bookingData?.is_accepted}
                         slug={slug}
+                        type={type}
                     />
                 )}
             </div>
