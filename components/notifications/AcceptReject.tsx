@@ -6,9 +6,11 @@ import { animateScroll as scroll } from "react-scroll";
 export const AcceptReject = ({
     slug,
     accepted,
+    type,
 }: {
     slug?: string;
     accepted?: boolean | undefined;
+    type?: string;
 }) => {
     const router = useRouter();
     const query = router.query;
@@ -32,13 +34,21 @@ export const AcceptReject = ({
                         btnTitle={"Accept"}
                         backgroundColor={"#211D4F"}
                         textColor={"white"}
-                        handleClick={() => {
-                            //
-                            router.push(`/service/${slug}`);
-                            if (query.slug?.includes("service")) {
-                                scroll.scrollTo(1500);
-                            }
-                        }}
+                        // handleClick={() => {
+                        //     //
+                        //     {
+                        //         type === "task"
+                        //             ? router.push(`/task/${slug}`)
+                        //             : router.push(`/service/${slug}`);
+                        //     }
+
+                        //     if (
+                        //         query.slug?.includes("service") ||
+                        //         query.slug?.includes("task")
+                        //     ) {
+                        //         scroll.scrollTo(1500);
+                        //     }
+                        // }}
                     />
                 </div>
             )}
