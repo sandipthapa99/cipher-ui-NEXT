@@ -70,7 +70,10 @@ const MerchantCard = ({
                                         ? `${merchantCategory} | `
                                         : ""}
                                 </span>{" "}
-                                {merchantLocation}
+                                {merchantLocation &&
+                                merchantLocation?.length > 20
+                                    ? merchantLocation?.substring(0, 20) + "..."
+                                    : merchantLocation}
                             </h3>
                         </div>
                     </div>
@@ -83,10 +86,10 @@ const MerchantCard = ({
                             {merchantDescription ? (
                                 <p className="card-description">
                                     {`${
-                                        merchantDescription.length > 100
+                                        merchantDescription.length > 80
                                             ? `${merchantDescription.substring(
                                                   0,
-                                                  100
+                                                  80
                                               )}...`
                                             : merchantDescription
                                     }`}

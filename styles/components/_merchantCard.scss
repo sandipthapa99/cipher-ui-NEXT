@@ -8,6 +8,8 @@
 
     .merchant-intro {
         padding: 2.4rem;
+        // height: 11rem;
+        // overflow: hidden;
 
         .thumbnail-img {
             margin: 0 0 1rem 0;
@@ -33,7 +35,7 @@
                 font-family: $inter-font;
                 font-weight: 500;
                 color: #5c5f66;
-                margin-bottom: 1.6rem;
+                margin-bottom: 1rem;
 
                 span {
                     font-family: $inter-font;
@@ -53,6 +55,7 @@
                 color: #495057;
                 line-height: 1.8rem;
                 margin-bottom: 1.2rem;
+                height: 3rem;
             }
         }
 

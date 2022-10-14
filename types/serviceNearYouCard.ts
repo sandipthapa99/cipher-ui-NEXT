@@ -24,7 +24,7 @@ export interface ServiceNearYouCardProps {
     discount?: number;
     serviceDescription?: string;
     discountOn?: string;
-    highlights?: string[];
+    highlights?: any;
     serviceProviderId?: string;
     serviceId?: string;
     serviceSlug?: string;

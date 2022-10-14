@@ -65,7 +65,6 @@ const SearchResultsDetail = ({
     currency,
     service,
 }: ServiceNearYouCardProps) => {
-    console.log("service highlights", highlights);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
