@@ -1,31 +1,135 @@
+import getCroppedImg from "@components/AppliedTask/Crop";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
 import type { Dispatch, SetStateAction } from "react";
+import { useCallback } from "react";
 import React, { useMemo, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Cropper from "react-easy-crop";
+import { toast } from "react-toastify";
+import { axiosClient } from "utils/axiosClient";
 
 interface editProfileProps {
     show?: boolean;
     handleClose?: () => void;
     setShowEditForm: Dispatch<SetStateAction<boolean>>;
-    photo: any;
+    //  setDisplay: Dispatch<SetStateAction<boolean>>;
+    photo?: any;
+    //  display: boolean;
     handleSubmit?: () => void;
+    isEditButtonClicked?: boolean;
 }
 
 const PhotoEdit = ({
     show,
     handleClose,
     handleSubmit,
+    setShowEditForm,
+    //  setDisplay,
     photo,
+    //   display,
+    isEditButtonClicked,
 }: editProfileProps) => {
+    //console.log("🚀 ~ file: PhotoEdit.tsx ~ line 34 ~ display", display);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
-    //  const [previewImage, setPreviewImage] = useState("");
+    const [rotation, setRotation] = useState(0);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+    const [croppedImage, setCroppedImage] = useState<Blob | null>(null);
+
     let previewImage: any;
+
     const reactImage = useMemo(() => {
         photo ? (previewImage = URL.createObjectURL(photo)) : "";
         return previewImage;
     }, [photo]);
+
+    const onCropComplete = useCallback(
+        (croppedArea: any, croppedAreaPixels: any) => {
+            setCroppedAreaPixels(croppedAreaPixels);
+        },
+        []
+    );
+
+    const showCroppedImage = useCallback(async () => {
+        try {
+            const croppedImage = (await getCroppedImg(
+                reactImage,
+                croppedAreaPixels,
+                rotation
+            )) as Blob;
+            console.log("donee", { croppedImage });
+            setCroppedImage(croppedImage);
+        } catch (e) {
+            console.error(e);
+        }
+    }, [croppedAreaPixels, rotation, reactImage]);
+    console.log(
+        "🚀 ~ file: PhotoEdit.tsx ~ line 64 ~ showCroppedImage ~ croppedImage",
+        croppedImage
+    );
+
+    const editProfile = useMutation((data: FormData) =>
+        axiosClient.patch("/tasker/profile/", data)
+    );
+    const queryClient = useQueryClient();
+
+    const onEditProfile = (data: any) => {
+        console.log(
+            "🚀 ~ file: PhotoEdit.tsx ~ line 74 ~ onEditProfile ~ data",
+            data
+        );
+
+        const file = new File([data], photo.name, {
+            type: photo.type,
+            lastModified: Date.now(),
+        });
+        console.log(
+            "🚀 ~ file: PhotoEdit.tsx ~ line 79 ~ onEditProfile ~ photo.name",
+            photo.name
+        );
+
+        console.log(
+            "🚀 ~ file: PhotoEdit.tsx ~ line 78 ~ onEditProfile ~ file",
+            file
+        );
+
+        const formData: FormData = new FormData();
+
+        formData.append("profile_image", file);
+
+        console.log(
+            "🚀 ~ file: PhotoEdit.tsx ~ line 88 ~ onEditProfile ~ data",
+            data
+        );
+
+        editProfile.mutate(formData, {
+            onSuccess: (data) => {
+                queryClient.invalidateQueries(["profile"]);
+                setShowEditForm(false);
+                //setDisplay(false);
+            },
+            onError: (error: any) => {
+                // setDisplay(false);
+                toast.error(data?.data?.message);
+                // setShowEditForm(false);
+            },
+        });
+    };
+    const submit = () => {
+        showCroppedImage();
+        onEditProfile(croppedImage);
+    };
+    // console.log(
+    //     "🚀 ~ file: PhotoEdit.tsx ~ line 94 ~ submit ~ croppedImage",
+    //     reactImage,
+    //     croppedAreaPixels,
+    //     rotation,
+    //     "dsfasdf",
+    //     croppedImage,
+    //     photo
+    // );
 
     return (
         <>
@@ -48,11 +152,13 @@ const PhotoEdit = ({
                             image={reactImage}
                             crop={crop}
                             zoom={zoom}
+                            zoomWithScroll={true}
                             cropShape="round"
                             aspect={1}
                             onCropChange={setCrop}
-                            // onCropComplete={onCropComplete}
+                            onCropComplete={onCropComplete}
                             onZoomChange={setZoom}
+                            onRotationChange={setRotation}
                         />
                     </Modal.Body>
                     <div className="controls">
@@ -69,13 +175,33 @@ const PhotoEdit = ({
                             className="zoom-range"
                         />
                     </div>
+                    {/* <div className="cropped-image-container">
+                        {croppedImage && (
+                            <Image
+                                className="cropped-image"
+                                src={croppedImage}
+                                alt="cropped"
+                                layout="fill"
+                            />
+                        )}
+                        {croppedImage && (
+                            <button onClick={onClose}>close</button>
+                        )}
+                    </div> */}
                     <Modal.Footer>
-                        <Button className="btn close-btn" onClick={handleClose}>
+                        <Button
+                            //    className="btn close-btn"
+                            onClick={handleClose}
+                        >
                             Cancel
                         </Button>
                         <Button
                             className="btn close-btn"
-                            onClick={handleSubmit}
+                            onClick={() => {
+                                isEditButtonClicked
+                                    ? submit()
+                                    : setShowEditForm(false);
+                            }}
                         >
                             Apply
                         </Button>

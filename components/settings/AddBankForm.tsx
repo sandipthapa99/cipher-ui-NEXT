@@ -189,7 +189,7 @@ const BankForm = ({
                                           "Please fill a KYC Form first to add bank details."
                                       );
                                   }
-
+                                  // console.log("eroor", error);
                                   toast.error(error);
                               },
                           })
