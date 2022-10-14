@@ -75,7 +75,7 @@ export function UpperHeader() {
                                 <a>
                                     <Navbar.Brand>
                                         <Image
-                                            src="/logo/homaale.png"
+                                            src="/logo/homaale-logo_svg.svg"
                                             alt="Logo"
                                             width={172}
                                             height={48}

@@ -65,7 +65,7 @@ const SearchResultsDetail = ({
     currency,
     service,
 }: ServiceNearYouCardProps) => {
-    //
+    console.log("service highlights", highlights);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -562,7 +562,7 @@ const SearchResultsDetail = ({
                     {parsedDescription}
                 </div>
 
-                <h3>Requirements</h3>
+                <h3>Highlights</h3>
                 {!highlights && (
                     <Alert
                         icon={<FontAwesomeIcon icon={faWarning} />}
@@ -572,7 +572,7 @@ const SearchResultsDetail = ({
                         sx={{ minWidth: 100 }}
                     >
                         {/* <Highlight highlight={"No Requirements"}> */}
-                        There are No Requirements for this service
+                        There are no highlights for this service
                         {/* </Highlight> */}
                     </Alert>
                 )}

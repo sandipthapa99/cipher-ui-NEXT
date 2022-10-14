@@ -710,6 +710,7 @@ const Home: NextPage<{
                         title="Homaale Notable quality"
                         image="/groupB.png"
                         imageOnRight={true}
+                        homeImage={true}
                         description={quality}
                     />
                 </Container>
