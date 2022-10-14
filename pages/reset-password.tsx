@@ -27,6 +27,7 @@ const ResetPassword = () => {
             headerText="Reset your password?"
             mainImg="/illustrations/forgot-pass.svg"
             redirectionLink="/login"
+            currentPage="forgot-password"
         >
             <Formik
                 initialValues={{ password: "", confirm_password: "" }}
