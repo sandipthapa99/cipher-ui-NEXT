@@ -7,6 +7,7 @@ import PhoneNumberInput from "@components/common/PhoneNumberInput";
 import RadioField from "@components/common/RadioField";
 import SelectInputField from "@components/common/SelectInputField";
 import TagInputField from "@components/common/TagInputField";
+import { ImageUpload } from "@components/ImageUpload";
 import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
 import PhotoEdit from "@components/Profile/PhotoEdit";
@@ -18,6 +19,7 @@ import {
     faSquareCheck,
 } from "@fortawesome/pro-regular-svg-icons";
 import { faBadgeCheck } from "@fortawesome/pro-solid-svg-icons";
+import { faDisplay } from "@fortawesome/pro-thin-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { SelectItem } from "@mantine/core";
 import { createStyles } from "@mantine/core";
@@ -38,6 +40,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useMemo } from "react";
 import { Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import ReactCrop from "react-image-crop";
 import { animateScroll as scroll } from "react-scroll";
 import { toast } from "react-toastify";
 import type { UserBankDetails } from "types/bankDetail";
@@ -101,6 +104,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     const [image, setImage] = useState();
     const [file, setFile] = useState("");
+    const [display, setDisplay] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     // const [showAccountForm, setShowAccountForm] = useState(false);
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
@@ -110,11 +114,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
 
     const isInputDisabled = !isEditButtonClicked && profile ? true : false;
 
-    const onButtonClick = () => {
-        // `current` points to the mounted file input element
-        inputRef?.current?.click();
-        //  setIsEdtButtonClicked(!isEditButtonClicked);
-    };
     const { classes } = useStyles();
 
     useEffect(() => {
@@ -295,21 +294,6 @@ const AccountForm = ({ showAccountForm }: Display) => {
             />
         );
 
-    const onEditProfile = (data: any) => {
-        const formData: FormData = new FormData();
-        formData.append("profile_image", data);
-        data = formData;
-        editProfile.mutate(data, {
-            onSuccess: (data) => {
-                queryClient.invalidateQueries(["profile"]);
-                setShowEditForm(false);
-                toast.success(data?.data?.message);
-            },
-            onError: (error: any) => {
-                toast.error(data?.data?.message);
-            },
-        });
-    };
     let previewImage: any;
 
     //edit profile
@@ -322,6 +306,12 @@ const AccountForm = ({ showAccountForm }: Display) => {
             return true;
         }
     }
+    const onButtonClick = () => {
+        // `current` points to the mounted file input element
+        inputRef?.current?.click();
+        setDisplay(true);
+        //  setIsEdtButtonClicked(!isEditButtonClicked);
+    };
 
     return (
         <>
@@ -467,6 +457,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     {profile?.is_profile_verified ? (
                                         <FontAwesomeIcon
                                             icon={faBadgeCheck}
+                                            //onClick={onButtonClick}
                                             className="badge-icon"
                                         />
                                     ) : (
@@ -478,18 +469,22 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                 ? "img-dragdrop"
                                                 : "d-flex align-items-center justify-content-center"
                                         }`}
-                                        onClick={onButtonClick}
                                     >
                                         {!profile || isEditButtonClicked ? (
                                             <>
                                                 <FontAwesomeIcon
                                                     icon={faCamera}
                                                     className="camera-icon"
+                                                    // onClick={() => {
+                                                    //     setDisplay(!display);
+                                                    // }}
+                                                    onClick={onButtonClick}
                                                 />
-                                                <input
-                                                    hidden
-                                                    type="file"
+
+                                                <ImageUpload
                                                     name="profile_image"
+                                                    display={display}
+                                                    // setDisplay={setDisplay}
                                                     ref={inputRef}
                                                     onChange={(e: any) => {
                                                         const files =
@@ -498,11 +493,12 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                             "profile_image",
                                                             files[0]
                                                         );
-                                                        setFile(
-                                                            URL.createObjectURL(
-                                                                files[0]
-                                                            )
-                                                        );
+                                                        setDisplay(false);
+                                                        // setFile(
+                                                        //     URL.createObjectURL(
+                                                        //         files[0]
+                                                        //     )
+                                                        // );
 
                                                         setImage(files[0]);
                                                         image
@@ -518,6 +514,27 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                                               )
                                                             : null;
                                                     }}
+                                                    photo={image}
+                                                    showEditForm={showEditForm}
+                                                    setShowEditForm={
+                                                        setShowEditForm
+                                                    }
+                                                    handleClose={() => {
+                                                        setShowEditForm(false);
+                                                        setDisplay(false);
+                                                    }}
+                                                    // handleSubmit={() => {
+                                                    //     isEditButtonClicked
+                                                    //         ? onEditProfile(
+                                                    //               image
+                                                    //           )
+                                                    //         : setShowEditForm(
+                                                    //               false
+                                                    //           );
+                                                    // }}
+                                                    isEditButtonClicked={
+                                                        isEditButtonClicked
+                                                    }
                                                 />
                                             </>
                                         ) : (
@@ -549,7 +566,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                 {profile ? (
                                     <div>
                                         {isEditButtonClicked ||
-                                        !profile ? null : ( // /> //     )} //         isSubmitting //     isSubmittingClass={isSubmittingClass( //     isSubmitting={isSubmitting} //     className="submit-btn" //     name="Update Profile" //     variant="primary" //     type="submit" // <FormButton
+                                        !profile ? null : (
                                             <BigButton
                                                 className="sticky-wrapper"
                                                 btnTitle={"Edit Profile"}
@@ -565,17 +582,7 @@ const AccountForm = ({ showAccountForm }: Display) => {
                                     ""
                                 )}
                             </div>
-                            <PhotoEdit
-                                photo={image}
-                                show={showEditForm}
-                                setShowEditForm={setShowEditForm}
-                                handleClose={() => setShowEditForm(false)}
-                                handleSubmit={() => {
-                                    isEditButtonClicked
-                                        ? onEditProfile(image)
-                                        : setShowEditForm(false);
-                                }}
-                            />
+
                             <Row className="mt-3">
                                 <Col md={4}>
                                     <InputField

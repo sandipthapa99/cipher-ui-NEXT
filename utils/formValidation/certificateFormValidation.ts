@@ -16,11 +16,11 @@ export const certificateFormSchema = Yup.object().shape({
     certificate_url: urlValidation,
     issued_date: Yup.date().required().nullable(true),
     expire_date: Yup.date()
-        .when("start_date", (start_date, schema) => {
-            if (start_date) {
-                const dayAfter = new Date(start_date.getTime());
+        .when("issued_date", (issued_date, schema) => {
+            if (issued_date) {
+                const dayAfter = new Date(issued_date.getTime());
                 return schema
-                    .min(dayAfter, "End date has to be after than start date")
+                    .min(dayAfter, "End date has to be after than issued date")
                     .nullable(true);
             }
             return Yup.date().nullable(true);
