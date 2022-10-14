@@ -166,28 +166,24 @@ export const UserTaskDetailHeader = ({
                 </Col>
                 <Col md={4} className="d-flex flex-column align-items-end">
                     <div className="td-task-detail-header-icons">
-                        <div className="btn d-flex flex-col align-items-center">
-                            <SaveIcon
-                                model="user"
-                                object_id={taskerDetail?.user?.id}
-                                filled={isBookmarked}
-                                onSuccess={() =>
-                                    queryClient.invalidateQueries([
-                                        "bookmarks",
-                                        "user",
-                                    ])
-                                }
-                            />{" "}
-                            <span className="name">Save</span>
-                        </div>
-                        <div className="btn d-flex flex-col align-items-center">
-                            <ShareIcon
-                                url={getPageUrl()}
-                                quote={"Tasker from Homaale project"}
-                                hashtag={"Homaale-tasker"}
-                            />
-                            <span className="name pl-2">Share</span>
-                        </div>
+                        <SaveIcon
+                            showText
+                            model="user"
+                            object_id={taskerDetail?.user?.id}
+                            filled={isBookmarked}
+                            onSuccess={() =>
+                                queryClient.invalidateQueries([
+                                    "bookmarks",
+                                    "user",
+                                ])
+                            }
+                        />{" "}
+                        <ShareIcon
+                            showText
+                            url={getPageUrl()}
+                            quote={"Tasker from Homaale project"}
+                            hashtag={"Homaale-tasker"}
+                        />
                         {/* <EllipsisDropdown
                             showModal={showMenu}
                             handleOnClick={() => toggleShowMenu()}

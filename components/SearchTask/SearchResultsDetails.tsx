@@ -65,7 +65,6 @@ const SearchResultsDetail = ({
     currency,
     service,
 }: ServiceNearYouCardProps) => {
-    console.log("service highlights", highlights);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [activeTabIdx, setActiveTabIdx] = useState(0);
@@ -331,15 +330,12 @@ const SearchResultsDetail = ({
                                     }
                                 />
                             </div>
-                            <div className="d-flex flex-col align-items-center mx-5">
-                                <ShareIcon
-                                    url={getPageUrl()}
-                                    quote={"Service from Homaale Project"}
-                                    hashtag={"Homaale-services"}
-                                />
-                                <span className="name">Share</span>
-                            </div>
-
+                            <ShareIcon
+                                showText
+                                url={getPageUrl()}
+                                quote={"Service from Homaale Project"}
+                                hashtag={"Homaale-services"}
+                            />
                             {isUserService && (
                                 <EllipsisDropdownService
                                     handleEdit={handleEdit}
