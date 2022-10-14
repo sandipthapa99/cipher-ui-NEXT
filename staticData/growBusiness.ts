@@ -27,7 +27,7 @@ export const growBusinessSteps = [
     },
     {
         id: "1",
-        title: "Increase your skils",
+        title: "Increase your skills",
         image: "/grow-business/step2.svg",
         description:
             "Posting a task or getting your work done requires only few easy clicks.",
