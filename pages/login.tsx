@@ -6,12 +6,9 @@ import OnBoardingLayout from "@components/OnBoardingLayout";
 import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useLogin } from "hooks/auth/useLogin";
-import { useUser } from "hooks/auth/useUser";
-import { useGetProfile } from "hooks/profile/useGetProfile";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import type { ChangeEvent } from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { getLoginSchema } from "utils/formValidation/loginFormValidation";
@@ -23,13 +20,9 @@ const Login = () => {
     const router = useRouter();
 
     const { mutate: loginMutation, isLoading } = useLogin();
-    const { data: user } = useUser();
 
-    const [loginSuccess, setLoginSuccess] = useState(false);
     const [isPhoneNumber, setIsPhoneNumber] = useState(false);
     const [fcmToken, setFcmToken] = useState("");
-
-    const { next } = router.query;
 
     const getFCMTOKEN = async () => {
         if (typeof window !== "undefined") {
@@ -60,19 +53,6 @@ const Login = () => {
         setIsPhoneNumber(false);
     };
 
-    const { data: profile } = useGetProfile();
-
-    useEffect(() => {
-        if (!loginSuccess) return;
-        const loginRedirectURL = !profile
-            ? "/settings/account/individual"
-            : next
-            ? next
-            : "/home";
-        router.push(loginRedirectURL.toString());
-        toast.success("Successfully logged in");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loginSuccess, next, profile]);
     return (
         <OnBoardingLayout
             topLeftText="Don't have an account ?"
@@ -101,12 +81,13 @@ const Login = () => {
                                 toast.error(error.message);
                             },
                             onSuccess: async () => {
+                                const { next } = router.query;
                                 await queryClient.invalidateQueries(["user"]);
-                                await queryClient.invalidateQueries([
-                                    "profile",
-                                    user?.id,
-                                ]);
-                                setLoginSuccess(true);
+                                const redirectUrl = next
+                                    ? next.toString()
+                                    : "/home";
+                                router.push(redirectUrl);
+                                toast.success("Successfully logged in");
                             },
                         });
                     }}
