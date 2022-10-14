@@ -21,7 +21,7 @@ const OnBoardingLayout = ({
                     <Link href="/">
                         <a>
                             <Image
-                                src="/logo/homaale.png"
+                                src="/logo/homaale-logo_svg.svg"
                                 alt="Logo"
                                 width={190}
                                 height={55}
