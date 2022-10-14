@@ -53,7 +53,7 @@ const LongSquareImageCard = ({
                                             {description.map(
                                                 (info: any, index) => (
                                                     <div
-                                                        className="d-flex with-icon"
+                                                        className="d-flex with-icon align-items-center"
                                                         key={index}
                                                     >
                                                         {info.icon ? (
