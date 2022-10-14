@@ -65,7 +65,7 @@ const DiscountCard = () => {
                         <h1>{item.title}</h1>
                         <div className="discount">
                             <p>
-                                {item.discount_type.toLocaleUpperCase() ===
+                                {item?.discount_type?.toLocaleUpperCase() ===
                                 "amount"
                                     ? `
                                     $${item.discount_value} off`
