@@ -2,7 +2,6 @@ import ShareIcon from "@components/common/ShareIcon";
 import {
     faCalendar,
     faClockEight,
-    faLocationArrow,
     faLocationDot,
     faUserGroup,
 } from "@fortawesome/pro-regular-svg-icons";
@@ -32,9 +31,6 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
         budget_from,
         budget_to,
         currency,
-        start_time: time,
-        start_date: date,
-        slug,
     } = task;
 
     const { data: taskApplicants } = useData<TaskerCount>(
@@ -127,13 +123,14 @@ const TaskCard = ({ task, type }: TaskCardProps) => {
                     </div>
                 </a>
             </Link>
-            <div className="task-applied-card-block__footer d-flex mt-4">
+            <div className="d-flex mt-4 align-items-center task-applied-card-block__footer">
                 <ShareIcon
                     url={getPageUrl()}
                     quote="Please Share this task for all"
                     hashtag="Homaale-task"
+                    showText
+                    className="px-1 me-3"
                 />
-                <span className="share-label">Share</span>
 
                 <Link
                     href={

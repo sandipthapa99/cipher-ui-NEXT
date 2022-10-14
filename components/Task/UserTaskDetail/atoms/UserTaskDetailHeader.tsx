@@ -206,14 +206,17 @@ export const UserTaskDetailHeader = ({
                             handleClick={() => router.push("/profile")}
                         />
                     ) : (
-                        <CardBtn
-                            handleClick={() => setShowHireMerchantModal(true)}
-                            // className="td-hire-me-btn"
-                            // type="button"
-                            color="#111"
-                            btnTitle="Hire Me"
-                            backgroundColor="#FFCA6A"
-                        />
+                        // (
+                        //     <CardBtn
+                        //         handleClick={() => setShowHireMerchantModal(true)}
+                        //         // className="td-hire-me-btn"
+                        //         // type="button"
+                        //         color="#111"
+                        //         btnTitle="Hire Me"
+                        //         backgroundColor="#FFCA6A"
+                        //     />
+                        // )
+                        ""
                     )}
                 </Col>
             </Row>
