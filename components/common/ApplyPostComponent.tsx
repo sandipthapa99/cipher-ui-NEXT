@@ -3,8 +3,13 @@ import { faFolderOpen } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import type { NoTasksProps } from "types/noTasks";
 
-export const ApplyPostComponent = () => {
+export const ApplyPostComponent = ({
+    title,
+    subtitle,
+    buttonText,
+}: NoTasksProps) => {
     const [showModal, setShowModal] = useState(false);
 
     const handleShow = () => setShowModal(true);
@@ -16,10 +21,8 @@ export const ApplyPostComponent = () => {
                 <FontAwesomeIcon icon={faFolderOpen} className="folder-icon" />
             </div>
             <div className="text-post">
-                <p className="head">No active Task posts</p>
-                <p className="para">
-                    Post a task to the marketplace and let merchant come to you.
-                </p>
+                <p className="head">{title}</p>
+                <p className="para">{subtitle}</p>
             </div>
             <div className="btn-cont">
                 <Button
@@ -27,7 +30,7 @@ export const ApplyPostComponent = () => {
                     className="post-btn"
                     onClick={handleShow}
                 >
-                    Post a Task
+                    {buttonText}
                 </Button>
             </div>
             <Modal

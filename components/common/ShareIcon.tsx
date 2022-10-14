@@ -6,7 +6,13 @@ import type { ShareButtonProps } from "types/shareButton";
 
 import ShareModal from "./ShareModalCard";
 
-const ShareIcon = ({ url, quote, hashtag, showText }: ShareButtonProps) => {
+const ShareIcon = ({
+    url,
+    quote,
+    hashtag,
+    showText,
+    className,
+}: ShareButtonProps) => {
     const [showModal, setShowModal] = useState(false);
     const handleOnClick = () => setShowModal(!showModal);
 
@@ -22,6 +28,7 @@ const ShareIcon = ({ url, quote, hashtag, showText }: ShareButtonProps) => {
                         />
                     }
                     onClick={handleOnClick}
+                    className={className}
                 >
                     {showText ? "Share" : ""}
                 </Button>
