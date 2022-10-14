@@ -11,6 +11,7 @@ import {
     faSquareCheck,
 } from "@fortawesome/pro-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Checkbox } from "@mantine/core";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import urls from "constants/urls";
 import { format, parseISO } from "date-fns";
@@ -63,7 +64,7 @@ const ExperienceForm = ({
     const editDetails = data?.data?.result.find((item) => item.id === id);
 
     const [toggle, setToggled] = useState(
-        editDetails?.currently_working ?? false
+        editDetails?.currently_working ? editDetails?.currently_working : false
     );
 
     return (
@@ -127,6 +128,7 @@ const ExperienceForm = ({
                                 };
                                 newValue = newvalidatedValue;
                             }
+
                             {
                                 editDetails && isEditExperience
                                     ? editMutation(newValue, {
@@ -232,13 +234,38 @@ const ExperienceForm = ({
                                     }
                                 />
                                 <p className="mb-3">
-                                    <input
+                                    {/* <Checkbox
+                                        label="I am currently working here"
+                                        name="currently_working"
+                                        defaultChecked={toggle ? true : false}
+                                        onChange={(event) => {
+                                            setToggled(!toggle);
+                                            setFieldValue(
+                                                "currently_working",
+                                                toggle
+                                            );
+                                        }}
+                                    /> */}
+                                    <br />
+                                    <Checkbox
+                                        defaultChecked={toggle}
+                                        label="I am currently working here"
+                                        {...getFieldProps("currently_working")}
+                                        onChange={(event) => {
+                                            setToggled(!toggle);
+
+                                            setFieldValue(
+                                                "currently_working",
+                                                event.target.checked
+                                            );
+                                        }}
+                                    />
+                                    {/* <input
                                         type="checkbox"
                                         name="currently_working"
                                         checked={toggle ? true : false}
                                         onChange={() => setToggled(!toggle)}
-                                    />
-                                    &nbsp;I am currently working here
+                                    /> */}
                                 </p>
 
                                 <Row className="g-5">

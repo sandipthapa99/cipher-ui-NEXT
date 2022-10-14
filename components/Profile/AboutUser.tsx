@@ -381,7 +381,7 @@ const AboutProfile = () => {
                                                                 )
                                                               : ""}
                                                       </p>
-                                                      <p className="date">
+                                                      {/* <p className="date">
                                                           {format(
                                                               new Date(
                                                                   value?.start_date
@@ -400,6 +400,27 @@ const AboutProfile = () => {
                                                                   ),
                                                                   "MMMM yyyy"
                                                               )}
+                                                      </p> */}
+                                                      <p className="date">
+                                                          {format(
+                                                              new Date(
+                                                                  value?.start_date
+                                                              ),
+                                                              "MMMM yyyy"
+                                                          )}
+                                                          {`${
+                                                              !value?.currently_working
+                                                                  ? `- ${
+                                                                        value?.end_date &&
+                                                                        format(
+                                                                            new Date(
+                                                                                value.end_date
+                                                                            ),
+                                                                            "MMMM yyyy"
+                                                                        )
+                                                                    }`
+                                                                  : "- Present"
+                                                          }`}
                                                       </p>
                                                       <p className="address">
                                                           {value.location}
@@ -665,7 +686,8 @@ const AboutProfile = () => {
                                                           "MMMM yyyy"
                                                       )}
                                                       {`${
-                                                          value?.does_expire
+                                                          value?.does_expire ===
+                                                          false
                                                               ? `- ${
                                                                     value?.expire_date &&
                                                                     format(

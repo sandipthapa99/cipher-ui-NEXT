@@ -6,6 +6,7 @@ const localePath = "/locale/client/";
 const bookings = "/task/entity/service-booking/";
 const myBookings = "/task/entity/service-mybooking/";
 const tasks = "/task/entity/service/";
+const support = "/support/";
 
 const urls = {
     user: {
@@ -63,6 +64,7 @@ const urls = {
     hero_category: "/task/hero-category/",
     privacyPolicy: "/landingpage/content/privacy-policy/",
     termsandconditions: "/landingpage/content/terms-conditions/",
+    support: { help: `${support}help/`, helpTopics: `${support}help/topic/` },
 };
 
 export default urls;

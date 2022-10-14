@@ -72,6 +72,10 @@ const SignUp = () => {
                                         setShow(true);
                                     }
 
+                                    if (choosedValue === "email") {
+                                        router.push({ pathname: "/login" });
+                                    }
+
                                     choosedValue === "email"
                                         ? toast.success(
                                               "Check your email and click the link to verify your registration."
