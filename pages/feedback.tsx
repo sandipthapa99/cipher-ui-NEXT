@@ -17,14 +17,15 @@ const Feedback = () => {
     const { data } = useQuery(["feedback-category"], () => {
         return axiosClient.get("/support/feedback/category/options/");
     });
-
-    const renderCategoryTypes = data?.data?.map((item: any) => {
-        return {
-            label: item?.name,
-            value: item?.id,
-            id: item?.id,
-        };
-    });
+    const renderCategoryTypes = data?.data?.map(
+        (item: { name: string; id: string }) => {
+            return {
+                label: item?.name,
+                value: item?.id,
+                id: item?.id,
+            };
+        }
+    );
 
     const feedbackMutation = useMutation((data: FeedbackValuesProps) =>
         axiosClient.post("/support/feedback/", data)
@@ -41,8 +42,7 @@ const Feedback = () => {
                 }
             },
             onError: (error: any) => {
-                const errmessage = error?.response?.data;
-                toast.error("Something went wrong");
+                toast.error(error);
                 actions.resetForm();
             },
         });
@@ -90,6 +90,8 @@ const Feedback = () => {
                                             <SelectInputField
                                                 name="feedback_category"
                                                 fieldRequired={true}
+                                                labelName="Category"
+                                                placeHolder="Select Category"
                                                 error={errors.feedback_category}
                                                 touch={
                                                     touched.feedback_category
