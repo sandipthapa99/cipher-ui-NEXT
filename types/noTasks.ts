@@ -1,5 +1,5 @@
 export interface NoTasksProps {
-    title: string;
-    subtitle: string;
-    buttonText: string;
+    title?: string;
+    subtitle?: string;
+    buttonText?: string;
 }
