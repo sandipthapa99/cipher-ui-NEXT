@@ -91,7 +91,9 @@ export const ChangePhoneNumber = () => {
                                 type="submit"
                                 variant="primary"
                                 name={
-                                    userDetails?.phone === "" ? "Add" : "Update"
+                                    userDetails?.phone === null
+                                        ? "Add"
+                                        : "Update"
                                 }
                                 className="submit-btn"
                                 isSubmitting={isSubmitting}

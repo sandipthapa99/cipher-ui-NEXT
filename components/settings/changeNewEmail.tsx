@@ -7,7 +7,13 @@ import { useUser } from "hooks/auth/useUser";
 import { Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { axiosClient } from "utils/axiosClient";
+import changePasswordFormSchema from "utils/formValidation/changePasswordFormValidation";
 import { isSubmittingClass } from "utils/helpers";
+import * as Yup from "yup";
+
+const updateEmailFormSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email address").required("Required"),
+});
 
 export const ChangeNewEmail = () => {
     const { data: userDetails } = useUser();
@@ -29,7 +35,7 @@ export const ChangeNewEmail = () => {
                     // new_email: "",
                     // confirm_password: "",
                 }}
-                //validationSchema={changePasswordFormSchema}
+                validationSchema={updateEmailFormSchema}
                 onSubmit={async (values, action) => {
                     changeEmail.mutate(values, {
                         onSuccess: () => {

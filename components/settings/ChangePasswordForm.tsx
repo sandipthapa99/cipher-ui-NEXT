@@ -22,6 +22,7 @@ const ChangePasswordForm = () => {
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useChangePassword();
     const { data: userDetails } = useUser();
+    console.log(userDetails);
 
     return (
         <>
@@ -125,7 +126,7 @@ const ChangePasswordForm = () => {
                 <Accordion.Item value="phone-number">
                     <Accordion.Control>
                         <p className="m-0 font-weight-normal">
-                            {userDetails?.phone === ""
+                            {userDetails?.phone === null
                                 ? "Add new phone number"
                                 : "Change Phone Number"}
                         </p>

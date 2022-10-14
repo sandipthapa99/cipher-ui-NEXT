@@ -184,6 +184,7 @@ const SearchResultsDetail = ({
     };
 
     const isUserService = user ? serviceProviderId === user?.id : false;
+    console.log(myBookings, "myBookings");
 
     const renderBookedClients = myBookings?.result?.map((item, index) => {
         return (
@@ -678,7 +679,7 @@ const SearchResultsDetail = ({
                                                                 />
                                                             }
                                                             title={
-                                                                "No data Available!"
+                                                                "No Applicants Available!"
                                                             }
                                                             color={"red"}
                                                         >
