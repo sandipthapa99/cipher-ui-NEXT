@@ -3,7 +3,9 @@ import FormButton from "@components/common/FormButton";
 import InputField from "@components/common/InputField";
 import MantineDateField from "@components/common/MantineDateField";
 import SelectInputField from "@components/common/SelectInputField";
+import { PlacesAutocomplete } from "@components/PlacesAutocomplete";
 import { PostCard } from "@components/PostTask/PostCard";
+import { RichText } from "@components/RichText";
 import {
     faCalendarDays,
     faSquareCheck,
@@ -69,7 +71,7 @@ const ExperienceForm = ({
             {/* Modal component */}
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton> </Modal.Header>
-                <div className="applied-modal">
+                <div className="applied-modal  add-portfolio">
                     <h3>Add Experience</h3>
                     <Formik
                         initialValues={
@@ -126,7 +128,7 @@ const ExperienceForm = ({
                                 newValue = newvalidatedValue;
                             }
                             {
-                                editDetails
+                                editDetails && isEditExperience
                                     ? editMutation(newValue, {
                                           onSuccess: async () => {
                                               setShowExpForm(false);
@@ -164,6 +166,7 @@ const ExperienceForm = ({
                             touched,
                             setFieldValue,
                             getFieldProps,
+                            values,
                         }) => (
                             <Form>
                                 <InputField
@@ -174,13 +177,22 @@ const ExperienceForm = ({
                                     touch={touched.title}
                                     placeHolder="Experience Title"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="description"
                                     labelName="Description"
                                     touch={touched.description}
                                     error={errors.description}
                                     placeHolder="Experience Description"
                                     as="textarea"
+                                /> */}
+                                <h4>Description</h4>
+                                <RichText
+                                    {...getFieldProps("description")}
+                                    value={values?.description ?? ""}
+                                    onChange={(value) =>
+                                        setFieldValue("description", value)
+                                    }
+                                    placeholder="Your Experience"
                                 />
                                 <SelectInputField
                                     name="employment_type"
@@ -197,12 +209,27 @@ const ExperienceForm = ({
                                     error={errors.company_name}
                                     placeHolder="Company Name"
                                 />
-                                <InputField
+                                {/* <InputField
                                     name="location"
                                     labelName="Location"
                                     touch={touched.location}
                                     error={errors.location}
                                     placeHolder="Eg: New Baneshwor, Kathmandu"
+                                /> */}
+                                <PlacesAutocomplete
+                                    size="md"
+                                    label="Location"
+                                    placeholder="Eg: New Baneshwor, Kathmandu"
+                                    error={
+                                        touched.location && errors.location
+                                            ? errors.location
+                                            : undefined
+                                    }
+                                    {...getFieldProps("location")}
+                                    value={values.location}
+                                    onPlaceChange={(value) =>
+                                        setFieldValue("location", value)
+                                    }
                                 />
                                 <p className="mb-3">
                                     <input
@@ -270,6 +297,7 @@ const ExperienceForm = ({
                                             placeHolder="2022-03-06"
                                             touch={touched.end_date}
                                             error={errors.end_date}
+                                            disabled={toggle ? true : false}
                                             icon={
                                                 <FontAwesomeIcon
                                                     icon={faCalendarDays}
@@ -321,4 +349,5 @@ const ExperienceForm = ({
         </>
     );
 };
+
 export default ExperienceForm;

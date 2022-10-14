@@ -9,8 +9,6 @@ export const educationFormSchema = Yup.object().shape({
     degree: stringReqOnly,
     field_of_study: stringReqOnly,
     location: stringReqOnly,
-    // start_date: dateValidation,
-    // start_date: dateValidation,
     start_date: Yup.date().nullable(true),
     end_date: Yup.date()
         .when("start_date", (start_date, schema) => {

@@ -3,6 +3,7 @@ import { PostCard } from "@components/PostTask/PostCard";
 import { faSquareCheck } from "@fortawesome/pro-regular-svg-icons";
 import { Carousel } from "@mantine/carousel";
 import { useGetPortfolioById } from "hooks/profile/getProfileById";
+import parse from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
 import type { Dispatch, SetStateAction } from "react";
@@ -125,7 +126,9 @@ const PortfolioDetails = ({
                     )}
 
                     <div className="description">
-                        {portfolioDetail?.description}
+                        {portfolioDetail?.description
+                            ? parse(portfolioDetail.description)
+                            : ""}
                     </div>
                     <div className="url">
                         URL here:{" "}
