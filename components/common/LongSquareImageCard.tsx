@@ -63,7 +63,7 @@ const LongSquareImageCard = ({
                                                                         info.icon
                                                                     }
                                                                     layout="fill"
-                                                                    objectFit="cover"
+                                                                    objectFit="contain"
                                                                     alt="icon-image"
                                                                 />
                                                             </figure>
