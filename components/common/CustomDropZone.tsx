@@ -94,6 +94,14 @@ export const CustomDropZone = ({
             url: file.media,
         }));
 
+    // const previewUploadedFiles = (previewFiles ?? [])
+    //     .filter((file) => !isImage(file.media_type))
+    //     .map((file) => ({
+    //         name: file.name,
+    //         size: convertToMB(file.size),
+    //         url: file.media,
+    //     }));
+
     const previewUploadedVideos = (previewFiles ?? [])
         .filter((file) => isVideo(file.media_type))
         .map((file) => ({

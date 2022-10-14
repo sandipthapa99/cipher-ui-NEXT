@@ -122,7 +122,7 @@ function MyApp({ Component, pageProps }: CustomAppProps) {
                     style={{ marginBottom: 10 }}
                     weight={500}
                 >
-                    Allow notification for push notifications.
+                    Allow notification for Web notifications.
                 </Text>
                 <Text
                     color="green"

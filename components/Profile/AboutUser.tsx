@@ -5,9 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spoiler } from "@mantine/core";
 import urls from "constants/urls";
 import { format } from "date-fns";
-import { Formik } from "formik";
+import { Formik, validateYupSchema } from "formik";
 import { useGetProfile } from "hooks/profile/useGetProfile";
 import { useData } from "hooks/use-data";
+import parse from "html-react-parser";
 import Image from "next/image";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -374,7 +375,11 @@ const AboutProfile = () => {
                                                           </p>
                                                       </div>
                                                       <p className="description">
-                                                          {value?.description}
+                                                          {value?.description
+                                                              ? parse(
+                                                                    value.description
+                                                                )
+                                                              : ""}
                                                       </p>
                                                       <p className="date">
                                                           {format(
@@ -646,7 +651,11 @@ const AboutProfile = () => {
                                                       )}
                                                   </div>
                                                   <h3 className="program">
-                                                      {value?.description}
+                                                      {value?.description
+                                                          ? parse(
+                                                                value.description
+                                                            )
+                                                          : ""}
                                                   </h3>
                                                   <p className="date">
                                                       {format(
@@ -656,17 +665,18 @@ const AboutProfile = () => {
                                                           "MMMM yyyy"
                                                       )}
                                                       {`${
-                                                          value?.expire_date
-                                                              ? `-`
+                                                          value?.does_expire
+                                                              ? `- ${
+                                                                    value?.expire_date &&
+                                                                    format(
+                                                                        new Date(
+                                                                            value.expire_date
+                                                                        ),
+                                                                        "MMMM yyyy"
+                                                                    )
+                                                                }`
                                                               : "- Present"
                                                       }`}
-                                                      {value?.expire_date &&
-                                                          format(
-                                                              new Date(
-                                                                  value.expire_date
-                                                              ),
-                                                              "MMMM yyyy"
-                                                          )}
                                                   </p>
                                               </div>
                                           )
