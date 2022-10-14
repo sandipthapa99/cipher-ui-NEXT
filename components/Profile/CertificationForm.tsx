@@ -122,6 +122,11 @@ const CertificationForm = ({
                                 };
                                 newValue = newvalidatedValue;
                             }
+                            console.log(
+                                "🚀 ~ file: CertificationForm.tsx ~ line 124 ~ onSubmit={ ~ newValue",
+                                newValue
+                            );
+
                             {
                                 editDetails && isEditProfile
                                     ? editMutation(newValue, {
@@ -198,27 +203,7 @@ const CertificationForm = ({
                                     }
                                     placeholder="Description"
                                 />
-                                <p className="mb-3 d-flex checkbox">
-                                    {/* <input
-                                        type="checkbox"
-                                        name="does_expire"
-                                        checked={toggle ? true : false}
-                                        onChange={() => setToggled(!toggle)}
-                                    /> */}
-                                    <Checkbox
-                                        label="This certifate does not expire"
-                                        name="does_expire"
-                                        defaultChecked={toggle}
-                                        onChange={(event) => {
-                                            setToggled(!toggle);
-                                            setFieldValue(
-                                                "does_expire",
-                                                toggle
-                                            );
-                                        }}
-                                    />
-                                    {/* &nbsp; This certifate does not expire */}
-                                </p>
+
                                 <InputField
                                     name="credential_id"
                                     labelName="Credential Id"
@@ -233,6 +218,28 @@ const CertificationForm = ({
                                     error={errors.certificate_url}
                                     placeHolder="Eg: Cagtu"
                                 />
+                                <br />
+                                <p className="mb-3 d-flex checkbox">
+                                    {/* <input
+                                        type="checkbox"
+                                        name="does_expire"
+                                        checked={toggle ? true : false}
+                                        onChange={() => setToggled(!toggle)}
+                                    /> */}
+                                    <Checkbox
+                                        label="This certifate does not expire"
+                                        defaultChecked={toggle}
+                                        {...getFieldProps("does_expire")}
+                                        onChange={(event) => {
+                                            setToggled(!toggle);
+                                            setFieldValue(
+                                                "does_expire",
+                                                event.target.checked
+                                            );
+                                        }}
+                                    />
+                                    {/* &nbsp; This certifate does not expire */}
+                                </p>
                                 <Row className="g-5">
                                     <Col md={6}>
                                         {/* <DatePickerField
