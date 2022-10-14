@@ -145,14 +145,12 @@ const AppliedTaskDetail = ({
                                     }
                                 />
                             )}
-                            <button className="btn d-flex flex-col align-items-center mx-5">
-                                <ShareIcon
-                                    url={getPageUrl()}
-                                    quote={"This is the task from Homaale"}
-                                    hashtag={"cipher-task"}
-                                />
-                                <span className="name">Share</span>
-                            </button>
+                            <ShareIcon
+                                showText
+                                url={getPageUrl()}
+                                quote={"This is the task from Homaale"}
+                                hashtag={"cipher-task"}
+                            />
                             {isUserTask && (
                                 <EllipsisDropdown
                                     task={taskDetail}
