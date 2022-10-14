@@ -6,6 +6,7 @@ import { Accordion } from "@mantine/core";
 import { Form, Formik } from "formik";
 import { useUser } from "hooks/auth/useUser";
 import { useChangePassword } from "hooks/profile/changePassword/useChangePassword";
+import Cookies from "js-cookie";
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
@@ -22,7 +23,8 @@ const ChangePasswordForm = () => {
     const toggleSuccessModal = useToggleSuccessModal();
     const { mutate } = useChangePassword();
     const { data: userDetails } = useUser();
-    console.log(userDetails);
+
+    const googleToken = Cookies.get("credentials");
 
     return (
         <>
@@ -41,25 +43,29 @@ const ChangePasswordForm = () => {
                     <Accordion.Panel className="p-0">
                         <div className="p-0">
                             <Formik
-                                initialValues={ChangePasswordFromData}
-                                validationSchema={changePasswordFormSchema}
+                                initialValues={{
+                                    new_password: "",
+                                    social_token: googleToken
+                                        ? googleToken
+                                        : "",
+                                    old_password: "",
+                                    confirm_password: "",
+                                }}
+                                // validationSchema={changePasswordFormSchema}
                                 onSubmit={async (values, action) => {
-                                    const { old_password, new_password } =
-                                        values;
-                                    mutate(
-                                        { old_password, new_password },
-                                        {
-                                            onSuccess: () => {
-                                                toast.success(
-                                                    "Password changed successfully"
-                                                );
-                                                toggleSuccessModal();
-                                            },
-                                            onError: (err) => {
-                                                toast.error(err.message);
-                                            },
-                                        }
-                                    );
+                                    console.log(values);
+
+                                    mutate(values, {
+                                        onSuccess: () => {
+                                            toast.success(
+                                                "Password changed successfully"
+                                            );
+                                            toggleSuccessModal();
+                                        },
+                                        onError: (err) => {
+                                            toast.error(err.message);
+                                        },
+                                    });
 
                                     action.resetForm();
                                 }}
@@ -71,6 +77,26 @@ const ChangePasswordForm = () => {
                                     resetForm,
                                 }) => (
                                     <Form autoComplete="off">
+                                        {
+                                            <pre>
+                                                {JSON.stringify(
+                                                    errors,
+                                                    null,
+                                                    4
+                                                )}
+                                            </pre>
+                                        }
+                                        {!googleToken && (
+                                            <PasswordField
+                                                typeOf="password"
+                                                name="old_password"
+                                                labelName="Old Password"
+                                                error={errors.old_password}
+                                                touch={touched.old_password}
+                                                placeHolder="Old Password"
+                                                fieldRequired
+                                            />
+                                        )}
                                         <PasswordField
                                             typeOf="password"
                                             name="new_password"
@@ -80,15 +106,7 @@ const ChangePasswordForm = () => {
                                             placeHolder="New Password"
                                             fieldRequired
                                         />
-                                        <PasswordField
-                                            typeOf="password"
-                                            name="old_password"
-                                            labelName="Old Password"
-                                            error={errors.old_password}
-                                            touch={touched.old_password}
-                                            placeHolder="Old Password"
-                                            fieldRequired
-                                        />
+
                                         <PasswordField
                                             name="confirm_password"
                                             typeOf="password"
