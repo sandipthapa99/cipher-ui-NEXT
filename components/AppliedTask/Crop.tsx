@@ -23,14 +23,18 @@ export function rotateSize(width: any, height: any, rotation: any) {
             Math.abs(Math.cos(rotRad) * height),
     };
 }
-
+interface Image {
+    height: number;
+    width: number;
+    close: any;
+}
 export default async function getCroppedImg(
     imageSrc: any,
     pixelCrop: any,
     rotation = 0,
     flip = { horizontal: false, vertical: false }
 ) {
-    const image = await createImage(imageSrc);
+    const image = (await createImage(imageSrc)) as Image;
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
