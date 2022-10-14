@@ -72,7 +72,7 @@ const Login = () => {
         router.push(loginRedirectURL.toString());
         toast.success("Successfully logged in");
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loginSuccess, next, profile, user]);
+    }, [loginSuccess, next, profile]);
     return (
         <OnBoardingLayout
             topLeftText="Don't have an account ?"
