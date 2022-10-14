@@ -4,5 +4,6 @@ export interface ShareButtonProps {
     url: string;
     quote: string;
     hashtag: string;
+    className?: string;
     handleClose?: () => void;
 }
