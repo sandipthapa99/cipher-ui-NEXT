@@ -2,6 +2,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { useQuery } from "@tanstack/react-query";
 import { log } from "console";
 import { useGoogle } from "hooks/auth/use-Google";
+import Cookies from "js-cookie";
 import localforage from "localforage";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -26,6 +27,11 @@ const Google = () => {
             setFCM_TOKEN(token);
         }
     });
+    // interface GoogleResponse {
+    //     clientId: string;
+    //     credential: string;
+    //     select_by: string;
+    // }
 
     return (
         <GoogleLogin
@@ -35,9 +41,14 @@ const Google = () => {
             // width="1200px"
             onSuccess={(credentialResponse) => {
                 const newData = { ...credentialResponse, FCM_TOKEN };
+
                 mutate(newData, {
                     onSuccess: (data) => {
-                        autoLogin(data.access, data.refresh);
+                        autoLogin(
+                            data.access,
+                            data.refresh,
+                            credentialResponse.credential
+                        );
                         toast.success("Successfully logged in");
                         router.push("/home");
                     },
